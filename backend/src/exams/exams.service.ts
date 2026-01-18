@@ -1,0 +1,650 @@
+import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import { PrismaService } from '../prisma/prisma.service';
+import { CreateAcademicSessionDto, BulkSubmitScoresDto, RecordBehaviouralDto } from './dto/exam-ops.dto';
+import { Term, ExamTerm } from '../generated/client/client';
+import { ReportingService } from '../reporting/reporting.service';
+import { END_OF_TERM_TEMPLATE } from '../reporting/templates/end-of-term.template';
+const AdmZip = require('adm-zip');
+
+@Injectable()
+export class ExamsService {
+    constructor(
+        private readonly prisma: PrismaService,
+        private readonly reportingService: ReportingService
+    ) { }
+
+    private async logAction(userId: string, action: string, details: string, reason?: string) {
+        await this.prisma.auditLog.create({
+            data: {
+                userId,
+                action,
+                module: 'EXAMS',
+                details,
+                reason
+            }
+        });
+    }
+
+    async createSession(dto: CreateAcademicSessionDto) {
+        return this.prisma.academicSession.create({
+            data: {
+                ...dto,
+                startDate: new Date(dto.startDate),
+                endDate: new Date(dto.endDate),
+            },
+        });
+    }
+
+    async getAllSessions() {
+        return this.prisma.academicSession.findMany({
+            orderBy: { startDate: 'desc' }
+        });
+    }
+
+    async submitBulkScores(dto: BulkSubmitScoresDto, branchId?: string) {
+        const { subjectId, sectionId, sessionId, term, examTerm, scores } = dto;
+
+        // Check if results are locked for any of these students
+        for (const score of scores) {
+            const isLocked = await this.prisma.resultSummary.findUnique({
+                where: { studentId_sessionId_term: { studentId: score.studentId, sessionId, term } },
+                select: { isLocked: true }
+            });
+            if (isLocked?.isLocked) {
+                throw new BadRequestException(`Results are locked for student ${score.studentId}.`);
+            }
+        }
+
+        return this.prisma.$transaction(async (tx) => {
+            const records: any[] = [];
+
+            // Fetch grading scale for this branch if it exists, otherwise get global (branchId null)
+            const gradingScale = await tx.gradingScale.findMany({
+                where: {
+                    OR: [
+                        { branchId: branchId },
+                        { branchId: null }
+                    ]
+                },
+                orderBy: { minScore: 'desc' },
+            });
+
+            for (const score of scores) {
+                const total = (score.asgn1 || 0) + (score.asgn2 || 0) + (score.test1 || 0) + (score.test2 || 0) + (score.examScore || 0);
+
+                const gradeInfo = this.calculateGradeDynamic(total, gradingScale);
+                const grade = gradeInfo.grade;
+                const remark = gradeInfo.remark;
+
+                const record = await tx.assessmentRecord.upsert({
+                    where: {
+                        studentId_subjectId_sessionId_term: {
+                            studentId: score.studentId,
+                            subjectId,
+                            sessionId,
+                            term,
+                        },
+                    },
+                    update: {
+                        asgn1: score.asgn1,
+                        asgn2: score.asgn2,
+                        test1: score.test1,
+                        test2: score.test2,
+                        examScore: score.examScore,
+                        total,
+                        grade,
+                        remark,
+                        examTerm,
+                    },
+                    create: {
+                        studentId: score.studentId,
+                        subjectId,
+                        sectionId,
+                        sessionId,
+                        term,
+                        examTerm,
+                        asgn1: score.asgn1,
+                        asgn2: score.asgn2,
+                        test1: score.test1,
+                        test2: score.test2,
+                        examScore: score.examScore,
+                        total,
+                        grade,
+                        remark,
+                    },
+                });
+                records.push(record);
+            }
+
+            // Automatically trigger subject-level ranking update for this group
+            await this.updateSubjectRanking(tx, subjectId, sectionId, sessionId, term);
+
+            return records;
+        });
+    }
+
+    private calculateGrade(total: number): string {
+        if (total >= 75) return 'A';
+        if (total >= 65) return 'B';
+        if (total >= 50) return 'C';
+        if (total >= 45) return 'D';
+        if (total >= 40) return 'E';
+        return 'F';
+    }
+
+    private calculateGradeDynamic(total: number, scale: any[]): { grade: string, remark: string } {
+        if (scale && scale.length > 0) {
+            const match = scale.find(s => total >= s.minScore && total <= s.maxScore);
+            if (match) {
+                return { grade: match.grade, remark: match.remark || '' };
+            }
+        }
+        return { grade: this.calculateGrade(total), remark: this.getAutoRemark(total) };
+    }
+
+    async lockResults(studentId: string, sessionId: string, term: Term, isLocked: boolean) {
+        return this.prisma.resultSummary.upsert({
+            where: { studentId_sessionId_term: { studentId, sessionId, term } },
+            update: { isLocked },
+            create: { studentId, sessionId, term, isLocked, examTerm: ExamTerm.END_OF_SESSION }
+        });
+    }
+
+    async lockResultsBatch(sectionId: string, sessionId: string, term: Term, isLocked: boolean) {
+        return this.prisma.resultSummary.updateMany({
+            where: {
+                student: { sectionId },
+                sessionId,
+                term
+            },
+            data: { isLocked }
+        });
+    }
+
+    async toggleEligibility(studentId: string, subjectId: string, sessionId: string, term: Term, isEligible: boolean) {
+        return this.prisma.assessmentRecord.update({
+            where: {
+                studentId_subjectId_sessionId_term: { studentId, subjectId, sessionId, term }
+            },
+            data: { isEligible }
+        });
+    }
+
+    async updateSubjectRanking(tx: any, subjectId: string, sectionId: string, sessionId: string, term: Term) {
+        const records = await tx.assessmentRecord.findMany({
+            where: { subjectId, sectionId, sessionId, term },
+            orderBy: { total: 'desc' },
+        });
+
+        const outOf = records.length;
+        if (outOf === 0) return;
+
+        const totals = records.map(r => r.total || 0);
+        const highscore = Math.max(...totals);
+        const lowscore = Math.min(...totals);
+        const classAvg = totals.reduce((a, b) => a + b, 0) / outOf;
+
+        let rank = 1;
+        let prevTotal = -1;
+
+        for (let i = 0; i < records.length; i++) {
+            const r = records[i];
+            if (r.total < prevTotal) {
+                rank = i + 1;
+            }
+
+            await tx.assessmentRecord.update({
+                where: { id: r.id },
+                data: {
+                    position: rank,
+                    outOf,
+                    highScore: highscore,
+                    lowScore: lowscore,
+                    classAvg: classAvg,
+                },
+            });
+            prevTotal = r.total;
+        }
+    }
+
+    async recordBehavioural(dto: RecordBehaviouralDto) {
+        return this.prisma.behaviouralRating.upsert({
+            where: {
+                studentId_sessionId_term: {
+                    studentId: dto.studentId,
+                    sessionId: dto.sessionId,
+                    term: dto.term,
+                },
+            },
+            update: dto,
+            create: dto,
+        });
+    }
+
+    async generateTermSummary(studentId: string, sessionId: string, term: Term, examTerm: ExamTerm) {
+        return this.prisma.$transaction(async (tx) => {
+            const studentRecords = await tx.assessmentRecord.findMany({
+                where: { studentId, sessionId, term },
+            });
+
+            if (studentRecords.length === 0) return null;
+
+            const totalScore = studentRecords.reduce((acc, r) => acc + (r.total || 0), 0);
+            const average = totalScore / studentRecords.length;
+
+            const summary = await tx.resultSummary.upsert({
+                where: {
+                    studentId_sessionId_term: { studentId, sessionId, term },
+                },
+                update: {
+                    totalScore,
+                    average,
+                    examTerm,
+                },
+                create: {
+                    studentId,
+                    sessionId,
+                    term,
+                    totalScore,
+                    average,
+                    examTerm,
+                },
+            });
+
+            // After updating this student, refresh class rankings for the summary
+            await this.updateClassRanking(tx, studentRecords[0].sectionId, sessionId, term);
+
+            return summary;
+        });
+    }
+
+    async updateClassRanking(tx: any, sectionId: string, sessionId: string, term: Term) {
+        const summaries = await tx.resultSummary.findMany({
+            where: {
+                student: { sectionId },
+                sessionId,
+                term,
+            },
+            orderBy: { average: 'desc' },
+        });
+
+        const countInClass = summaries.length;
+        if (countInClass === 0) return;
+
+        const averages = summaries.map((s: any) => s.average || 0);
+        const highestAvg = Math.max(...averages);
+        const lowestAvg = Math.min(...averages);
+
+        let rank = 1;
+        let prevAvg = -1;
+
+        for (let i = 0; i < summaries.length; i++) {
+            const s = summaries[i];
+            if (s.average < prevAvg) {
+                rank = i + 1;
+            }
+
+            await tx.resultSummary.update({
+                where: { id: s.id },
+                data: {
+                    classPosition: rank,
+                    countInClass,
+                    highestAvg,
+                    lowestAvg,
+                },
+            });
+            prevAvg = s.average || 0;
+        }
+    }
+
+
+    async formatReportData(dbData: any, currentTerm: Term) {
+        const student = dbData;
+        const summary = student.resultSummaries[0] || {};
+        const rating = student.behaviouralRatings[0] || {};
+
+        // Fetch School Logo and Watermark from GlobalSettings (mocking base64 for now)
+        const schoolLogoSetting = await this.prisma.globalSetting.findUnique({ where: { key: 'SCHOOL_LOGO' } });
+        const schoolWatermarkSetting = await this.prisma.globalSetting.findUnique({ where: { key: 'SCHOOL_WATERMARK' } });
+
+        return {
+            schoolName: student.branch?.name || 'Basaeer Modern School',
+            schoolAddress: student.branch?.address || 'School Address Placeholder',
+            schoolLogo: schoolLogoSetting?.value || '',
+            schoolWatermark: schoolWatermarkSetting?.value || '',
+            studentPhoto: '', // Base64 placeholder
+            reportType: currentTerm === Term.THIRD ? 'END OF SESSION REPORT SHEET' : 'END OF TERM REPORT SHEET',
+            sessionName: student.resultSummaries[0]?.session?.name || '2024/2025',
+            nextTermBegins: student.resultSummaries[0]?.session?.nextTermBegins ? new Date(student.resultSummaries[0].session.nextTermBegins).toLocaleDateString() : 'N/A',
+            termEnds: student.resultSummaries[0]?.session?.termEnds ? new Date(student.resultSummaries[0].session.termEnds).toLocaleDateString() : 'N/A',
+            timesOpen: summary.attendanceOpen || 0,
+            timesPresent: summary.attendancePresent || 0,
+            timesAbsent: summary.attendanceAbsent || 0,
+            studentName: `${student.user?.firstName} ${student.user?.lastName}`,
+            admissionNo: student.user?.email.split('@')[0].toUpperCase(), // Using email as fallback for Reg No
+            gender: student.gender || 'N/A',
+            className: student.class?.name || 'N/A',
+            sectionName: student.section?.name || '',
+            termName: currentTerm + ' TERM',
+            formTeacher: student.class?.classTeacher?.user ? `${student.class.classTeacher.user.firstName} ${student.class.classTeacher.user.lastName}` : 'N/A',
+            noInClass: summary.countInClass || 0,
+            overallAvg: (summary.average || 0).toFixed(1),
+            totalScore: (summary.totalScore || 0).toFixed(1),
+            classPosition: this.ordinal(summary.classPosition || 0),
+            highestAvg: (summary.highestAvg || 0).toFixed(1),
+            lowestAvg: (summary.lowestAvg || 0).toFixed(1),
+            finalGrade: summary.finalGrade || 'N/A',
+            finalRemark: this.getAutoRemark(summary.average || 0),
+            cgpa: this.calculateCGPA(summary.average || 0),
+            classOfResult: this.getClassOfResult(summary.average || 0),
+
+            // Assessment Records (only eligible ones)
+            subjects: student.assessmentRecords
+                .filter(r => r.isEligible)
+                .map(r => ({
+                    name: r.subject?.name,
+                    asgn1: r.asgn1 || 0,
+                    asgn2: r.asgn2 || 0,
+                    test1: r.test1 || 0,
+                    test2: r.test2 || 0,
+                    examScore: r.examScore || 0,
+                    total: (r.total || 0).toFixed(1),
+                    grade: r.grade || '-',
+                    position: this.ordinal(r.position || 0),
+                    outOf: r.outOf || 0,
+                    low: (r.lowScore || 0).toFixed(1),
+                    high: (r.highScore || 0).toFixed(1),
+                    classAvg: (r.classAvg || 0).toFixed(1),
+                    remark: r.remark || this.getAutoRemark(r.total || 0),
+                })),
+
+            // Behavioural
+            behavioural: [
+                { category: 'Punctuality', rating: rating.punctuality || '-' },
+                { category: 'Class Attendance', rating: rating.classAttendance || '-' },
+                { category: 'Attentiveness', rating: rating.attentiveness || '-' },
+                { category: 'Neatness', rating: rating.neatness || '-' },
+                { category: 'Honesty', rating: rating.honesty || '-' },
+                { category: 'Self Control', rating: rating.selfControl || '-' },
+                { category: 'Relationship with others', rating: rating.relationships || '-' },
+                { category: 'Games/Sports', rating: rating.sports || '-' },
+                { category: 'Handling of tools, lab & Workshops', rating: rating.toolHandling || '-' },
+                { category: 'Carrying out assignments', rating: rating.carryingOutAssignments || '-' },
+                { category: 'Participation in school activities', rating: rating.participation || '-' },
+            ]
+        };
+    }
+
+    private ordinal(n: number): string {
+        if (n === 0) return '-';
+        const s = ["th", "st", "nd", "rd"], v = n % 100;
+        return n + (s[(v - 20) % 10] || s[v] || s[0]);
+    }
+
+    private getAutoRemark(avg: number): string {
+        if (avg >= 75) return 'Excellent result, keep it up!';
+        if (avg >= 65) return 'Very good performance.';
+        if (avg >= 50) return 'A good performance, but there is room for improvement.';
+        return 'Weak result. Needs more effort.';
+    }
+
+    private calculateCGPA(avg: number): string {
+        return (avg / 20).toFixed(2);
+    }
+
+    private getClassOfResult(avg: number): string {
+        if (avg >= 85) return 'FIRST CLASS';
+        if (avg >= 70) return 'SECOND CLASS UPPER';
+        if (avg >= 55) return 'SECOND CLASS LOWER';
+        if (avg >= 45) return 'THIRD CLASS';
+        return 'PASS';
+    }
+
+    async getFullReportData(studentId: string, sessionId: string, term: Term) {
+        return this.prisma.student.findUnique({
+            where: { id: studentId },
+            include: {
+                user: true,
+                class: {
+                    include: { classTeacher: { include: { user: true } } }
+                },
+                section: true,
+                branch: true,
+                assessmentRecords: {
+                    where: { sessionId, term },
+                    include: { subject: true },
+                },
+                behaviouralRatings: {
+                    where: { sessionId, term },
+                },
+                resultSummaries: {
+                    where: { sessionId, term },
+                    include: { session: true }
+                },
+            }
+        });
+    }
+
+    async generateAnnualCumulative(studentId: string, sessionId: string) {
+        return this.prisma.$transaction(async (tx) => {
+            const allTermsRecords = await tx.assessmentRecord.findMany({
+                where: { studentId, sessionId },
+                include: { subject: true },
+            });
+
+            // Group by subject
+            const subjectAverages = {};
+            for (const record of allTermsRecords) {
+                if (!subjectAverages[record.subjectId]) {
+                    subjectAverages[record.subjectId] = { total: 0, count: 0, subject: record.subject };
+                }
+                subjectAverages[record.subjectId].total += record.total || 0;
+                subjectAverages[record.subjectId].count += 1;
+            }
+
+            const results = Object.keys(subjectAverages).map(subjectId => {
+                const data = subjectAverages[subjectId];
+                const annualAvg = data.total / data.count;
+                return {
+                    subjectId,
+                    subjectName: data.subject.name,
+                    annualAvg,
+                    grade: this.calculateGrade(annualAvg),
+                };
+            });
+
+            const overallAvg = results.reduce((acc, r) => acc + r.annualAvg, 0) / results.length;
+
+            return tx.resultSummary.upsert({
+                where: {
+                    studentId_sessionId_term: { studentId, sessionId, term: Term.THIRD }, // Third term usually holds the annual data
+                },
+                update: {
+                    average: overallAvg, // This could be the session average
+                    cgpa: overallAvg / 20, // Simplified Nigerian 5.0 CGPA conversion if needed, or keeping it 100-based
+                    examTerm: ExamTerm.ANNUAL_CUMULATIVE,
+                },
+                create: {
+                    studentId,
+                    sessionId,
+                    term: Term.THIRD,
+                    average: overallAvg,
+                    examTerm: ExamTerm.ANNUAL_CUMULATIVE,
+                },
+            });
+        });
+    }
+
+    async formatAnnualReportData(studentId: string, sessionId: string) {
+        const student = await this.prisma.student.findUnique({
+            where: { id: studentId },
+            include: {
+                user: true,
+                class: true,
+                section: true,
+                branch: true,
+                assessmentRecords: {
+                    where: { sessionId },
+                    include: { subject: true, session: true },
+                    orderBy: { term: 'asc' },
+                },
+                resultSummaries: {
+                    where: { sessionId, examTerm: ExamTerm.ANNUAL_CUMULATIVE },
+                    include: { session: true }
+                }
+            }
+        });
+
+        if (!student) return null;
+
+        const summary = student.resultSummaries[0] || {};
+
+        // Fetch School Logo and Watermark from GlobalSettings (mocking base64 for now)
+        const schoolLogoSetting = await this.prisma.globalSetting.findUnique({ where: { key: 'SCHOOL_LOGO' } });
+        const schoolWatermarkSetting = await this.prisma.globalSetting.findUnique({ where: { key: 'SCHOOL_WATERMARK' } });
+
+        // Group records by subject
+        const subjectsMap = {};
+        for (const r of student.assessmentRecords) {
+            if (!subjectsMap[r.subjectId]) {
+                subjectsMap[r.subjectId] = { name: r.subject.name, t1: null, t2: null, t3: null };
+            }
+            if (r.term === Term.FIRST) subjectsMap[r.subjectId].t1 = r;
+            if (r.term === Term.SECOND) subjectsMap[r.subjectId].t2 = r;
+            if (r.term === Term.THIRD) subjectsMap[r.subjectId].t3 = r;
+        }
+
+        const subjects = Object.values(subjectsMap).map((s: any) => {
+            const counts = [s.t1, s.t2, s.t3].filter(v => v !== null).length;
+            const total = (s.t1?.total || 0) + (s.t2?.total || 0) + (s.t3?.total || 0);
+            const annualAvg = counts > 0 ? (total / counts) : 0;
+
+            return {
+                name: s.name,
+                term1Score: s.t1?.total?.toFixed(1) || '-',
+                term1Pos: this.ordinal(s.t1?.position || 0),
+                term1Grade: s.t1?.grade || '-',
+                term2Score: s.t2?.total?.toFixed(1) || '-',
+                term2Pos: this.ordinal(s.t2?.position || 0),
+                term2Grade: s.t2?.grade || '-',
+                term3Score: s.t3?.total?.toFixed(1) || '-',
+                term3Pos: this.ordinal(s.t3?.position || 0),
+                term3Grade: s.t3?.grade || '-',
+                annualAvg: annualAvg.toFixed(1),
+                classAvg: s.t3?.classAvg?.toFixed(1) || '-',
+                annualGrade: this.calculateGrade(annualAvg),
+                annualRemark: this.getAutoRemark(annualAvg),
+            };
+        });
+
+        return {
+            schoolName: student.branch?.name || 'Basaeer Modern School',
+            schoolLogo: schoolLogoSetting?.value || '',
+            schoolWatermark: schoolWatermarkSetting?.value || '',
+            sessionName: student.assessmentRecords[0]?.session?.name || '2024/2025',
+            studentName: `${student.user?.firstName} ${student.user?.lastName}`,
+            className: student.class?.name || 'N/A',
+            classPosition: this.ordinal(summary.classPosition || 0),
+            totalAnnualScore: subjects.reduce((acc, s) => acc + parseFloat(s.annualAvg), 0).toFixed(1),
+            overallAnnualAvg: (summary.average || 0).toFixed(1),
+            cgpa: this.calculateCGPA(summary.average || 0),
+            classOfResult: this.getClassOfResult(summary.average || 0),
+            promotionStatus: (summary.average || 0) >= 50 ? 'PROMOTED TO NEXT CLASS' : 'HELD BACK',
+            finalRemark: this.getAutoRemark(summary.average || 0),
+            subjects,
+        };
+    }
+
+    async getBroadsheetData(sectionId: string, sessionId: string, term: Term) {
+        const students = await this.prisma.student.findMany({
+            where: { sectionId },
+            include: {
+                user: true,
+                assessmentRecords: {
+                    where: { sessionId, term },
+                    include: { subject: true },
+                }
+            },
+            orderBy: { user: { lastName: 'asc' } }
+        });
+
+        // Get unique subjects for headers
+        const subjects = await this.prisma.subject.findMany({
+            where: {
+                assessmentRecords: {
+                    some: { sectionId, sessionId, term }
+                }
+            }
+        });
+
+        const headers = ['Student Name', ...subjects.map(s => s.name), 'Total', 'Average', 'Position'];
+
+        const rows = students.map(student => {
+            const studentRow: any[] = [`${student.user?.firstName || ''} ${student.user?.lastName || ''}`];
+            let studentTotal = 0;
+
+            subjects.forEach(subject => {
+                const record = student.assessmentRecords.find(r => r.subjectId === subject.id);
+                const score = record?.total || 0;
+                studentRow.push(score);
+                studentTotal += score;
+            });
+
+            const avg = student.assessmentRecords.length > 0 ? (studentTotal / student.assessmentRecords.length) : 0;
+            studentRow.push(studentTotal.toFixed(1));
+            studentRow.push(avg.toFixed(1));
+
+            // Note: Position would need summary lookup or calculation
+            studentRow.push(''); // Placeholder for position
+
+            return studentRow;
+        });
+
+        return { headers, rows };
+    }
+
+    async getGradingScales(branchId: string) {
+        return this.prisma.gradingScale.findMany({
+            where: {
+                OR: [
+                    { branchId },
+                    { branchId: null }
+                ]
+            },
+            orderBy: { minScore: 'desc' },
+        });
+    }
+
+    async createGradingScale(dto: any, branchId: string) {
+        return this.prisma.gradingScale.create({
+            data: {
+                ...dto,
+                branchId,
+            },
+        });
+    }
+
+    async generateBatchZip(sectionId: string, sessionId: string, term: Term) {
+        const students = await this.prisma.student.findMany({
+            where: { sectionId },
+            include: { user: true }
+        });
+
+        const zip = new AdmZip();
+
+        for (const student of students) {
+            const data = await this.getFullReportData(student.id, sessionId, term);
+            if (!data) continue;
+
+            const formatted = await this.formatReportData(data, term);
+            const html = await this.reportingService.fillTemplate(END_OF_TERM_TEMPLATE, formatted);
+            const pdf = await this.reportingService.generatePdf(html);
+
+            if (!student.user) continue;
+            const filename = `${student.user.lastName}_${student.user.firstName}_${student.user.email.split('@')[0]}.pdf`.replace(/\s+/g, '_');
+            zip.addFile(filename, pdf);
+        }
+
+        return zip.toBuffer();
+    }
+}
