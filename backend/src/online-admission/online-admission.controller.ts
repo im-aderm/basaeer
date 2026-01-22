@@ -21,6 +21,11 @@ export class OnlineAdmissionController {
         return this.onlineAdmissionService.create(createDto);
     }
 
+    @Get('public/init/:branchId')
+    getPublicInitData(@Param('branchId') branchId: string) {
+        return this.onlineAdmissionService.getPublicInitData(branchId);
+    }
+
     @Get()
     @UseGuards(JwtAuthGuard, RolesGuard)
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)

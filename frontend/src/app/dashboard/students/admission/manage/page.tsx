@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { OnlineAdmissionService, OnlineAdmission } from "@/services/onlineAdmissionService";
+import { BranchService, Branch } from "@/services/branchService";
 import { useAuth } from "@/context/AuthContext";
 import {
     Users,
@@ -25,6 +26,7 @@ import {
     Receipt
 } from "lucide-react";
 import { clsx } from "clsx";
+import SharableLink from "@/components/admission/SharableLink";
 
 export default function AdmissionsManagementPage() {
     const { user } = useAuth();
@@ -34,39 +36,38 @@ export default function AdmissionsManagementPage() {
     const [statusFilter, setStatusFilter] = useState("ALL");
     const [selectedAdmission, setSelectedAdmission] = useState<OnlineAdmission | null>(null);
     const [processingId, setProcessingId] = useState<string | null>(null);
+    const [branches, setBranches] = useState<Branch[]>([]);
+    const [resolvedBranchId, setResolvedBranchId] = useState<string | null>(null);
 
     useEffect(() => {
         if (user) {
             if (user.branchId) {
-                fetchAdmissions();
+                setResolvedBranchId(user.branchId);
+                fetchAdmissions(user.branchId);
             } else {
-                setLoading(false);
+                // Super Admin case - fetch all branches to find a fallback
+                BranchService.getAll().then(data => {
+                    setBranches(data);
+                    if (data.length > 0) {
+                        setResolvedBranchId(data[0].id);
+                        fetchAdmissions(data[0].id);
+                    } else {
+                        setLoading(false);
+                    }
+                }).catch(() => setLoading(false));
             }
         }
     }, [user]);
 
-    const fetchAdmissions = async () => {
+    const fetchAdmissions = async (branchId: string) => {
         try {
-            const data = await OnlineAdmissionService.getAll(user?.branchId!);
+            const data = await OnlineAdmissionService.getAll(branchId);
             setAdmissions(data);
         } catch (error) {
             console.error("Failed to fetch admissions:", error);
         } finally {
             setLoading(false);
         }
-    };
-
-    const copyShareLink = () => {
-        if (!user?.branchId) return;
-        const link = `${window.location.origin}/admission/apply/${user.branchId}`;
-        navigator.clipboard.writeText(link);
-        alert("Public admission link copied to clipboard!");
-    };
-
-    const openPortal = () => {
-        if (!user?.branchId) return;
-        const link = `${window.location.origin}/admission/apply/${user.branchId}`;
-        window.open(link, '_blank');
     };
 
     const handleApprove = async (id: string) => {
@@ -135,21 +136,6 @@ export default function AdmissionsManagementPage() {
                 </div>
 
                 <div className="flex flex-col sm:flex-row items-center gap-4 relative z-10">
-                    <div className="flex bg-muted/50 p-1.5 rounded-2xl border border-border">
-                        <button
-                            onClick={copyShareLink}
-                            className="flex items-center gap-2 px-6 py-3 bg-white text-primary rounded-xl font-black text-sm shadow-sm hover:scale-105 active:scale-95 transition-all"
-                        >
-                            <Copy size={16} /> Copy Link
-                        </button>
-                        <button
-                            onClick={openPortal}
-                            className="flex items-center gap-2 px-6 py-3 text-muted-foreground hover:text-primary rounded-xl font-black text-sm transition-all"
-                        >
-                            <ExternalLink size={16} /> Open Portal
-                        </button>
-                    </div>
-
                     <div className="relative group">
                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-primary transition-colors" size={20} />
                         <input
@@ -161,6 +147,11 @@ export default function AdmissionsManagementPage() {
                     </div>
                 </div>
             </div>
+
+            {/* Sharable Link Section */}
+            {resolvedBranchId && (
+                <SharableLink branchId={resolvedBranchId} />
+            )}
 
             {/* Stats / Filters */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">

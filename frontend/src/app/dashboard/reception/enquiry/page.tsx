@@ -13,8 +13,10 @@ import { Textarea } from '@/components/ui/textarea';
 import { Users, UserPlus, Phone, Calendar, Search, Filter, MessageSquare, MoreHorizontal, CheckCircle2, AlertCircle, Clock, Trash2, Edit3, Loader2 } from 'lucide-react';
 import { ReceptionService, AdmissionEnquiry } from '@/services/receptionService';
 import { SettingsService } from '@/services/settingsService';
+import { BranchService, Branch } from "@/services/branchService";
 import { toast } from 'sonner';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import SharableLink from '@/components/admission/SharableLink';
 
 export default function AdmissionEnquiryPage() {
     const { user } = useAuth();
@@ -23,6 +25,8 @@ export default function AdmissionEnquiryPage() {
     const [searchTerm, setSearchTerm] = useState('');
     const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
     const [editingEnquiry, setEditingEnquiry] = useState<AdmissionEnquiry | null>(null);
+    const [branches, setBranches] = useState<Branch[]>([]);
+    const [resolvedBranchId, setResolvedBranchId] = useState<string | null>(null);
     const [sources, setSources] = useState<string[]>(["Advertisement", "Walk-in", "Referral", "Social Media", "Newspaper", "Other"]);
 
     // Form State
@@ -47,13 +51,9 @@ export default function AdmissionEnquiryPage() {
         }
     };
 
-    const fetchEnquiries = async () => {
-        if (!user?.branchId) {
-            setLoading(false);
-            return;
-        }
+    const fetchEnquiries = async (branchId: string) => {
         try {
-            const data = await ReceptionService.getEnquiries(user.branchId);
+            const data = await ReceptionService.getEnquiries(branchId);
             setEnquiries(data);
         } catch (error) {
             toast.error('Failed to load enquiries');
@@ -63,17 +63,33 @@ export default function AdmissionEnquiryPage() {
     };
 
     useEffect(() => {
-        fetchEnquiries();
+        if (user) {
+            if (user.branchId) {
+                setResolvedBranchId(user.branchId);
+                fetchEnquiries(user.branchId);
+            } else {
+                // Super Admin case - fetch all branches to find a fallback
+                BranchService.getAll().then(data => {
+                    setBranches(data);
+                    if (data.length > 0) {
+                        setResolvedBranchId(data[0].id);
+                        fetchEnquiries(data[0].id);
+                    } else {
+                        setLoading(false);
+                    }
+                }).catch(() => setLoading(false));
+            }
+        }
         fetchSources();
-    }, [user?.branchId]);
+    }, [user]);
 
     const handleCreate = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await ReceptionService.createEnquiry({ ...formData, branchId: user?.branchId });
+            await ReceptionService.createEnquiry({ ...formData, branchId: resolvedBranchId });
             toast.success('Enquiry recorded successfully');
             setIsAddDialogOpen(false);
-            fetchEnquiries();
+            if (resolvedBranchId) fetchEnquiries(resolvedBranchId);
             resetForm();
         } catch (error) {
             toast.error('Failed to save enquiry');
@@ -87,7 +103,7 @@ export default function AdmissionEnquiryPage() {
             await ReceptionService.updateEnquiry(editingEnquiry.id, formData);
             toast.success('Enquiry updated successfully');
             setEditingEnquiry(null);
-            fetchEnquiries();
+            if (resolvedBranchId) fetchEnquiries(resolvedBranchId);
             resetForm();
         } catch (error) {
             toast.error('Failed to update enquiry');
@@ -99,7 +115,7 @@ export default function AdmissionEnquiryPage() {
         try {
             await ReceptionService.deleteEnquiry(id);
             toast.success('Enquiry deleted successfully');
-            fetchEnquiries();
+            if (resolvedBranchId) fetchEnquiries(resolvedBranchId);
         } catch (error) {
             toast.error('Failed to delete enquiry');
         }
@@ -109,7 +125,7 @@ export default function AdmissionEnquiryPage() {
         try {
             await ReceptionService.updateEnquiry(id, { status });
             toast.success(`Status updated to ${status}`);
-            fetchEnquiries();
+            if (resolvedBranchId) fetchEnquiries(resolvedBranchId);
         } catch (error) {
             toast.error('Failed to update status');
         }
@@ -212,6 +228,11 @@ export default function AdmissionEnquiryPage() {
                 <StatCard title="Converted (Won)" value={enquiries.filter(e => e.status === 'WON').length} icon={CheckCircle2} color="emerald" />
                 <StatCard title="Dropped (Lost)" value={enquiries.filter(e => e.status === 'LOST').length} icon={AlertCircle} color="red" />
             </div>
+
+            {/* Sharable Link */}
+            {resolvedBranchId && (
+                <SharableLink branchId={resolvedBranchId} />
+            )}
 
             {/* Main Table */}
             <Card className="rounded-[3rem] border-border shadow-2xl overflow-hidden bg-card">

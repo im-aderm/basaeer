@@ -8,23 +8,25 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Badge } from '@/components/ui/badge';
 import { CheckCircle2, XCircle, Eye, Trash2, UserPlus, Copy, ExternalLink, Receipt } from 'lucide-react';
 import { OnlineAdmissionService, OnlineAdmission } from '@/services/onlineAdmissionService';
+import { BranchService, Branch } from "@/services/branchService";
 import { toast } from 'sonner';
+import SharableLink from '@/components/admission/SharableLink';
 
 export default function OnlineAdmissionsDashboard() {
     const { user } = useAuth();
+    const [selectedAdmission, setSelectedAdmission] = useState<OnlineAdmission | null>(null);
+    const [branches, setBranches] = useState<Branch[]>([]);
+    const [resolvedBranchId, setResolvedBranchId] = useState<string | null>(null);
     const [admissions, setAdmissions] = useState<OnlineAdmission[]>([]);
     const [loading, setLoading] = useState(true);
 
-    const fetchAdmissions = async () => {
-        if (!user?.branchId) {
-            setLoading(false);
-            return;
-        }
+    const fetchAdmissions = async (branchId: string) => {
+        setLoading(true);
         try {
-            const data = await OnlineAdmissionService.getAll(user.branchId);
+            const data = await OnlineAdmissionService.getAll(branchId);
             setAdmissions(data);
         } catch (error) {
-            console.error('Failed to fetch admissions', error);
+            console.error('Failed to fetch admissions:', error);
             toast.error('Failed to load admission applications');
         } finally {
             setLoading(false);
@@ -34,25 +36,28 @@ export default function OnlineAdmissionsDashboard() {
     useEffect(() => {
         if (user) {
             if (user.branchId) {
-                fetchAdmissions();
+                setResolvedBranchId(user.branchId);
+                fetchAdmissions(user.branchId);
             } else {
-                setLoading(false);
+                // Super Admin case - fetch all branches to find a fallback
+                BranchService.getAll().then(data => {
+                    setBranches(data);
+                    if (data.length > 0) {
+                        setResolvedBranchId(data[0].id);
+                        fetchAdmissions(data[0].id);
+                    } else {
+                        setLoading(false);
+                    }
+                }).catch(() => setLoading(false));
             }
         }
     }, [user]);
-
-    const copyShareLink = () => {
-        if (!user?.branchId) return;
-        const link = `${window.location.origin}/admission/apply/${user.branchId}`;
-        navigator.clipboard.writeText(link);
-        toast.success('Public admission link copied to clipboard!');
-    };
 
     const handleApprove = async (id: string) => {
         try {
             await OnlineAdmissionService.approve(id);
             toast.success('Application approved successfully');
-            fetchAdmissions();
+            if (resolvedBranchId) fetchAdmissions(resolvedBranchId);
         } catch (error) {
             console.error('Approval failed', error);
             toast.error('Failed to approve application');
@@ -64,7 +69,7 @@ export default function OnlineAdmissionsDashboard() {
             try {
                 await OnlineAdmissionService.delete(id);
                 toast.success('Application deleted');
-                fetchAdmissions();
+                if (resolvedBranchId) fetchAdmissions(resolvedBranchId);
             } catch (error) {
                 console.error('Delete failed', error);
                 toast.error('Failed to delete application');
@@ -107,10 +112,11 @@ export default function OnlineAdmissionsDashboard() {
                     <h1 className="text-4xl font-black tracking-tight italic">Online Admissions</h1>
                     <p className="text-muted-foreground font-medium">Review and process online admission applications.</p>
                 </div>
-                <Button onClick={copyShareLink} className="gap-2 rounded-xl h-12 px-6 font-bold shadow-lg shadow-primary/20 bg-primary/10 text-primary hover:bg-primary hover:text-white transition-all">
-                    <Copy className="h-4 w-4" /> Copy Share Link
-                </Button>
             </div>
+
+            {resolvedBranchId && (
+                <SharableLink branchId={resolvedBranchId} />
+            )}
 
             <Card className="rounded-[2rem] shadow-2xl shadow-primary/5 border-border/50 overflow-hidden border-t-8 border-t-primary/20">
                 <CardHeader className="pb-4">

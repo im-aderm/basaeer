@@ -170,4 +170,31 @@ export class OnlineAdmissionService {
             return student;
         });
     }
+
+    async getPublicInitData(branchId: string) {
+        const branch = await this.prisma.branch.findUnique({
+            where: { id: branchId },
+            select: { name: true }
+        });
+
+        if (!branch) throw new NotFoundException('Branch not found');
+
+        const [classes, currentSession] = await Promise.all([
+            this.prisma.class.findMany({
+                where: { branchId },
+                select: { id: true, name: true },
+                orderBy: { name: 'asc' }
+            }),
+            this.prisma.academicSession.findFirst({
+                where: { isActive: true },
+                select: { id: true, name: true }
+            })
+        ]);
+
+        return {
+            branchName: branch.name,
+            classes,
+            currentSession
+        };
+    }
 }

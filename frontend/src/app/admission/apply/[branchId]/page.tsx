@@ -27,6 +27,7 @@ export default function PublicAdmissionPage() {
 
     const [classes, setClasses] = useState<Class[]>([]);
     const [sessions, setSessions] = useState<AcademicSession[]>([]);
+    const [branchName, setBranchName] = useState("");
     const [loading, setLoading] = useState(true);
     const [submitting, setSubmitting] = useState(false);
     const [success, setSuccess] = useState(false);
@@ -60,21 +61,20 @@ export default function PublicAdmissionPage() {
     useEffect(() => {
         const loadInitialData = async () => {
             try {
-                // Public fetch might need branchId filtering in the service/backend
-                const [classAttribute, sessionAttribute] = await Promise.all([
-                    ClassService.getAll(branchId),
-                    SessionService.getAll()
-                ]);
-                setClasses(classAttribute);
-                setSessions(sessionAttribute);
-                if (sessionAttribute.length > 0) {
+                const data = await OnlineAdmissionService.getPublicInitData(branchId);
+                setBranchName(data.branchName);
+                setClasses(data.classes);
+                setSessions(data.currentSession ? [data.currentSession] : []);
+
+                if (data.currentSession) {
                     setFormData((prev: any) => ({
                         ...prev,
-                        academicSessionId: sessionAttribute.find(s => s.isActive)?.id || sessionAttribute[0].id
+                        academicSessionId: data.currentSession.id
                     }));
                 }
             } catch (error) {
                 console.error("Failed to load initial data:", error);
+                toast.error("Failed to load school data. Please check the link.");
             } finally {
                 setLoading(false);
             }
@@ -83,28 +83,36 @@ export default function PublicAdmissionPage() {
     }, [branchId]);
 
     const handleFileUpload = (field: string) => {
+        // In a real app, this would be a proper file upload to S3/Cloudinary
         const mockUrl = `https://storage.bmsms.edu/uploads/${field}_${Date.now()}.jpg`;
         setFormData({ ...formData, [field]: mockUrl });
-        toast.success(`${field.replace(/([A-Z])/g, ' $1')} uploaded`);
+        toast.success(`${field.replace(/([A-Z])/g, ' $1')} uploaded successfully`);
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (!formData.desiredClassId) {
+            toast.error("Please select a class");
+            return;
+        }
         if (!formData.guardianConsent) {
             toast.error("Please provide guardian consent");
             return;
         }
         if (!formData.paymentReceiptUrl) {
-            toast.error("Please upload your payment receipt");
+            toast.error("Please upload your payment receipt to proceed");
             return;
         }
+
         setSubmitting(true);
         try {
             await OnlineAdmissionService.create(formData);
             setSuccess(true);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         } catch (error) {
             console.error("Admission submission failed:", error);
-            toast.error("Failed to submit admission application.");
+            toast.error("Failed to submit admission application. Please try again.");
         } finally {
             setSubmitting(false);
         }
@@ -138,8 +146,11 @@ export default function PublicAdmissionPage() {
         <div className="min-h-screen bg-muted/30 py-12 px-4 md:px-0">
             <div className="max-w-4xl mx-auto space-y-10 animate-in fade-in slide-in-from-bottom-6 duration-700">
                 <div className="text-center space-y-4">
-                    <h1 className="text-5xl md:text-6xl font-black tracking-tight italic">Admission Portal</h1>
-                    <p className="text-muted-foreground text-lg md:text-xl font-medium">Begin your academic journey with us today.</p>
+                    <h1 className="text-5xl md:text-6xl font-black tracking-tight italic uppercase drop-shadow-sm uppercase">{branchName || 'Admission Portal'}</h1>
+                    <p className="text-muted-foreground text-lg md:text-xl font-medium italic opacity-70">
+                        {branchName ? `Welcome to ${branchName}. ` : ""}
+                        Begin your academic journey with us today.
+                    </p>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-10 pb-20">
