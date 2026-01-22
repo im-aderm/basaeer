@@ -11,9 +11,9 @@ export class ClassesService {
         return this.prisma.class.create({ data });
     }
 
-    async findAll(branchId: string): Promise<Class[]> {
+    async findAll(branchId: string | null): Promise<Class[]> {
         return this.prisma.class.findMany({
-            where: { branchId },
+            where: { ...(branchId && { branchId }) },
             include: { sections: true },
         });
     }

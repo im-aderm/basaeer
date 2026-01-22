@@ -5,7 +5,12 @@ import {
     CreateCallLogDto,
     CreateVisitorLogDto,
     CreateComplaintDto,
-    CreatePostalRecordDto
+    CreatePostalRecordDto,
+    UpdateEnquiryDto,
+    UpdateCallLogDto,
+    UpdateVisitorLogDto,
+    UpdateComplaintDto,
+    UpdatePostalRecordDto
 } from './dto/reception.dto';
 
 @Injectable()
@@ -70,5 +75,47 @@ export class ReceptionService {
             where: { branchId },
             orderBy: { createdAt: 'desc' }
         });
+    }
+
+    // Updates
+    updateEnquiry(id: string, dto: UpdateEnquiryDto) {
+        return this.prisma.admissionEnquiry.update({ where: { id }, data: dto });
+    }
+
+    updateCallLog(id: string, dto: UpdateCallLogDto) {
+        return this.prisma.callLog.update({ where: { id }, data: dto });
+    }
+
+    updateVisitorLog(id: string, dto: UpdateVisitorLogDto) {
+        return this.prisma.visitorLog.update({ where: { id }, data: dto });
+    }
+
+    updateComplaint(id: string, dto: UpdateComplaintDto) {
+        return this.prisma.complaint.update({ where: { id }, data: dto });
+    }
+
+    updatePostalRecord(id: string, dto: UpdatePostalRecordDto) {
+        return this.prisma.postalRecord.update({ where: { id }, data: dto });
+    }
+
+    // Deletes
+    deleteEnquiry(id: string) {
+        return this.prisma.admissionEnquiry.delete({ where: { id } });
+    }
+
+    deleteCallLog(id: string) {
+        return this.prisma.callLog.delete({ where: { id } });
+    }
+
+    deleteVisitorLog(id: string) {
+        return this.prisma.visitorLog.delete({ where: { id } });
+    }
+
+    deleteComplaint(id: string) {
+        return this.prisma.complaint.delete({ where: { id } });
+    }
+
+    deletePostalRecord(id: string) {
+        return this.prisma.postalRecord.delete({ where: { id } });
     }
 }

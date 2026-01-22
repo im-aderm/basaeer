@@ -15,9 +15,9 @@ export class HostelsService {
         });
     }
 
-    async findAll(branchId: string) {
+    async findAll(branchId: string | null) {
         return this.prisma.hostel.findMany({
-            where: { branchId },
+            where: { ...(branchId && { branchId }) },
             include: {
                 rooms: {
                     include: {

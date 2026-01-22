@@ -22,9 +22,9 @@ export class OnlineAdmissionService {
         });
     }
 
-    findAll(branchId: string) {
+    findAll(branchId: string | null) {
         return this.prisma.onlineAdmission.findMany({
-            where: { branchId },
+            where: { ...(branchId && { branchId }) },
             include: {
                 desiredClass: true,
                 desiredSection: true,

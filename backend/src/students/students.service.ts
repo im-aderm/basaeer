@@ -51,10 +51,10 @@ export class StudentsService {
     });
   }
 
-  findAll(branchId: string, classId?: string, sectionId?: string) {
+  findAll(branchId: string | null, classId?: string, sectionId?: string) {
     return this.prisma.student.findMany({
       where: {
-        branchId,
+        ...(branchId && { branchId }), // Only filter by branchId if it's provided
         ...(classId && { classId }),
         ...(sectionId && { sectionId }),
       },

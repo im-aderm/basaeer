@@ -49,17 +49,19 @@ export default function BulkImportPage() {
         const worksheet = workbook.addWorksheet('Students');
 
         worksheet.columns = [
-            { header: 'Email', key: 'email', width: 25 },
-            { header: 'First Name', key: 'firstName', width: 20 },
-            { header: 'Last Name', key: 'lastName', width: 20 },
-            { header: 'Phone', key: 'phone', width: 15 },
-            { header: 'DOB (YYYY-MM-DD)', key: 'dob', width: 15 },
-            { header: 'Class (Name or ID)', key: 'className', width: 20 },
-            { header: 'Section (Name or ID)', key: 'sectionName', width: 20 },
+            { header: 'First Name *', key: 'firstName', width: 20 },
+            { header: 'Last Name *', key: 'lastName', width: 20 },
+            { header: 'Gender (MALE/FEMALE) *', key: 'gender', width: 15 },
+            { header: 'DOB (YYYY-MM-DD) *', key: 'dob', width: 15 },
+            { header: 'Class (Name or ID) *', key: 'className', width: 20 },
+            { header: 'Academic Session (Name or ID) *', key: 'sessionName', width: 25 },
+            { header: 'Guardian Name *', key: 'guardianName', width: 20 },
+            { header: 'Guardian Phone *', key: 'guardianPhone', width: 20 },
+            { header: 'Home Address', key: 'address', width: 30 },
         ];
 
-        worksheet.addRow(['student1@example.com', 'John', 'Doe', '1234567890', '2010-05-15', 'Grade 1', 'Section A']);
-        worksheet.addRow(['student2@example.com', 'Jane', 'Smith', '0987654321', '2011-08-20', 'Grade 2', 'Section B']);
+        worksheet.addRow(['John', 'Doe', 'MALE', '2015-05-15', 'Grade 1', '2023/2024 Session', 'Robert Doe', '08012345678', '123 School Road, City']);
+        worksheet.addRow(['Jane', 'Smith', 'FEMALE', '2016-08-20', 'Grade 2', '2023/2024 Session', 'Mary Smith', '08098765432', '456 Academy Ave, State']);
 
         const buffer = await workbook.xlsx.writeBuffer();
         const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });

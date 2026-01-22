@@ -12,9 +12,9 @@ export class DepartmentsService {
         });
     }
 
-    async findAll(branchId: string) {
+    async findAll(branchId: string | null) {
         return this.prisma.department.findMany({
-            where: { branchId },
+            where: { ...(branchId && { branchId }) },
         });
     }
 

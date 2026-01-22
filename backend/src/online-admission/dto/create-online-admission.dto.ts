@@ -311,4 +311,17 @@ export class CreateOnlineAdmissionDto {
     @IsUUID()
     @IsOptional()
     studentCategoryId?: string;
+
+    // 11. Payment Information
+    @IsString()
+    @IsOptional()
+    paymentReceiptUrl?: string;
+
+    @IsString()
+    @IsOptional()
+    paymentStatus?: string;
+
+    @IsString()
+    @IsOptional()
+    paymentMethod?: string;
 }

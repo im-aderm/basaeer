@@ -84,10 +84,19 @@ export interface OnlineAdmission {
     createdAt: string;
     updatedAt: string;
 
+    // Payment Info
+    paymentReceiptUrl?: string;
+    paymentStatus?: string;
+    paymentMethod?: string;
+
     desiredClass?: any;
     desiredSection?: any;
     academicSession?: any;
     studentCategory?: any;
+
+    // Legacy
+    email?: string;
+    phone?: string;
 }
 
 export const OnlineAdmissionService = {

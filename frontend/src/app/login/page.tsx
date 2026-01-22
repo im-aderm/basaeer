@@ -21,7 +21,7 @@ export default function LoginPage() {
 
         try {
             const res = await api.post("/auth/login", { email, password });
-            login(res.data.access_token, {});
+            login(res.data.access_token, res.data.user);
         } catch (err: any) {
             console.error(err);
             setError("Invalid credentials. Please try again.");

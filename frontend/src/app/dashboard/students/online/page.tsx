@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { CheckCircle2, XCircle, Eye, Trash2, UserPlus } from 'lucide-react';
+import { CheckCircle2, XCircle, Eye, Trash2, UserPlus, Copy, ExternalLink, Receipt } from 'lucide-react';
 import { OnlineAdmissionService, OnlineAdmission } from '@/services/onlineAdmissionService';
 import { toast } from 'sonner';
 
@@ -16,7 +16,10 @@ export default function OnlineAdmissionsDashboard() {
     const [loading, setLoading] = useState(true);
 
     const fetchAdmissions = async () => {
-        if (!user?.branchId) return;
+        if (!user?.branchId) {
+            setLoading(false);
+            return;
+        }
         try {
             const data = await OnlineAdmissionService.getAll(user.branchId);
             setAdmissions(data);
@@ -30,9 +33,20 @@ export default function OnlineAdmissionsDashboard() {
 
     useEffect(() => {
         if (user) {
-            fetchAdmissions();
+            if (user.branchId) {
+                fetchAdmissions();
+            } else {
+                setLoading(false);
+            }
         }
     }, [user]);
+
+    const copyShareLink = () => {
+        if (!user?.branchId) return;
+        const link = `${window.location.origin}/admission/apply/${user.branchId}`;
+        navigator.clipboard.writeText(link);
+        toast.success('Public admission link copied to clipboard!');
+    };
 
     const handleApprove = async (id: string) => {
         try {
@@ -73,13 +87,29 @@ export default function OnlineAdmissionsDashboard() {
         }
     };
 
+    const getPaymentBadge = (status?: string) => {
+        switch (status) {
+            case 'VERIFIED':
+                return <Badge className="bg-emerald-500 text-white font-black text-[10px] px-2">PAID</Badge>;
+            case 'REJECTED':
+                return <Badge variant="destructive" className="font-black text-[10px] px-2">FAILED</Badge>;
+            default:
+                return <Badge variant="secondary" className="font-black text-[10px] px-2">PENDING</Badge>;
+        }
+    };
+
     if (loading) return <div className="p-8">Loading...</div>;
 
     return (
         <div className="space-y-6">
-            <div>
-                <h1 className="text-4xl font-black tracking-tight italic">Online Admissions</h1>
-                <p className="text-muted-foreground font-medium">Review and process online admission applications.</p>
+            <div className="flex justify-between items-end">
+                <div>
+                    <h1 className="text-4xl font-black tracking-tight italic">Online Admissions</h1>
+                    <p className="text-muted-foreground font-medium">Review and process online admission applications.</p>
+                </div>
+                <Button onClick={copyShareLink} className="gap-2 rounded-xl h-12 px-6 font-bold shadow-lg shadow-primary/20 bg-primary/10 text-primary hover:bg-primary hover:text-white transition-all">
+                    <Copy className="h-4 w-4" /> Copy Share Link
+                </Button>
             </div>
 
             <Card className="rounded-[2rem] shadow-2xl shadow-primary/5 border-border/50 overflow-hidden border-t-8 border-t-primary/20">
@@ -97,6 +127,7 @@ export default function OnlineAdmissionsDashboard() {
                                     <TableHead className="font-black h-14">Student Name</TableHead>
                                     <TableHead className="font-black h-14">Applied Class</TableHead>
                                     <TableHead className="font-black h-14">Guardian</TableHead>
+                                    <TableHead className="font-black h-14">Payment</TableHead>
                                     <TableHead className="font-black h-14">Status</TableHead>
                                     <TableHead className="font-black h-14">Applied Date</TableHead>
                                     <TableHead className="text-right font-black h-14 px-6">Actions</TableHead>
@@ -106,20 +137,35 @@ export default function OnlineAdmissionsDashboard() {
                                 {admissions.map((adm) => (
                                     <TableRow key={adm.id} className="border-border/50 hover:bg-muted/30 transition-colors">
                                         <TableCell className="font-bold py-4">
-                                            <div>
-                                                <p>{adm.firstName} {adm.lastName}</p>
-                                                <p className="text-xs text-muted-foreground font-medium">{adm.email || adm.phone}</p>
+                                            <div className="flex items-center gap-3">
+                                                <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-black text-xs">
+                                                    {adm.firstName[0]}{adm.lastName[0]}
+                                                </div>
+                                                <div>
+                                                    <p>{adm.firstName} {adm.lastName}</p>
+                                                    <p className="text-[10px] text-muted-foreground font-medium uppercase tracking-tighter">{adm.email || adm.phone}</p>
+                                                </div>
                                             </div>
                                         </TableCell>
                                         <TableCell>
-                                            <p className="font-bold">{adm.desiredClass?.name || 'N/A'}</p>
+                                            <p className="font-bold text-sm tracking-tight">{adm.desiredClass?.name || 'N/A'}</p>
                                         </TableCell>
                                         <TableCell>
-                                            <p className="font-medium">{adm.guardianName}</p>
-                                            <p className="text-xs text-muted-foreground">{adm.guardianPhone}</p>
+                                            <p className="font-medium text-sm">{adm.guardianName}</p>
+                                            <p className="text-[10px] text-muted-foreground font-bold">{adm.guardianPhone}</p>
+                                        </TableCell>
+                                        <TableCell>
+                                            <div className="flex flex-col gap-1">
+                                                {getPaymentBadge(adm.paymentStatus)}
+                                                {adm.paymentReceiptUrl && (
+                                                    <a href={adm.paymentReceiptUrl} target="_blank" className="text-[10px] text-primary font-black flex items-center gap-1 hover:underline">
+                                                        <Receipt className="h-3 w-3" /> VIEW RECEIPT
+                                                    </a>
+                                                )}
+                                            </div>
                                         </TableCell>
                                         <TableCell>{getStatusBadge(adm.status)}</TableCell>
-                                        <TableCell className="text-muted-foreground font-medium">
+                                        <TableCell className="text-muted-foreground font-medium text-sm">
                                             {new Date(adm.createdAt).toLocaleDateString()}
                                         </TableCell>
                                         <TableCell className="text-right px-6">
@@ -128,29 +174,29 @@ export default function OnlineAdmissionsDashboard() {
                                                     <Button
                                                         size="icon"
                                                         variant="ghost"
-                                                        className="h-10 w-10 rounded-xl text-emerald-600 hover:bg-emerald-500/10 transition-all border border-emerald-500/10"
+                                                        className="h-9 w-9 rounded-xl text-emerald-600 hover:bg-emerald-500/10 transition-all border border-emerald-500/10"
                                                         onClick={() => handleApprove(adm.id)}
                                                         title="Approve"
                                                     >
-                                                        <CheckCircle2 className="h-5 w-5" />
+                                                        <CheckCircle2 className="h-4 w-4" />
                                                     </Button>
                                                 )}
                                                 <Button
                                                     size="icon"
                                                     variant="ghost"
-                                                    className="h-10 w-10 rounded-xl text-primary hover:bg-primary/10 transition-all border border-primary/10"
+                                                    className="h-9 w-9 rounded-xl text-primary hover:bg-primary/10 transition-all border border-primary/10"
                                                     title="View Details"
                                                 >
-                                                    <Eye className="h-5 w-5" />
+                                                    <Eye className="h-4 w-4" />
                                                 </Button>
                                                 <Button
                                                     size="icon"
                                                     variant="ghost"
-                                                    className="h-10 w-10 rounded-xl text-destructive hover:bg-destructive/10 transition-all border border-destructive/10"
+                                                    className="h-9 w-9 rounded-xl text-destructive hover:bg-destructive/10 transition-all border border-destructive/10"
                                                     onClick={() => handleDelete(adm.id)}
                                                     title="Delete"
                                                 >
-                                                    <Trash2 className="h-5 w-5" />
+                                                    <Trash2 className="h-4 w-4" />
                                                 </Button>
                                             </div>
                                         </TableCell>
@@ -158,7 +204,7 @@ export default function OnlineAdmissionsDashboard() {
                                 ))}
                                 {admissions.length === 0 && (
                                     <TableRow>
-                                        <TableCell colSpan={6} className="text-center py-12 text-muted-foreground font-medium italic">
+                                        <TableCell colSpan={7} className="text-center py-12 text-muted-foreground font-medium italic text-lg uppercase tracking-widest opacity-50">
                                             No applications found.
                                         </TableCell>
                                     </TableRow>

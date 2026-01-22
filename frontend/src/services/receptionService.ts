@@ -70,6 +70,14 @@ export const ReceptionService = {
         const response = await api.post('/reception/enquiries', data);
         return response.data;
     },
+    updateEnquiry: async (id: string, data: any) => {
+        const response = await api.post(`/reception/enquiries/${id}`, data);
+        return response.data;
+    },
+    deleteEnquiry: async (id: string) => {
+        const response = await api.delete(`/reception/enquiries/${id}`);
+        return response.data;
+    },
 
     // Call Logs
     getCallLogs: async (branchId: string): Promise<CallLog[]> => {
@@ -78,6 +86,14 @@ export const ReceptionService = {
     },
     createCallLog: async (data: any) => {
         const response = await api.post('/reception/call-logs', data);
+        return response.data;
+    },
+    updateCallLog: async (id: string, data: any) => {
+        const response = await api.post(`/reception/call-logs/${id}`, data);
+        return response.data;
+    },
+    deleteCallLog: async (id: string) => {
+        const response = await api.delete(`/reception/call-logs/${id}`);
         return response.data;
     },
 
@@ -90,6 +106,14 @@ export const ReceptionService = {
         const response = await api.post('/reception/visitor-logs', data);
         return response.data;
     },
+    updateVisitorLog: async (id: string, data: any) => {
+        const response = await api.post(`/reception/visitor-logs/${id}`, data);
+        return response.data;
+    },
+    deleteVisitorLog: async (id: string) => {
+        const response = await api.delete(`/reception/visitor-logs/${id}`);
+        return response.data;
+    },
 
     // Complaints
     getComplaints: async (branchId: string): Promise<Complaint[]> => {
@@ -100,6 +124,14 @@ export const ReceptionService = {
         const response = await api.post('/reception/complaints', data);
         return response.data;
     },
+    updateComplaint: async (id: string, data: any) => {
+        const response = await api.post(`/reception/complaints/${id}`, data);
+        return response.data;
+    },
+    deleteComplaint: async (id: string) => {
+        const response = await api.delete(`/reception/complaints/${id}`);
+        return response.data;
+    },
 
     // Postal Records
     getPostalRecords: async (branchId: string): Promise<PostalRecord[]> => {
@@ -108,6 +140,14 @@ export const ReceptionService = {
     },
     createPostalRecord: async (data: any) => {
         const response = await api.post('/reception/postal-records', data);
+        return response.data;
+    },
+    updatePostalRecord: async (id: string, data: any) => {
+        const response = await api.post(`/reception/postal-records/${id}`, data);
+        return response.data;
+    },
+    deletePostalRecord: async (id: string) => {
+        const response = await api.delete(`/reception/postal-records/${id}`);
         return response.data;
     }
 };

@@ -1,4 +1,5 @@
 import { IsString, IsOptional, IsEmail, IsDateString, IsNumber, IsEnum } from 'class-validator';
+import { PartialType } from '@nestjs/mapped-types';
 
 export class CreateEnquiryDto {
     @IsString()
@@ -35,6 +36,8 @@ export class CreateEnquiryDto {
     branchId: string;
 }
 
+export class UpdateEnquiryDto extends PartialType(CreateEnquiryDto) { }
+
 export class CreateCallLogDto {
     @IsString()
     name: string;
@@ -60,6 +63,8 @@ export class CreateCallLogDto {
     @IsString()
     branchId: string;
 }
+
+export class UpdateCallLogDto extends PartialType(CreateCallLogDto) { }
 
 export class CreateVisitorLogDto {
     @IsString()
@@ -95,6 +100,8 @@ export class CreateVisitorLogDto {
     branchId: string;
 }
 
+export class UpdateVisitorLogDto extends PartialType(CreateVisitorLogDto) { }
+
 export class CreateComplaintDto {
     @IsString()
     complaintType: string;
@@ -129,6 +136,8 @@ export class CreateComplaintDto {
     branchId: string;
 }
 
+export class UpdateComplaintDto extends PartialType(CreateComplaintDto) { }
+
 export class CreatePostalRecordDto {
     @IsString()
     fromTitle: string;
@@ -154,3 +163,5 @@ export class CreatePostalRecordDto {
     @IsString()
     branchId: string;
 }
+
+export class UpdatePostalRecordDto extends PartialType(CreatePostalRecordDto) { }

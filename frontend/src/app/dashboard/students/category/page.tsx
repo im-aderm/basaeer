@@ -23,7 +23,10 @@ export default function StudentCategoryPage() {
     });
 
     const fetchCategories = async () => {
-        if (!user?.branchId) return;
+        if (!user?.branchId) {
+            setLoading(false);
+            return;
+        }
         try {
             const data = await StudentService.getCategories(user.branchId);
             setCategories(data);
@@ -37,7 +40,11 @@ export default function StudentCategoryPage() {
 
     useEffect(() => {
         if (user) {
-            fetchCategories();
+            if (user.branchId) {
+                fetchCategories();
+            } else {
+                setLoading(false);
+            }
         }
     }, [user]);
 

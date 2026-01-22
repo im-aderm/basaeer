@@ -4,82 +4,56 @@
 
 ### Starting the Development Environment
 
-**IMPORTANT:** Before you can log in, you must start the database!
+This project is configured to run with a **local PostgreSQL** instance.
 
-```bash
-# Run this script every time you start working on the project
-./start-dev.sh
+#### 1. Database Setup
+- Ensure PostgreSQL 15+ is installed on your machine.
+- Create a database named `basaeer`.
+- Run the following PowerShell script to check your connection:
+  ```powershell
+  ./start-dev.ps1
+  ```
+
+#### 2. Environment Configuration
+Update the `backend/.env` file with your local database connection string:
+```
+DATABASE_URL="postgresql://postgres:YOUR_PASSWORD@localhost:5432/basaeer?schema=public"
 ```
 
-This script will:
-- Check if Docker is running
-- Start the PostgreSQL database container
-- Display the default admin credentials
+### Starting the Application
+
+#### Terminal 1 - Backend
+```bash
+cd backend
+npm install
+npx prisma migrate dev
+npm run start:dev
+```
+
+#### Terminal 2 - Frontend
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
 ### Default Admin Credentials
-
+If the database has been seeded (running `npx prisma migrate dev` usually handles this if `seed.ts` is configured in `package.json`, or run `npx prisma db seed`), use:
 ```
 Email: superadmin@basaeer.com
 Password: admin123
 ```
 
-**Note:** These credentials are permanent and will work every time, as long as the database is running.
-
-### Starting the Application
-
-After running `start-dev.sh`, start the backend and frontend:
-
-```bash
-# Terminal 1 - Backend
-cd backend
-npm run start:dev
-
-# Terminal 2 - Frontend
-cd frontend
-npm run dev
-```
-
 ### Access the Application
-
 - Frontend: http://localhost:3000
 - Backend API: http://localhost:3001
 
-## 🔧 Troubleshooting
-
-### "Invalid credentials" error
-
-This usually means the database isn't running. Run:
-
-```bash
-./start-dev.sh
-```
-
-### Check if database is running
-
-```bash
-docker ps | grep basaeer_db
-```
-
-If you don't see the container, it's stopped. Run `./start-dev.sh` to start it.
-
-### Manually start the database
-
-```bash
-docker start basaeer_db
-```
-
 ## 📚 Project Structure
-
 ```
 basaeer/
 ├── backend/          # NestJS backend API
 ├── frontend/         # Next.js frontend
-├── start-dev.sh      # Development environment startup script
+├── start-dev.ps1     # Development environment check script
 └── README.md         # This file
 ```
 
-## 🗄️ Database
-
-The project uses PostgreSQL running in a Docker container named `basaeer_db`.
-
-**Important:** The database container stops when you shut down your computer or Docker. You must restart it using `./start-dev.sh` before you can use the application.

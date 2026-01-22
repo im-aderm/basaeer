@@ -13,9 +13,9 @@ export class StudentCategoryService {
         });
     }
 
-    findAll(branchId: string) {
+    findAll(branchId: string | null) {
         return this.prisma.studentCategory.findMany({
-            where: { branchId },
+            where: { ...(branchId && { branchId }) },
             include: { _count: { select: { students: true } } },
         });
     }

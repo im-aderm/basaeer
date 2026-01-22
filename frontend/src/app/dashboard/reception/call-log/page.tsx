@@ -9,7 +9,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter, DialogDescription } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { PhoneOutgoing, Search, Calendar, PhoneCall, MoreHorizontal, History } from 'lucide-react';
+import { Textarea } from '@/components/ui/textarea';
+import { PhoneOutgoing, Search, Calendar, PhoneCall, MoreHorizontal, History, Trash2, Edit3, Loader2 } from 'lucide-react';
 import { ReceptionService, CallLog } from '@/services/receptionService';
 import { toast } from 'sonner';
 
@@ -19,6 +20,7 @@ export default function CallLogPage() {
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+    const [editingLog, setEditingLog] = useState<CallLog | null>(null);
 
     const [formData, setFormData] = useState({
         name: '',
@@ -29,7 +31,10 @@ export default function CallLogPage() {
     });
 
     const fetchLogs = async () => {
-        if (!user?.branchId) return;
+        if (!user?.branchId) {
+            setLoading(false);
+            return;
+        }
         try {
             const data = await ReceptionService.getCallLogs(user.branchId);
             setLogs(data);
@@ -51,94 +56,103 @@ export default function CallLogPage() {
             toast.success('Call log saved');
             setIsAddDialogOpen(false);
             fetchLogs();
-            setFormData({ name: '', phone: '', description: '', nextFollowUpDate: '', callType: 'INCOMING' });
+            resetForm();
         } catch (error) {
             toast.error('Failed to save log');
         }
     };
 
+    const handleUpdate = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!editingLog) return;
+        try {
+            await ReceptionService.updateCallLog(editingLog.id, formData);
+            toast.success('Call log updated');
+            setEditingLog(null);
+            fetchLogs();
+            resetForm();
+        } catch (error) {
+            toast.error('Failed to update log');
+        }
+    };
+
+    const handleDelete = async (id: string) => {
+        if (!confirm('Are you sure you want to delete this log?')) return;
+        try {
+            await ReceptionService.deleteCallLog(id);
+            toast.success('Log deleted successfully');
+            fetchLogs();
+        } catch (error) {
+            toast.error('Failed to delete log');
+        }
+    };
+
+    const resetForm = () => {
+        setFormData({
+            name: '',
+            phone: '',
+            description: '',
+            nextFollowUpDate: '',
+            callType: 'INCOMING',
+        });
+    };
+
+    const startEdit = (log: CallLog) => {
+        setEditingLog(log);
+        setFormData({
+            name: log.name,
+            phone: log.phone,
+            description: log.description || '',
+            nextFollowUpDate: log.nextFollowUpDate ? new Date(log.nextFollowUpDate).toISOString().split('T')[0] : '',
+            callType: log.callType,
+        });
+    };
+
+    const filtered = logs.filter(l =>
+        l.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        l.phone.includes(searchTerm)
+    );
+
+    if (loading) {
+        return (
+            <div className="flex h-[60vh] items-center justify-center">
+                <Loader2 className="w-8 h-8 animate-spin text-primary" />
+            </div>
+        );
+    }
+
     return (
-        <div className="max-w-7xl mx-auto space-y-8 pb-20">
-            <div className="flex justify-between items-end">
+        <div className="max-w-7xl mx-auto space-y-8 pb-20 animate-in fade-in duration-500">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                 <div>
                     <h1 className="text-4xl font-black tracking-tight italic uppercase">Call Logs</h1>
                     <p className="text-muted-foreground font-medium mt-1">Track all incoming and outgoing telephonic interactions.</p>
                 </div>
 
-                <div className="flex gap-4">
-                    <div className="relative w-80">
+                <div className="flex gap-4 w-full md:w-auto">
+                    <div className="relative flex-1 md:w-80">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                         <Input
                             placeholder="Search logs..."
-                            className="pl-9 h-12 rounded-2xl bg-muted/50 border-none font-bold"
+                            className="pl-9 h-12 rounded-2xl bg-white/50 border border-border shadow-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
                     </div>
-                    <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+                    <Dialog open={isAddDialogOpen} onOpenChange={(open) => { setIsAddDialogOpen(open); if (!open) resetForm(); }}>
                         <DialogTrigger asChild>
-                            <Button className="h-12 px-6 rounded-2xl font-black gap-2 shadow-lg shadow-primary/20">
+                            <Button className="h-12 px-6 rounded-2xl font-black gap-2 shadow-lg shadow-primary/20 transition-all hover:scale-105 active:scale-95">
                                 <PhoneCall className="h-5 w-5" />
                                 Record Call
                             </Button>
                         </DialogTrigger>
-                        <DialogContent className="rounded-[2.5rem] max-w-xl">
+                        <DialogContent className="rounded-[2.5rem] max-w-xl bg-card border-border shadow-2xl">
                             <DialogHeader>
                                 <DialogTitle className="text-2xl font-black italic uppercase">Call Interaction</DialogTitle>
                                 <DialogDescription className="font-bold">Log details of the phone conversation.</DialogDescription>
                             </DialogHeader>
                             <form onSubmit={handleCreate} className="space-y-6 pt-4">
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div className="space-y-2">
-                                        <Label className="font-black italic text-xs uppercase opacity-50 ml-1">Caller/Recipient</Label>
-                                        <Input
-                                            required
-                                            className="h-12 rounded-xl bg-muted/50 border-none font-bold"
-                                            value={formData.name}
-                                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                        />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label className="font-black italic text-xs uppercase opacity-50 ml-1">Phone No.</Label>
-                                        <Input
-                                            required
-                                            className="h-12 rounded-xl bg-muted/50 border-none font-bold"
-                                            value={formData.phone}
-                                            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                                        />
-                                    </div>
-                                </div>
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div className="space-y-2">
-                                        <Label className="font-black italic text-xs uppercase opacity-50 ml-1">Call Type</Label>
-                                        <Select onValueChange={(v) => setFormData({ ...formData, callType: v })} defaultValue="INCOMING">
-                                            <SelectTrigger className="h-12 rounded-xl bg-muted/50 border-none font-bold">
-                                                <SelectValue />
-                                            </SelectTrigger>
-                                            <SelectContent className="rounded-xl">
-                                                <SelectItem value="INCOMING">Incoming</SelectItem>
-                                                <SelectItem value="OUTGOING">Outgoing</SelectItem>
-                                            </SelectContent>
-                                        </Select>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label className="font-black italic text-xs uppercase opacity-50 ml-1">Next Follow-up</Label>
-                                        <Input
-                                            type="date"
-                                            className="h-12 rounded-xl bg-muted/50 border-none font-bold"
-                                            onChange={(e) => setFormData({ ...formData, nextFollowUpDate: e.target.value })}
-                                        />
-                                    </div>
-                                </div>
-                                <div className="space-y-2">
-                                    <Label className="font-black italic text-xs uppercase opacity-50 ml-1">Notes</Label>
-                                    <Input
-                                        className="h-12 rounded-xl bg-muted/50 border-none font-bold"
-                                        placeholder="Discussed admission procedure..."
-                                        value={formData.description}
-                                        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                                    />
-                                </div>
+                                <CallLogForm formData={formData} setFormData={setFormData} />
                                 <DialogFooter>
                                     <Button type="submit" className="h-12 w-full rounded-xl font-black uppercase italic tracking-wider">Save Call Log</Button>
                                 </DialogFooter>
@@ -148,8 +162,8 @@ export default function CallLogPage() {
                 </div>
             </div>
 
-            <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background">
-                <CardHeader className="p-8 border-b border-border/50">
+            <Card className="rounded-[3rem] border-border shadow-2xl overflow-hidden bg-card">
+                <CardHeader className="p-8 border-b border-border bg-muted/20">
                     <CardTitle className="text-2xl font-black italic flex items-center gap-3">
                         <History className="h-8 w-8 text-primary" />
                         Call History
@@ -163,16 +177,16 @@ export default function CallLogPage() {
                                 <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Phone</TableHead>
                                 <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Type</TableHead>
                                 <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Interaction Date</TableHead>
-                                <TableHead className="font-black px-8 h-16 text-right uppercase tracking-widest text-[10px] text-muted-foreground">Details</TableHead>
+                                <TableHead className="font-black px-8 h-16 text-right uppercase tracking-widest text-[10px] text-muted-foreground">Actions</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {logs.filter(l => l.name.toLowerCase().includes(searchTerm.toLowerCase())).map((l) => (
-                                <TableRow key={l.id} className="border-border/50 h-24 transition-all hover:bg-muted/20">
-                                    <TableCell className="px-8 font-black italic uppercase leading-tight">
+                            {filtered.map((l) => (
+                                <TableRow key={l.id} className="border-border/50 h-24 transition-all hover:bg-primary/5">
+                                    <TableCell className="px-8 font-black italic uppercase leading-tight text-sm">
                                         {l.name}
                                     </TableCell>
-                                    <TableCell className="px-8 font-bold text-xs">
+                                    <TableCell className="px-8 font-bold text-xs uppercase opacity-60 italic">
                                         {l.phone}
                                     </TableCell>
                                     <TableCell className="px-8">
@@ -181,16 +195,23 @@ export default function CallLogPage() {
                                             {l.callType}
                                         </div>
                                     </TableCell>
-                                    <TableCell className="px-8">
+                                    <TableCell className="px-8 font-bold text-xs whitespace-nowrap">
                                         <div className="flex flex-col gap-1">
-                                            <span className="font-bold text-xs flex items-center gap-1.5"><Calendar className="h-3 w-3 text-primary" /> {new Date(l.date).toLocaleDateString()}</span>
+                                            <span className="flex items-center gap-1.5"><Calendar className="h-3 w-3 text-primary" /> {new Date(l.date).toLocaleDateString()}</span>
                                             {l.nextFollowUpDate && (
                                                 <span className="text-[10px] font-black italic text-amber-600 uppercase tracking-tighter">Follow up: {new Date(l.nextFollowUpDate).toLocaleDateString()}</span>
                                             )}
                                         </div>
                                     </TableCell>
-                                    <TableCell className="text-right px-8 font-medium text-xs opacity-60 italic">
-                                        {l.description || 'No notes recorded'}
+                                    <TableCell className="text-right px-8">
+                                        <div className="flex justify-end gap-2">
+                                            <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl hover:bg-blue-500/10 hover:text-blue-600" onClick={() => startEdit(l)}>
+                                                <Edit3 className="h-4 w-4" />
+                                            </Button>
+                                            <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl hover:bg-destructive/10 hover:text-destructive" onClick={() => handleDelete(l.id)}>
+                                                <Trash2 className="h-4 w-4" />
+                                            </Button>
+                                        </div>
                                     </TableCell>
                                 </TableRow>
                             ))}
@@ -198,6 +219,86 @@ export default function CallLogPage() {
                     </Table>
                 </CardContent>
             </Card>
+
+            {/* Edit Dialog */}
+            <Dialog open={!!editingLog} onOpenChange={(open) => { if (!open) setEditingLog(null); }}>
+                <DialogContent className="rounded-[2.5rem] max-w-xl bg-card border-border shadow-2xl">
+                    <DialogHeader>
+                        <DialogTitle className="text-2xl font-black italic uppercase">Edit Call Log</DialogTitle>
+                        <DialogDescription className="font-black italic opacity-60">Update details for {editingLog?.name}</DialogDescription>
+                    </DialogHeader>
+                    <form onSubmit={handleUpdate} className="space-y-6 pt-4">
+                        <CallLogForm formData={formData} setFormData={setFormData} />
+                        <DialogFooter>
+                            <Button type="submit" className="h-12 w-full rounded-xl font-black uppercase italic tracking-wider">Update Call Log</Button>
+                        </DialogFooter>
+                    </form>
+                </DialogContent>
+            </Dialog>
+        </div>
+    );
+}
+
+function CallLogForm({ formData, setFormData }: { formData: any, setFormData: any }) {
+    return (
+        <div className="space-y-6">
+            <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                    <Label className="font-black italic text-[10px] uppercase opacity-50 ml-1">Caller / Recipient</Label>
+                    <Input
+                        required
+                        className="h-12 rounded-xl bg-muted/50 border-none font-bold placeholder:opacity-30"
+                        placeholder="John Doe"
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    />
+                </div>
+                <div className="space-y-2">
+                    <Label className="font-black italic text-[10px] uppercase opacity-50 ml-1">Phone Number</Label>
+                    <Input
+                        required
+                        className="h-12 rounded-xl bg-muted/50 border-none font-bold placeholder:opacity-30"
+                        placeholder="+234..."
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    />
+                </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                    <Label className="font-black italic text-[10px] uppercase opacity-50 ml-1">Call Type</Label>
+                    <Select value={formData.callType} onValueChange={(v) => setFormData({ ...formData, callType: v })}>
+                        <SelectTrigger className="h-12 rounded-xl bg-muted/50 border-none font-bold">
+                            <SelectValue placeholder="Select Type" />
+                        </SelectTrigger>
+                        <SelectContent className="rounded-xl border-border bg-card font-bold text-xs uppercase italic">
+                            <SelectItem value="INCOMING">INCOMING</SelectItem>
+                            <SelectItem value="OUTGOING">OUTGOING</SelectItem>
+                        </SelectContent>
+                    </Select>
+                </div>
+                <div className="space-y-2">
+                    <Label className="font-black italic text-[10px] uppercase opacity-50 ml-1">Next Follow-up</Label>
+                    <div className="relative">
+                        <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground opacity-50" />
+                        <Input
+                            type="date"
+                            className="h-12 pl-10 rounded-xl bg-muted/50 border-none font-bold text-xs"
+                            value={formData.nextFollowUpDate}
+                            onChange={(e) => setFormData({ ...formData, nextFollowUpDate: e.target.value })}
+                        />
+                    </div>
+                </div>
+            </div>
+            <div className="space-y-2">
+                <Label className="font-black italic text-[10px] uppercase opacity-50 ml-1">Interaction Notes</Label>
+                <Textarea
+                    className="rounded-xl bg-muted/50 border-none font-bold min-h-[100px] placeholder:opacity-30"
+                    placeholder="Discussed admission procedure, fees, etc..."
+                    value={formData.description}
+                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                />
+            </div>
         </div>
     );
 }

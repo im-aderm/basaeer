@@ -42,8 +42,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                     // Assuming you have a profile endpoint to get user data
                     const res = await api.get("/auth/profile");
                     setUser(res.data);
-                } catch (error) {
-                    console.error("Auth check failed:", error);
+                } catch (error: any) {
+                    console.error("Auth check failed:", error.response?.data || error.message);
                     localStorage.removeItem("token");
                     setUser(null);
                 }
@@ -56,8 +56,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     const login = (token: string, userData: any) => {
         localStorage.setItem("token", token);
-        // If userData is not provided in login response, we might need to fetch it
-        // For now, assume fetching profile immediately or using provided data
         setUser(userData);
 
         // Optimistically fetch profile to ensure fresh data

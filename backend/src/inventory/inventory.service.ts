@@ -27,8 +27,8 @@ export class InventoryService {
         });
     }
 
-    getCategories(branchId: string) {
-        return this.prisma.inventoryCategory.findMany({ where: { branchId } });
+    getCategories(branchId: string | null) {
+        return this.prisma.inventoryCategory.findMany({ where: { ...(branchId && { branchId }) } });
     }
 
     createStore(dto: CreateInventoryStoreDto) {
@@ -37,8 +37,8 @@ export class InventoryService {
         });
     }
 
-    getStores(branchId: string) {
-        return this.prisma.inventoryStore.findMany({ where: { branchId } });
+    getStores(branchId: string | null) {
+        return this.prisma.inventoryStore.findMany({ where: { ...(branchId && { branchId }) } });
     }
 
     createSupplier(dto: CreateInventorySupplierDto) {
@@ -47,8 +47,8 @@ export class InventoryService {
         });
     }
 
-    getSuppliers(branchId: string) {
-        return this.prisma.inventorySupplier.findMany({ where: { branchId } });
+    getSuppliers(branchId: string | null) {
+        return this.prisma.inventorySupplier.findMany({ where: { ...(branchId && { branchId }) } });
     }
 
     createUnit(dto: CreateInventoryUnitDto) {
@@ -57,8 +57,8 @@ export class InventoryService {
         });
     }
 
-    getUnits(branchId: string) {
-        return this.prisma.inventoryUnit.findMany({ where: { branchId } });
+    getUnits(branchId: string | null) {
+        return this.prisma.inventoryUnit.findMany({ where: { ...(branchId && { branchId }) } });
     }
 
     // Products
@@ -68,9 +68,9 @@ export class InventoryService {
         });
     }
 
-    getProducts(branchId: string) {
+    getProducts(branchId: string | null) {
         return this.prisma.inventoryProduct.findMany({
-            where: { branchId },
+            where: { ...(branchId && { branchId }) },
             include: { category: true, unit: true, store: true },
         });
     }
@@ -125,17 +125,17 @@ export class InventoryService {
         });
     }
 
-    getIssues(branchId: string) {
+    getIssues(branchId: string | null) {
         return this.prisma.inventoryIssue.findMany({
-            where: { branchId },
+            where: { ...(branchId && { branchId }) },
             include: { product: true, staff: { include: { user: true } }, student: true },
             orderBy: { createdAt: 'desc' },
         });
     }
 
-    getPurchases(branchId: string) {
+    getPurchases(branchId: string | null) {
         return this.prisma.inventoryPurchase.findMany({
-            where: { branchId },
+            where: { ...(branchId && { branchId }) },
             include: { product: true, supplier: true },
             orderBy: { createdAt: 'desc' },
         });
@@ -207,9 +207,9 @@ export class InventoryService {
         });
     }
 
-    getSales(branchId: string) {
+    getSales(branchId: string | null) {
         return this.prisma.inventorySale.findMany({
-            where: { branchId },
+            where: { ...(branchId && { branchId }) },
             include: { product: true },
             orderBy: { createdAt: 'desc' }
         });

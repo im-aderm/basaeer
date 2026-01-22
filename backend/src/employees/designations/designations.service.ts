@@ -12,9 +12,9 @@ export class DesignationsService {
         });
     }
 
-    async findAll(branchId: string) {
+    async findAll(branchId: string | null) {
         return this.prisma.designation.findMany({
-            where: { branchId },
+            where: { ...(branchId && { branchId }) },
         });
     }
 

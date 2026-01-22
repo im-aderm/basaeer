@@ -24,9 +24,9 @@ export class CertificatesService {
         });
     }
 
-    async findAll(branchId: string) {
+    async findAll(branchId: string | null) {
         return this.prisma.certificate.findMany({
-            where: { branchId },
+            where: { ...(branchId && { branchId }) },
             include: {
                 student: {
                     include: {

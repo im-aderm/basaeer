@@ -1,11 +1,16 @@
-import { Controller, Get, Post, Body, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Query, UseGuards, Request, Param, Delete } from '@nestjs/common';
 import { ReceptionService } from './reception.service';
 import {
     CreateEnquiryDto,
     CreateCallLogDto,
     CreateVisitorLogDto,
     CreateComplaintDto,
-    CreatePostalRecordDto
+    CreatePostalRecordDto,
+    UpdateEnquiryDto,
+    UpdateCallLogDto,
+    UpdateVisitorLogDto,
+    UpdateComplaintDto,
+    UpdatePostalRecordDto
 } from './dto/reception.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
@@ -19,61 +24,141 @@ export class ReceptionController {
 
     @Post('enquiries')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
-    createEnquiry(@Body() dto: CreateEnquiryDto) {
+    createEnquiry(@Request() req, @Body() dto: CreateEnquiryDto) {
+        if (!dto.branchId && req.user.branchId) {
+            dto.branchId = req.user.branchId;
+        }
         return this.receptionService.createEnquiry(dto);
     }
 
     @Get('enquiries')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
-    getEnquiries(@Query('branchId') branchId: string) {
-        return this.receptionService.getEnquiries(branchId);
+    getEnquiries(@Request() req, @Query('branchId') branchId: string) {
+        const effectiveBranchId = req.user.role === UserRole.SUPER_ADMIN ? branchId : req.user.branchId;
+        return this.receptionService.getEnquiries(effectiveBranchId);
+    }
+
+    @Post('enquiries/:id')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
+    updateEnquiry(@Param('id') id: string, @Body() dto: UpdateEnquiryDto) {
+        return this.receptionService.updateEnquiry(id, dto);
+    }
+
+    @Delete('enquiries/:id')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
+    deleteEnquiry(@Param('id') id: string) {
+        return this.receptionService.deleteEnquiry(id);
     }
 
     @Post('call-logs')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
-    createCallLog(@Body() dto: CreateCallLogDto) {
+    createCallLog(@Request() req, @Body() dto: CreateCallLogDto) {
+        if (!dto.branchId && req.user.branchId) {
+            dto.branchId = req.user.branchId;
+        }
         return this.receptionService.createCallLog(dto);
     }
 
     @Get('call-logs')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
-    getCallLogs(@Query('branchId') branchId: string) {
-        return this.receptionService.getCallLogs(branchId);
+    getCallLogs(@Request() req, @Query('branchId') branchId: string) {
+        const effectiveBranchId = req.user.role === UserRole.SUPER_ADMIN ? branchId : req.user.branchId;
+        return this.receptionService.getCallLogs(effectiveBranchId);
+    }
+
+    @Post('call-logs/:id')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
+    updateCallLog(@Param('id') id: string, @Body() dto: UpdateCallLogDto) {
+        return this.receptionService.updateCallLog(id, dto);
+    }
+
+    @Delete('call-logs/:id')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
+    deleteCallLog(@Param('id') id: string) {
+        return this.receptionService.deleteCallLog(id);
     }
 
     @Post('visitor-logs')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
-    createVisitorLog(@Body() dto: CreateVisitorLogDto) {
+    createVisitorLog(@Request() req, @Body() dto: CreateVisitorLogDto) {
+        if (!dto.branchId && req.user.branchId) {
+            dto.branchId = req.user.branchId;
+        }
         return this.receptionService.createVisitorLog(dto);
     }
 
     @Get('visitor-logs')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
-    getVisitorLogs(@Query('branchId') branchId: string) {
-        return this.receptionService.getVisitorLogs(branchId);
+    getVisitorLogs(@Request() req, @Query('branchId') branchId: string) {
+        const effectiveBranchId = req.user.role === UserRole.SUPER_ADMIN ? branchId : req.user.branchId;
+        return this.receptionService.getVisitorLogs(effectiveBranchId);
+    }
+
+    @Post('visitor-logs/:id')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
+    updateVisitorLog(@Param('id') id: string, @Body() dto: UpdateVisitorLogDto) {
+        return this.receptionService.updateVisitorLog(id, dto);
+    }
+
+    @Delete('visitor-logs/:id')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
+    deleteVisitorLog(@Param('id') id: string) {
+        return this.receptionService.deleteVisitorLog(id);
     }
 
     @Post('complaints')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
-    createComplaint(@Body() dto: CreateComplaintDto) {
+    createComplaint(@Request() req, @Body() dto: CreateComplaintDto) {
+        if (!dto.branchId && req.user.branchId) {
+            dto.branchId = req.user.branchId;
+        }
         return this.receptionService.createComplaint(dto);
     }
 
     @Get('complaints')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
-    getComplaints(@Query('branchId') branchId: string) {
-        return this.receptionService.getComplaints(branchId);
+    getComplaints(@Request() req, @Query('branchId') branchId: string) {
+        const effectiveBranchId = req.user.role === UserRole.SUPER_ADMIN ? branchId : req.user.branchId;
+        return this.receptionService.getComplaints(effectiveBranchId);
+    }
+
+    @Post('complaints/:id')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
+    updateComplaint(@Param('id') id: string, @Body() dto: UpdateComplaintDto) {
+        return this.receptionService.updateComplaint(id, dto);
+    }
+
+    @Delete('complaints/:id')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
+    deleteComplaint(@Param('id') id: string) {
+        return this.receptionService.deleteComplaint(id);
     }
 
     @Post('postal-records')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
-    createPostalRecord(@Body() dto: CreatePostalRecordDto) {
+    createPostalRecord(@Request() req, @Body() dto: CreatePostalRecordDto) {
+        if (!dto.branchId && req.user.branchId) {
+            dto.branchId = req.user.branchId;
+        }
         return this.receptionService.createPostalRecord(dto);
     }
 
     @Get('postal-records')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
-    getPostalRecords(@Query('branchId') branchId: string) {
-        return this.receptionService.getPostalRecords(branchId);
+    getPostalRecords(@Request() req, @Query('branchId') branchId: string) {
+        const effectiveBranchId = req.user.role === UserRole.SUPER_ADMIN ? branchId : req.user.branchId;
+        return this.receptionService.getPostalRecords(effectiveBranchId);
+    }
+
+    @Post('postal-records/:id')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
+    updatePostalRecord(@Param('id') id: string, @Body() dto: UpdatePostalRecordDto) {
+        return this.receptionService.updatePostalRecord(id, dto);
+    }
+
+    @Delete('postal-records/:id')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
+    deletePostalRecord(@Param('id') id: string) {
+        return this.receptionService.deletePostalRecord(id);
     }
 }

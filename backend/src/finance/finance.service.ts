@@ -19,13 +19,13 @@ export class FinanceService {
         return this.prisma.feeStructure.create({ data: dto });
     }
 
-    async getFeeCategories(branchId: string) {
-        return this.prisma.feeCategory.findMany({ where: { branchId } });
+    async getFeeCategories(branchId: string | null) {
+        return this.prisma.feeCategory.findMany({ where: { ...(branchId && { branchId }) } });
     }
 
-    async getFeeStructures(branchId: string) {
+    async getFeeStructures(branchId: string | null) {
         return this.prisma.feeStructure.findMany({
-            where: { branchId },
+            where: { ...(branchId && { branchId }) },
             include: { category: true, class: true },
         });
     }
@@ -158,9 +158,9 @@ export class FinanceService {
         });
     }
 
-    async getBranchFinancials(branchId: string) {
+    async getBranchFinancials(branchId: string | null) {
         const invoices = await this.prisma.invoice.findMany({
-            where: { branchId },
+            where: { ...(branchId && { branchId }) },
             select: { totalAmount: true, balance: true },
         });
 
@@ -188,8 +188,8 @@ export class FinanceService {
         }
     }
 
-    async getExpenseCategories(branchId: string) {
-        return this.prisma.expenseCategory.findMany({ where: { branchId } });
+    async getExpenseCategories(branchId: string | null) {
+        return this.prisma.expenseCategory.findMany({ where: { ...(branchId && { branchId }) } });
     }
 
     async createVoucher(dto: CreateVoucherDto) {
@@ -216,9 +216,9 @@ export class FinanceService {
         });
     }
 
-    async getVouchers(branchId: string) {
+    async getVouchers(branchId: string | null) {
         return this.prisma.voucher.findMany({
-            where: { branchId },
+            where: { ...(branchId && { branchId }) },
             include: { category: true, approvedBy: true },
             orderBy: { date: 'desc' }
         });

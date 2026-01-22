@@ -4,6 +4,7 @@ import { Prisma, UserRole } from '../generated/client/client';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
+import { Public } from '../auth/public.decorator';
 
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('sessions')
@@ -17,11 +18,13 @@ export class SessionsController {
     }
 
     @Get()
+    @Public()
     findAll() {
         return this.sessionsService.findAll();
     }
 
     @Get('active')
+    @Public()
     findActive() {
         return this.sessionsService.findActive();
     }

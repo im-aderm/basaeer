@@ -19,7 +19,10 @@ import {
     GraduationCap,
     Clock,
     UserCircle,
-    ShieldAlert
+    ShieldAlert,
+    Copy,
+    ExternalLink,
+    Receipt
 } from "lucide-react";
 import { clsx } from "clsx";
 
@@ -33,8 +36,12 @@ export default function AdmissionsManagementPage() {
     const [processingId, setProcessingId] = useState<string | null>(null);
 
     useEffect(() => {
-        if (user?.branchId) {
-            fetchAdmissions();
+        if (user) {
+            if (user.branchId) {
+                fetchAdmissions();
+            } else {
+                setLoading(false);
+            }
         }
     }, [user]);
 
@@ -47,6 +54,19 @@ export default function AdmissionsManagementPage() {
         } finally {
             setLoading(false);
         }
+    };
+
+    const copyShareLink = () => {
+        if (!user?.branchId) return;
+        const link = `${window.location.origin}/admission/apply/${user.branchId}`;
+        navigator.clipboard.writeText(link);
+        alert("Public admission link copied to clipboard!");
+    };
+
+    const openPortal = () => {
+        if (!user?.branchId) return;
+        const link = `${window.location.origin}/admission/apply/${user.branchId}`;
+        window.open(link, '_blank');
     };
 
     const handleApprove = async (id: string) => {
@@ -77,6 +97,17 @@ export default function AdmissionsManagementPage() {
         }
     };
 
+    const getPaymentBadge = (status?: string) => {
+        switch (status) {
+            case 'VERIFIED':
+                return <span className="bg-emerald-500 text-white font-black text-[10px] px-2 py-0.5 rounded-full">PAID</span>;
+            case 'REJECTED':
+                return <span className="bg-red-500 text-white font-black text-[10px] px-2 py-0.5 rounded-full">FAILED</span>;
+            default:
+                return <span className="bg-amber-500/20 text-amber-600 font-black text-[10px] px-2 py-0.5 rounded-full">PENDING</span>;
+        }
+    };
+
     const filteredAdmissions = admissions.filter(adm => {
         const matchesSearch = `${adm.firstName} ${adm.lastName}`.toLowerCase().includes(searchTerm.toLowerCase());
         const matchesStatus = statusFilter === "ALL" || adm.status === statusFilter;
@@ -94,7 +125,7 @@ export default function AdmissionsManagementPage() {
     return (
         <div className="max-w-[1600px] mx-auto space-y-10 animate-in fade-in slide-in-from-bottom-6 duration-700 pb-20 px-6">
             {/* Header */}
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 bg-card border border-border p-10 rounded-[3rem] shadow-2xl shadow-primary/5 relative overflow-hidden">
+            <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-8 bg-card border border-border p-10 rounded-[3rem] shadow-2xl shadow-primary/5 relative overflow-hidden">
                 <div className="space-y-3 relative z-10">
                     <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 text-primary rounded-full text-xs font-black uppercase tracking-widest">
                         <Users size={14} /> Registrar Control
@@ -103,7 +134,22 @@ export default function AdmissionsManagementPage() {
                     <p className="text-muted-foreground font-medium text-lg">Process, verify and enroll prospective students into the academy.</p>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-4 relative z-10">
+                <div className="flex flex-col sm:flex-row items-center gap-4 relative z-10">
+                    <div className="flex bg-muted/50 p-1.5 rounded-2xl border border-border">
+                        <button
+                            onClick={copyShareLink}
+                            className="flex items-center gap-2 px-6 py-3 bg-white text-primary rounded-xl font-black text-sm shadow-sm hover:scale-105 active:scale-95 transition-all"
+                        >
+                            <Copy size={16} /> Copy Link
+                        </button>
+                        <button
+                            onClick={openPortal}
+                            className="flex items-center gap-2 px-6 py-3 text-muted-foreground hover:text-primary rounded-xl font-black text-sm transition-all"
+                        >
+                            <ExternalLink size={16} /> Open Portal
+                        </button>
+                    </div>
+
                     <div className="relative group">
                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-primary transition-colors" size={20} />
                         <input
@@ -192,9 +238,23 @@ export default function AdmissionsManagementPage() {
                                             </div>
                                         </td>
                                         <td className="px-10 py-8">
-                                            <div className="space-y-1">
-                                                <p className="font-bold text-foreground">{adm.guardianName}</p>
-                                                <p className="text-sm font-bold text-muted-foreground">{adm.guardianPhone}</p>
+                                            <div className="space-y-2">
+                                                <div className="space-y-1">
+                                                    <p className="font-bold text-foreground">{adm.guardianName}</p>
+                                                    <p className="text-sm font-bold text-muted-foreground">{adm.guardianPhone}</p>
+                                                </div>
+                                                <div className="flex flex-col gap-1.5 pt-1 border-t border-border/30">
+                                                    {getPaymentBadge(adm.paymentStatus)}
+                                                    {adm.paymentReceiptUrl && (
+                                                        <a
+                                                            href={adm.paymentReceiptUrl}
+                                                            target="_blank"
+                                                            className="text-[10px] text-primary font-black flex items-center gap-1 hover:underline group/receipt"
+                                                        >
+                                                            <Receipt className="h-3 w-3 group-hover/receipt:scale-110 transition-transform" /> VIEW RECEIPT
+                                                        </a>
+                                                    )}
+                                                </div>
                                             </div>
                                         </td>
                                         <td className="px-10 py-8">

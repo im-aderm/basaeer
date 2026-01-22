@@ -35,8 +35,9 @@ export class InventoryController {
     }
 
     @Get('categories')
-    getCategories(@Query('branchId') branchId: string) {
-        return this.inventoryService.getCategories(branchId);
+    getCategories(@Request() req, @Query('branchId') branchId: string) {
+        const effectiveBranchId = req.user.role === UserRole.SUPER_ADMIN ? branchId : req.user.branchId;
+        return this.inventoryService.getCategories(effectiveBranchId);
     }
 
     @Post('categories/:id')
@@ -61,8 +62,9 @@ export class InventoryController {
     }
 
     @Get('stores')
-    getStores(@Query('branchId') branchId: string) {
-        return this.inventoryService.getStores(branchId);
+    getStores(@Request() req, @Query('branchId') branchId: string) {
+        const effectiveBranchId = req.user.role === UserRole.SUPER_ADMIN ? branchId : req.user.branchId;
+        return this.inventoryService.getStores(effectiveBranchId);
     }
 
     @Post('stores/:id')
@@ -87,8 +89,9 @@ export class InventoryController {
     }
 
     @Get('suppliers')
-    getSuppliers(@Query('branchId') branchId: string) {
-        return this.inventoryService.getSuppliers(branchId);
+    getSuppliers(@Request() req, @Query('branchId') branchId: string) {
+        const effectiveBranchId = req.user.role === UserRole.SUPER_ADMIN ? branchId : req.user.branchId;
+        return this.inventoryService.getSuppliers(effectiveBranchId);
     }
 
     @Post('suppliers/:id')
@@ -113,8 +116,9 @@ export class InventoryController {
     }
 
     @Get('units')
-    getUnits(@Query('branchId') branchId: string) {
-        return this.inventoryService.getUnits(branchId);
+    getUnits(@Request() req, @Query('branchId') branchId: string) {
+        const effectiveBranchId = req.user.role === UserRole.SUPER_ADMIN ? branchId : req.user.branchId;
+        return this.inventoryService.getUnits(effectiveBranchId);
     }
 
     @Post('units/:id')
@@ -139,8 +143,9 @@ export class InventoryController {
     }
 
     @Get('products')
-    getProducts(@Query('branchId') branchId: string) {
-        return this.inventoryService.getProducts(branchId);
+    getProducts(@Request() req, @Query('branchId') branchId: string) {
+        const effectiveBranchId = req.user.role === UserRole.SUPER_ADMIN ? branchId : req.user.branchId;
+        return this.inventoryService.getProducts(effectiveBranchId);
     }
 
     @Post('products/:id')
@@ -165,8 +170,9 @@ export class InventoryController {
     }
 
     @Get('purchases')
-    getPurchases(@Query('branchId') branchId: string) {
-        return this.inventoryService.getPurchases(branchId);
+    getPurchases(@Request() req, @Query('branchId') branchId: string) {
+        const effectiveBranchId = req.user.role === UserRole.SUPER_ADMIN ? branchId : req.user.branchId;
+        return this.inventoryService.getPurchases(effectiveBranchId);
     }
 
     @Post('sales')
@@ -179,8 +185,9 @@ export class InventoryController {
     }
 
     @Get('sales')
-    getSales(@Query('branchId') branchId: string) {
-        return this.inventoryService.getSales(branchId);
+    getSales(@Request() req, @Query('branchId') branchId: string) {
+        const effectiveBranchId = req.user.role === UserRole.SUPER_ADMIN ? branchId : req.user.branchId;
+        return this.inventoryService.getSales(effectiveBranchId);
     }
 
     @Post('issue')
@@ -193,8 +200,9 @@ export class InventoryController {
     }
 
     @Get('issues')
-    getIssues(@Query('branchId') branchId: string) {
-        return this.inventoryService.getIssues(branchId);
+    getIssues(@Request() req, @Query('branchId') branchId: string) {
+        const effectiveBranchId = req.user.role === UserRole.SUPER_ADMIN ? branchId : req.user.branchId;
+        return this.inventoryService.getIssues(effectiveBranchId);
     }
 
     @Post('issue/return/:id')

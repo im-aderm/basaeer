@@ -18,8 +18,8 @@ export interface Class {
 }
 
 export const ClassService = {
-    getAll: async (): Promise<Class[]> => {
-        const response = await api.get("/classes");
+    getAll: async (branchId?: string): Promise<Class[]> => {
+        const response = await api.get("/classes", { params: { branchId } });
         return response.data;
     },
 

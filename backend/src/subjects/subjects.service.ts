@@ -11,9 +11,9 @@ export class SubjectsService {
         return this.prisma.subject.create({ data });
     }
 
-    async findAll(branchId: string): Promise<Subject[]> {
+    async findAll(branchId: string | null): Promise<Subject[]> {
         return this.prisma.subject.findMany({
-            where: { branchId },
+            where: { ...(branchId && { branchId }) },
         });
     }
 

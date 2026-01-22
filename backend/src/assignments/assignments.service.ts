@@ -14,9 +14,9 @@ export class AssignmentsService {
         });
     }
 
-    async findAll(branchId: string) {
+    async findAll(branchId: string | null) {
         return this.prisma.assignment.findMany({
-            where: { subject: { branchId } },
+            where: { ...(branchId && { subject: { branchId } }) },
             include: { subject: true, section: true, teacher: { include: { user: true } } },
             orderBy: { createdAt: 'desc' },
         });

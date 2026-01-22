@@ -45,12 +45,14 @@ export class EmployeesService {
         });
     }
 
-    async findAllEmployees(branchId: string) {
+    async findAllEmployees(branchId: string | null) {
         return this.prisma.staff.findMany({
             where: {
-                user: {
-                    branchId,
-                }
+                ...(branchId && {
+                    user: {
+                        branchId,
+                    }
+                })
             },
             include: {
                 user: true,
@@ -60,13 +62,20 @@ export class EmployeesService {
         });
     }
 
-    async findAllTeachers(branchId: string) {
+    async findAllTeachers(branchId: string | null) {
         return this.prisma.staff.findMany({
             where: {
-                user: {
-                    branchId,
-                    role: UserRole.TEACHER
-                }
+                ...(branchId && {
+                    user: {
+                        branchId,
+                        role: UserRole.TEACHER
+                    }
+                }),
+                ...(!branchId && {
+                    user: {
+                        role: UserRole.TEACHER
+                    }
+                })
             },
             include: {
                 user: true,

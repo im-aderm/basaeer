@@ -15,9 +15,9 @@ export class LibraryService {
         });
     }
 
-    async findAllBooks(branchId: string) {
+    async findAllBooks(branchId: string | null) {
         return this.prisma.book.findMany({
-            where: { branchId },
+            where: { ...(branchId && { branchId }) },
             orderBy: { title: 'asc' },
         });
     }
@@ -81,12 +81,12 @@ export class LibraryService {
         });
     }
 
-    async getOverdueBooks(branchId: string) {
+    async getOverdueBooks(branchId: string | null) {
         return this.prisma.borrowRecord.findMany({
             where: {
                 status: 'BORROWED',
                 dueDate: { lt: new Date() },
-                book: { branchId },
+                ...(branchId && { book: { branchId } }),
             },
             include: {
                 book: true,
@@ -103,10 +103,10 @@ export class LibraryService {
         });
     }
 
-    async findAllBorrowRecords(branchId: string) {
+    async findAllBorrowRecords(branchId: string | null) {
         return this.prisma.borrowRecord.findMany({
             where: {
-                book: { branchId }
+                ...(branchId && { book: { branchId } })
             },
             include: {
                 book: true,
