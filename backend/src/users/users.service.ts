@@ -47,8 +47,8 @@ export class UsersService {
     async findAll(branchId?: string, role?: UserRole) {
         return this.prisma.user.findMany({
             where: {
-                branchId,
-                role,
+                ...(branchId && { branchId }),
+                ...(role && { role }),
             },
             orderBy: { createdAt: 'desc' },
         });

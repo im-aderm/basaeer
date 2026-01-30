@@ -26,13 +26,18 @@ export default function StudentLoginDeactivationPage() {
 
     const fetchData = async () => {
         try {
+            console.log("Fetching student deactivation data...");
             const [studentsData, deactivationsData] = await Promise.all([
                 api.get("/students?includeUser=true"),
                 api.get("/students/login-deactivations"),
             ]);
-            setStudents(studentsData.data);
-            setDeactivations(deactivationsData.data);
+            console.log("Students data received:", studentsData.data);
+
+            const studentsList = Array.isArray(studentsData.data) ? studentsData.data : studentsData.data.results || [];
+            setStudents(studentsList.filter((s: any) => s.user?.role === "STUDENT"));
+            setDeactivations(deactivationsData.data || []);
         } catch (error) {
+            console.error("Failed to load deactivation data:", error);
             toast.error("Failed to load data");
         } finally {
             setLoading(false);

@@ -1,10 +1,22 @@
 "use client";
 
+interface Column<T> {
+    header: string;
+    accessor?: keyof T | ((item: T) => React.ReactNode);
+    accessorKey?: string;
+    cell?: (item: T) => React.ReactNode;
+}
+
 interface DataTableProps<T> {
-    columns: { header: string; accessor: keyof T | ((item: T) => React.ReactNode) }[];
+    columns: Column<T>[];
     data: T[];
     actions?: (item: T) => React.ReactNode;
+    searchKey?: string;
 }
+
+const getNestedValue = (obj: any, path: string) => {
+    return path.split('.').reduce((acc, part) => acc && acc[part], obj);
+};
 
 export function DataTable<T extends { id: string }>({ columns, data, actions }: DataTableProps<T>) {
     return (
@@ -32,7 +44,11 @@ export function DataTable<T extends { id: string }>({ columns, data, actions }: 
                             <tr key={item.id} className="hover:bg-muted/5 transition-colors">
                                 {columns.map((col, index) => (
                                     <td key={index} className="px-4 py-3 text-foreground">
-                                        {typeof col.accessor === "function" ? col.accessor(item) : (item[col.accessor] as React.ReactNode)}
+                                        {col.cell ? col.cell(item) :
+                                            typeof col.accessor === "function" ? col.accessor(item) :
+                                                col.accessor ? (item[col.accessor] as React.ReactNode) :
+                                                    col.accessorKey ? (getNestedValue(item, col.accessorKey) as React.ReactNode) :
+                                                        null}
                                     </td>
                                 ))}
                                 {actions && (

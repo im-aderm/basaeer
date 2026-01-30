@@ -75,6 +75,8 @@ export class StudentsService {
         user: true,
         class: true,
         section: true,
+        parent: { include: { student: true } },
+        attendance: { take: 30, orderBy: { date: 'desc' } }, // Latest 30 records
         transportAssignment: { include: { route: true, vehicle: true } },
         certificates: true
       }
@@ -208,4 +210,133 @@ export class StudentsService {
       where: { id },
     });
   }
+
+  // Deactivation Reasons
+  async fetchDeactivationReasons(branchId: string) {
+    return this.prisma.deactivationReason.findMany({
+      where: {
+        OR: [{ branchId }, { branchId: null }]
+      },
+      include: {
+        _count: {
+          select: { deactivations: true }
+        }
+      }
+    });
+  }
+
+  async createDeactivationReason(data: any) {
+    return this.prisma.deactivationReason.create({
+      data
+    });
+  }
+
+  async updateDeactivationReason(id: string, data: any) {
+    return this.prisma.deactivationReason.update({
+      where: { id },
+      data
+    });
+  }
+
+  async deleteDeactivationReason(id: string) {
+    return this.prisma.deactivationReason.delete({
+      where: { id }
+    });
+  }
+
+  // Login Deactivation
+  async deactivateLogin(studentIds: string[], reason: string, branchId: string, reasonId?: string) {
+    return this.prisma.$transaction(async (tx) => {
+      const students = await tx.student.findMany({
+        where: { id: { in: studentIds } },
+        include: { user: true }
+      });
+
+      const deactivations = [];
+      for (const student of students) {
+        if (student.userId) {
+          // Deactivate User
+          await tx.user.update({
+            where: { id: student.userId },
+            data: { isActive: false }
+          });
+
+          // Record Deactivation
+          const deactivation = await tx.loginDeactivation.create({
+            data: {
+              studentId: student.id,
+              userId: student.userId,
+              reason,
+              reasonId,
+              branchId
+            }
+          });
+          deactivations.push(deactivation);
+        }
+      }
+      return deactivations;
+    });
+  }
+
+  async reactivateLogin(studentId: string) {
+    const student = await this.prisma.student.findUnique({
+      where: { id: studentId },
+      include: { user: true }
+    });
+
+    if (student?.userId) {
+      return this.prisma.user.update({
+        where: { id: student.userId },
+        data: { isActive: true }
+      });
+    }
+    return null;
+  }
+
+  async getLoginDeactivations(branchId: string) {
+    return this.prisma.loginDeactivation.findMany({
+      where: { branchId },
+      orderBy: { createdAt: 'desc' }
+    });
+  }
+
+  async getStats(branchId: string) {
+    const now = new Date();
+    const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+
+    const [total, newThisMonth, totalAttendance] = await Promise.all([
+      this.prisma.student.count({
+        where: branchId ? { branchId } : {}
+      }),
+      this.prisma.student.count({
+        where: {
+          ...(branchId && { branchId }),
+          createdAt: { gte: firstDayOfMonth }
+        }
+      }),
+      this.prisma.attendance.findMany({
+        where: {
+          student: branchId ? { branchId } : {}
+        },
+        select: { status: true }
+      })
+    ]);
+
+    const activeClasses = await this.prisma.class.count({
+      where: branchId ? { branchId } : {}
+    });
+
+    const attendanceRate = totalAttendance.length > 0
+      ? (totalAttendance.filter(a => ['PRESENT', 'LATE'].includes(a.status)).length / totalAttendance.length) * 100
+      : 0;
+
+    return {
+      total,
+      newThisMonth,
+      activeClasses,
+      attendanceRate: `${attendanceRate.toFixed(1)}%`
+    };
+  }
 }
+
+

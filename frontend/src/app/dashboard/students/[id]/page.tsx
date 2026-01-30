@@ -143,7 +143,11 @@ export default function StudentProfilePage() {
                             <h4 className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground mb-4">Quick Stats</h4>
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="p-4 rounded-2xl bg-muted/30 text-center">
-                                    <p className="text-2xl font-black italic text-primary">92%</p>
+                                    <p className="text-2xl font-black italic text-primary">
+                                        {student.attendance && student.attendance.length > 0
+                                            ? `${Math.round((student.attendance.filter(a => ['PRESENT', 'LATE'].includes(a.status)).length / student.attendance.length) * 100)}%`
+                                            : "N/A"}
+                                    </p>
                                     <p className="text-[10px] font-black uppercase text-muted-foreground">Attendance</p>
                                 </div>
                                 <div className="p-4 rounded-2xl bg-muted/30 text-center">
@@ -180,9 +184,9 @@ export default function StudentProfilePage() {
                                         <ShieldCheck className="text-primary" /> Father Details
                                     </h3>
                                     <div className="space-y-4">
-                                        <p className="font-bold flex justify-between"><span className="text-muted-foreground">Full Name:</span> John Doe</p>
-                                        <p className="font-bold flex justify-between"><span className="text-muted-foreground">Occupation:</span> Engineer</p>
-                                        <p className="font-bold flex justify-between"><span className="text-muted-foreground">Phone:</span> +234 800 000 000</p>
+                                        <p className="font-bold flex justify-between"><span className="text-muted-foreground">Full Name:</span> {student.parent?.firstName || "N/A"} {student.parent?.lastName || ""}</p>
+                                        <p className="font-bold flex justify-between"><span className="text-muted-foreground">Occupation:</span> {student.guardianOccupation || "N/A"}</p>
+                                        <p className="font-bold flex justify-between"><span className="text-muted-foreground">Phone:</span> {student.parent?.phone || "N/A"}</p>
                                     </div>
                                 </Card>
                                 <Card className="rounded-[2.5rem] border-border/50 shadow-xl p-8 bg-card/50">
@@ -190,16 +194,18 @@ export default function StudentProfilePage() {
                                         <ShieldCheck className="text-primary" /> Mother Details
                                     </h3>
                                     <div className="space-y-4">
-                                        <p className="font-bold flex justify-between"><span className="text-muted-foreground">Full Name:</span> Jane Doe</p>
-                                        <p className="font-bold flex justify-between"><span className="text-muted-foreground">Occupation:</span> Doctor</p>
-                                        <p className="font-bold flex justify-between"><span className="text-muted-foreground">Phone:</span> +234 800 000 001</p>
+                                        <p className="font-bold flex justify-between"><span className="text-muted-foreground">Full Name:</span> {student.parent?.firstName || "N/A"} {student.parent?.lastName || ""}</p>
+                                        <p className="font-bold flex justify-between"><span className="text-muted-foreground">Occupation:</span> {student.guardianOccupation || "N/A"}</p>
+                                        <p className="font-bold flex justify-between"><span className="text-muted-foreground">Phone:</span> {student.parent?.phone || "N/A"}</p>
                                     </div>
                                 </Card>
                                 <Card className="md:col-span-2 rounded-[2.5rem] border-border/50 shadow-xl p-8 bg-card/50">
                                     <h3 className="text-xl font-black italic flex items-center gap-3 mb-6">
                                         <MapPin className="text-primary" /> Residential Address
                                     </h3>
-                                    <p className="font-bold text-lg italic text-muted-foreground">123 Example Street, Lagos Island, Lagos State, Nigeria.</p>
+                                    <p className="font-bold text-lg italic text-muted-foreground">
+                                        {student.city ? `${student.city}, ${student.state}, ${student.country}` : "Address not set"}
+                                    </p>
                                 </Card>
                             </div>
                         </TabsContent>
@@ -208,13 +214,13 @@ export default function StudentProfilePage() {
                             <Card className="rounded-[3rem] border-border/50 shadow-xl p-10 bg-card/50 text-center border-t-8 border-t-blue-500">
                                 <Bus size={48} className="mx-auto text-blue-500 mb-6" />
                                 <h3 className="text-2xl font-black italic mb-2">Transport Details</h3>
-                                {student.transportRoute ? (
+                                {student.transportAssignment ? (
                                     <div className="space-y-4 max-w-md mx-auto mt-6">
                                         <div className="p-4 rounded-2xl bg-muted/30 font-bold flex justify-between">
-                                            <span>Route:</span> <span className="text-blue-500">{student.transportRoute.name}</span>
+                                            <span>Route:</span> <span className="text-blue-500">{student.transportAssignment.route?.name || 'N/A'}</span>
                                         </div>
                                         <div className="p-4 rounded-2xl bg-muted/30 font-bold flex justify-between">
-                                            <span>Vehicle:</span> <span className="text-blue-500">{student.transportVehicle?.registrationNumber || 'Pending'}</span>
+                                            <span>Vehicle:</span> <span className="text-blue-500">{student.transportAssignment.vehicle?.registrationNumber || 'Pending'}</span>
                                         </div>
                                     </div>
                                 ) : (

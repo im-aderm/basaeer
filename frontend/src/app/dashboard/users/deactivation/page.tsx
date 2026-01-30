@@ -18,12 +18,16 @@ export default function LoginDeactivationPage() {
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
 
-    const fetchUsers = async () => {
-        if (!currentUser?.branchId) return;
+    const fetchUsers = async (roleFilter?: string) => {
         try {
-            const data = await UserService.getAll({ branchId: currentUser.branchId });
+            setLoading(true);
+            const data = await UserService.getAll({
+                branchId: currentUser?.branchId || undefined,
+                role: roleFilter
+            });
             setUsers(data);
         } catch (error) {
+            console.error('Failed to fetch users:', error);
             toast.error('Failed to fetch users');
         } finally {
             setLoading(false);

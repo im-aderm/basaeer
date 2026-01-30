@@ -5,25 +5,34 @@ export interface Student {
     userId?: string;
     firstName: string;
     lastName: string;
+    bloodGroup?: string;
+    genotype?: string;
+    allergies?: string;
+    medicalConditions?: string;
+    specialNeeds?: string;
+    familyDoctorName?: string;
+    familyDoctorPhone?: string;
+    guardianOccupation?: string;
+    guardianOfficeAddress?: string;
+    city?: string;
+    state?: string;
+    country?: string;
+    emergencyContactName?: string;
+    emergencyContactPhone?: string;
+    emergencyContactRelation?: string;
     dob?: string;
-    branchId: string;
+    user?: any;
+    parent?: any;
+    class?: any;
     classId?: string;
+    section?: any;
     sectionId?: string;
-    parentId?: string;
-    user?: {
-        email: string;
-        phone?: string;
+    transportAssignment?: {
+        route?: any;
+        vehicle?: any;
     };
-    class?: {
-        name: string;
-    };
-    section?: {
-        name: string;
-    };
-    transportAssignment?: any;
-    transportRoute?: any;
-    transportVehicle?: any;
     certificates?: any[];
+    attendance?: any[];
     createdAt: string;
 }
 
@@ -91,5 +100,11 @@ export const StudentService = {
             headers: { "Content-Type": "multipart/form-data" }
         });
         return response.data;
+    },
+
+    getStats: async (branchId?: string): Promise<any> => {
+        const response = await api.get("/students/stats", { params: { branchId } });
+        return response.data;
     }
 };
+

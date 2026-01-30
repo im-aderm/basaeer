@@ -59,9 +59,11 @@ export default function AdmissionsManagementPage() {
         }
     }, [user]);
 
-    const fetchAdmissions = async (branchId: string) => {
+    const fetchAdmissions = async (branchId?: string) => {
+        const idToUse = branchId || resolvedBranchId;
+        if (!idToUse) return;
         try {
-            const data = await OnlineAdmissionService.getAll(branchId);
+            const data = await OnlineAdmissionService.getAll(idToUse);
             setAdmissions(data);
         } catch (error) {
             console.error("Failed to fetch admissions:", error);

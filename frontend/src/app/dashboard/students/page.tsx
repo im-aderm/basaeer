@@ -28,18 +28,23 @@ export default function StudentsDashboard() {
 
     useEffect(() => {
         Promise.all([
+            StudentService.getStats(),
             StudentService.getAll(),
             ClassService.getAll()
-        ]).then(([students, classes]) => {
+        ]).then(([statsData, students, classes]) => {
             setStats({
-                total: students.length,
-                newThisMonth: Math.floor(students.length * 0.05), // Mock trend
-                activeClasses: classes.length,
-                attendance: "94.2%"
+                total: statsData.total,
+                newThisMonth: statsData.newThisMonth,
+                activeClasses: statsData.activeClasses,
+                attendance: statsData.attendanceRate
             });
+            setLoading(false);
+        }).catch(err => {
+            console.error("Failed to fetch dashboard stats:", err);
             setLoading(false);
         });
     }, []);
+
 
     const quickActions = [
         {

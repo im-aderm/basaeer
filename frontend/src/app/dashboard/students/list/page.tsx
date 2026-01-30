@@ -22,11 +22,15 @@ import {
     IdCard,
     Printer,
     Download,
-    X
+    X,
+    Eye,
+    Pencil
 } from "lucide-react";
 import { clsx } from "clsx";
 import { StudentIDCard } from "@/components/StudentIDCard";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 export default function StudentListPage() {
     const [students, setStudents] = useState<Student[]>([]);
@@ -37,6 +41,7 @@ export default function StudentListPage() {
     const [viewMode, setViewMode] = useState<"table" | "grid">("table");
     const [selectedStudentForCard, setSelectedStudentForCard] = useState<Student | null>(null);
     const [isCardModalOpen, setIsCardModalOpen] = useState(false);
+    const router = useRouter();
 
     useEffect(() => {
         fetchData();
@@ -194,8 +199,24 @@ export default function StudentListPage() {
                                                 )}
                                             </div>
                                         </td>
-                                        <td className="px-10 py-6 text-right">
-                                            <div className="flex items-center justify-end gap-2 opacity-20 group-hover:opacity-100 transition-opacity">
+                                        <td className="px-10 py-6 text-right relative">
+                                            <div className="flex items-center justify-end gap-2 opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity">
+                                                <Button
+                                                    size="icon"
+                                                    variant="secondary"
+                                                    className="h-9 w-9 rounded-xl bg-muted hover:bg-primary/10 text-muted-foreground hover:text-primary transition-all border-none"
+                                                    onClick={() => router.push(`/dashboard/students/${student.id}`)}
+                                                >
+                                                    <Eye size={18} />
+                                                </Button>
+                                                <Button
+                                                    size="icon"
+                                                    variant="secondary"
+                                                    className="h-9 w-9 rounded-xl bg-muted hover:bg-primary/10 text-muted-foreground hover:text-primary transition-all border-none"
+                                                    onClick={() => router.push(`/dashboard/students/edit/${student.id}`)}
+                                                >
+                                                    <Pencil size={18} />
+                                                </Button>
                                                 <button
                                                     onClick={() => {
                                                         setSelectedStudentForCard(student);
@@ -206,10 +227,9 @@ export default function StudentListPage() {
                                                 >
                                                     <IdCard size={18} />
                                                 </button>
-                                                <button className="p-2.5 bg-muted hover:bg-primary/10 text-muted-foreground hover:text-primary rounded-xl transition-all"><Edit3 size={18} /></button>
                                                 <button className="p-2.5 bg-muted hover:bg-red-500/10 text-muted-foreground hover:text-red-600 rounded-xl transition-all"><Trash2 size={18} /></button>
                                                 <button
-                                                    onClick={() => window.location.href = `/dashboard/students/${student.id}`}
+                                                    onClick={() => router.push(`/dashboard/students/${student.id}`)}
                                                     className="p-2.5 bg-primary text-white rounded-xl shadow-lg shadow-primary/20"
                                                 >
                                                     <ExternalLink size={18} />
@@ -260,7 +280,8 @@ export default function StudentListPage() {
                         </div>
                     ))}
                 </div>
-            )}
+            )
+            }
 
             {/* ID Card Modal */}
             <Dialog open={isCardModalOpen} onOpenChange={setIsCardModalOpen}>
@@ -290,15 +311,17 @@ export default function StudentListPage() {
                 </DialogContent>
             </Dialog>
 
-            {filteredStudents.length === 0 && (
-                <div className="py-32 text-center animate-in fade-in zoom-in-95">
-                    <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-muted mb-6">
-                        <Users size={48} className="text-muted-foreground/30" />
+            {
+                filteredStudents.length === 0 && (
+                    <div className="py-32 text-center animate-in fade-in zoom-in-95">
+                        <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-muted mb-6">
+                            <Users size={48} className="text-muted-foreground/30" />
+                        </div>
+                        <h2 className="text-2xl font-black">No matching records</h2>
+                        <p className="text-muted-foreground mt-2 max-w-xs mx-auto font-medium italic">Adjust your filters or search terms to find the student you're looking for.</p>
                     </div>
-                    <h2 className="text-2xl font-black">No matching records</h2>
-                    <p className="text-muted-foreground mt-2 max-w-xs mx-auto font-medium italic">Adjust your filters or search terms to find the student you're looking for.</p>
-                </div>
-            )}
-        </div>
+                )
+            }
+        </div >
     );
 }

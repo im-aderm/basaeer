@@ -116,7 +116,7 @@ const navigation: NavItem[] = [
         children: [
             { title: "Student Overview", href: "/dashboard/students" },
             { title: "Student List", href: "/dashboard/students/list" },
-            { title: "Login Deactivate", href: "/dashboard/users/deactivation" },
+            { title: "Login Deactivate", href: "/dashboard/students/deactivate-login" },
             { title: "Deactivate Reason", href: "/dashboard/students/deactivate-reason" },
         ],
     },

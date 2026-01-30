@@ -34,7 +34,7 @@ export default function Home() {
           </div>
 
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-foreground">
-            Modern School Management <br />
+            Classic School Management <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-600">
               Simplified.
             </span>
