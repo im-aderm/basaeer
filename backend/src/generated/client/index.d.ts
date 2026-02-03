@@ -19,6 +19,16 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type Branch = $Result.DefaultSelection<Prisma.$BranchPayload>
 /**
+ * Model DeactivationReason
+ * 
+ */
+export type DeactivationReason = $Result.DefaultSelection<Prisma.$DeactivationReasonPayload>
+/**
+ * Model LoginDeactivation
+ * 
+ */
+export type LoginDeactivation = $Result.DefaultSelection<Prisma.$LoginDeactivationPayload>
+/**
  * Model User
  * 
  */
@@ -710,6 +720,26 @@ export class PrismaClient<
     * ```
     */
   get branch(): Prisma.BranchDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.deactivationReason`: Exposes CRUD operations for the **DeactivationReason** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DeactivationReasons
+    * const deactivationReasons = await prisma.deactivationReason.findMany()
+    * ```
+    */
+  get deactivationReason(): Prisma.DeactivationReasonDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.loginDeactivation`: Exposes CRUD operations for the **LoginDeactivation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LoginDeactivations
+    * const loginDeactivations = await prisma.loginDeactivation.findMany()
+    * ```
+    */
+  get loginDeactivation(): Prisma.LoginDeactivationDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.user`: Exposes CRUD operations for the **User** model.
@@ -1925,6 +1955,8 @@ export namespace Prisma {
 
   export const ModelName: {
     Branch: 'Branch',
+    DeactivationReason: 'DeactivationReason',
+    LoginDeactivation: 'LoginDeactivation',
     User: 'User',
     Staff: 'Staff',
     Student: 'Student',
@@ -2018,7 +2050,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "branch" | "user" | "staff" | "student" | "certificate" | "class" | "section" | "subject" | "attendance" | "hostel" | "room" | "bed" | "hostelAllocation" | "hostelLeave" | "maintenanceRequest" | "feeCategory" | "feeStructure" | "invoice" | "questionGroup" | "question" | "questionOption" | "onlineExam" | "onlineExamAttempt" | "questionAnswer" | "invoiceItem" | "payment" | "vehicle" | "transportRoute" | "transportAssignment" | "assignment" | "submission" | "academicSession" | "assessmentRecord" | "behaviouralRating" | "resultSummary" | "gradingScale" | "globalSetting" | "rolePermission" | "auditLog" | "expenseCategory" | "voucher" | "department" | "designation" | "book" | "borrowRecord" | "libraryFine" | "salaryTemplate" | "payroll" | "leaveRequest" | "staffAward" | "advanceSalary" | "googleMeetConfig" | "liveClassSession" | "meetingParticipant" | "studentCategory" | "onlineAdmission" | "admissionEnquiry" | "callLog" | "visitorLog" | "complaint" | "postalRecord" | "inventoryCategory" | "inventoryStore" | "inventorySupplier" | "inventoryUnit" | "inventoryProduct" | "inventoryPurchase" | "inventorySale" | "inventoryIssue" | "alumni" | "alumniEvent" | "alumniEventParticipant" | "conversation" | "conversationParticipant" | "message" | "campusEvent" | "eventRSVP" | "campusAccessLog" | "automationConfig"
+      modelProps: "branch" | "deactivationReason" | "loginDeactivation" | "user" | "staff" | "student" | "certificate" | "class" | "section" | "subject" | "attendance" | "hostel" | "room" | "bed" | "hostelAllocation" | "hostelLeave" | "maintenanceRequest" | "feeCategory" | "feeStructure" | "invoice" | "questionGroup" | "question" | "questionOption" | "onlineExam" | "onlineExamAttempt" | "questionAnswer" | "invoiceItem" | "payment" | "vehicle" | "transportRoute" | "transportAssignment" | "assignment" | "submission" | "academicSession" | "assessmentRecord" | "behaviouralRating" | "resultSummary" | "gradingScale" | "globalSetting" | "rolePermission" | "auditLog" | "expenseCategory" | "voucher" | "department" | "designation" | "book" | "borrowRecord" | "libraryFine" | "salaryTemplate" | "payroll" | "leaveRequest" | "staffAward" | "advanceSalary" | "googleMeetConfig" | "liveClassSession" | "meetingParticipant" | "studentCategory" | "onlineAdmission" | "admissionEnquiry" | "callLog" | "visitorLog" | "complaint" | "postalRecord" | "inventoryCategory" | "inventoryStore" | "inventorySupplier" | "inventoryUnit" | "inventoryProduct" | "inventoryPurchase" | "inventorySale" | "inventoryIssue" | "alumni" | "alumniEvent" | "alumniEventParticipant" | "conversation" | "conversationParticipant" | "message" | "campusEvent" | "eventRSVP" | "campusAccessLog" | "automationConfig"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2093,6 +2125,154 @@ export namespace Prisma {
           count: {
             args: Prisma.BranchCountArgs<ExtArgs>
             result: $Utils.Optional<BranchCountAggregateOutputType> | number
+          }
+        }
+      }
+      DeactivationReason: {
+        payload: Prisma.$DeactivationReasonPayload<ExtArgs>
+        fields: Prisma.DeactivationReasonFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DeactivationReasonFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeactivationReasonPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DeactivationReasonFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeactivationReasonPayload>
+          }
+          findFirst: {
+            args: Prisma.DeactivationReasonFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeactivationReasonPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DeactivationReasonFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeactivationReasonPayload>
+          }
+          findMany: {
+            args: Prisma.DeactivationReasonFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeactivationReasonPayload>[]
+          }
+          create: {
+            args: Prisma.DeactivationReasonCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeactivationReasonPayload>
+          }
+          createMany: {
+            args: Prisma.DeactivationReasonCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DeactivationReasonCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeactivationReasonPayload>[]
+          }
+          delete: {
+            args: Prisma.DeactivationReasonDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeactivationReasonPayload>
+          }
+          update: {
+            args: Prisma.DeactivationReasonUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeactivationReasonPayload>
+          }
+          deleteMany: {
+            args: Prisma.DeactivationReasonDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DeactivationReasonUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DeactivationReasonUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeactivationReasonPayload>[]
+          }
+          upsert: {
+            args: Prisma.DeactivationReasonUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeactivationReasonPayload>
+          }
+          aggregate: {
+            args: Prisma.DeactivationReasonAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDeactivationReason>
+          }
+          groupBy: {
+            args: Prisma.DeactivationReasonGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DeactivationReasonGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DeactivationReasonCountArgs<ExtArgs>
+            result: $Utils.Optional<DeactivationReasonCountAggregateOutputType> | number
+          }
+        }
+      }
+      LoginDeactivation: {
+        payload: Prisma.$LoginDeactivationPayload<ExtArgs>
+        fields: Prisma.LoginDeactivationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LoginDeactivationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LoginDeactivationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LoginDeactivationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LoginDeactivationPayload>
+          }
+          findFirst: {
+            args: Prisma.LoginDeactivationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LoginDeactivationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LoginDeactivationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LoginDeactivationPayload>
+          }
+          findMany: {
+            args: Prisma.LoginDeactivationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LoginDeactivationPayload>[]
+          }
+          create: {
+            args: Prisma.LoginDeactivationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LoginDeactivationPayload>
+          }
+          createMany: {
+            args: Prisma.LoginDeactivationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LoginDeactivationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LoginDeactivationPayload>[]
+          }
+          delete: {
+            args: Prisma.LoginDeactivationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LoginDeactivationPayload>
+          }
+          update: {
+            args: Prisma.LoginDeactivationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LoginDeactivationPayload>
+          }
+          deleteMany: {
+            args: Prisma.LoginDeactivationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LoginDeactivationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LoginDeactivationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LoginDeactivationPayload>[]
+          }
+          upsert: {
+            args: Prisma.LoginDeactivationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LoginDeactivationPayload>
+          }
+          aggregate: {
+            args: Prisma.LoginDeactivationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLoginDeactivation>
+          }
+          groupBy: {
+            args: Prisma.LoginDeactivationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LoginDeactivationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LoginDeactivationCountArgs<ExtArgs>
+            result: $Utils.Optional<LoginDeactivationCountAggregateOutputType> | number
           }
         }
       }
@@ -7977,6 +8157,8 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     branch?: BranchOmit
+    deactivationReason?: DeactivationReasonOmit
+    loginDeactivation?: LoginDeactivationOmit
     user?: UserOmit
     staff?: StaffOmit
     student?: StudentOmit
@@ -8173,6 +8355,8 @@ export namespace Prisma {
     campusEvents: number
     accessLogs: number
     automationConfigs: number
+    deactivationReasons: number
+    loginDeactivations: number
   }
 
   export type BranchCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8214,6 +8398,8 @@ export namespace Prisma {
     campusEvents?: boolean | BranchCountOutputTypeCountCampusEventsArgs
     accessLogs?: boolean | BranchCountOutputTypeCountAccessLogsArgs
     automationConfigs?: boolean | BranchCountOutputTypeCountAutomationConfigsArgs
+    deactivationReasons?: boolean | BranchCountOutputTypeCountDeactivationReasonsArgs
+    loginDeactivations?: boolean | BranchCountOutputTypeCountLoginDeactivationsArgs
   }
 
   // Custom InputTypes
@@ -8491,6 +8677,51 @@ export namespace Prisma {
    */
   export type BranchCountOutputTypeCountAutomationConfigsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AutomationConfigWhereInput
+  }
+
+  /**
+   * BranchCountOutputType without action
+   */
+  export type BranchCountOutputTypeCountDeactivationReasonsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DeactivationReasonWhereInput
+  }
+
+  /**
+   * BranchCountOutputType without action
+   */
+  export type BranchCountOutputTypeCountLoginDeactivationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LoginDeactivationWhereInput
+  }
+
+
+  /**
+   * Count Type DeactivationReasonCountOutputType
+   */
+
+  export type DeactivationReasonCountOutputType = {
+    deactivations: number
+  }
+
+  export type DeactivationReasonCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    deactivations?: boolean | DeactivationReasonCountOutputTypeCountDeactivationsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * DeactivationReasonCountOutputType without action
+   */
+  export type DeactivationReasonCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeactivationReasonCountOutputType
+     */
+    select?: DeactivationReasonCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DeactivationReasonCountOutputType without action
+   */
+  export type DeactivationReasonCountOutputTypeCountDeactivationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LoginDeactivationWhereInput
   }
 
 
@@ -10304,6 +10535,8 @@ export namespace Prisma {
     campusEvents?: boolean | Branch$campusEventsArgs<ExtArgs>
     accessLogs?: boolean | Branch$accessLogsArgs<ExtArgs>
     automationConfigs?: boolean | Branch$automationConfigsArgs<ExtArgs>
+    deactivationReasons?: boolean | Branch$deactivationReasonsArgs<ExtArgs>
+    loginDeactivations?: boolean | Branch$loginDeactivationsArgs<ExtArgs>
     _count?: boolean | BranchCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["branch"]>
 
@@ -10384,6 +10617,8 @@ export namespace Prisma {
     campusEvents?: boolean | Branch$campusEventsArgs<ExtArgs>
     accessLogs?: boolean | Branch$accessLogsArgs<ExtArgs>
     automationConfigs?: boolean | Branch$automationConfigsArgs<ExtArgs>
+    deactivationReasons?: boolean | Branch$deactivationReasonsArgs<ExtArgs>
+    loginDeactivations?: boolean | Branch$loginDeactivationsArgs<ExtArgs>
     _count?: boolean | BranchCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type BranchIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -10431,6 +10666,8 @@ export namespace Prisma {
       campusEvents: Prisma.$CampusEventPayload<ExtArgs>[]
       accessLogs: Prisma.$CampusAccessLogPayload<ExtArgs>[]
       automationConfigs: Prisma.$AutomationConfigPayload<ExtArgs>[]
+      deactivationReasons: Prisma.$DeactivationReasonPayload<ExtArgs>[]
+      loginDeactivations: Prisma.$LoginDeactivationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -10875,6 +11112,8 @@ export namespace Prisma {
     campusEvents<T extends Branch$campusEventsArgs<ExtArgs> = {}>(args?: Subset<T, Branch$campusEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CampusEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     accessLogs<T extends Branch$accessLogsArgs<ExtArgs> = {}>(args?: Subset<T, Branch$accessLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CampusAccessLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     automationConfigs<T extends Branch$automationConfigsArgs<ExtArgs> = {}>(args?: Subset<T, Branch$automationConfigsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AutomationConfigPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    deactivationReasons<T extends Branch$deactivationReasonsArgs<ExtArgs> = {}>(args?: Subset<T, Branch$deactivationReasonsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeactivationReasonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    loginDeactivations<T extends Branch$loginDeactivationsArgs<ExtArgs> = {}>(args?: Subset<T, Branch$loginDeactivationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LoginDeactivationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -12232,6 +12471,54 @@ export namespace Prisma {
   }
 
   /**
+   * Branch.deactivationReasons
+   */
+  export type Branch$deactivationReasonsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeactivationReason
+     */
+    select?: DeactivationReasonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeactivationReason
+     */
+    omit?: DeactivationReasonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeactivationReasonInclude<ExtArgs> | null
+    where?: DeactivationReasonWhereInput
+    orderBy?: DeactivationReasonOrderByWithRelationInput | DeactivationReasonOrderByWithRelationInput[]
+    cursor?: DeactivationReasonWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DeactivationReasonScalarFieldEnum | DeactivationReasonScalarFieldEnum[]
+  }
+
+  /**
+   * Branch.loginDeactivations
+   */
+  export type Branch$loginDeactivationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LoginDeactivation
+     */
+    select?: LoginDeactivationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LoginDeactivation
+     */
+    omit?: LoginDeactivationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LoginDeactivationInclude<ExtArgs> | null
+    where?: LoginDeactivationWhereInput
+    orderBy?: LoginDeactivationOrderByWithRelationInput | LoginDeactivationOrderByWithRelationInput[]
+    cursor?: LoginDeactivationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LoginDeactivationScalarFieldEnum | LoginDeactivationScalarFieldEnum[]
+  }
+
+  /**
    * Branch without action
    */
   export type BranchDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -12247,6 +12534,2231 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: BranchInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DeactivationReason
+   */
+
+  export type AggregateDeactivationReason = {
+    _count: DeactivationReasonCountAggregateOutputType | null
+    _min: DeactivationReasonMinAggregateOutputType | null
+    _max: DeactivationReasonMaxAggregateOutputType | null
+  }
+
+  export type DeactivationReasonMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    branchId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DeactivationReasonMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    branchId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DeactivationReasonCountAggregateOutputType = {
+    id: number
+    title: number
+    description: number
+    branchId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DeactivationReasonMinAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    branchId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DeactivationReasonMaxAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    branchId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DeactivationReasonCountAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    branchId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DeactivationReasonAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DeactivationReason to aggregate.
+     */
+    where?: DeactivationReasonWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DeactivationReasons to fetch.
+     */
+    orderBy?: DeactivationReasonOrderByWithRelationInput | DeactivationReasonOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DeactivationReasonWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DeactivationReasons from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DeactivationReasons.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DeactivationReasons
+    **/
+    _count?: true | DeactivationReasonCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DeactivationReasonMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DeactivationReasonMaxAggregateInputType
+  }
+
+  export type GetDeactivationReasonAggregateType<T extends DeactivationReasonAggregateArgs> = {
+        [P in keyof T & keyof AggregateDeactivationReason]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDeactivationReason[P]>
+      : GetScalarType<T[P], AggregateDeactivationReason[P]>
+  }
+
+
+
+
+  export type DeactivationReasonGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DeactivationReasonWhereInput
+    orderBy?: DeactivationReasonOrderByWithAggregationInput | DeactivationReasonOrderByWithAggregationInput[]
+    by: DeactivationReasonScalarFieldEnum[] | DeactivationReasonScalarFieldEnum
+    having?: DeactivationReasonScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DeactivationReasonCountAggregateInputType | true
+    _min?: DeactivationReasonMinAggregateInputType
+    _max?: DeactivationReasonMaxAggregateInputType
+  }
+
+  export type DeactivationReasonGroupByOutputType = {
+    id: string
+    title: string
+    description: string | null
+    branchId: string
+    createdAt: Date
+    updatedAt: Date
+    _count: DeactivationReasonCountAggregateOutputType | null
+    _min: DeactivationReasonMinAggregateOutputType | null
+    _max: DeactivationReasonMaxAggregateOutputType | null
+  }
+
+  type GetDeactivationReasonGroupByPayload<T extends DeactivationReasonGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DeactivationReasonGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DeactivationReasonGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DeactivationReasonGroupByOutputType[P]>
+            : GetScalarType<T[P], DeactivationReasonGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DeactivationReasonSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    branchId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+    deactivations?: boolean | DeactivationReason$deactivationsArgs<ExtArgs>
+    _count?: boolean | DeactivationReasonCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["deactivationReason"]>
+
+  export type DeactivationReasonSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    branchId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["deactivationReason"]>
+
+  export type DeactivationReasonSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    branchId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["deactivationReason"]>
+
+  export type DeactivationReasonSelectScalar = {
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    branchId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DeactivationReasonOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "branchId" | "createdAt" | "updatedAt", ExtArgs["result"]["deactivationReason"]>
+  export type DeactivationReasonInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+    deactivations?: boolean | DeactivationReason$deactivationsArgs<ExtArgs>
+    _count?: boolean | DeactivationReasonCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type DeactivationReasonIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+  }
+  export type DeactivationReasonIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+  }
+
+  export type $DeactivationReasonPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DeactivationReason"
+    objects: {
+      branch: Prisma.$BranchPayload<ExtArgs>
+      deactivations: Prisma.$LoginDeactivationPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      description: string | null
+      branchId: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["deactivationReason"]>
+    composites: {}
+  }
+
+  type DeactivationReasonGetPayload<S extends boolean | null | undefined | DeactivationReasonDefaultArgs> = $Result.GetResult<Prisma.$DeactivationReasonPayload, S>
+
+  type DeactivationReasonCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DeactivationReasonFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DeactivationReasonCountAggregateInputType | true
+    }
+
+  export interface DeactivationReasonDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DeactivationReason'], meta: { name: 'DeactivationReason' } }
+    /**
+     * Find zero or one DeactivationReason that matches the filter.
+     * @param {DeactivationReasonFindUniqueArgs} args - Arguments to find a DeactivationReason
+     * @example
+     * // Get one DeactivationReason
+     * const deactivationReason = await prisma.deactivationReason.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DeactivationReasonFindUniqueArgs>(args: SelectSubset<T, DeactivationReasonFindUniqueArgs<ExtArgs>>): Prisma__DeactivationReasonClient<$Result.GetResult<Prisma.$DeactivationReasonPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DeactivationReason that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DeactivationReasonFindUniqueOrThrowArgs} args - Arguments to find a DeactivationReason
+     * @example
+     * // Get one DeactivationReason
+     * const deactivationReason = await prisma.deactivationReason.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DeactivationReasonFindUniqueOrThrowArgs>(args: SelectSubset<T, DeactivationReasonFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DeactivationReasonClient<$Result.GetResult<Prisma.$DeactivationReasonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DeactivationReason that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeactivationReasonFindFirstArgs} args - Arguments to find a DeactivationReason
+     * @example
+     * // Get one DeactivationReason
+     * const deactivationReason = await prisma.deactivationReason.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DeactivationReasonFindFirstArgs>(args?: SelectSubset<T, DeactivationReasonFindFirstArgs<ExtArgs>>): Prisma__DeactivationReasonClient<$Result.GetResult<Prisma.$DeactivationReasonPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DeactivationReason that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeactivationReasonFindFirstOrThrowArgs} args - Arguments to find a DeactivationReason
+     * @example
+     * // Get one DeactivationReason
+     * const deactivationReason = await prisma.deactivationReason.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DeactivationReasonFindFirstOrThrowArgs>(args?: SelectSubset<T, DeactivationReasonFindFirstOrThrowArgs<ExtArgs>>): Prisma__DeactivationReasonClient<$Result.GetResult<Prisma.$DeactivationReasonPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DeactivationReasons that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeactivationReasonFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DeactivationReasons
+     * const deactivationReasons = await prisma.deactivationReason.findMany()
+     * 
+     * // Get first 10 DeactivationReasons
+     * const deactivationReasons = await prisma.deactivationReason.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const deactivationReasonWithIdOnly = await prisma.deactivationReason.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DeactivationReasonFindManyArgs>(args?: SelectSubset<T, DeactivationReasonFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeactivationReasonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DeactivationReason.
+     * @param {DeactivationReasonCreateArgs} args - Arguments to create a DeactivationReason.
+     * @example
+     * // Create one DeactivationReason
+     * const DeactivationReason = await prisma.deactivationReason.create({
+     *   data: {
+     *     // ... data to create a DeactivationReason
+     *   }
+     * })
+     * 
+     */
+    create<T extends DeactivationReasonCreateArgs>(args: SelectSubset<T, DeactivationReasonCreateArgs<ExtArgs>>): Prisma__DeactivationReasonClient<$Result.GetResult<Prisma.$DeactivationReasonPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DeactivationReasons.
+     * @param {DeactivationReasonCreateManyArgs} args - Arguments to create many DeactivationReasons.
+     * @example
+     * // Create many DeactivationReasons
+     * const deactivationReason = await prisma.deactivationReason.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DeactivationReasonCreateManyArgs>(args?: SelectSubset<T, DeactivationReasonCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DeactivationReasons and returns the data saved in the database.
+     * @param {DeactivationReasonCreateManyAndReturnArgs} args - Arguments to create many DeactivationReasons.
+     * @example
+     * // Create many DeactivationReasons
+     * const deactivationReason = await prisma.deactivationReason.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DeactivationReasons and only return the `id`
+     * const deactivationReasonWithIdOnly = await prisma.deactivationReason.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DeactivationReasonCreateManyAndReturnArgs>(args?: SelectSubset<T, DeactivationReasonCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeactivationReasonPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DeactivationReason.
+     * @param {DeactivationReasonDeleteArgs} args - Arguments to delete one DeactivationReason.
+     * @example
+     * // Delete one DeactivationReason
+     * const DeactivationReason = await prisma.deactivationReason.delete({
+     *   where: {
+     *     // ... filter to delete one DeactivationReason
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DeactivationReasonDeleteArgs>(args: SelectSubset<T, DeactivationReasonDeleteArgs<ExtArgs>>): Prisma__DeactivationReasonClient<$Result.GetResult<Prisma.$DeactivationReasonPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DeactivationReason.
+     * @param {DeactivationReasonUpdateArgs} args - Arguments to update one DeactivationReason.
+     * @example
+     * // Update one DeactivationReason
+     * const deactivationReason = await prisma.deactivationReason.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DeactivationReasonUpdateArgs>(args: SelectSubset<T, DeactivationReasonUpdateArgs<ExtArgs>>): Prisma__DeactivationReasonClient<$Result.GetResult<Prisma.$DeactivationReasonPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DeactivationReasons.
+     * @param {DeactivationReasonDeleteManyArgs} args - Arguments to filter DeactivationReasons to delete.
+     * @example
+     * // Delete a few DeactivationReasons
+     * const { count } = await prisma.deactivationReason.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DeactivationReasonDeleteManyArgs>(args?: SelectSubset<T, DeactivationReasonDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DeactivationReasons.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeactivationReasonUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DeactivationReasons
+     * const deactivationReason = await prisma.deactivationReason.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DeactivationReasonUpdateManyArgs>(args: SelectSubset<T, DeactivationReasonUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DeactivationReasons and returns the data updated in the database.
+     * @param {DeactivationReasonUpdateManyAndReturnArgs} args - Arguments to update many DeactivationReasons.
+     * @example
+     * // Update many DeactivationReasons
+     * const deactivationReason = await prisma.deactivationReason.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DeactivationReasons and only return the `id`
+     * const deactivationReasonWithIdOnly = await prisma.deactivationReason.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DeactivationReasonUpdateManyAndReturnArgs>(args: SelectSubset<T, DeactivationReasonUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeactivationReasonPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DeactivationReason.
+     * @param {DeactivationReasonUpsertArgs} args - Arguments to update or create a DeactivationReason.
+     * @example
+     * // Update or create a DeactivationReason
+     * const deactivationReason = await prisma.deactivationReason.upsert({
+     *   create: {
+     *     // ... data to create a DeactivationReason
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DeactivationReason we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DeactivationReasonUpsertArgs>(args: SelectSubset<T, DeactivationReasonUpsertArgs<ExtArgs>>): Prisma__DeactivationReasonClient<$Result.GetResult<Prisma.$DeactivationReasonPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DeactivationReasons.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeactivationReasonCountArgs} args - Arguments to filter DeactivationReasons to count.
+     * @example
+     * // Count the number of DeactivationReasons
+     * const count = await prisma.deactivationReason.count({
+     *   where: {
+     *     // ... the filter for the DeactivationReasons we want to count
+     *   }
+     * })
+    **/
+    count<T extends DeactivationReasonCountArgs>(
+      args?: Subset<T, DeactivationReasonCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DeactivationReasonCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DeactivationReason.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeactivationReasonAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DeactivationReasonAggregateArgs>(args: Subset<T, DeactivationReasonAggregateArgs>): Prisma.PrismaPromise<GetDeactivationReasonAggregateType<T>>
+
+    /**
+     * Group by DeactivationReason.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeactivationReasonGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DeactivationReasonGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DeactivationReasonGroupByArgs['orderBy'] }
+        : { orderBy?: DeactivationReasonGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DeactivationReasonGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDeactivationReasonGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DeactivationReason model
+   */
+  readonly fields: DeactivationReasonFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DeactivationReason.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DeactivationReasonClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    branch<T extends BranchDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BranchDefaultArgs<ExtArgs>>): Prisma__BranchClient<$Result.GetResult<Prisma.$BranchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    deactivations<T extends DeactivationReason$deactivationsArgs<ExtArgs> = {}>(args?: Subset<T, DeactivationReason$deactivationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LoginDeactivationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DeactivationReason model
+   */
+  interface DeactivationReasonFieldRefs {
+    readonly id: FieldRef<"DeactivationReason", 'String'>
+    readonly title: FieldRef<"DeactivationReason", 'String'>
+    readonly description: FieldRef<"DeactivationReason", 'String'>
+    readonly branchId: FieldRef<"DeactivationReason", 'String'>
+    readonly createdAt: FieldRef<"DeactivationReason", 'DateTime'>
+    readonly updatedAt: FieldRef<"DeactivationReason", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DeactivationReason findUnique
+   */
+  export type DeactivationReasonFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeactivationReason
+     */
+    select?: DeactivationReasonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeactivationReason
+     */
+    omit?: DeactivationReasonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeactivationReasonInclude<ExtArgs> | null
+    /**
+     * Filter, which DeactivationReason to fetch.
+     */
+    where: DeactivationReasonWhereUniqueInput
+  }
+
+  /**
+   * DeactivationReason findUniqueOrThrow
+   */
+  export type DeactivationReasonFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeactivationReason
+     */
+    select?: DeactivationReasonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeactivationReason
+     */
+    omit?: DeactivationReasonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeactivationReasonInclude<ExtArgs> | null
+    /**
+     * Filter, which DeactivationReason to fetch.
+     */
+    where: DeactivationReasonWhereUniqueInput
+  }
+
+  /**
+   * DeactivationReason findFirst
+   */
+  export type DeactivationReasonFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeactivationReason
+     */
+    select?: DeactivationReasonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeactivationReason
+     */
+    omit?: DeactivationReasonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeactivationReasonInclude<ExtArgs> | null
+    /**
+     * Filter, which DeactivationReason to fetch.
+     */
+    where?: DeactivationReasonWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DeactivationReasons to fetch.
+     */
+    orderBy?: DeactivationReasonOrderByWithRelationInput | DeactivationReasonOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DeactivationReasons.
+     */
+    cursor?: DeactivationReasonWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DeactivationReasons from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DeactivationReasons.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DeactivationReasons.
+     */
+    distinct?: DeactivationReasonScalarFieldEnum | DeactivationReasonScalarFieldEnum[]
+  }
+
+  /**
+   * DeactivationReason findFirstOrThrow
+   */
+  export type DeactivationReasonFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeactivationReason
+     */
+    select?: DeactivationReasonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeactivationReason
+     */
+    omit?: DeactivationReasonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeactivationReasonInclude<ExtArgs> | null
+    /**
+     * Filter, which DeactivationReason to fetch.
+     */
+    where?: DeactivationReasonWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DeactivationReasons to fetch.
+     */
+    orderBy?: DeactivationReasonOrderByWithRelationInput | DeactivationReasonOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DeactivationReasons.
+     */
+    cursor?: DeactivationReasonWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DeactivationReasons from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DeactivationReasons.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DeactivationReasons.
+     */
+    distinct?: DeactivationReasonScalarFieldEnum | DeactivationReasonScalarFieldEnum[]
+  }
+
+  /**
+   * DeactivationReason findMany
+   */
+  export type DeactivationReasonFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeactivationReason
+     */
+    select?: DeactivationReasonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeactivationReason
+     */
+    omit?: DeactivationReasonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeactivationReasonInclude<ExtArgs> | null
+    /**
+     * Filter, which DeactivationReasons to fetch.
+     */
+    where?: DeactivationReasonWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DeactivationReasons to fetch.
+     */
+    orderBy?: DeactivationReasonOrderByWithRelationInput | DeactivationReasonOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DeactivationReasons.
+     */
+    cursor?: DeactivationReasonWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DeactivationReasons from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DeactivationReasons.
+     */
+    skip?: number
+    distinct?: DeactivationReasonScalarFieldEnum | DeactivationReasonScalarFieldEnum[]
+  }
+
+  /**
+   * DeactivationReason create
+   */
+  export type DeactivationReasonCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeactivationReason
+     */
+    select?: DeactivationReasonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeactivationReason
+     */
+    omit?: DeactivationReasonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeactivationReasonInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DeactivationReason.
+     */
+    data: XOR<DeactivationReasonCreateInput, DeactivationReasonUncheckedCreateInput>
+  }
+
+  /**
+   * DeactivationReason createMany
+   */
+  export type DeactivationReasonCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DeactivationReasons.
+     */
+    data: DeactivationReasonCreateManyInput | DeactivationReasonCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DeactivationReason createManyAndReturn
+   */
+  export type DeactivationReasonCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeactivationReason
+     */
+    select?: DeactivationReasonSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeactivationReason
+     */
+    omit?: DeactivationReasonOmit<ExtArgs> | null
+    /**
+     * The data used to create many DeactivationReasons.
+     */
+    data: DeactivationReasonCreateManyInput | DeactivationReasonCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeactivationReasonIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DeactivationReason update
+   */
+  export type DeactivationReasonUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeactivationReason
+     */
+    select?: DeactivationReasonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeactivationReason
+     */
+    omit?: DeactivationReasonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeactivationReasonInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DeactivationReason.
+     */
+    data: XOR<DeactivationReasonUpdateInput, DeactivationReasonUncheckedUpdateInput>
+    /**
+     * Choose, which DeactivationReason to update.
+     */
+    where: DeactivationReasonWhereUniqueInput
+  }
+
+  /**
+   * DeactivationReason updateMany
+   */
+  export type DeactivationReasonUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DeactivationReasons.
+     */
+    data: XOR<DeactivationReasonUpdateManyMutationInput, DeactivationReasonUncheckedUpdateManyInput>
+    /**
+     * Filter which DeactivationReasons to update
+     */
+    where?: DeactivationReasonWhereInput
+    /**
+     * Limit how many DeactivationReasons to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DeactivationReason updateManyAndReturn
+   */
+  export type DeactivationReasonUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeactivationReason
+     */
+    select?: DeactivationReasonSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeactivationReason
+     */
+    omit?: DeactivationReasonOmit<ExtArgs> | null
+    /**
+     * The data used to update DeactivationReasons.
+     */
+    data: XOR<DeactivationReasonUpdateManyMutationInput, DeactivationReasonUncheckedUpdateManyInput>
+    /**
+     * Filter which DeactivationReasons to update
+     */
+    where?: DeactivationReasonWhereInput
+    /**
+     * Limit how many DeactivationReasons to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeactivationReasonIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DeactivationReason upsert
+   */
+  export type DeactivationReasonUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeactivationReason
+     */
+    select?: DeactivationReasonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeactivationReason
+     */
+    omit?: DeactivationReasonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeactivationReasonInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DeactivationReason to update in case it exists.
+     */
+    where: DeactivationReasonWhereUniqueInput
+    /**
+     * In case the DeactivationReason found by the `where` argument doesn't exist, create a new DeactivationReason with this data.
+     */
+    create: XOR<DeactivationReasonCreateInput, DeactivationReasonUncheckedCreateInput>
+    /**
+     * In case the DeactivationReason was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DeactivationReasonUpdateInput, DeactivationReasonUncheckedUpdateInput>
+  }
+
+  /**
+   * DeactivationReason delete
+   */
+  export type DeactivationReasonDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeactivationReason
+     */
+    select?: DeactivationReasonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeactivationReason
+     */
+    omit?: DeactivationReasonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeactivationReasonInclude<ExtArgs> | null
+    /**
+     * Filter which DeactivationReason to delete.
+     */
+    where: DeactivationReasonWhereUniqueInput
+  }
+
+  /**
+   * DeactivationReason deleteMany
+   */
+  export type DeactivationReasonDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DeactivationReasons to delete
+     */
+    where?: DeactivationReasonWhereInput
+    /**
+     * Limit how many DeactivationReasons to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DeactivationReason.deactivations
+   */
+  export type DeactivationReason$deactivationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LoginDeactivation
+     */
+    select?: LoginDeactivationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LoginDeactivation
+     */
+    omit?: LoginDeactivationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LoginDeactivationInclude<ExtArgs> | null
+    where?: LoginDeactivationWhereInput
+    orderBy?: LoginDeactivationOrderByWithRelationInput | LoginDeactivationOrderByWithRelationInput[]
+    cursor?: LoginDeactivationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LoginDeactivationScalarFieldEnum | LoginDeactivationScalarFieldEnum[]
+  }
+
+  /**
+   * DeactivationReason without action
+   */
+  export type DeactivationReasonDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeactivationReason
+     */
+    select?: DeactivationReasonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeactivationReason
+     */
+    omit?: DeactivationReasonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeactivationReasonInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model LoginDeactivation
+   */
+
+  export type AggregateLoginDeactivation = {
+    _count: LoginDeactivationCountAggregateOutputType | null
+    _min: LoginDeactivationMinAggregateOutputType | null
+    _max: LoginDeactivationMaxAggregateOutputType | null
+  }
+
+  export type LoginDeactivationMinAggregateOutputType = {
+    id: string | null
+    studentId: string | null
+    userId: string | null
+    reason: string | null
+    reasonId: string | null
+    branchId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type LoginDeactivationMaxAggregateOutputType = {
+    id: string | null
+    studentId: string | null
+    userId: string | null
+    reason: string | null
+    reasonId: string | null
+    branchId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type LoginDeactivationCountAggregateOutputType = {
+    id: number
+    studentId: number
+    userId: number
+    reason: number
+    reasonId: number
+    branchId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type LoginDeactivationMinAggregateInputType = {
+    id?: true
+    studentId?: true
+    userId?: true
+    reason?: true
+    reasonId?: true
+    branchId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type LoginDeactivationMaxAggregateInputType = {
+    id?: true
+    studentId?: true
+    userId?: true
+    reason?: true
+    reasonId?: true
+    branchId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type LoginDeactivationCountAggregateInputType = {
+    id?: true
+    studentId?: true
+    userId?: true
+    reason?: true
+    reasonId?: true
+    branchId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type LoginDeactivationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LoginDeactivation to aggregate.
+     */
+    where?: LoginDeactivationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LoginDeactivations to fetch.
+     */
+    orderBy?: LoginDeactivationOrderByWithRelationInput | LoginDeactivationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LoginDeactivationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LoginDeactivations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LoginDeactivations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LoginDeactivations
+    **/
+    _count?: true | LoginDeactivationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LoginDeactivationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LoginDeactivationMaxAggregateInputType
+  }
+
+  export type GetLoginDeactivationAggregateType<T extends LoginDeactivationAggregateArgs> = {
+        [P in keyof T & keyof AggregateLoginDeactivation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLoginDeactivation[P]>
+      : GetScalarType<T[P], AggregateLoginDeactivation[P]>
+  }
+
+
+
+
+  export type LoginDeactivationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LoginDeactivationWhereInput
+    orderBy?: LoginDeactivationOrderByWithAggregationInput | LoginDeactivationOrderByWithAggregationInput[]
+    by: LoginDeactivationScalarFieldEnum[] | LoginDeactivationScalarFieldEnum
+    having?: LoginDeactivationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LoginDeactivationCountAggregateInputType | true
+    _min?: LoginDeactivationMinAggregateInputType
+    _max?: LoginDeactivationMaxAggregateInputType
+  }
+
+  export type LoginDeactivationGroupByOutputType = {
+    id: string
+    studentId: string
+    userId: string
+    reason: string
+    reasonId: string | null
+    branchId: string
+    createdAt: Date
+    updatedAt: Date
+    _count: LoginDeactivationCountAggregateOutputType | null
+    _min: LoginDeactivationMinAggregateOutputType | null
+    _max: LoginDeactivationMaxAggregateOutputType | null
+  }
+
+  type GetLoginDeactivationGroupByPayload<T extends LoginDeactivationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LoginDeactivationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LoginDeactivationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LoginDeactivationGroupByOutputType[P]>
+            : GetScalarType<T[P], LoginDeactivationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LoginDeactivationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    studentId?: boolean
+    userId?: boolean
+    reason?: boolean
+    reasonId?: boolean
+    branchId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    reasonRef?: boolean | LoginDeactivation$reasonRefArgs<ExtArgs>
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["loginDeactivation"]>
+
+  export type LoginDeactivationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    studentId?: boolean
+    userId?: boolean
+    reason?: boolean
+    reasonId?: boolean
+    branchId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    reasonRef?: boolean | LoginDeactivation$reasonRefArgs<ExtArgs>
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["loginDeactivation"]>
+
+  export type LoginDeactivationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    studentId?: boolean
+    userId?: boolean
+    reason?: boolean
+    reasonId?: boolean
+    branchId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    reasonRef?: boolean | LoginDeactivation$reasonRefArgs<ExtArgs>
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["loginDeactivation"]>
+
+  export type LoginDeactivationSelectScalar = {
+    id?: boolean
+    studentId?: boolean
+    userId?: boolean
+    reason?: boolean
+    reasonId?: boolean
+    branchId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type LoginDeactivationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "studentId" | "userId" | "reason" | "reasonId" | "branchId" | "createdAt" | "updatedAt", ExtArgs["result"]["loginDeactivation"]>
+  export type LoginDeactivationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reasonRef?: boolean | LoginDeactivation$reasonRefArgs<ExtArgs>
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+  }
+  export type LoginDeactivationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reasonRef?: boolean | LoginDeactivation$reasonRefArgs<ExtArgs>
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+  }
+  export type LoginDeactivationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reasonRef?: boolean | LoginDeactivation$reasonRefArgs<ExtArgs>
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+  }
+
+  export type $LoginDeactivationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LoginDeactivation"
+    objects: {
+      reasonRef: Prisma.$DeactivationReasonPayload<ExtArgs> | null
+      branch: Prisma.$BranchPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      studentId: string
+      userId: string
+      reason: string
+      reasonId: string | null
+      branchId: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["loginDeactivation"]>
+    composites: {}
+  }
+
+  type LoginDeactivationGetPayload<S extends boolean | null | undefined | LoginDeactivationDefaultArgs> = $Result.GetResult<Prisma.$LoginDeactivationPayload, S>
+
+  type LoginDeactivationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LoginDeactivationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LoginDeactivationCountAggregateInputType | true
+    }
+
+  export interface LoginDeactivationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LoginDeactivation'], meta: { name: 'LoginDeactivation' } }
+    /**
+     * Find zero or one LoginDeactivation that matches the filter.
+     * @param {LoginDeactivationFindUniqueArgs} args - Arguments to find a LoginDeactivation
+     * @example
+     * // Get one LoginDeactivation
+     * const loginDeactivation = await prisma.loginDeactivation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LoginDeactivationFindUniqueArgs>(args: SelectSubset<T, LoginDeactivationFindUniqueArgs<ExtArgs>>): Prisma__LoginDeactivationClient<$Result.GetResult<Prisma.$LoginDeactivationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one LoginDeactivation that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LoginDeactivationFindUniqueOrThrowArgs} args - Arguments to find a LoginDeactivation
+     * @example
+     * // Get one LoginDeactivation
+     * const loginDeactivation = await prisma.loginDeactivation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LoginDeactivationFindUniqueOrThrowArgs>(args: SelectSubset<T, LoginDeactivationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LoginDeactivationClient<$Result.GetResult<Prisma.$LoginDeactivationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LoginDeactivation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LoginDeactivationFindFirstArgs} args - Arguments to find a LoginDeactivation
+     * @example
+     * // Get one LoginDeactivation
+     * const loginDeactivation = await prisma.loginDeactivation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LoginDeactivationFindFirstArgs>(args?: SelectSubset<T, LoginDeactivationFindFirstArgs<ExtArgs>>): Prisma__LoginDeactivationClient<$Result.GetResult<Prisma.$LoginDeactivationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LoginDeactivation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LoginDeactivationFindFirstOrThrowArgs} args - Arguments to find a LoginDeactivation
+     * @example
+     * // Get one LoginDeactivation
+     * const loginDeactivation = await prisma.loginDeactivation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LoginDeactivationFindFirstOrThrowArgs>(args?: SelectSubset<T, LoginDeactivationFindFirstOrThrowArgs<ExtArgs>>): Prisma__LoginDeactivationClient<$Result.GetResult<Prisma.$LoginDeactivationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more LoginDeactivations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LoginDeactivationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LoginDeactivations
+     * const loginDeactivations = await prisma.loginDeactivation.findMany()
+     * 
+     * // Get first 10 LoginDeactivations
+     * const loginDeactivations = await prisma.loginDeactivation.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const loginDeactivationWithIdOnly = await prisma.loginDeactivation.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LoginDeactivationFindManyArgs>(args?: SelectSubset<T, LoginDeactivationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LoginDeactivationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a LoginDeactivation.
+     * @param {LoginDeactivationCreateArgs} args - Arguments to create a LoginDeactivation.
+     * @example
+     * // Create one LoginDeactivation
+     * const LoginDeactivation = await prisma.loginDeactivation.create({
+     *   data: {
+     *     // ... data to create a LoginDeactivation
+     *   }
+     * })
+     * 
+     */
+    create<T extends LoginDeactivationCreateArgs>(args: SelectSubset<T, LoginDeactivationCreateArgs<ExtArgs>>): Prisma__LoginDeactivationClient<$Result.GetResult<Prisma.$LoginDeactivationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many LoginDeactivations.
+     * @param {LoginDeactivationCreateManyArgs} args - Arguments to create many LoginDeactivations.
+     * @example
+     * // Create many LoginDeactivations
+     * const loginDeactivation = await prisma.loginDeactivation.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LoginDeactivationCreateManyArgs>(args?: SelectSubset<T, LoginDeactivationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many LoginDeactivations and returns the data saved in the database.
+     * @param {LoginDeactivationCreateManyAndReturnArgs} args - Arguments to create many LoginDeactivations.
+     * @example
+     * // Create many LoginDeactivations
+     * const loginDeactivation = await prisma.loginDeactivation.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many LoginDeactivations and only return the `id`
+     * const loginDeactivationWithIdOnly = await prisma.loginDeactivation.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LoginDeactivationCreateManyAndReturnArgs>(args?: SelectSubset<T, LoginDeactivationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LoginDeactivationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a LoginDeactivation.
+     * @param {LoginDeactivationDeleteArgs} args - Arguments to delete one LoginDeactivation.
+     * @example
+     * // Delete one LoginDeactivation
+     * const LoginDeactivation = await prisma.loginDeactivation.delete({
+     *   where: {
+     *     // ... filter to delete one LoginDeactivation
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LoginDeactivationDeleteArgs>(args: SelectSubset<T, LoginDeactivationDeleteArgs<ExtArgs>>): Prisma__LoginDeactivationClient<$Result.GetResult<Prisma.$LoginDeactivationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one LoginDeactivation.
+     * @param {LoginDeactivationUpdateArgs} args - Arguments to update one LoginDeactivation.
+     * @example
+     * // Update one LoginDeactivation
+     * const loginDeactivation = await prisma.loginDeactivation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LoginDeactivationUpdateArgs>(args: SelectSubset<T, LoginDeactivationUpdateArgs<ExtArgs>>): Prisma__LoginDeactivationClient<$Result.GetResult<Prisma.$LoginDeactivationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more LoginDeactivations.
+     * @param {LoginDeactivationDeleteManyArgs} args - Arguments to filter LoginDeactivations to delete.
+     * @example
+     * // Delete a few LoginDeactivations
+     * const { count } = await prisma.loginDeactivation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LoginDeactivationDeleteManyArgs>(args?: SelectSubset<T, LoginDeactivationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LoginDeactivations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LoginDeactivationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LoginDeactivations
+     * const loginDeactivation = await prisma.loginDeactivation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LoginDeactivationUpdateManyArgs>(args: SelectSubset<T, LoginDeactivationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LoginDeactivations and returns the data updated in the database.
+     * @param {LoginDeactivationUpdateManyAndReturnArgs} args - Arguments to update many LoginDeactivations.
+     * @example
+     * // Update many LoginDeactivations
+     * const loginDeactivation = await prisma.loginDeactivation.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more LoginDeactivations and only return the `id`
+     * const loginDeactivationWithIdOnly = await prisma.loginDeactivation.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LoginDeactivationUpdateManyAndReturnArgs>(args: SelectSubset<T, LoginDeactivationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LoginDeactivationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one LoginDeactivation.
+     * @param {LoginDeactivationUpsertArgs} args - Arguments to update or create a LoginDeactivation.
+     * @example
+     * // Update or create a LoginDeactivation
+     * const loginDeactivation = await prisma.loginDeactivation.upsert({
+     *   create: {
+     *     // ... data to create a LoginDeactivation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LoginDeactivation we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LoginDeactivationUpsertArgs>(args: SelectSubset<T, LoginDeactivationUpsertArgs<ExtArgs>>): Prisma__LoginDeactivationClient<$Result.GetResult<Prisma.$LoginDeactivationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of LoginDeactivations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LoginDeactivationCountArgs} args - Arguments to filter LoginDeactivations to count.
+     * @example
+     * // Count the number of LoginDeactivations
+     * const count = await prisma.loginDeactivation.count({
+     *   where: {
+     *     // ... the filter for the LoginDeactivations we want to count
+     *   }
+     * })
+    **/
+    count<T extends LoginDeactivationCountArgs>(
+      args?: Subset<T, LoginDeactivationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LoginDeactivationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LoginDeactivation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LoginDeactivationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LoginDeactivationAggregateArgs>(args: Subset<T, LoginDeactivationAggregateArgs>): Prisma.PrismaPromise<GetLoginDeactivationAggregateType<T>>
+
+    /**
+     * Group by LoginDeactivation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LoginDeactivationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LoginDeactivationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LoginDeactivationGroupByArgs['orderBy'] }
+        : { orderBy?: LoginDeactivationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LoginDeactivationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLoginDeactivationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the LoginDeactivation model
+   */
+  readonly fields: LoginDeactivationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LoginDeactivation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LoginDeactivationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    reasonRef<T extends LoginDeactivation$reasonRefArgs<ExtArgs> = {}>(args?: Subset<T, LoginDeactivation$reasonRefArgs<ExtArgs>>): Prisma__DeactivationReasonClient<$Result.GetResult<Prisma.$DeactivationReasonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    branch<T extends BranchDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BranchDefaultArgs<ExtArgs>>): Prisma__BranchClient<$Result.GetResult<Prisma.$BranchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the LoginDeactivation model
+   */
+  interface LoginDeactivationFieldRefs {
+    readonly id: FieldRef<"LoginDeactivation", 'String'>
+    readonly studentId: FieldRef<"LoginDeactivation", 'String'>
+    readonly userId: FieldRef<"LoginDeactivation", 'String'>
+    readonly reason: FieldRef<"LoginDeactivation", 'String'>
+    readonly reasonId: FieldRef<"LoginDeactivation", 'String'>
+    readonly branchId: FieldRef<"LoginDeactivation", 'String'>
+    readonly createdAt: FieldRef<"LoginDeactivation", 'DateTime'>
+    readonly updatedAt: FieldRef<"LoginDeactivation", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * LoginDeactivation findUnique
+   */
+  export type LoginDeactivationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LoginDeactivation
+     */
+    select?: LoginDeactivationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LoginDeactivation
+     */
+    omit?: LoginDeactivationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LoginDeactivationInclude<ExtArgs> | null
+    /**
+     * Filter, which LoginDeactivation to fetch.
+     */
+    where: LoginDeactivationWhereUniqueInput
+  }
+
+  /**
+   * LoginDeactivation findUniqueOrThrow
+   */
+  export type LoginDeactivationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LoginDeactivation
+     */
+    select?: LoginDeactivationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LoginDeactivation
+     */
+    omit?: LoginDeactivationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LoginDeactivationInclude<ExtArgs> | null
+    /**
+     * Filter, which LoginDeactivation to fetch.
+     */
+    where: LoginDeactivationWhereUniqueInput
+  }
+
+  /**
+   * LoginDeactivation findFirst
+   */
+  export type LoginDeactivationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LoginDeactivation
+     */
+    select?: LoginDeactivationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LoginDeactivation
+     */
+    omit?: LoginDeactivationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LoginDeactivationInclude<ExtArgs> | null
+    /**
+     * Filter, which LoginDeactivation to fetch.
+     */
+    where?: LoginDeactivationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LoginDeactivations to fetch.
+     */
+    orderBy?: LoginDeactivationOrderByWithRelationInput | LoginDeactivationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LoginDeactivations.
+     */
+    cursor?: LoginDeactivationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LoginDeactivations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LoginDeactivations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LoginDeactivations.
+     */
+    distinct?: LoginDeactivationScalarFieldEnum | LoginDeactivationScalarFieldEnum[]
+  }
+
+  /**
+   * LoginDeactivation findFirstOrThrow
+   */
+  export type LoginDeactivationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LoginDeactivation
+     */
+    select?: LoginDeactivationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LoginDeactivation
+     */
+    omit?: LoginDeactivationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LoginDeactivationInclude<ExtArgs> | null
+    /**
+     * Filter, which LoginDeactivation to fetch.
+     */
+    where?: LoginDeactivationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LoginDeactivations to fetch.
+     */
+    orderBy?: LoginDeactivationOrderByWithRelationInput | LoginDeactivationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LoginDeactivations.
+     */
+    cursor?: LoginDeactivationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LoginDeactivations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LoginDeactivations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LoginDeactivations.
+     */
+    distinct?: LoginDeactivationScalarFieldEnum | LoginDeactivationScalarFieldEnum[]
+  }
+
+  /**
+   * LoginDeactivation findMany
+   */
+  export type LoginDeactivationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LoginDeactivation
+     */
+    select?: LoginDeactivationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LoginDeactivation
+     */
+    omit?: LoginDeactivationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LoginDeactivationInclude<ExtArgs> | null
+    /**
+     * Filter, which LoginDeactivations to fetch.
+     */
+    where?: LoginDeactivationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LoginDeactivations to fetch.
+     */
+    orderBy?: LoginDeactivationOrderByWithRelationInput | LoginDeactivationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LoginDeactivations.
+     */
+    cursor?: LoginDeactivationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LoginDeactivations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LoginDeactivations.
+     */
+    skip?: number
+    distinct?: LoginDeactivationScalarFieldEnum | LoginDeactivationScalarFieldEnum[]
+  }
+
+  /**
+   * LoginDeactivation create
+   */
+  export type LoginDeactivationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LoginDeactivation
+     */
+    select?: LoginDeactivationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LoginDeactivation
+     */
+    omit?: LoginDeactivationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LoginDeactivationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a LoginDeactivation.
+     */
+    data: XOR<LoginDeactivationCreateInput, LoginDeactivationUncheckedCreateInput>
+  }
+
+  /**
+   * LoginDeactivation createMany
+   */
+  export type LoginDeactivationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many LoginDeactivations.
+     */
+    data: LoginDeactivationCreateManyInput | LoginDeactivationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LoginDeactivation createManyAndReturn
+   */
+  export type LoginDeactivationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LoginDeactivation
+     */
+    select?: LoginDeactivationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LoginDeactivation
+     */
+    omit?: LoginDeactivationOmit<ExtArgs> | null
+    /**
+     * The data used to create many LoginDeactivations.
+     */
+    data: LoginDeactivationCreateManyInput | LoginDeactivationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LoginDeactivationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LoginDeactivation update
+   */
+  export type LoginDeactivationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LoginDeactivation
+     */
+    select?: LoginDeactivationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LoginDeactivation
+     */
+    omit?: LoginDeactivationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LoginDeactivationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a LoginDeactivation.
+     */
+    data: XOR<LoginDeactivationUpdateInput, LoginDeactivationUncheckedUpdateInput>
+    /**
+     * Choose, which LoginDeactivation to update.
+     */
+    where: LoginDeactivationWhereUniqueInput
+  }
+
+  /**
+   * LoginDeactivation updateMany
+   */
+  export type LoginDeactivationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update LoginDeactivations.
+     */
+    data: XOR<LoginDeactivationUpdateManyMutationInput, LoginDeactivationUncheckedUpdateManyInput>
+    /**
+     * Filter which LoginDeactivations to update
+     */
+    where?: LoginDeactivationWhereInput
+    /**
+     * Limit how many LoginDeactivations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LoginDeactivation updateManyAndReturn
+   */
+  export type LoginDeactivationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LoginDeactivation
+     */
+    select?: LoginDeactivationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LoginDeactivation
+     */
+    omit?: LoginDeactivationOmit<ExtArgs> | null
+    /**
+     * The data used to update LoginDeactivations.
+     */
+    data: XOR<LoginDeactivationUpdateManyMutationInput, LoginDeactivationUncheckedUpdateManyInput>
+    /**
+     * Filter which LoginDeactivations to update
+     */
+    where?: LoginDeactivationWhereInput
+    /**
+     * Limit how many LoginDeactivations to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LoginDeactivationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LoginDeactivation upsert
+   */
+  export type LoginDeactivationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LoginDeactivation
+     */
+    select?: LoginDeactivationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LoginDeactivation
+     */
+    omit?: LoginDeactivationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LoginDeactivationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the LoginDeactivation to update in case it exists.
+     */
+    where: LoginDeactivationWhereUniqueInput
+    /**
+     * In case the LoginDeactivation found by the `where` argument doesn't exist, create a new LoginDeactivation with this data.
+     */
+    create: XOR<LoginDeactivationCreateInput, LoginDeactivationUncheckedCreateInput>
+    /**
+     * In case the LoginDeactivation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LoginDeactivationUpdateInput, LoginDeactivationUncheckedUpdateInput>
+  }
+
+  /**
+   * LoginDeactivation delete
+   */
+  export type LoginDeactivationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LoginDeactivation
+     */
+    select?: LoginDeactivationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LoginDeactivation
+     */
+    omit?: LoginDeactivationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LoginDeactivationInclude<ExtArgs> | null
+    /**
+     * Filter which LoginDeactivation to delete.
+     */
+    where: LoginDeactivationWhereUniqueInput
+  }
+
+  /**
+   * LoginDeactivation deleteMany
+   */
+  export type LoginDeactivationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LoginDeactivations to delete
+     */
+    where?: LoginDeactivationWhereInput
+    /**
+     * Limit how many LoginDeactivations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * LoginDeactivation.reasonRef
+   */
+  export type LoginDeactivation$reasonRefArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeactivationReason
+     */
+    select?: DeactivationReasonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeactivationReason
+     */
+    omit?: DeactivationReasonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeactivationReasonInclude<ExtArgs> | null
+    where?: DeactivationReasonWhereInput
+  }
+
+  /**
+   * LoginDeactivation without action
+   */
+  export type LoginDeactivationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LoginDeactivation
+     */
+    select?: LoginDeactivationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LoginDeactivation
+     */
+    omit?: LoginDeactivationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LoginDeactivationInclude<ExtArgs> | null
   }
 
 
@@ -76314,6 +78826,9 @@ export namespace Prisma {
     email: string | null
     phone: string | null
     studentCategoryId: string | null
+    paymentReceiptUrl: string | null
+    paymentStatus: string | null
+    paymentMethod: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -76396,6 +78911,9 @@ export namespace Prisma {
     email: string | null
     phone: string | null
     studentCategoryId: string | null
+    paymentReceiptUrl: string | null
+    paymentStatus: string | null
+    paymentMethod: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -76478,6 +78996,9 @@ export namespace Prisma {
     email: number
     phone: number
     studentCategoryId: number
+    paymentReceiptUrl: number
+    paymentStatus: number
+    paymentMethod: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -76570,6 +79091,9 @@ export namespace Prisma {
     email?: true
     phone?: true
     studentCategoryId?: true
+    paymentReceiptUrl?: true
+    paymentStatus?: true
+    paymentMethod?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -76652,6 +79176,9 @@ export namespace Prisma {
     email?: true
     phone?: true
     studentCategoryId?: true
+    paymentReceiptUrl?: true
+    paymentStatus?: true
+    paymentMethod?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -76734,6 +79261,9 @@ export namespace Prisma {
     email?: true
     phone?: true
     studentCategoryId?: true
+    paymentReceiptUrl?: true
+    paymentStatus?: true
+    paymentMethod?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -76903,6 +79433,9 @@ export namespace Prisma {
     email: string | null
     phone: string | null
     studentCategoryId: string | null
+    paymentReceiptUrl: string | null
+    paymentStatus: string
+    paymentMethod: string
     createdAt: Date
     updatedAt: Date
     _count: OnlineAdmissionCountAggregateOutputType | null
@@ -77004,6 +79537,9 @@ export namespace Prisma {
     email?: boolean
     phone?: boolean
     studentCategoryId?: boolean
+    paymentReceiptUrl?: boolean
+    paymentStatus?: boolean
+    paymentMethod?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     academicSession?: boolean | OnlineAdmission$academicSessionArgs<ExtArgs>
@@ -77091,6 +79627,9 @@ export namespace Prisma {
     email?: boolean
     phone?: boolean
     studentCategoryId?: boolean
+    paymentReceiptUrl?: boolean
+    paymentStatus?: boolean
+    paymentMethod?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     academicSession?: boolean | OnlineAdmission$academicSessionArgs<ExtArgs>
@@ -77178,6 +79717,9 @@ export namespace Prisma {
     email?: boolean
     phone?: boolean
     studentCategoryId?: boolean
+    paymentReceiptUrl?: boolean
+    paymentStatus?: boolean
+    paymentMethod?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     academicSession?: boolean | OnlineAdmission$academicSessionArgs<ExtArgs>
@@ -77265,11 +79807,14 @@ export namespace Prisma {
     email?: boolean
     phone?: boolean
     studentCategoryId?: boolean
+    paymentReceiptUrl?: boolean
+    paymentStatus?: boolean
+    paymentMethod?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type OnlineAdmissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "admissionNumber" | "firstName" | "lastName" | "otherNames" | "gender" | "dateOfBirth" | "placeOfBirth" | "nationality" | "stateOfOrigin" | "lga" | "religion" | "passportPhoto" | "academicSessionId" | "admissionTerm" | "desiredClassId" | "desiredSectionId" | "admissionType" | "previousSchool" | "transferReason" | "assessmentScore" | "status" | "guardianName" | "guardianRelation" | "guardianPhone" | "guardianEmail" | "guardianAddress" | "guardianOccupation" | "guardianOfficeAddress" | "secondaryGuardianName" | "secondaryGuardianPhone" | "secondaryGuardianRelation" | "address" | "city" | "state" | "country" | "emergencyContactName" | "emergencyContactPhone" | "emergencyContactRelation" | "bloodGroup" | "genotype" | "allergies" | "medicalConditions" | "specialNeeds" | "familyDoctorName" | "familyDoctorPhone" | "hostelRequired" | "preferredHostel" | "hostelNotes" | "transportRequired" | "pickupLocation" | "preferredRoute" | "birthCertificateUrl" | "testimonialUrl" | "transferCertificateUrl" | "immunizationCardUrl" | "branchId" | "createdByStaffId" | "admissionDate" | "approvalDate" | "approvedByStaffId" | "studentStatus" | "createPortalAccount" | "guardianConsent" | "dataProcessingConsent" | "schoolRulesAgreement" | "signature" | "consentDate" | "studentEmail" | "portalUsername" | "preferredLanguage" | "religionClassType" | "scholarshipEligible" | "referralSource" | "email" | "phone" | "studentCategoryId" | "createdAt" | "updatedAt", ExtArgs["result"]["onlineAdmission"]>
+  export type OnlineAdmissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "admissionNumber" | "firstName" | "lastName" | "otherNames" | "gender" | "dateOfBirth" | "placeOfBirth" | "nationality" | "stateOfOrigin" | "lga" | "religion" | "passportPhoto" | "academicSessionId" | "admissionTerm" | "desiredClassId" | "desiredSectionId" | "admissionType" | "previousSchool" | "transferReason" | "assessmentScore" | "status" | "guardianName" | "guardianRelation" | "guardianPhone" | "guardianEmail" | "guardianAddress" | "guardianOccupation" | "guardianOfficeAddress" | "secondaryGuardianName" | "secondaryGuardianPhone" | "secondaryGuardianRelation" | "address" | "city" | "state" | "country" | "emergencyContactName" | "emergencyContactPhone" | "emergencyContactRelation" | "bloodGroup" | "genotype" | "allergies" | "medicalConditions" | "specialNeeds" | "familyDoctorName" | "familyDoctorPhone" | "hostelRequired" | "preferredHostel" | "hostelNotes" | "transportRequired" | "pickupLocation" | "preferredRoute" | "birthCertificateUrl" | "testimonialUrl" | "transferCertificateUrl" | "immunizationCardUrl" | "branchId" | "createdByStaffId" | "admissionDate" | "approvalDate" | "approvedByStaffId" | "studentStatus" | "createPortalAccount" | "guardianConsent" | "dataProcessingConsent" | "schoolRulesAgreement" | "signature" | "consentDate" | "studentEmail" | "portalUsername" | "preferredLanguage" | "religionClassType" | "scholarshipEligible" | "referralSource" | "email" | "phone" | "studentCategoryId" | "paymentReceiptUrl" | "paymentStatus" | "paymentMethod" | "createdAt" | "updatedAt", ExtArgs["result"]["onlineAdmission"]>
   export type OnlineAdmissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     academicSession?: boolean | OnlineAdmission$academicSessionArgs<ExtArgs>
     desiredClass?: boolean | ClassDefaultArgs<ExtArgs>
@@ -77379,6 +79924,9 @@ export namespace Prisma {
       email: string | null
       phone: string | null
       studentCategoryId: string | null
+      paymentReceiptUrl: string | null
+      paymentStatus: string
+      paymentMethod: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["onlineAdmission"]>
@@ -77886,6 +80434,9 @@ export namespace Prisma {
     readonly email: FieldRef<"OnlineAdmission", 'String'>
     readonly phone: FieldRef<"OnlineAdmission", 'String'>
     readonly studentCategoryId: FieldRef<"OnlineAdmission", 'String'>
+    readonly paymentReceiptUrl: FieldRef<"OnlineAdmission", 'String'>
+    readonly paymentStatus: FieldRef<"OnlineAdmission", 'String'>
+    readonly paymentMethod: FieldRef<"OnlineAdmission", 'String'>
     readonly createdAt: FieldRef<"OnlineAdmission", 'DateTime'>
     readonly updatedAt: FieldRef<"OnlineAdmission", 'DateTime'>
   }
@@ -104755,6 +107306,32 @@ export namespace Prisma {
   export type BranchScalarFieldEnum = (typeof BranchScalarFieldEnum)[keyof typeof BranchScalarFieldEnum]
 
 
+  export const DeactivationReasonScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    description: 'description',
+    branchId: 'branchId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DeactivationReasonScalarFieldEnum = (typeof DeactivationReasonScalarFieldEnum)[keyof typeof DeactivationReasonScalarFieldEnum]
+
+
+  export const LoginDeactivationScalarFieldEnum: {
+    id: 'id',
+    studentId: 'studentId',
+    userId: 'userId',
+    reason: 'reason',
+    reasonId: 'reasonId',
+    branchId: 'branchId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type LoginDeactivationScalarFieldEnum = (typeof LoginDeactivationScalarFieldEnum)[keyof typeof LoginDeactivationScalarFieldEnum]
+
+
   export const UserScalarFieldEnum: {
     id: 'id',
     email: 'email',
@@ -105673,6 +108250,9 @@ export namespace Prisma {
     email: 'email',
     phone: 'phone',
     studentCategoryId: 'studentCategoryId',
+    paymentReceiptUrl: 'paymentReceiptUrl',
+    paymentStatus: 'paymentStatus',
+    paymentMethod: 'paymentMethod',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -106375,6 +108955,8 @@ export namespace Prisma {
     campusEvents?: CampusEventListRelationFilter
     accessLogs?: CampusAccessLogListRelationFilter
     automationConfigs?: AutomationConfigListRelationFilter
+    deactivationReasons?: DeactivationReasonListRelationFilter
+    loginDeactivations?: LoginDeactivationListRelationFilter
   }
 
   export type BranchOrderByWithRelationInput = {
@@ -106426,6 +109008,8 @@ export namespace Prisma {
     campusEvents?: CampusEventOrderByRelationAggregateInput
     accessLogs?: CampusAccessLogOrderByRelationAggregateInput
     automationConfigs?: AutomationConfigOrderByRelationAggregateInput
+    deactivationReasons?: DeactivationReasonOrderByRelationAggregateInput
+    loginDeactivations?: LoginDeactivationOrderByRelationAggregateInput
   }
 
   export type BranchWhereUniqueInput = Prisma.AtLeast<{
@@ -106480,6 +109064,8 @@ export namespace Prisma {
     campusEvents?: CampusEventListRelationFilter
     accessLogs?: CampusAccessLogListRelationFilter
     automationConfigs?: AutomationConfigListRelationFilter
+    deactivationReasons?: DeactivationReasonListRelationFilter
+    loginDeactivations?: LoginDeactivationListRelationFilter
   }, "id" | "code">
 
   export type BranchOrderByWithAggregationInput = {
@@ -106510,6 +109096,142 @@ export namespace Prisma {
     isActive?: BoolWithAggregatesFilter<"Branch"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Branch"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Branch"> | Date | string
+  }
+
+  export type DeactivationReasonWhereInput = {
+    AND?: DeactivationReasonWhereInput | DeactivationReasonWhereInput[]
+    OR?: DeactivationReasonWhereInput[]
+    NOT?: DeactivationReasonWhereInput | DeactivationReasonWhereInput[]
+    id?: StringFilter<"DeactivationReason"> | string
+    title?: StringFilter<"DeactivationReason"> | string
+    description?: StringNullableFilter<"DeactivationReason"> | string | null
+    branchId?: StringFilter<"DeactivationReason"> | string
+    createdAt?: DateTimeFilter<"DeactivationReason"> | Date | string
+    updatedAt?: DateTimeFilter<"DeactivationReason"> | Date | string
+    branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
+    deactivations?: LoginDeactivationListRelationFilter
+  }
+
+  export type DeactivationReasonOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    branchId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    branch?: BranchOrderByWithRelationInput
+    deactivations?: LoginDeactivationOrderByRelationAggregateInput
+  }
+
+  export type DeactivationReasonWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DeactivationReasonWhereInput | DeactivationReasonWhereInput[]
+    OR?: DeactivationReasonWhereInput[]
+    NOT?: DeactivationReasonWhereInput | DeactivationReasonWhereInput[]
+    title?: StringFilter<"DeactivationReason"> | string
+    description?: StringNullableFilter<"DeactivationReason"> | string | null
+    branchId?: StringFilter<"DeactivationReason"> | string
+    createdAt?: DateTimeFilter<"DeactivationReason"> | Date | string
+    updatedAt?: DateTimeFilter<"DeactivationReason"> | Date | string
+    branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
+    deactivations?: LoginDeactivationListRelationFilter
+  }, "id">
+
+  export type DeactivationReasonOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    branchId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DeactivationReasonCountOrderByAggregateInput
+    _max?: DeactivationReasonMaxOrderByAggregateInput
+    _min?: DeactivationReasonMinOrderByAggregateInput
+  }
+
+  export type DeactivationReasonScalarWhereWithAggregatesInput = {
+    AND?: DeactivationReasonScalarWhereWithAggregatesInput | DeactivationReasonScalarWhereWithAggregatesInput[]
+    OR?: DeactivationReasonScalarWhereWithAggregatesInput[]
+    NOT?: DeactivationReasonScalarWhereWithAggregatesInput | DeactivationReasonScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DeactivationReason"> | string
+    title?: StringWithAggregatesFilter<"DeactivationReason"> | string
+    description?: StringNullableWithAggregatesFilter<"DeactivationReason"> | string | null
+    branchId?: StringWithAggregatesFilter<"DeactivationReason"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"DeactivationReason"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"DeactivationReason"> | Date | string
+  }
+
+  export type LoginDeactivationWhereInput = {
+    AND?: LoginDeactivationWhereInput | LoginDeactivationWhereInput[]
+    OR?: LoginDeactivationWhereInput[]
+    NOT?: LoginDeactivationWhereInput | LoginDeactivationWhereInput[]
+    id?: StringFilter<"LoginDeactivation"> | string
+    studentId?: StringFilter<"LoginDeactivation"> | string
+    userId?: StringFilter<"LoginDeactivation"> | string
+    reason?: StringFilter<"LoginDeactivation"> | string
+    reasonId?: StringNullableFilter<"LoginDeactivation"> | string | null
+    branchId?: StringFilter<"LoginDeactivation"> | string
+    createdAt?: DateTimeFilter<"LoginDeactivation"> | Date | string
+    updatedAt?: DateTimeFilter<"LoginDeactivation"> | Date | string
+    reasonRef?: XOR<DeactivationReasonNullableScalarRelationFilter, DeactivationReasonWhereInput> | null
+    branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
+  }
+
+  export type LoginDeactivationOrderByWithRelationInput = {
+    id?: SortOrder
+    studentId?: SortOrder
+    userId?: SortOrder
+    reason?: SortOrder
+    reasonId?: SortOrderInput | SortOrder
+    branchId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    reasonRef?: DeactivationReasonOrderByWithRelationInput
+    branch?: BranchOrderByWithRelationInput
+  }
+
+  export type LoginDeactivationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: LoginDeactivationWhereInput | LoginDeactivationWhereInput[]
+    OR?: LoginDeactivationWhereInput[]
+    NOT?: LoginDeactivationWhereInput | LoginDeactivationWhereInput[]
+    studentId?: StringFilter<"LoginDeactivation"> | string
+    userId?: StringFilter<"LoginDeactivation"> | string
+    reason?: StringFilter<"LoginDeactivation"> | string
+    reasonId?: StringNullableFilter<"LoginDeactivation"> | string | null
+    branchId?: StringFilter<"LoginDeactivation"> | string
+    createdAt?: DateTimeFilter<"LoginDeactivation"> | Date | string
+    updatedAt?: DateTimeFilter<"LoginDeactivation"> | Date | string
+    reasonRef?: XOR<DeactivationReasonNullableScalarRelationFilter, DeactivationReasonWhereInput> | null
+    branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
+  }, "id">
+
+  export type LoginDeactivationOrderByWithAggregationInput = {
+    id?: SortOrder
+    studentId?: SortOrder
+    userId?: SortOrder
+    reason?: SortOrder
+    reasonId?: SortOrderInput | SortOrder
+    branchId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: LoginDeactivationCountOrderByAggregateInput
+    _max?: LoginDeactivationMaxOrderByAggregateInput
+    _min?: LoginDeactivationMinOrderByAggregateInput
+  }
+
+  export type LoginDeactivationScalarWhereWithAggregatesInput = {
+    AND?: LoginDeactivationScalarWhereWithAggregatesInput | LoginDeactivationScalarWhereWithAggregatesInput[]
+    OR?: LoginDeactivationScalarWhereWithAggregatesInput[]
+    NOT?: LoginDeactivationScalarWhereWithAggregatesInput | LoginDeactivationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"LoginDeactivation"> | string
+    studentId?: StringWithAggregatesFilter<"LoginDeactivation"> | string
+    userId?: StringWithAggregatesFilter<"LoginDeactivation"> | string
+    reason?: StringWithAggregatesFilter<"LoginDeactivation"> | string
+    reasonId?: StringNullableWithAggregatesFilter<"LoginDeactivation"> | string | null
+    branchId?: StringWithAggregatesFilter<"LoginDeactivation"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"LoginDeactivation"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"LoginDeactivation"> | Date | string
   }
 
   export type UserWhereInput = {
@@ -111201,6 +113923,9 @@ export namespace Prisma {
     email?: StringNullableFilter<"OnlineAdmission"> | string | null
     phone?: StringNullableFilter<"OnlineAdmission"> | string | null
     studentCategoryId?: StringNullableFilter<"OnlineAdmission"> | string | null
+    paymentReceiptUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
+    paymentStatus?: StringFilter<"OnlineAdmission"> | string
+    paymentMethod?: StringFilter<"OnlineAdmission"> | string
     createdAt?: DateTimeFilter<"OnlineAdmission"> | Date | string
     updatedAt?: DateTimeFilter<"OnlineAdmission"> | Date | string
     academicSession?: XOR<AcademicSessionNullableScalarRelationFilter, AcademicSessionWhereInput> | null
@@ -111288,6 +114013,9 @@ export namespace Prisma {
     email?: SortOrderInput | SortOrder
     phone?: SortOrderInput | SortOrder
     studentCategoryId?: SortOrderInput | SortOrder
+    paymentReceiptUrl?: SortOrderInput | SortOrder
+    paymentStatus?: SortOrder
+    paymentMethod?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     academicSession?: AcademicSessionOrderByWithRelationInput
@@ -111378,6 +114106,9 @@ export namespace Prisma {
     email?: StringNullableFilter<"OnlineAdmission"> | string | null
     phone?: StringNullableFilter<"OnlineAdmission"> | string | null
     studentCategoryId?: StringNullableFilter<"OnlineAdmission"> | string | null
+    paymentReceiptUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
+    paymentStatus?: StringFilter<"OnlineAdmission"> | string
+    paymentMethod?: StringFilter<"OnlineAdmission"> | string
     createdAt?: DateTimeFilter<"OnlineAdmission"> | Date | string
     updatedAt?: DateTimeFilter<"OnlineAdmission"> | Date | string
     academicSession?: XOR<AcademicSessionNullableScalarRelationFilter, AcademicSessionWhereInput> | null
@@ -111465,6 +114196,9 @@ export namespace Prisma {
     email?: SortOrderInput | SortOrder
     phone?: SortOrderInput | SortOrder
     studentCategoryId?: SortOrderInput | SortOrder
+    paymentReceiptUrl?: SortOrderInput | SortOrder
+    paymentStatus?: SortOrder
+    paymentMethod?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: OnlineAdmissionCountOrderByAggregateInput
@@ -111555,6 +114289,9 @@ export namespace Prisma {
     email?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     phone?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     studentCategoryId?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
+    paymentReceiptUrl?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
+    paymentStatus?: StringWithAggregatesFilter<"OnlineAdmission"> | string
+    paymentMethod?: StringWithAggregatesFilter<"OnlineAdmission"> | string
     createdAt?: DateTimeWithAggregatesFilter<"OnlineAdmission"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"OnlineAdmission"> | Date | string
   }
@@ -113452,6 +116189,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateInput = {
@@ -113503,6 +116242,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUpdateInput = {
@@ -113554,6 +116295,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateInput = {
@@ -113605,6 +116348,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateManyInput = {
@@ -113639,6 +116384,147 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeactivationReasonCreateInput = {
+    id?: string
+    title: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutDeactivationReasonsInput
+    deactivations?: LoginDeactivationCreateNestedManyWithoutReasonRefInput
+  }
+
+  export type DeactivationReasonUncheckedCreateInput = {
+    id?: string
+    title: string
+    description?: string | null
+    branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutReasonRefInput
+  }
+
+  export type DeactivationReasonUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutDeactivationReasonsNestedInput
+    deactivations?: LoginDeactivationUpdateManyWithoutReasonRefNestedInput
+  }
+
+  export type DeactivationReasonUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deactivations?: LoginDeactivationUncheckedUpdateManyWithoutReasonRefNestedInput
+  }
+
+  export type DeactivationReasonCreateManyInput = {
+    id?: string
+    title: string
+    description?: string | null
+    branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DeactivationReasonUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeactivationReasonUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LoginDeactivationCreateInput = {
+    id?: string
+    studentId: string
+    userId: string
+    reason: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reasonRef?: DeactivationReasonCreateNestedOneWithoutDeactivationsInput
+    branch: BranchCreateNestedOneWithoutLoginDeactivationsInput
+  }
+
+  export type LoginDeactivationUncheckedCreateInput = {
+    id?: string
+    studentId: string
+    userId: string
+    reason: string
+    reasonId?: string | null
+    branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LoginDeactivationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reasonRef?: DeactivationReasonUpdateOneWithoutDeactivationsNestedInput
+    branch?: BranchUpdateOneRequiredWithoutLoginDeactivationsNestedInput
+  }
+
+  export type LoginDeactivationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    reasonId?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LoginDeactivationCreateManyInput = {
+    id?: string
+    studentId: string
+    userId: string
+    reason: string
+    reasonId?: string | null
+    branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LoginDeactivationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LoginDeactivationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    reasonId?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -118702,6 +121588,9 @@ export namespace Prisma {
     referralSource?: string | null
     email?: string | null
     phone?: string | null
+    paymentReceiptUrl?: string | null
+    paymentStatus?: string
+    paymentMethod?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     academicSession?: AcademicSessionCreateNestedOneWithoutOnlineAdmissionsInput
@@ -118789,6 +121678,9 @@ export namespace Prisma {
     email?: string | null
     phone?: string | null
     studentCategoryId?: string | null
+    paymentReceiptUrl?: string | null
+    paymentStatus?: string
+    paymentMethod?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -118866,6 +121758,9 @@ export namespace Prisma {
     referralSource?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    paymentMethod?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     academicSession?: AcademicSessionUpdateOneWithoutOnlineAdmissionsNestedInput
@@ -118953,6 +121848,9 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     studentCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    paymentMethod?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -119035,6 +121933,9 @@ export namespace Prisma {
     email?: string | null
     phone?: string | null
     studentCategoryId?: string | null
+    paymentReceiptUrl?: string | null
+    paymentStatus?: string
+    paymentMethod?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -119112,6 +122013,9 @@ export namespace Prisma {
     referralSource?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    paymentMethod?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -119194,6 +122098,9 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     studentCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    paymentMethod?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -121447,6 +124354,18 @@ export namespace Prisma {
     none?: AutomationConfigWhereInput
   }
 
+  export type DeactivationReasonListRelationFilter = {
+    every?: DeactivationReasonWhereInput
+    some?: DeactivationReasonWhereInput
+    none?: DeactivationReasonWhereInput
+  }
+
+  export type LoginDeactivationListRelationFilter = {
+    every?: LoginDeactivationWhereInput
+    some?: LoginDeactivationWhereInput
+    none?: LoginDeactivationWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -121604,6 +124523,14 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type DeactivationReasonOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type LoginDeactivationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type BranchCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -121696,6 +124623,76 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type BranchScalarRelationFilter = {
+    is?: BranchWhereInput
+    isNot?: BranchWhereInput
+  }
+
+  export type DeactivationReasonCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    branchId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DeactivationReasonMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    branchId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DeactivationReasonMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    branchId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DeactivationReasonNullableScalarRelationFilter = {
+    is?: DeactivationReasonWhereInput | null
+    isNot?: DeactivationReasonWhereInput | null
+  }
+
+  export type LoginDeactivationCountOrderByAggregateInput = {
+    id?: SortOrder
+    studentId?: SortOrder
+    userId?: SortOrder
+    reason?: SortOrder
+    reasonId?: SortOrder
+    branchId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LoginDeactivationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    studentId?: SortOrder
+    userId?: SortOrder
+    reason?: SortOrder
+    reasonId?: SortOrder
+    branchId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LoginDeactivationMinOrderByAggregateInput = {
+    id?: SortOrder
+    studentId?: SortOrder
+    userId?: SortOrder
+    reason?: SortOrder
+    reasonId?: SortOrder
+    branchId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type EnumUserRoleFilter<$PrismaModel = never> = {
@@ -121939,11 +124936,6 @@ export namespace Prisma {
   export type UserNullableScalarRelationFilter = {
     is?: UserWhereInput | null
     isNot?: UserWhereInput | null
-  }
-
-  export type BranchScalarRelationFilter = {
-    is?: BranchWhereInput
-    isNot?: BranchWhereInput
   }
 
   export type ClassNullableScalarRelationFilter = {
@@ -125046,6 +128038,9 @@ export namespace Prisma {
     email?: SortOrder
     phone?: SortOrder
     studentCategoryId?: SortOrder
+    paymentReceiptUrl?: SortOrder
+    paymentStatus?: SortOrder
+    paymentMethod?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -125132,6 +128127,9 @@ export namespace Prisma {
     email?: SortOrder
     phone?: SortOrder
     studentCategoryId?: SortOrder
+    paymentReceiptUrl?: SortOrder
+    paymentStatus?: SortOrder
+    paymentMethod?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -125214,6 +128212,9 @@ export namespace Prisma {
     email?: SortOrder
     phone?: SortOrder
     studentCategoryId?: SortOrder
+    paymentReceiptUrl?: SortOrder
+    paymentStatus?: SortOrder
+    paymentMethod?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -126483,6 +129484,20 @@ export namespace Prisma {
     connect?: AutomationConfigWhereUniqueInput | AutomationConfigWhereUniqueInput[]
   }
 
+  export type DeactivationReasonCreateNestedManyWithoutBranchInput = {
+    create?: XOR<DeactivationReasonCreateWithoutBranchInput, DeactivationReasonUncheckedCreateWithoutBranchInput> | DeactivationReasonCreateWithoutBranchInput[] | DeactivationReasonUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: DeactivationReasonCreateOrConnectWithoutBranchInput | DeactivationReasonCreateOrConnectWithoutBranchInput[]
+    createMany?: DeactivationReasonCreateManyBranchInputEnvelope
+    connect?: DeactivationReasonWhereUniqueInput | DeactivationReasonWhereUniqueInput[]
+  }
+
+  export type LoginDeactivationCreateNestedManyWithoutBranchInput = {
+    create?: XOR<LoginDeactivationCreateWithoutBranchInput, LoginDeactivationUncheckedCreateWithoutBranchInput> | LoginDeactivationCreateWithoutBranchInput[] | LoginDeactivationUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: LoginDeactivationCreateOrConnectWithoutBranchInput | LoginDeactivationCreateOrConnectWithoutBranchInput[]
+    createMany?: LoginDeactivationCreateManyBranchInputEnvelope
+    connect?: LoginDeactivationWhereUniqueInput | LoginDeactivationWhereUniqueInput[]
+  }
+
   export type UserUncheckedCreateNestedManyWithoutBranchInput = {
     create?: XOR<UserCreateWithoutBranchInput, UserUncheckedCreateWithoutBranchInput> | UserCreateWithoutBranchInput[] | UserUncheckedCreateWithoutBranchInput[]
     connectOrCreate?: UserCreateOrConnectWithoutBranchInput | UserCreateOrConnectWithoutBranchInput[]
@@ -126753,6 +129768,20 @@ export namespace Prisma {
     connectOrCreate?: AutomationConfigCreateOrConnectWithoutBranchInput | AutomationConfigCreateOrConnectWithoutBranchInput[]
     createMany?: AutomationConfigCreateManyBranchInputEnvelope
     connect?: AutomationConfigWhereUniqueInput | AutomationConfigWhereUniqueInput[]
+  }
+
+  export type DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput = {
+    create?: XOR<DeactivationReasonCreateWithoutBranchInput, DeactivationReasonUncheckedCreateWithoutBranchInput> | DeactivationReasonCreateWithoutBranchInput[] | DeactivationReasonUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: DeactivationReasonCreateOrConnectWithoutBranchInput | DeactivationReasonCreateOrConnectWithoutBranchInput[]
+    createMany?: DeactivationReasonCreateManyBranchInputEnvelope
+    connect?: DeactivationReasonWhereUniqueInput | DeactivationReasonWhereUniqueInput[]
+  }
+
+  export type LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput = {
+    create?: XOR<LoginDeactivationCreateWithoutBranchInput, LoginDeactivationUncheckedCreateWithoutBranchInput> | LoginDeactivationCreateWithoutBranchInput[] | LoginDeactivationUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: LoginDeactivationCreateOrConnectWithoutBranchInput | LoginDeactivationCreateOrConnectWithoutBranchInput[]
+    createMany?: LoginDeactivationCreateManyBranchInputEnvelope
+    connect?: LoginDeactivationWhereUniqueInput | LoginDeactivationWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -127313,6 +130342,34 @@ export namespace Prisma {
     deleteMany?: AutomationConfigScalarWhereInput | AutomationConfigScalarWhereInput[]
   }
 
+  export type DeactivationReasonUpdateManyWithoutBranchNestedInput = {
+    create?: XOR<DeactivationReasonCreateWithoutBranchInput, DeactivationReasonUncheckedCreateWithoutBranchInput> | DeactivationReasonCreateWithoutBranchInput[] | DeactivationReasonUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: DeactivationReasonCreateOrConnectWithoutBranchInput | DeactivationReasonCreateOrConnectWithoutBranchInput[]
+    upsert?: DeactivationReasonUpsertWithWhereUniqueWithoutBranchInput | DeactivationReasonUpsertWithWhereUniqueWithoutBranchInput[]
+    createMany?: DeactivationReasonCreateManyBranchInputEnvelope
+    set?: DeactivationReasonWhereUniqueInput | DeactivationReasonWhereUniqueInput[]
+    disconnect?: DeactivationReasonWhereUniqueInput | DeactivationReasonWhereUniqueInput[]
+    delete?: DeactivationReasonWhereUniqueInput | DeactivationReasonWhereUniqueInput[]
+    connect?: DeactivationReasonWhereUniqueInput | DeactivationReasonWhereUniqueInput[]
+    update?: DeactivationReasonUpdateWithWhereUniqueWithoutBranchInput | DeactivationReasonUpdateWithWhereUniqueWithoutBranchInput[]
+    updateMany?: DeactivationReasonUpdateManyWithWhereWithoutBranchInput | DeactivationReasonUpdateManyWithWhereWithoutBranchInput[]
+    deleteMany?: DeactivationReasonScalarWhereInput | DeactivationReasonScalarWhereInput[]
+  }
+
+  export type LoginDeactivationUpdateManyWithoutBranchNestedInput = {
+    create?: XOR<LoginDeactivationCreateWithoutBranchInput, LoginDeactivationUncheckedCreateWithoutBranchInput> | LoginDeactivationCreateWithoutBranchInput[] | LoginDeactivationUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: LoginDeactivationCreateOrConnectWithoutBranchInput | LoginDeactivationCreateOrConnectWithoutBranchInput[]
+    upsert?: LoginDeactivationUpsertWithWhereUniqueWithoutBranchInput | LoginDeactivationUpsertWithWhereUniqueWithoutBranchInput[]
+    createMany?: LoginDeactivationCreateManyBranchInputEnvelope
+    set?: LoginDeactivationWhereUniqueInput | LoginDeactivationWhereUniqueInput[]
+    disconnect?: LoginDeactivationWhereUniqueInput | LoginDeactivationWhereUniqueInput[]
+    delete?: LoginDeactivationWhereUniqueInput | LoginDeactivationWhereUniqueInput[]
+    connect?: LoginDeactivationWhereUniqueInput | LoginDeactivationWhereUniqueInput[]
+    update?: LoginDeactivationUpdateWithWhereUniqueWithoutBranchInput | LoginDeactivationUpdateWithWhereUniqueWithoutBranchInput[]
+    updateMany?: LoginDeactivationUpdateManyWithWhereWithoutBranchInput | LoginDeactivationUpdateManyWithWhereWithoutBranchInput[]
+    deleteMany?: LoginDeactivationScalarWhereInput | LoginDeactivationScalarWhereInput[]
+  }
+
   export type UserUncheckedUpdateManyWithoutBranchNestedInput = {
     create?: XOR<UserCreateWithoutBranchInput, UserUncheckedCreateWithoutBranchInput> | UserCreateWithoutBranchInput[] | UserUncheckedCreateWithoutBranchInput[]
     connectOrCreate?: UserCreateOrConnectWithoutBranchInput | UserCreateOrConnectWithoutBranchInput[]
@@ -127853,6 +130910,120 @@ export namespace Prisma {
     update?: AutomationConfigUpdateWithWhereUniqueWithoutBranchInput | AutomationConfigUpdateWithWhereUniqueWithoutBranchInput[]
     updateMany?: AutomationConfigUpdateManyWithWhereWithoutBranchInput | AutomationConfigUpdateManyWithWhereWithoutBranchInput[]
     deleteMany?: AutomationConfigScalarWhereInput | AutomationConfigScalarWhereInput[]
+  }
+
+  export type DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput = {
+    create?: XOR<DeactivationReasonCreateWithoutBranchInput, DeactivationReasonUncheckedCreateWithoutBranchInput> | DeactivationReasonCreateWithoutBranchInput[] | DeactivationReasonUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: DeactivationReasonCreateOrConnectWithoutBranchInput | DeactivationReasonCreateOrConnectWithoutBranchInput[]
+    upsert?: DeactivationReasonUpsertWithWhereUniqueWithoutBranchInput | DeactivationReasonUpsertWithWhereUniqueWithoutBranchInput[]
+    createMany?: DeactivationReasonCreateManyBranchInputEnvelope
+    set?: DeactivationReasonWhereUniqueInput | DeactivationReasonWhereUniqueInput[]
+    disconnect?: DeactivationReasonWhereUniqueInput | DeactivationReasonWhereUniqueInput[]
+    delete?: DeactivationReasonWhereUniqueInput | DeactivationReasonWhereUniqueInput[]
+    connect?: DeactivationReasonWhereUniqueInput | DeactivationReasonWhereUniqueInput[]
+    update?: DeactivationReasonUpdateWithWhereUniqueWithoutBranchInput | DeactivationReasonUpdateWithWhereUniqueWithoutBranchInput[]
+    updateMany?: DeactivationReasonUpdateManyWithWhereWithoutBranchInput | DeactivationReasonUpdateManyWithWhereWithoutBranchInput[]
+    deleteMany?: DeactivationReasonScalarWhereInput | DeactivationReasonScalarWhereInput[]
+  }
+
+  export type LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput = {
+    create?: XOR<LoginDeactivationCreateWithoutBranchInput, LoginDeactivationUncheckedCreateWithoutBranchInput> | LoginDeactivationCreateWithoutBranchInput[] | LoginDeactivationUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: LoginDeactivationCreateOrConnectWithoutBranchInput | LoginDeactivationCreateOrConnectWithoutBranchInput[]
+    upsert?: LoginDeactivationUpsertWithWhereUniqueWithoutBranchInput | LoginDeactivationUpsertWithWhereUniqueWithoutBranchInput[]
+    createMany?: LoginDeactivationCreateManyBranchInputEnvelope
+    set?: LoginDeactivationWhereUniqueInput | LoginDeactivationWhereUniqueInput[]
+    disconnect?: LoginDeactivationWhereUniqueInput | LoginDeactivationWhereUniqueInput[]
+    delete?: LoginDeactivationWhereUniqueInput | LoginDeactivationWhereUniqueInput[]
+    connect?: LoginDeactivationWhereUniqueInput | LoginDeactivationWhereUniqueInput[]
+    update?: LoginDeactivationUpdateWithWhereUniqueWithoutBranchInput | LoginDeactivationUpdateWithWhereUniqueWithoutBranchInput[]
+    updateMany?: LoginDeactivationUpdateManyWithWhereWithoutBranchInput | LoginDeactivationUpdateManyWithWhereWithoutBranchInput[]
+    deleteMany?: LoginDeactivationScalarWhereInput | LoginDeactivationScalarWhereInput[]
+  }
+
+  export type BranchCreateNestedOneWithoutDeactivationReasonsInput = {
+    create?: XOR<BranchCreateWithoutDeactivationReasonsInput, BranchUncheckedCreateWithoutDeactivationReasonsInput>
+    connectOrCreate?: BranchCreateOrConnectWithoutDeactivationReasonsInput
+    connect?: BranchWhereUniqueInput
+  }
+
+  export type LoginDeactivationCreateNestedManyWithoutReasonRefInput = {
+    create?: XOR<LoginDeactivationCreateWithoutReasonRefInput, LoginDeactivationUncheckedCreateWithoutReasonRefInput> | LoginDeactivationCreateWithoutReasonRefInput[] | LoginDeactivationUncheckedCreateWithoutReasonRefInput[]
+    connectOrCreate?: LoginDeactivationCreateOrConnectWithoutReasonRefInput | LoginDeactivationCreateOrConnectWithoutReasonRefInput[]
+    createMany?: LoginDeactivationCreateManyReasonRefInputEnvelope
+    connect?: LoginDeactivationWhereUniqueInput | LoginDeactivationWhereUniqueInput[]
+  }
+
+  export type LoginDeactivationUncheckedCreateNestedManyWithoutReasonRefInput = {
+    create?: XOR<LoginDeactivationCreateWithoutReasonRefInput, LoginDeactivationUncheckedCreateWithoutReasonRefInput> | LoginDeactivationCreateWithoutReasonRefInput[] | LoginDeactivationUncheckedCreateWithoutReasonRefInput[]
+    connectOrCreate?: LoginDeactivationCreateOrConnectWithoutReasonRefInput | LoginDeactivationCreateOrConnectWithoutReasonRefInput[]
+    createMany?: LoginDeactivationCreateManyReasonRefInputEnvelope
+    connect?: LoginDeactivationWhereUniqueInput | LoginDeactivationWhereUniqueInput[]
+  }
+
+  export type BranchUpdateOneRequiredWithoutDeactivationReasonsNestedInput = {
+    create?: XOR<BranchCreateWithoutDeactivationReasonsInput, BranchUncheckedCreateWithoutDeactivationReasonsInput>
+    connectOrCreate?: BranchCreateOrConnectWithoutDeactivationReasonsInput
+    upsert?: BranchUpsertWithoutDeactivationReasonsInput
+    connect?: BranchWhereUniqueInput
+    update?: XOR<XOR<BranchUpdateToOneWithWhereWithoutDeactivationReasonsInput, BranchUpdateWithoutDeactivationReasonsInput>, BranchUncheckedUpdateWithoutDeactivationReasonsInput>
+  }
+
+  export type LoginDeactivationUpdateManyWithoutReasonRefNestedInput = {
+    create?: XOR<LoginDeactivationCreateWithoutReasonRefInput, LoginDeactivationUncheckedCreateWithoutReasonRefInput> | LoginDeactivationCreateWithoutReasonRefInput[] | LoginDeactivationUncheckedCreateWithoutReasonRefInput[]
+    connectOrCreate?: LoginDeactivationCreateOrConnectWithoutReasonRefInput | LoginDeactivationCreateOrConnectWithoutReasonRefInput[]
+    upsert?: LoginDeactivationUpsertWithWhereUniqueWithoutReasonRefInput | LoginDeactivationUpsertWithWhereUniqueWithoutReasonRefInput[]
+    createMany?: LoginDeactivationCreateManyReasonRefInputEnvelope
+    set?: LoginDeactivationWhereUniqueInput | LoginDeactivationWhereUniqueInput[]
+    disconnect?: LoginDeactivationWhereUniqueInput | LoginDeactivationWhereUniqueInput[]
+    delete?: LoginDeactivationWhereUniqueInput | LoginDeactivationWhereUniqueInput[]
+    connect?: LoginDeactivationWhereUniqueInput | LoginDeactivationWhereUniqueInput[]
+    update?: LoginDeactivationUpdateWithWhereUniqueWithoutReasonRefInput | LoginDeactivationUpdateWithWhereUniqueWithoutReasonRefInput[]
+    updateMany?: LoginDeactivationUpdateManyWithWhereWithoutReasonRefInput | LoginDeactivationUpdateManyWithWhereWithoutReasonRefInput[]
+    deleteMany?: LoginDeactivationScalarWhereInput | LoginDeactivationScalarWhereInput[]
+  }
+
+  export type LoginDeactivationUncheckedUpdateManyWithoutReasonRefNestedInput = {
+    create?: XOR<LoginDeactivationCreateWithoutReasonRefInput, LoginDeactivationUncheckedCreateWithoutReasonRefInput> | LoginDeactivationCreateWithoutReasonRefInput[] | LoginDeactivationUncheckedCreateWithoutReasonRefInput[]
+    connectOrCreate?: LoginDeactivationCreateOrConnectWithoutReasonRefInput | LoginDeactivationCreateOrConnectWithoutReasonRefInput[]
+    upsert?: LoginDeactivationUpsertWithWhereUniqueWithoutReasonRefInput | LoginDeactivationUpsertWithWhereUniqueWithoutReasonRefInput[]
+    createMany?: LoginDeactivationCreateManyReasonRefInputEnvelope
+    set?: LoginDeactivationWhereUniqueInput | LoginDeactivationWhereUniqueInput[]
+    disconnect?: LoginDeactivationWhereUniqueInput | LoginDeactivationWhereUniqueInput[]
+    delete?: LoginDeactivationWhereUniqueInput | LoginDeactivationWhereUniqueInput[]
+    connect?: LoginDeactivationWhereUniqueInput | LoginDeactivationWhereUniqueInput[]
+    update?: LoginDeactivationUpdateWithWhereUniqueWithoutReasonRefInput | LoginDeactivationUpdateWithWhereUniqueWithoutReasonRefInput[]
+    updateMany?: LoginDeactivationUpdateManyWithWhereWithoutReasonRefInput | LoginDeactivationUpdateManyWithWhereWithoutReasonRefInput[]
+    deleteMany?: LoginDeactivationScalarWhereInput | LoginDeactivationScalarWhereInput[]
+  }
+
+  export type DeactivationReasonCreateNestedOneWithoutDeactivationsInput = {
+    create?: XOR<DeactivationReasonCreateWithoutDeactivationsInput, DeactivationReasonUncheckedCreateWithoutDeactivationsInput>
+    connectOrCreate?: DeactivationReasonCreateOrConnectWithoutDeactivationsInput
+    connect?: DeactivationReasonWhereUniqueInput
+  }
+
+  export type BranchCreateNestedOneWithoutLoginDeactivationsInput = {
+    create?: XOR<BranchCreateWithoutLoginDeactivationsInput, BranchUncheckedCreateWithoutLoginDeactivationsInput>
+    connectOrCreate?: BranchCreateOrConnectWithoutLoginDeactivationsInput
+    connect?: BranchWhereUniqueInput
+  }
+
+  export type DeactivationReasonUpdateOneWithoutDeactivationsNestedInput = {
+    create?: XOR<DeactivationReasonCreateWithoutDeactivationsInput, DeactivationReasonUncheckedCreateWithoutDeactivationsInput>
+    connectOrCreate?: DeactivationReasonCreateOrConnectWithoutDeactivationsInput
+    upsert?: DeactivationReasonUpsertWithoutDeactivationsInput
+    disconnect?: DeactivationReasonWhereInput | boolean
+    delete?: DeactivationReasonWhereInput | boolean
+    connect?: DeactivationReasonWhereUniqueInput
+    update?: XOR<XOR<DeactivationReasonUpdateToOneWithWhereWithoutDeactivationsInput, DeactivationReasonUpdateWithoutDeactivationsInput>, DeactivationReasonUncheckedUpdateWithoutDeactivationsInput>
+  }
+
+  export type BranchUpdateOneRequiredWithoutLoginDeactivationsNestedInput = {
+    create?: XOR<BranchCreateWithoutLoginDeactivationsInput, BranchUncheckedCreateWithoutLoginDeactivationsInput>
+    connectOrCreate?: BranchCreateOrConnectWithoutLoginDeactivationsInput
+    upsert?: BranchUpsertWithoutLoginDeactivationsInput
+    connect?: BranchWhereUniqueInput
+    update?: XOR<XOR<BranchUpdateToOneWithWhereWithoutLoginDeactivationsInput, BranchUpdateWithoutLoginDeactivationsInput>, BranchUncheckedUpdateWithoutLoginDeactivationsInput>
   }
 
   export type BranchCreateNestedOneWithoutUsersInput = {
@@ -134989,6 +138160,9 @@ export namespace Prisma {
     referralSource?: string | null
     email?: string | null
     phone?: string | null
+    paymentReceiptUrl?: string | null
+    paymentStatus?: string
+    paymentMethod?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     academicSession?: AcademicSessionCreateNestedOneWithoutOnlineAdmissionsInput
@@ -135074,6 +138248,9 @@ export namespace Prisma {
     email?: string | null
     phone?: string | null
     studentCategoryId?: string | null
+    paymentReceiptUrl?: string | null
+    paymentStatus?: string
+    paymentMethod?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -135822,6 +138999,64 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type DeactivationReasonCreateWithoutBranchInput = {
+    id?: string
+    title: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deactivations?: LoginDeactivationCreateNestedManyWithoutReasonRefInput
+  }
+
+  export type DeactivationReasonUncheckedCreateWithoutBranchInput = {
+    id?: string
+    title: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutReasonRefInput
+  }
+
+  export type DeactivationReasonCreateOrConnectWithoutBranchInput = {
+    where: DeactivationReasonWhereUniqueInput
+    create: XOR<DeactivationReasonCreateWithoutBranchInput, DeactivationReasonUncheckedCreateWithoutBranchInput>
+  }
+
+  export type DeactivationReasonCreateManyBranchInputEnvelope = {
+    data: DeactivationReasonCreateManyBranchInput | DeactivationReasonCreateManyBranchInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type LoginDeactivationCreateWithoutBranchInput = {
+    id?: string
+    studentId: string
+    userId: string
+    reason: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reasonRef?: DeactivationReasonCreateNestedOneWithoutDeactivationsInput
+  }
+
+  export type LoginDeactivationUncheckedCreateWithoutBranchInput = {
+    id?: string
+    studentId: string
+    userId: string
+    reason: string
+    reasonId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LoginDeactivationCreateOrConnectWithoutBranchInput = {
+    where: LoginDeactivationWhereUniqueInput
+    create: XOR<LoginDeactivationCreateWithoutBranchInput, LoginDeactivationUncheckedCreateWithoutBranchInput>
+  }
+
+  export type LoginDeactivationCreateManyBranchInputEnvelope = {
+    data: LoginDeactivationCreateManyBranchInput | LoginDeactivationCreateManyBranchInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithWhereUniqueWithoutBranchInput = {
     where: UserWhereUniqueInput
     update: XOR<UserUpdateWithoutBranchInput, UserUncheckedUpdateWithoutBranchInput>
@@ -136488,6 +139723,9 @@ export namespace Prisma {
     email?: StringNullableFilter<"OnlineAdmission"> | string | null
     phone?: StringNullableFilter<"OnlineAdmission"> | string | null
     studentCategoryId?: StringNullableFilter<"OnlineAdmission"> | string | null
+    paymentReceiptUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
+    paymentStatus?: StringFilter<"OnlineAdmission"> | string
+    paymentMethod?: StringFilter<"OnlineAdmission"> | string
     createdAt?: DateTimeFilter<"OnlineAdmission"> | Date | string
     updatedAt?: DateTimeFilter<"OnlineAdmission"> | Date | string
   }
@@ -137159,6 +140397,610 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"AutomationConfig"> | Date | string
   }
 
+  export type DeactivationReasonUpsertWithWhereUniqueWithoutBranchInput = {
+    where: DeactivationReasonWhereUniqueInput
+    update: XOR<DeactivationReasonUpdateWithoutBranchInput, DeactivationReasonUncheckedUpdateWithoutBranchInput>
+    create: XOR<DeactivationReasonCreateWithoutBranchInput, DeactivationReasonUncheckedCreateWithoutBranchInput>
+  }
+
+  export type DeactivationReasonUpdateWithWhereUniqueWithoutBranchInput = {
+    where: DeactivationReasonWhereUniqueInput
+    data: XOR<DeactivationReasonUpdateWithoutBranchInput, DeactivationReasonUncheckedUpdateWithoutBranchInput>
+  }
+
+  export type DeactivationReasonUpdateManyWithWhereWithoutBranchInput = {
+    where: DeactivationReasonScalarWhereInput
+    data: XOR<DeactivationReasonUpdateManyMutationInput, DeactivationReasonUncheckedUpdateManyWithoutBranchInput>
+  }
+
+  export type DeactivationReasonScalarWhereInput = {
+    AND?: DeactivationReasonScalarWhereInput | DeactivationReasonScalarWhereInput[]
+    OR?: DeactivationReasonScalarWhereInput[]
+    NOT?: DeactivationReasonScalarWhereInput | DeactivationReasonScalarWhereInput[]
+    id?: StringFilter<"DeactivationReason"> | string
+    title?: StringFilter<"DeactivationReason"> | string
+    description?: StringNullableFilter<"DeactivationReason"> | string | null
+    branchId?: StringFilter<"DeactivationReason"> | string
+    createdAt?: DateTimeFilter<"DeactivationReason"> | Date | string
+    updatedAt?: DateTimeFilter<"DeactivationReason"> | Date | string
+  }
+
+  export type LoginDeactivationUpsertWithWhereUniqueWithoutBranchInput = {
+    where: LoginDeactivationWhereUniqueInput
+    update: XOR<LoginDeactivationUpdateWithoutBranchInput, LoginDeactivationUncheckedUpdateWithoutBranchInput>
+    create: XOR<LoginDeactivationCreateWithoutBranchInput, LoginDeactivationUncheckedCreateWithoutBranchInput>
+  }
+
+  export type LoginDeactivationUpdateWithWhereUniqueWithoutBranchInput = {
+    where: LoginDeactivationWhereUniqueInput
+    data: XOR<LoginDeactivationUpdateWithoutBranchInput, LoginDeactivationUncheckedUpdateWithoutBranchInput>
+  }
+
+  export type LoginDeactivationUpdateManyWithWhereWithoutBranchInput = {
+    where: LoginDeactivationScalarWhereInput
+    data: XOR<LoginDeactivationUpdateManyMutationInput, LoginDeactivationUncheckedUpdateManyWithoutBranchInput>
+  }
+
+  export type LoginDeactivationScalarWhereInput = {
+    AND?: LoginDeactivationScalarWhereInput | LoginDeactivationScalarWhereInput[]
+    OR?: LoginDeactivationScalarWhereInput[]
+    NOT?: LoginDeactivationScalarWhereInput | LoginDeactivationScalarWhereInput[]
+    id?: StringFilter<"LoginDeactivation"> | string
+    studentId?: StringFilter<"LoginDeactivation"> | string
+    userId?: StringFilter<"LoginDeactivation"> | string
+    reason?: StringFilter<"LoginDeactivation"> | string
+    reasonId?: StringNullableFilter<"LoginDeactivation"> | string | null
+    branchId?: StringFilter<"LoginDeactivation"> | string
+    createdAt?: DateTimeFilter<"LoginDeactivation"> | Date | string
+    updatedAt?: DateTimeFilter<"LoginDeactivation"> | Date | string
+  }
+
+  export type BranchCreateWithoutDeactivationReasonsInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserCreateNestedManyWithoutBranchInput
+    students?: StudentCreateNestedManyWithoutBranchInput
+    classes?: ClassCreateNestedManyWithoutBranchInput
+    subjects?: SubjectCreateNestedManyWithoutBranchInput
+    hostels?: HostelCreateNestedManyWithoutBranchInput
+    feeCategories?: FeeCategoryCreateNestedManyWithoutBranchInput
+    vehicles?: VehicleCreateNestedManyWithoutBranchInput
+    routes?: TransportRouteCreateNestedManyWithoutBranchInput
+    expenseCategories?: ExpenseCategoryCreateNestedManyWithoutBranchInput
+    vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    departments?: DepartmentCreateNestedManyWithoutBranchInput
+    designations?: DesignationCreateNestedManyWithoutBranchInput
+    certificates?: CertificateCreateNestedManyWithoutBranchInput
+    books?: BookCreateNestedManyWithoutBranchInput
+    googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
+    liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
+    studentCategories?: StudentCategoryCreateNestedManyWithoutBranchInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutBranchInput
+    questionGroups?: QuestionGroupCreateNestedManyWithoutBranchInput
+    onlineExams?: OnlineExamCreateNestedManyWithoutBranchInput
+    enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
+    callLogs?: CallLogCreateNestedManyWithoutBranchInput
+    visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
+    complaints?: ComplaintCreateNestedManyWithoutBranchInput
+    postalRecords?: PostalRecordCreateNestedManyWithoutBranchInput
+    inventoryCategories?: InventoryCategoryCreateNestedManyWithoutBranchInput
+    inventoryStores?: InventoryStoreCreateNestedManyWithoutBranchInput
+    inventorySuppliers?: InventorySupplierCreateNestedManyWithoutBranchInput
+    inventoryUnits?: InventoryUnitCreateNestedManyWithoutBranchInput
+    inventoryProducts?: InventoryProductCreateNestedManyWithoutBranchInput
+    inventoryPurchases?: InventoryPurchaseCreateNestedManyWithoutBranchInput
+    inventorySales?: InventorySaleCreateNestedManyWithoutBranchInput
+    inventoryIssues?: InventoryIssueCreateNestedManyWithoutBranchInput
+    alumni?: AlumniCreateNestedManyWithoutBranchInput
+    alumniEvents?: AlumniEventCreateNestedManyWithoutBranchInput
+    conversations?: ConversationCreateNestedManyWithoutBranchInput
+    campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
+    accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
+    automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+  }
+
+  export type BranchUncheckedCreateWithoutDeactivationReasonsInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutBranchInput
+    students?: StudentUncheckedCreateNestedManyWithoutBranchInput
+    classes?: ClassUncheckedCreateNestedManyWithoutBranchInput
+    subjects?: SubjectUncheckedCreateNestedManyWithoutBranchInput
+    hostels?: HostelUncheckedCreateNestedManyWithoutBranchInput
+    feeCategories?: FeeCategoryUncheckedCreateNestedManyWithoutBranchInput
+    vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
+    routes?: TransportRouteUncheckedCreateNestedManyWithoutBranchInput
+    expenseCategories?: ExpenseCategoryUncheckedCreateNestedManyWithoutBranchInput
+    vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
+    designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
+    certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    books?: BookUncheckedCreateNestedManyWithoutBranchInput
+    googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
+    liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
+    studentCategories?: StudentCategoryUncheckedCreateNestedManyWithoutBranchInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutBranchInput
+    questionGroups?: QuestionGroupUncheckedCreateNestedManyWithoutBranchInput
+    onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutBranchInput
+    enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
+    callLogs?: CallLogUncheckedCreateNestedManyWithoutBranchInput
+    visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
+    complaints?: ComplaintUncheckedCreateNestedManyWithoutBranchInput
+    postalRecords?: PostalRecordUncheckedCreateNestedManyWithoutBranchInput
+    inventoryCategories?: InventoryCategoryUncheckedCreateNestedManyWithoutBranchInput
+    inventoryStores?: InventoryStoreUncheckedCreateNestedManyWithoutBranchInput
+    inventorySuppliers?: InventorySupplierUncheckedCreateNestedManyWithoutBranchInput
+    inventoryUnits?: InventoryUnitUncheckedCreateNestedManyWithoutBranchInput
+    inventoryProducts?: InventoryProductUncheckedCreateNestedManyWithoutBranchInput
+    inventoryPurchases?: InventoryPurchaseUncheckedCreateNestedManyWithoutBranchInput
+    inventorySales?: InventorySaleUncheckedCreateNestedManyWithoutBranchInput
+    inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutBranchInput
+    alumni?: AlumniUncheckedCreateNestedManyWithoutBranchInput
+    alumniEvents?: AlumniEventUncheckedCreateNestedManyWithoutBranchInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutBranchInput
+    campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
+    accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
+    automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+  }
+
+  export type BranchCreateOrConnectWithoutDeactivationReasonsInput = {
+    where: BranchWhereUniqueInput
+    create: XOR<BranchCreateWithoutDeactivationReasonsInput, BranchUncheckedCreateWithoutDeactivationReasonsInput>
+  }
+
+  export type LoginDeactivationCreateWithoutReasonRefInput = {
+    id?: string
+    studentId: string
+    userId: string
+    reason: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutLoginDeactivationsInput
+  }
+
+  export type LoginDeactivationUncheckedCreateWithoutReasonRefInput = {
+    id?: string
+    studentId: string
+    userId: string
+    reason: string
+    branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LoginDeactivationCreateOrConnectWithoutReasonRefInput = {
+    where: LoginDeactivationWhereUniqueInput
+    create: XOR<LoginDeactivationCreateWithoutReasonRefInput, LoginDeactivationUncheckedCreateWithoutReasonRefInput>
+  }
+
+  export type LoginDeactivationCreateManyReasonRefInputEnvelope = {
+    data: LoginDeactivationCreateManyReasonRefInput | LoginDeactivationCreateManyReasonRefInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BranchUpsertWithoutDeactivationReasonsInput = {
+    update: XOR<BranchUpdateWithoutDeactivationReasonsInput, BranchUncheckedUpdateWithoutDeactivationReasonsInput>
+    create: XOR<BranchCreateWithoutDeactivationReasonsInput, BranchUncheckedCreateWithoutDeactivationReasonsInput>
+    where?: BranchWhereInput
+  }
+
+  export type BranchUpdateToOneWithWhereWithoutDeactivationReasonsInput = {
+    where?: BranchWhereInput
+    data: XOR<BranchUpdateWithoutDeactivationReasonsInput, BranchUncheckedUpdateWithoutDeactivationReasonsInput>
+  }
+
+  export type BranchUpdateWithoutDeactivationReasonsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutBranchNestedInput
+    students?: StudentUpdateManyWithoutBranchNestedInput
+    classes?: ClassUpdateManyWithoutBranchNestedInput
+    subjects?: SubjectUpdateManyWithoutBranchNestedInput
+    hostels?: HostelUpdateManyWithoutBranchNestedInput
+    feeCategories?: FeeCategoryUpdateManyWithoutBranchNestedInput
+    vehicles?: VehicleUpdateManyWithoutBranchNestedInput
+    routes?: TransportRouteUpdateManyWithoutBranchNestedInput
+    expenseCategories?: ExpenseCategoryUpdateManyWithoutBranchNestedInput
+    vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    departments?: DepartmentUpdateManyWithoutBranchNestedInput
+    designations?: DesignationUpdateManyWithoutBranchNestedInput
+    certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    books?: BookUpdateManyWithoutBranchNestedInput
+    googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
+    liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
+    studentCategories?: StudentCategoryUpdateManyWithoutBranchNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutBranchNestedInput
+    questionGroups?: QuestionGroupUpdateManyWithoutBranchNestedInput
+    onlineExams?: OnlineExamUpdateManyWithoutBranchNestedInput
+    enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
+    callLogs?: CallLogUpdateManyWithoutBranchNestedInput
+    visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
+    complaints?: ComplaintUpdateManyWithoutBranchNestedInput
+    postalRecords?: PostalRecordUpdateManyWithoutBranchNestedInput
+    inventoryCategories?: InventoryCategoryUpdateManyWithoutBranchNestedInput
+    inventoryStores?: InventoryStoreUpdateManyWithoutBranchNestedInput
+    inventorySuppliers?: InventorySupplierUpdateManyWithoutBranchNestedInput
+    inventoryUnits?: InventoryUnitUpdateManyWithoutBranchNestedInput
+    inventoryProducts?: InventoryProductUpdateManyWithoutBranchNestedInput
+    inventoryPurchases?: InventoryPurchaseUpdateManyWithoutBranchNestedInput
+    inventorySales?: InventorySaleUpdateManyWithoutBranchNestedInput
+    inventoryIssues?: InventoryIssueUpdateManyWithoutBranchNestedInput
+    alumni?: AlumniUpdateManyWithoutBranchNestedInput
+    alumniEvents?: AlumniEventUpdateManyWithoutBranchNestedInput
+    conversations?: ConversationUpdateManyWithoutBranchNestedInput
+    campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
+    accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
+    automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+  }
+
+  export type BranchUncheckedUpdateWithoutDeactivationReasonsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutBranchNestedInput
+    students?: StudentUncheckedUpdateManyWithoutBranchNestedInput
+    classes?: ClassUncheckedUpdateManyWithoutBranchNestedInput
+    subjects?: SubjectUncheckedUpdateManyWithoutBranchNestedInput
+    hostels?: HostelUncheckedUpdateManyWithoutBranchNestedInput
+    feeCategories?: FeeCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
+    routes?: TransportRouteUncheckedUpdateManyWithoutBranchNestedInput
+    expenseCategories?: ExpenseCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
+    designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
+    certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    books?: BookUncheckedUpdateManyWithoutBranchNestedInput
+    googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
+    liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
+    studentCategories?: StudentCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutBranchNestedInput
+    questionGroups?: QuestionGroupUncheckedUpdateManyWithoutBranchNestedInput
+    onlineExams?: OnlineExamUncheckedUpdateManyWithoutBranchNestedInput
+    enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
+    callLogs?: CallLogUncheckedUpdateManyWithoutBranchNestedInput
+    visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
+    complaints?: ComplaintUncheckedUpdateManyWithoutBranchNestedInput
+    postalRecords?: PostalRecordUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryCategories?: InventoryCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryStores?: InventoryStoreUncheckedUpdateManyWithoutBranchNestedInput
+    inventorySuppliers?: InventorySupplierUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryUnits?: InventoryUnitUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryProducts?: InventoryProductUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryPurchases?: InventoryPurchaseUncheckedUpdateManyWithoutBranchNestedInput
+    inventorySales?: InventorySaleUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutBranchNestedInput
+    alumni?: AlumniUncheckedUpdateManyWithoutBranchNestedInput
+    alumniEvents?: AlumniEventUncheckedUpdateManyWithoutBranchNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutBranchNestedInput
+    campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
+    accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
+    automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+  }
+
+  export type LoginDeactivationUpsertWithWhereUniqueWithoutReasonRefInput = {
+    where: LoginDeactivationWhereUniqueInput
+    update: XOR<LoginDeactivationUpdateWithoutReasonRefInput, LoginDeactivationUncheckedUpdateWithoutReasonRefInput>
+    create: XOR<LoginDeactivationCreateWithoutReasonRefInput, LoginDeactivationUncheckedCreateWithoutReasonRefInput>
+  }
+
+  export type LoginDeactivationUpdateWithWhereUniqueWithoutReasonRefInput = {
+    where: LoginDeactivationWhereUniqueInput
+    data: XOR<LoginDeactivationUpdateWithoutReasonRefInput, LoginDeactivationUncheckedUpdateWithoutReasonRefInput>
+  }
+
+  export type LoginDeactivationUpdateManyWithWhereWithoutReasonRefInput = {
+    where: LoginDeactivationScalarWhereInput
+    data: XOR<LoginDeactivationUpdateManyMutationInput, LoginDeactivationUncheckedUpdateManyWithoutReasonRefInput>
+  }
+
+  export type DeactivationReasonCreateWithoutDeactivationsInput = {
+    id?: string
+    title: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutDeactivationReasonsInput
+  }
+
+  export type DeactivationReasonUncheckedCreateWithoutDeactivationsInput = {
+    id?: string
+    title: string
+    description?: string | null
+    branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DeactivationReasonCreateOrConnectWithoutDeactivationsInput = {
+    where: DeactivationReasonWhereUniqueInput
+    create: XOR<DeactivationReasonCreateWithoutDeactivationsInput, DeactivationReasonUncheckedCreateWithoutDeactivationsInput>
+  }
+
+  export type BranchCreateWithoutLoginDeactivationsInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserCreateNestedManyWithoutBranchInput
+    students?: StudentCreateNestedManyWithoutBranchInput
+    classes?: ClassCreateNestedManyWithoutBranchInput
+    subjects?: SubjectCreateNestedManyWithoutBranchInput
+    hostels?: HostelCreateNestedManyWithoutBranchInput
+    feeCategories?: FeeCategoryCreateNestedManyWithoutBranchInput
+    vehicles?: VehicleCreateNestedManyWithoutBranchInput
+    routes?: TransportRouteCreateNestedManyWithoutBranchInput
+    expenseCategories?: ExpenseCategoryCreateNestedManyWithoutBranchInput
+    vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    departments?: DepartmentCreateNestedManyWithoutBranchInput
+    designations?: DesignationCreateNestedManyWithoutBranchInput
+    certificates?: CertificateCreateNestedManyWithoutBranchInput
+    books?: BookCreateNestedManyWithoutBranchInput
+    googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
+    liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
+    studentCategories?: StudentCategoryCreateNestedManyWithoutBranchInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutBranchInput
+    questionGroups?: QuestionGroupCreateNestedManyWithoutBranchInput
+    onlineExams?: OnlineExamCreateNestedManyWithoutBranchInput
+    enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
+    callLogs?: CallLogCreateNestedManyWithoutBranchInput
+    visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
+    complaints?: ComplaintCreateNestedManyWithoutBranchInput
+    postalRecords?: PostalRecordCreateNestedManyWithoutBranchInput
+    inventoryCategories?: InventoryCategoryCreateNestedManyWithoutBranchInput
+    inventoryStores?: InventoryStoreCreateNestedManyWithoutBranchInput
+    inventorySuppliers?: InventorySupplierCreateNestedManyWithoutBranchInput
+    inventoryUnits?: InventoryUnitCreateNestedManyWithoutBranchInput
+    inventoryProducts?: InventoryProductCreateNestedManyWithoutBranchInput
+    inventoryPurchases?: InventoryPurchaseCreateNestedManyWithoutBranchInput
+    inventorySales?: InventorySaleCreateNestedManyWithoutBranchInput
+    inventoryIssues?: InventoryIssueCreateNestedManyWithoutBranchInput
+    alumni?: AlumniCreateNestedManyWithoutBranchInput
+    alumniEvents?: AlumniEventCreateNestedManyWithoutBranchInput
+    conversations?: ConversationCreateNestedManyWithoutBranchInput
+    campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
+    accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
+    automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+  }
+
+  export type BranchUncheckedCreateWithoutLoginDeactivationsInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutBranchInput
+    students?: StudentUncheckedCreateNestedManyWithoutBranchInput
+    classes?: ClassUncheckedCreateNestedManyWithoutBranchInput
+    subjects?: SubjectUncheckedCreateNestedManyWithoutBranchInput
+    hostels?: HostelUncheckedCreateNestedManyWithoutBranchInput
+    feeCategories?: FeeCategoryUncheckedCreateNestedManyWithoutBranchInput
+    vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
+    routes?: TransportRouteUncheckedCreateNestedManyWithoutBranchInput
+    expenseCategories?: ExpenseCategoryUncheckedCreateNestedManyWithoutBranchInput
+    vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
+    designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
+    certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    books?: BookUncheckedCreateNestedManyWithoutBranchInput
+    googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
+    liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
+    studentCategories?: StudentCategoryUncheckedCreateNestedManyWithoutBranchInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutBranchInput
+    questionGroups?: QuestionGroupUncheckedCreateNestedManyWithoutBranchInput
+    onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutBranchInput
+    enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
+    callLogs?: CallLogUncheckedCreateNestedManyWithoutBranchInput
+    visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
+    complaints?: ComplaintUncheckedCreateNestedManyWithoutBranchInput
+    postalRecords?: PostalRecordUncheckedCreateNestedManyWithoutBranchInput
+    inventoryCategories?: InventoryCategoryUncheckedCreateNestedManyWithoutBranchInput
+    inventoryStores?: InventoryStoreUncheckedCreateNestedManyWithoutBranchInput
+    inventorySuppliers?: InventorySupplierUncheckedCreateNestedManyWithoutBranchInput
+    inventoryUnits?: InventoryUnitUncheckedCreateNestedManyWithoutBranchInput
+    inventoryProducts?: InventoryProductUncheckedCreateNestedManyWithoutBranchInput
+    inventoryPurchases?: InventoryPurchaseUncheckedCreateNestedManyWithoutBranchInput
+    inventorySales?: InventorySaleUncheckedCreateNestedManyWithoutBranchInput
+    inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutBranchInput
+    alumni?: AlumniUncheckedCreateNestedManyWithoutBranchInput
+    alumniEvents?: AlumniEventUncheckedCreateNestedManyWithoutBranchInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutBranchInput
+    campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
+    accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
+    automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+  }
+
+  export type BranchCreateOrConnectWithoutLoginDeactivationsInput = {
+    where: BranchWhereUniqueInput
+    create: XOR<BranchCreateWithoutLoginDeactivationsInput, BranchUncheckedCreateWithoutLoginDeactivationsInput>
+  }
+
+  export type DeactivationReasonUpsertWithoutDeactivationsInput = {
+    update: XOR<DeactivationReasonUpdateWithoutDeactivationsInput, DeactivationReasonUncheckedUpdateWithoutDeactivationsInput>
+    create: XOR<DeactivationReasonCreateWithoutDeactivationsInput, DeactivationReasonUncheckedCreateWithoutDeactivationsInput>
+    where?: DeactivationReasonWhereInput
+  }
+
+  export type DeactivationReasonUpdateToOneWithWhereWithoutDeactivationsInput = {
+    where?: DeactivationReasonWhereInput
+    data: XOR<DeactivationReasonUpdateWithoutDeactivationsInput, DeactivationReasonUncheckedUpdateWithoutDeactivationsInput>
+  }
+
+  export type DeactivationReasonUpdateWithoutDeactivationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutDeactivationReasonsNestedInput
+  }
+
+  export type DeactivationReasonUncheckedUpdateWithoutDeactivationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BranchUpsertWithoutLoginDeactivationsInput = {
+    update: XOR<BranchUpdateWithoutLoginDeactivationsInput, BranchUncheckedUpdateWithoutLoginDeactivationsInput>
+    create: XOR<BranchCreateWithoutLoginDeactivationsInput, BranchUncheckedCreateWithoutLoginDeactivationsInput>
+    where?: BranchWhereInput
+  }
+
+  export type BranchUpdateToOneWithWhereWithoutLoginDeactivationsInput = {
+    where?: BranchWhereInput
+    data: XOR<BranchUpdateWithoutLoginDeactivationsInput, BranchUncheckedUpdateWithoutLoginDeactivationsInput>
+  }
+
+  export type BranchUpdateWithoutLoginDeactivationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutBranchNestedInput
+    students?: StudentUpdateManyWithoutBranchNestedInput
+    classes?: ClassUpdateManyWithoutBranchNestedInput
+    subjects?: SubjectUpdateManyWithoutBranchNestedInput
+    hostels?: HostelUpdateManyWithoutBranchNestedInput
+    feeCategories?: FeeCategoryUpdateManyWithoutBranchNestedInput
+    vehicles?: VehicleUpdateManyWithoutBranchNestedInput
+    routes?: TransportRouteUpdateManyWithoutBranchNestedInput
+    expenseCategories?: ExpenseCategoryUpdateManyWithoutBranchNestedInput
+    vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    departments?: DepartmentUpdateManyWithoutBranchNestedInput
+    designations?: DesignationUpdateManyWithoutBranchNestedInput
+    certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    books?: BookUpdateManyWithoutBranchNestedInput
+    googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
+    liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
+    studentCategories?: StudentCategoryUpdateManyWithoutBranchNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutBranchNestedInput
+    questionGroups?: QuestionGroupUpdateManyWithoutBranchNestedInput
+    onlineExams?: OnlineExamUpdateManyWithoutBranchNestedInput
+    enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
+    callLogs?: CallLogUpdateManyWithoutBranchNestedInput
+    visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
+    complaints?: ComplaintUpdateManyWithoutBranchNestedInput
+    postalRecords?: PostalRecordUpdateManyWithoutBranchNestedInput
+    inventoryCategories?: InventoryCategoryUpdateManyWithoutBranchNestedInput
+    inventoryStores?: InventoryStoreUpdateManyWithoutBranchNestedInput
+    inventorySuppliers?: InventorySupplierUpdateManyWithoutBranchNestedInput
+    inventoryUnits?: InventoryUnitUpdateManyWithoutBranchNestedInput
+    inventoryProducts?: InventoryProductUpdateManyWithoutBranchNestedInput
+    inventoryPurchases?: InventoryPurchaseUpdateManyWithoutBranchNestedInput
+    inventorySales?: InventorySaleUpdateManyWithoutBranchNestedInput
+    inventoryIssues?: InventoryIssueUpdateManyWithoutBranchNestedInput
+    alumni?: AlumniUpdateManyWithoutBranchNestedInput
+    alumniEvents?: AlumniEventUpdateManyWithoutBranchNestedInput
+    conversations?: ConversationUpdateManyWithoutBranchNestedInput
+    campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
+    accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
+    automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+  }
+
+  export type BranchUncheckedUpdateWithoutLoginDeactivationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutBranchNestedInput
+    students?: StudentUncheckedUpdateManyWithoutBranchNestedInput
+    classes?: ClassUncheckedUpdateManyWithoutBranchNestedInput
+    subjects?: SubjectUncheckedUpdateManyWithoutBranchNestedInput
+    hostels?: HostelUncheckedUpdateManyWithoutBranchNestedInput
+    feeCategories?: FeeCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
+    routes?: TransportRouteUncheckedUpdateManyWithoutBranchNestedInput
+    expenseCategories?: ExpenseCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
+    designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
+    certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    books?: BookUncheckedUpdateManyWithoutBranchNestedInput
+    googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
+    liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
+    studentCategories?: StudentCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutBranchNestedInput
+    questionGroups?: QuestionGroupUncheckedUpdateManyWithoutBranchNestedInput
+    onlineExams?: OnlineExamUncheckedUpdateManyWithoutBranchNestedInput
+    enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
+    callLogs?: CallLogUncheckedUpdateManyWithoutBranchNestedInput
+    visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
+    complaints?: ComplaintUncheckedUpdateManyWithoutBranchNestedInput
+    postalRecords?: PostalRecordUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryCategories?: InventoryCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryStores?: InventoryStoreUncheckedUpdateManyWithoutBranchNestedInput
+    inventorySuppliers?: InventorySupplierUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryUnits?: InventoryUnitUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryProducts?: InventoryProductUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryPurchases?: InventoryPurchaseUncheckedUpdateManyWithoutBranchNestedInput
+    inventorySales?: InventorySaleUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutBranchNestedInput
+    alumni?: AlumniUncheckedUpdateManyWithoutBranchNestedInput
+    alumniEvents?: AlumniEventUncheckedUpdateManyWithoutBranchNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutBranchNestedInput
+    campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
+    accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
+    automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+  }
+
   export type BranchCreateWithoutUsersInput = {
     id?: string
     name: string
@@ -137207,6 +141049,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutUsersInput = {
@@ -137257,6 +141101,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutUsersInput = {
@@ -137867,6 +141713,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutUsersInput = {
@@ -137917,6 +141765,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StaffUpsertWithoutUserInput = {
@@ -139216,6 +143066,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutStudentsInput = {
@@ -139266,6 +143118,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutStudentsInput = {
@@ -140059,6 +143913,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutStudentsInput = {
@@ -140109,6 +143965,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type ClassUpsertWithoutStudentsInput = {
@@ -140951,6 +144809,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutCertificatesInput = {
@@ -141001,6 +144861,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutCertificatesInput = {
@@ -141259,6 +145121,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutCertificatesInput = {
@@ -141309,6 +145173,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutClassesInput = {
@@ -141359,6 +145225,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutClassesInput = {
@@ -141409,6 +145277,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutClassesInput = {
@@ -141786,6 +145656,9 @@ export namespace Prisma {
     referralSource?: string | null
     email?: string | null
     phone?: string | null
+    paymentReceiptUrl?: string | null
+    paymentStatus?: string
+    paymentMethod?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     academicSession?: AcademicSessionCreateNestedOneWithoutOnlineAdmissionsInput
@@ -141871,6 +145744,9 @@ export namespace Prisma {
     email?: string | null
     phone?: string | null
     studentCategoryId?: string | null
+    paymentReceiptUrl?: string | null
+    paymentStatus?: string
+    paymentMethod?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -141988,6 +145864,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutClassesInput = {
@@ -142038,6 +145916,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type SectionUpsertWithWhereUniqueWithoutClassInput = {
@@ -142629,6 +146509,9 @@ export namespace Prisma {
     referralSource?: string | null
     email?: string | null
     phone?: string | null
+    paymentReceiptUrl?: string | null
+    paymentStatus?: string
+    paymentMethod?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     academicSession?: AcademicSessionCreateNestedOneWithoutOnlineAdmissionsInput
@@ -142714,6 +146597,9 @@ export namespace Prisma {
     email?: string | null
     phone?: string | null
     studentCategoryId?: string | null
+    paymentReceiptUrl?: string | null
+    paymentStatus?: string
+    paymentMethod?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -142973,6 +146859,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutSubjectsInput = {
@@ -143023,6 +146911,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutSubjectsInput = {
@@ -143326,6 +147216,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutSubjectsInput = {
@@ -143376,6 +147268,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StaffUpsertWithWhereUniqueWithoutSubjectsInput = {
@@ -143852,6 +147746,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutHostelsInput = {
@@ -143902,6 +147798,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutHostelsInput = {
@@ -143998,6 +147896,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutHostelsInput = {
@@ -144048,6 +147948,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type RoomUpsertWithWhereUniqueWithoutHostelInput = {
@@ -145038,6 +148940,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutFeeCategoriesInput = {
@@ -145088,6 +148992,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutFeeCategoriesInput = {
@@ -145208,6 +149114,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutFeeCategoriesInput = {
@@ -145258,6 +149166,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type FeeStructureUpsertWithWhereUniqueWithoutCategoryInput = {
@@ -145852,6 +149762,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutQuestionGroupsInput = {
@@ -145902,6 +149814,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutQuestionGroupsInput = {
@@ -146044,6 +149958,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutQuestionGroupsInput = {
@@ -146094,6 +150010,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type QuestionUpsertWithWhereUniqueWithoutGroupInput = {
@@ -146534,6 +150452,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutOnlineExamsInput = {
@@ -146584,6 +150504,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutOnlineExamsInput = {
@@ -146830,6 +150752,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutOnlineExamsInput = {
@@ -146880,6 +150804,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type OnlineExamAttemptUpsertWithWhereUniqueWithoutExamInput = {
@@ -147662,6 +151588,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutVehiclesInput = {
@@ -147712,6 +151640,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutVehiclesInput = {
@@ -147804,6 +151734,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutVehiclesInput = {
@@ -147854,6 +151786,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type TransportAssignmentUpsertWithWhereUniqueWithoutVehicleInput = {
@@ -147932,6 +151866,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutRoutesInput = {
@@ -147982,6 +151918,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutRoutesInput = {
@@ -148074,6 +152012,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutRoutesInput = {
@@ -148124,6 +152064,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type TransportAssignmentUpsertWithWhereUniqueWithoutRouteInput = {
@@ -149375,6 +153317,9 @@ export namespace Prisma {
     referralSource?: string | null
     email?: string | null
     phone?: string | null
+    paymentReceiptUrl?: string | null
+    paymentStatus?: string
+    paymentMethod?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     desiredClass: ClassCreateNestedOneWithoutOnlineAdmissionsInput
@@ -149460,6 +153405,9 @@ export namespace Prisma {
     email?: string | null
     phone?: string | null
     studentCategoryId?: string | null
+    paymentReceiptUrl?: string | null
+    paymentStatus?: string
+    paymentMethod?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -150846,6 +154794,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutExpenseCategoriesInput = {
@@ -150896,6 +154846,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutExpenseCategoriesInput = {
@@ -151000,6 +154952,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutExpenseCategoriesInput = {
@@ -151050,6 +155004,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type VoucherUpsertWithWhereUniqueWithoutCategoryInput = {
@@ -151192,6 +155148,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutVouchersInput = {
@@ -151242,6 +155200,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutVouchersInput = {
@@ -151396,6 +155356,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutVouchersInput = {
@@ -151446,6 +155408,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutDepartmentsInput = {
@@ -151496,6 +155460,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutDepartmentsInput = {
@@ -151546,6 +155512,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutDepartmentsInput = {
@@ -151662,6 +155630,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutDepartmentsInput = {
@@ -151712,6 +155682,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StaffUpsertWithWhereUniqueWithoutDepartmentInput = {
@@ -151778,6 +155750,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutDesignationsInput = {
@@ -151828,6 +155802,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutDesignationsInput = {
@@ -151944,6 +155920,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutDesignationsInput = {
@@ -151994,6 +155972,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StaffUpsertWithWhereUniqueWithoutDesignationRefInput = {
@@ -152060,6 +156040,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutBooksInput = {
@@ -152110,6 +156092,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutBooksInput = {
@@ -152210,6 +156194,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutBooksInput = {
@@ -152260,6 +156246,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BorrowRecordUpsertWithWhereUniqueWithoutBookInput = {
@@ -153263,6 +157251,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutGoogleMeetConfigInput = {
@@ -153313,6 +157303,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutGoogleMeetConfigInput = {
@@ -153379,6 +157371,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutGoogleMeetConfigInput = {
@@ -153429,6 +157423,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type ClassCreateWithoutLiveClassSessionsInput = {
@@ -153653,6 +157649,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutLiveClassSessionsInput = {
@@ -153703,6 +157701,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutLiveClassSessionsInput = {
@@ -153953,6 +157953,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutLiveClassSessionsInput = {
@@ -154003,6 +158005,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type LiveClassSessionCreateWithoutParticipantsInput = {
@@ -154269,6 +158273,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutStudentCategoriesInput = {
@@ -154319,6 +158325,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutStudentCategoriesInput = {
@@ -154531,6 +158539,9 @@ export namespace Prisma {
     referralSource?: string | null
     email?: string | null
     phone?: string | null
+    paymentReceiptUrl?: string | null
+    paymentStatus?: string
+    paymentMethod?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     academicSession?: AcademicSessionCreateNestedOneWithoutOnlineAdmissionsInput
@@ -154616,6 +158627,9 @@ export namespace Prisma {
     referralSource?: string | null
     email?: string | null
     phone?: string | null
+    paymentReceiptUrl?: string | null
+    paymentStatus?: string
+    paymentMethod?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -154689,6 +158703,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutStudentCategoriesInput = {
@@ -154739,6 +158755,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StudentUpsertWithWhereUniqueWithoutCategoryInput = {
@@ -154924,6 +158942,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutOnlineAdmissionsInput = {
@@ -154974,6 +158994,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutOnlineAdmissionsInput = {
@@ -155186,6 +159208,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutOnlineAdmissionsInput = {
@@ -155236,6 +159260,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StudentCategoryUpsertWithoutOnlineAdmissionsInput = {
@@ -155317,6 +159343,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutEnquiriesInput = {
@@ -155367,6 +159395,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutEnquiriesInput = {
@@ -155433,6 +159463,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutEnquiriesInput = {
@@ -155483,6 +159515,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutCallLogsInput = {
@@ -155533,6 +159567,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutCallLogsInput = {
@@ -155583,6 +159619,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutCallLogsInput = {
@@ -155649,6 +159687,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutCallLogsInput = {
@@ -155699,6 +159739,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutVisitorLogsInput = {
@@ -155749,6 +159791,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutVisitorLogsInput = {
@@ -155799,6 +159843,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutVisitorLogsInput = {
@@ -155865,6 +159911,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutVisitorLogsInput = {
@@ -155915,6 +159963,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutComplaintsInput = {
@@ -155965,6 +160015,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutComplaintsInput = {
@@ -156015,6 +160067,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutComplaintsInput = {
@@ -156081,6 +160135,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutComplaintsInput = {
@@ -156131,6 +160187,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutPostalRecordsInput = {
@@ -156181,6 +160239,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutPostalRecordsInput = {
@@ -156231,6 +160291,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutPostalRecordsInput = {
@@ -156297,6 +160359,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutPostalRecordsInput = {
@@ -156347,6 +160411,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutInventoryCategoriesInput = {
@@ -156397,6 +160463,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventoryCategoriesInput = {
@@ -156447,6 +160515,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventoryCategoriesInput = {
@@ -156555,6 +160625,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventoryCategoriesInput = {
@@ -156605,6 +160677,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryProductUpsertWithWhereUniqueWithoutCategoryInput = {
@@ -156671,6 +160745,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventoryStoresInput = {
@@ -156721,6 +160797,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventoryStoresInput = {
@@ -156829,6 +160907,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventoryStoresInput = {
@@ -156879,6 +160959,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryProductUpsertWithWhereUniqueWithoutStoreInput = {
@@ -156945,6 +161027,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventorySuppliersInput = {
@@ -156995,6 +161079,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventorySuppliersInput = {
@@ -157097,6 +161183,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventorySuppliersInput = {
@@ -157147,6 +161235,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryPurchaseUpsertWithWhereUniqueWithoutSupplierInput = {
@@ -157213,6 +161303,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventoryUnitsInput = {
@@ -157263,6 +161355,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventoryUnitsInput = {
@@ -157371,6 +161465,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventoryUnitsInput = {
@@ -157421,6 +161517,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryProductUpsertWithWhereUniqueWithoutUnitInput = {
@@ -157662,6 +161760,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventoryProductsInput = {
@@ -157712,6 +161812,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventoryProductsInput = {
@@ -157909,6 +162011,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventoryProductsInput = {
@@ -157959,6 +162063,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryProductCreateWithoutPurchasesInput = {
@@ -158075,6 +162181,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventoryPurchasesInput = {
@@ -158125,6 +162233,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventoryPurchasesInput = {
@@ -158269,6 +162379,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventoryPurchasesInput = {
@@ -158319,6 +162431,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryProductCreateWithoutSalesInput = {
@@ -158406,6 +162520,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventorySalesInput = {
@@ -158456,6 +162572,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventorySalesInput = {
@@ -158565,6 +162683,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventorySalesInput = {
@@ -158615,6 +162735,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryProductCreateWithoutIssuesInput = {
@@ -158874,6 +162996,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventoryIssuesInput = {
@@ -158924,6 +163048,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventoryIssuesInput = {
@@ -159217,6 +163343,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventoryIssuesInput = {
@@ -159267,6 +163395,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StudentCreateWithoutAlumniInput = {
@@ -159470,6 +163600,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAlumniInput = {
@@ -159520,6 +163652,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAlumniInput = {
@@ -159747,6 +163881,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAlumniInput = {
@@ -159797,6 +163933,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type AlumniEventParticipantCreateWithoutEventInput = {
@@ -159873,6 +164011,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAlumniEventsInput = {
@@ -159923,6 +164063,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAlumniEventsInput = {
@@ -160005,6 +164147,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAlumniEventsInput = {
@@ -160055,6 +164199,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type AlumniCreateWithoutEventsInput = {
@@ -160299,6 +164445,8 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutConversationsInput = {
@@ -160349,6 +164497,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutConversationsInput = {
@@ -160447,6 +164597,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutConversationsInput = {
@@ -160497,6 +164649,8 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type ConversationCreateWithoutParticipantsInput = {
@@ -160909,6 +165063,8 @@ export namespace Prisma {
     conversations?: ConversationCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutCampusEventsInput = {
@@ -160959,6 +165115,8 @@ export namespace Prisma {
     conversations?: ConversationUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutCampusEventsInput = {
@@ -161041,6 +165199,8 @@ export namespace Prisma {
     conversations?: ConversationUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutCampusEventsInput = {
@@ -161091,6 +165251,8 @@ export namespace Prisma {
     conversations?: ConversationUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type CampusEventCreateWithoutRsvpsInput = {
@@ -161382,6 +165544,8 @@ export namespace Prisma {
     conversations?: ConversationCreateNestedManyWithoutBranchInput
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAccessLogsInput = {
@@ -161432,6 +165596,8 @@ export namespace Prisma {
     conversations?: ConversationUncheckedCreateNestedManyWithoutBranchInput
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAccessLogsInput = {
@@ -161557,6 +165723,8 @@ export namespace Prisma {
     conversations?: ConversationUpdateManyWithoutBranchNestedInput
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAccessLogsInput = {
@@ -161607,6 +165775,8 @@ export namespace Prisma {
     conversations?: ConversationUncheckedUpdateManyWithoutBranchNestedInput
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutAutomationConfigsInput = {
@@ -161657,6 +165827,8 @@ export namespace Prisma {
     conversations?: ConversationCreateNestedManyWithoutBranchInput
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAutomationConfigsInput = {
@@ -161707,6 +165879,8 @@ export namespace Prisma {
     conversations?: ConversationUncheckedCreateNestedManyWithoutBranchInput
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAutomationConfigsInput = {
@@ -161773,6 +165947,8 @@ export namespace Prisma {
     conversations?: ConversationUpdateManyWithoutBranchNestedInput
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAutomationConfigsInput = {
@@ -161823,6 +165999,8 @@ export namespace Prisma {
     conversations?: ConversationUncheckedUpdateManyWithoutBranchNestedInput
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type UserCreateManyBranchInput = {
@@ -162110,6 +166288,9 @@ export namespace Prisma {
     email?: string | null
     phone?: string | null
     studentCategoryId?: string | null
+    paymentReceiptUrl?: string | null
+    paymentStatus?: string
+    paymentMethod?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -162357,6 +166538,24 @@ export namespace Prisma {
     template?: string | null
     triggerDays?: number | null
     lastRun?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DeactivationReasonCreateManyBranchInput = {
+    id?: string
+    title: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LoginDeactivationCreateManyBranchInput = {
+    id?: string
+    studentId: string
+    userId: string
+    reason: string
+    reasonId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -163154,6 +167353,9 @@ export namespace Prisma {
     referralSource?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    paymentMethod?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     academicSession?: AcademicSessionUpdateOneWithoutOnlineAdmissionsNestedInput
@@ -163239,6 +167441,9 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     studentCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    paymentMethod?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -163320,6 +167525,9 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     studentCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    paymentMethod?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -164091,6 +168299,102 @@ export namespace Prisma {
     template?: NullableStringFieldUpdateOperationsInput | string | null
     triggerDays?: NullableIntFieldUpdateOperationsInput | number | null
     lastRun?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeactivationReasonUpdateWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deactivations?: LoginDeactivationUpdateManyWithoutReasonRefNestedInput
+  }
+
+  export type DeactivationReasonUncheckedUpdateWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deactivations?: LoginDeactivationUncheckedUpdateManyWithoutReasonRefNestedInput
+  }
+
+  export type DeactivationReasonUncheckedUpdateManyWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LoginDeactivationUpdateWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reasonRef?: DeactivationReasonUpdateOneWithoutDeactivationsNestedInput
+  }
+
+  export type LoginDeactivationUncheckedUpdateWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    reasonId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LoginDeactivationUncheckedUpdateManyWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    reasonId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LoginDeactivationCreateManyReasonRefInput = {
+    id?: string
+    studentId: string
+    userId: string
+    reason: string
+    branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LoginDeactivationUpdateWithoutReasonRefInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutLoginDeactivationsNestedInput
+  }
+
+  export type LoginDeactivationUncheckedUpdateWithoutReasonRefInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LoginDeactivationUncheckedUpdateManyWithoutReasonRefInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -165911,6 +170215,9 @@ export namespace Prisma {
     email?: string | null
     phone?: string | null
     studentCategoryId?: string | null
+    paymentReceiptUrl?: string | null
+    paymentStatus?: string
+    paymentMethod?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -166300,6 +170607,9 @@ export namespace Prisma {
     referralSource?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    paymentMethod?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     academicSession?: AcademicSessionUpdateOneWithoutOnlineAdmissionsNestedInput
@@ -166385,6 +170695,9 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     studentCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    paymentMethod?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -166466,6 +170779,9 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     studentCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    paymentMethod?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -166711,6 +171027,9 @@ export namespace Prisma {
     email?: string | null
     phone?: string | null
     studentCategoryId?: string | null
+    paymentReceiptUrl?: string | null
+    paymentStatus?: string
+    paymentMethod?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -167178,6 +171497,9 @@ export namespace Prisma {
     referralSource?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    paymentMethod?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     academicSession?: AcademicSessionUpdateOneWithoutOnlineAdmissionsNestedInput
@@ -167263,6 +171585,9 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     studentCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    paymentMethod?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -167344,6 +171669,9 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     studentCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    paymentMethod?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -168571,6 +172899,9 @@ export namespace Prisma {
     email?: string | null
     phone?: string | null
     studentCategoryId?: string | null
+    paymentReceiptUrl?: string | null
+    paymentStatus?: string
+    paymentMethod?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -168855,6 +173186,9 @@ export namespace Prisma {
     referralSource?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    paymentMethod?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     desiredClass?: ClassUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
@@ -168940,6 +173274,9 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     studentCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    paymentMethod?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -169021,6 +173358,9 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     studentCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    paymentMethod?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -169447,6 +173787,9 @@ export namespace Prisma {
     referralSource?: string | null
     email?: string | null
     phone?: string | null
+    paymentReceiptUrl?: string | null
+    paymentStatus?: string
+    paymentMethod?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -169693,6 +174036,9 @@ export namespace Prisma {
     referralSource?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    paymentMethod?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     academicSession?: AcademicSessionUpdateOneWithoutOnlineAdmissionsNestedInput
@@ -169778,6 +174124,9 @@ export namespace Prisma {
     referralSource?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    paymentMethod?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -169859,6 +174208,9 @@ export namespace Prisma {
     referralSource?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    paymentMethod?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

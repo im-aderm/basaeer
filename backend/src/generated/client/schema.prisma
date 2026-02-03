@@ -132,6 +132,34 @@ model Branch {
   campusEvents      CampusEvent[]
   accessLogs        CampusAccessLog[]
   automationConfigs AutomationConfig[]
+
+  // Student Deactivation Phase
+  deactivationReasons DeactivationReason[]
+  loginDeactivations  LoginDeactivation[]
+}
+
+model DeactivationReason {
+  id            String              @id @default(uuid())
+  title         String
+  description   String?
+  branchId      String
+  branch        Branch              @relation(fields: [branchId], references: [id])
+  deactivations LoginDeactivation[]
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+}
+
+model LoginDeactivation {
+  id        String              @id @default(uuid())
+  studentId String
+  userId    String
+  reason    String
+  reasonId  String?
+  reasonRef DeactivationReason? @relation(fields: [reasonId], references: [id])
+  branchId  String
+  branch    Branch              @relation(fields: [branchId], references: [id])
+  createdAt DateTime            @default(now())
+  updatedAt DateTime            @updatedAt
 }
 
 model User {
@@ -1304,6 +1332,11 @@ model OnlineAdmission {
   phone             String?
   studentCategoryId String?
   studentCategory   StudentCategory? @relation(fields: [studentCategoryId], references: [id])
+
+  // 11. Payment Information
+  paymentReceiptUrl String?
+  paymentStatus     String  @default("PENDING") // PENDING, VERIFIED, REJECTED
+  paymentMethod     String  @default("BANK_TRANSFER")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

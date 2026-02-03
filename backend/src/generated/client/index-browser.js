@@ -132,6 +132,26 @@ exports.Prisma.BranchScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.DeactivationReasonScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  branchId: 'branchId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.LoginDeactivationScalarFieldEnum = {
+  id: 'id',
+  studentId: 'studentId',
+  userId: 'userId',
+  reason: 'reason',
+  reasonId: 'reasonId',
+  branchId: 'branchId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
@@ -888,6 +908,9 @@ exports.Prisma.OnlineAdmissionScalarFieldEnum = {
   email: 'email',
   phone: 'phone',
   studentCategoryId: 'studentCategoryId',
+  paymentReceiptUrl: 'paymentReceiptUrl',
+  paymentStatus: 'paymentStatus',
+  paymentMethod: 'paymentMethod',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -1285,6 +1308,8 @@ exports.ExamTerm = exports.$Enums.ExamTerm = {
 
 exports.Prisma.ModelName = {
   Branch: 'Branch',
+  DeactivationReason: 'DeactivationReason',
+  LoginDeactivation: 'LoginDeactivation',
   User: 'User',
   Staff: 'Staff',
   Student: 'Student',
