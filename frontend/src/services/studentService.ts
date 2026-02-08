@@ -5,6 +5,7 @@ export interface Student {
     userId?: string;
     firstName: string;
     lastName: string;
+    otherNames?: string;
     bloodGroup?: string;
     genotype?: string;
     allergies?: string;
@@ -14,9 +15,18 @@ export interface Student {
     familyDoctorPhone?: string;
     guardianOccupation?: string;
     guardianOfficeAddress?: string;
+    secondaryGuardianName?: string;
+    secondaryGuardianPhone?: string;
+    secondaryGuardianRelation?: string;
     city?: string;
     state?: string;
     country?: string;
+    placeOfBirth?: string;
+    nationality?: string;
+    stateOfOrigin?: string;
+    lga?: string;
+    religion?: string;
+    passportPhoto?: string;
     emergencyContactName?: string;
     emergencyContactPhone?: string;
     emergencyContactRelation?: string;
@@ -33,6 +43,14 @@ export interface Student {
     };
     certificates?: any[];
     attendance?: any[];
+    birthCertificateUrl?: string;
+    testimonialUrl?: string;
+    transferCertificateUrl?: string;
+    immunizationCardUrl?: string;
+    preferredLanguage?: string;
+    religionClassType?: string;
+    scholarshipEligible?: boolean;
+    referralSource?: string;
     createdAt: string;
 }
 

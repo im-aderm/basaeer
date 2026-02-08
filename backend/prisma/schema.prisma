@@ -97,6 +97,7 @@ model Branch {
   departments       Department[]
   designations      Designation[]
   certificates      Certificate[]
+  certificateTemplates CertificateTemplate[]
   books             Book[]
   googleMeetConfig  GoogleMeetConfig?
   liveClassSessions LiveClassSession[]
@@ -131,6 +132,7 @@ model Branch {
   campusEvents      CampusEvent[]
   accessLogs        CampusAccessLog[]
   automationConfigs AutomationConfig[]
+  idCardTemplates   IdCardTemplate[]
 
   // Student Deactivation Phase
   deactivationReasons DeactivationReason[]
@@ -188,6 +190,7 @@ model User {
   sentMessages      Message[]
   eventRSVPs        EventRSVP[]
   accessLogs        CampusAccessLog[]
+  onlineAdmissions  OnlineAdmission[]
 }
 
 model Staff {
@@ -217,6 +220,7 @@ model Staff {
   salaryAdvances AdvanceSalary[]
   assignments    Assignment[]
   hostedSessions LiveClassSession[]
+  idCards        IdCard[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -256,6 +260,7 @@ model Student {
   borrowRecords     BorrowRecord[]
   onlineExamAttempts OnlineExamAttempt[]
   inventoryIssues   InventoryIssue[]
+  idCards           IdCard[]
   alumni            Alumni?
 
   categoryId        String?
@@ -311,9 +316,15 @@ model Certificate {
   certificateNumber String @unique
   issueDate   DateTime @default(now())
   content     Json?    // Any custom data for the certificate
+  
+  verificationCode String  @unique @default(cuid())
+  isVerified      Boolean @default(true)
 
   studentId   String
   student     Student  @relation(fields: [studentId], references: [id])
+
+  templateId  String?
+  template    CertificateTemplate? @relation(fields: [templateId], references: [id])
 
   issuedByUserId String
   issuedBy      User    @relation("IssuedCertificates", fields: [issuedByUserId], references: [id])
@@ -323,6 +334,22 @@ model Certificate {
 
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+model CertificateTemplate {
+  id              String   @id @default(uuid())
+  name            String
+  type            String   // TRANSFER, CHARACTER, etc.
+  backgroundImage String?  // URL to background image
+  config          Json     // Layout, styling, and fields config
+  
+  branchId        String
+  branch          Branch   @relation(fields: [branchId], references: [id])
+  
+  certificates    Certificate[]
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }
 
 model Class {
@@ -798,6 +825,7 @@ model AcademicSession {
   resultSummaries   ResultSummary[]
   behaviouralRatings BehaviouralRating[]
   onlineAdmissions  OnlineAdmission[]
+  idCards           IdCard[]
   
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -1331,6 +1359,9 @@ model OnlineAdmission {
   studentCategoryId String?
   studentCategory   StudentCategory? @relation(fields: [studentCategoryId], references: [id])
   
+  parentId          String?
+  parent            User?            @relation(fields: [parentId], references: [id])
+  
   // 11. Payment Information
   paymentReceiptUrl    String?
   paymentStatus        String          @default("PENDING") // PENDING, VERIFIED, REJECTED
@@ -1744,4 +1775,50 @@ model AutomationConfig {
   updatedAt       DateTime @updatedAt
   
   @@unique([branchId, type])
+}
+
+// ============================================
+// CARD MANAGEMENT MODULE (PHASE 20)
+// ============================================
+
+model IdCardTemplate {
+  id              String   @id @default(uuid())
+  name            String
+  type            String   // STUDENT, EMPLOYEE, ADMIT
+  backgroundImage String?  // URL to background image
+  
+  // Field positions and styling (stored as JSON)
+  // e.g. { "name": { "x": 10, "y": 20, "fontSize": 12, "color": "#000" } }
+  config          Json
+  
+  branchId        String
+  branch          Branch   @relation(fields: [branchId], references: [id])
+  
+  idCards         IdCard[]
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model IdCard {
+  id              String   @id @default(uuid())
+  studentId       String?
+  student         Student? @relation(fields: [studentId], references: [id])
+  
+  staffId         String?
+  staff           Staff?   @relation(fields: [staffId], references: [id])
+  
+  templateId      String
+  template        IdCardTemplate @relation(fields: [templateId], references: [id])
+  
+  sessionId       String
+  session         AcademicSession @relation(fields: [sessionId], references: [id])
+  
+  status          String   @default("CREATED") // CREATED, EXPIRED
+  issueDate       DateTime @default(now())
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@unique([studentId, sessionId])
 }

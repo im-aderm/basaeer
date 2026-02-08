@@ -324,4 +324,8 @@ export class CreateOnlineAdmissionDto {
     @IsString()
     @IsOptional()
     paymentMethod?: string;
+
+    @IsUUID()
+    @IsOptional()
+    parentId?: string;
 }

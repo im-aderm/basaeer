@@ -231,8 +231,22 @@ exports.Prisma.CertificateScalarFieldEnum = {
   certificateNumber: 'certificateNumber',
   issueDate: 'issueDate',
   content: 'content',
+  verificationCode: 'verificationCode',
+  isVerified: 'isVerified',
   studentId: 'studentId',
+  templateId: 'templateId',
   issuedByUserId: 'issuedByUserId',
+  branchId: 'branchId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CertificateTemplateScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  type: 'type',
+  backgroundImage: 'backgroundImage',
+  config: 'config',
   branchId: 'branchId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -908,6 +922,7 @@ exports.Prisma.OnlineAdmissionScalarFieldEnum = {
   email: 'email',
   phone: 'phone',
   studentCategoryId: 'studentCategoryId',
+  parentId: 'parentId',
   paymentReceiptUrl: 'paymentReceiptUrl',
   paymentStatus: 'paymentStatus',
   paymentMethod: 'paymentMethod',
@@ -1195,6 +1210,29 @@ exports.Prisma.AutomationConfigScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.IdCardTemplateScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  type: 'type',
+  backgroundImage: 'backgroundImage',
+  config: 'config',
+  branchId: 'branchId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.IdCardScalarFieldEnum = {
+  id: 'id',
+  studentId: 'studentId',
+  staffId: 'staffId',
+  templateId: 'templateId',
+  sessionId: 'sessionId',
+  status: 'status',
+  issueDate: 'issueDate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1202,6 +1240,10 @@ exports.Prisma.SortOrder = {
 
 exports.Prisma.NullableJsonNullValueInput = {
   DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
+};
+
+exports.Prisma.JsonNullValueInput = {
   JsonNull: Prisma.JsonNull
 };
 
@@ -1314,6 +1356,7 @@ exports.Prisma.ModelName = {
   Staff: 'Staff',
   Student: 'Student',
   Certificate: 'Certificate',
+  CertificateTemplate: 'CertificateTemplate',
   Class: 'Class',
   Section: 'Section',
   Subject: 'Subject',
@@ -1387,7 +1430,9 @@ exports.Prisma.ModelName = {
   CampusEvent: 'CampusEvent',
   EventRSVP: 'EventRSVP',
   CampusAccessLog: 'CampusAccessLog',
-  AutomationConfig: 'AutomationConfig'
+  AutomationConfig: 'AutomationConfig',
+  IdCardTemplate: 'IdCardTemplate',
+  IdCard: 'IdCard'
 };
 
 /**

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, UseGuards, Request, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, UseGuards, Request, Query, Delete } from '@nestjs/common';
 import { StakeholderService } from './stakeholder.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
@@ -35,6 +35,50 @@ export class StakeholderController {
     @Roles(UserRole.PARENT)
     getChildFinancials(@Param('id') studentId: string, @Request() req) {
         return this.stakeholderService.getChildFinancials(studentId, req.user.id);
+    }
+
+    @Get('parent/child/:id/homework')
+    @Roles(UserRole.PARENT)
+    getChildHomework(@Param('id') studentId: string, @Request() req) {
+        return this.stakeholderService.getChildHomework(studentId, req.user.id);
+    }
+
+    @Get('parent/child/:id/exams')
+    @Roles(UserRole.PARENT)
+    getChildExams(@Param('id') studentId: string, @Request() req) {
+        return this.stakeholderService.getChildExams(studentId, req.user.id);
+    }
+
+    @Get('parent/events')
+    @Roles(UserRole.PARENT)
+    getParentEvents(@Request() req) {
+        return this.stakeholderService.getParentEvents(req.user.id);
+    }
+
+    // --- ADMIN PARENT MANAGEMENT ---
+
+    @Get('admin/parents')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+    getAllParents(@Query('branchId') branchId: string) {
+        return this.stakeholderService.getAllParentsAdmin(branchId);
+    }
+
+    @Get('admin/parents/:id')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+    getParentDetails(@Param('id') id: string) {
+        return this.stakeholderService.getParentDetailsAdmin(id);
+    }
+
+    @Post('admin/parents/:id/students/:studentId')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+    linkStudent(@Param('id') parentId: string, @Param('studentId') studentId: string) {
+        return this.stakeholderService.linkStudentToParent(parentId, studentId);
+    }
+
+    @Delete('admin/parents/students/:studentId')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+    unlinkStudent(@Param('studentId') studentId: string) {
+        return this.stakeholderService.unlinkStudentFromParent(studentId);
     }
 
     // --- MESSAGING ---

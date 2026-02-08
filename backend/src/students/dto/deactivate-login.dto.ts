@@ -11,6 +11,5 @@ export class DeactivateLoginDto {
 
     @IsString()
     @IsNotEmpty()
-    @IsNotEmpty()
     reasonId?: string;
 }

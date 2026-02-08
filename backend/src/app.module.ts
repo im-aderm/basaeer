@@ -33,6 +33,7 @@ import { AccessControlModule } from './access-control/access-control.module';
 import { AutomationModule } from './automation/automation.module';
 import { SearchModule } from './search/search.module';
 import { AssignmentsModule } from './assignments/assignments.module';
+import { CardsModule } from './cards/cards.module';
 
 @Module({
   imports: [
@@ -68,6 +69,7 @@ import { AssignmentsModule } from './assignments/assignments.module';
     AutomationModule,
     SearchModule,
     AssignmentsModule,
+    CardsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

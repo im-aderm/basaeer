@@ -20,5 +20,10 @@ export const UserService = {
     toggleStatus: async (id: string, isActive: boolean): Promise<User> => {
         const response = await api.patch(`/users/${id}/status`, { isActive });
         return response.data;
+    },
+
+    create: async (data: any): Promise<User> => {
+        const response = await api.post("/users", data);
+        return response.data;
     }
 };

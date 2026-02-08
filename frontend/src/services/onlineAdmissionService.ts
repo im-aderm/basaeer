@@ -97,6 +97,7 @@ export interface OnlineAdmission {
     // Legacy
     email?: string;
     phone?: string;
+    parentId?: string;
 }
 
 export const OnlineAdmissionService = {

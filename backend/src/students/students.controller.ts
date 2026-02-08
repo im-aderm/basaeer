@@ -44,16 +44,16 @@ export class StudentsController {
 
   @Get()
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
-  findAll(@Request() req, @Query('classId') classId?: string, @Query('sectionId') sectionId?: string) {
-    const branchId = req.query.branchId || req.user.branchId;
-    return this.studentsService.findAll(branchId, classId, sectionId);
+  findAll(@Request() req, @Query('classId') classId?: string, @Query('sectionId') sectionId?: string, @Query('branchId') branchId?: string) {
+    const targetBranchId = branchId || req.user.branchId;
+    return this.studentsService.findAll(targetBranchId, classId, sectionId);
   }
 
   // Deactivation Reasons
   @Get('deactivation-reasons')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   fetchDeactivationReasons(@Request() req) {
-    const branchId = req.user.branchId;
+    const branchId = req.query.branchId || req.user.branchId;
     return this.studentsService.fetchDeactivationReasons(branchId);
   }
 
@@ -87,7 +87,7 @@ export class StudentsController {
   @Get('login-deactivations')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   getLoginDeactivations(@Request() req) {
-    const branchId = req.user.branchId;
+    const branchId = req.query.branchId || req.user.branchId;
     return this.studentsService.getLoginDeactivations(branchId);
   }
 

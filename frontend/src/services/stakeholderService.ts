@@ -55,6 +55,36 @@ export const StakeholderService = {
         const response = await api.get(`/stakeholder/parent/child/${studentId}/financials`);
         return response.data;
     },
+    getChildHomework: async (studentId: string) => {
+        const response = await api.get(`/stakeholder/parent/child/${studentId}/homework`);
+        return response.data;
+    },
+    getChildExams: async (studentId: string) => {
+        const response = await api.get(`/stakeholder/parent/child/${studentId}/exams`);
+        return response.data;
+    },
+    getParentEvents: async () => {
+        const response = await api.get('/stakeholder/parent/events');
+        return response.data;
+    },
+
+    // Admin Parent Management
+    getAllParentsAdmin: async (branchId?: string) => {
+        const response = await api.get('/stakeholder/admin/parents', { params: { branchId } });
+        return response.data;
+    },
+    getParentDetailsAdmin: async (id: string) => {
+        const response = await api.get(`/stakeholder/admin/parents/${id}`);
+        return response.data;
+    },
+    linkStudent: async (parentId: string, studentId: string) => {
+        const response = await api.post(`/stakeholder/admin/parents/${parentId}/students/${studentId}`);
+        return response.data;
+    },
+    unlinkStudent: async (studentId: string) => {
+        const response = await api.delete(`/stakeholder/admin/parents/students/${studentId}`);
+        return response.data;
+    },
 
     // Messaging
     getConversations: async () => {

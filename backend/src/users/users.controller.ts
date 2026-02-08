@@ -1,4 +1,4 @@
-import { Controller, Get, Patch, Param, Body, UseGuards, Query } from '@nestjs/common';
+import { Controller, Get, Patch, Post, Param, Body, UseGuards, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
@@ -14,6 +14,12 @@ export class UsersController {
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   findAll(@Query('branchId') branchId?: string, @Query('role') role?: UserRole) {
     return this.usersService.findAll(branchId, role);
+  }
+
+  @Post()
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+  create(@Body() data: any) {
+    return this.usersService.createUser(data);
   }
 
   @Patch(':id/status')

@@ -49,6 +49,11 @@ export type Student = $Result.DefaultSelection<Prisma.$StudentPayload>
  */
 export type Certificate = $Result.DefaultSelection<Prisma.$CertificatePayload>
 /**
+ * Model CertificateTemplate
+ * 
+ */
+export type CertificateTemplate = $Result.DefaultSelection<Prisma.$CertificateTemplatePayload>
+/**
  * Model Class
  * 
  */
@@ -418,6 +423,16 @@ export type CampusAccessLog = $Result.DefaultSelection<Prisma.$CampusAccessLogPa
  * 
  */
 export type AutomationConfig = $Result.DefaultSelection<Prisma.$AutomationConfigPayload>
+/**
+ * Model IdCardTemplate
+ * 
+ */
+export type IdCardTemplate = $Result.DefaultSelection<Prisma.$IdCardTemplatePayload>
+/**
+ * Model IdCard
+ * 
+ */
+export type IdCard = $Result.DefaultSelection<Prisma.$IdCardPayload>
 
 /**
  * Enums
@@ -780,6 +795,16 @@ export class PrismaClient<
     * ```
     */
   get certificate(): Prisma.CertificateDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.certificateTemplate`: Exposes CRUD operations for the **CertificateTemplate** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CertificateTemplates
+    * const certificateTemplates = await prisma.certificateTemplate.findMany()
+    * ```
+    */
+  get certificateTemplate(): Prisma.CertificateTemplateDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.class`: Exposes CRUD operations for the **Class** model.
@@ -1520,6 +1545,26 @@ export class PrismaClient<
     * ```
     */
   get automationConfig(): Prisma.AutomationConfigDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.idCardTemplate`: Exposes CRUD operations for the **IdCardTemplate** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more IdCardTemplates
+    * const idCardTemplates = await prisma.idCardTemplate.findMany()
+    * ```
+    */
+  get idCardTemplate(): Prisma.IdCardTemplateDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.idCard`: Exposes CRUD operations for the **IdCard** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more IdCards
+    * const idCards = await prisma.idCard.findMany()
+    * ```
+    */
+  get idCard(): Prisma.IdCardDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1961,6 +2006,7 @@ export namespace Prisma {
     Staff: 'Staff',
     Student: 'Student',
     Certificate: 'Certificate',
+    CertificateTemplate: 'CertificateTemplate',
     Class: 'Class',
     Section: 'Section',
     Subject: 'Subject',
@@ -2034,7 +2080,9 @@ export namespace Prisma {
     CampusEvent: 'CampusEvent',
     EventRSVP: 'EventRSVP',
     CampusAccessLog: 'CampusAccessLog',
-    AutomationConfig: 'AutomationConfig'
+    AutomationConfig: 'AutomationConfig',
+    IdCardTemplate: 'IdCardTemplate',
+    IdCard: 'IdCard'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -2050,7 +2098,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "branch" | "deactivationReason" | "loginDeactivation" | "user" | "staff" | "student" | "certificate" | "class" | "section" | "subject" | "attendance" | "hostel" | "room" | "bed" | "hostelAllocation" | "hostelLeave" | "maintenanceRequest" | "feeCategory" | "feeStructure" | "invoice" | "questionGroup" | "question" | "questionOption" | "onlineExam" | "onlineExamAttempt" | "questionAnswer" | "invoiceItem" | "payment" | "vehicle" | "transportRoute" | "transportAssignment" | "assignment" | "submission" | "academicSession" | "assessmentRecord" | "behaviouralRating" | "resultSummary" | "gradingScale" | "globalSetting" | "rolePermission" | "auditLog" | "expenseCategory" | "voucher" | "department" | "designation" | "book" | "borrowRecord" | "libraryFine" | "salaryTemplate" | "payroll" | "leaveRequest" | "staffAward" | "advanceSalary" | "googleMeetConfig" | "liveClassSession" | "meetingParticipant" | "studentCategory" | "onlineAdmission" | "admissionEnquiry" | "callLog" | "visitorLog" | "complaint" | "postalRecord" | "inventoryCategory" | "inventoryStore" | "inventorySupplier" | "inventoryUnit" | "inventoryProduct" | "inventoryPurchase" | "inventorySale" | "inventoryIssue" | "alumni" | "alumniEvent" | "alumniEventParticipant" | "conversation" | "conversationParticipant" | "message" | "campusEvent" | "eventRSVP" | "campusAccessLog" | "automationConfig"
+      modelProps: "branch" | "deactivationReason" | "loginDeactivation" | "user" | "staff" | "student" | "certificate" | "certificateTemplate" | "class" | "section" | "subject" | "attendance" | "hostel" | "room" | "bed" | "hostelAllocation" | "hostelLeave" | "maintenanceRequest" | "feeCategory" | "feeStructure" | "invoice" | "questionGroup" | "question" | "questionOption" | "onlineExam" | "onlineExamAttempt" | "questionAnswer" | "invoiceItem" | "payment" | "vehicle" | "transportRoute" | "transportAssignment" | "assignment" | "submission" | "academicSession" | "assessmentRecord" | "behaviouralRating" | "resultSummary" | "gradingScale" | "globalSetting" | "rolePermission" | "auditLog" | "expenseCategory" | "voucher" | "department" | "designation" | "book" | "borrowRecord" | "libraryFine" | "salaryTemplate" | "payroll" | "leaveRequest" | "staffAward" | "advanceSalary" | "googleMeetConfig" | "liveClassSession" | "meetingParticipant" | "studentCategory" | "onlineAdmission" | "admissionEnquiry" | "callLog" | "visitorLog" | "complaint" | "postalRecord" | "inventoryCategory" | "inventoryStore" | "inventorySupplier" | "inventoryUnit" | "inventoryProduct" | "inventoryPurchase" | "inventorySale" | "inventoryIssue" | "alumni" | "alumniEvent" | "alumniEventParticipant" | "conversation" | "conversationParticipant" | "message" | "campusEvent" | "eventRSVP" | "campusAccessLog" | "automationConfig" | "idCardTemplate" | "idCard"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2569,6 +2617,80 @@ export namespace Prisma {
           count: {
             args: Prisma.CertificateCountArgs<ExtArgs>
             result: $Utils.Optional<CertificateCountAggregateOutputType> | number
+          }
+        }
+      }
+      CertificateTemplate: {
+        payload: Prisma.$CertificateTemplatePayload<ExtArgs>
+        fields: Prisma.CertificateTemplateFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CertificateTemplateFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CertificateTemplatePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CertificateTemplateFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CertificateTemplatePayload>
+          }
+          findFirst: {
+            args: Prisma.CertificateTemplateFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CertificateTemplatePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CertificateTemplateFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CertificateTemplatePayload>
+          }
+          findMany: {
+            args: Prisma.CertificateTemplateFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CertificateTemplatePayload>[]
+          }
+          create: {
+            args: Prisma.CertificateTemplateCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CertificateTemplatePayload>
+          }
+          createMany: {
+            args: Prisma.CertificateTemplateCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CertificateTemplateCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CertificateTemplatePayload>[]
+          }
+          delete: {
+            args: Prisma.CertificateTemplateDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CertificateTemplatePayload>
+          }
+          update: {
+            args: Prisma.CertificateTemplateUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CertificateTemplatePayload>
+          }
+          deleteMany: {
+            args: Prisma.CertificateTemplateDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CertificateTemplateUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CertificateTemplateUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CertificateTemplatePayload>[]
+          }
+          upsert: {
+            args: Prisma.CertificateTemplateUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CertificateTemplatePayload>
+          }
+          aggregate: {
+            args: Prisma.CertificateTemplateAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCertificateTemplate>
+          }
+          groupBy: {
+            args: Prisma.CertificateTemplateGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CertificateTemplateGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CertificateTemplateCountArgs<ExtArgs>
+            result: $Utils.Optional<CertificateTemplateCountAggregateOutputType> | number
           }
         }
       }
@@ -8048,6 +8170,154 @@ export namespace Prisma {
           }
         }
       }
+      IdCardTemplate: {
+        payload: Prisma.$IdCardTemplatePayload<ExtArgs>
+        fields: Prisma.IdCardTemplateFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.IdCardTemplateFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdCardTemplatePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.IdCardTemplateFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdCardTemplatePayload>
+          }
+          findFirst: {
+            args: Prisma.IdCardTemplateFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdCardTemplatePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.IdCardTemplateFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdCardTemplatePayload>
+          }
+          findMany: {
+            args: Prisma.IdCardTemplateFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdCardTemplatePayload>[]
+          }
+          create: {
+            args: Prisma.IdCardTemplateCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdCardTemplatePayload>
+          }
+          createMany: {
+            args: Prisma.IdCardTemplateCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.IdCardTemplateCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdCardTemplatePayload>[]
+          }
+          delete: {
+            args: Prisma.IdCardTemplateDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdCardTemplatePayload>
+          }
+          update: {
+            args: Prisma.IdCardTemplateUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdCardTemplatePayload>
+          }
+          deleteMany: {
+            args: Prisma.IdCardTemplateDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.IdCardTemplateUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.IdCardTemplateUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdCardTemplatePayload>[]
+          }
+          upsert: {
+            args: Prisma.IdCardTemplateUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdCardTemplatePayload>
+          }
+          aggregate: {
+            args: Prisma.IdCardTemplateAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateIdCardTemplate>
+          }
+          groupBy: {
+            args: Prisma.IdCardTemplateGroupByArgs<ExtArgs>
+            result: $Utils.Optional<IdCardTemplateGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.IdCardTemplateCountArgs<ExtArgs>
+            result: $Utils.Optional<IdCardTemplateCountAggregateOutputType> | number
+          }
+        }
+      }
+      IdCard: {
+        payload: Prisma.$IdCardPayload<ExtArgs>
+        fields: Prisma.IdCardFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.IdCardFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdCardPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.IdCardFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdCardPayload>
+          }
+          findFirst: {
+            args: Prisma.IdCardFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdCardPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.IdCardFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdCardPayload>
+          }
+          findMany: {
+            args: Prisma.IdCardFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdCardPayload>[]
+          }
+          create: {
+            args: Prisma.IdCardCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdCardPayload>
+          }
+          createMany: {
+            args: Prisma.IdCardCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.IdCardCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdCardPayload>[]
+          }
+          delete: {
+            args: Prisma.IdCardDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdCardPayload>
+          }
+          update: {
+            args: Prisma.IdCardUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdCardPayload>
+          }
+          deleteMany: {
+            args: Prisma.IdCardDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.IdCardUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.IdCardUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdCardPayload>[]
+          }
+          upsert: {
+            args: Prisma.IdCardUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdCardPayload>
+          }
+          aggregate: {
+            args: Prisma.IdCardAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateIdCard>
+          }
+          groupBy: {
+            args: Prisma.IdCardGroupByArgs<ExtArgs>
+            result: $Utils.Optional<IdCardGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.IdCardCountArgs<ExtArgs>
+            result: $Utils.Optional<IdCardCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -8163,6 +8433,7 @@ export namespace Prisma {
     staff?: StaffOmit
     student?: StudentOmit
     certificate?: CertificateOmit
+    certificateTemplate?: CertificateTemplateOmit
     class?: ClassOmit
     section?: SectionOmit
     subject?: SubjectOmit
@@ -8237,6 +8508,8 @@ export namespace Prisma {
     eventRSVP?: EventRSVPOmit
     campusAccessLog?: CampusAccessLogOmit
     automationConfig?: AutomationConfigOmit
+    idCardTemplate?: IdCardTemplateOmit
+    idCard?: IdCardOmit
   }
 
   /* Types for Logging */
@@ -8330,6 +8603,7 @@ export namespace Prisma {
     departments: number
     designations: number
     certificates: number
+    certificateTemplates: number
     books: number
     liveClassSessions: number
     studentCategories: number
@@ -8355,6 +8629,7 @@ export namespace Prisma {
     campusEvents: number
     accessLogs: number
     automationConfigs: number
+    idCardTemplates: number
     deactivationReasons: number
     loginDeactivations: number
   }
@@ -8373,6 +8648,7 @@ export namespace Prisma {
     departments?: boolean | BranchCountOutputTypeCountDepartmentsArgs
     designations?: boolean | BranchCountOutputTypeCountDesignationsArgs
     certificates?: boolean | BranchCountOutputTypeCountCertificatesArgs
+    certificateTemplates?: boolean | BranchCountOutputTypeCountCertificateTemplatesArgs
     books?: boolean | BranchCountOutputTypeCountBooksArgs
     liveClassSessions?: boolean | BranchCountOutputTypeCountLiveClassSessionsArgs
     studentCategories?: boolean | BranchCountOutputTypeCountStudentCategoriesArgs
@@ -8398,6 +8674,7 @@ export namespace Prisma {
     campusEvents?: boolean | BranchCountOutputTypeCountCampusEventsArgs
     accessLogs?: boolean | BranchCountOutputTypeCountAccessLogsArgs
     automationConfigs?: boolean | BranchCountOutputTypeCountAutomationConfigsArgs
+    idCardTemplates?: boolean | BranchCountOutputTypeCountIdCardTemplatesArgs
     deactivationReasons?: boolean | BranchCountOutputTypeCountDeactivationReasonsArgs
     loginDeactivations?: boolean | BranchCountOutputTypeCountLoginDeactivationsArgs
   }
@@ -8502,6 +8779,13 @@ export namespace Prisma {
    */
   export type BranchCountOutputTypeCountCertificatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CertificateWhereInput
+  }
+
+  /**
+   * BranchCountOutputType without action
+   */
+  export type BranchCountOutputTypeCountCertificateTemplatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CertificateTemplateWhereInput
   }
 
   /**
@@ -8682,6 +8966,13 @@ export namespace Prisma {
   /**
    * BranchCountOutputType without action
    */
+  export type BranchCountOutputTypeCountIdCardTemplatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: IdCardTemplateWhereInput
+  }
+
+  /**
+   * BranchCountOutputType without action
+   */
   export type BranchCountOutputTypeCountDeactivationReasonsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DeactivationReasonWhereInput
   }
@@ -8739,6 +9030,7 @@ export namespace Prisma {
     sentMessages: number
     eventRSVPs: number
     accessLogs: number
+    onlineAdmissions: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8751,6 +9043,7 @@ export namespace Prisma {
     sentMessages?: boolean | UserCountOutputTypeCountSentMessagesArgs
     eventRSVPs?: boolean | UserCountOutputTypeCountEventRSVPsArgs
     accessLogs?: boolean | UserCountOutputTypeCountAccessLogsArgs
+    onlineAdmissions?: boolean | UserCountOutputTypeCountOnlineAdmissionsArgs
   }
 
   // Custom InputTypes
@@ -8827,6 +9120,13 @@ export namespace Prisma {
     where?: CampusAccessLogWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountOnlineAdmissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OnlineAdmissionWhereInput
+  }
+
 
   /**
    * Count Type StaffCountOutputType
@@ -8842,6 +9142,7 @@ export namespace Prisma {
     salaryAdvances: number
     assignments: number
     hostedSessions: number
+    idCards: number
   }
 
   export type StaffCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8854,6 +9155,7 @@ export namespace Prisma {
     salaryAdvances?: boolean | StaffCountOutputTypeCountSalaryAdvancesArgs
     assignments?: boolean | StaffCountOutputTypeCountAssignmentsArgs
     hostedSessions?: boolean | StaffCountOutputTypeCountHostedSessionsArgs
+    idCards?: boolean | StaffCountOutputTypeCountIdCardsArgs
   }
 
   // Custom InputTypes
@@ -8930,6 +9232,13 @@ export namespace Prisma {
     where?: LiveClassSessionWhereInput
   }
 
+  /**
+   * StaffCountOutputType without action
+   */
+  export type StaffCountOutputTypeCountIdCardsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: IdCardWhereInput
+  }
+
 
   /**
    * Count Type StudentCountOutputType
@@ -8948,6 +9257,7 @@ export namespace Prisma {
     borrowRecords: number
     onlineExamAttempts: number
     inventoryIssues: number
+    idCards: number
   }
 
   export type StudentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8963,6 +9273,7 @@ export namespace Prisma {
     borrowRecords?: boolean | StudentCountOutputTypeCountBorrowRecordsArgs
     onlineExamAttempts?: boolean | StudentCountOutputTypeCountOnlineExamAttemptsArgs
     inventoryIssues?: boolean | StudentCountOutputTypeCountInventoryIssuesArgs
+    idCards?: boolean | StudentCountOutputTypeCountIdCardsArgs
   }
 
   // Custom InputTypes
@@ -9058,6 +9369,44 @@ export namespace Prisma {
    */
   export type StudentCountOutputTypeCountInventoryIssuesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: InventoryIssueWhereInput
+  }
+
+  /**
+   * StudentCountOutputType without action
+   */
+  export type StudentCountOutputTypeCountIdCardsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: IdCardWhereInput
+  }
+
+
+  /**
+   * Count Type CertificateTemplateCountOutputType
+   */
+
+  export type CertificateTemplateCountOutputType = {
+    certificates: number
+  }
+
+  export type CertificateTemplateCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    certificates?: boolean | CertificateTemplateCountOutputTypeCountCertificatesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CertificateTemplateCountOutputType without action
+   */
+  export type CertificateTemplateCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CertificateTemplateCountOutputType
+     */
+    select?: CertificateTemplateCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CertificateTemplateCountOutputType without action
+   */
+  export type CertificateTemplateCountOutputTypeCountCertificatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CertificateWhereInput
   }
 
 
@@ -9715,6 +10064,7 @@ export namespace Prisma {
     resultSummaries: number
     behaviouralRatings: number
     onlineAdmissions: number
+    idCards: number
   }
 
   export type AcademicSessionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9722,6 +10072,7 @@ export namespace Prisma {
     resultSummaries?: boolean | AcademicSessionCountOutputTypeCountResultSummariesArgs
     behaviouralRatings?: boolean | AcademicSessionCountOutputTypeCountBehaviouralRatingsArgs
     onlineAdmissions?: boolean | AcademicSessionCountOutputTypeCountOnlineAdmissionsArgs
+    idCards?: boolean | AcademicSessionCountOutputTypeCountIdCardsArgs
   }
 
   // Custom InputTypes
@@ -9761,6 +10112,13 @@ export namespace Prisma {
    */
   export type AcademicSessionCountOutputTypeCountOnlineAdmissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: OnlineAdmissionWhereInput
+  }
+
+  /**
+   * AcademicSessionCountOutputType without action
+   */
+  export type AcademicSessionCountOutputTypeCountIdCardsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: IdCardWhereInput
   }
 
 
@@ -10297,6 +10655,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type IdCardTemplateCountOutputType
+   */
+
+  export type IdCardTemplateCountOutputType = {
+    idCards: number
+  }
+
+  export type IdCardTemplateCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    idCards?: boolean | IdCardTemplateCountOutputTypeCountIdCardsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * IdCardTemplateCountOutputType without action
+   */
+  export type IdCardTemplateCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdCardTemplateCountOutputType
+     */
+    select?: IdCardTemplateCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * IdCardTemplateCountOutputType without action
+   */
+  export type IdCardTemplateCountOutputTypeCountIdCardsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: IdCardWhereInput
+  }
+
+
+  /**
    * Models
    */
 
@@ -10509,6 +10898,7 @@ export namespace Prisma {
     departments?: boolean | Branch$departmentsArgs<ExtArgs>
     designations?: boolean | Branch$designationsArgs<ExtArgs>
     certificates?: boolean | Branch$certificatesArgs<ExtArgs>
+    certificateTemplates?: boolean | Branch$certificateTemplatesArgs<ExtArgs>
     books?: boolean | Branch$booksArgs<ExtArgs>
     googleMeetConfig?: boolean | Branch$googleMeetConfigArgs<ExtArgs>
     liveClassSessions?: boolean | Branch$liveClassSessionsArgs<ExtArgs>
@@ -10535,6 +10925,7 @@ export namespace Prisma {
     campusEvents?: boolean | Branch$campusEventsArgs<ExtArgs>
     accessLogs?: boolean | Branch$accessLogsArgs<ExtArgs>
     automationConfigs?: boolean | Branch$automationConfigsArgs<ExtArgs>
+    idCardTemplates?: boolean | Branch$idCardTemplatesArgs<ExtArgs>
     deactivationReasons?: boolean | Branch$deactivationReasonsArgs<ExtArgs>
     loginDeactivations?: boolean | Branch$loginDeactivationsArgs<ExtArgs>
     _count?: boolean | BranchCountOutputTypeDefaultArgs<ExtArgs>
@@ -10591,6 +10982,7 @@ export namespace Prisma {
     departments?: boolean | Branch$departmentsArgs<ExtArgs>
     designations?: boolean | Branch$designationsArgs<ExtArgs>
     certificates?: boolean | Branch$certificatesArgs<ExtArgs>
+    certificateTemplates?: boolean | Branch$certificateTemplatesArgs<ExtArgs>
     books?: boolean | Branch$booksArgs<ExtArgs>
     googleMeetConfig?: boolean | Branch$googleMeetConfigArgs<ExtArgs>
     liveClassSessions?: boolean | Branch$liveClassSessionsArgs<ExtArgs>
@@ -10617,6 +11009,7 @@ export namespace Prisma {
     campusEvents?: boolean | Branch$campusEventsArgs<ExtArgs>
     accessLogs?: boolean | Branch$accessLogsArgs<ExtArgs>
     automationConfigs?: boolean | Branch$automationConfigsArgs<ExtArgs>
+    idCardTemplates?: boolean | Branch$idCardTemplatesArgs<ExtArgs>
     deactivationReasons?: boolean | Branch$deactivationReasonsArgs<ExtArgs>
     loginDeactivations?: boolean | Branch$loginDeactivationsArgs<ExtArgs>
     _count?: boolean | BranchCountOutputTypeDefaultArgs<ExtArgs>
@@ -10640,6 +11033,7 @@ export namespace Prisma {
       departments: Prisma.$DepartmentPayload<ExtArgs>[]
       designations: Prisma.$DesignationPayload<ExtArgs>[]
       certificates: Prisma.$CertificatePayload<ExtArgs>[]
+      certificateTemplates: Prisma.$CertificateTemplatePayload<ExtArgs>[]
       books: Prisma.$BookPayload<ExtArgs>[]
       googleMeetConfig: Prisma.$GoogleMeetConfigPayload<ExtArgs> | null
       liveClassSessions: Prisma.$LiveClassSessionPayload<ExtArgs>[]
@@ -10666,6 +11060,7 @@ export namespace Prisma {
       campusEvents: Prisma.$CampusEventPayload<ExtArgs>[]
       accessLogs: Prisma.$CampusAccessLogPayload<ExtArgs>[]
       automationConfigs: Prisma.$AutomationConfigPayload<ExtArgs>[]
+      idCardTemplates: Prisma.$IdCardTemplatePayload<ExtArgs>[]
       deactivationReasons: Prisma.$DeactivationReasonPayload<ExtArgs>[]
       loginDeactivations: Prisma.$LoginDeactivationPayload<ExtArgs>[]
     }
@@ -11086,6 +11481,7 @@ export namespace Prisma {
     departments<T extends Branch$departmentsArgs<ExtArgs> = {}>(args?: Subset<T, Branch$departmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     designations<T extends Branch$designationsArgs<ExtArgs> = {}>(args?: Subset<T, Branch$designationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DesignationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     certificates<T extends Branch$certificatesArgs<ExtArgs> = {}>(args?: Subset<T, Branch$certificatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CertificatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    certificateTemplates<T extends Branch$certificateTemplatesArgs<ExtArgs> = {}>(args?: Subset<T, Branch$certificateTemplatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CertificateTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     books<T extends Branch$booksArgs<ExtArgs> = {}>(args?: Subset<T, Branch$booksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     googleMeetConfig<T extends Branch$googleMeetConfigArgs<ExtArgs> = {}>(args?: Subset<T, Branch$googleMeetConfigArgs<ExtArgs>>): Prisma__GoogleMeetConfigClient<$Result.GetResult<Prisma.$GoogleMeetConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     liveClassSessions<T extends Branch$liveClassSessionsArgs<ExtArgs> = {}>(args?: Subset<T, Branch$liveClassSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LiveClassSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -11112,6 +11508,7 @@ export namespace Prisma {
     campusEvents<T extends Branch$campusEventsArgs<ExtArgs> = {}>(args?: Subset<T, Branch$campusEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CampusEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     accessLogs<T extends Branch$accessLogsArgs<ExtArgs> = {}>(args?: Subset<T, Branch$accessLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CampusAccessLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     automationConfigs<T extends Branch$automationConfigsArgs<ExtArgs> = {}>(args?: Subset<T, Branch$automationConfigsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AutomationConfigPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    idCardTemplates<T extends Branch$idCardTemplatesArgs<ExtArgs> = {}>(args?: Subset<T, Branch$idCardTemplatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IdCardTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     deactivationReasons<T extends Branch$deactivationReasonsArgs<ExtArgs> = {}>(args?: Subset<T, Branch$deactivationReasonsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeactivationReasonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     loginDeactivations<T extends Branch$loginDeactivationsArgs<ExtArgs> = {}>(args?: Subset<T, Branch$loginDeactivationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LoginDeactivationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -11852,6 +12249,30 @@ export namespace Prisma {
   }
 
   /**
+   * Branch.certificateTemplates
+   */
+  export type Branch$certificateTemplatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CertificateTemplate
+     */
+    select?: CertificateTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CertificateTemplate
+     */
+    omit?: CertificateTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CertificateTemplateInclude<ExtArgs> | null
+    where?: CertificateTemplateWhereInput
+    orderBy?: CertificateTemplateOrderByWithRelationInput | CertificateTemplateOrderByWithRelationInput[]
+    cursor?: CertificateTemplateWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CertificateTemplateScalarFieldEnum | CertificateTemplateScalarFieldEnum[]
+  }
+
+  /**
    * Branch.books
    */
   export type Branch$booksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -12468,6 +12889,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AutomationConfigScalarFieldEnum | AutomationConfigScalarFieldEnum[]
+  }
+
+  /**
+   * Branch.idCardTemplates
+   */
+  export type Branch$idCardTemplatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdCardTemplate
+     */
+    select?: IdCardTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IdCardTemplate
+     */
+    omit?: IdCardTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdCardTemplateInclude<ExtArgs> | null
+    where?: IdCardTemplateWhereInput
+    orderBy?: IdCardTemplateOrderByWithRelationInput | IdCardTemplateOrderByWithRelationInput[]
+    cursor?: IdCardTemplateWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: IdCardTemplateScalarFieldEnum | IdCardTemplateScalarFieldEnum[]
   }
 
   /**
@@ -14986,6 +15431,7 @@ export namespace Prisma {
     sentMessages?: boolean | User$sentMessagesArgs<ExtArgs>
     eventRSVPs?: boolean | User$eventRSVPsArgs<ExtArgs>
     accessLogs?: boolean | User$accessLogsArgs<ExtArgs>
+    onlineAdmissions?: boolean | User$onlineAdmissionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -15047,6 +15493,7 @@ export namespace Prisma {
     sentMessages?: boolean | User$sentMessagesArgs<ExtArgs>
     eventRSVPs?: boolean | User$eventRSVPsArgs<ExtArgs>
     accessLogs?: boolean | User$accessLogsArgs<ExtArgs>
+    onlineAdmissions?: boolean | User$onlineAdmissionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -15071,6 +15518,7 @@ export namespace Prisma {
       sentMessages: Prisma.$MessagePayload<ExtArgs>[]
       eventRSVPs: Prisma.$EventRSVPPayload<ExtArgs>[]
       accessLogs: Prisma.$CampusAccessLogPayload<ExtArgs>[]
+      onlineAdmissions: Prisma.$OnlineAdmissionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -15490,6 +15938,7 @@ export namespace Prisma {
     sentMessages<T extends User$sentMessagesArgs<ExtArgs> = {}>(args?: Subset<T, User$sentMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     eventRSVPs<T extends User$eventRSVPsArgs<ExtArgs> = {}>(args?: Subset<T, User$eventRSVPsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventRSVPPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     accessLogs<T extends User$accessLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$accessLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CampusAccessLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    onlineAdmissions<T extends User$onlineAdmissionsArgs<ExtArgs> = {}>(args?: Subset<T, User$onlineAdmissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OnlineAdmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -16199,6 +16648,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.onlineAdmissions
+   */
+  export type User$onlineAdmissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OnlineAdmission
+     */
+    select?: OnlineAdmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OnlineAdmission
+     */
+    omit?: OnlineAdmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OnlineAdmissionInclude<ExtArgs> | null
+    where?: OnlineAdmissionWhereInput
+    orderBy?: OnlineAdmissionOrderByWithRelationInput | OnlineAdmissionOrderByWithRelationInput[]
+    cursor?: OnlineAdmissionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OnlineAdmissionScalarFieldEnum | OnlineAdmissionScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -16418,6 +16891,7 @@ export namespace Prisma {
     salaryAdvances?: boolean | Staff$salaryAdvancesArgs<ExtArgs>
     assignments?: boolean | Staff$assignmentsArgs<ExtArgs>
     hostedSessions?: boolean | Staff$hostedSessionsArgs<ExtArgs>
+    idCards?: boolean | Staff$idCardsArgs<ExtArgs>
     _count?: boolean | StaffCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["staff"]>
 
@@ -16475,6 +16949,7 @@ export namespace Prisma {
     salaryAdvances?: boolean | Staff$salaryAdvancesArgs<ExtArgs>
     assignments?: boolean | Staff$assignmentsArgs<ExtArgs>
     hostedSessions?: boolean | Staff$hostedSessionsArgs<ExtArgs>
+    idCards?: boolean | Staff$idCardsArgs<ExtArgs>
     _count?: boolean | StaffCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type StaffIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -16504,6 +16979,7 @@ export namespace Prisma {
       salaryAdvances: Prisma.$AdvanceSalaryPayload<ExtArgs>[]
       assignments: Prisma.$AssignmentPayload<ExtArgs>[]
       hostedSessions: Prisma.$LiveClassSessionPayload<ExtArgs>[]
+      idCards: Prisma.$IdCardPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -16921,6 +17397,7 @@ export namespace Prisma {
     salaryAdvances<T extends Staff$salaryAdvancesArgs<ExtArgs> = {}>(args?: Subset<T, Staff$salaryAdvancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdvanceSalaryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     assignments<T extends Staff$assignmentsArgs<ExtArgs> = {}>(args?: Subset<T, Staff$assignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     hostedSessions<T extends Staff$hostedSessionsArgs<ExtArgs> = {}>(args?: Subset<T, Staff$hostedSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LiveClassSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    idCards<T extends Staff$idCardsArgs<ExtArgs> = {}>(args?: Subset<T, Staff$idCardsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IdCardPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -17627,6 +18104,30 @@ export namespace Prisma {
   }
 
   /**
+   * Staff.idCards
+   */
+  export type Staff$idCardsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdCard
+     */
+    select?: IdCardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IdCard
+     */
+    omit?: IdCardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdCardInclude<ExtArgs> | null
+    where?: IdCardWhereInput
+    orderBy?: IdCardOrderByWithRelationInput | IdCardOrderByWithRelationInput[]
+    cursor?: IdCardWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: IdCardScalarFieldEnum | IdCardScalarFieldEnum[]
+  }
+
+  /**
    * Staff without action
    */
   export type StaffDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -18147,6 +18648,7 @@ export namespace Prisma {
     borrowRecords?: boolean | Student$borrowRecordsArgs<ExtArgs>
     onlineExamAttempts?: boolean | Student$onlineExamAttemptsArgs<ExtArgs>
     inventoryIssues?: boolean | Student$inventoryIssuesArgs<ExtArgs>
+    idCards?: boolean | Student$idCardsArgs<ExtArgs>
     alumni?: boolean | Student$alumniArgs<ExtArgs>
     category?: boolean | Student$categoryArgs<ExtArgs>
     _count?: boolean | StudentCountOutputTypeDefaultArgs<ExtArgs>
@@ -18328,6 +18830,7 @@ export namespace Prisma {
     borrowRecords?: boolean | Student$borrowRecordsArgs<ExtArgs>
     onlineExamAttempts?: boolean | Student$onlineExamAttemptsArgs<ExtArgs>
     inventoryIssues?: boolean | Student$inventoryIssuesArgs<ExtArgs>
+    idCards?: boolean | Student$idCardsArgs<ExtArgs>
     alumni?: boolean | Student$alumniArgs<ExtArgs>
     category?: boolean | Student$categoryArgs<ExtArgs>
     _count?: boolean | StudentCountOutputTypeDefaultArgs<ExtArgs>
@@ -18370,6 +18873,7 @@ export namespace Prisma {
       borrowRecords: Prisma.$BorrowRecordPayload<ExtArgs>[]
       onlineExamAttempts: Prisma.$OnlineExamAttemptPayload<ExtArgs>[]
       inventoryIssues: Prisma.$InventoryIssuePayload<ExtArgs>[]
+      idCards: Prisma.$IdCardPayload<ExtArgs>[]
       alumni: Prisma.$AlumniPayload<ExtArgs> | null
       category: Prisma.$StudentCategoryPayload<ExtArgs> | null
     }
@@ -18831,6 +19335,7 @@ export namespace Prisma {
     borrowRecords<T extends Student$borrowRecordsArgs<ExtArgs> = {}>(args?: Subset<T, Student$borrowRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BorrowRecordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     onlineExamAttempts<T extends Student$onlineExamAttemptsArgs<ExtArgs> = {}>(args?: Subset<T, Student$onlineExamAttemptsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OnlineExamAttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     inventoryIssues<T extends Student$inventoryIssuesArgs<ExtArgs> = {}>(args?: Subset<T, Student$inventoryIssuesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryIssuePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    idCards<T extends Student$idCardsArgs<ExtArgs> = {}>(args?: Subset<T, Student$idCardsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IdCardPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     alumni<T extends Student$alumniArgs<ExtArgs> = {}>(args?: Subset<T, Student$alumniArgs<ExtArgs>>): Prisma__AlumniClient<$Result.GetResult<Prisma.$AlumniPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     category<T extends Student$categoryArgs<ExtArgs> = {}>(args?: Subset<T, Student$categoryArgs<ExtArgs>>): Prisma__StudentCategoryClient<$Result.GetResult<Prisma.$StudentCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
@@ -19686,6 +20191,30 @@ export namespace Prisma {
   }
 
   /**
+   * Student.idCards
+   */
+  export type Student$idCardsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdCard
+     */
+    select?: IdCardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IdCard
+     */
+    omit?: IdCardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdCardInclude<ExtArgs> | null
+    where?: IdCardWhereInput
+    orderBy?: IdCardOrderByWithRelationInput | IdCardOrderByWithRelationInput[]
+    cursor?: IdCardWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: IdCardScalarFieldEnum | IdCardScalarFieldEnum[]
+  }
+
+  /**
    * Student.alumni
    */
   export type Student$alumniArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -19757,7 +20286,10 @@ export namespace Prisma {
     type: string | null
     certificateNumber: string | null
     issueDate: Date | null
+    verificationCode: string | null
+    isVerified: boolean | null
     studentId: string | null
+    templateId: string | null
     issuedByUserId: string | null
     branchId: string | null
     createdAt: Date | null
@@ -19769,7 +20301,10 @@ export namespace Prisma {
     type: string | null
     certificateNumber: string | null
     issueDate: Date | null
+    verificationCode: string | null
+    isVerified: boolean | null
     studentId: string | null
+    templateId: string | null
     issuedByUserId: string | null
     branchId: string | null
     createdAt: Date | null
@@ -19782,7 +20317,10 @@ export namespace Prisma {
     certificateNumber: number
     issueDate: number
     content: number
+    verificationCode: number
+    isVerified: number
     studentId: number
+    templateId: number
     issuedByUserId: number
     branchId: number
     createdAt: number
@@ -19796,7 +20334,10 @@ export namespace Prisma {
     type?: true
     certificateNumber?: true
     issueDate?: true
+    verificationCode?: true
+    isVerified?: true
     studentId?: true
+    templateId?: true
     issuedByUserId?: true
     branchId?: true
     createdAt?: true
@@ -19808,7 +20349,10 @@ export namespace Prisma {
     type?: true
     certificateNumber?: true
     issueDate?: true
+    verificationCode?: true
+    isVerified?: true
     studentId?: true
+    templateId?: true
     issuedByUserId?: true
     branchId?: true
     createdAt?: true
@@ -19821,7 +20365,10 @@ export namespace Prisma {
     certificateNumber?: true
     issueDate?: true
     content?: true
+    verificationCode?: true
+    isVerified?: true
     studentId?: true
+    templateId?: true
     issuedByUserId?: true
     branchId?: true
     createdAt?: true
@@ -19907,7 +20454,10 @@ export namespace Prisma {
     certificateNumber: string
     issueDate: Date
     content: JsonValue | null
+    verificationCode: string
+    isVerified: boolean
     studentId: string
+    templateId: string | null
     issuedByUserId: string
     branchId: string
     createdAt: Date
@@ -19937,12 +20487,16 @@ export namespace Prisma {
     certificateNumber?: boolean
     issueDate?: boolean
     content?: boolean
+    verificationCode?: boolean
+    isVerified?: boolean
     studentId?: boolean
+    templateId?: boolean
     issuedByUserId?: boolean
     branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     student?: boolean | StudentDefaultArgs<ExtArgs>
+    template?: boolean | Certificate$templateArgs<ExtArgs>
     issuedBy?: boolean | UserDefaultArgs<ExtArgs>
     branch?: boolean | BranchDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["certificate"]>
@@ -19953,12 +20507,16 @@ export namespace Prisma {
     certificateNumber?: boolean
     issueDate?: boolean
     content?: boolean
+    verificationCode?: boolean
+    isVerified?: boolean
     studentId?: boolean
+    templateId?: boolean
     issuedByUserId?: boolean
     branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     student?: boolean | StudentDefaultArgs<ExtArgs>
+    template?: boolean | Certificate$templateArgs<ExtArgs>
     issuedBy?: boolean | UserDefaultArgs<ExtArgs>
     branch?: boolean | BranchDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["certificate"]>
@@ -19969,12 +20527,16 @@ export namespace Prisma {
     certificateNumber?: boolean
     issueDate?: boolean
     content?: boolean
+    verificationCode?: boolean
+    isVerified?: boolean
     studentId?: boolean
+    templateId?: boolean
     issuedByUserId?: boolean
     branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     student?: boolean | StudentDefaultArgs<ExtArgs>
+    template?: boolean | Certificate$templateArgs<ExtArgs>
     issuedBy?: boolean | UserDefaultArgs<ExtArgs>
     branch?: boolean | BranchDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["certificate"]>
@@ -19985,26 +20547,32 @@ export namespace Prisma {
     certificateNumber?: boolean
     issueDate?: boolean
     content?: boolean
+    verificationCode?: boolean
+    isVerified?: boolean
     studentId?: boolean
+    templateId?: boolean
     issuedByUserId?: boolean
     branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type CertificateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "certificateNumber" | "issueDate" | "content" | "studentId" | "issuedByUserId" | "branchId" | "createdAt" | "updatedAt", ExtArgs["result"]["certificate"]>
+  export type CertificateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "certificateNumber" | "issueDate" | "content" | "verificationCode" | "isVerified" | "studentId" | "templateId" | "issuedByUserId" | "branchId" | "createdAt" | "updatedAt", ExtArgs["result"]["certificate"]>
   export type CertificateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     student?: boolean | StudentDefaultArgs<ExtArgs>
+    template?: boolean | Certificate$templateArgs<ExtArgs>
     issuedBy?: boolean | UserDefaultArgs<ExtArgs>
     branch?: boolean | BranchDefaultArgs<ExtArgs>
   }
   export type CertificateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     student?: boolean | StudentDefaultArgs<ExtArgs>
+    template?: boolean | Certificate$templateArgs<ExtArgs>
     issuedBy?: boolean | UserDefaultArgs<ExtArgs>
     branch?: boolean | BranchDefaultArgs<ExtArgs>
   }
   export type CertificateIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     student?: boolean | StudentDefaultArgs<ExtArgs>
+    template?: boolean | Certificate$templateArgs<ExtArgs>
     issuedBy?: boolean | UserDefaultArgs<ExtArgs>
     branch?: boolean | BranchDefaultArgs<ExtArgs>
   }
@@ -20013,6 +20581,7 @@ export namespace Prisma {
     name: "Certificate"
     objects: {
       student: Prisma.$StudentPayload<ExtArgs>
+      template: Prisma.$CertificateTemplatePayload<ExtArgs> | null
       issuedBy: Prisma.$UserPayload<ExtArgs>
       branch: Prisma.$BranchPayload<ExtArgs>
     }
@@ -20022,7 +20591,10 @@ export namespace Prisma {
       certificateNumber: string
       issueDate: Date
       content: Prisma.JsonValue | null
+      verificationCode: string
+      isVerified: boolean
       studentId: string
+      templateId: string | null
       issuedByUserId: string
       branchId: string
       createdAt: Date
@@ -20422,6 +20994,7 @@ export namespace Prisma {
   export interface Prisma__CertificateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     student<T extends StudentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StudentDefaultArgs<ExtArgs>>): Prisma__StudentClient<$Result.GetResult<Prisma.$StudentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    template<T extends Certificate$templateArgs<ExtArgs> = {}>(args?: Subset<T, Certificate$templateArgs<ExtArgs>>): Prisma__CertificateTemplateClient<$Result.GetResult<Prisma.$CertificateTemplatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     issuedBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     branch<T extends BranchDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BranchDefaultArgs<ExtArgs>>): Prisma__BranchClient<$Result.GetResult<Prisma.$BranchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
@@ -20458,7 +21031,10 @@ export namespace Prisma {
     readonly certificateNumber: FieldRef<"Certificate", 'String'>
     readonly issueDate: FieldRef<"Certificate", 'DateTime'>
     readonly content: FieldRef<"Certificate", 'Json'>
+    readonly verificationCode: FieldRef<"Certificate", 'String'>
+    readonly isVerified: FieldRef<"Certificate", 'Boolean'>
     readonly studentId: FieldRef<"Certificate", 'String'>
+    readonly templateId: FieldRef<"Certificate", 'String'>
     readonly issuedByUserId: FieldRef<"Certificate", 'String'>
     readonly branchId: FieldRef<"Certificate", 'String'>
     readonly createdAt: FieldRef<"Certificate", 'DateTime'>
@@ -20859,6 +21435,25 @@ export namespace Prisma {
   }
 
   /**
+   * Certificate.template
+   */
+  export type Certificate$templateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CertificateTemplate
+     */
+    select?: CertificateTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CertificateTemplate
+     */
+    omit?: CertificateTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CertificateTemplateInclude<ExtArgs> | null
+    where?: CertificateTemplateWhereInput
+  }
+
+  /**
    * Certificate without action
    */
   export type CertificateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -20874,6 +21469,1129 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: CertificateInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CertificateTemplate
+   */
+
+  export type AggregateCertificateTemplate = {
+    _count: CertificateTemplateCountAggregateOutputType | null
+    _min: CertificateTemplateMinAggregateOutputType | null
+    _max: CertificateTemplateMaxAggregateOutputType | null
+  }
+
+  export type CertificateTemplateMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    type: string | null
+    backgroundImage: string | null
+    branchId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CertificateTemplateMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    type: string | null
+    backgroundImage: string | null
+    branchId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CertificateTemplateCountAggregateOutputType = {
+    id: number
+    name: number
+    type: number
+    backgroundImage: number
+    config: number
+    branchId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type CertificateTemplateMinAggregateInputType = {
+    id?: true
+    name?: true
+    type?: true
+    backgroundImage?: true
+    branchId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CertificateTemplateMaxAggregateInputType = {
+    id?: true
+    name?: true
+    type?: true
+    backgroundImage?: true
+    branchId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CertificateTemplateCountAggregateInputType = {
+    id?: true
+    name?: true
+    type?: true
+    backgroundImage?: true
+    config?: true
+    branchId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type CertificateTemplateAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CertificateTemplate to aggregate.
+     */
+    where?: CertificateTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CertificateTemplates to fetch.
+     */
+    orderBy?: CertificateTemplateOrderByWithRelationInput | CertificateTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CertificateTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CertificateTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CertificateTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CertificateTemplates
+    **/
+    _count?: true | CertificateTemplateCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CertificateTemplateMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CertificateTemplateMaxAggregateInputType
+  }
+
+  export type GetCertificateTemplateAggregateType<T extends CertificateTemplateAggregateArgs> = {
+        [P in keyof T & keyof AggregateCertificateTemplate]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCertificateTemplate[P]>
+      : GetScalarType<T[P], AggregateCertificateTemplate[P]>
+  }
+
+
+
+
+  export type CertificateTemplateGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CertificateTemplateWhereInput
+    orderBy?: CertificateTemplateOrderByWithAggregationInput | CertificateTemplateOrderByWithAggregationInput[]
+    by: CertificateTemplateScalarFieldEnum[] | CertificateTemplateScalarFieldEnum
+    having?: CertificateTemplateScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CertificateTemplateCountAggregateInputType | true
+    _min?: CertificateTemplateMinAggregateInputType
+    _max?: CertificateTemplateMaxAggregateInputType
+  }
+
+  export type CertificateTemplateGroupByOutputType = {
+    id: string
+    name: string
+    type: string
+    backgroundImage: string | null
+    config: JsonValue
+    branchId: string
+    createdAt: Date
+    updatedAt: Date
+    _count: CertificateTemplateCountAggregateOutputType | null
+    _min: CertificateTemplateMinAggregateOutputType | null
+    _max: CertificateTemplateMaxAggregateOutputType | null
+  }
+
+  type GetCertificateTemplateGroupByPayload<T extends CertificateTemplateGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CertificateTemplateGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CertificateTemplateGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CertificateTemplateGroupByOutputType[P]>
+            : GetScalarType<T[P], CertificateTemplateGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CertificateTemplateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    type?: boolean
+    backgroundImage?: boolean
+    config?: boolean
+    branchId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+    certificates?: boolean | CertificateTemplate$certificatesArgs<ExtArgs>
+    _count?: boolean | CertificateTemplateCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["certificateTemplate"]>
+
+  export type CertificateTemplateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    type?: boolean
+    backgroundImage?: boolean
+    config?: boolean
+    branchId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["certificateTemplate"]>
+
+  export type CertificateTemplateSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    type?: boolean
+    backgroundImage?: boolean
+    config?: boolean
+    branchId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["certificateTemplate"]>
+
+  export type CertificateTemplateSelectScalar = {
+    id?: boolean
+    name?: boolean
+    type?: boolean
+    backgroundImage?: boolean
+    config?: boolean
+    branchId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type CertificateTemplateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "type" | "backgroundImage" | "config" | "branchId" | "createdAt" | "updatedAt", ExtArgs["result"]["certificateTemplate"]>
+  export type CertificateTemplateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+    certificates?: boolean | CertificateTemplate$certificatesArgs<ExtArgs>
+    _count?: boolean | CertificateTemplateCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type CertificateTemplateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+  }
+  export type CertificateTemplateIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+  }
+
+  export type $CertificateTemplatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CertificateTemplate"
+    objects: {
+      branch: Prisma.$BranchPayload<ExtArgs>
+      certificates: Prisma.$CertificatePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      type: string
+      backgroundImage: string | null
+      config: Prisma.JsonValue
+      branchId: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["certificateTemplate"]>
+    composites: {}
+  }
+
+  type CertificateTemplateGetPayload<S extends boolean | null | undefined | CertificateTemplateDefaultArgs> = $Result.GetResult<Prisma.$CertificateTemplatePayload, S>
+
+  type CertificateTemplateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CertificateTemplateFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CertificateTemplateCountAggregateInputType | true
+    }
+
+  export interface CertificateTemplateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CertificateTemplate'], meta: { name: 'CertificateTemplate' } }
+    /**
+     * Find zero or one CertificateTemplate that matches the filter.
+     * @param {CertificateTemplateFindUniqueArgs} args - Arguments to find a CertificateTemplate
+     * @example
+     * // Get one CertificateTemplate
+     * const certificateTemplate = await prisma.certificateTemplate.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CertificateTemplateFindUniqueArgs>(args: SelectSubset<T, CertificateTemplateFindUniqueArgs<ExtArgs>>): Prisma__CertificateTemplateClient<$Result.GetResult<Prisma.$CertificateTemplatePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CertificateTemplate that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CertificateTemplateFindUniqueOrThrowArgs} args - Arguments to find a CertificateTemplate
+     * @example
+     * // Get one CertificateTemplate
+     * const certificateTemplate = await prisma.certificateTemplate.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CertificateTemplateFindUniqueOrThrowArgs>(args: SelectSubset<T, CertificateTemplateFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CertificateTemplateClient<$Result.GetResult<Prisma.$CertificateTemplatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CertificateTemplate that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CertificateTemplateFindFirstArgs} args - Arguments to find a CertificateTemplate
+     * @example
+     * // Get one CertificateTemplate
+     * const certificateTemplate = await prisma.certificateTemplate.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CertificateTemplateFindFirstArgs>(args?: SelectSubset<T, CertificateTemplateFindFirstArgs<ExtArgs>>): Prisma__CertificateTemplateClient<$Result.GetResult<Prisma.$CertificateTemplatePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CertificateTemplate that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CertificateTemplateFindFirstOrThrowArgs} args - Arguments to find a CertificateTemplate
+     * @example
+     * // Get one CertificateTemplate
+     * const certificateTemplate = await prisma.certificateTemplate.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CertificateTemplateFindFirstOrThrowArgs>(args?: SelectSubset<T, CertificateTemplateFindFirstOrThrowArgs<ExtArgs>>): Prisma__CertificateTemplateClient<$Result.GetResult<Prisma.$CertificateTemplatePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CertificateTemplates that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CertificateTemplateFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CertificateTemplates
+     * const certificateTemplates = await prisma.certificateTemplate.findMany()
+     * 
+     * // Get first 10 CertificateTemplates
+     * const certificateTemplates = await prisma.certificateTemplate.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const certificateTemplateWithIdOnly = await prisma.certificateTemplate.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CertificateTemplateFindManyArgs>(args?: SelectSubset<T, CertificateTemplateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CertificateTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CertificateTemplate.
+     * @param {CertificateTemplateCreateArgs} args - Arguments to create a CertificateTemplate.
+     * @example
+     * // Create one CertificateTemplate
+     * const CertificateTemplate = await prisma.certificateTemplate.create({
+     *   data: {
+     *     // ... data to create a CertificateTemplate
+     *   }
+     * })
+     * 
+     */
+    create<T extends CertificateTemplateCreateArgs>(args: SelectSubset<T, CertificateTemplateCreateArgs<ExtArgs>>): Prisma__CertificateTemplateClient<$Result.GetResult<Prisma.$CertificateTemplatePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CertificateTemplates.
+     * @param {CertificateTemplateCreateManyArgs} args - Arguments to create many CertificateTemplates.
+     * @example
+     * // Create many CertificateTemplates
+     * const certificateTemplate = await prisma.certificateTemplate.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CertificateTemplateCreateManyArgs>(args?: SelectSubset<T, CertificateTemplateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CertificateTemplates and returns the data saved in the database.
+     * @param {CertificateTemplateCreateManyAndReturnArgs} args - Arguments to create many CertificateTemplates.
+     * @example
+     * // Create many CertificateTemplates
+     * const certificateTemplate = await prisma.certificateTemplate.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CertificateTemplates and only return the `id`
+     * const certificateTemplateWithIdOnly = await prisma.certificateTemplate.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CertificateTemplateCreateManyAndReturnArgs>(args?: SelectSubset<T, CertificateTemplateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CertificateTemplatePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CertificateTemplate.
+     * @param {CertificateTemplateDeleteArgs} args - Arguments to delete one CertificateTemplate.
+     * @example
+     * // Delete one CertificateTemplate
+     * const CertificateTemplate = await prisma.certificateTemplate.delete({
+     *   where: {
+     *     // ... filter to delete one CertificateTemplate
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CertificateTemplateDeleteArgs>(args: SelectSubset<T, CertificateTemplateDeleteArgs<ExtArgs>>): Prisma__CertificateTemplateClient<$Result.GetResult<Prisma.$CertificateTemplatePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CertificateTemplate.
+     * @param {CertificateTemplateUpdateArgs} args - Arguments to update one CertificateTemplate.
+     * @example
+     * // Update one CertificateTemplate
+     * const certificateTemplate = await prisma.certificateTemplate.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CertificateTemplateUpdateArgs>(args: SelectSubset<T, CertificateTemplateUpdateArgs<ExtArgs>>): Prisma__CertificateTemplateClient<$Result.GetResult<Prisma.$CertificateTemplatePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CertificateTemplates.
+     * @param {CertificateTemplateDeleteManyArgs} args - Arguments to filter CertificateTemplates to delete.
+     * @example
+     * // Delete a few CertificateTemplates
+     * const { count } = await prisma.certificateTemplate.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CertificateTemplateDeleteManyArgs>(args?: SelectSubset<T, CertificateTemplateDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CertificateTemplates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CertificateTemplateUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CertificateTemplates
+     * const certificateTemplate = await prisma.certificateTemplate.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CertificateTemplateUpdateManyArgs>(args: SelectSubset<T, CertificateTemplateUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CertificateTemplates and returns the data updated in the database.
+     * @param {CertificateTemplateUpdateManyAndReturnArgs} args - Arguments to update many CertificateTemplates.
+     * @example
+     * // Update many CertificateTemplates
+     * const certificateTemplate = await prisma.certificateTemplate.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CertificateTemplates and only return the `id`
+     * const certificateTemplateWithIdOnly = await prisma.certificateTemplate.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CertificateTemplateUpdateManyAndReturnArgs>(args: SelectSubset<T, CertificateTemplateUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CertificateTemplatePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CertificateTemplate.
+     * @param {CertificateTemplateUpsertArgs} args - Arguments to update or create a CertificateTemplate.
+     * @example
+     * // Update or create a CertificateTemplate
+     * const certificateTemplate = await prisma.certificateTemplate.upsert({
+     *   create: {
+     *     // ... data to create a CertificateTemplate
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CertificateTemplate we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CertificateTemplateUpsertArgs>(args: SelectSubset<T, CertificateTemplateUpsertArgs<ExtArgs>>): Prisma__CertificateTemplateClient<$Result.GetResult<Prisma.$CertificateTemplatePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CertificateTemplates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CertificateTemplateCountArgs} args - Arguments to filter CertificateTemplates to count.
+     * @example
+     * // Count the number of CertificateTemplates
+     * const count = await prisma.certificateTemplate.count({
+     *   where: {
+     *     // ... the filter for the CertificateTemplates we want to count
+     *   }
+     * })
+    **/
+    count<T extends CertificateTemplateCountArgs>(
+      args?: Subset<T, CertificateTemplateCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CertificateTemplateCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CertificateTemplate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CertificateTemplateAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CertificateTemplateAggregateArgs>(args: Subset<T, CertificateTemplateAggregateArgs>): Prisma.PrismaPromise<GetCertificateTemplateAggregateType<T>>
+
+    /**
+     * Group by CertificateTemplate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CertificateTemplateGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CertificateTemplateGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CertificateTemplateGroupByArgs['orderBy'] }
+        : { orderBy?: CertificateTemplateGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CertificateTemplateGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCertificateTemplateGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CertificateTemplate model
+   */
+  readonly fields: CertificateTemplateFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CertificateTemplate.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CertificateTemplateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    branch<T extends BranchDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BranchDefaultArgs<ExtArgs>>): Prisma__BranchClient<$Result.GetResult<Prisma.$BranchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    certificates<T extends CertificateTemplate$certificatesArgs<ExtArgs> = {}>(args?: Subset<T, CertificateTemplate$certificatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CertificatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CertificateTemplate model
+   */
+  interface CertificateTemplateFieldRefs {
+    readonly id: FieldRef<"CertificateTemplate", 'String'>
+    readonly name: FieldRef<"CertificateTemplate", 'String'>
+    readonly type: FieldRef<"CertificateTemplate", 'String'>
+    readonly backgroundImage: FieldRef<"CertificateTemplate", 'String'>
+    readonly config: FieldRef<"CertificateTemplate", 'Json'>
+    readonly branchId: FieldRef<"CertificateTemplate", 'String'>
+    readonly createdAt: FieldRef<"CertificateTemplate", 'DateTime'>
+    readonly updatedAt: FieldRef<"CertificateTemplate", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CertificateTemplate findUnique
+   */
+  export type CertificateTemplateFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CertificateTemplate
+     */
+    select?: CertificateTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CertificateTemplate
+     */
+    omit?: CertificateTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CertificateTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which CertificateTemplate to fetch.
+     */
+    where: CertificateTemplateWhereUniqueInput
+  }
+
+  /**
+   * CertificateTemplate findUniqueOrThrow
+   */
+  export type CertificateTemplateFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CertificateTemplate
+     */
+    select?: CertificateTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CertificateTemplate
+     */
+    omit?: CertificateTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CertificateTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which CertificateTemplate to fetch.
+     */
+    where: CertificateTemplateWhereUniqueInput
+  }
+
+  /**
+   * CertificateTemplate findFirst
+   */
+  export type CertificateTemplateFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CertificateTemplate
+     */
+    select?: CertificateTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CertificateTemplate
+     */
+    omit?: CertificateTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CertificateTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which CertificateTemplate to fetch.
+     */
+    where?: CertificateTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CertificateTemplates to fetch.
+     */
+    orderBy?: CertificateTemplateOrderByWithRelationInput | CertificateTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CertificateTemplates.
+     */
+    cursor?: CertificateTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CertificateTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CertificateTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CertificateTemplates.
+     */
+    distinct?: CertificateTemplateScalarFieldEnum | CertificateTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * CertificateTemplate findFirstOrThrow
+   */
+  export type CertificateTemplateFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CertificateTemplate
+     */
+    select?: CertificateTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CertificateTemplate
+     */
+    omit?: CertificateTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CertificateTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which CertificateTemplate to fetch.
+     */
+    where?: CertificateTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CertificateTemplates to fetch.
+     */
+    orderBy?: CertificateTemplateOrderByWithRelationInput | CertificateTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CertificateTemplates.
+     */
+    cursor?: CertificateTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CertificateTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CertificateTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CertificateTemplates.
+     */
+    distinct?: CertificateTemplateScalarFieldEnum | CertificateTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * CertificateTemplate findMany
+   */
+  export type CertificateTemplateFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CertificateTemplate
+     */
+    select?: CertificateTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CertificateTemplate
+     */
+    omit?: CertificateTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CertificateTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which CertificateTemplates to fetch.
+     */
+    where?: CertificateTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CertificateTemplates to fetch.
+     */
+    orderBy?: CertificateTemplateOrderByWithRelationInput | CertificateTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CertificateTemplates.
+     */
+    cursor?: CertificateTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CertificateTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CertificateTemplates.
+     */
+    skip?: number
+    distinct?: CertificateTemplateScalarFieldEnum | CertificateTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * CertificateTemplate create
+   */
+  export type CertificateTemplateCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CertificateTemplate
+     */
+    select?: CertificateTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CertificateTemplate
+     */
+    omit?: CertificateTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CertificateTemplateInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CertificateTemplate.
+     */
+    data: XOR<CertificateTemplateCreateInput, CertificateTemplateUncheckedCreateInput>
+  }
+
+  /**
+   * CertificateTemplate createMany
+   */
+  export type CertificateTemplateCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CertificateTemplates.
+     */
+    data: CertificateTemplateCreateManyInput | CertificateTemplateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CertificateTemplate createManyAndReturn
+   */
+  export type CertificateTemplateCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CertificateTemplate
+     */
+    select?: CertificateTemplateSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CertificateTemplate
+     */
+    omit?: CertificateTemplateOmit<ExtArgs> | null
+    /**
+     * The data used to create many CertificateTemplates.
+     */
+    data: CertificateTemplateCreateManyInput | CertificateTemplateCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CertificateTemplateIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CertificateTemplate update
+   */
+  export type CertificateTemplateUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CertificateTemplate
+     */
+    select?: CertificateTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CertificateTemplate
+     */
+    omit?: CertificateTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CertificateTemplateInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CertificateTemplate.
+     */
+    data: XOR<CertificateTemplateUpdateInput, CertificateTemplateUncheckedUpdateInput>
+    /**
+     * Choose, which CertificateTemplate to update.
+     */
+    where: CertificateTemplateWhereUniqueInput
+  }
+
+  /**
+   * CertificateTemplate updateMany
+   */
+  export type CertificateTemplateUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CertificateTemplates.
+     */
+    data: XOR<CertificateTemplateUpdateManyMutationInput, CertificateTemplateUncheckedUpdateManyInput>
+    /**
+     * Filter which CertificateTemplates to update
+     */
+    where?: CertificateTemplateWhereInput
+    /**
+     * Limit how many CertificateTemplates to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CertificateTemplate updateManyAndReturn
+   */
+  export type CertificateTemplateUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CertificateTemplate
+     */
+    select?: CertificateTemplateSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CertificateTemplate
+     */
+    omit?: CertificateTemplateOmit<ExtArgs> | null
+    /**
+     * The data used to update CertificateTemplates.
+     */
+    data: XOR<CertificateTemplateUpdateManyMutationInput, CertificateTemplateUncheckedUpdateManyInput>
+    /**
+     * Filter which CertificateTemplates to update
+     */
+    where?: CertificateTemplateWhereInput
+    /**
+     * Limit how many CertificateTemplates to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CertificateTemplateIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CertificateTemplate upsert
+   */
+  export type CertificateTemplateUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CertificateTemplate
+     */
+    select?: CertificateTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CertificateTemplate
+     */
+    omit?: CertificateTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CertificateTemplateInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CertificateTemplate to update in case it exists.
+     */
+    where: CertificateTemplateWhereUniqueInput
+    /**
+     * In case the CertificateTemplate found by the `where` argument doesn't exist, create a new CertificateTemplate with this data.
+     */
+    create: XOR<CertificateTemplateCreateInput, CertificateTemplateUncheckedCreateInput>
+    /**
+     * In case the CertificateTemplate was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CertificateTemplateUpdateInput, CertificateTemplateUncheckedUpdateInput>
+  }
+
+  /**
+   * CertificateTemplate delete
+   */
+  export type CertificateTemplateDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CertificateTemplate
+     */
+    select?: CertificateTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CertificateTemplate
+     */
+    omit?: CertificateTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CertificateTemplateInclude<ExtArgs> | null
+    /**
+     * Filter which CertificateTemplate to delete.
+     */
+    where: CertificateTemplateWhereUniqueInput
+  }
+
+  /**
+   * CertificateTemplate deleteMany
+   */
+  export type CertificateTemplateDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CertificateTemplates to delete
+     */
+    where?: CertificateTemplateWhereInput
+    /**
+     * Limit how many CertificateTemplates to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CertificateTemplate.certificates
+   */
+  export type CertificateTemplate$certificatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Certificate
+     */
+    select?: CertificateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Certificate
+     */
+    omit?: CertificateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CertificateInclude<ExtArgs> | null
+    where?: CertificateWhereInput
+    orderBy?: CertificateOrderByWithRelationInput | CertificateOrderByWithRelationInput[]
+    cursor?: CertificateWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CertificateScalarFieldEnum | CertificateScalarFieldEnum[]
+  }
+
+  /**
+   * CertificateTemplate without action
+   */
+  export type CertificateTemplateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CertificateTemplate
+     */
+    select?: CertificateTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CertificateTemplate
+     */
+    omit?: CertificateTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CertificateTemplateInclude<ExtArgs> | null
   }
 
 
@@ -51150,6 +52868,7 @@ export namespace Prisma {
     resultSummaries?: boolean | AcademicSession$resultSummariesArgs<ExtArgs>
     behaviouralRatings?: boolean | AcademicSession$behaviouralRatingsArgs<ExtArgs>
     onlineAdmissions?: boolean | AcademicSession$onlineAdmissionsArgs<ExtArgs>
+    idCards?: boolean | AcademicSession$idCardsArgs<ExtArgs>
     _count?: boolean | AcademicSessionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["academicSession"]>
 
@@ -51195,6 +52914,7 @@ export namespace Prisma {
     resultSummaries?: boolean | AcademicSession$resultSummariesArgs<ExtArgs>
     behaviouralRatings?: boolean | AcademicSession$behaviouralRatingsArgs<ExtArgs>
     onlineAdmissions?: boolean | AcademicSession$onlineAdmissionsArgs<ExtArgs>
+    idCards?: boolean | AcademicSession$idCardsArgs<ExtArgs>
     _count?: boolean | AcademicSessionCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type AcademicSessionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -51207,6 +52927,7 @@ export namespace Prisma {
       resultSummaries: Prisma.$ResultSummaryPayload<ExtArgs>[]
       behaviouralRatings: Prisma.$BehaviouralRatingPayload<ExtArgs>[]
       onlineAdmissions: Prisma.$OnlineAdmissionPayload<ExtArgs>[]
+      idCards: Prisma.$IdCardPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -51616,6 +53337,7 @@ export namespace Prisma {
     resultSummaries<T extends AcademicSession$resultSummariesArgs<ExtArgs> = {}>(args?: Subset<T, AcademicSession$resultSummariesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResultSummaryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     behaviouralRatings<T extends AcademicSession$behaviouralRatingsArgs<ExtArgs> = {}>(args?: Subset<T, AcademicSession$behaviouralRatingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BehaviouralRatingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     onlineAdmissions<T extends AcademicSession$onlineAdmissionsArgs<ExtArgs> = {}>(args?: Subset<T, AcademicSession$onlineAdmissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OnlineAdmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    idCards<T extends AcademicSession$idCardsArgs<ExtArgs> = {}>(args?: Subset<T, AcademicSession$idCardsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IdCardPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -52135,6 +53857,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: OnlineAdmissionScalarFieldEnum | OnlineAdmissionScalarFieldEnum[]
+  }
+
+  /**
+   * AcademicSession.idCards
+   */
+  export type AcademicSession$idCardsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdCard
+     */
+    select?: IdCardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IdCard
+     */
+    omit?: IdCardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdCardInclude<ExtArgs> | null
+    where?: IdCardWhereInput
+    orderBy?: IdCardOrderByWithRelationInput | IdCardOrderByWithRelationInput[]
+    cursor?: IdCardWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: IdCardScalarFieldEnum | IdCardScalarFieldEnum[]
   }
 
   /**
@@ -78826,6 +80572,7 @@ export namespace Prisma {
     email: string | null
     phone: string | null
     studentCategoryId: string | null
+    parentId: string | null
     paymentReceiptUrl: string | null
     paymentStatus: string | null
     paymentMethod: string | null
@@ -78911,6 +80658,7 @@ export namespace Prisma {
     email: string | null
     phone: string | null
     studentCategoryId: string | null
+    parentId: string | null
     paymentReceiptUrl: string | null
     paymentStatus: string | null
     paymentMethod: string | null
@@ -78996,6 +80744,7 @@ export namespace Prisma {
     email: number
     phone: number
     studentCategoryId: number
+    parentId: number
     paymentReceiptUrl: number
     paymentStatus: number
     paymentMethod: number
@@ -79091,6 +80840,7 @@ export namespace Prisma {
     email?: true
     phone?: true
     studentCategoryId?: true
+    parentId?: true
     paymentReceiptUrl?: true
     paymentStatus?: true
     paymentMethod?: true
@@ -79176,6 +80926,7 @@ export namespace Prisma {
     email?: true
     phone?: true
     studentCategoryId?: true
+    parentId?: true
     paymentReceiptUrl?: true
     paymentStatus?: true
     paymentMethod?: true
@@ -79261,6 +81012,7 @@ export namespace Prisma {
     email?: true
     phone?: true
     studentCategoryId?: true
+    parentId?: true
     paymentReceiptUrl?: true
     paymentStatus?: true
     paymentMethod?: true
@@ -79433,6 +81185,7 @@ export namespace Prisma {
     email: string | null
     phone: string | null
     studentCategoryId: string | null
+    parentId: string | null
     paymentReceiptUrl: string | null
     paymentStatus: string
     paymentMethod: string
@@ -79537,6 +81290,7 @@ export namespace Prisma {
     email?: boolean
     phone?: boolean
     studentCategoryId?: boolean
+    parentId?: boolean
     paymentReceiptUrl?: boolean
     paymentStatus?: boolean
     paymentMethod?: boolean
@@ -79547,6 +81301,7 @@ export namespace Prisma {
     desiredSection?: boolean | OnlineAdmission$desiredSectionArgs<ExtArgs>
     branch?: boolean | BranchDefaultArgs<ExtArgs>
     studentCategory?: boolean | OnlineAdmission$studentCategoryArgs<ExtArgs>
+    parent?: boolean | OnlineAdmission$parentArgs<ExtArgs>
   }, ExtArgs["result"]["onlineAdmission"]>
 
   export type OnlineAdmissionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -79627,6 +81382,7 @@ export namespace Prisma {
     email?: boolean
     phone?: boolean
     studentCategoryId?: boolean
+    parentId?: boolean
     paymentReceiptUrl?: boolean
     paymentStatus?: boolean
     paymentMethod?: boolean
@@ -79637,6 +81393,7 @@ export namespace Prisma {
     desiredSection?: boolean | OnlineAdmission$desiredSectionArgs<ExtArgs>
     branch?: boolean | BranchDefaultArgs<ExtArgs>
     studentCategory?: boolean | OnlineAdmission$studentCategoryArgs<ExtArgs>
+    parent?: boolean | OnlineAdmission$parentArgs<ExtArgs>
   }, ExtArgs["result"]["onlineAdmission"]>
 
   export type OnlineAdmissionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -79717,6 +81474,7 @@ export namespace Prisma {
     email?: boolean
     phone?: boolean
     studentCategoryId?: boolean
+    parentId?: boolean
     paymentReceiptUrl?: boolean
     paymentStatus?: boolean
     paymentMethod?: boolean
@@ -79727,6 +81485,7 @@ export namespace Prisma {
     desiredSection?: boolean | OnlineAdmission$desiredSectionArgs<ExtArgs>
     branch?: boolean | BranchDefaultArgs<ExtArgs>
     studentCategory?: boolean | OnlineAdmission$studentCategoryArgs<ExtArgs>
+    parent?: boolean | OnlineAdmission$parentArgs<ExtArgs>
   }, ExtArgs["result"]["onlineAdmission"]>
 
   export type OnlineAdmissionSelectScalar = {
@@ -79807,6 +81566,7 @@ export namespace Prisma {
     email?: boolean
     phone?: boolean
     studentCategoryId?: boolean
+    parentId?: boolean
     paymentReceiptUrl?: boolean
     paymentStatus?: boolean
     paymentMethod?: boolean
@@ -79814,13 +81574,14 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type OnlineAdmissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "admissionNumber" | "firstName" | "lastName" | "otherNames" | "gender" | "dateOfBirth" | "placeOfBirth" | "nationality" | "stateOfOrigin" | "lga" | "religion" | "passportPhoto" | "academicSessionId" | "admissionTerm" | "desiredClassId" | "desiredSectionId" | "admissionType" | "previousSchool" | "transferReason" | "assessmentScore" | "status" | "guardianName" | "guardianRelation" | "guardianPhone" | "guardianEmail" | "guardianAddress" | "guardianOccupation" | "guardianOfficeAddress" | "secondaryGuardianName" | "secondaryGuardianPhone" | "secondaryGuardianRelation" | "address" | "city" | "state" | "country" | "emergencyContactName" | "emergencyContactPhone" | "emergencyContactRelation" | "bloodGroup" | "genotype" | "allergies" | "medicalConditions" | "specialNeeds" | "familyDoctorName" | "familyDoctorPhone" | "hostelRequired" | "preferredHostel" | "hostelNotes" | "transportRequired" | "pickupLocation" | "preferredRoute" | "birthCertificateUrl" | "testimonialUrl" | "transferCertificateUrl" | "immunizationCardUrl" | "branchId" | "createdByStaffId" | "admissionDate" | "approvalDate" | "approvedByStaffId" | "studentStatus" | "createPortalAccount" | "guardianConsent" | "dataProcessingConsent" | "schoolRulesAgreement" | "signature" | "consentDate" | "studentEmail" | "portalUsername" | "preferredLanguage" | "religionClassType" | "scholarshipEligible" | "referralSource" | "email" | "phone" | "studentCategoryId" | "paymentReceiptUrl" | "paymentStatus" | "paymentMethod" | "createdAt" | "updatedAt", ExtArgs["result"]["onlineAdmission"]>
+  export type OnlineAdmissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "admissionNumber" | "firstName" | "lastName" | "otherNames" | "gender" | "dateOfBirth" | "placeOfBirth" | "nationality" | "stateOfOrigin" | "lga" | "religion" | "passportPhoto" | "academicSessionId" | "admissionTerm" | "desiredClassId" | "desiredSectionId" | "admissionType" | "previousSchool" | "transferReason" | "assessmentScore" | "status" | "guardianName" | "guardianRelation" | "guardianPhone" | "guardianEmail" | "guardianAddress" | "guardianOccupation" | "guardianOfficeAddress" | "secondaryGuardianName" | "secondaryGuardianPhone" | "secondaryGuardianRelation" | "address" | "city" | "state" | "country" | "emergencyContactName" | "emergencyContactPhone" | "emergencyContactRelation" | "bloodGroup" | "genotype" | "allergies" | "medicalConditions" | "specialNeeds" | "familyDoctorName" | "familyDoctorPhone" | "hostelRequired" | "preferredHostel" | "hostelNotes" | "transportRequired" | "pickupLocation" | "preferredRoute" | "birthCertificateUrl" | "testimonialUrl" | "transferCertificateUrl" | "immunizationCardUrl" | "branchId" | "createdByStaffId" | "admissionDate" | "approvalDate" | "approvedByStaffId" | "studentStatus" | "createPortalAccount" | "guardianConsent" | "dataProcessingConsent" | "schoolRulesAgreement" | "signature" | "consentDate" | "studentEmail" | "portalUsername" | "preferredLanguage" | "religionClassType" | "scholarshipEligible" | "referralSource" | "email" | "phone" | "studentCategoryId" | "parentId" | "paymentReceiptUrl" | "paymentStatus" | "paymentMethod" | "createdAt" | "updatedAt", ExtArgs["result"]["onlineAdmission"]>
   export type OnlineAdmissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     academicSession?: boolean | OnlineAdmission$academicSessionArgs<ExtArgs>
     desiredClass?: boolean | ClassDefaultArgs<ExtArgs>
     desiredSection?: boolean | OnlineAdmission$desiredSectionArgs<ExtArgs>
     branch?: boolean | BranchDefaultArgs<ExtArgs>
     studentCategory?: boolean | OnlineAdmission$studentCategoryArgs<ExtArgs>
+    parent?: boolean | OnlineAdmission$parentArgs<ExtArgs>
   }
   export type OnlineAdmissionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     academicSession?: boolean | OnlineAdmission$academicSessionArgs<ExtArgs>
@@ -79828,6 +81589,7 @@ export namespace Prisma {
     desiredSection?: boolean | OnlineAdmission$desiredSectionArgs<ExtArgs>
     branch?: boolean | BranchDefaultArgs<ExtArgs>
     studentCategory?: boolean | OnlineAdmission$studentCategoryArgs<ExtArgs>
+    parent?: boolean | OnlineAdmission$parentArgs<ExtArgs>
   }
   export type OnlineAdmissionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     academicSession?: boolean | OnlineAdmission$academicSessionArgs<ExtArgs>
@@ -79835,6 +81597,7 @@ export namespace Prisma {
     desiredSection?: boolean | OnlineAdmission$desiredSectionArgs<ExtArgs>
     branch?: boolean | BranchDefaultArgs<ExtArgs>
     studentCategory?: boolean | OnlineAdmission$studentCategoryArgs<ExtArgs>
+    parent?: boolean | OnlineAdmission$parentArgs<ExtArgs>
   }
 
   export type $OnlineAdmissionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -79845,6 +81608,7 @@ export namespace Prisma {
       desiredSection: Prisma.$SectionPayload<ExtArgs> | null
       branch: Prisma.$BranchPayload<ExtArgs>
       studentCategory: Prisma.$StudentCategoryPayload<ExtArgs> | null
+      parent: Prisma.$UserPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -79924,6 +81688,7 @@ export namespace Prisma {
       email: string | null
       phone: string | null
       studentCategoryId: string | null
+      parentId: string | null
       paymentReceiptUrl: string | null
       paymentStatus: string
       paymentMethod: string
@@ -80328,6 +82093,7 @@ export namespace Prisma {
     desiredSection<T extends OnlineAdmission$desiredSectionArgs<ExtArgs> = {}>(args?: Subset<T, OnlineAdmission$desiredSectionArgs<ExtArgs>>): Prisma__SectionClient<$Result.GetResult<Prisma.$SectionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     branch<T extends BranchDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BranchDefaultArgs<ExtArgs>>): Prisma__BranchClient<$Result.GetResult<Prisma.$BranchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     studentCategory<T extends OnlineAdmission$studentCategoryArgs<ExtArgs> = {}>(args?: Subset<T, OnlineAdmission$studentCategoryArgs<ExtArgs>>): Prisma__StudentCategoryClient<$Result.GetResult<Prisma.$StudentCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    parent<T extends OnlineAdmission$parentArgs<ExtArgs> = {}>(args?: Subset<T, OnlineAdmission$parentArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -80434,6 +82200,7 @@ export namespace Prisma {
     readonly email: FieldRef<"OnlineAdmission", 'String'>
     readonly phone: FieldRef<"OnlineAdmission", 'String'>
     readonly studentCategoryId: FieldRef<"OnlineAdmission", 'String'>
+    readonly parentId: FieldRef<"OnlineAdmission", 'String'>
     readonly paymentReceiptUrl: FieldRef<"OnlineAdmission", 'String'>
     readonly paymentStatus: FieldRef<"OnlineAdmission", 'String'>
     readonly paymentMethod: FieldRef<"OnlineAdmission", 'String'>
@@ -80889,6 +82656,25 @@ export namespace Prisma {
      */
     include?: StudentCategoryInclude<ExtArgs> | null
     where?: StudentCategoryWhereInput
+  }
+
+  /**
+   * OnlineAdmission.parent
+   */
+  export type OnlineAdmission$parentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
   }
 
   /**
@@ -107278,6 +109064,2301 @@ export namespace Prisma {
 
 
   /**
+   * Model IdCardTemplate
+   */
+
+  export type AggregateIdCardTemplate = {
+    _count: IdCardTemplateCountAggregateOutputType | null
+    _min: IdCardTemplateMinAggregateOutputType | null
+    _max: IdCardTemplateMaxAggregateOutputType | null
+  }
+
+  export type IdCardTemplateMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    type: string | null
+    backgroundImage: string | null
+    branchId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type IdCardTemplateMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    type: string | null
+    backgroundImage: string | null
+    branchId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type IdCardTemplateCountAggregateOutputType = {
+    id: number
+    name: number
+    type: number
+    backgroundImage: number
+    config: number
+    branchId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type IdCardTemplateMinAggregateInputType = {
+    id?: true
+    name?: true
+    type?: true
+    backgroundImage?: true
+    branchId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type IdCardTemplateMaxAggregateInputType = {
+    id?: true
+    name?: true
+    type?: true
+    backgroundImage?: true
+    branchId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type IdCardTemplateCountAggregateInputType = {
+    id?: true
+    name?: true
+    type?: true
+    backgroundImage?: true
+    config?: true
+    branchId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type IdCardTemplateAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which IdCardTemplate to aggregate.
+     */
+    where?: IdCardTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IdCardTemplates to fetch.
+     */
+    orderBy?: IdCardTemplateOrderByWithRelationInput | IdCardTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: IdCardTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IdCardTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IdCardTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned IdCardTemplates
+    **/
+    _count?: true | IdCardTemplateCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: IdCardTemplateMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: IdCardTemplateMaxAggregateInputType
+  }
+
+  export type GetIdCardTemplateAggregateType<T extends IdCardTemplateAggregateArgs> = {
+        [P in keyof T & keyof AggregateIdCardTemplate]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateIdCardTemplate[P]>
+      : GetScalarType<T[P], AggregateIdCardTemplate[P]>
+  }
+
+
+
+
+  export type IdCardTemplateGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: IdCardTemplateWhereInput
+    orderBy?: IdCardTemplateOrderByWithAggregationInput | IdCardTemplateOrderByWithAggregationInput[]
+    by: IdCardTemplateScalarFieldEnum[] | IdCardTemplateScalarFieldEnum
+    having?: IdCardTemplateScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: IdCardTemplateCountAggregateInputType | true
+    _min?: IdCardTemplateMinAggregateInputType
+    _max?: IdCardTemplateMaxAggregateInputType
+  }
+
+  export type IdCardTemplateGroupByOutputType = {
+    id: string
+    name: string
+    type: string
+    backgroundImage: string | null
+    config: JsonValue
+    branchId: string
+    createdAt: Date
+    updatedAt: Date
+    _count: IdCardTemplateCountAggregateOutputType | null
+    _min: IdCardTemplateMinAggregateOutputType | null
+    _max: IdCardTemplateMaxAggregateOutputType | null
+  }
+
+  type GetIdCardTemplateGroupByPayload<T extends IdCardTemplateGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<IdCardTemplateGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof IdCardTemplateGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], IdCardTemplateGroupByOutputType[P]>
+            : GetScalarType<T[P], IdCardTemplateGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type IdCardTemplateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    type?: boolean
+    backgroundImage?: boolean
+    config?: boolean
+    branchId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+    idCards?: boolean | IdCardTemplate$idCardsArgs<ExtArgs>
+    _count?: boolean | IdCardTemplateCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["idCardTemplate"]>
+
+  export type IdCardTemplateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    type?: boolean
+    backgroundImage?: boolean
+    config?: boolean
+    branchId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["idCardTemplate"]>
+
+  export type IdCardTemplateSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    type?: boolean
+    backgroundImage?: boolean
+    config?: boolean
+    branchId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["idCardTemplate"]>
+
+  export type IdCardTemplateSelectScalar = {
+    id?: boolean
+    name?: boolean
+    type?: boolean
+    backgroundImage?: boolean
+    config?: boolean
+    branchId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type IdCardTemplateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "type" | "backgroundImage" | "config" | "branchId" | "createdAt" | "updatedAt", ExtArgs["result"]["idCardTemplate"]>
+  export type IdCardTemplateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+    idCards?: boolean | IdCardTemplate$idCardsArgs<ExtArgs>
+    _count?: boolean | IdCardTemplateCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type IdCardTemplateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+  }
+  export type IdCardTemplateIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+  }
+
+  export type $IdCardTemplatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "IdCardTemplate"
+    objects: {
+      branch: Prisma.$BranchPayload<ExtArgs>
+      idCards: Prisma.$IdCardPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      type: string
+      backgroundImage: string | null
+      config: Prisma.JsonValue
+      branchId: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["idCardTemplate"]>
+    composites: {}
+  }
+
+  type IdCardTemplateGetPayload<S extends boolean | null | undefined | IdCardTemplateDefaultArgs> = $Result.GetResult<Prisma.$IdCardTemplatePayload, S>
+
+  type IdCardTemplateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<IdCardTemplateFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: IdCardTemplateCountAggregateInputType | true
+    }
+
+  export interface IdCardTemplateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['IdCardTemplate'], meta: { name: 'IdCardTemplate' } }
+    /**
+     * Find zero or one IdCardTemplate that matches the filter.
+     * @param {IdCardTemplateFindUniqueArgs} args - Arguments to find a IdCardTemplate
+     * @example
+     * // Get one IdCardTemplate
+     * const idCardTemplate = await prisma.idCardTemplate.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends IdCardTemplateFindUniqueArgs>(args: SelectSubset<T, IdCardTemplateFindUniqueArgs<ExtArgs>>): Prisma__IdCardTemplateClient<$Result.GetResult<Prisma.$IdCardTemplatePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one IdCardTemplate that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {IdCardTemplateFindUniqueOrThrowArgs} args - Arguments to find a IdCardTemplate
+     * @example
+     * // Get one IdCardTemplate
+     * const idCardTemplate = await prisma.idCardTemplate.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends IdCardTemplateFindUniqueOrThrowArgs>(args: SelectSubset<T, IdCardTemplateFindUniqueOrThrowArgs<ExtArgs>>): Prisma__IdCardTemplateClient<$Result.GetResult<Prisma.$IdCardTemplatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first IdCardTemplate that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IdCardTemplateFindFirstArgs} args - Arguments to find a IdCardTemplate
+     * @example
+     * // Get one IdCardTemplate
+     * const idCardTemplate = await prisma.idCardTemplate.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends IdCardTemplateFindFirstArgs>(args?: SelectSubset<T, IdCardTemplateFindFirstArgs<ExtArgs>>): Prisma__IdCardTemplateClient<$Result.GetResult<Prisma.$IdCardTemplatePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first IdCardTemplate that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IdCardTemplateFindFirstOrThrowArgs} args - Arguments to find a IdCardTemplate
+     * @example
+     * // Get one IdCardTemplate
+     * const idCardTemplate = await prisma.idCardTemplate.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends IdCardTemplateFindFirstOrThrowArgs>(args?: SelectSubset<T, IdCardTemplateFindFirstOrThrowArgs<ExtArgs>>): Prisma__IdCardTemplateClient<$Result.GetResult<Prisma.$IdCardTemplatePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more IdCardTemplates that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IdCardTemplateFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all IdCardTemplates
+     * const idCardTemplates = await prisma.idCardTemplate.findMany()
+     * 
+     * // Get first 10 IdCardTemplates
+     * const idCardTemplates = await prisma.idCardTemplate.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const idCardTemplateWithIdOnly = await prisma.idCardTemplate.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends IdCardTemplateFindManyArgs>(args?: SelectSubset<T, IdCardTemplateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IdCardTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a IdCardTemplate.
+     * @param {IdCardTemplateCreateArgs} args - Arguments to create a IdCardTemplate.
+     * @example
+     * // Create one IdCardTemplate
+     * const IdCardTemplate = await prisma.idCardTemplate.create({
+     *   data: {
+     *     // ... data to create a IdCardTemplate
+     *   }
+     * })
+     * 
+     */
+    create<T extends IdCardTemplateCreateArgs>(args: SelectSubset<T, IdCardTemplateCreateArgs<ExtArgs>>): Prisma__IdCardTemplateClient<$Result.GetResult<Prisma.$IdCardTemplatePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many IdCardTemplates.
+     * @param {IdCardTemplateCreateManyArgs} args - Arguments to create many IdCardTemplates.
+     * @example
+     * // Create many IdCardTemplates
+     * const idCardTemplate = await prisma.idCardTemplate.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends IdCardTemplateCreateManyArgs>(args?: SelectSubset<T, IdCardTemplateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many IdCardTemplates and returns the data saved in the database.
+     * @param {IdCardTemplateCreateManyAndReturnArgs} args - Arguments to create many IdCardTemplates.
+     * @example
+     * // Create many IdCardTemplates
+     * const idCardTemplate = await prisma.idCardTemplate.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many IdCardTemplates and only return the `id`
+     * const idCardTemplateWithIdOnly = await prisma.idCardTemplate.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends IdCardTemplateCreateManyAndReturnArgs>(args?: SelectSubset<T, IdCardTemplateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IdCardTemplatePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a IdCardTemplate.
+     * @param {IdCardTemplateDeleteArgs} args - Arguments to delete one IdCardTemplate.
+     * @example
+     * // Delete one IdCardTemplate
+     * const IdCardTemplate = await prisma.idCardTemplate.delete({
+     *   where: {
+     *     // ... filter to delete one IdCardTemplate
+     *   }
+     * })
+     * 
+     */
+    delete<T extends IdCardTemplateDeleteArgs>(args: SelectSubset<T, IdCardTemplateDeleteArgs<ExtArgs>>): Prisma__IdCardTemplateClient<$Result.GetResult<Prisma.$IdCardTemplatePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one IdCardTemplate.
+     * @param {IdCardTemplateUpdateArgs} args - Arguments to update one IdCardTemplate.
+     * @example
+     * // Update one IdCardTemplate
+     * const idCardTemplate = await prisma.idCardTemplate.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends IdCardTemplateUpdateArgs>(args: SelectSubset<T, IdCardTemplateUpdateArgs<ExtArgs>>): Prisma__IdCardTemplateClient<$Result.GetResult<Prisma.$IdCardTemplatePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more IdCardTemplates.
+     * @param {IdCardTemplateDeleteManyArgs} args - Arguments to filter IdCardTemplates to delete.
+     * @example
+     * // Delete a few IdCardTemplates
+     * const { count } = await prisma.idCardTemplate.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends IdCardTemplateDeleteManyArgs>(args?: SelectSubset<T, IdCardTemplateDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more IdCardTemplates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IdCardTemplateUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many IdCardTemplates
+     * const idCardTemplate = await prisma.idCardTemplate.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends IdCardTemplateUpdateManyArgs>(args: SelectSubset<T, IdCardTemplateUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more IdCardTemplates and returns the data updated in the database.
+     * @param {IdCardTemplateUpdateManyAndReturnArgs} args - Arguments to update many IdCardTemplates.
+     * @example
+     * // Update many IdCardTemplates
+     * const idCardTemplate = await prisma.idCardTemplate.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more IdCardTemplates and only return the `id`
+     * const idCardTemplateWithIdOnly = await prisma.idCardTemplate.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends IdCardTemplateUpdateManyAndReturnArgs>(args: SelectSubset<T, IdCardTemplateUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IdCardTemplatePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one IdCardTemplate.
+     * @param {IdCardTemplateUpsertArgs} args - Arguments to update or create a IdCardTemplate.
+     * @example
+     * // Update or create a IdCardTemplate
+     * const idCardTemplate = await prisma.idCardTemplate.upsert({
+     *   create: {
+     *     // ... data to create a IdCardTemplate
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the IdCardTemplate we want to update
+     *   }
+     * })
+     */
+    upsert<T extends IdCardTemplateUpsertArgs>(args: SelectSubset<T, IdCardTemplateUpsertArgs<ExtArgs>>): Prisma__IdCardTemplateClient<$Result.GetResult<Prisma.$IdCardTemplatePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of IdCardTemplates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IdCardTemplateCountArgs} args - Arguments to filter IdCardTemplates to count.
+     * @example
+     * // Count the number of IdCardTemplates
+     * const count = await prisma.idCardTemplate.count({
+     *   where: {
+     *     // ... the filter for the IdCardTemplates we want to count
+     *   }
+     * })
+    **/
+    count<T extends IdCardTemplateCountArgs>(
+      args?: Subset<T, IdCardTemplateCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], IdCardTemplateCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a IdCardTemplate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IdCardTemplateAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends IdCardTemplateAggregateArgs>(args: Subset<T, IdCardTemplateAggregateArgs>): Prisma.PrismaPromise<GetIdCardTemplateAggregateType<T>>
+
+    /**
+     * Group by IdCardTemplate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IdCardTemplateGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends IdCardTemplateGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: IdCardTemplateGroupByArgs['orderBy'] }
+        : { orderBy?: IdCardTemplateGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, IdCardTemplateGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetIdCardTemplateGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the IdCardTemplate model
+   */
+  readonly fields: IdCardTemplateFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for IdCardTemplate.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__IdCardTemplateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    branch<T extends BranchDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BranchDefaultArgs<ExtArgs>>): Prisma__BranchClient<$Result.GetResult<Prisma.$BranchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    idCards<T extends IdCardTemplate$idCardsArgs<ExtArgs> = {}>(args?: Subset<T, IdCardTemplate$idCardsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IdCardPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the IdCardTemplate model
+   */
+  interface IdCardTemplateFieldRefs {
+    readonly id: FieldRef<"IdCardTemplate", 'String'>
+    readonly name: FieldRef<"IdCardTemplate", 'String'>
+    readonly type: FieldRef<"IdCardTemplate", 'String'>
+    readonly backgroundImage: FieldRef<"IdCardTemplate", 'String'>
+    readonly config: FieldRef<"IdCardTemplate", 'Json'>
+    readonly branchId: FieldRef<"IdCardTemplate", 'String'>
+    readonly createdAt: FieldRef<"IdCardTemplate", 'DateTime'>
+    readonly updatedAt: FieldRef<"IdCardTemplate", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * IdCardTemplate findUnique
+   */
+  export type IdCardTemplateFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdCardTemplate
+     */
+    select?: IdCardTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IdCardTemplate
+     */
+    omit?: IdCardTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdCardTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which IdCardTemplate to fetch.
+     */
+    where: IdCardTemplateWhereUniqueInput
+  }
+
+  /**
+   * IdCardTemplate findUniqueOrThrow
+   */
+  export type IdCardTemplateFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdCardTemplate
+     */
+    select?: IdCardTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IdCardTemplate
+     */
+    omit?: IdCardTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdCardTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which IdCardTemplate to fetch.
+     */
+    where: IdCardTemplateWhereUniqueInput
+  }
+
+  /**
+   * IdCardTemplate findFirst
+   */
+  export type IdCardTemplateFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdCardTemplate
+     */
+    select?: IdCardTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IdCardTemplate
+     */
+    omit?: IdCardTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdCardTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which IdCardTemplate to fetch.
+     */
+    where?: IdCardTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IdCardTemplates to fetch.
+     */
+    orderBy?: IdCardTemplateOrderByWithRelationInput | IdCardTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for IdCardTemplates.
+     */
+    cursor?: IdCardTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IdCardTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IdCardTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of IdCardTemplates.
+     */
+    distinct?: IdCardTemplateScalarFieldEnum | IdCardTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * IdCardTemplate findFirstOrThrow
+   */
+  export type IdCardTemplateFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdCardTemplate
+     */
+    select?: IdCardTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IdCardTemplate
+     */
+    omit?: IdCardTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdCardTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which IdCardTemplate to fetch.
+     */
+    where?: IdCardTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IdCardTemplates to fetch.
+     */
+    orderBy?: IdCardTemplateOrderByWithRelationInput | IdCardTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for IdCardTemplates.
+     */
+    cursor?: IdCardTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IdCardTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IdCardTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of IdCardTemplates.
+     */
+    distinct?: IdCardTemplateScalarFieldEnum | IdCardTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * IdCardTemplate findMany
+   */
+  export type IdCardTemplateFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdCardTemplate
+     */
+    select?: IdCardTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IdCardTemplate
+     */
+    omit?: IdCardTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdCardTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which IdCardTemplates to fetch.
+     */
+    where?: IdCardTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IdCardTemplates to fetch.
+     */
+    orderBy?: IdCardTemplateOrderByWithRelationInput | IdCardTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing IdCardTemplates.
+     */
+    cursor?: IdCardTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IdCardTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IdCardTemplates.
+     */
+    skip?: number
+    distinct?: IdCardTemplateScalarFieldEnum | IdCardTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * IdCardTemplate create
+   */
+  export type IdCardTemplateCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdCardTemplate
+     */
+    select?: IdCardTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IdCardTemplate
+     */
+    omit?: IdCardTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdCardTemplateInclude<ExtArgs> | null
+    /**
+     * The data needed to create a IdCardTemplate.
+     */
+    data: XOR<IdCardTemplateCreateInput, IdCardTemplateUncheckedCreateInput>
+  }
+
+  /**
+   * IdCardTemplate createMany
+   */
+  export type IdCardTemplateCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many IdCardTemplates.
+     */
+    data: IdCardTemplateCreateManyInput | IdCardTemplateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * IdCardTemplate createManyAndReturn
+   */
+  export type IdCardTemplateCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdCardTemplate
+     */
+    select?: IdCardTemplateSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the IdCardTemplate
+     */
+    omit?: IdCardTemplateOmit<ExtArgs> | null
+    /**
+     * The data used to create many IdCardTemplates.
+     */
+    data: IdCardTemplateCreateManyInput | IdCardTemplateCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdCardTemplateIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * IdCardTemplate update
+   */
+  export type IdCardTemplateUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdCardTemplate
+     */
+    select?: IdCardTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IdCardTemplate
+     */
+    omit?: IdCardTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdCardTemplateInclude<ExtArgs> | null
+    /**
+     * The data needed to update a IdCardTemplate.
+     */
+    data: XOR<IdCardTemplateUpdateInput, IdCardTemplateUncheckedUpdateInput>
+    /**
+     * Choose, which IdCardTemplate to update.
+     */
+    where: IdCardTemplateWhereUniqueInput
+  }
+
+  /**
+   * IdCardTemplate updateMany
+   */
+  export type IdCardTemplateUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update IdCardTemplates.
+     */
+    data: XOR<IdCardTemplateUpdateManyMutationInput, IdCardTemplateUncheckedUpdateManyInput>
+    /**
+     * Filter which IdCardTemplates to update
+     */
+    where?: IdCardTemplateWhereInput
+    /**
+     * Limit how many IdCardTemplates to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * IdCardTemplate updateManyAndReturn
+   */
+  export type IdCardTemplateUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdCardTemplate
+     */
+    select?: IdCardTemplateSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the IdCardTemplate
+     */
+    omit?: IdCardTemplateOmit<ExtArgs> | null
+    /**
+     * The data used to update IdCardTemplates.
+     */
+    data: XOR<IdCardTemplateUpdateManyMutationInput, IdCardTemplateUncheckedUpdateManyInput>
+    /**
+     * Filter which IdCardTemplates to update
+     */
+    where?: IdCardTemplateWhereInput
+    /**
+     * Limit how many IdCardTemplates to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdCardTemplateIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * IdCardTemplate upsert
+   */
+  export type IdCardTemplateUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdCardTemplate
+     */
+    select?: IdCardTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IdCardTemplate
+     */
+    omit?: IdCardTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdCardTemplateInclude<ExtArgs> | null
+    /**
+     * The filter to search for the IdCardTemplate to update in case it exists.
+     */
+    where: IdCardTemplateWhereUniqueInput
+    /**
+     * In case the IdCardTemplate found by the `where` argument doesn't exist, create a new IdCardTemplate with this data.
+     */
+    create: XOR<IdCardTemplateCreateInput, IdCardTemplateUncheckedCreateInput>
+    /**
+     * In case the IdCardTemplate was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<IdCardTemplateUpdateInput, IdCardTemplateUncheckedUpdateInput>
+  }
+
+  /**
+   * IdCardTemplate delete
+   */
+  export type IdCardTemplateDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdCardTemplate
+     */
+    select?: IdCardTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IdCardTemplate
+     */
+    omit?: IdCardTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdCardTemplateInclude<ExtArgs> | null
+    /**
+     * Filter which IdCardTemplate to delete.
+     */
+    where: IdCardTemplateWhereUniqueInput
+  }
+
+  /**
+   * IdCardTemplate deleteMany
+   */
+  export type IdCardTemplateDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which IdCardTemplates to delete
+     */
+    where?: IdCardTemplateWhereInput
+    /**
+     * Limit how many IdCardTemplates to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * IdCardTemplate.idCards
+   */
+  export type IdCardTemplate$idCardsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdCard
+     */
+    select?: IdCardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IdCard
+     */
+    omit?: IdCardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdCardInclude<ExtArgs> | null
+    where?: IdCardWhereInput
+    orderBy?: IdCardOrderByWithRelationInput | IdCardOrderByWithRelationInput[]
+    cursor?: IdCardWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: IdCardScalarFieldEnum | IdCardScalarFieldEnum[]
+  }
+
+  /**
+   * IdCardTemplate without action
+   */
+  export type IdCardTemplateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdCardTemplate
+     */
+    select?: IdCardTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IdCardTemplate
+     */
+    omit?: IdCardTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdCardTemplateInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model IdCard
+   */
+
+  export type AggregateIdCard = {
+    _count: IdCardCountAggregateOutputType | null
+    _min: IdCardMinAggregateOutputType | null
+    _max: IdCardMaxAggregateOutputType | null
+  }
+
+  export type IdCardMinAggregateOutputType = {
+    id: string | null
+    studentId: string | null
+    staffId: string | null
+    templateId: string | null
+    sessionId: string | null
+    status: string | null
+    issueDate: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type IdCardMaxAggregateOutputType = {
+    id: string | null
+    studentId: string | null
+    staffId: string | null
+    templateId: string | null
+    sessionId: string | null
+    status: string | null
+    issueDate: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type IdCardCountAggregateOutputType = {
+    id: number
+    studentId: number
+    staffId: number
+    templateId: number
+    sessionId: number
+    status: number
+    issueDate: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type IdCardMinAggregateInputType = {
+    id?: true
+    studentId?: true
+    staffId?: true
+    templateId?: true
+    sessionId?: true
+    status?: true
+    issueDate?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type IdCardMaxAggregateInputType = {
+    id?: true
+    studentId?: true
+    staffId?: true
+    templateId?: true
+    sessionId?: true
+    status?: true
+    issueDate?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type IdCardCountAggregateInputType = {
+    id?: true
+    studentId?: true
+    staffId?: true
+    templateId?: true
+    sessionId?: true
+    status?: true
+    issueDate?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type IdCardAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which IdCard to aggregate.
+     */
+    where?: IdCardWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IdCards to fetch.
+     */
+    orderBy?: IdCardOrderByWithRelationInput | IdCardOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: IdCardWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IdCards from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IdCards.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned IdCards
+    **/
+    _count?: true | IdCardCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: IdCardMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: IdCardMaxAggregateInputType
+  }
+
+  export type GetIdCardAggregateType<T extends IdCardAggregateArgs> = {
+        [P in keyof T & keyof AggregateIdCard]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateIdCard[P]>
+      : GetScalarType<T[P], AggregateIdCard[P]>
+  }
+
+
+
+
+  export type IdCardGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: IdCardWhereInput
+    orderBy?: IdCardOrderByWithAggregationInput | IdCardOrderByWithAggregationInput[]
+    by: IdCardScalarFieldEnum[] | IdCardScalarFieldEnum
+    having?: IdCardScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: IdCardCountAggregateInputType | true
+    _min?: IdCardMinAggregateInputType
+    _max?: IdCardMaxAggregateInputType
+  }
+
+  export type IdCardGroupByOutputType = {
+    id: string
+    studentId: string | null
+    staffId: string | null
+    templateId: string
+    sessionId: string
+    status: string
+    issueDate: Date
+    createdAt: Date
+    updatedAt: Date
+    _count: IdCardCountAggregateOutputType | null
+    _min: IdCardMinAggregateOutputType | null
+    _max: IdCardMaxAggregateOutputType | null
+  }
+
+  type GetIdCardGroupByPayload<T extends IdCardGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<IdCardGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof IdCardGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], IdCardGroupByOutputType[P]>
+            : GetScalarType<T[P], IdCardGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type IdCardSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    studentId?: boolean
+    staffId?: boolean
+    templateId?: boolean
+    sessionId?: boolean
+    status?: boolean
+    issueDate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    student?: boolean | IdCard$studentArgs<ExtArgs>
+    staff?: boolean | IdCard$staffArgs<ExtArgs>
+    template?: boolean | IdCardTemplateDefaultArgs<ExtArgs>
+    session?: boolean | AcademicSessionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["idCard"]>
+
+  export type IdCardSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    studentId?: boolean
+    staffId?: boolean
+    templateId?: boolean
+    sessionId?: boolean
+    status?: boolean
+    issueDate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    student?: boolean | IdCard$studentArgs<ExtArgs>
+    staff?: boolean | IdCard$staffArgs<ExtArgs>
+    template?: boolean | IdCardTemplateDefaultArgs<ExtArgs>
+    session?: boolean | AcademicSessionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["idCard"]>
+
+  export type IdCardSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    studentId?: boolean
+    staffId?: boolean
+    templateId?: boolean
+    sessionId?: boolean
+    status?: boolean
+    issueDate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    student?: boolean | IdCard$studentArgs<ExtArgs>
+    staff?: boolean | IdCard$staffArgs<ExtArgs>
+    template?: boolean | IdCardTemplateDefaultArgs<ExtArgs>
+    session?: boolean | AcademicSessionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["idCard"]>
+
+  export type IdCardSelectScalar = {
+    id?: boolean
+    studentId?: boolean
+    staffId?: boolean
+    templateId?: boolean
+    sessionId?: boolean
+    status?: boolean
+    issueDate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type IdCardOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "studentId" | "staffId" | "templateId" | "sessionId" | "status" | "issueDate" | "createdAt" | "updatedAt", ExtArgs["result"]["idCard"]>
+  export type IdCardInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    student?: boolean | IdCard$studentArgs<ExtArgs>
+    staff?: boolean | IdCard$staffArgs<ExtArgs>
+    template?: boolean | IdCardTemplateDefaultArgs<ExtArgs>
+    session?: boolean | AcademicSessionDefaultArgs<ExtArgs>
+  }
+  export type IdCardIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    student?: boolean | IdCard$studentArgs<ExtArgs>
+    staff?: boolean | IdCard$staffArgs<ExtArgs>
+    template?: boolean | IdCardTemplateDefaultArgs<ExtArgs>
+    session?: boolean | AcademicSessionDefaultArgs<ExtArgs>
+  }
+  export type IdCardIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    student?: boolean | IdCard$studentArgs<ExtArgs>
+    staff?: boolean | IdCard$staffArgs<ExtArgs>
+    template?: boolean | IdCardTemplateDefaultArgs<ExtArgs>
+    session?: boolean | AcademicSessionDefaultArgs<ExtArgs>
+  }
+
+  export type $IdCardPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "IdCard"
+    objects: {
+      student: Prisma.$StudentPayload<ExtArgs> | null
+      staff: Prisma.$StaffPayload<ExtArgs> | null
+      template: Prisma.$IdCardTemplatePayload<ExtArgs>
+      session: Prisma.$AcademicSessionPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      studentId: string | null
+      staffId: string | null
+      templateId: string
+      sessionId: string
+      status: string
+      issueDate: Date
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["idCard"]>
+    composites: {}
+  }
+
+  type IdCardGetPayload<S extends boolean | null | undefined | IdCardDefaultArgs> = $Result.GetResult<Prisma.$IdCardPayload, S>
+
+  type IdCardCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<IdCardFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: IdCardCountAggregateInputType | true
+    }
+
+  export interface IdCardDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['IdCard'], meta: { name: 'IdCard' } }
+    /**
+     * Find zero or one IdCard that matches the filter.
+     * @param {IdCardFindUniqueArgs} args - Arguments to find a IdCard
+     * @example
+     * // Get one IdCard
+     * const idCard = await prisma.idCard.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends IdCardFindUniqueArgs>(args: SelectSubset<T, IdCardFindUniqueArgs<ExtArgs>>): Prisma__IdCardClient<$Result.GetResult<Prisma.$IdCardPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one IdCard that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {IdCardFindUniqueOrThrowArgs} args - Arguments to find a IdCard
+     * @example
+     * // Get one IdCard
+     * const idCard = await prisma.idCard.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends IdCardFindUniqueOrThrowArgs>(args: SelectSubset<T, IdCardFindUniqueOrThrowArgs<ExtArgs>>): Prisma__IdCardClient<$Result.GetResult<Prisma.$IdCardPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first IdCard that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IdCardFindFirstArgs} args - Arguments to find a IdCard
+     * @example
+     * // Get one IdCard
+     * const idCard = await prisma.idCard.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends IdCardFindFirstArgs>(args?: SelectSubset<T, IdCardFindFirstArgs<ExtArgs>>): Prisma__IdCardClient<$Result.GetResult<Prisma.$IdCardPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first IdCard that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IdCardFindFirstOrThrowArgs} args - Arguments to find a IdCard
+     * @example
+     * // Get one IdCard
+     * const idCard = await prisma.idCard.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends IdCardFindFirstOrThrowArgs>(args?: SelectSubset<T, IdCardFindFirstOrThrowArgs<ExtArgs>>): Prisma__IdCardClient<$Result.GetResult<Prisma.$IdCardPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more IdCards that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IdCardFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all IdCards
+     * const idCards = await prisma.idCard.findMany()
+     * 
+     * // Get first 10 IdCards
+     * const idCards = await prisma.idCard.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const idCardWithIdOnly = await prisma.idCard.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends IdCardFindManyArgs>(args?: SelectSubset<T, IdCardFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IdCardPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a IdCard.
+     * @param {IdCardCreateArgs} args - Arguments to create a IdCard.
+     * @example
+     * // Create one IdCard
+     * const IdCard = await prisma.idCard.create({
+     *   data: {
+     *     // ... data to create a IdCard
+     *   }
+     * })
+     * 
+     */
+    create<T extends IdCardCreateArgs>(args: SelectSubset<T, IdCardCreateArgs<ExtArgs>>): Prisma__IdCardClient<$Result.GetResult<Prisma.$IdCardPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many IdCards.
+     * @param {IdCardCreateManyArgs} args - Arguments to create many IdCards.
+     * @example
+     * // Create many IdCards
+     * const idCard = await prisma.idCard.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends IdCardCreateManyArgs>(args?: SelectSubset<T, IdCardCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many IdCards and returns the data saved in the database.
+     * @param {IdCardCreateManyAndReturnArgs} args - Arguments to create many IdCards.
+     * @example
+     * // Create many IdCards
+     * const idCard = await prisma.idCard.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many IdCards and only return the `id`
+     * const idCardWithIdOnly = await prisma.idCard.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends IdCardCreateManyAndReturnArgs>(args?: SelectSubset<T, IdCardCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IdCardPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a IdCard.
+     * @param {IdCardDeleteArgs} args - Arguments to delete one IdCard.
+     * @example
+     * // Delete one IdCard
+     * const IdCard = await prisma.idCard.delete({
+     *   where: {
+     *     // ... filter to delete one IdCard
+     *   }
+     * })
+     * 
+     */
+    delete<T extends IdCardDeleteArgs>(args: SelectSubset<T, IdCardDeleteArgs<ExtArgs>>): Prisma__IdCardClient<$Result.GetResult<Prisma.$IdCardPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one IdCard.
+     * @param {IdCardUpdateArgs} args - Arguments to update one IdCard.
+     * @example
+     * // Update one IdCard
+     * const idCard = await prisma.idCard.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends IdCardUpdateArgs>(args: SelectSubset<T, IdCardUpdateArgs<ExtArgs>>): Prisma__IdCardClient<$Result.GetResult<Prisma.$IdCardPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more IdCards.
+     * @param {IdCardDeleteManyArgs} args - Arguments to filter IdCards to delete.
+     * @example
+     * // Delete a few IdCards
+     * const { count } = await prisma.idCard.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends IdCardDeleteManyArgs>(args?: SelectSubset<T, IdCardDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more IdCards.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IdCardUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many IdCards
+     * const idCard = await prisma.idCard.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends IdCardUpdateManyArgs>(args: SelectSubset<T, IdCardUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more IdCards and returns the data updated in the database.
+     * @param {IdCardUpdateManyAndReturnArgs} args - Arguments to update many IdCards.
+     * @example
+     * // Update many IdCards
+     * const idCard = await prisma.idCard.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more IdCards and only return the `id`
+     * const idCardWithIdOnly = await prisma.idCard.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends IdCardUpdateManyAndReturnArgs>(args: SelectSubset<T, IdCardUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IdCardPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one IdCard.
+     * @param {IdCardUpsertArgs} args - Arguments to update or create a IdCard.
+     * @example
+     * // Update or create a IdCard
+     * const idCard = await prisma.idCard.upsert({
+     *   create: {
+     *     // ... data to create a IdCard
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the IdCard we want to update
+     *   }
+     * })
+     */
+    upsert<T extends IdCardUpsertArgs>(args: SelectSubset<T, IdCardUpsertArgs<ExtArgs>>): Prisma__IdCardClient<$Result.GetResult<Prisma.$IdCardPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of IdCards.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IdCardCountArgs} args - Arguments to filter IdCards to count.
+     * @example
+     * // Count the number of IdCards
+     * const count = await prisma.idCard.count({
+     *   where: {
+     *     // ... the filter for the IdCards we want to count
+     *   }
+     * })
+    **/
+    count<T extends IdCardCountArgs>(
+      args?: Subset<T, IdCardCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], IdCardCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a IdCard.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IdCardAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends IdCardAggregateArgs>(args: Subset<T, IdCardAggregateArgs>): Prisma.PrismaPromise<GetIdCardAggregateType<T>>
+
+    /**
+     * Group by IdCard.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IdCardGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends IdCardGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: IdCardGroupByArgs['orderBy'] }
+        : { orderBy?: IdCardGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, IdCardGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetIdCardGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the IdCard model
+   */
+  readonly fields: IdCardFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for IdCard.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__IdCardClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    student<T extends IdCard$studentArgs<ExtArgs> = {}>(args?: Subset<T, IdCard$studentArgs<ExtArgs>>): Prisma__StudentClient<$Result.GetResult<Prisma.$StudentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    staff<T extends IdCard$staffArgs<ExtArgs> = {}>(args?: Subset<T, IdCard$staffArgs<ExtArgs>>): Prisma__StaffClient<$Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    template<T extends IdCardTemplateDefaultArgs<ExtArgs> = {}>(args?: Subset<T, IdCardTemplateDefaultArgs<ExtArgs>>): Prisma__IdCardTemplateClient<$Result.GetResult<Prisma.$IdCardTemplatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    session<T extends AcademicSessionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AcademicSessionDefaultArgs<ExtArgs>>): Prisma__AcademicSessionClient<$Result.GetResult<Prisma.$AcademicSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the IdCard model
+   */
+  interface IdCardFieldRefs {
+    readonly id: FieldRef<"IdCard", 'String'>
+    readonly studentId: FieldRef<"IdCard", 'String'>
+    readonly staffId: FieldRef<"IdCard", 'String'>
+    readonly templateId: FieldRef<"IdCard", 'String'>
+    readonly sessionId: FieldRef<"IdCard", 'String'>
+    readonly status: FieldRef<"IdCard", 'String'>
+    readonly issueDate: FieldRef<"IdCard", 'DateTime'>
+    readonly createdAt: FieldRef<"IdCard", 'DateTime'>
+    readonly updatedAt: FieldRef<"IdCard", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * IdCard findUnique
+   */
+  export type IdCardFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdCard
+     */
+    select?: IdCardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IdCard
+     */
+    omit?: IdCardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdCardInclude<ExtArgs> | null
+    /**
+     * Filter, which IdCard to fetch.
+     */
+    where: IdCardWhereUniqueInput
+  }
+
+  /**
+   * IdCard findUniqueOrThrow
+   */
+  export type IdCardFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdCard
+     */
+    select?: IdCardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IdCard
+     */
+    omit?: IdCardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdCardInclude<ExtArgs> | null
+    /**
+     * Filter, which IdCard to fetch.
+     */
+    where: IdCardWhereUniqueInput
+  }
+
+  /**
+   * IdCard findFirst
+   */
+  export type IdCardFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdCard
+     */
+    select?: IdCardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IdCard
+     */
+    omit?: IdCardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdCardInclude<ExtArgs> | null
+    /**
+     * Filter, which IdCard to fetch.
+     */
+    where?: IdCardWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IdCards to fetch.
+     */
+    orderBy?: IdCardOrderByWithRelationInput | IdCardOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for IdCards.
+     */
+    cursor?: IdCardWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IdCards from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IdCards.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of IdCards.
+     */
+    distinct?: IdCardScalarFieldEnum | IdCardScalarFieldEnum[]
+  }
+
+  /**
+   * IdCard findFirstOrThrow
+   */
+  export type IdCardFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdCard
+     */
+    select?: IdCardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IdCard
+     */
+    omit?: IdCardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdCardInclude<ExtArgs> | null
+    /**
+     * Filter, which IdCard to fetch.
+     */
+    where?: IdCardWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IdCards to fetch.
+     */
+    orderBy?: IdCardOrderByWithRelationInput | IdCardOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for IdCards.
+     */
+    cursor?: IdCardWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IdCards from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IdCards.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of IdCards.
+     */
+    distinct?: IdCardScalarFieldEnum | IdCardScalarFieldEnum[]
+  }
+
+  /**
+   * IdCard findMany
+   */
+  export type IdCardFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdCard
+     */
+    select?: IdCardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IdCard
+     */
+    omit?: IdCardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdCardInclude<ExtArgs> | null
+    /**
+     * Filter, which IdCards to fetch.
+     */
+    where?: IdCardWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IdCards to fetch.
+     */
+    orderBy?: IdCardOrderByWithRelationInput | IdCardOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing IdCards.
+     */
+    cursor?: IdCardWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IdCards from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IdCards.
+     */
+    skip?: number
+    distinct?: IdCardScalarFieldEnum | IdCardScalarFieldEnum[]
+  }
+
+  /**
+   * IdCard create
+   */
+  export type IdCardCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdCard
+     */
+    select?: IdCardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IdCard
+     */
+    omit?: IdCardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdCardInclude<ExtArgs> | null
+    /**
+     * The data needed to create a IdCard.
+     */
+    data: XOR<IdCardCreateInput, IdCardUncheckedCreateInput>
+  }
+
+  /**
+   * IdCard createMany
+   */
+  export type IdCardCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many IdCards.
+     */
+    data: IdCardCreateManyInput | IdCardCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * IdCard createManyAndReturn
+   */
+  export type IdCardCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdCard
+     */
+    select?: IdCardSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the IdCard
+     */
+    omit?: IdCardOmit<ExtArgs> | null
+    /**
+     * The data used to create many IdCards.
+     */
+    data: IdCardCreateManyInput | IdCardCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdCardIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * IdCard update
+   */
+  export type IdCardUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdCard
+     */
+    select?: IdCardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IdCard
+     */
+    omit?: IdCardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdCardInclude<ExtArgs> | null
+    /**
+     * The data needed to update a IdCard.
+     */
+    data: XOR<IdCardUpdateInput, IdCardUncheckedUpdateInput>
+    /**
+     * Choose, which IdCard to update.
+     */
+    where: IdCardWhereUniqueInput
+  }
+
+  /**
+   * IdCard updateMany
+   */
+  export type IdCardUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update IdCards.
+     */
+    data: XOR<IdCardUpdateManyMutationInput, IdCardUncheckedUpdateManyInput>
+    /**
+     * Filter which IdCards to update
+     */
+    where?: IdCardWhereInput
+    /**
+     * Limit how many IdCards to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * IdCard updateManyAndReturn
+   */
+  export type IdCardUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdCard
+     */
+    select?: IdCardSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the IdCard
+     */
+    omit?: IdCardOmit<ExtArgs> | null
+    /**
+     * The data used to update IdCards.
+     */
+    data: XOR<IdCardUpdateManyMutationInput, IdCardUncheckedUpdateManyInput>
+    /**
+     * Filter which IdCards to update
+     */
+    where?: IdCardWhereInput
+    /**
+     * Limit how many IdCards to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdCardIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * IdCard upsert
+   */
+  export type IdCardUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdCard
+     */
+    select?: IdCardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IdCard
+     */
+    omit?: IdCardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdCardInclude<ExtArgs> | null
+    /**
+     * The filter to search for the IdCard to update in case it exists.
+     */
+    where: IdCardWhereUniqueInput
+    /**
+     * In case the IdCard found by the `where` argument doesn't exist, create a new IdCard with this data.
+     */
+    create: XOR<IdCardCreateInput, IdCardUncheckedCreateInput>
+    /**
+     * In case the IdCard was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<IdCardUpdateInput, IdCardUncheckedUpdateInput>
+  }
+
+  /**
+   * IdCard delete
+   */
+  export type IdCardDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdCard
+     */
+    select?: IdCardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IdCard
+     */
+    omit?: IdCardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdCardInclude<ExtArgs> | null
+    /**
+     * Filter which IdCard to delete.
+     */
+    where: IdCardWhereUniqueInput
+  }
+
+  /**
+   * IdCard deleteMany
+   */
+  export type IdCardDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which IdCards to delete
+     */
+    where?: IdCardWhereInput
+    /**
+     * Limit how many IdCards to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * IdCard.student
+   */
+  export type IdCard$studentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Student
+     */
+    select?: StudentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Student
+     */
+    omit?: StudentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentInclude<ExtArgs> | null
+    where?: StudentWhereInput
+  }
+
+  /**
+   * IdCard.staff
+   */
+  export type IdCard$staffArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Staff
+     */
+    select?: StaffSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Staff
+     */
+    omit?: StaffOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffInclude<ExtArgs> | null
+    where?: StaffWhereInput
+  }
+
+  /**
+   * IdCard without action
+   */
+  export type IdCardDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdCard
+     */
+    select?: IdCardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IdCard
+     */
+    omit?: IdCardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdCardInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -107420,7 +111501,10 @@ export namespace Prisma {
     certificateNumber: 'certificateNumber',
     issueDate: 'issueDate',
     content: 'content',
+    verificationCode: 'verificationCode',
+    isVerified: 'isVerified',
     studentId: 'studentId',
+    templateId: 'templateId',
     issuedByUserId: 'issuedByUserId',
     branchId: 'branchId',
     createdAt: 'createdAt',
@@ -107428,6 +111512,20 @@ export namespace Prisma {
   };
 
   export type CertificateScalarFieldEnum = (typeof CertificateScalarFieldEnum)[keyof typeof CertificateScalarFieldEnum]
+
+
+  export const CertificateTemplateScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    type: 'type',
+    backgroundImage: 'backgroundImage',
+    config: 'config',
+    branchId: 'branchId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type CertificateTemplateScalarFieldEnum = (typeof CertificateTemplateScalarFieldEnum)[keyof typeof CertificateTemplateScalarFieldEnum]
 
 
   export const ClassScalarFieldEnum: {
@@ -108250,6 +112348,7 @@ export namespace Prisma {
     email: 'email',
     phone: 'phone',
     studentCategoryId: 'studentCategoryId',
+    parentId: 'parentId',
     paymentReceiptUrl: 'paymentReceiptUrl',
     paymentStatus: 'paymentStatus',
     paymentMethod: 'paymentMethod',
@@ -108609,6 +112708,35 @@ export namespace Prisma {
   export type AutomationConfigScalarFieldEnum = (typeof AutomationConfigScalarFieldEnum)[keyof typeof AutomationConfigScalarFieldEnum]
 
 
+  export const IdCardTemplateScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    type: 'type',
+    backgroundImage: 'backgroundImage',
+    config: 'config',
+    branchId: 'branchId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type IdCardTemplateScalarFieldEnum = (typeof IdCardTemplateScalarFieldEnum)[keyof typeof IdCardTemplateScalarFieldEnum]
+
+
+  export const IdCardScalarFieldEnum: {
+    id: 'id',
+    studentId: 'studentId',
+    staffId: 'staffId',
+    templateId: 'templateId',
+    sessionId: 'sessionId',
+    status: 'status',
+    issueDate: 'issueDate',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type IdCardScalarFieldEnum = (typeof IdCardScalarFieldEnum)[keyof typeof IdCardScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -108623,6 +112751,13 @@ export namespace Prisma {
   };
 
   export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
   export const QueryMode: {
@@ -108929,6 +113064,7 @@ export namespace Prisma {
     departments?: DepartmentListRelationFilter
     designations?: DesignationListRelationFilter
     certificates?: CertificateListRelationFilter
+    certificateTemplates?: CertificateTemplateListRelationFilter
     books?: BookListRelationFilter
     googleMeetConfig?: XOR<GoogleMeetConfigNullableScalarRelationFilter, GoogleMeetConfigWhereInput> | null
     liveClassSessions?: LiveClassSessionListRelationFilter
@@ -108955,6 +113091,7 @@ export namespace Prisma {
     campusEvents?: CampusEventListRelationFilter
     accessLogs?: CampusAccessLogListRelationFilter
     automationConfigs?: AutomationConfigListRelationFilter
+    idCardTemplates?: IdCardTemplateListRelationFilter
     deactivationReasons?: DeactivationReasonListRelationFilter
     loginDeactivations?: LoginDeactivationListRelationFilter
   }
@@ -108982,6 +113119,7 @@ export namespace Prisma {
     departments?: DepartmentOrderByRelationAggregateInput
     designations?: DesignationOrderByRelationAggregateInput
     certificates?: CertificateOrderByRelationAggregateInput
+    certificateTemplates?: CertificateTemplateOrderByRelationAggregateInput
     books?: BookOrderByRelationAggregateInput
     googleMeetConfig?: GoogleMeetConfigOrderByWithRelationInput
     liveClassSessions?: LiveClassSessionOrderByRelationAggregateInput
@@ -109008,6 +113146,7 @@ export namespace Prisma {
     campusEvents?: CampusEventOrderByRelationAggregateInput
     accessLogs?: CampusAccessLogOrderByRelationAggregateInput
     automationConfigs?: AutomationConfigOrderByRelationAggregateInput
+    idCardTemplates?: IdCardTemplateOrderByRelationAggregateInput
     deactivationReasons?: DeactivationReasonOrderByRelationAggregateInput
     loginDeactivations?: LoginDeactivationOrderByRelationAggregateInput
   }
@@ -109038,6 +113177,7 @@ export namespace Prisma {
     departments?: DepartmentListRelationFilter
     designations?: DesignationListRelationFilter
     certificates?: CertificateListRelationFilter
+    certificateTemplates?: CertificateTemplateListRelationFilter
     books?: BookListRelationFilter
     googleMeetConfig?: XOR<GoogleMeetConfigNullableScalarRelationFilter, GoogleMeetConfigWhereInput> | null
     liveClassSessions?: LiveClassSessionListRelationFilter
@@ -109064,6 +113204,7 @@ export namespace Prisma {
     campusEvents?: CampusEventListRelationFilter
     accessLogs?: CampusAccessLogListRelationFilter
     automationConfigs?: AutomationConfigListRelationFilter
+    idCardTemplates?: IdCardTemplateListRelationFilter
     deactivationReasons?: DeactivationReasonListRelationFilter
     loginDeactivations?: LoginDeactivationListRelationFilter
   }, "id" | "code">
@@ -109261,6 +113402,7 @@ export namespace Prisma {
     sentMessages?: MessageListRelationFilter
     eventRSVPs?: EventRSVPListRelationFilter
     accessLogs?: CampusAccessLogListRelationFilter
+    onlineAdmissions?: OnlineAdmissionListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -109287,6 +113429,7 @@ export namespace Prisma {
     sentMessages?: MessageOrderByRelationAggregateInput
     eventRSVPs?: EventRSVPOrderByRelationAggregateInput
     accessLogs?: CampusAccessLogOrderByRelationAggregateInput
+    onlineAdmissions?: OnlineAdmissionOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -109316,6 +113459,7 @@ export namespace Prisma {
     sentMessages?: MessageListRelationFilter
     eventRSVPs?: EventRSVPListRelationFilter
     accessLogs?: CampusAccessLogListRelationFilter
+    onlineAdmissions?: OnlineAdmissionListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -109377,6 +113521,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryListRelationFilter
     assignments?: AssignmentListRelationFilter
     hostedSessions?: LiveClassSessionListRelationFilter
+    idCards?: IdCardListRelationFilter
   }
 
   export type StaffOrderByWithRelationInput = {
@@ -109401,6 +113546,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryOrderByRelationAggregateInput
     assignments?: AssignmentOrderByRelationAggregateInput
     hostedSessions?: LiveClassSessionOrderByRelationAggregateInput
+    idCards?: IdCardOrderByRelationAggregateInput
   }
 
   export type StaffWhereUniqueInput = Prisma.AtLeast<{
@@ -109428,6 +113574,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryListRelationFilter
     assignments?: AssignmentListRelationFilter
     hostedSessions?: LiveClassSessionListRelationFilter
+    idCards?: IdCardListRelationFilter
   }, "id" | "userId">
 
   export type StaffOrderByWithAggregationInput = {
@@ -109525,6 +113672,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordListRelationFilter
     onlineExamAttempts?: OnlineExamAttemptListRelationFilter
     inventoryIssues?: InventoryIssueListRelationFilter
+    idCards?: IdCardListRelationFilter
     alumni?: XOR<AlumniNullableScalarRelationFilter, AlumniWhereInput> | null
     category?: XOR<StudentCategoryNullableScalarRelationFilter, StudentCategoryWhereInput> | null
   }
@@ -109593,6 +113741,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordOrderByRelationAggregateInput
     onlineExamAttempts?: OnlineExamAttemptOrderByRelationAggregateInput
     inventoryIssues?: InventoryIssueOrderByRelationAggregateInput
+    idCards?: IdCardOrderByRelationAggregateInput
     alumni?: AlumniOrderByWithRelationInput
     category?: StudentCategoryOrderByWithRelationInput
   }
@@ -109664,6 +113813,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordListRelationFilter
     onlineExamAttempts?: OnlineExamAttemptListRelationFilter
     inventoryIssues?: InventoryIssueListRelationFilter
+    idCards?: IdCardListRelationFilter
     alumni?: XOR<AlumniNullableScalarRelationFilter, AlumniWhereInput> | null
     category?: XOR<StudentCategoryNullableScalarRelationFilter, StudentCategoryWhereInput> | null
   }, "id" | "userId">
@@ -109779,12 +113929,16 @@ export namespace Prisma {
     certificateNumber?: StringFilter<"Certificate"> | string
     issueDate?: DateTimeFilter<"Certificate"> | Date | string
     content?: JsonNullableFilter<"Certificate">
+    verificationCode?: StringFilter<"Certificate"> | string
+    isVerified?: BoolFilter<"Certificate"> | boolean
     studentId?: StringFilter<"Certificate"> | string
+    templateId?: StringNullableFilter<"Certificate"> | string | null
     issuedByUserId?: StringFilter<"Certificate"> | string
     branchId?: StringFilter<"Certificate"> | string
     createdAt?: DateTimeFilter<"Certificate"> | Date | string
     updatedAt?: DateTimeFilter<"Certificate"> | Date | string
     student?: XOR<StudentScalarRelationFilter, StudentWhereInput>
+    template?: XOR<CertificateTemplateNullableScalarRelationFilter, CertificateTemplateWhereInput> | null
     issuedBy?: XOR<UserScalarRelationFilter, UserWhereInput>
     branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
   }
@@ -109795,12 +113949,16 @@ export namespace Prisma {
     certificateNumber?: SortOrder
     issueDate?: SortOrder
     content?: SortOrderInput | SortOrder
+    verificationCode?: SortOrder
+    isVerified?: SortOrder
     studentId?: SortOrder
+    templateId?: SortOrderInput | SortOrder
     issuedByUserId?: SortOrder
     branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     student?: StudentOrderByWithRelationInput
+    template?: CertificateTemplateOrderByWithRelationInput
     issuedBy?: UserOrderByWithRelationInput
     branch?: BranchOrderByWithRelationInput
   }
@@ -109808,21 +113966,25 @@ export namespace Prisma {
   export type CertificateWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     certificateNumber?: string
+    verificationCode?: string
     AND?: CertificateWhereInput | CertificateWhereInput[]
     OR?: CertificateWhereInput[]
     NOT?: CertificateWhereInput | CertificateWhereInput[]
     type?: StringFilter<"Certificate"> | string
     issueDate?: DateTimeFilter<"Certificate"> | Date | string
     content?: JsonNullableFilter<"Certificate">
+    isVerified?: BoolFilter<"Certificate"> | boolean
     studentId?: StringFilter<"Certificate"> | string
+    templateId?: StringNullableFilter<"Certificate"> | string | null
     issuedByUserId?: StringFilter<"Certificate"> | string
     branchId?: StringFilter<"Certificate"> | string
     createdAt?: DateTimeFilter<"Certificate"> | Date | string
     updatedAt?: DateTimeFilter<"Certificate"> | Date | string
     student?: XOR<StudentScalarRelationFilter, StudentWhereInput>
+    template?: XOR<CertificateTemplateNullableScalarRelationFilter, CertificateTemplateWhereInput> | null
     issuedBy?: XOR<UserScalarRelationFilter, UserWhereInput>
     branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
-  }, "id" | "certificateNumber">
+  }, "id" | "certificateNumber" | "verificationCode">
 
   export type CertificateOrderByWithAggregationInput = {
     id?: SortOrder
@@ -109830,7 +113992,10 @@ export namespace Prisma {
     certificateNumber?: SortOrder
     issueDate?: SortOrder
     content?: SortOrderInput | SortOrder
+    verificationCode?: SortOrder
+    isVerified?: SortOrder
     studentId?: SortOrder
+    templateId?: SortOrderInput | SortOrder
     issuedByUserId?: SortOrder
     branchId?: SortOrder
     createdAt?: SortOrder
@@ -109849,11 +114014,87 @@ export namespace Prisma {
     certificateNumber?: StringWithAggregatesFilter<"Certificate"> | string
     issueDate?: DateTimeWithAggregatesFilter<"Certificate"> | Date | string
     content?: JsonNullableWithAggregatesFilter<"Certificate">
+    verificationCode?: StringWithAggregatesFilter<"Certificate"> | string
+    isVerified?: BoolWithAggregatesFilter<"Certificate"> | boolean
     studentId?: StringWithAggregatesFilter<"Certificate"> | string
+    templateId?: StringNullableWithAggregatesFilter<"Certificate"> | string | null
     issuedByUserId?: StringWithAggregatesFilter<"Certificate"> | string
     branchId?: StringWithAggregatesFilter<"Certificate"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Certificate"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Certificate"> | Date | string
+  }
+
+  export type CertificateTemplateWhereInput = {
+    AND?: CertificateTemplateWhereInput | CertificateTemplateWhereInput[]
+    OR?: CertificateTemplateWhereInput[]
+    NOT?: CertificateTemplateWhereInput | CertificateTemplateWhereInput[]
+    id?: StringFilter<"CertificateTemplate"> | string
+    name?: StringFilter<"CertificateTemplate"> | string
+    type?: StringFilter<"CertificateTemplate"> | string
+    backgroundImage?: StringNullableFilter<"CertificateTemplate"> | string | null
+    config?: JsonFilter<"CertificateTemplate">
+    branchId?: StringFilter<"CertificateTemplate"> | string
+    createdAt?: DateTimeFilter<"CertificateTemplate"> | Date | string
+    updatedAt?: DateTimeFilter<"CertificateTemplate"> | Date | string
+    branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
+    certificates?: CertificateListRelationFilter
+  }
+
+  export type CertificateTemplateOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    backgroundImage?: SortOrderInput | SortOrder
+    config?: SortOrder
+    branchId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    branch?: BranchOrderByWithRelationInput
+    certificates?: CertificateOrderByRelationAggregateInput
+  }
+
+  export type CertificateTemplateWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CertificateTemplateWhereInput | CertificateTemplateWhereInput[]
+    OR?: CertificateTemplateWhereInput[]
+    NOT?: CertificateTemplateWhereInput | CertificateTemplateWhereInput[]
+    name?: StringFilter<"CertificateTemplate"> | string
+    type?: StringFilter<"CertificateTemplate"> | string
+    backgroundImage?: StringNullableFilter<"CertificateTemplate"> | string | null
+    config?: JsonFilter<"CertificateTemplate">
+    branchId?: StringFilter<"CertificateTemplate"> | string
+    createdAt?: DateTimeFilter<"CertificateTemplate"> | Date | string
+    updatedAt?: DateTimeFilter<"CertificateTemplate"> | Date | string
+    branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
+    certificates?: CertificateListRelationFilter
+  }, "id">
+
+  export type CertificateTemplateOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    backgroundImage?: SortOrderInput | SortOrder
+    config?: SortOrder
+    branchId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: CertificateTemplateCountOrderByAggregateInput
+    _max?: CertificateTemplateMaxOrderByAggregateInput
+    _min?: CertificateTemplateMinOrderByAggregateInput
+  }
+
+  export type CertificateTemplateScalarWhereWithAggregatesInput = {
+    AND?: CertificateTemplateScalarWhereWithAggregatesInput | CertificateTemplateScalarWhereWithAggregatesInput[]
+    OR?: CertificateTemplateScalarWhereWithAggregatesInput[]
+    NOT?: CertificateTemplateScalarWhereWithAggregatesInput | CertificateTemplateScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CertificateTemplate"> | string
+    name?: StringWithAggregatesFilter<"CertificateTemplate"> | string
+    type?: StringWithAggregatesFilter<"CertificateTemplate"> | string
+    backgroundImage?: StringNullableWithAggregatesFilter<"CertificateTemplate"> | string | null
+    config?: JsonWithAggregatesFilter<"CertificateTemplate">
+    branchId?: StringWithAggregatesFilter<"CertificateTemplate"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"CertificateTemplate"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"CertificateTemplate"> | Date | string
   }
 
   export type ClassWhereInput = {
@@ -111833,6 +116074,7 @@ export namespace Prisma {
     resultSummaries?: ResultSummaryListRelationFilter
     behaviouralRatings?: BehaviouralRatingListRelationFilter
     onlineAdmissions?: OnlineAdmissionListRelationFilter
+    idCards?: IdCardListRelationFilter
   }
 
   export type AcademicSessionOrderByWithRelationInput = {
@@ -111849,6 +116091,7 @@ export namespace Prisma {
     resultSummaries?: ResultSummaryOrderByRelationAggregateInput
     behaviouralRatings?: BehaviouralRatingOrderByRelationAggregateInput
     onlineAdmissions?: OnlineAdmissionOrderByRelationAggregateInput
+    idCards?: IdCardOrderByRelationAggregateInput
   }
 
   export type AcademicSessionWhereUniqueInput = Prisma.AtLeast<{
@@ -111868,6 +116111,7 @@ export namespace Prisma {
     resultSummaries?: ResultSummaryListRelationFilter
     behaviouralRatings?: BehaviouralRatingListRelationFilter
     onlineAdmissions?: OnlineAdmissionListRelationFilter
+    idCards?: IdCardListRelationFilter
   }, "id">
 
   export type AcademicSessionOrderByWithAggregationInput = {
@@ -113923,6 +118167,7 @@ export namespace Prisma {
     email?: StringNullableFilter<"OnlineAdmission"> | string | null
     phone?: StringNullableFilter<"OnlineAdmission"> | string | null
     studentCategoryId?: StringNullableFilter<"OnlineAdmission"> | string | null
+    parentId?: StringNullableFilter<"OnlineAdmission"> | string | null
     paymentReceiptUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
     paymentStatus?: StringFilter<"OnlineAdmission"> | string
     paymentMethod?: StringFilter<"OnlineAdmission"> | string
@@ -113933,6 +118178,7 @@ export namespace Prisma {
     desiredSection?: XOR<SectionNullableScalarRelationFilter, SectionWhereInput> | null
     branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
     studentCategory?: XOR<StudentCategoryNullableScalarRelationFilter, StudentCategoryWhereInput> | null
+    parent?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }
 
   export type OnlineAdmissionOrderByWithRelationInput = {
@@ -114013,6 +118259,7 @@ export namespace Prisma {
     email?: SortOrderInput | SortOrder
     phone?: SortOrderInput | SortOrder
     studentCategoryId?: SortOrderInput | SortOrder
+    parentId?: SortOrderInput | SortOrder
     paymentReceiptUrl?: SortOrderInput | SortOrder
     paymentStatus?: SortOrder
     paymentMethod?: SortOrder
@@ -114023,6 +118270,7 @@ export namespace Prisma {
     desiredSection?: SectionOrderByWithRelationInput
     branch?: BranchOrderByWithRelationInput
     studentCategory?: StudentCategoryOrderByWithRelationInput
+    parent?: UserOrderByWithRelationInput
   }
 
   export type OnlineAdmissionWhereUniqueInput = Prisma.AtLeast<{
@@ -114106,6 +118354,7 @@ export namespace Prisma {
     email?: StringNullableFilter<"OnlineAdmission"> | string | null
     phone?: StringNullableFilter<"OnlineAdmission"> | string | null
     studentCategoryId?: StringNullableFilter<"OnlineAdmission"> | string | null
+    parentId?: StringNullableFilter<"OnlineAdmission"> | string | null
     paymentReceiptUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
     paymentStatus?: StringFilter<"OnlineAdmission"> | string
     paymentMethod?: StringFilter<"OnlineAdmission"> | string
@@ -114116,6 +118365,7 @@ export namespace Prisma {
     desiredSection?: XOR<SectionNullableScalarRelationFilter, SectionWhereInput> | null
     branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
     studentCategory?: XOR<StudentCategoryNullableScalarRelationFilter, StudentCategoryWhereInput> | null
+    parent?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }, "id" | "admissionNumber">
 
   export type OnlineAdmissionOrderByWithAggregationInput = {
@@ -114196,6 +118446,7 @@ export namespace Prisma {
     email?: SortOrderInput | SortOrder
     phone?: SortOrderInput | SortOrder
     studentCategoryId?: SortOrderInput | SortOrder
+    parentId?: SortOrderInput | SortOrder
     paymentReceiptUrl?: SortOrderInput | SortOrder
     paymentStatus?: SortOrder
     paymentMethod?: SortOrder
@@ -114289,6 +118540,7 @@ export namespace Prisma {
     email?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     phone?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     studentCategoryId?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
+    parentId?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     paymentReceiptUrl?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     paymentStatus?: StringWithAggregatesFilter<"OnlineAdmission"> | string
     paymentMethod?: StringWithAggregatesFilter<"OnlineAdmission"> | string
@@ -116140,6 +120392,164 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"AutomationConfig"> | Date | string
   }
 
+  export type IdCardTemplateWhereInput = {
+    AND?: IdCardTemplateWhereInput | IdCardTemplateWhereInput[]
+    OR?: IdCardTemplateWhereInput[]
+    NOT?: IdCardTemplateWhereInput | IdCardTemplateWhereInput[]
+    id?: StringFilter<"IdCardTemplate"> | string
+    name?: StringFilter<"IdCardTemplate"> | string
+    type?: StringFilter<"IdCardTemplate"> | string
+    backgroundImage?: StringNullableFilter<"IdCardTemplate"> | string | null
+    config?: JsonFilter<"IdCardTemplate">
+    branchId?: StringFilter<"IdCardTemplate"> | string
+    createdAt?: DateTimeFilter<"IdCardTemplate"> | Date | string
+    updatedAt?: DateTimeFilter<"IdCardTemplate"> | Date | string
+    branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
+    idCards?: IdCardListRelationFilter
+  }
+
+  export type IdCardTemplateOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    backgroundImage?: SortOrderInput | SortOrder
+    config?: SortOrder
+    branchId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    branch?: BranchOrderByWithRelationInput
+    idCards?: IdCardOrderByRelationAggregateInput
+  }
+
+  export type IdCardTemplateWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: IdCardTemplateWhereInput | IdCardTemplateWhereInput[]
+    OR?: IdCardTemplateWhereInput[]
+    NOT?: IdCardTemplateWhereInput | IdCardTemplateWhereInput[]
+    name?: StringFilter<"IdCardTemplate"> | string
+    type?: StringFilter<"IdCardTemplate"> | string
+    backgroundImage?: StringNullableFilter<"IdCardTemplate"> | string | null
+    config?: JsonFilter<"IdCardTemplate">
+    branchId?: StringFilter<"IdCardTemplate"> | string
+    createdAt?: DateTimeFilter<"IdCardTemplate"> | Date | string
+    updatedAt?: DateTimeFilter<"IdCardTemplate"> | Date | string
+    branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
+    idCards?: IdCardListRelationFilter
+  }, "id">
+
+  export type IdCardTemplateOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    backgroundImage?: SortOrderInput | SortOrder
+    config?: SortOrder
+    branchId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: IdCardTemplateCountOrderByAggregateInput
+    _max?: IdCardTemplateMaxOrderByAggregateInput
+    _min?: IdCardTemplateMinOrderByAggregateInput
+  }
+
+  export type IdCardTemplateScalarWhereWithAggregatesInput = {
+    AND?: IdCardTemplateScalarWhereWithAggregatesInput | IdCardTemplateScalarWhereWithAggregatesInput[]
+    OR?: IdCardTemplateScalarWhereWithAggregatesInput[]
+    NOT?: IdCardTemplateScalarWhereWithAggregatesInput | IdCardTemplateScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"IdCardTemplate"> | string
+    name?: StringWithAggregatesFilter<"IdCardTemplate"> | string
+    type?: StringWithAggregatesFilter<"IdCardTemplate"> | string
+    backgroundImage?: StringNullableWithAggregatesFilter<"IdCardTemplate"> | string | null
+    config?: JsonWithAggregatesFilter<"IdCardTemplate">
+    branchId?: StringWithAggregatesFilter<"IdCardTemplate"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"IdCardTemplate"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"IdCardTemplate"> | Date | string
+  }
+
+  export type IdCardWhereInput = {
+    AND?: IdCardWhereInput | IdCardWhereInput[]
+    OR?: IdCardWhereInput[]
+    NOT?: IdCardWhereInput | IdCardWhereInput[]
+    id?: StringFilter<"IdCard"> | string
+    studentId?: StringNullableFilter<"IdCard"> | string | null
+    staffId?: StringNullableFilter<"IdCard"> | string | null
+    templateId?: StringFilter<"IdCard"> | string
+    sessionId?: StringFilter<"IdCard"> | string
+    status?: StringFilter<"IdCard"> | string
+    issueDate?: DateTimeFilter<"IdCard"> | Date | string
+    createdAt?: DateTimeFilter<"IdCard"> | Date | string
+    updatedAt?: DateTimeFilter<"IdCard"> | Date | string
+    student?: XOR<StudentNullableScalarRelationFilter, StudentWhereInput> | null
+    staff?: XOR<StaffNullableScalarRelationFilter, StaffWhereInput> | null
+    template?: XOR<IdCardTemplateScalarRelationFilter, IdCardTemplateWhereInput>
+    session?: XOR<AcademicSessionScalarRelationFilter, AcademicSessionWhereInput>
+  }
+
+  export type IdCardOrderByWithRelationInput = {
+    id?: SortOrder
+    studentId?: SortOrderInput | SortOrder
+    staffId?: SortOrderInput | SortOrder
+    templateId?: SortOrder
+    sessionId?: SortOrder
+    status?: SortOrder
+    issueDate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    student?: StudentOrderByWithRelationInput
+    staff?: StaffOrderByWithRelationInput
+    template?: IdCardTemplateOrderByWithRelationInput
+    session?: AcademicSessionOrderByWithRelationInput
+  }
+
+  export type IdCardWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    studentId_sessionId?: IdCardStudentIdSessionIdCompoundUniqueInput
+    AND?: IdCardWhereInput | IdCardWhereInput[]
+    OR?: IdCardWhereInput[]
+    NOT?: IdCardWhereInput | IdCardWhereInput[]
+    studentId?: StringNullableFilter<"IdCard"> | string | null
+    staffId?: StringNullableFilter<"IdCard"> | string | null
+    templateId?: StringFilter<"IdCard"> | string
+    sessionId?: StringFilter<"IdCard"> | string
+    status?: StringFilter<"IdCard"> | string
+    issueDate?: DateTimeFilter<"IdCard"> | Date | string
+    createdAt?: DateTimeFilter<"IdCard"> | Date | string
+    updatedAt?: DateTimeFilter<"IdCard"> | Date | string
+    student?: XOR<StudentNullableScalarRelationFilter, StudentWhereInput> | null
+    staff?: XOR<StaffNullableScalarRelationFilter, StaffWhereInput> | null
+    template?: XOR<IdCardTemplateScalarRelationFilter, IdCardTemplateWhereInput>
+    session?: XOR<AcademicSessionScalarRelationFilter, AcademicSessionWhereInput>
+  }, "id" | "studentId_sessionId">
+
+  export type IdCardOrderByWithAggregationInput = {
+    id?: SortOrder
+    studentId?: SortOrderInput | SortOrder
+    staffId?: SortOrderInput | SortOrder
+    templateId?: SortOrder
+    sessionId?: SortOrder
+    status?: SortOrder
+    issueDate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: IdCardCountOrderByAggregateInput
+    _max?: IdCardMaxOrderByAggregateInput
+    _min?: IdCardMinOrderByAggregateInput
+  }
+
+  export type IdCardScalarWhereWithAggregatesInput = {
+    AND?: IdCardScalarWhereWithAggregatesInput | IdCardScalarWhereWithAggregatesInput[]
+    OR?: IdCardScalarWhereWithAggregatesInput[]
+    NOT?: IdCardScalarWhereWithAggregatesInput | IdCardScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"IdCard"> | string
+    studentId?: StringNullableWithAggregatesFilter<"IdCard"> | string | null
+    staffId?: StringNullableWithAggregatesFilter<"IdCard"> | string | null
+    templateId?: StringWithAggregatesFilter<"IdCard"> | string
+    sessionId?: StringWithAggregatesFilter<"IdCard"> | string
+    status?: StringWithAggregatesFilter<"IdCard"> | string
+    issueDate?: DateTimeWithAggregatesFilter<"IdCard"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"IdCard"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"IdCard"> | Date | string
+  }
+
   export type BranchCreateInput = {
     id?: string
     name: string
@@ -116163,6 +120573,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -116189,6 +120600,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -116216,6 +120628,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -116242,6 +120655,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -116269,6 +120683,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -116295,6 +120710,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -116322,6 +120738,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -116348,6 +120765,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -116552,6 +120970,7 @@ export namespace Prisma {
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
     eventRSVPs?: EventRSVPCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutParentInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -116577,6 +120996,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     eventRSVPs?: EventRSVPUncheckedCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutParentInput
   }
 
   export type UserUpdateInput = {
@@ -116602,6 +121022,7 @@ export namespace Prisma {
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
     eventRSVPs?: EventRSVPUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutParentNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -116627,6 +121048,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     eventRSVPs?: EventRSVPUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutParentNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -116689,6 +121111,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryCreateNestedManyWithoutStaffInput
     assignments?: AssignmentCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionCreateNestedManyWithoutHostInput
+    idCards?: IdCardCreateNestedManyWithoutStaffInput
   }
 
   export type StaffUncheckedCreateInput = {
@@ -116710,6 +121133,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUncheckedCreateNestedManyWithoutStaffInput
     assignments?: AssignmentUncheckedCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutHostInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStaffInput
   }
 
   export type StaffUpdateInput = {
@@ -116731,6 +121155,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUpdateManyWithoutStaffNestedInput
     assignments?: AssignmentUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUpdateManyWithoutHostNestedInput
+    idCards?: IdCardUpdateManyWithoutStaffNestedInput
   }
 
   export type StaffUncheckedUpdateInput = {
@@ -116752,6 +121177,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUncheckedUpdateManyWithoutStaffNestedInput
     assignments?: AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUncheckedUpdateManyWithoutHostNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStaffNestedInput
   }
 
   export type StaffCreateManyInput = {
@@ -116842,6 +121268,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueCreateNestedManyWithoutStudentInput
+    idCards?: IdCardCreateNestedManyWithoutStudentInput
     alumni?: AlumniCreateNestedOneWithoutStudentInput
     category?: StudentCategoryCreateNestedOneWithoutStudentsInput
   }
@@ -116905,6 +121332,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutStudentInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStudentInput
     alumni?: AlumniUncheckedCreateNestedOneWithoutStudentInput
   }
 
@@ -116966,6 +121394,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUpdateOneWithoutStudentNestedInput
     category?: StudentCategoryUpdateOneWithoutStudentsNestedInput
   }
@@ -117029,6 +121458,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUncheckedUpdateOneWithoutStudentNestedInput
   }
 
@@ -117176,9 +121606,12 @@ export namespace Prisma {
     certificateNumber: string
     issueDate?: Date | string
     content?: NullableJsonNullValueInput | InputJsonValue
+    verificationCode?: string
+    isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     student: StudentCreateNestedOneWithoutCertificatesInput
+    template?: CertificateTemplateCreateNestedOneWithoutCertificatesInput
     issuedBy: UserCreateNestedOneWithoutIssuedCertificatesInput
     branch: BranchCreateNestedOneWithoutCertificatesInput
   }
@@ -117189,7 +121622,10 @@ export namespace Prisma {
     certificateNumber: string
     issueDate?: Date | string
     content?: NullableJsonNullValueInput | InputJsonValue
+    verificationCode?: string
+    isVerified?: boolean
     studentId: string
+    templateId?: string | null
     issuedByUserId: string
     branchId: string
     createdAt?: Date | string
@@ -117202,9 +121638,12 @@ export namespace Prisma {
     certificateNumber?: StringFieldUpdateOperationsInput | string
     issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     content?: NullableJsonNullValueInput | InputJsonValue
+    verificationCode?: StringFieldUpdateOperationsInput | string
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     student?: StudentUpdateOneRequiredWithoutCertificatesNestedInput
+    template?: CertificateTemplateUpdateOneWithoutCertificatesNestedInput
     issuedBy?: UserUpdateOneRequiredWithoutIssuedCertificatesNestedInput
     branch?: BranchUpdateOneRequiredWithoutCertificatesNestedInput
   }
@@ -117215,7 +121654,10 @@ export namespace Prisma {
     certificateNumber?: StringFieldUpdateOperationsInput | string
     issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     content?: NullableJsonNullValueInput | InputJsonValue
+    verificationCode?: StringFieldUpdateOperationsInput | string
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     studentId?: StringFieldUpdateOperationsInput | string
+    templateId?: NullableStringFieldUpdateOperationsInput | string | null
     issuedByUserId?: StringFieldUpdateOperationsInput | string
     branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -117228,7 +121670,10 @@ export namespace Prisma {
     certificateNumber: string
     issueDate?: Date | string
     content?: NullableJsonNullValueInput | InputJsonValue
+    verificationCode?: string
+    isVerified?: boolean
     studentId: string
+    templateId?: string | null
     issuedByUserId: string
     branchId: string
     createdAt?: Date | string
@@ -117241,6 +121686,8 @@ export namespace Prisma {
     certificateNumber?: StringFieldUpdateOperationsInput | string
     issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     content?: NullableJsonNullValueInput | InputJsonValue
+    verificationCode?: StringFieldUpdateOperationsInput | string
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -117251,8 +121698,91 @@ export namespace Prisma {
     certificateNumber?: StringFieldUpdateOperationsInput | string
     issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     content?: NullableJsonNullValueInput | InputJsonValue
+    verificationCode?: StringFieldUpdateOperationsInput | string
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     studentId?: StringFieldUpdateOperationsInput | string
+    templateId?: NullableStringFieldUpdateOperationsInput | string | null
     issuedByUserId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CertificateTemplateCreateInput = {
+    id?: string
+    name: string
+    type: string
+    backgroundImage?: string | null
+    config: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutCertificateTemplatesInput
+    certificates?: CertificateCreateNestedManyWithoutTemplateInput
+  }
+
+  export type CertificateTemplateUncheckedCreateInput = {
+    id?: string
+    name: string
+    type: string
+    backgroundImage?: string | null
+    config: JsonNullValueInput | InputJsonValue
+    branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    certificates?: CertificateUncheckedCreateNestedManyWithoutTemplateInput
+  }
+
+  export type CertificateTemplateUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    backgroundImage?: NullableStringFieldUpdateOperationsInput | string | null
+    config?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutCertificateTemplatesNestedInput
+    certificates?: CertificateUpdateManyWithoutTemplateNestedInput
+  }
+
+  export type CertificateTemplateUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    backgroundImage?: NullableStringFieldUpdateOperationsInput | string | null
+    config?: JsonNullValueInput | InputJsonValue
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    certificates?: CertificateUncheckedUpdateManyWithoutTemplateNestedInput
+  }
+
+  export type CertificateTemplateCreateManyInput = {
+    id?: string
+    name: string
+    type: string
+    backgroundImage?: string | null
+    config: JsonNullValueInput | InputJsonValue
+    branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CertificateTemplateUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    backgroundImage?: NullableStringFieldUpdateOperationsInput | string | null
+    config?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CertificateTemplateUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    backgroundImage?: NullableStringFieldUpdateOperationsInput | string | null
+    config?: JsonNullValueInput | InputJsonValue
     branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -119309,6 +123839,7 @@ export namespace Prisma {
     resultSummaries?: ResultSummaryCreateNestedManyWithoutSessionInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutSessionInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutAcademicSessionInput
+    idCards?: IdCardCreateNestedManyWithoutSessionInput
   }
 
   export type AcademicSessionUncheckedCreateInput = {
@@ -119325,6 +123856,7 @@ export namespace Prisma {
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutSessionInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutSessionInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutAcademicSessionInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutSessionInput
   }
 
   export type AcademicSessionUpdateInput = {
@@ -119341,6 +123873,7 @@ export namespace Prisma {
     resultSummaries?: ResultSummaryUpdateManyWithoutSessionNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutSessionNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutAcademicSessionNestedInput
+    idCards?: IdCardUpdateManyWithoutSessionNestedInput
   }
 
   export type AcademicSessionUncheckedUpdateInput = {
@@ -119357,6 +123890,7 @@ export namespace Prisma {
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutSessionNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutSessionNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutAcademicSessionNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutSessionNestedInput
   }
 
   export type AcademicSessionCreateManyInput = {
@@ -121598,6 +126132,7 @@ export namespace Prisma {
     desiredSection?: SectionCreateNestedOneWithoutOnlineAdmissionsInput
     branch: BranchCreateNestedOneWithoutOnlineAdmissionsInput
     studentCategory?: StudentCategoryCreateNestedOneWithoutOnlineAdmissionsInput
+    parent?: UserCreateNestedOneWithoutOnlineAdmissionsInput
   }
 
   export type OnlineAdmissionUncheckedCreateInput = {
@@ -121678,6 +126213,7 @@ export namespace Prisma {
     email?: string | null
     phone?: string | null
     studentCategoryId?: string | null
+    parentId?: string | null
     paymentReceiptUrl?: string | null
     paymentStatus?: string
     paymentMethod?: string
@@ -121768,6 +126304,7 @@ export namespace Prisma {
     desiredSection?: SectionUpdateOneWithoutOnlineAdmissionsNestedInput
     branch?: BranchUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
     studentCategory?: StudentCategoryUpdateOneWithoutOnlineAdmissionsNestedInput
+    parent?: UserUpdateOneWithoutOnlineAdmissionsNestedInput
   }
 
   export type OnlineAdmissionUncheckedUpdateInput = {
@@ -121848,6 +126385,7 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     studentCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
     paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
     paymentStatus?: StringFieldUpdateOperationsInput | string
     paymentMethod?: StringFieldUpdateOperationsInput | string
@@ -121933,6 +126471,7 @@ export namespace Prisma {
     email?: string | null
     phone?: string | null
     studentCategoryId?: string | null
+    parentId?: string | null
     paymentReceiptUrl?: string | null
     paymentStatus?: string
     paymentMethod?: string
@@ -122098,6 +126637,7 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     studentCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
     paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
     paymentStatus?: StringFieldUpdateOperationsInput | string
     paymentMethod?: StringFieldUpdateOperationsInput | string
@@ -124075,6 +128615,166 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type IdCardTemplateCreateInput = {
+    id?: string
+    name: string
+    type: string
+    backgroundImage?: string | null
+    config: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutIdCardTemplatesInput
+    idCards?: IdCardCreateNestedManyWithoutTemplateInput
+  }
+
+  export type IdCardTemplateUncheckedCreateInput = {
+    id?: string
+    name: string
+    type: string
+    backgroundImage?: string | null
+    config: JsonNullValueInput | InputJsonValue
+    branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    idCards?: IdCardUncheckedCreateNestedManyWithoutTemplateInput
+  }
+
+  export type IdCardTemplateUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    backgroundImage?: NullableStringFieldUpdateOperationsInput | string | null
+    config?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutIdCardTemplatesNestedInput
+    idCards?: IdCardUpdateManyWithoutTemplateNestedInput
+  }
+
+  export type IdCardTemplateUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    backgroundImage?: NullableStringFieldUpdateOperationsInput | string | null
+    config?: JsonNullValueInput | InputJsonValue
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    idCards?: IdCardUncheckedUpdateManyWithoutTemplateNestedInput
+  }
+
+  export type IdCardTemplateCreateManyInput = {
+    id?: string
+    name: string
+    type: string
+    backgroundImage?: string | null
+    config: JsonNullValueInput | InputJsonValue
+    branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type IdCardTemplateUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    backgroundImage?: NullableStringFieldUpdateOperationsInput | string | null
+    config?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IdCardTemplateUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    backgroundImage?: NullableStringFieldUpdateOperationsInput | string | null
+    config?: JsonNullValueInput | InputJsonValue
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IdCardCreateInput = {
+    id?: string
+    status?: string
+    issueDate?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    student?: StudentCreateNestedOneWithoutIdCardsInput
+    staff?: StaffCreateNestedOneWithoutIdCardsInput
+    template: IdCardTemplateCreateNestedOneWithoutIdCardsInput
+    session: AcademicSessionCreateNestedOneWithoutIdCardsInput
+  }
+
+  export type IdCardUncheckedCreateInput = {
+    id?: string
+    studentId?: string | null
+    staffId?: string | null
+    templateId: string
+    sessionId: string
+    status?: string
+    issueDate?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type IdCardUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    student?: StudentUpdateOneWithoutIdCardsNestedInput
+    staff?: StaffUpdateOneWithoutIdCardsNestedInput
+    template?: IdCardTemplateUpdateOneRequiredWithoutIdCardsNestedInput
+    session?: AcademicSessionUpdateOneRequiredWithoutIdCardsNestedInput
+  }
+
+  export type IdCardUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: NullableStringFieldUpdateOperationsInput | string | null
+    staffId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateId?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IdCardCreateManyInput = {
+    id?: string
+    studentId?: string | null
+    staffId?: string | null
+    templateId: string
+    sessionId: string
+    status?: string
+    issueDate?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type IdCardUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IdCardUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: NullableStringFieldUpdateOperationsInput | string | null
+    staffId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateId?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -124197,6 +128897,12 @@ export namespace Prisma {
     every?: CertificateWhereInput
     some?: CertificateWhereInput
     none?: CertificateWhereInput
+  }
+
+  export type CertificateTemplateListRelationFilter = {
+    every?: CertificateTemplateWhereInput
+    some?: CertificateTemplateWhereInput
+    none?: CertificateTemplateWhereInput
   }
 
   export type BookListRelationFilter = {
@@ -124354,6 +129060,12 @@ export namespace Prisma {
     none?: AutomationConfigWhereInput
   }
 
+  export type IdCardTemplateListRelationFilter = {
+    every?: IdCardTemplateWhereInput
+    some?: IdCardTemplateWhereInput
+    none?: IdCardTemplateWhereInput
+  }
+
   export type DeactivationReasonListRelationFilter = {
     every?: DeactivationReasonWhereInput
     some?: DeactivationReasonWhereInput
@@ -124420,6 +129132,10 @@ export namespace Prisma {
   }
 
   export type CertificateOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CertificateTemplateOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -124520,6 +129236,10 @@ export namespace Prisma {
   }
 
   export type AutomationConfigOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type IdCardTemplateOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -124869,6 +129589,12 @@ export namespace Prisma {
     none?: AssignmentWhereInput
   }
 
+  export type IdCardListRelationFilter = {
+    every?: IdCardWhereInput
+    some?: IdCardWhereInput
+    none?: IdCardWhereInput
+  }
+
   export type PayrollOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -124886,6 +129612,10 @@ export namespace Prisma {
   }
 
   export type AssignmentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type IdCardOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -125249,13 +129979,21 @@ export namespace Prisma {
     isNot?: StudentWhereInput
   }
 
+  export type CertificateTemplateNullableScalarRelationFilter = {
+    is?: CertificateTemplateWhereInput | null
+    isNot?: CertificateTemplateWhereInput | null
+  }
+
   export type CertificateCountOrderByAggregateInput = {
     id?: SortOrder
     type?: SortOrder
     certificateNumber?: SortOrder
     issueDate?: SortOrder
     content?: SortOrder
+    verificationCode?: SortOrder
+    isVerified?: SortOrder
     studentId?: SortOrder
+    templateId?: SortOrder
     issuedByUserId?: SortOrder
     branchId?: SortOrder
     createdAt?: SortOrder
@@ -125267,7 +130005,10 @@ export namespace Prisma {
     type?: SortOrder
     certificateNumber?: SortOrder
     issueDate?: SortOrder
+    verificationCode?: SortOrder
+    isVerified?: SortOrder
     studentId?: SortOrder
+    templateId?: SortOrder
     issuedByUserId?: SortOrder
     branchId?: SortOrder
     createdAt?: SortOrder
@@ -125279,7 +130020,10 @@ export namespace Prisma {
     type?: SortOrder
     certificateNumber?: SortOrder
     issueDate?: SortOrder
+    verificationCode?: SortOrder
+    isVerified?: SortOrder
     studentId?: SortOrder
+    templateId?: SortOrder
     issuedByUserId?: SortOrder
     branchId?: SortOrder
     createdAt?: SortOrder
@@ -125310,6 +130054,86 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedJsonNullableFilter<$PrismaModel>
     _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
+  export type JsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type CertificateTemplateCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    backgroundImage?: SortOrder
+    config?: SortOrder
+    branchId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CertificateTemplateMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    backgroundImage?: SortOrder
+    branchId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CertificateTemplateMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    backgroundImage?: SortOrder
+    branchId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
   }
 
   export type IntNullableFilter<$PrismaModel = never> = {
@@ -128038,6 +132862,7 @@ export namespace Prisma {
     email?: SortOrder
     phone?: SortOrder
     studentCategoryId?: SortOrder
+    parentId?: SortOrder
     paymentReceiptUrl?: SortOrder
     paymentStatus?: SortOrder
     paymentMethod?: SortOrder
@@ -128127,6 +132952,7 @@ export namespace Prisma {
     email?: SortOrder
     phone?: SortOrder
     studentCategoryId?: SortOrder
+    parentId?: SortOrder
     paymentReceiptUrl?: SortOrder
     paymentStatus?: SortOrder
     paymentMethod?: SortOrder
@@ -128212,6 +133038,7 @@ export namespace Prisma {
     email?: SortOrder
     phone?: SortOrder
     studentCategoryId?: SortOrder
+    parentId?: SortOrder
     paymentReceiptUrl?: SortOrder
     paymentStatus?: SortOrder
     paymentMethod?: SortOrder
@@ -129212,6 +134039,83 @@ export namespace Prisma {
     triggerDays?: SortOrder
   }
 
+  export type IdCardTemplateCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    backgroundImage?: SortOrder
+    config?: SortOrder
+    branchId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type IdCardTemplateMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    backgroundImage?: SortOrder
+    branchId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type IdCardTemplateMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    backgroundImage?: SortOrder
+    branchId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type IdCardTemplateScalarRelationFilter = {
+    is?: IdCardTemplateWhereInput
+    isNot?: IdCardTemplateWhereInput
+  }
+
+  export type IdCardStudentIdSessionIdCompoundUniqueInput = {
+    studentId: string
+    sessionId: string
+  }
+
+  export type IdCardCountOrderByAggregateInput = {
+    id?: SortOrder
+    studentId?: SortOrder
+    staffId?: SortOrder
+    templateId?: SortOrder
+    sessionId?: SortOrder
+    status?: SortOrder
+    issueDate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type IdCardMaxOrderByAggregateInput = {
+    id?: SortOrder
+    studentId?: SortOrder
+    staffId?: SortOrder
+    templateId?: SortOrder
+    sessionId?: SortOrder
+    status?: SortOrder
+    issueDate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type IdCardMinOrderByAggregateInput = {
+    id?: SortOrder
+    studentId?: SortOrder
+    staffId?: SortOrder
+    templateId?: SortOrder
+    sessionId?: SortOrder
+    status?: SortOrder
+    issueDate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type UserCreateNestedManyWithoutBranchInput = {
     create?: XOR<UserCreateWithoutBranchInput, UserUncheckedCreateWithoutBranchInput> | UserCreateWithoutBranchInput[] | UserUncheckedCreateWithoutBranchInput[]
     connectOrCreate?: UserCreateOrConnectWithoutBranchInput | UserCreateOrConnectWithoutBranchInput[]
@@ -129301,6 +134205,13 @@ export namespace Prisma {
     connectOrCreate?: CertificateCreateOrConnectWithoutBranchInput | CertificateCreateOrConnectWithoutBranchInput[]
     createMany?: CertificateCreateManyBranchInputEnvelope
     connect?: CertificateWhereUniqueInput | CertificateWhereUniqueInput[]
+  }
+
+  export type CertificateTemplateCreateNestedManyWithoutBranchInput = {
+    create?: XOR<CertificateTemplateCreateWithoutBranchInput, CertificateTemplateUncheckedCreateWithoutBranchInput> | CertificateTemplateCreateWithoutBranchInput[] | CertificateTemplateUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: CertificateTemplateCreateOrConnectWithoutBranchInput | CertificateTemplateCreateOrConnectWithoutBranchInput[]
+    createMany?: CertificateTemplateCreateManyBranchInputEnvelope
+    connect?: CertificateTemplateWhereUniqueInput | CertificateTemplateWhereUniqueInput[]
   }
 
   export type BookCreateNestedManyWithoutBranchInput = {
@@ -129484,6 +134395,13 @@ export namespace Prisma {
     connect?: AutomationConfigWhereUniqueInput | AutomationConfigWhereUniqueInput[]
   }
 
+  export type IdCardTemplateCreateNestedManyWithoutBranchInput = {
+    create?: XOR<IdCardTemplateCreateWithoutBranchInput, IdCardTemplateUncheckedCreateWithoutBranchInput> | IdCardTemplateCreateWithoutBranchInput[] | IdCardTemplateUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: IdCardTemplateCreateOrConnectWithoutBranchInput | IdCardTemplateCreateOrConnectWithoutBranchInput[]
+    createMany?: IdCardTemplateCreateManyBranchInputEnvelope
+    connect?: IdCardTemplateWhereUniqueInput | IdCardTemplateWhereUniqueInput[]
+  }
+
   export type DeactivationReasonCreateNestedManyWithoutBranchInput = {
     create?: XOR<DeactivationReasonCreateWithoutBranchInput, DeactivationReasonUncheckedCreateWithoutBranchInput> | DeactivationReasonCreateWithoutBranchInput[] | DeactivationReasonUncheckedCreateWithoutBranchInput[]
     connectOrCreate?: DeactivationReasonCreateOrConnectWithoutBranchInput | DeactivationReasonCreateOrConnectWithoutBranchInput[]
@@ -129587,6 +134505,13 @@ export namespace Prisma {
     connectOrCreate?: CertificateCreateOrConnectWithoutBranchInput | CertificateCreateOrConnectWithoutBranchInput[]
     createMany?: CertificateCreateManyBranchInputEnvelope
     connect?: CertificateWhereUniqueInput | CertificateWhereUniqueInput[]
+  }
+
+  export type CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput = {
+    create?: XOR<CertificateTemplateCreateWithoutBranchInput, CertificateTemplateUncheckedCreateWithoutBranchInput> | CertificateTemplateCreateWithoutBranchInput[] | CertificateTemplateUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: CertificateTemplateCreateOrConnectWithoutBranchInput | CertificateTemplateCreateOrConnectWithoutBranchInput[]
+    createMany?: CertificateTemplateCreateManyBranchInputEnvelope
+    connect?: CertificateTemplateWhereUniqueInput | CertificateTemplateWhereUniqueInput[]
   }
 
   export type BookUncheckedCreateNestedManyWithoutBranchInput = {
@@ -129768,6 +134693,13 @@ export namespace Prisma {
     connectOrCreate?: AutomationConfigCreateOrConnectWithoutBranchInput | AutomationConfigCreateOrConnectWithoutBranchInput[]
     createMany?: AutomationConfigCreateManyBranchInputEnvelope
     connect?: AutomationConfigWhereUniqueInput | AutomationConfigWhereUniqueInput[]
+  }
+
+  export type IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput = {
+    create?: XOR<IdCardTemplateCreateWithoutBranchInput, IdCardTemplateUncheckedCreateWithoutBranchInput> | IdCardTemplateCreateWithoutBranchInput[] | IdCardTemplateUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: IdCardTemplateCreateOrConnectWithoutBranchInput | IdCardTemplateCreateOrConnectWithoutBranchInput[]
+    createMany?: IdCardTemplateCreateManyBranchInputEnvelope
+    connect?: IdCardTemplateWhereUniqueInput | IdCardTemplateWhereUniqueInput[]
   }
 
   export type DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput = {
@@ -129980,6 +134912,20 @@ export namespace Prisma {
     update?: CertificateUpdateWithWhereUniqueWithoutBranchInput | CertificateUpdateWithWhereUniqueWithoutBranchInput[]
     updateMany?: CertificateUpdateManyWithWhereWithoutBranchInput | CertificateUpdateManyWithWhereWithoutBranchInput[]
     deleteMany?: CertificateScalarWhereInput | CertificateScalarWhereInput[]
+  }
+
+  export type CertificateTemplateUpdateManyWithoutBranchNestedInput = {
+    create?: XOR<CertificateTemplateCreateWithoutBranchInput, CertificateTemplateUncheckedCreateWithoutBranchInput> | CertificateTemplateCreateWithoutBranchInput[] | CertificateTemplateUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: CertificateTemplateCreateOrConnectWithoutBranchInput | CertificateTemplateCreateOrConnectWithoutBranchInput[]
+    upsert?: CertificateTemplateUpsertWithWhereUniqueWithoutBranchInput | CertificateTemplateUpsertWithWhereUniqueWithoutBranchInput[]
+    createMany?: CertificateTemplateCreateManyBranchInputEnvelope
+    set?: CertificateTemplateWhereUniqueInput | CertificateTemplateWhereUniqueInput[]
+    disconnect?: CertificateTemplateWhereUniqueInput | CertificateTemplateWhereUniqueInput[]
+    delete?: CertificateTemplateWhereUniqueInput | CertificateTemplateWhereUniqueInput[]
+    connect?: CertificateTemplateWhereUniqueInput | CertificateTemplateWhereUniqueInput[]
+    update?: CertificateTemplateUpdateWithWhereUniqueWithoutBranchInput | CertificateTemplateUpdateWithWhereUniqueWithoutBranchInput[]
+    updateMany?: CertificateTemplateUpdateManyWithWhereWithoutBranchInput | CertificateTemplateUpdateManyWithWhereWithoutBranchInput[]
+    deleteMany?: CertificateTemplateScalarWhereInput | CertificateTemplateScalarWhereInput[]
   }
 
   export type BookUpdateManyWithoutBranchNestedInput = {
@@ -130342,6 +135288,20 @@ export namespace Prisma {
     deleteMany?: AutomationConfigScalarWhereInput | AutomationConfigScalarWhereInput[]
   }
 
+  export type IdCardTemplateUpdateManyWithoutBranchNestedInput = {
+    create?: XOR<IdCardTemplateCreateWithoutBranchInput, IdCardTemplateUncheckedCreateWithoutBranchInput> | IdCardTemplateCreateWithoutBranchInput[] | IdCardTemplateUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: IdCardTemplateCreateOrConnectWithoutBranchInput | IdCardTemplateCreateOrConnectWithoutBranchInput[]
+    upsert?: IdCardTemplateUpsertWithWhereUniqueWithoutBranchInput | IdCardTemplateUpsertWithWhereUniqueWithoutBranchInput[]
+    createMany?: IdCardTemplateCreateManyBranchInputEnvelope
+    set?: IdCardTemplateWhereUniqueInput | IdCardTemplateWhereUniqueInput[]
+    disconnect?: IdCardTemplateWhereUniqueInput | IdCardTemplateWhereUniqueInput[]
+    delete?: IdCardTemplateWhereUniqueInput | IdCardTemplateWhereUniqueInput[]
+    connect?: IdCardTemplateWhereUniqueInput | IdCardTemplateWhereUniqueInput[]
+    update?: IdCardTemplateUpdateWithWhereUniqueWithoutBranchInput | IdCardTemplateUpdateWithWhereUniqueWithoutBranchInput[]
+    updateMany?: IdCardTemplateUpdateManyWithWhereWithoutBranchInput | IdCardTemplateUpdateManyWithWhereWithoutBranchInput[]
+    deleteMany?: IdCardTemplateScalarWhereInput | IdCardTemplateScalarWhereInput[]
+  }
+
   export type DeactivationReasonUpdateManyWithoutBranchNestedInput = {
     create?: XOR<DeactivationReasonCreateWithoutBranchInput, DeactivationReasonUncheckedCreateWithoutBranchInput> | DeactivationReasonCreateWithoutBranchInput[] | DeactivationReasonUncheckedCreateWithoutBranchInput[]
     connectOrCreate?: DeactivationReasonCreateOrConnectWithoutBranchInput | DeactivationReasonCreateOrConnectWithoutBranchInput[]
@@ -130550,6 +135510,20 @@ export namespace Prisma {
     update?: CertificateUpdateWithWhereUniqueWithoutBranchInput | CertificateUpdateWithWhereUniqueWithoutBranchInput[]
     updateMany?: CertificateUpdateManyWithWhereWithoutBranchInput | CertificateUpdateManyWithWhereWithoutBranchInput[]
     deleteMany?: CertificateScalarWhereInput | CertificateScalarWhereInput[]
+  }
+
+  export type CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput = {
+    create?: XOR<CertificateTemplateCreateWithoutBranchInput, CertificateTemplateUncheckedCreateWithoutBranchInput> | CertificateTemplateCreateWithoutBranchInput[] | CertificateTemplateUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: CertificateTemplateCreateOrConnectWithoutBranchInput | CertificateTemplateCreateOrConnectWithoutBranchInput[]
+    upsert?: CertificateTemplateUpsertWithWhereUniqueWithoutBranchInput | CertificateTemplateUpsertWithWhereUniqueWithoutBranchInput[]
+    createMany?: CertificateTemplateCreateManyBranchInputEnvelope
+    set?: CertificateTemplateWhereUniqueInput | CertificateTemplateWhereUniqueInput[]
+    disconnect?: CertificateTemplateWhereUniqueInput | CertificateTemplateWhereUniqueInput[]
+    delete?: CertificateTemplateWhereUniqueInput | CertificateTemplateWhereUniqueInput[]
+    connect?: CertificateTemplateWhereUniqueInput | CertificateTemplateWhereUniqueInput[]
+    update?: CertificateTemplateUpdateWithWhereUniqueWithoutBranchInput | CertificateTemplateUpdateWithWhereUniqueWithoutBranchInput[]
+    updateMany?: CertificateTemplateUpdateManyWithWhereWithoutBranchInput | CertificateTemplateUpdateManyWithWhereWithoutBranchInput[]
+    deleteMany?: CertificateTemplateScalarWhereInput | CertificateTemplateScalarWhereInput[]
   }
 
   export type BookUncheckedUpdateManyWithoutBranchNestedInput = {
@@ -130912,6 +135886,20 @@ export namespace Prisma {
     deleteMany?: AutomationConfigScalarWhereInput | AutomationConfigScalarWhereInput[]
   }
 
+  export type IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput = {
+    create?: XOR<IdCardTemplateCreateWithoutBranchInput, IdCardTemplateUncheckedCreateWithoutBranchInput> | IdCardTemplateCreateWithoutBranchInput[] | IdCardTemplateUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: IdCardTemplateCreateOrConnectWithoutBranchInput | IdCardTemplateCreateOrConnectWithoutBranchInput[]
+    upsert?: IdCardTemplateUpsertWithWhereUniqueWithoutBranchInput | IdCardTemplateUpsertWithWhereUniqueWithoutBranchInput[]
+    createMany?: IdCardTemplateCreateManyBranchInputEnvelope
+    set?: IdCardTemplateWhereUniqueInput | IdCardTemplateWhereUniqueInput[]
+    disconnect?: IdCardTemplateWhereUniqueInput | IdCardTemplateWhereUniqueInput[]
+    delete?: IdCardTemplateWhereUniqueInput | IdCardTemplateWhereUniqueInput[]
+    connect?: IdCardTemplateWhereUniqueInput | IdCardTemplateWhereUniqueInput[]
+    update?: IdCardTemplateUpdateWithWhereUniqueWithoutBranchInput | IdCardTemplateUpdateWithWhereUniqueWithoutBranchInput[]
+    updateMany?: IdCardTemplateUpdateManyWithWhereWithoutBranchInput | IdCardTemplateUpdateManyWithWhereWithoutBranchInput[]
+    deleteMany?: IdCardTemplateScalarWhereInput | IdCardTemplateScalarWhereInput[]
+  }
+
   export type DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput = {
     create?: XOR<DeactivationReasonCreateWithoutBranchInput, DeactivationReasonUncheckedCreateWithoutBranchInput> | DeactivationReasonCreateWithoutBranchInput[] | DeactivationReasonUncheckedCreateWithoutBranchInput[]
     connectOrCreate?: DeactivationReasonCreateOrConnectWithoutBranchInput | DeactivationReasonCreateOrConnectWithoutBranchInput[]
@@ -131107,6 +136095,13 @@ export namespace Prisma {
     connect?: CampusAccessLogWhereUniqueInput | CampusAccessLogWhereUniqueInput[]
   }
 
+  export type OnlineAdmissionCreateNestedManyWithoutParentInput = {
+    create?: XOR<OnlineAdmissionCreateWithoutParentInput, OnlineAdmissionUncheckedCreateWithoutParentInput> | OnlineAdmissionCreateWithoutParentInput[] | OnlineAdmissionUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: OnlineAdmissionCreateOrConnectWithoutParentInput | OnlineAdmissionCreateOrConnectWithoutParentInput[]
+    createMany?: OnlineAdmissionCreateManyParentInputEnvelope
+    connect?: OnlineAdmissionWhereUniqueInput | OnlineAdmissionWhereUniqueInput[]
+  }
+
   export type StaffUncheckedCreateNestedOneWithoutUserInput = {
     create?: XOR<StaffCreateWithoutUserInput, StaffUncheckedCreateWithoutUserInput>
     connectOrCreate?: StaffCreateOrConnectWithoutUserInput
@@ -131180,6 +136175,13 @@ export namespace Prisma {
     connectOrCreate?: CampusAccessLogCreateOrConnectWithoutUserInput | CampusAccessLogCreateOrConnectWithoutUserInput[]
     createMany?: CampusAccessLogCreateManyUserInputEnvelope
     connect?: CampusAccessLogWhereUniqueInput | CampusAccessLogWhereUniqueInput[]
+  }
+
+  export type OnlineAdmissionUncheckedCreateNestedManyWithoutParentInput = {
+    create?: XOR<OnlineAdmissionCreateWithoutParentInput, OnlineAdmissionUncheckedCreateWithoutParentInput> | OnlineAdmissionCreateWithoutParentInput[] | OnlineAdmissionUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: OnlineAdmissionCreateOrConnectWithoutParentInput | OnlineAdmissionCreateOrConnectWithoutParentInput[]
+    createMany?: OnlineAdmissionCreateManyParentInputEnvelope
+    connect?: OnlineAdmissionWhereUniqueInput | OnlineAdmissionWhereUniqueInput[]
   }
 
   export type EnumUserRoleFieldUpdateOperationsInput = {
@@ -131342,6 +136344,20 @@ export namespace Prisma {
     deleteMany?: CampusAccessLogScalarWhereInput | CampusAccessLogScalarWhereInput[]
   }
 
+  export type OnlineAdmissionUpdateManyWithoutParentNestedInput = {
+    create?: XOR<OnlineAdmissionCreateWithoutParentInput, OnlineAdmissionUncheckedCreateWithoutParentInput> | OnlineAdmissionCreateWithoutParentInput[] | OnlineAdmissionUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: OnlineAdmissionCreateOrConnectWithoutParentInput | OnlineAdmissionCreateOrConnectWithoutParentInput[]
+    upsert?: OnlineAdmissionUpsertWithWhereUniqueWithoutParentInput | OnlineAdmissionUpsertWithWhereUniqueWithoutParentInput[]
+    createMany?: OnlineAdmissionCreateManyParentInputEnvelope
+    set?: OnlineAdmissionWhereUniqueInput | OnlineAdmissionWhereUniqueInput[]
+    disconnect?: OnlineAdmissionWhereUniqueInput | OnlineAdmissionWhereUniqueInput[]
+    delete?: OnlineAdmissionWhereUniqueInput | OnlineAdmissionWhereUniqueInput[]
+    connect?: OnlineAdmissionWhereUniqueInput | OnlineAdmissionWhereUniqueInput[]
+    update?: OnlineAdmissionUpdateWithWhereUniqueWithoutParentInput | OnlineAdmissionUpdateWithWhereUniqueWithoutParentInput[]
+    updateMany?: OnlineAdmissionUpdateManyWithWhereWithoutParentInput | OnlineAdmissionUpdateManyWithWhereWithoutParentInput[]
+    deleteMany?: OnlineAdmissionScalarWhereInput | OnlineAdmissionScalarWhereInput[]
+  }
+
   export type StaffUncheckedUpdateOneWithoutUserNestedInput = {
     create?: XOR<StaffCreateWithoutUserInput, StaffUncheckedCreateWithoutUserInput>
     connectOrCreate?: StaffCreateOrConnectWithoutUserInput
@@ -131488,6 +136504,20 @@ export namespace Prisma {
     deleteMany?: CampusAccessLogScalarWhereInput | CampusAccessLogScalarWhereInput[]
   }
 
+  export type OnlineAdmissionUncheckedUpdateManyWithoutParentNestedInput = {
+    create?: XOR<OnlineAdmissionCreateWithoutParentInput, OnlineAdmissionUncheckedCreateWithoutParentInput> | OnlineAdmissionCreateWithoutParentInput[] | OnlineAdmissionUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: OnlineAdmissionCreateOrConnectWithoutParentInput | OnlineAdmissionCreateOrConnectWithoutParentInput[]
+    upsert?: OnlineAdmissionUpsertWithWhereUniqueWithoutParentInput | OnlineAdmissionUpsertWithWhereUniqueWithoutParentInput[]
+    createMany?: OnlineAdmissionCreateManyParentInputEnvelope
+    set?: OnlineAdmissionWhereUniqueInput | OnlineAdmissionWhereUniqueInput[]
+    disconnect?: OnlineAdmissionWhereUniqueInput | OnlineAdmissionWhereUniqueInput[]
+    delete?: OnlineAdmissionWhereUniqueInput | OnlineAdmissionWhereUniqueInput[]
+    connect?: OnlineAdmissionWhereUniqueInput | OnlineAdmissionWhereUniqueInput[]
+    update?: OnlineAdmissionUpdateWithWhereUniqueWithoutParentInput | OnlineAdmissionUpdateWithWhereUniqueWithoutParentInput[]
+    updateMany?: OnlineAdmissionUpdateManyWithWhereWithoutParentInput | OnlineAdmissionUpdateManyWithWhereWithoutParentInput[]
+    deleteMany?: OnlineAdmissionScalarWhereInput | OnlineAdmissionScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutStaffInput = {
     create?: XOR<UserCreateWithoutStaffInput, UserUncheckedCreateWithoutStaffInput>
     connectOrCreate?: UserCreateOrConnectWithoutStaffInput
@@ -131574,6 +136604,13 @@ export namespace Prisma {
     connect?: LiveClassSessionWhereUniqueInput | LiveClassSessionWhereUniqueInput[]
   }
 
+  export type IdCardCreateNestedManyWithoutStaffInput = {
+    create?: XOR<IdCardCreateWithoutStaffInput, IdCardUncheckedCreateWithoutStaffInput> | IdCardCreateWithoutStaffInput[] | IdCardUncheckedCreateWithoutStaffInput[]
+    connectOrCreate?: IdCardCreateOrConnectWithoutStaffInput | IdCardCreateOrConnectWithoutStaffInput[]
+    createMany?: IdCardCreateManyStaffInputEnvelope
+    connect?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+  }
+
   export type InventoryIssueUncheckedCreateNestedManyWithoutStaffInput = {
     create?: XOR<InventoryIssueCreateWithoutStaffInput, InventoryIssueUncheckedCreateWithoutStaffInput> | InventoryIssueCreateWithoutStaffInput[] | InventoryIssueUncheckedCreateWithoutStaffInput[]
     connectOrCreate?: InventoryIssueCreateOrConnectWithoutStaffInput | InventoryIssueCreateOrConnectWithoutStaffInput[]
@@ -131640,6 +136677,13 @@ export namespace Prisma {
     connectOrCreate?: LiveClassSessionCreateOrConnectWithoutHostInput | LiveClassSessionCreateOrConnectWithoutHostInput[]
     createMany?: LiveClassSessionCreateManyHostInputEnvelope
     connect?: LiveClassSessionWhereUniqueInput | LiveClassSessionWhereUniqueInput[]
+  }
+
+  export type IdCardUncheckedCreateNestedManyWithoutStaffInput = {
+    create?: XOR<IdCardCreateWithoutStaffInput, IdCardUncheckedCreateWithoutStaffInput> | IdCardCreateWithoutStaffInput[] | IdCardUncheckedCreateWithoutStaffInput[]
+    connectOrCreate?: IdCardCreateOrConnectWithoutStaffInput | IdCardCreateOrConnectWithoutStaffInput[]
+    createMany?: IdCardCreateManyStaffInputEnvelope
+    connect?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
   }
 
   export type UserUpdateOneRequiredWithoutStaffNestedInput = {
@@ -131805,6 +136849,20 @@ export namespace Prisma {
     deleteMany?: LiveClassSessionScalarWhereInput | LiveClassSessionScalarWhereInput[]
   }
 
+  export type IdCardUpdateManyWithoutStaffNestedInput = {
+    create?: XOR<IdCardCreateWithoutStaffInput, IdCardUncheckedCreateWithoutStaffInput> | IdCardCreateWithoutStaffInput[] | IdCardUncheckedCreateWithoutStaffInput[]
+    connectOrCreate?: IdCardCreateOrConnectWithoutStaffInput | IdCardCreateOrConnectWithoutStaffInput[]
+    upsert?: IdCardUpsertWithWhereUniqueWithoutStaffInput | IdCardUpsertWithWhereUniqueWithoutStaffInput[]
+    createMany?: IdCardCreateManyStaffInputEnvelope
+    set?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+    disconnect?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+    delete?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+    connect?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+    update?: IdCardUpdateWithWhereUniqueWithoutStaffInput | IdCardUpdateWithWhereUniqueWithoutStaffInput[]
+    updateMany?: IdCardUpdateManyWithWhereWithoutStaffInput | IdCardUpdateManyWithWhereWithoutStaffInput[]
+    deleteMany?: IdCardScalarWhereInput | IdCardScalarWhereInput[]
+  }
+
   export type InventoryIssueUncheckedUpdateManyWithoutStaffNestedInput = {
     create?: XOR<InventoryIssueCreateWithoutStaffInput, InventoryIssueUncheckedCreateWithoutStaffInput> | InventoryIssueCreateWithoutStaffInput[] | InventoryIssueUncheckedCreateWithoutStaffInput[]
     connectOrCreate?: InventoryIssueCreateOrConnectWithoutStaffInput | InventoryIssueCreateOrConnectWithoutStaffInput[]
@@ -131940,6 +136998,20 @@ export namespace Prisma {
     deleteMany?: LiveClassSessionScalarWhereInput | LiveClassSessionScalarWhereInput[]
   }
 
+  export type IdCardUncheckedUpdateManyWithoutStaffNestedInput = {
+    create?: XOR<IdCardCreateWithoutStaffInput, IdCardUncheckedCreateWithoutStaffInput> | IdCardCreateWithoutStaffInput[] | IdCardUncheckedCreateWithoutStaffInput[]
+    connectOrCreate?: IdCardCreateOrConnectWithoutStaffInput | IdCardCreateOrConnectWithoutStaffInput[]
+    upsert?: IdCardUpsertWithWhereUniqueWithoutStaffInput | IdCardUpsertWithWhereUniqueWithoutStaffInput[]
+    createMany?: IdCardCreateManyStaffInputEnvelope
+    set?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+    disconnect?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+    delete?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+    connect?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+    update?: IdCardUpdateWithWhereUniqueWithoutStaffInput | IdCardUpdateWithWhereUniqueWithoutStaffInput[]
+    updateMany?: IdCardUpdateManyWithWhereWithoutStaffInput | IdCardUpdateManyWithWhereWithoutStaffInput[]
+    deleteMany?: IdCardScalarWhereInput | IdCardScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutStudentInput = {
     create?: XOR<UserCreateWithoutStudentInput, UserUncheckedCreateWithoutStudentInput>
     connectOrCreate?: UserCreateOrConnectWithoutStudentInput
@@ -132060,6 +137132,13 @@ export namespace Prisma {
     connect?: InventoryIssueWhereUniqueInput | InventoryIssueWhereUniqueInput[]
   }
 
+  export type IdCardCreateNestedManyWithoutStudentInput = {
+    create?: XOR<IdCardCreateWithoutStudentInput, IdCardUncheckedCreateWithoutStudentInput> | IdCardCreateWithoutStudentInput[] | IdCardUncheckedCreateWithoutStudentInput[]
+    connectOrCreate?: IdCardCreateOrConnectWithoutStudentInput | IdCardCreateOrConnectWithoutStudentInput[]
+    createMany?: IdCardCreateManyStudentInputEnvelope
+    connect?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+  }
+
   export type AlumniCreateNestedOneWithoutStudentInput = {
     create?: XOR<AlumniCreateWithoutStudentInput, AlumniUncheckedCreateWithoutStudentInput>
     connectOrCreate?: AlumniCreateOrConnectWithoutStudentInput
@@ -132160,6 +137239,13 @@ export namespace Prisma {
     connectOrCreate?: InventoryIssueCreateOrConnectWithoutStudentInput | InventoryIssueCreateOrConnectWithoutStudentInput[]
     createMany?: InventoryIssueCreateManyStudentInputEnvelope
     connect?: InventoryIssueWhereUniqueInput | InventoryIssueWhereUniqueInput[]
+  }
+
+  export type IdCardUncheckedCreateNestedManyWithoutStudentInput = {
+    create?: XOR<IdCardCreateWithoutStudentInput, IdCardUncheckedCreateWithoutStudentInput> | IdCardCreateWithoutStudentInput[] | IdCardUncheckedCreateWithoutStudentInput[]
+    connectOrCreate?: IdCardCreateOrConnectWithoutStudentInput | IdCardCreateOrConnectWithoutStudentInput[]
+    createMany?: IdCardCreateManyStudentInputEnvelope
+    connect?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
   }
 
   export type AlumniUncheckedCreateNestedOneWithoutStudentInput = {
@@ -132398,6 +137484,20 @@ export namespace Prisma {
     deleteMany?: InventoryIssueScalarWhereInput | InventoryIssueScalarWhereInput[]
   }
 
+  export type IdCardUpdateManyWithoutStudentNestedInput = {
+    create?: XOR<IdCardCreateWithoutStudentInput, IdCardUncheckedCreateWithoutStudentInput> | IdCardCreateWithoutStudentInput[] | IdCardUncheckedCreateWithoutStudentInput[]
+    connectOrCreate?: IdCardCreateOrConnectWithoutStudentInput | IdCardCreateOrConnectWithoutStudentInput[]
+    upsert?: IdCardUpsertWithWhereUniqueWithoutStudentInput | IdCardUpsertWithWhereUniqueWithoutStudentInput[]
+    createMany?: IdCardCreateManyStudentInputEnvelope
+    set?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+    disconnect?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+    delete?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+    connect?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+    update?: IdCardUpdateWithWhereUniqueWithoutStudentInput | IdCardUpdateWithWhereUniqueWithoutStudentInput[]
+    updateMany?: IdCardUpdateManyWithWhereWithoutStudentInput | IdCardUpdateManyWithWhereWithoutStudentInput[]
+    deleteMany?: IdCardScalarWhereInput | IdCardScalarWhereInput[]
+  }
+
   export type AlumniUpdateOneWithoutStudentNestedInput = {
     create?: XOR<AlumniCreateWithoutStudentInput, AlumniUncheckedCreateWithoutStudentInput>
     connectOrCreate?: AlumniCreateOrConnectWithoutStudentInput
@@ -132596,6 +137696,20 @@ export namespace Prisma {
     deleteMany?: InventoryIssueScalarWhereInput | InventoryIssueScalarWhereInput[]
   }
 
+  export type IdCardUncheckedUpdateManyWithoutStudentNestedInput = {
+    create?: XOR<IdCardCreateWithoutStudentInput, IdCardUncheckedCreateWithoutStudentInput> | IdCardCreateWithoutStudentInput[] | IdCardUncheckedCreateWithoutStudentInput[]
+    connectOrCreate?: IdCardCreateOrConnectWithoutStudentInput | IdCardCreateOrConnectWithoutStudentInput[]
+    upsert?: IdCardUpsertWithWhereUniqueWithoutStudentInput | IdCardUpsertWithWhereUniqueWithoutStudentInput[]
+    createMany?: IdCardCreateManyStudentInputEnvelope
+    set?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+    disconnect?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+    delete?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+    connect?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+    update?: IdCardUpdateWithWhereUniqueWithoutStudentInput | IdCardUpdateWithWhereUniqueWithoutStudentInput[]
+    updateMany?: IdCardUpdateManyWithWhereWithoutStudentInput | IdCardUpdateManyWithWhereWithoutStudentInput[]
+    deleteMany?: IdCardScalarWhereInput | IdCardScalarWhereInput[]
+  }
+
   export type AlumniUncheckedUpdateOneWithoutStudentNestedInput = {
     create?: XOR<AlumniCreateWithoutStudentInput, AlumniUncheckedCreateWithoutStudentInput>
     connectOrCreate?: AlumniCreateOrConnectWithoutStudentInput
@@ -132610,6 +137724,12 @@ export namespace Prisma {
     create?: XOR<StudentCreateWithoutCertificatesInput, StudentUncheckedCreateWithoutCertificatesInput>
     connectOrCreate?: StudentCreateOrConnectWithoutCertificatesInput
     connect?: StudentWhereUniqueInput
+  }
+
+  export type CertificateTemplateCreateNestedOneWithoutCertificatesInput = {
+    create?: XOR<CertificateTemplateCreateWithoutCertificatesInput, CertificateTemplateUncheckedCreateWithoutCertificatesInput>
+    connectOrCreate?: CertificateTemplateCreateOrConnectWithoutCertificatesInput
+    connect?: CertificateTemplateWhereUniqueInput
   }
 
   export type UserCreateNestedOneWithoutIssuedCertificatesInput = {
@@ -132632,6 +137752,16 @@ export namespace Prisma {
     update?: XOR<XOR<StudentUpdateToOneWithWhereWithoutCertificatesInput, StudentUpdateWithoutCertificatesInput>, StudentUncheckedUpdateWithoutCertificatesInput>
   }
 
+  export type CertificateTemplateUpdateOneWithoutCertificatesNestedInput = {
+    create?: XOR<CertificateTemplateCreateWithoutCertificatesInput, CertificateTemplateUncheckedCreateWithoutCertificatesInput>
+    connectOrCreate?: CertificateTemplateCreateOrConnectWithoutCertificatesInput
+    upsert?: CertificateTemplateUpsertWithoutCertificatesInput
+    disconnect?: CertificateTemplateWhereInput | boolean
+    delete?: CertificateTemplateWhereInput | boolean
+    connect?: CertificateTemplateWhereUniqueInput
+    update?: XOR<XOR<CertificateTemplateUpdateToOneWithWhereWithoutCertificatesInput, CertificateTemplateUpdateWithoutCertificatesInput>, CertificateTemplateUncheckedUpdateWithoutCertificatesInput>
+  }
+
   export type UserUpdateOneRequiredWithoutIssuedCertificatesNestedInput = {
     create?: XOR<UserCreateWithoutIssuedCertificatesInput, UserUncheckedCreateWithoutIssuedCertificatesInput>
     connectOrCreate?: UserCreateOrConnectWithoutIssuedCertificatesInput
@@ -132646,6 +137776,62 @@ export namespace Prisma {
     upsert?: BranchUpsertWithoutCertificatesInput
     connect?: BranchWhereUniqueInput
     update?: XOR<XOR<BranchUpdateToOneWithWhereWithoutCertificatesInput, BranchUpdateWithoutCertificatesInput>, BranchUncheckedUpdateWithoutCertificatesInput>
+  }
+
+  export type BranchCreateNestedOneWithoutCertificateTemplatesInput = {
+    create?: XOR<BranchCreateWithoutCertificateTemplatesInput, BranchUncheckedCreateWithoutCertificateTemplatesInput>
+    connectOrCreate?: BranchCreateOrConnectWithoutCertificateTemplatesInput
+    connect?: BranchWhereUniqueInput
+  }
+
+  export type CertificateCreateNestedManyWithoutTemplateInput = {
+    create?: XOR<CertificateCreateWithoutTemplateInput, CertificateUncheckedCreateWithoutTemplateInput> | CertificateCreateWithoutTemplateInput[] | CertificateUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: CertificateCreateOrConnectWithoutTemplateInput | CertificateCreateOrConnectWithoutTemplateInput[]
+    createMany?: CertificateCreateManyTemplateInputEnvelope
+    connect?: CertificateWhereUniqueInput | CertificateWhereUniqueInput[]
+  }
+
+  export type CertificateUncheckedCreateNestedManyWithoutTemplateInput = {
+    create?: XOR<CertificateCreateWithoutTemplateInput, CertificateUncheckedCreateWithoutTemplateInput> | CertificateCreateWithoutTemplateInput[] | CertificateUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: CertificateCreateOrConnectWithoutTemplateInput | CertificateCreateOrConnectWithoutTemplateInput[]
+    createMany?: CertificateCreateManyTemplateInputEnvelope
+    connect?: CertificateWhereUniqueInput | CertificateWhereUniqueInput[]
+  }
+
+  export type BranchUpdateOneRequiredWithoutCertificateTemplatesNestedInput = {
+    create?: XOR<BranchCreateWithoutCertificateTemplatesInput, BranchUncheckedCreateWithoutCertificateTemplatesInput>
+    connectOrCreate?: BranchCreateOrConnectWithoutCertificateTemplatesInput
+    upsert?: BranchUpsertWithoutCertificateTemplatesInput
+    connect?: BranchWhereUniqueInput
+    update?: XOR<XOR<BranchUpdateToOneWithWhereWithoutCertificateTemplatesInput, BranchUpdateWithoutCertificateTemplatesInput>, BranchUncheckedUpdateWithoutCertificateTemplatesInput>
+  }
+
+  export type CertificateUpdateManyWithoutTemplateNestedInput = {
+    create?: XOR<CertificateCreateWithoutTemplateInput, CertificateUncheckedCreateWithoutTemplateInput> | CertificateCreateWithoutTemplateInput[] | CertificateUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: CertificateCreateOrConnectWithoutTemplateInput | CertificateCreateOrConnectWithoutTemplateInput[]
+    upsert?: CertificateUpsertWithWhereUniqueWithoutTemplateInput | CertificateUpsertWithWhereUniqueWithoutTemplateInput[]
+    createMany?: CertificateCreateManyTemplateInputEnvelope
+    set?: CertificateWhereUniqueInput | CertificateWhereUniqueInput[]
+    disconnect?: CertificateWhereUniqueInput | CertificateWhereUniqueInput[]
+    delete?: CertificateWhereUniqueInput | CertificateWhereUniqueInput[]
+    connect?: CertificateWhereUniqueInput | CertificateWhereUniqueInput[]
+    update?: CertificateUpdateWithWhereUniqueWithoutTemplateInput | CertificateUpdateWithWhereUniqueWithoutTemplateInput[]
+    updateMany?: CertificateUpdateManyWithWhereWithoutTemplateInput | CertificateUpdateManyWithWhereWithoutTemplateInput[]
+    deleteMany?: CertificateScalarWhereInput | CertificateScalarWhereInput[]
+  }
+
+  export type CertificateUncheckedUpdateManyWithoutTemplateNestedInput = {
+    create?: XOR<CertificateCreateWithoutTemplateInput, CertificateUncheckedCreateWithoutTemplateInput> | CertificateCreateWithoutTemplateInput[] | CertificateUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: CertificateCreateOrConnectWithoutTemplateInput | CertificateCreateOrConnectWithoutTemplateInput[]
+    upsert?: CertificateUpsertWithWhereUniqueWithoutTemplateInput | CertificateUpsertWithWhereUniqueWithoutTemplateInput[]
+    createMany?: CertificateCreateManyTemplateInputEnvelope
+    set?: CertificateWhereUniqueInput | CertificateWhereUniqueInput[]
+    disconnect?: CertificateWhereUniqueInput | CertificateWhereUniqueInput[]
+    delete?: CertificateWhereUniqueInput | CertificateWhereUniqueInput[]
+    connect?: CertificateWhereUniqueInput | CertificateWhereUniqueInput[]
+    update?: CertificateUpdateWithWhereUniqueWithoutTemplateInput | CertificateUpdateWithWhereUniqueWithoutTemplateInput[]
+    updateMany?: CertificateUpdateManyWithWhereWithoutTemplateInput | CertificateUpdateManyWithWhereWithoutTemplateInput[]
+    deleteMany?: CertificateScalarWhereInput | CertificateScalarWhereInput[]
   }
 
   export type BranchCreateNestedOneWithoutClassesInput = {
@@ -134814,6 +140000,13 @@ export namespace Prisma {
     connect?: OnlineAdmissionWhereUniqueInput | OnlineAdmissionWhereUniqueInput[]
   }
 
+  export type IdCardCreateNestedManyWithoutSessionInput = {
+    create?: XOR<IdCardCreateWithoutSessionInput, IdCardUncheckedCreateWithoutSessionInput> | IdCardCreateWithoutSessionInput[] | IdCardUncheckedCreateWithoutSessionInput[]
+    connectOrCreate?: IdCardCreateOrConnectWithoutSessionInput | IdCardCreateOrConnectWithoutSessionInput[]
+    createMany?: IdCardCreateManySessionInputEnvelope
+    connect?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+  }
+
   export type AssessmentRecordUncheckedCreateNestedManyWithoutSessionInput = {
     create?: XOR<AssessmentRecordCreateWithoutSessionInput, AssessmentRecordUncheckedCreateWithoutSessionInput> | AssessmentRecordCreateWithoutSessionInput[] | AssessmentRecordUncheckedCreateWithoutSessionInput[]
     connectOrCreate?: AssessmentRecordCreateOrConnectWithoutSessionInput | AssessmentRecordCreateOrConnectWithoutSessionInput[]
@@ -134840,6 +140033,13 @@ export namespace Prisma {
     connectOrCreate?: OnlineAdmissionCreateOrConnectWithoutAcademicSessionInput | OnlineAdmissionCreateOrConnectWithoutAcademicSessionInput[]
     createMany?: OnlineAdmissionCreateManyAcademicSessionInputEnvelope
     connect?: OnlineAdmissionWhereUniqueInput | OnlineAdmissionWhereUniqueInput[]
+  }
+
+  export type IdCardUncheckedCreateNestedManyWithoutSessionInput = {
+    create?: XOR<IdCardCreateWithoutSessionInput, IdCardUncheckedCreateWithoutSessionInput> | IdCardCreateWithoutSessionInput[] | IdCardUncheckedCreateWithoutSessionInput[]
+    connectOrCreate?: IdCardCreateOrConnectWithoutSessionInput | IdCardCreateOrConnectWithoutSessionInput[]
+    createMany?: IdCardCreateManySessionInputEnvelope
+    connect?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
   }
 
   export type AssessmentRecordUpdateManyWithoutSessionNestedInput = {
@@ -134898,6 +140098,20 @@ export namespace Prisma {
     deleteMany?: OnlineAdmissionScalarWhereInput | OnlineAdmissionScalarWhereInput[]
   }
 
+  export type IdCardUpdateManyWithoutSessionNestedInput = {
+    create?: XOR<IdCardCreateWithoutSessionInput, IdCardUncheckedCreateWithoutSessionInput> | IdCardCreateWithoutSessionInput[] | IdCardUncheckedCreateWithoutSessionInput[]
+    connectOrCreate?: IdCardCreateOrConnectWithoutSessionInput | IdCardCreateOrConnectWithoutSessionInput[]
+    upsert?: IdCardUpsertWithWhereUniqueWithoutSessionInput | IdCardUpsertWithWhereUniqueWithoutSessionInput[]
+    createMany?: IdCardCreateManySessionInputEnvelope
+    set?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+    disconnect?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+    delete?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+    connect?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+    update?: IdCardUpdateWithWhereUniqueWithoutSessionInput | IdCardUpdateWithWhereUniqueWithoutSessionInput[]
+    updateMany?: IdCardUpdateManyWithWhereWithoutSessionInput | IdCardUpdateManyWithWhereWithoutSessionInput[]
+    deleteMany?: IdCardScalarWhereInput | IdCardScalarWhereInput[]
+  }
+
   export type AssessmentRecordUncheckedUpdateManyWithoutSessionNestedInput = {
     create?: XOR<AssessmentRecordCreateWithoutSessionInput, AssessmentRecordUncheckedCreateWithoutSessionInput> | AssessmentRecordCreateWithoutSessionInput[] | AssessmentRecordUncheckedCreateWithoutSessionInput[]
     connectOrCreate?: AssessmentRecordCreateOrConnectWithoutSessionInput | AssessmentRecordCreateOrConnectWithoutSessionInput[]
@@ -134952,6 +140166,20 @@ export namespace Prisma {
     update?: OnlineAdmissionUpdateWithWhereUniqueWithoutAcademicSessionInput | OnlineAdmissionUpdateWithWhereUniqueWithoutAcademicSessionInput[]
     updateMany?: OnlineAdmissionUpdateManyWithWhereWithoutAcademicSessionInput | OnlineAdmissionUpdateManyWithWhereWithoutAcademicSessionInput[]
     deleteMany?: OnlineAdmissionScalarWhereInput | OnlineAdmissionScalarWhereInput[]
+  }
+
+  export type IdCardUncheckedUpdateManyWithoutSessionNestedInput = {
+    create?: XOR<IdCardCreateWithoutSessionInput, IdCardUncheckedCreateWithoutSessionInput> | IdCardCreateWithoutSessionInput[] | IdCardUncheckedCreateWithoutSessionInput[]
+    connectOrCreate?: IdCardCreateOrConnectWithoutSessionInput | IdCardCreateOrConnectWithoutSessionInput[]
+    upsert?: IdCardUpsertWithWhereUniqueWithoutSessionInput | IdCardUpsertWithWhereUniqueWithoutSessionInput[]
+    createMany?: IdCardCreateManySessionInputEnvelope
+    set?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+    disconnect?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+    delete?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+    connect?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+    update?: IdCardUpdateWithWhereUniqueWithoutSessionInput | IdCardUpdateWithWhereUniqueWithoutSessionInput[]
+    updateMany?: IdCardUpdateManyWithWhereWithoutSessionInput | IdCardUpdateManyWithWhereWithoutSessionInput[]
+    deleteMany?: IdCardScalarWhereInput | IdCardScalarWhereInput[]
   }
 
   export type StudentCreateNestedOneWithoutAssessmentRecordsInput = {
@@ -135798,6 +141026,12 @@ export namespace Prisma {
     connect?: StudentCategoryWhereUniqueInput
   }
 
+  export type UserCreateNestedOneWithoutOnlineAdmissionsInput = {
+    create?: XOR<UserCreateWithoutOnlineAdmissionsInput, UserUncheckedCreateWithoutOnlineAdmissionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutOnlineAdmissionsInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type NullableEnumTermFieldUpdateOperationsInput = {
     set?: $Enums.Term | null
   }
@@ -135846,6 +141080,16 @@ export namespace Prisma {
     delete?: StudentCategoryWhereInput | boolean
     connect?: StudentCategoryWhereUniqueInput
     update?: XOR<XOR<StudentCategoryUpdateToOneWithWhereWithoutOnlineAdmissionsInput, StudentCategoryUpdateWithoutOnlineAdmissionsInput>, StudentCategoryUncheckedUpdateWithoutOnlineAdmissionsInput>
+  }
+
+  export type UserUpdateOneWithoutOnlineAdmissionsNestedInput = {
+    create?: XOR<UserCreateWithoutOnlineAdmissionsInput, UserUncheckedCreateWithoutOnlineAdmissionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutOnlineAdmissionsInput
+    upsert?: UserUpsertWithoutOnlineAdmissionsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutOnlineAdmissionsInput, UserUpdateWithoutOnlineAdmissionsInput>, UserUncheckedUpdateWithoutOnlineAdmissionsInput>
   }
 
   export type BranchCreateNestedOneWithoutEnquiriesInput = {
@@ -136890,6 +142134,122 @@ export namespace Prisma {
     update?: XOR<XOR<BranchUpdateToOneWithWhereWithoutAutomationConfigsInput, BranchUpdateWithoutAutomationConfigsInput>, BranchUncheckedUpdateWithoutAutomationConfigsInput>
   }
 
+  export type BranchCreateNestedOneWithoutIdCardTemplatesInput = {
+    create?: XOR<BranchCreateWithoutIdCardTemplatesInput, BranchUncheckedCreateWithoutIdCardTemplatesInput>
+    connectOrCreate?: BranchCreateOrConnectWithoutIdCardTemplatesInput
+    connect?: BranchWhereUniqueInput
+  }
+
+  export type IdCardCreateNestedManyWithoutTemplateInput = {
+    create?: XOR<IdCardCreateWithoutTemplateInput, IdCardUncheckedCreateWithoutTemplateInput> | IdCardCreateWithoutTemplateInput[] | IdCardUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: IdCardCreateOrConnectWithoutTemplateInput | IdCardCreateOrConnectWithoutTemplateInput[]
+    createMany?: IdCardCreateManyTemplateInputEnvelope
+    connect?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+  }
+
+  export type IdCardUncheckedCreateNestedManyWithoutTemplateInput = {
+    create?: XOR<IdCardCreateWithoutTemplateInput, IdCardUncheckedCreateWithoutTemplateInput> | IdCardCreateWithoutTemplateInput[] | IdCardUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: IdCardCreateOrConnectWithoutTemplateInput | IdCardCreateOrConnectWithoutTemplateInput[]
+    createMany?: IdCardCreateManyTemplateInputEnvelope
+    connect?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+  }
+
+  export type BranchUpdateOneRequiredWithoutIdCardTemplatesNestedInput = {
+    create?: XOR<BranchCreateWithoutIdCardTemplatesInput, BranchUncheckedCreateWithoutIdCardTemplatesInput>
+    connectOrCreate?: BranchCreateOrConnectWithoutIdCardTemplatesInput
+    upsert?: BranchUpsertWithoutIdCardTemplatesInput
+    connect?: BranchWhereUniqueInput
+    update?: XOR<XOR<BranchUpdateToOneWithWhereWithoutIdCardTemplatesInput, BranchUpdateWithoutIdCardTemplatesInput>, BranchUncheckedUpdateWithoutIdCardTemplatesInput>
+  }
+
+  export type IdCardUpdateManyWithoutTemplateNestedInput = {
+    create?: XOR<IdCardCreateWithoutTemplateInput, IdCardUncheckedCreateWithoutTemplateInput> | IdCardCreateWithoutTemplateInput[] | IdCardUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: IdCardCreateOrConnectWithoutTemplateInput | IdCardCreateOrConnectWithoutTemplateInput[]
+    upsert?: IdCardUpsertWithWhereUniqueWithoutTemplateInput | IdCardUpsertWithWhereUniqueWithoutTemplateInput[]
+    createMany?: IdCardCreateManyTemplateInputEnvelope
+    set?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+    disconnect?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+    delete?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+    connect?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+    update?: IdCardUpdateWithWhereUniqueWithoutTemplateInput | IdCardUpdateWithWhereUniqueWithoutTemplateInput[]
+    updateMany?: IdCardUpdateManyWithWhereWithoutTemplateInput | IdCardUpdateManyWithWhereWithoutTemplateInput[]
+    deleteMany?: IdCardScalarWhereInput | IdCardScalarWhereInput[]
+  }
+
+  export type IdCardUncheckedUpdateManyWithoutTemplateNestedInput = {
+    create?: XOR<IdCardCreateWithoutTemplateInput, IdCardUncheckedCreateWithoutTemplateInput> | IdCardCreateWithoutTemplateInput[] | IdCardUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: IdCardCreateOrConnectWithoutTemplateInput | IdCardCreateOrConnectWithoutTemplateInput[]
+    upsert?: IdCardUpsertWithWhereUniqueWithoutTemplateInput | IdCardUpsertWithWhereUniqueWithoutTemplateInput[]
+    createMany?: IdCardCreateManyTemplateInputEnvelope
+    set?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+    disconnect?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+    delete?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+    connect?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+    update?: IdCardUpdateWithWhereUniqueWithoutTemplateInput | IdCardUpdateWithWhereUniqueWithoutTemplateInput[]
+    updateMany?: IdCardUpdateManyWithWhereWithoutTemplateInput | IdCardUpdateManyWithWhereWithoutTemplateInput[]
+    deleteMany?: IdCardScalarWhereInput | IdCardScalarWhereInput[]
+  }
+
+  export type StudentCreateNestedOneWithoutIdCardsInput = {
+    create?: XOR<StudentCreateWithoutIdCardsInput, StudentUncheckedCreateWithoutIdCardsInput>
+    connectOrCreate?: StudentCreateOrConnectWithoutIdCardsInput
+    connect?: StudentWhereUniqueInput
+  }
+
+  export type StaffCreateNestedOneWithoutIdCardsInput = {
+    create?: XOR<StaffCreateWithoutIdCardsInput, StaffUncheckedCreateWithoutIdCardsInput>
+    connectOrCreate?: StaffCreateOrConnectWithoutIdCardsInput
+    connect?: StaffWhereUniqueInput
+  }
+
+  export type IdCardTemplateCreateNestedOneWithoutIdCardsInput = {
+    create?: XOR<IdCardTemplateCreateWithoutIdCardsInput, IdCardTemplateUncheckedCreateWithoutIdCardsInput>
+    connectOrCreate?: IdCardTemplateCreateOrConnectWithoutIdCardsInput
+    connect?: IdCardTemplateWhereUniqueInput
+  }
+
+  export type AcademicSessionCreateNestedOneWithoutIdCardsInput = {
+    create?: XOR<AcademicSessionCreateWithoutIdCardsInput, AcademicSessionUncheckedCreateWithoutIdCardsInput>
+    connectOrCreate?: AcademicSessionCreateOrConnectWithoutIdCardsInput
+    connect?: AcademicSessionWhereUniqueInput
+  }
+
+  export type StudentUpdateOneWithoutIdCardsNestedInput = {
+    create?: XOR<StudentCreateWithoutIdCardsInput, StudentUncheckedCreateWithoutIdCardsInput>
+    connectOrCreate?: StudentCreateOrConnectWithoutIdCardsInput
+    upsert?: StudentUpsertWithoutIdCardsInput
+    disconnect?: StudentWhereInput | boolean
+    delete?: StudentWhereInput | boolean
+    connect?: StudentWhereUniqueInput
+    update?: XOR<XOR<StudentUpdateToOneWithWhereWithoutIdCardsInput, StudentUpdateWithoutIdCardsInput>, StudentUncheckedUpdateWithoutIdCardsInput>
+  }
+
+  export type StaffUpdateOneWithoutIdCardsNestedInput = {
+    create?: XOR<StaffCreateWithoutIdCardsInput, StaffUncheckedCreateWithoutIdCardsInput>
+    connectOrCreate?: StaffCreateOrConnectWithoutIdCardsInput
+    upsert?: StaffUpsertWithoutIdCardsInput
+    disconnect?: StaffWhereInput | boolean
+    delete?: StaffWhereInput | boolean
+    connect?: StaffWhereUniqueInput
+    update?: XOR<XOR<StaffUpdateToOneWithWhereWithoutIdCardsInput, StaffUpdateWithoutIdCardsInput>, StaffUncheckedUpdateWithoutIdCardsInput>
+  }
+
+  export type IdCardTemplateUpdateOneRequiredWithoutIdCardsNestedInput = {
+    create?: XOR<IdCardTemplateCreateWithoutIdCardsInput, IdCardTemplateUncheckedCreateWithoutIdCardsInput>
+    connectOrCreate?: IdCardTemplateCreateOrConnectWithoutIdCardsInput
+    upsert?: IdCardTemplateUpsertWithoutIdCardsInput
+    connect?: IdCardTemplateWhereUniqueInput
+    update?: XOR<XOR<IdCardTemplateUpdateToOneWithWhereWithoutIdCardsInput, IdCardTemplateUpdateWithoutIdCardsInput>, IdCardTemplateUncheckedUpdateWithoutIdCardsInput>
+  }
+
+  export type AcademicSessionUpdateOneRequiredWithoutIdCardsNestedInput = {
+    create?: XOR<AcademicSessionCreateWithoutIdCardsInput, AcademicSessionUncheckedCreateWithoutIdCardsInput>
+    connectOrCreate?: AcademicSessionCreateOrConnectWithoutIdCardsInput
+    upsert?: AcademicSessionUpsertWithoutIdCardsInput
+    connect?: AcademicSessionWhereUniqueInput
+    update?: XOR<XOR<AcademicSessionUpdateToOneWithWhereWithoutIdCardsInput, AcademicSessionUpdateWithoutIdCardsInput>, AcademicSessionUncheckedUpdateWithoutIdCardsInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -137061,6 +142421,29 @@ export namespace Prisma {
     | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
 
   export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+  export type NestedJsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
     equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
     path?: string[]
     mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
@@ -137402,6 +142785,7 @@ export namespace Prisma {
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
     eventRSVPs?: EventRSVPCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutParentInput
   }
 
   export type UserUncheckedCreateWithoutBranchInput = {
@@ -137426,6 +142810,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     eventRSVPs?: EventRSVPUncheckedCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutParentInput
   }
 
   export type UserCreateOrConnectWithoutBranchInput = {
@@ -137495,6 +142880,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueCreateNestedManyWithoutStudentInput
+    idCards?: IdCardCreateNestedManyWithoutStudentInput
     alumni?: AlumniCreateNestedOneWithoutStudentInput
     category?: StudentCategoryCreateNestedOneWithoutStudentsInput
   }
@@ -137557,6 +142943,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutStudentInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStudentInput
     alumni?: AlumniUncheckedCreateNestedOneWithoutStudentInput
   }
 
@@ -137900,9 +143287,12 @@ export namespace Prisma {
     certificateNumber: string
     issueDate?: Date | string
     content?: NullableJsonNullValueInput | InputJsonValue
+    verificationCode?: string
+    isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     student: StudentCreateNestedOneWithoutCertificatesInput
+    template?: CertificateTemplateCreateNestedOneWithoutCertificatesInput
     issuedBy: UserCreateNestedOneWithoutIssuedCertificatesInput
   }
 
@@ -137912,7 +143302,10 @@ export namespace Prisma {
     certificateNumber: string
     issueDate?: Date | string
     content?: NullableJsonNullValueInput | InputJsonValue
+    verificationCode?: string
+    isVerified?: boolean
     studentId: string
+    templateId?: string | null
     issuedByUserId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -137925,6 +143318,38 @@ export namespace Prisma {
 
   export type CertificateCreateManyBranchInputEnvelope = {
     data: CertificateCreateManyBranchInput | CertificateCreateManyBranchInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CertificateTemplateCreateWithoutBranchInput = {
+    id?: string
+    name: string
+    type: string
+    backgroundImage?: string | null
+    config: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    certificates?: CertificateCreateNestedManyWithoutTemplateInput
+  }
+
+  export type CertificateTemplateUncheckedCreateWithoutBranchInput = {
+    id?: string
+    name: string
+    type: string
+    backgroundImage?: string | null
+    config: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    certificates?: CertificateUncheckedCreateNestedManyWithoutTemplateInput
+  }
+
+  export type CertificateTemplateCreateOrConnectWithoutBranchInput = {
+    where: CertificateTemplateWhereUniqueInput
+    create: XOR<CertificateTemplateCreateWithoutBranchInput, CertificateTemplateUncheckedCreateWithoutBranchInput>
+  }
+
+  export type CertificateTemplateCreateManyBranchInputEnvelope = {
+    data: CertificateTemplateCreateManyBranchInput | CertificateTemplateCreateManyBranchInput[]
     skipDuplicates?: boolean
   }
 
@@ -138169,6 +143594,7 @@ export namespace Prisma {
     desiredClass: ClassCreateNestedOneWithoutOnlineAdmissionsInput
     desiredSection?: SectionCreateNestedOneWithoutOnlineAdmissionsInput
     studentCategory?: StudentCategoryCreateNestedOneWithoutOnlineAdmissionsInput
+    parent?: UserCreateNestedOneWithoutOnlineAdmissionsInput
   }
 
   export type OnlineAdmissionUncheckedCreateWithoutBranchInput = {
@@ -138248,6 +143674,7 @@ export namespace Prisma {
     email?: string | null
     phone?: string | null
     studentCategoryId?: string | null
+    parentId?: string | null
     paymentReceiptUrl?: string | null
     paymentStatus?: string
     paymentMethod?: string
@@ -138999,6 +144426,38 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type IdCardTemplateCreateWithoutBranchInput = {
+    id?: string
+    name: string
+    type: string
+    backgroundImage?: string | null
+    config: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    idCards?: IdCardCreateNestedManyWithoutTemplateInput
+  }
+
+  export type IdCardTemplateUncheckedCreateWithoutBranchInput = {
+    id?: string
+    name: string
+    type: string
+    backgroundImage?: string | null
+    config: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    idCards?: IdCardUncheckedCreateNestedManyWithoutTemplateInput
+  }
+
+  export type IdCardTemplateCreateOrConnectWithoutBranchInput = {
+    where: IdCardTemplateWhereUniqueInput
+    create: XOR<IdCardTemplateCreateWithoutBranchInput, IdCardTemplateUncheckedCreateWithoutBranchInput>
+  }
+
+  export type IdCardTemplateCreateManyBranchInputEnvelope = {
+    data: IdCardTemplateCreateManyBranchInput | IdCardTemplateCreateManyBranchInput[]
+    skipDuplicates?: boolean
+  }
+
   export type DeactivationReasonCreateWithoutBranchInput = {
     id?: string
     title: string
@@ -139475,11 +144934,44 @@ export namespace Prisma {
     certificateNumber?: StringFilter<"Certificate"> | string
     issueDate?: DateTimeFilter<"Certificate"> | Date | string
     content?: JsonNullableFilter<"Certificate">
+    verificationCode?: StringFilter<"Certificate"> | string
+    isVerified?: BoolFilter<"Certificate"> | boolean
     studentId?: StringFilter<"Certificate"> | string
+    templateId?: StringNullableFilter<"Certificate"> | string | null
     issuedByUserId?: StringFilter<"Certificate"> | string
     branchId?: StringFilter<"Certificate"> | string
     createdAt?: DateTimeFilter<"Certificate"> | Date | string
     updatedAt?: DateTimeFilter<"Certificate"> | Date | string
+  }
+
+  export type CertificateTemplateUpsertWithWhereUniqueWithoutBranchInput = {
+    where: CertificateTemplateWhereUniqueInput
+    update: XOR<CertificateTemplateUpdateWithoutBranchInput, CertificateTemplateUncheckedUpdateWithoutBranchInput>
+    create: XOR<CertificateTemplateCreateWithoutBranchInput, CertificateTemplateUncheckedCreateWithoutBranchInput>
+  }
+
+  export type CertificateTemplateUpdateWithWhereUniqueWithoutBranchInput = {
+    where: CertificateTemplateWhereUniqueInput
+    data: XOR<CertificateTemplateUpdateWithoutBranchInput, CertificateTemplateUncheckedUpdateWithoutBranchInput>
+  }
+
+  export type CertificateTemplateUpdateManyWithWhereWithoutBranchInput = {
+    where: CertificateTemplateScalarWhereInput
+    data: XOR<CertificateTemplateUpdateManyMutationInput, CertificateTemplateUncheckedUpdateManyWithoutBranchInput>
+  }
+
+  export type CertificateTemplateScalarWhereInput = {
+    AND?: CertificateTemplateScalarWhereInput | CertificateTemplateScalarWhereInput[]
+    OR?: CertificateTemplateScalarWhereInput[]
+    NOT?: CertificateTemplateScalarWhereInput | CertificateTemplateScalarWhereInput[]
+    id?: StringFilter<"CertificateTemplate"> | string
+    name?: StringFilter<"CertificateTemplate"> | string
+    type?: StringFilter<"CertificateTemplate"> | string
+    backgroundImage?: StringNullableFilter<"CertificateTemplate"> | string | null
+    config?: JsonFilter<"CertificateTemplate">
+    branchId?: StringFilter<"CertificateTemplate"> | string
+    createdAt?: DateTimeFilter<"CertificateTemplate"> | Date | string
+    updatedAt?: DateTimeFilter<"CertificateTemplate"> | Date | string
   }
 
   export type BookUpsertWithWhereUniqueWithoutBranchInput = {
@@ -139723,6 +145215,7 @@ export namespace Prisma {
     email?: StringNullableFilter<"OnlineAdmission"> | string | null
     phone?: StringNullableFilter<"OnlineAdmission"> | string | null
     studentCategoryId?: StringNullableFilter<"OnlineAdmission"> | string | null
+    parentId?: StringNullableFilter<"OnlineAdmission"> | string | null
     paymentReceiptUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
     paymentStatus?: StringFilter<"OnlineAdmission"> | string
     paymentMethod?: StringFilter<"OnlineAdmission"> | string
@@ -140397,6 +145890,36 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"AutomationConfig"> | Date | string
   }
 
+  export type IdCardTemplateUpsertWithWhereUniqueWithoutBranchInput = {
+    where: IdCardTemplateWhereUniqueInput
+    update: XOR<IdCardTemplateUpdateWithoutBranchInput, IdCardTemplateUncheckedUpdateWithoutBranchInput>
+    create: XOR<IdCardTemplateCreateWithoutBranchInput, IdCardTemplateUncheckedCreateWithoutBranchInput>
+  }
+
+  export type IdCardTemplateUpdateWithWhereUniqueWithoutBranchInput = {
+    where: IdCardTemplateWhereUniqueInput
+    data: XOR<IdCardTemplateUpdateWithoutBranchInput, IdCardTemplateUncheckedUpdateWithoutBranchInput>
+  }
+
+  export type IdCardTemplateUpdateManyWithWhereWithoutBranchInput = {
+    where: IdCardTemplateScalarWhereInput
+    data: XOR<IdCardTemplateUpdateManyMutationInput, IdCardTemplateUncheckedUpdateManyWithoutBranchInput>
+  }
+
+  export type IdCardTemplateScalarWhereInput = {
+    AND?: IdCardTemplateScalarWhereInput | IdCardTemplateScalarWhereInput[]
+    OR?: IdCardTemplateScalarWhereInput[]
+    NOT?: IdCardTemplateScalarWhereInput | IdCardTemplateScalarWhereInput[]
+    id?: StringFilter<"IdCardTemplate"> | string
+    name?: StringFilter<"IdCardTemplate"> | string
+    type?: StringFilter<"IdCardTemplate"> | string
+    backgroundImage?: StringNullableFilter<"IdCardTemplate"> | string | null
+    config?: JsonFilter<"IdCardTemplate">
+    branchId?: StringFilter<"IdCardTemplate"> | string
+    createdAt?: DateTimeFilter<"IdCardTemplate"> | Date | string
+    updatedAt?: DateTimeFilter<"IdCardTemplate"> | Date | string
+  }
+
   export type DeactivationReasonUpsertWithWhereUniqueWithoutBranchInput = {
     where: DeactivationReasonWhereUniqueInput
     update: XOR<DeactivationReasonUpdateWithoutBranchInput, DeactivationReasonUncheckedUpdateWithoutBranchInput>
@@ -140478,6 +146001,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -140504,6 +146028,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
@@ -140530,6 +146055,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -140556,6 +146082,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
 
@@ -140628,6 +146155,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -140654,6 +146182,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
 
@@ -140680,6 +146209,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -140706,6 +146236,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
@@ -140771,6 +146302,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -140797,6 +146329,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
   }
 
@@ -140823,6 +146356,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -140849,6 +146383,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
   }
 
@@ -140920,6 +146455,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -140946,6 +146482,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
   }
 
@@ -140972,6 +146509,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -140998,6 +146536,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
   }
 
@@ -141023,6 +146562,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -141049,6 +146589,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -141075,6 +146616,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -141101,6 +146643,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -141128,6 +146671,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryCreateNestedManyWithoutStaffInput
     assignments?: AssignmentCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionCreateNestedManyWithoutHostInput
+    idCards?: IdCardCreateNestedManyWithoutStaffInput
   }
 
   export type StaffUncheckedCreateWithoutUserInput = {
@@ -141148,6 +146692,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUncheckedCreateNestedManyWithoutStaffInput
     assignments?: AssignmentUncheckedCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutHostInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStaffInput
   }
 
   export type StaffCreateOrConnectWithoutUserInput = {
@@ -141212,6 +146757,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueCreateNestedManyWithoutStudentInput
+    idCards?: IdCardCreateNestedManyWithoutStudentInput
     alumni?: AlumniCreateNestedOneWithoutStudentInput
     category?: StudentCategoryCreateNestedOneWithoutStudentsInput
   }
@@ -141274,6 +146820,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutStudentInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStudentInput
     alumni?: AlumniUncheckedCreateNestedOneWithoutStudentInput
   }
 
@@ -141339,6 +146886,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueCreateNestedManyWithoutStudentInput
+    idCards?: IdCardCreateNestedManyWithoutStudentInput
     alumni?: AlumniCreateNestedOneWithoutStudentInput
     category?: StudentCategoryCreateNestedOneWithoutStudentsInput
   }
@@ -141401,6 +146949,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutStudentInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStudentInput
     alumni?: AlumniUncheckedCreateNestedOneWithoutStudentInput
   }
 
@@ -141486,9 +147035,12 @@ export namespace Prisma {
     certificateNumber: string
     issueDate?: Date | string
     content?: NullableJsonNullValueInput | InputJsonValue
+    verificationCode?: string
+    isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     student: StudentCreateNestedOneWithoutCertificatesInput
+    template?: CertificateTemplateCreateNestedOneWithoutCertificatesInput
     branch: BranchCreateNestedOneWithoutCertificatesInput
   }
 
@@ -141498,7 +147050,10 @@ export namespace Prisma {
     certificateNumber: string
     issueDate?: Date | string
     content?: NullableJsonNullValueInput | InputJsonValue
+    verificationCode?: string
+    isVerified?: boolean
     studentId: string
+    templateId?: string | null
     branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -141654,6 +147209,186 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type OnlineAdmissionCreateWithoutParentInput = {
+    id?: string
+    admissionNumber?: string | null
+    firstName: string
+    lastName: string
+    otherNames?: string | null
+    gender: string
+    dateOfBirth: Date | string
+    placeOfBirth?: string | null
+    nationality?: string | null
+    stateOfOrigin?: string | null
+    lga?: string | null
+    religion?: string | null
+    passportPhoto?: string | null
+    admissionTerm?: $Enums.Term | null
+    admissionType?: string | null
+    previousSchool?: string | null
+    transferReason?: string | null
+    assessmentScore?: number | null
+    status?: string
+    guardianName: string
+    guardianRelation?: string | null
+    guardianPhone: string
+    guardianEmail?: string | null
+    guardianAddress?: string | null
+    guardianOccupation?: string | null
+    guardianOfficeAddress?: string | null
+    secondaryGuardianName?: string | null
+    secondaryGuardianPhone?: string | null
+    secondaryGuardianRelation?: string | null
+    address?: string | null
+    city?: string | null
+    state?: string | null
+    country?: string | null
+    emergencyContactName?: string | null
+    emergencyContactPhone?: string | null
+    emergencyContactRelation?: string | null
+    bloodGroup?: string | null
+    genotype?: string | null
+    allergies?: string | null
+    medicalConditions?: string | null
+    specialNeeds?: string | null
+    familyDoctorName?: string | null
+    familyDoctorPhone?: string | null
+    hostelRequired?: boolean
+    preferredHostel?: string | null
+    hostelNotes?: string | null
+    transportRequired?: boolean
+    pickupLocation?: string | null
+    preferredRoute?: string | null
+    birthCertificateUrl?: string | null
+    testimonialUrl?: string | null
+    transferCertificateUrl?: string | null
+    immunizationCardUrl?: string | null
+    createdByStaffId?: string | null
+    admissionDate?: Date | string | null
+    approvalDate?: Date | string | null
+    approvedByStaffId?: string | null
+    studentStatus?: string
+    createPortalAccount?: boolean
+    guardianConsent?: boolean
+    dataProcessingConsent?: boolean
+    schoolRulesAgreement?: boolean
+    signature?: string | null
+    consentDate?: Date | string | null
+    studentEmail?: string | null
+    portalUsername?: string | null
+    preferredLanguage?: string | null
+    religionClassType?: string | null
+    scholarshipEligible?: boolean
+    referralSource?: string | null
+    email?: string | null
+    phone?: string | null
+    paymentReceiptUrl?: string | null
+    paymentStatus?: string
+    paymentMethod?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    academicSession?: AcademicSessionCreateNestedOneWithoutOnlineAdmissionsInput
+    desiredClass: ClassCreateNestedOneWithoutOnlineAdmissionsInput
+    desiredSection?: SectionCreateNestedOneWithoutOnlineAdmissionsInput
+    branch: BranchCreateNestedOneWithoutOnlineAdmissionsInput
+    studentCategory?: StudentCategoryCreateNestedOneWithoutOnlineAdmissionsInput
+  }
+
+  export type OnlineAdmissionUncheckedCreateWithoutParentInput = {
+    id?: string
+    admissionNumber?: string | null
+    firstName: string
+    lastName: string
+    otherNames?: string | null
+    gender: string
+    dateOfBirth: Date | string
+    placeOfBirth?: string | null
+    nationality?: string | null
+    stateOfOrigin?: string | null
+    lga?: string | null
+    religion?: string | null
+    passportPhoto?: string | null
+    academicSessionId?: string | null
+    admissionTerm?: $Enums.Term | null
+    desiredClassId: string
+    desiredSectionId?: string | null
+    admissionType?: string | null
+    previousSchool?: string | null
+    transferReason?: string | null
+    assessmentScore?: number | null
+    status?: string
+    guardianName: string
+    guardianRelation?: string | null
+    guardianPhone: string
+    guardianEmail?: string | null
+    guardianAddress?: string | null
+    guardianOccupation?: string | null
+    guardianOfficeAddress?: string | null
+    secondaryGuardianName?: string | null
+    secondaryGuardianPhone?: string | null
+    secondaryGuardianRelation?: string | null
+    address?: string | null
+    city?: string | null
+    state?: string | null
+    country?: string | null
+    emergencyContactName?: string | null
+    emergencyContactPhone?: string | null
+    emergencyContactRelation?: string | null
+    bloodGroup?: string | null
+    genotype?: string | null
+    allergies?: string | null
+    medicalConditions?: string | null
+    specialNeeds?: string | null
+    familyDoctorName?: string | null
+    familyDoctorPhone?: string | null
+    hostelRequired?: boolean
+    preferredHostel?: string | null
+    hostelNotes?: string | null
+    transportRequired?: boolean
+    pickupLocation?: string | null
+    preferredRoute?: string | null
+    birthCertificateUrl?: string | null
+    testimonialUrl?: string | null
+    transferCertificateUrl?: string | null
+    immunizationCardUrl?: string | null
+    branchId: string
+    createdByStaffId?: string | null
+    admissionDate?: Date | string | null
+    approvalDate?: Date | string | null
+    approvedByStaffId?: string | null
+    studentStatus?: string
+    createPortalAccount?: boolean
+    guardianConsent?: boolean
+    dataProcessingConsent?: boolean
+    schoolRulesAgreement?: boolean
+    signature?: string | null
+    consentDate?: Date | string | null
+    studentEmail?: string | null
+    portalUsername?: string | null
+    preferredLanguage?: string | null
+    religionClassType?: string | null
+    scholarshipEligible?: boolean
+    referralSource?: string | null
+    email?: string | null
+    phone?: string | null
+    studentCategoryId?: string | null
+    paymentReceiptUrl?: string | null
+    paymentStatus?: string
+    paymentMethod?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OnlineAdmissionCreateOrConnectWithoutParentInput = {
+    where: OnlineAdmissionWhereUniqueInput
+    create: XOR<OnlineAdmissionCreateWithoutParentInput, OnlineAdmissionUncheckedCreateWithoutParentInput>
+  }
+
+  export type OnlineAdmissionCreateManyParentInputEnvelope = {
+    data: OnlineAdmissionCreateManyParentInput | OnlineAdmissionCreateManyParentInput[]
+    skipDuplicates?: boolean
+  }
+
   export type BranchUpsertWithoutUsersInput = {
     update: XOR<BranchUpdateWithoutUsersInput, BranchUncheckedUpdateWithoutUsersInput>
     create: XOR<BranchCreateWithoutUsersInput, BranchUncheckedCreateWithoutUsersInput>
@@ -141687,6 +147422,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -141713,6 +147449,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -141739,6 +147476,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -141765,6 +147503,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -141798,6 +147537,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUpdateManyWithoutStaffNestedInput
     assignments?: AssignmentUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUpdateManyWithoutHostNestedInput
+    idCards?: IdCardUpdateManyWithoutStaffNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutUserInput = {
@@ -141818,6 +147558,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUncheckedUpdateManyWithoutStaffNestedInput
     assignments?: AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUncheckedUpdateManyWithoutHostNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStaffNestedInput
   }
 
   export type StudentUpsertWithoutUserInput = {
@@ -141888,6 +147629,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUpdateOneWithoutStudentNestedInput
     category?: StudentCategoryUpdateOneWithoutStudentsNestedInput
   }
@@ -141950,6 +147692,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUncheckedUpdateOneWithoutStudentNestedInput
   }
 
@@ -142161,6 +147904,22 @@ export namespace Prisma {
     data: XOR<CampusAccessLogUpdateManyMutationInput, CampusAccessLogUncheckedUpdateManyWithoutUserInput>
   }
 
+  export type OnlineAdmissionUpsertWithWhereUniqueWithoutParentInput = {
+    where: OnlineAdmissionWhereUniqueInput
+    update: XOR<OnlineAdmissionUpdateWithoutParentInput, OnlineAdmissionUncheckedUpdateWithoutParentInput>
+    create: XOR<OnlineAdmissionCreateWithoutParentInput, OnlineAdmissionUncheckedCreateWithoutParentInput>
+  }
+
+  export type OnlineAdmissionUpdateWithWhereUniqueWithoutParentInput = {
+    where: OnlineAdmissionWhereUniqueInput
+    data: XOR<OnlineAdmissionUpdateWithoutParentInput, OnlineAdmissionUncheckedUpdateWithoutParentInput>
+  }
+
+  export type OnlineAdmissionUpdateManyWithWhereWithoutParentInput = {
+    where: OnlineAdmissionScalarWhereInput
+    data: XOR<OnlineAdmissionUpdateManyMutationInput, OnlineAdmissionUncheckedUpdateManyWithoutParentInput>
+  }
+
   export type UserCreateWithoutStaffInput = {
     id?: string
     email: string
@@ -142183,6 +147942,7 @@ export namespace Prisma {
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
     eventRSVPs?: EventRSVPCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutParentInput
   }
 
   export type UserUncheckedCreateWithoutStaffInput = {
@@ -142207,6 +147967,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     eventRSVPs?: EventRSVPUncheckedCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutParentInput
   }
 
   export type UserCreateOrConnectWithoutStaffInput = {
@@ -142602,6 +148363,38 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type IdCardCreateWithoutStaffInput = {
+    id?: string
+    status?: string
+    issueDate?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    student?: StudentCreateNestedOneWithoutIdCardsInput
+    template: IdCardTemplateCreateNestedOneWithoutIdCardsInput
+    session: AcademicSessionCreateNestedOneWithoutIdCardsInput
+  }
+
+  export type IdCardUncheckedCreateWithoutStaffInput = {
+    id?: string
+    studentId?: string | null
+    templateId: string
+    sessionId: string
+    status?: string
+    issueDate?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type IdCardCreateOrConnectWithoutStaffInput = {
+    where: IdCardWhereUniqueInput
+    create: XOR<IdCardCreateWithoutStaffInput, IdCardUncheckedCreateWithoutStaffInput>
+  }
+
+  export type IdCardCreateManyStaffInputEnvelope = {
+    data: IdCardCreateManyStaffInput | IdCardCreateManyStaffInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutStaffInput = {
     update: XOR<UserUpdateWithoutStaffInput, UserUncheckedUpdateWithoutStaffInput>
     create: XOR<UserCreateWithoutStaffInput, UserUncheckedCreateWithoutStaffInput>
@@ -142635,6 +148428,7 @@ export namespace Prisma {
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
     eventRSVPs?: EventRSVPUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutParentNestedInput
   }
 
   export type UserUncheckedUpdateWithoutStaffInput = {
@@ -142659,6 +148453,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     eventRSVPs?: EventRSVPUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutParentNestedInput
   }
 
   export type DepartmentUpsertWithoutStaffInput = {
@@ -142965,6 +148760,37 @@ export namespace Prisma {
     data: XOR<LiveClassSessionUpdateManyMutationInput, LiveClassSessionUncheckedUpdateManyWithoutHostInput>
   }
 
+  export type IdCardUpsertWithWhereUniqueWithoutStaffInput = {
+    where: IdCardWhereUniqueInput
+    update: XOR<IdCardUpdateWithoutStaffInput, IdCardUncheckedUpdateWithoutStaffInput>
+    create: XOR<IdCardCreateWithoutStaffInput, IdCardUncheckedCreateWithoutStaffInput>
+  }
+
+  export type IdCardUpdateWithWhereUniqueWithoutStaffInput = {
+    where: IdCardWhereUniqueInput
+    data: XOR<IdCardUpdateWithoutStaffInput, IdCardUncheckedUpdateWithoutStaffInput>
+  }
+
+  export type IdCardUpdateManyWithWhereWithoutStaffInput = {
+    where: IdCardScalarWhereInput
+    data: XOR<IdCardUpdateManyMutationInput, IdCardUncheckedUpdateManyWithoutStaffInput>
+  }
+
+  export type IdCardScalarWhereInput = {
+    AND?: IdCardScalarWhereInput | IdCardScalarWhereInput[]
+    OR?: IdCardScalarWhereInput[]
+    NOT?: IdCardScalarWhereInput | IdCardScalarWhereInput[]
+    id?: StringFilter<"IdCard"> | string
+    studentId?: StringNullableFilter<"IdCard"> | string | null
+    staffId?: StringNullableFilter<"IdCard"> | string | null
+    templateId?: StringFilter<"IdCard"> | string
+    sessionId?: StringFilter<"IdCard"> | string
+    status?: StringFilter<"IdCard"> | string
+    issueDate?: DateTimeFilter<"IdCard"> | Date | string
+    createdAt?: DateTimeFilter<"IdCard"> | Date | string
+    updatedAt?: DateTimeFilter<"IdCard"> | Date | string
+  }
+
   export type UserCreateWithoutStudentInput = {
     id?: string
     email: string
@@ -142987,6 +148813,7 @@ export namespace Prisma {
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
     eventRSVPs?: EventRSVPCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutParentInput
   }
 
   export type UserUncheckedCreateWithoutStudentInput = {
@@ -143011,6 +148838,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     eventRSVPs?: EventRSVPUncheckedCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutParentInput
   }
 
   export type UserCreateOrConnectWithoutStudentInput = {
@@ -143040,6 +148868,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -143066,6 +148895,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -143092,6 +148922,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -143118,6 +148949,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -143217,6 +149049,7 @@ export namespace Prisma {
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
     eventRSVPs?: EventRSVPCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutParentInput
   }
 
   export type UserUncheckedCreateWithoutChildrenInput = {
@@ -143241,6 +149074,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     eventRSVPs?: EventRSVPUncheckedCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutParentInput
   }
 
   export type UserCreateOrConnectWithoutChildrenInput = {
@@ -143603,8 +149437,11 @@ export namespace Prisma {
     certificateNumber: string
     issueDate?: Date | string
     content?: NullableJsonNullValueInput | InputJsonValue
+    verificationCode?: string
+    isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    template?: CertificateTemplateCreateNestedOneWithoutCertificatesInput
     issuedBy: UserCreateNestedOneWithoutIssuedCertificatesInput
     branch: BranchCreateNestedOneWithoutCertificatesInput
   }
@@ -143615,6 +149452,9 @@ export namespace Prisma {
     certificateNumber: string
     issueDate?: Date | string
     content?: NullableJsonNullValueInput | InputJsonValue
+    verificationCode?: string
+    isVerified?: boolean
+    templateId?: string | null
     issuedByUserId: string
     branchId: string
     createdAt?: Date | string
@@ -143737,6 +149577,38 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type IdCardCreateWithoutStudentInput = {
+    id?: string
+    status?: string
+    issueDate?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    staff?: StaffCreateNestedOneWithoutIdCardsInput
+    template: IdCardTemplateCreateNestedOneWithoutIdCardsInput
+    session: AcademicSessionCreateNestedOneWithoutIdCardsInput
+  }
+
+  export type IdCardUncheckedCreateWithoutStudentInput = {
+    id?: string
+    staffId?: string | null
+    templateId: string
+    sessionId: string
+    status?: string
+    issueDate?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type IdCardCreateOrConnectWithoutStudentInput = {
+    where: IdCardWhereUniqueInput
+    create: XOR<IdCardCreateWithoutStudentInput, IdCardUncheckedCreateWithoutStudentInput>
+  }
+
+  export type IdCardCreateManyStudentInputEnvelope = {
+    data: IdCardCreateManyStudentInput | IdCardCreateManyStudentInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AlumniCreateWithoutStudentInput = {
     id?: string
     graduationDate: Date | string
@@ -143828,6 +149700,7 @@ export namespace Prisma {
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
     eventRSVPs?: EventRSVPUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutParentNestedInput
   }
 
   export type UserUncheckedUpdateWithoutStudentInput = {
@@ -143852,6 +149725,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     eventRSVPs?: EventRSVPUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutParentNestedInput
   }
 
   export type BranchUpsertWithoutStudentsInput = {
@@ -143887,6 +149761,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -143913,6 +149788,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -143939,6 +149815,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -143965,6 +149842,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -144082,6 +149960,7 @@ export namespace Prisma {
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
     eventRSVPs?: EventRSVPUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutParentNestedInput
   }
 
   export type UserUncheckedUpdateWithoutChildrenInput = {
@@ -144106,6 +149985,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     eventRSVPs?: EventRSVPUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutParentNestedInput
   }
 
   export type AttendanceUpsertWithWhereUniqueWithoutStudentInput = {
@@ -144511,6 +150391,22 @@ export namespace Prisma {
     data: XOR<InventoryIssueUpdateManyMutationInput, InventoryIssueUncheckedUpdateManyWithoutStudentInput>
   }
 
+  export type IdCardUpsertWithWhereUniqueWithoutStudentInput = {
+    where: IdCardWhereUniqueInput
+    update: XOR<IdCardUpdateWithoutStudentInput, IdCardUncheckedUpdateWithoutStudentInput>
+    create: XOR<IdCardCreateWithoutStudentInput, IdCardUncheckedCreateWithoutStudentInput>
+  }
+
+  export type IdCardUpdateWithWhereUniqueWithoutStudentInput = {
+    where: IdCardWhereUniqueInput
+    data: XOR<IdCardUpdateWithoutStudentInput, IdCardUncheckedUpdateWithoutStudentInput>
+  }
+
+  export type IdCardUpdateManyWithWhereWithoutStudentInput = {
+    where: IdCardScalarWhereInput
+    data: XOR<IdCardUpdateManyMutationInput, IdCardUncheckedUpdateManyWithoutStudentInput>
+  }
+
   export type AlumniUpsertWithoutStudentInput = {
     update: XOR<AlumniUpdateWithoutStudentInput, AlumniUncheckedUpdateWithoutStudentInput>
     create: XOR<AlumniCreateWithoutStudentInput, AlumniUncheckedCreateWithoutStudentInput>
@@ -144638,6 +150534,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueCreateNestedManyWithoutStudentInput
+    idCards?: IdCardCreateNestedManyWithoutStudentInput
     alumni?: AlumniCreateNestedOneWithoutStudentInput
     category?: StudentCategoryCreateNestedOneWithoutStudentsInput
   }
@@ -144700,12 +150597,40 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutStudentInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStudentInput
     alumni?: AlumniUncheckedCreateNestedOneWithoutStudentInput
   }
 
   export type StudentCreateOrConnectWithoutCertificatesInput = {
     where: StudentWhereUniqueInput
     create: XOR<StudentCreateWithoutCertificatesInput, StudentUncheckedCreateWithoutCertificatesInput>
+  }
+
+  export type CertificateTemplateCreateWithoutCertificatesInput = {
+    id?: string
+    name: string
+    type: string
+    backgroundImage?: string | null
+    config: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutCertificateTemplatesInput
+  }
+
+  export type CertificateTemplateUncheckedCreateWithoutCertificatesInput = {
+    id?: string
+    name: string
+    type: string
+    backgroundImage?: string | null
+    config: JsonNullValueInput | InputJsonValue
+    branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CertificateTemplateCreateOrConnectWithoutCertificatesInput = {
+    where: CertificateTemplateWhereUniqueInput
+    create: XOR<CertificateTemplateCreateWithoutCertificatesInput, CertificateTemplateUncheckedCreateWithoutCertificatesInput>
   }
 
   export type UserCreateWithoutIssuedCertificatesInput = {
@@ -144730,6 +150655,7 @@ export namespace Prisma {
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
     eventRSVPs?: EventRSVPCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutParentInput
   }
 
   export type UserUncheckedCreateWithoutIssuedCertificatesInput = {
@@ -144754,6 +150680,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     eventRSVPs?: EventRSVPUncheckedCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutParentInput
   }
 
   export type UserCreateOrConnectWithoutIssuedCertificatesInput = {
@@ -144783,6 +150710,7 @@ export namespace Prisma {
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -144809,6 +150737,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -144835,6 +150764,7 @@ export namespace Prisma {
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -144861,6 +150791,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -144938,6 +150869,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUpdateOneWithoutStudentNestedInput
     category?: StudentCategoryUpdateOneWithoutStudentsNestedInput
   }
@@ -145000,7 +150932,41 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUncheckedUpdateOneWithoutStudentNestedInput
+  }
+
+  export type CertificateTemplateUpsertWithoutCertificatesInput = {
+    update: XOR<CertificateTemplateUpdateWithoutCertificatesInput, CertificateTemplateUncheckedUpdateWithoutCertificatesInput>
+    create: XOR<CertificateTemplateCreateWithoutCertificatesInput, CertificateTemplateUncheckedCreateWithoutCertificatesInput>
+    where?: CertificateTemplateWhereInput
+  }
+
+  export type CertificateTemplateUpdateToOneWithWhereWithoutCertificatesInput = {
+    where?: CertificateTemplateWhereInput
+    data: XOR<CertificateTemplateUpdateWithoutCertificatesInput, CertificateTemplateUncheckedUpdateWithoutCertificatesInput>
+  }
+
+  export type CertificateTemplateUpdateWithoutCertificatesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    backgroundImage?: NullableStringFieldUpdateOperationsInput | string | null
+    config?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutCertificateTemplatesNestedInput
+  }
+
+  export type CertificateTemplateUncheckedUpdateWithoutCertificatesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    backgroundImage?: NullableStringFieldUpdateOperationsInput | string | null
+    config?: JsonNullValueInput | InputJsonValue
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserUpsertWithoutIssuedCertificatesInput = {
@@ -145036,6 +151002,7 @@ export namespace Prisma {
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
     eventRSVPs?: EventRSVPUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutParentNestedInput
   }
 
   export type UserUncheckedUpdateWithoutIssuedCertificatesInput = {
@@ -145060,6 +151027,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     eventRSVPs?: EventRSVPUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutParentNestedInput
   }
 
   export type BranchUpsertWithoutCertificatesInput = {
@@ -145095,6 +151063,7 @@ export namespace Prisma {
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -145121,6 +151090,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -145147,6 +151117,7 @@ export namespace Prisma {
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -145173,11 +151144,12 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
-  export type BranchCreateWithoutClassesInput = {
+  export type BranchCreateWithoutCertificateTemplatesInput = {
     id?: string
     name: string
     code: string
@@ -145189,6 +151161,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     users?: UserCreateNestedManyWithoutBranchInput
     students?: StudentCreateNestedManyWithoutBranchInput
+    classes?: ClassCreateNestedManyWithoutBranchInput
     subjects?: SubjectCreateNestedManyWithoutBranchInput
     hostels?: HostelCreateNestedManyWithoutBranchInput
     feeCategories?: FeeCategoryCreateNestedManyWithoutBranchInput
@@ -145225,11 +151198,12 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
 
-  export type BranchUncheckedCreateWithoutClassesInput = {
+  export type BranchUncheckedCreateWithoutCertificateTemplatesInput = {
     id?: string
     name: string
     code: string
@@ -145241,6 +151215,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     users?: UserUncheckedCreateNestedManyWithoutBranchInput
     students?: StudentUncheckedCreateNestedManyWithoutBranchInput
+    classes?: ClassUncheckedCreateNestedManyWithoutBranchInput
     subjects?: SubjectUncheckedCreateNestedManyWithoutBranchInput
     hostels?: HostelUncheckedCreateNestedManyWithoutBranchInput
     feeCategories?: FeeCategoryUncheckedCreateNestedManyWithoutBranchInput
@@ -145277,6 +151252,295 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+  }
+
+  export type BranchCreateOrConnectWithoutCertificateTemplatesInput = {
+    where: BranchWhereUniqueInput
+    create: XOR<BranchCreateWithoutCertificateTemplatesInput, BranchUncheckedCreateWithoutCertificateTemplatesInput>
+  }
+
+  export type CertificateCreateWithoutTemplateInput = {
+    id?: string
+    type: string
+    certificateNumber: string
+    issueDate?: Date | string
+    content?: NullableJsonNullValueInput | InputJsonValue
+    verificationCode?: string
+    isVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    student: StudentCreateNestedOneWithoutCertificatesInput
+    issuedBy: UserCreateNestedOneWithoutIssuedCertificatesInput
+    branch: BranchCreateNestedOneWithoutCertificatesInput
+  }
+
+  export type CertificateUncheckedCreateWithoutTemplateInput = {
+    id?: string
+    type: string
+    certificateNumber: string
+    issueDate?: Date | string
+    content?: NullableJsonNullValueInput | InputJsonValue
+    verificationCode?: string
+    isVerified?: boolean
+    studentId: string
+    issuedByUserId: string
+    branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CertificateCreateOrConnectWithoutTemplateInput = {
+    where: CertificateWhereUniqueInput
+    create: XOR<CertificateCreateWithoutTemplateInput, CertificateUncheckedCreateWithoutTemplateInput>
+  }
+
+  export type CertificateCreateManyTemplateInputEnvelope = {
+    data: CertificateCreateManyTemplateInput | CertificateCreateManyTemplateInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BranchUpsertWithoutCertificateTemplatesInput = {
+    update: XOR<BranchUpdateWithoutCertificateTemplatesInput, BranchUncheckedUpdateWithoutCertificateTemplatesInput>
+    create: XOR<BranchCreateWithoutCertificateTemplatesInput, BranchUncheckedCreateWithoutCertificateTemplatesInput>
+    where?: BranchWhereInput
+  }
+
+  export type BranchUpdateToOneWithWhereWithoutCertificateTemplatesInput = {
+    where?: BranchWhereInput
+    data: XOR<BranchUpdateWithoutCertificateTemplatesInput, BranchUncheckedUpdateWithoutCertificateTemplatesInput>
+  }
+
+  export type BranchUpdateWithoutCertificateTemplatesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutBranchNestedInput
+    students?: StudentUpdateManyWithoutBranchNestedInput
+    classes?: ClassUpdateManyWithoutBranchNestedInput
+    subjects?: SubjectUpdateManyWithoutBranchNestedInput
+    hostels?: HostelUpdateManyWithoutBranchNestedInput
+    feeCategories?: FeeCategoryUpdateManyWithoutBranchNestedInput
+    vehicles?: VehicleUpdateManyWithoutBranchNestedInput
+    routes?: TransportRouteUpdateManyWithoutBranchNestedInput
+    expenseCategories?: ExpenseCategoryUpdateManyWithoutBranchNestedInput
+    vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    departments?: DepartmentUpdateManyWithoutBranchNestedInput
+    designations?: DesignationUpdateManyWithoutBranchNestedInput
+    certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    books?: BookUpdateManyWithoutBranchNestedInput
+    googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
+    liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
+    studentCategories?: StudentCategoryUpdateManyWithoutBranchNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutBranchNestedInput
+    questionGroups?: QuestionGroupUpdateManyWithoutBranchNestedInput
+    onlineExams?: OnlineExamUpdateManyWithoutBranchNestedInput
+    enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
+    callLogs?: CallLogUpdateManyWithoutBranchNestedInput
+    visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
+    complaints?: ComplaintUpdateManyWithoutBranchNestedInput
+    postalRecords?: PostalRecordUpdateManyWithoutBranchNestedInput
+    inventoryCategories?: InventoryCategoryUpdateManyWithoutBranchNestedInput
+    inventoryStores?: InventoryStoreUpdateManyWithoutBranchNestedInput
+    inventorySuppliers?: InventorySupplierUpdateManyWithoutBranchNestedInput
+    inventoryUnits?: InventoryUnitUpdateManyWithoutBranchNestedInput
+    inventoryProducts?: InventoryProductUpdateManyWithoutBranchNestedInput
+    inventoryPurchases?: InventoryPurchaseUpdateManyWithoutBranchNestedInput
+    inventorySales?: InventorySaleUpdateManyWithoutBranchNestedInput
+    inventoryIssues?: InventoryIssueUpdateManyWithoutBranchNestedInput
+    alumni?: AlumniUpdateManyWithoutBranchNestedInput
+    alumniEvents?: AlumniEventUpdateManyWithoutBranchNestedInput
+    conversations?: ConversationUpdateManyWithoutBranchNestedInput
+    campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
+    accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
+    automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+  }
+
+  export type BranchUncheckedUpdateWithoutCertificateTemplatesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutBranchNestedInput
+    students?: StudentUncheckedUpdateManyWithoutBranchNestedInput
+    classes?: ClassUncheckedUpdateManyWithoutBranchNestedInput
+    subjects?: SubjectUncheckedUpdateManyWithoutBranchNestedInput
+    hostels?: HostelUncheckedUpdateManyWithoutBranchNestedInput
+    feeCategories?: FeeCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
+    routes?: TransportRouteUncheckedUpdateManyWithoutBranchNestedInput
+    expenseCategories?: ExpenseCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
+    designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
+    certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    books?: BookUncheckedUpdateManyWithoutBranchNestedInput
+    googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
+    liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
+    studentCategories?: StudentCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutBranchNestedInput
+    questionGroups?: QuestionGroupUncheckedUpdateManyWithoutBranchNestedInput
+    onlineExams?: OnlineExamUncheckedUpdateManyWithoutBranchNestedInput
+    enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
+    callLogs?: CallLogUncheckedUpdateManyWithoutBranchNestedInput
+    visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
+    complaints?: ComplaintUncheckedUpdateManyWithoutBranchNestedInput
+    postalRecords?: PostalRecordUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryCategories?: InventoryCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryStores?: InventoryStoreUncheckedUpdateManyWithoutBranchNestedInput
+    inventorySuppliers?: InventorySupplierUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryUnits?: InventoryUnitUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryProducts?: InventoryProductUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryPurchases?: InventoryPurchaseUncheckedUpdateManyWithoutBranchNestedInput
+    inventorySales?: InventorySaleUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutBranchNestedInput
+    alumni?: AlumniUncheckedUpdateManyWithoutBranchNestedInput
+    alumniEvents?: AlumniEventUncheckedUpdateManyWithoutBranchNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutBranchNestedInput
+    campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
+    accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
+    automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+  }
+
+  export type CertificateUpsertWithWhereUniqueWithoutTemplateInput = {
+    where: CertificateWhereUniqueInput
+    update: XOR<CertificateUpdateWithoutTemplateInput, CertificateUncheckedUpdateWithoutTemplateInput>
+    create: XOR<CertificateCreateWithoutTemplateInput, CertificateUncheckedCreateWithoutTemplateInput>
+  }
+
+  export type CertificateUpdateWithWhereUniqueWithoutTemplateInput = {
+    where: CertificateWhereUniqueInput
+    data: XOR<CertificateUpdateWithoutTemplateInput, CertificateUncheckedUpdateWithoutTemplateInput>
+  }
+
+  export type CertificateUpdateManyWithWhereWithoutTemplateInput = {
+    where: CertificateScalarWhereInput
+    data: XOR<CertificateUpdateManyMutationInput, CertificateUncheckedUpdateManyWithoutTemplateInput>
+  }
+
+  export type BranchCreateWithoutClassesInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserCreateNestedManyWithoutBranchInput
+    students?: StudentCreateNestedManyWithoutBranchInput
+    subjects?: SubjectCreateNestedManyWithoutBranchInput
+    hostels?: HostelCreateNestedManyWithoutBranchInput
+    feeCategories?: FeeCategoryCreateNestedManyWithoutBranchInput
+    vehicles?: VehicleCreateNestedManyWithoutBranchInput
+    routes?: TransportRouteCreateNestedManyWithoutBranchInput
+    expenseCategories?: ExpenseCategoryCreateNestedManyWithoutBranchInput
+    vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    departments?: DepartmentCreateNestedManyWithoutBranchInput
+    designations?: DesignationCreateNestedManyWithoutBranchInput
+    certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
+    books?: BookCreateNestedManyWithoutBranchInput
+    googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
+    liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
+    studentCategories?: StudentCategoryCreateNestedManyWithoutBranchInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutBranchInput
+    questionGroups?: QuestionGroupCreateNestedManyWithoutBranchInput
+    onlineExams?: OnlineExamCreateNestedManyWithoutBranchInput
+    enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
+    callLogs?: CallLogCreateNestedManyWithoutBranchInput
+    visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
+    complaints?: ComplaintCreateNestedManyWithoutBranchInput
+    postalRecords?: PostalRecordCreateNestedManyWithoutBranchInput
+    inventoryCategories?: InventoryCategoryCreateNestedManyWithoutBranchInput
+    inventoryStores?: InventoryStoreCreateNestedManyWithoutBranchInput
+    inventorySuppliers?: InventorySupplierCreateNestedManyWithoutBranchInput
+    inventoryUnits?: InventoryUnitCreateNestedManyWithoutBranchInput
+    inventoryProducts?: InventoryProductCreateNestedManyWithoutBranchInput
+    inventoryPurchases?: InventoryPurchaseCreateNestedManyWithoutBranchInput
+    inventorySales?: InventorySaleCreateNestedManyWithoutBranchInput
+    inventoryIssues?: InventoryIssueCreateNestedManyWithoutBranchInput
+    alumni?: AlumniCreateNestedManyWithoutBranchInput
+    alumniEvents?: AlumniEventCreateNestedManyWithoutBranchInput
+    conversations?: ConversationCreateNestedManyWithoutBranchInput
+    campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
+    accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
+    automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+  }
+
+  export type BranchUncheckedCreateWithoutClassesInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutBranchInput
+    students?: StudentUncheckedCreateNestedManyWithoutBranchInput
+    subjects?: SubjectUncheckedCreateNestedManyWithoutBranchInput
+    hostels?: HostelUncheckedCreateNestedManyWithoutBranchInput
+    feeCategories?: FeeCategoryUncheckedCreateNestedManyWithoutBranchInput
+    vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
+    routes?: TransportRouteUncheckedCreateNestedManyWithoutBranchInput
+    expenseCategories?: ExpenseCategoryUncheckedCreateNestedManyWithoutBranchInput
+    vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
+    designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
+    certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
+    books?: BookUncheckedCreateNestedManyWithoutBranchInput
+    googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
+    liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
+    studentCategories?: StudentCategoryUncheckedCreateNestedManyWithoutBranchInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutBranchInput
+    questionGroups?: QuestionGroupUncheckedCreateNestedManyWithoutBranchInput
+    onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutBranchInput
+    enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
+    callLogs?: CallLogUncheckedCreateNestedManyWithoutBranchInput
+    visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
+    complaints?: ComplaintUncheckedCreateNestedManyWithoutBranchInput
+    postalRecords?: PostalRecordUncheckedCreateNestedManyWithoutBranchInput
+    inventoryCategories?: InventoryCategoryUncheckedCreateNestedManyWithoutBranchInput
+    inventoryStores?: InventoryStoreUncheckedCreateNestedManyWithoutBranchInput
+    inventorySuppliers?: InventorySupplierUncheckedCreateNestedManyWithoutBranchInput
+    inventoryUnits?: InventoryUnitUncheckedCreateNestedManyWithoutBranchInput
+    inventoryProducts?: InventoryProductUncheckedCreateNestedManyWithoutBranchInput
+    inventoryPurchases?: InventoryPurchaseUncheckedCreateNestedManyWithoutBranchInput
+    inventorySales?: InventorySaleUncheckedCreateNestedManyWithoutBranchInput
+    inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutBranchInput
+    alumni?: AlumniUncheckedCreateNestedManyWithoutBranchInput
+    alumniEvents?: AlumniEventUncheckedCreateNestedManyWithoutBranchInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutBranchInput
+    campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
+    accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
+    automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -145381,6 +151645,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueCreateNestedManyWithoutStudentInput
+    idCards?: IdCardCreateNestedManyWithoutStudentInput
     alumni?: AlumniCreateNestedOneWithoutStudentInput
     category?: StudentCategoryCreateNestedOneWithoutStudentsInput
   }
@@ -145443,6 +151708,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutStudentInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStudentInput
     alumni?: AlumniUncheckedCreateNestedOneWithoutStudentInput
   }
 
@@ -145474,6 +151740,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryCreateNestedManyWithoutStaffInput
     assignments?: AssignmentCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionCreateNestedManyWithoutHostInput
+    idCards?: IdCardCreateNestedManyWithoutStaffInput
   }
 
   export type StaffUncheckedCreateWithoutClassesInput = {
@@ -145494,6 +151761,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUncheckedCreateNestedManyWithoutStaffInput
     assignments?: AssignmentUncheckedCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutHostInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStaffInput
   }
 
   export type StaffCreateOrConnectWithoutClassesInput = {
@@ -145665,6 +151933,7 @@ export namespace Prisma {
     desiredSection?: SectionCreateNestedOneWithoutOnlineAdmissionsInput
     branch: BranchCreateNestedOneWithoutOnlineAdmissionsInput
     studentCategory?: StudentCategoryCreateNestedOneWithoutOnlineAdmissionsInput
+    parent?: UserCreateNestedOneWithoutOnlineAdmissionsInput
   }
 
   export type OnlineAdmissionUncheckedCreateWithoutDesiredClassInput = {
@@ -145744,6 +152013,7 @@ export namespace Prisma {
     email?: string | null
     phone?: string | null
     studentCategoryId?: string | null
+    parentId?: string | null
     paymentReceiptUrl?: string | null
     paymentStatus?: string
     paymentMethod?: string
@@ -145838,6 +152108,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -145864,6 +152135,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -145890,6 +152162,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -145916,6 +152189,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -145992,6 +152266,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUpdateManyWithoutStaffNestedInput
     assignments?: AssignmentUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUpdateManyWithoutHostNestedInput
+    idCards?: IdCardUpdateManyWithoutStaffNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutClassesInput = {
@@ -146012,6 +152287,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUncheckedUpdateManyWithoutStaffNestedInput
     assignments?: AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUncheckedUpdateManyWithoutHostNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStaffNestedInput
   }
 
   export type FeeStructureUpsertWithWhereUniqueWithoutClassInput = {
@@ -146183,6 +152459,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueCreateNestedManyWithoutStudentInput
+    idCards?: IdCardCreateNestedManyWithoutStudentInput
     alumni?: AlumniCreateNestedOneWithoutStudentInput
     category?: StudentCategoryCreateNestedOneWithoutStudentsInput
   }
@@ -146245,6 +152522,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutStudentInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStudentInput
     alumni?: AlumniUncheckedCreateNestedOneWithoutStudentInput
   }
 
@@ -146518,6 +152796,7 @@ export namespace Prisma {
     desiredClass: ClassCreateNestedOneWithoutOnlineAdmissionsInput
     branch: BranchCreateNestedOneWithoutOnlineAdmissionsInput
     studentCategory?: StudentCategoryCreateNestedOneWithoutOnlineAdmissionsInput
+    parent?: UserCreateNestedOneWithoutOnlineAdmissionsInput
   }
 
   export type OnlineAdmissionUncheckedCreateWithoutDesiredSectionInput = {
@@ -146597,6 +152876,7 @@ export namespace Prisma {
     email?: string | null
     phone?: string | null
     studentCategoryId?: string | null
+    parentId?: string | null
     paymentReceiptUrl?: string | null
     paymentStatus?: string
     paymentMethod?: string
@@ -146833,6 +153113,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -146859,6 +153140,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -146885,6 +153167,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -146911,6 +153194,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -146938,6 +153222,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryCreateNestedManyWithoutStaffInput
     assignments?: AssignmentCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionCreateNestedManyWithoutHostInput
+    idCards?: IdCardCreateNestedManyWithoutStaffInput
   }
 
   export type StaffUncheckedCreateWithoutSubjectsInput = {
@@ -146958,6 +153243,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUncheckedCreateNestedManyWithoutStaffInput
     assignments?: AssignmentUncheckedCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutHostInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStaffInput
   }
 
   export type StaffCreateOrConnectWithoutSubjectsInput = {
@@ -147190,6 +153476,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -147216,6 +153503,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -147242,6 +153530,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -147268,6 +153557,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -147423,6 +153713,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueCreateNestedManyWithoutStudentInput
+    idCards?: IdCardCreateNestedManyWithoutStudentInput
     alumni?: AlumniCreateNestedOneWithoutStudentInput
     category?: StudentCategoryCreateNestedOneWithoutStudentsInput
   }
@@ -147485,6 +153776,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutStudentInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStudentInput
     alumni?: AlumniUncheckedCreateNestedOneWithoutStudentInput
   }
 
@@ -147594,6 +153886,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUpdateOneWithoutStudentNestedInput
     category?: StudentCategoryUpdateOneWithoutStudentsNestedInput
   }
@@ -147656,6 +153949,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUncheckedUpdateOneWithoutStudentNestedInput
   }
 
@@ -147720,6 +154014,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -147746,6 +154041,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -147772,6 +154068,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -147798,6 +154095,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -147870,6 +154168,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -147896,6 +154195,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -147922,6 +154222,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -147948,6 +154249,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -148317,6 +154619,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueCreateNestedManyWithoutStudentInput
+    idCards?: IdCardCreateNestedManyWithoutStudentInput
     alumni?: AlumniCreateNestedOneWithoutStudentInput
     category?: StudentCategoryCreateNestedOneWithoutStudentsInput
   }
@@ -148379,6 +154682,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutStudentInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStudentInput
     alumni?: AlumniUncheckedCreateNestedOneWithoutStudentInput
   }
 
@@ -148480,6 +154784,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUpdateOneWithoutStudentNestedInput
     category?: StudentCategoryUpdateOneWithoutStudentsNestedInput
   }
@@ -148542,6 +154847,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUncheckedUpdateOneWithoutStudentNestedInput
   }
 
@@ -148633,6 +154939,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueCreateNestedManyWithoutStudentInput
+    idCards?: IdCardCreateNestedManyWithoutStudentInput
     alumni?: AlumniCreateNestedOneWithoutStudentInput
     category?: StudentCategoryCreateNestedOneWithoutStudentsInput
   }
@@ -148695,6 +155002,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutStudentInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStudentInput
     alumni?: AlumniUncheckedCreateNestedOneWithoutStudentInput
   }
 
@@ -148771,6 +155079,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUpdateOneWithoutStudentNestedInput
     category?: StudentCategoryUpdateOneWithoutStudentsNestedInput
   }
@@ -148833,6 +155142,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUncheckedUpdateOneWithoutStudentNestedInput
   }
 
@@ -148914,6 +155224,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -148940,6 +155251,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -148966,6 +155278,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -148992,6 +155305,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -149088,6 +155402,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -149114,6 +155429,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -149140,6 +155456,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -149166,6 +155483,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -149403,6 +155721,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueCreateNestedManyWithoutStudentInput
+    idCards?: IdCardCreateNestedManyWithoutStudentInput
     alumni?: AlumniCreateNestedOneWithoutStudentInput
     category?: StudentCategoryCreateNestedOneWithoutStudentsInput
   }
@@ -149465,6 +155784,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutStudentInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStudentInput
     alumni?: AlumniUncheckedCreateNestedOneWithoutStudentInput
   }
 
@@ -149601,6 +155921,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUpdateOneWithoutStudentNestedInput
     category?: StudentCategoryUpdateOneWithoutStudentsNestedInput
   }
@@ -149663,6 +155984,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUncheckedUpdateOneWithoutStudentNestedInput
   }
 
@@ -149737,6 +156059,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -149762,6 +156085,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -149789,6 +156113,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -149814,6 +156139,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -149933,6 +156259,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -149958,6 +156285,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -149985,6 +156313,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -150010,6 +156339,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -150427,6 +156757,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -150452,6 +156783,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -150479,6 +156811,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -150504,6 +156837,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -150727,6 +157061,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -150752,6 +157087,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -150779,6 +157115,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -150804,6 +157141,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -150920,6 +157258,7 @@ export namespace Prisma {
     certificates?: CertificateCreateNestedManyWithoutStudentInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueCreateNestedManyWithoutStudentInput
+    idCards?: IdCardCreateNestedManyWithoutStudentInput
     alumni?: AlumniCreateNestedOneWithoutStudentInput
     category?: StudentCategoryCreateNestedOneWithoutStudentsInput
   }
@@ -150982,6 +157321,7 @@ export namespace Prisma {
     certificates?: CertificateUncheckedCreateNestedManyWithoutStudentInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutStudentInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStudentInput
     alumni?: AlumniUncheckedCreateNestedOneWithoutStudentInput
   }
 
@@ -151135,6 +157475,7 @@ export namespace Prisma {
     certificates?: CertificateUpdateManyWithoutStudentNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUpdateOneWithoutStudentNestedInput
     category?: StudentCategoryUpdateOneWithoutStudentsNestedInput
   }
@@ -151197,6 +157538,7 @@ export namespace Prisma {
     certificates?: CertificateUncheckedUpdateManyWithoutStudentNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUncheckedUpdateOneWithoutStudentNestedInput
   }
 
@@ -151562,6 +157904,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -151588,6 +157931,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -151614,6 +157958,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -151640,6 +157985,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -151708,6 +158054,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -151734,6 +158081,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -151760,6 +158108,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -151786,6 +158135,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -151840,6 +158190,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -151866,6 +158217,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -151892,6 +158244,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -151918,6 +158271,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -151986,6 +158340,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -152012,6 +158367,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -152038,6 +158394,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -152064,6 +158421,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -152141,6 +158499,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueCreateNestedManyWithoutStudentInput
+    idCards?: IdCardCreateNestedManyWithoutStudentInput
     alumni?: AlumniCreateNestedOneWithoutStudentInput
     category?: StudentCategoryCreateNestedOneWithoutStudentsInput
   }
@@ -152203,6 +158562,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutStudentInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStudentInput
     alumni?: AlumniUncheckedCreateNestedOneWithoutStudentInput
   }
 
@@ -152335,6 +158695,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUpdateOneWithoutStudentNestedInput
     category?: StudentCategoryUpdateOneWithoutStudentsNestedInput
   }
@@ -152397,6 +158758,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUncheckedUpdateOneWithoutStudentNestedInput
   }
 
@@ -152582,6 +158944,7 @@ export namespace Prisma {
     awards?: StaffAwardCreateNestedManyWithoutStaffInput
     salaryAdvances?: AdvanceSalaryCreateNestedManyWithoutStaffInput
     hostedSessions?: LiveClassSessionCreateNestedManyWithoutHostInput
+    idCards?: IdCardCreateNestedManyWithoutStaffInput
   }
 
   export type StaffUncheckedCreateWithoutAssignmentsInput = {
@@ -152602,6 +158965,7 @@ export namespace Prisma {
     awards?: StaffAwardUncheckedCreateNestedManyWithoutStaffInput
     salaryAdvances?: AdvanceSalaryUncheckedCreateNestedManyWithoutStaffInput
     hostedSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutHostInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStaffInput
   }
 
   export type StaffCreateOrConnectWithoutAssignmentsInput = {
@@ -152730,6 +159094,7 @@ export namespace Prisma {
     awards?: StaffAwardUpdateManyWithoutStaffNestedInput
     salaryAdvances?: AdvanceSalaryUpdateManyWithoutStaffNestedInput
     hostedSessions?: LiveClassSessionUpdateManyWithoutHostNestedInput
+    idCards?: IdCardUpdateManyWithoutStaffNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutAssignmentsInput = {
@@ -152750,6 +159115,7 @@ export namespace Prisma {
     awards?: StaffAwardUncheckedUpdateManyWithoutStaffNestedInput
     salaryAdvances?: AdvanceSalaryUncheckedUpdateManyWithoutStaffNestedInput
     hostedSessions?: LiveClassSessionUncheckedUpdateManyWithoutHostNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStaffNestedInput
   }
 
   export type AssignmentCreateWithoutSubmissionsInput = {
@@ -152838,6 +159204,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueCreateNestedManyWithoutStudentInput
+    idCards?: IdCardCreateNestedManyWithoutStudentInput
     alumni?: AlumniCreateNestedOneWithoutStudentInput
     category?: StudentCategoryCreateNestedOneWithoutStudentsInput
   }
@@ -152900,6 +159267,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutStudentInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStudentInput
     alumni?: AlumniUncheckedCreateNestedOneWithoutStudentInput
   }
 
@@ -153011,6 +159379,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUpdateOneWithoutStudentNestedInput
     category?: StudentCategoryUpdateOneWithoutStudentsNestedInput
   }
@@ -153073,6 +159442,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUncheckedUpdateOneWithoutStudentNestedInput
   }
 
@@ -153326,6 +159696,7 @@ export namespace Prisma {
     desiredSection?: SectionCreateNestedOneWithoutOnlineAdmissionsInput
     branch: BranchCreateNestedOneWithoutOnlineAdmissionsInput
     studentCategory?: StudentCategoryCreateNestedOneWithoutOnlineAdmissionsInput
+    parent?: UserCreateNestedOneWithoutOnlineAdmissionsInput
   }
 
   export type OnlineAdmissionUncheckedCreateWithoutAcademicSessionInput = {
@@ -153405,6 +159776,7 @@ export namespace Prisma {
     email?: string | null
     phone?: string | null
     studentCategoryId?: string | null
+    parentId?: string | null
     paymentReceiptUrl?: string | null
     paymentStatus?: string
     paymentMethod?: string
@@ -153419,6 +159791,38 @@ export namespace Prisma {
 
   export type OnlineAdmissionCreateManyAcademicSessionInputEnvelope = {
     data: OnlineAdmissionCreateManyAcademicSessionInput | OnlineAdmissionCreateManyAcademicSessionInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type IdCardCreateWithoutSessionInput = {
+    id?: string
+    status?: string
+    issueDate?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    student?: StudentCreateNestedOneWithoutIdCardsInput
+    staff?: StaffCreateNestedOneWithoutIdCardsInput
+    template: IdCardTemplateCreateNestedOneWithoutIdCardsInput
+  }
+
+  export type IdCardUncheckedCreateWithoutSessionInput = {
+    id?: string
+    studentId?: string | null
+    staffId?: string | null
+    templateId: string
+    status?: string
+    issueDate?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type IdCardCreateOrConnectWithoutSessionInput = {
+    where: IdCardWhereUniqueInput
+    create: XOR<IdCardCreateWithoutSessionInput, IdCardUncheckedCreateWithoutSessionInput>
+  }
+
+  export type IdCardCreateManySessionInputEnvelope = {
+    data: IdCardCreateManySessionInput | IdCardCreateManySessionInput[]
     skipDuplicates?: boolean
   }
 
@@ -153486,6 +159890,22 @@ export namespace Prisma {
     data: XOR<OnlineAdmissionUpdateManyMutationInput, OnlineAdmissionUncheckedUpdateManyWithoutAcademicSessionInput>
   }
 
+  export type IdCardUpsertWithWhereUniqueWithoutSessionInput = {
+    where: IdCardWhereUniqueInput
+    update: XOR<IdCardUpdateWithoutSessionInput, IdCardUncheckedUpdateWithoutSessionInput>
+    create: XOR<IdCardCreateWithoutSessionInput, IdCardUncheckedCreateWithoutSessionInput>
+  }
+
+  export type IdCardUpdateWithWhereUniqueWithoutSessionInput = {
+    where: IdCardWhereUniqueInput
+    data: XOR<IdCardUpdateWithoutSessionInput, IdCardUncheckedUpdateWithoutSessionInput>
+  }
+
+  export type IdCardUpdateManyWithWhereWithoutSessionInput = {
+    where: IdCardScalarWhereInput
+    data: XOR<IdCardUpdateManyMutationInput, IdCardUncheckedUpdateManyWithoutSessionInput>
+  }
+
   export type StudentCreateWithoutAssessmentRecordsInput = {
     id?: string
     firstName: string
@@ -153543,6 +159963,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueCreateNestedManyWithoutStudentInput
+    idCards?: IdCardCreateNestedManyWithoutStudentInput
     alumni?: AlumniCreateNestedOneWithoutStudentInput
     category?: StudentCategoryCreateNestedOneWithoutStudentsInput
   }
@@ -153605,6 +160026,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutStudentInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStudentInput
     alumni?: AlumniUncheckedCreateNestedOneWithoutStudentInput
   }
 
@@ -153690,6 +160112,7 @@ export namespace Prisma {
     resultSummaries?: ResultSummaryCreateNestedManyWithoutSessionInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutSessionInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutAcademicSessionInput
+    idCards?: IdCardCreateNestedManyWithoutSessionInput
   }
 
   export type AcademicSessionUncheckedCreateWithoutAssessmentRecordsInput = {
@@ -153705,6 +160128,7 @@ export namespace Prisma {
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutSessionInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutSessionInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutAcademicSessionInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutSessionInput
   }
 
   export type AcademicSessionCreateOrConnectWithoutAssessmentRecordsInput = {
@@ -153780,6 +160204,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUpdateOneWithoutStudentNestedInput
     category?: StudentCategoryUpdateOneWithoutStudentsNestedInput
   }
@@ -153842,6 +160267,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUncheckedUpdateOneWithoutStudentNestedInput
   }
 
@@ -153945,6 +160371,7 @@ export namespace Prisma {
     resultSummaries?: ResultSummaryUpdateManyWithoutSessionNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutSessionNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutAcademicSessionNestedInput
+    idCards?: IdCardUpdateManyWithoutSessionNestedInput
   }
 
   export type AcademicSessionUncheckedUpdateWithoutAssessmentRecordsInput = {
@@ -153960,6 +160387,7 @@ export namespace Prisma {
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutSessionNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutSessionNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutAcademicSessionNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutSessionNestedInput
   }
 
   export type StudentCreateWithoutBehaviouralRatingsInput = {
@@ -154019,6 +160447,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueCreateNestedManyWithoutStudentInput
+    idCards?: IdCardCreateNestedManyWithoutStudentInput
     alumni?: AlumniCreateNestedOneWithoutStudentInput
     category?: StudentCategoryCreateNestedOneWithoutStudentsInput
   }
@@ -154081,6 +160510,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutStudentInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStudentInput
     alumni?: AlumniUncheckedCreateNestedOneWithoutStudentInput
   }
 
@@ -154102,6 +160532,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutSessionInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutSessionInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutAcademicSessionInput
+    idCards?: IdCardCreateNestedManyWithoutSessionInput
   }
 
   export type AcademicSessionUncheckedCreateWithoutBehaviouralRatingsInput = {
@@ -154117,6 +160548,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutSessionInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutSessionInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutAcademicSessionInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutSessionInput
   }
 
   export type AcademicSessionCreateOrConnectWithoutBehaviouralRatingsInput = {
@@ -154192,6 +160624,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUpdateOneWithoutStudentNestedInput
     category?: StudentCategoryUpdateOneWithoutStudentsNestedInput
   }
@@ -154254,6 +160687,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUncheckedUpdateOneWithoutStudentNestedInput
   }
 
@@ -154281,6 +160715,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutSessionNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutSessionNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutAcademicSessionNestedInput
+    idCards?: IdCardUpdateManyWithoutSessionNestedInput
   }
 
   export type AcademicSessionUncheckedUpdateWithoutBehaviouralRatingsInput = {
@@ -154296,6 +160731,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutSessionNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutSessionNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutAcademicSessionNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutSessionNestedInput
   }
 
   export type StudentCreateWithoutResultSummariesInput = {
@@ -154355,6 +160791,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueCreateNestedManyWithoutStudentInput
+    idCards?: IdCardCreateNestedManyWithoutStudentInput
     alumni?: AlumniCreateNestedOneWithoutStudentInput
     category?: StudentCategoryCreateNestedOneWithoutStudentsInput
   }
@@ -154417,6 +160854,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutStudentInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStudentInput
     alumni?: AlumniUncheckedCreateNestedOneWithoutStudentInput
   }
 
@@ -154438,6 +160876,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutSessionInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutSessionInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutAcademicSessionInput
+    idCards?: IdCardCreateNestedManyWithoutSessionInput
   }
 
   export type AcademicSessionUncheckedCreateWithoutResultSummariesInput = {
@@ -154453,6 +160892,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutSessionInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutSessionInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutAcademicSessionInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutSessionInput
   }
 
   export type AcademicSessionCreateOrConnectWithoutResultSummariesInput = {
@@ -154528,6 +160968,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUpdateOneWithoutStudentNestedInput
     category?: StudentCategoryUpdateOneWithoutStudentsNestedInput
   }
@@ -154590,6 +161031,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUncheckedUpdateOneWithoutStudentNestedInput
   }
 
@@ -154617,6 +161059,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutSessionNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutSessionNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutAcademicSessionNestedInput
+    idCards?: IdCardUpdateManyWithoutSessionNestedInput
   }
 
   export type AcademicSessionUncheckedUpdateWithoutResultSummariesInput = {
@@ -154632,6 +161075,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutSessionNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutSessionNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutAcademicSessionNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutSessionNestedInput
   }
 
   export type UserCreateWithoutAuditLogsInput = {
@@ -154656,6 +161100,7 @@ export namespace Prisma {
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
     eventRSVPs?: EventRSVPCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutParentInput
   }
 
   export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -154680,6 +161125,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     eventRSVPs?: EventRSVPUncheckedCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutParentInput
   }
 
   export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -154720,6 +161166,7 @@ export namespace Prisma {
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
     eventRSVPs?: EventRSVPUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutParentNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -154744,6 +161191,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     eventRSVPs?: EventRSVPUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutParentNestedInput
   }
 
   export type BranchCreateWithoutExpenseCategoriesInput = {
@@ -154768,6 +161216,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -154794,6 +161243,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -154820,6 +161270,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -154846,6 +161297,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -154926,6 +161378,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -154952,6 +161405,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -154978,6 +161432,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -155004,6 +161459,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -155069,6 +161525,7 @@ export namespace Prisma {
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
     eventRSVPs?: EventRSVPCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutParentInput
   }
 
   export type UserUncheckedCreateWithoutApprovedVouchersInput = {
@@ -155093,6 +161550,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     eventRSVPs?: EventRSVPUncheckedCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutParentInput
   }
 
   export type UserCreateOrConnectWithoutApprovedVouchersInput = {
@@ -155122,6 +161580,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -155148,6 +161607,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -155174,6 +161634,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -155200,6 +161661,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -155271,6 +161733,7 @@ export namespace Prisma {
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
     eventRSVPs?: EventRSVPUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutParentNestedInput
   }
 
   export type UserUncheckedUpdateWithoutApprovedVouchersInput = {
@@ -155295,6 +161758,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     eventRSVPs?: EventRSVPUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutParentNestedInput
   }
 
   export type BranchUpsertWithoutVouchersInput = {
@@ -155330,6 +161794,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -155356,6 +161821,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -155382,6 +161848,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -155408,6 +161875,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -155434,6 +161902,7 @@ export namespace Prisma {
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -155460,6 +161929,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -155486,6 +161956,7 @@ export namespace Prisma {
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -155512,6 +161983,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -155539,6 +162011,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryCreateNestedManyWithoutStaffInput
     assignments?: AssignmentCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionCreateNestedManyWithoutHostInput
+    idCards?: IdCardCreateNestedManyWithoutStaffInput
   }
 
   export type StaffUncheckedCreateWithoutDepartmentInput = {
@@ -155559,6 +162032,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUncheckedCreateNestedManyWithoutStaffInput
     assignments?: AssignmentUncheckedCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutHostInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStaffInput
   }
 
   export type StaffCreateOrConnectWithoutDepartmentInput = {
@@ -155604,6 +162078,7 @@ export namespace Prisma {
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -155630,6 +162105,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -155656,6 +162132,7 @@ export namespace Prisma {
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -155682,6 +162159,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -155724,6 +162202,7 @@ export namespace Prisma {
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -155750,6 +162229,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -155776,6 +162256,7 @@ export namespace Prisma {
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -155802,6 +162283,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -155829,6 +162311,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryCreateNestedManyWithoutStaffInput
     assignments?: AssignmentCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionCreateNestedManyWithoutHostInput
+    idCards?: IdCardCreateNestedManyWithoutStaffInput
   }
 
   export type StaffUncheckedCreateWithoutDesignationRefInput = {
@@ -155849,6 +162332,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUncheckedCreateNestedManyWithoutStaffInput
     assignments?: AssignmentUncheckedCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutHostInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStaffInput
   }
 
   export type StaffCreateOrConnectWithoutDesignationRefInput = {
@@ -155894,6 +162378,7 @@ export namespace Prisma {
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -155920,6 +162405,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -155946,6 +162432,7 @@ export namespace Prisma {
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -155972,6 +162459,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -156015,6 +162503,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
     studentCategories?: StudentCategoryCreateNestedManyWithoutBranchInput
@@ -156040,6 +162529,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -156067,6 +162557,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
     studentCategories?: StudentCategoryUncheckedCreateNestedManyWithoutBranchInput
@@ -156092,6 +162583,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -156169,6 +162661,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
     studentCategories?: StudentCategoryUpdateManyWithoutBranchNestedInput
@@ -156194,6 +162687,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -156221,6 +162715,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
     studentCategories?: StudentCategoryUncheckedUpdateManyWithoutBranchNestedInput
@@ -156246,6 +162741,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -156358,6 +162854,7 @@ export namespace Prisma {
     certificates?: CertificateCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueCreateNestedManyWithoutStudentInput
+    idCards?: IdCardCreateNestedManyWithoutStudentInput
     alumni?: AlumniCreateNestedOneWithoutStudentInput
     category?: StudentCategoryCreateNestedOneWithoutStudentsInput
   }
@@ -156420,6 +162917,7 @@ export namespace Prisma {
     certificates?: CertificateUncheckedCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutStudentInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStudentInput
     alumni?: AlumniUncheckedCreateNestedOneWithoutStudentInput
   }
 
@@ -156565,6 +163063,7 @@ export namespace Prisma {
     certificates?: CertificateUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUpdateOneWithoutStudentNestedInput
     category?: StudentCategoryUpdateOneWithoutStudentsNestedInput
   }
@@ -156627,6 +163126,7 @@ export namespace Prisma {
     certificates?: CertificateUncheckedUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUncheckedUpdateOneWithoutStudentNestedInput
   }
 
@@ -156741,6 +163241,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryCreateNestedManyWithoutStaffInput
     assignments?: AssignmentCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionCreateNestedManyWithoutHostInput
+    idCards?: IdCardCreateNestedManyWithoutStaffInput
   }
 
   export type StaffUncheckedCreateWithoutSalaryTemplateInput = {
@@ -156761,6 +163262,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUncheckedCreateNestedManyWithoutStaffInput
     assignments?: AssignmentUncheckedCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutHostInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStaffInput
   }
 
   export type StaffCreateOrConnectWithoutSalaryTemplateInput = {
@@ -156797,6 +163299,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUpdateManyWithoutStaffNestedInput
     assignments?: AssignmentUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUpdateManyWithoutHostNestedInput
+    idCards?: IdCardUpdateManyWithoutStaffNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutSalaryTemplateInput = {
@@ -156817,6 +163320,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUncheckedUpdateManyWithoutStaffNestedInput
     assignments?: AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUncheckedUpdateManyWithoutHostNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStaffNestedInput
   }
 
   export type StaffCreateWithoutPayrollsInput = {
@@ -156837,6 +163341,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryCreateNestedManyWithoutStaffInput
     assignments?: AssignmentCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionCreateNestedManyWithoutHostInput
+    idCards?: IdCardCreateNestedManyWithoutStaffInput
   }
 
   export type StaffUncheckedCreateWithoutPayrollsInput = {
@@ -156857,6 +163362,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUncheckedCreateNestedManyWithoutStaffInput
     assignments?: AssignmentUncheckedCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutHostInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStaffInput
   }
 
   export type StaffCreateOrConnectWithoutPayrollsInput = {
@@ -156893,6 +163399,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUpdateManyWithoutStaffNestedInput
     assignments?: AssignmentUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUpdateManyWithoutHostNestedInput
+    idCards?: IdCardUpdateManyWithoutStaffNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutPayrollsInput = {
@@ -156913,6 +163420,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUncheckedUpdateManyWithoutStaffNestedInput
     assignments?: AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUncheckedUpdateManyWithoutHostNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStaffNestedInput
   }
 
   export type StaffCreateWithoutLeaveRequestsInput = {
@@ -156933,6 +163441,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryCreateNestedManyWithoutStaffInput
     assignments?: AssignmentCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionCreateNestedManyWithoutHostInput
+    idCards?: IdCardCreateNestedManyWithoutStaffInput
   }
 
   export type StaffUncheckedCreateWithoutLeaveRequestsInput = {
@@ -156953,6 +163462,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUncheckedCreateNestedManyWithoutStaffInput
     assignments?: AssignmentUncheckedCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutHostInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStaffInput
   }
 
   export type StaffCreateOrConnectWithoutLeaveRequestsInput = {
@@ -156989,6 +163499,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUpdateManyWithoutStaffNestedInput
     assignments?: AssignmentUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUpdateManyWithoutHostNestedInput
+    idCards?: IdCardUpdateManyWithoutStaffNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutLeaveRequestsInput = {
@@ -157009,6 +163520,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUncheckedUpdateManyWithoutStaffNestedInput
     assignments?: AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUncheckedUpdateManyWithoutHostNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStaffNestedInput
   }
 
   export type StaffCreateWithoutAwardsInput = {
@@ -157029,6 +163541,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryCreateNestedManyWithoutStaffInput
     assignments?: AssignmentCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionCreateNestedManyWithoutHostInput
+    idCards?: IdCardCreateNestedManyWithoutStaffInput
   }
 
   export type StaffUncheckedCreateWithoutAwardsInput = {
@@ -157049,6 +163562,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUncheckedCreateNestedManyWithoutStaffInput
     assignments?: AssignmentUncheckedCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutHostInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStaffInput
   }
 
   export type StaffCreateOrConnectWithoutAwardsInput = {
@@ -157085,6 +163599,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUpdateManyWithoutStaffNestedInput
     assignments?: AssignmentUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUpdateManyWithoutHostNestedInput
+    idCards?: IdCardUpdateManyWithoutStaffNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutAwardsInput = {
@@ -157105,6 +163620,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUncheckedUpdateManyWithoutStaffNestedInput
     assignments?: AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUncheckedUpdateManyWithoutHostNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStaffNestedInput
   }
 
   export type StaffCreateWithoutSalaryAdvancesInput = {
@@ -157125,6 +163641,7 @@ export namespace Prisma {
     awards?: StaffAwardCreateNestedManyWithoutStaffInput
     assignments?: AssignmentCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionCreateNestedManyWithoutHostInput
+    idCards?: IdCardCreateNestedManyWithoutStaffInput
   }
 
   export type StaffUncheckedCreateWithoutSalaryAdvancesInput = {
@@ -157145,6 +163662,7 @@ export namespace Prisma {
     awards?: StaffAwardUncheckedCreateNestedManyWithoutStaffInput
     assignments?: AssignmentUncheckedCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutHostInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStaffInput
   }
 
   export type StaffCreateOrConnectWithoutSalaryAdvancesInput = {
@@ -157181,6 +163699,7 @@ export namespace Prisma {
     awards?: StaffAwardUpdateManyWithoutStaffNestedInput
     assignments?: AssignmentUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUpdateManyWithoutHostNestedInput
+    idCards?: IdCardUpdateManyWithoutStaffNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutSalaryAdvancesInput = {
@@ -157201,6 +163720,7 @@ export namespace Prisma {
     awards?: StaffAwardUncheckedUpdateManyWithoutStaffNestedInput
     assignments?: AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUncheckedUpdateManyWithoutHostNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStaffNestedInput
   }
 
   export type BranchCreateWithoutGoogleMeetConfigInput = {
@@ -157226,6 +163746,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
     studentCategories?: StudentCategoryCreateNestedManyWithoutBranchInput
@@ -157251,6 +163772,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -157278,6 +163800,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
     studentCategories?: StudentCategoryUncheckedCreateNestedManyWithoutBranchInput
@@ -157303,6 +163826,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -157346,6 +163870,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
     studentCategories?: StudentCategoryUpdateManyWithoutBranchNestedInput
@@ -157371,6 +163896,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -157398,6 +163924,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
     studentCategories?: StudentCategoryUncheckedUpdateManyWithoutBranchNestedInput
@@ -157423,6 +163950,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -157544,6 +164072,7 @@ export namespace Prisma {
     awards?: StaffAwardCreateNestedManyWithoutStaffInput
     salaryAdvances?: AdvanceSalaryCreateNestedManyWithoutStaffInput
     assignments?: AssignmentCreateNestedManyWithoutTeacherInput
+    idCards?: IdCardCreateNestedManyWithoutStaffInput
   }
 
   export type StaffUncheckedCreateWithoutHostedSessionsInput = {
@@ -157564,6 +164093,7 @@ export namespace Prisma {
     awards?: StaffAwardUncheckedCreateNestedManyWithoutStaffInput
     salaryAdvances?: AdvanceSalaryUncheckedCreateNestedManyWithoutStaffInput
     assignments?: AssignmentUncheckedCreateNestedManyWithoutTeacherInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStaffInput
   }
 
   export type StaffCreateOrConnectWithoutHostedSessionsInput = {
@@ -157624,6 +164154,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     studentCategories?: StudentCategoryCreateNestedManyWithoutBranchInput
@@ -157649,6 +164180,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -157676,6 +164208,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     studentCategories?: StudentCategoryUncheckedCreateNestedManyWithoutBranchInput
@@ -157701,6 +164234,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -157856,6 +164390,7 @@ export namespace Prisma {
     awards?: StaffAwardUpdateManyWithoutStaffNestedInput
     salaryAdvances?: AdvanceSalaryUpdateManyWithoutStaffNestedInput
     assignments?: AssignmentUpdateManyWithoutTeacherNestedInput
+    idCards?: IdCardUpdateManyWithoutStaffNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutHostedSessionsInput = {
@@ -157876,6 +164411,7 @@ export namespace Prisma {
     awards?: StaffAwardUncheckedUpdateManyWithoutStaffNestedInput
     salaryAdvances?: AdvanceSalaryUncheckedUpdateManyWithoutStaffNestedInput
     assignments?: AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStaffNestedInput
   }
 
   export type MeetingParticipantUpsertWithWhereUniqueWithoutSessionInput = {
@@ -157928,6 +164464,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     studentCategories?: StudentCategoryUpdateManyWithoutBranchNestedInput
@@ -157953,6 +164490,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -157980,6 +164518,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     studentCategories?: StudentCategoryUncheckedUpdateManyWithoutBranchNestedInput
@@ -158005,6 +164544,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -158080,6 +164620,7 @@ export namespace Prisma {
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
     eventRSVPs?: EventRSVPCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutParentInput
   }
 
   export type UserUncheckedCreateWithoutMeetingParticipationsInput = {
@@ -158104,6 +164645,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     eventRSVPs?: EventRSVPUncheckedCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutParentInput
   }
 
   export type UserCreateOrConnectWithoutMeetingParticipationsInput = {
@@ -158199,6 +164741,7 @@ export namespace Prisma {
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
     eventRSVPs?: EventRSVPUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutParentNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMeetingParticipationsInput = {
@@ -158223,6 +164766,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     eventRSVPs?: EventRSVPUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutParentNestedInput
   }
 
   export type BranchCreateWithoutStudentCategoriesInput = {
@@ -158248,6 +164792,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -158273,6 +164818,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -158300,6 +164846,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -158325,6 +164872,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -158392,6 +164940,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueCreateNestedManyWithoutStudentInput
+    idCards?: IdCardCreateNestedManyWithoutStudentInput
     alumni?: AlumniCreateNestedOneWithoutStudentInput
   }
 
@@ -158453,6 +165002,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutStudentInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStudentInput
     alumni?: AlumniUncheckedCreateNestedOneWithoutStudentInput
   }
 
@@ -158548,6 +165098,7 @@ export namespace Prisma {
     desiredClass: ClassCreateNestedOneWithoutOnlineAdmissionsInput
     desiredSection?: SectionCreateNestedOneWithoutOnlineAdmissionsInput
     branch: BranchCreateNestedOneWithoutOnlineAdmissionsInput
+    parent?: UserCreateNestedOneWithoutOnlineAdmissionsInput
   }
 
   export type OnlineAdmissionUncheckedCreateWithoutStudentCategoryInput = {
@@ -158627,6 +165178,7 @@ export namespace Prisma {
     referralSource?: string | null
     email?: string | null
     phone?: string | null
+    parentId?: string | null
     paymentReceiptUrl?: string | null
     paymentStatus?: string
     paymentMethod?: string
@@ -158678,6 +165230,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -158703,6 +165256,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -158730,6 +165284,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -158755,6 +165310,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -158804,6 +165360,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutSessionInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutSessionInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutSessionInput
+    idCards?: IdCardCreateNestedManyWithoutSessionInput
   }
 
   export type AcademicSessionUncheckedCreateWithoutOnlineAdmissionsInput = {
@@ -158819,6 +165376,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutSessionInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutSessionInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutSessionInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutSessionInput
   }
 
   export type AcademicSessionCreateOrConnectWithoutOnlineAdmissionsInput = {
@@ -158917,6 +165475,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -158942,6 +165501,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -158969,6 +165529,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -158994,6 +165555,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -159028,6 +165590,61 @@ export namespace Prisma {
     create: XOR<StudentCategoryCreateWithoutOnlineAdmissionsInput, StudentCategoryUncheckedCreateWithoutOnlineAdmissionsInput>
   }
 
+  export type UserCreateWithoutOnlineAdmissionsInput = {
+    id?: string
+    email: string
+    password: string
+    firstName: string
+    lastName: string
+    phone?: string | null
+    isActive?: boolean
+    role: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    branch?: BranchCreateNestedOneWithoutUsersInput
+    staff?: StaffCreateNestedOneWithoutUserInput
+    student?: StudentCreateNestedOneWithoutUserInput
+    children?: StudentCreateNestedManyWithoutParentInput
+    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
+    approvedVouchers?: VoucherCreateNestedManyWithoutApprovedByInput
+    issuedCertificates?: CertificateCreateNestedManyWithoutIssuedByInput
+    meetingParticipations?: MeetingParticipantCreateNestedManyWithoutUserInput
+    conversationParticipations?: ConversationParticipantCreateNestedManyWithoutUserInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    eventRSVPs?: EventRSVPCreateNestedManyWithoutUserInput
+    accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutOnlineAdmissionsInput = {
+    id?: string
+    email: string
+    password: string
+    firstName: string
+    lastName: string
+    phone?: string | null
+    isActive?: boolean
+    role: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    branchId?: string | null
+    staff?: StaffUncheckedCreateNestedOneWithoutUserInput
+    student?: StudentUncheckedCreateNestedOneWithoutUserInput
+    children?: StudentUncheckedCreateNestedManyWithoutParentInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    approvedVouchers?: VoucherUncheckedCreateNestedManyWithoutApprovedByInput
+    issuedCertificates?: CertificateUncheckedCreateNestedManyWithoutIssuedByInput
+    meetingParticipations?: MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
+    conversationParticipations?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    eventRSVPs?: EventRSVPUncheckedCreateNestedManyWithoutUserInput
+    accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutOnlineAdmissionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutOnlineAdmissionsInput, UserUncheckedCreateWithoutOnlineAdmissionsInput>
+  }
+
   export type AcademicSessionUpsertWithoutOnlineAdmissionsInput = {
     update: XOR<AcademicSessionUpdateWithoutOnlineAdmissionsInput, AcademicSessionUncheckedUpdateWithoutOnlineAdmissionsInput>
     create: XOR<AcademicSessionCreateWithoutOnlineAdmissionsInput, AcademicSessionUncheckedCreateWithoutOnlineAdmissionsInput>
@@ -159052,6 +165669,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutSessionNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutSessionNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutSessionNestedInput
+    idCards?: IdCardUpdateManyWithoutSessionNestedInput
   }
 
   export type AcademicSessionUncheckedUpdateWithoutOnlineAdmissionsInput = {
@@ -159067,6 +165685,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutSessionNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutSessionNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutSessionNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutSessionNestedInput
   }
 
   export type ClassUpsertWithoutOnlineAdmissionsInput = {
@@ -159183,6 +165802,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -159208,6 +165828,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -159235,6 +165856,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -159260,6 +165882,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -159295,6 +165918,67 @@ export namespace Prisma {
     students?: StudentUncheckedUpdateManyWithoutCategoryNestedInput
   }
 
+  export type UserUpsertWithoutOnlineAdmissionsInput = {
+    update: XOR<UserUpdateWithoutOnlineAdmissionsInput, UserUncheckedUpdateWithoutOnlineAdmissionsInput>
+    create: XOR<UserCreateWithoutOnlineAdmissionsInput, UserUncheckedCreateWithoutOnlineAdmissionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutOnlineAdmissionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutOnlineAdmissionsInput, UserUncheckedUpdateWithoutOnlineAdmissionsInput>
+  }
+
+  export type UserUpdateWithoutOnlineAdmissionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneWithoutUsersNestedInput
+    staff?: StaffUpdateOneWithoutUserNestedInput
+    student?: StudentUpdateOneWithoutUserNestedInput
+    children?: StudentUpdateManyWithoutParentNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
+    approvedVouchers?: VoucherUpdateManyWithoutApprovedByNestedInput
+    issuedCertificates?: CertificateUpdateManyWithoutIssuedByNestedInput
+    meetingParticipations?: MeetingParticipantUpdateManyWithoutUserNestedInput
+    conversationParticipations?: ConversationParticipantUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    eventRSVPs?: EventRSVPUpdateManyWithoutUserNestedInput
+    accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutOnlineAdmissionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    staff?: StaffUncheckedUpdateOneWithoutUserNestedInput
+    student?: StudentUncheckedUpdateOneWithoutUserNestedInput
+    children?: StudentUncheckedUpdateManyWithoutParentNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    approvedVouchers?: VoucherUncheckedUpdateManyWithoutApprovedByNestedInput
+    issuedCertificates?: CertificateUncheckedUpdateManyWithoutIssuedByNestedInput
+    meetingParticipations?: MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
+    conversationParticipations?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    eventRSVPs?: EventRSVPUncheckedUpdateManyWithoutUserNestedInput
+    accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type BranchCreateWithoutEnquiriesInput = {
     id?: string
     name: string
@@ -159318,6 +166002,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -159343,6 +166028,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -159370,6 +166056,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -159395,6 +166082,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -159438,6 +166126,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -159463,6 +166152,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -159490,6 +166180,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -159515,6 +166206,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -159542,6 +166234,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -159567,6 +166260,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -159594,6 +166288,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -159619,6 +166314,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -159662,6 +166358,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -159687,6 +166384,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -159714,6 +166412,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -159739,6 +166438,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -159766,6 +166466,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -159791,6 +166492,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -159818,6 +166520,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -159843,6 +166546,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -159886,6 +166590,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -159911,6 +166616,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -159938,6 +166644,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -159963,6 +166670,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -159990,6 +166698,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -160015,6 +166724,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -160042,6 +166752,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -160067,6 +166778,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -160110,6 +166822,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -160135,6 +166848,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -160162,6 +166876,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -160187,6 +166902,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -160214,6 +166930,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -160239,6 +166956,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -160266,6 +166984,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -160291,6 +167010,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -160334,6 +167054,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -160359,6 +167080,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -160386,6 +167108,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -160411,6 +167134,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -160438,6 +167162,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -160463,6 +167188,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -160490,6 +167216,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -160515,6 +167242,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -160600,6 +167328,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -160625,6 +167354,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -160652,6 +167382,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -160677,6 +167408,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -160720,6 +167452,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -160745,6 +167478,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -160772,6 +167506,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -160797,6 +167532,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -160882,6 +167618,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -160907,6 +167644,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -160934,6 +167672,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -160959,6 +167698,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -161002,6 +167742,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -161027,6 +167768,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -161054,6 +167796,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -161079,6 +167822,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -161158,6 +167902,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -161183,6 +167928,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -161210,6 +167956,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -161235,6 +167982,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -161278,6 +168026,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -161303,6 +168052,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -161330,6 +168080,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -161355,6 +168106,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -161440,6 +168192,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -161465,6 +168218,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -161492,6 +168246,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -161517,6 +168272,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -161735,6 +168491,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -161760,6 +168517,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -161787,6 +168545,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -161812,6 +168571,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -161986,6 +168746,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -162011,6 +168772,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -162038,6 +168800,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -162063,6 +168826,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -162156,6 +168920,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -162181,6 +168946,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -162208,6 +168974,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -162233,6 +169000,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -162354,6 +169122,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -162379,6 +169148,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -162406,6 +169176,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -162431,6 +169202,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -162495,6 +169267,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -162520,6 +169293,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -162547,6 +169321,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -162572,6 +169347,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -162658,6 +169434,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -162683,6 +169460,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -162710,6 +169488,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -162735,6 +169514,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -162794,6 +169574,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryCreateNestedManyWithoutStaffInput
     assignments?: AssignmentCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionCreateNestedManyWithoutHostInput
+    idCards?: IdCardCreateNestedManyWithoutStaffInput
   }
 
   export type StaffUncheckedCreateWithoutInventoryIssuesInput = {
@@ -162814,6 +169595,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUncheckedCreateNestedManyWithoutStaffInput
     assignments?: AssignmentUncheckedCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutHostInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStaffInput
   }
 
   export type StaffCreateOrConnectWithoutInventoryIssuesInput = {
@@ -162878,6 +169660,7 @@ export namespace Prisma {
     certificates?: CertificateCreateNestedManyWithoutStudentInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptCreateNestedManyWithoutStudentInput
+    idCards?: IdCardCreateNestedManyWithoutStudentInput
     alumni?: AlumniCreateNestedOneWithoutStudentInput
     category?: StudentCategoryCreateNestedOneWithoutStudentsInput
   }
@@ -162940,6 +169723,7 @@ export namespace Prisma {
     certificates?: CertificateUncheckedCreateNestedManyWithoutStudentInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedCreateNestedManyWithoutStudentInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStudentInput
     alumni?: AlumniUncheckedCreateNestedOneWithoutStudentInput
   }
 
@@ -162971,6 +169755,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -162996,6 +169781,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -163023,6 +169809,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -163048,6 +169835,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -163129,6 +169917,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUpdateManyWithoutStaffNestedInput
     assignments?: AssignmentUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUpdateManyWithoutHostNestedInput
+    idCards?: IdCardUpdateManyWithoutStaffNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutInventoryIssuesInput = {
@@ -163149,6 +169938,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUncheckedUpdateManyWithoutStaffNestedInput
     assignments?: AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUncheckedUpdateManyWithoutHostNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStaffNestedInput
   }
 
   export type StudentUpsertWithoutInventoryIssuesInput = {
@@ -163219,6 +170009,7 @@ export namespace Prisma {
     certificates?: CertificateUpdateManyWithoutStudentNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUpdateOneWithoutStudentNestedInput
     category?: StudentCategoryUpdateOneWithoutStudentsNestedInput
   }
@@ -163281,6 +170072,7 @@ export namespace Prisma {
     certificates?: CertificateUncheckedUpdateManyWithoutStudentNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUncheckedUpdateOneWithoutStudentNestedInput
   }
 
@@ -163318,6 +170110,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -163343,6 +170136,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -163370,6 +170164,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -163395,6 +170190,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -163457,6 +170253,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueCreateNestedManyWithoutStudentInput
+    idCards?: IdCardCreateNestedManyWithoutStudentInput
     category?: StudentCategoryCreateNestedOneWithoutStudentsInput
   }
 
@@ -163519,6 +170316,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutStudentInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedCreateNestedManyWithoutStudentInput
     inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutStudentInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStudentInput
   }
 
   export type StudentCreateOrConnectWithoutAlumniInput = {
@@ -163575,6 +170373,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -163600,6 +170399,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -163627,6 +170427,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -163652,6 +170453,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -163730,6 +170532,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUpdateManyWithoutStudentNestedInput
     category?: StudentCategoryUpdateOneWithoutStudentsNestedInput
   }
 
@@ -163792,6 +170595,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStudentNestedInput
   }
 
   export type AlumniEventParticipantUpsertWithWhereUniqueWithoutAlumniInput = {
@@ -163856,6 +170660,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -163881,6 +170686,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -163908,6 +170714,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -163933,6 +170740,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -163986,6 +170794,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -164011,6 +170820,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -164038,6 +170848,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -164063,6 +170874,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -164122,6 +170934,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -164147,6 +170960,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -164174,6 +170988,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -164199,6 +171014,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -164420,6 +171236,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -164445,6 +171262,7 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -164472,6 +171290,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -164497,6 +171316,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -164572,6 +171392,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -164597,6 +171418,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -164624,6 +171446,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -164649,6 +171472,7 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -164700,6 +171524,7 @@ export namespace Prisma {
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
     eventRSVPs?: EventRSVPCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutParentInput
   }
 
   export type UserUncheckedCreateWithoutConversationParticipationsInput = {
@@ -164724,6 +171549,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     eventRSVPs?: EventRSVPUncheckedCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutParentInput
   }
 
   export type UserCreateOrConnectWithoutConversationParticipationsInput = {
@@ -164795,6 +171621,7 @@ export namespace Prisma {
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
     eventRSVPs?: EventRSVPUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutParentNestedInput
   }
 
   export type UserUncheckedUpdateWithoutConversationParticipationsInput = {
@@ -164819,6 +171646,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     eventRSVPs?: EventRSVPUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutParentNestedInput
   }
 
   export type ConversationCreateWithoutMessagesInput = {
@@ -164868,6 +171696,7 @@ export namespace Prisma {
     conversationParticipations?: ConversationParticipantCreateNestedManyWithoutUserInput
     eventRSVPs?: EventRSVPCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutParentInput
   }
 
   export type UserUncheckedCreateWithoutSentMessagesInput = {
@@ -164892,6 +171721,7 @@ export namespace Prisma {
     conversationParticipations?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
     eventRSVPs?: EventRSVPUncheckedCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutParentInput
   }
 
   export type UserCreateOrConnectWithoutSentMessagesInput = {
@@ -164963,6 +171793,7 @@ export namespace Prisma {
     conversationParticipations?: ConversationParticipantUpdateManyWithoutUserNestedInput
     eventRSVPs?: EventRSVPUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutParentNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSentMessagesInput = {
@@ -164987,6 +171818,7 @@ export namespace Prisma {
     conversationParticipations?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
     eventRSVPs?: EventRSVPUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutParentNestedInput
   }
 
   export type EventRSVPCreateWithoutEventInput = {
@@ -165038,6 +171870,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -165063,6 +171896,7 @@ export namespace Prisma {
     conversations?: ConversationCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -165090,6 +171924,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -165115,6 +171950,7 @@ export namespace Prisma {
     conversations?: ConversationUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -165174,6 +172010,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -165199,6 +172036,7 @@ export namespace Prisma {
     conversations?: ConversationUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -165226,6 +172064,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -165251,6 +172090,7 @@ export namespace Prisma {
     conversations?: ConversationUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -165312,6 +172152,7 @@ export namespace Prisma {
     conversationParticipations?: ConversationParticipantCreateNestedManyWithoutUserInput
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutParentInput
   }
 
   export type UserUncheckedCreateWithoutEventRSVPsInput = {
@@ -165336,6 +172177,7 @@ export namespace Prisma {
     conversationParticipations?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutParentInput
   }
 
   export type UserCreateOrConnectWithoutEventRSVPsInput = {
@@ -165417,6 +172259,7 @@ export namespace Prisma {
     conversationParticipations?: ConversationParticipantUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutParentNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEventRSVPsInput = {
@@ -165441,6 +172284,7 @@ export namespace Prisma {
     conversationParticipations?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutParentNestedInput
   }
 
   export type UserCreateWithoutAccessLogsInput = {
@@ -165465,6 +172309,7 @@ export namespace Prisma {
     conversationParticipations?: ConversationParticipantCreateNestedManyWithoutUserInput
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
     eventRSVPs?: EventRSVPCreateNestedManyWithoutUserInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutParentInput
   }
 
   export type UserUncheckedCreateWithoutAccessLogsInput = {
@@ -165489,6 +172334,7 @@ export namespace Prisma {
     conversationParticipations?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     eventRSVPs?: EventRSVPUncheckedCreateNestedManyWithoutUserInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutParentInput
   }
 
   export type UserCreateOrConnectWithoutAccessLogsInput = {
@@ -165519,6 +172365,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -165544,6 +172391,7 @@ export namespace Prisma {
     conversations?: ConversationCreateNestedManyWithoutBranchInput
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -165571,6 +172419,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -165596,6 +172445,7 @@ export namespace Prisma {
     conversations?: ConversationUncheckedCreateNestedManyWithoutBranchInput
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -165638,6 +172488,7 @@ export namespace Prisma {
     conversationParticipations?: ConversationParticipantUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
     eventRSVPs?: EventRSVPUpdateManyWithoutUserNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutParentNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccessLogsInput = {
@@ -165662,6 +172513,7 @@ export namespace Prisma {
     conversationParticipations?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     eventRSVPs?: EventRSVPUncheckedUpdateManyWithoutUserNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutParentNestedInput
   }
 
   export type BranchUpsertWithoutAccessLogsInput = {
@@ -165698,6 +172550,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -165723,6 +172576,7 @@ export namespace Prisma {
     conversations?: ConversationUpdateManyWithoutBranchNestedInput
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -165750,6 +172604,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -165775,6 +172630,7 @@ export namespace Prisma {
     conversations?: ConversationUncheckedUpdateManyWithoutBranchNestedInput
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
@@ -165802,6 +172658,7 @@ export namespace Prisma {
     departments?: DepartmentCreateNestedManyWithoutBranchInput
     designations?: DesignationCreateNestedManyWithoutBranchInput
     certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
     books?: BookCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
@@ -165827,6 +172684,7 @@ export namespace Prisma {
     conversations?: ConversationCreateNestedManyWithoutBranchInput
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
   }
@@ -165854,6 +172712,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
     designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
     books?: BookUncheckedCreateNestedManyWithoutBranchInput
     googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
@@ -165879,6 +172738,7 @@ export namespace Prisma {
     conversations?: ConversationUncheckedCreateNestedManyWithoutBranchInput
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
   }
@@ -165922,6 +172782,7 @@ export namespace Prisma {
     departments?: DepartmentUpdateManyWithoutBranchNestedInput
     designations?: DesignationUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
     books?: BookUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
@@ -165947,6 +172808,7 @@ export namespace Prisma {
     conversations?: ConversationUpdateManyWithoutBranchNestedInput
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
   }
@@ -165974,6 +172836,7 @@ export namespace Prisma {
     departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
     designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
     books?: BookUncheckedUpdateManyWithoutBranchNestedInput
     googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
@@ -165999,8 +172862,793 @@ export namespace Prisma {
     conversations?: ConversationUncheckedUpdateManyWithoutBranchNestedInput
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+  }
+
+  export type BranchCreateWithoutIdCardTemplatesInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserCreateNestedManyWithoutBranchInput
+    students?: StudentCreateNestedManyWithoutBranchInput
+    classes?: ClassCreateNestedManyWithoutBranchInput
+    subjects?: SubjectCreateNestedManyWithoutBranchInput
+    hostels?: HostelCreateNestedManyWithoutBranchInput
+    feeCategories?: FeeCategoryCreateNestedManyWithoutBranchInput
+    vehicles?: VehicleCreateNestedManyWithoutBranchInput
+    routes?: TransportRouteCreateNestedManyWithoutBranchInput
+    expenseCategories?: ExpenseCategoryCreateNestedManyWithoutBranchInput
+    vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    departments?: DepartmentCreateNestedManyWithoutBranchInput
+    designations?: DesignationCreateNestedManyWithoutBranchInput
+    certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
+    books?: BookCreateNestedManyWithoutBranchInput
+    googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
+    liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
+    studentCategories?: StudentCategoryCreateNestedManyWithoutBranchInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutBranchInput
+    questionGroups?: QuestionGroupCreateNestedManyWithoutBranchInput
+    onlineExams?: OnlineExamCreateNestedManyWithoutBranchInput
+    enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
+    callLogs?: CallLogCreateNestedManyWithoutBranchInput
+    visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
+    complaints?: ComplaintCreateNestedManyWithoutBranchInput
+    postalRecords?: PostalRecordCreateNestedManyWithoutBranchInput
+    inventoryCategories?: InventoryCategoryCreateNestedManyWithoutBranchInput
+    inventoryStores?: InventoryStoreCreateNestedManyWithoutBranchInput
+    inventorySuppliers?: InventorySupplierCreateNestedManyWithoutBranchInput
+    inventoryUnits?: InventoryUnitCreateNestedManyWithoutBranchInput
+    inventoryProducts?: InventoryProductCreateNestedManyWithoutBranchInput
+    inventoryPurchases?: InventoryPurchaseCreateNestedManyWithoutBranchInput
+    inventorySales?: InventorySaleCreateNestedManyWithoutBranchInput
+    inventoryIssues?: InventoryIssueCreateNestedManyWithoutBranchInput
+    alumni?: AlumniCreateNestedManyWithoutBranchInput
+    alumniEvents?: AlumniEventCreateNestedManyWithoutBranchInput
+    conversations?: ConversationCreateNestedManyWithoutBranchInput
+    campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
+    accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
+    automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+  }
+
+  export type BranchUncheckedCreateWithoutIdCardTemplatesInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutBranchInput
+    students?: StudentUncheckedCreateNestedManyWithoutBranchInput
+    classes?: ClassUncheckedCreateNestedManyWithoutBranchInput
+    subjects?: SubjectUncheckedCreateNestedManyWithoutBranchInput
+    hostels?: HostelUncheckedCreateNestedManyWithoutBranchInput
+    feeCategories?: FeeCategoryUncheckedCreateNestedManyWithoutBranchInput
+    vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
+    routes?: TransportRouteUncheckedCreateNestedManyWithoutBranchInput
+    expenseCategories?: ExpenseCategoryUncheckedCreateNestedManyWithoutBranchInput
+    vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
+    designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
+    certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
+    books?: BookUncheckedCreateNestedManyWithoutBranchInput
+    googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
+    liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
+    studentCategories?: StudentCategoryUncheckedCreateNestedManyWithoutBranchInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutBranchInput
+    questionGroups?: QuestionGroupUncheckedCreateNestedManyWithoutBranchInput
+    onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutBranchInput
+    enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
+    callLogs?: CallLogUncheckedCreateNestedManyWithoutBranchInput
+    visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
+    complaints?: ComplaintUncheckedCreateNestedManyWithoutBranchInput
+    postalRecords?: PostalRecordUncheckedCreateNestedManyWithoutBranchInput
+    inventoryCategories?: InventoryCategoryUncheckedCreateNestedManyWithoutBranchInput
+    inventoryStores?: InventoryStoreUncheckedCreateNestedManyWithoutBranchInput
+    inventorySuppliers?: InventorySupplierUncheckedCreateNestedManyWithoutBranchInput
+    inventoryUnits?: InventoryUnitUncheckedCreateNestedManyWithoutBranchInput
+    inventoryProducts?: InventoryProductUncheckedCreateNestedManyWithoutBranchInput
+    inventoryPurchases?: InventoryPurchaseUncheckedCreateNestedManyWithoutBranchInput
+    inventorySales?: InventorySaleUncheckedCreateNestedManyWithoutBranchInput
+    inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutBranchInput
+    alumni?: AlumniUncheckedCreateNestedManyWithoutBranchInput
+    alumniEvents?: AlumniEventUncheckedCreateNestedManyWithoutBranchInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutBranchInput
+    campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
+    accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
+    automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+  }
+
+  export type BranchCreateOrConnectWithoutIdCardTemplatesInput = {
+    where: BranchWhereUniqueInput
+    create: XOR<BranchCreateWithoutIdCardTemplatesInput, BranchUncheckedCreateWithoutIdCardTemplatesInput>
+  }
+
+  export type IdCardCreateWithoutTemplateInput = {
+    id?: string
+    status?: string
+    issueDate?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    student?: StudentCreateNestedOneWithoutIdCardsInput
+    staff?: StaffCreateNestedOneWithoutIdCardsInput
+    session: AcademicSessionCreateNestedOneWithoutIdCardsInput
+  }
+
+  export type IdCardUncheckedCreateWithoutTemplateInput = {
+    id?: string
+    studentId?: string | null
+    staffId?: string | null
+    sessionId: string
+    status?: string
+    issueDate?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type IdCardCreateOrConnectWithoutTemplateInput = {
+    where: IdCardWhereUniqueInput
+    create: XOR<IdCardCreateWithoutTemplateInput, IdCardUncheckedCreateWithoutTemplateInput>
+  }
+
+  export type IdCardCreateManyTemplateInputEnvelope = {
+    data: IdCardCreateManyTemplateInput | IdCardCreateManyTemplateInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BranchUpsertWithoutIdCardTemplatesInput = {
+    update: XOR<BranchUpdateWithoutIdCardTemplatesInput, BranchUncheckedUpdateWithoutIdCardTemplatesInput>
+    create: XOR<BranchCreateWithoutIdCardTemplatesInput, BranchUncheckedCreateWithoutIdCardTemplatesInput>
+    where?: BranchWhereInput
+  }
+
+  export type BranchUpdateToOneWithWhereWithoutIdCardTemplatesInput = {
+    where?: BranchWhereInput
+    data: XOR<BranchUpdateWithoutIdCardTemplatesInput, BranchUncheckedUpdateWithoutIdCardTemplatesInput>
+  }
+
+  export type BranchUpdateWithoutIdCardTemplatesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutBranchNestedInput
+    students?: StudentUpdateManyWithoutBranchNestedInput
+    classes?: ClassUpdateManyWithoutBranchNestedInput
+    subjects?: SubjectUpdateManyWithoutBranchNestedInput
+    hostels?: HostelUpdateManyWithoutBranchNestedInput
+    feeCategories?: FeeCategoryUpdateManyWithoutBranchNestedInput
+    vehicles?: VehicleUpdateManyWithoutBranchNestedInput
+    routes?: TransportRouteUpdateManyWithoutBranchNestedInput
+    expenseCategories?: ExpenseCategoryUpdateManyWithoutBranchNestedInput
+    vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    departments?: DepartmentUpdateManyWithoutBranchNestedInput
+    designations?: DesignationUpdateManyWithoutBranchNestedInput
+    certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
+    books?: BookUpdateManyWithoutBranchNestedInput
+    googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
+    liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
+    studentCategories?: StudentCategoryUpdateManyWithoutBranchNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutBranchNestedInput
+    questionGroups?: QuestionGroupUpdateManyWithoutBranchNestedInput
+    onlineExams?: OnlineExamUpdateManyWithoutBranchNestedInput
+    enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
+    callLogs?: CallLogUpdateManyWithoutBranchNestedInput
+    visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
+    complaints?: ComplaintUpdateManyWithoutBranchNestedInput
+    postalRecords?: PostalRecordUpdateManyWithoutBranchNestedInput
+    inventoryCategories?: InventoryCategoryUpdateManyWithoutBranchNestedInput
+    inventoryStores?: InventoryStoreUpdateManyWithoutBranchNestedInput
+    inventorySuppliers?: InventorySupplierUpdateManyWithoutBranchNestedInput
+    inventoryUnits?: InventoryUnitUpdateManyWithoutBranchNestedInput
+    inventoryProducts?: InventoryProductUpdateManyWithoutBranchNestedInput
+    inventoryPurchases?: InventoryPurchaseUpdateManyWithoutBranchNestedInput
+    inventorySales?: InventorySaleUpdateManyWithoutBranchNestedInput
+    inventoryIssues?: InventoryIssueUpdateManyWithoutBranchNestedInput
+    alumni?: AlumniUpdateManyWithoutBranchNestedInput
+    alumniEvents?: AlumniEventUpdateManyWithoutBranchNestedInput
+    conversations?: ConversationUpdateManyWithoutBranchNestedInput
+    campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
+    accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
+    automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+  }
+
+  export type BranchUncheckedUpdateWithoutIdCardTemplatesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutBranchNestedInput
+    students?: StudentUncheckedUpdateManyWithoutBranchNestedInput
+    classes?: ClassUncheckedUpdateManyWithoutBranchNestedInput
+    subjects?: SubjectUncheckedUpdateManyWithoutBranchNestedInput
+    hostels?: HostelUncheckedUpdateManyWithoutBranchNestedInput
+    feeCategories?: FeeCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
+    routes?: TransportRouteUncheckedUpdateManyWithoutBranchNestedInput
+    expenseCategories?: ExpenseCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
+    designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
+    certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    books?: BookUncheckedUpdateManyWithoutBranchNestedInput
+    googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
+    liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
+    studentCategories?: StudentCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutBranchNestedInput
+    questionGroups?: QuestionGroupUncheckedUpdateManyWithoutBranchNestedInput
+    onlineExams?: OnlineExamUncheckedUpdateManyWithoutBranchNestedInput
+    enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
+    callLogs?: CallLogUncheckedUpdateManyWithoutBranchNestedInput
+    visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
+    complaints?: ComplaintUncheckedUpdateManyWithoutBranchNestedInput
+    postalRecords?: PostalRecordUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryCategories?: InventoryCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryStores?: InventoryStoreUncheckedUpdateManyWithoutBranchNestedInput
+    inventorySuppliers?: InventorySupplierUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryUnits?: InventoryUnitUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryProducts?: InventoryProductUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryPurchases?: InventoryPurchaseUncheckedUpdateManyWithoutBranchNestedInput
+    inventorySales?: InventorySaleUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutBranchNestedInput
+    alumni?: AlumniUncheckedUpdateManyWithoutBranchNestedInput
+    alumniEvents?: AlumniEventUncheckedUpdateManyWithoutBranchNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutBranchNestedInput
+    campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
+    accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
+    automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+  }
+
+  export type IdCardUpsertWithWhereUniqueWithoutTemplateInput = {
+    where: IdCardWhereUniqueInput
+    update: XOR<IdCardUpdateWithoutTemplateInput, IdCardUncheckedUpdateWithoutTemplateInput>
+    create: XOR<IdCardCreateWithoutTemplateInput, IdCardUncheckedCreateWithoutTemplateInput>
+  }
+
+  export type IdCardUpdateWithWhereUniqueWithoutTemplateInput = {
+    where: IdCardWhereUniqueInput
+    data: XOR<IdCardUpdateWithoutTemplateInput, IdCardUncheckedUpdateWithoutTemplateInput>
+  }
+
+  export type IdCardUpdateManyWithWhereWithoutTemplateInput = {
+    where: IdCardScalarWhereInput
+    data: XOR<IdCardUpdateManyMutationInput, IdCardUncheckedUpdateManyWithoutTemplateInput>
+  }
+
+  export type StudentCreateWithoutIdCardsInput = {
+    id?: string
+    firstName: string
+    lastName: string
+    dob?: Date | string | null
+    otherNames?: string | null
+    placeOfBirth?: string | null
+    nationality?: string | null
+    stateOfOrigin?: string | null
+    lga?: string | null
+    religion?: string | null
+    passportPhoto?: string | null
+    guardianOccupation?: string | null
+    guardianOfficeAddress?: string | null
+    secondaryGuardianName?: string | null
+    secondaryGuardianPhone?: string | null
+    secondaryGuardianRelation?: string | null
+    city?: string | null
+    state?: string | null
+    country?: string | null
+    emergencyContactName?: string | null
+    emergencyContactPhone?: string | null
+    emergencyContactRelation?: string | null
+    bloodGroup?: string | null
+    genotype?: string | null
+    allergies?: string | null
+    medicalConditions?: string | null
+    specialNeeds?: string | null
+    familyDoctorName?: string | null
+    familyDoctorPhone?: string | null
+    birthCertificateUrl?: string | null
+    testimonialUrl?: string | null
+    transferCertificateUrl?: string | null
+    immunizationCardUrl?: string | null
+    preferredLanguage?: string | null
+    religionClassType?: string | null
+    scholarshipEligible?: boolean
+    referralSource?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user?: UserCreateNestedOneWithoutStudentInput
+    branch: BranchCreateNestedOneWithoutStudentsInput
+    class?: ClassCreateNestedOneWithoutStudentsInput
+    section?: SectionCreateNestedOneWithoutStudentsInput
+    parent?: UserCreateNestedOneWithoutChildrenInput
+    attendance?: AttendanceCreateNestedManyWithoutStudentInput
+    hostelAllocations?: HostelAllocationCreateNestedManyWithoutStudentInput
+    hostelLeaves?: HostelLeaveCreateNestedManyWithoutStudentInput
+    invoices?: InvoiceCreateNestedManyWithoutStudentInput
+    transportAssignment?: TransportAssignmentCreateNestedOneWithoutStudentInput
+    submissions?: SubmissionCreateNestedManyWithoutStudentInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutStudentInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutStudentInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutStudentInput
+    certificates?: CertificateCreateNestedManyWithoutStudentInput
+    borrowRecords?: BorrowRecordCreateNestedManyWithoutStudentInput
+    onlineExamAttempts?: OnlineExamAttemptCreateNestedManyWithoutStudentInput
+    inventoryIssues?: InventoryIssueCreateNestedManyWithoutStudentInput
+    alumni?: AlumniCreateNestedOneWithoutStudentInput
+    category?: StudentCategoryCreateNestedOneWithoutStudentsInput
+  }
+
+  export type StudentUncheckedCreateWithoutIdCardsInput = {
+    id?: string
+    userId?: string | null
+    firstName: string
+    lastName: string
+    dob?: Date | string | null
+    branchId: string
+    classId?: string | null
+    sectionId?: string | null
+    parentId?: string | null
+    categoryId?: string | null
+    otherNames?: string | null
+    placeOfBirth?: string | null
+    nationality?: string | null
+    stateOfOrigin?: string | null
+    lga?: string | null
+    religion?: string | null
+    passportPhoto?: string | null
+    guardianOccupation?: string | null
+    guardianOfficeAddress?: string | null
+    secondaryGuardianName?: string | null
+    secondaryGuardianPhone?: string | null
+    secondaryGuardianRelation?: string | null
+    city?: string | null
+    state?: string | null
+    country?: string | null
+    emergencyContactName?: string | null
+    emergencyContactPhone?: string | null
+    emergencyContactRelation?: string | null
+    bloodGroup?: string | null
+    genotype?: string | null
+    allergies?: string | null
+    medicalConditions?: string | null
+    specialNeeds?: string | null
+    familyDoctorName?: string | null
+    familyDoctorPhone?: string | null
+    birthCertificateUrl?: string | null
+    testimonialUrl?: string | null
+    transferCertificateUrl?: string | null
+    immunizationCardUrl?: string | null
+    preferredLanguage?: string | null
+    religionClassType?: string | null
+    scholarshipEligible?: boolean
+    referralSource?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutStudentInput
+    hostelAllocations?: HostelAllocationUncheckedCreateNestedManyWithoutStudentInput
+    hostelLeaves?: HostelLeaveUncheckedCreateNestedManyWithoutStudentInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutStudentInput
+    transportAssignment?: TransportAssignmentUncheckedCreateNestedOneWithoutStudentInput
+    submissions?: SubmissionUncheckedCreateNestedManyWithoutStudentInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutStudentInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutStudentInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutStudentInput
+    certificates?: CertificateUncheckedCreateNestedManyWithoutStudentInput
+    borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutStudentInput
+    onlineExamAttempts?: OnlineExamAttemptUncheckedCreateNestedManyWithoutStudentInput
+    inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutStudentInput
+    alumni?: AlumniUncheckedCreateNestedOneWithoutStudentInput
+  }
+
+  export type StudentCreateOrConnectWithoutIdCardsInput = {
+    where: StudentWhereUniqueInput
+    create: XOR<StudentCreateWithoutIdCardsInput, StudentUncheckedCreateWithoutIdCardsInput>
+  }
+
+  export type StaffCreateWithoutIdCardsInput = {
+    id?: string
+    designation?: string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutStaffInput
+    department?: DepartmentCreateNestedOneWithoutStaffInput
+    designationRef?: DesignationCreateNestedOneWithoutStaffInput
+    inventoryIssues?: InventoryIssueCreateNestedManyWithoutStaffInput
+    subjects?: SubjectCreateNestedManyWithoutTeachersInput
+    classes?: ClassCreateNestedManyWithoutClassTeacherInput
+    salaryTemplate?: SalaryTemplateCreateNestedOneWithoutStaffInput
+    payrolls?: PayrollCreateNestedManyWithoutStaffInput
+    leaveRequests?: LeaveRequestCreateNestedManyWithoutStaffInput
+    awards?: StaffAwardCreateNestedManyWithoutStaffInput
+    salaryAdvances?: AdvanceSalaryCreateNestedManyWithoutStaffInput
+    assignments?: AssignmentCreateNestedManyWithoutTeacherInput
+    hostedSessions?: LiveClassSessionCreateNestedManyWithoutHostInput
+  }
+
+  export type StaffUncheckedCreateWithoutIdCardsInput = {
+    id?: string
+    userId: string
+    designation?: string | null
+    departmentId?: string | null
+    designationId?: string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutStaffInput
+    subjects?: SubjectUncheckedCreateNestedManyWithoutTeachersInput
+    classes?: ClassUncheckedCreateNestedManyWithoutClassTeacherInput
+    salaryTemplate?: SalaryTemplateUncheckedCreateNestedOneWithoutStaffInput
+    payrolls?: PayrollUncheckedCreateNestedManyWithoutStaffInput
+    leaveRequests?: LeaveRequestUncheckedCreateNestedManyWithoutStaffInput
+    awards?: StaffAwardUncheckedCreateNestedManyWithoutStaffInput
+    salaryAdvances?: AdvanceSalaryUncheckedCreateNestedManyWithoutStaffInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutTeacherInput
+    hostedSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutHostInput
+  }
+
+  export type StaffCreateOrConnectWithoutIdCardsInput = {
+    where: StaffWhereUniqueInput
+    create: XOR<StaffCreateWithoutIdCardsInput, StaffUncheckedCreateWithoutIdCardsInput>
+  }
+
+  export type IdCardTemplateCreateWithoutIdCardsInput = {
+    id?: string
+    name: string
+    type: string
+    backgroundImage?: string | null
+    config: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutIdCardTemplatesInput
+  }
+
+  export type IdCardTemplateUncheckedCreateWithoutIdCardsInput = {
+    id?: string
+    name: string
+    type: string
+    backgroundImage?: string | null
+    config: JsonNullValueInput | InputJsonValue
+    branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type IdCardTemplateCreateOrConnectWithoutIdCardsInput = {
+    where: IdCardTemplateWhereUniqueInput
+    create: XOR<IdCardTemplateCreateWithoutIdCardsInput, IdCardTemplateUncheckedCreateWithoutIdCardsInput>
+  }
+
+  export type AcademicSessionCreateWithoutIdCardsInput = {
+    id?: string
+    name: string
+    startDate: Date | string
+    endDate: Date | string
+    isActive?: boolean
+    nextTermBegins?: Date | string | null
+    termEnds?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutSessionInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutSessionInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutSessionInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutAcademicSessionInput
+  }
+
+  export type AcademicSessionUncheckedCreateWithoutIdCardsInput = {
+    id?: string
+    name: string
+    startDate: Date | string
+    endDate: Date | string
+    isActive?: boolean
+    nextTermBegins?: Date | string | null
+    termEnds?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutSessionInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutSessionInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutSessionInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutAcademicSessionInput
+  }
+
+  export type AcademicSessionCreateOrConnectWithoutIdCardsInput = {
+    where: AcademicSessionWhereUniqueInput
+    create: XOR<AcademicSessionCreateWithoutIdCardsInput, AcademicSessionUncheckedCreateWithoutIdCardsInput>
+  }
+
+  export type StudentUpsertWithoutIdCardsInput = {
+    update: XOR<StudentUpdateWithoutIdCardsInput, StudentUncheckedUpdateWithoutIdCardsInput>
+    create: XOR<StudentCreateWithoutIdCardsInput, StudentUncheckedCreateWithoutIdCardsInput>
+    where?: StudentWhereInput
+  }
+
+  export type StudentUpdateToOneWithWhereWithoutIdCardsInput = {
+    where?: StudentWhereInput
+    data: XOR<StudentUpdateWithoutIdCardsInput, StudentUncheckedUpdateWithoutIdCardsInput>
+  }
+
+  export type StudentUpdateWithoutIdCardsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
+    nationality?: NullableStringFieldUpdateOperationsInput | string | null
+    stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
+    lga?: NullableStringFieldUpdateOperationsInput | string | null
+    religion?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    genotype?: NullableStringFieldUpdateOperationsInput | string | null
+    allergies?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
+    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
+    familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
+    religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
+    scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
+    referralSource?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneWithoutStudentNestedInput
+    branch?: BranchUpdateOneRequiredWithoutStudentsNestedInput
+    class?: ClassUpdateOneWithoutStudentsNestedInput
+    section?: SectionUpdateOneWithoutStudentsNestedInput
+    parent?: UserUpdateOneWithoutChildrenNestedInput
+    attendance?: AttendanceUpdateManyWithoutStudentNestedInput
+    hostelAllocations?: HostelAllocationUpdateManyWithoutStudentNestedInput
+    hostelLeaves?: HostelLeaveUpdateManyWithoutStudentNestedInput
+    invoices?: InvoiceUpdateManyWithoutStudentNestedInput
+    transportAssignment?: TransportAssignmentUpdateOneWithoutStudentNestedInput
+    submissions?: SubmissionUpdateManyWithoutStudentNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutStudentNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutStudentNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutStudentNestedInput
+    certificates?: CertificateUpdateManyWithoutStudentNestedInput
+    borrowRecords?: BorrowRecordUpdateManyWithoutStudentNestedInput
+    onlineExamAttempts?: OnlineExamAttemptUpdateManyWithoutStudentNestedInput
+    inventoryIssues?: InventoryIssueUpdateManyWithoutStudentNestedInput
+    alumni?: AlumniUpdateOneWithoutStudentNestedInput
+    category?: StudentCategoryUpdateOneWithoutStudentsNestedInput
+  }
+
+  export type StudentUncheckedUpdateWithoutIdCardsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    sectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
+    nationality?: NullableStringFieldUpdateOperationsInput | string | null
+    stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
+    lga?: NullableStringFieldUpdateOperationsInput | string | null
+    religion?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    genotype?: NullableStringFieldUpdateOperationsInput | string | null
+    allergies?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
+    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
+    familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
+    religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
+    scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
+    referralSource?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attendance?: AttendanceUncheckedUpdateManyWithoutStudentNestedInput
+    hostelAllocations?: HostelAllocationUncheckedUpdateManyWithoutStudentNestedInput
+    hostelLeaves?: HostelLeaveUncheckedUpdateManyWithoutStudentNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutStudentNestedInput
+    transportAssignment?: TransportAssignmentUncheckedUpdateOneWithoutStudentNestedInput
+    submissions?: SubmissionUncheckedUpdateManyWithoutStudentNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutStudentNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutStudentNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutStudentNestedInput
+    certificates?: CertificateUncheckedUpdateManyWithoutStudentNestedInput
+    borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutStudentNestedInput
+    onlineExamAttempts?: OnlineExamAttemptUncheckedUpdateManyWithoutStudentNestedInput
+    inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutStudentNestedInput
+    alumni?: AlumniUncheckedUpdateOneWithoutStudentNestedInput
+  }
+
+  export type StaffUpsertWithoutIdCardsInput = {
+    update: XOR<StaffUpdateWithoutIdCardsInput, StaffUncheckedUpdateWithoutIdCardsInput>
+    create: XOR<StaffCreateWithoutIdCardsInput, StaffUncheckedCreateWithoutIdCardsInput>
+    where?: StaffWhereInput
+  }
+
+  export type StaffUpdateToOneWithWhereWithoutIdCardsInput = {
+    where?: StaffWhereInput
+    data: XOR<StaffUpdateWithoutIdCardsInput, StaffUncheckedUpdateWithoutIdCardsInput>
+  }
+
+  export type StaffUpdateWithoutIdCardsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    designation?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutStaffNestedInput
+    department?: DepartmentUpdateOneWithoutStaffNestedInput
+    designationRef?: DesignationUpdateOneWithoutStaffNestedInput
+    inventoryIssues?: InventoryIssueUpdateManyWithoutStaffNestedInput
+    subjects?: SubjectUpdateManyWithoutTeachersNestedInput
+    classes?: ClassUpdateManyWithoutClassTeacherNestedInput
+    salaryTemplate?: SalaryTemplateUpdateOneWithoutStaffNestedInput
+    payrolls?: PayrollUpdateManyWithoutStaffNestedInput
+    leaveRequests?: LeaveRequestUpdateManyWithoutStaffNestedInput
+    awards?: StaffAwardUpdateManyWithoutStaffNestedInput
+    salaryAdvances?: AdvanceSalaryUpdateManyWithoutStaffNestedInput
+    assignments?: AssignmentUpdateManyWithoutTeacherNestedInput
+    hostedSessions?: LiveClassSessionUpdateManyWithoutHostNestedInput
+  }
+
+  export type StaffUncheckedUpdateWithoutIdCardsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    designation?: NullableStringFieldUpdateOperationsInput | string | null
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
+    designationId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutStaffNestedInput
+    subjects?: SubjectUncheckedUpdateManyWithoutTeachersNestedInput
+    classes?: ClassUncheckedUpdateManyWithoutClassTeacherNestedInput
+    salaryTemplate?: SalaryTemplateUncheckedUpdateOneWithoutStaffNestedInput
+    payrolls?: PayrollUncheckedUpdateManyWithoutStaffNestedInput
+    leaveRequests?: LeaveRequestUncheckedUpdateManyWithoutStaffNestedInput
+    awards?: StaffAwardUncheckedUpdateManyWithoutStaffNestedInput
+    salaryAdvances?: AdvanceSalaryUncheckedUpdateManyWithoutStaffNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
+    hostedSessions?: LiveClassSessionUncheckedUpdateManyWithoutHostNestedInput
+  }
+
+  export type IdCardTemplateUpsertWithoutIdCardsInput = {
+    update: XOR<IdCardTemplateUpdateWithoutIdCardsInput, IdCardTemplateUncheckedUpdateWithoutIdCardsInput>
+    create: XOR<IdCardTemplateCreateWithoutIdCardsInput, IdCardTemplateUncheckedCreateWithoutIdCardsInput>
+    where?: IdCardTemplateWhereInput
+  }
+
+  export type IdCardTemplateUpdateToOneWithWhereWithoutIdCardsInput = {
+    where?: IdCardTemplateWhereInput
+    data: XOR<IdCardTemplateUpdateWithoutIdCardsInput, IdCardTemplateUncheckedUpdateWithoutIdCardsInput>
+  }
+
+  export type IdCardTemplateUpdateWithoutIdCardsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    backgroundImage?: NullableStringFieldUpdateOperationsInput | string | null
+    config?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutIdCardTemplatesNestedInput
+  }
+
+  export type IdCardTemplateUncheckedUpdateWithoutIdCardsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    backgroundImage?: NullableStringFieldUpdateOperationsInput | string | null
+    config?: JsonNullValueInput | InputJsonValue
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AcademicSessionUpsertWithoutIdCardsInput = {
+    update: XOR<AcademicSessionUpdateWithoutIdCardsInput, AcademicSessionUncheckedUpdateWithoutIdCardsInput>
+    create: XOR<AcademicSessionCreateWithoutIdCardsInput, AcademicSessionUncheckedCreateWithoutIdCardsInput>
+    where?: AcademicSessionWhereInput
+  }
+
+  export type AcademicSessionUpdateToOneWithWhereWithoutIdCardsInput = {
+    where?: AcademicSessionWhereInput
+    data: XOR<AcademicSessionUpdateWithoutIdCardsInput, AcademicSessionUncheckedUpdateWithoutIdCardsInput>
+  }
+
+  export type AcademicSessionUpdateWithoutIdCardsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    nextTermBegins?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    termEnds?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutSessionNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutSessionNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutSessionNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutAcademicSessionNestedInput
+  }
+
+  export type AcademicSessionUncheckedUpdateWithoutIdCardsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    nextTermBegins?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    termEnds?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutSessionNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutSessionNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutSessionNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutAcademicSessionNestedInput
   }
 
   export type UserCreateManyBranchInput = {
@@ -166162,8 +173810,21 @@ export namespace Prisma {
     certificateNumber: string
     issueDate?: Date | string
     content?: NullableJsonNullValueInput | InputJsonValue
+    verificationCode?: string
+    isVerified?: boolean
     studentId: string
+    templateId?: string | null
     issuedByUserId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CertificateTemplateCreateManyBranchInput = {
+    id?: string
+    name: string
+    type: string
+    backgroundImage?: string | null
+    config: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -166288,6 +173949,7 @@ export namespace Prisma {
     email?: string | null
     phone?: string | null
     studentCategoryId?: string | null
+    parentId?: string | null
     paymentReceiptUrl?: string | null
     paymentStatus?: string
     paymentMethod?: string
@@ -166542,6 +174204,16 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type IdCardTemplateCreateManyBranchInput = {
+    id?: string
+    name: string
+    type: string
+    backgroundImage?: string | null
+    config: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type DeactivationReasonCreateManyBranchInput = {
     id?: string
     title: string
@@ -166582,6 +174254,7 @@ export namespace Prisma {
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
     eventRSVPs?: EventRSVPUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutParentNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBranchInput = {
@@ -166606,6 +174279,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     eventRSVPs?: EventRSVPUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutParentNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutBranchInput = {
@@ -166678,6 +174352,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUpdateOneWithoutStudentNestedInput
     category?: StudentCategoryUpdateOneWithoutStudentsNestedInput
   }
@@ -166740,6 +174415,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUncheckedUpdateOneWithoutStudentNestedInput
   }
 
@@ -167113,9 +174789,12 @@ export namespace Prisma {
     certificateNumber?: StringFieldUpdateOperationsInput | string
     issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     content?: NullableJsonNullValueInput | InputJsonValue
+    verificationCode?: StringFieldUpdateOperationsInput | string
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     student?: StudentUpdateOneRequiredWithoutCertificatesNestedInput
+    template?: CertificateTemplateUpdateOneWithoutCertificatesNestedInput
     issuedBy?: UserUpdateOneRequiredWithoutIssuedCertificatesNestedInput
   }
 
@@ -167125,7 +174804,10 @@ export namespace Prisma {
     certificateNumber?: StringFieldUpdateOperationsInput | string
     issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     content?: NullableJsonNullValueInput | InputJsonValue
+    verificationCode?: StringFieldUpdateOperationsInput | string
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     studentId?: StringFieldUpdateOperationsInput | string
+    templateId?: NullableStringFieldUpdateOperationsInput | string | null
     issuedByUserId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -167137,8 +174819,43 @@ export namespace Prisma {
     certificateNumber?: StringFieldUpdateOperationsInput | string
     issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     content?: NullableJsonNullValueInput | InputJsonValue
+    verificationCode?: StringFieldUpdateOperationsInput | string
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     studentId?: StringFieldUpdateOperationsInput | string
+    templateId?: NullableStringFieldUpdateOperationsInput | string | null
     issuedByUserId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CertificateTemplateUpdateWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    backgroundImage?: NullableStringFieldUpdateOperationsInput | string | null
+    config?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    certificates?: CertificateUpdateManyWithoutTemplateNestedInput
+  }
+
+  export type CertificateTemplateUncheckedUpdateWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    backgroundImage?: NullableStringFieldUpdateOperationsInput | string | null
+    config?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    certificates?: CertificateUncheckedUpdateManyWithoutTemplateNestedInput
+  }
+
+  export type CertificateTemplateUncheckedUpdateManyWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    backgroundImage?: NullableStringFieldUpdateOperationsInput | string | null
+    config?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -167362,6 +175079,7 @@ export namespace Prisma {
     desiredClass?: ClassUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
     desiredSection?: SectionUpdateOneWithoutOnlineAdmissionsNestedInput
     studentCategory?: StudentCategoryUpdateOneWithoutOnlineAdmissionsNestedInput
+    parent?: UserUpdateOneWithoutOnlineAdmissionsNestedInput
   }
 
   export type OnlineAdmissionUncheckedUpdateWithoutBranchInput = {
@@ -167441,6 +175159,7 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     studentCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
     paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
     paymentStatus?: StringFieldUpdateOperationsInput | string
     paymentMethod?: StringFieldUpdateOperationsInput | string
@@ -167525,6 +175244,7 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     studentCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
     paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
     paymentStatus?: StringFieldUpdateOperationsInput | string
     paymentMethod?: StringFieldUpdateOperationsInput | string
@@ -168303,6 +176023,38 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type IdCardTemplateUpdateWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    backgroundImage?: NullableStringFieldUpdateOperationsInput | string | null
+    config?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    idCards?: IdCardUpdateManyWithoutTemplateNestedInput
+  }
+
+  export type IdCardTemplateUncheckedUpdateWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    backgroundImage?: NullableStringFieldUpdateOperationsInput | string | null
+    config?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    idCards?: IdCardUncheckedUpdateManyWithoutTemplateNestedInput
+  }
+
+  export type IdCardTemplateUncheckedUpdateManyWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    backgroundImage?: NullableStringFieldUpdateOperationsInput | string | null
+    config?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type DeactivationReasonUpdateWithoutBranchInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
@@ -168475,7 +176227,10 @@ export namespace Prisma {
     certificateNumber: string
     issueDate?: Date | string
     content?: NullableJsonNullValueInput | InputJsonValue
+    verificationCode?: string
+    isVerified?: boolean
     studentId: string
+    templateId?: string | null
     branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -168524,6 +176279,91 @@ export namespace Prisma {
     deviceInfo?: string | null
     branchId: string
     createdAt?: Date | string
+  }
+
+  export type OnlineAdmissionCreateManyParentInput = {
+    id?: string
+    admissionNumber?: string | null
+    firstName: string
+    lastName: string
+    otherNames?: string | null
+    gender: string
+    dateOfBirth: Date | string
+    placeOfBirth?: string | null
+    nationality?: string | null
+    stateOfOrigin?: string | null
+    lga?: string | null
+    religion?: string | null
+    passportPhoto?: string | null
+    academicSessionId?: string | null
+    admissionTerm?: $Enums.Term | null
+    desiredClassId: string
+    desiredSectionId?: string | null
+    admissionType?: string | null
+    previousSchool?: string | null
+    transferReason?: string | null
+    assessmentScore?: number | null
+    status?: string
+    guardianName: string
+    guardianRelation?: string | null
+    guardianPhone: string
+    guardianEmail?: string | null
+    guardianAddress?: string | null
+    guardianOccupation?: string | null
+    guardianOfficeAddress?: string | null
+    secondaryGuardianName?: string | null
+    secondaryGuardianPhone?: string | null
+    secondaryGuardianRelation?: string | null
+    address?: string | null
+    city?: string | null
+    state?: string | null
+    country?: string | null
+    emergencyContactName?: string | null
+    emergencyContactPhone?: string | null
+    emergencyContactRelation?: string | null
+    bloodGroup?: string | null
+    genotype?: string | null
+    allergies?: string | null
+    medicalConditions?: string | null
+    specialNeeds?: string | null
+    familyDoctorName?: string | null
+    familyDoctorPhone?: string | null
+    hostelRequired?: boolean
+    preferredHostel?: string | null
+    hostelNotes?: string | null
+    transportRequired?: boolean
+    pickupLocation?: string | null
+    preferredRoute?: string | null
+    birthCertificateUrl?: string | null
+    testimonialUrl?: string | null
+    transferCertificateUrl?: string | null
+    immunizationCardUrl?: string | null
+    branchId: string
+    createdByStaffId?: string | null
+    admissionDate?: Date | string | null
+    approvalDate?: Date | string | null
+    approvedByStaffId?: string | null
+    studentStatus?: string
+    createPortalAccount?: boolean
+    guardianConsent?: boolean
+    dataProcessingConsent?: boolean
+    schoolRulesAgreement?: boolean
+    signature?: string | null
+    consentDate?: Date | string | null
+    studentEmail?: string | null
+    portalUsername?: string | null
+    preferredLanguage?: string | null
+    religionClassType?: string | null
+    scholarshipEligible?: boolean
+    referralSource?: string | null
+    email?: string | null
+    phone?: string | null
+    studentCategoryId?: string | null
+    paymentReceiptUrl?: string | null
+    paymentStatus?: string
+    paymentMethod?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type StudentUpdateWithoutParentInput = {
@@ -168583,6 +176423,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUpdateOneWithoutStudentNestedInput
     category?: StudentCategoryUpdateOneWithoutStudentsNestedInput
   }
@@ -168645,6 +176486,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUncheckedUpdateOneWithoutStudentNestedInput
   }
 
@@ -168770,9 +176612,12 @@ export namespace Prisma {
     certificateNumber?: StringFieldUpdateOperationsInput | string
     issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     content?: NullableJsonNullValueInput | InputJsonValue
+    verificationCode?: StringFieldUpdateOperationsInput | string
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     student?: StudentUpdateOneRequiredWithoutCertificatesNestedInput
+    template?: CertificateTemplateUpdateOneWithoutCertificatesNestedInput
     branch?: BranchUpdateOneRequiredWithoutCertificatesNestedInput
   }
 
@@ -168782,7 +176627,10 @@ export namespace Prisma {
     certificateNumber?: StringFieldUpdateOperationsInput | string
     issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     content?: NullableJsonNullValueInput | InputJsonValue
+    verificationCode?: StringFieldUpdateOperationsInput | string
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     studentId?: StringFieldUpdateOperationsInput | string
+    templateId?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -168794,7 +176642,10 @@ export namespace Prisma {
     certificateNumber?: StringFieldUpdateOperationsInput | string
     issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     content?: NullableJsonNullValueInput | InputJsonValue
+    verificationCode?: StringFieldUpdateOperationsInput | string
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     studentId?: StringFieldUpdateOperationsInput | string
+    templateId?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -168935,6 +176786,261 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type OnlineAdmissionUpdateWithoutParentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    admissionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: StringFieldUpdateOperationsInput | string
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
+    nationality?: NullableStringFieldUpdateOperationsInput | string | null
+    stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
+    lga?: NullableStringFieldUpdateOperationsInput | string | null
+    religion?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
+    admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
+    admissionType?: NullableStringFieldUpdateOperationsInput | string | null
+    previousSchool?: NullableStringFieldUpdateOperationsInput | string | null
+    transferReason?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    guardianName?: StringFieldUpdateOperationsInput | string
+    guardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianPhone?: StringFieldUpdateOperationsInput | string
+    guardianEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    genotype?: NullableStringFieldUpdateOperationsInput | string | null
+    allergies?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
+    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
+    familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    hostelRequired?: BoolFieldUpdateOperationsInput | boolean
+    preferredHostel?: NullableStringFieldUpdateOperationsInput | string | null
+    hostelNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    transportRequired?: BoolFieldUpdateOperationsInput | boolean
+    pickupLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    preferredRoute?: NullableStringFieldUpdateOperationsInput | string | null
+    birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdByStaffId?: NullableStringFieldUpdateOperationsInput | string | null
+    admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    approvalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    approvedByStaffId?: NullableStringFieldUpdateOperationsInput | string | null
+    studentStatus?: StringFieldUpdateOperationsInput | string
+    createPortalAccount?: BoolFieldUpdateOperationsInput | boolean
+    guardianConsent?: BoolFieldUpdateOperationsInput | boolean
+    dataProcessingConsent?: BoolFieldUpdateOperationsInput | boolean
+    schoolRulesAgreement?: BoolFieldUpdateOperationsInput | boolean
+    signature?: NullableStringFieldUpdateOperationsInput | string | null
+    consentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    studentEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    portalUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
+    religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
+    scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
+    referralSource?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    paymentMethod?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    academicSession?: AcademicSessionUpdateOneWithoutOnlineAdmissionsNestedInput
+    desiredClass?: ClassUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
+    desiredSection?: SectionUpdateOneWithoutOnlineAdmissionsNestedInput
+    branch?: BranchUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
+    studentCategory?: StudentCategoryUpdateOneWithoutOnlineAdmissionsNestedInput
+  }
+
+  export type OnlineAdmissionUncheckedUpdateWithoutParentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    admissionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: StringFieldUpdateOperationsInput | string
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
+    nationality?: NullableStringFieldUpdateOperationsInput | string | null
+    stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
+    lga?: NullableStringFieldUpdateOperationsInput | string | null
+    religion?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
+    academicSessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
+    desiredClassId?: StringFieldUpdateOperationsInput | string
+    desiredSectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    admissionType?: NullableStringFieldUpdateOperationsInput | string | null
+    previousSchool?: NullableStringFieldUpdateOperationsInput | string | null
+    transferReason?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    guardianName?: StringFieldUpdateOperationsInput | string
+    guardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianPhone?: StringFieldUpdateOperationsInput | string
+    guardianEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    genotype?: NullableStringFieldUpdateOperationsInput | string | null
+    allergies?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
+    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
+    familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    hostelRequired?: BoolFieldUpdateOperationsInput | boolean
+    preferredHostel?: NullableStringFieldUpdateOperationsInput | string | null
+    hostelNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    transportRequired?: BoolFieldUpdateOperationsInput | boolean
+    pickupLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    preferredRoute?: NullableStringFieldUpdateOperationsInput | string | null
+    birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdByStaffId?: NullableStringFieldUpdateOperationsInput | string | null
+    admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    approvalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    approvedByStaffId?: NullableStringFieldUpdateOperationsInput | string | null
+    studentStatus?: StringFieldUpdateOperationsInput | string
+    createPortalAccount?: BoolFieldUpdateOperationsInput | boolean
+    guardianConsent?: BoolFieldUpdateOperationsInput | boolean
+    dataProcessingConsent?: BoolFieldUpdateOperationsInput | boolean
+    schoolRulesAgreement?: BoolFieldUpdateOperationsInput | boolean
+    signature?: NullableStringFieldUpdateOperationsInput | string | null
+    consentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    studentEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    portalUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
+    religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
+    scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
+    referralSource?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    studentCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    paymentMethod?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OnlineAdmissionUncheckedUpdateManyWithoutParentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    admissionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: StringFieldUpdateOperationsInput | string
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
+    nationality?: NullableStringFieldUpdateOperationsInput | string | null
+    stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
+    lga?: NullableStringFieldUpdateOperationsInput | string | null
+    religion?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
+    academicSessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
+    desiredClassId?: StringFieldUpdateOperationsInput | string
+    desiredSectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    admissionType?: NullableStringFieldUpdateOperationsInput | string | null
+    previousSchool?: NullableStringFieldUpdateOperationsInput | string | null
+    transferReason?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    guardianName?: StringFieldUpdateOperationsInput | string
+    guardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianPhone?: StringFieldUpdateOperationsInput | string
+    guardianEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    genotype?: NullableStringFieldUpdateOperationsInput | string | null
+    allergies?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
+    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
+    familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    hostelRequired?: BoolFieldUpdateOperationsInput | boolean
+    preferredHostel?: NullableStringFieldUpdateOperationsInput | string | null
+    hostelNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    transportRequired?: BoolFieldUpdateOperationsInput | boolean
+    pickupLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    preferredRoute?: NullableStringFieldUpdateOperationsInput | string | null
+    birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdByStaffId?: NullableStringFieldUpdateOperationsInput | string | null
+    admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    approvalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    approvedByStaffId?: NullableStringFieldUpdateOperationsInput | string | null
+    studentStatus?: StringFieldUpdateOperationsInput | string
+    createPortalAccount?: BoolFieldUpdateOperationsInput | boolean
+    guardianConsent?: BoolFieldUpdateOperationsInput | boolean
+    dataProcessingConsent?: BoolFieldUpdateOperationsInput | boolean
+    schoolRulesAgreement?: BoolFieldUpdateOperationsInput | boolean
+    signature?: NullableStringFieldUpdateOperationsInput | string | null
+    consentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    studentEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    portalUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
+    religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
+    scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
+    referralSource?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    studentCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    paymentMethod?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type InventoryIssueCreateManyStaffInput = {
     id?: string
     date?: Date | string
@@ -169026,6 +177132,17 @@ export namespace Prisma {
     status?: string
     recordingUrl?: string | null
     branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type IdCardCreateManyStaffInput = {
+    id?: string
+    studentId?: string | null
+    templateId: string
+    sessionId: string
+    status?: string
+    issueDate?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -169366,6 +177483,39 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type IdCardUpdateWithoutStaffInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    student?: StudentUpdateOneWithoutIdCardsNestedInput
+    template?: IdCardTemplateUpdateOneRequiredWithoutIdCardsNestedInput
+    session?: AcademicSessionUpdateOneRequiredWithoutIdCardsNestedInput
+  }
+
+  export type IdCardUncheckedUpdateWithoutStaffInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateId?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IdCardUncheckedUpdateManyWithoutStaffInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateId?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type AttendanceCreateManyStudentInput = {
     id?: string
     date: Date | string
@@ -169494,6 +177644,9 @@ export namespace Prisma {
     certificateNumber: string
     issueDate?: Date | string
     content?: NullableJsonNullValueInput | InputJsonValue
+    verificationCode?: string
+    isVerified?: boolean
+    templateId?: string | null
     issuedByUserId: string
     branchId: string
     createdAt?: Date | string
@@ -169532,6 +177685,17 @@ export namespace Prisma {
     issuedTo?: string | null
     staffId?: string | null
     branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type IdCardCreateManyStudentInput = {
+    id?: string
+    staffId?: string | null
+    templateId: string
+    sessionId: string
+    status?: string
+    issueDate?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -169912,8 +178076,11 @@ export namespace Prisma {
     certificateNumber?: StringFieldUpdateOperationsInput | string
     issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     content?: NullableJsonNullValueInput | InputJsonValue
+    verificationCode?: StringFieldUpdateOperationsInput | string
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    template?: CertificateTemplateUpdateOneWithoutCertificatesNestedInput
     issuedBy?: UserUpdateOneRequiredWithoutIssuedCertificatesNestedInput
     branch?: BranchUpdateOneRequiredWithoutCertificatesNestedInput
   }
@@ -169924,6 +178091,9 @@ export namespace Prisma {
     certificateNumber?: StringFieldUpdateOperationsInput | string
     issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     content?: NullableJsonNullValueInput | InputJsonValue
+    verificationCode?: StringFieldUpdateOperationsInput | string
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    templateId?: NullableStringFieldUpdateOperationsInput | string | null
     issuedByUserId?: StringFieldUpdateOperationsInput | string
     branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -169936,6 +178106,9 @@ export namespace Prisma {
     certificateNumber?: StringFieldUpdateOperationsInput | string
     issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     content?: NullableJsonNullValueInput | InputJsonValue
+    verificationCode?: StringFieldUpdateOperationsInput | string
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    templateId?: NullableStringFieldUpdateOperationsInput | string | null
     issuedByUserId?: StringFieldUpdateOperationsInput | string
     branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -170049,6 +178222,99 @@ export namespace Prisma {
     productId?: StringFieldUpdateOperationsInput | string
     issuedTo?: NullableStringFieldUpdateOperationsInput | string | null
     staffId?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IdCardUpdateWithoutStudentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    staff?: StaffUpdateOneWithoutIdCardsNestedInput
+    template?: IdCardTemplateUpdateOneRequiredWithoutIdCardsNestedInput
+    session?: AcademicSessionUpdateOneRequiredWithoutIdCardsNestedInput
+  }
+
+  export type IdCardUncheckedUpdateWithoutStudentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    staffId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateId?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IdCardUncheckedUpdateManyWithoutStudentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    staffId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateId?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CertificateCreateManyTemplateInput = {
+    id?: string
+    type: string
+    certificateNumber: string
+    issueDate?: Date | string
+    content?: NullableJsonNullValueInput | InputJsonValue
+    verificationCode?: string
+    isVerified?: boolean
+    studentId: string
+    issuedByUserId: string
+    branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CertificateUpdateWithoutTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    certificateNumber?: StringFieldUpdateOperationsInput | string
+    issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    content?: NullableJsonNullValueInput | InputJsonValue
+    verificationCode?: StringFieldUpdateOperationsInput | string
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    student?: StudentUpdateOneRequiredWithoutCertificatesNestedInput
+    issuedBy?: UserUpdateOneRequiredWithoutIssuedCertificatesNestedInput
+    branch?: BranchUpdateOneRequiredWithoutCertificatesNestedInput
+  }
+
+  export type CertificateUncheckedUpdateWithoutTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    certificateNumber?: StringFieldUpdateOperationsInput | string
+    issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    content?: NullableJsonNullValueInput | InputJsonValue
+    verificationCode?: StringFieldUpdateOperationsInput | string
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    studentId?: StringFieldUpdateOperationsInput | string
+    issuedByUserId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CertificateUncheckedUpdateManyWithoutTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    certificateNumber?: StringFieldUpdateOperationsInput | string
+    issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    content?: NullableJsonNullValueInput | InputJsonValue
+    verificationCode?: StringFieldUpdateOperationsInput | string
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    studentId?: StringFieldUpdateOperationsInput | string
+    issuedByUserId?: StringFieldUpdateOperationsInput | string
     branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -170215,6 +178481,7 @@ export namespace Prisma {
     email?: string | null
     phone?: string | null
     studentCategoryId?: string | null
+    parentId?: string | null
     paymentReceiptUrl?: string | null
     paymentStatus?: string
     paymentMethod?: string
@@ -170330,6 +178597,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUpdateOneWithoutStudentNestedInput
     category?: StudentCategoryUpdateOneWithoutStudentsNestedInput
   }
@@ -170392,6 +178660,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUncheckedUpdateOneWithoutStudentNestedInput
   }
 
@@ -170616,6 +178885,7 @@ export namespace Prisma {
     desiredSection?: SectionUpdateOneWithoutOnlineAdmissionsNestedInput
     branch?: BranchUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
     studentCategory?: StudentCategoryUpdateOneWithoutOnlineAdmissionsNestedInput
+    parent?: UserUpdateOneWithoutOnlineAdmissionsNestedInput
   }
 
   export type OnlineAdmissionUncheckedUpdateWithoutDesiredClassInput = {
@@ -170695,6 +178965,7 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     studentCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
     paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
     paymentStatus?: StringFieldUpdateOperationsInput | string
     paymentMethod?: StringFieldUpdateOperationsInput | string
@@ -170779,6 +179050,7 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     studentCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
     paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
     paymentStatus?: StringFieldUpdateOperationsInput | string
     paymentMethod?: StringFieldUpdateOperationsInput | string
@@ -171027,6 +179299,7 @@ export namespace Prisma {
     email?: string | null
     phone?: string | null
     studentCategoryId?: string | null
+    parentId?: string | null
     paymentReceiptUrl?: string | null
     paymentStatus?: string
     paymentMethod?: string
@@ -171107,6 +179380,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUpdateOneWithoutStudentNestedInput
     category?: StudentCategoryUpdateOneWithoutStudentsNestedInput
   }
@@ -171169,6 +179443,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUncheckedUpdateOneWithoutStudentNestedInput
   }
 
@@ -171506,6 +179781,7 @@ export namespace Prisma {
     desiredClass?: ClassUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
     branch?: BranchUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
     studentCategory?: StudentCategoryUpdateOneWithoutOnlineAdmissionsNestedInput
+    parent?: UserUpdateOneWithoutOnlineAdmissionsNestedInput
   }
 
   export type OnlineAdmissionUncheckedUpdateWithoutDesiredSectionInput = {
@@ -171585,6 +179861,7 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     studentCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
     paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
     paymentStatus?: StringFieldUpdateOperationsInput | string
     paymentMethod?: StringFieldUpdateOperationsInput | string
@@ -171669,6 +179946,7 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     studentCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
     paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
     paymentStatus?: StringFieldUpdateOperationsInput | string
     paymentMethod?: StringFieldUpdateOperationsInput | string
@@ -171817,6 +180095,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUpdateManyWithoutStaffNestedInput
     assignments?: AssignmentUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUpdateManyWithoutHostNestedInput
+    idCards?: IdCardUpdateManyWithoutStaffNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutSubjectsInput = {
@@ -171837,6 +180116,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUncheckedUpdateManyWithoutStaffNestedInput
     assignments?: AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUncheckedUpdateManyWithoutHostNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStaffNestedInput
   }
 
   export type StaffUncheckedUpdateManyWithoutSubjectsInput = {
@@ -172899,9 +181179,21 @@ export namespace Prisma {
     email?: string | null
     phone?: string | null
     studentCategoryId?: string | null
+    parentId?: string | null
     paymentReceiptUrl?: string | null
     paymentStatus?: string
     paymentMethod?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type IdCardCreateManySessionInput = {
+    id?: string
+    studentId?: string | null
+    staffId?: string | null
+    templateId: string
+    status?: string
+    issueDate?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -173195,6 +181487,7 @@ export namespace Prisma {
     desiredSection?: SectionUpdateOneWithoutOnlineAdmissionsNestedInput
     branch?: BranchUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
     studentCategory?: StudentCategoryUpdateOneWithoutOnlineAdmissionsNestedInput
+    parent?: UserUpdateOneWithoutOnlineAdmissionsNestedInput
   }
 
   export type OnlineAdmissionUncheckedUpdateWithoutAcademicSessionInput = {
@@ -173274,6 +181567,7 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     studentCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
     paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
     paymentStatus?: StringFieldUpdateOperationsInput | string
     paymentMethod?: StringFieldUpdateOperationsInput | string
@@ -173358,9 +181652,43 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     studentCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
     paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
     paymentStatus?: StringFieldUpdateOperationsInput | string
     paymentMethod?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IdCardUpdateWithoutSessionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    student?: StudentUpdateOneWithoutIdCardsNestedInput
+    staff?: StaffUpdateOneWithoutIdCardsNestedInput
+    template?: IdCardTemplateUpdateOneRequiredWithoutIdCardsNestedInput
+  }
+
+  export type IdCardUncheckedUpdateWithoutSessionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: NullableStringFieldUpdateOperationsInput | string | null
+    staffId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IdCardUncheckedUpdateManyWithoutSessionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: NullableStringFieldUpdateOperationsInput | string | null
+    staffId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -173449,6 +181777,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUpdateManyWithoutStaffNestedInput
     assignments?: AssignmentUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUpdateManyWithoutHostNestedInput
+    idCards?: IdCardUpdateManyWithoutStaffNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutDepartmentInput = {
@@ -173469,6 +181798,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUncheckedUpdateManyWithoutStaffNestedInput
     assignments?: AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUncheckedUpdateManyWithoutHostNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStaffNestedInput
   }
 
   export type StaffUncheckedUpdateManyWithoutDepartmentInput = {
@@ -173509,6 +181839,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUpdateManyWithoutStaffNestedInput
     assignments?: AssignmentUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUpdateManyWithoutHostNestedInput
+    idCards?: IdCardUpdateManyWithoutStaffNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutDesignationRefInput = {
@@ -173529,6 +181860,7 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUncheckedUpdateManyWithoutStaffNestedInput
     assignments?: AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUncheckedUpdateManyWithoutHostNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStaffNestedInput
   }
 
   export type StaffUncheckedUpdateManyWithoutDesignationRefInput = {
@@ -173787,6 +182119,7 @@ export namespace Prisma {
     referralSource?: string | null
     email?: string | null
     phone?: string | null
+    parentId?: string | null
     paymentReceiptUrl?: string | null
     paymentStatus?: string
     paymentMethod?: string
@@ -173852,6 +182185,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUpdateOneWithoutStudentNestedInput
   }
 
@@ -173913,6 +182247,7 @@ export namespace Prisma {
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutStudentNestedInput
     onlineExamAttempts?: OnlineExamAttemptUncheckedUpdateManyWithoutStudentNestedInput
     inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutStudentNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStudentNestedInput
     alumni?: AlumniUncheckedUpdateOneWithoutStudentNestedInput
   }
 
@@ -174045,6 +182380,7 @@ export namespace Prisma {
     desiredClass?: ClassUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
     desiredSection?: SectionUpdateOneWithoutOnlineAdmissionsNestedInput
     branch?: BranchUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
+    parent?: UserUpdateOneWithoutOnlineAdmissionsNestedInput
   }
 
   export type OnlineAdmissionUncheckedUpdateWithoutStudentCategoryInput = {
@@ -174124,6 +182460,7 @@ export namespace Prisma {
     referralSource?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
     paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
     paymentStatus?: StringFieldUpdateOperationsInput | string
     paymentMethod?: StringFieldUpdateOperationsInput | string
@@ -174208,6 +182545,7 @@ export namespace Prisma {
     referralSource?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
     paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
     paymentStatus?: StringFieldUpdateOperationsInput | string
     paymentMethod?: StringFieldUpdateOperationsInput | string
@@ -174761,6 +183099,50 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IdCardCreateManyTemplateInput = {
+    id?: string
+    studentId?: string | null
+    staffId?: string | null
+    sessionId: string
+    status?: string
+    issueDate?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type IdCardUpdateWithoutTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    student?: StudentUpdateOneWithoutIdCardsNestedInput
+    staff?: StaffUpdateOneWithoutIdCardsNestedInput
+    session?: AcademicSessionUpdateOneRequiredWithoutIdCardsNestedInput
+  }
+
+  export type IdCardUncheckedUpdateWithoutTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: NullableStringFieldUpdateOperationsInput | string | null
+    staffId?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IdCardUncheckedUpdateManyWithoutTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: NullableStringFieldUpdateOperationsInput | string | null
+    staffId?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

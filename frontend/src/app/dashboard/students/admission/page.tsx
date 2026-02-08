@@ -5,6 +5,7 @@ import { OnlineAdmissionService } from "@/services/onlineAdmissionService";
 import { ClassService, Class, Section } from "@/services/classService";
 import { SessionService, AcademicSession } from "@/services/sessionService";
 import { StudentService, StudentCategory } from "@/services/studentService";
+import { StakeholderService } from "@/services/stakeholderService";
 import {
     UserPlus,
     Loader2,
@@ -26,6 +27,8 @@ export default function AdmissionPage() {
     const [loading, setLoading] = useState(true);
     const [submitting, setSubmitting] = useState(false);
     const [success, setSuccess] = useState(false);
+    const [parents, setParents] = useState<any[]>([]);
+    const [useExistingParent, setUseExistingParent] = useState(false);
 
     const [formData, setFormData] = useState<any>({
         // Basic Info
@@ -66,17 +69,20 @@ export default function AdmissionPage() {
         // Consent
         guardianConsent: false,
         branchId: "",
+        parentId: "",
     });
 
     useEffect(() => {
         const loadInitialData = async () => {
             try {
-                const [classAttribute, sessionAttribute] = await Promise.all([
+                const [classAttribute, sessionAttribute, parentsData] = await Promise.all([
                     ClassService.getAll(),
-                    SessionService.getAll()
+                    SessionService.getAll(),
+                    StakeholderService.getAllParentsAdmin()
                 ]);
                 setClasses(classAttribute);
                 setSessions(sessionAttribute);
+                setParents(parentsData);
                 if (sessionAttribute.length > 0) {
                     setFormData((prev: any) => ({ ...prev, academicSessionId: sessionAttribute.find(s => s.isActive)?.id || sessionAttribute[0].id }));
                 }
@@ -239,31 +245,89 @@ export default function AdmissionPage() {
 
                 {/* 3. Parent / Guardian */}
                 <section className="bg-card border border-border rounded-[3rem] p-8 lg:p-12 shadow-sm space-y-8">
-                    <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
-                            <ShieldCheck size={24} />
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4">
+                            <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
+                                <ShieldCheck size={24} />
+                            </div>
+                            <h2 className="text-3xl font-black italic">Parent / Guardian Info</h2>
                         </div>
-                        <h2 className="text-3xl font-black italic">Parent / Guardian Info</h2>
+                        <div className="flex items-center gap-4 bg-muted/20 p-2 rounded-2xl border border-border">
+                            <button
+                                type="button"
+                                onClick={() => setUseExistingParent(false)}
+                                className={`px-4 py-2 rounded-xl font-bold text-xs transition-all ${!useExistingParent ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-muted-foreground'}`}
+                            >
+                                New Parent
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setUseExistingParent(true)}
+                                className={`px-4 py-2 rounded-xl font-bold text-xs transition-all ${useExistingParent ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-muted-foreground'}`}
+                            >
+                                Existing Parent
+                            </button>
+                        </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div className="space-y-3">
-                            <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Primary Guardian Name *</label>
-                            <input required className="input-premium" value={formData.guardianName} onChange={e => setFormData({ ...formData, guardianName: e.target.value })} placeholder="Full Name" />
+                    {useExistingParent ? (
+                        <div className="space-y-6 animate-in fade-in duration-300">
+                            <div className="space-y-3">
+                                <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Select Existing Parent *</label>
+                                <select
+                                    required
+                                    className="input-premium appearance-none"
+                                    value={formData.parentId}
+                                    onChange={e => {
+                                        const parent = parents.find(p => p.id === e.target.value);
+                                        setFormData({
+                                            ...formData,
+                                            parentId: e.target.value,
+                                            guardianName: parent ? `${parent.firstName} ${parent.lastName}` : "",
+                                            guardianPhone: parent?.phone || "",
+                                            guardianEmail: parent?.email || ""
+                                        });
+                                    }}
+                                >
+                                    <option value="">Select Parent...</option>
+                                    {parents.map(p => (
+                                        <option key={p.id} value={p.id}>{p.firstName} {p.lastName} ({p.email})</option>
+                                    ))}
+                                </select>
+                            </div>
+                            {formData.parentId && (
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-6 bg-primary/5 rounded-3xl border border-primary/10">
+                                    <div>
+                                        <label className="text-[10px] font-black uppercase opacity-50 italic">Linked Name</label>
+                                        <div className="font-bold">{formData.guardianName}</div>
+                                    </div>
+                                    <div>
+                                        <label className="text-[10px] font-black uppercase opacity-50 italic">Linked Email</label>
+                                        <div className="font-bold">{formData.guardianEmail}</div>
+                                    </div>
+                                </div>
+                            )}
                         </div>
-                        <div className="space-y-3">
-                            <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Relationship *</label>
-                            <input required className="input-premium" value={formData.guardianRelation} onChange={e => setFormData({ ...formData, guardianRelation: e.target.value })} placeholder="Father/Mother" />
+                    ) : (
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 animate-in fade-in duration-300">
+                            <div className="space-y-3">
+                                <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Primary Guardian Name *</label>
+                                <input required className="input-premium" value={formData.guardianName} onChange={e => setFormData({ ...formData, guardianName: e.target.value, parentId: "" })} placeholder="Full Name" />
+                            </div>
+                            <div className="space-y-3">
+                                <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Relationship *</label>
+                                <input required className="input-premium" value={formData.guardianRelation} onChange={e => setFormData({ ...formData, guardianRelation: e.target.value })} placeholder="Father/Mother" />
+                            </div>
+                            <div className="space-y-3">
+                                <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Phone Number *</label>
+                                <input required className="input-premium" value={formData.guardianPhone} onChange={e => setFormData({ ...formData, guardianPhone: e.target.value })} placeholder="+234..." />
+                            </div>
+                            <div className="space-y-3">
+                                <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Email Address *</label>
+                                <input type="email" required className="input-premium" value={formData.guardianEmail} onChange={e => setFormData({ ...formData, guardianEmail: e.target.value })} placeholder="guardian@example.com" />
+                            </div>
                         </div>
-                        <div className="space-y-3">
-                            <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Phone Number *</label>
-                            <input required className="input-premium" value={formData.guardianPhone} onChange={e => setFormData({ ...formData, guardianPhone: e.target.value })} placeholder="+234..." />
-                        </div>
-                        <div className="space-y-3">
-                            <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Email Address</label>
-                            <input type="email" className="input-premium" value={formData.guardianEmail} onChange={e => setFormData({ ...formData, guardianEmail: e.target.value })} placeholder="guardian@example.com" />
-                        </div>
-                    </div>
+                    )}
                 </section>
 
                 {/* 4. Contact & Medical */}

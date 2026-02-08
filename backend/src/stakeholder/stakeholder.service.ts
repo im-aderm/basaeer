@@ -20,9 +20,15 @@ export class StakeholderService {
             include: {
                 class: true,
                 section: true,
-                attendance: { take: 5, orderBy: { date: 'desc' } },
-                invoices: { take: 5, orderBy: { createdAt: 'desc' } },
-                resultSummaries: { take: 1, orderBy: { createdAt: 'desc' } }
+                attendance: { take: 30, orderBy: { date: 'desc' } },
+                invoices: {
+                    include: { payments: true },
+                    orderBy: { createdAt: 'desc' }
+                },
+                resultSummaries: {
+                    take: 1,
+                    orderBy: { term: 'desc' }
+                }
             }
         });
     }
@@ -43,8 +49,121 @@ export class StakeholderService {
 
         return this.prisma.invoice.findMany({
             where: { studentId },
-            include: { payments: true },
+            include: {
+                items: { include: { category: true } },
+                payments: true
+            },
             orderBy: { createdAt: 'desc' }
+        });
+    }
+
+    async getChildHomework(studentId: string, parentId: string) {
+        const student = await this.prisma.student.findUnique({ where: { id: studentId } });
+        if (!student || student.parentId !== parentId) throw new ForbiddenException();
+
+        return this.prisma.assignment.findMany({
+            where: {
+                sectionId: student.sectionId || '',
+            },
+            include: {
+                subject: true,
+                submissions: {
+                    where: { studentId }
+                }
+            },
+            orderBy: { dueDate: 'desc' }
+        });
+    }
+
+    async getChildExams(studentId: string, parentId: string) {
+        const student = await this.prisma.student.findUnique({ where: { id: studentId } });
+        if (!student || student.parentId !== parentId) throw new ForbiddenException();
+
+        return this.prisma.assessmentRecord.findMany({
+            where: { studentId },
+            include: {
+                subject: true,
+                session: true
+            },
+            orderBy: [{ sessionId: 'desc' }, { term: 'desc' }]
+        });
+    }
+
+    async getParentEvents(parentId: string) {
+        const children = await this.prisma.student.findMany({
+            where: { parentId },
+            select: { branchId: true }
+        });
+
+        const branchIds = [...new Set(children.map(c => c.branchId))];
+
+        return this.prisma.campusEvent.findMany({
+            where: {
+                branchId: { in: branchIds }
+            },
+            orderBy: { startDate: 'asc' },
+            take: 10
+        });
+    }
+
+    // --- ADMIN PARENT MANAGEMENT ---
+
+    async getAllParentsAdmin(branchId?: string) {
+        return this.prisma.user.findMany({
+            where: {
+                role: 'PARENT',
+                ...(branchId && { branchId })
+            },
+            include: {
+                children: {
+                    select: {
+                        id: true,
+                        firstName: true,
+                        lastName: true
+                    }
+                }
+            },
+            orderBy: { createdAt: 'desc' }
+        });
+    }
+
+    async getParentDetailsAdmin(parentId: string) {
+        const parent = await this.prisma.user.findUnique({
+            where: { id: parentId },
+            include: {
+                children: {
+                    include: {
+                        class: true,
+                        section: true,
+                        invoices: {
+                            select: {
+                                balance: true
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        if (!parent || parent.role !== 'PARENT') throw new NotFoundException('Parent not found');
+        return parent;
+    }
+
+    async linkStudentToParent(parentId: string, studentId: string) {
+        // Ensure student exists
+        const student = await this.prisma.student.findUnique({ where: { id: studentId } });
+        if (!student) throw new NotFoundException('Student not found');
+
+        return this.prisma.student.update({
+            where: { id: studentId },
+            data: { parentId }
+        });
+    }
+
+    async unlinkStudentFromParent(studentId: string) {
+        return this.prisma.student.update({
+            where: { id: studentId },
+            data: { parentId: null }
         });
     }
 

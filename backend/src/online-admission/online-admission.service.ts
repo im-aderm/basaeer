@@ -83,9 +83,46 @@ export class OnlineAdmissionService {
             });
             const studentIdNumber = `BMS-${year}-${(count + 1).toString().padStart(4, '0')}`;
 
+            // 2. Handle Parent Linking/Creation
+            let parentId = admission.parentId;
+
+            if (!parentId && admission.guardianEmail) {
+                // Check if a parent with this email already exists
+                const existingParent = await tx.user.findUnique({
+                    where: { email: admission.guardianEmail }
+                });
+
+                if (existingParent) {
+                    if (existingParent.role !== UserRole.PARENT) {
+                        // Optional: Handle if email exists but isn't a parent. 
+                        // For now, we'll just use it if it's a parent, otherwise create new with modified email or throw.
+                        // Standard practice: if email exists, use it if roles match.
+                    } else {
+                        parentId = existingParent.id;
+                    }
+                }
+
+                if (!parentId) {
+                    // Create new parent account
+                    const parentPassword = await bcrypt.hash('parent123', 10);
+                    const newParent = await tx.user.create({
+                        data: {
+                            email: admission.guardianEmail,
+                            password: parentPassword,
+                            firstName: admission.guardianName.split(' ')[0],
+                            lastName: admission.guardianName.split(' ').slice(1).join(' ') || admission.lastName,
+                            phone: admission.guardianPhone,
+                            role: UserRole.PARENT,
+                            branchId: admission.branchId,
+                        }
+                    });
+                    parentId = newParent.id;
+                }
+            }
+
             let userId: string | null = null;
 
-            // 2. Create User if portal account is requested
+            // 3. Create Student User if portal account is requested
             if (admission.createPortalAccount) {
                 const email = admission.studentEmail || `std.${admission.firstName.toLowerCase()}.${admission.lastName.toLowerCase()}${count + 1}@basaeer.com`;
                 const hashedPassword = await bcrypt.hash('student123', 10);
@@ -104,10 +141,11 @@ export class OnlineAdmissionService {
                 userId = user.id;
             }
 
-            // 3. Create Student record
+            // 4. Create Student record
             const student = await tx.student.create({
                 data: {
                     userId,
+                    parentId, // Link to parent
                     firstName: admission.firstName,
                     lastName: admission.lastName,
                     otherNames: admission.otherNames,
@@ -157,7 +195,7 @@ export class OnlineAdmissionService {
                 }
             });
 
-            // 4. Update Admission status
+            // 5. Update Admission status
             await tx.onlineAdmission.update({
                 where: { id },
                 data: {

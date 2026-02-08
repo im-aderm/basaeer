@@ -212,10 +212,10 @@ export class StudentsService {
   }
 
   // Deactivation Reasons
-  async fetchDeactivationReasons(branchId: string) {
-    return (this.prisma as any).deactivationReason.findMany({
+  async fetchDeactivationReasons(branchId: string | null) {
+    return this.prisma.deactivationReason.findMany({
       where: {
-        OR: [{ branchId }, { branchId: null }]
+        ...(branchId ? { branchId } : {})
       },
       include: {
         _count: {
@@ -226,27 +226,27 @@ export class StudentsService {
   }
 
   async createDeactivationReason(data: any) {
-    return (this.prisma as any).deactivationReason.create({
+    return this.prisma.deactivationReason.create({
       data
     });
   }
 
   async updateDeactivationReason(id: string, data: any) {
-    return (this.prisma as any).deactivationReason.update({
+    return this.prisma.deactivationReason.update({
       where: { id },
       data
     });
   }
 
   async deleteDeactivationReason(id: string) {
-    return (this.prisma as any).deactivationReason.delete({
+    return this.prisma.deactivationReason.delete({
       where: { id }
     });
   }
 
   // Login Deactivation
-  async deactivateLogin(studentIds: string[], reason: string, branchId: string, reasonId?: string) {
-    return this.prisma.$transaction(async (tx: any) => {
+  async deactivateLogin(studentIds: string[], reason: string, branchId: string | null, reasonId?: string) {
+    return this.prisma.$transaction(async (tx) => {
       const students = await tx.student.findMany({
         where: { id: { in: studentIds } },
         include: { user: true }
@@ -268,7 +268,7 @@ export class StudentsService {
               userId: student.userId,
               reason,
               reasonId,
-              branchId
+              branchId: branchId || student.branchId // Use passed branchId or student's branchId
             }
           });
           deactivations.push(deactivation);
@@ -293,9 +293,9 @@ export class StudentsService {
     return null;
   }
 
-  async getLoginDeactivations(branchId: string) {
-    return (this.prisma as any).loginDeactivation.findMany({
-      where: { branchId },
+  async getLoginDeactivations(branchId: string | null) {
+    return this.prisma.loginDeactivation.findMany({
+      where: branchId ? { branchId } : {},
       orderBy: { createdAt: 'desc' }
     });
   }

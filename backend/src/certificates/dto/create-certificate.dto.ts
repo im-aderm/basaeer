@@ -20,4 +20,8 @@ export class CreateCertificateDto {
     @IsOptional()
     @IsObject()
     content?: any;
+
+    @IsOptional()
+    @IsUUID()
+    templateId?: string;
 }

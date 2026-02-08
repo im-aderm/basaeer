@@ -33,17 +33,21 @@ export default function CertificatesPage() {
         type: "TRANSFER",
         certificateNumber: "",
         studentId: "",
-        content: ""
+        content: "",
+        templateId: ""
     });
+    const [templates, setTemplates] = useState<any[]>([]);
 
     const fetchData = async () => {
         try {
-            const [certsRes, studentsData] = await Promise.all([
+            const [certsRes, studentsData, templatesRes] = await Promise.all([
                 api.get(`/certificates?branchId=${user?.branchId}`),
-                StudentService.getAll()
+                StudentService.getAll(),
+                api.get(`/certificates/templates?branchId=${user?.branchId}`)
             ]);
-            setCertificates(certsRes.data);
-            setStudents(studentsData);
+            setCertificates(Array.isArray(certsRes.data) ? certsRes.data : []);
+            setStudents(Array.isArray(studentsData) ? studentsData : []);
+            setTemplates(Array.isArray(templatesRes.data) ? templatesRes.data : []);
         } catch (error) {
             console.error("Failed to fetch certificate data:", error);
         } finally {
@@ -64,10 +68,33 @@ export default function CertificatesPage() {
                 content: { note: formData.content }
             });
             setIsDialogOpen(false);
-            setFormData({ type: "TRANSFER", certificateNumber: "", studentId: "", content: "" });
+            setFormData({ type: "TRANSFER", certificateNumber: "", studentId: "", content: "", templateId: "" });
             fetchData();
         } catch (error) {
             console.error("Failed to issue certificate:", error);
+        }
+    };
+
+    const handleDownload = async (certId: string) => {
+        try {
+            const res = await api.get(`/certificates/${certId}/pdf`);
+            const base64 = res.data;
+            const link = document.createElement("a");
+            link.href = `data:application/pdf;base64,${base64}`;
+            link.download = `certificate-${certId}.pdf`;
+            link.click();
+        } catch (error) {
+            console.error("Download failed:", error);
+        }
+    };
+
+    const handleDelete = async (id: string) => {
+        if (!confirm("Are you sure you want to delete this certificate?")) return;
+        try {
+            await api.delete(`/certificates/${id}`);
+            fetchData();
+        } catch (error) {
+            console.error("Delete failed:", error);
         }
     };
 
@@ -134,6 +161,19 @@ export default function CertificatesPage() {
                                     <option value="">Search and select student...</option>
                                     {students.map(s => (
                                         <option key={s.id} value={s.id}>{s.firstName} {s.lastName} (ID: {s.id.split('-')[0]})</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="space-y-3 md:col-span-2">
+                                <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Certificate Template</label>
+                                <select
+                                    className="w-full h-14 rounded-2xl bg-muted/30 border-none font-bold text-lg px-4 appearance-none focus:ring-2 ring-primary/20 cursor-pointer"
+                                    value={formData.templateId}
+                                    onChange={(e) => setFormData({ ...formData, templateId: e.target.value })}
+                                >
+                                    <option value="">Default Classic Template</option>
+                                    {templates.map(t => (
+                                        <option key={t.id} value={t.id}>{t.name}</option>
                                     ))}
                                 </select>
                             </div>
@@ -208,13 +248,28 @@ export default function CertificatesPage() {
                                         </td>
                                         <td className="px-10 py-8 text-right">
                                             <div className="flex items-center justify-end gap-3 opacity-0 group-hover:opacity-100 transition-all transform translate-x-4 group-hover:translate-x-0">
-                                                <Button variant="outline" size="icon" className="h-12 w-12 rounded-2xl border-2 hover:bg-primary hover:text-white hover:border-primary transition-all">
+                                                <Button
+                                                    variant="outline"
+                                                    size="icon"
+                                                    className="h-12 w-12 rounded-2xl border-2 hover:bg-primary hover:text-white hover:border-primary transition-all"
+                                                    onClick={() => handleDownload(cert.id)}
+                                                >
                                                     <Printer size={20} />
                                                 </Button>
-                                                <Button variant="outline" size="icon" className="h-12 w-12 rounded-2xl border-2 hover:bg-primary hover:text-white hover:border-primary transition-all">
+                                                <Button
+                                                    variant="outline"
+                                                    size="icon"
+                                                    className="h-12 w-12 rounded-2xl border-2 hover:bg-primary hover:text-white hover:border-primary transition-all"
+                                                    onClick={() => handleDownload(cert.id)}
+                                                >
                                                     <Download size={20} />
                                                 </Button>
-                                                <Button variant="ghost" size="icon" className="h-12 w-12 rounded-2xl text-red-500 hover:bg-red-500/10 transition-all">
+                                                <Button
+                                                    variant="ghost"
+                                                    size="icon"
+                                                    className="h-12 w-12 rounded-2xl text-red-500 hover:bg-red-500/10 transition-all"
+                                                    onClick={() => handleDelete(cert.id)}
+                                                >
                                                     <Trash2 size={20} />
                                                 </Button>
                                             </div>

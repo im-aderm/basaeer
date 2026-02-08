@@ -155,7 +155,7 @@ const navigation: NavItem[] = [
         title: "Certificate",
         icon: FileBadge,
         children: [
-            { title: "Certificate Vault", href: "/dashboard/students/certificates" },
+            { title: "Certificate Vault", href: "/dashboard/certificates/vault" },
             { title: "Certificate Template", href: "/dashboard/certificates/template" },
             { title: "Generate Student", href: "/dashboard/certificates/generate-student" },
         ],
@@ -333,6 +333,14 @@ const navigation: NavItem[] = [
         children: [
             { title: "Manage Alumni", href: "/dashboard/alumni" },
             { title: "Alumni Events", href: "/dashboard/alumni/events" },
+        ],
+    },
+    {
+        title: "My Portal",
+        icon: UserCheck,
+        roles: ["STUDENT"],
+        children: [
+            { title: "My Certificates", href: "/dashboard/student/certificates" },
         ],
     },
     {
