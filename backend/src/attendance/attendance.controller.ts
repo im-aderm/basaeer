@@ -20,6 +20,12 @@ export class AttendanceController {
         return this.attendanceService.markAttendance(dto);
     }
 
+    @Post('bulk')
+    @Roles(UserRole.TEACHER, UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
+    markBulkAttendance(@Body() dto: { records: CreateAttendanceDto[] }) {
+        return this.attendanceService.markBulkAttendance(dto);
+    }
+
     @Get('section')
     @Roles(UserRole.TEACHER, UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
     findBySection(@Query('sectionId') sectionId: string, @Query('date') date: string) {

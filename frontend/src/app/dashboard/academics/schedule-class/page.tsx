@@ -8,7 +8,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import api from "@/lib/api";
+import { AcademicService } from "@/services/academicService";
+import { StaffService } from "@/services/staffService";
+import { SubjectService } from "@/services/subjectService";
+import { ClassService } from "@/services/classService";
 
 const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const TIME_SLOTS = [
@@ -46,13 +49,13 @@ export default function ClassSchedulePage() {
     const fetchData = async () => {
         try {
             const [classesData, subjectsData, teachersData] = await Promise.all([
-                api.get("/classes"),
-                api.get("/subjects"),
-                api.get("/employees?role=TEACHER"),
+                ClassService.getAll(),
+                SubjectService.getAll(),
+                StaffService.getAllTeachers(),
             ]);
-            setClasses(classesData.data);
-            setSubjects(subjectsData.data);
-            setTeachers(teachersData.data);
+            setClasses(classesData);
+            setSubjects(subjectsData);
+            setTeachers(teachersData);
         } catch (error) {
             toast.error("Failed to load data");
         } finally {
@@ -62,10 +65,11 @@ export default function ClassSchedulePage() {
 
     const fetchSchedules = async () => {
         try {
-            const response = await api.get(
-                `/academics/schedules?classId=${selectedClass}&sectionId=${selectedSection}`
-            );
-            setSchedules(response.data);
+            const data = await AcademicService.getSchedules({
+                classId: selectedClass,
+                sectionId: selectedSection
+            });
+            setSchedules(data);
         } catch (error) {
             toast.error("Failed to load schedules");
         }
@@ -73,7 +77,7 @@ export default function ClassSchedulePage() {
 
     const handleAddSchedule = async () => {
         try {
-            await api.post("/academics/schedules", {
+            await AcademicService.createSchedule({
                 ...formData,
                 classId: selectedClass,
                 sectionId: selectedSection,
@@ -98,7 +102,7 @@ export default function ClassSchedulePage() {
         if (!confirm("Are you sure you want to delete this schedule?")) return;
 
         try {
-            await api.delete(`/academics/schedules/${id}`);
+            await AcademicService.deleteSchedule(id);
             toast.success("Schedule deleted");
             fetchSchedules();
         } catch (error) {

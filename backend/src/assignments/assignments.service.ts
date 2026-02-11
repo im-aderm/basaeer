@@ -14,9 +14,13 @@ export class AssignmentsService {
         });
     }
 
-    async findAll(branchId: string | null) {
+    async findAll(branchId: string | null, filters?: any) {
         return this.prisma.assignment.findMany({
-            where: { ...(branchId && { subject: { branchId } }) },
+            where: {
+                branchId: branchId ?? undefined,
+                section: filters?.classId ? { classId: filters.classId } : undefined,
+                subjectId: filters?.subjectId || undefined,
+            },
             include: { subject: true, section: true, teacher: { include: { user: true } } },
             orderBy: { createdAt: 'desc' },
         });

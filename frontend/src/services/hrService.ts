@@ -69,5 +69,21 @@ export const HRService = {
     updateLeaveStatus: async (id: string, status: 'APPROVED' | 'REJECTED') => {
         const response = await api.patch(`/employees/leave-requests/${id}/status`, { status });
         return response.data;
+    },
+
+    // Attendance
+    getBranchStaffAttendance: async (date?: string) => {
+        const response = await api.get("/employees/attendance/branch", { params: { date } });
+        return response.data;
+    },
+
+    recordStaffAttendance: async (data: { staffId: string; date: string; status: string; remarks?: string }) => {
+        const response = await api.post("/employees/attendance", data);
+        return response.data;
+    },
+
+    recordBulkStaffAttendance: async (data: { staffIds: string[]; date: string; status: string }) => {
+        const response = await api.post("/employees/attendance/bulk", data);
+        return response.data;
     }
 };

@@ -28,12 +28,13 @@ export default function TransportDashboard() {
     useEffect(() => {
         Promise.all([
             api.get("/transport/vehicles"),
-            api.get("/transport/routes")
-        ]).then(([vData, rData]) => {
+            api.get("/transport/routes"),
+            api.get("/transport/stats/assignments")
+        ]).then(([vData, rData, aData]) => {
             setStats({
                 totalVehicles: vData.data.length,
                 totalRoutes: rData.data.length,
-                assignedStudents: 0, // Mock for now
+                assignedStudents: aData.data,
                 activeStatus: "Operational"
             });
             setLoading(false);

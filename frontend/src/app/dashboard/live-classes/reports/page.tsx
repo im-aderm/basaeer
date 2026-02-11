@@ -6,15 +6,15 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { BookOpen, Users, Activity, BarChart3, Download, Search, ChevronRight, FileText, Timer, UserCheck } from 'lucide-react';
-import { LiveClassesService, LiveClassSession } from '@/services/liveClassesService';
+import { BookOpen, Users, Activity, BarChart3, Download, Search, ChevronRight, FileText, Timer, UserCheck, Calendar } from 'lucide-react';
+import { LiveClassesService, LiveClassSession, ReportItem } from '@/services/liveClassesService';
 import { toast } from 'sonner';
 
 export default function LiveClassReportsPage() {
     const { user } = useAuth();
     const [sessions, setSessions] = useState<LiveClassSession[]>([]);
     const [selectedSessionId, setSelectedSessionId] = useState<string | null>(null);
-    const [reports, setReports] = useState<any[]>([]);
+    const [reports, setReports] = useState<ReportItem[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -26,7 +26,7 @@ export default function LiveClassReportsPage() {
                 setSelectedSessionId(data[0].id);
                 fetchReport(data[0].id);
             }
-        } catch (error) {
+        } catch (error: unknown) {
             toast.error('Failed to load classes');
         } finally {
             setLoading(false);
@@ -37,7 +37,7 @@ export default function LiveClassReportsPage() {
         try {
             const data = await LiveClassesService.getAttendanceReport(sessionId);
             setReports(data || []);
-        } catch (error) {
+        } catch (error: unknown) {
             toast.error('Failed to load participation report');
         }
     };
@@ -69,8 +69,8 @@ export default function LiveClassReportsPage() {
                                 key={session.id}
                                 onClick={() => handleSessionSelect(session.id)}
                                 className={`w-full text-left p-5 rounded-[1.5rem] transition-all border-2 ${selectedSessionId === session.id
-                                        ? 'bg-primary/5 border-primary shadow-lg shadow-primary/5'
-                                        : 'hover:bg-muted border-transparent'
+                                    ? 'bg-primary/5 border-primary shadow-lg shadow-primary/5'
+                                    : 'hover:bg-muted border-transparent'
                                     }`}
                             >
                                 <div className="font-black italic text-sm leading-tight uppercase mb-2 line-clamp-2">
@@ -157,7 +157,7 @@ export default function LiveClassReportsPage() {
                                         {reports.map((p, idx) => (
                                             <TableRow key={idx} className="border-border/50 h-20 transition-all hover:bg-muted/20">
                                                 <TableCell className="px-8 font-black italic uppercase leading-tight">
-                                                    {p.student?.user?.firstName} {p.student?.user?.lastName}
+                                                    {p.name}
                                                 </TableCell>
                                                 <TableCell className="px-8 font-bold text-muted-foreground text-sm">
                                                     {new Date(p.joinedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
@@ -166,7 +166,7 @@ export default function LiveClassReportsPage() {
                                                     {p.leftAt ? new Date(p.leftAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '-'}
                                                 </TableCell>
                                                 <TableCell className="px-8 text-center font-black italic text-primary">
-                                                    {p.durationMinutes || 0}m
+                                                    {p.duration || 0}m
                                                 </TableCell>
                                                 <TableCell className="px-8 text-right">
                                                     <div className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 font-black text-[10px] uppercase w-fit ml-auto">

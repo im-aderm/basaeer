@@ -2,14 +2,15 @@
 
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
+import api from '@/lib/api';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter, DialogDescription } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
-import { Award, BarChart3, Search, ChevronRight, CheckCircle2, AlertCircle, FileText, UserCheck, TrendingUp, Trophy } from 'lucide-react';
+import { Award, BarChart3, Search, ChevronRight, CheckCircle2, AlertCircle, FileText, UserCheck, TrendingUp, Trophy, Users, Activity } from 'lucide-react';
 import { OnlineExamService, OnlineExam } from '@/services/onlineExamService';
 import { toast } from 'sonner';
 
@@ -18,23 +19,39 @@ export default function OnlineExamResultsPage() {
     const [exams, setExams] = useState<OnlineExam[]>([]);
     const [selectedExamId, setSelectedExamId] = useState<string>('');
     const [attempts, setAttempts] = useState<any[]>([]);
+    const [classes, setClasses] = useState<any[]>([]);
+    const [sections, setSections] = useState<any[]>([]);
+    const [filters, setFilters] = useState({ classId: '', sectionId: '' });
     const [loading, setLoading] = useState(true);
-    const [gradingLoading, setGradingLoading] = useState(false);
+    const [gradingLoading, setGradingLoading] = useState<string | null>(null);
     const [selectedAttempt, setSelectedAttempt] = useState<any>(null);
     const [isGradeDialogOpen, setIsGradeDialogOpen] = useState(false);
 
     const fetchInitialData = async () => {
         try {
-            const data = await OnlineExamService.getExams();
-            setExams(data);
-            if (data.length > 0) {
-                setSelectedExamId(data[0].id);
-                fetchAttempts(data[0].id);
+            const [examsData, classesData] = await Promise.all([
+                OnlineExamService.getExams(),
+                api.get('/classes')
+            ]);
+            setExams(examsData);
+            setClasses(classesData.data);
+            if (examsData.length > 0) {
+                setSelectedExamId(examsData[0].id);
+                fetchAttempts(examsData[0].id);
             }
         } catch (error) {
             toast.error('Failed to load exams');
         } finally {
             setLoading(false);
+        }
+    };
+
+    const fetchSections = async (classId: string) => {
+        try {
+            const res = await api.get(`/sections?classId=${classId}`);
+            setSections(res.data);
+        } catch (error) {
+            console.error('Failed to fetch sections');
         }
     };
 
@@ -57,19 +74,29 @@ export default function OnlineExamResultsPage() {
     };
 
     const handleGradeSubmit = async (attemptId: string, questionId: string, marks: number) => {
+        const key = `${attemptId}-${questionId}`;
+        setGradingLoading(key);
         try {
             await OnlineExamService.gradeAnswer(attemptId, questionId, marks);
             toast.success('Grade updated');
             fetchAttempts(selectedExamId);
         } catch (error) {
             toast.error('Failed to update grade');
+        } finally {
+            setGradingLoading(null);
         }
     };
 
-    const generatePositions = () => {
-        const sorted = [...attempts].sort((a, b) => (b.score || 0) - (a.score || 0));
-        setAttempts(sorted.map((a, i) => ({ ...a, position: i + 1 })));
-        toast.success('Positions generated based on current scores');
+    const generatePositions = async () => {
+        if (!selectedExamId) return;
+
+        try {
+            await OnlineExamService.generatePositions(selectedExamId);
+            toast.success('Positions generated and saved successfully');
+            fetchAttempts(selectedExamId); // Re-fetch to get saved ranks
+        } catch (error) {
+            toast.error('Failed to generate positions');
+        }
     };
 
     if (loading) return <div className="p-8">Loading assessment results...</div>;
@@ -86,22 +113,41 @@ export default function OnlineExamResultsPage() {
 
                 <div className="flex gap-4">
                     <Select value={selectedExamId} onValueChange={handleExamSelect}>
-                        <SelectTrigger className="h-14 w-80 rounded-2xl bg-muted/50 border-none font-bold text-lg">
-                            <SelectValue placeholder="Select Examination" />
+                        <SelectTrigger className="h-14 w-64 rounded-2xl bg-muted/50 border-none font-bold text-lg">
+                            <SelectValue placeholder="Select Exam" />
                         </SelectTrigger>
                         <SelectContent className="rounded-2xl">
-                            {exams.map(e => (
-                                <SelectItem key={e.id} value={e.id}>{e.title}</SelectItem>
-                            ))}
+                            {exams.map(e => <SelectItem key={e.id} value={e.id}>{e.title}</SelectItem>)}
                         </SelectContent>
                     </Select>
+
+                    <Select value={filters.classId} onValueChange={(v) => { setFilters({ ...filters, classId: v }); fetchSections(v); }}>
+                        <SelectTrigger className="h-14 w-40 rounded-2xl bg-muted/50 border-none font-bold">
+                            <SelectValue placeholder="All Classes" />
+                        </SelectTrigger>
+                        <SelectContent className="rounded-2xl">
+                            <SelectItem value="all">All Classes</SelectItem>
+                            {classes.map(c => <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>)}
+                        </SelectContent>
+                    </Select>
+
+                    <Select value={filters.sectionId} onValueChange={(v) => setFilters({ ...filters, sectionId: v })}>
+                        <SelectTrigger className="h-14 w-40 rounded-2xl bg-muted/50 border-none font-bold">
+                            <SelectValue placeholder="All Sections" />
+                        </SelectTrigger>
+                        <SelectContent className="rounded-2xl">
+                            <SelectItem value="all">All Sections</SelectItem>
+                            {sections.map(s => <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>)}
+                        </SelectContent>
+                    </Select>
+
                     <Button
                         variant="secondary"
                         onClick={generatePositions}
                         className="h-14 px-6 rounded-2xl font-black gap-2 bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/20 shadow-none border-none"
                     >
                         <Trophy className="h-6 w-6" />
-                        Generate Positions
+                        Rankings
                     </Button>
                 </div>
             </div>
@@ -163,46 +209,49 @@ export default function OnlineExamResultsPage() {
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {attempts.map((attempt) => (
-                                <TableRow key={attempt.id} className="border-border/50 h-20 transition-all hover:bg-muted/20">
-                                    <TableCell className="px-8 font-black uppercase text-xs opacity-50">{attempt.student?.admissionNumber || 'N/A'}</TableCell>
-                                    <TableCell className="px-8 font-black italic uppercase leading-tight">
-                                        {attempt.student?.user?.firstName} {attempt.student?.user?.lastName}
-                                    </TableCell>
-                                    <TableCell className="px-8 text-center font-black text-2xl italic text-primary">
-                                        {attempt.score || 0}
-                                    </TableCell>
-                                    <TableCell className="px-8 text-center">
-                                        {attempt.position ? (
-                                            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500 text-white font-black text-xs shadow-lg shadow-amber-500/20">
-                                                <Trophy className="h-3 w-3" />
-                                                #{attempt.position}
-                                            </div>
-                                        ) : '-'}
-                                    </TableCell>
-                                    <TableCell className="px-8 text-center">
-                                        {(attempt.score || 0) >= (activeExam?.passPercentage || 40) ? (
-                                            <div className="inline-flex items-center gap-2 text-emerald-600 font-black italic uppercase text-xs">
-                                                <CheckCircle2 className="h-4 w-4" /> Passed
-                                            </div>
-                                        ) : (
-                                            <div className="inline-flex items-center gap-2 text-destructive font-black italic uppercase text-xs">
-                                                <AlertCircle className="h-4 w-4" /> Failed
-                                            </div>
-                                        )}
-                                    </TableCell>
-                                    <TableCell className="text-right px-8">
-                                        <Button
-                                            variant="outline"
-                                            className="h-10 px-6 rounded-xl font-bold gap-2 border-border/50 hover:bg-primary/5 hover:text-primary transition-all"
-                                            onClick={() => { setSelectedAttempt(attempt); setIsGradeDialogOpen(true); }}
-                                        >
-                                            <FileText className="h-4 w-4" />
-                                            Grade Review
-                                        </Button>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
+                            {attempts
+                                .filter(a => (filters.classId === '' || filters.classId === 'all' || a.student?.classId === filters.classId))
+                                .filter(a => (filters.sectionId === '' || filters.sectionId === 'all' || a.student?.sectionId === filters.sectionId))
+                                .map((attempt) => (
+                                    <TableRow key={attempt.id} className="border-border/50 h-20 transition-all hover:bg-muted/20">
+                                        <TableCell className="px-8 font-black uppercase text-xs opacity-50">{attempt.student?.admissionNumber || 'N/A'}</TableCell>
+                                        <TableCell className="px-8 font-black italic uppercase leading-tight">
+                                            {attempt.student?.user?.firstName} {attempt.student?.user?.lastName}
+                                        </TableCell>
+                                        <TableCell className="px-8 text-center font-black text-2xl italic text-primary">
+                                            {attempt.score || 0}
+                                        </TableCell>
+                                        <TableCell className="px-8 text-center">
+                                            {attempt.position ? (
+                                                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500 text-white font-black text-xs shadow-lg shadow-amber-500/20">
+                                                    <Trophy className="h-3 w-3" />
+                                                    #{attempt.position}
+                                                </div>
+                                            ) : '-'}
+                                        </TableCell>
+                                        <TableCell className="px-8 text-center">
+                                            {(attempt.score || 0) >= (activeExam?.passPercentage || 40) ? (
+                                                <div className="inline-flex items-center gap-2 text-emerald-600 font-black italic uppercase text-xs">
+                                                    <CheckCircle2 className="h-4 w-4" /> Passed
+                                                </div>
+                                            ) : (
+                                                <div className="inline-flex items-center gap-2 text-destructive font-black italic uppercase text-xs">
+                                                    <AlertCircle className="h-4 w-4" /> Failed
+                                                </div>
+                                            )}
+                                        </TableCell>
+                                        <TableCell className="text-right px-8">
+                                            <Button
+                                                variant="outline"
+                                                className="h-10 px-6 rounded-xl font-bold gap-2 border-border/50 hover:bg-primary/5 hover:text-primary transition-all"
+                                                onClick={() => { setSelectedAttempt(attempt); setIsGradeDialogOpen(true); }}
+                                            >
+                                                <FileText className="h-4 w-4" />
+                                                Grade Review
+                                            </Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
                         </TableBody>
                     </Table>
                 </CardContent>
@@ -233,11 +282,14 @@ export default function OnlineExamResultsPage() {
                                                 <Label className="font-black italic text-xs uppercase opacity-50">Awarded Marks:</Label>
                                                 <Input
                                                     type="number"
-                                                    className="h-10 w-20 text-center font-black text-lg bg-muted/50 border-none rounded-xl"
+                                                    className="h-10 w-24 text-center font-black text-lg bg-muted/50 border-none rounded-xl"
                                                     defaultValue={ans.marksAwarded || 0}
                                                     onBlur={(e) => handleGradeSubmit(selectedAttempt.id, ans.questionId, parseFloat(e.target.value))}
-                                                    disabled={ans.question?.type !== 'DESCRIPTIVE'}
+                                                    disabled={ans.question?.type !== 'DESCRIPTIVE' || gradingLoading === `${selectedAttempt.id}-${ans.questionId}`}
                                                 />
+                                                {gradingLoading === `${selectedAttempt.id}-${ans.questionId}` && (
+                                                    <Activity className="h-4 w-4 animate-pulse text-primary" />
+                                                )}
                                             </div>
                                         </div>
                                     </div>

@@ -10,7 +10,9 @@ import {
     Phone,
     User,
     Loader2,
-    ShieldCheck
+    ShieldCheck,
+    Pencil,
+    Trash2
 } from "lucide-react";
 import api from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
@@ -18,6 +20,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { toast } from "sonner";
 
 export default function TransportVehiclesPage() {
     const { user } = useAuth();
@@ -25,6 +29,7 @@ export default function TransportVehiclesPage() {
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [editingVehicle, setEditingVehicle] = useState<any>(null);
     const [formData, setFormData] = useState({
         registrationNumber: "",
         model: "",
@@ -39,6 +44,7 @@ export default function TransportVehiclesPage() {
             setVehicles(res.data);
         } catch (error) {
             console.error("Failed to fetch vehicles:", error);
+            toast.error("Failed to fetch vehicles");
         } finally {
             setLoading(false);
         }
@@ -51,17 +57,52 @@ export default function TransportVehiclesPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await api.post("/transport/vehicles", {
+            const payload = {
                 ...formData,
                 capacity: parseInt(formData.capacity),
                 branchId: user?.branchId
-            });
+            };
+
+            if (editingVehicle) {
+                await api.patch(`/transport/vehicles/${editingVehicle.id}`, payload);
+                toast.success("Vehicle updated successfully");
+            } else {
+                await api.post("/transport/vehicles", payload);
+                toast.success("Vehicle registered successfully");
+            }
+
             setIsDialogOpen(false);
+            setEditingVehicle(null);
             setFormData({ registrationNumber: "", model: "", capacity: "", driverName: "", driverPhone: "" });
             fetchVehicles();
         } catch (error) {
-            console.error("Failed to create vehicle:", error);
+            console.error("Failed to save vehicle:", error);
+            toast.error("Failed to save vehicle");
         }
+    };
+
+    const handleDelete = async (id: string) => {
+        if (!confirm("Are you sure you want to delete this vehicle?")) return;
+        try {
+            await api.delete(`/transport/vehicles/${id}`);
+            toast.success("Vehicle deleted successfully");
+            fetchVehicles();
+        } catch (error) {
+            console.error("Failed to delete vehicle:", error);
+            toast.error("Failed to delete vehicle");
+        }
+    };
+
+    const handleEdit = (vehicle: any) => {
+        setEditingVehicle(vehicle);
+        setFormData({
+            registrationNumber: vehicle.registrationNumber,
+            model: vehicle.model,
+            capacity: vehicle.capacity.toString(),
+            driverName: vehicle.driverName,
+            driverPhone: vehicle.driverPhone || ""
+        });
+        setIsDialogOpen(true);
     };
 
     const filteredVehicles = vehicles.filter(v =>
@@ -73,7 +114,7 @@ export default function TransportVehiclesPage() {
     if (loading) return <div className="p-8 text-center"><Loader2 className="animate-spin mx-auto h-8 w-8 text-primary" /></div>;
 
     return (
-        <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in duration-500">
+        <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in duration-500 pb-20">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
                     <h1 className="text-4xl font-black tracking-tight italic flex items-center gap-3">
@@ -82,7 +123,13 @@ export default function TransportVehiclesPage() {
                     </h1>
                     <p className="text-muted-foreground font-medium text-lg">Monitor and manage all school vehicles and drivers.</p>
                 </div>
-                <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                <Dialog open={isDialogOpen} onOpenChange={(open) => {
+                    setIsDialogOpen(open);
+                    if (!open) {
+                        setEditingVehicle(null);
+                        setFormData({ registrationNumber: "", model: "", capacity: "", driverName: "", driverPhone: "" });
+                    }
+                }}>
                     <DialogTrigger asChild>
                         <Button className="gap-3 rounded-[1.5rem] h-14 px-8 font-black text-lg shadow-xl shadow-primary/20 hover:scale-105 transition-all">
                             <Plus size={20} /> Add New Vehicle
@@ -90,7 +137,9 @@ export default function TransportVehiclesPage() {
                     </DialogTrigger>
                     <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl">
                         <DialogHeader>
-                            <DialogTitle className="text-3xl font-black italic mb-6">Register Vehicle</DialogTitle>
+                            <DialogTitle className="text-3xl font-black italic mb-6">
+                                {editingVehicle ? "Edit Vehicle" : "Register Vehicle"}
+                            </DialogTitle>
                         </DialogHeader>
                         <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-3">
@@ -144,11 +193,21 @@ export default function TransportVehiclesPage() {
                                 />
                             </div>
                             <Button type="submit" className="md:col-span-2 h-14 rounded-2xl font-black text-xl shadow-xl shadow-primary/20 mt-4 transition-all hover:scale-[1.02]">
-                                Register Vehicle
+                                {editingVehicle ? "Update Vehicle" : "Register Vehicle"}
                             </Button>
                         </form>
                     </DialogContent>
                 </Dialog>
+            </div>
+
+            <div className="relative max-w-md mb-8">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={20} />
+                <Input
+                    placeholder="Search fleet..."
+                    className="pl-12 rounded-[1.5rem] bg-card border-none h-14 font-bold shadow-xl shadow-primary/5"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -159,9 +218,21 @@ export default function TransportVehiclesPage() {
                                 <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-all duration-500">
                                     <Bus size={32} />
                                 </div>
-                                <div className="px-3 py-1 bg-green-500/10 text-green-600 rounded-lg text-[10px] font-black uppercase tracking-widest border border-green-500/20">
-                                    Active
-                                </div>
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                        <Button variant="ghost" size="icon" className="rounded-xl h-10 w-10">
+                                            <MoreVertical size={20} />
+                                        </Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent align="end" className="rounded-2xl p-2 min-w-[160px]">
+                                        <DropdownMenuItem onClick={() => handleEdit(vehicle)} className="rounded-xl gap-3 font-bold py-3">
+                                            <Pencil size={18} className="text-blue-500" /> Edit Vehicle
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem onClick={() => handleDelete(vehicle.id)} className="rounded-xl gap-3 font-bold py-3 text-destructive focus:text-destructive">
+                                            <Trash2 size={18} /> Delete Vehicle
+                                        </DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
                             </div>
                             <div className="mt-6">
                                 <h3 className="text-2xl font-black italic tracking-tight">{vehicle.registrationNumber}</h3>

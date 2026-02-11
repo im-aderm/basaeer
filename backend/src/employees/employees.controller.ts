@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Body, UseGuards, Request, Patch, Param } from '@nestjs/common';
+import { Controller, Post, Get, Body, UseGuards, Request, Patch, Param, Query } from '@nestjs/common';
 import { EmployeesService } from './employees.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -150,5 +150,34 @@ export class EmployeesController {
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
   rejectAdvance(@Param('id') id: string) {
     return this.employeesService.updateAdvanceStatus(id, 'REJECTED');
+  }
+
+  // --- Attendance Endpoints ---
+  @Post('attendance')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
+  recordAttendance(@Body() data: { staffId: string; date: string; status: any; remarks?: string }) {
+    return this.employeesService.recordAttendance(data);
+  }
+
+  @Post('attendance/bulk')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
+  recordBulkAttendance(@Body() data: { staffIds: string[]; date: string; status: any }) {
+    const promises = data.staffIds.map(id =>
+      this.employeesService.recordAttendance({ staffId: id, date: data.date, status: data.status })
+    );
+    return Promise.all(promises);
+  }
+
+  @Get('attendance/branch')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
+  getBranchAttendance(@Request() req, @Query('date') date: string) {
+    const searchDate = date || new Date().toISOString().split('T')[0];
+    return this.employeesService.getBranchAttendance(req.user.branchId, searchDate);
+  }
+
+  @Get(':id/attendance')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
+  getStaffAttendance(@Param('id') id: string) {
+    return this.employeesService.getStaffAttendanceHistory(id);
   }
 }

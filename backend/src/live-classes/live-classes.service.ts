@@ -22,34 +22,26 @@ export class LiveClassesService {
 
     async createOrUpdateConfig(dto: CreateGoogleMeetConfigDto) {
         // Encrypt sensitive fields
-        const encryptedServiceAccount = this.encryption.encrypt(dto.serviceAccountJson);
-        const encryptedClientSecret = this.encryption.encrypt(dto.clientSecret);
-        const encryptedApiKey = this.encryption.encrypt(dto.apiKey);
+        const data: any = {
+            clientId: dto.clientId,
+            clientSecret: dto.clientSecret ? this.encryption.encrypt(dto.clientSecret) : undefined,
+            redirectUri: dto.redirectUri,
+            scopes: dto.scopes,
+            serviceAccountJson: dto.serviceAccountJson ? this.encryption.encrypt(dto.serviceAccountJson) : undefined,
+            projectId: dto.projectId,
+            apiKey: dto.apiKey ? this.encryption.encrypt(dto.apiKey) : undefined,
+            isEnabled: dto.isEnabled ?? true,
+            defaultDuration: dto.defaultDuration ?? 60,
+            allowRecording: dto.allowRecording ?? true,
+            requireApproval: dto.requireApproval ?? true,
+        };
 
         return this.prisma.googleMeetConfig.upsert({
             where: { branchId: dto.branchId },
-            update: {
-                serviceAccountJson: encryptedServiceAccount,
-                projectId: dto.projectId,
-                clientId: dto.clientId,
-                clientSecret: encryptedClientSecret,
-                apiKey: encryptedApiKey,
-                isEnabled: dto.isEnabled ?? true,
-                defaultDuration: dto.defaultDuration ?? 60,
-                allowRecording: dto.allowRecording ?? false,
-                requireApproval: dto.requireApproval ?? true,
-            },
+            update: data,
             create: {
                 branchId: dto.branchId,
-                serviceAccountJson: encryptedServiceAccount,
-                projectId: dto.projectId,
-                clientId: dto.clientId,
-                clientSecret: encryptedClientSecret,
-                apiKey: encryptedApiKey,
-                isEnabled: dto.isEnabled ?? true,
-                defaultDuration: dto.defaultDuration ?? 60,
-                allowRecording: dto.allowRecording ?? false,
-                requireApproval: dto.requireApproval ?? true,
+                ...data,
             },
         });
     }
@@ -63,16 +55,18 @@ export class LiveClassesService {
             throw new NotFoundException('Google Meet configuration not found for this branch');
         }
 
-        // Return config without decrypted sensitive fields
         return {
             id: config.id,
             branchId: config.branchId,
             projectId: config.projectId,
             clientId: config.clientId,
+            redirectUri: config.redirectUri,
+            scopes: config.scopes,
             isEnabled: config.isEnabled,
             defaultDuration: config.defaultDuration,
             allowRecording: config.allowRecording,
             requireApproval: config.requireApproval,
+            isAuthorized: !!(config.accessToken && config.refreshToken),
             createdAt: config.createdAt,
             updatedAt: config.updatedAt,
         };
@@ -103,13 +97,12 @@ export class LiveClassesService {
             throw new NotFoundException('Host staff member not found');
         }
 
-        // Calculate end time if not provided
         const startTime = new Date(dto.scheduledStart);
         const endTime = dto.scheduledEnd
             ? new Date(dto.scheduledEnd)
             : new Date(startTime.getTime() + config.defaultDuration * 60000);
 
-        // Create Google Meet
+        // Create Google Meet (OAuth2)
         const meetingData = await this.googleMeet.createMeeting({
             branchId,
             title: dto.title,
@@ -124,15 +117,19 @@ export class LiveClassesService {
             data: {
                 title: dto.title,
                 description: dto.description,
-                meetingId: meetingData.meetingId || '',
-                hostUrl: meetingData.hostUrl || '',
-                participantUrl: meetingData.participantUrl || '',
+                meetingId: meetingData.meetingId,
+                meetLink: meetingData.hostUrl,
+                hostUrl: meetingData.hostUrl,
+                participantUrl: meetingData.participantUrl,
                 classId: dto.classId,
                 sectionId: dto.sectionId,
                 subjectId: dto.subjectId,
                 hostId,
                 scheduledStart: startTime,
                 scheduledEnd: endTime,
+                timezone: dto.timezone || 'UTC',
+                isRecurring: dto.isRecurring || false,
+                recurrenceRule: dto.recurrenceRule,
                 branchId,
                 status: 'SCHEDULED',
             },
@@ -201,6 +198,8 @@ export class LiveClassesService {
                 scheduledStart: dto.scheduledStart ? new Date(dto.scheduledStart) : undefined,
                 scheduledEnd: dto.scheduledEnd ? new Date(dto.scheduledEnd) : undefined,
                 status: dto.status,
+                recordingUrl: dto.recordingUrl,
+                recordingStatus: dto.recordingStatus,
             },
             include: {
                 host: { include: { user: true } },
@@ -240,18 +239,38 @@ export class LiveClassesService {
             throw new NotFoundException('Session not found');
         }
 
-        // Delete from Google Calendar
         try {
             await this.googleMeet.deleteMeeting(branchId, session.meetingId);
         } catch (error) {
             console.error('Failed to delete Google Meet:', error);
-            // Continue with cancellation even if Google deletion fails
         }
 
         return this.prisma.liveClassSession.update({
             where: { id },
             data: { status: 'CANCELLED' },
         });
+    }
+
+    // ==================== Recording Management ====================
+
+    async syncRecording(id: string) {
+        const session = await this.prisma.liveClassSession.findUnique({
+            where: { id },
+            include: { branch: true }
+        });
+
+        if (!session || !session.meetingId) {
+            throw new NotFoundException('Session not found or has no meeting ID');
+        }
+
+        // Logic to call Google Drive/Calendar API to find recording link
+        // This usually requires identifying files in the host's "Meet Recordings" folder
+        // associated with the event ID or title.
+
+        // Placeholder for actual Google Drive API call
+        // const recording = await this.googleMeet.getRecordingLink(session.branchId, session.meetingId);
+
+        return session;
     }
 
     // ==================== Participant Management ====================
@@ -285,7 +304,6 @@ export class LiveClassesService {
                 },
             });
         } else {
-            // Leave action
             const participant = await this.prisma.meetingParticipant.findUnique({
                 where: {
                     sessionId_userId: {
@@ -296,7 +314,8 @@ export class LiveClassesService {
             });
 
             if (!participant || !participant.joinedAt) {
-                throw new BadRequestException('Participant has not joined yet');
+                // Silently ignore if join wasn't recorded properly (happens with webhooks/network issues)
+                return null;
             }
 
             const leftAt = new Date();

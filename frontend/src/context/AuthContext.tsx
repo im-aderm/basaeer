@@ -11,6 +11,8 @@ interface User {
     lastName: string;
     role: string;
     branchId?: string;
+    student?: any;
+    staff?: any;
 }
 
 interface AuthContextType {

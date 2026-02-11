@@ -279,6 +279,20 @@ exports.Prisma.SubjectScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ClassScheduleScalarFieldEnum = {
+  id: 'id',
+  dayOfWeek: 'dayOfWeek',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  room: 'room',
+  classId: 'classId',
+  sectionId: 'sectionId',
+  subjectId: 'subjectId',
+  teacherId: 'teacherId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.AttendanceScalarFieldEnum = {
   id: 'id',
   date: 'date',
@@ -286,6 +300,16 @@ exports.Prisma.AttendanceScalarFieldEnum = {
   remarks: 'remarks',
   studentId: 'studentId',
   sectionId: 'sectionId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.StaffAttendanceScalarFieldEnum = {
+  id: 'id',
+  date: 'date',
+  status: 'status',
+  remarks: 'remarks',
+  staffId: 'staffId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -434,6 +458,7 @@ exports.Prisma.OnlineExamAttemptScalarFieldEnum = {
   startTime: 'startTime',
   endTime: 'endTime',
   score: 'score',
+  position: 'position',
   status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -510,9 +535,11 @@ exports.Prisma.AssignmentScalarFieldEnum = {
   title: 'title',
   description: 'description',
   dueDate: 'dueDate',
+  attachmentUrl: 'attachmentUrl',
   subjectId: 'subjectId',
   sectionId: 'sectionId',
   teacherId: 'teacherId',
+  branchId: 'branchId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -789,10 +816,15 @@ exports.Prisma.AdvanceSalaryScalarFieldEnum = {
 exports.Prisma.GoogleMeetConfigScalarFieldEnum = {
   id: 'id',
   branchId: 'branchId',
-  serviceAccountJson: 'serviceAccountJson',
-  projectId: 'projectId',
   clientId: 'clientId',
   clientSecret: 'clientSecret',
+  accessToken: 'accessToken',
+  refreshToken: 'refreshToken',
+  expiryDate: 'expiryDate',
+  redirectUri: 'redirectUri',
+  scopes: 'scopes',
+  serviceAccountJson: 'serviceAccountJson',
+  projectId: 'projectId',
   apiKey: 'apiKey',
   isEnabled: 'isEnabled',
   defaultDuration: 'defaultDuration',
@@ -807,6 +839,7 @@ exports.Prisma.LiveClassSessionScalarFieldEnum = {
   title: 'title',
   description: 'description',
   meetingId: 'meetingId',
+  meetLink: 'meetLink',
   hostUrl: 'hostUrl',
   participantUrl: 'participantUrl',
   classId: 'classId',
@@ -817,8 +850,14 @@ exports.Prisma.LiveClassSessionScalarFieldEnum = {
   scheduledEnd: 'scheduledEnd',
   actualStart: 'actualStart',
   actualEnd: 'actualEnd',
+  timezone: 'timezone',
+  isRecurring: 'isRecurring',
+  recurrenceRule: 'recurrenceRule',
+  seriesId: 'seriesId',
   status: 'status',
+  recordingId: 'recordingId',
   recordingUrl: 'recordingUrl',
+  recordingStatus: 'recordingStatus',
   branchId: 'branchId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -1233,6 +1272,35 @@ exports.Prisma.IdCardScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.DigitalResourceScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  fileUrl: 'fileUrl',
+  fileType: 'fileType',
+  fileSize: 'fileSize',
+  thumbnailUrl: 'thumbnailUrl',
+  category: 'category',
+  sessionId: 'sessionId',
+  classId: 'classId',
+  sectionId: 'sectionId',
+  subjectId: 'subjectId',
+  uploaderId: 'uploaderId',
+  branchId: 'branchId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.DigitalResourceLogScalarFieldEnum = {
+  id: 'id',
+  resourceId: 'resourceId',
+  userId: 'userId',
+  action: 'action',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1360,7 +1428,9 @@ exports.Prisma.ModelName = {
   Class: 'Class',
   Section: 'Section',
   Subject: 'Subject',
+  ClassSchedule: 'ClassSchedule',
   Attendance: 'Attendance',
+  StaffAttendance: 'StaffAttendance',
   Hostel: 'Hostel',
   Room: 'Room',
   Bed: 'Bed',
@@ -1432,7 +1502,9 @@ exports.Prisma.ModelName = {
   CampusAccessLog: 'CampusAccessLog',
   AutomationConfig: 'AutomationConfig',
   IdCardTemplate: 'IdCardTemplate',
-  IdCard: 'IdCard'
+  IdCard: 'IdCard',
+  DigitalResource: 'DigitalResource',
+  DigitalResourceLog: 'DigitalResourceLog'
 };
 
 /**

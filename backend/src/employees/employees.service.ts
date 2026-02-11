@@ -175,4 +175,53 @@ export class EmployeesService {
             data: { status },
         });
     }
+
+    // --- Staff Attendance ---
+    async recordAttendance(data: { staffId: string; date: string; status: any; remarks?: string }) {
+        return this.prisma.staffAttendance.upsert({
+            where: {
+                staffId_date: {
+                    staffId: data.staffId,
+                    date: new Date(data.date),
+                },
+            },
+            update: {
+                status: data.status,
+                remarks: data.remarks,
+            },
+            create: {
+                staffId: data.staffId,
+                date: new Date(data.date),
+                status: data.status,
+                remarks: data.remarks,
+            },
+        });
+    }
+
+    async getBranchAttendance(branchId: string, date: string) {
+        return this.prisma.staffAttendance.findMany({
+            where: {
+                date: new Date(date),
+                staff: {
+                    user: {
+                        branchId,
+                    },
+                },
+            },
+            include: {
+                staff: {
+                    include: {
+                        user: true,
+                    },
+                },
+            },
+        });
+    }
+
+    async getStaffAttendanceHistory(staffId: string) {
+        return this.prisma.staffAttendance.findMany({
+            where: { staffId },
+            orderBy: { date: 'desc' },
+        });
+    }
 }

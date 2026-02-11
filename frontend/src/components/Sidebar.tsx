@@ -165,6 +165,7 @@ const navigation: NavItem[] = [
         icon: Users,
         children: [
             { title: "Payroll", href: "/dashboard/hr/payroll" },
+            { title: "Attendance", href: "/dashboard/hr/attendance" },
             { title: "Advance Salary", href: "/dashboard/hr/advance-salary" },
             { title: "Leave", href: "/dashboard/hr/leave" },
             { title: "Award", href: "/dashboard/hr/award" },

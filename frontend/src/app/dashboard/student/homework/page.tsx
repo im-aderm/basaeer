@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { BookOpen, Clock, CheckCircle2, AlertCircle, Send } from "lucide-react";
+import { BookOpen, Clock, CheckCircle2, AlertCircle, Send, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -25,6 +25,7 @@ export default function StudentHomeworkView() {
 
     const fetchAssignments = async () => {
         try {
+            if (!user?.student?.id) return;
             const data = await AcademicOpsService.getStudentAssignments(user.student.id);
             setAssignments(data);
         } catch (error) {
@@ -35,7 +36,7 @@ export default function StudentHomeworkView() {
     };
 
     const handleSubmit = async () => {
-        if (!contentUrl || !selectedAssignment) return;
+        if (!contentUrl || !selectedAssignment || !user?.student?.id) return;
 
         try {
             await AcademicOpsService.submitAssignment({
@@ -129,6 +130,20 @@ export default function StudentHomeworkView() {
                                         {status.text}
                                     </div>
                                 </div>
+
+                                {assignment.attachmentUrl && (
+                                    <div className="mb-4">
+                                        <a
+                                            href={assignment.attachmentUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-xs flex items-center gap-2 p-2 rounded-lg bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 transition-colors"
+                                        >
+                                            <FileText className="w-4 h-4" />
+                                            View Assignment Resources
+                                        </a>
+                                    </div>
+                                )}
 
                                 {submission?.grade && (
                                     <div className="mb-4 p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg">

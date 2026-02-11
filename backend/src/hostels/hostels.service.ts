@@ -1,17 +1,50 @@
-import { Injectable, ConflictException, NotFoundException } from '@nestjs/common';
+import { Injectable, ConflictException, NotFoundException, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateHostelDto } from './dto/create-hostel.dto';
 import { CreateRoomDto } from './dto/create-room.dto';
 import { AllocateBedDto } from './dto/allocate-bed.dto';
 import { BedStatus } from '../generated/client/client';
+import { UpdateHostelDto } from './dto/update-hostel.dto';
+import { UpdateRoomDto } from './dto/update-room.dto';
 
 @Injectable()
 export class HostelsService {
     constructor(private prisma: PrismaService) { }
 
-    async createHostel(dto: CreateHostelDto) {
+    async findHostel(id: string, branchId: string) {
+        const hostel = await this.prisma.hostel.findFirst({
+            where: { id, branchId }
+        });
+        if (!hostel) throw new NotFoundException('Hostel not found');
+        return hostel;
+    }
+
+    async findRoom(id: string, branchId: string) {
+        const room = await this.prisma.room.findFirst({
+            where: { id, hostel: { branchId } }
+        });
+        if (!room) throw new NotFoundException('Room not found');
+        return room;
+    }
+
+    async createHostel(dto: CreateHostelDto, branchId: string) {
         return this.prisma.hostel.create({
-            data: dto,
+            data: { ...dto, branchId },
+        });
+    }
+
+    async updateHostel(id: string, dto: UpdateHostelDto, branchId: string) {
+        await this.findHostel(id, branchId);
+        return this.prisma.hostel.update({
+            where: { id },
+            data: dto
+        });
+    }
+
+    async deleteHostel(id: string, branchId: string) {
+        await this.findHostel(id, branchId);
+        return this.prisma.hostel.delete({
+            where: { id }
         });
     }
 
@@ -37,10 +70,10 @@ export class HostelsService {
         });
     }
 
-    async createRoom(dto: CreateRoomDto) {
+    async createRoom(dto: CreateRoomDto, branchId: string) {
         const { number, floor, capacity, hostelId } = dto;
+        await this.findHostel(hostelId, branchId);
 
-        // Transaction to create room and its beds
         return this.prisma.$transaction(async (tx) => {
             const room = await tx.room.create({
                 data: {
@@ -51,7 +84,6 @@ export class HostelsService {
                 },
             });
 
-            // Create beds based on capacity
             const bedsData = Array.from({ length: capacity }, (_, i) => ({
                 name: `Bed ${String.fromCharCode(65 + i)}`,
                 roomId: room.id,
@@ -68,27 +100,45 @@ export class HostelsService {
         });
     }
 
-    async allocateBed(dto: AllocateBedDto) {
+    async updateRoom(id: string, dto: UpdateRoomDto, branchId: string) {
+        await this.findRoom(id, branchId);
+
+        return this.prisma.room.update({
+            where: { id },
+            data: dto
+        });
+    }
+
+    async deleteRoom(id: string, branchId: string) {
+        await this.findRoom(id, branchId);
+        return this.prisma.room.delete({
+            where: { id }
+        });
+    }
+
+    async allocateBed(dto: AllocateBedDto, branchId: string) {
         const { studentId, bedId, checkInDate } = dto;
 
         return this.prisma.$transaction(async (tx) => {
-            // 1. Check if bed is available
-            const bed = await tx.bed.findUnique({
-                where: { id: bedId },
+            const bed = await tx.bed.findFirst({
+                where: { id: bedId, room: { hostel: { branchId } } },
             });
 
-            if (!bed) throw new NotFoundException('Bed not found');
+            if (!bed) throw new NotFoundException('Bed not found in this branch');
             if (bed.status !== BedStatus.AVAILABLE) {
                 throw new ConflictException('Bed is not available');
             }
 
-            // 2. Mark bed as occupied
+            const student = await tx.student.findFirst({
+                where: { id: studentId, branchId }
+            });
+            if (!student) throw new NotFoundException('Student not found in this branch');
+
             await tx.bed.update({
                 where: { id: bedId },
                 data: { status: BedStatus.OCCUPIED },
             });
 
-            // 3. Create allocation
             return tx.hostelAllocation.create({
                 data: {
                     studentId,
@@ -99,15 +149,14 @@ export class HostelsService {
         });
     }
 
-    async releaseBed(allocationId: string) {
+    async releaseBed(allocationId: string, branchId: string) {
         return this.prisma.$transaction(async (tx) => {
-            const allocation = await tx.hostelAllocation.findUnique({
-                where: { id: allocationId },
+            const allocation = await tx.hostelAllocation.findFirst({
+                where: { id: allocationId, student: { branchId } },
             });
 
-            if (!allocation) throw new NotFoundException('Allocation not found');
+            if (!allocation) throw new NotFoundException('Allocation not found in this branch');
 
-            // 1. Mark allocation as inactive
             await tx.hostelAllocation.update({
                 where: { id: allocationId },
                 data: {
@@ -116,7 +165,6 @@ export class HostelsService {
                 },
             });
 
-            // 2. Mark bed as available
             await tx.bed.update({
                 where: { id: allocation.bedId },
                 data: { status: BedStatus.AVAILABLE },
@@ -143,6 +191,32 @@ export class HostelsService {
                 },
             },
         });
+    }
+
+    async getStats(branchId: string) {
+        const hostelsCount = await this.prisma.hostel.count({ where: { branchId } });
+        const roomsCount = await this.prisma.room.count({ where: { hostel: { branchId } } });
+        const totalBeds = await this.prisma.bed.count({ where: { room: { hostel: { branchId } } } });
+        const occupiedBeds = await this.prisma.bed.count({
+            where: {
+                room: { hostel: { branchId } },
+                status: BedStatus.OCCUPIED
+            }
+        });
+        const maintenanceBeds = await this.prisma.bed.count({
+            where: {
+                room: { hostel: { branchId } },
+                status: BedStatus.MAINTENANCE
+            }
+        });
+
+        return {
+            hostels: hostelsCount,
+            rooms: roomsCount,
+            capacity: totalBeds,
+            occupied: occupiedBeds,
+            maintenance: maintenanceBeds
+        };
     }
 
     async createLeave(dto: any) {

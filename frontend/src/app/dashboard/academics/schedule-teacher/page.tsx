@@ -5,7 +5,8 @@ import { Calendar, Clock, BookOpen, AlertTriangle, TrendingUp } from "lucide-rea
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import api from "@/lib/api";
+import { AcademicService } from "@/services/academicService";
+import { StaffService } from "@/services/staffService";
 
 const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
@@ -27,8 +28,8 @@ export default function TeacherSchedulePage() {
 
     const fetchTeachers = async () => {
         try {
-            const response = await api.get("/employees?role=TEACHER");
-            setTeachers(response.data);
+            const data = await StaffService.getAllTeachers();
+            setTeachers(data);
         } catch (error) {
             toast.error("Failed to load teachers");
         } finally {
@@ -38,8 +39,8 @@ export default function TeacherSchedulePage() {
 
     const fetchSchedule = async () => {
         try {
-            const response = await api.get(`/academics/schedules/teacher/${selectedTeacher}`);
-            setSchedule(response.data);
+            const data = await AcademicService.getSchedules({ teacherId: selectedTeacher });
+            setSchedule(data);
         } catch (error) {
             toast.error("Failed to load schedule");
         }

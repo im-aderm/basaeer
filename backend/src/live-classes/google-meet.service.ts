@@ -10,31 +10,80 @@ export class GoogleMeetService {
         private encryption: EncryptionService
     ) { }
 
-    private async getAuthClient(branchId: string) {
-        const config = await this.prisma.googleMeetConfig.findUnique({
-            where: { branchId }
+    private getOAuth2Client(config?: any) {
+        const clientId = process.env.GOOGLE_MEET_CLIENT_ID || config?.clientId;
+        const clientSecret = process.env.GOOGLE_MEET_CLIENT_SECRET || (config?.clientSecret ? this.encryption.decrypt(config.clientSecret) : null);
+        const redirectUri = process.env.GOOGLE_MEET_REDIRECT_URI || config?.redirectUri;
+
+        if (!clientId || !clientSecret || !redirectUri) {
+            throw new BadRequestException('Google Meet Client ID, Secret, or Redirect URI is not configured');
+        }
+
+        return new google.auth.OAuth2(clientId, clientSecret, redirectUri);
+    }
+
+    async getAuthUrl(branchId: string) {
+        const config = await this.prisma.googleMeetConfig.findUnique({ where: { branchId } });
+        const oauth2Client = this.getOAuth2Client(config);
+
+        return oauth2Client.generateAuthUrl({
+            access_type: 'offline',
+            scope: (process.env.GOOGLE_MEET_SCOPES || config?.scopes || 'https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/drive.readonly').split(' '),
+            prompt: 'consent',
+            state: branchId,
+        });
+    }
+
+    async setTokens(branchId: string, code: string) {
+        const config = await this.prisma.googleMeetConfig.findUnique({ where: { branchId } });
+        const oauth2Client = this.getOAuth2Client(config);
+
+        const { tokens } = await oauth2Client.getToken(code);
+
+        await this.prisma.googleMeetConfig.update({
+            where: { branchId },
+            data: {
+                accessToken: tokens.access_token ? this.encryption.encrypt(tokens.access_token) : undefined,
+                refreshToken: tokens.refresh_token ? this.encryption.encrypt(tokens.refresh_token) : undefined,
+                expiryDate: tokens.expiry_date ? new Date(tokens.expiry_date) : undefined,
+                isEnabled: true,
+            },
         });
 
+        return tokens;
+    }
+
+    private async getAuthorizedClient(branchId: string) {
+        const config = await this.prisma.googleMeetConfig.findUnique({ where: { branchId } });
         if (!config || !config.isEnabled) {
             throw new BadRequestException('Google Meet is not configured or enabled for this branch');
         }
 
-        try {
-            const serviceAccountJson = this.encryption.decrypt(config.serviceAccountJson);
-            const credentials = JSON.parse(serviceAccountJson);
+        const oauth2Client = this.getOAuth2Client(config);
 
-            const auth = new google.auth.GoogleAuth({
-                credentials,
-                scopes: [
-                    'https://www.googleapis.com/auth/calendar',
-                    'https://www.googleapis.com/auth/calendar.events',
-                ],
-            });
-
-            return auth.getClient();
-        } catch (error) {
-            throw new BadRequestException(`Failed to initialize Google API client: ${error.message}`);
+        if (!config.accessToken || !config.refreshToken) {
+            throw new BadRequestException('Google Meet tokens are missing. Please authorize the application.');
         }
+
+        oauth2Client.setCredentials({
+            access_token: this.encryption.decrypt(config.accessToken),
+            refresh_token: this.encryption.decrypt(config.refreshToken),
+            expiry_date: config.expiryDate?.getTime(),
+        });
+
+        // Check if token is expired and refresh if necessary
+        if (config.expiryDate && config.expiryDate.getTime() < Date.now()) {
+            const { credentials } = await oauth2Client.refreshAccessToken();
+            await this.prisma.googleMeetConfig.update({
+                where: { branchId },
+                data: {
+                    accessToken: credentials.access_token ? this.encryption.encrypt(credentials.access_token) : undefined,
+                    expiryDate: credentials.expiry_date ? new Date(credentials.expiry_date) : undefined,
+                },
+            });
+        }
+
+        return oauth2Client;
     }
 
     async createMeeting(params: {
@@ -46,8 +95,8 @@ export class GoogleMeetService {
         hostEmail: string;
         attendees?: string[];
     }) {
-        const authClient = await this.getAuthClient(params.branchId);
-        const calendar = google.calendar({ version: 'v3', auth: authClient as any });
+        const authClient = await this.getAuthorizedClient(params.branchId);
+        const calendar = google.calendar({ version: 'v3', auth: authClient });
 
         try {
             const event = {
@@ -55,11 +104,9 @@ export class GoogleMeetService {
                 description: params.description || '',
                 start: {
                     dateTime: params.startTime.toISOString(),
-                    timeZone: 'UTC',
                 },
                 end: {
                     dateTime: params.endTime.toISOString(),
-                    timeZone: 'UTC',
                 },
                 attendees: params.attendees?.map(email => ({ email })) || [],
                 conferenceData: {
@@ -67,13 +114,6 @@ export class GoogleMeetService {
                         requestId: `meet-${Date.now()}`,
                         conferenceSolutionKey: { type: 'hangoutsMeet' },
                     },
-                },
-                reminders: {
-                    useDefault: false,
-                    overrides: [
-                        { method: 'email', minutes: 24 * 60 },
-                        { method: 'popup', minutes: 10 },
-                    ],
                 },
             };
 
@@ -84,30 +124,26 @@ export class GoogleMeetService {
             });
 
             const meetingData = response.data;
-            const conferenceData = meetingData.conferenceData;
+            const meetLink = meetingData.hangoutLink || meetingData.conferenceData?.entryPoints?.find(ep => ep.entryPointType === 'video')?.uri;
 
-            if (!conferenceData || !conferenceData.entryPoints) {
+            if (!meetLink) {
                 throw new Error('Failed to create Google Meet conference');
             }
 
-            const meetLink = conferenceData.entryPoints.find(
-                ep => ep.entryPointType === 'video'
-            )?.uri;
-
             return {
-                meetingId: meetingData.id,
+                meetingId: meetingData.id!,
                 hostUrl: meetLink,
                 participantUrl: meetLink,
-                hangoutLink: meetingData.hangoutLink,
+                hangoutLink: meetingData.hangoutLink!,
             };
-        } catch (error) {
+        } catch (error: any) {
             throw new BadRequestException(`Failed to create Google Meet: ${error.message}`);
         }
     }
 
     async deleteMeeting(branchId: string, eventId: string) {
-        const authClient = await this.getAuthClient(branchId);
-        const calendar = google.calendar({ version: 'v3', auth: authClient as any });
+        const authClient = await this.getAuthorizedClient(branchId);
+        const calendar = google.calendar({ version: 'v3', auth: authClient });
 
         try {
             await calendar.events.delete({
@@ -115,24 +151,23 @@ export class GoogleMeetService {
                 eventId: eventId,
             });
             return { success: true };
-        } catch (error) {
+        } catch (error: any) {
             throw new BadRequestException(`Failed to delete meeting: ${error.message}`);
         }
     }
 
     async testConnection(branchId: string): Promise<{ success: boolean; message: string }> {
         try {
-            const authClient = await this.getAuthClient(branchId);
-            const calendar = google.calendar({ version: 'v3', auth: authClient as any });
+            const authClient = await this.getAuthorizedClient(branchId);
+            const calendar = google.calendar({ version: 'v3', auth: authClient });
 
-            // Test by listing calendars
             await calendar.calendarList.list();
 
             return {
                 success: true,
                 message: 'Successfully connected to Google Calendar API',
             };
-        } catch (error) {
+        } catch (error: any) {
             return {
                 success: false,
                 message: `Connection failed: ${error.message}`,

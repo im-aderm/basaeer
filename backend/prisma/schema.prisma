@@ -20,6 +20,7 @@ enum UserRole {
   PARENT
   RECEPTIONIST
 }
+
 enum AttendanceStatus {
   PRESENT
   ABSENT
@@ -84,35 +85,35 @@ model Branch {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  users     User[]
-  students  Student[]
-  classes   Class[]
-  subjects  Subject[]
-  hostels   Hostel[]
-  feeCategories FeeCategory[]
-  vehicles      Vehicle[]
-  routes        TransportRoute[]
-  expenseCategories ExpenseCategory[]
-  vouchers          Voucher[]
-  departments       Department[]
-  designations      Designation[]
-  certificates      Certificate[]
+  users                User[]
+  students             Student[]
+  classes              Class[]
+  subjects             Subject[]
+  hostels              Hostel[]
+  feeCategories        FeeCategory[]
+  vehicles             Vehicle[]
+  routes               TransportRoute[]
+  expenseCategories    ExpenseCategory[]
+  vouchers             Voucher[]
+  departments          Department[]
+  designations         Designation[]
+  certificates         Certificate[]
   certificateTemplates CertificateTemplate[]
-  books             Book[]
-  googleMeetConfig  GoogleMeetConfig?
-  liveClassSessions LiveClassSession[]
-  studentCategories StudentCategory[]
-  onlineAdmissions  OnlineAdmission[]
-  questionGroups   QuestionGroup[]
-  onlineExams     OnlineExam[]
-  
+  books                Book[]
+  googleMeetConfig     GoogleMeetConfig?
+  liveClassSessions    LiveClassSession[]
+  studentCategories    StudentCategory[]
+  onlineAdmissions     OnlineAdmission[]
+  questionGroups       QuestionGroup[]
+  onlineExams          OnlineExam[]
+
   // Reception Phase 16
-  enquiries       AdmissionEnquiry[]
-  callLogs        CallLog[]
-  visitorLogs     VisitorLog[]
-  complaints      Complaint[]
-  postalRecords   PostalRecord[]
-  
+  enquiries     AdmissionEnquiry[]
+  callLogs      CallLog[]
+  visitorLogs   VisitorLog[]
+  complaints    Complaint[]
+  postalRecords PostalRecord[]
+
   // Inventory Phase 16
   inventoryCategories InventoryCategory[]
   inventoryStores     InventoryStore[]
@@ -124,43 +125,45 @@ model Branch {
   inventoryIssues     InventoryIssue[]
 
   // Stakeholder Phase 17
-  alumni          Alumni[]
-  alumniEvents    AlumniEvent[]
-  conversations   Conversation[]
+  alumni        Alumni[]
+  alumniEvents  AlumniEvent[]
+  conversations Conversation[]
 
   // Phase 18
   campusEvents      CampusEvent[]
   accessLogs        CampusAccessLog[]
   automationConfigs AutomationConfig[]
   idCardTemplates   IdCardTemplate[]
+  digitalResources  DigitalResource[]
 
   // Student Deactivation Phase
   deactivationReasons DeactivationReason[]
   loginDeactivations  LoginDeactivation[]
+  assignments         Assignment[]
 }
 
 model DeactivationReason {
-  id          String   @id @default(uuid())
-  title       String
-  description String?
-  branchId    String
-  branch      Branch   @relation(fields: [branchId], references: [id])
+  id            String              @id @default(uuid())
+  title         String
+  description   String?
+  branchId      String
+  branch        Branch              @relation(fields: [branchId], references: [id])
   deactivations LoginDeactivation[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
 }
 
 model LoginDeactivation {
-  id        String   @id @default(uuid())
+  id        String              @id @default(uuid())
   studentId String
   userId    String
   reason    String
   reasonId  String?
   reasonRef DeactivationReason? @relation(fields: [reasonId], references: [id])
   branchId  String
-  branch    Branch   @relation(fields: [branchId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  branch    Branch              @relation(fields: [branchId], references: [id])
+  createdAt DateTime            @default(now())
+  updatedAt DateTime            @updatedAt
 }
 
 model User {
@@ -174,45 +177,46 @@ model User {
   role      UserRole
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  
-  // Relations
-  branchId  String?
-  branch    Branch?  @relation(fields: [branchId], references: [id])
 
-  staff     Staff?
-  student   Student? 
-  children  Student[] @relation("ParentToStudent")
-  auditLogs AuditLog[]
-  approvedVouchers Voucher[] @relation("VoucherApprover")
-  issuedCertificates Certificate[] @relation("IssuedCertificates")
-  meetingParticipations MeetingParticipant[]
+  // Relations
+  branchId String?
+  branch   Branch? @relation(fields: [branchId], references: [id])
+
+  staff                      Staff?
+  student                    Student?
+  children                   Student[]                 @relation("ParentToStudent")
+  auditLogs                  AuditLog[]
+  approvedVouchers           Voucher[]                 @relation("VoucherApprover")
+  issuedCertificates         Certificate[]             @relation("IssuedCertificates")
+  meetingParticipations      MeetingParticipant[]
   conversationParticipations ConversationParticipant[]
-  sentMessages      Message[]
-  eventRSVPs        EventRSVP[]
-  accessLogs        CampusAccessLog[]
-  onlineAdmissions  OnlineAdmission[]
+  sentMessages               Message[]
+  eventRSVPs                 EventRSVP[]
+  accessLogs                 CampusAccessLog[]
+  onlineAdmissions           OnlineAdmission[]
+  digitalResourceLogs        DigitalResourceLog[]
 }
 
 model Staff {
-  id        String   @id @default(uuid())
-  userId    String   @unique
-  user      User     @relation(fields: [userId], references: [id])
-  
-  designation       String? // Original field
-  
-  departmentId      String?
-  department        Department? @relation(fields: [departmentId], references: [id])
-  
-  designationId     String?
-  designationRef    Designation? @relation(fields: [designationId], references: [id])
-  
-  status            String   @default("ACTIVE") // ACTIVE, TERMINATED, ON_LEAVE
-  
-  inventoryIssues   InventoryIssue[]
-  
-  subjects    Subject[]       // Subjects taught by this teacher
-  classes     Class[]         // Class teacher of
-  
+  id     String @id @default(uuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
+
+  designation String? // Original field
+
+  departmentId String?
+  department   Department? @relation(fields: [departmentId], references: [id])
+
+  designationId  String?
+  designationRef Designation? @relation(fields: [designationId], references: [id])
+
+  status String @default("ACTIVE") // ACTIVE, TERMINATED, ON_LEAVE
+
+  inventoryIssues InventoryIssue[]
+
+  subjects Subject[] // Subjects taught by this teacher
+  classes  Class[] // Class teacher of
+
   salaryTemplate SalaryTemplate?
   payrolls       Payroll[]
   leaveRequests  LeaveRequest[]
@@ -221,71 +225,74 @@ model Staff {
   assignments    Assignment[]
   hostedSessions LiveClassSession[]
   idCards        IdCard[]
+  attendance     StaffAttendance[]
+  classSchedules ClassSchedule[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  digitalResources DigitalResource[]
 }
 
 model Student {
-  id        String   @id @default(uuid())
-  userId    String?  @unique
-  user      User?    @relation(fields: [userId], references: [id])
-  
+  id     String  @id @default(uuid())
+  userId String? @unique
+  user   User?   @relation(fields: [userId], references: [id])
+
   firstName String
   lastName  String
   dob       DateTime?
-  
-  branchId  String
-  branch    Branch   @relation(fields: [branchId], references: [id])
 
-  classId   String?
-  class     Class?   @relation(fields: [classId], references: [id])
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id])
+
+  classId String?
+  class   Class?  @relation(fields: [classId], references: [id])
 
   sectionId String?
   section   Section? @relation(fields: [sectionId], references: [id])
 
-  parentId  String?
-  parent    User?    @relation("ParentToStudent", fields: [parentId], references: [id])
+  parentId String?
+  parent   User?   @relation("ParentToStudent", fields: [parentId], references: [id])
 
-  attendance Attendance[]
-  hostelAllocations HostelAllocation[]
-  hostelLeaves      HostelLeave[]
-  invoices          Invoice[]
+  attendance          Attendance[]
+  hostelAllocations   HostelAllocation[]
+  hostelLeaves        HostelLeave[]
+  invoices            Invoice[]
   transportAssignment TransportAssignment?
-  submissions       Submission[]
-  assessmentRecords AssessmentRecord[]
-  behaviouralRatings BehaviouralRating[]
-  resultSummaries   ResultSummary[]
-  certificates      Certificate[]
-  borrowRecords     BorrowRecord[]
-  onlineExamAttempts OnlineExamAttempt[]
-  inventoryIssues   InventoryIssue[]
-  idCards           IdCard[]
-  alumni            Alumni?
+  submissions         Submission[]
+  assessmentRecords   AssessmentRecord[]
+  behaviouralRatings  BehaviouralRating[]
+  resultSummaries     ResultSummary[]
+  certificates        Certificate[]
+  borrowRecords       BorrowRecord[]
+  onlineExamAttempts  OnlineExamAttempt[]
+  inventoryIssues     InventoryIssue[]
+  idCards             IdCard[]
+  alumni              Alumni?
 
-  categoryId        String?
-  category          StudentCategory? @relation(fields: [categoryId], references: [id])
+  categoryId String?
+  category   StudentCategory? @relation(fields: [categoryId], references: [id])
 
   // Improved Admission Fields
-  otherNames        String?
-  placeOfBirth      String?
-  nationality       String?
-  stateOfOrigin     String?
-  lga               String?
-  religion          String?
-  passportPhoto     String?
-  
-  guardianOccupation String?
-  guardianOfficeAddress String?
-  secondaryGuardianName String?
-  secondaryGuardianPhone String?
+  otherNames    String?
+  placeOfBirth  String?
+  nationality   String?
+  stateOfOrigin String?
+  lga           String?
+  religion      String?
+  passportPhoto String?
+
+  guardianOccupation        String?
+  guardianOfficeAddress     String?
+  secondaryGuardianName     String?
+  secondaryGuardianPhone    String?
   secondaryGuardianRelation String?
 
-  city              String?
-  state             String?
-  country           String?
-  emergencyContactName String?
-  emergencyContactPhone String?
+  city                     String?
+  state                    String?
+  country                  String?
+  emergencyContactName     String?
+  emergencyContactPhone    String?
   emergencyContactRelation String?
 
   bloodGroup        String?
@@ -296,96 +303,99 @@ model Student {
   familyDoctorName  String?
   familyDoctorPhone String?
 
-  birthCertificateUrl   String?
-  testimonialUrl        String?
+  birthCertificateUrl    String?
+  testimonialUrl         String?
   transferCertificateUrl String?
   immunizationCardUrl    String?
-  
-  preferredLanguage String?
-  religionClassType String?
-  scholarshipEligible Boolean       @default(false)
-  referralSource    String?
+
+  preferredLanguage   String?
+  religionClassType   String?
+  scholarshipEligible Boolean @default(false)
+  referralSource      String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Certificate {
-  id          String   @id @default(uuid())
-  type        String   // e.g., "TRANSFER", "CHARACTER", "COLLEGE_LEAVING"
-  certificateNumber String @unique
-  issueDate   DateTime @default(now())
-  content     Json?    // Any custom data for the certificate
-  
+  id                String   @id @default(uuid())
+  type              String // e.g., "TRANSFER", "CHARACTER", "COLLEGE_LEAVING"
+  certificateNumber String   @unique
+  issueDate         DateTime @default(now())
+  content           Json? // Any custom data for the certificate
+
   verificationCode String  @unique @default(cuid())
-  isVerified      Boolean @default(true)
+  isVerified       Boolean @default(true)
 
-  studentId   String
-  student     Student  @relation(fields: [studentId], references: [id])
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id])
 
-  templateId  String?
-  template    CertificateTemplate? @relation(fields: [templateId], references: [id])
+  templateId String?
+  template   CertificateTemplate? @relation(fields: [templateId], references: [id])
 
   issuedByUserId String
-  issuedBy      User    @relation("IssuedCertificates", fields: [issuedByUserId], references: [id])
+  issuedBy       User   @relation("IssuedCertificates", fields: [issuedByUserId], references: [id])
 
-  branchId    String
-  branch      Branch   @relation(fields: [branchId], references: [id])
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id])
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model CertificateTemplate {
-  id              String   @id @default(uuid())
+  id              String  @id @default(uuid())
   name            String
-  type            String   // TRANSFER, CHARACTER, etc.
-  backgroundImage String?  // URL to background image
-  config          Json     // Layout, styling, and fields config
-  
-  branchId        String
-  branch          Branch   @relation(fields: [branchId], references: [id])
-  
-  certificates    Certificate[]
-  
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  type            String // TRANSFER, CHARACTER, etc.
+  backgroundImage String? // URL to background image
+  config          Json // Layout, styling, and fields config
+
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id])
+
+  certificates Certificate[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Class {
-  id        String   @id @default(uuid())
-  name      String   // e.g. "Grade 10"
+  id         String @id @default(uuid())
+  name       String // e.g. "Grade 10"
   gradeLevel Int?
-  
-  branchId  String
-  branch    Branch   @relation(fields: [branchId], references: [id])
 
-  sections  Section[]
-  students  Student[]
-  
-  classTeacherId String?
-  classTeacher   Staff?  @relation(fields: [classTeacherId], references: [id])
-  feeStructures  FeeStructure[]
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id])
+
+  sections Section[]
+  students Student[]
+
+  classTeacherId    String?
+  classTeacher      Staff?             @relation(fields: [classTeacherId], references: [id])
+  feeStructures     FeeStructure[]
   liveClassSessions LiveClassSession[]
   onlineAdmissions  OnlineAdmission[]
   onlineExams       OnlineExam[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  classSchedules   ClassSchedule[]
+  digitalResources DigitalResource[]
 
   @@unique([branchId, name])
 }
 
 model Section {
-  id        String   @id @default(uuid())
-  name      String   // e.g. "A", "Blue"
-  
-  classId   String
-  class     Class    @relation(fields: [classId], references: [id])
+  id   String @id @default(uuid())
+  name String // e.g. "A", "Blue"
 
-  students  Student[]
-  attendance Attendance[]
-  assignments Assignment[]
+  classId String
+  class   Class  @relation(fields: [classId], references: [id])
+
+  students          Student[]
+  attendance        Attendance[]
+  assignments       Assignment[]
   assessmentRecords AssessmentRecord[]
   liveClassSessions LiveClassSession[]
   onlineAdmissions  OnlineAdmission[]
@@ -394,35 +404,66 @@ model Section {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  classSchedules   ClassSchedule[]
+  digitalResources DigitalResource[]
+
   @@unique([classId, name])
 }
 
 model Subject {
-  id        String   @id @default(uuid())
-  name      String
-  code      String?
-  
-  branchId  String
-  branch    Branch   @relation(fields: [branchId], references: [id])
-  
-  teachers  Staff[]
-  assignments Assignment[]
+  id   String  @id @default(uuid())
+  name String
+  code String?
+
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id])
+
+  teachers          Staff[]
+  assignments       Assignment[]
   assessmentRecords AssessmentRecord[]
   liveClassSessions LiveClassSession[]
   onlineExams       OnlineExam[]
+  classSchedules    ClassSchedule[]
+
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  digitalResources DigitalResource[]
+}
+
+model ClassSchedule {
+  id        String  @id @default(uuid())
+  dayOfWeek Int // 0 (Monday) to 6 (Sunday)
+  startTime String // HH:mm
+  endTime   String // HH:mm
+  room      String?
+
+  classId String
+  class   Class  @relation(fields: [classId], references: [id])
+
+  sectionId String
+  section   Section @relation(fields: [sectionId], references: [id])
+
+  subjectId String
+  subject   Subject @relation(fields: [subjectId], references: [id])
+
+  teacherId String
+  teacher   Staff  @relation(fields: [teacherId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@unique([teacherId, dayOfWeek, startTime])
+  @@unique([classId, sectionId, dayOfWeek, startTime])
 }
 
 model Attendance {
-  id        String   @id @default(uuid())
-  date      DateTime
-  status    AttendanceStatus
-  remarks   String?
+  id      String           @id @default(uuid())
+  date    DateTime
+  status  AttendanceStatus
+  remarks String?
 
   studentId String
-  student   Student  @relation(fields: [studentId], references: [id])
+  student   Student @relation(fields: [studentId], references: [id])
 
   sectionId String?
   section   Section? @relation(fields: [sectionId], references: [id])
@@ -433,32 +474,47 @@ model Attendance {
   @@unique([studentId, date])
 }
 
+model StaffAttendance {
+  id      String           @id @default(uuid())
+  date    DateTime
+  status  AttendanceStatus
+  remarks String?
+
+  staffId String
+  staff   Staff  @relation(fields: [staffId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([staffId, date])
+}
+
 model Hostel {
-  id        String     @id @default(uuid())
-  name      String
-  type      HostelType
-  address   String?
-  
-  branchId  String
-  branch    Branch     @relation(fields: [branchId], references: [id])
-  
-  rooms     Room[]
-  
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  id      String     @id @default(uuid())
+  name    String
+  type    HostelType
+  address String?
+
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id])
+
+  rooms Room[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Room {
-  id        String   @id @default(uuid())
-  number    String   // e.g., "101"
-  floor     Int
-  capacity  Int      // total beds in room
-  
-  hostelId  String
-  hostel    Hostel   @relation(fields: [hostelId], references: [id])
-  
-  beds      Bed[]
-  
+  id       String @id @default(uuid())
+  number   String // e.g., "101"
+  floor    Int
+  capacity Int // total beds in room
+
+  hostelId String
+  hostel   Hostel @relation(fields: [hostelId], references: [id])
+
+  beds Bed[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -466,118 +522,118 @@ model Room {
 }
 
 model Bed {
-  id        String    @id @default(uuid())
-  name      String    // e.g., "Bed A"
-  status    BedStatus @default(AVAILABLE)
-  
-  roomId    String
-  room      Room      @relation(fields: [roomId], references: [id])
-  
+  id     String    @id @default(uuid())
+  name   String // e.g., "Bed A"
+  status BedStatus @default(AVAILABLE)
+
+  roomId String
+  room   Room   @relation(fields: [roomId], references: [id])
+
   allocations HostelAllocation[]
   maintenance MaintenanceRequest[]
-  
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([roomId, name])
 }
 
 model HostelAllocation {
-  id          String    @id @default(uuid())
-  checkInDate DateTime
+  id           String    @id @default(uuid())
+  checkInDate  DateTime
   checkOutDate DateTime?
-  isActive    Boolean   @default(true)
-  
-  studentId   String
-  student     Student   @relation(fields: [studentId], references: [id])
-  
-  bedId       String
-  bed         Bed       @relation(fields: [bedId], references: [id])
-  
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  isActive     Boolean   @default(true)
+
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id])
+
+  bedId String
+  bed   Bed    @relation(fields: [bedId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model HostelLeave {
-  id          String    @id @default(uuid())
-  startDate   DateTime
-  endDate     DateTime
-  reason      String
-  status      String    @default("PENDING") // PENDING, APPROVED, REJECTED
-  
-  studentId   String
-  student     Student   @relation(fields: [studentId], references: [id])
-  
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  id        String   @id @default(uuid())
+  startDate DateTime
+  endDate   DateTime
+  reason    String
+  status    String   @default("PENDING") // PENDING, APPROVED, REJECTED
+
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model MaintenanceRequest {
-  id          String    @id @default(uuid())
+  id          String @id @default(uuid())
   title       String
   description String
-  status      String    @default("OPEN") // OPEN, IN_PROGRESS, RESOLVED
-  priority    String    @default("MEDIUM") // LOW, MEDIUM, HIGH, URGENT
-  
-  bedId       String?
-  bed         Bed?      @relation(fields: [bedId], references: [id])
-  
+  status      String @default("OPEN") // OPEN, IN_PROGRESS, RESOLVED
+  priority    String @default("MEDIUM") // LOW, MEDIUM, HIGH, URGENT
+
+  bedId String?
+  bed   Bed?    @relation(fields: [bedId], references: [id])
+
   // Optionally link to room if bed is not specified
-  roomId      String?
-  
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  roomId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model FeeCategory {
-  id          String   @id @default(uuid())
-  name        String   // e.g., "Tuition", "Hostel Fee"
+  id          String  @id @default(uuid())
+  name        String // e.g., "Tuition", "Hostel Fee"
   description String?
-  
-  branchId    String
-  branch      Branch   @relation(fields: [branchId], references: [id])
-  
+
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id])
+
   feeStructures FeeStructure[]
   invoiceItems  InvoiceItem[]
-  
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model FeeStructure {
-  id          String   @id @default(uuid())
-  amount      Float
-  
-  categoryId  String
-  category    FeeCategory @relation(fields: [categoryId], references: [id])
-  
-  classId     String?
-  class       Class?   @relation(fields: [classId], references: [id])
-  
-  branchId    String
-  
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id     String @id @default(uuid())
+  amount Float
+
+  categoryId String
+  category   FeeCategory @relation(fields: [categoryId], references: [id])
+
+  classId String?
+  class   Class?  @relation(fields: [classId], references: [id])
+
+  branchId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Invoice {
-  id          String        @id @default(uuid())
-  invoiceNumber String      @unique
-  dueDate     DateTime
-  totalAmount Float
-  balance     Float
-  status      InvoiceStatus @default(UNPAID)
-  
-  studentId   String
-  student     Student       @relation(fields: [studentId], references: [id])
-  
-  branchId    String
-  
-  items       InvoiceItem[]
-  payments    Payment[]
-  
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
+  id            String        @id @default(uuid())
+  invoiceNumber String        @unique
+  dueDate       DateTime
+  totalAmount   Float
+  balance       Float
+  status        InvoiceStatus @default(UNPAID)
+
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id])
+
+  branchId String
+
+  items    InvoiceItem[]
+  payments Payment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 enum QuestionType {
@@ -600,111 +656,112 @@ enum AttemptStatus {
 }
 
 model QuestionGroup {
-  id        String     @id @default(uuid())
+  id        String       @id @default(uuid())
   name      String
   branchId  String
-  branch    Branch     @relation(fields: [branchId], references: [id])
+  branch    Branch       @relation(fields: [branchId], references: [id])
   questions Question[]
   exams     OnlineExam[]
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
 }
 
 model Question {
-  id          String         @id @default(uuid())
-  type        QuestionType
-  content     String
-  marks       Float          @default(1.0)
-  groupId     String
-  group       QuestionGroup  @relation(fields: [groupId], references: [id])
-  options     QuestionOption[]
-  answers     QuestionAnswer[]
-  createdAt   DateTime       @default(now())
-  updatedAt   DateTime       @updatedAt
+  id        String           @id @default(uuid())
+  type      QuestionType
+  content   String
+  marks     Float            @default(1.0)
+  groupId   String
+  group     QuestionGroup    @relation(fields: [groupId], references: [id])
+  options   QuestionOption[]
+  answers   QuestionAnswer[]
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
 }
 
 model QuestionOption {
-  id          String   @id @default(uuid())
-  content     String
-  isCorrect   Boolean  @default(false)
-  questionId  String
-  question    Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  id         String   @id @default(uuid())
+  content    String
+  isCorrect  Boolean  @default(false)
+  questionId String
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
 }
 
 model OnlineExam {
-  id              String           @id @default(uuid())
+  id              String     @id @default(uuid())
   title           String
   description     String?
   scheduledDate   DateTime
   durationMinutes Int
-  passPercentage  Float            @default(40.0)
-  status          ExamStatus       @default(PUBLISHED)
-  
-  classId         String
-  class           Class            @relation(fields: [classId], references: [id])
-  sectionId       String?
-  section         Section?         @relation(fields: [sectionId], references: [id])
-  subjectId       String
-  subject         Subject          @relation(fields: [subjectId], references: [id])
-  
-  groupId         String
-  group           QuestionGroup    @relation(fields: [groupId], references: [id])
-  
-  branchId        String
-  branch          Branch           @relation(fields: [branchId], references: [id])
-  
-  attempts        OnlineExamAttempt[]
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
+  passPercentage  Float      @default(40.0)
+  status          ExamStatus @default(PUBLISHED)
+
+  classId   String
+  class     Class    @relation(fields: [classId], references: [id])
+  sectionId String?
+  section   Section? @relation(fields: [sectionId], references: [id])
+  subjectId String
+  subject   Subject  @relation(fields: [subjectId], references: [id])
+
+  groupId String
+  group   QuestionGroup @relation(fields: [groupId], references: [id])
+
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id])
+
+  attempts  OnlineExamAttempt[]
+  createdAt DateTime            @default(now())
+  updatedAt DateTime            @updatedAt
 }
 
 model OnlineExamAttempt {
-  id          String         @id @default(uuid())
-  examId      String
-  exam        OnlineExam     @relation(fields: [examId], references: [id])
-  studentId   String
-  student     Student        @relation(fields: [studentId], references: [id])
-  startTime   DateTime       @default(now())
-  endTime     DateTime?
-  score       Float?
-  status      AttemptStatus  @default(IN_PROGRESS)
-  answers     QuestionAnswer[]
-  createdAt   DateTime       @default(now())
-  updatedAt   DateTime       @updatedAt
+  id        String           @id @default(uuid())
+  examId    String
+  exam      OnlineExam       @relation(fields: [examId], references: [id])
+  studentId String
+  student   Student          @relation(fields: [studentId], references: [id])
+  startTime DateTime         @default(now())
+  endTime   DateTime?
+  score     Float?
+  position  Int?
+  status    AttemptStatus    @default(IN_PROGRESS)
+  answers   QuestionAnswer[]
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
 
   @@unique([examId, studentId])
 }
 
 model QuestionAnswer {
-  id               String            @id @default(uuid())
-  attemptId        String
-  attempt          OnlineExamAttempt @relation(fields: [attemptId], references: [id])
-  questionId       String
-  question         Question          @relation(fields: [questionId], references: [id])
-  
-  selectedOptionId String?           // For MCQ/TF
-  textAnswer       String?           // For Descriptive
-  marksAwarded     Float?            // Manual/Auto grading
-  isCorrect        Boolean?          // Auto grading for MCQ/TF
-  
-  createdAt        DateTime          @default(now())
-  updatedAt        DateTime          @updatedAt
+  id         String            @id @default(uuid())
+  attemptId  String
+  attempt    OnlineExamAttempt @relation(fields: [attemptId], references: [id])
+  questionId String
+  question   Question          @relation(fields: [questionId], references: [id])
+
+  selectedOptionId String? // For MCQ/TF
+  textAnswer       String? // For Descriptive
+  marksAwarded     Float? // Manual/Auto grading
+  isCorrect        Boolean? // Auto grading for MCQ/TF
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([attemptId, questionId])
 }
 
 model InvoiceItem {
-  id          String      @id @default(uuid())
-  amount      Float
-  
-  invoiceId   String
-  invoice     Invoice     @relation(fields: [invoiceId], references: [id])
-  
-  categoryId  String
-  category    FeeCategory @relation(fields: [categoryId], references: [id])
-  
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  id     String @id @default(uuid())
+  amount Float
+
+  invoiceId String
+  invoice   Invoice @relation(fields: [invoiceId], references: [id])
+
+  categoryId String
+  category   FeeCategory @relation(fields: [categoryId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Payment {
@@ -715,195 +772,200 @@ model Payment {
   transactionId String?       @unique
   proofUrl      String?
   notes         String?
-  
-  invoiceId     String
-  invoice       Invoice       @relation(fields: [invoiceId], references: [id])
-  
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
+
+  invoiceId String
+  invoice   Invoice @relation(fields: [invoiceId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Vehicle {
-  id                String   @id @default(uuid())
-  registrationNumber String   @unique
-  model             String
-  capacity          Int
-  driverName        String
-  driverPhone       String?
-  
-  branchId          String
-  branch            Branch   @relation(fields: [branchId], references: [id])
-  
-  assignments       TransportAssignment[]
-  
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  id                 String  @id @default(uuid())
+  registrationNumber String  @unique
+  model              String
+  capacity           Int
+  driverName         String
+  driverPhone        String?
+
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id])
+
+  assignments TransportAssignment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model TransportRoute {
-  id          String   @id @default(uuid())
-  name        String
-  startPoint  String
-  endPoint    String
-  stops       Json?    // Array of stop objects
-  
-  branchId    String
-  branch      Branch   @relation(fields: [branchId], references: [id])
-  
+  id         String @id @default(uuid())
+  name       String
+  startPoint String
+  endPoint   String
+  stops      Json? // Array of stop objects
+
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id])
+
   assignments TransportAssignment[]
-  
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model TransportAssignment {
-  id        String   @id @default(uuid())
-  studentId String   @unique
-  student   Student  @relation(fields: [studentId], references: [id])
-  
+  id        String  @id @default(uuid())
+  studentId String  @unique
+  student   Student @relation(fields: [studentId], references: [id])
+
   vehicleId String
-  vehicle   Vehicle  @relation(fields: [vehicleId], references: [id])
-  
-  routeId   String
-  route     TransportRoute @relation(fields: [routeId], references: [id])
-  
+  vehicle   Vehicle @relation(fields: [vehicleId], references: [id])
+
+  routeId String
+  route   TransportRoute @relation(fields: [routeId], references: [id])
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Assignment {
-  id          String   @id @default(uuid())
-  title       String
-  description String?
-  dueDate     DateTime
-  
-  subjectId   String
-  subject     Subject  @relation(fields: [subjectId], references: [id])
-  
-  sectionId   String
-  section     Section  @relation(fields: [sectionId], references: [id])
-  
+  id            String   @id @default(uuid())
+  title         String
+  description   String?
+  dueDate       DateTime
+  attachmentUrl String?
+
+  subjectId String
+  subject   Subject @relation(fields: [subjectId], references: [id])
+
+  sectionId String
+  section   Section @relation(fields: [sectionId], references: [id])
+
   submissions Submission[]
-  
-  teacherId   String?
-  teacher     Staff?   @relation(fields: [teacherId], references: [id])
-  
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+
+  teacherId String?
+  teacher   Staff?  @relation(fields: [teacherId], references: [id])
+
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Submission {
-  id           String   @id @default(uuid())
-  contentUrl   String?
-  grade        Float?
-  feedback     String?
-  status       String   @default("SUBMITTED") // SUBMITTED, GRADED
-  
+  id         String  @id @default(uuid())
+  contentUrl String?
+  grade      Float?
+  feedback   String?
+  status     String  @default("SUBMITTED") // SUBMITTED, GRADED
+
   assignmentId String
   assignment   Assignment @relation(fields: [assignmentId], references: [id])
-  
-  studentId    String
-  student      Student  @relation(fields: [studentId], references: [id])
-  
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([assignmentId, studentId])
 }
 
 model AcademicSession {
   id        String   @id @default(uuid())
-  name      String   // e.g., "2024/2025"
+  name      String // e.g., "2024/2025"
   startDate DateTime
   endDate   DateTime
   isActive  Boolean  @default(true)
-  
+
   nextTermBegins DateTime?
-  termEnds        DateTime?
-  
-  assessmentRecords AssessmentRecord[]
-  resultSummaries   ResultSummary[]
+  termEnds       DateTime?
+
+  assessmentRecords  AssessmentRecord[]
+  resultSummaries    ResultSummary[]
   behaviouralRatings BehaviouralRating[]
-  onlineAdmissions  OnlineAdmission[]
-  idCards           IdCard[]
-  
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  onlineAdmissions   OnlineAdmission[]
+  idCards            IdCard[]
+
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  digitalResources DigitalResource[]
 }
 
 model AssessmentRecord {
-  id            String   @id @default(uuid())
-  
+  id String @id @default(uuid())
+
   // Breakdown
-  asgn1         Float?   @default(0) // 10
-  asgn2         Float?   @default(0) // 10
-  test1         Float?   @default(0) // 20
-  test2         Float?   @default(0) // 20
-  examScore     Float?   @default(0) // 40
-  total         Float?   @default(0) // 100
-  
-  grade         String?
-  position      Int?
-  outOf         Int?
-  lowScore      Float?
-  highScore     Float?
-  classAvg      Float?
-  remark        String?
-  
-  studentId     String
-  student       Student  @relation(fields: [studentId], references: [id])
-  
-  subjectId     String
-  subject       Subject  @relation(fields: [subjectId], references: [id])
-  
-  sectionId     String
-  section       Section  @relation(fields: [sectionId], references: [id])
-  
-  sessionId     String
-  session       AcademicSession @relation(fields: [sessionId], references: [id])
-  
-  term          Term
-  examTerm      ExamTerm
-  
-  isEligible    Boolean  @default(true)
-  
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  asgn1     Float? @default(0) // 10
+  asgn2     Float? @default(0) // 10
+  test1     Float? @default(0) // 20
+  test2     Float? @default(0) // 20
+  examScore Float? @default(0) // 40
+  total     Float? @default(0) // 100
+
+  grade     String?
+  position  Int?
+  outOf     Int?
+  lowScore  Float?
+  highScore Float?
+  classAvg  Float?
+  remark    String?
+
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id])
+
+  subjectId String
+  subject   Subject @relation(fields: [subjectId], references: [id])
+
+  sectionId String
+  section   Section @relation(fields: [sectionId], references: [id])
+
+  sessionId String
+  session   AcademicSession @relation(fields: [sessionId], references: [id])
+
+  term     Term
+  examTerm ExamTerm
+
+  isEligible Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([studentId, subjectId, sessionId, term])
 }
 
 model BehaviouralRating {
-  id              String   @id @default(uuid())
-  
-  punctuality     String?  // A-E
-  classAttendance String?
-  attentiveness   String?
-  neatness        String?
-  honesty         String?
-  selfControl     String?
-  relationships   String?
-  sports          String?
-  toolHandling    String?
+  id String @id @default(uuid())
+
+  punctuality            String? // A-E
+  classAttendance        String?
+  attentiveness          String?
+  neatness               String?
+  honesty                String?
+  selfControl            String?
+  relationships          String?
+  sports                 String?
+  toolHandling           String?
   carryingOutAssignments String?
-  participation   String?
-  
-  studentId       String
-  student         Student  @relation(fields: [studentId], references: [id])
-  
-  sessionId       String
-  session         AcademicSession @relation(fields: [sessionId], references: [id])
-  term            Term
-  
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  participation          String?
+
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id])
+
+  sessionId String
+  session   AcademicSession @relation(fields: [sessionId], references: [id])
+  term      Term
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([studentId, sessionId, term])
 }
 
 model ResultSummary {
-  id              String   @id @default(uuid())
-  
+  id String @id @default(uuid())
+
   totalScore      Float?
   average         Float?
   classPosition   Int?
@@ -912,107 +974,109 @@ model ResultSummary {
   countInClass    Int?
   finalGrade      String?
   finalRemark     String?
-  promotionStatus String?  // e.g., "PROMOTED", "RETAINED"
-  
-  cgpa            Float?
-  classOfResult   String?  // e.g. "Second Class Upper"
-  
+  promotionStatus String? // e.g., "PROMOTED", "RETAINED"
+
+  cgpa          Float?
+  classOfResult String? // e.g. "Second Class Upper"
+
   attendanceOpen    Int?
   attendancePresent Int?
   attendanceAbsent  Int?
-  
-  studentId       String
-  student         Student  @relation(fields: [studentId], references: [id])
-  
-  sessionId       String
-  session         AcademicSession @relation(fields: [sessionId], references: [id])
-  
-  term            Term
-  examTerm        ExamTerm
-  
-  isActive        Boolean  @default(true)
-  isLocked        Boolean  @default(false)
-  
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id])
+
+  sessionId String
+  session   AcademicSession @relation(fields: [sessionId], references: [id])
+
+  term     Term
+  examTerm ExamTerm
+
+  isActive Boolean @default(true)
+  isLocked Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([studentId, sessionId, term])
 }
 
 model GradingScale {
-  id        String   @id @default(uuid())
-  name      String   // e.g. "WAEC Standard"
-  minScore  Float
-  maxScore  Float
-  grade     String   // e.g. "A1", "C6"
-  remark    String?  // e.g. "Excellent"
-  
-  branchId  String?
-  
+  id       String  @id @default(uuid())
+  name     String // e.g. "WAEC Standard"
+  minScore Float
+  maxScore Float
+  grade    String // e.g. "A1", "C6"
+  remark   String? // e.g. "Excellent"
+
+  branchId String?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-}model GlobalSetting {
+}
+
+model GlobalSetting {
   id        String   @id @default(uuid())
   key       String   @unique
   value     String
-  branchId  String?  // If null, it's global
+  branchId  String? // If null, it's global
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model RolePermission {
-  id         String   @id @default(uuid())
-  role       UserRole
-  module     String   // e.g. "Inventory", "Admission"
-  action     String   // e.g. "CREATE", "READ", "UPDATE", "DELETE"
-  isAllowed  Boolean  @default(false)
-  
+  id        String   @id @default(uuid())
+  role      UserRole
+  module    String // e.g. "Inventory", "Admission"
+  action    String // e.g. "CREATE", "READ", "UPDATE", "DELETE"
+  isAllowed Boolean  @default(false)
+
   @@unique([role, module, action])
 }
 
 model AuditLog {
   id        String   @id @default(uuid())
-  action    String   // e.g. "SCORE_EDIT", "OVERRIDE"
-  module    String   // "EXAMS", "STUDENTS"
-  details   String?  // JSON or text
-  reason    String?  
+  action    String // e.g. "SCORE_EDIT", "OVERRIDE"
+  module    String // "EXAMS", "STUDENTS"
+  details   String? // JSON or text
+  reason    String?
   userId    String
   user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
 }
 
 model ExpenseCategory {
-  id          String   @id @default(uuid())
-  name        String   // e.g. "Utilities", "Transport", "Maintenance"
+  id          String    @id @default(uuid())
+  name        String // e.g. "Utilities", "Transport", "Maintenance"
   description String?
   branchId    String
-  branch      Branch   @relation(fields: [branchId], references: [id])
+  branch      Branch    @relation(fields: [branchId], references: [id])
   vouchers    Voucher[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
 
 model Voucher {
-  id              String   @id @default(uuid())
-  voucherNumber   String   @unique // e.g. VCH-2024-001
-  date            DateTime
-  amount          Float
-  description     String
-  
+  id            String   @id @default(uuid())
+  voucherNumber String   @unique // e.g. VCH-2024-001
+  date          DateTime
+  amount        Float
+  description   String
+
   expenseCategoryId String
-  category        ExpenseCategory @relation(fields: [expenseCategoryId], references: [id])
-  
-  paidTo          String   // Recipient name
+  category          ExpenseCategory @relation(fields: [expenseCategoryId], references: [id])
+
+  paidTo           String // Recipient name
   approvedByUserId String?
-  approvedBy      User?    @relation("VoucherApprover", fields: [approvedByUserId], references: [id])
-  
-  branchId        String
-  branch          Branch   @relation(fields: [branchId], references: [id])
-  
-  status          String   @default("PENDING") // PENDING, APPROVED, REJECTED
-  
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  approvedBy       User?   @relation("VoucherApprover", fields: [approvedByUserId], references: [id])
+
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id])
+
+  status String @default("PENDING") // PENDING, APPROVED, REJECTED
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Department {
@@ -1038,125 +1102,125 @@ model Designation {
 }
 
 model Book {
-  id              String   @id @default(uuid())
-  title           String
-  author          String
-  isbn            String?  @unique
-  category        String
-  quantity        Int      @default(1)
-  available       Int      @default(1)
-  location        String?  // e.g. Shelf A-1
-  description     String?
-  
-  branchId        String
-  branch          Branch   @relation(fields: [branchId], references: [id])
-  
-  borrowRecords   BorrowRecord[]
-  
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id          String  @id @default(uuid())
+  title       String
+  author      String
+  isbn        String? @unique
+  category    String
+  quantity    Int     @default(1)
+  available   Int     @default(1)
+  location    String? // e.g. Shelf A-1
+  description String?
+
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id])
+
+  borrowRecords BorrowRecord[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model BorrowRecord {
-  id              String    @id @default(uuid())
-  borrowDate      DateTime  @default(now())
-  dueDate         DateTime
-  returnDate      DateTime?
-  status          String    @default("BORROWED") // BORROWED, RETURNED, OVERDUE
-  
-  bookId          String
-  book            Book      @relation(fields: [bookId], references: [id])
-  
-  studentId       String
-  student         Student   @relation(fields: [studentId], references: [id])
-  
-  fines           LibraryFine[]
-  
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  id         String    @id @default(uuid())
+  borrowDate DateTime  @default(now())
+  dueDate    DateTime
+  returnDate DateTime?
+  status     String    @default("BORROWED") // BORROWED, RETURNED, OVERDUE
+
+  bookId String
+  book   Book   @relation(fields: [bookId], references: [id])
+
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id])
+
+  fines LibraryFine[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model LibraryFine {
-  id              String       @id @default(uuid())
-  amount          Float
-  status          PaymentStatus @default(PENDING)
-  paidDate        DateTime?
-  
-  borrowRecordId  String
-  borrowRecord    BorrowRecord @relation(fields: [borrowRecordId], references: [id])
-  
-  createdAt       DateTime     @default(now())
-  updatedAt       DateTime     @updatedAt
+  id       String        @id @default(uuid())
+  amount   Float
+  status   PaymentStatus @default(PENDING)
+  paidDate DateTime?
+
+  borrowRecordId String
+  borrowRecord   BorrowRecord @relation(fields: [borrowRecordId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model SalaryTemplate {
-  id              String   @id @default(uuid())
-  basicSalary     Float
-  allowances      Json?    // e.g. { "housing": 5000, "transport": 2000 }
-  deductions      Json?    // e.g. { "tax": 1000 }
-  netSalary       Float
-  
-  staffId         String   @unique
-  staff           Staff    @relation(fields: [staffId], references: [id])
-  
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id          String @id @default(uuid())
+  basicSalary Float
+  allowances  Json? // e.g. { "housing": 5000, "transport": 2000 }
+  deductions  Json? // e.g. { "tax": 1000 }
+  netSalary   Float
+
+  staffId String @unique
+  staff   Staff  @relation(fields: [staffId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Payroll {
-  id              String   @id @default(uuid())
-  month           Int      // 1-12
-  year            Int
-  amountPaid      Float
-  paymentDate     DateTime @default(now())
-  status          String   @default("UNPAID") // UNPAID, PAID
-  
-  staffId         String
-  staff           Staff    @relation(fields: [staffId], references: [id])
-  
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id          String   @id @default(uuid())
+  month       Int // 1-12
+  year        Int
+  amountPaid  Float
+  paymentDate DateTime @default(now())
+  status      String   @default("UNPAID") // UNPAID, PAID
+
+  staffId String
+  staff   Staff  @relation(fields: [staffId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model LeaveRequest {
-  id              String   @id @default(uuid())
-  type            String   // SICK, CASUAL, ANNUAL
-  startDate       DateTime
-  endDate         DateTime
-  reason          String
-  status          String   @default("PENDING") // PENDING, APPROVED, REJECTED
-  
-  staffId         String
-  staff           Staff    @relation(fields: [staffId], references: [id])
-  
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id        String   @id @default(uuid())
+  type      String // SICK, CASUAL, ANNUAL
+  startDate DateTime
+  endDate   DateTime
+  reason    String
+  status    String   @default("PENDING") // PENDING, APPROVED, REJECTED
+
+  staffId String
+  staff   Staff  @relation(fields: [staffId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model StaffAward {
-  id              String   @id @default(uuid())
-  title           String
-  description     String?
-  date            DateTime @default(now())
-  
-  staffId         String
-  staff           Staff    @relation(fields: [staffId], references: [id])
-  
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  date        DateTime @default(now())
+
+  staffId String
+  staff   Staff  @relation(fields: [staffId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model AdvanceSalary {
-  id              String   @id @default(uuid())
-  amount          Float
-  reason          String?
-  status          String   @default("PENDING") // PENDING, APPROVED, REJECTED
-  
-  staffId         String
-  staff           Staff    @relation(fields: [staffId], references: [id])
-  
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id     String  @id @default(uuid())
+  amount Float
+  reason String?
+  status String  @default("PENDING") // PENDING, APPROVED, REJECTED
+
+  staffId String
+  staff   Staff  @relation(fields: [staffId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 // ============================================
@@ -1164,145 +1228,166 @@ model AdvanceSalary {
 // ============================================
 
 model GoogleMeetConfig {
-  id                    String   @id @default(uuid())
-  branchId              String   @unique
-  branch                Branch   @relation(fields: [branchId], references: [id])
-  
-  serviceAccountJson    String   // Encrypted
-  projectId             String
-  clientId              String
-  clientSecret          String   // Encrypted
-  apiKey                String   // Encrypted
-  
-  isEnabled             Boolean  @default(false)
-  defaultDuration       Int      @default(60)
-  allowRecording        Boolean  @default(false)
-  requireApproval       Boolean  @default(true)
-  
-  createdAt             DateTime @default(now())
-  updatedAt             DateTime @updatedAt
+  id       String @id @default(uuid())
+  branchId String @unique
+  branch   Branch @relation(fields: [branchId], references: [id])
+
+  // OAuth2 Fields
+  clientId     String?
+  clientSecret String? // Encrypted
+  accessToken  String? // Encrypted
+  refreshToken String? // Encrypted
+  expiryDate   DateTime?
+  redirectUri  String?
+  scopes       String? // Space-separated scopes
+
+  // Service Account (Legacy/Alternative)
+  serviceAccountJson String? // Encrypted
+  projectId          String?
+  apiKey             String? // Encrypted
+
+  isEnabled       Boolean @default(false)
+  defaultDuration Int     @default(60)
+  allowRecording  Boolean @default(true)
+  requireApproval Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model LiveClassSession {
-  id                String   @id @default(uuid())
-  title             String
-  description       String?
-  
-  meetingId         String   @unique
-  hostUrl           String
-  participantUrl    String
-  
-  classId           String?
-  class             Class?   @relation(fields: [classId], references: [id])
-  
-  sectionId         String?
-  section           Section? @relation(fields: [sectionId], references: [id])
-  
-  subjectId         String?
-  subject           Subject? @relation(fields: [subjectId], references: [id])
-  
-  hostId            String
-  host              Staff    @relation(fields: [hostId], references: [id])
-  
-  scheduledStart    DateTime
-  scheduledEnd      DateTime
-  actualStart       DateTime?
-  actualEnd         DateTime?
-  
-  status            String   @default("SCHEDULED")
-  recordingUrl      String?
-  
-  participants      MeetingParticipant[]
-  
-  branchId          String
-  branch            Branch   @relation(fields: [branchId], references: [id])
-  
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  id          String  @id @default(uuid())
+  title       String
+  description String?
+
+  meetingId      String  @unique // This is the Google Event ID
+  meetLink       String? // The actual URL
+  hostUrl        String?
+  participantUrl String?
+
+  // Relations
+  classId String?
+  class   Class?  @relation(fields: [classId], references: [id])
+
+  sectionId String?
+  section   Section? @relation(fields: [sectionId], references: [id])
+
+  subjectId String?
+  subject   Subject? @relation(fields: [subjectId], references: [id])
+
+  hostId String
+  host   Staff  @relation(fields: [hostId], references: [id])
+
+  // Scheduling
+  scheduledStart DateTime
+  scheduledEnd   DateTime
+  actualStart    DateTime?
+  actualEnd      DateTime?
+  timezone       String    @default("UTC")
+
+  // Recurring classes
+  isRecurring    Boolean @default(false)
+  recurrenceRule String? // RRule string
+  seriesId       String? // ID to group instances of recurring classes
+
+  status String @default("SCHEDULED") // SCHEDULED, LIVE, ENDED, CANCELLED
+
+  // Recording
+  recordingId     String? // Google Drive File ID
+  recordingUrl    String?
+  recordingStatus String? // READY, PROCESSING, NOT_AVAILABLE
+
+  participants MeetingParticipant[]
+
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model MeetingParticipant {
-  id              String   @id @default(uuid())
-  sessionId       String
-  session         LiveClassSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
-  
-  userId          String
-  user            User     @relation(fields: [userId], references: [id])
-  
-  joinedAt        DateTime?
-  leftAt          DateTime?
-  duration        Int?
-  
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  
+  id        String           @id @default(uuid())
+  sessionId String
+  session   LiveClassSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  joinedAt DateTime?
+  leftAt   DateTime?
+  duration Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@unique([sessionId, userId])
 }
 
 model StudentCategory {
-  id          String    @id @default(uuid())
-  name        String
-  description String?
-  branchId    String
-  branch      Branch    @relation(fields: [branchId], references: [id])
-  students          Student[]
-  onlineAdmissions  OnlineAdmission[]
+  id               String            @id @default(uuid())
+  name             String
+  description      String?
+  branchId         String
+  branch           Branch            @relation(fields: [branchId], references: [id])
+  students         Student[]
+  onlineAdmissions OnlineAdmission[]
 
   createdAt DateTime @default(now())
-  updatedAt   DateTime  @updatedAt
+  updatedAt DateTime @updatedAt
 
   @@unique([branchId, name])
 }
 
 model OnlineAdmission {
-  id                String          @id @default(uuid())
+  id              String   @id @default(uuid())
   // 1. Student Basic Information
-  admissionNumber   String?         @unique
-  firstName         String
-  lastName          String
-  otherNames        String?
-  gender            String
-  dateOfBirth       DateTime
-  placeOfBirth      String?
-  nationality       String?
-  stateOfOrigin     String?
-  lga               String?
-  religion          String?
-  passportPhoto     String?
+  admissionNumber String?  @unique
+  firstName       String
+  lastName        String
+  otherNames      String?
+  gender          String
+  dateOfBirth     DateTime
+  placeOfBirth    String?
+  nationality     String?
+  stateOfOrigin   String?
+  lga             String?
+  religion        String?
+  passportPhoto   String?
 
   // 2. Admission Details
   academicSessionId String?
   academicSession   AcademicSession? @relation(fields: [academicSessionId], references: [id])
   admissionTerm     Term?
   desiredClassId    String
-  desiredClass      Class           @relation(fields: [desiredClassId], references: [id])
+  desiredClass      Class            @relation(fields: [desiredClassId], references: [id])
   desiredSectionId  String?
-  desiredSection    Section?        @relation(fields: [desiredSectionId], references: [id])
-  admissionType     String?         // NEW, TRANSFER, RETURNING
+  desiredSection    Section?         @relation(fields: [desiredSectionId], references: [id])
+  admissionType     String? // NEW, TRANSFER, RETURNING
   previousSchool    String?
   transferReason    String?
   assessmentScore   Float?
-  status            String          @default("PENDING") // PENDING, APPROVED, REJECTED, ENROLLED
+  status            String           @default("PENDING") // PENDING, APPROVED, REJECTED, ENROLLED
 
   // 3. Parent / Guardian Information
-  guardianName      String
-  guardianRelation  String?
-  guardianPhone     String
-  guardianEmail     String?
-  guardianAddress   String?
-  guardianOccupation String?
-  guardianOfficeAddress String?
-  secondaryGuardianName String?
-  secondaryGuardianPhone String?
+  guardianName              String
+  guardianRelation          String?
+  guardianPhone             String
+  guardianEmail             String?
+  guardianAddress           String?
+  guardianOccupation        String?
+  guardianOfficeAddress     String?
+  secondaryGuardianName     String?
+  secondaryGuardianPhone    String?
   secondaryGuardianRelation String?
 
   // 4. Contact & Address Information
-  address           String?
-  city              String?
-  state             String?
-  country           String?
-  emergencyContactName String?
-  emergencyContactPhone String?
+  address                  String?
+  city                     String?
+  state                    String?
+  country                  String?
+  emergencyContactName     String?
+  emergencyContactPhone    String?
   emergencyContactRelation String?
 
   // 5. Medical Information
@@ -1315,60 +1400,60 @@ model OnlineAdmission {
   familyDoctorPhone String?
 
   // 6. Hostel & Transport
-  hostelRequired    Boolean         @default(false)
+  hostelRequired    Boolean @default(false)
   preferredHostel   String?
   hostelNotes       String?
-  transportRequired Boolean         @default(false)
+  transportRequired Boolean @default(false)
   pickupLocation    String?
   preferredRoute    String?
 
   // 7. Documents Upload
-  birthCertificateUrl   String?
-  testimonialUrl        String?
+  birthCertificateUrl    String?
+  testimonialUrl         String?
   transferCertificateUrl String?
   immunizationCardUrl    String?
 
   // 8. System & Administrative
-  branchId          String
-  branch            Branch          @relation(fields: [branchId], references: [id])
-  createdByStaffId  String?
-  admissionDate     DateTime?
-  approvalDate      DateTime?
-  approvedByStaffId String?
-  studentStatus     String          @default("PROSPECTIVE")
-  createPortalAccount Boolean       @default(true)
+  branchId            String
+  branch              Branch    @relation(fields: [branchId], references: [id])
+  createdByStaffId    String?
+  admissionDate       DateTime?
+  approvalDate        DateTime?
+  approvedByStaffId   String?
+  studentStatus       String    @default("PROSPECTIVE")
+  createPortalAccount Boolean   @default(true)
 
   // 9. Consent & Declaration
-  guardianConsent     Boolean       @default(false)
-  dataProcessingConsent Boolean     @default(false)
-  schoolRulesAgreement Boolean      @default(false)
-  signature           String?
-  consentDate         DateTime?
+  guardianConsent       Boolean   @default(false)
+  dataProcessingConsent Boolean   @default(false)
+  schoolRulesAgreement  Boolean   @default(false)
+  signature             String?
+  consentDate           DateTime?
 
   // 10. Optional Advanced
-  studentEmail      String?
-  portalUsername    String?
-  preferredLanguage String?
-  religionClassType String?
-  scholarshipEligible Boolean       @default(false)
-  referralSource    String?
+  studentEmail        String?
+  portalUsername      String?
+  preferredLanguage   String?
+  religionClassType   String?
+  scholarshipEligible Boolean @default(false)
+  referralSource      String?
 
   // Legacy/Compatibility
   email             String?
   phone             String?
   studentCategoryId String?
   studentCategory   StudentCategory? @relation(fields: [studentCategoryId], references: [id])
-  
-  parentId          String?
-  parent            User?            @relation(fields: [parentId], references: [id])
-  
-  // 11. Payment Information
-  paymentReceiptUrl    String?
-  paymentStatus        String          @default("PENDING") // PENDING, VERIFIED, REJECTED
-  paymentMethod        String          @default("BANK_TRANSFER")
 
-  createdAt         DateTime        @default(now())
-  updatedAt         DateTime        @updatedAt
+  parentId String?
+  parent   User?   @relation(fields: [parentId], references: [id])
+
+  // 11. Payment Information
+  paymentReceiptUrl String?
+  paymentStatus     String  @default("PENDING") // PENDING, VERIFIED, REJECTED
+  paymentMethod     String  @default("BANK_TRANSFER")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 // ============================================
@@ -1376,38 +1461,38 @@ model OnlineAdmission {
 // ============================================
 
 model AdmissionEnquiry {
-  id               String   @id @default(uuid())
+  id               String    @id @default(uuid())
   name             String
   phone            String
   email            String?
   address          String?
   description      String?
-  date             DateTime @default(now())
+  date             DateTime  @default(now())
   nextFollowUpDate DateTime?
-  source           String?  // e.g. "Advertisement", "Referral"
-  status           String   @default("PENDING") // PENDING, FOLLOW_UP, WON, LOST
-  
-  branchId         String
-  branch           Branch   @relation(fields: [branchId], references: [id])
-  
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  source           String? // e.g. "Advertisement", "Referral"
+  status           String    @default("PENDING") // PENDING, FOLLOW_UP, WON, LOST
+
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model CallLog {
-  id               String   @id @default(uuid())
+  id               String    @id @default(uuid())
   name             String
   phone            String
-  date             DateTime @default(now())
+  date             DateTime  @default(now())
   description      String?
   nextFollowUpDate DateTime?
-  callType         String   @default("INCOMING") // INCOMING, OUTGOING
-  
-  branchId         String
-  branch           Branch   @relation(fields: [branchId], references: [id])
-  
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  callType         String    @default("INCOMING") // INCOMING, OUTGOING
+
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model VisitorLog {
@@ -1418,34 +1503,34 @@ model VisitorLog {
   idCard    String?
   numPerson Int      @default(1)
   date      DateTime @default(now())
-  inTime    String?  // HH:MM
-  outTime   String?  // HH:MM
+  inTime    String? // HH:MM
+  outTime   String? // HH:MM
   note      String?
-  
-  branchId  String
-  branch    Branch   @relation(fields: [branchId], references: [id])
-  
+
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id])
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Complaint {
-  id           String   @id @default(uuid())
+  id            String   @id @default(uuid())
   complaintType String
-  source       String?
-  name         String
-  phone        String
-  date         DateTime @default(now())
-  description  String?
-  actionTaken  String?
-  assignedTo   String?
-  status       String   @default("PENDING") // PENDING, RESOLVED, CLOSED
-  
-  branchId     String
-  branch       Branch   @relation(fields: [branchId], references: [id])
-  
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  source        String?
+  name          String
+  phone         String
+  date          DateTime @default(now())
+  description   String?
+  actionTaken   String?
+  assignedTo    String?
+  status        String   @default("PENDING") // PENDING, RESOLVED, CLOSED
+
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model PostalRecord {
@@ -1456,13 +1541,13 @@ model PostalRecord {
   address         String?
   description     String?
   date            DateTime @default(now())
-  type            String   // DISPATCH, RECEIVE
-  
-  branchId        String
-  branch          Branch   @relation(fields: [branchId], references: [id])
-  
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  type            String // DISPATCH, RECEIVE
+
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 // ============================================
@@ -1470,142 +1555,142 @@ model PostalRecord {
 // ============================================
 
 model InventoryCategory {
-  id        String   @id @default(uuid())
+  id        String             @id @default(uuid())
   name      String
   branchId  String
-  branch    Branch   @relation(fields: [branchId], references: [id])
+  branch    Branch             @relation(fields: [branchId], references: [id])
   products  InventoryProduct[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
 }
 
 model InventoryStore {
-  id        String   @id @default(uuid())
+  id        String             @id @default(uuid())
   name      String
-  code      String?  @unique
+  code      String?            @unique
   branchId  String
-  branch    Branch   @relation(fields: [branchId], references: [id])
+  branch    Branch             @relation(fields: [branchId], references: [id])
   products  InventoryProduct[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
 }
 
 model InventorySupplier {
-  id        String   @id @default(uuid())
-  name      String
+  id            String              @id @default(uuid())
+  name          String
   contactPerson String?
-  phone     String?
-  email     String?
-  address   String?
-  branchId  String
-  branch    Branch   @relation(fields: [branchId], references: [id])
-  purchases InventoryPurchase[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  phone         String?
+  email         String?
+  address       String?
+  branchId      String
+  branch        Branch              @relation(fields: [branchId], references: [id])
+  purchases     InventoryPurchase[]
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
 }
 
 model InventoryUnit {
-  id        String   @id @default(uuid())
-  name      String   // e.g. "Pcs", "Kg", "Box"
+  id        String             @id @default(uuid())
+  name      String // e.g. "Pcs", "Kg", "Box"
   branchId  String
-  branch    Branch   @relation(fields: [branchId], references: [id])
+  branch    Branch             @relation(fields: [branchId], references: [id])
   products  InventoryProduct[]
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+}
+
+model InventoryProduct {
+  id          String  @id @default(uuid())
+  name        String
+  code        String? @unique
+  description String?
+
+  categoryId String
+  category   InventoryCategory @relation(fields: [categoryId], references: [id])
+
+  unitId String
+  unit   InventoryUnit @relation(fields: [unitId], references: [id])
+
+  storeId String?
+  store   InventoryStore? @relation(fields: [storeId], references: [id])
+
+  stock Int @default(0)
+
+  purchases InventoryPurchase[]
+  sales     InventorySale[]
+  issues    InventoryIssue[]
+
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id])
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-model InventoryProduct {
-  id          String   @id @default(uuid())
-  name        String
-  code        String?  @unique
-  description String?
-  
-  categoryId  String
-  category    InventoryCategory @relation(fields: [categoryId], references: [id])
-  
-  unitId      String
-  unit        InventoryUnit @relation(fields: [unitId], references: [id])
-  
-  storeId     String?
-  store       InventoryStore? @relation(fields: [storeId], references: [id])
-  
-  stock       Int      @default(0)
-  
-  purchases   InventoryPurchase[]
-  sales       InventorySale[]
-  issues      InventoryIssue[]
-  
-  branchId    String
-  branch      Branch   @relation(fields: [branchId], references: [id])
-  
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-
 model InventoryPurchase {
-  id          String   @id @default(uuid())
-  voucherNo   String?  @unique
-  date        DateTime @default(now())
-  quantity    Int
-  unitPrice   Float
-  totalPrice  Float
-  
-  productId   String
-  product     InventoryProduct @relation(fields: [productId], references: [id])
-  
-  supplierId  String
-  supplier    InventorySupplier @relation(fields: [supplierId], references: [id])
-  
-  branchId    String
-  branch      Branch   @relation(fields: [branchId], references: [id])
-  
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id         String   @id @default(uuid())
+  voucherNo  String?  @unique
+  date       DateTime @default(now())
+  quantity   Int
+  unitPrice  Float
+  totalPrice Float
+
+  productId String
+  product   InventoryProduct @relation(fields: [productId], references: [id])
+
+  supplierId String
+  supplier   InventorySupplier @relation(fields: [supplierId], references: [id])
+
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model InventorySale {
-  id          String   @id @default(uuid())
-  invoiceNo   String?  @unique
-  date        DateTime @default(now())
-  quantity    Int
-  unitPrice   Float
-  totalPrice  Float
-  
-  productId   String
-  product     InventoryProduct @relation(fields: [productId], references: [id])
-  
+  id         String   @id @default(uuid())
+  invoiceNo  String?  @unique
+  date       DateTime @default(now())
+  quantity   Int
+  unitPrice  Float
+  totalPrice Float
+
+  productId String
+  product   InventoryProduct @relation(fields: [productId], references: [id])
+
   customerName String?
-  
-  branchId    String
-  branch      Branch   @relation(fields: [branchId], references: [id])
-  
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model InventoryIssue {
-  id          String   @id @default(uuid())
-  date        DateTime @default(now())
-  returnDate  DateTime?
-  quantity    Int
-  status      String   @default("ISSUED") // ISSUED, RETURNED
-  
-  productId   String
-  product     InventoryProduct @relation(fields: [productId], references: [id])
-  
-  issuedTo    String?
-  
-  staffId     String?
-  staff       Staff?   @relation(fields: [staffId], references: [id])
-  
-  studentId   String?
-  student     Student? @relation(fields: [studentId], references: [id])
-  
-  branchId    String
-  branch      Branch   @relation(fields: [branchId], references: [id])
-  
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id         String    @id @default(uuid())
+  date       DateTime  @default(now())
+  returnDate DateTime?
+  quantity   Int
+  status     String    @default("ISSUED") // ISSUED, RETURNED
+
+  productId String
+  product   InventoryProduct @relation(fields: [productId], references: [id])
+
+  issuedTo String?
+
+  staffId String?
+  staff   Staff?  @relation(fields: [staffId], references: [id])
+
+  studentId String?
+  student   Student? @relation(fields: [studentId], references: [id])
+
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 // ============================================
@@ -1613,98 +1698,98 @@ model InventoryIssue {
 // ============================================
 
 model Alumni {
-  id              String   @id @default(uuid())
-  studentId       String   @unique
-  student         Student  @relation(fields: [studentId], references: [id])
-  
-  graduationDate  DateTime
+  id        String  @id @default(uuid())
+  studentId String  @unique
+  student   Student @relation(fields: [studentId], references: [id])
+
+  graduationDate    DateTime
   currentOccupation String?
   currentCompany    String?
   higherEducation   String?
   linkedInUrl       String?
   isPublic          Boolean  @default(true)
-  
-  events            AlumniEventParticipant[]
-  
-  branchId        String
-  branch          Branch   @relation(fields: [branchId], references: [id])
-  
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+
+  events AlumniEventParticipant[]
+
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model AlumniEvent {
-  id              String   @id @default(uuid())
-  title           String
-  description     String?
-  eventDate       DateTime
-  location        String?
-  isOnline        Boolean  @default(false)
-  meetingUrl      String?
-  
-  participants    AlumniEventParticipant[]
-  
-  branchId        String
-  branch          Branch   @relation(fields: [branchId], references: [id])
-  
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  eventDate   DateTime
+  location    String?
+  isOnline    Boolean  @default(false)
+  meetingUrl  String?
+
+  participants AlumniEventParticipant[]
+
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model AlumniEventParticipant {
-  id              String   @id @default(uuid())
-  alumniId        String
-  alumni          Alumni   @relation(fields: [alumniId], references: [id])
-  eventId         String
-  event           AlumniEvent @relation(fields: [eventId], references: [id])
-  status          String   @default("INTERESTED") // INTERESTED, GOING, DECLINED
-  
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  
+  id       String      @id @default(uuid())
+  alumniId String
+  alumni   Alumni      @relation(fields: [alumniId], references: [id])
+  eventId  String
+  event    AlumniEvent @relation(fields: [eventId], references: [id])
+  status   String      @default("INTERESTED") // INTERESTED, GOING, DECLINED
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@unique([alumniId, eventId])
 }
 
 model Conversation {
-  id              String   @id @default(uuid())
-  title           String?
-  lastMessageAt   DateTime @default(now())
-  
-  participants    ConversationParticipant[]
-  messages        Message[]
-  
-  branchId        String
-  branch          Branch   @relation(fields: [branchId], references: [id])
-  
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id            String   @id @default(uuid())
+  title         String?
+  lastMessageAt DateTime @default(now())
+
+  participants ConversationParticipant[]
+  messages     Message[]
+
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model ConversationParticipant {
-  id              String   @id @default(uuid())
-  conversationId  String
-  conversation    Conversation @relation(fields: [conversationId], references: [id])
-  userId          String
-  user            User     @relation(fields: [userId], references: [id])
-  unreadCount     Int      @default(0)
-  
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  
+  id             String       @id @default(uuid())
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  userId         String
+  user           User         @relation(fields: [userId], references: [id])
+  unreadCount    Int          @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@unique([conversationId, userId])
 }
 
 model Message {
-  id              String   @id @default(uuid())
-  content         String
-  conversationId  String
-  conversation    Conversation @relation(fields: [conversationId], references: [id])
-  senderId        String
-  sender          User     @relation(fields: [senderId], references: [id])
-  isRead          Boolean  @default(false)
-  
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id             String       @id @default(uuid())
+  content        String
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  senderId       String
+  sender         User         @relation(fields: [senderId], references: [id])
+  isRead         Boolean      @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 // ============================================
@@ -1712,68 +1797,68 @@ model Message {
 // ============================================
 
 model CampusEvent {
-  id              String   @id @default(uuid())
-  title           String
-  description     String?
-  startDate       DateTime
-  endDate         DateTime
-  location        String?
-  category        String   // e.g., ACADEMIC, HOLIDAY, SPORTS, CULTURAL
-  isPublic        Boolean  @default(true)
-  allowRSVP       Boolean  @default(true)
-  
-  rsvps           EventRSVP[]
-  
-  branchId        String
-  branch          Branch   @relation(fields: [branchId], references: [id])
-  
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  startDate   DateTime
+  endDate     DateTime
+  location    String?
+  category    String // e.g., ACADEMIC, HOLIDAY, SPORTS, CULTURAL
+  isPublic    Boolean  @default(true)
+  allowRSVP   Boolean  @default(true)
+
+  rsvps EventRSVP[]
+
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model EventRSVP {
-  id              String   @id @default(uuid())
-  eventId         String
-  event           CampusEvent @relation(fields: [eventId], references: [id])
-  userId          String
-  user            User        @relation(fields: [userId], references: [id])
-  status          String      @default("INTERESTED") // INTERESTED, GOING, DECLINED
-  
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  
+  id      String      @id @default(uuid())
+  eventId String
+  event   CampusEvent @relation(fields: [eventId], references: [id])
+  userId  String
+  user    User        @relation(fields: [userId], references: [id])
+  status  String      @default("INTERESTED") // INTERESTED, GOING, DECLINED
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@unique([eventId, userId])
 }
 
 model CampusAccessLog {
-  id              String   @id @default(uuid())
-  userId          String
-  user            User     @relation(fields: [userId], references: [id])
-  scanTime        DateTime @default(now())
-  direction       String   // ENTRY, EXIT
-  location        String?  // e.g., Main Gate, Library
-  deviceInfo      String?
-  
-  branchId        String
-  branch          Branch   @relation(fields: [branchId], references: [id])
-  
-  createdAt       DateTime @default(now())
+  id         String   @id @default(uuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  scanTime   DateTime @default(now())
+  direction  String // ENTRY, EXIT
+  location   String? // e.g., Main Gate, Library
+  deviceInfo String?
+
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id])
+
+  createdAt DateTime @default(now())
 }
 
 model AutomationConfig {
-  id              String   @id @default(uuid())
-  type            String   // BIRTHDAY_WISH, FEE_REMINDER, ATTENDANCE_ALERT
-  isEnabled       Boolean  @default(true)
-  template        String?  // Message template
-  triggerDays     Int?     // Days before/after event
-  lastRun         DateTime?
-  
-  branchId        String
-  branch          Branch   @relation(fields: [branchId], references: [id])
-  
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  
+  id          String    @id @default(uuid())
+  type        String // BIRTHDAY_WISH, FEE_REMINDER, ATTENDANCE_ALERT
+  isEnabled   Boolean   @default(true)
+  template    String? // Message template
+  triggerDays Int? // Days before/after event
+  lastRun     DateTime?
+
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@unique([branchId, type])
 }
 
@@ -1782,43 +1867,101 @@ model AutomationConfig {
 // ============================================
 
 model IdCardTemplate {
-  id              String   @id @default(uuid())
+  id              String  @id @default(uuid())
   name            String
-  type            String   // STUDENT, EMPLOYEE, ADMIT
-  backgroundImage String?  // URL to background image
-  
+  type            String // STUDENT, EMPLOYEE, ADMIT
+  backgroundImage String? // URL to background image
+
   // Field positions and styling (stored as JSON)
   // e.g. { "name": { "x": 10, "y": 20, "fontSize": 12, "color": "#000" } }
-  config          Json
-  
-  branchId        String
-  branch          Branch   @relation(fields: [branchId], references: [id])
-  
-  idCards         IdCard[]
-  
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  config Json
+
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id])
+
+  idCards IdCard[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model IdCard {
-  id              String   @id @default(uuid())
-  studentId       String?
-  student         Student? @relation(fields: [studentId], references: [id])
-  
-  staffId         String?
-  staff           Staff?   @relation(fields: [staffId], references: [id])
-  
-  templateId      String
-  template        IdCardTemplate @relation(fields: [templateId], references: [id])
-  
-  sessionId       String
-  session         AcademicSession @relation(fields: [sessionId], references: [id])
-  
-  status          String   @default("CREATED") // CREATED, EXPIRED
-  issueDate       DateTime @default(now())
-  
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id        String   @id @default(uuid())
+  studentId String?
+  student   Student? @relation(fields: [studentId], references: [id])
+
+  staffId String?
+  staff   Staff?  @relation(fields: [staffId], references: [id])
+
+  templateId String
+  template   IdCardTemplate @relation(fields: [templateId], references: [id])
+
+  sessionId String
+  session   AcademicSession @relation(fields: [sessionId], references: [id])
+
+  status    String   @default("CREATED") // CREATED, EXPIRED
+  issueDate DateTime @default(now())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([studentId, sessionId])
+}
+
+// ============================================
+// ATTACHMENT BOOK (DIGITAL LIBRARY) MODULE
+// ============================================
+
+model DigitalResource {
+  id           String  @id @default(uuid())
+  title        String
+  description  String?
+  fileUrl      String // URL to the file in storage
+  fileType     String // e.g. PDF, DOCX, URL
+  fileSize     Int? // in bytes
+  thumbnailUrl String? // Optional thumbnail for the resource
+
+  category String // TEXTBOOK, NOTE, WORKSHEET, REFERENCE, LINK
+
+  // Academic Mapping
+  sessionId String
+  session   AcademicSession @relation(fields: [sessionId], references: [id])
+
+  classId String?
+  class   Class?  @relation(fields: [classId], references: [id])
+
+  sectionId String?
+  section   Section? @relation(fields: [sectionId], references: [id])
+
+  subjectId String?
+  subject   Subject? @relation(fields: [subjectId], references: [id])
+
+  uploaderId String
+  uploader   Staff  @relation(fields: [uploaderId], references: [id])
+
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id])
+
+  logs DigitalResourceLog[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([branchId, category])
+  @@index([classId, subjectId])
+}
+
+model DigitalResourceLog {
+  id         String          @id @default(uuid())
+  resourceId String
+  resource   DigitalResource @relation(fields: [resourceId], references: [id], onDelete: Cascade)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  action    String // VIEW, DOWNLOAD
+  ipAddress String?
+  userAgent String?
+
+  createdAt DateTime @default(now())
 }

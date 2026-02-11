@@ -7,26 +7,42 @@ import {
     Users,
     Plus,
     ArrowRight,
-    ArrowUpRight,
     Home,
-    ShieldCheck,
     AlertCircle,
-    Loader2
+    Loader2,
+    MoreVertical,
+    Edit2,
+    Trash2,
+    MapPin
 } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
 import { HostelService, Hostel } from "@/services/hostelService";
 import Link from "next/link";
 
 export default function HostelOverviewPage() {
     const [hostels, setHostels] = useState<Hostel[]>([]);
+    const [stats, setStats] = useState<any>(null);
     const [loading, setLoading] = useState(true);
+
+    // Modal states
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-    const [newHostel, setNewHostel] = useState({
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
+
+    // Form states
+    const [formData, setFormData] = useState({
+        id: "",
         name: "",
         type: "COED",
         address: ""
@@ -34,10 +50,14 @@ export default function HostelOverviewPage() {
 
     const fetchData = async () => {
         try {
-            const data = await HostelService.getAll();
-            setHostels(data);
+            const [hostelData, statsData] = await Promise.all([
+                HostelService.getAll(),
+                HostelService.getStats()
+            ]);
+            setHostels(hostelData);
+            setStats(statsData);
         } catch (error) {
-            console.error("Failed to fetch hostels:", error);
+            console.error("Failed to fetch data:", error);
             toast.error("Failed to load hostel data");
         } finally {
             setLoading(false);
@@ -51,10 +71,10 @@ export default function HostelOverviewPage() {
     const handleCreateHostel = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await HostelService.createHostel(newHostel);
+            await HostelService.createHostel(formData);
             toast.success("Hostel registered successfully");
             setIsCreateModalOpen(false);
-            setNewHostel({ name: "", type: "COED", address: "" });
+            setFormData({ id: "", name: "", type: "COED", address: "" });
             fetchData();
         } catch (error) {
             console.error("Creation failed:", error);
@@ -62,10 +82,50 @@ export default function HostelOverviewPage() {
         }
     };
 
-    const stats = [
+    const handleUpdateHostel = async (e: React.FormEvent) => {
+        e.preventDefault();
+        try {
+            await HostelService.updateHostel(formData.id, formData);
+            toast.success("Hostel updated successfully");
+            setIsEditModalOpen(false);
+            fetchData();
+        } catch (error) {
+            console.error("Update failed:", error);
+            toast.error("Failed to update hostel");
+        }
+    };
+
+    const handleDeleteHostel = async () => {
+        try {
+            await HostelService.deleteHostel(formData.id);
+            toast.success("Hostel deleted successfully");
+            setIsDeleteAlertOpen(false);
+            fetchData();
+        } catch (error) {
+            console.error("Deletion failed:", error);
+            toast.error("Failed to delete hostel");
+        }
+    };
+
+    const openEditModal = (hostel: Hostel) => {
+        setFormData({
+            id: hostel.id,
+            name: hostel.name,
+            type: hostel.type,
+            address: hostel.address || ""
+        });
+        setIsEditModalOpen(true);
+    };
+
+    const openDeleteAlert = (hostel: Hostel) => {
+        setFormData({ ...formData, id: hostel.id, name: hostel.name });
+        setIsDeleteAlertOpen(true);
+    };
+
+    const statCards = [
         {
             title: "Total Hostels",
-            value: hostels.length,
+            value: stats?.hostels || 0,
             icon: Building2,
             color: "text-blue-500",
             bgColor: "bg-blue-500/10",
@@ -73,7 +133,7 @@ export default function HostelOverviewPage() {
         },
         {
             title: "Total Capacity",
-            value: hostels.reduce((acc, h) => acc + (h.rooms?.reduce((rAcc, r) => rAcc + r.capacity, 0) || 0), 0),
+            value: stats?.capacity || 0,
             icon: Bed,
             color: "text-purple-500",
             bgColor: "bg-purple-500/10",
@@ -81,7 +141,7 @@ export default function HostelOverviewPage() {
         },
         {
             title: "Occupied",
-            value: hostels.reduce((acc, h) => acc + (h.rooms?.reduce((rAcc, r) => rAcc + (r.beds?.filter(b => b.status === "OCCUPIED").length || 0), 0) || 0), 0),
+            value: stats?.occupied || 0,
             icon: Users,
             color: "text-green-500",
             bgColor: "bg-green-500/10",
@@ -89,7 +149,7 @@ export default function HostelOverviewPage() {
         },
         {
             title: "Maintenance",
-            value: hostels.reduce((acc, h) => acc + (h.rooms?.reduce((rAcc, r) => rAcc + (r.beds?.filter(b => b.status === "MAINTENANCE").length || 0), 0) || 0), 0),
+            value: stats?.maintenance || 0,
             icon: AlertCircle,
             color: "text-red-500",
             bgColor: "bg-red-500/10",
@@ -112,10 +172,13 @@ export default function HostelOverviewPage() {
                     <p className="text-slate-300 text-xl font-medium max-w-2xl leading-relaxed italic">
                         Streamline your residential management. Track occupancy, manage building wings, and ensure a comfortable stay for every student.
                     </p>
-                    <div className="mt-8 flex gap-4">
+                    <div className="mt-8">
                         <Dialog open={isCreateModalOpen} onOpenChange={setIsCreateModalOpen}>
                             <DialogTrigger asChild>
-                                <Button className="h-14 px-8 rounded-2xl bg-white text-slate-900 hover:bg-slate-100 font-black italic text-lg gap-2 shadow-xl">
+                                <Button
+                                    onClick={() => setFormData({ id: "", name: "", type: "COED", address: "" })}
+                                    className="h-14 px-8 rounded-2xl bg-white text-slate-900 hover:bg-slate-100 font-black italic text-lg gap-2 shadow-xl"
+                                >
                                     <Plus size={20} strokeWidth={3} />
                                     Register building
                                 </Button>
@@ -131,16 +194,16 @@ export default function HostelOverviewPage() {
                                             required
                                             className="rounded-xl h-12"
                                             placeholder="e.g. Diamond Hall"
-                                            value={newHostel.name}
-                                            onChange={e => setNewHostel({ ...newHostel, name: e.target.value })}
+                                            value={formData.name}
+                                            onChange={e => setFormData({ ...formData, name: e.target.value })}
                                         />
                                     </div>
                                     <div className="space-y-1.5">
                                         <Label className="font-bold ml-1 italic">Type</Label>
                                         <select
                                             className="w-full rounded-xl h-12 px-4 border bg-background font-bold italic appearance-none"
-                                            value={newHostel.type}
-                                            onChange={e => setNewHostel({ ...newHostel, type: e.target.value })}
+                                            value={formData.type}
+                                            onChange={e => setFormData({ ...formData, type: e.target.value as any })}
                                         >
                                             <option value="BOYS">Boys Hostel</option>
                                             <option value="GIRLS">Girls Hostel</option>
@@ -152,8 +215,8 @@ export default function HostelOverviewPage() {
                                         <Input
                                             className="rounded-xl h-12"
                                             placeholder="Building address"
-                                            value={newHostel.address}
-                                            onChange={e => setNewHostel({ ...newHostel, address: e.target.value })}
+                                            value={formData.address}
+                                            onChange={e => setFormData({ ...formData, address: e.target.value })}
                                         />
                                     </div>
                                     <Button type="submit" className="w-full h-14 rounded-xl font-black italic text-lg shadow-lg shadow-primary/20 mt-4">
@@ -164,14 +227,13 @@ export default function HostelOverviewPage() {
                         </Dialog>
                     </div>
                 </div>
-                {/* Decorative Blobs */}
                 <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
                 <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-purple-500/10 rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2" />
             </div>
 
             {/* Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {stats.map((stat, i) => (
+                {statCards.map((stat, i) => (
                     <Card key={i} className="rounded-[2.5rem] border-border/50 shadow-xl overflow-hidden group hover:scale-[1.02] transition-all bg-card/40 backdrop-blur-md">
                         <CardContent className="p-8 text-center sm:text-left">
                             <div className={`w-14 h-14 rounded-2xl ${stat.bgColor} ${stat.color} flex items-center justify-center mb-6 mx-auto sm:mx-0 group-hover:scale-110 transition-transform`}>
@@ -190,11 +252,30 @@ export default function HostelOverviewPage() {
                 {hostels.map(hostel => (
                     <Card key={hostel.id} className="rounded-[3.5rem] border-border/50 shadow-xl p-8 hover:shadow-2xl transition-all group overflow-hidden relative">
                         {/* Type Badge */}
-                        <div className={`absolute top-8 right-8 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest ${hostel.type === 'BOYS' ? 'bg-blue-100 text-blue-600' :
-                                hostel.type === 'GIRLS' ? 'bg-pink-100 text-pink-600' :
-                                    'bg-purple-100 text-purple-600'
+                        <div className={`absolute top-8 right-16 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest ${hostel.type === 'BOYS' ? 'bg-blue-100 text-blue-600' :
+                            hostel.type === 'GIRLS' ? 'bg-pink-100 text-pink-600' :
+                                'bg-purple-100 text-purple-600'
                             }`}>
                             {hostel.type}
+                        </div>
+
+                        {/* Actions Menu */}
+                        <div className="absolute top-8 right-8">
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <Button variant="ghost" size="icon" className="rounded-full h-10 w-10">
+                                        <MoreVertical size={20} className="text-muted-foreground" />
+                                    </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end" className="rounded-2xl p-2 min-w-[160px]">
+                                    <DropdownMenuItem onClick={() => openEditModal(hostel)} className="rounded-xl gap-3 font-bold italic cursor-pointer">
+                                        <Edit2 size={16} className="text-primary" /> Edit Building
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => openDeleteAlert(hostel)} className="rounded-xl gap-3 font-bold italic text-destructive cursor-pointer">
+                                        <Trash2 size={16} /> Delete Building
+                                    </DropdownMenuItem>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
                         </div>
 
                         <div className="flex gap-6 items-start">
@@ -203,7 +284,10 @@ export default function HostelOverviewPage() {
                             </div>
                             <div className="space-y-2">
                                 <h3 className="text-3xl font-black italic tracking-tight">{hostel.name}</h3>
-                                <p className="text-muted-foreground font-medium italic">{hostel.address || "No address provided"}</p>
+                                <div className="flex items-center gap-2 text-muted-foreground font-medium italic">
+                                    <MapPin size={16} />
+                                    {hostel.address || "No address provided"}
+                                </div>
                                 <div className="flex gap-4 pt-2">
                                     <div className="flex items-center gap-1.5 text-xs font-black text-muted-foreground/70 uppercase tracking-widest">
                                         <Building2 size={14} /> {hostel.rooms?.length || 0} Rooms
@@ -221,9 +305,6 @@ export default function HostelOverviewPage() {
                                     Manage Rooms <ArrowRight size={18} />
                                 </Button>
                             </Link>
-                            <Button variant="outline" className="h-14 w-14 rounded-2xl border-2">
-                                <ArrowUpRight size={20} />
-                            </Button>
                         </div>
                     </Card>
                 ))}
@@ -240,6 +321,78 @@ export default function HostelOverviewPage() {
                     </div>
                 )}
             </div>
+
+            {/* Edit Modal */}
+            <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
+                <DialogContent className="max-w-md rounded-[2.5rem] p-8">
+                    <DialogHeader>
+                        <DialogTitle className="text-2xl font-black italic">Edit Building</DialogTitle>
+                    </DialogHeader>
+                    <form onSubmit={handleUpdateHostel} className="space-y-4 pt-4">
+                        <div className="space-y-1.5">
+                            <Label className="font-bold ml-1 italic">Building Name</Label>
+                            <Input
+                                required
+                                className="rounded-xl h-12"
+                                placeholder="e.g. Diamond Hall"
+                                value={formData.name}
+                                onChange={e => setFormData({ ...formData, name: e.target.value })}
+                            />
+                        </div>
+                        <div className="space-y-1.5">
+                            <Label className="font-bold ml-1 italic">Type</Label>
+                            <select
+                                className="w-full rounded-xl h-12 px-4 border bg-background font-bold italic appearance-none"
+                                value={formData.type}
+                                onChange={e => setFormData({ ...formData, type: e.target.value as any })}
+                            >
+                                <option value="BOYS">Boys Hostel</option>
+                                <option value="GIRLS">Girls Hostel</option>
+                                <option value="COED">Co-Ed (Mixed)</option>
+                            </select>
+                        </div>
+                        <div className="space-y-1.5">
+                            <Label className="font-bold ml-1 italic">Address / Location</Label>
+                            <Input
+                                className="rounded-xl h-12"
+                                placeholder="Building address"
+                                value={formData.address}
+                                onChange={e => setFormData({ ...formData, address: e.target.value })}
+                            />
+                        </div>
+                        <Button type="submit" className="w-full h-14 rounded-xl font-black italic text-lg shadow-lg shadow-primary/20 mt-4">
+                            Save Changes
+                        </Button>
+                    </form>
+                </DialogContent>
+            </Dialog>
+
+            {/* Delete Confirmation */}
+            <Dialog open={isDeleteAlertOpen} onOpenChange={setIsDeleteAlertOpen}>
+                <DialogContent className="max-w-md rounded-[2.5rem] p-8">
+                    <DialogHeader>
+                        <DialogTitle className="text-2xl font-black italic text-destructive">Delete Building?</DialogTitle>
+                    </DialogHeader>
+                    <div className="py-4 font-medium italic text-base">
+                        This will permanently remove <span className="font-black text-foreground">"{formData.name}"</span> and all room assignments within it. This action cannot be undone.
+                    </div>
+                    <div className="flex gap-4 mt-4">
+                        <Button
+                            variant="outline"
+                            onClick={() => setIsDeleteAlertOpen(false)}
+                            className="flex-1 h-12 rounded-xl font-bold italic"
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            onClick={handleDeleteHostel}
+                            className="flex-1 h-12 rounded-xl bg-destructive hover:bg-destructive/90 text-white font-black italic shadow-lg shadow-destructive/20"
+                        >
+                            Delete Building
+                        </Button>
+                    </div>
+                </DialogContent>
+            </Dialog>
         </div>
     );
 }

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Put, Delete, UseGuards, Request } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put, Delete, UseGuards, Request, Query } from '@nestjs/common';
 import { AssignmentsService } from './assignments.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
@@ -14,16 +14,17 @@ export class AssignmentsController {
     @Post()
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
     create(@Body() data: any, @Request() req) {
+        data.branchId = req.user.branchId;
         if (req.user.role === UserRole.TEACHER) {
-            data.teacherId = req.user.staffId; // Assuming staffId is in req.user
+            data.teacherId = req.user.staffId;
         }
         return this.assignmentsService.createAssignment(data);
     }
 
     @Get()
-    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-    findAll(@Request() req) {
-        return this.assignmentsService.findAll(req.user.branchId);
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
+    findAll(@Request() req, @Query() filters: any) {
+        return this.assignmentsService.findAll(req.user.branchId, filters);
     }
 
     @Get('student/:studentId')

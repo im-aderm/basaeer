@@ -67,6 +67,15 @@ export const OnlineExamService = {
         return response.data;
     },
 
+    updateQuestion: async (id: string, data: any): Promise<Question> => {
+        const response = await api.patch(`/online-exams/questions/${id}`, data);
+        return response.data;
+    },
+
+    deleteQuestion: async (id: string): Promise<void> => {
+        await api.delete(`/online-exams/questions/${id}`);
+    },
+
     createQuestion: async (data: Partial<Question> & { groupId: string }): Promise<Question> => {
         const response = await api.post('/online-exams/questions', data);
         return response.data;
@@ -84,13 +93,21 @@ export const OnlineExamService = {
     },
 
     // Student Actions
-    startExam: async (examId: string): Promise<OnlineExam & { group: { questions: Question[] } }> => {
+    startExam: async (examId: string): Promise<OnlineExam & {
+        group: { questions: Question[] },
+        attempt: { startTime: string; answers: any[] }
+    }> => {
         const response = await api.get(`/online-exams/${examId}/start`);
         return response.data;
     },
 
     submitAttempt: async (examId: string, answers: any[]): Promise<any> => {
         const response = await api.post('/online-exams/submit', { examId, answers });
+        return response.data;
+    },
+
+    syncAnswers: async (examId: string, answers: any[]): Promise<any> => {
+        const response = await api.post('/online-exams/sync', { examId, answers });
         return response.data;
     },
 
@@ -102,6 +119,11 @@ export const OnlineExamService = {
 
     gradeAnswer: async (attemptId: string, questionId: string, marksAwarded: number): Promise<any> => {
         const response = await api.patch(`/online-exams/attempts/${attemptId}/questions/${questionId}/grade`, { marksAwarded });
+        return response.data;
+    },
+
+    generatePositions: async (examId: string): Promise<any> => {
+        const response = await api.post(`/online-exams/${examId}/generate-positions`);
         return response.data;
     }
 };

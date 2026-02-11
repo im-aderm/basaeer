@@ -127,4 +127,60 @@ export class AcademicsService {
             )
         );
     }
+
+    // Schedules
+    async createSchedule(dto: any) {
+        // Simple conflict check (strict)
+        const conflict = await this.prisma.classSchedule.findFirst({
+            where: {
+                OR: [
+                    {
+                        teacherId: dto.teacherId,
+                        dayOfWeek: dto.dayOfWeek,
+                        startTime: dto.startTime,
+                    },
+                    {
+                        classId: dto.classId,
+                        sectionId: dto.sectionId,
+                        dayOfWeek: dto.dayOfWeek,
+                        startTime: dto.startTime,
+                    }
+                ]
+            }
+        });
+
+        if (conflict) {
+            throw new BadRequestException('Schedule conflict: Teacher or Section already busy at this time.');
+        }
+
+        return this.prisma.classSchedule.create({
+            data: dto
+        });
+    }
+
+    async getSchedules(filters: { classId?: string; sectionId?: string; teacherId?: string }) {
+        return this.prisma.classSchedule.findMany({
+            where: {
+                classId: filters.classId,
+                sectionId: filters.sectionId,
+                teacherId: filters.teacherId,
+            },
+            include: {
+                subject: true,
+                teacher: { include: { user: true } },
+                class: true,
+                section: true,
+            },
+            orderBy: [
+                { dayOfWeek: 'asc' },
+                { startTime: 'asc' }
+            ]
+        });
+    }
+
+    async deleteSchedule(id: string) {
+        return this.prisma.classSchedule.delete({
+            where: { id }
+        });
+    }
 }

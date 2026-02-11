@@ -15,9 +15,13 @@ import {
     Search,
     ChevronRight,
     ClipboardCheck,
-    Save
+    Save,
+    CheckSquare
 } from "lucide-react";
 import { clsx } from "clsx";
+import { toast } from "sonner";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 export default function AttendancePage() {
     const [classes, setClasses] = useState<Class[]>([]);
@@ -60,9 +64,8 @@ export default function AttendancePage() {
         if (!selectedSectionId) return;
         setLoadingStudents(true);
         try {
-            // Fetch all students (filtered on frontend for now, or refine studentService to fetch by section)
-            const allStudents = await StudentService.getAll();
-            const sectionStudents = allStudents.filter(s => s.sectionId === selectedSectionId);
+            // Fetch students for the selected section only
+            const sectionStudents = await StudentService.getAll({ sectionId: selectedSectionId });
             setStudents(sectionStudents);
 
             // Fetch existing attendance for this date/section
@@ -91,24 +94,37 @@ export default function AttendancePage() {
         }));
     };
 
+    const updateRemarks = (studentId: string, remarks: string) => {
+        setAttendanceData(prev => ({
+            ...prev,
+            [studentId]: { ...prev[studentId], remarks }
+        }));
+    };
+
+    const markAllPresent = () => {
+        const newData = { ...attendanceData };
+        students.forEach(s => {
+            newData[s.id] = { ...newData[s.id], status: "PRESENT" };
+        });
+        setAttendanceData(newData);
+    };
+
     const handleSave = async () => {
         setSubmitting(true);
         try {
-            // Loop and save (Bulk endpoint would be better)
-            const promises = Object.entries(attendanceData).map(([studentId, data]) =>
-                AttendanceService.mark({
-                    studentId,
-                    date: selectedDate,
-                    status: data.status,
-                    remarks: data.remarks,
-                    sectionId: selectedSectionId
-                })
-            );
-            await Promise.all(promises);
-            alert("Attendance saved successfully!");
+            const records = Object.entries(attendanceData).map(([studentId, data]) => ({
+                studentId,
+                date: selectedDate,
+                status: data.status,
+                remarks: data.remarks,
+                sectionId: selectedSectionId
+            }));
+
+            await AttendanceService.markBulk(records);
+            toast.success("Attendance saved successfully!");
         } catch (error) {
             console.error("Failed to save attendance:", error);
-            alert("Failed to save attendance.");
+            toast.error("Failed to save attendance.");
         } finally {
             setSubmitting(false);
         }
@@ -193,7 +209,17 @@ export default function AttendancePage() {
             {students.length > 0 && (
                 <div className="bg-card border border-border rounded-[3rem] shadow-sm overflow-hidden border-t-8 border-t-primary animate-in zoom-in-95 duration-500">
                     <div className="p-8 border-b border-border flex items-center justify-between bg-muted/10">
-                        <h2 className="text-2xl font-black italic tracking-tight">Class Register: {classes.find(c => c.id === selectedClassId)?.name} • {sections.find(s => s.id === selectedSectionId)?.name}</h2>
+                        <div className="flex items-center gap-6">
+                            <h2 className="text-2xl font-black italic tracking-tight">Class Register: {classes.find(c => c.id === selectedClassId)?.name} • {sections.find(s => s.id === selectedSectionId)?.name}</h2>
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                className="rounded-xl font-bold italic h-10 px-4 flex items-center gap-2"
+                                onClick={markAllPresent}
+                            >
+                                <CheckSquare size={16} /> Mark All Present
+                            </Button>
+                        </div>
                         <button
                             onClick={handleSave}
                             disabled={submitting}
@@ -207,8 +233,9 @@ export default function AttendancePage() {
                         <table className="w-full border-collapse">
                             <thead>
                                 <tr className="bg-muted/30 text-left border-b border-border">
-                                    <th className="px-10 py-6 text-[10px] uppercase tracking-[0.2em] font-black text-muted-foreground w-[40%]">Student Name</th>
-                                    <th className="px-10 py-6 text-[10px] uppercase tracking-[0.2em] font-black text-muted-foreground text-center">Status Selection</th>
+                                    <th className="px-10 py-6 text-[10px] uppercase tracking-[0.2em] font-black text-muted-foreground w-[30%]">Student Name</th>
+                                    <th className="px-10 py-6 text-[10px] uppercase tracking-[0.2em] font-black text-muted-foreground text-center w-[40%]">Status Selection</th>
+                                    <th className="px-10 py-6 text-[10px] uppercase tracking-[0.2em] font-black text-muted-foreground w-[30%]">Remarks</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-border/50">
@@ -234,17 +261,25 @@ export default function AttendancePage() {
                                                         key={opt.id}
                                                         onClick={() => updateStatus(student.id, opt.id)}
                                                         className={clsx(
-                                                            "group flex flex-col items-center gap-2 p-4 rounded-2xl border-2 transition-all min-w-[100px]",
+                                                            "group flex flex-col items-center gap-2 p-3 rounded-2xl border-2 transition-all min-w-[80px]",
                                                             attendanceData[student.id]?.status === opt.id
                                                                 ? `${opt.active} border-transparent shadow-lg scale-105`
                                                                 : `bg-card border-border hover:border-primary/30 ${opt.color}`
                                                         )}
                                                     >
-                                                        <opt.icon size={24} />
-                                                        <span className="text-[10px] font-black uppercase tracking-widest">{opt.id}</span>
+                                                        <opt.icon size={20} />
+                                                        <span className="text-[9px] font-black uppercase tracking-widest">{opt.id}</span>
                                                     </button>
                                                 ))}
                                             </div>
+                                        </td>
+                                        <td className="px-10 py-6">
+                                            <Input
+                                                placeholder="Add remarks..."
+                                                className="bg-muted/30 border-none rounded-xl font-bold italic text-sm"
+                                                value={attendanceData[student.id]?.remarks || ''}
+                                                onChange={(e) => updateRemarks(student.id, e.target.value)}
+                                            />
                                         </td>
                                     </tr>
                                 ))}

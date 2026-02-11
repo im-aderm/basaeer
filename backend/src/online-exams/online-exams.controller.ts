@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, UseGuards, Request, Query, Patch } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, UseGuards, Request, Query, Patch, Delete } from '@nestjs/common';
 import { OnlineExamsService } from './online-exams.service';
 import {
     CreateQuestionGroupDto,
@@ -44,6 +44,18 @@ export class OnlineExamsController {
         return this.examsService.getQuestionsByGroup(groupId);
     }
 
+    @Patch('questions/:id')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
+    updateQuestion(@Param('id') id: string, @Body() dto: CreateQuestionDto) {
+        return this.examsService.updateQuestion(id, dto);
+    }
+
+    @Delete('questions/:id')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
+    deleteQuestion(@Param('id') id: string) {
+        return this.examsService.deleteQuestion(id);
+    }
+
     // ==================== Exams ====================
     @Post()
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
@@ -70,6 +82,12 @@ export class OnlineExamsController {
         return this.examsService.submitAttempt(req.user.userId, dto);
     }
 
+    @Post('sync')
+    @Roles(UserRole.STUDENT)
+    syncAnswers(@Request() req, @Body() dto: SubmitAttemptDto) {
+        return this.examsService.syncAnswers(req.user.userId, dto);
+    }
+
     // ==================== Grading ====================
     @Get(':id/attempts')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
@@ -85,5 +103,11 @@ export class OnlineExamsController {
         @Body() dto: GradeDescriptiveAnswerDto
     ) {
         return this.examsService.gradeDescriptiveAnswer(attemptId, questionId, dto.marksAwarded);
+    }
+
+    @Post(':id/generate-positions')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
+    generatePositions(@Param('id') id: string) {
+        return this.examsService.generatePositions(id);
     }
 }

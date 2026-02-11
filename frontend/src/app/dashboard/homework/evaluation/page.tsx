@@ -30,8 +30,8 @@ export default function HomeworkEvaluationReport() {
         try {
             const [assignmentsData, classesData, subjectsData] = await Promise.all([
                 AcademicOpsService.getAssignments(filters),
-                ClassService.getClasses(),
-                SubjectService.getSubjects(),
+                ClassService.getAll(),
+                SubjectService.getAll(),
             ]);
             setAssignments(assignmentsData);
             setClasses(classesData);

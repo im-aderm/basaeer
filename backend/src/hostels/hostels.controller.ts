@@ -7,6 +7,8 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 import { UserRole } from '../generated/client/client';
+import { UpdateHostelDto } from './dto/update-hostel.dto';
+import { UpdateRoomDto } from './dto/update-room.dto';
 
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('hostels')
@@ -15,8 +17,8 @@ export class HostelsController {
 
     @Post()
     @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN)
-    create(@Body() dto: CreateHostelDto) {
-        return this.hostelsService.createHostel(dto);
+    create(@Body() dto: CreateHostelDto, @Request() req) {
+        return this.hostelsService.createHostel(dto, req.user.branchId);
     }
 
     @Get()
@@ -25,22 +27,52 @@ export class HostelsController {
         return this.hostelsService.findAll(req.user.branchId);
     }
 
+    @Get('stats')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN, UserRole.BRANCH_ADMIN)
+    getStats(@Request() req) {
+        return this.hostelsService.getStats(req.user.branchId);
+    }
+
+    @Patch(':id')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN)
+    update(@Param('id') id: string, @Body() dto: UpdateHostelDto, @Request() req) {
+        return this.hostelsService.updateHostel(id, dto, req.user.branchId);
+    }
+
+    @Delete(':id')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN)
+    deleteHostel(@Param('id') id: string, @Request() req) {
+        return this.hostelsService.deleteHostel(id, req.user.branchId);
+    }
+
     @Post('rooms')
     @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN)
-    createRoom(@Body() dto: CreateRoomDto) {
-        return this.hostelsService.createRoom(dto);
+    createRoom(@Body() dto: CreateRoomDto, @Request() req) {
+        return this.hostelsService.createRoom(dto, req.user.branchId);
+    }
+
+    @Patch('rooms/:id')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN)
+    updateRoom(@Param('id') id: string, @Body() dto: UpdateRoomDto, @Request() req) {
+        return this.hostelsService.updateRoom(id, dto, req.user.branchId);
+    }
+
+    @Delete('rooms/:id')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN)
+    deleteRoom(@Param('id') id: string, @Request() req) {
+        return this.hostelsService.deleteRoom(id, req.user.branchId);
     }
 
     @Post('allocate')
     @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN)
-    allocate(@Body() dto: AllocateBedDto) {
-        return this.hostelsService.allocateBed(dto);
+    allocate(@Body() dto: AllocateBedDto, @Request() req) {
+        return this.hostelsService.allocateBed(dto, req.user.branchId);
     }
 
     @Patch('release/:id')
     @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN)
-    release(@Param('id') id: string) {
-        return this.hostelsService.releaseBed(id);
+    release(@Param('id') id: string, @Request() req) {
+        return this.hostelsService.releaseBed(id, req.user.branchId);
     }
 
     @Get('vacancies')

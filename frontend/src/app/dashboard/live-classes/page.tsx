@@ -2,24 +2,46 @@
 
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { useSearchParams, useRouter } from 'next/navigation';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter, DialogDescription } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
-import { Video, Plus, Calendar, Clock, BookOpen, Users, Activity, BarChart3, Settings as SettingsIcon, ExternalLink, Play, Trash2, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Badge } from '@/components/ui/badge';
+import { Switch } from '@/components/ui/switch';
+import {
+    Video, Plus, Calendar, Clock, BookOpen, Users, Activity, BarChart3,
+    Settings as SettingsIcon, ExternalLink, Play, Trash2, ShieldCheck,
+    CheckCircle2, AlertCircle, RefreshCcw, MoreVertical, Link
+} from 'lucide-react';
 import { LiveClassesService, LiveClassSession, GoogleMeetConfig } from '@/services/liveClassesService';
 import { toast } from 'sonner';
 import api from '@/lib/api';
+import { format } from 'date-fns';
+
+interface SimpleClass {
+    id: string;
+    name: string;
+}
+
+interface SimpleSubject {
+    id: string;
+    name: string;
+}
 
 export default function LiveClassesPage() {
     const { user } = useAuth();
+    const router = useRouter();
+    const searchParams = useSearchParams();
+
     const [sessions, setSessions] = useState<LiveClassSession[]>([]);
     const [config, setConfig] = useState<GoogleMeetConfig | null>(null);
-    const [classes, setClasses] = useState<any[]>([]);
-    const [subjects, setSubjects] = useState<any[]>([]);
+    const [classes, setClasses] = useState<SimpleClass[]>([]);
+    const [subjects, setSubjects] = useState<SimpleSubject[]>([]);
     const [loading, setLoading] = useState(true);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [isConfigOpen, setIsConfigOpen] = useState(false);
@@ -32,30 +54,49 @@ export default function LiveClassesPage() {
         scheduledEnd: '',
         classId: '',
         sectionId: '',
-        subjectId: ''
+        subjectId: '',
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        isRecurring: false,
+        recurrenceRule: ''
     });
+
+    // Auth redirect handling
+    useEffect(() => {
+        const authStatus = searchParams.get('auth');
+        if (authStatus === 'success') {
+            toast.success('Successfully authorized Google Meet');
+            router.replace('/dashboard/live-classes');
+            fetchInitialData();
+        } else if (authStatus === 'error') {
+            toast.error(searchParams.get('message') || 'Failed to authorize Google Meet');
+            router.replace('/dashboard/live-classes');
+        }
+    }, [searchParams]);
 
     const fetchInitialData = async () => {
         try {
+            setLoading(true);
             const [sessionsData, configData, classesData, subjectsData] = await Promise.all([
                 LiveClassesService.getSessions(),
-                user?.branchId ? LiveClassesService.getConfig(user.branchId) : Promise.resolve(null),
+                LiveClassesService.getConfig(user?.branchId!),
                 api.get('/classes'),
                 api.get('/subjects')
             ]);
             setSessions(sessionsData);
             setConfig(configData);
-            setClasses(classesData.data);
-            setSubjects(subjectsData.data);
+            setClasses(classesData.data || []);
+            setSubjects(subjectsData.data || []);
         } catch (error) {
-            toast.error('Failed to load initial data');
+            console.error('Fetch error:', error);
         } finally {
             setLoading(false);
         }
     };
 
     useEffect(() => {
-        fetchInitialData();
+        if (user?.branchId) {
+            fetchInitialData();
+        }
     }, [user?.branchId]);
 
     const handleCreateSession = async () => {
@@ -65,15 +106,26 @@ export default function LiveClassesPage() {
         }
 
         try {
+            if (!user?.branchId) throw new Error('No branch context');
             await LiveClassesService.createSession({
                 ...formData,
-                branchId: user?.branchId
+                branchId: user.branchId
             });
             toast.success('Live class scheduled successfully');
             setIsDialogOpen(false);
-            setSessions(await LiveClassesService.getSessions());
+            fetchInitialData();
+        } catch (error: unknown) {
+            const message = error instanceof Error ? error.message : 'Failed to schedule live class';
+            toast.error(message);
+        }
+    };
+
+    const handleAuthorize = async () => {
+        try {
+            const { url } = await LiveClassesService.getAuthUrl(user?.branchId!);
+            window.location.href = url;
         } catch (error) {
-            toast.error('Failed to schedule live class');
+            toast.error('Failed to initiate authorization');
         }
     };
 
@@ -81,307 +133,338 @@ export default function LiveClassesPage() {
         try {
             const session = await LiveClassesService.startSession(id);
             window.open(session.hostUrl, '_blank');
-            setSessions(await LiveClassesService.getSessions());
+            fetchInitialData();
         } catch (error) {
             toast.error('Failed to start session');
         }
     };
 
-    const getStatusColor = (status: string) => {
-        switch (status) {
-            case 'SCHEDULED': return 'bg-blue-500/10 text-blue-600';
-            case 'LIVE': return 'bg-emerald-500/10 text-emerald-600 animate-pulse';
-            case 'ENDED': return 'bg-muted text-muted-foreground';
-            case 'CANCELLED': return 'bg-destructive/10 text-destructive';
-            default: return 'bg-muted text-muted-foreground';
+    const handleDeleteSession = async (id: string) => {
+        if (!confirm('Are you sure you want to cancel this session?')) return;
+        try {
+            await LiveClassesService.cancelSession(id);
+            toast.success('Session cancelled');
+            fetchInitialData();
+        } catch (error) {
+            toast.error('Failed to cancel session');
         }
     };
 
-    if (loading) return <div className="p-8">Loading live class rooms...</div>;
+    const getStatusBadge = (status: string) => {
+        switch (status) {
+            case 'SCHEDULED': return <Badge variant="outline" className="bg-blue-50 text-blue-600 border-blue-200">Scheduled</Badge>;
+            case 'LIVE': return <Badge className="bg-emerald-500 text-white animate-pulse">Live Now</Badge>;
+            case 'ENDED': return <Badge variant="secondary">Ended</Badge>;
+            case 'CANCELLED': return <Badge variant="destructive">Cancelled</Badge>;
+            default: return <Badge variant="outline">{status}</Badge>;
+        }
+    };
+
+    const upcomingSessions = sessions.filter(s => s.status === 'SCHEDULED');
+    const liveSessions = sessions.filter(s => s.status === 'LIVE');
+    const pastSessions = sessions.filter(s => s.status === 'ENDED' || s.status === 'CANCELLED');
+
+    if (loading) return (
+        <div className="flex flex-col items-center justify-center p-20 space-y-4">
+            <RefreshCcw className="h-10 w-10 animate-spin text-primary" />
+            <p className="text-muted-foreground font-medium">Synchronizing live classrooms...</p>
+        </div>
+    );
 
     return (
-        <div className="max-w-7xl mx-auto space-y-8 pb-20">
-            <div className="flex justify-between items-end">
+        <div className="p-6 space-y-6 max-w-7xl mx-auto">
+            {/* Header */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-4xl font-black tracking-tight italic">Live Class Rooms</h1>
-                    <p className="text-muted-foreground font-medium mt-1">Virtual learning spaces powered by Google Meet.</p>
+                    <h1 className="text-3xl font-bold tracking-tight">Live Classrooms</h1>
+                    <p className="text-muted-foreground mt-1">Institutional Google Meet integration for seamless teaching.</p>
                 </div>
-
-                <div className="flex gap-4">
-                    <Button
-                        variant="outline"
-                        onClick={() => setIsConfigOpen(true)}
-                        className="h-14 px-6 rounded-2xl font-black gap-2 border-border/50 hover:bg-muted"
-                    >
-                        <SettingsIcon className="h-5 w-5" />
-                        Infrastructure
-                    </Button>
-                    <Button
-                        className="h-14 px-8 rounded-2xl font-black text-lg gap-2 shadow-xl shadow-primary/20 hover:scale-[1.02] transition-all"
-                        onClick={() => setIsDialogOpen(true)}
-                    >
-                        <Plus className="h-6 w-6" />
-                        Schedule Class
-                    </Button>
-                </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-primary/5 border-l-4 border-l-primary">
-                    <CardHeader className="pb-2"><CardTitle className="text-xs font-black uppercase tracking-widest italic opacity-50">Total Sessions</CardTitle></CardHeader>
-                    <CardContent className="flex items-center gap-4">
-                        <span className="text-4xl font-black italic">{sessions.length}</span>
-                        <Video className="h-8 w-8 text-primary/40" />
-                    </CardContent>
-                </Card>
-                <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-emerald-500/5 border-l-4 border-l-emerald-500">
-                    <CardHeader className="pb-2"><CardTitle className="text-xs font-black uppercase tracking-widest italic opacity-50">Live Now</CardTitle></CardHeader>
-                    <CardContent className="flex items-center gap-4">
-                        <span className="text-4xl font-black italic">{sessions.filter(s => s.status === 'LIVE').length}</span>
-                        <div className="h-3 w-3 rounded-full bg-emerald-500 animate-pulse" />
-                    </CardContent>
-                </Card>
-                <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-blue-500/5 border-l-4 border-l-blue-500">
-                    <CardHeader className="pb-2"><CardTitle className="text-xs font-black uppercase tracking-widest italic opacity-50">Scheduled</CardTitle></CardHeader>
-                    <CardContent className="flex items-center gap-4">
-                        <span className="text-4xl font-black italic">{sessions.filter(s => s.status === 'SCHEDULED' || s.status === 'UPCOMING').length}</span>
-                        <Calendar className="h-8 w-8 text-blue-500/40" />
-                    </CardContent>
-                </Card>
-                <Card className={`rounded-[2.5rem] border-border/50 shadow-xl border-l-4 ${config?.isEnabled ? 'bg-emerald-500/5 border-l-emerald-500' : 'bg-destructive/5 border-l-destructive'}`}>
-                    <CardHeader className="pb-2"><CardTitle className="text-xs font-black uppercase tracking-widest italic opacity-50">Platform Status</CardTitle></CardHeader>
-                    <CardContent className="flex items-center gap-4">
-                        <span className="text-base font-black italic uppercase tracking-tighter">
-                            {config?.isEnabled ? 'Connected' : 'Disconnected'}
-                        </span>
-                        {config?.isEnabled ? <ShieldCheck className="h-6 w-6 text-emerald-500/40" /> : <ShieldCheck className="h-6 w-6 text-destructive/40" />}
-                    </CardContent>
-                </Card>
-            </div>
-
-            <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background">
-                <CardHeader className="p-8 pb-4">
-                    <CardTitle className="text-2xl font-black italic flex items-center gap-3">
-                        <Play className="h-8 w-8 text-primary fill-primary" />
-                        Active & Upcoming Sessions
-                    </CardTitle>
-                </CardHeader>
-                <CardContent className="p-0">
-                    <Table>
-                        <TableHeader className="bg-muted/30 h-16">
-                            <TableRow className="border-border/50 hover:bg-transparent">
-                                <TableHead className="font-black italic px-8 uppercase tracking-tighter text-muted-foreground">Session Title</TableHead>
-                                <TableHead className="font-black italic px-8 uppercase tracking-tighter text-muted-foreground">Class & Subject</TableHead>
-                                <TableHead className="font-black italic px-8 uppercase tracking-tighter text-muted-foreground">Time Schedule</TableHead>
-                                <TableHead className="font-black italic px-8 uppercase tracking-tighter text-muted-foreground">Status</TableHead>
-                                <TableHead className="font-black italic px-8 text-right uppercase tracking-tighter text-muted-foreground">Action</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {sessions.map((session) => (
-                                <TableRow key={session.id} className="border-border/50 h-24 transition-all hover:bg-muted/20">
-                                    <TableCell className="px-8">
-                                        <div className="space-y-1">
-                                            <div className="font-black italic text-lg leading-tight uppercase">{session.title}</div>
-                                            <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground uppercase tracking-widest">
-                                                <Users className="h-3 w-3" />
-                                                By Prof. {session.host?.user?.firstName} {session.host?.user?.lastName}
-                                            </div>
+                {(user?.role === 'STAFF' || user?.role === 'SUPER_ADMIN') && (
+                    <div className="flex gap-2">
+                        <Button variant="outline" onClick={() => setIsConfigOpen(true)}>
+                            <SettingsIcon className="mr-2 h-4 w-4" />
+                            Infrastructure
+                        </Button>
+                        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                            <DialogTrigger asChild>
+                                <Button className="bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20">
+                                    <Plus className="mr-2 h-5 w-5" />
+                                    Schedule Class
+                                </Button>
+                            </DialogTrigger>
+                            <DialogContent className="sm:max-w-[500px]">
+                                <DialogHeader>
+                                    <DialogTitle>Schedule Live Class</DialogTitle>
+                                    <DialogDescription>Create a new Google Meet session for your students.</DialogDescription>
+                                </DialogHeader>
+                                <div className="grid gap-4 py-4">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="title">Class Title *</Label>
+                                        <Input
+                                            id="title"
+                                            placeholder="e.g. Advanced Mathematics - Calculus II"
+                                            value={formData.title}
+                                            onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                                        />
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div className="space-y-2">
+                                            <Label>Class *</Label>
+                                            <Select onValueChange={(val) => setFormData({ ...formData, classId: val })}>
+                                                <SelectTrigger><SelectValue placeholder="Select Class" /></SelectTrigger>
+                                                <SelectContent>
+                                                    {classes.map(c => <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>)}
+                                                </SelectContent>
+                                            </Select>
                                         </div>
-                                    </TableCell>
-                                    <TableCell className="px-8">
-                                        <div className="flex flex-col gap-1">
-                                            <div className="px-3 py-1 rounded-full bg-primary/5 text-primary text-[10px] font-black w-fit uppercase tracking-tighter">{session.class?.name} - {session.section?.name}</div>
-                                            <div className="px-3 py-1 rounded-full bg-muted text-[10px] font-black w-fit uppercase tracking-tighter">{session.subject?.name}</div>
+                                        <div className="space-y-2">
+                                            <Label>Subject *</Label>
+                                            <Select onValueChange={(val) => setFormData({ ...formData, subjectId: val })}>
+                                                <SelectTrigger><SelectValue placeholder="Select Subject" /></SelectTrigger>
+                                                <SelectContent>
+                                                    {subjects.map(s => <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>)}
+                                                </SelectContent>
+                                            </Select>
                                         </div>
-                                    </TableCell>
-                                    <TableCell className="px-8">
-                                        <div className="flex flex-col gap-1 font-bold italic text-sm text-muted-foreground">
-                                            <div className="flex items-center gap-2">
-                                                <Calendar className="h-4 w-4" />
-                                                {new Date(session.scheduledStart).toLocaleDateString()}
-                                            </div>
-                                            <div className="flex items-center gap-2">
-                                                <Clock className="h-4 w-4" />
-                                                {new Date(session.scheduledStart).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - {new Date(session.scheduledEnd).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                            </div>
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div className="space-y-2">
+                                            <Label>Start Time *</Label>
+                                            <Input type="datetime-local" value={formData.scheduledStart} onChange={(e) => setFormData({ ...formData, scheduledStart: e.target.value })} />
                                         </div>
-                                    </TableCell>
-                                    <TableCell className="px-8">
-                                        <div className={`px-4 py-1.5 rounded-full font-black text-[10px] uppercase tracking-widest w-fit shadow-sm ${getStatusColor(session.status)}`}>
-                                            {session.status}
+                                        <div className="space-y-2">
+                                            <Label>End Time (Optional)</Label>
+                                            <Input type="datetime-local" value={formData.scheduledEnd} onChange={(e) => setFormData({ ...formData, scheduledEnd: e.target.value })} />
                                         </div>
-                                    </TableCell>
-                                    <TableCell className="text-right px-8">
-                                        <div className="flex justify-end gap-3">
-                                            {session.status === 'LIVE' ? (
-                                                <Button
-                                                    className="h-12 px-8 rounded-2xl font-black gap-2 bg-emerald-500 shadow-lg shadow-emerald-500/20 hover:scale-[1.02] transition-all"
-                                                    onClick={() => window.open(user?.role === 'STUDENT' ? session.participantUrl : session.hostUrl, '_blank')}
-                                                >
-                                                    <ExternalLink className="h-5 w-5" />
-                                                    {user?.role === 'STUDENT' ? 'Join Now' : 'Enter Room'}
-                                                </Button>
-                                            ) : (
-                                                <>
-                                                    {user?.role !== 'STUDENT' && (
-                                                        <Button
-                                                            variant="outline"
-                                                            className="h-12 px-6 rounded-2xl font-black border-border/50 text-emerald-600 hover:bg-emerald-500/5 hover:border-emerald-500/20 gap-2"
-                                                            disabled={session.status === 'ENDED'}
-                                                            onClick={() => handleStartSession(session.id)}
-                                                        >
-                                                            <Play className="h-4 w-4 fill-emerald-600" />
-                                                            Launch
-                                                        </Button>
-                                                    )}
-                                                    <Button variant="ghost" size="icon" className="h-12 w-12 rounded-2xl text-muted-foreground hover:text-destructive hover:bg-destructive/5">
-                                                        <Trash2 className="h-5 w-5" />
-                                                    </Button>
-                                                </>
-                                            )}
+                                    </div>
+                                    <div className="flex items-center justify-between p-3 border rounded-lg bg-muted/30">
+                                        <div className="space-y-0.5">
+                                            <Label className="text-base">Recurring Class</Label>
+                                            <p className="text-xs text-muted-foreground">Schedule this class for multiple dates.</p>
                                         </div>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                            {sessions.length === 0 && (
-                                <TableRow>
-                                    <TableCell colSpan={5} className="h-60 text-center">
-                                        <div className="flex flex-col items-center justify-center gap-4 opacity-30 grayscale saturate-0">
-                                            <Video className="h-24 w-24 stroke-[1]" />
-                                            <p className="font-black italic text-2xl uppercase tracking-tighter">No live sessions found</p>
+                                        <Switch checked={formData.isRecurring} onCheckedChange={(val) => setFormData({ ...formData, isRecurring: val })} />
+                                    </div>
+                                    {formData.isRecurring && (
+                                        <div className="space-y-2 animate-in slide-in-from-top-2 duration-300">
+                                            <Label>Recurrence Rule</Label>
+                                            <Select onValueChange={(val) => setFormData({ ...formData, recurrenceRule: val })}>
+                                                <SelectTrigger><SelectValue placeholder="Frequency" /></SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem value="FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR">Every Weekday</SelectItem>
+                                                    <SelectItem value="FREQ=WEEKLY">Weekly</SelectItem>
+                                                    <SelectItem value="FREQ=DAILY">Daily</SelectItem>
+                                                </SelectContent>
+                                            </Select>
                                         </div>
-                                    </TableCell>
-                                </TableRow>
-                            )}
-                        </TableBody>
-                    </Table>
-                </CardContent>
-            </Card>
-
-            {/* Schedule Exam Dialog */}
-            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                <DialogContent className="rounded-[2.5rem] max-w-3xl">
-                    <DialogHeader>
-                        <DialogTitle className="text-2xl font-black italic">Configure Virtual Classroom</DialogTitle>
-                    </DialogHeader>
-                    <div className="grid grid-cols-2 gap-6 py-4">
-                        <div className="col-span-2 space-y-2">
-                            <Label className="text-xs font-black uppercase tracking-widest ml-1">Session Topic</Label>
-                            <Input
-                                placeholder="e.g. Introduction to Quantum Physics"
-                                className="h-12 rounded-2xl border-none bg-muted/50 font-bold"
-                                value={formData.title}
-                                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                            />
-                        </div>
-
-                        <div className="space-y-2">
-                            <Label className="text-xs font-black uppercase tracking-widest ml-1">Target Class</Label>
-                            <Select value={formData.classId} onValueChange={(v) => setFormData({ ...formData, classId: v })}>
-                                <SelectTrigger className="h-12 rounded-2xl bg-muted/50 font-bold border-none text-muted-foreground">
-                                    <SelectValue placeholder="Select Class" />
-                                </SelectTrigger>
-                                <SelectContent className="rounded-2xl">
-                                    {classes.map(c => <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>)}
-                                </SelectContent>
-                            </Select>
-                        </div>
-
-                        <div className="space-y-2">
-                            <Label className="text-xs font-black uppercase tracking-widest ml-1">Session Subject</Label>
-                            <Select value={formData.subjectId} onValueChange={(v) => setFormData({ ...formData, subjectId: v })}>
-                                <SelectTrigger className="h-12 rounded-2xl bg-muted/50 font-bold border-none text-muted-foreground">
-                                    <SelectValue placeholder="Select Subject" />
-                                </SelectTrigger>
-                                <SelectContent className="rounded-2xl">
-                                    {subjects.map(s => <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>)}
-                                </SelectContent>
-                            </Select>
-                        </div>
-
-                        <div className="space-y-2">
-                            <Label className="text-xs font-black uppercase tracking-widest ml-1">Start Time</Label>
-                            <Input
-                                type="datetime-local"
-                                className="h-12 rounded-2xl border-none bg-muted/50 font-bold"
-                                value={formData.scheduledStart}
-                                onChange={(e) => setFormData({ ...formData, scheduledStart: e.target.value })}
-                            />
-                        </div>
-
-                        <div className="space-y-2">
-                            <Label className="text-xs font-black uppercase tracking-widest ml-1">Estimated End Time</Label>
-                            <Input
-                                type="datetime-local"
-                                className="h-12 rounded-2xl border-none bg-muted/50 font-bold"
-                                value={formData.scheduledEnd}
-                                onChange={(e) => setFormData({ ...formData, scheduledEnd: e.target.value })}
-                            />
-                        </div>
-
-                        <div className="col-span-2 space-y-2">
-                            <Label className="text-xs font-black uppercase tracking-widest ml-1">Additional Instructions (Optional)</Label>
-                            <textarea
-                                className="w-full min-h-[100px] rounded-2xl p-4 bg-muted/50 border-none font-bold text-sm focus:ring-2 ring-primary/20 outline-none"
-                                placeholder="Materials to bring, pre-reading, etc..."
-                                value={formData.description}
-                                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                            />
-                        </div>
-                    </div>
-                    <DialogFooter>
-                        <Button variant="ghost" className="rounded-2xl h-12 font-bold px-8" onClick={() => setIsDialogOpen(false)}>Cancel</Button>
-                        <Button className="rounded-2xl h-12 font-black px-12" onClick={handleCreateSession}>Provision Session</Button>
-                    </DialogFooter>
-                </DialogContent>
-            </Dialog>
-
-            {/* Infrastructure Config Dialog */}
-            <Dialog open={isConfigOpen} onOpenChange={setIsConfigOpen}>
-                <DialogContent className="rounded-[2.5rem] max-w-md">
-                    <DialogHeader>
-                        <DialogTitle className="text-2xl font-black italic">Infrastructure Hub</DialogTitle>
-                    </DialogHeader>
-                    <div className="py-6 space-y-8">
-                        <div className="p-6 rounded-3xl bg-muted/20 border border-border/50 space-y-4">
-                            <div className="flex justify-between items-center">
-                                <div>
-                                    <p className="font-black italic uppercase tracking-tighter text-lg">Google Meet Engine</p>
-                                    <p className="text-xs font-bold text-muted-foreground">External infrastructure connector</p>
+                                    )}
                                 </div>
-                                <div className={`px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${config?.isEnabled ? 'bg-emerald-500/10 text-emerald-600' : 'bg-destructive/10 text-destructive'}`}>
-                                    {config?.isEnabled ? 'Active' : 'Offline'}
+                                <DialogFooter>
+                                    <Button variant="ghost" onClick={() => setIsDialogOpen(false)}>Cancel</Button>
+                                    <Button onClick={handleCreateSession}>Schedule Session</Button>
+                                </DialogFooter>
+                            </DialogContent>
+                        </Dialog>
+                    </div>
+                )}
+            </div>
+
+            {/* Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <Card className="border-l-4 border-l-blue-500 shadow-sm">
+                    <div className="p-4">
+                        <p className="text-sm font-medium text-blue-600">Upcoming Sessions</p>
+                        <h3 className="text-2xl font-bold mt-1">{upcomingSessions.length}</h3>
+                    </div>
+                </Card>
+                <Card className="border-l-4 border-l-emerald-500 shadow-sm">
+                    <div className="p-4">
+                        <p className="text-sm font-medium text-emerald-600">Active Classes</p>
+                        <h3 className="text-2xl font-bold mt-1">{liveSessions.length}</h3>
+                    </div>
+                </Card>
+                <Card className="border-l-4 border-l-purple-500 shadow-sm">
+                    <div className="p-4">
+                        <p className="text-sm font-medium text-purple-600">Attendance Rate</p>
+                        <h3 className="text-2xl font-bold mt-1">92%</h3>
+                    </div>
+                </Card>
+                <Card className={`border-l-4 shadow-sm ${config?.isAuthorized ? 'border-l-emerald-500' : 'border-l-amber-500'}`}>
+                    <div className="p-4">
+                        <p className={`text-sm font-medium ${config?.isAuthorized ? 'text-emerald-600' : 'text-amber-600'}`}>Google Auth</p>
+                        <h3 className="text-2xl font-bold mt-1">{config?.isAuthorized ? 'Healthy' : 'Required'}</h3>
+                    </div>
+                </Card>
+            </div>
+
+            {/* Tabs */}
+            <Tabs defaultValue="upcoming" className="w-full">
+                <TabsList className="grid w-full grid-cols-3 md:w-[400px]">
+                    <TabsTrigger value="upcoming">Upcoming</TabsTrigger>
+                    <TabsTrigger value="live">Live Now</TabsTrigger>
+                    <TabsTrigger value="past">Past</TabsTrigger>
+                </TabsList>
+
+                <TabsContent value="upcoming" className="pt-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {upcomingSessions.length > 0 ? (
+                            upcomingSessions.map((session) => (
+                                <Card key={session.id} className="overflow-hidden group hover:shadow-lg transition-all">
+                                    <div className="bg-muted px-4 py-2 flex justify-between items-center text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                                        <span>{session.timezone}</span>
+                                        {session.isRecurring && <RefreshCcw className="h-3 w-3" />}
+                                    </div>
+                                    <CardHeader className="pb-2">
+                                        <CardTitle className="text-lg leading-tight group-hover:text-primary transition-colors">{session.title}</CardTitle>
+                                        <CardDescription className="flex items-center gap-1.5">
+                                            <BookOpen className="h-3.5 w-3.5" />
+                                            {session.subject?.name} • Class {session.class?.name}
+                                        </CardDescription>
+                                    </CardHeader>
+                                    <CardContent className="pb-4 space-y-3">
+                                        <div className="flex items-center justify-between text-sm">
+                                            <div className="flex items-center gap-2 text-muted-foreground">
+                                                <Calendar className="h-4 w-4" />
+                                                <span>{format(new Date(session.scheduledStart), 'MMM dd')}</span>
+                                            </div>
+                                            <div className="flex items-center gap-2 font-bold text-primary">
+                                                <Clock className="h-4 w-4" />
+                                                <span>{format(new Date(session.scheduledStart), 'HH:mm')}</span>
+                                            </div>
+                                        </div>
+                                    </CardContent>
+                                    <CardFooter className="pt-0 flex gap-2">
+                                        <Button className="flex-1" size="sm" onClick={() => handleStartSession(session.id)}>
+                                            {user?.role === 'STUDENT' ? 'View Details' : 'Launch Room'}
+                                        </Button>
+                                        <Button variant="outline" size="sm" onClick={() => router.push(`/dashboard/live-classes/${session.id}`)}>
+                                            <Activity className="h-4 w-4" />
+                                        </Button>
+                                        {(user?.role === 'STAFF' || user?.role === 'SUPER_ADMIN') && (
+                                            <Button variant="ghost" size="sm" className="text-destructive h-9 w-9 p-0 hover:bg-destructive/10" onClick={() => handleDeleteSession(session.id)}>
+                                                <Trash2 className="h-4 w-4" />
+                                            </Button>
+                                        )}
+                                    </CardFooter>
+                                </Card>
+                            ))
+                        ) : (
+                            <div className="col-span-full py-20 text-center border-2 border-dashed rounded-2xl bg-muted/10">
+                                <Calendar className="mx-auto h-12 w-12 text-muted-foreground/30 mb-4" />
+                                <h3 className="text-xl font-bold italic tracking-tight">No sessions scheduled</h3>
+                            </div>
+                        )}
+                    </div>
+                </TabsContent>
+
+                <TabsContent value="live" className="pt-4 space-y-4">
+                    {liveSessions.length > 0 ? (
+                        liveSessions.map(session => (
+                            <Card key={session.id} className="border-l-4 border-l-emerald-500">
+                                <CardContent className="p-6 flex flex-col md:flex-row items-center gap-6">
+                                    <div className="h-16 w-16 rounded-2xl bg-emerald-100 flex items-center justify-center text-emerald-600">
+                                        <Video className="h-8 w-8" />
+                                    </div>
+                                    <div className="flex-1 space-y-1">
+                                        <div className="flex items-center gap-2">
+                                            <h3 className="text-xl font-black">{session.title}</h3>
+                                            <Badge className="bg-emerald-500 animate-pulse">ACTIVE</Badge>
+                                        </div>
+                                        <p className="text-muted-foreground text-sm uppercase font-bold tracking-tighter">
+                                            {session.subject?.name} • Class {session.class?.name} • Host: {session.host?.user?.firstName}
+                                        </p>
+                                    </div>
+                                    <div className="flex gap-2">
+                                        <Button className="bg-emerald-600 hover:bg-emerald-700" size="lg" onClick={() => window.open(session.hostUrl, '_blank')}>
+                                            <ExternalLink className="mr-2 h-4 w-4" /> Join Room
+                                        </Button>
+                                        <Button variant="outline" size="lg" onClick={() => router.push(`/dashboard/live-classes/${session.id}`)}>
+                                            <Activity className="h-4 w-4" />
+                                        </Button>
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        ))
+                    ) : (
+                        <div className="py-20 text-center bg-muted/5 border-2 border-dashed rounded-3xl">
+                            <Activity className="mx-auto h-16 w-16 text-muted-foreground/20 animate-pulse" />
+                            <p className="mt-4 text-muted-foreground font-black italic uppercase tracking-widest">No active sessions right now</p>
+                        </div>
+                    )}
+                </TabsContent>
+
+                <TabsContent value="past" className="pt-4">
+                    <Card className="rounded-2xl overflow-hidden">
+                        <Table>
+                            <TableHeader className="bg-muted/50">
+                                <TableRow>
+                                    <TableHead>Session</TableHead>
+                                    <TableHead>Date</TableHead>
+                                    <TableHead>Status</TableHead>
+                                    <TableHead>Recording</TableHead>
+                                    <TableHead className="text-right">Analytics</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {pastSessions.length > 0 ? (
+                                    pastSessions.map((session) => (
+                                        <TableRow key={session.id}>
+                                            <TableCell className="font-bold">{session.title}</TableCell>
+                                            <TableCell className="text-sm">
+                                                {format(new Date(session.scheduledStart), 'MMM dd, yyyy')}
+                                            </TableCell>
+                                            <TableCell>{getStatusBadge(session.status)}</TableCell>
+                                            <TableCell>
+                                                {session.recordingUrl ? (
+                                                    <Button variant="outline" size="sm" className="h-8 gap-2" onClick={() => window.open(session.recordingUrl, '_blank')}>
+                                                        <Play className="h-3 w-3 fill-primary text-primary" /> Cloud Play
+                                                    </Button>
+                                                ) : <span className="text-xs text-muted-foreground">None</span>}
+                                            </TableCell>
+                                            <TableCell className="text-right">
+                                                <Button variant="ghost" size="sm" onClick={() => router.push(`/dashboard/live-classes/${session.id}`)}>
+                                                    <BarChart3 className="h-4 w-4" />
+                                                </Button>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))
+                                ) : (
+                                    <TableRow>
+                                        <TableCell colSpan={5} className="h-32 text-center text-muted-foreground italic">No past history found.</TableCell>
+                                    </TableRow>
+                                )}
+                            </TableBody>
+                        </Table>
+                    </Card>
+                </TabsContent>
+            </Tabs>
+
+            {/* Infrastructure */}
+            <Dialog open={isConfigOpen} onOpenChange={setIsConfigOpen}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Google Meet Connection</DialogTitle>
+                    </DialogHeader>
+                    <div className="space-y-6 pt-4">
+                        <div className={`p-4 rounded-2xl border flex items-center justify-between ${config?.isAuthorized ? 'bg-emerald-50 border-emerald-200' : 'bg-amber-50 border-amber-200'}`}>
+                            <div className="flex items-center gap-3">
+                                {config?.isAuthorized ? <CheckCircle2 className="h-6 w-6 text-emerald-600" /> : <AlertCircle className="h-6 w-6 text-amber-600" />}
+                                <div>
+                                    <p className="font-bold text-sm">Status: {config?.isAuthorized ? 'Authorized' : 'Action Required'}</p>
+                                    <p className="text-[10px] text-muted-foreground uppercase font-black">Institutional OAuth2 Flow</p>
                                 </div>
                             </div>
-                            <Button
-                                variant="outline"
-                                className="w-full h-12 rounded-xl font-bold border-border/50 gap-2"
-                                onClick={async () => {
-                                    if (user?.branchId) {
-                                        const res = await LiveClassesService.testConnection(user.branchId);
-                                        if (res.success) toast.success('Connection handshake successful');
-                                        else toast.error('Connection failed');
-                                    }
-                                }}
-                            >
-                                <Activity className="h-4 w-4" />
-                                Test Handshake
+                            <Button size="sm" variant={config?.isAuthorized ? 'outline' : 'default'} onClick={handleAuthorize}>
+                                {config?.isAuthorized ? 'Modify' : 'Connect'}
                             </Button>
                         </div>
-
-                        <div className="space-y-4">
-                            <div className="flex justify-between items-center px-2">
-                                <Label className="font-black italic uppercase tracking-tighter text-muted-foreground">Auto-Provisioning</Label>
-                                <div className="h-6 w-11 rounded-full bg-emerald-500 shadow-inner flex items-center px-1">
-                                    <div className="h-4 w-4 rounded-full bg-white translate-x-5" />
-                                </div>
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="space-y-1 p-3 border rounded-xl">
+                                <Label className="text-[10px] uppercase font-black text-muted-foreground">Default Duration</Label>
+                                <p className="font-bold underline">{config?.defaultDuration || 60} min</p>
                             </div>
-                            <div className="flex justify-between items-center px-2">
-                                <Label className="font-black italic uppercase tracking-tighter text-muted-foreground">Session Recording</Label>
-                                <div className="h-6 w-11 rounded-full bg-muted shadow-inner flex items-center px-1">
-                                    <div className="h-4 w-4 rounded-full bg-white" />
-                                </div>
+                            <div className="space-y-1 p-3 border rounded-xl">
+                                <Label className="text-[10px] uppercase font-black text-muted-foreground">Cloud Recording</Label>
+                                <p className="font-bold underline text-emerald-600">{config?.allowRecording ? 'Enabled' : 'Disabled'}</p>
                             </div>
                         </div>
                     </div>

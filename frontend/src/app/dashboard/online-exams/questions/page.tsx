@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
-import { HelpCircle, Plus, Search, Trash2, CheckCircle2, Circle, FileText, ChevronRight, Hash } from 'lucide-react';
+import { HelpCircle, Plus, Search, Trash2, CheckCircle2, Circle, FileText, ChevronRight, Hash, Edit2 } from 'lucide-react';
 import { OnlineExamService, Question, QuestionGroup, QuestionType } from '@/services/onlineExamService';
 import { toast } from 'sonner';
 
@@ -20,6 +20,7 @@ export default function QuestionBankPage() {
     const [questions, setQuestions] = useState<Question[]>([]);
     const [loading, setLoading] = useState(true);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [editingQuestionId, setEditingQuestionId] = useState<string | null>(null);
 
     // Form state
     const [qType, setQType] = useState<QuestionType>(QuestionType.MCQ);
@@ -89,25 +90,58 @@ export default function QuestionBankPage() {
         setQContent('');
         setQMarks('1');
         setOptions([{ content: '', isCorrect: false }, { content: '', isCorrect: false }]);
+        setEditingQuestionId(null);
+    };
+
+    const handleEditClick = (q: Question) => {
+        setEditingQuestionId(q.id);
+        setQType(q.type);
+        setQContent(q.content);
+        setQMarks(q.marks.toString());
+        if (q.options) {
+            setOptions(q.options.map(o => ({ content: o.content, isCorrect: !!o.isCorrect })));
+        } else {
+            setOptions([{ content: '', isCorrect: false }, { content: '', isCorrect: false }]);
+        }
+        setIsDialogOpen(true);
+    };
+
+    const handleDeleteQuestion = async (id: string) => {
+        if (!confirm('Are you sure you want to delete this question?')) return;
+        try {
+            await OnlineExamService.deleteQuestion(id);
+            toast.success('Question deleted');
+            fetchQuestions();
+        } catch (error) {
+            toast.error('Failed to delete question');
+        }
     };
 
     const handleCreateQuestion = async () => {
         if (!qContent.trim()) return;
 
         try {
-            await OnlineExamService.createQuestion({
+            const payload = {
                 type: qType,
                 content: qContent,
                 marks: parseFloat(qMarks),
                 groupId: selectedGroupId,
-                options: (qType === QuestionType.MCQ || qType === QuestionType.TRUE_FALSE) ? (options as any) : undefined
-            });
-            toast.success('Question added to bank');
+                options: (qType === QuestionType.MCQ || qType === QuestionType.TRUE_FALSE) ? options : undefined
+            };
+
+            if (editingQuestionId) {
+                await OnlineExamService.updateQuestion(editingQuestionId, payload as any);
+                toast.success('Question updated');
+            } else {
+                await OnlineExamService.createQuestion(payload as any);
+                toast.success('Question added to bank');
+            }
+
             setIsDialogOpen(false);
             resetForm();
             fetchQuestions();
         } catch (error) {
-            toast.error('Failed to add question');
+            toast.error(editingQuestionId ? 'Failed to update question' : 'Failed to add question');
         }
     };
 
@@ -156,7 +190,9 @@ export default function QuestionBankPage() {
                         </DialogTrigger>
                         <DialogContent className="rounded-[2.5rem] max-w-2xl max-h-[90vh] overflow-y-auto sidebar-scroll">
                             <DialogHeader>
-                                <DialogTitle className="text-2xl font-black italic">Configure New Question</DialogTitle>
+                                <DialogTitle className="text-2xl font-black italic">
+                                    {editingQuestionId ? 'Edit Question' : 'Configure New Question'}
+                                </DialogTitle>
                             </DialogHeader>
                             <div className="space-y-6 py-4">
                                 <div className="grid grid-cols-2 gap-4">
@@ -259,9 +295,14 @@ export default function QuestionBankPage() {
                                             <span className="px-3 py-1 rounded-full bg-amber-500/10 text-amber-600 text-[10px] font-black uppercase tracking-widest">{q.marks} Marks</span>
                                         </div>
                                     </div>
-                                    <Button variant="ghost" size="icon" className="rounded-xl">
-                                        <Trash2 className="h-5 w-5 text-muted-foreground" />
-                                    </Button>
+                                    <div className="flex gap-2 text-muted-foreground">
+                                        <Button variant="ghost" size="icon" className="rounded-xl hover:text-primary hover:bg-primary/10" onClick={() => handleEditClick(q)}>
+                                            <Edit2 className="h-5 w-5" />
+                                        </Button>
+                                        <Button variant="ghost" size="icon" className="rounded-xl hover:text-destructive hover:bg-destructive/10" onClick={() => handleDeleteQuestion(q.id)}>
+                                            <Trash2 className="h-5 w-5" />
+                                        </Button>
+                                    </div>
                                 </div>
                                 <h3 className="text-xl font-black italic mb-6 leading-relaxed">"{q.content}"</h3>
 

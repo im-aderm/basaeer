@@ -33,6 +33,36 @@ export class AttendanceService {
         });
     }
 
+    async markBulkAttendance(dto: { records: CreateAttendanceDto[] }) {
+        return this.prisma.$transaction(
+            dto.records.map((record) => {
+                const attendanceDate = new Date(record.date);
+                attendanceDate.setHours(0, 0, 0, 0);
+
+                return this.prisma.attendance.upsert({
+                    where: {
+                        studentId_date: {
+                            studentId: record.studentId,
+                            date: attendanceDate,
+                        },
+                    },
+                    update: {
+                        status: record.status,
+                        remarks: record.remarks,
+                        sectionId: record.sectionId,
+                    },
+                    create: {
+                        studentId: record.studentId,
+                        date: attendanceDate,
+                        status: record.status,
+                        remarks: record.remarks,
+                        sectionId: record.sectionId,
+                    },
+                });
+            })
+        );
+    }
+
     async findBySectionAndDate(sectionId: string, date: string) {
         const searchDate = new Date(date);
         searchDate.setHours(0, 0, 0, 0);

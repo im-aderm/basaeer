@@ -9,7 +9,10 @@ import {
     Navigation,
     Map,
     ChevronRight,
-    Loader2
+    Loader2,
+    Pencil,
+    Trash2,
+    MapPinned
 } from "lucide-react";
 import api from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
@@ -17,6 +20,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { toast } from "sonner";
 
 export default function TransportRoutesPage() {
     const { user } = useAuth();
@@ -24,10 +29,12 @@ export default function TransportRoutesPage() {
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [editingRoute, setEditingRoute] = useState<any>(null);
     const [formData, setFormData] = useState({
         name: "",
         startPoint: "",
-        endPoint: ""
+        endPoint: "",
+        stops: "" // Will be handled as JSON string in the form but JSON object in the API
     });
 
     const fetchRoutes = async () => {
@@ -36,6 +43,7 @@ export default function TransportRoutesPage() {
             setRoutes(res.data);
         } catch (error) {
             console.error("Failed to fetch routes:", error);
+            toast.error("Failed to fetch routes");
         } finally {
             setLoading(false);
         }
@@ -48,16 +56,69 @@ export default function TransportRoutesPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await api.post("/transport/routes", {
-                ...formData,
+            let stopsData = null;
+            if (formData.stops.trim()) {
+                try {
+                    // Try to parse comma separated stops into an array of objects
+                    stopsData = formData.stops.split(',').map(s => ({ location: s.trim() }));
+                } catch (e) {
+                    toast.error("Invalid stops format. Use comma separated values.");
+                    return;
+                }
+            }
+
+            const payload = {
+                name: formData.name,
+                startPoint: formData.startPoint,
+                endPoint: formData.endPoint,
+                stops: stopsData,
                 branchId: user?.branchId
-            });
+            };
+
+            if (editingRoute) {
+                await api.patch(`/transport/routes/${editingRoute.id}`, payload);
+                toast.success("Route updated successfully");
+            } else {
+                await api.post("/transport/routes", payload);
+                toast.success("Route created successfully");
+            }
+
             setIsDialogOpen(false);
-            setFormData({ name: "", startPoint: "", endPoint: "" });
+            setEditingRoute(null);
+            setFormData({ name: "", startPoint: "", endPoint: "", stops: "" });
             fetchRoutes();
         } catch (error) {
-            console.error("Failed to create route:", error);
+            console.error("Failed to save route:", error);
+            toast.error("Failed to save route");
         }
+    };
+
+    const handleDelete = async (id: string) => {
+        if (!confirm("Are you sure you want to delete this route?")) return;
+        try {
+            await api.delete(`/transport/routes/${id}`);
+            toast.success("Route deleted successfully");
+            fetchRoutes();
+        } catch (error) {
+            console.error("Failed to delete route:", error);
+            toast.error("Failed to delete route");
+        }
+    };
+
+    const handleEdit = (route: any) => {
+        setEditingRoute(route);
+        // Convert stops object/array back to string for the form
+        const stopsStr = Array.isArray(route.stops)
+            ? route.stops.map((s: any) => s.location).join(', ')
+            : "";
+
+        setFormData({
+            name: route.name,
+            startPoint: route.startPoint,
+            endPoint: route.endPoint,
+            stops: stopsStr
+        });
+        setIsDialogOpen(true);
     };
 
     const filteredRoutes = routes.filter(route =>
@@ -69,7 +130,7 @@ export default function TransportRoutesPage() {
     if (loading) return <div className="p-8 text-center"><Loader2 className="animate-spin mx-auto h-8 w-8 text-primary" /></div>;
 
     return (
-        <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in duration-500">
+        <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in duration-500 pb-20">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
                     <h1 className="text-4xl font-black tracking-tight italic flex items-center gap-3">
@@ -78,7 +139,13 @@ export default function TransportRoutesPage() {
                     </h1>
                     <p className="text-muted-foreground font-medium text-lg">Manage school bus routes and pick-up points.</p>
                 </div>
-                <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                <Dialog open={isDialogOpen} onOpenChange={(open) => {
+                    setIsDialogOpen(open);
+                    if (!open) {
+                        setEditingRoute(null);
+                        setFormData({ name: "", startPoint: "", endPoint: "", stops: "" });
+                    }
+                }}>
                     <DialogTrigger asChild>
                         <Button className="gap-3 rounded-[1.5rem] h-14 px-8 font-black text-lg shadow-xl shadow-primary/20 hover:scale-105 transition-all">
                             <Plus size={20} /> Add New Route
@@ -86,10 +153,12 @@ export default function TransportRoutesPage() {
                     </DialogTrigger>
                     <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-lg">
                         <DialogHeader>
-                            <DialogTitle className="text-3xl font-black italic mb-6">Create New Route</DialogTitle>
+                            <DialogTitle className="text-3xl font-black italic mb-6">
+                                {editingRoute ? "Edit Route" : "Create New Route"}
+                            </DialogTitle>
                         </DialogHeader>
                         <form onSubmit={handleSubmit} className="space-y-6">
-                            <div className="space-y-3">
+                            <div className="space-y-2">
                                 <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Route Name</label>
                                 <Input
                                     placeholder="e.g. North Area Bus A"
@@ -99,28 +168,39 @@ export default function TransportRoutesPage() {
                                     required
                                 />
                             </div>
-                            <div className="space-y-3">
-                                <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Start Point</label>
-                                <Input
-                                    placeholder="e.g. School Main Gate"
-                                    value={formData.startPoint}
-                                    onChange={(e) => setFormData({ ...formData, startPoint: e.target.value })}
-                                    className="h-14 rounded-2xl bg-muted/30 border-none font-bold text-lg"
-                                    required
-                                />
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="space-y-2">
+                                    <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Start Point</label>
+                                    <Input
+                                        placeholder="e.g. School Gate"
+                                        value={formData.startPoint}
+                                        onChange={(e) => setFormData({ ...formData, startPoint: e.target.value })}
+                                        className="h-14 rounded-2xl bg-muted/30 border-none font-bold text-lg"
+                                        required
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">End Point</label>
+                                    <Input
+                                        placeholder="e.g. Digital Valley"
+                                        value={formData.endPoint}
+                                        onChange={(e) => setFormData({ ...formData, endPoint: e.target.value })}
+                                        className="h-14 rounded-2xl bg-muted/30 border-none font-bold text-lg"
+                                        required
+                                    />
+                                </div>
                             </div>
-                            <div className="space-y-3">
-                                <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">End Point</label>
-                                <Input
-                                    placeholder="e.g. Digital Valley Estate"
-                                    value={formData.endPoint}
-                                    onChange={(e) => setFormData({ ...formData, endPoint: e.target.value })}
-                                    className="h-14 rounded-2xl bg-muted/30 border-none font-bold text-lg"
-                                    required
+                            <div className="space-y-2">
+                                <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Intermediate Stops (Comma separated)</label>
+                                <textarea
+                                    placeholder="e.g. Landmark Mall, City Center, Square Plaza"
+                                    value={formData.stops}
+                                    onChange={(e) => setFormData({ ...formData, stops: e.target.value })}
+                                    className="w-full min-h-[100px] p-4 rounded-2xl bg-muted/30 border-none font-bold text-lg focus:ring-2 ring-primary/20 transition-all resize-none"
                                 />
                             </div>
                             <Button type="submit" className="w-full h-14 rounded-2xl font-black text-xl shadow-xl shadow-primary/20 mt-4 transition-all hover:scale-[1.02]">
-                                Create Route
+                                {editingRoute ? "Update Route" : "Create Route"}
                             </Button>
                         </form>
                     </DialogContent>
@@ -146,8 +226,8 @@ export default function TransportRoutesPage() {
                             <thead>
                                 <tr className="bg-muted/30 text-left">
                                     <th className="px-8 py-5 text-[10px] uppercase tracking-[0.2em] font-black text-muted-foreground">Route Name</th>
-                                    <th className="px-8 py-5 text-[10px] uppercase tracking-[0.2em] font-black text-muted-foreground">Start Point</th>
-                                    <th className="px-8 py-5 text-[10px] uppercase tracking-[0.2em] font-black text-muted-foreground">End Point</th>
+                                    <th className="px-8 py-5 text-[10px] uppercase tracking-[0.2em] font-black text-muted-foreground">Path Way</th>
+                                    <th className="px-8 py-5 text-[10px] uppercase tracking-[0.2em] font-black text-muted-foreground">Stops</th>
                                     <th className="px-8 py-5 text-right text-[10px] uppercase tracking-[0.2em] font-black text-muted-foreground">Actions</th>
                                 </tr>
                             </thead>
@@ -159,15 +239,40 @@ export default function TransportRoutesPage() {
                                                 <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
                                                     <Navigation size={20} />
                                                 </div>
-                                                <span className="font-black text-lg">{route.name}</span>
+                                                <span className="font-black text-lg italic">{route.name}</span>
                                             </div>
                                         </td>
-                                        <td className="px-8 py-6 font-bold text-muted-foreground">{route.startPoint}</td>
-                                        <td className="px-8 py-6 font-bold text-muted-foreground">{route.endPoint}</td>
+                                        <td className="px-8 py-6">
+                                            <div className="flex items-center gap-2 font-bold text-sm">
+                                                <span className="text-foreground">{route.startPoint}</span>
+                                                <ChevronRight size={14} className="text-muted-foreground" />
+                                                <span className="text-foreground">{route.endPoint}</span>
+                                            </div>
+                                        </td>
+                                        <td className="px-8 py-6">
+                                            <div className="flex items-center gap-1">
+                                                <MapPinned size={14} className="text-primary/60" />
+                                                <span className="font-bold text-xs text-muted-foreground">
+                                                    {Array.isArray(route.stops) ? `${route.stops.length} Managed Stops` : "No Stops Defined"}
+                                                </span>
+                                            </div>
+                                        </td>
                                         <td className="px-8 py-6 text-right">
-                                            <Button variant="ghost" size="icon" className="rounded-xl hover:bg-primary/10 hover:text-primary">
-                                                <MoreVertical size={20} />
-                                            </Button>
+                                            <DropdownMenu>
+                                                <DropdownMenuTrigger asChild>
+                                                    <Button variant="ghost" size="icon" className="rounded-xl h-10 w-10">
+                                                        <MoreVertical size={20} />
+                                                    </Button>
+                                                </DropdownMenuTrigger>
+                                                <DropdownMenuContent align="end" className="rounded-2xl p-2 min-w-[160px]">
+                                                    <DropdownMenuItem onClick={() => handleEdit(route)} className="rounded-xl gap-3 font-bold py-3">
+                                                        <Pencil size={18} className="text-blue-500" /> Edit Route
+                                                    </DropdownMenuItem>
+                                                    <DropdownMenuItem onClick={() => handleDelete(route.id)} className="rounded-xl gap-3 font-bold py-3 text-destructive focus:text-destructive">
+                                                        <Trash2 size={18} /> Delete Route
+                                                    </DropdownMenuItem>
+                                                </DropdownMenuContent>
+                                            </DropdownMenu>
                                         </td>
                                     </tr>
                                 ))}

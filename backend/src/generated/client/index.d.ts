@@ -69,10 +69,20 @@ export type Section = $Result.DefaultSelection<Prisma.$SectionPayload>
  */
 export type Subject = $Result.DefaultSelection<Prisma.$SubjectPayload>
 /**
+ * Model ClassSchedule
+ * 
+ */
+export type ClassSchedule = $Result.DefaultSelection<Prisma.$ClassSchedulePayload>
+/**
  * Model Attendance
  * 
  */
 export type Attendance = $Result.DefaultSelection<Prisma.$AttendancePayload>
+/**
+ * Model StaffAttendance
+ * 
+ */
+export type StaffAttendance = $Result.DefaultSelection<Prisma.$StaffAttendancePayload>
 /**
  * Model Hostel
  * 
@@ -433,6 +443,16 @@ export type IdCardTemplate = $Result.DefaultSelection<Prisma.$IdCardTemplatePayl
  * 
  */
 export type IdCard = $Result.DefaultSelection<Prisma.$IdCardPayload>
+/**
+ * Model DigitalResource
+ * 
+ */
+export type DigitalResource = $Result.DefaultSelection<Prisma.$DigitalResourcePayload>
+/**
+ * Model DigitalResourceLog
+ * 
+ */
+export type DigitalResourceLog = $Result.DefaultSelection<Prisma.$DigitalResourceLogPayload>
 
 /**
  * Enums
@@ -837,6 +857,16 @@ export class PrismaClient<
   get subject(): Prisma.SubjectDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.classSchedule`: Exposes CRUD operations for the **ClassSchedule** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ClassSchedules
+    * const classSchedules = await prisma.classSchedule.findMany()
+    * ```
+    */
+  get classSchedule(): Prisma.ClassScheduleDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.attendance`: Exposes CRUD operations for the **Attendance** model.
     * Example usage:
     * ```ts
@@ -845,6 +875,16 @@ export class PrismaClient<
     * ```
     */
   get attendance(): Prisma.AttendanceDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.staffAttendance`: Exposes CRUD operations for the **StaffAttendance** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more StaffAttendances
+    * const staffAttendances = await prisma.staffAttendance.findMany()
+    * ```
+    */
+  get staffAttendance(): Prisma.StaffAttendanceDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.hostel`: Exposes CRUD operations for the **Hostel** model.
@@ -1565,6 +1605,26 @@ export class PrismaClient<
     * ```
     */
   get idCard(): Prisma.IdCardDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.digitalResource`: Exposes CRUD operations for the **DigitalResource** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DigitalResources
+    * const digitalResources = await prisma.digitalResource.findMany()
+    * ```
+    */
+  get digitalResource(): Prisma.DigitalResourceDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.digitalResourceLog`: Exposes CRUD operations for the **DigitalResourceLog** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DigitalResourceLogs
+    * const digitalResourceLogs = await prisma.digitalResourceLog.findMany()
+    * ```
+    */
+  get digitalResourceLog(): Prisma.DigitalResourceLogDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -2010,7 +2070,9 @@ export namespace Prisma {
     Class: 'Class',
     Section: 'Section',
     Subject: 'Subject',
+    ClassSchedule: 'ClassSchedule',
     Attendance: 'Attendance',
+    StaffAttendance: 'StaffAttendance',
     Hostel: 'Hostel',
     Room: 'Room',
     Bed: 'Bed',
@@ -2082,7 +2144,9 @@ export namespace Prisma {
     CampusAccessLog: 'CampusAccessLog',
     AutomationConfig: 'AutomationConfig',
     IdCardTemplate: 'IdCardTemplate',
-    IdCard: 'IdCard'
+    IdCard: 'IdCard',
+    DigitalResource: 'DigitalResource',
+    DigitalResourceLog: 'DigitalResourceLog'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -2098,7 +2162,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "branch" | "deactivationReason" | "loginDeactivation" | "user" | "staff" | "student" | "certificate" | "certificateTemplate" | "class" | "section" | "subject" | "attendance" | "hostel" | "room" | "bed" | "hostelAllocation" | "hostelLeave" | "maintenanceRequest" | "feeCategory" | "feeStructure" | "invoice" | "questionGroup" | "question" | "questionOption" | "onlineExam" | "onlineExamAttempt" | "questionAnswer" | "invoiceItem" | "payment" | "vehicle" | "transportRoute" | "transportAssignment" | "assignment" | "submission" | "academicSession" | "assessmentRecord" | "behaviouralRating" | "resultSummary" | "gradingScale" | "globalSetting" | "rolePermission" | "auditLog" | "expenseCategory" | "voucher" | "department" | "designation" | "book" | "borrowRecord" | "libraryFine" | "salaryTemplate" | "payroll" | "leaveRequest" | "staffAward" | "advanceSalary" | "googleMeetConfig" | "liveClassSession" | "meetingParticipant" | "studentCategory" | "onlineAdmission" | "admissionEnquiry" | "callLog" | "visitorLog" | "complaint" | "postalRecord" | "inventoryCategory" | "inventoryStore" | "inventorySupplier" | "inventoryUnit" | "inventoryProduct" | "inventoryPurchase" | "inventorySale" | "inventoryIssue" | "alumni" | "alumniEvent" | "alumniEventParticipant" | "conversation" | "conversationParticipant" | "message" | "campusEvent" | "eventRSVP" | "campusAccessLog" | "automationConfig" | "idCardTemplate" | "idCard"
+      modelProps: "branch" | "deactivationReason" | "loginDeactivation" | "user" | "staff" | "student" | "certificate" | "certificateTemplate" | "class" | "section" | "subject" | "classSchedule" | "attendance" | "staffAttendance" | "hostel" | "room" | "bed" | "hostelAllocation" | "hostelLeave" | "maintenanceRequest" | "feeCategory" | "feeStructure" | "invoice" | "questionGroup" | "question" | "questionOption" | "onlineExam" | "onlineExamAttempt" | "questionAnswer" | "invoiceItem" | "payment" | "vehicle" | "transportRoute" | "transportAssignment" | "assignment" | "submission" | "academicSession" | "assessmentRecord" | "behaviouralRating" | "resultSummary" | "gradingScale" | "globalSetting" | "rolePermission" | "auditLog" | "expenseCategory" | "voucher" | "department" | "designation" | "book" | "borrowRecord" | "libraryFine" | "salaryTemplate" | "payroll" | "leaveRequest" | "staffAward" | "advanceSalary" | "googleMeetConfig" | "liveClassSession" | "meetingParticipant" | "studentCategory" | "onlineAdmission" | "admissionEnquiry" | "callLog" | "visitorLog" | "complaint" | "postalRecord" | "inventoryCategory" | "inventoryStore" | "inventorySupplier" | "inventoryUnit" | "inventoryProduct" | "inventoryPurchase" | "inventorySale" | "inventoryIssue" | "alumni" | "alumniEvent" | "alumniEventParticipant" | "conversation" | "conversationParticipant" | "message" | "campusEvent" | "eventRSVP" | "campusAccessLog" | "automationConfig" | "idCardTemplate" | "idCard" | "digitalResource" | "digitalResourceLog"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2916,6 +2980,80 @@ export namespace Prisma {
           }
         }
       }
+      ClassSchedule: {
+        payload: Prisma.$ClassSchedulePayload<ExtArgs>
+        fields: Prisma.ClassScheduleFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ClassScheduleFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassSchedulePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ClassScheduleFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassSchedulePayload>
+          }
+          findFirst: {
+            args: Prisma.ClassScheduleFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassSchedulePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ClassScheduleFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassSchedulePayload>
+          }
+          findMany: {
+            args: Prisma.ClassScheduleFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassSchedulePayload>[]
+          }
+          create: {
+            args: Prisma.ClassScheduleCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassSchedulePayload>
+          }
+          createMany: {
+            args: Prisma.ClassScheduleCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ClassScheduleCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassSchedulePayload>[]
+          }
+          delete: {
+            args: Prisma.ClassScheduleDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassSchedulePayload>
+          }
+          update: {
+            args: Prisma.ClassScheduleUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassSchedulePayload>
+          }
+          deleteMany: {
+            args: Prisma.ClassScheduleDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ClassScheduleUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ClassScheduleUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassSchedulePayload>[]
+          }
+          upsert: {
+            args: Prisma.ClassScheduleUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassSchedulePayload>
+          }
+          aggregate: {
+            args: Prisma.ClassScheduleAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateClassSchedule>
+          }
+          groupBy: {
+            args: Prisma.ClassScheduleGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ClassScheduleGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ClassScheduleCountArgs<ExtArgs>
+            result: $Utils.Optional<ClassScheduleCountAggregateOutputType> | number
+          }
+        }
+      }
       Attendance: {
         payload: Prisma.$AttendancePayload<ExtArgs>
         fields: Prisma.AttendanceFieldRefs
@@ -2987,6 +3125,80 @@ export namespace Prisma {
           count: {
             args: Prisma.AttendanceCountArgs<ExtArgs>
             result: $Utils.Optional<AttendanceCountAggregateOutputType> | number
+          }
+        }
+      }
+      StaffAttendance: {
+        payload: Prisma.$StaffAttendancePayload<ExtArgs>
+        fields: Prisma.StaffAttendanceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.StaffAttendanceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffAttendancePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.StaffAttendanceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffAttendancePayload>
+          }
+          findFirst: {
+            args: Prisma.StaffAttendanceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffAttendancePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.StaffAttendanceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffAttendancePayload>
+          }
+          findMany: {
+            args: Prisma.StaffAttendanceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffAttendancePayload>[]
+          }
+          create: {
+            args: Prisma.StaffAttendanceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffAttendancePayload>
+          }
+          createMany: {
+            args: Prisma.StaffAttendanceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.StaffAttendanceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffAttendancePayload>[]
+          }
+          delete: {
+            args: Prisma.StaffAttendanceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffAttendancePayload>
+          }
+          update: {
+            args: Prisma.StaffAttendanceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffAttendancePayload>
+          }
+          deleteMany: {
+            args: Prisma.StaffAttendanceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.StaffAttendanceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.StaffAttendanceUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffAttendancePayload>[]
+          }
+          upsert: {
+            args: Prisma.StaffAttendanceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffAttendancePayload>
+          }
+          aggregate: {
+            args: Prisma.StaffAttendanceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateStaffAttendance>
+          }
+          groupBy: {
+            args: Prisma.StaffAttendanceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<StaffAttendanceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.StaffAttendanceCountArgs<ExtArgs>
+            result: $Utils.Optional<StaffAttendanceCountAggregateOutputType> | number
           }
         }
       }
@@ -8318,6 +8530,154 @@ export namespace Prisma {
           }
         }
       }
+      DigitalResource: {
+        payload: Prisma.$DigitalResourcePayload<ExtArgs>
+        fields: Prisma.DigitalResourceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DigitalResourceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DigitalResourcePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DigitalResourceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DigitalResourcePayload>
+          }
+          findFirst: {
+            args: Prisma.DigitalResourceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DigitalResourcePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DigitalResourceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DigitalResourcePayload>
+          }
+          findMany: {
+            args: Prisma.DigitalResourceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DigitalResourcePayload>[]
+          }
+          create: {
+            args: Prisma.DigitalResourceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DigitalResourcePayload>
+          }
+          createMany: {
+            args: Prisma.DigitalResourceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DigitalResourceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DigitalResourcePayload>[]
+          }
+          delete: {
+            args: Prisma.DigitalResourceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DigitalResourcePayload>
+          }
+          update: {
+            args: Prisma.DigitalResourceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DigitalResourcePayload>
+          }
+          deleteMany: {
+            args: Prisma.DigitalResourceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DigitalResourceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DigitalResourceUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DigitalResourcePayload>[]
+          }
+          upsert: {
+            args: Prisma.DigitalResourceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DigitalResourcePayload>
+          }
+          aggregate: {
+            args: Prisma.DigitalResourceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDigitalResource>
+          }
+          groupBy: {
+            args: Prisma.DigitalResourceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DigitalResourceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DigitalResourceCountArgs<ExtArgs>
+            result: $Utils.Optional<DigitalResourceCountAggregateOutputType> | number
+          }
+        }
+      }
+      DigitalResourceLog: {
+        payload: Prisma.$DigitalResourceLogPayload<ExtArgs>
+        fields: Prisma.DigitalResourceLogFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DigitalResourceLogFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DigitalResourceLogPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DigitalResourceLogFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DigitalResourceLogPayload>
+          }
+          findFirst: {
+            args: Prisma.DigitalResourceLogFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DigitalResourceLogPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DigitalResourceLogFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DigitalResourceLogPayload>
+          }
+          findMany: {
+            args: Prisma.DigitalResourceLogFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DigitalResourceLogPayload>[]
+          }
+          create: {
+            args: Prisma.DigitalResourceLogCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DigitalResourceLogPayload>
+          }
+          createMany: {
+            args: Prisma.DigitalResourceLogCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DigitalResourceLogCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DigitalResourceLogPayload>[]
+          }
+          delete: {
+            args: Prisma.DigitalResourceLogDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DigitalResourceLogPayload>
+          }
+          update: {
+            args: Prisma.DigitalResourceLogUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DigitalResourceLogPayload>
+          }
+          deleteMany: {
+            args: Prisma.DigitalResourceLogDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DigitalResourceLogUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DigitalResourceLogUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DigitalResourceLogPayload>[]
+          }
+          upsert: {
+            args: Prisma.DigitalResourceLogUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DigitalResourceLogPayload>
+          }
+          aggregate: {
+            args: Prisma.DigitalResourceLogAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDigitalResourceLog>
+          }
+          groupBy: {
+            args: Prisma.DigitalResourceLogGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DigitalResourceLogGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DigitalResourceLogCountArgs<ExtArgs>
+            result: $Utils.Optional<DigitalResourceLogCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -8437,7 +8797,9 @@ export namespace Prisma {
     class?: ClassOmit
     section?: SectionOmit
     subject?: SubjectOmit
+    classSchedule?: ClassScheduleOmit
     attendance?: AttendanceOmit
+    staffAttendance?: StaffAttendanceOmit
     hostel?: HostelOmit
     room?: RoomOmit
     bed?: BedOmit
@@ -8510,6 +8872,8 @@ export namespace Prisma {
     automationConfig?: AutomationConfigOmit
     idCardTemplate?: IdCardTemplateOmit
     idCard?: IdCardOmit
+    digitalResource?: DigitalResourceOmit
+    digitalResourceLog?: DigitalResourceLogOmit
   }
 
   /* Types for Logging */
@@ -8630,8 +8994,10 @@ export namespace Prisma {
     accessLogs: number
     automationConfigs: number
     idCardTemplates: number
+    digitalResources: number
     deactivationReasons: number
     loginDeactivations: number
+    assignments: number
   }
 
   export type BranchCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8675,8 +9041,10 @@ export namespace Prisma {
     accessLogs?: boolean | BranchCountOutputTypeCountAccessLogsArgs
     automationConfigs?: boolean | BranchCountOutputTypeCountAutomationConfigsArgs
     idCardTemplates?: boolean | BranchCountOutputTypeCountIdCardTemplatesArgs
+    digitalResources?: boolean | BranchCountOutputTypeCountDigitalResourcesArgs
     deactivationReasons?: boolean | BranchCountOutputTypeCountDeactivationReasonsArgs
     loginDeactivations?: boolean | BranchCountOutputTypeCountLoginDeactivationsArgs
+    assignments?: boolean | BranchCountOutputTypeCountAssignmentsArgs
   }
 
   // Custom InputTypes
@@ -8973,6 +9341,13 @@ export namespace Prisma {
   /**
    * BranchCountOutputType without action
    */
+  export type BranchCountOutputTypeCountDigitalResourcesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DigitalResourceWhereInput
+  }
+
+  /**
+   * BranchCountOutputType without action
+   */
   export type BranchCountOutputTypeCountDeactivationReasonsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DeactivationReasonWhereInput
   }
@@ -8982,6 +9357,13 @@ export namespace Prisma {
    */
   export type BranchCountOutputTypeCountLoginDeactivationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LoginDeactivationWhereInput
+  }
+
+  /**
+   * BranchCountOutputType without action
+   */
+  export type BranchCountOutputTypeCountAssignmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AssignmentWhereInput
   }
 
 
@@ -9031,6 +9413,7 @@ export namespace Prisma {
     eventRSVPs: number
     accessLogs: number
     onlineAdmissions: number
+    digitalResourceLogs: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9044,6 +9427,7 @@ export namespace Prisma {
     eventRSVPs?: boolean | UserCountOutputTypeCountEventRSVPsArgs
     accessLogs?: boolean | UserCountOutputTypeCountAccessLogsArgs
     onlineAdmissions?: boolean | UserCountOutputTypeCountOnlineAdmissionsArgs
+    digitalResourceLogs?: boolean | UserCountOutputTypeCountDigitalResourceLogsArgs
   }
 
   // Custom InputTypes
@@ -9127,6 +9511,13 @@ export namespace Prisma {
     where?: OnlineAdmissionWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountDigitalResourceLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DigitalResourceLogWhereInput
+  }
+
 
   /**
    * Count Type StaffCountOutputType
@@ -9143,6 +9534,9 @@ export namespace Prisma {
     assignments: number
     hostedSessions: number
     idCards: number
+    attendance: number
+    classSchedules: number
+    digitalResources: number
   }
 
   export type StaffCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9156,6 +9550,9 @@ export namespace Prisma {
     assignments?: boolean | StaffCountOutputTypeCountAssignmentsArgs
     hostedSessions?: boolean | StaffCountOutputTypeCountHostedSessionsArgs
     idCards?: boolean | StaffCountOutputTypeCountIdCardsArgs
+    attendance?: boolean | StaffCountOutputTypeCountAttendanceArgs
+    classSchedules?: boolean | StaffCountOutputTypeCountClassSchedulesArgs
+    digitalResources?: boolean | StaffCountOutputTypeCountDigitalResourcesArgs
   }
 
   // Custom InputTypes
@@ -9237,6 +9634,27 @@ export namespace Prisma {
    */
   export type StaffCountOutputTypeCountIdCardsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: IdCardWhereInput
+  }
+
+  /**
+   * StaffCountOutputType without action
+   */
+  export type StaffCountOutputTypeCountAttendanceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StaffAttendanceWhereInput
+  }
+
+  /**
+   * StaffCountOutputType without action
+   */
+  export type StaffCountOutputTypeCountClassSchedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ClassScheduleWhereInput
+  }
+
+  /**
+   * StaffCountOutputType without action
+   */
+  export type StaffCountOutputTypeCountDigitalResourcesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DigitalResourceWhereInput
   }
 
 
@@ -9421,6 +9839,8 @@ export namespace Prisma {
     liveClassSessions: number
     onlineAdmissions: number
     onlineExams: number
+    classSchedules: number
+    digitalResources: number
   }
 
   export type ClassCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9430,6 +9850,8 @@ export namespace Prisma {
     liveClassSessions?: boolean | ClassCountOutputTypeCountLiveClassSessionsArgs
     onlineAdmissions?: boolean | ClassCountOutputTypeCountOnlineAdmissionsArgs
     onlineExams?: boolean | ClassCountOutputTypeCountOnlineExamsArgs
+    classSchedules?: boolean | ClassCountOutputTypeCountClassSchedulesArgs
+    digitalResources?: boolean | ClassCountOutputTypeCountDigitalResourcesArgs
   }
 
   // Custom InputTypes
@@ -9485,6 +9907,20 @@ export namespace Prisma {
     where?: OnlineExamWhereInput
   }
 
+  /**
+   * ClassCountOutputType without action
+   */
+  export type ClassCountOutputTypeCountClassSchedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ClassScheduleWhereInput
+  }
+
+  /**
+   * ClassCountOutputType without action
+   */
+  export type ClassCountOutputTypeCountDigitalResourcesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DigitalResourceWhereInput
+  }
+
 
   /**
    * Count Type SectionCountOutputType
@@ -9498,6 +9934,8 @@ export namespace Prisma {
     liveClassSessions: number
     onlineAdmissions: number
     onlineExams: number
+    classSchedules: number
+    digitalResources: number
   }
 
   export type SectionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9508,6 +9946,8 @@ export namespace Prisma {
     liveClassSessions?: boolean | SectionCountOutputTypeCountLiveClassSessionsArgs
     onlineAdmissions?: boolean | SectionCountOutputTypeCountOnlineAdmissionsArgs
     onlineExams?: boolean | SectionCountOutputTypeCountOnlineExamsArgs
+    classSchedules?: boolean | SectionCountOutputTypeCountClassSchedulesArgs
+    digitalResources?: boolean | SectionCountOutputTypeCountDigitalResourcesArgs
   }
 
   // Custom InputTypes
@@ -9570,6 +10010,20 @@ export namespace Prisma {
     where?: OnlineExamWhereInput
   }
 
+  /**
+   * SectionCountOutputType without action
+   */
+  export type SectionCountOutputTypeCountClassSchedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ClassScheduleWhereInput
+  }
+
+  /**
+   * SectionCountOutputType without action
+   */
+  export type SectionCountOutputTypeCountDigitalResourcesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DigitalResourceWhereInput
+  }
+
 
   /**
    * Count Type SubjectCountOutputType
@@ -9581,6 +10035,8 @@ export namespace Prisma {
     assessmentRecords: number
     liveClassSessions: number
     onlineExams: number
+    classSchedules: number
+    digitalResources: number
   }
 
   export type SubjectCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9589,6 +10045,8 @@ export namespace Prisma {
     assessmentRecords?: boolean | SubjectCountOutputTypeCountAssessmentRecordsArgs
     liveClassSessions?: boolean | SubjectCountOutputTypeCountLiveClassSessionsArgs
     onlineExams?: boolean | SubjectCountOutputTypeCountOnlineExamsArgs
+    classSchedules?: boolean | SubjectCountOutputTypeCountClassSchedulesArgs
+    digitalResources?: boolean | SubjectCountOutputTypeCountDigitalResourcesArgs
   }
 
   // Custom InputTypes
@@ -9635,6 +10093,20 @@ export namespace Prisma {
    */
   export type SubjectCountOutputTypeCountOnlineExamsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: OnlineExamWhereInput
+  }
+
+  /**
+   * SubjectCountOutputType without action
+   */
+  export type SubjectCountOutputTypeCountClassSchedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ClassScheduleWhereInput
+  }
+
+  /**
+   * SubjectCountOutputType without action
+   */
+  export type SubjectCountOutputTypeCountDigitalResourcesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DigitalResourceWhereInput
   }
 
 
@@ -10065,6 +10537,7 @@ export namespace Prisma {
     behaviouralRatings: number
     onlineAdmissions: number
     idCards: number
+    digitalResources: number
   }
 
   export type AcademicSessionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10073,6 +10546,7 @@ export namespace Prisma {
     behaviouralRatings?: boolean | AcademicSessionCountOutputTypeCountBehaviouralRatingsArgs
     onlineAdmissions?: boolean | AcademicSessionCountOutputTypeCountOnlineAdmissionsArgs
     idCards?: boolean | AcademicSessionCountOutputTypeCountIdCardsArgs
+    digitalResources?: boolean | AcademicSessionCountOutputTypeCountDigitalResourcesArgs
   }
 
   // Custom InputTypes
@@ -10119,6 +10593,13 @@ export namespace Prisma {
    */
   export type AcademicSessionCountOutputTypeCountIdCardsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: IdCardWhereInput
+  }
+
+  /**
+   * AcademicSessionCountOutputType without action
+   */
+  export type AcademicSessionCountOutputTypeCountDigitalResourcesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DigitalResourceWhereInput
   }
 
 
@@ -10686,6 +11167,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type DigitalResourceCountOutputType
+   */
+
+  export type DigitalResourceCountOutputType = {
+    logs: number
+  }
+
+  export type DigitalResourceCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    logs?: boolean | DigitalResourceCountOutputTypeCountLogsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * DigitalResourceCountOutputType without action
+   */
+  export type DigitalResourceCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DigitalResourceCountOutputType
+     */
+    select?: DigitalResourceCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DigitalResourceCountOutputType without action
+   */
+  export type DigitalResourceCountOutputTypeCountLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DigitalResourceLogWhereInput
+  }
+
+
+  /**
    * Models
    */
 
@@ -10926,8 +11438,10 @@ export namespace Prisma {
     accessLogs?: boolean | Branch$accessLogsArgs<ExtArgs>
     automationConfigs?: boolean | Branch$automationConfigsArgs<ExtArgs>
     idCardTemplates?: boolean | Branch$idCardTemplatesArgs<ExtArgs>
+    digitalResources?: boolean | Branch$digitalResourcesArgs<ExtArgs>
     deactivationReasons?: boolean | Branch$deactivationReasonsArgs<ExtArgs>
     loginDeactivations?: boolean | Branch$loginDeactivationsArgs<ExtArgs>
+    assignments?: boolean | Branch$assignmentsArgs<ExtArgs>
     _count?: boolean | BranchCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["branch"]>
 
@@ -11010,8 +11524,10 @@ export namespace Prisma {
     accessLogs?: boolean | Branch$accessLogsArgs<ExtArgs>
     automationConfigs?: boolean | Branch$automationConfigsArgs<ExtArgs>
     idCardTemplates?: boolean | Branch$idCardTemplatesArgs<ExtArgs>
+    digitalResources?: boolean | Branch$digitalResourcesArgs<ExtArgs>
     deactivationReasons?: boolean | Branch$deactivationReasonsArgs<ExtArgs>
     loginDeactivations?: boolean | Branch$loginDeactivationsArgs<ExtArgs>
+    assignments?: boolean | Branch$assignmentsArgs<ExtArgs>
     _count?: boolean | BranchCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type BranchIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -11061,8 +11577,10 @@ export namespace Prisma {
       accessLogs: Prisma.$CampusAccessLogPayload<ExtArgs>[]
       automationConfigs: Prisma.$AutomationConfigPayload<ExtArgs>[]
       idCardTemplates: Prisma.$IdCardTemplatePayload<ExtArgs>[]
+      digitalResources: Prisma.$DigitalResourcePayload<ExtArgs>[]
       deactivationReasons: Prisma.$DeactivationReasonPayload<ExtArgs>[]
       loginDeactivations: Prisma.$LoginDeactivationPayload<ExtArgs>[]
+      assignments: Prisma.$AssignmentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -11509,8 +12027,10 @@ export namespace Prisma {
     accessLogs<T extends Branch$accessLogsArgs<ExtArgs> = {}>(args?: Subset<T, Branch$accessLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CampusAccessLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     automationConfigs<T extends Branch$automationConfigsArgs<ExtArgs> = {}>(args?: Subset<T, Branch$automationConfigsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AutomationConfigPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     idCardTemplates<T extends Branch$idCardTemplatesArgs<ExtArgs> = {}>(args?: Subset<T, Branch$idCardTemplatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IdCardTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    digitalResources<T extends Branch$digitalResourcesArgs<ExtArgs> = {}>(args?: Subset<T, Branch$digitalResourcesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DigitalResourcePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     deactivationReasons<T extends Branch$deactivationReasonsArgs<ExtArgs> = {}>(args?: Subset<T, Branch$deactivationReasonsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeactivationReasonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     loginDeactivations<T extends Branch$loginDeactivationsArgs<ExtArgs> = {}>(args?: Subset<T, Branch$loginDeactivationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LoginDeactivationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    assignments<T extends Branch$assignmentsArgs<ExtArgs> = {}>(args?: Subset<T, Branch$assignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -12916,6 +13436,30 @@ export namespace Prisma {
   }
 
   /**
+   * Branch.digitalResources
+   */
+  export type Branch$digitalResourcesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DigitalResource
+     */
+    select?: DigitalResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DigitalResource
+     */
+    omit?: DigitalResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DigitalResourceInclude<ExtArgs> | null
+    where?: DigitalResourceWhereInput
+    orderBy?: DigitalResourceOrderByWithRelationInput | DigitalResourceOrderByWithRelationInput[]
+    cursor?: DigitalResourceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DigitalResourceScalarFieldEnum | DigitalResourceScalarFieldEnum[]
+  }
+
+  /**
    * Branch.deactivationReasons
    */
   export type Branch$deactivationReasonsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -12961,6 +13505,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: LoginDeactivationScalarFieldEnum | LoginDeactivationScalarFieldEnum[]
+  }
+
+  /**
+   * Branch.assignments
+   */
+  export type Branch$assignmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Assignment
+     */
+    select?: AssignmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Assignment
+     */
+    omit?: AssignmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssignmentInclude<ExtArgs> | null
+    where?: AssignmentWhereInput
+    orderBy?: AssignmentOrderByWithRelationInput | AssignmentOrderByWithRelationInput[]
+    cursor?: AssignmentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AssignmentScalarFieldEnum | AssignmentScalarFieldEnum[]
   }
 
   /**
@@ -15432,6 +16000,7 @@ export namespace Prisma {
     eventRSVPs?: boolean | User$eventRSVPsArgs<ExtArgs>
     accessLogs?: boolean | User$accessLogsArgs<ExtArgs>
     onlineAdmissions?: boolean | User$onlineAdmissionsArgs<ExtArgs>
+    digitalResourceLogs?: boolean | User$digitalResourceLogsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -15494,6 +16063,7 @@ export namespace Prisma {
     eventRSVPs?: boolean | User$eventRSVPsArgs<ExtArgs>
     accessLogs?: boolean | User$accessLogsArgs<ExtArgs>
     onlineAdmissions?: boolean | User$onlineAdmissionsArgs<ExtArgs>
+    digitalResourceLogs?: boolean | User$digitalResourceLogsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -15519,6 +16089,7 @@ export namespace Prisma {
       eventRSVPs: Prisma.$EventRSVPPayload<ExtArgs>[]
       accessLogs: Prisma.$CampusAccessLogPayload<ExtArgs>[]
       onlineAdmissions: Prisma.$OnlineAdmissionPayload<ExtArgs>[]
+      digitalResourceLogs: Prisma.$DigitalResourceLogPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -15939,6 +16510,7 @@ export namespace Prisma {
     eventRSVPs<T extends User$eventRSVPsArgs<ExtArgs> = {}>(args?: Subset<T, User$eventRSVPsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventRSVPPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     accessLogs<T extends User$accessLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$accessLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CampusAccessLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     onlineAdmissions<T extends User$onlineAdmissionsArgs<ExtArgs> = {}>(args?: Subset<T, User$onlineAdmissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OnlineAdmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    digitalResourceLogs<T extends User$digitalResourceLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$digitalResourceLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DigitalResourceLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -16672,6 +17244,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.digitalResourceLogs
+   */
+  export type User$digitalResourceLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DigitalResourceLog
+     */
+    select?: DigitalResourceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DigitalResourceLog
+     */
+    omit?: DigitalResourceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DigitalResourceLogInclude<ExtArgs> | null
+    where?: DigitalResourceLogWhereInput
+    orderBy?: DigitalResourceLogOrderByWithRelationInput | DigitalResourceLogOrderByWithRelationInput[]
+    cursor?: DigitalResourceLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DigitalResourceLogScalarFieldEnum | DigitalResourceLogScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -16892,6 +17488,9 @@ export namespace Prisma {
     assignments?: boolean | Staff$assignmentsArgs<ExtArgs>
     hostedSessions?: boolean | Staff$hostedSessionsArgs<ExtArgs>
     idCards?: boolean | Staff$idCardsArgs<ExtArgs>
+    attendance?: boolean | Staff$attendanceArgs<ExtArgs>
+    classSchedules?: boolean | Staff$classSchedulesArgs<ExtArgs>
+    digitalResources?: boolean | Staff$digitalResourcesArgs<ExtArgs>
     _count?: boolean | StaffCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["staff"]>
 
@@ -16950,6 +17549,9 @@ export namespace Prisma {
     assignments?: boolean | Staff$assignmentsArgs<ExtArgs>
     hostedSessions?: boolean | Staff$hostedSessionsArgs<ExtArgs>
     idCards?: boolean | Staff$idCardsArgs<ExtArgs>
+    attendance?: boolean | Staff$attendanceArgs<ExtArgs>
+    classSchedules?: boolean | Staff$classSchedulesArgs<ExtArgs>
+    digitalResources?: boolean | Staff$digitalResourcesArgs<ExtArgs>
     _count?: boolean | StaffCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type StaffIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -16980,6 +17582,9 @@ export namespace Prisma {
       assignments: Prisma.$AssignmentPayload<ExtArgs>[]
       hostedSessions: Prisma.$LiveClassSessionPayload<ExtArgs>[]
       idCards: Prisma.$IdCardPayload<ExtArgs>[]
+      attendance: Prisma.$StaffAttendancePayload<ExtArgs>[]
+      classSchedules: Prisma.$ClassSchedulePayload<ExtArgs>[]
+      digitalResources: Prisma.$DigitalResourcePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -17398,6 +18003,9 @@ export namespace Prisma {
     assignments<T extends Staff$assignmentsArgs<ExtArgs> = {}>(args?: Subset<T, Staff$assignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     hostedSessions<T extends Staff$hostedSessionsArgs<ExtArgs> = {}>(args?: Subset<T, Staff$hostedSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LiveClassSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     idCards<T extends Staff$idCardsArgs<ExtArgs> = {}>(args?: Subset<T, Staff$idCardsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IdCardPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    attendance<T extends Staff$attendanceArgs<ExtArgs> = {}>(args?: Subset<T, Staff$attendanceArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StaffAttendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    classSchedules<T extends Staff$classSchedulesArgs<ExtArgs> = {}>(args?: Subset<T, Staff$classSchedulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClassSchedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    digitalResources<T extends Staff$digitalResourcesArgs<ExtArgs> = {}>(args?: Subset<T, Staff$digitalResourcesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DigitalResourcePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -18125,6 +18733,78 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: IdCardScalarFieldEnum | IdCardScalarFieldEnum[]
+  }
+
+  /**
+   * Staff.attendance
+   */
+  export type Staff$attendanceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffAttendance
+     */
+    select?: StaffAttendanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StaffAttendance
+     */
+    omit?: StaffAttendanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffAttendanceInclude<ExtArgs> | null
+    where?: StaffAttendanceWhereInput
+    orderBy?: StaffAttendanceOrderByWithRelationInput | StaffAttendanceOrderByWithRelationInput[]
+    cursor?: StaffAttendanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StaffAttendanceScalarFieldEnum | StaffAttendanceScalarFieldEnum[]
+  }
+
+  /**
+   * Staff.classSchedules
+   */
+  export type Staff$classSchedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassSchedule
+     */
+    select?: ClassScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassSchedule
+     */
+    omit?: ClassScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassScheduleInclude<ExtArgs> | null
+    where?: ClassScheduleWhereInput
+    orderBy?: ClassScheduleOrderByWithRelationInput | ClassScheduleOrderByWithRelationInput[]
+    cursor?: ClassScheduleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ClassScheduleScalarFieldEnum | ClassScheduleScalarFieldEnum[]
+  }
+
+  /**
+   * Staff.digitalResources
+   */
+  export type Staff$digitalResourcesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DigitalResource
+     */
+    select?: DigitalResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DigitalResource
+     */
+    omit?: DigitalResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DigitalResourceInclude<ExtArgs> | null
+    where?: DigitalResourceWhereInput
+    orderBy?: DigitalResourceOrderByWithRelationInput | DigitalResourceOrderByWithRelationInput[]
+    cursor?: DigitalResourceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DigitalResourceScalarFieldEnum | DigitalResourceScalarFieldEnum[]
   }
 
   /**
@@ -22817,6 +23497,8 @@ export namespace Prisma {
     liveClassSessions?: boolean | Class$liveClassSessionsArgs<ExtArgs>
     onlineAdmissions?: boolean | Class$onlineAdmissionsArgs<ExtArgs>
     onlineExams?: boolean | Class$onlineExamsArgs<ExtArgs>
+    classSchedules?: boolean | Class$classSchedulesArgs<ExtArgs>
+    digitalResources?: boolean | Class$digitalResourcesArgs<ExtArgs>
     _count?: boolean | ClassCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["class"]>
 
@@ -22864,6 +23546,8 @@ export namespace Prisma {
     liveClassSessions?: boolean | Class$liveClassSessionsArgs<ExtArgs>
     onlineAdmissions?: boolean | Class$onlineAdmissionsArgs<ExtArgs>
     onlineExams?: boolean | Class$onlineExamsArgs<ExtArgs>
+    classSchedules?: boolean | Class$classSchedulesArgs<ExtArgs>
+    digitalResources?: boolean | Class$digitalResourcesArgs<ExtArgs>
     _count?: boolean | ClassCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ClassIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -22886,6 +23570,8 @@ export namespace Prisma {
       liveClassSessions: Prisma.$LiveClassSessionPayload<ExtArgs>[]
       onlineAdmissions: Prisma.$OnlineAdmissionPayload<ExtArgs>[]
       onlineExams: Prisma.$OnlineExamPayload<ExtArgs>[]
+      classSchedules: Prisma.$ClassSchedulePayload<ExtArgs>[]
+      digitalResources: Prisma.$DigitalResourcePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -23297,6 +23983,8 @@ export namespace Prisma {
     liveClassSessions<T extends Class$liveClassSessionsArgs<ExtArgs> = {}>(args?: Subset<T, Class$liveClassSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LiveClassSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     onlineAdmissions<T extends Class$onlineAdmissionsArgs<ExtArgs> = {}>(args?: Subset<T, Class$onlineAdmissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OnlineAdmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     onlineExams<T extends Class$onlineExamsArgs<ExtArgs> = {}>(args?: Subset<T, Class$onlineExamsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OnlineExamPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    classSchedules<T extends Class$classSchedulesArgs<ExtArgs> = {}>(args?: Subset<T, Class$classSchedulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClassSchedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    digitalResources<T extends Class$digitalResourcesArgs<ExtArgs> = {}>(args?: Subset<T, Class$digitalResourcesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DigitalResourcePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -23892,6 +24580,54 @@ export namespace Prisma {
   }
 
   /**
+   * Class.classSchedules
+   */
+  export type Class$classSchedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassSchedule
+     */
+    select?: ClassScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassSchedule
+     */
+    omit?: ClassScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassScheduleInclude<ExtArgs> | null
+    where?: ClassScheduleWhereInput
+    orderBy?: ClassScheduleOrderByWithRelationInput | ClassScheduleOrderByWithRelationInput[]
+    cursor?: ClassScheduleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ClassScheduleScalarFieldEnum | ClassScheduleScalarFieldEnum[]
+  }
+
+  /**
+   * Class.digitalResources
+   */
+  export type Class$digitalResourcesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DigitalResource
+     */
+    select?: DigitalResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DigitalResource
+     */
+    omit?: DigitalResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DigitalResourceInclude<ExtArgs> | null
+    where?: DigitalResourceWhereInput
+    orderBy?: DigitalResourceOrderByWithRelationInput | DigitalResourceOrderByWithRelationInput[]
+    cursor?: DigitalResourceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DigitalResourceScalarFieldEnum | DigitalResourceScalarFieldEnum[]
+  }
+
+  /**
    * Class without action
    */
   export type ClassDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -24082,6 +24818,8 @@ export namespace Prisma {
     liveClassSessions?: boolean | Section$liveClassSessionsArgs<ExtArgs>
     onlineAdmissions?: boolean | Section$onlineAdmissionsArgs<ExtArgs>
     onlineExams?: boolean | Section$onlineExamsArgs<ExtArgs>
+    classSchedules?: boolean | Section$classSchedulesArgs<ExtArgs>
+    digitalResources?: boolean | Section$digitalResourcesArgs<ExtArgs>
     _count?: boolean | SectionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["section"]>
 
@@ -24121,6 +24859,8 @@ export namespace Prisma {
     liveClassSessions?: boolean | Section$liveClassSessionsArgs<ExtArgs>
     onlineAdmissions?: boolean | Section$onlineAdmissionsArgs<ExtArgs>
     onlineExams?: boolean | Section$onlineExamsArgs<ExtArgs>
+    classSchedules?: boolean | Section$classSchedulesArgs<ExtArgs>
+    digitalResources?: boolean | Section$digitalResourcesArgs<ExtArgs>
     _count?: boolean | SectionCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SectionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -24141,6 +24881,8 @@ export namespace Prisma {
       liveClassSessions: Prisma.$LiveClassSessionPayload<ExtArgs>[]
       onlineAdmissions: Prisma.$OnlineAdmissionPayload<ExtArgs>[]
       onlineExams: Prisma.$OnlineExamPayload<ExtArgs>[]
+      classSchedules: Prisma.$ClassSchedulePayload<ExtArgs>[]
+      digitalResources: Prisma.$DigitalResourcePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -24550,6 +25292,8 @@ export namespace Prisma {
     liveClassSessions<T extends Section$liveClassSessionsArgs<ExtArgs> = {}>(args?: Subset<T, Section$liveClassSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LiveClassSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     onlineAdmissions<T extends Section$onlineAdmissionsArgs<ExtArgs> = {}>(args?: Subset<T, Section$onlineAdmissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OnlineAdmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     onlineExams<T extends Section$onlineExamsArgs<ExtArgs> = {}>(args?: Subset<T, Section$onlineExamsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OnlineExamPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    classSchedules<T extends Section$classSchedulesArgs<ExtArgs> = {}>(args?: Subset<T, Section$classSchedulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClassSchedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    digitalResources<T extends Section$digitalResourcesArgs<ExtArgs> = {}>(args?: Subset<T, Section$digitalResourcesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DigitalResourcePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -25148,6 +25892,54 @@ export namespace Prisma {
   }
 
   /**
+   * Section.classSchedules
+   */
+  export type Section$classSchedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassSchedule
+     */
+    select?: ClassScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassSchedule
+     */
+    omit?: ClassScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassScheduleInclude<ExtArgs> | null
+    where?: ClassScheduleWhereInput
+    orderBy?: ClassScheduleOrderByWithRelationInput | ClassScheduleOrderByWithRelationInput[]
+    cursor?: ClassScheduleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ClassScheduleScalarFieldEnum | ClassScheduleScalarFieldEnum[]
+  }
+
+  /**
+   * Section.digitalResources
+   */
+  export type Section$digitalResourcesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DigitalResource
+     */
+    select?: DigitalResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DigitalResource
+     */
+    omit?: DigitalResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DigitalResourceInclude<ExtArgs> | null
+    where?: DigitalResourceWhereInput
+    orderBy?: DigitalResourceOrderByWithRelationInput | DigitalResourceOrderByWithRelationInput[]
+    cursor?: DigitalResourceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DigitalResourceScalarFieldEnum | DigitalResourceScalarFieldEnum[]
+  }
+
+  /**
    * Section without action
    */
   export type SectionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -25344,6 +26136,8 @@ export namespace Prisma {
     assessmentRecords?: boolean | Subject$assessmentRecordsArgs<ExtArgs>
     liveClassSessions?: boolean | Subject$liveClassSessionsArgs<ExtArgs>
     onlineExams?: boolean | Subject$onlineExamsArgs<ExtArgs>
+    classSchedules?: boolean | Subject$classSchedulesArgs<ExtArgs>
+    digitalResources?: boolean | Subject$digitalResourcesArgs<ExtArgs>
     _count?: boolean | SubjectCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["subject"]>
 
@@ -25384,6 +26178,8 @@ export namespace Prisma {
     assessmentRecords?: boolean | Subject$assessmentRecordsArgs<ExtArgs>
     liveClassSessions?: boolean | Subject$liveClassSessionsArgs<ExtArgs>
     onlineExams?: boolean | Subject$onlineExamsArgs<ExtArgs>
+    classSchedules?: boolean | Subject$classSchedulesArgs<ExtArgs>
+    digitalResources?: boolean | Subject$digitalResourcesArgs<ExtArgs>
     _count?: boolean | SubjectCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SubjectIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -25402,6 +26198,8 @@ export namespace Prisma {
       assessmentRecords: Prisma.$AssessmentRecordPayload<ExtArgs>[]
       liveClassSessions: Prisma.$LiveClassSessionPayload<ExtArgs>[]
       onlineExams: Prisma.$OnlineExamPayload<ExtArgs>[]
+      classSchedules: Prisma.$ClassSchedulePayload<ExtArgs>[]
+      digitalResources: Prisma.$DigitalResourcePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -25810,6 +26608,8 @@ export namespace Prisma {
     assessmentRecords<T extends Subject$assessmentRecordsArgs<ExtArgs> = {}>(args?: Subset<T, Subject$assessmentRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssessmentRecordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     liveClassSessions<T extends Subject$liveClassSessionsArgs<ExtArgs> = {}>(args?: Subset<T, Subject$liveClassSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LiveClassSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     onlineExams<T extends Subject$onlineExamsArgs<ExtArgs> = {}>(args?: Subset<T, Subject$onlineExamsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OnlineExamPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    classSchedules<T extends Subject$classSchedulesArgs<ExtArgs> = {}>(args?: Subset<T, Subject$classSchedulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClassSchedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    digitalResources<T extends Subject$digitalResourcesArgs<ExtArgs> = {}>(args?: Subset<T, Subject$digitalResourcesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DigitalResourcePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -26361,6 +27161,54 @@ export namespace Prisma {
   }
 
   /**
+   * Subject.classSchedules
+   */
+  export type Subject$classSchedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassSchedule
+     */
+    select?: ClassScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassSchedule
+     */
+    omit?: ClassScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassScheduleInclude<ExtArgs> | null
+    where?: ClassScheduleWhereInput
+    orderBy?: ClassScheduleOrderByWithRelationInput | ClassScheduleOrderByWithRelationInput[]
+    cursor?: ClassScheduleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ClassScheduleScalarFieldEnum | ClassScheduleScalarFieldEnum[]
+  }
+
+  /**
+   * Subject.digitalResources
+   */
+  export type Subject$digitalResourcesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DigitalResource
+     */
+    select?: DigitalResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DigitalResource
+     */
+    omit?: DigitalResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DigitalResourceInclude<ExtArgs> | null
+    where?: DigitalResourceWhereInput
+    orderBy?: DigitalResourceOrderByWithRelationInput | DigitalResourceOrderByWithRelationInput[]
+    cursor?: DigitalResourceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DigitalResourceScalarFieldEnum | DigitalResourceScalarFieldEnum[]
+  }
+
+  /**
    * Subject without action
    */
   export type SubjectDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -26376,6 +27224,1200 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: SubjectInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ClassSchedule
+   */
+
+  export type AggregateClassSchedule = {
+    _count: ClassScheduleCountAggregateOutputType | null
+    _avg: ClassScheduleAvgAggregateOutputType | null
+    _sum: ClassScheduleSumAggregateOutputType | null
+    _min: ClassScheduleMinAggregateOutputType | null
+    _max: ClassScheduleMaxAggregateOutputType | null
+  }
+
+  export type ClassScheduleAvgAggregateOutputType = {
+    dayOfWeek: number | null
+  }
+
+  export type ClassScheduleSumAggregateOutputType = {
+    dayOfWeek: number | null
+  }
+
+  export type ClassScheduleMinAggregateOutputType = {
+    id: string | null
+    dayOfWeek: number | null
+    startTime: string | null
+    endTime: string | null
+    room: string | null
+    classId: string | null
+    sectionId: string | null
+    subjectId: string | null
+    teacherId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ClassScheduleMaxAggregateOutputType = {
+    id: string | null
+    dayOfWeek: number | null
+    startTime: string | null
+    endTime: string | null
+    room: string | null
+    classId: string | null
+    sectionId: string | null
+    subjectId: string | null
+    teacherId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ClassScheduleCountAggregateOutputType = {
+    id: number
+    dayOfWeek: number
+    startTime: number
+    endTime: number
+    room: number
+    classId: number
+    sectionId: number
+    subjectId: number
+    teacherId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ClassScheduleAvgAggregateInputType = {
+    dayOfWeek?: true
+  }
+
+  export type ClassScheduleSumAggregateInputType = {
+    dayOfWeek?: true
+  }
+
+  export type ClassScheduleMinAggregateInputType = {
+    id?: true
+    dayOfWeek?: true
+    startTime?: true
+    endTime?: true
+    room?: true
+    classId?: true
+    sectionId?: true
+    subjectId?: true
+    teacherId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ClassScheduleMaxAggregateInputType = {
+    id?: true
+    dayOfWeek?: true
+    startTime?: true
+    endTime?: true
+    room?: true
+    classId?: true
+    sectionId?: true
+    subjectId?: true
+    teacherId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ClassScheduleCountAggregateInputType = {
+    id?: true
+    dayOfWeek?: true
+    startTime?: true
+    endTime?: true
+    room?: true
+    classId?: true
+    sectionId?: true
+    subjectId?: true
+    teacherId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ClassScheduleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ClassSchedule to aggregate.
+     */
+    where?: ClassScheduleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ClassSchedules to fetch.
+     */
+    orderBy?: ClassScheduleOrderByWithRelationInput | ClassScheduleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ClassScheduleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ClassSchedules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ClassSchedules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ClassSchedules
+    **/
+    _count?: true | ClassScheduleCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ClassScheduleAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ClassScheduleSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ClassScheduleMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ClassScheduleMaxAggregateInputType
+  }
+
+  export type GetClassScheduleAggregateType<T extends ClassScheduleAggregateArgs> = {
+        [P in keyof T & keyof AggregateClassSchedule]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateClassSchedule[P]>
+      : GetScalarType<T[P], AggregateClassSchedule[P]>
+  }
+
+
+
+
+  export type ClassScheduleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ClassScheduleWhereInput
+    orderBy?: ClassScheduleOrderByWithAggregationInput | ClassScheduleOrderByWithAggregationInput[]
+    by: ClassScheduleScalarFieldEnum[] | ClassScheduleScalarFieldEnum
+    having?: ClassScheduleScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ClassScheduleCountAggregateInputType | true
+    _avg?: ClassScheduleAvgAggregateInputType
+    _sum?: ClassScheduleSumAggregateInputType
+    _min?: ClassScheduleMinAggregateInputType
+    _max?: ClassScheduleMaxAggregateInputType
+  }
+
+  export type ClassScheduleGroupByOutputType = {
+    id: string
+    dayOfWeek: number
+    startTime: string
+    endTime: string
+    room: string | null
+    classId: string
+    sectionId: string
+    subjectId: string
+    teacherId: string
+    createdAt: Date
+    updatedAt: Date
+    _count: ClassScheduleCountAggregateOutputType | null
+    _avg: ClassScheduleAvgAggregateOutputType | null
+    _sum: ClassScheduleSumAggregateOutputType | null
+    _min: ClassScheduleMinAggregateOutputType | null
+    _max: ClassScheduleMaxAggregateOutputType | null
+  }
+
+  type GetClassScheduleGroupByPayload<T extends ClassScheduleGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ClassScheduleGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ClassScheduleGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ClassScheduleGroupByOutputType[P]>
+            : GetScalarType<T[P], ClassScheduleGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ClassScheduleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    dayOfWeek?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    room?: boolean
+    classId?: boolean
+    sectionId?: boolean
+    subjectId?: boolean
+    teacherId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    class?: boolean | ClassDefaultArgs<ExtArgs>
+    section?: boolean | SectionDefaultArgs<ExtArgs>
+    subject?: boolean | SubjectDefaultArgs<ExtArgs>
+    teacher?: boolean | StaffDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["classSchedule"]>
+
+  export type ClassScheduleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    dayOfWeek?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    room?: boolean
+    classId?: boolean
+    sectionId?: boolean
+    subjectId?: boolean
+    teacherId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    class?: boolean | ClassDefaultArgs<ExtArgs>
+    section?: boolean | SectionDefaultArgs<ExtArgs>
+    subject?: boolean | SubjectDefaultArgs<ExtArgs>
+    teacher?: boolean | StaffDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["classSchedule"]>
+
+  export type ClassScheduleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    dayOfWeek?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    room?: boolean
+    classId?: boolean
+    sectionId?: boolean
+    subjectId?: boolean
+    teacherId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    class?: boolean | ClassDefaultArgs<ExtArgs>
+    section?: boolean | SectionDefaultArgs<ExtArgs>
+    subject?: boolean | SubjectDefaultArgs<ExtArgs>
+    teacher?: boolean | StaffDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["classSchedule"]>
+
+  export type ClassScheduleSelectScalar = {
+    id?: boolean
+    dayOfWeek?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    room?: boolean
+    classId?: boolean
+    sectionId?: boolean
+    subjectId?: boolean
+    teacherId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ClassScheduleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "dayOfWeek" | "startTime" | "endTime" | "room" | "classId" | "sectionId" | "subjectId" | "teacherId" | "createdAt" | "updatedAt", ExtArgs["result"]["classSchedule"]>
+  export type ClassScheduleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    class?: boolean | ClassDefaultArgs<ExtArgs>
+    section?: boolean | SectionDefaultArgs<ExtArgs>
+    subject?: boolean | SubjectDefaultArgs<ExtArgs>
+    teacher?: boolean | StaffDefaultArgs<ExtArgs>
+  }
+  export type ClassScheduleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    class?: boolean | ClassDefaultArgs<ExtArgs>
+    section?: boolean | SectionDefaultArgs<ExtArgs>
+    subject?: boolean | SubjectDefaultArgs<ExtArgs>
+    teacher?: boolean | StaffDefaultArgs<ExtArgs>
+  }
+  export type ClassScheduleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    class?: boolean | ClassDefaultArgs<ExtArgs>
+    section?: boolean | SectionDefaultArgs<ExtArgs>
+    subject?: boolean | SubjectDefaultArgs<ExtArgs>
+    teacher?: boolean | StaffDefaultArgs<ExtArgs>
+  }
+
+  export type $ClassSchedulePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ClassSchedule"
+    objects: {
+      class: Prisma.$ClassPayload<ExtArgs>
+      section: Prisma.$SectionPayload<ExtArgs>
+      subject: Prisma.$SubjectPayload<ExtArgs>
+      teacher: Prisma.$StaffPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      dayOfWeek: number
+      startTime: string
+      endTime: string
+      room: string | null
+      classId: string
+      sectionId: string
+      subjectId: string
+      teacherId: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["classSchedule"]>
+    composites: {}
+  }
+
+  type ClassScheduleGetPayload<S extends boolean | null | undefined | ClassScheduleDefaultArgs> = $Result.GetResult<Prisma.$ClassSchedulePayload, S>
+
+  type ClassScheduleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ClassScheduleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ClassScheduleCountAggregateInputType | true
+    }
+
+  export interface ClassScheduleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ClassSchedule'], meta: { name: 'ClassSchedule' } }
+    /**
+     * Find zero or one ClassSchedule that matches the filter.
+     * @param {ClassScheduleFindUniqueArgs} args - Arguments to find a ClassSchedule
+     * @example
+     * // Get one ClassSchedule
+     * const classSchedule = await prisma.classSchedule.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ClassScheduleFindUniqueArgs>(args: SelectSubset<T, ClassScheduleFindUniqueArgs<ExtArgs>>): Prisma__ClassScheduleClient<$Result.GetResult<Prisma.$ClassSchedulePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ClassSchedule that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ClassScheduleFindUniqueOrThrowArgs} args - Arguments to find a ClassSchedule
+     * @example
+     * // Get one ClassSchedule
+     * const classSchedule = await prisma.classSchedule.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ClassScheduleFindUniqueOrThrowArgs>(args: SelectSubset<T, ClassScheduleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ClassScheduleClient<$Result.GetResult<Prisma.$ClassSchedulePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ClassSchedule that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClassScheduleFindFirstArgs} args - Arguments to find a ClassSchedule
+     * @example
+     * // Get one ClassSchedule
+     * const classSchedule = await prisma.classSchedule.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ClassScheduleFindFirstArgs>(args?: SelectSubset<T, ClassScheduleFindFirstArgs<ExtArgs>>): Prisma__ClassScheduleClient<$Result.GetResult<Prisma.$ClassSchedulePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ClassSchedule that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClassScheduleFindFirstOrThrowArgs} args - Arguments to find a ClassSchedule
+     * @example
+     * // Get one ClassSchedule
+     * const classSchedule = await prisma.classSchedule.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ClassScheduleFindFirstOrThrowArgs>(args?: SelectSubset<T, ClassScheduleFindFirstOrThrowArgs<ExtArgs>>): Prisma__ClassScheduleClient<$Result.GetResult<Prisma.$ClassSchedulePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ClassSchedules that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClassScheduleFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ClassSchedules
+     * const classSchedules = await prisma.classSchedule.findMany()
+     * 
+     * // Get first 10 ClassSchedules
+     * const classSchedules = await prisma.classSchedule.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const classScheduleWithIdOnly = await prisma.classSchedule.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ClassScheduleFindManyArgs>(args?: SelectSubset<T, ClassScheduleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClassSchedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ClassSchedule.
+     * @param {ClassScheduleCreateArgs} args - Arguments to create a ClassSchedule.
+     * @example
+     * // Create one ClassSchedule
+     * const ClassSchedule = await prisma.classSchedule.create({
+     *   data: {
+     *     // ... data to create a ClassSchedule
+     *   }
+     * })
+     * 
+     */
+    create<T extends ClassScheduleCreateArgs>(args: SelectSubset<T, ClassScheduleCreateArgs<ExtArgs>>): Prisma__ClassScheduleClient<$Result.GetResult<Prisma.$ClassSchedulePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ClassSchedules.
+     * @param {ClassScheduleCreateManyArgs} args - Arguments to create many ClassSchedules.
+     * @example
+     * // Create many ClassSchedules
+     * const classSchedule = await prisma.classSchedule.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ClassScheduleCreateManyArgs>(args?: SelectSubset<T, ClassScheduleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ClassSchedules and returns the data saved in the database.
+     * @param {ClassScheduleCreateManyAndReturnArgs} args - Arguments to create many ClassSchedules.
+     * @example
+     * // Create many ClassSchedules
+     * const classSchedule = await prisma.classSchedule.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ClassSchedules and only return the `id`
+     * const classScheduleWithIdOnly = await prisma.classSchedule.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ClassScheduleCreateManyAndReturnArgs>(args?: SelectSubset<T, ClassScheduleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClassSchedulePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ClassSchedule.
+     * @param {ClassScheduleDeleteArgs} args - Arguments to delete one ClassSchedule.
+     * @example
+     * // Delete one ClassSchedule
+     * const ClassSchedule = await prisma.classSchedule.delete({
+     *   where: {
+     *     // ... filter to delete one ClassSchedule
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ClassScheduleDeleteArgs>(args: SelectSubset<T, ClassScheduleDeleteArgs<ExtArgs>>): Prisma__ClassScheduleClient<$Result.GetResult<Prisma.$ClassSchedulePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ClassSchedule.
+     * @param {ClassScheduleUpdateArgs} args - Arguments to update one ClassSchedule.
+     * @example
+     * // Update one ClassSchedule
+     * const classSchedule = await prisma.classSchedule.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ClassScheduleUpdateArgs>(args: SelectSubset<T, ClassScheduleUpdateArgs<ExtArgs>>): Prisma__ClassScheduleClient<$Result.GetResult<Prisma.$ClassSchedulePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ClassSchedules.
+     * @param {ClassScheduleDeleteManyArgs} args - Arguments to filter ClassSchedules to delete.
+     * @example
+     * // Delete a few ClassSchedules
+     * const { count } = await prisma.classSchedule.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ClassScheduleDeleteManyArgs>(args?: SelectSubset<T, ClassScheduleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ClassSchedules.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClassScheduleUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ClassSchedules
+     * const classSchedule = await prisma.classSchedule.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ClassScheduleUpdateManyArgs>(args: SelectSubset<T, ClassScheduleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ClassSchedules and returns the data updated in the database.
+     * @param {ClassScheduleUpdateManyAndReturnArgs} args - Arguments to update many ClassSchedules.
+     * @example
+     * // Update many ClassSchedules
+     * const classSchedule = await prisma.classSchedule.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ClassSchedules and only return the `id`
+     * const classScheduleWithIdOnly = await prisma.classSchedule.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ClassScheduleUpdateManyAndReturnArgs>(args: SelectSubset<T, ClassScheduleUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClassSchedulePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ClassSchedule.
+     * @param {ClassScheduleUpsertArgs} args - Arguments to update or create a ClassSchedule.
+     * @example
+     * // Update or create a ClassSchedule
+     * const classSchedule = await prisma.classSchedule.upsert({
+     *   create: {
+     *     // ... data to create a ClassSchedule
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ClassSchedule we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ClassScheduleUpsertArgs>(args: SelectSubset<T, ClassScheduleUpsertArgs<ExtArgs>>): Prisma__ClassScheduleClient<$Result.GetResult<Prisma.$ClassSchedulePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ClassSchedules.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClassScheduleCountArgs} args - Arguments to filter ClassSchedules to count.
+     * @example
+     * // Count the number of ClassSchedules
+     * const count = await prisma.classSchedule.count({
+     *   where: {
+     *     // ... the filter for the ClassSchedules we want to count
+     *   }
+     * })
+    **/
+    count<T extends ClassScheduleCountArgs>(
+      args?: Subset<T, ClassScheduleCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ClassScheduleCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ClassSchedule.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClassScheduleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ClassScheduleAggregateArgs>(args: Subset<T, ClassScheduleAggregateArgs>): Prisma.PrismaPromise<GetClassScheduleAggregateType<T>>
+
+    /**
+     * Group by ClassSchedule.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClassScheduleGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ClassScheduleGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ClassScheduleGroupByArgs['orderBy'] }
+        : { orderBy?: ClassScheduleGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ClassScheduleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetClassScheduleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ClassSchedule model
+   */
+  readonly fields: ClassScheduleFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ClassSchedule.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ClassScheduleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    class<T extends ClassDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ClassDefaultArgs<ExtArgs>>): Prisma__ClassClient<$Result.GetResult<Prisma.$ClassPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    section<T extends SectionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SectionDefaultArgs<ExtArgs>>): Prisma__SectionClient<$Result.GetResult<Prisma.$SectionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    subject<T extends SubjectDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SubjectDefaultArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    teacher<T extends StaffDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StaffDefaultArgs<ExtArgs>>): Prisma__StaffClient<$Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ClassSchedule model
+   */
+  interface ClassScheduleFieldRefs {
+    readonly id: FieldRef<"ClassSchedule", 'String'>
+    readonly dayOfWeek: FieldRef<"ClassSchedule", 'Int'>
+    readonly startTime: FieldRef<"ClassSchedule", 'String'>
+    readonly endTime: FieldRef<"ClassSchedule", 'String'>
+    readonly room: FieldRef<"ClassSchedule", 'String'>
+    readonly classId: FieldRef<"ClassSchedule", 'String'>
+    readonly sectionId: FieldRef<"ClassSchedule", 'String'>
+    readonly subjectId: FieldRef<"ClassSchedule", 'String'>
+    readonly teacherId: FieldRef<"ClassSchedule", 'String'>
+    readonly createdAt: FieldRef<"ClassSchedule", 'DateTime'>
+    readonly updatedAt: FieldRef<"ClassSchedule", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ClassSchedule findUnique
+   */
+  export type ClassScheduleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassSchedule
+     */
+    select?: ClassScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassSchedule
+     */
+    omit?: ClassScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassScheduleInclude<ExtArgs> | null
+    /**
+     * Filter, which ClassSchedule to fetch.
+     */
+    where: ClassScheduleWhereUniqueInput
+  }
+
+  /**
+   * ClassSchedule findUniqueOrThrow
+   */
+  export type ClassScheduleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassSchedule
+     */
+    select?: ClassScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassSchedule
+     */
+    omit?: ClassScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassScheduleInclude<ExtArgs> | null
+    /**
+     * Filter, which ClassSchedule to fetch.
+     */
+    where: ClassScheduleWhereUniqueInput
+  }
+
+  /**
+   * ClassSchedule findFirst
+   */
+  export type ClassScheduleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassSchedule
+     */
+    select?: ClassScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassSchedule
+     */
+    omit?: ClassScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassScheduleInclude<ExtArgs> | null
+    /**
+     * Filter, which ClassSchedule to fetch.
+     */
+    where?: ClassScheduleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ClassSchedules to fetch.
+     */
+    orderBy?: ClassScheduleOrderByWithRelationInput | ClassScheduleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ClassSchedules.
+     */
+    cursor?: ClassScheduleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ClassSchedules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ClassSchedules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ClassSchedules.
+     */
+    distinct?: ClassScheduleScalarFieldEnum | ClassScheduleScalarFieldEnum[]
+  }
+
+  /**
+   * ClassSchedule findFirstOrThrow
+   */
+  export type ClassScheduleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassSchedule
+     */
+    select?: ClassScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassSchedule
+     */
+    omit?: ClassScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassScheduleInclude<ExtArgs> | null
+    /**
+     * Filter, which ClassSchedule to fetch.
+     */
+    where?: ClassScheduleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ClassSchedules to fetch.
+     */
+    orderBy?: ClassScheduleOrderByWithRelationInput | ClassScheduleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ClassSchedules.
+     */
+    cursor?: ClassScheduleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ClassSchedules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ClassSchedules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ClassSchedules.
+     */
+    distinct?: ClassScheduleScalarFieldEnum | ClassScheduleScalarFieldEnum[]
+  }
+
+  /**
+   * ClassSchedule findMany
+   */
+  export type ClassScheduleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassSchedule
+     */
+    select?: ClassScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassSchedule
+     */
+    omit?: ClassScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassScheduleInclude<ExtArgs> | null
+    /**
+     * Filter, which ClassSchedules to fetch.
+     */
+    where?: ClassScheduleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ClassSchedules to fetch.
+     */
+    orderBy?: ClassScheduleOrderByWithRelationInput | ClassScheduleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ClassSchedules.
+     */
+    cursor?: ClassScheduleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ClassSchedules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ClassSchedules.
+     */
+    skip?: number
+    distinct?: ClassScheduleScalarFieldEnum | ClassScheduleScalarFieldEnum[]
+  }
+
+  /**
+   * ClassSchedule create
+   */
+  export type ClassScheduleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassSchedule
+     */
+    select?: ClassScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassSchedule
+     */
+    omit?: ClassScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassScheduleInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ClassSchedule.
+     */
+    data: XOR<ClassScheduleCreateInput, ClassScheduleUncheckedCreateInput>
+  }
+
+  /**
+   * ClassSchedule createMany
+   */
+  export type ClassScheduleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ClassSchedules.
+     */
+    data: ClassScheduleCreateManyInput | ClassScheduleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ClassSchedule createManyAndReturn
+   */
+  export type ClassScheduleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassSchedule
+     */
+    select?: ClassScheduleSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassSchedule
+     */
+    omit?: ClassScheduleOmit<ExtArgs> | null
+    /**
+     * The data used to create many ClassSchedules.
+     */
+    data: ClassScheduleCreateManyInput | ClassScheduleCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassScheduleIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ClassSchedule update
+   */
+  export type ClassScheduleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassSchedule
+     */
+    select?: ClassScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassSchedule
+     */
+    omit?: ClassScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassScheduleInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ClassSchedule.
+     */
+    data: XOR<ClassScheduleUpdateInput, ClassScheduleUncheckedUpdateInput>
+    /**
+     * Choose, which ClassSchedule to update.
+     */
+    where: ClassScheduleWhereUniqueInput
+  }
+
+  /**
+   * ClassSchedule updateMany
+   */
+  export type ClassScheduleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ClassSchedules.
+     */
+    data: XOR<ClassScheduleUpdateManyMutationInput, ClassScheduleUncheckedUpdateManyInput>
+    /**
+     * Filter which ClassSchedules to update
+     */
+    where?: ClassScheduleWhereInput
+    /**
+     * Limit how many ClassSchedules to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ClassSchedule updateManyAndReturn
+   */
+  export type ClassScheduleUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassSchedule
+     */
+    select?: ClassScheduleSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassSchedule
+     */
+    omit?: ClassScheduleOmit<ExtArgs> | null
+    /**
+     * The data used to update ClassSchedules.
+     */
+    data: XOR<ClassScheduleUpdateManyMutationInput, ClassScheduleUncheckedUpdateManyInput>
+    /**
+     * Filter which ClassSchedules to update
+     */
+    where?: ClassScheduleWhereInput
+    /**
+     * Limit how many ClassSchedules to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassScheduleIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ClassSchedule upsert
+   */
+  export type ClassScheduleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassSchedule
+     */
+    select?: ClassScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassSchedule
+     */
+    omit?: ClassScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassScheduleInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ClassSchedule to update in case it exists.
+     */
+    where: ClassScheduleWhereUniqueInput
+    /**
+     * In case the ClassSchedule found by the `where` argument doesn't exist, create a new ClassSchedule with this data.
+     */
+    create: XOR<ClassScheduleCreateInput, ClassScheduleUncheckedCreateInput>
+    /**
+     * In case the ClassSchedule was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ClassScheduleUpdateInput, ClassScheduleUncheckedUpdateInput>
+  }
+
+  /**
+   * ClassSchedule delete
+   */
+  export type ClassScheduleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassSchedule
+     */
+    select?: ClassScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassSchedule
+     */
+    omit?: ClassScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassScheduleInclude<ExtArgs> | null
+    /**
+     * Filter which ClassSchedule to delete.
+     */
+    where: ClassScheduleWhereUniqueInput
+  }
+
+  /**
+   * ClassSchedule deleteMany
+   */
+  export type ClassScheduleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ClassSchedules to delete
+     */
+    where?: ClassScheduleWhereInput
+    /**
+     * Limit how many ClassSchedules to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ClassSchedule without action
+   */
+  export type ClassScheduleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassSchedule
+     */
+    select?: ClassScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassSchedule
+     */
+    omit?: ClassScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassScheduleInclude<ExtArgs> | null
   }
 
 
@@ -27500,6 +29542,1090 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: AttendanceInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model StaffAttendance
+   */
+
+  export type AggregateStaffAttendance = {
+    _count: StaffAttendanceCountAggregateOutputType | null
+    _min: StaffAttendanceMinAggregateOutputType | null
+    _max: StaffAttendanceMaxAggregateOutputType | null
+  }
+
+  export type StaffAttendanceMinAggregateOutputType = {
+    id: string | null
+    date: Date | null
+    status: $Enums.AttendanceStatus | null
+    remarks: string | null
+    staffId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type StaffAttendanceMaxAggregateOutputType = {
+    id: string | null
+    date: Date | null
+    status: $Enums.AttendanceStatus | null
+    remarks: string | null
+    staffId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type StaffAttendanceCountAggregateOutputType = {
+    id: number
+    date: number
+    status: number
+    remarks: number
+    staffId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type StaffAttendanceMinAggregateInputType = {
+    id?: true
+    date?: true
+    status?: true
+    remarks?: true
+    staffId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type StaffAttendanceMaxAggregateInputType = {
+    id?: true
+    date?: true
+    status?: true
+    remarks?: true
+    staffId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type StaffAttendanceCountAggregateInputType = {
+    id?: true
+    date?: true
+    status?: true
+    remarks?: true
+    staffId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type StaffAttendanceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StaffAttendance to aggregate.
+     */
+    where?: StaffAttendanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StaffAttendances to fetch.
+     */
+    orderBy?: StaffAttendanceOrderByWithRelationInput | StaffAttendanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: StaffAttendanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StaffAttendances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StaffAttendances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned StaffAttendances
+    **/
+    _count?: true | StaffAttendanceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: StaffAttendanceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: StaffAttendanceMaxAggregateInputType
+  }
+
+  export type GetStaffAttendanceAggregateType<T extends StaffAttendanceAggregateArgs> = {
+        [P in keyof T & keyof AggregateStaffAttendance]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateStaffAttendance[P]>
+      : GetScalarType<T[P], AggregateStaffAttendance[P]>
+  }
+
+
+
+
+  export type StaffAttendanceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StaffAttendanceWhereInput
+    orderBy?: StaffAttendanceOrderByWithAggregationInput | StaffAttendanceOrderByWithAggregationInput[]
+    by: StaffAttendanceScalarFieldEnum[] | StaffAttendanceScalarFieldEnum
+    having?: StaffAttendanceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: StaffAttendanceCountAggregateInputType | true
+    _min?: StaffAttendanceMinAggregateInputType
+    _max?: StaffAttendanceMaxAggregateInputType
+  }
+
+  export type StaffAttendanceGroupByOutputType = {
+    id: string
+    date: Date
+    status: $Enums.AttendanceStatus
+    remarks: string | null
+    staffId: string
+    createdAt: Date
+    updatedAt: Date
+    _count: StaffAttendanceCountAggregateOutputType | null
+    _min: StaffAttendanceMinAggregateOutputType | null
+    _max: StaffAttendanceMaxAggregateOutputType | null
+  }
+
+  type GetStaffAttendanceGroupByPayload<T extends StaffAttendanceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<StaffAttendanceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof StaffAttendanceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], StaffAttendanceGroupByOutputType[P]>
+            : GetScalarType<T[P], StaffAttendanceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type StaffAttendanceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    date?: boolean
+    status?: boolean
+    remarks?: boolean
+    staffId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    staff?: boolean | StaffDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["staffAttendance"]>
+
+  export type StaffAttendanceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    date?: boolean
+    status?: boolean
+    remarks?: boolean
+    staffId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    staff?: boolean | StaffDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["staffAttendance"]>
+
+  export type StaffAttendanceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    date?: boolean
+    status?: boolean
+    remarks?: boolean
+    staffId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    staff?: boolean | StaffDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["staffAttendance"]>
+
+  export type StaffAttendanceSelectScalar = {
+    id?: boolean
+    date?: boolean
+    status?: boolean
+    remarks?: boolean
+    staffId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type StaffAttendanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "status" | "remarks" | "staffId" | "createdAt" | "updatedAt", ExtArgs["result"]["staffAttendance"]>
+  export type StaffAttendanceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    staff?: boolean | StaffDefaultArgs<ExtArgs>
+  }
+  export type StaffAttendanceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    staff?: boolean | StaffDefaultArgs<ExtArgs>
+  }
+  export type StaffAttendanceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    staff?: boolean | StaffDefaultArgs<ExtArgs>
+  }
+
+  export type $StaffAttendancePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "StaffAttendance"
+    objects: {
+      staff: Prisma.$StaffPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      date: Date
+      status: $Enums.AttendanceStatus
+      remarks: string | null
+      staffId: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["staffAttendance"]>
+    composites: {}
+  }
+
+  type StaffAttendanceGetPayload<S extends boolean | null | undefined | StaffAttendanceDefaultArgs> = $Result.GetResult<Prisma.$StaffAttendancePayload, S>
+
+  type StaffAttendanceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<StaffAttendanceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: StaffAttendanceCountAggregateInputType | true
+    }
+
+  export interface StaffAttendanceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['StaffAttendance'], meta: { name: 'StaffAttendance' } }
+    /**
+     * Find zero or one StaffAttendance that matches the filter.
+     * @param {StaffAttendanceFindUniqueArgs} args - Arguments to find a StaffAttendance
+     * @example
+     * // Get one StaffAttendance
+     * const staffAttendance = await prisma.staffAttendance.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends StaffAttendanceFindUniqueArgs>(args: SelectSubset<T, StaffAttendanceFindUniqueArgs<ExtArgs>>): Prisma__StaffAttendanceClient<$Result.GetResult<Prisma.$StaffAttendancePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one StaffAttendance that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {StaffAttendanceFindUniqueOrThrowArgs} args - Arguments to find a StaffAttendance
+     * @example
+     * // Get one StaffAttendance
+     * const staffAttendance = await prisma.staffAttendance.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends StaffAttendanceFindUniqueOrThrowArgs>(args: SelectSubset<T, StaffAttendanceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__StaffAttendanceClient<$Result.GetResult<Prisma.$StaffAttendancePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first StaffAttendance that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffAttendanceFindFirstArgs} args - Arguments to find a StaffAttendance
+     * @example
+     * // Get one StaffAttendance
+     * const staffAttendance = await prisma.staffAttendance.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends StaffAttendanceFindFirstArgs>(args?: SelectSubset<T, StaffAttendanceFindFirstArgs<ExtArgs>>): Prisma__StaffAttendanceClient<$Result.GetResult<Prisma.$StaffAttendancePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first StaffAttendance that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffAttendanceFindFirstOrThrowArgs} args - Arguments to find a StaffAttendance
+     * @example
+     * // Get one StaffAttendance
+     * const staffAttendance = await prisma.staffAttendance.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends StaffAttendanceFindFirstOrThrowArgs>(args?: SelectSubset<T, StaffAttendanceFindFirstOrThrowArgs<ExtArgs>>): Prisma__StaffAttendanceClient<$Result.GetResult<Prisma.$StaffAttendancePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more StaffAttendances that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffAttendanceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all StaffAttendances
+     * const staffAttendances = await prisma.staffAttendance.findMany()
+     * 
+     * // Get first 10 StaffAttendances
+     * const staffAttendances = await prisma.staffAttendance.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const staffAttendanceWithIdOnly = await prisma.staffAttendance.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends StaffAttendanceFindManyArgs>(args?: SelectSubset<T, StaffAttendanceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StaffAttendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a StaffAttendance.
+     * @param {StaffAttendanceCreateArgs} args - Arguments to create a StaffAttendance.
+     * @example
+     * // Create one StaffAttendance
+     * const StaffAttendance = await prisma.staffAttendance.create({
+     *   data: {
+     *     // ... data to create a StaffAttendance
+     *   }
+     * })
+     * 
+     */
+    create<T extends StaffAttendanceCreateArgs>(args: SelectSubset<T, StaffAttendanceCreateArgs<ExtArgs>>): Prisma__StaffAttendanceClient<$Result.GetResult<Prisma.$StaffAttendancePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many StaffAttendances.
+     * @param {StaffAttendanceCreateManyArgs} args - Arguments to create many StaffAttendances.
+     * @example
+     * // Create many StaffAttendances
+     * const staffAttendance = await prisma.staffAttendance.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends StaffAttendanceCreateManyArgs>(args?: SelectSubset<T, StaffAttendanceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many StaffAttendances and returns the data saved in the database.
+     * @param {StaffAttendanceCreateManyAndReturnArgs} args - Arguments to create many StaffAttendances.
+     * @example
+     * // Create many StaffAttendances
+     * const staffAttendance = await prisma.staffAttendance.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many StaffAttendances and only return the `id`
+     * const staffAttendanceWithIdOnly = await prisma.staffAttendance.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends StaffAttendanceCreateManyAndReturnArgs>(args?: SelectSubset<T, StaffAttendanceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StaffAttendancePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a StaffAttendance.
+     * @param {StaffAttendanceDeleteArgs} args - Arguments to delete one StaffAttendance.
+     * @example
+     * // Delete one StaffAttendance
+     * const StaffAttendance = await prisma.staffAttendance.delete({
+     *   where: {
+     *     // ... filter to delete one StaffAttendance
+     *   }
+     * })
+     * 
+     */
+    delete<T extends StaffAttendanceDeleteArgs>(args: SelectSubset<T, StaffAttendanceDeleteArgs<ExtArgs>>): Prisma__StaffAttendanceClient<$Result.GetResult<Prisma.$StaffAttendancePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one StaffAttendance.
+     * @param {StaffAttendanceUpdateArgs} args - Arguments to update one StaffAttendance.
+     * @example
+     * // Update one StaffAttendance
+     * const staffAttendance = await prisma.staffAttendance.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends StaffAttendanceUpdateArgs>(args: SelectSubset<T, StaffAttendanceUpdateArgs<ExtArgs>>): Prisma__StaffAttendanceClient<$Result.GetResult<Prisma.$StaffAttendancePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more StaffAttendances.
+     * @param {StaffAttendanceDeleteManyArgs} args - Arguments to filter StaffAttendances to delete.
+     * @example
+     * // Delete a few StaffAttendances
+     * const { count } = await prisma.staffAttendance.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends StaffAttendanceDeleteManyArgs>(args?: SelectSubset<T, StaffAttendanceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more StaffAttendances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffAttendanceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many StaffAttendances
+     * const staffAttendance = await prisma.staffAttendance.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends StaffAttendanceUpdateManyArgs>(args: SelectSubset<T, StaffAttendanceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more StaffAttendances and returns the data updated in the database.
+     * @param {StaffAttendanceUpdateManyAndReturnArgs} args - Arguments to update many StaffAttendances.
+     * @example
+     * // Update many StaffAttendances
+     * const staffAttendance = await prisma.staffAttendance.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more StaffAttendances and only return the `id`
+     * const staffAttendanceWithIdOnly = await prisma.staffAttendance.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends StaffAttendanceUpdateManyAndReturnArgs>(args: SelectSubset<T, StaffAttendanceUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StaffAttendancePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one StaffAttendance.
+     * @param {StaffAttendanceUpsertArgs} args - Arguments to update or create a StaffAttendance.
+     * @example
+     * // Update or create a StaffAttendance
+     * const staffAttendance = await prisma.staffAttendance.upsert({
+     *   create: {
+     *     // ... data to create a StaffAttendance
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the StaffAttendance we want to update
+     *   }
+     * })
+     */
+    upsert<T extends StaffAttendanceUpsertArgs>(args: SelectSubset<T, StaffAttendanceUpsertArgs<ExtArgs>>): Prisma__StaffAttendanceClient<$Result.GetResult<Prisma.$StaffAttendancePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of StaffAttendances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffAttendanceCountArgs} args - Arguments to filter StaffAttendances to count.
+     * @example
+     * // Count the number of StaffAttendances
+     * const count = await prisma.staffAttendance.count({
+     *   where: {
+     *     // ... the filter for the StaffAttendances we want to count
+     *   }
+     * })
+    **/
+    count<T extends StaffAttendanceCountArgs>(
+      args?: Subset<T, StaffAttendanceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], StaffAttendanceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a StaffAttendance.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffAttendanceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends StaffAttendanceAggregateArgs>(args: Subset<T, StaffAttendanceAggregateArgs>): Prisma.PrismaPromise<GetStaffAttendanceAggregateType<T>>
+
+    /**
+     * Group by StaffAttendance.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffAttendanceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends StaffAttendanceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: StaffAttendanceGroupByArgs['orderBy'] }
+        : { orderBy?: StaffAttendanceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, StaffAttendanceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStaffAttendanceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the StaffAttendance model
+   */
+  readonly fields: StaffAttendanceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for StaffAttendance.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__StaffAttendanceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    staff<T extends StaffDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StaffDefaultArgs<ExtArgs>>): Prisma__StaffClient<$Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the StaffAttendance model
+   */
+  interface StaffAttendanceFieldRefs {
+    readonly id: FieldRef<"StaffAttendance", 'String'>
+    readonly date: FieldRef<"StaffAttendance", 'DateTime'>
+    readonly status: FieldRef<"StaffAttendance", 'AttendanceStatus'>
+    readonly remarks: FieldRef<"StaffAttendance", 'String'>
+    readonly staffId: FieldRef<"StaffAttendance", 'String'>
+    readonly createdAt: FieldRef<"StaffAttendance", 'DateTime'>
+    readonly updatedAt: FieldRef<"StaffAttendance", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * StaffAttendance findUnique
+   */
+  export type StaffAttendanceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffAttendance
+     */
+    select?: StaffAttendanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StaffAttendance
+     */
+    omit?: StaffAttendanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffAttendanceInclude<ExtArgs> | null
+    /**
+     * Filter, which StaffAttendance to fetch.
+     */
+    where: StaffAttendanceWhereUniqueInput
+  }
+
+  /**
+   * StaffAttendance findUniqueOrThrow
+   */
+  export type StaffAttendanceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffAttendance
+     */
+    select?: StaffAttendanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StaffAttendance
+     */
+    omit?: StaffAttendanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffAttendanceInclude<ExtArgs> | null
+    /**
+     * Filter, which StaffAttendance to fetch.
+     */
+    where: StaffAttendanceWhereUniqueInput
+  }
+
+  /**
+   * StaffAttendance findFirst
+   */
+  export type StaffAttendanceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffAttendance
+     */
+    select?: StaffAttendanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StaffAttendance
+     */
+    omit?: StaffAttendanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffAttendanceInclude<ExtArgs> | null
+    /**
+     * Filter, which StaffAttendance to fetch.
+     */
+    where?: StaffAttendanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StaffAttendances to fetch.
+     */
+    orderBy?: StaffAttendanceOrderByWithRelationInput | StaffAttendanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StaffAttendances.
+     */
+    cursor?: StaffAttendanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StaffAttendances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StaffAttendances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StaffAttendances.
+     */
+    distinct?: StaffAttendanceScalarFieldEnum | StaffAttendanceScalarFieldEnum[]
+  }
+
+  /**
+   * StaffAttendance findFirstOrThrow
+   */
+  export type StaffAttendanceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffAttendance
+     */
+    select?: StaffAttendanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StaffAttendance
+     */
+    omit?: StaffAttendanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffAttendanceInclude<ExtArgs> | null
+    /**
+     * Filter, which StaffAttendance to fetch.
+     */
+    where?: StaffAttendanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StaffAttendances to fetch.
+     */
+    orderBy?: StaffAttendanceOrderByWithRelationInput | StaffAttendanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StaffAttendances.
+     */
+    cursor?: StaffAttendanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StaffAttendances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StaffAttendances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StaffAttendances.
+     */
+    distinct?: StaffAttendanceScalarFieldEnum | StaffAttendanceScalarFieldEnum[]
+  }
+
+  /**
+   * StaffAttendance findMany
+   */
+  export type StaffAttendanceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffAttendance
+     */
+    select?: StaffAttendanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StaffAttendance
+     */
+    omit?: StaffAttendanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffAttendanceInclude<ExtArgs> | null
+    /**
+     * Filter, which StaffAttendances to fetch.
+     */
+    where?: StaffAttendanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StaffAttendances to fetch.
+     */
+    orderBy?: StaffAttendanceOrderByWithRelationInput | StaffAttendanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing StaffAttendances.
+     */
+    cursor?: StaffAttendanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StaffAttendances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StaffAttendances.
+     */
+    skip?: number
+    distinct?: StaffAttendanceScalarFieldEnum | StaffAttendanceScalarFieldEnum[]
+  }
+
+  /**
+   * StaffAttendance create
+   */
+  export type StaffAttendanceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffAttendance
+     */
+    select?: StaffAttendanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StaffAttendance
+     */
+    omit?: StaffAttendanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffAttendanceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a StaffAttendance.
+     */
+    data: XOR<StaffAttendanceCreateInput, StaffAttendanceUncheckedCreateInput>
+  }
+
+  /**
+   * StaffAttendance createMany
+   */
+  export type StaffAttendanceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many StaffAttendances.
+     */
+    data: StaffAttendanceCreateManyInput | StaffAttendanceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * StaffAttendance createManyAndReturn
+   */
+  export type StaffAttendanceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffAttendance
+     */
+    select?: StaffAttendanceSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the StaffAttendance
+     */
+    omit?: StaffAttendanceOmit<ExtArgs> | null
+    /**
+     * The data used to create many StaffAttendances.
+     */
+    data: StaffAttendanceCreateManyInput | StaffAttendanceCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffAttendanceIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * StaffAttendance update
+   */
+  export type StaffAttendanceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffAttendance
+     */
+    select?: StaffAttendanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StaffAttendance
+     */
+    omit?: StaffAttendanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffAttendanceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a StaffAttendance.
+     */
+    data: XOR<StaffAttendanceUpdateInput, StaffAttendanceUncheckedUpdateInput>
+    /**
+     * Choose, which StaffAttendance to update.
+     */
+    where: StaffAttendanceWhereUniqueInput
+  }
+
+  /**
+   * StaffAttendance updateMany
+   */
+  export type StaffAttendanceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update StaffAttendances.
+     */
+    data: XOR<StaffAttendanceUpdateManyMutationInput, StaffAttendanceUncheckedUpdateManyInput>
+    /**
+     * Filter which StaffAttendances to update
+     */
+    where?: StaffAttendanceWhereInput
+    /**
+     * Limit how many StaffAttendances to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * StaffAttendance updateManyAndReturn
+   */
+  export type StaffAttendanceUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffAttendance
+     */
+    select?: StaffAttendanceSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the StaffAttendance
+     */
+    omit?: StaffAttendanceOmit<ExtArgs> | null
+    /**
+     * The data used to update StaffAttendances.
+     */
+    data: XOR<StaffAttendanceUpdateManyMutationInput, StaffAttendanceUncheckedUpdateManyInput>
+    /**
+     * Filter which StaffAttendances to update
+     */
+    where?: StaffAttendanceWhereInput
+    /**
+     * Limit how many StaffAttendances to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffAttendanceIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * StaffAttendance upsert
+   */
+  export type StaffAttendanceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffAttendance
+     */
+    select?: StaffAttendanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StaffAttendance
+     */
+    omit?: StaffAttendanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffAttendanceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the StaffAttendance to update in case it exists.
+     */
+    where: StaffAttendanceWhereUniqueInput
+    /**
+     * In case the StaffAttendance found by the `where` argument doesn't exist, create a new StaffAttendance with this data.
+     */
+    create: XOR<StaffAttendanceCreateInput, StaffAttendanceUncheckedCreateInput>
+    /**
+     * In case the StaffAttendance was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<StaffAttendanceUpdateInput, StaffAttendanceUncheckedUpdateInput>
+  }
+
+  /**
+   * StaffAttendance delete
+   */
+  export type StaffAttendanceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffAttendance
+     */
+    select?: StaffAttendanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StaffAttendance
+     */
+    omit?: StaffAttendanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffAttendanceInclude<ExtArgs> | null
+    /**
+     * Filter which StaffAttendance to delete.
+     */
+    where: StaffAttendanceWhereUniqueInput
+  }
+
+  /**
+   * StaffAttendance deleteMany
+   */
+  export type StaffAttendanceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StaffAttendances to delete
+     */
+    where?: StaffAttendanceWhereInput
+    /**
+     * Limit how many StaffAttendances to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * StaffAttendance without action
+   */
+  export type StaffAttendanceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffAttendance
+     */
+    select?: StaffAttendanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StaffAttendance
+     */
+    omit?: StaffAttendanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffAttendanceInclude<ExtArgs> | null
   }
 
 
@@ -42367,10 +45493,12 @@ export namespace Prisma {
 
   export type OnlineExamAttemptAvgAggregateOutputType = {
     score: number | null
+    position: number | null
   }
 
   export type OnlineExamAttemptSumAggregateOutputType = {
     score: number | null
+    position: number | null
   }
 
   export type OnlineExamAttemptMinAggregateOutputType = {
@@ -42380,6 +45508,7 @@ export namespace Prisma {
     startTime: Date | null
     endTime: Date | null
     score: number | null
+    position: number | null
     status: $Enums.AttemptStatus | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -42392,6 +45521,7 @@ export namespace Prisma {
     startTime: Date | null
     endTime: Date | null
     score: number | null
+    position: number | null
     status: $Enums.AttemptStatus | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -42404,6 +45534,7 @@ export namespace Prisma {
     startTime: number
     endTime: number
     score: number
+    position: number
     status: number
     createdAt: number
     updatedAt: number
@@ -42413,10 +45544,12 @@ export namespace Prisma {
 
   export type OnlineExamAttemptAvgAggregateInputType = {
     score?: true
+    position?: true
   }
 
   export type OnlineExamAttemptSumAggregateInputType = {
     score?: true
+    position?: true
   }
 
   export type OnlineExamAttemptMinAggregateInputType = {
@@ -42426,6 +45559,7 @@ export namespace Prisma {
     startTime?: true
     endTime?: true
     score?: true
+    position?: true
     status?: true
     createdAt?: true
     updatedAt?: true
@@ -42438,6 +45572,7 @@ export namespace Prisma {
     startTime?: true
     endTime?: true
     score?: true
+    position?: true
     status?: true
     createdAt?: true
     updatedAt?: true
@@ -42450,6 +45585,7 @@ export namespace Prisma {
     startTime?: true
     endTime?: true
     score?: true
+    position?: true
     status?: true
     createdAt?: true
     updatedAt?: true
@@ -42549,6 +45685,7 @@ export namespace Prisma {
     startTime: Date
     endTime: Date | null
     score: number | null
+    position: number | null
     status: $Enums.AttemptStatus
     createdAt: Date
     updatedAt: Date
@@ -42580,6 +45717,7 @@ export namespace Prisma {
     startTime?: boolean
     endTime?: boolean
     score?: boolean
+    position?: boolean
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -42596,6 +45734,7 @@ export namespace Prisma {
     startTime?: boolean
     endTime?: boolean
     score?: boolean
+    position?: boolean
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -42610,6 +45749,7 @@ export namespace Prisma {
     startTime?: boolean
     endTime?: boolean
     score?: boolean
+    position?: boolean
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -42624,12 +45764,13 @@ export namespace Prisma {
     startTime?: boolean
     endTime?: boolean
     score?: boolean
+    position?: boolean
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type OnlineExamAttemptOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "examId" | "studentId" | "startTime" | "endTime" | "score" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["onlineExamAttempt"]>
+  export type OnlineExamAttemptOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "examId" | "studentId" | "startTime" | "endTime" | "score" | "position" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["onlineExamAttempt"]>
   export type OnlineExamAttemptInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     exam?: boolean | OnlineExamDefaultArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
@@ -42659,6 +45800,7 @@ export namespace Prisma {
       startTime: Date
       endTime: Date | null
       score: number | null
+      position: number | null
       status: $Enums.AttemptStatus
       createdAt: Date
       updatedAt: Date
@@ -43094,6 +46236,7 @@ export namespace Prisma {
     readonly startTime: FieldRef<"OnlineExamAttempt", 'DateTime'>
     readonly endTime: FieldRef<"OnlineExamAttempt", 'DateTime'>
     readonly score: FieldRef<"OnlineExamAttempt", 'Float'>
+    readonly position: FieldRef<"OnlineExamAttempt", 'Int'>
     readonly status: FieldRef<"OnlineExamAttempt", 'AttemptStatus'>
     readonly createdAt: FieldRef<"OnlineExamAttempt", 'DateTime'>
     readonly updatedAt: FieldRef<"OnlineExamAttempt", 'DateTime'>
@@ -50356,9 +53499,11 @@ export namespace Prisma {
     title: string | null
     description: string | null
     dueDate: Date | null
+    attachmentUrl: string | null
     subjectId: string | null
     sectionId: string | null
     teacherId: string | null
+    branchId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -50368,9 +53513,11 @@ export namespace Prisma {
     title: string | null
     description: string | null
     dueDate: Date | null
+    attachmentUrl: string | null
     subjectId: string | null
     sectionId: string | null
     teacherId: string | null
+    branchId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -50380,9 +53527,11 @@ export namespace Prisma {
     title: number
     description: number
     dueDate: number
+    attachmentUrl: number
     subjectId: number
     sectionId: number
     teacherId: number
+    branchId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -50394,9 +53543,11 @@ export namespace Prisma {
     title?: true
     description?: true
     dueDate?: true
+    attachmentUrl?: true
     subjectId?: true
     sectionId?: true
     teacherId?: true
+    branchId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -50406,9 +53557,11 @@ export namespace Prisma {
     title?: true
     description?: true
     dueDate?: true
+    attachmentUrl?: true
     subjectId?: true
     sectionId?: true
     teacherId?: true
+    branchId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -50418,9 +53571,11 @@ export namespace Prisma {
     title?: true
     description?: true
     dueDate?: true
+    attachmentUrl?: true
     subjectId?: true
     sectionId?: true
     teacherId?: true
+    branchId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -50503,9 +53658,11 @@ export namespace Prisma {
     title: string
     description: string | null
     dueDate: Date
+    attachmentUrl: string | null
     subjectId: string
     sectionId: string
     teacherId: string | null
+    branchId: string
     createdAt: Date
     updatedAt: Date
     _count: AssignmentCountAggregateOutputType | null
@@ -50532,15 +53689,18 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     dueDate?: boolean
+    attachmentUrl?: boolean
     subjectId?: boolean
     sectionId?: boolean
     teacherId?: boolean
+    branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     subject?: boolean | SubjectDefaultArgs<ExtArgs>
     section?: boolean | SectionDefaultArgs<ExtArgs>
     submissions?: boolean | Assignment$submissionsArgs<ExtArgs>
     teacher?: boolean | Assignment$teacherArgs<ExtArgs>
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
     _count?: boolean | AssignmentCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["assignment"]>
 
@@ -50549,14 +53709,17 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     dueDate?: boolean
+    attachmentUrl?: boolean
     subjectId?: boolean
     sectionId?: boolean
     teacherId?: boolean
+    branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     subject?: boolean | SubjectDefaultArgs<ExtArgs>
     section?: boolean | SectionDefaultArgs<ExtArgs>
     teacher?: boolean | Assignment$teacherArgs<ExtArgs>
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["assignment"]>
 
   export type AssignmentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -50564,14 +53727,17 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     dueDate?: boolean
+    attachmentUrl?: boolean
     subjectId?: boolean
     sectionId?: boolean
     teacherId?: boolean
+    branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     subject?: boolean | SubjectDefaultArgs<ExtArgs>
     section?: boolean | SectionDefaultArgs<ExtArgs>
     teacher?: boolean | Assignment$teacherArgs<ExtArgs>
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["assignment"]>
 
   export type AssignmentSelectScalar = {
@@ -50579,30 +53745,35 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     dueDate?: boolean
+    attachmentUrl?: boolean
     subjectId?: boolean
     sectionId?: boolean
     teacherId?: boolean
+    branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type AssignmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "dueDate" | "subjectId" | "sectionId" | "teacherId" | "createdAt" | "updatedAt", ExtArgs["result"]["assignment"]>
+  export type AssignmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "dueDate" | "attachmentUrl" | "subjectId" | "sectionId" | "teacherId" | "branchId" | "createdAt" | "updatedAt", ExtArgs["result"]["assignment"]>
   export type AssignmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     subject?: boolean | SubjectDefaultArgs<ExtArgs>
     section?: boolean | SectionDefaultArgs<ExtArgs>
     submissions?: boolean | Assignment$submissionsArgs<ExtArgs>
     teacher?: boolean | Assignment$teacherArgs<ExtArgs>
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
     _count?: boolean | AssignmentCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type AssignmentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     subject?: boolean | SubjectDefaultArgs<ExtArgs>
     section?: boolean | SectionDefaultArgs<ExtArgs>
     teacher?: boolean | Assignment$teacherArgs<ExtArgs>
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
   }
   export type AssignmentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     subject?: boolean | SubjectDefaultArgs<ExtArgs>
     section?: boolean | SectionDefaultArgs<ExtArgs>
     teacher?: boolean | Assignment$teacherArgs<ExtArgs>
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
   }
 
   export type $AssignmentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -50612,15 +53783,18 @@ export namespace Prisma {
       section: Prisma.$SectionPayload<ExtArgs>
       submissions: Prisma.$SubmissionPayload<ExtArgs>[]
       teacher: Prisma.$StaffPayload<ExtArgs> | null
+      branch: Prisma.$BranchPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       title: string
       description: string | null
       dueDate: Date
+      attachmentUrl: string | null
       subjectId: string
       sectionId: string
       teacherId: string | null
+      branchId: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["assignment"]>
@@ -51021,6 +54195,7 @@ export namespace Prisma {
     section<T extends SectionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SectionDefaultArgs<ExtArgs>>): Prisma__SectionClient<$Result.GetResult<Prisma.$SectionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     submissions<T extends Assignment$submissionsArgs<ExtArgs> = {}>(args?: Subset<T, Assignment$submissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     teacher<T extends Assignment$teacherArgs<ExtArgs> = {}>(args?: Subset<T, Assignment$teacherArgs<ExtArgs>>): Prisma__StaffClient<$Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    branch<T extends BranchDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BranchDefaultArgs<ExtArgs>>): Prisma__BranchClient<$Result.GetResult<Prisma.$BranchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -51054,9 +54229,11 @@ export namespace Prisma {
     readonly title: FieldRef<"Assignment", 'String'>
     readonly description: FieldRef<"Assignment", 'String'>
     readonly dueDate: FieldRef<"Assignment", 'DateTime'>
+    readonly attachmentUrl: FieldRef<"Assignment", 'String'>
     readonly subjectId: FieldRef<"Assignment", 'String'>
     readonly sectionId: FieldRef<"Assignment", 'String'>
     readonly teacherId: FieldRef<"Assignment", 'String'>
+    readonly branchId: FieldRef<"Assignment", 'String'>
     readonly createdAt: FieldRef<"Assignment", 'DateTime'>
     readonly updatedAt: FieldRef<"Assignment", 'DateTime'>
   }
@@ -52869,6 +56046,7 @@ export namespace Prisma {
     behaviouralRatings?: boolean | AcademicSession$behaviouralRatingsArgs<ExtArgs>
     onlineAdmissions?: boolean | AcademicSession$onlineAdmissionsArgs<ExtArgs>
     idCards?: boolean | AcademicSession$idCardsArgs<ExtArgs>
+    digitalResources?: boolean | AcademicSession$digitalResourcesArgs<ExtArgs>
     _count?: boolean | AcademicSessionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["academicSession"]>
 
@@ -52915,6 +56093,7 @@ export namespace Prisma {
     behaviouralRatings?: boolean | AcademicSession$behaviouralRatingsArgs<ExtArgs>
     onlineAdmissions?: boolean | AcademicSession$onlineAdmissionsArgs<ExtArgs>
     idCards?: boolean | AcademicSession$idCardsArgs<ExtArgs>
+    digitalResources?: boolean | AcademicSession$digitalResourcesArgs<ExtArgs>
     _count?: boolean | AcademicSessionCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type AcademicSessionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -52928,6 +56107,7 @@ export namespace Prisma {
       behaviouralRatings: Prisma.$BehaviouralRatingPayload<ExtArgs>[]
       onlineAdmissions: Prisma.$OnlineAdmissionPayload<ExtArgs>[]
       idCards: Prisma.$IdCardPayload<ExtArgs>[]
+      digitalResources: Prisma.$DigitalResourcePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -53338,6 +56518,7 @@ export namespace Prisma {
     behaviouralRatings<T extends AcademicSession$behaviouralRatingsArgs<ExtArgs> = {}>(args?: Subset<T, AcademicSession$behaviouralRatingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BehaviouralRatingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     onlineAdmissions<T extends AcademicSession$onlineAdmissionsArgs<ExtArgs> = {}>(args?: Subset<T, AcademicSession$onlineAdmissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OnlineAdmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     idCards<T extends AcademicSession$idCardsArgs<ExtArgs> = {}>(args?: Subset<T, AcademicSession$idCardsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IdCardPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    digitalResources<T extends AcademicSession$digitalResourcesArgs<ExtArgs> = {}>(args?: Subset<T, AcademicSession$digitalResourcesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DigitalResourcePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -53881,6 +57062,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: IdCardScalarFieldEnum | IdCardScalarFieldEnum[]
+  }
+
+  /**
+   * AcademicSession.digitalResources
+   */
+  export type AcademicSession$digitalResourcesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DigitalResource
+     */
+    select?: DigitalResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DigitalResource
+     */
+    omit?: DigitalResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DigitalResourceInclude<ExtArgs> | null
+    where?: DigitalResourceWhereInput
+    orderBy?: DigitalResourceOrderByWithRelationInput | DigitalResourceOrderByWithRelationInput[]
+    cursor?: DigitalResourceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DigitalResourceScalarFieldEnum | DigitalResourceScalarFieldEnum[]
   }
 
   /**
@@ -75674,10 +78879,15 @@ export namespace Prisma {
   export type GoogleMeetConfigMinAggregateOutputType = {
     id: string | null
     branchId: string | null
-    serviceAccountJson: string | null
-    projectId: string | null
     clientId: string | null
     clientSecret: string | null
+    accessToken: string | null
+    refreshToken: string | null
+    expiryDate: Date | null
+    redirectUri: string | null
+    scopes: string | null
+    serviceAccountJson: string | null
+    projectId: string | null
     apiKey: string | null
     isEnabled: boolean | null
     defaultDuration: number | null
@@ -75690,10 +78900,15 @@ export namespace Prisma {
   export type GoogleMeetConfigMaxAggregateOutputType = {
     id: string | null
     branchId: string | null
-    serviceAccountJson: string | null
-    projectId: string | null
     clientId: string | null
     clientSecret: string | null
+    accessToken: string | null
+    refreshToken: string | null
+    expiryDate: Date | null
+    redirectUri: string | null
+    scopes: string | null
+    serviceAccountJson: string | null
+    projectId: string | null
     apiKey: string | null
     isEnabled: boolean | null
     defaultDuration: number | null
@@ -75706,10 +78921,15 @@ export namespace Prisma {
   export type GoogleMeetConfigCountAggregateOutputType = {
     id: number
     branchId: number
-    serviceAccountJson: number
-    projectId: number
     clientId: number
     clientSecret: number
+    accessToken: number
+    refreshToken: number
+    expiryDate: number
+    redirectUri: number
+    scopes: number
+    serviceAccountJson: number
+    projectId: number
     apiKey: number
     isEnabled: number
     defaultDuration: number
@@ -75732,10 +78952,15 @@ export namespace Prisma {
   export type GoogleMeetConfigMinAggregateInputType = {
     id?: true
     branchId?: true
-    serviceAccountJson?: true
-    projectId?: true
     clientId?: true
     clientSecret?: true
+    accessToken?: true
+    refreshToken?: true
+    expiryDate?: true
+    redirectUri?: true
+    scopes?: true
+    serviceAccountJson?: true
+    projectId?: true
     apiKey?: true
     isEnabled?: true
     defaultDuration?: true
@@ -75748,10 +78973,15 @@ export namespace Prisma {
   export type GoogleMeetConfigMaxAggregateInputType = {
     id?: true
     branchId?: true
-    serviceAccountJson?: true
-    projectId?: true
     clientId?: true
     clientSecret?: true
+    accessToken?: true
+    refreshToken?: true
+    expiryDate?: true
+    redirectUri?: true
+    scopes?: true
+    serviceAccountJson?: true
+    projectId?: true
     apiKey?: true
     isEnabled?: true
     defaultDuration?: true
@@ -75764,10 +78994,15 @@ export namespace Prisma {
   export type GoogleMeetConfigCountAggregateInputType = {
     id?: true
     branchId?: true
-    serviceAccountJson?: true
-    projectId?: true
     clientId?: true
     clientSecret?: true
+    accessToken?: true
+    refreshToken?: true
+    expiryDate?: true
+    redirectUri?: true
+    scopes?: true
+    serviceAccountJson?: true
+    projectId?: true
     apiKey?: true
     isEnabled?: true
     defaultDuration?: true
@@ -75867,11 +79102,16 @@ export namespace Prisma {
   export type GoogleMeetConfigGroupByOutputType = {
     id: string
     branchId: string
-    serviceAccountJson: string
-    projectId: string
-    clientId: string
-    clientSecret: string
-    apiKey: string
+    clientId: string | null
+    clientSecret: string | null
+    accessToken: string | null
+    refreshToken: string | null
+    expiryDate: Date | null
+    redirectUri: string | null
+    scopes: string | null
+    serviceAccountJson: string | null
+    projectId: string | null
+    apiKey: string | null
     isEnabled: boolean
     defaultDuration: number
     allowRecording: boolean
@@ -75902,10 +79142,15 @@ export namespace Prisma {
   export type GoogleMeetConfigSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     branchId?: boolean
-    serviceAccountJson?: boolean
-    projectId?: boolean
     clientId?: boolean
     clientSecret?: boolean
+    accessToken?: boolean
+    refreshToken?: boolean
+    expiryDate?: boolean
+    redirectUri?: boolean
+    scopes?: boolean
+    serviceAccountJson?: boolean
+    projectId?: boolean
     apiKey?: boolean
     isEnabled?: boolean
     defaultDuration?: boolean
@@ -75919,10 +79164,15 @@ export namespace Prisma {
   export type GoogleMeetConfigSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     branchId?: boolean
-    serviceAccountJson?: boolean
-    projectId?: boolean
     clientId?: boolean
     clientSecret?: boolean
+    accessToken?: boolean
+    refreshToken?: boolean
+    expiryDate?: boolean
+    redirectUri?: boolean
+    scopes?: boolean
+    serviceAccountJson?: boolean
+    projectId?: boolean
     apiKey?: boolean
     isEnabled?: boolean
     defaultDuration?: boolean
@@ -75936,10 +79186,15 @@ export namespace Prisma {
   export type GoogleMeetConfigSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     branchId?: boolean
-    serviceAccountJson?: boolean
-    projectId?: boolean
     clientId?: boolean
     clientSecret?: boolean
+    accessToken?: boolean
+    refreshToken?: boolean
+    expiryDate?: boolean
+    redirectUri?: boolean
+    scopes?: boolean
+    serviceAccountJson?: boolean
+    projectId?: boolean
     apiKey?: boolean
     isEnabled?: boolean
     defaultDuration?: boolean
@@ -75953,10 +79208,15 @@ export namespace Prisma {
   export type GoogleMeetConfigSelectScalar = {
     id?: boolean
     branchId?: boolean
-    serviceAccountJson?: boolean
-    projectId?: boolean
     clientId?: boolean
     clientSecret?: boolean
+    accessToken?: boolean
+    refreshToken?: boolean
+    expiryDate?: boolean
+    redirectUri?: boolean
+    scopes?: boolean
+    serviceAccountJson?: boolean
+    projectId?: boolean
     apiKey?: boolean
     isEnabled?: boolean
     defaultDuration?: boolean
@@ -75966,7 +79226,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type GoogleMeetConfigOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "branchId" | "serviceAccountJson" | "projectId" | "clientId" | "clientSecret" | "apiKey" | "isEnabled" | "defaultDuration" | "allowRecording" | "requireApproval" | "createdAt" | "updatedAt", ExtArgs["result"]["googleMeetConfig"]>
+  export type GoogleMeetConfigOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "branchId" | "clientId" | "clientSecret" | "accessToken" | "refreshToken" | "expiryDate" | "redirectUri" | "scopes" | "serviceAccountJson" | "projectId" | "apiKey" | "isEnabled" | "defaultDuration" | "allowRecording" | "requireApproval" | "createdAt" | "updatedAt", ExtArgs["result"]["googleMeetConfig"]>
   export type GoogleMeetConfigInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     branch?: boolean | BranchDefaultArgs<ExtArgs>
   }
@@ -75985,11 +79245,16 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       branchId: string
-      serviceAccountJson: string
-      projectId: string
-      clientId: string
-      clientSecret: string
-      apiKey: string
+      clientId: string | null
+      clientSecret: string | null
+      accessToken: string | null
+      refreshToken: string | null
+      expiryDate: Date | null
+      redirectUri: string | null
+      scopes: string | null
+      serviceAccountJson: string | null
+      projectId: string | null
+      apiKey: string | null
       isEnabled: boolean
       defaultDuration: number
       allowRecording: boolean
@@ -76422,10 +79687,15 @@ export namespace Prisma {
   interface GoogleMeetConfigFieldRefs {
     readonly id: FieldRef<"GoogleMeetConfig", 'String'>
     readonly branchId: FieldRef<"GoogleMeetConfig", 'String'>
-    readonly serviceAccountJson: FieldRef<"GoogleMeetConfig", 'String'>
-    readonly projectId: FieldRef<"GoogleMeetConfig", 'String'>
     readonly clientId: FieldRef<"GoogleMeetConfig", 'String'>
     readonly clientSecret: FieldRef<"GoogleMeetConfig", 'String'>
+    readonly accessToken: FieldRef<"GoogleMeetConfig", 'String'>
+    readonly refreshToken: FieldRef<"GoogleMeetConfig", 'String'>
+    readonly expiryDate: FieldRef<"GoogleMeetConfig", 'DateTime'>
+    readonly redirectUri: FieldRef<"GoogleMeetConfig", 'String'>
+    readonly scopes: FieldRef<"GoogleMeetConfig", 'String'>
+    readonly serviceAccountJson: FieldRef<"GoogleMeetConfig", 'String'>
+    readonly projectId: FieldRef<"GoogleMeetConfig", 'String'>
     readonly apiKey: FieldRef<"GoogleMeetConfig", 'String'>
     readonly isEnabled: FieldRef<"GoogleMeetConfig", 'Boolean'>
     readonly defaultDuration: FieldRef<"GoogleMeetConfig", 'Int'>
@@ -76862,6 +80132,7 @@ export namespace Prisma {
     title: string | null
     description: string | null
     meetingId: string | null
+    meetLink: string | null
     hostUrl: string | null
     participantUrl: string | null
     classId: string | null
@@ -76872,8 +80143,14 @@ export namespace Prisma {
     scheduledEnd: Date | null
     actualStart: Date | null
     actualEnd: Date | null
+    timezone: string | null
+    isRecurring: boolean | null
+    recurrenceRule: string | null
+    seriesId: string | null
     status: string | null
+    recordingId: string | null
     recordingUrl: string | null
+    recordingStatus: string | null
     branchId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -76884,6 +80161,7 @@ export namespace Prisma {
     title: string | null
     description: string | null
     meetingId: string | null
+    meetLink: string | null
     hostUrl: string | null
     participantUrl: string | null
     classId: string | null
@@ -76894,8 +80172,14 @@ export namespace Prisma {
     scheduledEnd: Date | null
     actualStart: Date | null
     actualEnd: Date | null
+    timezone: string | null
+    isRecurring: boolean | null
+    recurrenceRule: string | null
+    seriesId: string | null
     status: string | null
+    recordingId: string | null
     recordingUrl: string | null
+    recordingStatus: string | null
     branchId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -76906,6 +80190,7 @@ export namespace Prisma {
     title: number
     description: number
     meetingId: number
+    meetLink: number
     hostUrl: number
     participantUrl: number
     classId: number
@@ -76916,8 +80201,14 @@ export namespace Prisma {
     scheduledEnd: number
     actualStart: number
     actualEnd: number
+    timezone: number
+    isRecurring: number
+    recurrenceRule: number
+    seriesId: number
     status: number
+    recordingId: number
     recordingUrl: number
+    recordingStatus: number
     branchId: number
     createdAt: number
     updatedAt: number
@@ -76930,6 +80221,7 @@ export namespace Prisma {
     title?: true
     description?: true
     meetingId?: true
+    meetLink?: true
     hostUrl?: true
     participantUrl?: true
     classId?: true
@@ -76940,8 +80232,14 @@ export namespace Prisma {
     scheduledEnd?: true
     actualStart?: true
     actualEnd?: true
+    timezone?: true
+    isRecurring?: true
+    recurrenceRule?: true
+    seriesId?: true
     status?: true
+    recordingId?: true
     recordingUrl?: true
+    recordingStatus?: true
     branchId?: true
     createdAt?: true
     updatedAt?: true
@@ -76952,6 +80250,7 @@ export namespace Prisma {
     title?: true
     description?: true
     meetingId?: true
+    meetLink?: true
     hostUrl?: true
     participantUrl?: true
     classId?: true
@@ -76962,8 +80261,14 @@ export namespace Prisma {
     scheduledEnd?: true
     actualStart?: true
     actualEnd?: true
+    timezone?: true
+    isRecurring?: true
+    recurrenceRule?: true
+    seriesId?: true
     status?: true
+    recordingId?: true
     recordingUrl?: true
+    recordingStatus?: true
     branchId?: true
     createdAt?: true
     updatedAt?: true
@@ -76974,6 +80279,7 @@ export namespace Prisma {
     title?: true
     description?: true
     meetingId?: true
+    meetLink?: true
     hostUrl?: true
     participantUrl?: true
     classId?: true
@@ -76984,8 +80290,14 @@ export namespace Prisma {
     scheduledEnd?: true
     actualStart?: true
     actualEnd?: true
+    timezone?: true
+    isRecurring?: true
+    recurrenceRule?: true
+    seriesId?: true
     status?: true
+    recordingId?: true
     recordingUrl?: true
+    recordingStatus?: true
     branchId?: true
     createdAt?: true
     updatedAt?: true
@@ -77069,8 +80381,9 @@ export namespace Prisma {
     title: string
     description: string | null
     meetingId: string
-    hostUrl: string
-    participantUrl: string
+    meetLink: string | null
+    hostUrl: string | null
+    participantUrl: string | null
     classId: string | null
     sectionId: string | null
     subjectId: string | null
@@ -77079,8 +80392,14 @@ export namespace Prisma {
     scheduledEnd: Date
     actualStart: Date | null
     actualEnd: Date | null
+    timezone: string
+    isRecurring: boolean
+    recurrenceRule: string | null
+    seriesId: string | null
     status: string
+    recordingId: string | null
     recordingUrl: string | null
+    recordingStatus: string | null
     branchId: string
     createdAt: Date
     updatedAt: Date
@@ -77108,6 +80427,7 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     meetingId?: boolean
+    meetLink?: boolean
     hostUrl?: boolean
     participantUrl?: boolean
     classId?: boolean
@@ -77118,8 +80438,14 @@ export namespace Prisma {
     scheduledEnd?: boolean
     actualStart?: boolean
     actualEnd?: boolean
+    timezone?: boolean
+    isRecurring?: boolean
+    recurrenceRule?: boolean
+    seriesId?: boolean
     status?: boolean
+    recordingId?: boolean
     recordingUrl?: boolean
+    recordingStatus?: boolean
     branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -77137,6 +80463,7 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     meetingId?: boolean
+    meetLink?: boolean
     hostUrl?: boolean
     participantUrl?: boolean
     classId?: boolean
@@ -77147,8 +80474,14 @@ export namespace Prisma {
     scheduledEnd?: boolean
     actualStart?: boolean
     actualEnd?: boolean
+    timezone?: boolean
+    isRecurring?: boolean
+    recurrenceRule?: boolean
+    seriesId?: boolean
     status?: boolean
+    recordingId?: boolean
     recordingUrl?: boolean
+    recordingStatus?: boolean
     branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -77164,6 +80497,7 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     meetingId?: boolean
+    meetLink?: boolean
     hostUrl?: boolean
     participantUrl?: boolean
     classId?: boolean
@@ -77174,8 +80508,14 @@ export namespace Prisma {
     scheduledEnd?: boolean
     actualStart?: boolean
     actualEnd?: boolean
+    timezone?: boolean
+    isRecurring?: boolean
+    recurrenceRule?: boolean
+    seriesId?: boolean
     status?: boolean
+    recordingId?: boolean
     recordingUrl?: boolean
+    recordingStatus?: boolean
     branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -77191,6 +80531,7 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     meetingId?: boolean
+    meetLink?: boolean
     hostUrl?: boolean
     participantUrl?: boolean
     classId?: boolean
@@ -77201,14 +80542,20 @@ export namespace Prisma {
     scheduledEnd?: boolean
     actualStart?: boolean
     actualEnd?: boolean
+    timezone?: boolean
+    isRecurring?: boolean
+    recurrenceRule?: boolean
+    seriesId?: boolean
     status?: boolean
+    recordingId?: boolean
     recordingUrl?: boolean
+    recordingStatus?: boolean
     branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type LiveClassSessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "meetingId" | "hostUrl" | "participantUrl" | "classId" | "sectionId" | "subjectId" | "hostId" | "scheduledStart" | "scheduledEnd" | "actualStart" | "actualEnd" | "status" | "recordingUrl" | "branchId" | "createdAt" | "updatedAt", ExtArgs["result"]["liveClassSession"]>
+  export type LiveClassSessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "meetingId" | "meetLink" | "hostUrl" | "participantUrl" | "classId" | "sectionId" | "subjectId" | "hostId" | "scheduledStart" | "scheduledEnd" | "actualStart" | "actualEnd" | "timezone" | "isRecurring" | "recurrenceRule" | "seriesId" | "status" | "recordingId" | "recordingUrl" | "recordingStatus" | "branchId" | "createdAt" | "updatedAt", ExtArgs["result"]["liveClassSession"]>
   export type LiveClassSessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     class?: boolean | LiveClassSession$classArgs<ExtArgs>
     section?: boolean | LiveClassSession$sectionArgs<ExtArgs>
@@ -77248,8 +80595,9 @@ export namespace Prisma {
       title: string
       description: string | null
       meetingId: string
-      hostUrl: string
-      participantUrl: string
+      meetLink: string | null
+      hostUrl: string | null
+      participantUrl: string | null
       classId: string | null
       sectionId: string | null
       subjectId: string | null
@@ -77258,8 +80606,14 @@ export namespace Prisma {
       scheduledEnd: Date
       actualStart: Date | null
       actualEnd: Date | null
+      timezone: string
+      isRecurring: boolean
+      recurrenceRule: string | null
+      seriesId: string | null
       status: string
+      recordingId: string | null
       recordingUrl: string | null
+      recordingStatus: string | null
       branchId: string
       createdAt: Date
       updatedAt: Date
@@ -77696,6 +81050,7 @@ export namespace Prisma {
     readonly title: FieldRef<"LiveClassSession", 'String'>
     readonly description: FieldRef<"LiveClassSession", 'String'>
     readonly meetingId: FieldRef<"LiveClassSession", 'String'>
+    readonly meetLink: FieldRef<"LiveClassSession", 'String'>
     readonly hostUrl: FieldRef<"LiveClassSession", 'String'>
     readonly participantUrl: FieldRef<"LiveClassSession", 'String'>
     readonly classId: FieldRef<"LiveClassSession", 'String'>
@@ -77706,8 +81061,14 @@ export namespace Prisma {
     readonly scheduledEnd: FieldRef<"LiveClassSession", 'DateTime'>
     readonly actualStart: FieldRef<"LiveClassSession", 'DateTime'>
     readonly actualEnd: FieldRef<"LiveClassSession", 'DateTime'>
+    readonly timezone: FieldRef<"LiveClassSession", 'String'>
+    readonly isRecurring: FieldRef<"LiveClassSession", 'Boolean'>
+    readonly recurrenceRule: FieldRef<"LiveClassSession", 'String'>
+    readonly seriesId: FieldRef<"LiveClassSession", 'String'>
     readonly status: FieldRef<"LiveClassSession", 'String'>
+    readonly recordingId: FieldRef<"LiveClassSession", 'String'>
     readonly recordingUrl: FieldRef<"LiveClassSession", 'String'>
+    readonly recordingStatus: FieldRef<"LiveClassSession", 'String'>
     readonly branchId: FieldRef<"LiveClassSession", 'String'>
     readonly createdAt: FieldRef<"LiveClassSession", 'DateTime'>
     readonly updatedAt: FieldRef<"LiveClassSession", 'DateTime'>
@@ -111359,6 +114720,2460 @@ export namespace Prisma {
 
 
   /**
+   * Model DigitalResource
+   */
+
+  export type AggregateDigitalResource = {
+    _count: DigitalResourceCountAggregateOutputType | null
+    _avg: DigitalResourceAvgAggregateOutputType | null
+    _sum: DigitalResourceSumAggregateOutputType | null
+    _min: DigitalResourceMinAggregateOutputType | null
+    _max: DigitalResourceMaxAggregateOutputType | null
+  }
+
+  export type DigitalResourceAvgAggregateOutputType = {
+    fileSize: number | null
+  }
+
+  export type DigitalResourceSumAggregateOutputType = {
+    fileSize: number | null
+  }
+
+  export type DigitalResourceMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    fileUrl: string | null
+    fileType: string | null
+    fileSize: number | null
+    thumbnailUrl: string | null
+    category: string | null
+    sessionId: string | null
+    classId: string | null
+    sectionId: string | null
+    subjectId: string | null
+    uploaderId: string | null
+    branchId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DigitalResourceMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    fileUrl: string | null
+    fileType: string | null
+    fileSize: number | null
+    thumbnailUrl: string | null
+    category: string | null
+    sessionId: string | null
+    classId: string | null
+    sectionId: string | null
+    subjectId: string | null
+    uploaderId: string | null
+    branchId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DigitalResourceCountAggregateOutputType = {
+    id: number
+    title: number
+    description: number
+    fileUrl: number
+    fileType: number
+    fileSize: number
+    thumbnailUrl: number
+    category: number
+    sessionId: number
+    classId: number
+    sectionId: number
+    subjectId: number
+    uploaderId: number
+    branchId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DigitalResourceAvgAggregateInputType = {
+    fileSize?: true
+  }
+
+  export type DigitalResourceSumAggregateInputType = {
+    fileSize?: true
+  }
+
+  export type DigitalResourceMinAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    fileUrl?: true
+    fileType?: true
+    fileSize?: true
+    thumbnailUrl?: true
+    category?: true
+    sessionId?: true
+    classId?: true
+    sectionId?: true
+    subjectId?: true
+    uploaderId?: true
+    branchId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DigitalResourceMaxAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    fileUrl?: true
+    fileType?: true
+    fileSize?: true
+    thumbnailUrl?: true
+    category?: true
+    sessionId?: true
+    classId?: true
+    sectionId?: true
+    subjectId?: true
+    uploaderId?: true
+    branchId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DigitalResourceCountAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    fileUrl?: true
+    fileType?: true
+    fileSize?: true
+    thumbnailUrl?: true
+    category?: true
+    sessionId?: true
+    classId?: true
+    sectionId?: true
+    subjectId?: true
+    uploaderId?: true
+    branchId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DigitalResourceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DigitalResource to aggregate.
+     */
+    where?: DigitalResourceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DigitalResources to fetch.
+     */
+    orderBy?: DigitalResourceOrderByWithRelationInput | DigitalResourceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DigitalResourceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DigitalResources from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DigitalResources.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DigitalResources
+    **/
+    _count?: true | DigitalResourceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DigitalResourceAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DigitalResourceSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DigitalResourceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DigitalResourceMaxAggregateInputType
+  }
+
+  export type GetDigitalResourceAggregateType<T extends DigitalResourceAggregateArgs> = {
+        [P in keyof T & keyof AggregateDigitalResource]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDigitalResource[P]>
+      : GetScalarType<T[P], AggregateDigitalResource[P]>
+  }
+
+
+
+
+  export type DigitalResourceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DigitalResourceWhereInput
+    orderBy?: DigitalResourceOrderByWithAggregationInput | DigitalResourceOrderByWithAggregationInput[]
+    by: DigitalResourceScalarFieldEnum[] | DigitalResourceScalarFieldEnum
+    having?: DigitalResourceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DigitalResourceCountAggregateInputType | true
+    _avg?: DigitalResourceAvgAggregateInputType
+    _sum?: DigitalResourceSumAggregateInputType
+    _min?: DigitalResourceMinAggregateInputType
+    _max?: DigitalResourceMaxAggregateInputType
+  }
+
+  export type DigitalResourceGroupByOutputType = {
+    id: string
+    title: string
+    description: string | null
+    fileUrl: string
+    fileType: string
+    fileSize: number | null
+    thumbnailUrl: string | null
+    category: string
+    sessionId: string
+    classId: string | null
+    sectionId: string | null
+    subjectId: string | null
+    uploaderId: string
+    branchId: string
+    createdAt: Date
+    updatedAt: Date
+    _count: DigitalResourceCountAggregateOutputType | null
+    _avg: DigitalResourceAvgAggregateOutputType | null
+    _sum: DigitalResourceSumAggregateOutputType | null
+    _min: DigitalResourceMinAggregateOutputType | null
+    _max: DigitalResourceMaxAggregateOutputType | null
+  }
+
+  type GetDigitalResourceGroupByPayload<T extends DigitalResourceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DigitalResourceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DigitalResourceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DigitalResourceGroupByOutputType[P]>
+            : GetScalarType<T[P], DigitalResourceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DigitalResourceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    fileUrl?: boolean
+    fileType?: boolean
+    fileSize?: boolean
+    thumbnailUrl?: boolean
+    category?: boolean
+    sessionId?: boolean
+    classId?: boolean
+    sectionId?: boolean
+    subjectId?: boolean
+    uploaderId?: boolean
+    branchId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    session?: boolean | AcademicSessionDefaultArgs<ExtArgs>
+    class?: boolean | DigitalResource$classArgs<ExtArgs>
+    section?: boolean | DigitalResource$sectionArgs<ExtArgs>
+    subject?: boolean | DigitalResource$subjectArgs<ExtArgs>
+    uploader?: boolean | StaffDefaultArgs<ExtArgs>
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+    logs?: boolean | DigitalResource$logsArgs<ExtArgs>
+    _count?: boolean | DigitalResourceCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["digitalResource"]>
+
+  export type DigitalResourceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    fileUrl?: boolean
+    fileType?: boolean
+    fileSize?: boolean
+    thumbnailUrl?: boolean
+    category?: boolean
+    sessionId?: boolean
+    classId?: boolean
+    sectionId?: boolean
+    subjectId?: boolean
+    uploaderId?: boolean
+    branchId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    session?: boolean | AcademicSessionDefaultArgs<ExtArgs>
+    class?: boolean | DigitalResource$classArgs<ExtArgs>
+    section?: boolean | DigitalResource$sectionArgs<ExtArgs>
+    subject?: boolean | DigitalResource$subjectArgs<ExtArgs>
+    uploader?: boolean | StaffDefaultArgs<ExtArgs>
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["digitalResource"]>
+
+  export type DigitalResourceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    fileUrl?: boolean
+    fileType?: boolean
+    fileSize?: boolean
+    thumbnailUrl?: boolean
+    category?: boolean
+    sessionId?: boolean
+    classId?: boolean
+    sectionId?: boolean
+    subjectId?: boolean
+    uploaderId?: boolean
+    branchId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    session?: boolean | AcademicSessionDefaultArgs<ExtArgs>
+    class?: boolean | DigitalResource$classArgs<ExtArgs>
+    section?: boolean | DigitalResource$sectionArgs<ExtArgs>
+    subject?: boolean | DigitalResource$subjectArgs<ExtArgs>
+    uploader?: boolean | StaffDefaultArgs<ExtArgs>
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["digitalResource"]>
+
+  export type DigitalResourceSelectScalar = {
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    fileUrl?: boolean
+    fileType?: boolean
+    fileSize?: boolean
+    thumbnailUrl?: boolean
+    category?: boolean
+    sessionId?: boolean
+    classId?: boolean
+    sectionId?: boolean
+    subjectId?: boolean
+    uploaderId?: boolean
+    branchId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DigitalResourceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "fileUrl" | "fileType" | "fileSize" | "thumbnailUrl" | "category" | "sessionId" | "classId" | "sectionId" | "subjectId" | "uploaderId" | "branchId" | "createdAt" | "updatedAt", ExtArgs["result"]["digitalResource"]>
+  export type DigitalResourceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    session?: boolean | AcademicSessionDefaultArgs<ExtArgs>
+    class?: boolean | DigitalResource$classArgs<ExtArgs>
+    section?: boolean | DigitalResource$sectionArgs<ExtArgs>
+    subject?: boolean | DigitalResource$subjectArgs<ExtArgs>
+    uploader?: boolean | StaffDefaultArgs<ExtArgs>
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+    logs?: boolean | DigitalResource$logsArgs<ExtArgs>
+    _count?: boolean | DigitalResourceCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type DigitalResourceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    session?: boolean | AcademicSessionDefaultArgs<ExtArgs>
+    class?: boolean | DigitalResource$classArgs<ExtArgs>
+    section?: boolean | DigitalResource$sectionArgs<ExtArgs>
+    subject?: boolean | DigitalResource$subjectArgs<ExtArgs>
+    uploader?: boolean | StaffDefaultArgs<ExtArgs>
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+  }
+  export type DigitalResourceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    session?: boolean | AcademicSessionDefaultArgs<ExtArgs>
+    class?: boolean | DigitalResource$classArgs<ExtArgs>
+    section?: boolean | DigitalResource$sectionArgs<ExtArgs>
+    subject?: boolean | DigitalResource$subjectArgs<ExtArgs>
+    uploader?: boolean | StaffDefaultArgs<ExtArgs>
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+  }
+
+  export type $DigitalResourcePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DigitalResource"
+    objects: {
+      session: Prisma.$AcademicSessionPayload<ExtArgs>
+      class: Prisma.$ClassPayload<ExtArgs> | null
+      section: Prisma.$SectionPayload<ExtArgs> | null
+      subject: Prisma.$SubjectPayload<ExtArgs> | null
+      uploader: Prisma.$StaffPayload<ExtArgs>
+      branch: Prisma.$BranchPayload<ExtArgs>
+      logs: Prisma.$DigitalResourceLogPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      description: string | null
+      fileUrl: string
+      fileType: string
+      fileSize: number | null
+      thumbnailUrl: string | null
+      category: string
+      sessionId: string
+      classId: string | null
+      sectionId: string | null
+      subjectId: string | null
+      uploaderId: string
+      branchId: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["digitalResource"]>
+    composites: {}
+  }
+
+  type DigitalResourceGetPayload<S extends boolean | null | undefined | DigitalResourceDefaultArgs> = $Result.GetResult<Prisma.$DigitalResourcePayload, S>
+
+  type DigitalResourceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DigitalResourceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DigitalResourceCountAggregateInputType | true
+    }
+
+  export interface DigitalResourceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DigitalResource'], meta: { name: 'DigitalResource' } }
+    /**
+     * Find zero or one DigitalResource that matches the filter.
+     * @param {DigitalResourceFindUniqueArgs} args - Arguments to find a DigitalResource
+     * @example
+     * // Get one DigitalResource
+     * const digitalResource = await prisma.digitalResource.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DigitalResourceFindUniqueArgs>(args: SelectSubset<T, DigitalResourceFindUniqueArgs<ExtArgs>>): Prisma__DigitalResourceClient<$Result.GetResult<Prisma.$DigitalResourcePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DigitalResource that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DigitalResourceFindUniqueOrThrowArgs} args - Arguments to find a DigitalResource
+     * @example
+     * // Get one DigitalResource
+     * const digitalResource = await prisma.digitalResource.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DigitalResourceFindUniqueOrThrowArgs>(args: SelectSubset<T, DigitalResourceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DigitalResourceClient<$Result.GetResult<Prisma.$DigitalResourcePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DigitalResource that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DigitalResourceFindFirstArgs} args - Arguments to find a DigitalResource
+     * @example
+     * // Get one DigitalResource
+     * const digitalResource = await prisma.digitalResource.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DigitalResourceFindFirstArgs>(args?: SelectSubset<T, DigitalResourceFindFirstArgs<ExtArgs>>): Prisma__DigitalResourceClient<$Result.GetResult<Prisma.$DigitalResourcePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DigitalResource that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DigitalResourceFindFirstOrThrowArgs} args - Arguments to find a DigitalResource
+     * @example
+     * // Get one DigitalResource
+     * const digitalResource = await prisma.digitalResource.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DigitalResourceFindFirstOrThrowArgs>(args?: SelectSubset<T, DigitalResourceFindFirstOrThrowArgs<ExtArgs>>): Prisma__DigitalResourceClient<$Result.GetResult<Prisma.$DigitalResourcePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DigitalResources that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DigitalResourceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DigitalResources
+     * const digitalResources = await prisma.digitalResource.findMany()
+     * 
+     * // Get first 10 DigitalResources
+     * const digitalResources = await prisma.digitalResource.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const digitalResourceWithIdOnly = await prisma.digitalResource.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DigitalResourceFindManyArgs>(args?: SelectSubset<T, DigitalResourceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DigitalResourcePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DigitalResource.
+     * @param {DigitalResourceCreateArgs} args - Arguments to create a DigitalResource.
+     * @example
+     * // Create one DigitalResource
+     * const DigitalResource = await prisma.digitalResource.create({
+     *   data: {
+     *     // ... data to create a DigitalResource
+     *   }
+     * })
+     * 
+     */
+    create<T extends DigitalResourceCreateArgs>(args: SelectSubset<T, DigitalResourceCreateArgs<ExtArgs>>): Prisma__DigitalResourceClient<$Result.GetResult<Prisma.$DigitalResourcePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DigitalResources.
+     * @param {DigitalResourceCreateManyArgs} args - Arguments to create many DigitalResources.
+     * @example
+     * // Create many DigitalResources
+     * const digitalResource = await prisma.digitalResource.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DigitalResourceCreateManyArgs>(args?: SelectSubset<T, DigitalResourceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DigitalResources and returns the data saved in the database.
+     * @param {DigitalResourceCreateManyAndReturnArgs} args - Arguments to create many DigitalResources.
+     * @example
+     * // Create many DigitalResources
+     * const digitalResource = await prisma.digitalResource.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DigitalResources and only return the `id`
+     * const digitalResourceWithIdOnly = await prisma.digitalResource.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DigitalResourceCreateManyAndReturnArgs>(args?: SelectSubset<T, DigitalResourceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DigitalResourcePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DigitalResource.
+     * @param {DigitalResourceDeleteArgs} args - Arguments to delete one DigitalResource.
+     * @example
+     * // Delete one DigitalResource
+     * const DigitalResource = await prisma.digitalResource.delete({
+     *   where: {
+     *     // ... filter to delete one DigitalResource
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DigitalResourceDeleteArgs>(args: SelectSubset<T, DigitalResourceDeleteArgs<ExtArgs>>): Prisma__DigitalResourceClient<$Result.GetResult<Prisma.$DigitalResourcePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DigitalResource.
+     * @param {DigitalResourceUpdateArgs} args - Arguments to update one DigitalResource.
+     * @example
+     * // Update one DigitalResource
+     * const digitalResource = await prisma.digitalResource.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DigitalResourceUpdateArgs>(args: SelectSubset<T, DigitalResourceUpdateArgs<ExtArgs>>): Prisma__DigitalResourceClient<$Result.GetResult<Prisma.$DigitalResourcePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DigitalResources.
+     * @param {DigitalResourceDeleteManyArgs} args - Arguments to filter DigitalResources to delete.
+     * @example
+     * // Delete a few DigitalResources
+     * const { count } = await prisma.digitalResource.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DigitalResourceDeleteManyArgs>(args?: SelectSubset<T, DigitalResourceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DigitalResources.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DigitalResourceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DigitalResources
+     * const digitalResource = await prisma.digitalResource.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DigitalResourceUpdateManyArgs>(args: SelectSubset<T, DigitalResourceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DigitalResources and returns the data updated in the database.
+     * @param {DigitalResourceUpdateManyAndReturnArgs} args - Arguments to update many DigitalResources.
+     * @example
+     * // Update many DigitalResources
+     * const digitalResource = await prisma.digitalResource.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DigitalResources and only return the `id`
+     * const digitalResourceWithIdOnly = await prisma.digitalResource.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DigitalResourceUpdateManyAndReturnArgs>(args: SelectSubset<T, DigitalResourceUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DigitalResourcePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DigitalResource.
+     * @param {DigitalResourceUpsertArgs} args - Arguments to update or create a DigitalResource.
+     * @example
+     * // Update or create a DigitalResource
+     * const digitalResource = await prisma.digitalResource.upsert({
+     *   create: {
+     *     // ... data to create a DigitalResource
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DigitalResource we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DigitalResourceUpsertArgs>(args: SelectSubset<T, DigitalResourceUpsertArgs<ExtArgs>>): Prisma__DigitalResourceClient<$Result.GetResult<Prisma.$DigitalResourcePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DigitalResources.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DigitalResourceCountArgs} args - Arguments to filter DigitalResources to count.
+     * @example
+     * // Count the number of DigitalResources
+     * const count = await prisma.digitalResource.count({
+     *   where: {
+     *     // ... the filter for the DigitalResources we want to count
+     *   }
+     * })
+    **/
+    count<T extends DigitalResourceCountArgs>(
+      args?: Subset<T, DigitalResourceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DigitalResourceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DigitalResource.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DigitalResourceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DigitalResourceAggregateArgs>(args: Subset<T, DigitalResourceAggregateArgs>): Prisma.PrismaPromise<GetDigitalResourceAggregateType<T>>
+
+    /**
+     * Group by DigitalResource.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DigitalResourceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DigitalResourceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DigitalResourceGroupByArgs['orderBy'] }
+        : { orderBy?: DigitalResourceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DigitalResourceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDigitalResourceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DigitalResource model
+   */
+  readonly fields: DigitalResourceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DigitalResource.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DigitalResourceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    session<T extends AcademicSessionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AcademicSessionDefaultArgs<ExtArgs>>): Prisma__AcademicSessionClient<$Result.GetResult<Prisma.$AcademicSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    class<T extends DigitalResource$classArgs<ExtArgs> = {}>(args?: Subset<T, DigitalResource$classArgs<ExtArgs>>): Prisma__ClassClient<$Result.GetResult<Prisma.$ClassPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    section<T extends DigitalResource$sectionArgs<ExtArgs> = {}>(args?: Subset<T, DigitalResource$sectionArgs<ExtArgs>>): Prisma__SectionClient<$Result.GetResult<Prisma.$SectionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    subject<T extends DigitalResource$subjectArgs<ExtArgs> = {}>(args?: Subset<T, DigitalResource$subjectArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    uploader<T extends StaffDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StaffDefaultArgs<ExtArgs>>): Prisma__StaffClient<$Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    branch<T extends BranchDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BranchDefaultArgs<ExtArgs>>): Prisma__BranchClient<$Result.GetResult<Prisma.$BranchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    logs<T extends DigitalResource$logsArgs<ExtArgs> = {}>(args?: Subset<T, DigitalResource$logsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DigitalResourceLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DigitalResource model
+   */
+  interface DigitalResourceFieldRefs {
+    readonly id: FieldRef<"DigitalResource", 'String'>
+    readonly title: FieldRef<"DigitalResource", 'String'>
+    readonly description: FieldRef<"DigitalResource", 'String'>
+    readonly fileUrl: FieldRef<"DigitalResource", 'String'>
+    readonly fileType: FieldRef<"DigitalResource", 'String'>
+    readonly fileSize: FieldRef<"DigitalResource", 'Int'>
+    readonly thumbnailUrl: FieldRef<"DigitalResource", 'String'>
+    readonly category: FieldRef<"DigitalResource", 'String'>
+    readonly sessionId: FieldRef<"DigitalResource", 'String'>
+    readonly classId: FieldRef<"DigitalResource", 'String'>
+    readonly sectionId: FieldRef<"DigitalResource", 'String'>
+    readonly subjectId: FieldRef<"DigitalResource", 'String'>
+    readonly uploaderId: FieldRef<"DigitalResource", 'String'>
+    readonly branchId: FieldRef<"DigitalResource", 'String'>
+    readonly createdAt: FieldRef<"DigitalResource", 'DateTime'>
+    readonly updatedAt: FieldRef<"DigitalResource", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DigitalResource findUnique
+   */
+  export type DigitalResourceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DigitalResource
+     */
+    select?: DigitalResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DigitalResource
+     */
+    omit?: DigitalResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DigitalResourceInclude<ExtArgs> | null
+    /**
+     * Filter, which DigitalResource to fetch.
+     */
+    where: DigitalResourceWhereUniqueInput
+  }
+
+  /**
+   * DigitalResource findUniqueOrThrow
+   */
+  export type DigitalResourceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DigitalResource
+     */
+    select?: DigitalResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DigitalResource
+     */
+    omit?: DigitalResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DigitalResourceInclude<ExtArgs> | null
+    /**
+     * Filter, which DigitalResource to fetch.
+     */
+    where: DigitalResourceWhereUniqueInput
+  }
+
+  /**
+   * DigitalResource findFirst
+   */
+  export type DigitalResourceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DigitalResource
+     */
+    select?: DigitalResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DigitalResource
+     */
+    omit?: DigitalResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DigitalResourceInclude<ExtArgs> | null
+    /**
+     * Filter, which DigitalResource to fetch.
+     */
+    where?: DigitalResourceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DigitalResources to fetch.
+     */
+    orderBy?: DigitalResourceOrderByWithRelationInput | DigitalResourceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DigitalResources.
+     */
+    cursor?: DigitalResourceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DigitalResources from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DigitalResources.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DigitalResources.
+     */
+    distinct?: DigitalResourceScalarFieldEnum | DigitalResourceScalarFieldEnum[]
+  }
+
+  /**
+   * DigitalResource findFirstOrThrow
+   */
+  export type DigitalResourceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DigitalResource
+     */
+    select?: DigitalResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DigitalResource
+     */
+    omit?: DigitalResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DigitalResourceInclude<ExtArgs> | null
+    /**
+     * Filter, which DigitalResource to fetch.
+     */
+    where?: DigitalResourceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DigitalResources to fetch.
+     */
+    orderBy?: DigitalResourceOrderByWithRelationInput | DigitalResourceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DigitalResources.
+     */
+    cursor?: DigitalResourceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DigitalResources from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DigitalResources.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DigitalResources.
+     */
+    distinct?: DigitalResourceScalarFieldEnum | DigitalResourceScalarFieldEnum[]
+  }
+
+  /**
+   * DigitalResource findMany
+   */
+  export type DigitalResourceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DigitalResource
+     */
+    select?: DigitalResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DigitalResource
+     */
+    omit?: DigitalResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DigitalResourceInclude<ExtArgs> | null
+    /**
+     * Filter, which DigitalResources to fetch.
+     */
+    where?: DigitalResourceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DigitalResources to fetch.
+     */
+    orderBy?: DigitalResourceOrderByWithRelationInput | DigitalResourceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DigitalResources.
+     */
+    cursor?: DigitalResourceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DigitalResources from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DigitalResources.
+     */
+    skip?: number
+    distinct?: DigitalResourceScalarFieldEnum | DigitalResourceScalarFieldEnum[]
+  }
+
+  /**
+   * DigitalResource create
+   */
+  export type DigitalResourceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DigitalResource
+     */
+    select?: DigitalResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DigitalResource
+     */
+    omit?: DigitalResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DigitalResourceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DigitalResource.
+     */
+    data: XOR<DigitalResourceCreateInput, DigitalResourceUncheckedCreateInput>
+  }
+
+  /**
+   * DigitalResource createMany
+   */
+  export type DigitalResourceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DigitalResources.
+     */
+    data: DigitalResourceCreateManyInput | DigitalResourceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DigitalResource createManyAndReturn
+   */
+  export type DigitalResourceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DigitalResource
+     */
+    select?: DigitalResourceSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DigitalResource
+     */
+    omit?: DigitalResourceOmit<ExtArgs> | null
+    /**
+     * The data used to create many DigitalResources.
+     */
+    data: DigitalResourceCreateManyInput | DigitalResourceCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DigitalResourceIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DigitalResource update
+   */
+  export type DigitalResourceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DigitalResource
+     */
+    select?: DigitalResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DigitalResource
+     */
+    omit?: DigitalResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DigitalResourceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DigitalResource.
+     */
+    data: XOR<DigitalResourceUpdateInput, DigitalResourceUncheckedUpdateInput>
+    /**
+     * Choose, which DigitalResource to update.
+     */
+    where: DigitalResourceWhereUniqueInput
+  }
+
+  /**
+   * DigitalResource updateMany
+   */
+  export type DigitalResourceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DigitalResources.
+     */
+    data: XOR<DigitalResourceUpdateManyMutationInput, DigitalResourceUncheckedUpdateManyInput>
+    /**
+     * Filter which DigitalResources to update
+     */
+    where?: DigitalResourceWhereInput
+    /**
+     * Limit how many DigitalResources to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DigitalResource updateManyAndReturn
+   */
+  export type DigitalResourceUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DigitalResource
+     */
+    select?: DigitalResourceSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DigitalResource
+     */
+    omit?: DigitalResourceOmit<ExtArgs> | null
+    /**
+     * The data used to update DigitalResources.
+     */
+    data: XOR<DigitalResourceUpdateManyMutationInput, DigitalResourceUncheckedUpdateManyInput>
+    /**
+     * Filter which DigitalResources to update
+     */
+    where?: DigitalResourceWhereInput
+    /**
+     * Limit how many DigitalResources to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DigitalResourceIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DigitalResource upsert
+   */
+  export type DigitalResourceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DigitalResource
+     */
+    select?: DigitalResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DigitalResource
+     */
+    omit?: DigitalResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DigitalResourceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DigitalResource to update in case it exists.
+     */
+    where: DigitalResourceWhereUniqueInput
+    /**
+     * In case the DigitalResource found by the `where` argument doesn't exist, create a new DigitalResource with this data.
+     */
+    create: XOR<DigitalResourceCreateInput, DigitalResourceUncheckedCreateInput>
+    /**
+     * In case the DigitalResource was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DigitalResourceUpdateInput, DigitalResourceUncheckedUpdateInput>
+  }
+
+  /**
+   * DigitalResource delete
+   */
+  export type DigitalResourceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DigitalResource
+     */
+    select?: DigitalResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DigitalResource
+     */
+    omit?: DigitalResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DigitalResourceInclude<ExtArgs> | null
+    /**
+     * Filter which DigitalResource to delete.
+     */
+    where: DigitalResourceWhereUniqueInput
+  }
+
+  /**
+   * DigitalResource deleteMany
+   */
+  export type DigitalResourceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DigitalResources to delete
+     */
+    where?: DigitalResourceWhereInput
+    /**
+     * Limit how many DigitalResources to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DigitalResource.class
+   */
+  export type DigitalResource$classArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Class
+     */
+    select?: ClassSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Class
+     */
+    omit?: ClassOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassInclude<ExtArgs> | null
+    where?: ClassWhereInput
+  }
+
+  /**
+   * DigitalResource.section
+   */
+  export type DigitalResource$sectionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Section
+     */
+    select?: SectionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Section
+     */
+    omit?: SectionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectionInclude<ExtArgs> | null
+    where?: SectionWhereInput
+  }
+
+  /**
+   * DigitalResource.subject
+   */
+  export type DigitalResource$subjectArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subject
+     */
+    select?: SubjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subject
+     */
+    omit?: SubjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubjectInclude<ExtArgs> | null
+    where?: SubjectWhereInput
+  }
+
+  /**
+   * DigitalResource.logs
+   */
+  export type DigitalResource$logsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DigitalResourceLog
+     */
+    select?: DigitalResourceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DigitalResourceLog
+     */
+    omit?: DigitalResourceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DigitalResourceLogInclude<ExtArgs> | null
+    where?: DigitalResourceLogWhereInput
+    orderBy?: DigitalResourceLogOrderByWithRelationInput | DigitalResourceLogOrderByWithRelationInput[]
+    cursor?: DigitalResourceLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DigitalResourceLogScalarFieldEnum | DigitalResourceLogScalarFieldEnum[]
+  }
+
+  /**
+   * DigitalResource without action
+   */
+  export type DigitalResourceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DigitalResource
+     */
+    select?: DigitalResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DigitalResource
+     */
+    omit?: DigitalResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DigitalResourceInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DigitalResourceLog
+   */
+
+  export type AggregateDigitalResourceLog = {
+    _count: DigitalResourceLogCountAggregateOutputType | null
+    _min: DigitalResourceLogMinAggregateOutputType | null
+    _max: DigitalResourceLogMaxAggregateOutputType | null
+  }
+
+  export type DigitalResourceLogMinAggregateOutputType = {
+    id: string | null
+    resourceId: string | null
+    userId: string | null
+    action: string | null
+    ipAddress: string | null
+    userAgent: string | null
+    createdAt: Date | null
+  }
+
+  export type DigitalResourceLogMaxAggregateOutputType = {
+    id: string | null
+    resourceId: string | null
+    userId: string | null
+    action: string | null
+    ipAddress: string | null
+    userAgent: string | null
+    createdAt: Date | null
+  }
+
+  export type DigitalResourceLogCountAggregateOutputType = {
+    id: number
+    resourceId: number
+    userId: number
+    action: number
+    ipAddress: number
+    userAgent: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type DigitalResourceLogMinAggregateInputType = {
+    id?: true
+    resourceId?: true
+    userId?: true
+    action?: true
+    ipAddress?: true
+    userAgent?: true
+    createdAt?: true
+  }
+
+  export type DigitalResourceLogMaxAggregateInputType = {
+    id?: true
+    resourceId?: true
+    userId?: true
+    action?: true
+    ipAddress?: true
+    userAgent?: true
+    createdAt?: true
+  }
+
+  export type DigitalResourceLogCountAggregateInputType = {
+    id?: true
+    resourceId?: true
+    userId?: true
+    action?: true
+    ipAddress?: true
+    userAgent?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type DigitalResourceLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DigitalResourceLog to aggregate.
+     */
+    where?: DigitalResourceLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DigitalResourceLogs to fetch.
+     */
+    orderBy?: DigitalResourceLogOrderByWithRelationInput | DigitalResourceLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DigitalResourceLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DigitalResourceLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DigitalResourceLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DigitalResourceLogs
+    **/
+    _count?: true | DigitalResourceLogCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DigitalResourceLogMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DigitalResourceLogMaxAggregateInputType
+  }
+
+  export type GetDigitalResourceLogAggregateType<T extends DigitalResourceLogAggregateArgs> = {
+        [P in keyof T & keyof AggregateDigitalResourceLog]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDigitalResourceLog[P]>
+      : GetScalarType<T[P], AggregateDigitalResourceLog[P]>
+  }
+
+
+
+
+  export type DigitalResourceLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DigitalResourceLogWhereInput
+    orderBy?: DigitalResourceLogOrderByWithAggregationInput | DigitalResourceLogOrderByWithAggregationInput[]
+    by: DigitalResourceLogScalarFieldEnum[] | DigitalResourceLogScalarFieldEnum
+    having?: DigitalResourceLogScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DigitalResourceLogCountAggregateInputType | true
+    _min?: DigitalResourceLogMinAggregateInputType
+    _max?: DigitalResourceLogMaxAggregateInputType
+  }
+
+  export type DigitalResourceLogGroupByOutputType = {
+    id: string
+    resourceId: string
+    userId: string
+    action: string
+    ipAddress: string | null
+    userAgent: string | null
+    createdAt: Date
+    _count: DigitalResourceLogCountAggregateOutputType | null
+    _min: DigitalResourceLogMinAggregateOutputType | null
+    _max: DigitalResourceLogMaxAggregateOutputType | null
+  }
+
+  type GetDigitalResourceLogGroupByPayload<T extends DigitalResourceLogGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DigitalResourceLogGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DigitalResourceLogGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DigitalResourceLogGroupByOutputType[P]>
+            : GetScalarType<T[P], DigitalResourceLogGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DigitalResourceLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    resourceId?: boolean
+    userId?: boolean
+    action?: boolean
+    ipAddress?: boolean
+    userAgent?: boolean
+    createdAt?: boolean
+    resource?: boolean | DigitalResourceDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["digitalResourceLog"]>
+
+  export type DigitalResourceLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    resourceId?: boolean
+    userId?: boolean
+    action?: boolean
+    ipAddress?: boolean
+    userAgent?: boolean
+    createdAt?: boolean
+    resource?: boolean | DigitalResourceDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["digitalResourceLog"]>
+
+  export type DigitalResourceLogSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    resourceId?: boolean
+    userId?: boolean
+    action?: boolean
+    ipAddress?: boolean
+    userAgent?: boolean
+    createdAt?: boolean
+    resource?: boolean | DigitalResourceDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["digitalResourceLog"]>
+
+  export type DigitalResourceLogSelectScalar = {
+    id?: boolean
+    resourceId?: boolean
+    userId?: boolean
+    action?: boolean
+    ipAddress?: boolean
+    userAgent?: boolean
+    createdAt?: boolean
+  }
+
+  export type DigitalResourceLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "resourceId" | "userId" | "action" | "ipAddress" | "userAgent" | "createdAt", ExtArgs["result"]["digitalResourceLog"]>
+  export type DigitalResourceLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    resource?: boolean | DigitalResourceDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type DigitalResourceLogIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    resource?: boolean | DigitalResourceDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type DigitalResourceLogIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    resource?: boolean | DigitalResourceDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $DigitalResourceLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DigitalResourceLog"
+    objects: {
+      resource: Prisma.$DigitalResourcePayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      resourceId: string
+      userId: string
+      action: string
+      ipAddress: string | null
+      userAgent: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["digitalResourceLog"]>
+    composites: {}
+  }
+
+  type DigitalResourceLogGetPayload<S extends boolean | null | undefined | DigitalResourceLogDefaultArgs> = $Result.GetResult<Prisma.$DigitalResourceLogPayload, S>
+
+  type DigitalResourceLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DigitalResourceLogFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DigitalResourceLogCountAggregateInputType | true
+    }
+
+  export interface DigitalResourceLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DigitalResourceLog'], meta: { name: 'DigitalResourceLog' } }
+    /**
+     * Find zero or one DigitalResourceLog that matches the filter.
+     * @param {DigitalResourceLogFindUniqueArgs} args - Arguments to find a DigitalResourceLog
+     * @example
+     * // Get one DigitalResourceLog
+     * const digitalResourceLog = await prisma.digitalResourceLog.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DigitalResourceLogFindUniqueArgs>(args: SelectSubset<T, DigitalResourceLogFindUniqueArgs<ExtArgs>>): Prisma__DigitalResourceLogClient<$Result.GetResult<Prisma.$DigitalResourceLogPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DigitalResourceLog that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DigitalResourceLogFindUniqueOrThrowArgs} args - Arguments to find a DigitalResourceLog
+     * @example
+     * // Get one DigitalResourceLog
+     * const digitalResourceLog = await prisma.digitalResourceLog.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DigitalResourceLogFindUniqueOrThrowArgs>(args: SelectSubset<T, DigitalResourceLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DigitalResourceLogClient<$Result.GetResult<Prisma.$DigitalResourceLogPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DigitalResourceLog that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DigitalResourceLogFindFirstArgs} args - Arguments to find a DigitalResourceLog
+     * @example
+     * // Get one DigitalResourceLog
+     * const digitalResourceLog = await prisma.digitalResourceLog.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DigitalResourceLogFindFirstArgs>(args?: SelectSubset<T, DigitalResourceLogFindFirstArgs<ExtArgs>>): Prisma__DigitalResourceLogClient<$Result.GetResult<Prisma.$DigitalResourceLogPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DigitalResourceLog that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DigitalResourceLogFindFirstOrThrowArgs} args - Arguments to find a DigitalResourceLog
+     * @example
+     * // Get one DigitalResourceLog
+     * const digitalResourceLog = await prisma.digitalResourceLog.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DigitalResourceLogFindFirstOrThrowArgs>(args?: SelectSubset<T, DigitalResourceLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__DigitalResourceLogClient<$Result.GetResult<Prisma.$DigitalResourceLogPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DigitalResourceLogs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DigitalResourceLogFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DigitalResourceLogs
+     * const digitalResourceLogs = await prisma.digitalResourceLog.findMany()
+     * 
+     * // Get first 10 DigitalResourceLogs
+     * const digitalResourceLogs = await prisma.digitalResourceLog.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const digitalResourceLogWithIdOnly = await prisma.digitalResourceLog.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DigitalResourceLogFindManyArgs>(args?: SelectSubset<T, DigitalResourceLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DigitalResourceLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DigitalResourceLog.
+     * @param {DigitalResourceLogCreateArgs} args - Arguments to create a DigitalResourceLog.
+     * @example
+     * // Create one DigitalResourceLog
+     * const DigitalResourceLog = await prisma.digitalResourceLog.create({
+     *   data: {
+     *     // ... data to create a DigitalResourceLog
+     *   }
+     * })
+     * 
+     */
+    create<T extends DigitalResourceLogCreateArgs>(args: SelectSubset<T, DigitalResourceLogCreateArgs<ExtArgs>>): Prisma__DigitalResourceLogClient<$Result.GetResult<Prisma.$DigitalResourceLogPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DigitalResourceLogs.
+     * @param {DigitalResourceLogCreateManyArgs} args - Arguments to create many DigitalResourceLogs.
+     * @example
+     * // Create many DigitalResourceLogs
+     * const digitalResourceLog = await prisma.digitalResourceLog.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DigitalResourceLogCreateManyArgs>(args?: SelectSubset<T, DigitalResourceLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DigitalResourceLogs and returns the data saved in the database.
+     * @param {DigitalResourceLogCreateManyAndReturnArgs} args - Arguments to create many DigitalResourceLogs.
+     * @example
+     * // Create many DigitalResourceLogs
+     * const digitalResourceLog = await prisma.digitalResourceLog.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DigitalResourceLogs and only return the `id`
+     * const digitalResourceLogWithIdOnly = await prisma.digitalResourceLog.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DigitalResourceLogCreateManyAndReturnArgs>(args?: SelectSubset<T, DigitalResourceLogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DigitalResourceLogPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DigitalResourceLog.
+     * @param {DigitalResourceLogDeleteArgs} args - Arguments to delete one DigitalResourceLog.
+     * @example
+     * // Delete one DigitalResourceLog
+     * const DigitalResourceLog = await prisma.digitalResourceLog.delete({
+     *   where: {
+     *     // ... filter to delete one DigitalResourceLog
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DigitalResourceLogDeleteArgs>(args: SelectSubset<T, DigitalResourceLogDeleteArgs<ExtArgs>>): Prisma__DigitalResourceLogClient<$Result.GetResult<Prisma.$DigitalResourceLogPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DigitalResourceLog.
+     * @param {DigitalResourceLogUpdateArgs} args - Arguments to update one DigitalResourceLog.
+     * @example
+     * // Update one DigitalResourceLog
+     * const digitalResourceLog = await prisma.digitalResourceLog.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DigitalResourceLogUpdateArgs>(args: SelectSubset<T, DigitalResourceLogUpdateArgs<ExtArgs>>): Prisma__DigitalResourceLogClient<$Result.GetResult<Prisma.$DigitalResourceLogPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DigitalResourceLogs.
+     * @param {DigitalResourceLogDeleteManyArgs} args - Arguments to filter DigitalResourceLogs to delete.
+     * @example
+     * // Delete a few DigitalResourceLogs
+     * const { count } = await prisma.digitalResourceLog.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DigitalResourceLogDeleteManyArgs>(args?: SelectSubset<T, DigitalResourceLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DigitalResourceLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DigitalResourceLogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DigitalResourceLogs
+     * const digitalResourceLog = await prisma.digitalResourceLog.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DigitalResourceLogUpdateManyArgs>(args: SelectSubset<T, DigitalResourceLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DigitalResourceLogs and returns the data updated in the database.
+     * @param {DigitalResourceLogUpdateManyAndReturnArgs} args - Arguments to update many DigitalResourceLogs.
+     * @example
+     * // Update many DigitalResourceLogs
+     * const digitalResourceLog = await prisma.digitalResourceLog.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DigitalResourceLogs and only return the `id`
+     * const digitalResourceLogWithIdOnly = await prisma.digitalResourceLog.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DigitalResourceLogUpdateManyAndReturnArgs>(args: SelectSubset<T, DigitalResourceLogUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DigitalResourceLogPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DigitalResourceLog.
+     * @param {DigitalResourceLogUpsertArgs} args - Arguments to update or create a DigitalResourceLog.
+     * @example
+     * // Update or create a DigitalResourceLog
+     * const digitalResourceLog = await prisma.digitalResourceLog.upsert({
+     *   create: {
+     *     // ... data to create a DigitalResourceLog
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DigitalResourceLog we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DigitalResourceLogUpsertArgs>(args: SelectSubset<T, DigitalResourceLogUpsertArgs<ExtArgs>>): Prisma__DigitalResourceLogClient<$Result.GetResult<Prisma.$DigitalResourceLogPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DigitalResourceLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DigitalResourceLogCountArgs} args - Arguments to filter DigitalResourceLogs to count.
+     * @example
+     * // Count the number of DigitalResourceLogs
+     * const count = await prisma.digitalResourceLog.count({
+     *   where: {
+     *     // ... the filter for the DigitalResourceLogs we want to count
+     *   }
+     * })
+    **/
+    count<T extends DigitalResourceLogCountArgs>(
+      args?: Subset<T, DigitalResourceLogCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DigitalResourceLogCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DigitalResourceLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DigitalResourceLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DigitalResourceLogAggregateArgs>(args: Subset<T, DigitalResourceLogAggregateArgs>): Prisma.PrismaPromise<GetDigitalResourceLogAggregateType<T>>
+
+    /**
+     * Group by DigitalResourceLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DigitalResourceLogGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DigitalResourceLogGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DigitalResourceLogGroupByArgs['orderBy'] }
+        : { orderBy?: DigitalResourceLogGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DigitalResourceLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDigitalResourceLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DigitalResourceLog model
+   */
+  readonly fields: DigitalResourceLogFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DigitalResourceLog.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DigitalResourceLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    resource<T extends DigitalResourceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DigitalResourceDefaultArgs<ExtArgs>>): Prisma__DigitalResourceClient<$Result.GetResult<Prisma.$DigitalResourcePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DigitalResourceLog model
+   */
+  interface DigitalResourceLogFieldRefs {
+    readonly id: FieldRef<"DigitalResourceLog", 'String'>
+    readonly resourceId: FieldRef<"DigitalResourceLog", 'String'>
+    readonly userId: FieldRef<"DigitalResourceLog", 'String'>
+    readonly action: FieldRef<"DigitalResourceLog", 'String'>
+    readonly ipAddress: FieldRef<"DigitalResourceLog", 'String'>
+    readonly userAgent: FieldRef<"DigitalResourceLog", 'String'>
+    readonly createdAt: FieldRef<"DigitalResourceLog", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DigitalResourceLog findUnique
+   */
+  export type DigitalResourceLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DigitalResourceLog
+     */
+    select?: DigitalResourceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DigitalResourceLog
+     */
+    omit?: DigitalResourceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DigitalResourceLogInclude<ExtArgs> | null
+    /**
+     * Filter, which DigitalResourceLog to fetch.
+     */
+    where: DigitalResourceLogWhereUniqueInput
+  }
+
+  /**
+   * DigitalResourceLog findUniqueOrThrow
+   */
+  export type DigitalResourceLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DigitalResourceLog
+     */
+    select?: DigitalResourceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DigitalResourceLog
+     */
+    omit?: DigitalResourceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DigitalResourceLogInclude<ExtArgs> | null
+    /**
+     * Filter, which DigitalResourceLog to fetch.
+     */
+    where: DigitalResourceLogWhereUniqueInput
+  }
+
+  /**
+   * DigitalResourceLog findFirst
+   */
+  export type DigitalResourceLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DigitalResourceLog
+     */
+    select?: DigitalResourceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DigitalResourceLog
+     */
+    omit?: DigitalResourceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DigitalResourceLogInclude<ExtArgs> | null
+    /**
+     * Filter, which DigitalResourceLog to fetch.
+     */
+    where?: DigitalResourceLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DigitalResourceLogs to fetch.
+     */
+    orderBy?: DigitalResourceLogOrderByWithRelationInput | DigitalResourceLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DigitalResourceLogs.
+     */
+    cursor?: DigitalResourceLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DigitalResourceLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DigitalResourceLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DigitalResourceLogs.
+     */
+    distinct?: DigitalResourceLogScalarFieldEnum | DigitalResourceLogScalarFieldEnum[]
+  }
+
+  /**
+   * DigitalResourceLog findFirstOrThrow
+   */
+  export type DigitalResourceLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DigitalResourceLog
+     */
+    select?: DigitalResourceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DigitalResourceLog
+     */
+    omit?: DigitalResourceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DigitalResourceLogInclude<ExtArgs> | null
+    /**
+     * Filter, which DigitalResourceLog to fetch.
+     */
+    where?: DigitalResourceLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DigitalResourceLogs to fetch.
+     */
+    orderBy?: DigitalResourceLogOrderByWithRelationInput | DigitalResourceLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DigitalResourceLogs.
+     */
+    cursor?: DigitalResourceLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DigitalResourceLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DigitalResourceLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DigitalResourceLogs.
+     */
+    distinct?: DigitalResourceLogScalarFieldEnum | DigitalResourceLogScalarFieldEnum[]
+  }
+
+  /**
+   * DigitalResourceLog findMany
+   */
+  export type DigitalResourceLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DigitalResourceLog
+     */
+    select?: DigitalResourceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DigitalResourceLog
+     */
+    omit?: DigitalResourceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DigitalResourceLogInclude<ExtArgs> | null
+    /**
+     * Filter, which DigitalResourceLogs to fetch.
+     */
+    where?: DigitalResourceLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DigitalResourceLogs to fetch.
+     */
+    orderBy?: DigitalResourceLogOrderByWithRelationInput | DigitalResourceLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DigitalResourceLogs.
+     */
+    cursor?: DigitalResourceLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DigitalResourceLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DigitalResourceLogs.
+     */
+    skip?: number
+    distinct?: DigitalResourceLogScalarFieldEnum | DigitalResourceLogScalarFieldEnum[]
+  }
+
+  /**
+   * DigitalResourceLog create
+   */
+  export type DigitalResourceLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DigitalResourceLog
+     */
+    select?: DigitalResourceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DigitalResourceLog
+     */
+    omit?: DigitalResourceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DigitalResourceLogInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DigitalResourceLog.
+     */
+    data: XOR<DigitalResourceLogCreateInput, DigitalResourceLogUncheckedCreateInput>
+  }
+
+  /**
+   * DigitalResourceLog createMany
+   */
+  export type DigitalResourceLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DigitalResourceLogs.
+     */
+    data: DigitalResourceLogCreateManyInput | DigitalResourceLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DigitalResourceLog createManyAndReturn
+   */
+  export type DigitalResourceLogCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DigitalResourceLog
+     */
+    select?: DigitalResourceLogSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DigitalResourceLog
+     */
+    omit?: DigitalResourceLogOmit<ExtArgs> | null
+    /**
+     * The data used to create many DigitalResourceLogs.
+     */
+    data: DigitalResourceLogCreateManyInput | DigitalResourceLogCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DigitalResourceLogIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DigitalResourceLog update
+   */
+  export type DigitalResourceLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DigitalResourceLog
+     */
+    select?: DigitalResourceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DigitalResourceLog
+     */
+    omit?: DigitalResourceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DigitalResourceLogInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DigitalResourceLog.
+     */
+    data: XOR<DigitalResourceLogUpdateInput, DigitalResourceLogUncheckedUpdateInput>
+    /**
+     * Choose, which DigitalResourceLog to update.
+     */
+    where: DigitalResourceLogWhereUniqueInput
+  }
+
+  /**
+   * DigitalResourceLog updateMany
+   */
+  export type DigitalResourceLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DigitalResourceLogs.
+     */
+    data: XOR<DigitalResourceLogUpdateManyMutationInput, DigitalResourceLogUncheckedUpdateManyInput>
+    /**
+     * Filter which DigitalResourceLogs to update
+     */
+    where?: DigitalResourceLogWhereInput
+    /**
+     * Limit how many DigitalResourceLogs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DigitalResourceLog updateManyAndReturn
+   */
+  export type DigitalResourceLogUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DigitalResourceLog
+     */
+    select?: DigitalResourceLogSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DigitalResourceLog
+     */
+    omit?: DigitalResourceLogOmit<ExtArgs> | null
+    /**
+     * The data used to update DigitalResourceLogs.
+     */
+    data: XOR<DigitalResourceLogUpdateManyMutationInput, DigitalResourceLogUncheckedUpdateManyInput>
+    /**
+     * Filter which DigitalResourceLogs to update
+     */
+    where?: DigitalResourceLogWhereInput
+    /**
+     * Limit how many DigitalResourceLogs to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DigitalResourceLogIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DigitalResourceLog upsert
+   */
+  export type DigitalResourceLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DigitalResourceLog
+     */
+    select?: DigitalResourceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DigitalResourceLog
+     */
+    omit?: DigitalResourceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DigitalResourceLogInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DigitalResourceLog to update in case it exists.
+     */
+    where: DigitalResourceLogWhereUniqueInput
+    /**
+     * In case the DigitalResourceLog found by the `where` argument doesn't exist, create a new DigitalResourceLog with this data.
+     */
+    create: XOR<DigitalResourceLogCreateInput, DigitalResourceLogUncheckedCreateInput>
+    /**
+     * In case the DigitalResourceLog was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DigitalResourceLogUpdateInput, DigitalResourceLogUncheckedUpdateInput>
+  }
+
+  /**
+   * DigitalResourceLog delete
+   */
+  export type DigitalResourceLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DigitalResourceLog
+     */
+    select?: DigitalResourceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DigitalResourceLog
+     */
+    omit?: DigitalResourceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DigitalResourceLogInclude<ExtArgs> | null
+    /**
+     * Filter which DigitalResourceLog to delete.
+     */
+    where: DigitalResourceLogWhereUniqueInput
+  }
+
+  /**
+   * DigitalResourceLog deleteMany
+   */
+  export type DigitalResourceLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DigitalResourceLogs to delete
+     */
+    where?: DigitalResourceLogWhereInput
+    /**
+     * Limit how many DigitalResourceLogs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DigitalResourceLog without action
+   */
+  export type DigitalResourceLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DigitalResourceLog
+     */
+    select?: DigitalResourceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DigitalResourceLog
+     */
+    omit?: DigitalResourceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DigitalResourceLogInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -111564,6 +117379,23 @@ export namespace Prisma {
   export type SubjectScalarFieldEnum = (typeof SubjectScalarFieldEnum)[keyof typeof SubjectScalarFieldEnum]
 
 
+  export const ClassScheduleScalarFieldEnum: {
+    id: 'id',
+    dayOfWeek: 'dayOfWeek',
+    startTime: 'startTime',
+    endTime: 'endTime',
+    room: 'room',
+    classId: 'classId',
+    sectionId: 'sectionId',
+    subjectId: 'subjectId',
+    teacherId: 'teacherId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ClassScheduleScalarFieldEnum = (typeof ClassScheduleScalarFieldEnum)[keyof typeof ClassScheduleScalarFieldEnum]
+
+
   export const AttendanceScalarFieldEnum: {
     id: 'id',
     date: 'date',
@@ -111576,6 +117408,19 @@ export namespace Prisma {
   };
 
   export type AttendanceScalarFieldEnum = (typeof AttendanceScalarFieldEnum)[keyof typeof AttendanceScalarFieldEnum]
+
+
+  export const StaffAttendanceScalarFieldEnum: {
+    id: 'id',
+    date: 'date',
+    status: 'status',
+    remarks: 'remarks',
+    staffId: 'staffId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type StaffAttendanceScalarFieldEnum = (typeof StaffAttendanceScalarFieldEnum)[keyof typeof StaffAttendanceScalarFieldEnum]
 
 
   export const HostelScalarFieldEnum: {
@@ -111761,6 +117606,7 @@ export namespace Prisma {
     startTime: 'startTime',
     endTime: 'endTime',
     score: 'score',
+    position: 'position',
     status: 'status',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -111858,9 +117704,11 @@ export namespace Prisma {
     title: 'title',
     description: 'description',
     dueDate: 'dueDate',
+    attachmentUrl: 'attachmentUrl',
     subjectId: 'subjectId',
     sectionId: 'sectionId',
     teacherId: 'teacherId',
+    branchId: 'branchId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -112203,10 +118051,15 @@ export namespace Prisma {
   export const GoogleMeetConfigScalarFieldEnum: {
     id: 'id',
     branchId: 'branchId',
-    serviceAccountJson: 'serviceAccountJson',
-    projectId: 'projectId',
     clientId: 'clientId',
     clientSecret: 'clientSecret',
+    accessToken: 'accessToken',
+    refreshToken: 'refreshToken',
+    expiryDate: 'expiryDate',
+    redirectUri: 'redirectUri',
+    scopes: 'scopes',
+    serviceAccountJson: 'serviceAccountJson',
+    projectId: 'projectId',
     apiKey: 'apiKey',
     isEnabled: 'isEnabled',
     defaultDuration: 'defaultDuration',
@@ -112224,6 +118077,7 @@ export namespace Prisma {
     title: 'title',
     description: 'description',
     meetingId: 'meetingId',
+    meetLink: 'meetLink',
     hostUrl: 'hostUrl',
     participantUrl: 'participantUrl',
     classId: 'classId',
@@ -112234,8 +118088,14 @@ export namespace Prisma {
     scheduledEnd: 'scheduledEnd',
     actualStart: 'actualStart',
     actualEnd: 'actualEnd',
+    timezone: 'timezone',
+    isRecurring: 'isRecurring',
+    recurrenceRule: 'recurrenceRule',
+    seriesId: 'seriesId',
     status: 'status',
+    recordingId: 'recordingId',
     recordingUrl: 'recordingUrl',
+    recordingStatus: 'recordingStatus',
     branchId: 'branchId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -112737,6 +118597,41 @@ export namespace Prisma {
   export type IdCardScalarFieldEnum = (typeof IdCardScalarFieldEnum)[keyof typeof IdCardScalarFieldEnum]
 
 
+  export const DigitalResourceScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    description: 'description',
+    fileUrl: 'fileUrl',
+    fileType: 'fileType',
+    fileSize: 'fileSize',
+    thumbnailUrl: 'thumbnailUrl',
+    category: 'category',
+    sessionId: 'sessionId',
+    classId: 'classId',
+    sectionId: 'sectionId',
+    subjectId: 'subjectId',
+    uploaderId: 'uploaderId',
+    branchId: 'branchId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DigitalResourceScalarFieldEnum = (typeof DigitalResourceScalarFieldEnum)[keyof typeof DigitalResourceScalarFieldEnum]
+
+
+  export const DigitalResourceLogScalarFieldEnum: {
+    id: 'id',
+    resourceId: 'resourceId',
+    userId: 'userId',
+    action: 'action',
+    ipAddress: 'ipAddress',
+    userAgent: 'userAgent',
+    createdAt: 'createdAt'
+  };
+
+  export type DigitalResourceLogScalarFieldEnum = (typeof DigitalResourceLogScalarFieldEnum)[keyof typeof DigitalResourceLogScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -113092,8 +118987,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogListRelationFilter
     automationConfigs?: AutomationConfigListRelationFilter
     idCardTemplates?: IdCardTemplateListRelationFilter
+    digitalResources?: DigitalResourceListRelationFilter
     deactivationReasons?: DeactivationReasonListRelationFilter
     loginDeactivations?: LoginDeactivationListRelationFilter
+    assignments?: AssignmentListRelationFilter
   }
 
   export type BranchOrderByWithRelationInput = {
@@ -113147,8 +119044,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogOrderByRelationAggregateInput
     automationConfigs?: AutomationConfigOrderByRelationAggregateInput
     idCardTemplates?: IdCardTemplateOrderByRelationAggregateInput
+    digitalResources?: DigitalResourceOrderByRelationAggregateInput
     deactivationReasons?: DeactivationReasonOrderByRelationAggregateInput
     loginDeactivations?: LoginDeactivationOrderByRelationAggregateInput
+    assignments?: AssignmentOrderByRelationAggregateInput
   }
 
   export type BranchWhereUniqueInput = Prisma.AtLeast<{
@@ -113205,8 +119104,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogListRelationFilter
     automationConfigs?: AutomationConfigListRelationFilter
     idCardTemplates?: IdCardTemplateListRelationFilter
+    digitalResources?: DigitalResourceListRelationFilter
     deactivationReasons?: DeactivationReasonListRelationFilter
     loginDeactivations?: LoginDeactivationListRelationFilter
+    assignments?: AssignmentListRelationFilter
   }, "id" | "code">
 
   export type BranchOrderByWithAggregationInput = {
@@ -113403,6 +119304,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPListRelationFilter
     accessLogs?: CampusAccessLogListRelationFilter
     onlineAdmissions?: OnlineAdmissionListRelationFilter
+    digitalResourceLogs?: DigitalResourceLogListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -113430,6 +119332,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPOrderByRelationAggregateInput
     accessLogs?: CampusAccessLogOrderByRelationAggregateInput
     onlineAdmissions?: OnlineAdmissionOrderByRelationAggregateInput
+    digitalResourceLogs?: DigitalResourceLogOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -113460,6 +119363,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPListRelationFilter
     accessLogs?: CampusAccessLogListRelationFilter
     onlineAdmissions?: OnlineAdmissionListRelationFilter
+    digitalResourceLogs?: DigitalResourceLogListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -113522,6 +119426,9 @@ export namespace Prisma {
     assignments?: AssignmentListRelationFilter
     hostedSessions?: LiveClassSessionListRelationFilter
     idCards?: IdCardListRelationFilter
+    attendance?: StaffAttendanceListRelationFilter
+    classSchedules?: ClassScheduleListRelationFilter
+    digitalResources?: DigitalResourceListRelationFilter
   }
 
   export type StaffOrderByWithRelationInput = {
@@ -113547,6 +119454,9 @@ export namespace Prisma {
     assignments?: AssignmentOrderByRelationAggregateInput
     hostedSessions?: LiveClassSessionOrderByRelationAggregateInput
     idCards?: IdCardOrderByRelationAggregateInput
+    attendance?: StaffAttendanceOrderByRelationAggregateInput
+    classSchedules?: ClassScheduleOrderByRelationAggregateInput
+    digitalResources?: DigitalResourceOrderByRelationAggregateInput
   }
 
   export type StaffWhereUniqueInput = Prisma.AtLeast<{
@@ -113575,6 +119485,9 @@ export namespace Prisma {
     assignments?: AssignmentListRelationFilter
     hostedSessions?: LiveClassSessionListRelationFilter
     idCards?: IdCardListRelationFilter
+    attendance?: StaffAttendanceListRelationFilter
+    classSchedules?: ClassScheduleListRelationFilter
+    digitalResources?: DigitalResourceListRelationFilter
   }, "id" | "userId">
 
   export type StaffOrderByWithAggregationInput = {
@@ -114116,6 +120029,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionListRelationFilter
     onlineAdmissions?: OnlineAdmissionListRelationFilter
     onlineExams?: OnlineExamListRelationFilter
+    classSchedules?: ClassScheduleListRelationFilter
+    digitalResources?: DigitalResourceListRelationFilter
   }
 
   export type ClassOrderByWithRelationInput = {
@@ -114134,6 +120049,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionOrderByRelationAggregateInput
     onlineAdmissions?: OnlineAdmissionOrderByRelationAggregateInput
     onlineExams?: OnlineExamOrderByRelationAggregateInput
+    classSchedules?: ClassScheduleOrderByRelationAggregateInput
+    digitalResources?: DigitalResourceOrderByRelationAggregateInput
   }
 
   export type ClassWhereUniqueInput = Prisma.AtLeast<{
@@ -114156,6 +120073,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionListRelationFilter
     onlineAdmissions?: OnlineAdmissionListRelationFilter
     onlineExams?: OnlineExamListRelationFilter
+    classSchedules?: ClassScheduleListRelationFilter
+    digitalResources?: DigitalResourceListRelationFilter
   }, "id" | "branchId_name">
 
   export type ClassOrderByWithAggregationInput = {
@@ -114203,6 +120122,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionListRelationFilter
     onlineAdmissions?: OnlineAdmissionListRelationFilter
     onlineExams?: OnlineExamListRelationFilter
+    classSchedules?: ClassScheduleListRelationFilter
+    digitalResources?: DigitalResourceListRelationFilter
   }
 
   export type SectionOrderByWithRelationInput = {
@@ -114219,6 +120140,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionOrderByRelationAggregateInput
     onlineAdmissions?: OnlineAdmissionOrderByRelationAggregateInput
     onlineExams?: OnlineExamOrderByRelationAggregateInput
+    classSchedules?: ClassScheduleOrderByRelationAggregateInput
+    digitalResources?: DigitalResourceOrderByRelationAggregateInput
   }
 
   export type SectionWhereUniqueInput = Prisma.AtLeast<{
@@ -114239,6 +120162,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionListRelationFilter
     onlineAdmissions?: OnlineAdmissionListRelationFilter
     onlineExams?: OnlineExamListRelationFilter
+    classSchedules?: ClassScheduleListRelationFilter
+    digitalResources?: DigitalResourceListRelationFilter
   }, "id" | "classId_name">
 
   export type SectionOrderByWithAggregationInput = {
@@ -114279,6 +120204,8 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordListRelationFilter
     liveClassSessions?: LiveClassSessionListRelationFilter
     onlineExams?: OnlineExamListRelationFilter
+    classSchedules?: ClassScheduleListRelationFilter
+    digitalResources?: DigitalResourceListRelationFilter
   }
 
   export type SubjectOrderByWithRelationInput = {
@@ -114294,6 +120221,8 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordOrderByRelationAggregateInput
     liveClassSessions?: LiveClassSessionOrderByRelationAggregateInput
     onlineExams?: OnlineExamOrderByRelationAggregateInput
+    classSchedules?: ClassScheduleOrderByRelationAggregateInput
+    digitalResources?: DigitalResourceOrderByRelationAggregateInput
   }
 
   export type SubjectWhereUniqueInput = Prisma.AtLeast<{
@@ -114312,6 +120241,8 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordListRelationFilter
     liveClassSessions?: LiveClassSessionListRelationFilter
     onlineExams?: OnlineExamListRelationFilter
+    classSchedules?: ClassScheduleListRelationFilter
+    digitalResources?: DigitalResourceListRelationFilter
   }, "id">
 
   export type SubjectOrderByWithAggregationInput = {
@@ -114336,6 +120267,104 @@ export namespace Prisma {
     branchId?: StringWithAggregatesFilter<"Subject"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Subject"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Subject"> | Date | string
+  }
+
+  export type ClassScheduleWhereInput = {
+    AND?: ClassScheduleWhereInput | ClassScheduleWhereInput[]
+    OR?: ClassScheduleWhereInput[]
+    NOT?: ClassScheduleWhereInput | ClassScheduleWhereInput[]
+    id?: StringFilter<"ClassSchedule"> | string
+    dayOfWeek?: IntFilter<"ClassSchedule"> | number
+    startTime?: StringFilter<"ClassSchedule"> | string
+    endTime?: StringFilter<"ClassSchedule"> | string
+    room?: StringNullableFilter<"ClassSchedule"> | string | null
+    classId?: StringFilter<"ClassSchedule"> | string
+    sectionId?: StringFilter<"ClassSchedule"> | string
+    subjectId?: StringFilter<"ClassSchedule"> | string
+    teacherId?: StringFilter<"ClassSchedule"> | string
+    createdAt?: DateTimeFilter<"ClassSchedule"> | Date | string
+    updatedAt?: DateTimeFilter<"ClassSchedule"> | Date | string
+    class?: XOR<ClassScalarRelationFilter, ClassWhereInput>
+    section?: XOR<SectionScalarRelationFilter, SectionWhereInput>
+    subject?: XOR<SubjectScalarRelationFilter, SubjectWhereInput>
+    teacher?: XOR<StaffScalarRelationFilter, StaffWhereInput>
+  }
+
+  export type ClassScheduleOrderByWithRelationInput = {
+    id?: SortOrder
+    dayOfWeek?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    room?: SortOrderInput | SortOrder
+    classId?: SortOrder
+    sectionId?: SortOrder
+    subjectId?: SortOrder
+    teacherId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    class?: ClassOrderByWithRelationInput
+    section?: SectionOrderByWithRelationInput
+    subject?: SubjectOrderByWithRelationInput
+    teacher?: StaffOrderByWithRelationInput
+  }
+
+  export type ClassScheduleWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    teacherId_dayOfWeek_startTime?: ClassScheduleTeacherIdDayOfWeekStartTimeCompoundUniqueInput
+    classId_sectionId_dayOfWeek_startTime?: ClassScheduleClassIdSectionIdDayOfWeekStartTimeCompoundUniqueInput
+    AND?: ClassScheduleWhereInput | ClassScheduleWhereInput[]
+    OR?: ClassScheduleWhereInput[]
+    NOT?: ClassScheduleWhereInput | ClassScheduleWhereInput[]
+    dayOfWeek?: IntFilter<"ClassSchedule"> | number
+    startTime?: StringFilter<"ClassSchedule"> | string
+    endTime?: StringFilter<"ClassSchedule"> | string
+    room?: StringNullableFilter<"ClassSchedule"> | string | null
+    classId?: StringFilter<"ClassSchedule"> | string
+    sectionId?: StringFilter<"ClassSchedule"> | string
+    subjectId?: StringFilter<"ClassSchedule"> | string
+    teacherId?: StringFilter<"ClassSchedule"> | string
+    createdAt?: DateTimeFilter<"ClassSchedule"> | Date | string
+    updatedAt?: DateTimeFilter<"ClassSchedule"> | Date | string
+    class?: XOR<ClassScalarRelationFilter, ClassWhereInput>
+    section?: XOR<SectionScalarRelationFilter, SectionWhereInput>
+    subject?: XOR<SubjectScalarRelationFilter, SubjectWhereInput>
+    teacher?: XOR<StaffScalarRelationFilter, StaffWhereInput>
+  }, "id" | "teacherId_dayOfWeek_startTime" | "classId_sectionId_dayOfWeek_startTime">
+
+  export type ClassScheduleOrderByWithAggregationInput = {
+    id?: SortOrder
+    dayOfWeek?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    room?: SortOrderInput | SortOrder
+    classId?: SortOrder
+    sectionId?: SortOrder
+    subjectId?: SortOrder
+    teacherId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ClassScheduleCountOrderByAggregateInput
+    _avg?: ClassScheduleAvgOrderByAggregateInput
+    _max?: ClassScheduleMaxOrderByAggregateInput
+    _min?: ClassScheduleMinOrderByAggregateInput
+    _sum?: ClassScheduleSumOrderByAggregateInput
+  }
+
+  export type ClassScheduleScalarWhereWithAggregatesInput = {
+    AND?: ClassScheduleScalarWhereWithAggregatesInput | ClassScheduleScalarWhereWithAggregatesInput[]
+    OR?: ClassScheduleScalarWhereWithAggregatesInput[]
+    NOT?: ClassScheduleScalarWhereWithAggregatesInput | ClassScheduleScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ClassSchedule"> | string
+    dayOfWeek?: IntWithAggregatesFilter<"ClassSchedule"> | number
+    startTime?: StringWithAggregatesFilter<"ClassSchedule"> | string
+    endTime?: StringWithAggregatesFilter<"ClassSchedule"> | string
+    room?: StringNullableWithAggregatesFilter<"ClassSchedule"> | string | null
+    classId?: StringWithAggregatesFilter<"ClassSchedule"> | string
+    sectionId?: StringWithAggregatesFilter<"ClassSchedule"> | string
+    subjectId?: StringWithAggregatesFilter<"ClassSchedule"> | string
+    teacherId?: StringWithAggregatesFilter<"ClassSchedule"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"ClassSchedule"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ClassSchedule"> | Date | string
   }
 
   export type AttendanceWhereInput = {
@@ -114410,6 +120439,72 @@ export namespace Prisma {
     sectionId?: StringNullableWithAggregatesFilter<"Attendance"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Attendance"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Attendance"> | Date | string
+  }
+
+  export type StaffAttendanceWhereInput = {
+    AND?: StaffAttendanceWhereInput | StaffAttendanceWhereInput[]
+    OR?: StaffAttendanceWhereInput[]
+    NOT?: StaffAttendanceWhereInput | StaffAttendanceWhereInput[]
+    id?: StringFilter<"StaffAttendance"> | string
+    date?: DateTimeFilter<"StaffAttendance"> | Date | string
+    status?: EnumAttendanceStatusFilter<"StaffAttendance"> | $Enums.AttendanceStatus
+    remarks?: StringNullableFilter<"StaffAttendance"> | string | null
+    staffId?: StringFilter<"StaffAttendance"> | string
+    createdAt?: DateTimeFilter<"StaffAttendance"> | Date | string
+    updatedAt?: DateTimeFilter<"StaffAttendance"> | Date | string
+    staff?: XOR<StaffScalarRelationFilter, StaffWhereInput>
+  }
+
+  export type StaffAttendanceOrderByWithRelationInput = {
+    id?: SortOrder
+    date?: SortOrder
+    status?: SortOrder
+    remarks?: SortOrderInput | SortOrder
+    staffId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    staff?: StaffOrderByWithRelationInput
+  }
+
+  export type StaffAttendanceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    staffId_date?: StaffAttendanceStaffIdDateCompoundUniqueInput
+    AND?: StaffAttendanceWhereInput | StaffAttendanceWhereInput[]
+    OR?: StaffAttendanceWhereInput[]
+    NOT?: StaffAttendanceWhereInput | StaffAttendanceWhereInput[]
+    date?: DateTimeFilter<"StaffAttendance"> | Date | string
+    status?: EnumAttendanceStatusFilter<"StaffAttendance"> | $Enums.AttendanceStatus
+    remarks?: StringNullableFilter<"StaffAttendance"> | string | null
+    staffId?: StringFilter<"StaffAttendance"> | string
+    createdAt?: DateTimeFilter<"StaffAttendance"> | Date | string
+    updatedAt?: DateTimeFilter<"StaffAttendance"> | Date | string
+    staff?: XOR<StaffScalarRelationFilter, StaffWhereInput>
+  }, "id" | "staffId_date">
+
+  export type StaffAttendanceOrderByWithAggregationInput = {
+    id?: SortOrder
+    date?: SortOrder
+    status?: SortOrder
+    remarks?: SortOrderInput | SortOrder
+    staffId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: StaffAttendanceCountOrderByAggregateInput
+    _max?: StaffAttendanceMaxOrderByAggregateInput
+    _min?: StaffAttendanceMinOrderByAggregateInput
+  }
+
+  export type StaffAttendanceScalarWhereWithAggregatesInput = {
+    AND?: StaffAttendanceScalarWhereWithAggregatesInput | StaffAttendanceScalarWhereWithAggregatesInput[]
+    OR?: StaffAttendanceScalarWhereWithAggregatesInput[]
+    NOT?: StaffAttendanceScalarWhereWithAggregatesInput | StaffAttendanceScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"StaffAttendance"> | string
+    date?: DateTimeWithAggregatesFilter<"StaffAttendance"> | Date | string
+    status?: EnumAttendanceStatusWithAggregatesFilter<"StaffAttendance"> | $Enums.AttendanceStatus
+    remarks?: StringNullableWithAggregatesFilter<"StaffAttendance"> | string | null
+    staffId?: StringWithAggregatesFilter<"StaffAttendance"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"StaffAttendance"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"StaffAttendance"> | Date | string
   }
 
   export type HostelWhereInput = {
@@ -115371,6 +121466,7 @@ export namespace Prisma {
     startTime?: DateTimeFilter<"OnlineExamAttempt"> | Date | string
     endTime?: DateTimeNullableFilter<"OnlineExamAttempt"> | Date | string | null
     score?: FloatNullableFilter<"OnlineExamAttempt"> | number | null
+    position?: IntNullableFilter<"OnlineExamAttempt"> | number | null
     status?: EnumAttemptStatusFilter<"OnlineExamAttempt"> | $Enums.AttemptStatus
     createdAt?: DateTimeFilter<"OnlineExamAttempt"> | Date | string
     updatedAt?: DateTimeFilter<"OnlineExamAttempt"> | Date | string
@@ -115386,6 +121482,7 @@ export namespace Prisma {
     startTime?: SortOrder
     endTime?: SortOrderInput | SortOrder
     score?: SortOrderInput | SortOrder
+    position?: SortOrderInput | SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -115405,6 +121502,7 @@ export namespace Prisma {
     startTime?: DateTimeFilter<"OnlineExamAttempt"> | Date | string
     endTime?: DateTimeNullableFilter<"OnlineExamAttempt"> | Date | string | null
     score?: FloatNullableFilter<"OnlineExamAttempt"> | number | null
+    position?: IntNullableFilter<"OnlineExamAttempt"> | number | null
     status?: EnumAttemptStatusFilter<"OnlineExamAttempt"> | $Enums.AttemptStatus
     createdAt?: DateTimeFilter<"OnlineExamAttempt"> | Date | string
     updatedAt?: DateTimeFilter<"OnlineExamAttempt"> | Date | string
@@ -115420,6 +121518,7 @@ export namespace Prisma {
     startTime?: SortOrder
     endTime?: SortOrderInput | SortOrder
     score?: SortOrderInput | SortOrder
+    position?: SortOrderInput | SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -115440,6 +121539,7 @@ export namespace Prisma {
     startTime?: DateTimeWithAggregatesFilter<"OnlineExamAttempt"> | Date | string
     endTime?: DateTimeNullableWithAggregatesFilter<"OnlineExamAttempt"> | Date | string | null
     score?: FloatNullableWithAggregatesFilter<"OnlineExamAttempt"> | number | null
+    position?: IntNullableWithAggregatesFilter<"OnlineExamAttempt"> | number | null
     status?: EnumAttemptStatusWithAggregatesFilter<"OnlineExamAttempt"> | $Enums.AttemptStatus
     createdAt?: DateTimeWithAggregatesFilter<"OnlineExamAttempt"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"OnlineExamAttempt"> | Date | string
@@ -115900,15 +122000,18 @@ export namespace Prisma {
     title?: StringFilter<"Assignment"> | string
     description?: StringNullableFilter<"Assignment"> | string | null
     dueDate?: DateTimeFilter<"Assignment"> | Date | string
+    attachmentUrl?: StringNullableFilter<"Assignment"> | string | null
     subjectId?: StringFilter<"Assignment"> | string
     sectionId?: StringFilter<"Assignment"> | string
     teacherId?: StringNullableFilter<"Assignment"> | string | null
+    branchId?: StringFilter<"Assignment"> | string
     createdAt?: DateTimeFilter<"Assignment"> | Date | string
     updatedAt?: DateTimeFilter<"Assignment"> | Date | string
     subject?: XOR<SubjectScalarRelationFilter, SubjectWhereInput>
     section?: XOR<SectionScalarRelationFilter, SectionWhereInput>
     submissions?: SubmissionListRelationFilter
     teacher?: XOR<StaffNullableScalarRelationFilter, StaffWhereInput> | null
+    branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
   }
 
   export type AssignmentOrderByWithRelationInput = {
@@ -115916,15 +122019,18 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrderInput | SortOrder
     dueDate?: SortOrder
+    attachmentUrl?: SortOrderInput | SortOrder
     subjectId?: SortOrder
     sectionId?: SortOrder
     teacherId?: SortOrderInput | SortOrder
+    branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     subject?: SubjectOrderByWithRelationInput
     section?: SectionOrderByWithRelationInput
     submissions?: SubmissionOrderByRelationAggregateInput
     teacher?: StaffOrderByWithRelationInput
+    branch?: BranchOrderByWithRelationInput
   }
 
   export type AssignmentWhereUniqueInput = Prisma.AtLeast<{
@@ -115935,15 +122041,18 @@ export namespace Prisma {
     title?: StringFilter<"Assignment"> | string
     description?: StringNullableFilter<"Assignment"> | string | null
     dueDate?: DateTimeFilter<"Assignment"> | Date | string
+    attachmentUrl?: StringNullableFilter<"Assignment"> | string | null
     subjectId?: StringFilter<"Assignment"> | string
     sectionId?: StringFilter<"Assignment"> | string
     teacherId?: StringNullableFilter<"Assignment"> | string | null
+    branchId?: StringFilter<"Assignment"> | string
     createdAt?: DateTimeFilter<"Assignment"> | Date | string
     updatedAt?: DateTimeFilter<"Assignment"> | Date | string
     subject?: XOR<SubjectScalarRelationFilter, SubjectWhereInput>
     section?: XOR<SectionScalarRelationFilter, SectionWhereInput>
     submissions?: SubmissionListRelationFilter
     teacher?: XOR<StaffNullableScalarRelationFilter, StaffWhereInput> | null
+    branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
   }, "id">
 
   export type AssignmentOrderByWithAggregationInput = {
@@ -115951,9 +122060,11 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrderInput | SortOrder
     dueDate?: SortOrder
+    attachmentUrl?: SortOrderInput | SortOrder
     subjectId?: SortOrder
     sectionId?: SortOrder
     teacherId?: SortOrderInput | SortOrder
+    branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: AssignmentCountOrderByAggregateInput
@@ -115969,9 +122080,11 @@ export namespace Prisma {
     title?: StringWithAggregatesFilter<"Assignment"> | string
     description?: StringNullableWithAggregatesFilter<"Assignment"> | string | null
     dueDate?: DateTimeWithAggregatesFilter<"Assignment"> | Date | string
+    attachmentUrl?: StringNullableWithAggregatesFilter<"Assignment"> | string | null
     subjectId?: StringWithAggregatesFilter<"Assignment"> | string
     sectionId?: StringWithAggregatesFilter<"Assignment"> | string
     teacherId?: StringNullableWithAggregatesFilter<"Assignment"> | string | null
+    branchId?: StringWithAggregatesFilter<"Assignment"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Assignment"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Assignment"> | Date | string
   }
@@ -116075,6 +122188,7 @@ export namespace Prisma {
     behaviouralRatings?: BehaviouralRatingListRelationFilter
     onlineAdmissions?: OnlineAdmissionListRelationFilter
     idCards?: IdCardListRelationFilter
+    digitalResources?: DigitalResourceListRelationFilter
   }
 
   export type AcademicSessionOrderByWithRelationInput = {
@@ -116092,6 +122206,7 @@ export namespace Prisma {
     behaviouralRatings?: BehaviouralRatingOrderByRelationAggregateInput
     onlineAdmissions?: OnlineAdmissionOrderByRelationAggregateInput
     idCards?: IdCardOrderByRelationAggregateInput
+    digitalResources?: DigitalResourceOrderByRelationAggregateInput
   }
 
   export type AcademicSessionWhereUniqueInput = Prisma.AtLeast<{
@@ -116112,6 +122227,7 @@ export namespace Prisma {
     behaviouralRatings?: BehaviouralRatingListRelationFilter
     onlineAdmissions?: OnlineAdmissionListRelationFilter
     idCards?: IdCardListRelationFilter
+    digitalResources?: DigitalResourceListRelationFilter
   }, "id">
 
   export type AcademicSessionOrderByWithAggregationInput = {
@@ -117712,11 +123828,16 @@ export namespace Prisma {
     NOT?: GoogleMeetConfigWhereInput | GoogleMeetConfigWhereInput[]
     id?: StringFilter<"GoogleMeetConfig"> | string
     branchId?: StringFilter<"GoogleMeetConfig"> | string
-    serviceAccountJson?: StringFilter<"GoogleMeetConfig"> | string
-    projectId?: StringFilter<"GoogleMeetConfig"> | string
-    clientId?: StringFilter<"GoogleMeetConfig"> | string
-    clientSecret?: StringFilter<"GoogleMeetConfig"> | string
-    apiKey?: StringFilter<"GoogleMeetConfig"> | string
+    clientId?: StringNullableFilter<"GoogleMeetConfig"> | string | null
+    clientSecret?: StringNullableFilter<"GoogleMeetConfig"> | string | null
+    accessToken?: StringNullableFilter<"GoogleMeetConfig"> | string | null
+    refreshToken?: StringNullableFilter<"GoogleMeetConfig"> | string | null
+    expiryDate?: DateTimeNullableFilter<"GoogleMeetConfig"> | Date | string | null
+    redirectUri?: StringNullableFilter<"GoogleMeetConfig"> | string | null
+    scopes?: StringNullableFilter<"GoogleMeetConfig"> | string | null
+    serviceAccountJson?: StringNullableFilter<"GoogleMeetConfig"> | string | null
+    projectId?: StringNullableFilter<"GoogleMeetConfig"> | string | null
+    apiKey?: StringNullableFilter<"GoogleMeetConfig"> | string | null
     isEnabled?: BoolFilter<"GoogleMeetConfig"> | boolean
     defaultDuration?: IntFilter<"GoogleMeetConfig"> | number
     allowRecording?: BoolFilter<"GoogleMeetConfig"> | boolean
@@ -117729,11 +123850,16 @@ export namespace Prisma {
   export type GoogleMeetConfigOrderByWithRelationInput = {
     id?: SortOrder
     branchId?: SortOrder
-    serviceAccountJson?: SortOrder
-    projectId?: SortOrder
-    clientId?: SortOrder
-    clientSecret?: SortOrder
-    apiKey?: SortOrder
+    clientId?: SortOrderInput | SortOrder
+    clientSecret?: SortOrderInput | SortOrder
+    accessToken?: SortOrderInput | SortOrder
+    refreshToken?: SortOrderInput | SortOrder
+    expiryDate?: SortOrderInput | SortOrder
+    redirectUri?: SortOrderInput | SortOrder
+    scopes?: SortOrderInput | SortOrder
+    serviceAccountJson?: SortOrderInput | SortOrder
+    projectId?: SortOrderInput | SortOrder
+    apiKey?: SortOrderInput | SortOrder
     isEnabled?: SortOrder
     defaultDuration?: SortOrder
     allowRecording?: SortOrder
@@ -117749,11 +123875,16 @@ export namespace Prisma {
     AND?: GoogleMeetConfigWhereInput | GoogleMeetConfigWhereInput[]
     OR?: GoogleMeetConfigWhereInput[]
     NOT?: GoogleMeetConfigWhereInput | GoogleMeetConfigWhereInput[]
-    serviceAccountJson?: StringFilter<"GoogleMeetConfig"> | string
-    projectId?: StringFilter<"GoogleMeetConfig"> | string
-    clientId?: StringFilter<"GoogleMeetConfig"> | string
-    clientSecret?: StringFilter<"GoogleMeetConfig"> | string
-    apiKey?: StringFilter<"GoogleMeetConfig"> | string
+    clientId?: StringNullableFilter<"GoogleMeetConfig"> | string | null
+    clientSecret?: StringNullableFilter<"GoogleMeetConfig"> | string | null
+    accessToken?: StringNullableFilter<"GoogleMeetConfig"> | string | null
+    refreshToken?: StringNullableFilter<"GoogleMeetConfig"> | string | null
+    expiryDate?: DateTimeNullableFilter<"GoogleMeetConfig"> | Date | string | null
+    redirectUri?: StringNullableFilter<"GoogleMeetConfig"> | string | null
+    scopes?: StringNullableFilter<"GoogleMeetConfig"> | string | null
+    serviceAccountJson?: StringNullableFilter<"GoogleMeetConfig"> | string | null
+    projectId?: StringNullableFilter<"GoogleMeetConfig"> | string | null
+    apiKey?: StringNullableFilter<"GoogleMeetConfig"> | string | null
     isEnabled?: BoolFilter<"GoogleMeetConfig"> | boolean
     defaultDuration?: IntFilter<"GoogleMeetConfig"> | number
     allowRecording?: BoolFilter<"GoogleMeetConfig"> | boolean
@@ -117766,11 +123897,16 @@ export namespace Prisma {
   export type GoogleMeetConfigOrderByWithAggregationInput = {
     id?: SortOrder
     branchId?: SortOrder
-    serviceAccountJson?: SortOrder
-    projectId?: SortOrder
-    clientId?: SortOrder
-    clientSecret?: SortOrder
-    apiKey?: SortOrder
+    clientId?: SortOrderInput | SortOrder
+    clientSecret?: SortOrderInput | SortOrder
+    accessToken?: SortOrderInput | SortOrder
+    refreshToken?: SortOrderInput | SortOrder
+    expiryDate?: SortOrderInput | SortOrder
+    redirectUri?: SortOrderInput | SortOrder
+    scopes?: SortOrderInput | SortOrder
+    serviceAccountJson?: SortOrderInput | SortOrder
+    projectId?: SortOrderInput | SortOrder
+    apiKey?: SortOrderInput | SortOrder
     isEnabled?: SortOrder
     defaultDuration?: SortOrder
     allowRecording?: SortOrder
@@ -117790,11 +123926,16 @@ export namespace Prisma {
     NOT?: GoogleMeetConfigScalarWhereWithAggregatesInput | GoogleMeetConfigScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"GoogleMeetConfig"> | string
     branchId?: StringWithAggregatesFilter<"GoogleMeetConfig"> | string
-    serviceAccountJson?: StringWithAggregatesFilter<"GoogleMeetConfig"> | string
-    projectId?: StringWithAggregatesFilter<"GoogleMeetConfig"> | string
-    clientId?: StringWithAggregatesFilter<"GoogleMeetConfig"> | string
-    clientSecret?: StringWithAggregatesFilter<"GoogleMeetConfig"> | string
-    apiKey?: StringWithAggregatesFilter<"GoogleMeetConfig"> | string
+    clientId?: StringNullableWithAggregatesFilter<"GoogleMeetConfig"> | string | null
+    clientSecret?: StringNullableWithAggregatesFilter<"GoogleMeetConfig"> | string | null
+    accessToken?: StringNullableWithAggregatesFilter<"GoogleMeetConfig"> | string | null
+    refreshToken?: StringNullableWithAggregatesFilter<"GoogleMeetConfig"> | string | null
+    expiryDate?: DateTimeNullableWithAggregatesFilter<"GoogleMeetConfig"> | Date | string | null
+    redirectUri?: StringNullableWithAggregatesFilter<"GoogleMeetConfig"> | string | null
+    scopes?: StringNullableWithAggregatesFilter<"GoogleMeetConfig"> | string | null
+    serviceAccountJson?: StringNullableWithAggregatesFilter<"GoogleMeetConfig"> | string | null
+    projectId?: StringNullableWithAggregatesFilter<"GoogleMeetConfig"> | string | null
+    apiKey?: StringNullableWithAggregatesFilter<"GoogleMeetConfig"> | string | null
     isEnabled?: BoolWithAggregatesFilter<"GoogleMeetConfig"> | boolean
     defaultDuration?: IntWithAggregatesFilter<"GoogleMeetConfig"> | number
     allowRecording?: BoolWithAggregatesFilter<"GoogleMeetConfig"> | boolean
@@ -117811,8 +123952,9 @@ export namespace Prisma {
     title?: StringFilter<"LiveClassSession"> | string
     description?: StringNullableFilter<"LiveClassSession"> | string | null
     meetingId?: StringFilter<"LiveClassSession"> | string
-    hostUrl?: StringFilter<"LiveClassSession"> | string
-    participantUrl?: StringFilter<"LiveClassSession"> | string
+    meetLink?: StringNullableFilter<"LiveClassSession"> | string | null
+    hostUrl?: StringNullableFilter<"LiveClassSession"> | string | null
+    participantUrl?: StringNullableFilter<"LiveClassSession"> | string | null
     classId?: StringNullableFilter<"LiveClassSession"> | string | null
     sectionId?: StringNullableFilter<"LiveClassSession"> | string | null
     subjectId?: StringNullableFilter<"LiveClassSession"> | string | null
@@ -117821,8 +123963,14 @@ export namespace Prisma {
     scheduledEnd?: DateTimeFilter<"LiveClassSession"> | Date | string
     actualStart?: DateTimeNullableFilter<"LiveClassSession"> | Date | string | null
     actualEnd?: DateTimeNullableFilter<"LiveClassSession"> | Date | string | null
+    timezone?: StringFilter<"LiveClassSession"> | string
+    isRecurring?: BoolFilter<"LiveClassSession"> | boolean
+    recurrenceRule?: StringNullableFilter<"LiveClassSession"> | string | null
+    seriesId?: StringNullableFilter<"LiveClassSession"> | string | null
     status?: StringFilter<"LiveClassSession"> | string
+    recordingId?: StringNullableFilter<"LiveClassSession"> | string | null
     recordingUrl?: StringNullableFilter<"LiveClassSession"> | string | null
+    recordingStatus?: StringNullableFilter<"LiveClassSession"> | string | null
     branchId?: StringFilter<"LiveClassSession"> | string
     createdAt?: DateTimeFilter<"LiveClassSession"> | Date | string
     updatedAt?: DateTimeFilter<"LiveClassSession"> | Date | string
@@ -117839,8 +123987,9 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrderInput | SortOrder
     meetingId?: SortOrder
-    hostUrl?: SortOrder
-    participantUrl?: SortOrder
+    meetLink?: SortOrderInput | SortOrder
+    hostUrl?: SortOrderInput | SortOrder
+    participantUrl?: SortOrderInput | SortOrder
     classId?: SortOrderInput | SortOrder
     sectionId?: SortOrderInput | SortOrder
     subjectId?: SortOrderInput | SortOrder
@@ -117849,8 +123998,14 @@ export namespace Prisma {
     scheduledEnd?: SortOrder
     actualStart?: SortOrderInput | SortOrder
     actualEnd?: SortOrderInput | SortOrder
+    timezone?: SortOrder
+    isRecurring?: SortOrder
+    recurrenceRule?: SortOrderInput | SortOrder
+    seriesId?: SortOrderInput | SortOrder
     status?: SortOrder
+    recordingId?: SortOrderInput | SortOrder
     recordingUrl?: SortOrderInput | SortOrder
+    recordingStatus?: SortOrderInput | SortOrder
     branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -117870,8 +124025,9 @@ export namespace Prisma {
     NOT?: LiveClassSessionWhereInput | LiveClassSessionWhereInput[]
     title?: StringFilter<"LiveClassSession"> | string
     description?: StringNullableFilter<"LiveClassSession"> | string | null
-    hostUrl?: StringFilter<"LiveClassSession"> | string
-    participantUrl?: StringFilter<"LiveClassSession"> | string
+    meetLink?: StringNullableFilter<"LiveClassSession"> | string | null
+    hostUrl?: StringNullableFilter<"LiveClassSession"> | string | null
+    participantUrl?: StringNullableFilter<"LiveClassSession"> | string | null
     classId?: StringNullableFilter<"LiveClassSession"> | string | null
     sectionId?: StringNullableFilter<"LiveClassSession"> | string | null
     subjectId?: StringNullableFilter<"LiveClassSession"> | string | null
@@ -117880,8 +124036,14 @@ export namespace Prisma {
     scheduledEnd?: DateTimeFilter<"LiveClassSession"> | Date | string
     actualStart?: DateTimeNullableFilter<"LiveClassSession"> | Date | string | null
     actualEnd?: DateTimeNullableFilter<"LiveClassSession"> | Date | string | null
+    timezone?: StringFilter<"LiveClassSession"> | string
+    isRecurring?: BoolFilter<"LiveClassSession"> | boolean
+    recurrenceRule?: StringNullableFilter<"LiveClassSession"> | string | null
+    seriesId?: StringNullableFilter<"LiveClassSession"> | string | null
     status?: StringFilter<"LiveClassSession"> | string
+    recordingId?: StringNullableFilter<"LiveClassSession"> | string | null
     recordingUrl?: StringNullableFilter<"LiveClassSession"> | string | null
+    recordingStatus?: StringNullableFilter<"LiveClassSession"> | string | null
     branchId?: StringFilter<"LiveClassSession"> | string
     createdAt?: DateTimeFilter<"LiveClassSession"> | Date | string
     updatedAt?: DateTimeFilter<"LiveClassSession"> | Date | string
@@ -117898,8 +124060,9 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrderInput | SortOrder
     meetingId?: SortOrder
-    hostUrl?: SortOrder
-    participantUrl?: SortOrder
+    meetLink?: SortOrderInput | SortOrder
+    hostUrl?: SortOrderInput | SortOrder
+    participantUrl?: SortOrderInput | SortOrder
     classId?: SortOrderInput | SortOrder
     sectionId?: SortOrderInput | SortOrder
     subjectId?: SortOrderInput | SortOrder
@@ -117908,8 +124071,14 @@ export namespace Prisma {
     scheduledEnd?: SortOrder
     actualStart?: SortOrderInput | SortOrder
     actualEnd?: SortOrderInput | SortOrder
+    timezone?: SortOrder
+    isRecurring?: SortOrder
+    recurrenceRule?: SortOrderInput | SortOrder
+    seriesId?: SortOrderInput | SortOrder
     status?: SortOrder
+    recordingId?: SortOrderInput | SortOrder
     recordingUrl?: SortOrderInput | SortOrder
+    recordingStatus?: SortOrderInput | SortOrder
     branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -117926,8 +124095,9 @@ export namespace Prisma {
     title?: StringWithAggregatesFilter<"LiveClassSession"> | string
     description?: StringNullableWithAggregatesFilter<"LiveClassSession"> | string | null
     meetingId?: StringWithAggregatesFilter<"LiveClassSession"> | string
-    hostUrl?: StringWithAggregatesFilter<"LiveClassSession"> | string
-    participantUrl?: StringWithAggregatesFilter<"LiveClassSession"> | string
+    meetLink?: StringNullableWithAggregatesFilter<"LiveClassSession"> | string | null
+    hostUrl?: StringNullableWithAggregatesFilter<"LiveClassSession"> | string | null
+    participantUrl?: StringNullableWithAggregatesFilter<"LiveClassSession"> | string | null
     classId?: StringNullableWithAggregatesFilter<"LiveClassSession"> | string | null
     sectionId?: StringNullableWithAggregatesFilter<"LiveClassSession"> | string | null
     subjectId?: StringNullableWithAggregatesFilter<"LiveClassSession"> | string | null
@@ -117936,8 +124106,14 @@ export namespace Prisma {
     scheduledEnd?: DateTimeWithAggregatesFilter<"LiveClassSession"> | Date | string
     actualStart?: DateTimeNullableWithAggregatesFilter<"LiveClassSession"> | Date | string | null
     actualEnd?: DateTimeNullableWithAggregatesFilter<"LiveClassSession"> | Date | string | null
+    timezone?: StringWithAggregatesFilter<"LiveClassSession"> | string
+    isRecurring?: BoolWithAggregatesFilter<"LiveClassSession"> | boolean
+    recurrenceRule?: StringNullableWithAggregatesFilter<"LiveClassSession"> | string | null
+    seriesId?: StringNullableWithAggregatesFilter<"LiveClassSession"> | string | null
     status?: StringWithAggregatesFilter<"LiveClassSession"> | string
+    recordingId?: StringNullableWithAggregatesFilter<"LiveClassSession"> | string | null
     recordingUrl?: StringNullableWithAggregatesFilter<"LiveClassSession"> | string | null
+    recordingStatus?: StringNullableWithAggregatesFilter<"LiveClassSession"> | string | null
     branchId?: StringWithAggregatesFilter<"LiveClassSession"> | string
     createdAt?: DateTimeWithAggregatesFilter<"LiveClassSession"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"LiveClassSession"> | Date | string
@@ -120550,6 +126726,204 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"IdCard"> | Date | string
   }
 
+  export type DigitalResourceWhereInput = {
+    AND?: DigitalResourceWhereInput | DigitalResourceWhereInput[]
+    OR?: DigitalResourceWhereInput[]
+    NOT?: DigitalResourceWhereInput | DigitalResourceWhereInput[]
+    id?: StringFilter<"DigitalResource"> | string
+    title?: StringFilter<"DigitalResource"> | string
+    description?: StringNullableFilter<"DigitalResource"> | string | null
+    fileUrl?: StringFilter<"DigitalResource"> | string
+    fileType?: StringFilter<"DigitalResource"> | string
+    fileSize?: IntNullableFilter<"DigitalResource"> | number | null
+    thumbnailUrl?: StringNullableFilter<"DigitalResource"> | string | null
+    category?: StringFilter<"DigitalResource"> | string
+    sessionId?: StringFilter<"DigitalResource"> | string
+    classId?: StringNullableFilter<"DigitalResource"> | string | null
+    sectionId?: StringNullableFilter<"DigitalResource"> | string | null
+    subjectId?: StringNullableFilter<"DigitalResource"> | string | null
+    uploaderId?: StringFilter<"DigitalResource"> | string
+    branchId?: StringFilter<"DigitalResource"> | string
+    createdAt?: DateTimeFilter<"DigitalResource"> | Date | string
+    updatedAt?: DateTimeFilter<"DigitalResource"> | Date | string
+    session?: XOR<AcademicSessionScalarRelationFilter, AcademicSessionWhereInput>
+    class?: XOR<ClassNullableScalarRelationFilter, ClassWhereInput> | null
+    section?: XOR<SectionNullableScalarRelationFilter, SectionWhereInput> | null
+    subject?: XOR<SubjectNullableScalarRelationFilter, SubjectWhereInput> | null
+    uploader?: XOR<StaffScalarRelationFilter, StaffWhereInput>
+    branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
+    logs?: DigitalResourceLogListRelationFilter
+  }
+
+  export type DigitalResourceOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    fileUrl?: SortOrder
+    fileType?: SortOrder
+    fileSize?: SortOrderInput | SortOrder
+    thumbnailUrl?: SortOrderInput | SortOrder
+    category?: SortOrder
+    sessionId?: SortOrder
+    classId?: SortOrderInput | SortOrder
+    sectionId?: SortOrderInput | SortOrder
+    subjectId?: SortOrderInput | SortOrder
+    uploaderId?: SortOrder
+    branchId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    session?: AcademicSessionOrderByWithRelationInput
+    class?: ClassOrderByWithRelationInput
+    section?: SectionOrderByWithRelationInput
+    subject?: SubjectOrderByWithRelationInput
+    uploader?: StaffOrderByWithRelationInput
+    branch?: BranchOrderByWithRelationInput
+    logs?: DigitalResourceLogOrderByRelationAggregateInput
+  }
+
+  export type DigitalResourceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DigitalResourceWhereInput | DigitalResourceWhereInput[]
+    OR?: DigitalResourceWhereInput[]
+    NOT?: DigitalResourceWhereInput | DigitalResourceWhereInput[]
+    title?: StringFilter<"DigitalResource"> | string
+    description?: StringNullableFilter<"DigitalResource"> | string | null
+    fileUrl?: StringFilter<"DigitalResource"> | string
+    fileType?: StringFilter<"DigitalResource"> | string
+    fileSize?: IntNullableFilter<"DigitalResource"> | number | null
+    thumbnailUrl?: StringNullableFilter<"DigitalResource"> | string | null
+    category?: StringFilter<"DigitalResource"> | string
+    sessionId?: StringFilter<"DigitalResource"> | string
+    classId?: StringNullableFilter<"DigitalResource"> | string | null
+    sectionId?: StringNullableFilter<"DigitalResource"> | string | null
+    subjectId?: StringNullableFilter<"DigitalResource"> | string | null
+    uploaderId?: StringFilter<"DigitalResource"> | string
+    branchId?: StringFilter<"DigitalResource"> | string
+    createdAt?: DateTimeFilter<"DigitalResource"> | Date | string
+    updatedAt?: DateTimeFilter<"DigitalResource"> | Date | string
+    session?: XOR<AcademicSessionScalarRelationFilter, AcademicSessionWhereInput>
+    class?: XOR<ClassNullableScalarRelationFilter, ClassWhereInput> | null
+    section?: XOR<SectionNullableScalarRelationFilter, SectionWhereInput> | null
+    subject?: XOR<SubjectNullableScalarRelationFilter, SubjectWhereInput> | null
+    uploader?: XOR<StaffScalarRelationFilter, StaffWhereInput>
+    branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
+    logs?: DigitalResourceLogListRelationFilter
+  }, "id">
+
+  export type DigitalResourceOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    fileUrl?: SortOrder
+    fileType?: SortOrder
+    fileSize?: SortOrderInput | SortOrder
+    thumbnailUrl?: SortOrderInput | SortOrder
+    category?: SortOrder
+    sessionId?: SortOrder
+    classId?: SortOrderInput | SortOrder
+    sectionId?: SortOrderInput | SortOrder
+    subjectId?: SortOrderInput | SortOrder
+    uploaderId?: SortOrder
+    branchId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DigitalResourceCountOrderByAggregateInput
+    _avg?: DigitalResourceAvgOrderByAggregateInput
+    _max?: DigitalResourceMaxOrderByAggregateInput
+    _min?: DigitalResourceMinOrderByAggregateInput
+    _sum?: DigitalResourceSumOrderByAggregateInput
+  }
+
+  export type DigitalResourceScalarWhereWithAggregatesInput = {
+    AND?: DigitalResourceScalarWhereWithAggregatesInput | DigitalResourceScalarWhereWithAggregatesInput[]
+    OR?: DigitalResourceScalarWhereWithAggregatesInput[]
+    NOT?: DigitalResourceScalarWhereWithAggregatesInput | DigitalResourceScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DigitalResource"> | string
+    title?: StringWithAggregatesFilter<"DigitalResource"> | string
+    description?: StringNullableWithAggregatesFilter<"DigitalResource"> | string | null
+    fileUrl?: StringWithAggregatesFilter<"DigitalResource"> | string
+    fileType?: StringWithAggregatesFilter<"DigitalResource"> | string
+    fileSize?: IntNullableWithAggregatesFilter<"DigitalResource"> | number | null
+    thumbnailUrl?: StringNullableWithAggregatesFilter<"DigitalResource"> | string | null
+    category?: StringWithAggregatesFilter<"DigitalResource"> | string
+    sessionId?: StringWithAggregatesFilter<"DigitalResource"> | string
+    classId?: StringNullableWithAggregatesFilter<"DigitalResource"> | string | null
+    sectionId?: StringNullableWithAggregatesFilter<"DigitalResource"> | string | null
+    subjectId?: StringNullableWithAggregatesFilter<"DigitalResource"> | string | null
+    uploaderId?: StringWithAggregatesFilter<"DigitalResource"> | string
+    branchId?: StringWithAggregatesFilter<"DigitalResource"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"DigitalResource"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"DigitalResource"> | Date | string
+  }
+
+  export type DigitalResourceLogWhereInput = {
+    AND?: DigitalResourceLogWhereInput | DigitalResourceLogWhereInput[]
+    OR?: DigitalResourceLogWhereInput[]
+    NOT?: DigitalResourceLogWhereInput | DigitalResourceLogWhereInput[]
+    id?: StringFilter<"DigitalResourceLog"> | string
+    resourceId?: StringFilter<"DigitalResourceLog"> | string
+    userId?: StringFilter<"DigitalResourceLog"> | string
+    action?: StringFilter<"DigitalResourceLog"> | string
+    ipAddress?: StringNullableFilter<"DigitalResourceLog"> | string | null
+    userAgent?: StringNullableFilter<"DigitalResourceLog"> | string | null
+    createdAt?: DateTimeFilter<"DigitalResourceLog"> | Date | string
+    resource?: XOR<DigitalResourceScalarRelationFilter, DigitalResourceWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type DigitalResourceLogOrderByWithRelationInput = {
+    id?: SortOrder
+    resourceId?: SortOrder
+    userId?: SortOrder
+    action?: SortOrder
+    ipAddress?: SortOrderInput | SortOrder
+    userAgent?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    resource?: DigitalResourceOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type DigitalResourceLogWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DigitalResourceLogWhereInput | DigitalResourceLogWhereInput[]
+    OR?: DigitalResourceLogWhereInput[]
+    NOT?: DigitalResourceLogWhereInput | DigitalResourceLogWhereInput[]
+    resourceId?: StringFilter<"DigitalResourceLog"> | string
+    userId?: StringFilter<"DigitalResourceLog"> | string
+    action?: StringFilter<"DigitalResourceLog"> | string
+    ipAddress?: StringNullableFilter<"DigitalResourceLog"> | string | null
+    userAgent?: StringNullableFilter<"DigitalResourceLog"> | string | null
+    createdAt?: DateTimeFilter<"DigitalResourceLog"> | Date | string
+    resource?: XOR<DigitalResourceScalarRelationFilter, DigitalResourceWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type DigitalResourceLogOrderByWithAggregationInput = {
+    id?: SortOrder
+    resourceId?: SortOrder
+    userId?: SortOrder
+    action?: SortOrder
+    ipAddress?: SortOrderInput | SortOrder
+    userAgent?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: DigitalResourceLogCountOrderByAggregateInput
+    _max?: DigitalResourceLogMaxOrderByAggregateInput
+    _min?: DigitalResourceLogMinOrderByAggregateInput
+  }
+
+  export type DigitalResourceLogScalarWhereWithAggregatesInput = {
+    AND?: DigitalResourceLogScalarWhereWithAggregatesInput | DigitalResourceLogScalarWhereWithAggregatesInput[]
+    OR?: DigitalResourceLogScalarWhereWithAggregatesInput[]
+    NOT?: DigitalResourceLogScalarWhereWithAggregatesInput | DigitalResourceLogScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DigitalResourceLog"> | string
+    resourceId?: StringWithAggregatesFilter<"DigitalResourceLog"> | string
+    userId?: StringWithAggregatesFilter<"DigitalResourceLog"> | string
+    action?: StringWithAggregatesFilter<"DigitalResourceLog"> | string
+    ipAddress?: StringNullableWithAggregatesFilter<"DigitalResourceLog"> | string | null
+    userAgent?: StringNullableWithAggregatesFilter<"DigitalResourceLog"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"DigitalResourceLog"> | Date | string
+  }
+
   export type BranchCreateInput = {
     id?: string
     name: string
@@ -120601,8 +126975,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateInput = {
@@ -120656,8 +127032,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUpdateInput = {
@@ -120711,8 +127089,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateInput = {
@@ -120766,8 +127146,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateManyInput = {
@@ -120971,6 +127353,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutParentInput
+    digitalResourceLogs?: DigitalResourceLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -120997,6 +127380,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPUncheckedCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutParentInput
+    digitalResourceLogs?: DigitalResourceLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -121023,6 +127407,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutParentNestedInput
+    digitalResourceLogs?: DigitalResourceLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -121049,6 +127434,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutParentNestedInput
+    digitalResourceLogs?: DigitalResourceLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -121112,6 +127498,9 @@ export namespace Prisma {
     assignments?: AssignmentCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionCreateNestedManyWithoutHostInput
     idCards?: IdCardCreateNestedManyWithoutStaffInput
+    attendance?: StaffAttendanceCreateNestedManyWithoutStaffInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutTeacherInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutUploaderInput
   }
 
   export type StaffUncheckedCreateInput = {
@@ -121134,6 +127523,9 @@ export namespace Prisma {
     assignments?: AssignmentUncheckedCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutHostInput
     idCards?: IdCardUncheckedCreateNestedManyWithoutStaffInput
+    attendance?: StaffAttendanceUncheckedCreateNestedManyWithoutStaffInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutTeacherInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutUploaderInput
   }
 
   export type StaffUpdateInput = {
@@ -121156,6 +127548,9 @@ export namespace Prisma {
     assignments?: AssignmentUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUpdateManyWithoutHostNestedInput
     idCards?: IdCardUpdateManyWithoutStaffNestedInput
+    attendance?: StaffAttendanceUpdateManyWithoutStaffNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutTeacherNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutUploaderNestedInput
   }
 
   export type StaffUncheckedUpdateInput = {
@@ -121178,6 +127573,9 @@ export namespace Prisma {
     assignments?: AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUncheckedUpdateManyWithoutHostNestedInput
     idCards?: IdCardUncheckedUpdateManyWithoutStaffNestedInput
+    attendance?: StaffAttendanceUncheckedUpdateManyWithoutStaffNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutTeacherNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutUploaderNestedInput
   }
 
   export type StaffCreateManyInput = {
@@ -121802,6 +128200,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutClassInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutDesiredClassInput
     onlineExams?: OnlineExamCreateNestedManyWithoutClassInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutClassInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateInput = {
@@ -121818,6 +128218,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutClassInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutDesiredClassInput
     onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutClassInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutClassInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassUpdateInput = {
@@ -121834,6 +128236,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionUpdateManyWithoutClassNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutDesiredClassNestedInput
     onlineExams?: OnlineExamUpdateManyWithoutClassNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutClassNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateInput = {
@@ -121850,6 +128254,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutClassNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutDesiredClassNestedInput
     onlineExams?: OnlineExamUncheckedUpdateManyWithoutClassNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutClassNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type ClassCreateManyInput = {
@@ -121893,6 +128299,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutSectionInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutDesiredSectionInput
     onlineExams?: OnlineExamCreateNestedManyWithoutSectionInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutSectionInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutSectionInput
   }
 
   export type SectionUncheckedCreateInput = {
@@ -121908,6 +128316,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutSectionInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutDesiredSectionInput
     onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutSectionInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutSectionInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutSectionInput
   }
 
   export type SectionUpdateInput = {
@@ -121923,6 +128333,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionUpdateManyWithoutSectionNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutDesiredSectionNestedInput
     onlineExams?: OnlineExamUpdateManyWithoutSectionNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutSectionNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutSectionNestedInput
   }
 
   export type SectionUncheckedUpdateInput = {
@@ -121938,6 +128350,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutSectionNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutDesiredSectionNestedInput
     onlineExams?: OnlineExamUncheckedUpdateManyWithoutSectionNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutSectionNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutSectionNestedInput
   }
 
   export type SectionCreateManyInput = {
@@ -121975,6 +128389,8 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutSubjectInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutSubjectInput
     onlineExams?: OnlineExamCreateNestedManyWithoutSubjectInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutSubjectInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectUncheckedCreateInput = {
@@ -121989,6 +128405,8 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutSubjectInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutSubjectInput
     onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutSubjectInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutSubjectInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectUpdateInput = {
@@ -122003,6 +128421,8 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutSubjectNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutSubjectNestedInput
     onlineExams?: OnlineExamUpdateManyWithoutSubjectNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutSubjectNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutSubjectNestedInput
   }
 
   export type SubjectUncheckedUpdateInput = {
@@ -122017,6 +128437,8 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutSubjectNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutSubjectNestedInput
     onlineExams?: OnlineExamUncheckedUpdateManyWithoutSubjectNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutSubjectNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutSubjectNestedInput
   }
 
   export type SubjectCreateManyInput = {
@@ -122041,6 +128463,100 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     code?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClassScheduleCreateInput = {
+    id?: string
+    dayOfWeek: number
+    startTime: string
+    endTime: string
+    room?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    class: ClassCreateNestedOneWithoutClassSchedulesInput
+    section: SectionCreateNestedOneWithoutClassSchedulesInput
+    subject: SubjectCreateNestedOneWithoutClassSchedulesInput
+    teacher: StaffCreateNestedOneWithoutClassSchedulesInput
+  }
+
+  export type ClassScheduleUncheckedCreateInput = {
+    id?: string
+    dayOfWeek: number
+    startTime: string
+    endTime: string
+    room?: string | null
+    classId: string
+    sectionId: string
+    subjectId: string
+    teacherId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ClassScheduleUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dayOfWeek?: IntFieldUpdateOperationsInput | number
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    room?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    class?: ClassUpdateOneRequiredWithoutClassSchedulesNestedInput
+    section?: SectionUpdateOneRequiredWithoutClassSchedulesNestedInput
+    subject?: SubjectUpdateOneRequiredWithoutClassSchedulesNestedInput
+    teacher?: StaffUpdateOneRequiredWithoutClassSchedulesNestedInput
+  }
+
+  export type ClassScheduleUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dayOfWeek?: IntFieldUpdateOperationsInput | number
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    room?: NullableStringFieldUpdateOperationsInput | string | null
+    classId?: StringFieldUpdateOperationsInput | string
+    sectionId?: StringFieldUpdateOperationsInput | string
+    subjectId?: StringFieldUpdateOperationsInput | string
+    teacherId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClassScheduleCreateManyInput = {
+    id?: string
+    dayOfWeek: number
+    startTime: string
+    endTime: string
+    room?: string | null
+    classId: string
+    sectionId: string
+    subjectId: string
+    teacherId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ClassScheduleUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dayOfWeek?: IntFieldUpdateOperationsInput | number
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    room?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClassScheduleUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dayOfWeek?: IntFieldUpdateOperationsInput | number
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    room?: NullableStringFieldUpdateOperationsInput | string | null
+    classId?: StringFieldUpdateOperationsInput | string
+    sectionId?: StringFieldUpdateOperationsInput | string
+    subjectId?: StringFieldUpdateOperationsInput | string
+    teacherId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -122116,6 +128632,75 @@ export namespace Prisma {
     remarks?: NullableStringFieldUpdateOperationsInput | string | null
     studentId?: StringFieldUpdateOperationsInput | string
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffAttendanceCreateInput = {
+    id?: string
+    date: Date | string
+    status: $Enums.AttendanceStatus
+    remarks?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    staff: StaffCreateNestedOneWithoutAttendanceInput
+  }
+
+  export type StaffAttendanceUncheckedCreateInput = {
+    id?: string
+    date: Date | string
+    status: $Enums.AttendanceStatus
+    remarks?: string | null
+    staffId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StaffAttendanceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    staff?: StaffUpdateOneRequiredWithoutAttendanceNestedInput
+  }
+
+  export type StaffAttendanceUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    staffId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffAttendanceCreateManyInput = {
+    id?: string
+    date: Date | string
+    status: $Enums.AttendanceStatus
+    remarks?: string | null
+    staffId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StaffAttendanceUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffAttendanceUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    staffId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -123117,6 +129702,7 @@ export namespace Prisma {
     startTime?: Date | string
     endTime?: Date | string | null
     score?: number | null
+    position?: number | null
     status?: $Enums.AttemptStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -123132,6 +129718,7 @@ export namespace Prisma {
     startTime?: Date | string
     endTime?: Date | string | null
     score?: number | null
+    position?: number | null
     status?: $Enums.AttemptStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -123143,6 +129730,7 @@ export namespace Prisma {
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     score?: NullableFloatFieldUpdateOperationsInput | number | null
+    position?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -123158,6 +129746,7 @@ export namespace Prisma {
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     score?: NullableFloatFieldUpdateOperationsInput | number | null
+    position?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -123171,6 +129760,7 @@ export namespace Prisma {
     startTime?: Date | string
     endTime?: Date | string | null
     score?: number | null
+    position?: number | null
     status?: $Enums.AttemptStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -123181,6 +129771,7 @@ export namespace Prisma {
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     score?: NullableFloatFieldUpdateOperationsInput | number | null
+    position?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -123193,6 +129784,7 @@ export namespace Prisma {
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     score?: NullableFloatFieldUpdateOperationsInput | number | null
+    position?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -123663,12 +130255,14 @@ export namespace Prisma {
     title: string
     description?: string | null
     dueDate: Date | string
+    attachmentUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     subject: SubjectCreateNestedOneWithoutAssignmentsInput
     section: SectionCreateNestedOneWithoutAssignmentsInput
     submissions?: SubmissionCreateNestedManyWithoutAssignmentInput
     teacher?: StaffCreateNestedOneWithoutAssignmentsInput
+    branch: BranchCreateNestedOneWithoutAssignmentsInput
   }
 
   export type AssignmentUncheckedCreateInput = {
@@ -123676,9 +130270,11 @@ export namespace Prisma {
     title: string
     description?: string | null
     dueDate: Date | string
+    attachmentUrl?: string | null
     subjectId: string
     sectionId: string
     teacherId?: string | null
+    branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     submissions?: SubmissionUncheckedCreateNestedManyWithoutAssignmentInput
@@ -123689,12 +130285,14 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subject?: SubjectUpdateOneRequiredWithoutAssignmentsNestedInput
     section?: SectionUpdateOneRequiredWithoutAssignmentsNestedInput
     submissions?: SubmissionUpdateManyWithoutAssignmentNestedInput
     teacher?: StaffUpdateOneWithoutAssignmentsNestedInput
+    branch?: BranchUpdateOneRequiredWithoutAssignmentsNestedInput
   }
 
   export type AssignmentUncheckedUpdateInput = {
@@ -123702,9 +130300,11 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     subjectId?: StringFieldUpdateOperationsInput | string
     sectionId?: StringFieldUpdateOperationsInput | string
     teacherId?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     submissions?: SubmissionUncheckedUpdateManyWithoutAssignmentNestedInput
@@ -123715,9 +130315,11 @@ export namespace Prisma {
     title: string
     description?: string | null
     dueDate: Date | string
+    attachmentUrl?: string | null
     subjectId: string
     sectionId: string
     teacherId?: string | null
+    branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -123727,6 +130329,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -123736,9 +130339,11 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     subjectId?: StringFieldUpdateOperationsInput | string
     sectionId?: StringFieldUpdateOperationsInput | string
     teacherId?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -123840,6 +130445,7 @@ export namespace Prisma {
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutSessionInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutAcademicSessionInput
     idCards?: IdCardCreateNestedManyWithoutSessionInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutSessionInput
   }
 
   export type AcademicSessionUncheckedCreateInput = {
@@ -123857,6 +130463,7 @@ export namespace Prisma {
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutSessionInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutAcademicSessionInput
     idCards?: IdCardUncheckedCreateNestedManyWithoutSessionInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutSessionInput
   }
 
   export type AcademicSessionUpdateInput = {
@@ -123874,6 +130481,7 @@ export namespace Prisma {
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutSessionNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutAcademicSessionNestedInput
     idCards?: IdCardUpdateManyWithoutSessionNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutSessionNestedInput
   }
 
   export type AcademicSessionUncheckedUpdateInput = {
@@ -123891,6 +130499,7 @@ export namespace Prisma {
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutSessionNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutAcademicSessionNestedInput
     idCards?: IdCardUncheckedUpdateManyWithoutSessionNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutSessionNestedInput
   }
 
   export type AcademicSessionCreateManyInput = {
@@ -125642,11 +132251,16 @@ export namespace Prisma {
 
   export type GoogleMeetConfigCreateInput = {
     id?: string
-    serviceAccountJson: string
-    projectId: string
-    clientId: string
-    clientSecret: string
-    apiKey: string
+    clientId?: string | null
+    clientSecret?: string | null
+    accessToken?: string | null
+    refreshToken?: string | null
+    expiryDate?: Date | string | null
+    redirectUri?: string | null
+    scopes?: string | null
+    serviceAccountJson?: string | null
+    projectId?: string | null
+    apiKey?: string | null
     isEnabled?: boolean
     defaultDuration?: number
     allowRecording?: boolean
@@ -125659,11 +132273,16 @@ export namespace Prisma {
   export type GoogleMeetConfigUncheckedCreateInput = {
     id?: string
     branchId: string
-    serviceAccountJson: string
-    projectId: string
-    clientId: string
-    clientSecret: string
-    apiKey: string
+    clientId?: string | null
+    clientSecret?: string | null
+    accessToken?: string | null
+    refreshToken?: string | null
+    expiryDate?: Date | string | null
+    redirectUri?: string | null
+    scopes?: string | null
+    serviceAccountJson?: string | null
+    projectId?: string | null
+    apiKey?: string | null
     isEnabled?: boolean
     defaultDuration?: number
     allowRecording?: boolean
@@ -125674,11 +132293,16 @@ export namespace Prisma {
 
   export type GoogleMeetConfigUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    serviceAccountJson?: StringFieldUpdateOperationsInput | string
-    projectId?: StringFieldUpdateOperationsInput | string
-    clientId?: StringFieldUpdateOperationsInput | string
-    clientSecret?: StringFieldUpdateOperationsInput | string
-    apiKey?: StringFieldUpdateOperationsInput | string
+    clientId?: NullableStringFieldUpdateOperationsInput | string | null
+    clientSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    expiryDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    redirectUri?: NullableStringFieldUpdateOperationsInput | string | null
+    scopes?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceAccountJson?: NullableStringFieldUpdateOperationsInput | string | null
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    apiKey?: NullableStringFieldUpdateOperationsInput | string | null
     isEnabled?: BoolFieldUpdateOperationsInput | boolean
     defaultDuration?: IntFieldUpdateOperationsInput | number
     allowRecording?: BoolFieldUpdateOperationsInput | boolean
@@ -125691,11 +132315,16 @@ export namespace Prisma {
   export type GoogleMeetConfigUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     branchId?: StringFieldUpdateOperationsInput | string
-    serviceAccountJson?: StringFieldUpdateOperationsInput | string
-    projectId?: StringFieldUpdateOperationsInput | string
-    clientId?: StringFieldUpdateOperationsInput | string
-    clientSecret?: StringFieldUpdateOperationsInput | string
-    apiKey?: StringFieldUpdateOperationsInput | string
+    clientId?: NullableStringFieldUpdateOperationsInput | string | null
+    clientSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    expiryDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    redirectUri?: NullableStringFieldUpdateOperationsInput | string | null
+    scopes?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceAccountJson?: NullableStringFieldUpdateOperationsInput | string | null
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    apiKey?: NullableStringFieldUpdateOperationsInput | string | null
     isEnabled?: BoolFieldUpdateOperationsInput | boolean
     defaultDuration?: IntFieldUpdateOperationsInput | number
     allowRecording?: BoolFieldUpdateOperationsInput | boolean
@@ -125707,11 +132336,16 @@ export namespace Prisma {
   export type GoogleMeetConfigCreateManyInput = {
     id?: string
     branchId: string
-    serviceAccountJson: string
-    projectId: string
-    clientId: string
-    clientSecret: string
-    apiKey: string
+    clientId?: string | null
+    clientSecret?: string | null
+    accessToken?: string | null
+    refreshToken?: string | null
+    expiryDate?: Date | string | null
+    redirectUri?: string | null
+    scopes?: string | null
+    serviceAccountJson?: string | null
+    projectId?: string | null
+    apiKey?: string | null
     isEnabled?: boolean
     defaultDuration?: number
     allowRecording?: boolean
@@ -125722,11 +132356,16 @@ export namespace Prisma {
 
   export type GoogleMeetConfigUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    serviceAccountJson?: StringFieldUpdateOperationsInput | string
-    projectId?: StringFieldUpdateOperationsInput | string
-    clientId?: StringFieldUpdateOperationsInput | string
-    clientSecret?: StringFieldUpdateOperationsInput | string
-    apiKey?: StringFieldUpdateOperationsInput | string
+    clientId?: NullableStringFieldUpdateOperationsInput | string | null
+    clientSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    expiryDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    redirectUri?: NullableStringFieldUpdateOperationsInput | string | null
+    scopes?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceAccountJson?: NullableStringFieldUpdateOperationsInput | string | null
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    apiKey?: NullableStringFieldUpdateOperationsInput | string | null
     isEnabled?: BoolFieldUpdateOperationsInput | boolean
     defaultDuration?: IntFieldUpdateOperationsInput | number
     allowRecording?: BoolFieldUpdateOperationsInput | boolean
@@ -125738,11 +132377,16 @@ export namespace Prisma {
   export type GoogleMeetConfigUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     branchId?: StringFieldUpdateOperationsInput | string
-    serviceAccountJson?: StringFieldUpdateOperationsInput | string
-    projectId?: StringFieldUpdateOperationsInput | string
-    clientId?: StringFieldUpdateOperationsInput | string
-    clientSecret?: StringFieldUpdateOperationsInput | string
-    apiKey?: StringFieldUpdateOperationsInput | string
+    clientId?: NullableStringFieldUpdateOperationsInput | string | null
+    clientSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    expiryDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    redirectUri?: NullableStringFieldUpdateOperationsInput | string | null
+    scopes?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceAccountJson?: NullableStringFieldUpdateOperationsInput | string | null
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    apiKey?: NullableStringFieldUpdateOperationsInput | string | null
     isEnabled?: BoolFieldUpdateOperationsInput | boolean
     defaultDuration?: IntFieldUpdateOperationsInput | number
     allowRecording?: BoolFieldUpdateOperationsInput | boolean
@@ -125756,14 +132400,21 @@ export namespace Prisma {
     title: string
     description?: string | null
     meetingId: string
-    hostUrl: string
-    participantUrl: string
+    meetLink?: string | null
+    hostUrl?: string | null
+    participantUrl?: string | null
     scheduledStart: Date | string
     scheduledEnd: Date | string
     actualStart?: Date | string | null
     actualEnd?: Date | string | null
+    timezone?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    seriesId?: string | null
     status?: string
+    recordingId?: string | null
     recordingUrl?: string | null
+    recordingStatus?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     class?: ClassCreateNestedOneWithoutLiveClassSessionsInput
@@ -125779,8 +132430,9 @@ export namespace Prisma {
     title: string
     description?: string | null
     meetingId: string
-    hostUrl: string
-    participantUrl: string
+    meetLink?: string | null
+    hostUrl?: string | null
+    participantUrl?: string | null
     classId?: string | null
     sectionId?: string | null
     subjectId?: string | null
@@ -125789,8 +132441,14 @@ export namespace Prisma {
     scheduledEnd: Date | string
     actualStart?: Date | string | null
     actualEnd?: Date | string | null
+    timezone?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    seriesId?: string | null
     status?: string
+    recordingId?: string | null
     recordingUrl?: string | null
+    recordingStatus?: string | null
     branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -125802,14 +132460,21 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     meetingId?: StringFieldUpdateOperationsInput | string
-    hostUrl?: StringFieldUpdateOperationsInput | string
-    participantUrl?: StringFieldUpdateOperationsInput | string
+    meetLink?: NullableStringFieldUpdateOperationsInput | string | null
+    hostUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    participantUrl?: NullableStringFieldUpdateOperationsInput | string | null
     scheduledStart?: DateTimeFieldUpdateOperationsInput | Date | string
     scheduledEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     actualStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     actualEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timezone?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    seriesId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
+    recordingId?: NullableStringFieldUpdateOperationsInput | string | null
     recordingUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recordingStatus?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     class?: ClassUpdateOneWithoutLiveClassSessionsNestedInput
@@ -125825,8 +132490,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     meetingId?: StringFieldUpdateOperationsInput | string
-    hostUrl?: StringFieldUpdateOperationsInput | string
-    participantUrl?: StringFieldUpdateOperationsInput | string
+    meetLink?: NullableStringFieldUpdateOperationsInput | string | null
+    hostUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    participantUrl?: NullableStringFieldUpdateOperationsInput | string | null
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     subjectId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -125835,8 +132501,14 @@ export namespace Prisma {
     scheduledEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     actualStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     actualEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timezone?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    seriesId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
+    recordingId?: NullableStringFieldUpdateOperationsInput | string | null
     recordingUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recordingStatus?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -125848,8 +132520,9 @@ export namespace Prisma {
     title: string
     description?: string | null
     meetingId: string
-    hostUrl: string
-    participantUrl: string
+    meetLink?: string | null
+    hostUrl?: string | null
+    participantUrl?: string | null
     classId?: string | null
     sectionId?: string | null
     subjectId?: string | null
@@ -125858,8 +132531,14 @@ export namespace Prisma {
     scheduledEnd: Date | string
     actualStart?: Date | string | null
     actualEnd?: Date | string | null
+    timezone?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    seriesId?: string | null
     status?: string
+    recordingId?: string | null
     recordingUrl?: string | null
+    recordingStatus?: string | null
     branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -125870,14 +132549,21 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     meetingId?: StringFieldUpdateOperationsInput | string
-    hostUrl?: StringFieldUpdateOperationsInput | string
-    participantUrl?: StringFieldUpdateOperationsInput | string
+    meetLink?: NullableStringFieldUpdateOperationsInput | string | null
+    hostUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    participantUrl?: NullableStringFieldUpdateOperationsInput | string | null
     scheduledStart?: DateTimeFieldUpdateOperationsInput | Date | string
     scheduledEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     actualStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     actualEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timezone?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    seriesId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
+    recordingId?: NullableStringFieldUpdateOperationsInput | string | null
     recordingUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recordingStatus?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -125887,8 +132573,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     meetingId?: StringFieldUpdateOperationsInput | string
-    hostUrl?: StringFieldUpdateOperationsInput | string
-    participantUrl?: StringFieldUpdateOperationsInput | string
+    meetLink?: NullableStringFieldUpdateOperationsInput | string | null
+    hostUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    participantUrl?: NullableStringFieldUpdateOperationsInput | string | null
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     subjectId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -125897,8 +132584,14 @@ export namespace Prisma {
     scheduledEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     actualStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     actualEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timezone?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    seriesId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
+    recordingId?: NullableStringFieldUpdateOperationsInput | string | null
     recordingUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recordingStatus?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -128775,6 +135468,205 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DigitalResourceCreateInput = {
+    id?: string
+    title: string
+    description?: string | null
+    fileUrl: string
+    fileType: string
+    fileSize?: number | null
+    thumbnailUrl?: string | null
+    category: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    session: AcademicSessionCreateNestedOneWithoutDigitalResourcesInput
+    class?: ClassCreateNestedOneWithoutDigitalResourcesInput
+    section?: SectionCreateNestedOneWithoutDigitalResourcesInput
+    subject?: SubjectCreateNestedOneWithoutDigitalResourcesInput
+    uploader: StaffCreateNestedOneWithoutDigitalResourcesInput
+    branch: BranchCreateNestedOneWithoutDigitalResourcesInput
+    logs?: DigitalResourceLogCreateNestedManyWithoutResourceInput
+  }
+
+  export type DigitalResourceUncheckedCreateInput = {
+    id?: string
+    title: string
+    description?: string | null
+    fileUrl: string
+    fileType: string
+    fileSize?: number | null
+    thumbnailUrl?: string | null
+    category: string
+    sessionId: string
+    classId?: string | null
+    sectionId?: string | null
+    subjectId?: string | null
+    uploaderId: string
+    branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    logs?: DigitalResourceLogUncheckedCreateNestedManyWithoutResourceInput
+  }
+
+  export type DigitalResourceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileType?: StringFieldUpdateOperationsInput | string
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    session?: AcademicSessionUpdateOneRequiredWithoutDigitalResourcesNestedInput
+    class?: ClassUpdateOneWithoutDigitalResourcesNestedInput
+    section?: SectionUpdateOneWithoutDigitalResourcesNestedInput
+    subject?: SubjectUpdateOneWithoutDigitalResourcesNestedInput
+    uploader?: StaffUpdateOneRequiredWithoutDigitalResourcesNestedInput
+    branch?: BranchUpdateOneRequiredWithoutDigitalResourcesNestedInput
+    logs?: DigitalResourceLogUpdateManyWithoutResourceNestedInput
+  }
+
+  export type DigitalResourceUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileType?: StringFieldUpdateOperationsInput | string
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    sectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectId?: NullableStringFieldUpdateOperationsInput | string | null
+    uploaderId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    logs?: DigitalResourceLogUncheckedUpdateManyWithoutResourceNestedInput
+  }
+
+  export type DigitalResourceCreateManyInput = {
+    id?: string
+    title: string
+    description?: string | null
+    fileUrl: string
+    fileType: string
+    fileSize?: number | null
+    thumbnailUrl?: string | null
+    category: string
+    sessionId: string
+    classId?: string | null
+    sectionId?: string | null
+    subjectId?: string | null
+    uploaderId: string
+    branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DigitalResourceUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileType?: StringFieldUpdateOperationsInput | string
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DigitalResourceUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileType?: StringFieldUpdateOperationsInput | string
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    sectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectId?: NullableStringFieldUpdateOperationsInput | string | null
+    uploaderId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DigitalResourceLogCreateInput = {
+    id?: string
+    action: string
+    ipAddress?: string | null
+    userAgent?: string | null
+    createdAt?: Date | string
+    resource: DigitalResourceCreateNestedOneWithoutLogsInput
+    user: UserCreateNestedOneWithoutDigitalResourceLogsInput
+  }
+
+  export type DigitalResourceLogUncheckedCreateInput = {
+    id?: string
+    resourceId: string
+    userId: string
+    action: string
+    ipAddress?: string | null
+    userAgent?: string | null
+    createdAt?: Date | string
+  }
+
+  export type DigitalResourceLogUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resource?: DigitalResourceUpdateOneRequiredWithoutLogsNestedInput
+    user?: UserUpdateOneRequiredWithoutDigitalResourceLogsNestedInput
+  }
+
+  export type DigitalResourceLogUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    resourceId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DigitalResourceLogCreateManyInput = {
+    id?: string
+    resourceId: string
+    userId: string
+    action: string
+    ipAddress?: string | null
+    userAgent?: string | null
+    createdAt?: Date | string
+  }
+
+  export type DigitalResourceLogUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DigitalResourceLogUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    resourceId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -129066,6 +135958,12 @@ export namespace Prisma {
     none?: IdCardTemplateWhereInput
   }
 
+  export type DigitalResourceListRelationFilter = {
+    every?: DigitalResourceWhereInput
+    some?: DigitalResourceWhereInput
+    none?: DigitalResourceWhereInput
+  }
+
   export type DeactivationReasonListRelationFilter = {
     every?: DeactivationReasonWhereInput
     some?: DeactivationReasonWhereInput
@@ -129076,6 +135974,12 @@ export namespace Prisma {
     every?: LoginDeactivationWhereInput
     some?: LoginDeactivationWhereInput
     none?: LoginDeactivationWhereInput
+  }
+
+  export type AssignmentListRelationFilter = {
+    every?: AssignmentWhereInput
+    some?: AssignmentWhereInput
+    none?: AssignmentWhereInput
   }
 
   export type SortOrderInput = {
@@ -129243,11 +136147,19 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type DigitalResourceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type DeactivationReasonOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type LoginDeactivationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AssignmentOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -129467,6 +136379,12 @@ export namespace Prisma {
     none?: EventRSVPWhereInput
   }
 
+  export type DigitalResourceLogListRelationFilter = {
+    every?: DigitalResourceLogWhereInput
+    some?: DigitalResourceLogWhereInput
+    none?: DigitalResourceLogWhereInput
+  }
+
   export type AuditLogOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -129484,6 +136402,10 @@ export namespace Prisma {
   }
 
   export type EventRSVPOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DigitalResourceLogOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -129583,16 +136505,22 @@ export namespace Prisma {
     none?: AdvanceSalaryWhereInput
   }
 
-  export type AssignmentListRelationFilter = {
-    every?: AssignmentWhereInput
-    some?: AssignmentWhereInput
-    none?: AssignmentWhereInput
-  }
-
   export type IdCardListRelationFilter = {
     every?: IdCardWhereInput
     some?: IdCardWhereInput
     none?: IdCardWhereInput
+  }
+
+  export type StaffAttendanceListRelationFilter = {
+    every?: StaffAttendanceWhereInput
+    some?: StaffAttendanceWhereInput
+    none?: StaffAttendanceWhereInput
+  }
+
+  export type ClassScheduleListRelationFilter = {
+    every?: ClassScheduleWhereInput
+    some?: ClassScheduleWhereInput
+    none?: ClassScheduleWhereInput
   }
 
   export type PayrollOrderByRelationAggregateInput = {
@@ -129611,11 +136539,15 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type AssignmentOrderByRelationAggregateInput = {
+  export type IdCardOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type IdCardOrderByRelationAggregateInput = {
+  export type StaffAttendanceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ClassScheduleOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -130297,6 +137229,111 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type SectionScalarRelationFilter = {
+    is?: SectionWhereInput
+    isNot?: SectionWhereInput
+  }
+
+  export type SubjectScalarRelationFilter = {
+    is?: SubjectWhereInput
+    isNot?: SubjectWhereInput
+  }
+
+  export type StaffScalarRelationFilter = {
+    is?: StaffWhereInput
+    isNot?: StaffWhereInput
+  }
+
+  export type ClassScheduleTeacherIdDayOfWeekStartTimeCompoundUniqueInput = {
+    teacherId: string
+    dayOfWeek: number
+    startTime: string
+  }
+
+  export type ClassScheduleClassIdSectionIdDayOfWeekStartTimeCompoundUniqueInput = {
+    classId: string
+    sectionId: string
+    dayOfWeek: number
+    startTime: string
+  }
+
+  export type ClassScheduleCountOrderByAggregateInput = {
+    id?: SortOrder
+    dayOfWeek?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    room?: SortOrder
+    classId?: SortOrder
+    sectionId?: SortOrder
+    subjectId?: SortOrder
+    teacherId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ClassScheduleAvgOrderByAggregateInput = {
+    dayOfWeek?: SortOrder
+  }
+
+  export type ClassScheduleMaxOrderByAggregateInput = {
+    id?: SortOrder
+    dayOfWeek?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    room?: SortOrder
+    classId?: SortOrder
+    sectionId?: SortOrder
+    subjectId?: SortOrder
+    teacherId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ClassScheduleMinOrderByAggregateInput = {
+    id?: SortOrder
+    dayOfWeek?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    room?: SortOrder
+    classId?: SortOrder
+    sectionId?: SortOrder
+    subjectId?: SortOrder
+    teacherId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ClassScheduleSumOrderByAggregateInput = {
+    dayOfWeek?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
   export type EnumAttendanceStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.AttendanceStatus | EnumAttendanceStatusFieldRefInput<$PrismaModel>
     in?: $Enums.AttendanceStatus[] | ListEnumAttendanceStatusFieldRefInput<$PrismaModel>
@@ -130350,6 +137387,41 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumAttendanceStatusFilter<$PrismaModel>
     _max?: NestedEnumAttendanceStatusFilter<$PrismaModel>
+  }
+
+  export type StaffAttendanceStaffIdDateCompoundUniqueInput = {
+    staffId: string
+    date: Date | string
+  }
+
+  export type StaffAttendanceCountOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    status?: SortOrder
+    remarks?: SortOrder
+    staffId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type StaffAttendanceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    status?: SortOrder
+    remarks?: SortOrder
+    staffId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type StaffAttendanceMinOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    status?: SortOrder
+    remarks?: SortOrder
+    staffId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type EnumHostelTypeFilter<$PrismaModel = never> = {
@@ -130407,17 +137479,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumHostelTypeFilter<$PrismaModel>
     _max?: NestedEnumHostelTypeFilter<$PrismaModel>
-  }
-
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type HostelScalarRelationFilter = {
@@ -130478,22 +137539,6 @@ export namespace Prisma {
   export type RoomSumOrderByAggregateInput = {
     floor?: SortOrder
     capacity?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type EnumBedStatusFilter<$PrismaModel = never> = {
@@ -131002,11 +138047,6 @@ export namespace Prisma {
     not?: NestedEnumExamStatusFilter<$PrismaModel> | $Enums.ExamStatus
   }
 
-  export type SubjectScalarRelationFilter = {
-    is?: SubjectWhereInput
-    isNot?: SubjectWhereInput
-  }
-
   export type OnlineExamCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
@@ -131113,6 +138153,7 @@ export namespace Prisma {
     startTime?: SortOrder
     endTime?: SortOrder
     score?: SortOrder
+    position?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -131120,6 +138161,7 @@ export namespace Prisma {
 
   export type OnlineExamAttemptAvgOrderByAggregateInput = {
     score?: SortOrder
+    position?: SortOrder
   }
 
   export type OnlineExamAttemptMaxOrderByAggregateInput = {
@@ -131129,6 +138171,7 @@ export namespace Prisma {
     startTime?: SortOrder
     endTime?: SortOrder
     score?: SortOrder
+    position?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -131141,6 +138184,7 @@ export namespace Prisma {
     startTime?: SortOrder
     endTime?: SortOrder
     score?: SortOrder
+    position?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -131148,6 +138192,7 @@ export namespace Prisma {
 
   export type OnlineExamAttemptSumOrderByAggregateInput = {
     score?: SortOrder
+    position?: SortOrder
   }
 
   export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -131486,19 +138531,16 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type SectionScalarRelationFilter = {
-    is?: SectionWhereInput
-    isNot?: SectionWhereInput
-  }
-
   export type AssignmentCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
     dueDate?: SortOrder
+    attachmentUrl?: SortOrder
     subjectId?: SortOrder
     sectionId?: SortOrder
     teacherId?: SortOrder
+    branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -131508,9 +138550,11 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     dueDate?: SortOrder
+    attachmentUrl?: SortOrder
     subjectId?: SortOrder
     sectionId?: SortOrder
     teacherId?: SortOrder
+    branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -131520,9 +138564,11 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     dueDate?: SortOrder
+    attachmentUrl?: SortOrder
     subjectId?: SortOrder
     sectionId?: SortOrder
     teacherId?: SortOrder
+    branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -132366,11 +139412,6 @@ export namespace Prisma {
     amount?: SortOrder
   }
 
-  export type StaffScalarRelationFilter = {
-    is?: StaffWhereInput
-    isNot?: StaffWhereInput
-  }
-
   export type SalaryTemplateCountOrderByAggregateInput = {
     id?: SortOrder
     basicSalary?: SortOrder
@@ -132565,10 +139606,15 @@ export namespace Prisma {
   export type GoogleMeetConfigCountOrderByAggregateInput = {
     id?: SortOrder
     branchId?: SortOrder
-    serviceAccountJson?: SortOrder
-    projectId?: SortOrder
     clientId?: SortOrder
     clientSecret?: SortOrder
+    accessToken?: SortOrder
+    refreshToken?: SortOrder
+    expiryDate?: SortOrder
+    redirectUri?: SortOrder
+    scopes?: SortOrder
+    serviceAccountJson?: SortOrder
+    projectId?: SortOrder
     apiKey?: SortOrder
     isEnabled?: SortOrder
     defaultDuration?: SortOrder
@@ -132585,10 +139631,15 @@ export namespace Prisma {
   export type GoogleMeetConfigMaxOrderByAggregateInput = {
     id?: SortOrder
     branchId?: SortOrder
-    serviceAccountJson?: SortOrder
-    projectId?: SortOrder
     clientId?: SortOrder
     clientSecret?: SortOrder
+    accessToken?: SortOrder
+    refreshToken?: SortOrder
+    expiryDate?: SortOrder
+    redirectUri?: SortOrder
+    scopes?: SortOrder
+    serviceAccountJson?: SortOrder
+    projectId?: SortOrder
     apiKey?: SortOrder
     isEnabled?: SortOrder
     defaultDuration?: SortOrder
@@ -132601,10 +139652,15 @@ export namespace Prisma {
   export type GoogleMeetConfigMinOrderByAggregateInput = {
     id?: SortOrder
     branchId?: SortOrder
-    serviceAccountJson?: SortOrder
-    projectId?: SortOrder
     clientId?: SortOrder
     clientSecret?: SortOrder
+    accessToken?: SortOrder
+    refreshToken?: SortOrder
+    expiryDate?: SortOrder
+    redirectUri?: SortOrder
+    scopes?: SortOrder
+    serviceAccountJson?: SortOrder
+    projectId?: SortOrder
     apiKey?: SortOrder
     isEnabled?: SortOrder
     defaultDuration?: SortOrder
@@ -132628,6 +139684,7 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     meetingId?: SortOrder
+    meetLink?: SortOrder
     hostUrl?: SortOrder
     participantUrl?: SortOrder
     classId?: SortOrder
@@ -132638,8 +139695,14 @@ export namespace Prisma {
     scheduledEnd?: SortOrder
     actualStart?: SortOrder
     actualEnd?: SortOrder
+    timezone?: SortOrder
+    isRecurring?: SortOrder
+    recurrenceRule?: SortOrder
+    seriesId?: SortOrder
     status?: SortOrder
+    recordingId?: SortOrder
     recordingUrl?: SortOrder
+    recordingStatus?: SortOrder
     branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -132650,6 +139713,7 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     meetingId?: SortOrder
+    meetLink?: SortOrder
     hostUrl?: SortOrder
     participantUrl?: SortOrder
     classId?: SortOrder
@@ -132660,8 +139724,14 @@ export namespace Prisma {
     scheduledEnd?: SortOrder
     actualStart?: SortOrder
     actualEnd?: SortOrder
+    timezone?: SortOrder
+    isRecurring?: SortOrder
+    recurrenceRule?: SortOrder
+    seriesId?: SortOrder
     status?: SortOrder
+    recordingId?: SortOrder
     recordingUrl?: SortOrder
+    recordingStatus?: SortOrder
     branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -132672,6 +139742,7 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     meetingId?: SortOrder
+    meetLink?: SortOrder
     hostUrl?: SortOrder
     participantUrl?: SortOrder
     classId?: SortOrder
@@ -132682,8 +139753,14 @@ export namespace Prisma {
     scheduledEnd?: SortOrder
     actualStart?: SortOrder
     actualEnd?: SortOrder
+    timezone?: SortOrder
+    isRecurring?: SortOrder
+    recurrenceRule?: SortOrder
+    seriesId?: SortOrder
     status?: SortOrder
+    recordingId?: SortOrder
     recordingUrl?: SortOrder
+    recordingStatus?: SortOrder
     branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -134116,6 +141193,106 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type DigitalResourceCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    fileUrl?: SortOrder
+    fileType?: SortOrder
+    fileSize?: SortOrder
+    thumbnailUrl?: SortOrder
+    category?: SortOrder
+    sessionId?: SortOrder
+    classId?: SortOrder
+    sectionId?: SortOrder
+    subjectId?: SortOrder
+    uploaderId?: SortOrder
+    branchId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DigitalResourceAvgOrderByAggregateInput = {
+    fileSize?: SortOrder
+  }
+
+  export type DigitalResourceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    fileUrl?: SortOrder
+    fileType?: SortOrder
+    fileSize?: SortOrder
+    thumbnailUrl?: SortOrder
+    category?: SortOrder
+    sessionId?: SortOrder
+    classId?: SortOrder
+    sectionId?: SortOrder
+    subjectId?: SortOrder
+    uploaderId?: SortOrder
+    branchId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DigitalResourceMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    fileUrl?: SortOrder
+    fileType?: SortOrder
+    fileSize?: SortOrder
+    thumbnailUrl?: SortOrder
+    category?: SortOrder
+    sessionId?: SortOrder
+    classId?: SortOrder
+    sectionId?: SortOrder
+    subjectId?: SortOrder
+    uploaderId?: SortOrder
+    branchId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DigitalResourceSumOrderByAggregateInput = {
+    fileSize?: SortOrder
+  }
+
+  export type DigitalResourceScalarRelationFilter = {
+    is?: DigitalResourceWhereInput
+    isNot?: DigitalResourceWhereInput
+  }
+
+  export type DigitalResourceLogCountOrderByAggregateInput = {
+    id?: SortOrder
+    resourceId?: SortOrder
+    userId?: SortOrder
+    action?: SortOrder
+    ipAddress?: SortOrder
+    userAgent?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DigitalResourceLogMaxOrderByAggregateInput = {
+    id?: SortOrder
+    resourceId?: SortOrder
+    userId?: SortOrder
+    action?: SortOrder
+    ipAddress?: SortOrder
+    userAgent?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DigitalResourceLogMinOrderByAggregateInput = {
+    id?: SortOrder
+    resourceId?: SortOrder
+    userId?: SortOrder
+    action?: SortOrder
+    ipAddress?: SortOrder
+    userAgent?: SortOrder
+    createdAt?: SortOrder
+  }
+
   export type UserCreateNestedManyWithoutBranchInput = {
     create?: XOR<UserCreateWithoutBranchInput, UserUncheckedCreateWithoutBranchInput> | UserCreateWithoutBranchInput[] | UserUncheckedCreateWithoutBranchInput[]
     connectOrCreate?: UserCreateOrConnectWithoutBranchInput | UserCreateOrConnectWithoutBranchInput[]
@@ -134402,6 +141579,13 @@ export namespace Prisma {
     connect?: IdCardTemplateWhereUniqueInput | IdCardTemplateWhereUniqueInput[]
   }
 
+  export type DigitalResourceCreateNestedManyWithoutBranchInput = {
+    create?: XOR<DigitalResourceCreateWithoutBranchInput, DigitalResourceUncheckedCreateWithoutBranchInput> | DigitalResourceCreateWithoutBranchInput[] | DigitalResourceUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: DigitalResourceCreateOrConnectWithoutBranchInput | DigitalResourceCreateOrConnectWithoutBranchInput[]
+    createMany?: DigitalResourceCreateManyBranchInputEnvelope
+    connect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+  }
+
   export type DeactivationReasonCreateNestedManyWithoutBranchInput = {
     create?: XOR<DeactivationReasonCreateWithoutBranchInput, DeactivationReasonUncheckedCreateWithoutBranchInput> | DeactivationReasonCreateWithoutBranchInput[] | DeactivationReasonUncheckedCreateWithoutBranchInput[]
     connectOrCreate?: DeactivationReasonCreateOrConnectWithoutBranchInput | DeactivationReasonCreateOrConnectWithoutBranchInput[]
@@ -134414,6 +141598,13 @@ export namespace Prisma {
     connectOrCreate?: LoginDeactivationCreateOrConnectWithoutBranchInput | LoginDeactivationCreateOrConnectWithoutBranchInput[]
     createMany?: LoginDeactivationCreateManyBranchInputEnvelope
     connect?: LoginDeactivationWhereUniqueInput | LoginDeactivationWhereUniqueInput[]
+  }
+
+  export type AssignmentCreateNestedManyWithoutBranchInput = {
+    create?: XOR<AssignmentCreateWithoutBranchInput, AssignmentUncheckedCreateWithoutBranchInput> | AssignmentCreateWithoutBranchInput[] | AssignmentUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: AssignmentCreateOrConnectWithoutBranchInput | AssignmentCreateOrConnectWithoutBranchInput[]
+    createMany?: AssignmentCreateManyBranchInputEnvelope
+    connect?: AssignmentWhereUniqueInput | AssignmentWhereUniqueInput[]
   }
 
   export type UserUncheckedCreateNestedManyWithoutBranchInput = {
@@ -134702,6 +141893,13 @@ export namespace Prisma {
     connect?: IdCardTemplateWhereUniqueInput | IdCardTemplateWhereUniqueInput[]
   }
 
+  export type DigitalResourceUncheckedCreateNestedManyWithoutBranchInput = {
+    create?: XOR<DigitalResourceCreateWithoutBranchInput, DigitalResourceUncheckedCreateWithoutBranchInput> | DigitalResourceCreateWithoutBranchInput[] | DigitalResourceUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: DigitalResourceCreateOrConnectWithoutBranchInput | DigitalResourceCreateOrConnectWithoutBranchInput[]
+    createMany?: DigitalResourceCreateManyBranchInputEnvelope
+    connect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+  }
+
   export type DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput = {
     create?: XOR<DeactivationReasonCreateWithoutBranchInput, DeactivationReasonUncheckedCreateWithoutBranchInput> | DeactivationReasonCreateWithoutBranchInput[] | DeactivationReasonUncheckedCreateWithoutBranchInput[]
     connectOrCreate?: DeactivationReasonCreateOrConnectWithoutBranchInput | DeactivationReasonCreateOrConnectWithoutBranchInput[]
@@ -134714,6 +141912,13 @@ export namespace Prisma {
     connectOrCreate?: LoginDeactivationCreateOrConnectWithoutBranchInput | LoginDeactivationCreateOrConnectWithoutBranchInput[]
     createMany?: LoginDeactivationCreateManyBranchInputEnvelope
     connect?: LoginDeactivationWhereUniqueInput | LoginDeactivationWhereUniqueInput[]
+  }
+
+  export type AssignmentUncheckedCreateNestedManyWithoutBranchInput = {
+    create?: XOR<AssignmentCreateWithoutBranchInput, AssignmentUncheckedCreateWithoutBranchInput> | AssignmentCreateWithoutBranchInput[] | AssignmentUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: AssignmentCreateOrConnectWithoutBranchInput | AssignmentCreateOrConnectWithoutBranchInput[]
+    createMany?: AssignmentCreateManyBranchInputEnvelope
+    connect?: AssignmentWhereUniqueInput | AssignmentWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -135302,6 +142507,20 @@ export namespace Prisma {
     deleteMany?: IdCardTemplateScalarWhereInput | IdCardTemplateScalarWhereInput[]
   }
 
+  export type DigitalResourceUpdateManyWithoutBranchNestedInput = {
+    create?: XOR<DigitalResourceCreateWithoutBranchInput, DigitalResourceUncheckedCreateWithoutBranchInput> | DigitalResourceCreateWithoutBranchInput[] | DigitalResourceUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: DigitalResourceCreateOrConnectWithoutBranchInput | DigitalResourceCreateOrConnectWithoutBranchInput[]
+    upsert?: DigitalResourceUpsertWithWhereUniqueWithoutBranchInput | DigitalResourceUpsertWithWhereUniqueWithoutBranchInput[]
+    createMany?: DigitalResourceCreateManyBranchInputEnvelope
+    set?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    disconnect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    delete?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    connect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    update?: DigitalResourceUpdateWithWhereUniqueWithoutBranchInput | DigitalResourceUpdateWithWhereUniqueWithoutBranchInput[]
+    updateMany?: DigitalResourceUpdateManyWithWhereWithoutBranchInput | DigitalResourceUpdateManyWithWhereWithoutBranchInput[]
+    deleteMany?: DigitalResourceScalarWhereInput | DigitalResourceScalarWhereInput[]
+  }
+
   export type DeactivationReasonUpdateManyWithoutBranchNestedInput = {
     create?: XOR<DeactivationReasonCreateWithoutBranchInput, DeactivationReasonUncheckedCreateWithoutBranchInput> | DeactivationReasonCreateWithoutBranchInput[] | DeactivationReasonUncheckedCreateWithoutBranchInput[]
     connectOrCreate?: DeactivationReasonCreateOrConnectWithoutBranchInput | DeactivationReasonCreateOrConnectWithoutBranchInput[]
@@ -135328,6 +142547,20 @@ export namespace Prisma {
     update?: LoginDeactivationUpdateWithWhereUniqueWithoutBranchInput | LoginDeactivationUpdateWithWhereUniqueWithoutBranchInput[]
     updateMany?: LoginDeactivationUpdateManyWithWhereWithoutBranchInput | LoginDeactivationUpdateManyWithWhereWithoutBranchInput[]
     deleteMany?: LoginDeactivationScalarWhereInput | LoginDeactivationScalarWhereInput[]
+  }
+
+  export type AssignmentUpdateManyWithoutBranchNestedInput = {
+    create?: XOR<AssignmentCreateWithoutBranchInput, AssignmentUncheckedCreateWithoutBranchInput> | AssignmentCreateWithoutBranchInput[] | AssignmentUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: AssignmentCreateOrConnectWithoutBranchInput | AssignmentCreateOrConnectWithoutBranchInput[]
+    upsert?: AssignmentUpsertWithWhereUniqueWithoutBranchInput | AssignmentUpsertWithWhereUniqueWithoutBranchInput[]
+    createMany?: AssignmentCreateManyBranchInputEnvelope
+    set?: AssignmentWhereUniqueInput | AssignmentWhereUniqueInput[]
+    disconnect?: AssignmentWhereUniqueInput | AssignmentWhereUniqueInput[]
+    delete?: AssignmentWhereUniqueInput | AssignmentWhereUniqueInput[]
+    connect?: AssignmentWhereUniqueInput | AssignmentWhereUniqueInput[]
+    update?: AssignmentUpdateWithWhereUniqueWithoutBranchInput | AssignmentUpdateWithWhereUniqueWithoutBranchInput[]
+    updateMany?: AssignmentUpdateManyWithWhereWithoutBranchInput | AssignmentUpdateManyWithWhereWithoutBranchInput[]
+    deleteMany?: AssignmentScalarWhereInput | AssignmentScalarWhereInput[]
   }
 
   export type UserUncheckedUpdateManyWithoutBranchNestedInput = {
@@ -135900,6 +143133,20 @@ export namespace Prisma {
     deleteMany?: IdCardTemplateScalarWhereInput | IdCardTemplateScalarWhereInput[]
   }
 
+  export type DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput = {
+    create?: XOR<DigitalResourceCreateWithoutBranchInput, DigitalResourceUncheckedCreateWithoutBranchInput> | DigitalResourceCreateWithoutBranchInput[] | DigitalResourceUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: DigitalResourceCreateOrConnectWithoutBranchInput | DigitalResourceCreateOrConnectWithoutBranchInput[]
+    upsert?: DigitalResourceUpsertWithWhereUniqueWithoutBranchInput | DigitalResourceUpsertWithWhereUniqueWithoutBranchInput[]
+    createMany?: DigitalResourceCreateManyBranchInputEnvelope
+    set?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    disconnect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    delete?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    connect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    update?: DigitalResourceUpdateWithWhereUniqueWithoutBranchInput | DigitalResourceUpdateWithWhereUniqueWithoutBranchInput[]
+    updateMany?: DigitalResourceUpdateManyWithWhereWithoutBranchInput | DigitalResourceUpdateManyWithWhereWithoutBranchInput[]
+    deleteMany?: DigitalResourceScalarWhereInput | DigitalResourceScalarWhereInput[]
+  }
+
   export type DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput = {
     create?: XOR<DeactivationReasonCreateWithoutBranchInput, DeactivationReasonUncheckedCreateWithoutBranchInput> | DeactivationReasonCreateWithoutBranchInput[] | DeactivationReasonUncheckedCreateWithoutBranchInput[]
     connectOrCreate?: DeactivationReasonCreateOrConnectWithoutBranchInput | DeactivationReasonCreateOrConnectWithoutBranchInput[]
@@ -135926,6 +143173,20 @@ export namespace Prisma {
     update?: LoginDeactivationUpdateWithWhereUniqueWithoutBranchInput | LoginDeactivationUpdateWithWhereUniqueWithoutBranchInput[]
     updateMany?: LoginDeactivationUpdateManyWithWhereWithoutBranchInput | LoginDeactivationUpdateManyWithWhereWithoutBranchInput[]
     deleteMany?: LoginDeactivationScalarWhereInput | LoginDeactivationScalarWhereInput[]
+  }
+
+  export type AssignmentUncheckedUpdateManyWithoutBranchNestedInput = {
+    create?: XOR<AssignmentCreateWithoutBranchInput, AssignmentUncheckedCreateWithoutBranchInput> | AssignmentCreateWithoutBranchInput[] | AssignmentUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: AssignmentCreateOrConnectWithoutBranchInput | AssignmentCreateOrConnectWithoutBranchInput[]
+    upsert?: AssignmentUpsertWithWhereUniqueWithoutBranchInput | AssignmentUpsertWithWhereUniqueWithoutBranchInput[]
+    createMany?: AssignmentCreateManyBranchInputEnvelope
+    set?: AssignmentWhereUniqueInput | AssignmentWhereUniqueInput[]
+    disconnect?: AssignmentWhereUniqueInput | AssignmentWhereUniqueInput[]
+    delete?: AssignmentWhereUniqueInput | AssignmentWhereUniqueInput[]
+    connect?: AssignmentWhereUniqueInput | AssignmentWhereUniqueInput[]
+    update?: AssignmentUpdateWithWhereUniqueWithoutBranchInput | AssignmentUpdateWithWhereUniqueWithoutBranchInput[]
+    updateMany?: AssignmentUpdateManyWithWhereWithoutBranchInput | AssignmentUpdateManyWithWhereWithoutBranchInput[]
+    deleteMany?: AssignmentScalarWhereInput | AssignmentScalarWhereInput[]
   }
 
   export type BranchCreateNestedOneWithoutDeactivationReasonsInput = {
@@ -136102,6 +143363,13 @@ export namespace Prisma {
     connect?: OnlineAdmissionWhereUniqueInput | OnlineAdmissionWhereUniqueInput[]
   }
 
+  export type DigitalResourceLogCreateNestedManyWithoutUserInput = {
+    create?: XOR<DigitalResourceLogCreateWithoutUserInput, DigitalResourceLogUncheckedCreateWithoutUserInput> | DigitalResourceLogCreateWithoutUserInput[] | DigitalResourceLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DigitalResourceLogCreateOrConnectWithoutUserInput | DigitalResourceLogCreateOrConnectWithoutUserInput[]
+    createMany?: DigitalResourceLogCreateManyUserInputEnvelope
+    connect?: DigitalResourceLogWhereUniqueInput | DigitalResourceLogWhereUniqueInput[]
+  }
+
   export type StaffUncheckedCreateNestedOneWithoutUserInput = {
     create?: XOR<StaffCreateWithoutUserInput, StaffUncheckedCreateWithoutUserInput>
     connectOrCreate?: StaffCreateOrConnectWithoutUserInput
@@ -136182,6 +143450,13 @@ export namespace Prisma {
     connectOrCreate?: OnlineAdmissionCreateOrConnectWithoutParentInput | OnlineAdmissionCreateOrConnectWithoutParentInput[]
     createMany?: OnlineAdmissionCreateManyParentInputEnvelope
     connect?: OnlineAdmissionWhereUniqueInput | OnlineAdmissionWhereUniqueInput[]
+  }
+
+  export type DigitalResourceLogUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<DigitalResourceLogCreateWithoutUserInput, DigitalResourceLogUncheckedCreateWithoutUserInput> | DigitalResourceLogCreateWithoutUserInput[] | DigitalResourceLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DigitalResourceLogCreateOrConnectWithoutUserInput | DigitalResourceLogCreateOrConnectWithoutUserInput[]
+    createMany?: DigitalResourceLogCreateManyUserInputEnvelope
+    connect?: DigitalResourceLogWhereUniqueInput | DigitalResourceLogWhereUniqueInput[]
   }
 
   export type EnumUserRoleFieldUpdateOperationsInput = {
@@ -136358,6 +143633,20 @@ export namespace Prisma {
     deleteMany?: OnlineAdmissionScalarWhereInput | OnlineAdmissionScalarWhereInput[]
   }
 
+  export type DigitalResourceLogUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DigitalResourceLogCreateWithoutUserInput, DigitalResourceLogUncheckedCreateWithoutUserInput> | DigitalResourceLogCreateWithoutUserInput[] | DigitalResourceLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DigitalResourceLogCreateOrConnectWithoutUserInput | DigitalResourceLogCreateOrConnectWithoutUserInput[]
+    upsert?: DigitalResourceLogUpsertWithWhereUniqueWithoutUserInput | DigitalResourceLogUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DigitalResourceLogCreateManyUserInputEnvelope
+    set?: DigitalResourceLogWhereUniqueInput | DigitalResourceLogWhereUniqueInput[]
+    disconnect?: DigitalResourceLogWhereUniqueInput | DigitalResourceLogWhereUniqueInput[]
+    delete?: DigitalResourceLogWhereUniqueInput | DigitalResourceLogWhereUniqueInput[]
+    connect?: DigitalResourceLogWhereUniqueInput | DigitalResourceLogWhereUniqueInput[]
+    update?: DigitalResourceLogUpdateWithWhereUniqueWithoutUserInput | DigitalResourceLogUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DigitalResourceLogUpdateManyWithWhereWithoutUserInput | DigitalResourceLogUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DigitalResourceLogScalarWhereInput | DigitalResourceLogScalarWhereInput[]
+  }
+
   export type StaffUncheckedUpdateOneWithoutUserNestedInput = {
     create?: XOR<StaffCreateWithoutUserInput, StaffUncheckedCreateWithoutUserInput>
     connectOrCreate?: StaffCreateOrConnectWithoutUserInput
@@ -136518,6 +143807,20 @@ export namespace Prisma {
     deleteMany?: OnlineAdmissionScalarWhereInput | OnlineAdmissionScalarWhereInput[]
   }
 
+  export type DigitalResourceLogUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DigitalResourceLogCreateWithoutUserInput, DigitalResourceLogUncheckedCreateWithoutUserInput> | DigitalResourceLogCreateWithoutUserInput[] | DigitalResourceLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DigitalResourceLogCreateOrConnectWithoutUserInput | DigitalResourceLogCreateOrConnectWithoutUserInput[]
+    upsert?: DigitalResourceLogUpsertWithWhereUniqueWithoutUserInput | DigitalResourceLogUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DigitalResourceLogCreateManyUserInputEnvelope
+    set?: DigitalResourceLogWhereUniqueInput | DigitalResourceLogWhereUniqueInput[]
+    disconnect?: DigitalResourceLogWhereUniqueInput | DigitalResourceLogWhereUniqueInput[]
+    delete?: DigitalResourceLogWhereUniqueInput | DigitalResourceLogWhereUniqueInput[]
+    connect?: DigitalResourceLogWhereUniqueInput | DigitalResourceLogWhereUniqueInput[]
+    update?: DigitalResourceLogUpdateWithWhereUniqueWithoutUserInput | DigitalResourceLogUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DigitalResourceLogUpdateManyWithWhereWithoutUserInput | DigitalResourceLogUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DigitalResourceLogScalarWhereInput | DigitalResourceLogScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutStaffInput = {
     create?: XOR<UserCreateWithoutStaffInput, UserUncheckedCreateWithoutStaffInput>
     connectOrCreate?: UserCreateOrConnectWithoutStaffInput
@@ -136611,6 +143914,27 @@ export namespace Prisma {
     connect?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
   }
 
+  export type StaffAttendanceCreateNestedManyWithoutStaffInput = {
+    create?: XOR<StaffAttendanceCreateWithoutStaffInput, StaffAttendanceUncheckedCreateWithoutStaffInput> | StaffAttendanceCreateWithoutStaffInput[] | StaffAttendanceUncheckedCreateWithoutStaffInput[]
+    connectOrCreate?: StaffAttendanceCreateOrConnectWithoutStaffInput | StaffAttendanceCreateOrConnectWithoutStaffInput[]
+    createMany?: StaffAttendanceCreateManyStaffInputEnvelope
+    connect?: StaffAttendanceWhereUniqueInput | StaffAttendanceWhereUniqueInput[]
+  }
+
+  export type ClassScheduleCreateNestedManyWithoutTeacherInput = {
+    create?: XOR<ClassScheduleCreateWithoutTeacherInput, ClassScheduleUncheckedCreateWithoutTeacherInput> | ClassScheduleCreateWithoutTeacherInput[] | ClassScheduleUncheckedCreateWithoutTeacherInput[]
+    connectOrCreate?: ClassScheduleCreateOrConnectWithoutTeacherInput | ClassScheduleCreateOrConnectWithoutTeacherInput[]
+    createMany?: ClassScheduleCreateManyTeacherInputEnvelope
+    connect?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+  }
+
+  export type DigitalResourceCreateNestedManyWithoutUploaderInput = {
+    create?: XOR<DigitalResourceCreateWithoutUploaderInput, DigitalResourceUncheckedCreateWithoutUploaderInput> | DigitalResourceCreateWithoutUploaderInput[] | DigitalResourceUncheckedCreateWithoutUploaderInput[]
+    connectOrCreate?: DigitalResourceCreateOrConnectWithoutUploaderInput | DigitalResourceCreateOrConnectWithoutUploaderInput[]
+    createMany?: DigitalResourceCreateManyUploaderInputEnvelope
+    connect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+  }
+
   export type InventoryIssueUncheckedCreateNestedManyWithoutStaffInput = {
     create?: XOR<InventoryIssueCreateWithoutStaffInput, InventoryIssueUncheckedCreateWithoutStaffInput> | InventoryIssueCreateWithoutStaffInput[] | InventoryIssueUncheckedCreateWithoutStaffInput[]
     connectOrCreate?: InventoryIssueCreateOrConnectWithoutStaffInput | InventoryIssueCreateOrConnectWithoutStaffInput[]
@@ -136684,6 +144008,27 @@ export namespace Prisma {
     connectOrCreate?: IdCardCreateOrConnectWithoutStaffInput | IdCardCreateOrConnectWithoutStaffInput[]
     createMany?: IdCardCreateManyStaffInputEnvelope
     connect?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+  }
+
+  export type StaffAttendanceUncheckedCreateNestedManyWithoutStaffInput = {
+    create?: XOR<StaffAttendanceCreateWithoutStaffInput, StaffAttendanceUncheckedCreateWithoutStaffInput> | StaffAttendanceCreateWithoutStaffInput[] | StaffAttendanceUncheckedCreateWithoutStaffInput[]
+    connectOrCreate?: StaffAttendanceCreateOrConnectWithoutStaffInput | StaffAttendanceCreateOrConnectWithoutStaffInput[]
+    createMany?: StaffAttendanceCreateManyStaffInputEnvelope
+    connect?: StaffAttendanceWhereUniqueInput | StaffAttendanceWhereUniqueInput[]
+  }
+
+  export type ClassScheduleUncheckedCreateNestedManyWithoutTeacherInput = {
+    create?: XOR<ClassScheduleCreateWithoutTeacherInput, ClassScheduleUncheckedCreateWithoutTeacherInput> | ClassScheduleCreateWithoutTeacherInput[] | ClassScheduleUncheckedCreateWithoutTeacherInput[]
+    connectOrCreate?: ClassScheduleCreateOrConnectWithoutTeacherInput | ClassScheduleCreateOrConnectWithoutTeacherInput[]
+    createMany?: ClassScheduleCreateManyTeacherInputEnvelope
+    connect?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+  }
+
+  export type DigitalResourceUncheckedCreateNestedManyWithoutUploaderInput = {
+    create?: XOR<DigitalResourceCreateWithoutUploaderInput, DigitalResourceUncheckedCreateWithoutUploaderInput> | DigitalResourceCreateWithoutUploaderInput[] | DigitalResourceUncheckedCreateWithoutUploaderInput[]
+    connectOrCreate?: DigitalResourceCreateOrConnectWithoutUploaderInput | DigitalResourceCreateOrConnectWithoutUploaderInput[]
+    createMany?: DigitalResourceCreateManyUploaderInputEnvelope
+    connect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
   }
 
   export type UserUpdateOneRequiredWithoutStaffNestedInput = {
@@ -136863,6 +144208,48 @@ export namespace Prisma {
     deleteMany?: IdCardScalarWhereInput | IdCardScalarWhereInput[]
   }
 
+  export type StaffAttendanceUpdateManyWithoutStaffNestedInput = {
+    create?: XOR<StaffAttendanceCreateWithoutStaffInput, StaffAttendanceUncheckedCreateWithoutStaffInput> | StaffAttendanceCreateWithoutStaffInput[] | StaffAttendanceUncheckedCreateWithoutStaffInput[]
+    connectOrCreate?: StaffAttendanceCreateOrConnectWithoutStaffInput | StaffAttendanceCreateOrConnectWithoutStaffInput[]
+    upsert?: StaffAttendanceUpsertWithWhereUniqueWithoutStaffInput | StaffAttendanceUpsertWithWhereUniqueWithoutStaffInput[]
+    createMany?: StaffAttendanceCreateManyStaffInputEnvelope
+    set?: StaffAttendanceWhereUniqueInput | StaffAttendanceWhereUniqueInput[]
+    disconnect?: StaffAttendanceWhereUniqueInput | StaffAttendanceWhereUniqueInput[]
+    delete?: StaffAttendanceWhereUniqueInput | StaffAttendanceWhereUniqueInput[]
+    connect?: StaffAttendanceWhereUniqueInput | StaffAttendanceWhereUniqueInput[]
+    update?: StaffAttendanceUpdateWithWhereUniqueWithoutStaffInput | StaffAttendanceUpdateWithWhereUniqueWithoutStaffInput[]
+    updateMany?: StaffAttendanceUpdateManyWithWhereWithoutStaffInput | StaffAttendanceUpdateManyWithWhereWithoutStaffInput[]
+    deleteMany?: StaffAttendanceScalarWhereInput | StaffAttendanceScalarWhereInput[]
+  }
+
+  export type ClassScheduleUpdateManyWithoutTeacherNestedInput = {
+    create?: XOR<ClassScheduleCreateWithoutTeacherInput, ClassScheduleUncheckedCreateWithoutTeacherInput> | ClassScheduleCreateWithoutTeacherInput[] | ClassScheduleUncheckedCreateWithoutTeacherInput[]
+    connectOrCreate?: ClassScheduleCreateOrConnectWithoutTeacherInput | ClassScheduleCreateOrConnectWithoutTeacherInput[]
+    upsert?: ClassScheduleUpsertWithWhereUniqueWithoutTeacherInput | ClassScheduleUpsertWithWhereUniqueWithoutTeacherInput[]
+    createMany?: ClassScheduleCreateManyTeacherInputEnvelope
+    set?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+    disconnect?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+    delete?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+    connect?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+    update?: ClassScheduleUpdateWithWhereUniqueWithoutTeacherInput | ClassScheduleUpdateWithWhereUniqueWithoutTeacherInput[]
+    updateMany?: ClassScheduleUpdateManyWithWhereWithoutTeacherInput | ClassScheduleUpdateManyWithWhereWithoutTeacherInput[]
+    deleteMany?: ClassScheduleScalarWhereInput | ClassScheduleScalarWhereInput[]
+  }
+
+  export type DigitalResourceUpdateManyWithoutUploaderNestedInput = {
+    create?: XOR<DigitalResourceCreateWithoutUploaderInput, DigitalResourceUncheckedCreateWithoutUploaderInput> | DigitalResourceCreateWithoutUploaderInput[] | DigitalResourceUncheckedCreateWithoutUploaderInput[]
+    connectOrCreate?: DigitalResourceCreateOrConnectWithoutUploaderInput | DigitalResourceCreateOrConnectWithoutUploaderInput[]
+    upsert?: DigitalResourceUpsertWithWhereUniqueWithoutUploaderInput | DigitalResourceUpsertWithWhereUniqueWithoutUploaderInput[]
+    createMany?: DigitalResourceCreateManyUploaderInputEnvelope
+    set?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    disconnect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    delete?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    connect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    update?: DigitalResourceUpdateWithWhereUniqueWithoutUploaderInput | DigitalResourceUpdateWithWhereUniqueWithoutUploaderInput[]
+    updateMany?: DigitalResourceUpdateManyWithWhereWithoutUploaderInput | DigitalResourceUpdateManyWithWhereWithoutUploaderInput[]
+    deleteMany?: DigitalResourceScalarWhereInput | DigitalResourceScalarWhereInput[]
+  }
+
   export type InventoryIssueUncheckedUpdateManyWithoutStaffNestedInput = {
     create?: XOR<InventoryIssueCreateWithoutStaffInput, InventoryIssueUncheckedCreateWithoutStaffInput> | InventoryIssueCreateWithoutStaffInput[] | InventoryIssueUncheckedCreateWithoutStaffInput[]
     connectOrCreate?: InventoryIssueCreateOrConnectWithoutStaffInput | InventoryIssueCreateOrConnectWithoutStaffInput[]
@@ -137010,6 +144397,48 @@ export namespace Prisma {
     update?: IdCardUpdateWithWhereUniqueWithoutStaffInput | IdCardUpdateWithWhereUniqueWithoutStaffInput[]
     updateMany?: IdCardUpdateManyWithWhereWithoutStaffInput | IdCardUpdateManyWithWhereWithoutStaffInput[]
     deleteMany?: IdCardScalarWhereInput | IdCardScalarWhereInput[]
+  }
+
+  export type StaffAttendanceUncheckedUpdateManyWithoutStaffNestedInput = {
+    create?: XOR<StaffAttendanceCreateWithoutStaffInput, StaffAttendanceUncheckedCreateWithoutStaffInput> | StaffAttendanceCreateWithoutStaffInput[] | StaffAttendanceUncheckedCreateWithoutStaffInput[]
+    connectOrCreate?: StaffAttendanceCreateOrConnectWithoutStaffInput | StaffAttendanceCreateOrConnectWithoutStaffInput[]
+    upsert?: StaffAttendanceUpsertWithWhereUniqueWithoutStaffInput | StaffAttendanceUpsertWithWhereUniqueWithoutStaffInput[]
+    createMany?: StaffAttendanceCreateManyStaffInputEnvelope
+    set?: StaffAttendanceWhereUniqueInput | StaffAttendanceWhereUniqueInput[]
+    disconnect?: StaffAttendanceWhereUniqueInput | StaffAttendanceWhereUniqueInput[]
+    delete?: StaffAttendanceWhereUniqueInput | StaffAttendanceWhereUniqueInput[]
+    connect?: StaffAttendanceWhereUniqueInput | StaffAttendanceWhereUniqueInput[]
+    update?: StaffAttendanceUpdateWithWhereUniqueWithoutStaffInput | StaffAttendanceUpdateWithWhereUniqueWithoutStaffInput[]
+    updateMany?: StaffAttendanceUpdateManyWithWhereWithoutStaffInput | StaffAttendanceUpdateManyWithWhereWithoutStaffInput[]
+    deleteMany?: StaffAttendanceScalarWhereInput | StaffAttendanceScalarWhereInput[]
+  }
+
+  export type ClassScheduleUncheckedUpdateManyWithoutTeacherNestedInput = {
+    create?: XOR<ClassScheduleCreateWithoutTeacherInput, ClassScheduleUncheckedCreateWithoutTeacherInput> | ClassScheduleCreateWithoutTeacherInput[] | ClassScheduleUncheckedCreateWithoutTeacherInput[]
+    connectOrCreate?: ClassScheduleCreateOrConnectWithoutTeacherInput | ClassScheduleCreateOrConnectWithoutTeacherInput[]
+    upsert?: ClassScheduleUpsertWithWhereUniqueWithoutTeacherInput | ClassScheduleUpsertWithWhereUniqueWithoutTeacherInput[]
+    createMany?: ClassScheduleCreateManyTeacherInputEnvelope
+    set?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+    disconnect?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+    delete?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+    connect?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+    update?: ClassScheduleUpdateWithWhereUniqueWithoutTeacherInput | ClassScheduleUpdateWithWhereUniqueWithoutTeacherInput[]
+    updateMany?: ClassScheduleUpdateManyWithWhereWithoutTeacherInput | ClassScheduleUpdateManyWithWhereWithoutTeacherInput[]
+    deleteMany?: ClassScheduleScalarWhereInput | ClassScheduleScalarWhereInput[]
+  }
+
+  export type DigitalResourceUncheckedUpdateManyWithoutUploaderNestedInput = {
+    create?: XOR<DigitalResourceCreateWithoutUploaderInput, DigitalResourceUncheckedCreateWithoutUploaderInput> | DigitalResourceCreateWithoutUploaderInput[] | DigitalResourceUncheckedCreateWithoutUploaderInput[]
+    connectOrCreate?: DigitalResourceCreateOrConnectWithoutUploaderInput | DigitalResourceCreateOrConnectWithoutUploaderInput[]
+    upsert?: DigitalResourceUpsertWithWhereUniqueWithoutUploaderInput | DigitalResourceUpsertWithWhereUniqueWithoutUploaderInput[]
+    createMany?: DigitalResourceCreateManyUploaderInputEnvelope
+    set?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    disconnect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    delete?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    connect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    update?: DigitalResourceUpdateWithWhereUniqueWithoutUploaderInput | DigitalResourceUpdateWithWhereUniqueWithoutUploaderInput[]
+    updateMany?: DigitalResourceUpdateManyWithWhereWithoutUploaderInput | DigitalResourceUpdateManyWithWhereWithoutUploaderInput[]
+    deleteMany?: DigitalResourceScalarWhereInput | DigitalResourceScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutStudentInput = {
@@ -137888,6 +145317,20 @@ export namespace Prisma {
     connect?: OnlineExamWhereUniqueInput | OnlineExamWhereUniqueInput[]
   }
 
+  export type ClassScheduleCreateNestedManyWithoutClassInput = {
+    create?: XOR<ClassScheduleCreateWithoutClassInput, ClassScheduleUncheckedCreateWithoutClassInput> | ClassScheduleCreateWithoutClassInput[] | ClassScheduleUncheckedCreateWithoutClassInput[]
+    connectOrCreate?: ClassScheduleCreateOrConnectWithoutClassInput | ClassScheduleCreateOrConnectWithoutClassInput[]
+    createMany?: ClassScheduleCreateManyClassInputEnvelope
+    connect?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+  }
+
+  export type DigitalResourceCreateNestedManyWithoutClassInput = {
+    create?: XOR<DigitalResourceCreateWithoutClassInput, DigitalResourceUncheckedCreateWithoutClassInput> | DigitalResourceCreateWithoutClassInput[] | DigitalResourceUncheckedCreateWithoutClassInput[]
+    connectOrCreate?: DigitalResourceCreateOrConnectWithoutClassInput | DigitalResourceCreateOrConnectWithoutClassInput[]
+    createMany?: DigitalResourceCreateManyClassInputEnvelope
+    connect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+  }
+
   export type SectionUncheckedCreateNestedManyWithoutClassInput = {
     create?: XOR<SectionCreateWithoutClassInput, SectionUncheckedCreateWithoutClassInput> | SectionCreateWithoutClassInput[] | SectionUncheckedCreateWithoutClassInput[]
     connectOrCreate?: SectionCreateOrConnectWithoutClassInput | SectionCreateOrConnectWithoutClassInput[]
@@ -137928,6 +145371,20 @@ export namespace Prisma {
     connectOrCreate?: OnlineExamCreateOrConnectWithoutClassInput | OnlineExamCreateOrConnectWithoutClassInput[]
     createMany?: OnlineExamCreateManyClassInputEnvelope
     connect?: OnlineExamWhereUniqueInput | OnlineExamWhereUniqueInput[]
+  }
+
+  export type ClassScheduleUncheckedCreateNestedManyWithoutClassInput = {
+    create?: XOR<ClassScheduleCreateWithoutClassInput, ClassScheduleUncheckedCreateWithoutClassInput> | ClassScheduleCreateWithoutClassInput[] | ClassScheduleUncheckedCreateWithoutClassInput[]
+    connectOrCreate?: ClassScheduleCreateOrConnectWithoutClassInput | ClassScheduleCreateOrConnectWithoutClassInput[]
+    createMany?: ClassScheduleCreateManyClassInputEnvelope
+    connect?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+  }
+
+  export type DigitalResourceUncheckedCreateNestedManyWithoutClassInput = {
+    create?: XOR<DigitalResourceCreateWithoutClassInput, DigitalResourceUncheckedCreateWithoutClassInput> | DigitalResourceCreateWithoutClassInput[] | DigitalResourceUncheckedCreateWithoutClassInput[]
+    connectOrCreate?: DigitalResourceCreateOrConnectWithoutClassInput | DigitalResourceCreateOrConnectWithoutClassInput[]
+    createMany?: DigitalResourceCreateManyClassInputEnvelope
+    connect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -138040,6 +145497,34 @@ export namespace Prisma {
     deleteMany?: OnlineExamScalarWhereInput | OnlineExamScalarWhereInput[]
   }
 
+  export type ClassScheduleUpdateManyWithoutClassNestedInput = {
+    create?: XOR<ClassScheduleCreateWithoutClassInput, ClassScheduleUncheckedCreateWithoutClassInput> | ClassScheduleCreateWithoutClassInput[] | ClassScheduleUncheckedCreateWithoutClassInput[]
+    connectOrCreate?: ClassScheduleCreateOrConnectWithoutClassInput | ClassScheduleCreateOrConnectWithoutClassInput[]
+    upsert?: ClassScheduleUpsertWithWhereUniqueWithoutClassInput | ClassScheduleUpsertWithWhereUniqueWithoutClassInput[]
+    createMany?: ClassScheduleCreateManyClassInputEnvelope
+    set?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+    disconnect?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+    delete?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+    connect?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+    update?: ClassScheduleUpdateWithWhereUniqueWithoutClassInput | ClassScheduleUpdateWithWhereUniqueWithoutClassInput[]
+    updateMany?: ClassScheduleUpdateManyWithWhereWithoutClassInput | ClassScheduleUpdateManyWithWhereWithoutClassInput[]
+    deleteMany?: ClassScheduleScalarWhereInput | ClassScheduleScalarWhereInput[]
+  }
+
+  export type DigitalResourceUpdateManyWithoutClassNestedInput = {
+    create?: XOR<DigitalResourceCreateWithoutClassInput, DigitalResourceUncheckedCreateWithoutClassInput> | DigitalResourceCreateWithoutClassInput[] | DigitalResourceUncheckedCreateWithoutClassInput[]
+    connectOrCreate?: DigitalResourceCreateOrConnectWithoutClassInput | DigitalResourceCreateOrConnectWithoutClassInput[]
+    upsert?: DigitalResourceUpsertWithWhereUniqueWithoutClassInput | DigitalResourceUpsertWithWhereUniqueWithoutClassInput[]
+    createMany?: DigitalResourceCreateManyClassInputEnvelope
+    set?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    disconnect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    delete?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    connect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    update?: DigitalResourceUpdateWithWhereUniqueWithoutClassInput | DigitalResourceUpdateWithWhereUniqueWithoutClassInput[]
+    updateMany?: DigitalResourceUpdateManyWithWhereWithoutClassInput | DigitalResourceUpdateManyWithWhereWithoutClassInput[]
+    deleteMany?: DigitalResourceScalarWhereInput | DigitalResourceScalarWhereInput[]
+  }
+
   export type SectionUncheckedUpdateManyWithoutClassNestedInput = {
     create?: XOR<SectionCreateWithoutClassInput, SectionUncheckedCreateWithoutClassInput> | SectionCreateWithoutClassInput[] | SectionUncheckedCreateWithoutClassInput[]
     connectOrCreate?: SectionCreateOrConnectWithoutClassInput | SectionCreateOrConnectWithoutClassInput[]
@@ -138124,6 +145609,34 @@ export namespace Prisma {
     deleteMany?: OnlineExamScalarWhereInput | OnlineExamScalarWhereInput[]
   }
 
+  export type ClassScheduleUncheckedUpdateManyWithoutClassNestedInput = {
+    create?: XOR<ClassScheduleCreateWithoutClassInput, ClassScheduleUncheckedCreateWithoutClassInput> | ClassScheduleCreateWithoutClassInput[] | ClassScheduleUncheckedCreateWithoutClassInput[]
+    connectOrCreate?: ClassScheduleCreateOrConnectWithoutClassInput | ClassScheduleCreateOrConnectWithoutClassInput[]
+    upsert?: ClassScheduleUpsertWithWhereUniqueWithoutClassInput | ClassScheduleUpsertWithWhereUniqueWithoutClassInput[]
+    createMany?: ClassScheduleCreateManyClassInputEnvelope
+    set?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+    disconnect?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+    delete?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+    connect?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+    update?: ClassScheduleUpdateWithWhereUniqueWithoutClassInput | ClassScheduleUpdateWithWhereUniqueWithoutClassInput[]
+    updateMany?: ClassScheduleUpdateManyWithWhereWithoutClassInput | ClassScheduleUpdateManyWithWhereWithoutClassInput[]
+    deleteMany?: ClassScheduleScalarWhereInput | ClassScheduleScalarWhereInput[]
+  }
+
+  export type DigitalResourceUncheckedUpdateManyWithoutClassNestedInput = {
+    create?: XOR<DigitalResourceCreateWithoutClassInput, DigitalResourceUncheckedCreateWithoutClassInput> | DigitalResourceCreateWithoutClassInput[] | DigitalResourceUncheckedCreateWithoutClassInput[]
+    connectOrCreate?: DigitalResourceCreateOrConnectWithoutClassInput | DigitalResourceCreateOrConnectWithoutClassInput[]
+    upsert?: DigitalResourceUpsertWithWhereUniqueWithoutClassInput | DigitalResourceUpsertWithWhereUniqueWithoutClassInput[]
+    createMany?: DigitalResourceCreateManyClassInputEnvelope
+    set?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    disconnect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    delete?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    connect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    update?: DigitalResourceUpdateWithWhereUniqueWithoutClassInput | DigitalResourceUpdateWithWhereUniqueWithoutClassInput[]
+    updateMany?: DigitalResourceUpdateManyWithWhereWithoutClassInput | DigitalResourceUpdateManyWithWhereWithoutClassInput[]
+    deleteMany?: DigitalResourceScalarWhereInput | DigitalResourceScalarWhereInput[]
+  }
+
   export type ClassCreateNestedOneWithoutSectionsInput = {
     create?: XOR<ClassCreateWithoutSectionsInput, ClassUncheckedCreateWithoutSectionsInput>
     connectOrCreate?: ClassCreateOrConnectWithoutSectionsInput
@@ -138179,6 +145692,20 @@ export namespace Prisma {
     connect?: OnlineExamWhereUniqueInput | OnlineExamWhereUniqueInput[]
   }
 
+  export type ClassScheduleCreateNestedManyWithoutSectionInput = {
+    create?: XOR<ClassScheduleCreateWithoutSectionInput, ClassScheduleUncheckedCreateWithoutSectionInput> | ClassScheduleCreateWithoutSectionInput[] | ClassScheduleUncheckedCreateWithoutSectionInput[]
+    connectOrCreate?: ClassScheduleCreateOrConnectWithoutSectionInput | ClassScheduleCreateOrConnectWithoutSectionInput[]
+    createMany?: ClassScheduleCreateManySectionInputEnvelope
+    connect?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+  }
+
+  export type DigitalResourceCreateNestedManyWithoutSectionInput = {
+    create?: XOR<DigitalResourceCreateWithoutSectionInput, DigitalResourceUncheckedCreateWithoutSectionInput> | DigitalResourceCreateWithoutSectionInput[] | DigitalResourceUncheckedCreateWithoutSectionInput[]
+    connectOrCreate?: DigitalResourceCreateOrConnectWithoutSectionInput | DigitalResourceCreateOrConnectWithoutSectionInput[]
+    createMany?: DigitalResourceCreateManySectionInputEnvelope
+    connect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+  }
+
   export type StudentUncheckedCreateNestedManyWithoutSectionInput = {
     create?: XOR<StudentCreateWithoutSectionInput, StudentUncheckedCreateWithoutSectionInput> | StudentCreateWithoutSectionInput[] | StudentUncheckedCreateWithoutSectionInput[]
     connectOrCreate?: StudentCreateOrConnectWithoutSectionInput | StudentCreateOrConnectWithoutSectionInput[]
@@ -138226,6 +145753,20 @@ export namespace Prisma {
     connectOrCreate?: OnlineExamCreateOrConnectWithoutSectionInput | OnlineExamCreateOrConnectWithoutSectionInput[]
     createMany?: OnlineExamCreateManySectionInputEnvelope
     connect?: OnlineExamWhereUniqueInput | OnlineExamWhereUniqueInput[]
+  }
+
+  export type ClassScheduleUncheckedCreateNestedManyWithoutSectionInput = {
+    create?: XOR<ClassScheduleCreateWithoutSectionInput, ClassScheduleUncheckedCreateWithoutSectionInput> | ClassScheduleCreateWithoutSectionInput[] | ClassScheduleUncheckedCreateWithoutSectionInput[]
+    connectOrCreate?: ClassScheduleCreateOrConnectWithoutSectionInput | ClassScheduleCreateOrConnectWithoutSectionInput[]
+    createMany?: ClassScheduleCreateManySectionInputEnvelope
+    connect?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+  }
+
+  export type DigitalResourceUncheckedCreateNestedManyWithoutSectionInput = {
+    create?: XOR<DigitalResourceCreateWithoutSectionInput, DigitalResourceUncheckedCreateWithoutSectionInput> | DigitalResourceCreateWithoutSectionInput[] | DigitalResourceUncheckedCreateWithoutSectionInput[]
+    connectOrCreate?: DigitalResourceCreateOrConnectWithoutSectionInput | DigitalResourceCreateOrConnectWithoutSectionInput[]
+    createMany?: DigitalResourceCreateManySectionInputEnvelope
+    connect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
   }
 
   export type ClassUpdateOneRequiredWithoutSectionsNestedInput = {
@@ -138334,6 +145875,34 @@ export namespace Prisma {
     deleteMany?: OnlineExamScalarWhereInput | OnlineExamScalarWhereInput[]
   }
 
+  export type ClassScheduleUpdateManyWithoutSectionNestedInput = {
+    create?: XOR<ClassScheduleCreateWithoutSectionInput, ClassScheduleUncheckedCreateWithoutSectionInput> | ClassScheduleCreateWithoutSectionInput[] | ClassScheduleUncheckedCreateWithoutSectionInput[]
+    connectOrCreate?: ClassScheduleCreateOrConnectWithoutSectionInput | ClassScheduleCreateOrConnectWithoutSectionInput[]
+    upsert?: ClassScheduleUpsertWithWhereUniqueWithoutSectionInput | ClassScheduleUpsertWithWhereUniqueWithoutSectionInput[]
+    createMany?: ClassScheduleCreateManySectionInputEnvelope
+    set?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+    disconnect?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+    delete?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+    connect?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+    update?: ClassScheduleUpdateWithWhereUniqueWithoutSectionInput | ClassScheduleUpdateWithWhereUniqueWithoutSectionInput[]
+    updateMany?: ClassScheduleUpdateManyWithWhereWithoutSectionInput | ClassScheduleUpdateManyWithWhereWithoutSectionInput[]
+    deleteMany?: ClassScheduleScalarWhereInput | ClassScheduleScalarWhereInput[]
+  }
+
+  export type DigitalResourceUpdateManyWithoutSectionNestedInput = {
+    create?: XOR<DigitalResourceCreateWithoutSectionInput, DigitalResourceUncheckedCreateWithoutSectionInput> | DigitalResourceCreateWithoutSectionInput[] | DigitalResourceUncheckedCreateWithoutSectionInput[]
+    connectOrCreate?: DigitalResourceCreateOrConnectWithoutSectionInput | DigitalResourceCreateOrConnectWithoutSectionInput[]
+    upsert?: DigitalResourceUpsertWithWhereUniqueWithoutSectionInput | DigitalResourceUpsertWithWhereUniqueWithoutSectionInput[]
+    createMany?: DigitalResourceCreateManySectionInputEnvelope
+    set?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    disconnect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    delete?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    connect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    update?: DigitalResourceUpdateWithWhereUniqueWithoutSectionInput | DigitalResourceUpdateWithWhereUniqueWithoutSectionInput[]
+    updateMany?: DigitalResourceUpdateManyWithWhereWithoutSectionInput | DigitalResourceUpdateManyWithWhereWithoutSectionInput[]
+    deleteMany?: DigitalResourceScalarWhereInput | DigitalResourceScalarWhereInput[]
+  }
+
   export type StudentUncheckedUpdateManyWithoutSectionNestedInput = {
     create?: XOR<StudentCreateWithoutSectionInput, StudentUncheckedCreateWithoutSectionInput> | StudentCreateWithoutSectionInput[] | StudentUncheckedCreateWithoutSectionInput[]
     connectOrCreate?: StudentCreateOrConnectWithoutSectionInput | StudentCreateOrConnectWithoutSectionInput[]
@@ -138432,6 +146001,34 @@ export namespace Prisma {
     deleteMany?: OnlineExamScalarWhereInput | OnlineExamScalarWhereInput[]
   }
 
+  export type ClassScheduleUncheckedUpdateManyWithoutSectionNestedInput = {
+    create?: XOR<ClassScheduleCreateWithoutSectionInput, ClassScheduleUncheckedCreateWithoutSectionInput> | ClassScheduleCreateWithoutSectionInput[] | ClassScheduleUncheckedCreateWithoutSectionInput[]
+    connectOrCreate?: ClassScheduleCreateOrConnectWithoutSectionInput | ClassScheduleCreateOrConnectWithoutSectionInput[]
+    upsert?: ClassScheduleUpsertWithWhereUniqueWithoutSectionInput | ClassScheduleUpsertWithWhereUniqueWithoutSectionInput[]
+    createMany?: ClassScheduleCreateManySectionInputEnvelope
+    set?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+    disconnect?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+    delete?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+    connect?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+    update?: ClassScheduleUpdateWithWhereUniqueWithoutSectionInput | ClassScheduleUpdateWithWhereUniqueWithoutSectionInput[]
+    updateMany?: ClassScheduleUpdateManyWithWhereWithoutSectionInput | ClassScheduleUpdateManyWithWhereWithoutSectionInput[]
+    deleteMany?: ClassScheduleScalarWhereInput | ClassScheduleScalarWhereInput[]
+  }
+
+  export type DigitalResourceUncheckedUpdateManyWithoutSectionNestedInput = {
+    create?: XOR<DigitalResourceCreateWithoutSectionInput, DigitalResourceUncheckedCreateWithoutSectionInput> | DigitalResourceCreateWithoutSectionInput[] | DigitalResourceUncheckedCreateWithoutSectionInput[]
+    connectOrCreate?: DigitalResourceCreateOrConnectWithoutSectionInput | DigitalResourceCreateOrConnectWithoutSectionInput[]
+    upsert?: DigitalResourceUpsertWithWhereUniqueWithoutSectionInput | DigitalResourceUpsertWithWhereUniqueWithoutSectionInput[]
+    createMany?: DigitalResourceCreateManySectionInputEnvelope
+    set?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    disconnect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    delete?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    connect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    update?: DigitalResourceUpdateWithWhereUniqueWithoutSectionInput | DigitalResourceUpdateWithWhereUniqueWithoutSectionInput[]
+    updateMany?: DigitalResourceUpdateManyWithWhereWithoutSectionInput | DigitalResourceUpdateManyWithWhereWithoutSectionInput[]
+    deleteMany?: DigitalResourceScalarWhereInput | DigitalResourceScalarWhereInput[]
+  }
+
   export type BranchCreateNestedOneWithoutSubjectsInput = {
     create?: XOR<BranchCreateWithoutSubjectsInput, BranchUncheckedCreateWithoutSubjectsInput>
     connectOrCreate?: BranchCreateOrConnectWithoutSubjectsInput
@@ -138472,6 +146069,20 @@ export namespace Prisma {
     connect?: OnlineExamWhereUniqueInput | OnlineExamWhereUniqueInput[]
   }
 
+  export type ClassScheduleCreateNestedManyWithoutSubjectInput = {
+    create?: XOR<ClassScheduleCreateWithoutSubjectInput, ClassScheduleUncheckedCreateWithoutSubjectInput> | ClassScheduleCreateWithoutSubjectInput[] | ClassScheduleUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: ClassScheduleCreateOrConnectWithoutSubjectInput | ClassScheduleCreateOrConnectWithoutSubjectInput[]
+    createMany?: ClassScheduleCreateManySubjectInputEnvelope
+    connect?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+  }
+
+  export type DigitalResourceCreateNestedManyWithoutSubjectInput = {
+    create?: XOR<DigitalResourceCreateWithoutSubjectInput, DigitalResourceUncheckedCreateWithoutSubjectInput> | DigitalResourceCreateWithoutSubjectInput[] | DigitalResourceUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: DigitalResourceCreateOrConnectWithoutSubjectInput | DigitalResourceCreateOrConnectWithoutSubjectInput[]
+    createMany?: DigitalResourceCreateManySubjectInputEnvelope
+    connect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+  }
+
   export type StaffUncheckedCreateNestedManyWithoutSubjectsInput = {
     create?: XOR<StaffCreateWithoutSubjectsInput, StaffUncheckedCreateWithoutSubjectsInput> | StaffCreateWithoutSubjectsInput[] | StaffUncheckedCreateWithoutSubjectsInput[]
     connectOrCreate?: StaffCreateOrConnectWithoutSubjectsInput | StaffCreateOrConnectWithoutSubjectsInput[]
@@ -138504,6 +146115,20 @@ export namespace Prisma {
     connectOrCreate?: OnlineExamCreateOrConnectWithoutSubjectInput | OnlineExamCreateOrConnectWithoutSubjectInput[]
     createMany?: OnlineExamCreateManySubjectInputEnvelope
     connect?: OnlineExamWhereUniqueInput | OnlineExamWhereUniqueInput[]
+  }
+
+  export type ClassScheduleUncheckedCreateNestedManyWithoutSubjectInput = {
+    create?: XOR<ClassScheduleCreateWithoutSubjectInput, ClassScheduleUncheckedCreateWithoutSubjectInput> | ClassScheduleCreateWithoutSubjectInput[] | ClassScheduleUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: ClassScheduleCreateOrConnectWithoutSubjectInput | ClassScheduleCreateOrConnectWithoutSubjectInput[]
+    createMany?: ClassScheduleCreateManySubjectInputEnvelope
+    connect?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+  }
+
+  export type DigitalResourceUncheckedCreateNestedManyWithoutSubjectInput = {
+    create?: XOR<DigitalResourceCreateWithoutSubjectInput, DigitalResourceUncheckedCreateWithoutSubjectInput> | DigitalResourceCreateWithoutSubjectInput[] | DigitalResourceUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: DigitalResourceCreateOrConnectWithoutSubjectInput | DigitalResourceCreateOrConnectWithoutSubjectInput[]
+    createMany?: DigitalResourceCreateManySubjectInputEnvelope
+    connect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
   }
 
   export type BranchUpdateOneRequiredWithoutSubjectsNestedInput = {
@@ -138583,6 +146208,34 @@ export namespace Prisma {
     deleteMany?: OnlineExamScalarWhereInput | OnlineExamScalarWhereInput[]
   }
 
+  export type ClassScheduleUpdateManyWithoutSubjectNestedInput = {
+    create?: XOR<ClassScheduleCreateWithoutSubjectInput, ClassScheduleUncheckedCreateWithoutSubjectInput> | ClassScheduleCreateWithoutSubjectInput[] | ClassScheduleUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: ClassScheduleCreateOrConnectWithoutSubjectInput | ClassScheduleCreateOrConnectWithoutSubjectInput[]
+    upsert?: ClassScheduleUpsertWithWhereUniqueWithoutSubjectInput | ClassScheduleUpsertWithWhereUniqueWithoutSubjectInput[]
+    createMany?: ClassScheduleCreateManySubjectInputEnvelope
+    set?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+    disconnect?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+    delete?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+    connect?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+    update?: ClassScheduleUpdateWithWhereUniqueWithoutSubjectInput | ClassScheduleUpdateWithWhereUniqueWithoutSubjectInput[]
+    updateMany?: ClassScheduleUpdateManyWithWhereWithoutSubjectInput | ClassScheduleUpdateManyWithWhereWithoutSubjectInput[]
+    deleteMany?: ClassScheduleScalarWhereInput | ClassScheduleScalarWhereInput[]
+  }
+
+  export type DigitalResourceUpdateManyWithoutSubjectNestedInput = {
+    create?: XOR<DigitalResourceCreateWithoutSubjectInput, DigitalResourceUncheckedCreateWithoutSubjectInput> | DigitalResourceCreateWithoutSubjectInput[] | DigitalResourceUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: DigitalResourceCreateOrConnectWithoutSubjectInput | DigitalResourceCreateOrConnectWithoutSubjectInput[]
+    upsert?: DigitalResourceUpsertWithWhereUniqueWithoutSubjectInput | DigitalResourceUpsertWithWhereUniqueWithoutSubjectInput[]
+    createMany?: DigitalResourceCreateManySubjectInputEnvelope
+    set?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    disconnect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    delete?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    connect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    update?: DigitalResourceUpdateWithWhereUniqueWithoutSubjectInput | DigitalResourceUpdateWithWhereUniqueWithoutSubjectInput[]
+    updateMany?: DigitalResourceUpdateManyWithWhereWithoutSubjectInput | DigitalResourceUpdateManyWithWhereWithoutSubjectInput[]
+    deleteMany?: DigitalResourceScalarWhereInput | DigitalResourceScalarWhereInput[]
+  }
+
   export type StaffUncheckedUpdateManyWithoutSubjectsNestedInput = {
     create?: XOR<StaffCreateWithoutSubjectsInput, StaffUncheckedCreateWithoutSubjectsInput> | StaffCreateWithoutSubjectsInput[] | StaffUncheckedCreateWithoutSubjectsInput[]
     connectOrCreate?: StaffCreateOrConnectWithoutSubjectsInput | StaffCreateOrConnectWithoutSubjectsInput[]
@@ -138652,6 +146305,98 @@ export namespace Prisma {
     deleteMany?: OnlineExamScalarWhereInput | OnlineExamScalarWhereInput[]
   }
 
+  export type ClassScheduleUncheckedUpdateManyWithoutSubjectNestedInput = {
+    create?: XOR<ClassScheduleCreateWithoutSubjectInput, ClassScheduleUncheckedCreateWithoutSubjectInput> | ClassScheduleCreateWithoutSubjectInput[] | ClassScheduleUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: ClassScheduleCreateOrConnectWithoutSubjectInput | ClassScheduleCreateOrConnectWithoutSubjectInput[]
+    upsert?: ClassScheduleUpsertWithWhereUniqueWithoutSubjectInput | ClassScheduleUpsertWithWhereUniqueWithoutSubjectInput[]
+    createMany?: ClassScheduleCreateManySubjectInputEnvelope
+    set?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+    disconnect?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+    delete?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+    connect?: ClassScheduleWhereUniqueInput | ClassScheduleWhereUniqueInput[]
+    update?: ClassScheduleUpdateWithWhereUniqueWithoutSubjectInput | ClassScheduleUpdateWithWhereUniqueWithoutSubjectInput[]
+    updateMany?: ClassScheduleUpdateManyWithWhereWithoutSubjectInput | ClassScheduleUpdateManyWithWhereWithoutSubjectInput[]
+    deleteMany?: ClassScheduleScalarWhereInput | ClassScheduleScalarWhereInput[]
+  }
+
+  export type DigitalResourceUncheckedUpdateManyWithoutSubjectNestedInput = {
+    create?: XOR<DigitalResourceCreateWithoutSubjectInput, DigitalResourceUncheckedCreateWithoutSubjectInput> | DigitalResourceCreateWithoutSubjectInput[] | DigitalResourceUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: DigitalResourceCreateOrConnectWithoutSubjectInput | DigitalResourceCreateOrConnectWithoutSubjectInput[]
+    upsert?: DigitalResourceUpsertWithWhereUniqueWithoutSubjectInput | DigitalResourceUpsertWithWhereUniqueWithoutSubjectInput[]
+    createMany?: DigitalResourceCreateManySubjectInputEnvelope
+    set?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    disconnect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    delete?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    connect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    update?: DigitalResourceUpdateWithWhereUniqueWithoutSubjectInput | DigitalResourceUpdateWithWhereUniqueWithoutSubjectInput[]
+    updateMany?: DigitalResourceUpdateManyWithWhereWithoutSubjectInput | DigitalResourceUpdateManyWithWhereWithoutSubjectInput[]
+    deleteMany?: DigitalResourceScalarWhereInput | DigitalResourceScalarWhereInput[]
+  }
+
+  export type ClassCreateNestedOneWithoutClassSchedulesInput = {
+    create?: XOR<ClassCreateWithoutClassSchedulesInput, ClassUncheckedCreateWithoutClassSchedulesInput>
+    connectOrCreate?: ClassCreateOrConnectWithoutClassSchedulesInput
+    connect?: ClassWhereUniqueInput
+  }
+
+  export type SectionCreateNestedOneWithoutClassSchedulesInput = {
+    create?: XOR<SectionCreateWithoutClassSchedulesInput, SectionUncheckedCreateWithoutClassSchedulesInput>
+    connectOrCreate?: SectionCreateOrConnectWithoutClassSchedulesInput
+    connect?: SectionWhereUniqueInput
+  }
+
+  export type SubjectCreateNestedOneWithoutClassSchedulesInput = {
+    create?: XOR<SubjectCreateWithoutClassSchedulesInput, SubjectUncheckedCreateWithoutClassSchedulesInput>
+    connectOrCreate?: SubjectCreateOrConnectWithoutClassSchedulesInput
+    connect?: SubjectWhereUniqueInput
+  }
+
+  export type StaffCreateNestedOneWithoutClassSchedulesInput = {
+    create?: XOR<StaffCreateWithoutClassSchedulesInput, StaffUncheckedCreateWithoutClassSchedulesInput>
+    connectOrCreate?: StaffCreateOrConnectWithoutClassSchedulesInput
+    connect?: StaffWhereUniqueInput
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type ClassUpdateOneRequiredWithoutClassSchedulesNestedInput = {
+    create?: XOR<ClassCreateWithoutClassSchedulesInput, ClassUncheckedCreateWithoutClassSchedulesInput>
+    connectOrCreate?: ClassCreateOrConnectWithoutClassSchedulesInput
+    upsert?: ClassUpsertWithoutClassSchedulesInput
+    connect?: ClassWhereUniqueInput
+    update?: XOR<XOR<ClassUpdateToOneWithWhereWithoutClassSchedulesInput, ClassUpdateWithoutClassSchedulesInput>, ClassUncheckedUpdateWithoutClassSchedulesInput>
+  }
+
+  export type SectionUpdateOneRequiredWithoutClassSchedulesNestedInput = {
+    create?: XOR<SectionCreateWithoutClassSchedulesInput, SectionUncheckedCreateWithoutClassSchedulesInput>
+    connectOrCreate?: SectionCreateOrConnectWithoutClassSchedulesInput
+    upsert?: SectionUpsertWithoutClassSchedulesInput
+    connect?: SectionWhereUniqueInput
+    update?: XOR<XOR<SectionUpdateToOneWithWhereWithoutClassSchedulesInput, SectionUpdateWithoutClassSchedulesInput>, SectionUncheckedUpdateWithoutClassSchedulesInput>
+  }
+
+  export type SubjectUpdateOneRequiredWithoutClassSchedulesNestedInput = {
+    create?: XOR<SubjectCreateWithoutClassSchedulesInput, SubjectUncheckedCreateWithoutClassSchedulesInput>
+    connectOrCreate?: SubjectCreateOrConnectWithoutClassSchedulesInput
+    upsert?: SubjectUpsertWithoutClassSchedulesInput
+    connect?: SubjectWhereUniqueInput
+    update?: XOR<XOR<SubjectUpdateToOneWithWhereWithoutClassSchedulesInput, SubjectUpdateWithoutClassSchedulesInput>, SubjectUncheckedUpdateWithoutClassSchedulesInput>
+  }
+
+  export type StaffUpdateOneRequiredWithoutClassSchedulesNestedInput = {
+    create?: XOR<StaffCreateWithoutClassSchedulesInput, StaffUncheckedCreateWithoutClassSchedulesInput>
+    connectOrCreate?: StaffCreateOrConnectWithoutClassSchedulesInput
+    upsert?: StaffUpsertWithoutClassSchedulesInput
+    connect?: StaffWhereUniqueInput
+    update?: XOR<XOR<StaffUpdateToOneWithWhereWithoutClassSchedulesInput, StaffUpdateWithoutClassSchedulesInput>, StaffUncheckedUpdateWithoutClassSchedulesInput>
+  }
+
   export type StudentCreateNestedOneWithoutAttendanceInput = {
     create?: XOR<StudentCreateWithoutAttendanceInput, StudentUncheckedCreateWithoutAttendanceInput>
     connectOrCreate?: StudentCreateOrConnectWithoutAttendanceInput
@@ -138684,6 +146429,20 @@ export namespace Prisma {
     delete?: SectionWhereInput | boolean
     connect?: SectionWhereUniqueInput
     update?: XOR<XOR<SectionUpdateToOneWithWhereWithoutAttendanceInput, SectionUpdateWithoutAttendanceInput>, SectionUncheckedUpdateWithoutAttendanceInput>
+  }
+
+  export type StaffCreateNestedOneWithoutAttendanceInput = {
+    create?: XOR<StaffCreateWithoutAttendanceInput, StaffUncheckedCreateWithoutAttendanceInput>
+    connectOrCreate?: StaffCreateOrConnectWithoutAttendanceInput
+    connect?: StaffWhereUniqueInput
+  }
+
+  export type StaffUpdateOneRequiredWithoutAttendanceNestedInput = {
+    create?: XOR<StaffCreateWithoutAttendanceInput, StaffUncheckedCreateWithoutAttendanceInput>
+    connectOrCreate?: StaffCreateOrConnectWithoutAttendanceInput
+    upsert?: StaffUpsertWithoutAttendanceInput
+    connect?: StaffWhereUniqueInput
+    update?: XOR<XOR<StaffUpdateToOneWithWhereWithoutAttendanceInput, StaffUpdateWithoutAttendanceInput>, StaffUncheckedUpdateWithoutAttendanceInput>
   }
 
   export type BranchCreateNestedOneWithoutHostelsInput = {
@@ -138764,14 +146523,6 @@ export namespace Prisma {
     connectOrCreate?: BedCreateOrConnectWithoutRoomInput | BedCreateOrConnectWithoutRoomInput[]
     createMany?: BedCreateManyRoomInputEnvelope
     connect?: BedWhereUniqueInput | BedWhereUniqueInput[]
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type HostelUpdateOneRequiredWithoutRoomsNestedInput = {
@@ -139883,6 +147634,12 @@ export namespace Prisma {
     connect?: StaffWhereUniqueInput
   }
 
+  export type BranchCreateNestedOneWithoutAssignmentsInput = {
+    create?: XOR<BranchCreateWithoutAssignmentsInput, BranchUncheckedCreateWithoutAssignmentsInput>
+    connectOrCreate?: BranchCreateOrConnectWithoutAssignmentsInput
+    connect?: BranchWhereUniqueInput
+  }
+
   export type SubmissionUncheckedCreateNestedManyWithoutAssignmentInput = {
     create?: XOR<SubmissionCreateWithoutAssignmentInput, SubmissionUncheckedCreateWithoutAssignmentInput> | SubmissionCreateWithoutAssignmentInput[] | SubmissionUncheckedCreateWithoutAssignmentInput[]
     connectOrCreate?: SubmissionCreateOrConnectWithoutAssignmentInput | SubmissionCreateOrConnectWithoutAssignmentInput[]
@@ -139928,6 +147685,14 @@ export namespace Prisma {
     delete?: StaffWhereInput | boolean
     connect?: StaffWhereUniqueInput
     update?: XOR<XOR<StaffUpdateToOneWithWhereWithoutAssignmentsInput, StaffUpdateWithoutAssignmentsInput>, StaffUncheckedUpdateWithoutAssignmentsInput>
+  }
+
+  export type BranchUpdateOneRequiredWithoutAssignmentsNestedInput = {
+    create?: XOR<BranchCreateWithoutAssignmentsInput, BranchUncheckedCreateWithoutAssignmentsInput>
+    connectOrCreate?: BranchCreateOrConnectWithoutAssignmentsInput
+    upsert?: BranchUpsertWithoutAssignmentsInput
+    connect?: BranchWhereUniqueInput
+    update?: XOR<XOR<BranchUpdateToOneWithWhereWithoutAssignmentsInput, BranchUpdateWithoutAssignmentsInput>, BranchUncheckedUpdateWithoutAssignmentsInput>
   }
 
   export type SubmissionUncheckedUpdateManyWithoutAssignmentNestedInput = {
@@ -140007,6 +147772,13 @@ export namespace Prisma {
     connect?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
   }
 
+  export type DigitalResourceCreateNestedManyWithoutSessionInput = {
+    create?: XOR<DigitalResourceCreateWithoutSessionInput, DigitalResourceUncheckedCreateWithoutSessionInput> | DigitalResourceCreateWithoutSessionInput[] | DigitalResourceUncheckedCreateWithoutSessionInput[]
+    connectOrCreate?: DigitalResourceCreateOrConnectWithoutSessionInput | DigitalResourceCreateOrConnectWithoutSessionInput[]
+    createMany?: DigitalResourceCreateManySessionInputEnvelope
+    connect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+  }
+
   export type AssessmentRecordUncheckedCreateNestedManyWithoutSessionInput = {
     create?: XOR<AssessmentRecordCreateWithoutSessionInput, AssessmentRecordUncheckedCreateWithoutSessionInput> | AssessmentRecordCreateWithoutSessionInput[] | AssessmentRecordUncheckedCreateWithoutSessionInput[]
     connectOrCreate?: AssessmentRecordCreateOrConnectWithoutSessionInput | AssessmentRecordCreateOrConnectWithoutSessionInput[]
@@ -140040,6 +147812,13 @@ export namespace Prisma {
     connectOrCreate?: IdCardCreateOrConnectWithoutSessionInput | IdCardCreateOrConnectWithoutSessionInput[]
     createMany?: IdCardCreateManySessionInputEnvelope
     connect?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+  }
+
+  export type DigitalResourceUncheckedCreateNestedManyWithoutSessionInput = {
+    create?: XOR<DigitalResourceCreateWithoutSessionInput, DigitalResourceUncheckedCreateWithoutSessionInput> | DigitalResourceCreateWithoutSessionInput[] | DigitalResourceUncheckedCreateWithoutSessionInput[]
+    connectOrCreate?: DigitalResourceCreateOrConnectWithoutSessionInput | DigitalResourceCreateOrConnectWithoutSessionInput[]
+    createMany?: DigitalResourceCreateManySessionInputEnvelope
+    connect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
   }
 
   export type AssessmentRecordUpdateManyWithoutSessionNestedInput = {
@@ -140112,6 +147891,20 @@ export namespace Prisma {
     deleteMany?: IdCardScalarWhereInput | IdCardScalarWhereInput[]
   }
 
+  export type DigitalResourceUpdateManyWithoutSessionNestedInput = {
+    create?: XOR<DigitalResourceCreateWithoutSessionInput, DigitalResourceUncheckedCreateWithoutSessionInput> | DigitalResourceCreateWithoutSessionInput[] | DigitalResourceUncheckedCreateWithoutSessionInput[]
+    connectOrCreate?: DigitalResourceCreateOrConnectWithoutSessionInput | DigitalResourceCreateOrConnectWithoutSessionInput[]
+    upsert?: DigitalResourceUpsertWithWhereUniqueWithoutSessionInput | DigitalResourceUpsertWithWhereUniqueWithoutSessionInput[]
+    createMany?: DigitalResourceCreateManySessionInputEnvelope
+    set?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    disconnect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    delete?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    connect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    update?: DigitalResourceUpdateWithWhereUniqueWithoutSessionInput | DigitalResourceUpdateWithWhereUniqueWithoutSessionInput[]
+    updateMany?: DigitalResourceUpdateManyWithWhereWithoutSessionInput | DigitalResourceUpdateManyWithWhereWithoutSessionInput[]
+    deleteMany?: DigitalResourceScalarWhereInput | DigitalResourceScalarWhereInput[]
+  }
+
   export type AssessmentRecordUncheckedUpdateManyWithoutSessionNestedInput = {
     create?: XOR<AssessmentRecordCreateWithoutSessionInput, AssessmentRecordUncheckedCreateWithoutSessionInput> | AssessmentRecordCreateWithoutSessionInput[] | AssessmentRecordUncheckedCreateWithoutSessionInput[]
     connectOrCreate?: AssessmentRecordCreateOrConnectWithoutSessionInput | AssessmentRecordCreateOrConnectWithoutSessionInput[]
@@ -140180,6 +147973,20 @@ export namespace Prisma {
     update?: IdCardUpdateWithWhereUniqueWithoutSessionInput | IdCardUpdateWithWhereUniqueWithoutSessionInput[]
     updateMany?: IdCardUpdateManyWithWhereWithoutSessionInput | IdCardUpdateManyWithWhereWithoutSessionInput[]
     deleteMany?: IdCardScalarWhereInput | IdCardScalarWhereInput[]
+  }
+
+  export type DigitalResourceUncheckedUpdateManyWithoutSessionNestedInput = {
+    create?: XOR<DigitalResourceCreateWithoutSessionInput, DigitalResourceUncheckedCreateWithoutSessionInput> | DigitalResourceCreateWithoutSessionInput[] | DigitalResourceUncheckedCreateWithoutSessionInput[]
+    connectOrCreate?: DigitalResourceCreateOrConnectWithoutSessionInput | DigitalResourceCreateOrConnectWithoutSessionInput[]
+    upsert?: DigitalResourceUpsertWithWhereUniqueWithoutSessionInput | DigitalResourceUpsertWithWhereUniqueWithoutSessionInput[]
+    createMany?: DigitalResourceCreateManySessionInputEnvelope
+    set?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    disconnect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    delete?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    connect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
+    update?: DigitalResourceUpdateWithWhereUniqueWithoutSessionInput | DigitalResourceUpdateWithWhereUniqueWithoutSessionInput[]
+    updateMany?: DigitalResourceUpdateManyWithWhereWithoutSessionInput | DigitalResourceUpdateManyWithWhereWithoutSessionInput[]
+    deleteMany?: DigitalResourceScalarWhereInput | DigitalResourceScalarWhereInput[]
   }
 
   export type StudentCreateNestedOneWithoutAssessmentRecordsInput = {
@@ -142250,6 +150057,166 @@ export namespace Prisma {
     update?: XOR<XOR<AcademicSessionUpdateToOneWithWhereWithoutIdCardsInput, AcademicSessionUpdateWithoutIdCardsInput>, AcademicSessionUncheckedUpdateWithoutIdCardsInput>
   }
 
+  export type AcademicSessionCreateNestedOneWithoutDigitalResourcesInput = {
+    create?: XOR<AcademicSessionCreateWithoutDigitalResourcesInput, AcademicSessionUncheckedCreateWithoutDigitalResourcesInput>
+    connectOrCreate?: AcademicSessionCreateOrConnectWithoutDigitalResourcesInput
+    connect?: AcademicSessionWhereUniqueInput
+  }
+
+  export type ClassCreateNestedOneWithoutDigitalResourcesInput = {
+    create?: XOR<ClassCreateWithoutDigitalResourcesInput, ClassUncheckedCreateWithoutDigitalResourcesInput>
+    connectOrCreate?: ClassCreateOrConnectWithoutDigitalResourcesInput
+    connect?: ClassWhereUniqueInput
+  }
+
+  export type SectionCreateNestedOneWithoutDigitalResourcesInput = {
+    create?: XOR<SectionCreateWithoutDigitalResourcesInput, SectionUncheckedCreateWithoutDigitalResourcesInput>
+    connectOrCreate?: SectionCreateOrConnectWithoutDigitalResourcesInput
+    connect?: SectionWhereUniqueInput
+  }
+
+  export type SubjectCreateNestedOneWithoutDigitalResourcesInput = {
+    create?: XOR<SubjectCreateWithoutDigitalResourcesInput, SubjectUncheckedCreateWithoutDigitalResourcesInput>
+    connectOrCreate?: SubjectCreateOrConnectWithoutDigitalResourcesInput
+    connect?: SubjectWhereUniqueInput
+  }
+
+  export type StaffCreateNestedOneWithoutDigitalResourcesInput = {
+    create?: XOR<StaffCreateWithoutDigitalResourcesInput, StaffUncheckedCreateWithoutDigitalResourcesInput>
+    connectOrCreate?: StaffCreateOrConnectWithoutDigitalResourcesInput
+    connect?: StaffWhereUniqueInput
+  }
+
+  export type BranchCreateNestedOneWithoutDigitalResourcesInput = {
+    create?: XOR<BranchCreateWithoutDigitalResourcesInput, BranchUncheckedCreateWithoutDigitalResourcesInput>
+    connectOrCreate?: BranchCreateOrConnectWithoutDigitalResourcesInput
+    connect?: BranchWhereUniqueInput
+  }
+
+  export type DigitalResourceLogCreateNestedManyWithoutResourceInput = {
+    create?: XOR<DigitalResourceLogCreateWithoutResourceInput, DigitalResourceLogUncheckedCreateWithoutResourceInput> | DigitalResourceLogCreateWithoutResourceInput[] | DigitalResourceLogUncheckedCreateWithoutResourceInput[]
+    connectOrCreate?: DigitalResourceLogCreateOrConnectWithoutResourceInput | DigitalResourceLogCreateOrConnectWithoutResourceInput[]
+    createMany?: DigitalResourceLogCreateManyResourceInputEnvelope
+    connect?: DigitalResourceLogWhereUniqueInput | DigitalResourceLogWhereUniqueInput[]
+  }
+
+  export type DigitalResourceLogUncheckedCreateNestedManyWithoutResourceInput = {
+    create?: XOR<DigitalResourceLogCreateWithoutResourceInput, DigitalResourceLogUncheckedCreateWithoutResourceInput> | DigitalResourceLogCreateWithoutResourceInput[] | DigitalResourceLogUncheckedCreateWithoutResourceInput[]
+    connectOrCreate?: DigitalResourceLogCreateOrConnectWithoutResourceInput | DigitalResourceLogCreateOrConnectWithoutResourceInput[]
+    createMany?: DigitalResourceLogCreateManyResourceInputEnvelope
+    connect?: DigitalResourceLogWhereUniqueInput | DigitalResourceLogWhereUniqueInput[]
+  }
+
+  export type AcademicSessionUpdateOneRequiredWithoutDigitalResourcesNestedInput = {
+    create?: XOR<AcademicSessionCreateWithoutDigitalResourcesInput, AcademicSessionUncheckedCreateWithoutDigitalResourcesInput>
+    connectOrCreate?: AcademicSessionCreateOrConnectWithoutDigitalResourcesInput
+    upsert?: AcademicSessionUpsertWithoutDigitalResourcesInput
+    connect?: AcademicSessionWhereUniqueInput
+    update?: XOR<XOR<AcademicSessionUpdateToOneWithWhereWithoutDigitalResourcesInput, AcademicSessionUpdateWithoutDigitalResourcesInput>, AcademicSessionUncheckedUpdateWithoutDigitalResourcesInput>
+  }
+
+  export type ClassUpdateOneWithoutDigitalResourcesNestedInput = {
+    create?: XOR<ClassCreateWithoutDigitalResourcesInput, ClassUncheckedCreateWithoutDigitalResourcesInput>
+    connectOrCreate?: ClassCreateOrConnectWithoutDigitalResourcesInput
+    upsert?: ClassUpsertWithoutDigitalResourcesInput
+    disconnect?: ClassWhereInput | boolean
+    delete?: ClassWhereInput | boolean
+    connect?: ClassWhereUniqueInput
+    update?: XOR<XOR<ClassUpdateToOneWithWhereWithoutDigitalResourcesInput, ClassUpdateWithoutDigitalResourcesInput>, ClassUncheckedUpdateWithoutDigitalResourcesInput>
+  }
+
+  export type SectionUpdateOneWithoutDigitalResourcesNestedInput = {
+    create?: XOR<SectionCreateWithoutDigitalResourcesInput, SectionUncheckedCreateWithoutDigitalResourcesInput>
+    connectOrCreate?: SectionCreateOrConnectWithoutDigitalResourcesInput
+    upsert?: SectionUpsertWithoutDigitalResourcesInput
+    disconnect?: SectionWhereInput | boolean
+    delete?: SectionWhereInput | boolean
+    connect?: SectionWhereUniqueInput
+    update?: XOR<XOR<SectionUpdateToOneWithWhereWithoutDigitalResourcesInput, SectionUpdateWithoutDigitalResourcesInput>, SectionUncheckedUpdateWithoutDigitalResourcesInput>
+  }
+
+  export type SubjectUpdateOneWithoutDigitalResourcesNestedInput = {
+    create?: XOR<SubjectCreateWithoutDigitalResourcesInput, SubjectUncheckedCreateWithoutDigitalResourcesInput>
+    connectOrCreate?: SubjectCreateOrConnectWithoutDigitalResourcesInput
+    upsert?: SubjectUpsertWithoutDigitalResourcesInput
+    disconnect?: SubjectWhereInput | boolean
+    delete?: SubjectWhereInput | boolean
+    connect?: SubjectWhereUniqueInput
+    update?: XOR<XOR<SubjectUpdateToOneWithWhereWithoutDigitalResourcesInput, SubjectUpdateWithoutDigitalResourcesInput>, SubjectUncheckedUpdateWithoutDigitalResourcesInput>
+  }
+
+  export type StaffUpdateOneRequiredWithoutDigitalResourcesNestedInput = {
+    create?: XOR<StaffCreateWithoutDigitalResourcesInput, StaffUncheckedCreateWithoutDigitalResourcesInput>
+    connectOrCreate?: StaffCreateOrConnectWithoutDigitalResourcesInput
+    upsert?: StaffUpsertWithoutDigitalResourcesInput
+    connect?: StaffWhereUniqueInput
+    update?: XOR<XOR<StaffUpdateToOneWithWhereWithoutDigitalResourcesInput, StaffUpdateWithoutDigitalResourcesInput>, StaffUncheckedUpdateWithoutDigitalResourcesInput>
+  }
+
+  export type BranchUpdateOneRequiredWithoutDigitalResourcesNestedInput = {
+    create?: XOR<BranchCreateWithoutDigitalResourcesInput, BranchUncheckedCreateWithoutDigitalResourcesInput>
+    connectOrCreate?: BranchCreateOrConnectWithoutDigitalResourcesInput
+    upsert?: BranchUpsertWithoutDigitalResourcesInput
+    connect?: BranchWhereUniqueInput
+    update?: XOR<XOR<BranchUpdateToOneWithWhereWithoutDigitalResourcesInput, BranchUpdateWithoutDigitalResourcesInput>, BranchUncheckedUpdateWithoutDigitalResourcesInput>
+  }
+
+  export type DigitalResourceLogUpdateManyWithoutResourceNestedInput = {
+    create?: XOR<DigitalResourceLogCreateWithoutResourceInput, DigitalResourceLogUncheckedCreateWithoutResourceInput> | DigitalResourceLogCreateWithoutResourceInput[] | DigitalResourceLogUncheckedCreateWithoutResourceInput[]
+    connectOrCreate?: DigitalResourceLogCreateOrConnectWithoutResourceInput | DigitalResourceLogCreateOrConnectWithoutResourceInput[]
+    upsert?: DigitalResourceLogUpsertWithWhereUniqueWithoutResourceInput | DigitalResourceLogUpsertWithWhereUniqueWithoutResourceInput[]
+    createMany?: DigitalResourceLogCreateManyResourceInputEnvelope
+    set?: DigitalResourceLogWhereUniqueInput | DigitalResourceLogWhereUniqueInput[]
+    disconnect?: DigitalResourceLogWhereUniqueInput | DigitalResourceLogWhereUniqueInput[]
+    delete?: DigitalResourceLogWhereUniqueInput | DigitalResourceLogWhereUniqueInput[]
+    connect?: DigitalResourceLogWhereUniqueInput | DigitalResourceLogWhereUniqueInput[]
+    update?: DigitalResourceLogUpdateWithWhereUniqueWithoutResourceInput | DigitalResourceLogUpdateWithWhereUniqueWithoutResourceInput[]
+    updateMany?: DigitalResourceLogUpdateManyWithWhereWithoutResourceInput | DigitalResourceLogUpdateManyWithWhereWithoutResourceInput[]
+    deleteMany?: DigitalResourceLogScalarWhereInput | DigitalResourceLogScalarWhereInput[]
+  }
+
+  export type DigitalResourceLogUncheckedUpdateManyWithoutResourceNestedInput = {
+    create?: XOR<DigitalResourceLogCreateWithoutResourceInput, DigitalResourceLogUncheckedCreateWithoutResourceInput> | DigitalResourceLogCreateWithoutResourceInput[] | DigitalResourceLogUncheckedCreateWithoutResourceInput[]
+    connectOrCreate?: DigitalResourceLogCreateOrConnectWithoutResourceInput | DigitalResourceLogCreateOrConnectWithoutResourceInput[]
+    upsert?: DigitalResourceLogUpsertWithWhereUniqueWithoutResourceInput | DigitalResourceLogUpsertWithWhereUniqueWithoutResourceInput[]
+    createMany?: DigitalResourceLogCreateManyResourceInputEnvelope
+    set?: DigitalResourceLogWhereUniqueInput | DigitalResourceLogWhereUniqueInput[]
+    disconnect?: DigitalResourceLogWhereUniqueInput | DigitalResourceLogWhereUniqueInput[]
+    delete?: DigitalResourceLogWhereUniqueInput | DigitalResourceLogWhereUniqueInput[]
+    connect?: DigitalResourceLogWhereUniqueInput | DigitalResourceLogWhereUniqueInput[]
+    update?: DigitalResourceLogUpdateWithWhereUniqueWithoutResourceInput | DigitalResourceLogUpdateWithWhereUniqueWithoutResourceInput[]
+    updateMany?: DigitalResourceLogUpdateManyWithWhereWithoutResourceInput | DigitalResourceLogUpdateManyWithWhereWithoutResourceInput[]
+    deleteMany?: DigitalResourceLogScalarWhereInput | DigitalResourceLogScalarWhereInput[]
+  }
+
+  export type DigitalResourceCreateNestedOneWithoutLogsInput = {
+    create?: XOR<DigitalResourceCreateWithoutLogsInput, DigitalResourceUncheckedCreateWithoutLogsInput>
+    connectOrCreate?: DigitalResourceCreateOrConnectWithoutLogsInput
+    connect?: DigitalResourceWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutDigitalResourceLogsInput = {
+    create?: XOR<UserCreateWithoutDigitalResourceLogsInput, UserUncheckedCreateWithoutDigitalResourceLogsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDigitalResourceLogsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type DigitalResourceUpdateOneRequiredWithoutLogsNestedInput = {
+    create?: XOR<DigitalResourceCreateWithoutLogsInput, DigitalResourceUncheckedCreateWithoutLogsInput>
+    connectOrCreate?: DigitalResourceCreateOrConnectWithoutLogsInput
+    upsert?: DigitalResourceUpsertWithoutLogsInput
+    connect?: DigitalResourceWhereUniqueInput
+    update?: XOR<XOR<DigitalResourceUpdateToOneWithWhereWithoutLogsInput, DigitalResourceUpdateWithoutLogsInput>, DigitalResourceUncheckedUpdateWithoutLogsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutDigitalResourceLogsNestedInput = {
+    create?: XOR<UserCreateWithoutDigitalResourceLogsInput, UserUncheckedCreateWithoutDigitalResourceLogsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDigitalResourceLogsInput
+    upsert?: UserUpsertWithoutDigitalResourceLogsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDigitalResourceLogsInput, UserUpdateWithoutDigitalResourceLogsInput>, UserUncheckedUpdateWithoutDigitalResourceLogsInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -142487,6 +150454,33 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type NestedEnumAttendanceStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.AttendanceStatus | EnumAttendanceStatusFieldRefInput<$PrismaModel>
     in?: $Enums.AttendanceStatus[] | ListEnumAttendanceStatusFieldRefInput<$PrismaModel>
@@ -142519,33 +150513,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumHostelTypeFilter<$PrismaModel>
     _max?: NestedEnumHostelTypeFilter<$PrismaModel>
-  }
-
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
   export type NestedEnumBedStatusFilter<$PrismaModel = never> = {
@@ -142786,6 +150753,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutParentInput
+    digitalResourceLogs?: DigitalResourceLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBranchInput = {
@@ -142811,6 +150779,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPUncheckedCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutParentInput
+    digitalResourceLogs?: DigitalResourceLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBranchInput = {
@@ -142970,6 +150939,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutClassInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutDesiredClassInput
     onlineExams?: OnlineExamCreateNestedManyWithoutClassInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutClassInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutBranchInput = {
@@ -142985,6 +150956,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutClassInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutDesiredClassInput
     onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutClassInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutClassInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutBranchInput = {
@@ -143008,6 +150981,8 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutSubjectInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutSubjectInput
     onlineExams?: OnlineExamCreateNestedManyWithoutSubjectInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutSubjectInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectUncheckedCreateWithoutBranchInput = {
@@ -143021,6 +150996,8 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutSubjectInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutSubjectInput
     onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutSubjectInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutSubjectInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectCreateOrConnectWithoutBranchInput = {
@@ -143395,11 +151372,16 @@ export namespace Prisma {
 
   export type GoogleMeetConfigCreateWithoutBranchInput = {
     id?: string
-    serviceAccountJson: string
-    projectId: string
-    clientId: string
-    clientSecret: string
-    apiKey: string
+    clientId?: string | null
+    clientSecret?: string | null
+    accessToken?: string | null
+    refreshToken?: string | null
+    expiryDate?: Date | string | null
+    redirectUri?: string | null
+    scopes?: string | null
+    serviceAccountJson?: string | null
+    projectId?: string | null
+    apiKey?: string | null
     isEnabled?: boolean
     defaultDuration?: number
     allowRecording?: boolean
@@ -143410,11 +151392,16 @@ export namespace Prisma {
 
   export type GoogleMeetConfigUncheckedCreateWithoutBranchInput = {
     id?: string
-    serviceAccountJson: string
-    projectId: string
-    clientId: string
-    clientSecret: string
-    apiKey: string
+    clientId?: string | null
+    clientSecret?: string | null
+    accessToken?: string | null
+    refreshToken?: string | null
+    expiryDate?: Date | string | null
+    redirectUri?: string | null
+    scopes?: string | null
+    serviceAccountJson?: string | null
+    projectId?: string | null
+    apiKey?: string | null
     isEnabled?: boolean
     defaultDuration?: number
     allowRecording?: boolean
@@ -143433,14 +151420,21 @@ export namespace Prisma {
     title: string
     description?: string | null
     meetingId: string
-    hostUrl: string
-    participantUrl: string
+    meetLink?: string | null
+    hostUrl?: string | null
+    participantUrl?: string | null
     scheduledStart: Date | string
     scheduledEnd: Date | string
     actualStart?: Date | string | null
     actualEnd?: Date | string | null
+    timezone?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    seriesId?: string | null
     status?: string
+    recordingId?: string | null
     recordingUrl?: string | null
+    recordingStatus?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     class?: ClassCreateNestedOneWithoutLiveClassSessionsInput
@@ -143455,8 +151449,9 @@ export namespace Prisma {
     title: string
     description?: string | null
     meetingId: string
-    hostUrl: string
-    participantUrl: string
+    meetLink?: string | null
+    hostUrl?: string | null
+    participantUrl?: string | null
     classId?: string | null
     sectionId?: string | null
     subjectId?: string | null
@@ -143465,8 +151460,14 @@ export namespace Prisma {
     scheduledEnd: Date | string
     actualStart?: Date | string | null
     actualEnd?: Date | string | null
+    timezone?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    seriesId?: string | null
     status?: string
+    recordingId?: string | null
     recordingUrl?: string | null
+    recordingStatus?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     participants?: MeetingParticipantUncheckedCreateNestedManyWithoutSessionInput
@@ -144458,6 +152459,54 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type DigitalResourceCreateWithoutBranchInput = {
+    id?: string
+    title: string
+    description?: string | null
+    fileUrl: string
+    fileType: string
+    fileSize?: number | null
+    thumbnailUrl?: string | null
+    category: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    session: AcademicSessionCreateNestedOneWithoutDigitalResourcesInput
+    class?: ClassCreateNestedOneWithoutDigitalResourcesInput
+    section?: SectionCreateNestedOneWithoutDigitalResourcesInput
+    subject?: SubjectCreateNestedOneWithoutDigitalResourcesInput
+    uploader: StaffCreateNestedOneWithoutDigitalResourcesInput
+    logs?: DigitalResourceLogCreateNestedManyWithoutResourceInput
+  }
+
+  export type DigitalResourceUncheckedCreateWithoutBranchInput = {
+    id?: string
+    title: string
+    description?: string | null
+    fileUrl: string
+    fileType: string
+    fileSize?: number | null
+    thumbnailUrl?: string | null
+    category: string
+    sessionId: string
+    classId?: string | null
+    sectionId?: string | null
+    subjectId?: string | null
+    uploaderId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    logs?: DigitalResourceLogUncheckedCreateNestedManyWithoutResourceInput
+  }
+
+  export type DigitalResourceCreateOrConnectWithoutBranchInput = {
+    where: DigitalResourceWhereUniqueInput
+    create: XOR<DigitalResourceCreateWithoutBranchInput, DigitalResourceUncheckedCreateWithoutBranchInput>
+  }
+
+  export type DigitalResourceCreateManyBranchInputEnvelope = {
+    data: DigitalResourceCreateManyBranchInput | DigitalResourceCreateManyBranchInput[]
+    skipDuplicates?: boolean
+  }
+
   export type DeactivationReasonCreateWithoutBranchInput = {
     id?: string
     title: string
@@ -144513,6 +152562,44 @@ export namespace Prisma {
 
   export type LoginDeactivationCreateManyBranchInputEnvelope = {
     data: LoginDeactivationCreateManyBranchInput | LoginDeactivationCreateManyBranchInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AssignmentCreateWithoutBranchInput = {
+    id?: string
+    title: string
+    description?: string | null
+    dueDate: Date | string
+    attachmentUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    subject: SubjectCreateNestedOneWithoutAssignmentsInput
+    section: SectionCreateNestedOneWithoutAssignmentsInput
+    submissions?: SubmissionCreateNestedManyWithoutAssignmentInput
+    teacher?: StaffCreateNestedOneWithoutAssignmentsInput
+  }
+
+  export type AssignmentUncheckedCreateWithoutBranchInput = {
+    id?: string
+    title: string
+    description?: string | null
+    dueDate: Date | string
+    attachmentUrl?: string | null
+    subjectId: string
+    sectionId: string
+    teacherId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    submissions?: SubmissionUncheckedCreateNestedManyWithoutAssignmentInput
+  }
+
+  export type AssignmentCreateOrConnectWithoutBranchInput = {
+    where: AssignmentWhereUniqueInput
+    create: XOR<AssignmentCreateWithoutBranchInput, AssignmentUncheckedCreateWithoutBranchInput>
+  }
+
+  export type AssignmentCreateManyBranchInputEnvelope = {
+    data: AssignmentCreateManyBranchInput | AssignmentCreateManyBranchInput[]
     skipDuplicates?: boolean
   }
 
@@ -145021,11 +153108,16 @@ export namespace Prisma {
 
   export type GoogleMeetConfigUpdateWithoutBranchInput = {
     id?: StringFieldUpdateOperationsInput | string
-    serviceAccountJson?: StringFieldUpdateOperationsInput | string
-    projectId?: StringFieldUpdateOperationsInput | string
-    clientId?: StringFieldUpdateOperationsInput | string
-    clientSecret?: StringFieldUpdateOperationsInput | string
-    apiKey?: StringFieldUpdateOperationsInput | string
+    clientId?: NullableStringFieldUpdateOperationsInput | string | null
+    clientSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    expiryDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    redirectUri?: NullableStringFieldUpdateOperationsInput | string | null
+    scopes?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceAccountJson?: NullableStringFieldUpdateOperationsInput | string | null
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    apiKey?: NullableStringFieldUpdateOperationsInput | string | null
     isEnabled?: BoolFieldUpdateOperationsInput | boolean
     defaultDuration?: IntFieldUpdateOperationsInput | number
     allowRecording?: BoolFieldUpdateOperationsInput | boolean
@@ -145036,11 +153128,16 @@ export namespace Prisma {
 
   export type GoogleMeetConfigUncheckedUpdateWithoutBranchInput = {
     id?: StringFieldUpdateOperationsInput | string
-    serviceAccountJson?: StringFieldUpdateOperationsInput | string
-    projectId?: StringFieldUpdateOperationsInput | string
-    clientId?: StringFieldUpdateOperationsInput | string
-    clientSecret?: StringFieldUpdateOperationsInput | string
-    apiKey?: StringFieldUpdateOperationsInput | string
+    clientId?: NullableStringFieldUpdateOperationsInput | string | null
+    clientSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    expiryDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    redirectUri?: NullableStringFieldUpdateOperationsInput | string | null
+    scopes?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceAccountJson?: NullableStringFieldUpdateOperationsInput | string | null
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    apiKey?: NullableStringFieldUpdateOperationsInput | string | null
     isEnabled?: BoolFieldUpdateOperationsInput | boolean
     defaultDuration?: IntFieldUpdateOperationsInput | number
     allowRecording?: BoolFieldUpdateOperationsInput | boolean
@@ -145073,8 +153170,9 @@ export namespace Prisma {
     title?: StringFilter<"LiveClassSession"> | string
     description?: StringNullableFilter<"LiveClassSession"> | string | null
     meetingId?: StringFilter<"LiveClassSession"> | string
-    hostUrl?: StringFilter<"LiveClassSession"> | string
-    participantUrl?: StringFilter<"LiveClassSession"> | string
+    meetLink?: StringNullableFilter<"LiveClassSession"> | string | null
+    hostUrl?: StringNullableFilter<"LiveClassSession"> | string | null
+    participantUrl?: StringNullableFilter<"LiveClassSession"> | string | null
     classId?: StringNullableFilter<"LiveClassSession"> | string | null
     sectionId?: StringNullableFilter<"LiveClassSession"> | string | null
     subjectId?: StringNullableFilter<"LiveClassSession"> | string | null
@@ -145083,8 +153181,14 @@ export namespace Prisma {
     scheduledEnd?: DateTimeFilter<"LiveClassSession"> | Date | string
     actualStart?: DateTimeNullableFilter<"LiveClassSession"> | Date | string | null
     actualEnd?: DateTimeNullableFilter<"LiveClassSession"> | Date | string | null
+    timezone?: StringFilter<"LiveClassSession"> | string
+    isRecurring?: BoolFilter<"LiveClassSession"> | boolean
+    recurrenceRule?: StringNullableFilter<"LiveClassSession"> | string | null
+    seriesId?: StringNullableFilter<"LiveClassSession"> | string | null
     status?: StringFilter<"LiveClassSession"> | string
+    recordingId?: StringNullableFilter<"LiveClassSession"> | string | null
     recordingUrl?: StringNullableFilter<"LiveClassSession"> | string | null
+    recordingStatus?: StringNullableFilter<"LiveClassSession"> | string | null
     branchId?: StringFilter<"LiveClassSession"> | string
     createdAt?: DateTimeFilter<"LiveClassSession"> | Date | string
     updatedAt?: DateTimeFilter<"LiveClassSession"> | Date | string
@@ -145920,6 +154024,44 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"IdCardTemplate"> | Date | string
   }
 
+  export type DigitalResourceUpsertWithWhereUniqueWithoutBranchInput = {
+    where: DigitalResourceWhereUniqueInput
+    update: XOR<DigitalResourceUpdateWithoutBranchInput, DigitalResourceUncheckedUpdateWithoutBranchInput>
+    create: XOR<DigitalResourceCreateWithoutBranchInput, DigitalResourceUncheckedCreateWithoutBranchInput>
+  }
+
+  export type DigitalResourceUpdateWithWhereUniqueWithoutBranchInput = {
+    where: DigitalResourceWhereUniqueInput
+    data: XOR<DigitalResourceUpdateWithoutBranchInput, DigitalResourceUncheckedUpdateWithoutBranchInput>
+  }
+
+  export type DigitalResourceUpdateManyWithWhereWithoutBranchInput = {
+    where: DigitalResourceScalarWhereInput
+    data: XOR<DigitalResourceUpdateManyMutationInput, DigitalResourceUncheckedUpdateManyWithoutBranchInput>
+  }
+
+  export type DigitalResourceScalarWhereInput = {
+    AND?: DigitalResourceScalarWhereInput | DigitalResourceScalarWhereInput[]
+    OR?: DigitalResourceScalarWhereInput[]
+    NOT?: DigitalResourceScalarWhereInput | DigitalResourceScalarWhereInput[]
+    id?: StringFilter<"DigitalResource"> | string
+    title?: StringFilter<"DigitalResource"> | string
+    description?: StringNullableFilter<"DigitalResource"> | string | null
+    fileUrl?: StringFilter<"DigitalResource"> | string
+    fileType?: StringFilter<"DigitalResource"> | string
+    fileSize?: IntNullableFilter<"DigitalResource"> | number | null
+    thumbnailUrl?: StringNullableFilter<"DigitalResource"> | string | null
+    category?: StringFilter<"DigitalResource"> | string
+    sessionId?: StringFilter<"DigitalResource"> | string
+    classId?: StringNullableFilter<"DigitalResource"> | string | null
+    sectionId?: StringNullableFilter<"DigitalResource"> | string | null
+    subjectId?: StringNullableFilter<"DigitalResource"> | string | null
+    uploaderId?: StringFilter<"DigitalResource"> | string
+    branchId?: StringFilter<"DigitalResource"> | string
+    createdAt?: DateTimeFilter<"DigitalResource"> | Date | string
+    updatedAt?: DateTimeFilter<"DigitalResource"> | Date | string
+  }
+
   export type DeactivationReasonUpsertWithWhereUniqueWithoutBranchInput = {
     where: DeactivationReasonWhereUniqueInput
     update: XOR<DeactivationReasonUpdateWithoutBranchInput, DeactivationReasonUncheckedUpdateWithoutBranchInput>
@@ -145978,6 +154120,39 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"LoginDeactivation"> | Date | string
   }
 
+  export type AssignmentUpsertWithWhereUniqueWithoutBranchInput = {
+    where: AssignmentWhereUniqueInput
+    update: XOR<AssignmentUpdateWithoutBranchInput, AssignmentUncheckedUpdateWithoutBranchInput>
+    create: XOR<AssignmentCreateWithoutBranchInput, AssignmentUncheckedCreateWithoutBranchInput>
+  }
+
+  export type AssignmentUpdateWithWhereUniqueWithoutBranchInput = {
+    where: AssignmentWhereUniqueInput
+    data: XOR<AssignmentUpdateWithoutBranchInput, AssignmentUncheckedUpdateWithoutBranchInput>
+  }
+
+  export type AssignmentUpdateManyWithWhereWithoutBranchInput = {
+    where: AssignmentScalarWhereInput
+    data: XOR<AssignmentUpdateManyMutationInput, AssignmentUncheckedUpdateManyWithoutBranchInput>
+  }
+
+  export type AssignmentScalarWhereInput = {
+    AND?: AssignmentScalarWhereInput | AssignmentScalarWhereInput[]
+    OR?: AssignmentScalarWhereInput[]
+    NOT?: AssignmentScalarWhereInput | AssignmentScalarWhereInput[]
+    id?: StringFilter<"Assignment"> | string
+    title?: StringFilter<"Assignment"> | string
+    description?: StringNullableFilter<"Assignment"> | string | null
+    dueDate?: DateTimeFilter<"Assignment"> | Date | string
+    attachmentUrl?: StringNullableFilter<"Assignment"> | string | null
+    subjectId?: StringFilter<"Assignment"> | string
+    sectionId?: StringFilter<"Assignment"> | string
+    teacherId?: StringNullableFilter<"Assignment"> | string | null
+    branchId?: StringFilter<"Assignment"> | string
+    createdAt?: DateTimeFilter<"Assignment"> | Date | string
+    updatedAt?: DateTimeFilter<"Assignment"> | Date | string
+  }
+
   export type BranchCreateWithoutDeactivationReasonsInput = {
     id?: string
     name: string
@@ -146029,7 +154204,9 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutDeactivationReasonsInput = {
@@ -146083,7 +154260,9 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutDeactivationReasonsInput = {
@@ -146183,7 +154362,9 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutDeactivationReasonsInput = {
@@ -146237,7 +154418,9 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type LoginDeactivationUpsertWithWhereUniqueWithoutReasonRefInput = {
@@ -146330,7 +154513,9 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutLoginDeactivationsInput = {
@@ -146384,7 +154569,9 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutLoginDeactivationsInput = {
@@ -146483,7 +154670,9 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutLoginDeactivationsInput = {
@@ -146537,7 +154726,9 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutUsersInput = {
@@ -146590,8 +154781,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutUsersInput = {
@@ -146644,8 +154837,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutUsersInput = {
@@ -146672,6 +154867,9 @@ export namespace Prisma {
     assignments?: AssignmentCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionCreateNestedManyWithoutHostInput
     idCards?: IdCardCreateNestedManyWithoutStaffInput
+    attendance?: StaffAttendanceCreateNestedManyWithoutStaffInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutTeacherInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutUploaderInput
   }
 
   export type StaffUncheckedCreateWithoutUserInput = {
@@ -146693,6 +154891,9 @@ export namespace Prisma {
     assignments?: AssignmentUncheckedCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutHostInput
     idCards?: IdCardUncheckedCreateNestedManyWithoutStaffInput
+    attendance?: StaffAttendanceUncheckedCreateNestedManyWithoutStaffInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutTeacherInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutUploaderInput
   }
 
   export type StaffCreateOrConnectWithoutUserInput = {
@@ -147389,6 +155590,34 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type DigitalResourceLogCreateWithoutUserInput = {
+    id?: string
+    action: string
+    ipAddress?: string | null
+    userAgent?: string | null
+    createdAt?: Date | string
+    resource: DigitalResourceCreateNestedOneWithoutLogsInput
+  }
+
+  export type DigitalResourceLogUncheckedCreateWithoutUserInput = {
+    id?: string
+    resourceId: string
+    action: string
+    ipAddress?: string | null
+    userAgent?: string | null
+    createdAt?: Date | string
+  }
+
+  export type DigitalResourceLogCreateOrConnectWithoutUserInput = {
+    where: DigitalResourceLogWhereUniqueInput
+    create: XOR<DigitalResourceLogCreateWithoutUserInput, DigitalResourceLogUncheckedCreateWithoutUserInput>
+  }
+
+  export type DigitalResourceLogCreateManyUserInputEnvelope = {
+    data: DigitalResourceLogCreateManyUserInput | DigitalResourceLogCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type BranchUpsertWithoutUsersInput = {
     update: XOR<BranchUpdateWithoutUsersInput, BranchUncheckedUpdateWithoutUsersInput>
     create: XOR<BranchCreateWithoutUsersInput, BranchUncheckedCreateWithoutUsersInput>
@@ -147450,8 +155679,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutUsersInput = {
@@ -147504,8 +155735,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StaffUpsertWithoutUserInput = {
@@ -147538,6 +155771,9 @@ export namespace Prisma {
     assignments?: AssignmentUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUpdateManyWithoutHostNestedInput
     idCards?: IdCardUpdateManyWithoutStaffNestedInput
+    attendance?: StaffAttendanceUpdateManyWithoutStaffNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutTeacherNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutUploaderNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutUserInput = {
@@ -147559,6 +155795,9 @@ export namespace Prisma {
     assignments?: AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUncheckedUpdateManyWithoutHostNestedInput
     idCards?: IdCardUncheckedUpdateManyWithoutStaffNestedInput
+    attendance?: StaffAttendanceUncheckedUpdateManyWithoutStaffNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutTeacherNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutUploaderNestedInput
   }
 
   export type StudentUpsertWithoutUserInput = {
@@ -147920,6 +156159,35 @@ export namespace Prisma {
     data: XOR<OnlineAdmissionUpdateManyMutationInput, OnlineAdmissionUncheckedUpdateManyWithoutParentInput>
   }
 
+  export type DigitalResourceLogUpsertWithWhereUniqueWithoutUserInput = {
+    where: DigitalResourceLogWhereUniqueInput
+    update: XOR<DigitalResourceLogUpdateWithoutUserInput, DigitalResourceLogUncheckedUpdateWithoutUserInput>
+    create: XOR<DigitalResourceLogCreateWithoutUserInput, DigitalResourceLogUncheckedCreateWithoutUserInput>
+  }
+
+  export type DigitalResourceLogUpdateWithWhereUniqueWithoutUserInput = {
+    where: DigitalResourceLogWhereUniqueInput
+    data: XOR<DigitalResourceLogUpdateWithoutUserInput, DigitalResourceLogUncheckedUpdateWithoutUserInput>
+  }
+
+  export type DigitalResourceLogUpdateManyWithWhereWithoutUserInput = {
+    where: DigitalResourceLogScalarWhereInput
+    data: XOR<DigitalResourceLogUpdateManyMutationInput, DigitalResourceLogUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type DigitalResourceLogScalarWhereInput = {
+    AND?: DigitalResourceLogScalarWhereInput | DigitalResourceLogScalarWhereInput[]
+    OR?: DigitalResourceLogScalarWhereInput[]
+    NOT?: DigitalResourceLogScalarWhereInput | DigitalResourceLogScalarWhereInput[]
+    id?: StringFilter<"DigitalResourceLog"> | string
+    resourceId?: StringFilter<"DigitalResourceLog"> | string
+    userId?: StringFilter<"DigitalResourceLog"> | string
+    action?: StringFilter<"DigitalResourceLog"> | string
+    ipAddress?: StringNullableFilter<"DigitalResourceLog"> | string | null
+    userAgent?: StringNullableFilter<"DigitalResourceLog"> | string | null
+    createdAt?: DateTimeFilter<"DigitalResourceLog"> | Date | string
+  }
+
   export type UserCreateWithoutStaffInput = {
     id?: string
     email: string
@@ -147943,6 +156211,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutParentInput
+    digitalResourceLogs?: DigitalResourceLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutStaffInput = {
@@ -147968,6 +156237,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPUncheckedCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutParentInput
+    digitalResourceLogs?: DigitalResourceLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutStaffInput = {
@@ -148070,6 +156340,8 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutSubjectInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutSubjectInput
     onlineExams?: OnlineExamCreateNestedManyWithoutSubjectInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutSubjectInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectUncheckedCreateWithoutTeachersInput = {
@@ -148083,6 +156355,8 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutSubjectInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutSubjectInput
     onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutSubjectInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutSubjectInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectCreateOrConnectWithoutTeachersInput = {
@@ -148103,6 +156377,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutClassInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutDesiredClassInput
     onlineExams?: OnlineExamCreateNestedManyWithoutClassInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutClassInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutClassTeacherInput = {
@@ -148118,6 +156394,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutClassInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutDesiredClassInput
     onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutClassInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutClassInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutClassTeacherInput = {
@@ -148280,11 +156558,13 @@ export namespace Prisma {
     title: string
     description?: string | null
     dueDate: Date | string
+    attachmentUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     subject: SubjectCreateNestedOneWithoutAssignmentsInput
     section: SectionCreateNestedOneWithoutAssignmentsInput
     submissions?: SubmissionCreateNestedManyWithoutAssignmentInput
+    branch: BranchCreateNestedOneWithoutAssignmentsInput
   }
 
   export type AssignmentUncheckedCreateWithoutTeacherInput = {
@@ -148292,8 +156572,10 @@ export namespace Prisma {
     title: string
     description?: string | null
     dueDate: Date | string
+    attachmentUrl?: string | null
     subjectId: string
     sectionId: string
+    branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     submissions?: SubmissionUncheckedCreateNestedManyWithoutAssignmentInput
@@ -148314,14 +156596,21 @@ export namespace Prisma {
     title: string
     description?: string | null
     meetingId: string
-    hostUrl: string
-    participantUrl: string
+    meetLink?: string | null
+    hostUrl?: string | null
+    participantUrl?: string | null
     scheduledStart: Date | string
     scheduledEnd: Date | string
     actualStart?: Date | string | null
     actualEnd?: Date | string | null
+    timezone?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    seriesId?: string | null
     status?: string
+    recordingId?: string | null
     recordingUrl?: string | null
+    recordingStatus?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     class?: ClassCreateNestedOneWithoutLiveClassSessionsInput
@@ -148336,8 +156625,9 @@ export namespace Prisma {
     title: string
     description?: string | null
     meetingId: string
-    hostUrl: string
-    participantUrl: string
+    meetLink?: string | null
+    hostUrl?: string | null
+    participantUrl?: string | null
     classId?: string | null
     sectionId?: string | null
     subjectId?: string | null
@@ -148345,8 +156635,14 @@ export namespace Prisma {
     scheduledEnd: Date | string
     actualStart?: Date | string | null
     actualEnd?: Date | string | null
+    timezone?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    seriesId?: string | null
     status?: string
+    recordingId?: string | null
     recordingUrl?: string | null
+    recordingStatus?: string | null
     branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -148395,6 +156691,118 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type StaffAttendanceCreateWithoutStaffInput = {
+    id?: string
+    date: Date | string
+    status: $Enums.AttendanceStatus
+    remarks?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StaffAttendanceUncheckedCreateWithoutStaffInput = {
+    id?: string
+    date: Date | string
+    status: $Enums.AttendanceStatus
+    remarks?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StaffAttendanceCreateOrConnectWithoutStaffInput = {
+    where: StaffAttendanceWhereUniqueInput
+    create: XOR<StaffAttendanceCreateWithoutStaffInput, StaffAttendanceUncheckedCreateWithoutStaffInput>
+  }
+
+  export type StaffAttendanceCreateManyStaffInputEnvelope = {
+    data: StaffAttendanceCreateManyStaffInput | StaffAttendanceCreateManyStaffInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ClassScheduleCreateWithoutTeacherInput = {
+    id?: string
+    dayOfWeek: number
+    startTime: string
+    endTime: string
+    room?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    class: ClassCreateNestedOneWithoutClassSchedulesInput
+    section: SectionCreateNestedOneWithoutClassSchedulesInput
+    subject: SubjectCreateNestedOneWithoutClassSchedulesInput
+  }
+
+  export type ClassScheduleUncheckedCreateWithoutTeacherInput = {
+    id?: string
+    dayOfWeek: number
+    startTime: string
+    endTime: string
+    room?: string | null
+    classId: string
+    sectionId: string
+    subjectId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ClassScheduleCreateOrConnectWithoutTeacherInput = {
+    where: ClassScheduleWhereUniqueInput
+    create: XOR<ClassScheduleCreateWithoutTeacherInput, ClassScheduleUncheckedCreateWithoutTeacherInput>
+  }
+
+  export type ClassScheduleCreateManyTeacherInputEnvelope = {
+    data: ClassScheduleCreateManyTeacherInput | ClassScheduleCreateManyTeacherInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DigitalResourceCreateWithoutUploaderInput = {
+    id?: string
+    title: string
+    description?: string | null
+    fileUrl: string
+    fileType: string
+    fileSize?: number | null
+    thumbnailUrl?: string | null
+    category: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    session: AcademicSessionCreateNestedOneWithoutDigitalResourcesInput
+    class?: ClassCreateNestedOneWithoutDigitalResourcesInput
+    section?: SectionCreateNestedOneWithoutDigitalResourcesInput
+    subject?: SubjectCreateNestedOneWithoutDigitalResourcesInput
+    branch: BranchCreateNestedOneWithoutDigitalResourcesInput
+    logs?: DigitalResourceLogCreateNestedManyWithoutResourceInput
+  }
+
+  export type DigitalResourceUncheckedCreateWithoutUploaderInput = {
+    id?: string
+    title: string
+    description?: string | null
+    fileUrl: string
+    fileType: string
+    fileSize?: number | null
+    thumbnailUrl?: string | null
+    category: string
+    sessionId: string
+    classId?: string | null
+    sectionId?: string | null
+    subjectId?: string | null
+    branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    logs?: DigitalResourceLogUncheckedCreateNestedManyWithoutResourceInput
+  }
+
+  export type DigitalResourceCreateOrConnectWithoutUploaderInput = {
+    where: DigitalResourceWhereUniqueInput
+    create: XOR<DigitalResourceCreateWithoutUploaderInput, DigitalResourceUncheckedCreateWithoutUploaderInput>
+  }
+
+  export type DigitalResourceCreateManyUploaderInputEnvelope = {
+    data: DigitalResourceCreateManyUploaderInput | DigitalResourceCreateManyUploaderInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutStaffInput = {
     update: XOR<UserUpdateWithoutStaffInput, UserUncheckedUpdateWithoutStaffInput>
     create: XOR<UserCreateWithoutStaffInput, UserUncheckedCreateWithoutStaffInput>
@@ -148429,6 +156837,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutParentNestedInput
+    digitalResourceLogs?: DigitalResourceLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutStaffInput = {
@@ -148454,6 +156863,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutParentNestedInput
+    digitalResourceLogs?: DigitalResourceLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type DepartmentUpsertWithoutStaffInput = {
@@ -148729,21 +157139,6 @@ export namespace Prisma {
     data: XOR<AssignmentUpdateManyMutationInput, AssignmentUncheckedUpdateManyWithoutTeacherInput>
   }
 
-  export type AssignmentScalarWhereInput = {
-    AND?: AssignmentScalarWhereInput | AssignmentScalarWhereInput[]
-    OR?: AssignmentScalarWhereInput[]
-    NOT?: AssignmentScalarWhereInput | AssignmentScalarWhereInput[]
-    id?: StringFilter<"Assignment"> | string
-    title?: StringFilter<"Assignment"> | string
-    description?: StringNullableFilter<"Assignment"> | string | null
-    dueDate?: DateTimeFilter<"Assignment"> | Date | string
-    subjectId?: StringFilter<"Assignment"> | string
-    sectionId?: StringFilter<"Assignment"> | string
-    teacherId?: StringNullableFilter<"Assignment"> | string | null
-    createdAt?: DateTimeFilter<"Assignment"> | Date | string
-    updatedAt?: DateTimeFilter<"Assignment"> | Date | string
-  }
-
   export type LiveClassSessionUpsertWithWhereUniqueWithoutHostInput = {
     where: LiveClassSessionWhereUniqueInput
     update: XOR<LiveClassSessionUpdateWithoutHostInput, LiveClassSessionUncheckedUpdateWithoutHostInput>
@@ -148791,6 +157186,84 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"IdCard"> | Date | string
   }
 
+  export type StaffAttendanceUpsertWithWhereUniqueWithoutStaffInput = {
+    where: StaffAttendanceWhereUniqueInput
+    update: XOR<StaffAttendanceUpdateWithoutStaffInput, StaffAttendanceUncheckedUpdateWithoutStaffInput>
+    create: XOR<StaffAttendanceCreateWithoutStaffInput, StaffAttendanceUncheckedCreateWithoutStaffInput>
+  }
+
+  export type StaffAttendanceUpdateWithWhereUniqueWithoutStaffInput = {
+    where: StaffAttendanceWhereUniqueInput
+    data: XOR<StaffAttendanceUpdateWithoutStaffInput, StaffAttendanceUncheckedUpdateWithoutStaffInput>
+  }
+
+  export type StaffAttendanceUpdateManyWithWhereWithoutStaffInput = {
+    where: StaffAttendanceScalarWhereInput
+    data: XOR<StaffAttendanceUpdateManyMutationInput, StaffAttendanceUncheckedUpdateManyWithoutStaffInput>
+  }
+
+  export type StaffAttendanceScalarWhereInput = {
+    AND?: StaffAttendanceScalarWhereInput | StaffAttendanceScalarWhereInput[]
+    OR?: StaffAttendanceScalarWhereInput[]
+    NOT?: StaffAttendanceScalarWhereInput | StaffAttendanceScalarWhereInput[]
+    id?: StringFilter<"StaffAttendance"> | string
+    date?: DateTimeFilter<"StaffAttendance"> | Date | string
+    status?: EnumAttendanceStatusFilter<"StaffAttendance"> | $Enums.AttendanceStatus
+    remarks?: StringNullableFilter<"StaffAttendance"> | string | null
+    staffId?: StringFilter<"StaffAttendance"> | string
+    createdAt?: DateTimeFilter<"StaffAttendance"> | Date | string
+    updatedAt?: DateTimeFilter<"StaffAttendance"> | Date | string
+  }
+
+  export type ClassScheduleUpsertWithWhereUniqueWithoutTeacherInput = {
+    where: ClassScheduleWhereUniqueInput
+    update: XOR<ClassScheduleUpdateWithoutTeacherInput, ClassScheduleUncheckedUpdateWithoutTeacherInput>
+    create: XOR<ClassScheduleCreateWithoutTeacherInput, ClassScheduleUncheckedCreateWithoutTeacherInput>
+  }
+
+  export type ClassScheduleUpdateWithWhereUniqueWithoutTeacherInput = {
+    where: ClassScheduleWhereUniqueInput
+    data: XOR<ClassScheduleUpdateWithoutTeacherInput, ClassScheduleUncheckedUpdateWithoutTeacherInput>
+  }
+
+  export type ClassScheduleUpdateManyWithWhereWithoutTeacherInput = {
+    where: ClassScheduleScalarWhereInput
+    data: XOR<ClassScheduleUpdateManyMutationInput, ClassScheduleUncheckedUpdateManyWithoutTeacherInput>
+  }
+
+  export type ClassScheduleScalarWhereInput = {
+    AND?: ClassScheduleScalarWhereInput | ClassScheduleScalarWhereInput[]
+    OR?: ClassScheduleScalarWhereInput[]
+    NOT?: ClassScheduleScalarWhereInput | ClassScheduleScalarWhereInput[]
+    id?: StringFilter<"ClassSchedule"> | string
+    dayOfWeek?: IntFilter<"ClassSchedule"> | number
+    startTime?: StringFilter<"ClassSchedule"> | string
+    endTime?: StringFilter<"ClassSchedule"> | string
+    room?: StringNullableFilter<"ClassSchedule"> | string | null
+    classId?: StringFilter<"ClassSchedule"> | string
+    sectionId?: StringFilter<"ClassSchedule"> | string
+    subjectId?: StringFilter<"ClassSchedule"> | string
+    teacherId?: StringFilter<"ClassSchedule"> | string
+    createdAt?: DateTimeFilter<"ClassSchedule"> | Date | string
+    updatedAt?: DateTimeFilter<"ClassSchedule"> | Date | string
+  }
+
+  export type DigitalResourceUpsertWithWhereUniqueWithoutUploaderInput = {
+    where: DigitalResourceWhereUniqueInput
+    update: XOR<DigitalResourceUpdateWithoutUploaderInput, DigitalResourceUncheckedUpdateWithoutUploaderInput>
+    create: XOR<DigitalResourceCreateWithoutUploaderInput, DigitalResourceUncheckedCreateWithoutUploaderInput>
+  }
+
+  export type DigitalResourceUpdateWithWhereUniqueWithoutUploaderInput = {
+    where: DigitalResourceWhereUniqueInput
+    data: XOR<DigitalResourceUpdateWithoutUploaderInput, DigitalResourceUncheckedUpdateWithoutUploaderInput>
+  }
+
+  export type DigitalResourceUpdateManyWithWhereWithoutUploaderInput = {
+    where: DigitalResourceScalarWhereInput
+    data: XOR<DigitalResourceUpdateManyMutationInput, DigitalResourceUncheckedUpdateManyWithoutUploaderInput>
+  }
+
   export type UserCreateWithoutStudentInput = {
     id?: string
     email: string
@@ -148814,6 +157287,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutParentInput
+    digitalResourceLogs?: DigitalResourceLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutStudentInput = {
@@ -148839,6 +157313,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPUncheckedCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutParentInput
+    digitalResourceLogs?: DigitalResourceLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutStudentInput = {
@@ -148896,8 +157371,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutStudentsInput = {
@@ -148950,8 +157427,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutStudentsInput = {
@@ -148972,6 +157451,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutClassInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutDesiredClassInput
     onlineExams?: OnlineExamCreateNestedManyWithoutClassInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutClassInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutStudentsInput = {
@@ -148987,6 +157468,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutClassInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutDesiredClassInput
     onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutClassInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutClassInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutStudentsInput = {
@@ -149006,6 +157489,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutSectionInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutDesiredSectionInput
     onlineExams?: OnlineExamCreateNestedManyWithoutSectionInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutSectionInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutSectionInput
   }
 
   export type SectionUncheckedCreateWithoutStudentsInput = {
@@ -149020,6 +157505,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutSectionInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutDesiredSectionInput
     onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutSectionInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutSectionInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutSectionInput
   }
 
   export type SectionCreateOrConnectWithoutStudentsInput = {
@@ -149050,6 +157537,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutParentInput
+    digitalResourceLogs?: DigitalResourceLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutChildrenInput = {
@@ -149075,6 +157563,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPUncheckedCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutParentInput
+    digitalResourceLogs?: DigitalResourceLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutChildrenInput = {
@@ -149510,6 +157999,7 @@ export namespace Prisma {
     startTime?: Date | string
     endTime?: Date | string | null
     score?: number | null
+    position?: number | null
     status?: $Enums.AttemptStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -149523,6 +158013,7 @@ export namespace Prisma {
     startTime?: Date | string
     endTime?: Date | string | null
     score?: number | null
+    position?: number | null
     status?: $Enums.AttemptStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -149701,6 +158192,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutParentNestedInput
+    digitalResourceLogs?: DigitalResourceLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutStudentInput = {
@@ -149726,6 +158218,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutParentNestedInput
+    digitalResourceLogs?: DigitalResourceLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type BranchUpsertWithoutStudentsInput = {
@@ -149789,8 +158282,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutStudentsInput = {
@@ -149843,8 +158338,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type ClassUpsertWithoutStudentsInput = {
@@ -149871,6 +158368,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionUpdateManyWithoutClassNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutDesiredClassNestedInput
     onlineExams?: OnlineExamUpdateManyWithoutClassNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutClassNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutStudentsInput = {
@@ -149886,6 +158385,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutClassNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutDesiredClassNestedInput
     onlineExams?: OnlineExamUncheckedUpdateManyWithoutClassNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutClassNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type SectionUpsertWithoutStudentsInput = {
@@ -149911,6 +158412,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionUpdateManyWithoutSectionNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutDesiredSectionNestedInput
     onlineExams?: OnlineExamUpdateManyWithoutSectionNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutSectionNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutSectionNestedInput
   }
 
   export type SectionUncheckedUpdateWithoutStudentsInput = {
@@ -149925,6 +158428,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutSectionNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutDesiredSectionNestedInput
     onlineExams?: OnlineExamUncheckedUpdateManyWithoutSectionNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutSectionNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutSectionNestedInput
   }
 
   export type UserUpsertWithoutChildrenInput = {
@@ -149961,6 +158466,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutParentNestedInput
+    digitalResourceLogs?: DigitalResourceLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutChildrenInput = {
@@ -149986,6 +158492,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutParentNestedInput
+    digitalResourceLogs?: DigitalResourceLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AttendanceUpsertWithWhereUniqueWithoutStudentInput = {
@@ -150370,6 +158877,7 @@ export namespace Prisma {
     startTime?: DateTimeFilter<"OnlineExamAttempt"> | Date | string
     endTime?: DateTimeNullableFilter<"OnlineExamAttempt"> | Date | string | null
     score?: FloatNullableFilter<"OnlineExamAttempt"> | number | null
+    position?: IntNullableFilter<"OnlineExamAttempt"> | number | null
     status?: EnumAttemptStatusFilter<"OnlineExamAttempt"> | $Enums.AttemptStatus
     createdAt?: DateTimeFilter<"OnlineExamAttempt"> | Date | string
     updatedAt?: DateTimeFilter<"OnlineExamAttempt"> | Date | string
@@ -150656,6 +159164,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutParentInput
+    digitalResourceLogs?: DigitalResourceLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutIssuedCertificatesInput = {
@@ -150681,6 +159190,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPUncheckedCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutParentInput
+    digitalResourceLogs?: DigitalResourceLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutIssuedCertificatesInput = {
@@ -150738,8 +159248,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutCertificatesInput = {
@@ -150792,8 +159304,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutCertificatesInput = {
@@ -151003,6 +159517,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutParentNestedInput
+    digitalResourceLogs?: DigitalResourceLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutIssuedCertificatesInput = {
@@ -151028,6 +159543,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutParentNestedInput
+    digitalResourceLogs?: DigitalResourceLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type BranchUpsertWithoutCertificatesInput = {
@@ -151091,8 +159607,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutCertificatesInput = {
@@ -151145,8 +159663,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutCertificateTemplatesInput = {
@@ -151199,8 +159719,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutCertificateTemplatesInput = {
@@ -151253,8 +159775,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutCertificateTemplatesInput = {
@@ -151363,8 +159887,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutCertificateTemplatesInput = {
@@ -151417,8 +159943,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type CertificateUpsertWithWhereUniqueWithoutTemplateInput = {
@@ -151487,8 +160015,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutClassesInput = {
@@ -151541,8 +160071,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutClassesInput = {
@@ -151562,6 +160094,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutSectionInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutDesiredSectionInput
     onlineExams?: OnlineExamCreateNestedManyWithoutSectionInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutSectionInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutSectionInput
   }
 
   export type SectionUncheckedCreateWithoutClassInput = {
@@ -151576,6 +160110,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutSectionInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutDesiredSectionInput
     onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutSectionInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutSectionInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutSectionInput
   }
 
   export type SectionCreateOrConnectWithoutClassInput = {
@@ -151741,6 +160277,9 @@ export namespace Prisma {
     assignments?: AssignmentCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionCreateNestedManyWithoutHostInput
     idCards?: IdCardCreateNestedManyWithoutStaffInput
+    attendance?: StaffAttendanceCreateNestedManyWithoutStaffInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutTeacherInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutUploaderInput
   }
 
   export type StaffUncheckedCreateWithoutClassesInput = {
@@ -151762,6 +160301,9 @@ export namespace Prisma {
     assignments?: AssignmentUncheckedCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutHostInput
     idCards?: IdCardUncheckedCreateNestedManyWithoutStaffInput
+    attendance?: StaffAttendanceUncheckedCreateNestedManyWithoutStaffInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutTeacherInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutUploaderInput
   }
 
   export type StaffCreateOrConnectWithoutClassesInput = {
@@ -151802,14 +160344,21 @@ export namespace Prisma {
     title: string
     description?: string | null
     meetingId: string
-    hostUrl: string
-    participantUrl: string
+    meetLink?: string | null
+    hostUrl?: string | null
+    participantUrl?: string | null
     scheduledStart: Date | string
     scheduledEnd: Date | string
     actualStart?: Date | string | null
     actualEnd?: Date | string | null
+    timezone?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    seriesId?: string | null
     status?: string
+    recordingId?: string | null
     recordingUrl?: string | null
+    recordingStatus?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     section?: SectionCreateNestedOneWithoutLiveClassSessionsInput
@@ -151824,8 +160373,9 @@ export namespace Prisma {
     title: string
     description?: string | null
     meetingId: string
-    hostUrl: string
-    participantUrl: string
+    meetLink?: string | null
+    hostUrl?: string | null
+    participantUrl?: string | null
     sectionId?: string | null
     subjectId?: string | null
     hostId: string
@@ -151833,8 +160383,14 @@ export namespace Prisma {
     scheduledEnd: Date | string
     actualStart?: Date | string | null
     actualEnd?: Date | string | null
+    timezone?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    seriesId?: string | null
     status?: string
+    recordingId?: string | null
     recordingUrl?: string | null
+    recordingStatus?: string | null
     branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -152075,6 +160631,90 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ClassScheduleCreateWithoutClassInput = {
+    id?: string
+    dayOfWeek: number
+    startTime: string
+    endTime: string
+    room?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    section: SectionCreateNestedOneWithoutClassSchedulesInput
+    subject: SubjectCreateNestedOneWithoutClassSchedulesInput
+    teacher: StaffCreateNestedOneWithoutClassSchedulesInput
+  }
+
+  export type ClassScheduleUncheckedCreateWithoutClassInput = {
+    id?: string
+    dayOfWeek: number
+    startTime: string
+    endTime: string
+    room?: string | null
+    sectionId: string
+    subjectId: string
+    teacherId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ClassScheduleCreateOrConnectWithoutClassInput = {
+    where: ClassScheduleWhereUniqueInput
+    create: XOR<ClassScheduleCreateWithoutClassInput, ClassScheduleUncheckedCreateWithoutClassInput>
+  }
+
+  export type ClassScheduleCreateManyClassInputEnvelope = {
+    data: ClassScheduleCreateManyClassInput | ClassScheduleCreateManyClassInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DigitalResourceCreateWithoutClassInput = {
+    id?: string
+    title: string
+    description?: string | null
+    fileUrl: string
+    fileType: string
+    fileSize?: number | null
+    thumbnailUrl?: string | null
+    category: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    session: AcademicSessionCreateNestedOneWithoutDigitalResourcesInput
+    section?: SectionCreateNestedOneWithoutDigitalResourcesInput
+    subject?: SubjectCreateNestedOneWithoutDigitalResourcesInput
+    uploader: StaffCreateNestedOneWithoutDigitalResourcesInput
+    branch: BranchCreateNestedOneWithoutDigitalResourcesInput
+    logs?: DigitalResourceLogCreateNestedManyWithoutResourceInput
+  }
+
+  export type DigitalResourceUncheckedCreateWithoutClassInput = {
+    id?: string
+    title: string
+    description?: string | null
+    fileUrl: string
+    fileType: string
+    fileSize?: number | null
+    thumbnailUrl?: string | null
+    category: string
+    sessionId: string
+    sectionId?: string | null
+    subjectId?: string | null
+    uploaderId: string
+    branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    logs?: DigitalResourceLogUncheckedCreateNestedManyWithoutResourceInput
+  }
+
+  export type DigitalResourceCreateOrConnectWithoutClassInput = {
+    where: DigitalResourceWhereUniqueInput
+    create: XOR<DigitalResourceCreateWithoutClassInput, DigitalResourceUncheckedCreateWithoutClassInput>
+  }
+
+  export type DigitalResourceCreateManyClassInputEnvelope = {
+    data: DigitalResourceCreateManyClassInput | DigitalResourceCreateManyClassInput[]
+    skipDuplicates?: boolean
+  }
+
   export type BranchUpsertWithoutClassesInput = {
     update: XOR<BranchUpdateWithoutClassesInput, BranchUncheckedUpdateWithoutClassesInput>
     create: XOR<BranchCreateWithoutClassesInput, BranchUncheckedCreateWithoutClassesInput>
@@ -152136,8 +160776,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutClassesInput = {
@@ -152190,8 +160832,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type SectionUpsertWithWhereUniqueWithoutClassInput = {
@@ -152267,6 +160911,9 @@ export namespace Prisma {
     assignments?: AssignmentUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUpdateManyWithoutHostNestedInput
     idCards?: IdCardUpdateManyWithoutStaffNestedInput
+    attendance?: StaffAttendanceUpdateManyWithoutStaffNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutTeacherNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutUploaderNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutClassesInput = {
@@ -152288,6 +160935,9 @@ export namespace Prisma {
     assignments?: AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUncheckedUpdateManyWithoutHostNestedInput
     idCards?: IdCardUncheckedUpdateManyWithoutStaffNestedInput
+    attendance?: StaffAttendanceUncheckedUpdateManyWithoutStaffNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutTeacherNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutUploaderNestedInput
   }
 
   export type FeeStructureUpsertWithWhereUniqueWithoutClassInput = {
@@ -152367,6 +161017,38 @@ export namespace Prisma {
     data: XOR<OnlineExamUpdateManyMutationInput, OnlineExamUncheckedUpdateManyWithoutClassInput>
   }
 
+  export type ClassScheduleUpsertWithWhereUniqueWithoutClassInput = {
+    where: ClassScheduleWhereUniqueInput
+    update: XOR<ClassScheduleUpdateWithoutClassInput, ClassScheduleUncheckedUpdateWithoutClassInput>
+    create: XOR<ClassScheduleCreateWithoutClassInput, ClassScheduleUncheckedCreateWithoutClassInput>
+  }
+
+  export type ClassScheduleUpdateWithWhereUniqueWithoutClassInput = {
+    where: ClassScheduleWhereUniqueInput
+    data: XOR<ClassScheduleUpdateWithoutClassInput, ClassScheduleUncheckedUpdateWithoutClassInput>
+  }
+
+  export type ClassScheduleUpdateManyWithWhereWithoutClassInput = {
+    where: ClassScheduleScalarWhereInput
+    data: XOR<ClassScheduleUpdateManyMutationInput, ClassScheduleUncheckedUpdateManyWithoutClassInput>
+  }
+
+  export type DigitalResourceUpsertWithWhereUniqueWithoutClassInput = {
+    where: DigitalResourceWhereUniqueInput
+    update: XOR<DigitalResourceUpdateWithoutClassInput, DigitalResourceUncheckedUpdateWithoutClassInput>
+    create: XOR<DigitalResourceCreateWithoutClassInput, DigitalResourceUncheckedCreateWithoutClassInput>
+  }
+
+  export type DigitalResourceUpdateWithWhereUniqueWithoutClassInput = {
+    where: DigitalResourceWhereUniqueInput
+    data: XOR<DigitalResourceUpdateWithoutClassInput, DigitalResourceUncheckedUpdateWithoutClassInput>
+  }
+
+  export type DigitalResourceUpdateManyWithWhereWithoutClassInput = {
+    where: DigitalResourceScalarWhereInput
+    data: XOR<DigitalResourceUpdateManyMutationInput, DigitalResourceUncheckedUpdateManyWithoutClassInput>
+  }
+
   export type ClassCreateWithoutSectionsInput = {
     id?: string
     name: string
@@ -152380,6 +161062,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutClassInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutDesiredClassInput
     onlineExams?: OnlineExamCreateNestedManyWithoutClassInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutClassInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutSectionsInput = {
@@ -152395,6 +161079,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutClassInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutDesiredClassInput
     onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutClassInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutClassInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutSectionsInput = {
@@ -152571,11 +161257,13 @@ export namespace Prisma {
     title: string
     description?: string | null
     dueDate: Date | string
+    attachmentUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     subject: SubjectCreateNestedOneWithoutAssignmentsInput
     submissions?: SubmissionCreateNestedManyWithoutAssignmentInput
     teacher?: StaffCreateNestedOneWithoutAssignmentsInput
+    branch: BranchCreateNestedOneWithoutAssignmentsInput
   }
 
   export type AssignmentUncheckedCreateWithoutSectionInput = {
@@ -152583,8 +161271,10 @@ export namespace Prisma {
     title: string
     description?: string | null
     dueDate: Date | string
+    attachmentUrl?: string | null
     subjectId: string
     teacherId?: string | null
+    branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     submissions?: SubmissionUncheckedCreateNestedManyWithoutAssignmentInput
@@ -152665,14 +161355,21 @@ export namespace Prisma {
     title: string
     description?: string | null
     meetingId: string
-    hostUrl: string
-    participantUrl: string
+    meetLink?: string | null
+    hostUrl?: string | null
+    participantUrl?: string | null
     scheduledStart: Date | string
     scheduledEnd: Date | string
     actualStart?: Date | string | null
     actualEnd?: Date | string | null
+    timezone?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    seriesId?: string | null
     status?: string
+    recordingId?: string | null
     recordingUrl?: string | null
+    recordingStatus?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     class?: ClassCreateNestedOneWithoutLiveClassSessionsInput
@@ -152687,8 +161384,9 @@ export namespace Prisma {
     title: string
     description?: string | null
     meetingId: string
-    hostUrl: string
-    participantUrl: string
+    meetLink?: string | null
+    hostUrl?: string | null
+    participantUrl?: string | null
     classId?: string | null
     subjectId?: string | null
     hostId: string
@@ -152696,8 +161394,14 @@ export namespace Prisma {
     scheduledEnd: Date | string
     actualStart?: Date | string | null
     actualEnd?: Date | string | null
+    timezone?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    seriesId?: string | null
     status?: string
+    recordingId?: string | null
     recordingUrl?: string | null
+    recordingStatus?: string | null
     branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -152938,6 +161642,90 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ClassScheduleCreateWithoutSectionInput = {
+    id?: string
+    dayOfWeek: number
+    startTime: string
+    endTime: string
+    room?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    class: ClassCreateNestedOneWithoutClassSchedulesInput
+    subject: SubjectCreateNestedOneWithoutClassSchedulesInput
+    teacher: StaffCreateNestedOneWithoutClassSchedulesInput
+  }
+
+  export type ClassScheduleUncheckedCreateWithoutSectionInput = {
+    id?: string
+    dayOfWeek: number
+    startTime: string
+    endTime: string
+    room?: string | null
+    classId: string
+    subjectId: string
+    teacherId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ClassScheduleCreateOrConnectWithoutSectionInput = {
+    where: ClassScheduleWhereUniqueInput
+    create: XOR<ClassScheduleCreateWithoutSectionInput, ClassScheduleUncheckedCreateWithoutSectionInput>
+  }
+
+  export type ClassScheduleCreateManySectionInputEnvelope = {
+    data: ClassScheduleCreateManySectionInput | ClassScheduleCreateManySectionInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DigitalResourceCreateWithoutSectionInput = {
+    id?: string
+    title: string
+    description?: string | null
+    fileUrl: string
+    fileType: string
+    fileSize?: number | null
+    thumbnailUrl?: string | null
+    category: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    session: AcademicSessionCreateNestedOneWithoutDigitalResourcesInput
+    class?: ClassCreateNestedOneWithoutDigitalResourcesInput
+    subject?: SubjectCreateNestedOneWithoutDigitalResourcesInput
+    uploader: StaffCreateNestedOneWithoutDigitalResourcesInput
+    branch: BranchCreateNestedOneWithoutDigitalResourcesInput
+    logs?: DigitalResourceLogCreateNestedManyWithoutResourceInput
+  }
+
+  export type DigitalResourceUncheckedCreateWithoutSectionInput = {
+    id?: string
+    title: string
+    description?: string | null
+    fileUrl: string
+    fileType: string
+    fileSize?: number | null
+    thumbnailUrl?: string | null
+    category: string
+    sessionId: string
+    classId?: string | null
+    subjectId?: string | null
+    uploaderId: string
+    branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    logs?: DigitalResourceLogUncheckedCreateNestedManyWithoutResourceInput
+  }
+
+  export type DigitalResourceCreateOrConnectWithoutSectionInput = {
+    where: DigitalResourceWhereUniqueInput
+    create: XOR<DigitalResourceCreateWithoutSectionInput, DigitalResourceUncheckedCreateWithoutSectionInput>
+  }
+
+  export type DigitalResourceCreateManySectionInputEnvelope = {
+    data: DigitalResourceCreateManySectionInput | DigitalResourceCreateManySectionInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ClassUpsertWithoutSectionsInput = {
     update: XOR<ClassUpdateWithoutSectionsInput, ClassUncheckedUpdateWithoutSectionsInput>
     create: XOR<ClassCreateWithoutSectionsInput, ClassUncheckedCreateWithoutSectionsInput>
@@ -152962,6 +161750,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionUpdateManyWithoutClassNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutDesiredClassNestedInput
     onlineExams?: OnlineExamUpdateManyWithoutClassNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutClassNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutSectionsInput = {
@@ -152977,6 +161767,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutClassNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutDesiredClassNestedInput
     onlineExams?: OnlineExamUncheckedUpdateManyWithoutClassNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutClassNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type StudentUpsertWithWhereUniqueWithoutSectionInput = {
@@ -153091,6 +161883,38 @@ export namespace Prisma {
     data: XOR<OnlineExamUpdateManyMutationInput, OnlineExamUncheckedUpdateManyWithoutSectionInput>
   }
 
+  export type ClassScheduleUpsertWithWhereUniqueWithoutSectionInput = {
+    where: ClassScheduleWhereUniqueInput
+    update: XOR<ClassScheduleUpdateWithoutSectionInput, ClassScheduleUncheckedUpdateWithoutSectionInput>
+    create: XOR<ClassScheduleCreateWithoutSectionInput, ClassScheduleUncheckedCreateWithoutSectionInput>
+  }
+
+  export type ClassScheduleUpdateWithWhereUniqueWithoutSectionInput = {
+    where: ClassScheduleWhereUniqueInput
+    data: XOR<ClassScheduleUpdateWithoutSectionInput, ClassScheduleUncheckedUpdateWithoutSectionInput>
+  }
+
+  export type ClassScheduleUpdateManyWithWhereWithoutSectionInput = {
+    where: ClassScheduleScalarWhereInput
+    data: XOR<ClassScheduleUpdateManyMutationInput, ClassScheduleUncheckedUpdateManyWithoutSectionInput>
+  }
+
+  export type DigitalResourceUpsertWithWhereUniqueWithoutSectionInput = {
+    where: DigitalResourceWhereUniqueInput
+    update: XOR<DigitalResourceUpdateWithoutSectionInput, DigitalResourceUncheckedUpdateWithoutSectionInput>
+    create: XOR<DigitalResourceCreateWithoutSectionInput, DigitalResourceUncheckedCreateWithoutSectionInput>
+  }
+
+  export type DigitalResourceUpdateWithWhereUniqueWithoutSectionInput = {
+    where: DigitalResourceWhereUniqueInput
+    data: XOR<DigitalResourceUpdateWithoutSectionInput, DigitalResourceUncheckedUpdateWithoutSectionInput>
+  }
+
+  export type DigitalResourceUpdateManyWithWhereWithoutSectionInput = {
+    where: DigitalResourceScalarWhereInput
+    data: XOR<DigitalResourceUpdateManyMutationInput, DigitalResourceUncheckedUpdateManyWithoutSectionInput>
+  }
+
   export type BranchCreateWithoutSubjectsInput = {
     id?: string
     name: string
@@ -153141,8 +161965,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutSubjectsInput = {
@@ -153195,8 +162021,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutSubjectsInput = {
@@ -153223,6 +162051,9 @@ export namespace Prisma {
     assignments?: AssignmentCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionCreateNestedManyWithoutHostInput
     idCards?: IdCardCreateNestedManyWithoutStaffInput
+    attendance?: StaffAttendanceCreateNestedManyWithoutStaffInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutTeacherInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutUploaderInput
   }
 
   export type StaffUncheckedCreateWithoutSubjectsInput = {
@@ -153244,6 +162075,9 @@ export namespace Prisma {
     assignments?: AssignmentUncheckedCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutHostInput
     idCards?: IdCardUncheckedCreateNestedManyWithoutStaffInput
+    attendance?: StaffAttendanceUncheckedCreateNestedManyWithoutStaffInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutTeacherInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutUploaderInput
   }
 
   export type StaffCreateOrConnectWithoutSubjectsInput = {
@@ -153256,11 +162090,13 @@ export namespace Prisma {
     title: string
     description?: string | null
     dueDate: Date | string
+    attachmentUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     section: SectionCreateNestedOneWithoutAssignmentsInput
     submissions?: SubmissionCreateNestedManyWithoutAssignmentInput
     teacher?: StaffCreateNestedOneWithoutAssignmentsInput
+    branch: BranchCreateNestedOneWithoutAssignmentsInput
   }
 
   export type AssignmentUncheckedCreateWithoutSubjectInput = {
@@ -153268,8 +162104,10 @@ export namespace Prisma {
     title: string
     description?: string | null
     dueDate: Date | string
+    attachmentUrl?: string | null
     sectionId: string
     teacherId?: string | null
+    branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     submissions?: SubmissionUncheckedCreateNestedManyWithoutAssignmentInput
@@ -153350,14 +162188,21 @@ export namespace Prisma {
     title: string
     description?: string | null
     meetingId: string
-    hostUrl: string
-    participantUrl: string
+    meetLink?: string | null
+    hostUrl?: string | null
+    participantUrl?: string | null
     scheduledStart: Date | string
     scheduledEnd: Date | string
     actualStart?: Date | string | null
     actualEnd?: Date | string | null
+    timezone?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    seriesId?: string | null
     status?: string
+    recordingId?: string | null
     recordingUrl?: string | null
+    recordingStatus?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     class?: ClassCreateNestedOneWithoutLiveClassSessionsInput
@@ -153372,8 +162217,9 @@ export namespace Prisma {
     title: string
     description?: string | null
     meetingId: string
-    hostUrl: string
-    participantUrl: string
+    meetLink?: string | null
+    hostUrl?: string | null
+    participantUrl?: string | null
     classId?: string | null
     sectionId?: string | null
     hostId: string
@@ -153381,8 +162227,14 @@ export namespace Prisma {
     scheduledEnd: Date | string
     actualStart?: Date | string | null
     actualEnd?: Date | string | null
+    timezone?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    seriesId?: string | null
     status?: string
+    recordingId?: string | null
     recordingUrl?: string | null
+    recordingStatus?: string | null
     branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -153440,6 +162292,90 @@ export namespace Prisma {
 
   export type OnlineExamCreateManySubjectInputEnvelope = {
     data: OnlineExamCreateManySubjectInput | OnlineExamCreateManySubjectInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ClassScheduleCreateWithoutSubjectInput = {
+    id?: string
+    dayOfWeek: number
+    startTime: string
+    endTime: string
+    room?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    class: ClassCreateNestedOneWithoutClassSchedulesInput
+    section: SectionCreateNestedOneWithoutClassSchedulesInput
+    teacher: StaffCreateNestedOneWithoutClassSchedulesInput
+  }
+
+  export type ClassScheduleUncheckedCreateWithoutSubjectInput = {
+    id?: string
+    dayOfWeek: number
+    startTime: string
+    endTime: string
+    room?: string | null
+    classId: string
+    sectionId: string
+    teacherId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ClassScheduleCreateOrConnectWithoutSubjectInput = {
+    where: ClassScheduleWhereUniqueInput
+    create: XOR<ClassScheduleCreateWithoutSubjectInput, ClassScheduleUncheckedCreateWithoutSubjectInput>
+  }
+
+  export type ClassScheduleCreateManySubjectInputEnvelope = {
+    data: ClassScheduleCreateManySubjectInput | ClassScheduleCreateManySubjectInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DigitalResourceCreateWithoutSubjectInput = {
+    id?: string
+    title: string
+    description?: string | null
+    fileUrl: string
+    fileType: string
+    fileSize?: number | null
+    thumbnailUrl?: string | null
+    category: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    session: AcademicSessionCreateNestedOneWithoutDigitalResourcesInput
+    class?: ClassCreateNestedOneWithoutDigitalResourcesInput
+    section?: SectionCreateNestedOneWithoutDigitalResourcesInput
+    uploader: StaffCreateNestedOneWithoutDigitalResourcesInput
+    branch: BranchCreateNestedOneWithoutDigitalResourcesInput
+    logs?: DigitalResourceLogCreateNestedManyWithoutResourceInput
+  }
+
+  export type DigitalResourceUncheckedCreateWithoutSubjectInput = {
+    id?: string
+    title: string
+    description?: string | null
+    fileUrl: string
+    fileType: string
+    fileSize?: number | null
+    thumbnailUrl?: string | null
+    category: string
+    sessionId: string
+    classId?: string | null
+    sectionId?: string | null
+    uploaderId: string
+    branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    logs?: DigitalResourceLogUncheckedCreateNestedManyWithoutResourceInput
+  }
+
+  export type DigitalResourceCreateOrConnectWithoutSubjectInput = {
+    where: DigitalResourceWhereUniqueInput
+    create: XOR<DigitalResourceCreateWithoutSubjectInput, DigitalResourceUncheckedCreateWithoutSubjectInput>
+  }
+
+  export type DigitalResourceCreateManySubjectInputEnvelope = {
+    data: DigitalResourceCreateManySubjectInput | DigitalResourceCreateManySubjectInput[]
     skipDuplicates?: boolean
   }
 
@@ -153504,8 +162440,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutSubjectsInput = {
@@ -153558,8 +162496,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StaffUpsertWithWhereUniqueWithoutSubjectsInput = {
@@ -153654,6 +162594,390 @@ export namespace Prisma {
   export type OnlineExamUpdateManyWithWhereWithoutSubjectInput = {
     where: OnlineExamScalarWhereInput
     data: XOR<OnlineExamUpdateManyMutationInput, OnlineExamUncheckedUpdateManyWithoutSubjectInput>
+  }
+
+  export type ClassScheduleUpsertWithWhereUniqueWithoutSubjectInput = {
+    where: ClassScheduleWhereUniqueInput
+    update: XOR<ClassScheduleUpdateWithoutSubjectInput, ClassScheduleUncheckedUpdateWithoutSubjectInput>
+    create: XOR<ClassScheduleCreateWithoutSubjectInput, ClassScheduleUncheckedCreateWithoutSubjectInput>
+  }
+
+  export type ClassScheduleUpdateWithWhereUniqueWithoutSubjectInput = {
+    where: ClassScheduleWhereUniqueInput
+    data: XOR<ClassScheduleUpdateWithoutSubjectInput, ClassScheduleUncheckedUpdateWithoutSubjectInput>
+  }
+
+  export type ClassScheduleUpdateManyWithWhereWithoutSubjectInput = {
+    where: ClassScheduleScalarWhereInput
+    data: XOR<ClassScheduleUpdateManyMutationInput, ClassScheduleUncheckedUpdateManyWithoutSubjectInput>
+  }
+
+  export type DigitalResourceUpsertWithWhereUniqueWithoutSubjectInput = {
+    where: DigitalResourceWhereUniqueInput
+    update: XOR<DigitalResourceUpdateWithoutSubjectInput, DigitalResourceUncheckedUpdateWithoutSubjectInput>
+    create: XOR<DigitalResourceCreateWithoutSubjectInput, DigitalResourceUncheckedCreateWithoutSubjectInput>
+  }
+
+  export type DigitalResourceUpdateWithWhereUniqueWithoutSubjectInput = {
+    where: DigitalResourceWhereUniqueInput
+    data: XOR<DigitalResourceUpdateWithoutSubjectInput, DigitalResourceUncheckedUpdateWithoutSubjectInput>
+  }
+
+  export type DigitalResourceUpdateManyWithWhereWithoutSubjectInput = {
+    where: DigitalResourceScalarWhereInput
+    data: XOR<DigitalResourceUpdateManyMutationInput, DigitalResourceUncheckedUpdateManyWithoutSubjectInput>
+  }
+
+  export type ClassCreateWithoutClassSchedulesInput = {
+    id?: string
+    name: string
+    gradeLevel?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutClassesInput
+    sections?: SectionCreateNestedManyWithoutClassInput
+    students?: StudentCreateNestedManyWithoutClassInput
+    classTeacher?: StaffCreateNestedOneWithoutClassesInput
+    feeStructures?: FeeStructureCreateNestedManyWithoutClassInput
+    liveClassSessions?: LiveClassSessionCreateNestedManyWithoutClassInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutDesiredClassInput
+    onlineExams?: OnlineExamCreateNestedManyWithoutClassInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutClassInput
+  }
+
+  export type ClassUncheckedCreateWithoutClassSchedulesInput = {
+    id?: string
+    name: string
+    gradeLevel?: number | null
+    branchId: string
+    classTeacherId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sections?: SectionUncheckedCreateNestedManyWithoutClassInput
+    students?: StudentUncheckedCreateNestedManyWithoutClassInput
+    feeStructures?: FeeStructureUncheckedCreateNestedManyWithoutClassInput
+    liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutClassInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutDesiredClassInput
+    onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutClassInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutClassInput
+  }
+
+  export type ClassCreateOrConnectWithoutClassSchedulesInput = {
+    where: ClassWhereUniqueInput
+    create: XOR<ClassCreateWithoutClassSchedulesInput, ClassUncheckedCreateWithoutClassSchedulesInput>
+  }
+
+  export type SectionCreateWithoutClassSchedulesInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    class: ClassCreateNestedOneWithoutSectionsInput
+    students?: StudentCreateNestedManyWithoutSectionInput
+    attendance?: AttendanceCreateNestedManyWithoutSectionInput
+    assignments?: AssignmentCreateNestedManyWithoutSectionInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutSectionInput
+    liveClassSessions?: LiveClassSessionCreateNestedManyWithoutSectionInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutDesiredSectionInput
+    onlineExams?: OnlineExamCreateNestedManyWithoutSectionInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutSectionInput
+  }
+
+  export type SectionUncheckedCreateWithoutClassSchedulesInput = {
+    id?: string
+    name: string
+    classId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    students?: StudentUncheckedCreateNestedManyWithoutSectionInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutSectionInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutSectionInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutSectionInput
+    liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutSectionInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutDesiredSectionInput
+    onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutSectionInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutSectionInput
+  }
+
+  export type SectionCreateOrConnectWithoutClassSchedulesInput = {
+    where: SectionWhereUniqueInput
+    create: XOR<SectionCreateWithoutClassSchedulesInput, SectionUncheckedCreateWithoutClassSchedulesInput>
+  }
+
+  export type SubjectCreateWithoutClassSchedulesInput = {
+    id?: string
+    name: string
+    code?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutSubjectsInput
+    teachers?: StaffCreateNestedManyWithoutSubjectsInput
+    assignments?: AssignmentCreateNestedManyWithoutSubjectInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutSubjectInput
+    liveClassSessions?: LiveClassSessionCreateNestedManyWithoutSubjectInput
+    onlineExams?: OnlineExamCreateNestedManyWithoutSubjectInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutSubjectInput
+  }
+
+  export type SubjectUncheckedCreateWithoutClassSchedulesInput = {
+    id?: string
+    name: string
+    code?: string | null
+    branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    teachers?: StaffUncheckedCreateNestedManyWithoutSubjectsInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutSubjectInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutSubjectInput
+    liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutSubjectInput
+    onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutSubjectInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutSubjectInput
+  }
+
+  export type SubjectCreateOrConnectWithoutClassSchedulesInput = {
+    where: SubjectWhereUniqueInput
+    create: XOR<SubjectCreateWithoutClassSchedulesInput, SubjectUncheckedCreateWithoutClassSchedulesInput>
+  }
+
+  export type StaffCreateWithoutClassSchedulesInput = {
+    id?: string
+    designation?: string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutStaffInput
+    department?: DepartmentCreateNestedOneWithoutStaffInput
+    designationRef?: DesignationCreateNestedOneWithoutStaffInput
+    inventoryIssues?: InventoryIssueCreateNestedManyWithoutStaffInput
+    subjects?: SubjectCreateNestedManyWithoutTeachersInput
+    classes?: ClassCreateNestedManyWithoutClassTeacherInput
+    salaryTemplate?: SalaryTemplateCreateNestedOneWithoutStaffInput
+    payrolls?: PayrollCreateNestedManyWithoutStaffInput
+    leaveRequests?: LeaveRequestCreateNestedManyWithoutStaffInput
+    awards?: StaffAwardCreateNestedManyWithoutStaffInput
+    salaryAdvances?: AdvanceSalaryCreateNestedManyWithoutStaffInput
+    assignments?: AssignmentCreateNestedManyWithoutTeacherInput
+    hostedSessions?: LiveClassSessionCreateNestedManyWithoutHostInput
+    idCards?: IdCardCreateNestedManyWithoutStaffInput
+    attendance?: StaffAttendanceCreateNestedManyWithoutStaffInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutUploaderInput
+  }
+
+  export type StaffUncheckedCreateWithoutClassSchedulesInput = {
+    id?: string
+    userId: string
+    designation?: string | null
+    departmentId?: string | null
+    designationId?: string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutStaffInput
+    subjects?: SubjectUncheckedCreateNestedManyWithoutTeachersInput
+    classes?: ClassUncheckedCreateNestedManyWithoutClassTeacherInput
+    salaryTemplate?: SalaryTemplateUncheckedCreateNestedOneWithoutStaffInput
+    payrolls?: PayrollUncheckedCreateNestedManyWithoutStaffInput
+    leaveRequests?: LeaveRequestUncheckedCreateNestedManyWithoutStaffInput
+    awards?: StaffAwardUncheckedCreateNestedManyWithoutStaffInput
+    salaryAdvances?: AdvanceSalaryUncheckedCreateNestedManyWithoutStaffInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutTeacherInput
+    hostedSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutHostInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStaffInput
+    attendance?: StaffAttendanceUncheckedCreateNestedManyWithoutStaffInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutUploaderInput
+  }
+
+  export type StaffCreateOrConnectWithoutClassSchedulesInput = {
+    where: StaffWhereUniqueInput
+    create: XOR<StaffCreateWithoutClassSchedulesInput, StaffUncheckedCreateWithoutClassSchedulesInput>
+  }
+
+  export type ClassUpsertWithoutClassSchedulesInput = {
+    update: XOR<ClassUpdateWithoutClassSchedulesInput, ClassUncheckedUpdateWithoutClassSchedulesInput>
+    create: XOR<ClassCreateWithoutClassSchedulesInput, ClassUncheckedCreateWithoutClassSchedulesInput>
+    where?: ClassWhereInput
+  }
+
+  export type ClassUpdateToOneWithWhereWithoutClassSchedulesInput = {
+    where?: ClassWhereInput
+    data: XOR<ClassUpdateWithoutClassSchedulesInput, ClassUncheckedUpdateWithoutClassSchedulesInput>
+  }
+
+  export type ClassUpdateWithoutClassSchedulesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    gradeLevel?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutClassesNestedInput
+    sections?: SectionUpdateManyWithoutClassNestedInput
+    students?: StudentUpdateManyWithoutClassNestedInput
+    classTeacher?: StaffUpdateOneWithoutClassesNestedInput
+    feeStructures?: FeeStructureUpdateManyWithoutClassNestedInput
+    liveClassSessions?: LiveClassSessionUpdateManyWithoutClassNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutDesiredClassNestedInput
+    onlineExams?: OnlineExamUpdateManyWithoutClassNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutClassNestedInput
+  }
+
+  export type ClassUncheckedUpdateWithoutClassSchedulesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    gradeLevel?: NullableIntFieldUpdateOperationsInput | number | null
+    branchId?: StringFieldUpdateOperationsInput | string
+    classTeacherId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sections?: SectionUncheckedUpdateManyWithoutClassNestedInput
+    students?: StudentUncheckedUpdateManyWithoutClassNestedInput
+    feeStructures?: FeeStructureUncheckedUpdateManyWithoutClassNestedInput
+    liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutClassNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutDesiredClassNestedInput
+    onlineExams?: OnlineExamUncheckedUpdateManyWithoutClassNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutClassNestedInput
+  }
+
+  export type SectionUpsertWithoutClassSchedulesInput = {
+    update: XOR<SectionUpdateWithoutClassSchedulesInput, SectionUncheckedUpdateWithoutClassSchedulesInput>
+    create: XOR<SectionCreateWithoutClassSchedulesInput, SectionUncheckedCreateWithoutClassSchedulesInput>
+    where?: SectionWhereInput
+  }
+
+  export type SectionUpdateToOneWithWhereWithoutClassSchedulesInput = {
+    where?: SectionWhereInput
+    data: XOR<SectionUpdateWithoutClassSchedulesInput, SectionUncheckedUpdateWithoutClassSchedulesInput>
+  }
+
+  export type SectionUpdateWithoutClassSchedulesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    class?: ClassUpdateOneRequiredWithoutSectionsNestedInput
+    students?: StudentUpdateManyWithoutSectionNestedInput
+    attendance?: AttendanceUpdateManyWithoutSectionNestedInput
+    assignments?: AssignmentUpdateManyWithoutSectionNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutSectionNestedInput
+    liveClassSessions?: LiveClassSessionUpdateManyWithoutSectionNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutDesiredSectionNestedInput
+    onlineExams?: OnlineExamUpdateManyWithoutSectionNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutSectionNestedInput
+  }
+
+  export type SectionUncheckedUpdateWithoutClassSchedulesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    classId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    students?: StudentUncheckedUpdateManyWithoutSectionNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutSectionNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutSectionNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutSectionNestedInput
+    liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutSectionNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutDesiredSectionNestedInput
+    onlineExams?: OnlineExamUncheckedUpdateManyWithoutSectionNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutSectionNestedInput
+  }
+
+  export type SubjectUpsertWithoutClassSchedulesInput = {
+    update: XOR<SubjectUpdateWithoutClassSchedulesInput, SubjectUncheckedUpdateWithoutClassSchedulesInput>
+    create: XOR<SubjectCreateWithoutClassSchedulesInput, SubjectUncheckedCreateWithoutClassSchedulesInput>
+    where?: SubjectWhereInput
+  }
+
+  export type SubjectUpdateToOneWithWhereWithoutClassSchedulesInput = {
+    where?: SubjectWhereInput
+    data: XOR<SubjectUpdateWithoutClassSchedulesInput, SubjectUncheckedUpdateWithoutClassSchedulesInput>
+  }
+
+  export type SubjectUpdateWithoutClassSchedulesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutSubjectsNestedInput
+    teachers?: StaffUpdateManyWithoutSubjectsNestedInput
+    assignments?: AssignmentUpdateManyWithoutSubjectNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutSubjectNestedInput
+    liveClassSessions?: LiveClassSessionUpdateManyWithoutSubjectNestedInput
+    onlineExams?: OnlineExamUpdateManyWithoutSubjectNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutSubjectNestedInput
+  }
+
+  export type SubjectUncheckedUpdateWithoutClassSchedulesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    teachers?: StaffUncheckedUpdateManyWithoutSubjectsNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutSubjectNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutSubjectNestedInput
+    liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutSubjectNestedInput
+    onlineExams?: OnlineExamUncheckedUpdateManyWithoutSubjectNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutSubjectNestedInput
+  }
+
+  export type StaffUpsertWithoutClassSchedulesInput = {
+    update: XOR<StaffUpdateWithoutClassSchedulesInput, StaffUncheckedUpdateWithoutClassSchedulesInput>
+    create: XOR<StaffCreateWithoutClassSchedulesInput, StaffUncheckedCreateWithoutClassSchedulesInput>
+    where?: StaffWhereInput
+  }
+
+  export type StaffUpdateToOneWithWhereWithoutClassSchedulesInput = {
+    where?: StaffWhereInput
+    data: XOR<StaffUpdateWithoutClassSchedulesInput, StaffUncheckedUpdateWithoutClassSchedulesInput>
+  }
+
+  export type StaffUpdateWithoutClassSchedulesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    designation?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutStaffNestedInput
+    department?: DepartmentUpdateOneWithoutStaffNestedInput
+    designationRef?: DesignationUpdateOneWithoutStaffNestedInput
+    inventoryIssues?: InventoryIssueUpdateManyWithoutStaffNestedInput
+    subjects?: SubjectUpdateManyWithoutTeachersNestedInput
+    classes?: ClassUpdateManyWithoutClassTeacherNestedInput
+    salaryTemplate?: SalaryTemplateUpdateOneWithoutStaffNestedInput
+    payrolls?: PayrollUpdateManyWithoutStaffNestedInput
+    leaveRequests?: LeaveRequestUpdateManyWithoutStaffNestedInput
+    awards?: StaffAwardUpdateManyWithoutStaffNestedInput
+    salaryAdvances?: AdvanceSalaryUpdateManyWithoutStaffNestedInput
+    assignments?: AssignmentUpdateManyWithoutTeacherNestedInput
+    hostedSessions?: LiveClassSessionUpdateManyWithoutHostNestedInput
+    idCards?: IdCardUpdateManyWithoutStaffNestedInput
+    attendance?: StaffAttendanceUpdateManyWithoutStaffNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutUploaderNestedInput
+  }
+
+  export type StaffUncheckedUpdateWithoutClassSchedulesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    designation?: NullableStringFieldUpdateOperationsInput | string | null
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
+    designationId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutStaffNestedInput
+    subjects?: SubjectUncheckedUpdateManyWithoutTeachersNestedInput
+    classes?: ClassUncheckedUpdateManyWithoutClassTeacherNestedInput
+    salaryTemplate?: SalaryTemplateUncheckedUpdateOneWithoutStaffNestedInput
+    payrolls?: PayrollUncheckedUpdateManyWithoutStaffNestedInput
+    leaveRequests?: LeaveRequestUncheckedUpdateManyWithoutStaffNestedInput
+    awards?: StaffAwardUncheckedUpdateManyWithoutStaffNestedInput
+    salaryAdvances?: AdvanceSalaryUncheckedUpdateManyWithoutStaffNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
+    hostedSessions?: LiveClassSessionUncheckedUpdateManyWithoutHostNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStaffNestedInput
+    attendance?: StaffAttendanceUncheckedUpdateManyWithoutStaffNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutUploaderNestedInput
   }
 
   export type StudentCreateWithoutAttendanceInput = {
@@ -153797,6 +163121,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutSectionInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutDesiredSectionInput
     onlineExams?: OnlineExamCreateNestedManyWithoutSectionInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutSectionInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutSectionInput
   }
 
   export type SectionUncheckedCreateWithoutAttendanceInput = {
@@ -153811,6 +163137,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutSectionInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutDesiredSectionInput
     onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutSectionInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutSectionInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutSectionInput
   }
 
   export type SectionCreateOrConnectWithoutAttendanceInput = {
@@ -153976,6 +163304,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionUpdateManyWithoutSectionNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutDesiredSectionNestedInput
     onlineExams?: OnlineExamUpdateManyWithoutSectionNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutSectionNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutSectionNestedInput
   }
 
   export type SectionUncheckedUpdateWithoutAttendanceInput = {
@@ -153990,6 +163320,120 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutSectionNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutDesiredSectionNestedInput
     onlineExams?: OnlineExamUncheckedUpdateManyWithoutSectionNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutSectionNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutSectionNestedInput
+  }
+
+  export type StaffCreateWithoutAttendanceInput = {
+    id?: string
+    designation?: string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutStaffInput
+    department?: DepartmentCreateNestedOneWithoutStaffInput
+    designationRef?: DesignationCreateNestedOneWithoutStaffInput
+    inventoryIssues?: InventoryIssueCreateNestedManyWithoutStaffInput
+    subjects?: SubjectCreateNestedManyWithoutTeachersInput
+    classes?: ClassCreateNestedManyWithoutClassTeacherInput
+    salaryTemplate?: SalaryTemplateCreateNestedOneWithoutStaffInput
+    payrolls?: PayrollCreateNestedManyWithoutStaffInput
+    leaveRequests?: LeaveRequestCreateNestedManyWithoutStaffInput
+    awards?: StaffAwardCreateNestedManyWithoutStaffInput
+    salaryAdvances?: AdvanceSalaryCreateNestedManyWithoutStaffInput
+    assignments?: AssignmentCreateNestedManyWithoutTeacherInput
+    hostedSessions?: LiveClassSessionCreateNestedManyWithoutHostInput
+    idCards?: IdCardCreateNestedManyWithoutStaffInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutTeacherInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutUploaderInput
+  }
+
+  export type StaffUncheckedCreateWithoutAttendanceInput = {
+    id?: string
+    userId: string
+    designation?: string | null
+    departmentId?: string | null
+    designationId?: string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutStaffInput
+    subjects?: SubjectUncheckedCreateNestedManyWithoutTeachersInput
+    classes?: ClassUncheckedCreateNestedManyWithoutClassTeacherInput
+    salaryTemplate?: SalaryTemplateUncheckedCreateNestedOneWithoutStaffInput
+    payrolls?: PayrollUncheckedCreateNestedManyWithoutStaffInput
+    leaveRequests?: LeaveRequestUncheckedCreateNestedManyWithoutStaffInput
+    awards?: StaffAwardUncheckedCreateNestedManyWithoutStaffInput
+    salaryAdvances?: AdvanceSalaryUncheckedCreateNestedManyWithoutStaffInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutTeacherInput
+    hostedSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutHostInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStaffInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutTeacherInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutUploaderInput
+  }
+
+  export type StaffCreateOrConnectWithoutAttendanceInput = {
+    where: StaffWhereUniqueInput
+    create: XOR<StaffCreateWithoutAttendanceInput, StaffUncheckedCreateWithoutAttendanceInput>
+  }
+
+  export type StaffUpsertWithoutAttendanceInput = {
+    update: XOR<StaffUpdateWithoutAttendanceInput, StaffUncheckedUpdateWithoutAttendanceInput>
+    create: XOR<StaffCreateWithoutAttendanceInput, StaffUncheckedCreateWithoutAttendanceInput>
+    where?: StaffWhereInput
+  }
+
+  export type StaffUpdateToOneWithWhereWithoutAttendanceInput = {
+    where?: StaffWhereInput
+    data: XOR<StaffUpdateWithoutAttendanceInput, StaffUncheckedUpdateWithoutAttendanceInput>
+  }
+
+  export type StaffUpdateWithoutAttendanceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    designation?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutStaffNestedInput
+    department?: DepartmentUpdateOneWithoutStaffNestedInput
+    designationRef?: DesignationUpdateOneWithoutStaffNestedInput
+    inventoryIssues?: InventoryIssueUpdateManyWithoutStaffNestedInput
+    subjects?: SubjectUpdateManyWithoutTeachersNestedInput
+    classes?: ClassUpdateManyWithoutClassTeacherNestedInput
+    salaryTemplate?: SalaryTemplateUpdateOneWithoutStaffNestedInput
+    payrolls?: PayrollUpdateManyWithoutStaffNestedInput
+    leaveRequests?: LeaveRequestUpdateManyWithoutStaffNestedInput
+    awards?: StaffAwardUpdateManyWithoutStaffNestedInput
+    salaryAdvances?: AdvanceSalaryUpdateManyWithoutStaffNestedInput
+    assignments?: AssignmentUpdateManyWithoutTeacherNestedInput
+    hostedSessions?: LiveClassSessionUpdateManyWithoutHostNestedInput
+    idCards?: IdCardUpdateManyWithoutStaffNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutTeacherNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutUploaderNestedInput
+  }
+
+  export type StaffUncheckedUpdateWithoutAttendanceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    designation?: NullableStringFieldUpdateOperationsInput | string | null
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
+    designationId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutStaffNestedInput
+    subjects?: SubjectUncheckedUpdateManyWithoutTeachersNestedInput
+    classes?: ClassUncheckedUpdateManyWithoutClassTeacherNestedInput
+    salaryTemplate?: SalaryTemplateUncheckedUpdateOneWithoutStaffNestedInput
+    payrolls?: PayrollUncheckedUpdateManyWithoutStaffNestedInput
+    leaveRequests?: LeaveRequestUncheckedUpdateManyWithoutStaffNestedInput
+    awards?: StaffAwardUncheckedUpdateManyWithoutStaffNestedInput
+    salaryAdvances?: AdvanceSalaryUncheckedUpdateManyWithoutStaffNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
+    hostedSessions?: LiveClassSessionUncheckedUpdateManyWithoutHostNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStaffNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutTeacherNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutUploaderNestedInput
   }
 
   export type BranchCreateWithoutHostelsInput = {
@@ -154042,8 +163486,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutHostelsInput = {
@@ -154096,8 +163542,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutHostelsInput = {
@@ -154196,8 +163644,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutHostelsInput = {
@@ -154250,8 +163700,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type RoomUpsertWithWhereUniqueWithoutHostelInput = {
@@ -155252,8 +164704,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutFeeCategoriesInput = {
@@ -155306,8 +164760,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutFeeCategoriesInput = {
@@ -155430,8 +164886,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutFeeCategoriesInput = {
@@ -155484,8 +164942,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type FeeStructureUpsertWithWhereUniqueWithoutCategoryInput = {
@@ -155570,6 +165030,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutClassInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutDesiredClassInput
     onlineExams?: OnlineExamCreateNestedManyWithoutClassInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutClassInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutFeeStructuresInput = {
@@ -155585,6 +165047,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutClassInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutDesiredClassInput
     onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutClassInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutClassInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutFeeStructuresInput = {
@@ -155647,6 +165111,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionUpdateManyWithoutClassNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutDesiredClassNestedInput
     onlineExams?: OnlineExamUpdateManyWithoutClassNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutClassNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutFeeStructuresInput = {
@@ -155662,6 +165128,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutClassNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutDesiredClassNestedInput
     onlineExams?: OnlineExamUncheckedUpdateManyWithoutClassNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutClassNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type StudentCreateWithoutInvoicesInput = {
@@ -156086,8 +165554,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutQuestionGroupsInput = {
@@ -156140,8 +165610,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutQuestionGroupsInput = {
@@ -156286,8 +165758,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutQuestionGroupsInput = {
@@ -156340,8 +165814,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type QuestionUpsertWithWhereUniqueWithoutGroupInput = {
@@ -156625,6 +166101,8 @@ export namespace Prisma {
     feeStructures?: FeeStructureCreateNestedManyWithoutClassInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutClassInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutDesiredClassInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutClassInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutOnlineExamsInput = {
@@ -156640,6 +166118,8 @@ export namespace Prisma {
     feeStructures?: FeeStructureUncheckedCreateNestedManyWithoutClassInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutClassInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutDesiredClassInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutClassInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutOnlineExamsInput = {
@@ -156659,6 +166139,8 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutSectionInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutSectionInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutDesiredSectionInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutSectionInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutSectionInput
   }
 
   export type SectionUncheckedCreateWithoutOnlineExamsInput = {
@@ -156673,6 +166155,8 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutSectionInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutSectionInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutDesiredSectionInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutSectionInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutSectionInput
   }
 
   export type SectionCreateOrConnectWithoutOnlineExamsInput = {
@@ -156691,6 +166175,8 @@ export namespace Prisma {
     assignments?: AssignmentCreateNestedManyWithoutSubjectInput
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutSubjectInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutSubjectInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutSubjectInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectUncheckedCreateWithoutOnlineExamsInput = {
@@ -156704,6 +166190,8 @@ export namespace Prisma {
     assignments?: AssignmentUncheckedCreateNestedManyWithoutSubjectInput
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutSubjectInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutSubjectInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutSubjectInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectCreateOrConnectWithoutOnlineExamsInput = {
@@ -156784,8 +166272,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutOnlineExamsInput = {
@@ -156838,8 +166328,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutOnlineExamsInput = {
@@ -156852,6 +166344,7 @@ export namespace Prisma {
     startTime?: Date | string
     endTime?: Date | string | null
     score?: number | null
+    position?: number | null
     status?: $Enums.AttemptStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -156865,6 +166358,7 @@ export namespace Prisma {
     startTime?: Date | string
     endTime?: Date | string | null
     score?: number | null
+    position?: number | null
     status?: $Enums.AttemptStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -156905,6 +166399,8 @@ export namespace Prisma {
     feeStructures?: FeeStructureUpdateManyWithoutClassNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutClassNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutDesiredClassNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutClassNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutOnlineExamsInput = {
@@ -156920,6 +166416,8 @@ export namespace Prisma {
     feeStructures?: FeeStructureUncheckedUpdateManyWithoutClassNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutClassNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutDesiredClassNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutClassNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type SectionUpsertWithoutOnlineExamsInput = {
@@ -156945,6 +166443,8 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutSectionNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutSectionNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutDesiredSectionNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutSectionNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutSectionNestedInput
   }
 
   export type SectionUncheckedUpdateWithoutOnlineExamsInput = {
@@ -156959,6 +166459,8 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutSectionNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutSectionNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutDesiredSectionNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutSectionNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutSectionNestedInput
   }
 
   export type SubjectUpsertWithoutOnlineExamsInput = {
@@ -156983,6 +166485,8 @@ export namespace Prisma {
     assignments?: AssignmentUpdateManyWithoutSubjectNestedInput
     assessmentRecords?: AssessmentRecordUpdateManyWithoutSubjectNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutSubjectNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutSubjectNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutSubjectNestedInput
   }
 
   export type SubjectUncheckedUpdateWithoutOnlineExamsInput = {
@@ -156996,6 +166500,8 @@ export namespace Prisma {
     assignments?: AssignmentUncheckedUpdateManyWithoutSubjectNestedInput
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutSubjectNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutSubjectNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutSubjectNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutSubjectNestedInput
   }
 
   export type QuestionGroupUpsertWithoutExamsInput = {
@@ -157088,8 +166594,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutOnlineExamsInput = {
@@ -157142,8 +166650,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type OnlineExamAttemptUpsertWithWhereUniqueWithoutExamInput = {
@@ -157563,6 +167073,7 @@ export namespace Prisma {
     startTime?: Date | string
     endTime?: Date | string | null
     score?: number | null
+    position?: number | null
     status?: $Enums.AttemptStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -157577,6 +167088,7 @@ export namespace Prisma {
     startTime?: Date | string
     endTime?: Date | string | null
     score?: number | null
+    position?: number | null
     status?: $Enums.AttemptStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -157630,6 +167142,7 @@ export namespace Prisma {
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     score?: NullableFloatFieldUpdateOperationsInput | number | null
+    position?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -157644,6 +167157,7 @@ export namespace Prisma {
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     score?: NullableFloatFieldUpdateOperationsInput | number | null
+    position?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -157932,8 +167446,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutVehiclesInput = {
@@ -157986,8 +167502,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutVehiclesInput = {
@@ -158082,8 +167600,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutVehiclesInput = {
@@ -158136,8 +167656,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type TransportAssignmentUpsertWithWhereUniqueWithoutVehicleInput = {
@@ -158218,8 +167740,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutRoutesInput = {
@@ -158272,8 +167796,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutRoutesInput = {
@@ -158368,8 +167894,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutRoutesInput = {
@@ -158422,8 +167950,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type TransportAssignmentUpsertWithWhereUniqueWithoutRouteInput = {
@@ -158841,6 +168371,8 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutSubjectInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutSubjectInput
     onlineExams?: OnlineExamCreateNestedManyWithoutSubjectInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutSubjectInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectUncheckedCreateWithoutAssignmentsInput = {
@@ -158854,6 +168386,8 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutSubjectInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutSubjectInput
     onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutSubjectInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutSubjectInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectCreateOrConnectWithoutAssignmentsInput = {
@@ -158873,6 +168407,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutSectionInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutDesiredSectionInput
     onlineExams?: OnlineExamCreateNestedManyWithoutSectionInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutSectionInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutSectionInput
   }
 
   export type SectionUncheckedCreateWithoutAssignmentsInput = {
@@ -158887,6 +168423,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutSectionInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutDesiredSectionInput
     onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutSectionInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutSectionInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutSectionInput
   }
 
   export type SectionCreateOrConnectWithoutAssignmentsInput = {
@@ -158945,6 +168483,9 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryCreateNestedManyWithoutStaffInput
     hostedSessions?: LiveClassSessionCreateNestedManyWithoutHostInput
     idCards?: IdCardCreateNestedManyWithoutStaffInput
+    attendance?: StaffAttendanceCreateNestedManyWithoutStaffInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutTeacherInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutUploaderInput
   }
 
   export type StaffUncheckedCreateWithoutAssignmentsInput = {
@@ -158966,11 +168507,131 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUncheckedCreateNestedManyWithoutStaffInput
     hostedSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutHostInput
     idCards?: IdCardUncheckedCreateNestedManyWithoutStaffInput
+    attendance?: StaffAttendanceUncheckedCreateNestedManyWithoutStaffInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutTeacherInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutUploaderInput
   }
 
   export type StaffCreateOrConnectWithoutAssignmentsInput = {
     where: StaffWhereUniqueInput
     create: XOR<StaffCreateWithoutAssignmentsInput, StaffUncheckedCreateWithoutAssignmentsInput>
+  }
+
+  export type BranchCreateWithoutAssignmentsInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserCreateNestedManyWithoutBranchInput
+    students?: StudentCreateNestedManyWithoutBranchInput
+    classes?: ClassCreateNestedManyWithoutBranchInput
+    subjects?: SubjectCreateNestedManyWithoutBranchInput
+    hostels?: HostelCreateNestedManyWithoutBranchInput
+    feeCategories?: FeeCategoryCreateNestedManyWithoutBranchInput
+    vehicles?: VehicleCreateNestedManyWithoutBranchInput
+    routes?: TransportRouteCreateNestedManyWithoutBranchInput
+    expenseCategories?: ExpenseCategoryCreateNestedManyWithoutBranchInput
+    vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    departments?: DepartmentCreateNestedManyWithoutBranchInput
+    designations?: DesignationCreateNestedManyWithoutBranchInput
+    certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
+    books?: BookCreateNestedManyWithoutBranchInput
+    googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
+    liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
+    studentCategories?: StudentCategoryCreateNestedManyWithoutBranchInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutBranchInput
+    questionGroups?: QuestionGroupCreateNestedManyWithoutBranchInput
+    onlineExams?: OnlineExamCreateNestedManyWithoutBranchInput
+    enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
+    callLogs?: CallLogCreateNestedManyWithoutBranchInput
+    visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
+    complaints?: ComplaintCreateNestedManyWithoutBranchInput
+    postalRecords?: PostalRecordCreateNestedManyWithoutBranchInput
+    inventoryCategories?: InventoryCategoryCreateNestedManyWithoutBranchInput
+    inventoryStores?: InventoryStoreCreateNestedManyWithoutBranchInput
+    inventorySuppliers?: InventorySupplierCreateNestedManyWithoutBranchInput
+    inventoryUnits?: InventoryUnitCreateNestedManyWithoutBranchInput
+    inventoryProducts?: InventoryProductCreateNestedManyWithoutBranchInput
+    inventoryPurchases?: InventoryPurchaseCreateNestedManyWithoutBranchInput
+    inventorySales?: InventorySaleCreateNestedManyWithoutBranchInput
+    inventoryIssues?: InventoryIssueCreateNestedManyWithoutBranchInput
+    alumni?: AlumniCreateNestedManyWithoutBranchInput
+    alumniEvents?: AlumniEventCreateNestedManyWithoutBranchInput
+    conversations?: ConversationCreateNestedManyWithoutBranchInput
+    campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
+    accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
+    automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+  }
+
+  export type BranchUncheckedCreateWithoutAssignmentsInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutBranchInput
+    students?: StudentUncheckedCreateNestedManyWithoutBranchInput
+    classes?: ClassUncheckedCreateNestedManyWithoutBranchInput
+    subjects?: SubjectUncheckedCreateNestedManyWithoutBranchInput
+    hostels?: HostelUncheckedCreateNestedManyWithoutBranchInput
+    feeCategories?: FeeCategoryUncheckedCreateNestedManyWithoutBranchInput
+    vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
+    routes?: TransportRouteUncheckedCreateNestedManyWithoutBranchInput
+    expenseCategories?: ExpenseCategoryUncheckedCreateNestedManyWithoutBranchInput
+    vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
+    designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
+    certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
+    books?: BookUncheckedCreateNestedManyWithoutBranchInput
+    googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
+    liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
+    studentCategories?: StudentCategoryUncheckedCreateNestedManyWithoutBranchInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutBranchInput
+    questionGroups?: QuestionGroupUncheckedCreateNestedManyWithoutBranchInput
+    onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutBranchInput
+    enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
+    callLogs?: CallLogUncheckedCreateNestedManyWithoutBranchInput
+    visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
+    complaints?: ComplaintUncheckedCreateNestedManyWithoutBranchInput
+    postalRecords?: PostalRecordUncheckedCreateNestedManyWithoutBranchInput
+    inventoryCategories?: InventoryCategoryUncheckedCreateNestedManyWithoutBranchInput
+    inventoryStores?: InventoryStoreUncheckedCreateNestedManyWithoutBranchInput
+    inventorySuppliers?: InventorySupplierUncheckedCreateNestedManyWithoutBranchInput
+    inventoryUnits?: InventoryUnitUncheckedCreateNestedManyWithoutBranchInput
+    inventoryProducts?: InventoryProductUncheckedCreateNestedManyWithoutBranchInput
+    inventoryPurchases?: InventoryPurchaseUncheckedCreateNestedManyWithoutBranchInput
+    inventorySales?: InventorySaleUncheckedCreateNestedManyWithoutBranchInput
+    inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutBranchInput
+    alumni?: AlumniUncheckedCreateNestedManyWithoutBranchInput
+    alumniEvents?: AlumniEventUncheckedCreateNestedManyWithoutBranchInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutBranchInput
+    campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
+    accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
+    automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+  }
+
+  export type BranchCreateOrConnectWithoutAssignmentsInput = {
+    where: BranchWhereUniqueInput
+    create: XOR<BranchCreateWithoutAssignmentsInput, BranchUncheckedCreateWithoutAssignmentsInput>
   }
 
   export type SubjectUpsertWithoutAssignmentsInput = {
@@ -158995,6 +168656,8 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutSubjectNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutSubjectNestedInput
     onlineExams?: OnlineExamUpdateManyWithoutSubjectNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutSubjectNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutSubjectNestedInput
   }
 
   export type SubjectUncheckedUpdateWithoutAssignmentsInput = {
@@ -159008,6 +168671,8 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutSubjectNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutSubjectNestedInput
     onlineExams?: OnlineExamUncheckedUpdateManyWithoutSubjectNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutSubjectNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutSubjectNestedInput
   }
 
   export type SectionUpsertWithoutAssignmentsInput = {
@@ -159033,6 +168698,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionUpdateManyWithoutSectionNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutDesiredSectionNestedInput
     onlineExams?: OnlineExamUpdateManyWithoutSectionNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutSectionNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutSectionNestedInput
   }
 
   export type SectionUncheckedUpdateWithoutAssignmentsInput = {
@@ -159047,6 +168714,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutSectionNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutDesiredSectionNestedInput
     onlineExams?: OnlineExamUncheckedUpdateManyWithoutSectionNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutSectionNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutSectionNestedInput
   }
 
   export type SubmissionUpsertWithWhereUniqueWithoutAssignmentInput = {
@@ -159095,6 +168764,9 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUpdateManyWithoutStaffNestedInput
     hostedSessions?: LiveClassSessionUpdateManyWithoutHostNestedInput
     idCards?: IdCardUpdateManyWithoutStaffNestedInput
+    attendance?: StaffAttendanceUpdateManyWithoutStaffNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutTeacherNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutUploaderNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutAssignmentsInput = {
@@ -159116,6 +168788,132 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUncheckedUpdateManyWithoutStaffNestedInput
     hostedSessions?: LiveClassSessionUncheckedUpdateManyWithoutHostNestedInput
     idCards?: IdCardUncheckedUpdateManyWithoutStaffNestedInput
+    attendance?: StaffAttendanceUncheckedUpdateManyWithoutStaffNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutTeacherNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutUploaderNestedInput
+  }
+
+  export type BranchUpsertWithoutAssignmentsInput = {
+    update: XOR<BranchUpdateWithoutAssignmentsInput, BranchUncheckedUpdateWithoutAssignmentsInput>
+    create: XOR<BranchCreateWithoutAssignmentsInput, BranchUncheckedCreateWithoutAssignmentsInput>
+    where?: BranchWhereInput
+  }
+
+  export type BranchUpdateToOneWithWhereWithoutAssignmentsInput = {
+    where?: BranchWhereInput
+    data: XOR<BranchUpdateWithoutAssignmentsInput, BranchUncheckedUpdateWithoutAssignmentsInput>
+  }
+
+  export type BranchUpdateWithoutAssignmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutBranchNestedInput
+    students?: StudentUpdateManyWithoutBranchNestedInput
+    classes?: ClassUpdateManyWithoutBranchNestedInput
+    subjects?: SubjectUpdateManyWithoutBranchNestedInput
+    hostels?: HostelUpdateManyWithoutBranchNestedInput
+    feeCategories?: FeeCategoryUpdateManyWithoutBranchNestedInput
+    vehicles?: VehicleUpdateManyWithoutBranchNestedInput
+    routes?: TransportRouteUpdateManyWithoutBranchNestedInput
+    expenseCategories?: ExpenseCategoryUpdateManyWithoutBranchNestedInput
+    vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    departments?: DepartmentUpdateManyWithoutBranchNestedInput
+    designations?: DesignationUpdateManyWithoutBranchNestedInput
+    certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
+    books?: BookUpdateManyWithoutBranchNestedInput
+    googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
+    liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
+    studentCategories?: StudentCategoryUpdateManyWithoutBranchNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutBranchNestedInput
+    questionGroups?: QuestionGroupUpdateManyWithoutBranchNestedInput
+    onlineExams?: OnlineExamUpdateManyWithoutBranchNestedInput
+    enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
+    callLogs?: CallLogUpdateManyWithoutBranchNestedInput
+    visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
+    complaints?: ComplaintUpdateManyWithoutBranchNestedInput
+    postalRecords?: PostalRecordUpdateManyWithoutBranchNestedInput
+    inventoryCategories?: InventoryCategoryUpdateManyWithoutBranchNestedInput
+    inventoryStores?: InventoryStoreUpdateManyWithoutBranchNestedInput
+    inventorySuppliers?: InventorySupplierUpdateManyWithoutBranchNestedInput
+    inventoryUnits?: InventoryUnitUpdateManyWithoutBranchNestedInput
+    inventoryProducts?: InventoryProductUpdateManyWithoutBranchNestedInput
+    inventoryPurchases?: InventoryPurchaseUpdateManyWithoutBranchNestedInput
+    inventorySales?: InventorySaleUpdateManyWithoutBranchNestedInput
+    inventoryIssues?: InventoryIssueUpdateManyWithoutBranchNestedInput
+    alumni?: AlumniUpdateManyWithoutBranchNestedInput
+    alumniEvents?: AlumniEventUpdateManyWithoutBranchNestedInput
+    conversations?: ConversationUpdateManyWithoutBranchNestedInput
+    campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
+    accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
+    automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+  }
+
+  export type BranchUncheckedUpdateWithoutAssignmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutBranchNestedInput
+    students?: StudentUncheckedUpdateManyWithoutBranchNestedInput
+    classes?: ClassUncheckedUpdateManyWithoutBranchNestedInput
+    subjects?: SubjectUncheckedUpdateManyWithoutBranchNestedInput
+    hostels?: HostelUncheckedUpdateManyWithoutBranchNestedInput
+    feeCategories?: FeeCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
+    routes?: TransportRouteUncheckedUpdateManyWithoutBranchNestedInput
+    expenseCategories?: ExpenseCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
+    designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
+    certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    books?: BookUncheckedUpdateManyWithoutBranchNestedInput
+    googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
+    liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
+    studentCategories?: StudentCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutBranchNestedInput
+    questionGroups?: QuestionGroupUncheckedUpdateManyWithoutBranchNestedInput
+    onlineExams?: OnlineExamUncheckedUpdateManyWithoutBranchNestedInput
+    enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
+    callLogs?: CallLogUncheckedUpdateManyWithoutBranchNestedInput
+    visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
+    complaints?: ComplaintUncheckedUpdateManyWithoutBranchNestedInput
+    postalRecords?: PostalRecordUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryCategories?: InventoryCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryStores?: InventoryStoreUncheckedUpdateManyWithoutBranchNestedInput
+    inventorySuppliers?: InventorySupplierUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryUnits?: InventoryUnitUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryProducts?: InventoryProductUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryPurchases?: InventoryPurchaseUncheckedUpdateManyWithoutBranchNestedInput
+    inventorySales?: InventorySaleUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutBranchNestedInput
+    alumni?: AlumniUncheckedUpdateManyWithoutBranchNestedInput
+    alumniEvents?: AlumniEventUncheckedUpdateManyWithoutBranchNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutBranchNestedInput
+    campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
+    accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
+    automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type AssignmentCreateWithoutSubmissionsInput = {
@@ -159123,11 +168921,13 @@ export namespace Prisma {
     title: string
     description?: string | null
     dueDate: Date | string
+    attachmentUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     subject: SubjectCreateNestedOneWithoutAssignmentsInput
     section: SectionCreateNestedOneWithoutAssignmentsInput
     teacher?: StaffCreateNestedOneWithoutAssignmentsInput
+    branch: BranchCreateNestedOneWithoutAssignmentsInput
   }
 
   export type AssignmentUncheckedCreateWithoutSubmissionsInput = {
@@ -159135,9 +168935,11 @@ export namespace Prisma {
     title: string
     description?: string | null
     dueDate: Date | string
+    attachmentUrl?: string | null
     subjectId: string
     sectionId: string
     teacherId?: string | null
+    branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -159292,11 +169094,13 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subject?: SubjectUpdateOneRequiredWithoutAssignmentsNestedInput
     section?: SectionUpdateOneRequiredWithoutAssignmentsNestedInput
     teacher?: StaffUpdateOneWithoutAssignmentsNestedInput
+    branch?: BranchUpdateOneRequiredWithoutAssignmentsNestedInput
   }
 
   export type AssignmentUncheckedUpdateWithoutSubmissionsInput = {
@@ -159304,9 +169108,11 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     subjectId?: StringFieldUpdateOperationsInput | string
     sectionId?: StringFieldUpdateOperationsInput | string
     teacherId?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -159826,6 +169632,54 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type DigitalResourceCreateWithoutSessionInput = {
+    id?: string
+    title: string
+    description?: string | null
+    fileUrl: string
+    fileType: string
+    fileSize?: number | null
+    thumbnailUrl?: string | null
+    category: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    class?: ClassCreateNestedOneWithoutDigitalResourcesInput
+    section?: SectionCreateNestedOneWithoutDigitalResourcesInput
+    subject?: SubjectCreateNestedOneWithoutDigitalResourcesInput
+    uploader: StaffCreateNestedOneWithoutDigitalResourcesInput
+    branch: BranchCreateNestedOneWithoutDigitalResourcesInput
+    logs?: DigitalResourceLogCreateNestedManyWithoutResourceInput
+  }
+
+  export type DigitalResourceUncheckedCreateWithoutSessionInput = {
+    id?: string
+    title: string
+    description?: string | null
+    fileUrl: string
+    fileType: string
+    fileSize?: number | null
+    thumbnailUrl?: string | null
+    category: string
+    classId?: string | null
+    sectionId?: string | null
+    subjectId?: string | null
+    uploaderId: string
+    branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    logs?: DigitalResourceLogUncheckedCreateNestedManyWithoutResourceInput
+  }
+
+  export type DigitalResourceCreateOrConnectWithoutSessionInput = {
+    where: DigitalResourceWhereUniqueInput
+    create: XOR<DigitalResourceCreateWithoutSessionInput, DigitalResourceUncheckedCreateWithoutSessionInput>
+  }
+
+  export type DigitalResourceCreateManySessionInputEnvelope = {
+    data: DigitalResourceCreateManySessionInput | DigitalResourceCreateManySessionInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AssessmentRecordUpsertWithWhereUniqueWithoutSessionInput = {
     where: AssessmentRecordWhereUniqueInput
     update: XOR<AssessmentRecordUpdateWithoutSessionInput, AssessmentRecordUncheckedUpdateWithoutSessionInput>
@@ -159904,6 +169758,22 @@ export namespace Prisma {
   export type IdCardUpdateManyWithWhereWithoutSessionInput = {
     where: IdCardScalarWhereInput
     data: XOR<IdCardUpdateManyMutationInput, IdCardUncheckedUpdateManyWithoutSessionInput>
+  }
+
+  export type DigitalResourceUpsertWithWhereUniqueWithoutSessionInput = {
+    where: DigitalResourceWhereUniqueInput
+    update: XOR<DigitalResourceUpdateWithoutSessionInput, DigitalResourceUncheckedUpdateWithoutSessionInput>
+    create: XOR<DigitalResourceCreateWithoutSessionInput, DigitalResourceUncheckedCreateWithoutSessionInput>
+  }
+
+  export type DigitalResourceUpdateWithWhereUniqueWithoutSessionInput = {
+    where: DigitalResourceWhereUniqueInput
+    data: XOR<DigitalResourceUpdateWithoutSessionInput, DigitalResourceUncheckedUpdateWithoutSessionInput>
+  }
+
+  export type DigitalResourceUpdateManyWithWhereWithoutSessionInput = {
+    where: DigitalResourceScalarWhereInput
+    data: XOR<DigitalResourceUpdateManyMutationInput, DigitalResourceUncheckedUpdateManyWithoutSessionInput>
   }
 
   export type StudentCreateWithoutAssessmentRecordsInput = {
@@ -160046,6 +169916,8 @@ export namespace Prisma {
     assignments?: AssignmentCreateNestedManyWithoutSubjectInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutSubjectInput
     onlineExams?: OnlineExamCreateNestedManyWithoutSubjectInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutSubjectInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectUncheckedCreateWithoutAssessmentRecordsInput = {
@@ -160059,6 +169931,8 @@ export namespace Prisma {
     assignments?: AssignmentUncheckedCreateNestedManyWithoutSubjectInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutSubjectInput
     onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutSubjectInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutSubjectInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectCreateOrConnectWithoutAssessmentRecordsInput = {
@@ -160078,6 +169952,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutSectionInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutDesiredSectionInput
     onlineExams?: OnlineExamCreateNestedManyWithoutSectionInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutSectionInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutSectionInput
   }
 
   export type SectionUncheckedCreateWithoutAssessmentRecordsInput = {
@@ -160092,6 +169968,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutSectionInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutDesiredSectionInput
     onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutSectionInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutSectionInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutSectionInput
   }
 
   export type SectionCreateOrConnectWithoutAssessmentRecordsInput = {
@@ -160113,6 +169991,7 @@ export namespace Prisma {
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutSessionInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutAcademicSessionInput
     idCards?: IdCardCreateNestedManyWithoutSessionInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutSessionInput
   }
 
   export type AcademicSessionUncheckedCreateWithoutAssessmentRecordsInput = {
@@ -160129,6 +170008,7 @@ export namespace Prisma {
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutSessionInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutAcademicSessionInput
     idCards?: IdCardUncheckedCreateNestedManyWithoutSessionInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutSessionInput
   }
 
   export type AcademicSessionCreateOrConnectWithoutAssessmentRecordsInput = {
@@ -160293,6 +170173,8 @@ export namespace Prisma {
     assignments?: AssignmentUpdateManyWithoutSubjectNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutSubjectNestedInput
     onlineExams?: OnlineExamUpdateManyWithoutSubjectNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutSubjectNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutSubjectNestedInput
   }
 
   export type SubjectUncheckedUpdateWithoutAssessmentRecordsInput = {
@@ -160306,6 +170188,8 @@ export namespace Prisma {
     assignments?: AssignmentUncheckedUpdateManyWithoutSubjectNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutSubjectNestedInput
     onlineExams?: OnlineExamUncheckedUpdateManyWithoutSubjectNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutSubjectNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutSubjectNestedInput
   }
 
   export type SectionUpsertWithoutAssessmentRecordsInput = {
@@ -160331,6 +170215,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionUpdateManyWithoutSectionNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutDesiredSectionNestedInput
     onlineExams?: OnlineExamUpdateManyWithoutSectionNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutSectionNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutSectionNestedInput
   }
 
   export type SectionUncheckedUpdateWithoutAssessmentRecordsInput = {
@@ -160345,6 +170231,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutSectionNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutDesiredSectionNestedInput
     onlineExams?: OnlineExamUncheckedUpdateManyWithoutSectionNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutSectionNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutSectionNestedInput
   }
 
   export type AcademicSessionUpsertWithoutAssessmentRecordsInput = {
@@ -160372,6 +170260,7 @@ export namespace Prisma {
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutSessionNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutAcademicSessionNestedInput
     idCards?: IdCardUpdateManyWithoutSessionNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutSessionNestedInput
   }
 
   export type AcademicSessionUncheckedUpdateWithoutAssessmentRecordsInput = {
@@ -160388,6 +170277,7 @@ export namespace Prisma {
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutSessionNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutAcademicSessionNestedInput
     idCards?: IdCardUncheckedUpdateManyWithoutSessionNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutSessionNestedInput
   }
 
   export type StudentCreateWithoutBehaviouralRatingsInput = {
@@ -160533,6 +170423,7 @@ export namespace Prisma {
     resultSummaries?: ResultSummaryCreateNestedManyWithoutSessionInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutAcademicSessionInput
     idCards?: IdCardCreateNestedManyWithoutSessionInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutSessionInput
   }
 
   export type AcademicSessionUncheckedCreateWithoutBehaviouralRatingsInput = {
@@ -160549,6 +170440,7 @@ export namespace Prisma {
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutSessionInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutAcademicSessionInput
     idCards?: IdCardUncheckedCreateNestedManyWithoutSessionInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutSessionInput
   }
 
   export type AcademicSessionCreateOrConnectWithoutBehaviouralRatingsInput = {
@@ -160716,6 +170608,7 @@ export namespace Prisma {
     resultSummaries?: ResultSummaryUpdateManyWithoutSessionNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutAcademicSessionNestedInput
     idCards?: IdCardUpdateManyWithoutSessionNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutSessionNestedInput
   }
 
   export type AcademicSessionUncheckedUpdateWithoutBehaviouralRatingsInput = {
@@ -160732,6 +170625,7 @@ export namespace Prisma {
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutSessionNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutAcademicSessionNestedInput
     idCards?: IdCardUncheckedUpdateManyWithoutSessionNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutSessionNestedInput
   }
 
   export type StudentCreateWithoutResultSummariesInput = {
@@ -160877,6 +170771,7 @@ export namespace Prisma {
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutSessionInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutAcademicSessionInput
     idCards?: IdCardCreateNestedManyWithoutSessionInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutSessionInput
   }
 
   export type AcademicSessionUncheckedCreateWithoutResultSummariesInput = {
@@ -160893,6 +170788,7 @@ export namespace Prisma {
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutSessionInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutAcademicSessionInput
     idCards?: IdCardUncheckedCreateNestedManyWithoutSessionInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutSessionInput
   }
 
   export type AcademicSessionCreateOrConnectWithoutResultSummariesInput = {
@@ -161060,6 +170956,7 @@ export namespace Prisma {
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutSessionNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutAcademicSessionNestedInput
     idCards?: IdCardUpdateManyWithoutSessionNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutSessionNestedInput
   }
 
   export type AcademicSessionUncheckedUpdateWithoutResultSummariesInput = {
@@ -161076,6 +170973,7 @@ export namespace Prisma {
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutSessionNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutAcademicSessionNestedInput
     idCards?: IdCardUncheckedUpdateManyWithoutSessionNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutSessionNestedInput
   }
 
   export type UserCreateWithoutAuditLogsInput = {
@@ -161101,6 +170999,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutParentInput
+    digitalResourceLogs?: DigitalResourceLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -161126,6 +171025,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPUncheckedCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutParentInput
+    digitalResourceLogs?: DigitalResourceLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -161167,6 +171067,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutParentNestedInput
+    digitalResourceLogs?: DigitalResourceLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -161192,6 +171093,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutParentNestedInput
+    digitalResourceLogs?: DigitalResourceLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type BranchCreateWithoutExpenseCategoriesInput = {
@@ -161244,8 +171146,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutExpenseCategoriesInput = {
@@ -161298,8 +171202,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutExpenseCategoriesInput = {
@@ -161406,8 +171312,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutExpenseCategoriesInput = {
@@ -161460,8 +171368,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type VoucherUpsertWithWhereUniqueWithoutCategoryInput = {
@@ -161526,6 +171436,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutParentInput
+    digitalResourceLogs?: DigitalResourceLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutApprovedVouchersInput = {
@@ -161551,6 +171462,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPUncheckedCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutParentInput
+    digitalResourceLogs?: DigitalResourceLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutApprovedVouchersInput = {
@@ -161608,8 +171520,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutVouchersInput = {
@@ -161662,8 +171576,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutVouchersInput = {
@@ -161734,6 +171650,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutParentNestedInput
+    digitalResourceLogs?: DigitalResourceLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutApprovedVouchersInput = {
@@ -161759,6 +171676,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutParentNestedInput
+    digitalResourceLogs?: DigitalResourceLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type BranchUpsertWithoutVouchersInput = {
@@ -161822,8 +171740,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutVouchersInput = {
@@ -161876,8 +171796,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutDepartmentsInput = {
@@ -161930,8 +171852,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutDepartmentsInput = {
@@ -161984,8 +171908,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutDepartmentsInput = {
@@ -162012,6 +171938,9 @@ export namespace Prisma {
     assignments?: AssignmentCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionCreateNestedManyWithoutHostInput
     idCards?: IdCardCreateNestedManyWithoutStaffInput
+    attendance?: StaffAttendanceCreateNestedManyWithoutStaffInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutTeacherInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutUploaderInput
   }
 
   export type StaffUncheckedCreateWithoutDepartmentInput = {
@@ -162033,6 +171962,9 @@ export namespace Prisma {
     assignments?: AssignmentUncheckedCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutHostInput
     idCards?: IdCardUncheckedCreateNestedManyWithoutStaffInput
+    attendance?: StaffAttendanceUncheckedCreateNestedManyWithoutStaffInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutTeacherInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutUploaderInput
   }
 
   export type StaffCreateOrConnectWithoutDepartmentInput = {
@@ -162106,8 +172038,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutDepartmentsInput = {
@@ -162160,8 +172094,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StaffUpsertWithWhereUniqueWithoutDepartmentInput = {
@@ -162230,8 +172166,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutDesignationsInput = {
@@ -162284,8 +172222,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutDesignationsInput = {
@@ -162312,6 +172252,9 @@ export namespace Prisma {
     assignments?: AssignmentCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionCreateNestedManyWithoutHostInput
     idCards?: IdCardCreateNestedManyWithoutStaffInput
+    attendance?: StaffAttendanceCreateNestedManyWithoutStaffInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutTeacherInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutUploaderInput
   }
 
   export type StaffUncheckedCreateWithoutDesignationRefInput = {
@@ -162333,6 +172276,9 @@ export namespace Prisma {
     assignments?: AssignmentUncheckedCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutHostInput
     idCards?: IdCardUncheckedCreateNestedManyWithoutStaffInput
+    attendance?: StaffAttendanceUncheckedCreateNestedManyWithoutStaffInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutTeacherInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutUploaderInput
   }
 
   export type StaffCreateOrConnectWithoutDesignationRefInput = {
@@ -162406,8 +172352,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutDesignationsInput = {
@@ -162460,8 +172408,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StaffUpsertWithWhereUniqueWithoutDesignationRefInput = {
@@ -162530,8 +172480,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutBooksInput = {
@@ -162584,8 +172536,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutBooksInput = {
@@ -162688,8 +172642,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutBooksInput = {
@@ -162742,8 +172698,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BorrowRecordUpsertWithWhereUniqueWithoutBookInput = {
@@ -163242,6 +173200,9 @@ export namespace Prisma {
     assignments?: AssignmentCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionCreateNestedManyWithoutHostInput
     idCards?: IdCardCreateNestedManyWithoutStaffInput
+    attendance?: StaffAttendanceCreateNestedManyWithoutStaffInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutTeacherInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutUploaderInput
   }
 
   export type StaffUncheckedCreateWithoutSalaryTemplateInput = {
@@ -163263,6 +173224,9 @@ export namespace Prisma {
     assignments?: AssignmentUncheckedCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutHostInput
     idCards?: IdCardUncheckedCreateNestedManyWithoutStaffInput
+    attendance?: StaffAttendanceUncheckedCreateNestedManyWithoutStaffInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutTeacherInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutUploaderInput
   }
 
   export type StaffCreateOrConnectWithoutSalaryTemplateInput = {
@@ -163300,6 +173264,9 @@ export namespace Prisma {
     assignments?: AssignmentUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUpdateManyWithoutHostNestedInput
     idCards?: IdCardUpdateManyWithoutStaffNestedInput
+    attendance?: StaffAttendanceUpdateManyWithoutStaffNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutTeacherNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutUploaderNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutSalaryTemplateInput = {
@@ -163321,6 +173288,9 @@ export namespace Prisma {
     assignments?: AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUncheckedUpdateManyWithoutHostNestedInput
     idCards?: IdCardUncheckedUpdateManyWithoutStaffNestedInput
+    attendance?: StaffAttendanceUncheckedUpdateManyWithoutStaffNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutTeacherNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutUploaderNestedInput
   }
 
   export type StaffCreateWithoutPayrollsInput = {
@@ -163342,6 +173312,9 @@ export namespace Prisma {
     assignments?: AssignmentCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionCreateNestedManyWithoutHostInput
     idCards?: IdCardCreateNestedManyWithoutStaffInput
+    attendance?: StaffAttendanceCreateNestedManyWithoutStaffInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutTeacherInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutUploaderInput
   }
 
   export type StaffUncheckedCreateWithoutPayrollsInput = {
@@ -163363,6 +173336,9 @@ export namespace Prisma {
     assignments?: AssignmentUncheckedCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutHostInput
     idCards?: IdCardUncheckedCreateNestedManyWithoutStaffInput
+    attendance?: StaffAttendanceUncheckedCreateNestedManyWithoutStaffInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutTeacherInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutUploaderInput
   }
 
   export type StaffCreateOrConnectWithoutPayrollsInput = {
@@ -163400,6 +173376,9 @@ export namespace Prisma {
     assignments?: AssignmentUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUpdateManyWithoutHostNestedInput
     idCards?: IdCardUpdateManyWithoutStaffNestedInput
+    attendance?: StaffAttendanceUpdateManyWithoutStaffNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutTeacherNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutUploaderNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutPayrollsInput = {
@@ -163421,6 +173400,9 @@ export namespace Prisma {
     assignments?: AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUncheckedUpdateManyWithoutHostNestedInput
     idCards?: IdCardUncheckedUpdateManyWithoutStaffNestedInput
+    attendance?: StaffAttendanceUncheckedUpdateManyWithoutStaffNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutTeacherNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutUploaderNestedInput
   }
 
   export type StaffCreateWithoutLeaveRequestsInput = {
@@ -163442,6 +173424,9 @@ export namespace Prisma {
     assignments?: AssignmentCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionCreateNestedManyWithoutHostInput
     idCards?: IdCardCreateNestedManyWithoutStaffInput
+    attendance?: StaffAttendanceCreateNestedManyWithoutStaffInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutTeacherInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutUploaderInput
   }
 
   export type StaffUncheckedCreateWithoutLeaveRequestsInput = {
@@ -163463,6 +173448,9 @@ export namespace Prisma {
     assignments?: AssignmentUncheckedCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutHostInput
     idCards?: IdCardUncheckedCreateNestedManyWithoutStaffInput
+    attendance?: StaffAttendanceUncheckedCreateNestedManyWithoutStaffInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutTeacherInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutUploaderInput
   }
 
   export type StaffCreateOrConnectWithoutLeaveRequestsInput = {
@@ -163500,6 +173488,9 @@ export namespace Prisma {
     assignments?: AssignmentUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUpdateManyWithoutHostNestedInput
     idCards?: IdCardUpdateManyWithoutStaffNestedInput
+    attendance?: StaffAttendanceUpdateManyWithoutStaffNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutTeacherNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutUploaderNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutLeaveRequestsInput = {
@@ -163521,6 +173512,9 @@ export namespace Prisma {
     assignments?: AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUncheckedUpdateManyWithoutHostNestedInput
     idCards?: IdCardUncheckedUpdateManyWithoutStaffNestedInput
+    attendance?: StaffAttendanceUncheckedUpdateManyWithoutStaffNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutTeacherNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutUploaderNestedInput
   }
 
   export type StaffCreateWithoutAwardsInput = {
@@ -163542,6 +173536,9 @@ export namespace Prisma {
     assignments?: AssignmentCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionCreateNestedManyWithoutHostInput
     idCards?: IdCardCreateNestedManyWithoutStaffInput
+    attendance?: StaffAttendanceCreateNestedManyWithoutStaffInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutTeacherInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutUploaderInput
   }
 
   export type StaffUncheckedCreateWithoutAwardsInput = {
@@ -163563,6 +173560,9 @@ export namespace Prisma {
     assignments?: AssignmentUncheckedCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutHostInput
     idCards?: IdCardUncheckedCreateNestedManyWithoutStaffInput
+    attendance?: StaffAttendanceUncheckedCreateNestedManyWithoutStaffInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutTeacherInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutUploaderInput
   }
 
   export type StaffCreateOrConnectWithoutAwardsInput = {
@@ -163600,6 +173600,9 @@ export namespace Prisma {
     assignments?: AssignmentUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUpdateManyWithoutHostNestedInput
     idCards?: IdCardUpdateManyWithoutStaffNestedInput
+    attendance?: StaffAttendanceUpdateManyWithoutStaffNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutTeacherNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutUploaderNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutAwardsInput = {
@@ -163621,6 +173624,9 @@ export namespace Prisma {
     assignments?: AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUncheckedUpdateManyWithoutHostNestedInput
     idCards?: IdCardUncheckedUpdateManyWithoutStaffNestedInput
+    attendance?: StaffAttendanceUncheckedUpdateManyWithoutStaffNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutTeacherNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutUploaderNestedInput
   }
 
   export type StaffCreateWithoutSalaryAdvancesInput = {
@@ -163642,6 +173648,9 @@ export namespace Prisma {
     assignments?: AssignmentCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionCreateNestedManyWithoutHostInput
     idCards?: IdCardCreateNestedManyWithoutStaffInput
+    attendance?: StaffAttendanceCreateNestedManyWithoutStaffInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutTeacherInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutUploaderInput
   }
 
   export type StaffUncheckedCreateWithoutSalaryAdvancesInput = {
@@ -163663,6 +173672,9 @@ export namespace Prisma {
     assignments?: AssignmentUncheckedCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutHostInput
     idCards?: IdCardUncheckedCreateNestedManyWithoutStaffInput
+    attendance?: StaffAttendanceUncheckedCreateNestedManyWithoutStaffInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutTeacherInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutUploaderInput
   }
 
   export type StaffCreateOrConnectWithoutSalaryAdvancesInput = {
@@ -163700,6 +173712,9 @@ export namespace Prisma {
     assignments?: AssignmentUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUpdateManyWithoutHostNestedInput
     idCards?: IdCardUpdateManyWithoutStaffNestedInput
+    attendance?: StaffAttendanceUpdateManyWithoutStaffNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutTeacherNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutUploaderNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutSalaryAdvancesInput = {
@@ -163721,6 +173736,9 @@ export namespace Prisma {
     assignments?: AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUncheckedUpdateManyWithoutHostNestedInput
     idCards?: IdCardUncheckedUpdateManyWithoutStaffNestedInput
+    attendance?: StaffAttendanceUncheckedUpdateManyWithoutStaffNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutTeacherNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutUploaderNestedInput
   }
 
   export type BranchCreateWithoutGoogleMeetConfigInput = {
@@ -163773,8 +173791,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutGoogleMeetConfigInput = {
@@ -163827,8 +173847,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutGoogleMeetConfigInput = {
@@ -163897,8 +173919,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutGoogleMeetConfigInput = {
@@ -163951,8 +173975,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type ClassCreateWithoutLiveClassSessionsInput = {
@@ -163968,6 +173994,8 @@ export namespace Prisma {
     feeStructures?: FeeStructureCreateNestedManyWithoutClassInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutDesiredClassInput
     onlineExams?: OnlineExamCreateNestedManyWithoutClassInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutClassInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutLiveClassSessionsInput = {
@@ -163983,6 +174011,8 @@ export namespace Prisma {
     feeStructures?: FeeStructureUncheckedCreateNestedManyWithoutClassInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutDesiredClassInput
     onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutClassInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutClassInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutLiveClassSessionsInput = {
@@ -164002,6 +174032,8 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutSectionInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutDesiredSectionInput
     onlineExams?: OnlineExamCreateNestedManyWithoutSectionInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutSectionInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutSectionInput
   }
 
   export type SectionUncheckedCreateWithoutLiveClassSessionsInput = {
@@ -164016,6 +174048,8 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutSectionInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutDesiredSectionInput
     onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutSectionInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutSectionInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutSectionInput
   }
 
   export type SectionCreateOrConnectWithoutLiveClassSessionsInput = {
@@ -164034,6 +174068,8 @@ export namespace Prisma {
     assignments?: AssignmentCreateNestedManyWithoutSubjectInput
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutSubjectInput
     onlineExams?: OnlineExamCreateNestedManyWithoutSubjectInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutSubjectInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectUncheckedCreateWithoutLiveClassSessionsInput = {
@@ -164047,6 +174083,8 @@ export namespace Prisma {
     assignments?: AssignmentUncheckedCreateNestedManyWithoutSubjectInput
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutSubjectInput
     onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutSubjectInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutSubjectInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectCreateOrConnectWithoutLiveClassSessionsInput = {
@@ -164073,6 +174111,9 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryCreateNestedManyWithoutStaffInput
     assignments?: AssignmentCreateNestedManyWithoutTeacherInput
     idCards?: IdCardCreateNestedManyWithoutStaffInput
+    attendance?: StaffAttendanceCreateNestedManyWithoutStaffInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutTeacherInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutUploaderInput
   }
 
   export type StaffUncheckedCreateWithoutHostedSessionsInput = {
@@ -164094,6 +174135,9 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUncheckedCreateNestedManyWithoutStaffInput
     assignments?: AssignmentUncheckedCreateNestedManyWithoutTeacherInput
     idCards?: IdCardUncheckedCreateNestedManyWithoutStaffInput
+    attendance?: StaffAttendanceUncheckedCreateNestedManyWithoutStaffInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutTeacherInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutUploaderInput
   }
 
   export type StaffCreateOrConnectWithoutHostedSessionsInput = {
@@ -164181,8 +174225,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutLiveClassSessionsInput = {
@@ -164235,8 +174281,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutLiveClassSessionsInput = {
@@ -164268,6 +174316,8 @@ export namespace Prisma {
     feeStructures?: FeeStructureUpdateManyWithoutClassNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutDesiredClassNestedInput
     onlineExams?: OnlineExamUpdateManyWithoutClassNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutClassNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutLiveClassSessionsInput = {
@@ -164283,6 +174333,8 @@ export namespace Prisma {
     feeStructures?: FeeStructureUncheckedUpdateManyWithoutClassNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutDesiredClassNestedInput
     onlineExams?: OnlineExamUncheckedUpdateManyWithoutClassNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutClassNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type SectionUpsertWithoutLiveClassSessionsInput = {
@@ -164308,6 +174360,8 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutSectionNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutDesiredSectionNestedInput
     onlineExams?: OnlineExamUpdateManyWithoutSectionNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutSectionNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutSectionNestedInput
   }
 
   export type SectionUncheckedUpdateWithoutLiveClassSessionsInput = {
@@ -164322,6 +174376,8 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutSectionNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutDesiredSectionNestedInput
     onlineExams?: OnlineExamUncheckedUpdateManyWithoutSectionNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutSectionNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutSectionNestedInput
   }
 
   export type SubjectUpsertWithoutLiveClassSessionsInput = {
@@ -164346,6 +174402,8 @@ export namespace Prisma {
     assignments?: AssignmentUpdateManyWithoutSubjectNestedInput
     assessmentRecords?: AssessmentRecordUpdateManyWithoutSubjectNestedInput
     onlineExams?: OnlineExamUpdateManyWithoutSubjectNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutSubjectNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutSubjectNestedInput
   }
 
   export type SubjectUncheckedUpdateWithoutLiveClassSessionsInput = {
@@ -164359,6 +174417,8 @@ export namespace Prisma {
     assignments?: AssignmentUncheckedUpdateManyWithoutSubjectNestedInput
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutSubjectNestedInput
     onlineExams?: OnlineExamUncheckedUpdateManyWithoutSubjectNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutSubjectNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutSubjectNestedInput
   }
 
   export type StaffUpsertWithoutHostedSessionsInput = {
@@ -164391,6 +174451,9 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUpdateManyWithoutStaffNestedInput
     assignments?: AssignmentUpdateManyWithoutTeacherNestedInput
     idCards?: IdCardUpdateManyWithoutStaffNestedInput
+    attendance?: StaffAttendanceUpdateManyWithoutStaffNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutTeacherNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutUploaderNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutHostedSessionsInput = {
@@ -164412,6 +174475,9 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUncheckedUpdateManyWithoutStaffNestedInput
     assignments?: AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
     idCards?: IdCardUncheckedUpdateManyWithoutStaffNestedInput
+    attendance?: StaffAttendanceUncheckedUpdateManyWithoutStaffNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutTeacherNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutUploaderNestedInput
   }
 
   export type MeetingParticipantUpsertWithWhereUniqueWithoutSessionInput = {
@@ -164491,8 +174557,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutLiveClassSessionsInput = {
@@ -164545,8 +174613,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type LiveClassSessionCreateWithoutParticipantsInput = {
@@ -164554,14 +174624,21 @@ export namespace Prisma {
     title: string
     description?: string | null
     meetingId: string
-    hostUrl: string
-    participantUrl: string
+    meetLink?: string | null
+    hostUrl?: string | null
+    participantUrl?: string | null
     scheduledStart: Date | string
     scheduledEnd: Date | string
     actualStart?: Date | string | null
     actualEnd?: Date | string | null
+    timezone?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    seriesId?: string | null
     status?: string
+    recordingId?: string | null
     recordingUrl?: string | null
+    recordingStatus?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     class?: ClassCreateNestedOneWithoutLiveClassSessionsInput
@@ -164576,8 +174653,9 @@ export namespace Prisma {
     title: string
     description?: string | null
     meetingId: string
-    hostUrl: string
-    participantUrl: string
+    meetLink?: string | null
+    hostUrl?: string | null
+    participantUrl?: string | null
     classId?: string | null
     sectionId?: string | null
     subjectId?: string | null
@@ -164586,8 +174664,14 @@ export namespace Prisma {
     scheduledEnd: Date | string
     actualStart?: Date | string | null
     actualEnd?: Date | string | null
+    timezone?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    seriesId?: string | null
     status?: string
+    recordingId?: string | null
     recordingUrl?: string | null
+    recordingStatus?: string | null
     branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -164621,6 +174705,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutParentInput
+    digitalResourceLogs?: DigitalResourceLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMeetingParticipationsInput = {
@@ -164646,6 +174731,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPUncheckedCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutParentInput
+    digitalResourceLogs?: DigitalResourceLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMeetingParticipationsInput = {
@@ -164669,14 +174755,21 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     meetingId?: StringFieldUpdateOperationsInput | string
-    hostUrl?: StringFieldUpdateOperationsInput | string
-    participantUrl?: StringFieldUpdateOperationsInput | string
+    meetLink?: NullableStringFieldUpdateOperationsInput | string | null
+    hostUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    participantUrl?: NullableStringFieldUpdateOperationsInput | string | null
     scheduledStart?: DateTimeFieldUpdateOperationsInput | Date | string
     scheduledEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     actualStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     actualEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timezone?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    seriesId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
+    recordingId?: NullableStringFieldUpdateOperationsInput | string | null
     recordingUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recordingStatus?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     class?: ClassUpdateOneWithoutLiveClassSessionsNestedInput
@@ -164691,8 +174784,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     meetingId?: StringFieldUpdateOperationsInput | string
-    hostUrl?: StringFieldUpdateOperationsInput | string
-    participantUrl?: StringFieldUpdateOperationsInput | string
+    meetLink?: NullableStringFieldUpdateOperationsInput | string | null
+    hostUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    participantUrl?: NullableStringFieldUpdateOperationsInput | string | null
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     subjectId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -164701,8 +174795,14 @@ export namespace Prisma {
     scheduledEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     actualStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     actualEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timezone?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    seriesId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
+    recordingId?: NullableStringFieldUpdateOperationsInput | string | null
     recordingUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recordingStatus?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -164742,6 +174842,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutParentNestedInput
+    digitalResourceLogs?: DigitalResourceLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMeetingParticipationsInput = {
@@ -164767,6 +174868,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutParentNestedInput
+    digitalResourceLogs?: DigitalResourceLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type BranchCreateWithoutStudentCategoriesInput = {
@@ -164819,8 +174921,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutStudentCategoriesInput = {
@@ -164873,8 +174977,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutStudentCategoriesInput = {
@@ -165257,8 +175363,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutStudentCategoriesInput = {
@@ -165311,8 +175419,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StudentUpsertWithWhereUniqueWithoutCategoryInput = {
@@ -165361,6 +175471,7 @@ export namespace Prisma {
     resultSummaries?: ResultSummaryCreateNestedManyWithoutSessionInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutSessionInput
     idCards?: IdCardCreateNestedManyWithoutSessionInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutSessionInput
   }
 
   export type AcademicSessionUncheckedCreateWithoutOnlineAdmissionsInput = {
@@ -165377,6 +175488,7 @@ export namespace Prisma {
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutSessionInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutSessionInput
     idCards?: IdCardUncheckedCreateNestedManyWithoutSessionInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutSessionInput
   }
 
   export type AcademicSessionCreateOrConnectWithoutOnlineAdmissionsInput = {
@@ -165397,6 +175509,8 @@ export namespace Prisma {
     feeStructures?: FeeStructureCreateNestedManyWithoutClassInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutClassInput
     onlineExams?: OnlineExamCreateNestedManyWithoutClassInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutClassInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutOnlineAdmissionsInput = {
@@ -165412,6 +175526,8 @@ export namespace Prisma {
     feeStructures?: FeeStructureUncheckedCreateNestedManyWithoutClassInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutClassInput
     onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutClassInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutClassInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutOnlineAdmissionsInput = {
@@ -165431,6 +175547,8 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutSectionInput
     liveClassSessions?: LiveClassSessionCreateNestedManyWithoutSectionInput
     onlineExams?: OnlineExamCreateNestedManyWithoutSectionInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutSectionInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutSectionInput
   }
 
   export type SectionUncheckedCreateWithoutOnlineAdmissionsInput = {
@@ -165445,6 +175563,8 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutSectionInput
     liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutSectionInput
     onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutSectionInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutSectionInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutSectionInput
   }
 
   export type SectionCreateOrConnectWithoutOnlineAdmissionsInput = {
@@ -165502,8 +175622,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutOnlineAdmissionsInput = {
@@ -165556,8 +175678,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutOnlineAdmissionsInput = {
@@ -165613,6 +175737,7 @@ export namespace Prisma {
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
     eventRSVPs?: EventRSVPCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
+    digitalResourceLogs?: DigitalResourceLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOnlineAdmissionsInput = {
@@ -165638,6 +175763,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     eventRSVPs?: EventRSVPUncheckedCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
+    digitalResourceLogs?: DigitalResourceLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOnlineAdmissionsInput = {
@@ -165670,6 +175796,7 @@ export namespace Prisma {
     resultSummaries?: ResultSummaryUpdateManyWithoutSessionNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutSessionNestedInput
     idCards?: IdCardUpdateManyWithoutSessionNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutSessionNestedInput
   }
 
   export type AcademicSessionUncheckedUpdateWithoutOnlineAdmissionsInput = {
@@ -165686,6 +175813,7 @@ export namespace Prisma {
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutSessionNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutSessionNestedInput
     idCards?: IdCardUncheckedUpdateManyWithoutSessionNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutSessionNestedInput
   }
 
   export type ClassUpsertWithoutOnlineAdmissionsInput = {
@@ -165712,6 +175840,8 @@ export namespace Prisma {
     feeStructures?: FeeStructureUpdateManyWithoutClassNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutClassNestedInput
     onlineExams?: OnlineExamUpdateManyWithoutClassNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutClassNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutOnlineAdmissionsInput = {
@@ -165727,6 +175857,8 @@ export namespace Prisma {
     feeStructures?: FeeStructureUncheckedUpdateManyWithoutClassNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutClassNestedInput
     onlineExams?: OnlineExamUncheckedUpdateManyWithoutClassNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutClassNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type SectionUpsertWithoutOnlineAdmissionsInput = {
@@ -165752,6 +175884,8 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutSectionNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutSectionNestedInput
     onlineExams?: OnlineExamUpdateManyWithoutSectionNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutSectionNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutSectionNestedInput
   }
 
   export type SectionUncheckedUpdateWithoutOnlineAdmissionsInput = {
@@ -165766,6 +175900,8 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutSectionNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutSectionNestedInput
     onlineExams?: OnlineExamUncheckedUpdateManyWithoutSectionNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutSectionNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutSectionNestedInput
   }
 
   export type BranchUpsertWithoutOnlineAdmissionsInput = {
@@ -165829,8 +175965,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutOnlineAdmissionsInput = {
@@ -165883,8 +176021,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StudentCategoryUpsertWithoutOnlineAdmissionsInput = {
@@ -165952,6 +176092,7 @@ export namespace Prisma {
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
     eventRSVPs?: EventRSVPUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
+    digitalResourceLogs?: DigitalResourceLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOnlineAdmissionsInput = {
@@ -165977,6 +176118,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     eventRSVPs?: EventRSVPUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
+    digitalResourceLogs?: DigitalResourceLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type BranchCreateWithoutEnquiriesInput = {
@@ -166029,8 +176171,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutEnquiriesInput = {
@@ -166083,8 +176227,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutEnquiriesInput = {
@@ -166153,8 +176299,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutEnquiriesInput = {
@@ -166207,8 +176355,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutCallLogsInput = {
@@ -166261,8 +176411,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutCallLogsInput = {
@@ -166315,8 +176467,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutCallLogsInput = {
@@ -166385,8 +176539,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutCallLogsInput = {
@@ -166439,8 +176595,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutVisitorLogsInput = {
@@ -166493,8 +176651,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutVisitorLogsInput = {
@@ -166547,8 +176707,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutVisitorLogsInput = {
@@ -166617,8 +176779,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutVisitorLogsInput = {
@@ -166671,8 +176835,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutComplaintsInput = {
@@ -166725,8 +176891,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutComplaintsInput = {
@@ -166779,8 +176947,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutComplaintsInput = {
@@ -166849,8 +177019,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutComplaintsInput = {
@@ -166903,8 +177075,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutPostalRecordsInput = {
@@ -166957,8 +177131,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutPostalRecordsInput = {
@@ -167011,8 +177187,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutPostalRecordsInput = {
@@ -167081,8 +177259,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutPostalRecordsInput = {
@@ -167135,8 +177315,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutInventoryCategoriesInput = {
@@ -167189,8 +177371,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventoryCategoriesInput = {
@@ -167243,8 +177427,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventoryCategoriesInput = {
@@ -167355,8 +177541,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventoryCategoriesInput = {
@@ -167409,8 +177597,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryProductUpsertWithWhereUniqueWithoutCategoryInput = {
@@ -167479,8 +177669,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventoryStoresInput = {
@@ -167533,8 +177725,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventoryStoresInput = {
@@ -167645,8 +177839,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventoryStoresInput = {
@@ -167699,8 +177895,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryProductUpsertWithWhereUniqueWithoutStoreInput = {
@@ -167769,8 +177967,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventorySuppliersInput = {
@@ -167823,8 +178023,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventorySuppliersInput = {
@@ -167929,8 +178131,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventorySuppliersInput = {
@@ -167983,8 +178187,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryPurchaseUpsertWithWhereUniqueWithoutSupplierInput = {
@@ -168053,8 +178259,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventoryUnitsInput = {
@@ -168107,8 +178315,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventoryUnitsInput = {
@@ -168219,8 +178429,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventoryUnitsInput = {
@@ -168273,8 +178485,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryProductUpsertWithWhereUniqueWithoutUnitInput = {
@@ -168518,8 +178732,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventoryProductsInput = {
@@ -168572,8 +178788,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventoryProductsInput = {
@@ -168773,8 +178991,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventoryProductsInput = {
@@ -168827,8 +179047,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryProductCreateWithoutPurchasesInput = {
@@ -168947,8 +179169,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventoryPurchasesInput = {
@@ -169001,8 +179225,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventoryPurchasesInput = {
@@ -169149,8 +179375,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventoryPurchasesInput = {
@@ -169203,8 +179431,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryProductCreateWithoutSalesInput = {
@@ -169294,8 +179524,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventorySalesInput = {
@@ -169348,8 +179580,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventorySalesInput = {
@@ -169461,8 +179695,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventorySalesInput = {
@@ -169515,8 +179751,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryProductCreateWithoutIssuesInput = {
@@ -169575,6 +179813,9 @@ export namespace Prisma {
     assignments?: AssignmentCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionCreateNestedManyWithoutHostInput
     idCards?: IdCardCreateNestedManyWithoutStaffInput
+    attendance?: StaffAttendanceCreateNestedManyWithoutStaffInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutTeacherInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutUploaderInput
   }
 
   export type StaffUncheckedCreateWithoutInventoryIssuesInput = {
@@ -169596,6 +179837,9 @@ export namespace Prisma {
     assignments?: AssignmentUncheckedCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutHostInput
     idCards?: IdCardUncheckedCreateNestedManyWithoutStaffInput
+    attendance?: StaffAttendanceUncheckedCreateNestedManyWithoutStaffInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutTeacherInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutUploaderInput
   }
 
   export type StaffCreateOrConnectWithoutInventoryIssuesInput = {
@@ -169782,8 +180026,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventoryIssuesInput = {
@@ -169836,8 +180082,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventoryIssuesInput = {
@@ -169918,6 +180166,9 @@ export namespace Prisma {
     assignments?: AssignmentUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUpdateManyWithoutHostNestedInput
     idCards?: IdCardUpdateManyWithoutStaffNestedInput
+    attendance?: StaffAttendanceUpdateManyWithoutStaffNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutTeacherNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutUploaderNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutInventoryIssuesInput = {
@@ -169939,6 +180190,9 @@ export namespace Prisma {
     assignments?: AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUncheckedUpdateManyWithoutHostNestedInput
     idCards?: IdCardUncheckedUpdateManyWithoutStaffNestedInput
+    attendance?: StaffAttendanceUncheckedUpdateManyWithoutStaffNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutTeacherNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutUploaderNestedInput
   }
 
   export type StudentUpsertWithoutInventoryIssuesInput = {
@@ -170137,8 +180391,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventoryIssuesInput = {
@@ -170191,8 +180447,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StudentCreateWithoutAlumniInput = {
@@ -170400,8 +180658,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAlumniInput = {
@@ -170454,8 +180714,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAlumniInput = {
@@ -170687,8 +180949,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAlumniInput = {
@@ -170741,8 +181005,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type AlumniEventParticipantCreateWithoutEventInput = {
@@ -170821,8 +181087,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAlumniEventsInput = {
@@ -170875,8 +181143,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAlumniEventsInput = {
@@ -170961,8 +181231,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAlumniEventsInput = {
@@ -171015,8 +181287,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type AlumniCreateWithoutEventsInput = {
@@ -171263,8 +181537,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutConversationsInput = {
@@ -171317,8 +181593,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutConversationsInput = {
@@ -171419,8 +181697,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutConversationsInput = {
@@ -171473,8 +181753,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type ConversationCreateWithoutParticipantsInput = {
@@ -171525,6 +181807,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutParentInput
+    digitalResourceLogs?: DigitalResourceLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutConversationParticipationsInput = {
@@ -171550,6 +181833,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPUncheckedCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutParentInput
+    digitalResourceLogs?: DigitalResourceLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutConversationParticipationsInput = {
@@ -171622,6 +181906,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutParentNestedInput
+    digitalResourceLogs?: DigitalResourceLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutConversationParticipationsInput = {
@@ -171647,6 +181932,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutParentNestedInput
+    digitalResourceLogs?: DigitalResourceLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ConversationCreateWithoutMessagesInput = {
@@ -171697,6 +181983,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutParentInput
+    digitalResourceLogs?: DigitalResourceLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSentMessagesInput = {
@@ -171722,6 +182009,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPUncheckedCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutParentInput
+    digitalResourceLogs?: DigitalResourceLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSentMessagesInput = {
@@ -171794,6 +182082,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutParentNestedInput
+    digitalResourceLogs?: DigitalResourceLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSentMessagesInput = {
@@ -171819,6 +182108,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutParentNestedInput
+    digitalResourceLogs?: DigitalResourceLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type EventRSVPCreateWithoutEventInput = {
@@ -171897,8 +182187,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutCampusEventsInput = {
@@ -171951,8 +182243,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutCampusEventsInput = {
@@ -172037,8 +182331,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutCampusEventsInput = {
@@ -172091,8 +182387,10 @@ export namespace Prisma {
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type CampusEventCreateWithoutRsvpsInput = {
@@ -172153,6 +182451,7 @@ export namespace Prisma {
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutParentInput
+    digitalResourceLogs?: DigitalResourceLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutEventRSVPsInput = {
@@ -172178,6 +182477,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutParentInput
+    digitalResourceLogs?: DigitalResourceLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutEventRSVPsInput = {
@@ -172260,6 +182560,7 @@ export namespace Prisma {
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutParentNestedInput
+    digitalResourceLogs?: DigitalResourceLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEventRSVPsInput = {
@@ -172285,6 +182586,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutParentNestedInput
+    digitalResourceLogs?: DigitalResourceLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutAccessLogsInput = {
@@ -172310,6 +182612,7 @@ export namespace Prisma {
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
     eventRSVPs?: EventRSVPCreateNestedManyWithoutUserInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutParentInput
+    digitalResourceLogs?: DigitalResourceLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccessLogsInput = {
@@ -172335,6 +182638,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     eventRSVPs?: EventRSVPUncheckedCreateNestedManyWithoutUserInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutParentInput
+    digitalResourceLogs?: DigitalResourceLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccessLogsInput = {
@@ -172392,8 +182696,10 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAccessLogsInput = {
@@ -172446,8 +182752,10 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAccessLogsInput = {
@@ -172489,6 +182797,7 @@ export namespace Prisma {
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
     eventRSVPs?: EventRSVPUpdateManyWithoutUserNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutParentNestedInput
+    digitalResourceLogs?: DigitalResourceLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccessLogsInput = {
@@ -172514,6 +182823,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     eventRSVPs?: EventRSVPUncheckedUpdateManyWithoutUserNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutParentNestedInput
+    digitalResourceLogs?: DigitalResourceLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type BranchUpsertWithoutAccessLogsInput = {
@@ -172577,8 +182887,10 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAccessLogsInput = {
@@ -172631,8 +182943,10 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutAutomationConfigsInput = {
@@ -172685,8 +182999,10 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAutomationConfigsInput = {
@@ -172739,8 +183055,10 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAutomationConfigsInput = {
@@ -172809,8 +183127,10 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAutomationConfigsInput = {
@@ -172863,8 +183183,10 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutIdCardTemplatesInput = {
@@ -172917,8 +183239,10 @@ export namespace Prisma {
     campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutIdCardTemplatesInput = {
@@ -172971,8 +183295,10 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
     automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
     deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
     loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutIdCardTemplatesInput = {
@@ -173073,8 +183399,10 @@ export namespace Prisma {
     campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutIdCardTemplatesInput = {
@@ -173127,8 +183455,10 @@ export namespace Prisma {
     campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
     automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
     deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
     loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type IdCardUpsertWithWhereUniqueWithoutTemplateInput = {
@@ -173295,6 +183625,9 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryCreateNestedManyWithoutStaffInput
     assignments?: AssignmentCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionCreateNestedManyWithoutHostInput
+    attendance?: StaffAttendanceCreateNestedManyWithoutStaffInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutTeacherInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutUploaderInput
   }
 
   export type StaffUncheckedCreateWithoutIdCardsInput = {
@@ -173316,6 +183649,9 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUncheckedCreateNestedManyWithoutStaffInput
     assignments?: AssignmentUncheckedCreateNestedManyWithoutTeacherInput
     hostedSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutHostInput
+    attendance?: StaffAttendanceUncheckedCreateNestedManyWithoutStaffInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutTeacherInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutUploaderInput
   }
 
   export type StaffCreateOrConnectWithoutIdCardsInput = {
@@ -173364,6 +183700,7 @@ export namespace Prisma {
     resultSummaries?: ResultSummaryCreateNestedManyWithoutSessionInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutSessionInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutAcademicSessionInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutSessionInput
   }
 
   export type AcademicSessionUncheckedCreateWithoutIdCardsInput = {
@@ -173380,6 +183717,7 @@ export namespace Prisma {
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutSessionInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutSessionInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutAcademicSessionInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutSessionInput
   }
 
   export type AcademicSessionCreateOrConnectWithoutIdCardsInput = {
@@ -173552,6 +183890,9 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUpdateManyWithoutStaffNestedInput
     assignments?: AssignmentUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUpdateManyWithoutHostNestedInput
+    attendance?: StaffAttendanceUpdateManyWithoutStaffNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutTeacherNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutUploaderNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutIdCardsInput = {
@@ -173573,6 +183914,9 @@ export namespace Prisma {
     salaryAdvances?: AdvanceSalaryUncheckedUpdateManyWithoutStaffNestedInput
     assignments?: AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUncheckedUpdateManyWithoutHostNestedInput
+    attendance?: StaffAttendanceUncheckedUpdateManyWithoutStaffNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutTeacherNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutUploaderNestedInput
   }
 
   export type IdCardTemplateUpsertWithoutIdCardsInput = {
@@ -173633,6 +183977,7 @@ export namespace Prisma {
     resultSummaries?: ResultSummaryUpdateManyWithoutSessionNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutSessionNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutAcademicSessionNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutSessionNestedInput
   }
 
   export type AcademicSessionUncheckedUpdateWithoutIdCardsInput = {
@@ -173649,6 +183994,939 @@ export namespace Prisma {
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutSessionNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutSessionNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutAcademicSessionNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutSessionNestedInput
+  }
+
+  export type AcademicSessionCreateWithoutDigitalResourcesInput = {
+    id?: string
+    name: string
+    startDate: Date | string
+    endDate: Date | string
+    isActive?: boolean
+    nextTermBegins?: Date | string | null
+    termEnds?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutSessionInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutSessionInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutSessionInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutAcademicSessionInput
+    idCards?: IdCardCreateNestedManyWithoutSessionInput
+  }
+
+  export type AcademicSessionUncheckedCreateWithoutDigitalResourcesInput = {
+    id?: string
+    name: string
+    startDate: Date | string
+    endDate: Date | string
+    isActive?: boolean
+    nextTermBegins?: Date | string | null
+    termEnds?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutSessionInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutSessionInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutSessionInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutAcademicSessionInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutSessionInput
+  }
+
+  export type AcademicSessionCreateOrConnectWithoutDigitalResourcesInput = {
+    where: AcademicSessionWhereUniqueInput
+    create: XOR<AcademicSessionCreateWithoutDigitalResourcesInput, AcademicSessionUncheckedCreateWithoutDigitalResourcesInput>
+  }
+
+  export type ClassCreateWithoutDigitalResourcesInput = {
+    id?: string
+    name: string
+    gradeLevel?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutClassesInput
+    sections?: SectionCreateNestedManyWithoutClassInput
+    students?: StudentCreateNestedManyWithoutClassInput
+    classTeacher?: StaffCreateNestedOneWithoutClassesInput
+    feeStructures?: FeeStructureCreateNestedManyWithoutClassInput
+    liveClassSessions?: LiveClassSessionCreateNestedManyWithoutClassInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutDesiredClassInput
+    onlineExams?: OnlineExamCreateNestedManyWithoutClassInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutClassInput
+  }
+
+  export type ClassUncheckedCreateWithoutDigitalResourcesInput = {
+    id?: string
+    name: string
+    gradeLevel?: number | null
+    branchId: string
+    classTeacherId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sections?: SectionUncheckedCreateNestedManyWithoutClassInput
+    students?: StudentUncheckedCreateNestedManyWithoutClassInput
+    feeStructures?: FeeStructureUncheckedCreateNestedManyWithoutClassInput
+    liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutClassInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutDesiredClassInput
+    onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutClassInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutClassInput
+  }
+
+  export type ClassCreateOrConnectWithoutDigitalResourcesInput = {
+    where: ClassWhereUniqueInput
+    create: XOR<ClassCreateWithoutDigitalResourcesInput, ClassUncheckedCreateWithoutDigitalResourcesInput>
+  }
+
+  export type SectionCreateWithoutDigitalResourcesInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    class: ClassCreateNestedOneWithoutSectionsInput
+    students?: StudentCreateNestedManyWithoutSectionInput
+    attendance?: AttendanceCreateNestedManyWithoutSectionInput
+    assignments?: AssignmentCreateNestedManyWithoutSectionInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutSectionInput
+    liveClassSessions?: LiveClassSessionCreateNestedManyWithoutSectionInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutDesiredSectionInput
+    onlineExams?: OnlineExamCreateNestedManyWithoutSectionInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutSectionInput
+  }
+
+  export type SectionUncheckedCreateWithoutDigitalResourcesInput = {
+    id?: string
+    name: string
+    classId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    students?: StudentUncheckedCreateNestedManyWithoutSectionInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutSectionInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutSectionInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutSectionInput
+    liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutSectionInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutDesiredSectionInput
+    onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutSectionInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutSectionInput
+  }
+
+  export type SectionCreateOrConnectWithoutDigitalResourcesInput = {
+    where: SectionWhereUniqueInput
+    create: XOR<SectionCreateWithoutDigitalResourcesInput, SectionUncheckedCreateWithoutDigitalResourcesInput>
+  }
+
+  export type SubjectCreateWithoutDigitalResourcesInput = {
+    id?: string
+    name: string
+    code?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutSubjectsInput
+    teachers?: StaffCreateNestedManyWithoutSubjectsInput
+    assignments?: AssignmentCreateNestedManyWithoutSubjectInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutSubjectInput
+    liveClassSessions?: LiveClassSessionCreateNestedManyWithoutSubjectInput
+    onlineExams?: OnlineExamCreateNestedManyWithoutSubjectInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutSubjectInput
+  }
+
+  export type SubjectUncheckedCreateWithoutDigitalResourcesInput = {
+    id?: string
+    name: string
+    code?: string | null
+    branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    teachers?: StaffUncheckedCreateNestedManyWithoutSubjectsInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutSubjectInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutSubjectInput
+    liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutSubjectInput
+    onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutSubjectInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutSubjectInput
+  }
+
+  export type SubjectCreateOrConnectWithoutDigitalResourcesInput = {
+    where: SubjectWhereUniqueInput
+    create: XOR<SubjectCreateWithoutDigitalResourcesInput, SubjectUncheckedCreateWithoutDigitalResourcesInput>
+  }
+
+  export type StaffCreateWithoutDigitalResourcesInput = {
+    id?: string
+    designation?: string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutStaffInput
+    department?: DepartmentCreateNestedOneWithoutStaffInput
+    designationRef?: DesignationCreateNestedOneWithoutStaffInput
+    inventoryIssues?: InventoryIssueCreateNestedManyWithoutStaffInput
+    subjects?: SubjectCreateNestedManyWithoutTeachersInput
+    classes?: ClassCreateNestedManyWithoutClassTeacherInput
+    salaryTemplate?: SalaryTemplateCreateNestedOneWithoutStaffInput
+    payrolls?: PayrollCreateNestedManyWithoutStaffInput
+    leaveRequests?: LeaveRequestCreateNestedManyWithoutStaffInput
+    awards?: StaffAwardCreateNestedManyWithoutStaffInput
+    salaryAdvances?: AdvanceSalaryCreateNestedManyWithoutStaffInput
+    assignments?: AssignmentCreateNestedManyWithoutTeacherInput
+    hostedSessions?: LiveClassSessionCreateNestedManyWithoutHostInput
+    idCards?: IdCardCreateNestedManyWithoutStaffInput
+    attendance?: StaffAttendanceCreateNestedManyWithoutStaffInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutTeacherInput
+  }
+
+  export type StaffUncheckedCreateWithoutDigitalResourcesInput = {
+    id?: string
+    userId: string
+    designation?: string | null
+    departmentId?: string | null
+    designationId?: string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutStaffInput
+    subjects?: SubjectUncheckedCreateNestedManyWithoutTeachersInput
+    classes?: ClassUncheckedCreateNestedManyWithoutClassTeacherInput
+    salaryTemplate?: SalaryTemplateUncheckedCreateNestedOneWithoutStaffInput
+    payrolls?: PayrollUncheckedCreateNestedManyWithoutStaffInput
+    leaveRequests?: LeaveRequestUncheckedCreateNestedManyWithoutStaffInput
+    awards?: StaffAwardUncheckedCreateNestedManyWithoutStaffInput
+    salaryAdvances?: AdvanceSalaryUncheckedCreateNestedManyWithoutStaffInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutTeacherInput
+    hostedSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutHostInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutStaffInput
+    attendance?: StaffAttendanceUncheckedCreateNestedManyWithoutStaffInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutTeacherInput
+  }
+
+  export type StaffCreateOrConnectWithoutDigitalResourcesInput = {
+    where: StaffWhereUniqueInput
+    create: XOR<StaffCreateWithoutDigitalResourcesInput, StaffUncheckedCreateWithoutDigitalResourcesInput>
+  }
+
+  export type BranchCreateWithoutDigitalResourcesInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserCreateNestedManyWithoutBranchInput
+    students?: StudentCreateNestedManyWithoutBranchInput
+    classes?: ClassCreateNestedManyWithoutBranchInput
+    subjects?: SubjectCreateNestedManyWithoutBranchInput
+    hostels?: HostelCreateNestedManyWithoutBranchInput
+    feeCategories?: FeeCategoryCreateNestedManyWithoutBranchInput
+    vehicles?: VehicleCreateNestedManyWithoutBranchInput
+    routes?: TransportRouteCreateNestedManyWithoutBranchInput
+    expenseCategories?: ExpenseCategoryCreateNestedManyWithoutBranchInput
+    vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    departments?: DepartmentCreateNestedManyWithoutBranchInput
+    designations?: DesignationCreateNestedManyWithoutBranchInput
+    certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
+    books?: BookCreateNestedManyWithoutBranchInput
+    googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
+    liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
+    studentCategories?: StudentCategoryCreateNestedManyWithoutBranchInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutBranchInput
+    questionGroups?: QuestionGroupCreateNestedManyWithoutBranchInput
+    onlineExams?: OnlineExamCreateNestedManyWithoutBranchInput
+    enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
+    callLogs?: CallLogCreateNestedManyWithoutBranchInput
+    visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
+    complaints?: ComplaintCreateNestedManyWithoutBranchInput
+    postalRecords?: PostalRecordCreateNestedManyWithoutBranchInput
+    inventoryCategories?: InventoryCategoryCreateNestedManyWithoutBranchInput
+    inventoryStores?: InventoryStoreCreateNestedManyWithoutBranchInput
+    inventorySuppliers?: InventorySupplierCreateNestedManyWithoutBranchInput
+    inventoryUnits?: InventoryUnitCreateNestedManyWithoutBranchInput
+    inventoryProducts?: InventoryProductCreateNestedManyWithoutBranchInput
+    inventoryPurchases?: InventoryPurchaseCreateNestedManyWithoutBranchInput
+    inventorySales?: InventorySaleCreateNestedManyWithoutBranchInput
+    inventoryIssues?: InventoryIssueCreateNestedManyWithoutBranchInput
+    alumni?: AlumniCreateNestedManyWithoutBranchInput
+    alumniEvents?: AlumniEventCreateNestedManyWithoutBranchInput
+    conversations?: ConversationCreateNestedManyWithoutBranchInput
+    campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
+    accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
+    automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
+  }
+
+  export type BranchUncheckedCreateWithoutDigitalResourcesInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutBranchInput
+    students?: StudentUncheckedCreateNestedManyWithoutBranchInput
+    classes?: ClassUncheckedCreateNestedManyWithoutBranchInput
+    subjects?: SubjectUncheckedCreateNestedManyWithoutBranchInput
+    hostels?: HostelUncheckedCreateNestedManyWithoutBranchInput
+    feeCategories?: FeeCategoryUncheckedCreateNestedManyWithoutBranchInput
+    vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
+    routes?: TransportRouteUncheckedCreateNestedManyWithoutBranchInput
+    expenseCategories?: ExpenseCategoryUncheckedCreateNestedManyWithoutBranchInput
+    vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
+    designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
+    certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
+    books?: BookUncheckedCreateNestedManyWithoutBranchInput
+    googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
+    liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
+    studentCategories?: StudentCategoryUncheckedCreateNestedManyWithoutBranchInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutBranchInput
+    questionGroups?: QuestionGroupUncheckedCreateNestedManyWithoutBranchInput
+    onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutBranchInput
+    enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
+    callLogs?: CallLogUncheckedCreateNestedManyWithoutBranchInput
+    visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
+    complaints?: ComplaintUncheckedCreateNestedManyWithoutBranchInput
+    postalRecords?: PostalRecordUncheckedCreateNestedManyWithoutBranchInput
+    inventoryCategories?: InventoryCategoryUncheckedCreateNestedManyWithoutBranchInput
+    inventoryStores?: InventoryStoreUncheckedCreateNestedManyWithoutBranchInput
+    inventorySuppliers?: InventorySupplierUncheckedCreateNestedManyWithoutBranchInput
+    inventoryUnits?: InventoryUnitUncheckedCreateNestedManyWithoutBranchInput
+    inventoryProducts?: InventoryProductUncheckedCreateNestedManyWithoutBranchInput
+    inventoryPurchases?: InventoryPurchaseUncheckedCreateNestedManyWithoutBranchInput
+    inventorySales?: InventorySaleUncheckedCreateNestedManyWithoutBranchInput
+    inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutBranchInput
+    alumni?: AlumniUncheckedCreateNestedManyWithoutBranchInput
+    alumniEvents?: AlumniEventUncheckedCreateNestedManyWithoutBranchInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutBranchInput
+    campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
+    accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
+    automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
+  }
+
+  export type BranchCreateOrConnectWithoutDigitalResourcesInput = {
+    where: BranchWhereUniqueInput
+    create: XOR<BranchCreateWithoutDigitalResourcesInput, BranchUncheckedCreateWithoutDigitalResourcesInput>
+  }
+
+  export type DigitalResourceLogCreateWithoutResourceInput = {
+    id?: string
+    action: string
+    ipAddress?: string | null
+    userAgent?: string | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutDigitalResourceLogsInput
+  }
+
+  export type DigitalResourceLogUncheckedCreateWithoutResourceInput = {
+    id?: string
+    userId: string
+    action: string
+    ipAddress?: string | null
+    userAgent?: string | null
+    createdAt?: Date | string
+  }
+
+  export type DigitalResourceLogCreateOrConnectWithoutResourceInput = {
+    where: DigitalResourceLogWhereUniqueInput
+    create: XOR<DigitalResourceLogCreateWithoutResourceInput, DigitalResourceLogUncheckedCreateWithoutResourceInput>
+  }
+
+  export type DigitalResourceLogCreateManyResourceInputEnvelope = {
+    data: DigitalResourceLogCreateManyResourceInput | DigitalResourceLogCreateManyResourceInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AcademicSessionUpsertWithoutDigitalResourcesInput = {
+    update: XOR<AcademicSessionUpdateWithoutDigitalResourcesInput, AcademicSessionUncheckedUpdateWithoutDigitalResourcesInput>
+    create: XOR<AcademicSessionCreateWithoutDigitalResourcesInput, AcademicSessionUncheckedCreateWithoutDigitalResourcesInput>
+    where?: AcademicSessionWhereInput
+  }
+
+  export type AcademicSessionUpdateToOneWithWhereWithoutDigitalResourcesInput = {
+    where?: AcademicSessionWhereInput
+    data: XOR<AcademicSessionUpdateWithoutDigitalResourcesInput, AcademicSessionUncheckedUpdateWithoutDigitalResourcesInput>
+  }
+
+  export type AcademicSessionUpdateWithoutDigitalResourcesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    nextTermBegins?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    termEnds?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutSessionNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutSessionNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutSessionNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutAcademicSessionNestedInput
+    idCards?: IdCardUpdateManyWithoutSessionNestedInput
+  }
+
+  export type AcademicSessionUncheckedUpdateWithoutDigitalResourcesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    nextTermBegins?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    termEnds?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutSessionNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutSessionNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutSessionNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutAcademicSessionNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutSessionNestedInput
+  }
+
+  export type ClassUpsertWithoutDigitalResourcesInput = {
+    update: XOR<ClassUpdateWithoutDigitalResourcesInput, ClassUncheckedUpdateWithoutDigitalResourcesInput>
+    create: XOR<ClassCreateWithoutDigitalResourcesInput, ClassUncheckedCreateWithoutDigitalResourcesInput>
+    where?: ClassWhereInput
+  }
+
+  export type ClassUpdateToOneWithWhereWithoutDigitalResourcesInput = {
+    where?: ClassWhereInput
+    data: XOR<ClassUpdateWithoutDigitalResourcesInput, ClassUncheckedUpdateWithoutDigitalResourcesInput>
+  }
+
+  export type ClassUpdateWithoutDigitalResourcesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    gradeLevel?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutClassesNestedInput
+    sections?: SectionUpdateManyWithoutClassNestedInput
+    students?: StudentUpdateManyWithoutClassNestedInput
+    classTeacher?: StaffUpdateOneWithoutClassesNestedInput
+    feeStructures?: FeeStructureUpdateManyWithoutClassNestedInput
+    liveClassSessions?: LiveClassSessionUpdateManyWithoutClassNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutDesiredClassNestedInput
+    onlineExams?: OnlineExamUpdateManyWithoutClassNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutClassNestedInput
+  }
+
+  export type ClassUncheckedUpdateWithoutDigitalResourcesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    gradeLevel?: NullableIntFieldUpdateOperationsInput | number | null
+    branchId?: StringFieldUpdateOperationsInput | string
+    classTeacherId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sections?: SectionUncheckedUpdateManyWithoutClassNestedInput
+    students?: StudentUncheckedUpdateManyWithoutClassNestedInput
+    feeStructures?: FeeStructureUncheckedUpdateManyWithoutClassNestedInput
+    liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutClassNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutDesiredClassNestedInput
+    onlineExams?: OnlineExamUncheckedUpdateManyWithoutClassNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutClassNestedInput
+  }
+
+  export type SectionUpsertWithoutDigitalResourcesInput = {
+    update: XOR<SectionUpdateWithoutDigitalResourcesInput, SectionUncheckedUpdateWithoutDigitalResourcesInput>
+    create: XOR<SectionCreateWithoutDigitalResourcesInput, SectionUncheckedCreateWithoutDigitalResourcesInput>
+    where?: SectionWhereInput
+  }
+
+  export type SectionUpdateToOneWithWhereWithoutDigitalResourcesInput = {
+    where?: SectionWhereInput
+    data: XOR<SectionUpdateWithoutDigitalResourcesInput, SectionUncheckedUpdateWithoutDigitalResourcesInput>
+  }
+
+  export type SectionUpdateWithoutDigitalResourcesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    class?: ClassUpdateOneRequiredWithoutSectionsNestedInput
+    students?: StudentUpdateManyWithoutSectionNestedInput
+    attendance?: AttendanceUpdateManyWithoutSectionNestedInput
+    assignments?: AssignmentUpdateManyWithoutSectionNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutSectionNestedInput
+    liveClassSessions?: LiveClassSessionUpdateManyWithoutSectionNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutDesiredSectionNestedInput
+    onlineExams?: OnlineExamUpdateManyWithoutSectionNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutSectionNestedInput
+  }
+
+  export type SectionUncheckedUpdateWithoutDigitalResourcesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    classId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    students?: StudentUncheckedUpdateManyWithoutSectionNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutSectionNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutSectionNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutSectionNestedInput
+    liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutSectionNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutDesiredSectionNestedInput
+    onlineExams?: OnlineExamUncheckedUpdateManyWithoutSectionNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutSectionNestedInput
+  }
+
+  export type SubjectUpsertWithoutDigitalResourcesInput = {
+    update: XOR<SubjectUpdateWithoutDigitalResourcesInput, SubjectUncheckedUpdateWithoutDigitalResourcesInput>
+    create: XOR<SubjectCreateWithoutDigitalResourcesInput, SubjectUncheckedCreateWithoutDigitalResourcesInput>
+    where?: SubjectWhereInput
+  }
+
+  export type SubjectUpdateToOneWithWhereWithoutDigitalResourcesInput = {
+    where?: SubjectWhereInput
+    data: XOR<SubjectUpdateWithoutDigitalResourcesInput, SubjectUncheckedUpdateWithoutDigitalResourcesInput>
+  }
+
+  export type SubjectUpdateWithoutDigitalResourcesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutSubjectsNestedInput
+    teachers?: StaffUpdateManyWithoutSubjectsNestedInput
+    assignments?: AssignmentUpdateManyWithoutSubjectNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutSubjectNestedInput
+    liveClassSessions?: LiveClassSessionUpdateManyWithoutSubjectNestedInput
+    onlineExams?: OnlineExamUpdateManyWithoutSubjectNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutSubjectNestedInput
+  }
+
+  export type SubjectUncheckedUpdateWithoutDigitalResourcesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    teachers?: StaffUncheckedUpdateManyWithoutSubjectsNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutSubjectNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutSubjectNestedInput
+    liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutSubjectNestedInput
+    onlineExams?: OnlineExamUncheckedUpdateManyWithoutSubjectNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutSubjectNestedInput
+  }
+
+  export type StaffUpsertWithoutDigitalResourcesInput = {
+    update: XOR<StaffUpdateWithoutDigitalResourcesInput, StaffUncheckedUpdateWithoutDigitalResourcesInput>
+    create: XOR<StaffCreateWithoutDigitalResourcesInput, StaffUncheckedCreateWithoutDigitalResourcesInput>
+    where?: StaffWhereInput
+  }
+
+  export type StaffUpdateToOneWithWhereWithoutDigitalResourcesInput = {
+    where?: StaffWhereInput
+    data: XOR<StaffUpdateWithoutDigitalResourcesInput, StaffUncheckedUpdateWithoutDigitalResourcesInput>
+  }
+
+  export type StaffUpdateWithoutDigitalResourcesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    designation?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutStaffNestedInput
+    department?: DepartmentUpdateOneWithoutStaffNestedInput
+    designationRef?: DesignationUpdateOneWithoutStaffNestedInput
+    inventoryIssues?: InventoryIssueUpdateManyWithoutStaffNestedInput
+    subjects?: SubjectUpdateManyWithoutTeachersNestedInput
+    classes?: ClassUpdateManyWithoutClassTeacherNestedInput
+    salaryTemplate?: SalaryTemplateUpdateOneWithoutStaffNestedInput
+    payrolls?: PayrollUpdateManyWithoutStaffNestedInput
+    leaveRequests?: LeaveRequestUpdateManyWithoutStaffNestedInput
+    awards?: StaffAwardUpdateManyWithoutStaffNestedInput
+    salaryAdvances?: AdvanceSalaryUpdateManyWithoutStaffNestedInput
+    assignments?: AssignmentUpdateManyWithoutTeacherNestedInput
+    hostedSessions?: LiveClassSessionUpdateManyWithoutHostNestedInput
+    idCards?: IdCardUpdateManyWithoutStaffNestedInput
+    attendance?: StaffAttendanceUpdateManyWithoutStaffNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutTeacherNestedInput
+  }
+
+  export type StaffUncheckedUpdateWithoutDigitalResourcesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    designation?: NullableStringFieldUpdateOperationsInput | string | null
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
+    designationId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutStaffNestedInput
+    subjects?: SubjectUncheckedUpdateManyWithoutTeachersNestedInput
+    classes?: ClassUncheckedUpdateManyWithoutClassTeacherNestedInput
+    salaryTemplate?: SalaryTemplateUncheckedUpdateOneWithoutStaffNestedInput
+    payrolls?: PayrollUncheckedUpdateManyWithoutStaffNestedInput
+    leaveRequests?: LeaveRequestUncheckedUpdateManyWithoutStaffNestedInput
+    awards?: StaffAwardUncheckedUpdateManyWithoutStaffNestedInput
+    salaryAdvances?: AdvanceSalaryUncheckedUpdateManyWithoutStaffNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
+    hostedSessions?: LiveClassSessionUncheckedUpdateManyWithoutHostNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutStaffNestedInput
+    attendance?: StaffAttendanceUncheckedUpdateManyWithoutStaffNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutTeacherNestedInput
+  }
+
+  export type BranchUpsertWithoutDigitalResourcesInput = {
+    update: XOR<BranchUpdateWithoutDigitalResourcesInput, BranchUncheckedUpdateWithoutDigitalResourcesInput>
+    create: XOR<BranchCreateWithoutDigitalResourcesInput, BranchUncheckedCreateWithoutDigitalResourcesInput>
+    where?: BranchWhereInput
+  }
+
+  export type BranchUpdateToOneWithWhereWithoutDigitalResourcesInput = {
+    where?: BranchWhereInput
+    data: XOR<BranchUpdateWithoutDigitalResourcesInput, BranchUncheckedUpdateWithoutDigitalResourcesInput>
+  }
+
+  export type BranchUpdateWithoutDigitalResourcesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutBranchNestedInput
+    students?: StudentUpdateManyWithoutBranchNestedInput
+    classes?: ClassUpdateManyWithoutBranchNestedInput
+    subjects?: SubjectUpdateManyWithoutBranchNestedInput
+    hostels?: HostelUpdateManyWithoutBranchNestedInput
+    feeCategories?: FeeCategoryUpdateManyWithoutBranchNestedInput
+    vehicles?: VehicleUpdateManyWithoutBranchNestedInput
+    routes?: TransportRouteUpdateManyWithoutBranchNestedInput
+    expenseCategories?: ExpenseCategoryUpdateManyWithoutBranchNestedInput
+    vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    departments?: DepartmentUpdateManyWithoutBranchNestedInput
+    designations?: DesignationUpdateManyWithoutBranchNestedInput
+    certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
+    books?: BookUpdateManyWithoutBranchNestedInput
+    googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
+    liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
+    studentCategories?: StudentCategoryUpdateManyWithoutBranchNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutBranchNestedInput
+    questionGroups?: QuestionGroupUpdateManyWithoutBranchNestedInput
+    onlineExams?: OnlineExamUpdateManyWithoutBranchNestedInput
+    enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
+    callLogs?: CallLogUpdateManyWithoutBranchNestedInput
+    visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
+    complaints?: ComplaintUpdateManyWithoutBranchNestedInput
+    postalRecords?: PostalRecordUpdateManyWithoutBranchNestedInput
+    inventoryCategories?: InventoryCategoryUpdateManyWithoutBranchNestedInput
+    inventoryStores?: InventoryStoreUpdateManyWithoutBranchNestedInput
+    inventorySuppliers?: InventorySupplierUpdateManyWithoutBranchNestedInput
+    inventoryUnits?: InventoryUnitUpdateManyWithoutBranchNestedInput
+    inventoryProducts?: InventoryProductUpdateManyWithoutBranchNestedInput
+    inventoryPurchases?: InventoryPurchaseUpdateManyWithoutBranchNestedInput
+    inventorySales?: InventorySaleUpdateManyWithoutBranchNestedInput
+    inventoryIssues?: InventoryIssueUpdateManyWithoutBranchNestedInput
+    alumni?: AlumniUpdateManyWithoutBranchNestedInput
+    alumniEvents?: AlumniEventUpdateManyWithoutBranchNestedInput
+    conversations?: ConversationUpdateManyWithoutBranchNestedInput
+    campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
+    accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
+    automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
+  }
+
+  export type BranchUncheckedUpdateWithoutDigitalResourcesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutBranchNestedInput
+    students?: StudentUncheckedUpdateManyWithoutBranchNestedInput
+    classes?: ClassUncheckedUpdateManyWithoutBranchNestedInput
+    subjects?: SubjectUncheckedUpdateManyWithoutBranchNestedInput
+    hostels?: HostelUncheckedUpdateManyWithoutBranchNestedInput
+    feeCategories?: FeeCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
+    routes?: TransportRouteUncheckedUpdateManyWithoutBranchNestedInput
+    expenseCategories?: ExpenseCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
+    designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
+    certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    books?: BookUncheckedUpdateManyWithoutBranchNestedInput
+    googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
+    liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
+    studentCategories?: StudentCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutBranchNestedInput
+    questionGroups?: QuestionGroupUncheckedUpdateManyWithoutBranchNestedInput
+    onlineExams?: OnlineExamUncheckedUpdateManyWithoutBranchNestedInput
+    enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
+    callLogs?: CallLogUncheckedUpdateManyWithoutBranchNestedInput
+    visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
+    complaints?: ComplaintUncheckedUpdateManyWithoutBranchNestedInput
+    postalRecords?: PostalRecordUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryCategories?: InventoryCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryStores?: InventoryStoreUncheckedUpdateManyWithoutBranchNestedInput
+    inventorySuppliers?: InventorySupplierUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryUnits?: InventoryUnitUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryProducts?: InventoryProductUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryPurchases?: InventoryPurchaseUncheckedUpdateManyWithoutBranchNestedInput
+    inventorySales?: InventorySaleUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutBranchNestedInput
+    alumni?: AlumniUncheckedUpdateManyWithoutBranchNestedInput
+    alumniEvents?: AlumniEventUncheckedUpdateManyWithoutBranchNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutBranchNestedInput
+    campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
+    accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
+    automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
+  }
+
+  export type DigitalResourceLogUpsertWithWhereUniqueWithoutResourceInput = {
+    where: DigitalResourceLogWhereUniqueInput
+    update: XOR<DigitalResourceLogUpdateWithoutResourceInput, DigitalResourceLogUncheckedUpdateWithoutResourceInput>
+    create: XOR<DigitalResourceLogCreateWithoutResourceInput, DigitalResourceLogUncheckedCreateWithoutResourceInput>
+  }
+
+  export type DigitalResourceLogUpdateWithWhereUniqueWithoutResourceInput = {
+    where: DigitalResourceLogWhereUniqueInput
+    data: XOR<DigitalResourceLogUpdateWithoutResourceInput, DigitalResourceLogUncheckedUpdateWithoutResourceInput>
+  }
+
+  export type DigitalResourceLogUpdateManyWithWhereWithoutResourceInput = {
+    where: DigitalResourceLogScalarWhereInput
+    data: XOR<DigitalResourceLogUpdateManyMutationInput, DigitalResourceLogUncheckedUpdateManyWithoutResourceInput>
+  }
+
+  export type DigitalResourceCreateWithoutLogsInput = {
+    id?: string
+    title: string
+    description?: string | null
+    fileUrl: string
+    fileType: string
+    fileSize?: number | null
+    thumbnailUrl?: string | null
+    category: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    session: AcademicSessionCreateNestedOneWithoutDigitalResourcesInput
+    class?: ClassCreateNestedOneWithoutDigitalResourcesInput
+    section?: SectionCreateNestedOneWithoutDigitalResourcesInput
+    subject?: SubjectCreateNestedOneWithoutDigitalResourcesInput
+    uploader: StaffCreateNestedOneWithoutDigitalResourcesInput
+    branch: BranchCreateNestedOneWithoutDigitalResourcesInput
+  }
+
+  export type DigitalResourceUncheckedCreateWithoutLogsInput = {
+    id?: string
+    title: string
+    description?: string | null
+    fileUrl: string
+    fileType: string
+    fileSize?: number | null
+    thumbnailUrl?: string | null
+    category: string
+    sessionId: string
+    classId?: string | null
+    sectionId?: string | null
+    subjectId?: string | null
+    uploaderId: string
+    branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DigitalResourceCreateOrConnectWithoutLogsInput = {
+    where: DigitalResourceWhereUniqueInput
+    create: XOR<DigitalResourceCreateWithoutLogsInput, DigitalResourceUncheckedCreateWithoutLogsInput>
+  }
+
+  export type UserCreateWithoutDigitalResourceLogsInput = {
+    id?: string
+    email: string
+    password: string
+    firstName: string
+    lastName: string
+    phone?: string | null
+    isActive?: boolean
+    role: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    branch?: BranchCreateNestedOneWithoutUsersInput
+    staff?: StaffCreateNestedOneWithoutUserInput
+    student?: StudentCreateNestedOneWithoutUserInput
+    children?: StudentCreateNestedManyWithoutParentInput
+    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
+    approvedVouchers?: VoucherCreateNestedManyWithoutApprovedByInput
+    issuedCertificates?: CertificateCreateNestedManyWithoutIssuedByInput
+    meetingParticipations?: MeetingParticipantCreateNestedManyWithoutUserInput
+    conversationParticipations?: ConversationParticipantCreateNestedManyWithoutUserInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    eventRSVPs?: EventRSVPCreateNestedManyWithoutUserInput
+    accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutParentInput
+  }
+
+  export type UserUncheckedCreateWithoutDigitalResourceLogsInput = {
+    id?: string
+    email: string
+    password: string
+    firstName: string
+    lastName: string
+    phone?: string | null
+    isActive?: boolean
+    role: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    branchId?: string | null
+    staff?: StaffUncheckedCreateNestedOneWithoutUserInput
+    student?: StudentUncheckedCreateNestedOneWithoutUserInput
+    children?: StudentUncheckedCreateNestedManyWithoutParentInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    approvedVouchers?: VoucherUncheckedCreateNestedManyWithoutApprovedByInput
+    issuedCertificates?: CertificateUncheckedCreateNestedManyWithoutIssuedByInput
+    meetingParticipations?: MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
+    conversationParticipations?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    eventRSVPs?: EventRSVPUncheckedCreateNestedManyWithoutUserInput
+    accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutParentInput
+  }
+
+  export type UserCreateOrConnectWithoutDigitalResourceLogsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutDigitalResourceLogsInput, UserUncheckedCreateWithoutDigitalResourceLogsInput>
+  }
+
+  export type DigitalResourceUpsertWithoutLogsInput = {
+    update: XOR<DigitalResourceUpdateWithoutLogsInput, DigitalResourceUncheckedUpdateWithoutLogsInput>
+    create: XOR<DigitalResourceCreateWithoutLogsInput, DigitalResourceUncheckedCreateWithoutLogsInput>
+    where?: DigitalResourceWhereInput
+  }
+
+  export type DigitalResourceUpdateToOneWithWhereWithoutLogsInput = {
+    where?: DigitalResourceWhereInput
+    data: XOR<DigitalResourceUpdateWithoutLogsInput, DigitalResourceUncheckedUpdateWithoutLogsInput>
+  }
+
+  export type DigitalResourceUpdateWithoutLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileType?: StringFieldUpdateOperationsInput | string
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    session?: AcademicSessionUpdateOneRequiredWithoutDigitalResourcesNestedInput
+    class?: ClassUpdateOneWithoutDigitalResourcesNestedInput
+    section?: SectionUpdateOneWithoutDigitalResourcesNestedInput
+    subject?: SubjectUpdateOneWithoutDigitalResourcesNestedInput
+    uploader?: StaffUpdateOneRequiredWithoutDigitalResourcesNestedInput
+    branch?: BranchUpdateOneRequiredWithoutDigitalResourcesNestedInput
+  }
+
+  export type DigitalResourceUncheckedUpdateWithoutLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileType?: StringFieldUpdateOperationsInput | string
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    sectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectId?: NullableStringFieldUpdateOperationsInput | string | null
+    uploaderId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUpsertWithoutDigitalResourceLogsInput = {
+    update: XOR<UserUpdateWithoutDigitalResourceLogsInput, UserUncheckedUpdateWithoutDigitalResourceLogsInput>
+    create: XOR<UserCreateWithoutDigitalResourceLogsInput, UserUncheckedCreateWithoutDigitalResourceLogsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutDigitalResourceLogsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutDigitalResourceLogsInput, UserUncheckedUpdateWithoutDigitalResourceLogsInput>
+  }
+
+  export type UserUpdateWithoutDigitalResourceLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneWithoutUsersNestedInput
+    staff?: StaffUpdateOneWithoutUserNestedInput
+    student?: StudentUpdateOneWithoutUserNestedInput
+    children?: StudentUpdateManyWithoutParentNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
+    approvedVouchers?: VoucherUpdateManyWithoutApprovedByNestedInput
+    issuedCertificates?: CertificateUpdateManyWithoutIssuedByNestedInput
+    meetingParticipations?: MeetingParticipantUpdateManyWithoutUserNestedInput
+    conversationParticipations?: ConversationParticipantUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    eventRSVPs?: EventRSVPUpdateManyWithoutUserNestedInput
+    accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutParentNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutDigitalResourceLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    staff?: StaffUncheckedUpdateOneWithoutUserNestedInput
+    student?: StudentUncheckedUpdateOneWithoutUserNestedInput
+    children?: StudentUncheckedUpdateManyWithoutParentNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    approvedVouchers?: VoucherUncheckedUpdateManyWithoutApprovedByNestedInput
+    issuedCertificates?: CertificateUncheckedUpdateManyWithoutIssuedByNestedInput
+    meetingParticipations?: MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
+    conversationParticipations?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    eventRSVPs?: EventRSVPUncheckedUpdateManyWithoutUserNestedInput
+    accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutParentNestedInput
   }
 
   export type UserCreateManyBranchInput = {
@@ -173848,8 +185126,9 @@ export namespace Prisma {
     title: string
     description?: string | null
     meetingId: string
-    hostUrl: string
-    participantUrl: string
+    meetLink?: string | null
+    hostUrl?: string | null
+    participantUrl?: string | null
     classId?: string | null
     sectionId?: string | null
     subjectId?: string | null
@@ -173858,8 +185137,14 @@ export namespace Prisma {
     scheduledEnd: Date | string
     actualStart?: Date | string | null
     actualEnd?: Date | string | null
+    timezone?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    seriesId?: string | null
     status?: string
+    recordingId?: string | null
     recordingUrl?: string | null
+    recordingStatus?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -174214,6 +185499,24 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type DigitalResourceCreateManyBranchInput = {
+    id?: string
+    title: string
+    description?: string | null
+    fileUrl: string
+    fileType: string
+    fileSize?: number | null
+    thumbnailUrl?: string | null
+    category: string
+    sessionId: string
+    classId?: string | null
+    sectionId?: string | null
+    subjectId?: string | null
+    uploaderId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type DeactivationReasonCreateManyBranchInput = {
     id?: string
     title: string
@@ -174228,6 +185531,19 @@ export namespace Prisma {
     userId: string
     reason: string
     reasonId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AssignmentCreateManyBranchInput = {
+    id?: string
+    title: string
+    description?: string | null
+    dueDate: Date | string
+    attachmentUrl?: string | null
+    subjectId: string
+    sectionId: string
+    teacherId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -174255,6 +185571,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutParentNestedInput
+    digitalResourceLogs?: DigitalResourceLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBranchInput = {
@@ -174280,6 +185597,7 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutParentNestedInput
+    digitalResourceLogs?: DigitalResourceLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutBranchInput = {
@@ -174479,6 +185797,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionUpdateManyWithoutClassNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutDesiredClassNestedInput
     onlineExams?: OnlineExamUpdateManyWithoutClassNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutClassNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutBranchInput = {
@@ -174494,6 +185814,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutClassNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutDesiredClassNestedInput
     onlineExams?: OnlineExamUncheckedUpdateManyWithoutClassNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutClassNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateManyWithoutBranchInput = {
@@ -174516,6 +185838,8 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutSubjectNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutSubjectNestedInput
     onlineExams?: OnlineExamUpdateManyWithoutSubjectNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutSubjectNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutSubjectNestedInput
   }
 
   export type SubjectUncheckedUpdateWithoutBranchInput = {
@@ -174529,6 +185853,8 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutSubjectNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutSubjectNestedInput
     onlineExams?: OnlineExamUncheckedUpdateManyWithoutSubjectNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutSubjectNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutSubjectNestedInput
   }
 
   export type SubjectUncheckedUpdateManyWithoutBranchInput = {
@@ -174909,14 +186235,21 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     meetingId?: StringFieldUpdateOperationsInput | string
-    hostUrl?: StringFieldUpdateOperationsInput | string
-    participantUrl?: StringFieldUpdateOperationsInput | string
+    meetLink?: NullableStringFieldUpdateOperationsInput | string | null
+    hostUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    participantUrl?: NullableStringFieldUpdateOperationsInput | string | null
     scheduledStart?: DateTimeFieldUpdateOperationsInput | Date | string
     scheduledEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     actualStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     actualEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timezone?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    seriesId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
+    recordingId?: NullableStringFieldUpdateOperationsInput | string | null
     recordingUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recordingStatus?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     class?: ClassUpdateOneWithoutLiveClassSessionsNestedInput
@@ -174931,8 +186264,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     meetingId?: StringFieldUpdateOperationsInput | string
-    hostUrl?: StringFieldUpdateOperationsInput | string
-    participantUrl?: StringFieldUpdateOperationsInput | string
+    meetLink?: NullableStringFieldUpdateOperationsInput | string | null
+    hostUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    participantUrl?: NullableStringFieldUpdateOperationsInput | string | null
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     subjectId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -174941,8 +186275,14 @@ export namespace Prisma {
     scheduledEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     actualStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     actualEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timezone?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    seriesId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
+    recordingId?: NullableStringFieldUpdateOperationsInput | string | null
     recordingUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recordingStatus?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     participants?: MeetingParticipantUncheckedUpdateManyWithoutSessionNestedInput
@@ -174953,8 +186293,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     meetingId?: StringFieldUpdateOperationsInput | string
-    hostUrl?: StringFieldUpdateOperationsInput | string
-    participantUrl?: StringFieldUpdateOperationsInput | string
+    meetLink?: NullableStringFieldUpdateOperationsInput | string | null
+    hostUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    participantUrl?: NullableStringFieldUpdateOperationsInput | string | null
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     subjectId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -174963,8 +186304,14 @@ export namespace Prisma {
     scheduledEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     actualStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     actualEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timezone?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    seriesId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
+    recordingId?: NullableStringFieldUpdateOperationsInput | string | null
     recordingUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recordingStatus?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -176055,6 +187402,62 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DigitalResourceUpdateWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileType?: StringFieldUpdateOperationsInput | string
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    session?: AcademicSessionUpdateOneRequiredWithoutDigitalResourcesNestedInput
+    class?: ClassUpdateOneWithoutDigitalResourcesNestedInput
+    section?: SectionUpdateOneWithoutDigitalResourcesNestedInput
+    subject?: SubjectUpdateOneWithoutDigitalResourcesNestedInput
+    uploader?: StaffUpdateOneRequiredWithoutDigitalResourcesNestedInput
+    logs?: DigitalResourceLogUpdateManyWithoutResourceNestedInput
+  }
+
+  export type DigitalResourceUncheckedUpdateWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileType?: StringFieldUpdateOperationsInput | string
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    sectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectId?: NullableStringFieldUpdateOperationsInput | string | null
+    uploaderId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    logs?: DigitalResourceLogUncheckedUpdateManyWithoutResourceNestedInput
+  }
+
+  export type DigitalResourceUncheckedUpdateManyWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileType?: StringFieldUpdateOperationsInput | string
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    sectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectId?: NullableStringFieldUpdateOperationsInput | string | null
+    uploaderId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type DeactivationReasonUpdateWithoutBranchInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
@@ -176107,6 +187510,47 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     reasonId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AssignmentUpdateWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    subject?: SubjectUpdateOneRequiredWithoutAssignmentsNestedInput
+    section?: SectionUpdateOneRequiredWithoutAssignmentsNestedInput
+    submissions?: SubmissionUpdateManyWithoutAssignmentNestedInput
+    teacher?: StaffUpdateOneWithoutAssignmentsNestedInput
+  }
+
+  export type AssignmentUncheckedUpdateWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectId?: StringFieldUpdateOperationsInput | string
+    sectionId?: StringFieldUpdateOperationsInput | string
+    teacherId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    submissions?: SubmissionUncheckedUpdateManyWithoutAssignmentNestedInput
+  }
+
+  export type AssignmentUncheckedUpdateManyWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectId?: StringFieldUpdateOperationsInput | string
+    sectionId?: StringFieldUpdateOperationsInput | string
+    teacherId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -176364,6 +187808,15 @@ export namespace Prisma {
     paymentMethod?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type DigitalResourceLogCreateManyUserInput = {
+    id?: string
+    resourceId: string
+    action: string
+    ipAddress?: string | null
+    userAgent?: string | null
+    createdAt?: Date | string
   }
 
   export type StudentUpdateWithoutParentInput = {
@@ -177041,6 +188494,33 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DigitalResourceLogUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resource?: DigitalResourceUpdateOneRequiredWithoutLogsNestedInput
+  }
+
+  export type DigitalResourceLogUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    resourceId?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DigitalResourceLogUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    resourceId?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type InventoryIssueCreateManyStaffInput = {
     id?: string
     date?: Date | string
@@ -177109,8 +188589,10 @@ export namespace Prisma {
     title: string
     description?: string | null
     dueDate: Date | string
+    attachmentUrl?: string | null
     subjectId: string
     sectionId: string
+    branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -177120,8 +188602,9 @@ export namespace Prisma {
     title: string
     description?: string | null
     meetingId: string
-    hostUrl: string
-    participantUrl: string
+    meetLink?: string | null
+    hostUrl?: string | null
+    participantUrl?: string | null
     classId?: string | null
     sectionId?: string | null
     subjectId?: string | null
@@ -177129,8 +188612,14 @@ export namespace Prisma {
     scheduledEnd: Date | string
     actualStart?: Date | string | null
     actualEnd?: Date | string | null
+    timezone?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    seriesId?: string | null
     status?: string
+    recordingId?: string | null
     recordingUrl?: string | null
+    recordingStatus?: string | null
     branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -177143,6 +188632,46 @@ export namespace Prisma {
     sessionId: string
     status?: string
     issueDate?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StaffAttendanceCreateManyStaffInput = {
+    id?: string
+    date: Date | string
+    status: $Enums.AttendanceStatus
+    remarks?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ClassScheduleCreateManyTeacherInput = {
+    id?: string
+    dayOfWeek: number
+    startTime: string
+    endTime: string
+    room?: string | null
+    classId: string
+    sectionId: string
+    subjectId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DigitalResourceCreateManyUploaderInput = {
+    id?: string
+    title: string
+    description?: string | null
+    fileUrl: string
+    fileType: string
+    fileSize?: number | null
+    thumbnailUrl?: string | null
+    category: string
+    sessionId: string
+    classId?: string | null
+    sectionId?: string | null
+    subjectId?: string | null
+    branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -177200,6 +188729,8 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutSubjectNestedInput
     liveClassSessions?: LiveClassSessionUpdateManyWithoutSubjectNestedInput
     onlineExams?: OnlineExamUpdateManyWithoutSubjectNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutSubjectNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutSubjectNestedInput
   }
 
   export type SubjectUncheckedUpdateWithoutTeachersInput = {
@@ -177213,6 +188744,8 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutSubjectNestedInput
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutSubjectNestedInput
     onlineExams?: OnlineExamUncheckedUpdateManyWithoutSubjectNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutSubjectNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutSubjectNestedInput
   }
 
   export type SubjectUncheckedUpdateManyWithoutTeachersInput = {
@@ -177237,6 +188770,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionUpdateManyWithoutClassNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutDesiredClassNestedInput
     onlineExams?: OnlineExamUpdateManyWithoutClassNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutClassNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutClassTeacherInput = {
@@ -177252,6 +188787,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutClassNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutDesiredClassNestedInput
     onlineExams?: OnlineExamUncheckedUpdateManyWithoutClassNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutClassNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateManyWithoutClassTeacherInput = {
@@ -177388,11 +188925,13 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subject?: SubjectUpdateOneRequiredWithoutAssignmentsNestedInput
     section?: SectionUpdateOneRequiredWithoutAssignmentsNestedInput
     submissions?: SubmissionUpdateManyWithoutAssignmentNestedInput
+    branch?: BranchUpdateOneRequiredWithoutAssignmentsNestedInput
   }
 
   export type AssignmentUncheckedUpdateWithoutTeacherInput = {
@@ -177400,8 +188939,10 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     subjectId?: StringFieldUpdateOperationsInput | string
     sectionId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     submissions?: SubmissionUncheckedUpdateManyWithoutAssignmentNestedInput
@@ -177412,8 +188953,10 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     subjectId?: StringFieldUpdateOperationsInput | string
     sectionId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -177423,14 +188966,21 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     meetingId?: StringFieldUpdateOperationsInput | string
-    hostUrl?: StringFieldUpdateOperationsInput | string
-    participantUrl?: StringFieldUpdateOperationsInput | string
+    meetLink?: NullableStringFieldUpdateOperationsInput | string | null
+    hostUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    participantUrl?: NullableStringFieldUpdateOperationsInput | string | null
     scheduledStart?: DateTimeFieldUpdateOperationsInput | Date | string
     scheduledEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     actualStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     actualEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timezone?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    seriesId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
+    recordingId?: NullableStringFieldUpdateOperationsInput | string | null
     recordingUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recordingStatus?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     class?: ClassUpdateOneWithoutLiveClassSessionsNestedInput
@@ -177445,8 +188995,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     meetingId?: StringFieldUpdateOperationsInput | string
-    hostUrl?: StringFieldUpdateOperationsInput | string
-    participantUrl?: StringFieldUpdateOperationsInput | string
+    meetLink?: NullableStringFieldUpdateOperationsInput | string | null
+    hostUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    participantUrl?: NullableStringFieldUpdateOperationsInput | string | null
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     subjectId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -177454,8 +189005,14 @@ export namespace Prisma {
     scheduledEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     actualStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     actualEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timezone?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    seriesId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
+    recordingId?: NullableStringFieldUpdateOperationsInput | string | null
     recordingUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recordingStatus?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -177467,8 +189024,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     meetingId?: StringFieldUpdateOperationsInput | string
-    hostUrl?: StringFieldUpdateOperationsInput | string
-    participantUrl?: StringFieldUpdateOperationsInput | string
+    meetLink?: NullableStringFieldUpdateOperationsInput | string | null
+    hostUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    participantUrl?: NullableStringFieldUpdateOperationsInput | string | null
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     subjectId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -177476,8 +189034,14 @@ export namespace Prisma {
     scheduledEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     actualStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     actualEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timezone?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    seriesId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
+    recordingId?: NullableStringFieldUpdateOperationsInput | string | null
     recordingUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recordingStatus?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -177512,6 +189076,128 @@ export namespace Prisma {
     sessionId?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffAttendanceUpdateWithoutStaffInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffAttendanceUncheckedUpdateWithoutStaffInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffAttendanceUncheckedUpdateManyWithoutStaffInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClassScheduleUpdateWithoutTeacherInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dayOfWeek?: IntFieldUpdateOperationsInput | number
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    room?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    class?: ClassUpdateOneRequiredWithoutClassSchedulesNestedInput
+    section?: SectionUpdateOneRequiredWithoutClassSchedulesNestedInput
+    subject?: SubjectUpdateOneRequiredWithoutClassSchedulesNestedInput
+  }
+
+  export type ClassScheduleUncheckedUpdateWithoutTeacherInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dayOfWeek?: IntFieldUpdateOperationsInput | number
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    room?: NullableStringFieldUpdateOperationsInput | string | null
+    classId?: StringFieldUpdateOperationsInput | string
+    sectionId?: StringFieldUpdateOperationsInput | string
+    subjectId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClassScheduleUncheckedUpdateManyWithoutTeacherInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dayOfWeek?: IntFieldUpdateOperationsInput | number
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    room?: NullableStringFieldUpdateOperationsInput | string | null
+    classId?: StringFieldUpdateOperationsInput | string
+    sectionId?: StringFieldUpdateOperationsInput | string
+    subjectId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DigitalResourceUpdateWithoutUploaderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileType?: StringFieldUpdateOperationsInput | string
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    session?: AcademicSessionUpdateOneRequiredWithoutDigitalResourcesNestedInput
+    class?: ClassUpdateOneWithoutDigitalResourcesNestedInput
+    section?: SectionUpdateOneWithoutDigitalResourcesNestedInput
+    subject?: SubjectUpdateOneWithoutDigitalResourcesNestedInput
+    branch?: BranchUpdateOneRequiredWithoutDigitalResourcesNestedInput
+    logs?: DigitalResourceLogUpdateManyWithoutResourceNestedInput
+  }
+
+  export type DigitalResourceUncheckedUpdateWithoutUploaderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileType?: StringFieldUpdateOperationsInput | string
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    sectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectId?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    logs?: DigitalResourceLogUncheckedUpdateManyWithoutResourceNestedInput
+  }
+
+  export type DigitalResourceUncheckedUpdateManyWithoutUploaderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileType?: StringFieldUpdateOperationsInput | string
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    sectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectId?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -177670,6 +189356,7 @@ export namespace Prisma {
     startTime?: Date | string
     endTime?: Date | string | null
     score?: number | null
+    position?: number | null
     status?: $Enums.AttemptStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -178155,6 +189842,7 @@ export namespace Prisma {
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     score?: NullableFloatFieldUpdateOperationsInput | number | null
+    position?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -178168,6 +189856,7 @@ export namespace Prisma {
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     score?: NullableFloatFieldUpdateOperationsInput | number | null
+    position?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -178180,6 +189869,7 @@ export namespace Prisma {
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     score?: NullableFloatFieldUpdateOperationsInput | number | null
+    position?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -178388,8 +190078,9 @@ export namespace Prisma {
     title: string
     description?: string | null
     meetingId: string
-    hostUrl: string
-    participantUrl: string
+    meetLink?: string | null
+    hostUrl?: string | null
+    participantUrl?: string | null
     sectionId?: string | null
     subjectId?: string | null
     hostId: string
@@ -178397,8 +190088,14 @@ export namespace Prisma {
     scheduledEnd: Date | string
     actualStart?: Date | string | null
     actualEnd?: Date | string | null
+    timezone?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    seriesId?: string | null
     status?: string
+    recordingId?: string | null
     recordingUrl?: string | null
+    recordingStatus?: string | null
     branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -178505,6 +190202,37 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type ClassScheduleCreateManyClassInput = {
+    id?: string
+    dayOfWeek: number
+    startTime: string
+    endTime: string
+    room?: string | null
+    sectionId: string
+    subjectId: string
+    teacherId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DigitalResourceCreateManyClassInput = {
+    id?: string
+    title: string
+    description?: string | null
+    fileUrl: string
+    fileType: string
+    fileSize?: number | null
+    thumbnailUrl?: string | null
+    category: string
+    sessionId: string
+    sectionId?: string | null
+    subjectId?: string | null
+    uploaderId: string
+    branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type SectionUpdateWithoutClassInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -178517,6 +190245,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionUpdateManyWithoutSectionNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutDesiredSectionNestedInput
     onlineExams?: OnlineExamUpdateManyWithoutSectionNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutSectionNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutSectionNestedInput
   }
 
   export type SectionUncheckedUpdateWithoutClassInput = {
@@ -178531,6 +190261,8 @@ export namespace Prisma {
     liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutSectionNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutDesiredSectionNestedInput
     onlineExams?: OnlineExamUncheckedUpdateManyWithoutSectionNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutSectionNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutSectionNestedInput
   }
 
   export type SectionUncheckedUpdateManyWithoutClassInput = {
@@ -178743,14 +190475,21 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     meetingId?: StringFieldUpdateOperationsInput | string
-    hostUrl?: StringFieldUpdateOperationsInput | string
-    participantUrl?: StringFieldUpdateOperationsInput | string
+    meetLink?: NullableStringFieldUpdateOperationsInput | string | null
+    hostUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    participantUrl?: NullableStringFieldUpdateOperationsInput | string | null
     scheduledStart?: DateTimeFieldUpdateOperationsInput | Date | string
     scheduledEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     actualStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     actualEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timezone?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    seriesId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
+    recordingId?: NullableStringFieldUpdateOperationsInput | string | null
     recordingUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recordingStatus?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     section?: SectionUpdateOneWithoutLiveClassSessionsNestedInput
@@ -178765,8 +190504,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     meetingId?: StringFieldUpdateOperationsInput | string
-    hostUrl?: StringFieldUpdateOperationsInput | string
-    participantUrl?: StringFieldUpdateOperationsInput | string
+    meetLink?: NullableStringFieldUpdateOperationsInput | string | null
+    hostUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    participantUrl?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     subjectId?: NullableStringFieldUpdateOperationsInput | string | null
     hostId?: StringFieldUpdateOperationsInput | string
@@ -178774,8 +190514,14 @@ export namespace Prisma {
     scheduledEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     actualStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     actualEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timezone?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    seriesId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
+    recordingId?: NullableStringFieldUpdateOperationsInput | string | null
     recordingUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recordingStatus?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -178787,8 +190533,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     meetingId?: StringFieldUpdateOperationsInput | string
-    hostUrl?: StringFieldUpdateOperationsInput | string
-    participantUrl?: StringFieldUpdateOperationsInput | string
+    meetLink?: NullableStringFieldUpdateOperationsInput | string | null
+    hostUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    participantUrl?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     subjectId?: NullableStringFieldUpdateOperationsInput | string | null
     hostId?: StringFieldUpdateOperationsInput | string
@@ -178796,8 +190543,14 @@ export namespace Prisma {
     scheduledEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     actualStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     actualEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timezone?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    seriesId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
+    recordingId?: NullableStringFieldUpdateOperationsInput | string | null
     recordingUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recordingStatus?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -179108,6 +190861,101 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ClassScheduleUpdateWithoutClassInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dayOfWeek?: IntFieldUpdateOperationsInput | number
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    room?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    section?: SectionUpdateOneRequiredWithoutClassSchedulesNestedInput
+    subject?: SubjectUpdateOneRequiredWithoutClassSchedulesNestedInput
+    teacher?: StaffUpdateOneRequiredWithoutClassSchedulesNestedInput
+  }
+
+  export type ClassScheduleUncheckedUpdateWithoutClassInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dayOfWeek?: IntFieldUpdateOperationsInput | number
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    room?: NullableStringFieldUpdateOperationsInput | string | null
+    sectionId?: StringFieldUpdateOperationsInput | string
+    subjectId?: StringFieldUpdateOperationsInput | string
+    teacherId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClassScheduleUncheckedUpdateManyWithoutClassInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dayOfWeek?: IntFieldUpdateOperationsInput | number
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    room?: NullableStringFieldUpdateOperationsInput | string | null
+    sectionId?: StringFieldUpdateOperationsInput | string
+    subjectId?: StringFieldUpdateOperationsInput | string
+    teacherId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DigitalResourceUpdateWithoutClassInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileType?: StringFieldUpdateOperationsInput | string
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    session?: AcademicSessionUpdateOneRequiredWithoutDigitalResourcesNestedInput
+    section?: SectionUpdateOneWithoutDigitalResourcesNestedInput
+    subject?: SubjectUpdateOneWithoutDigitalResourcesNestedInput
+    uploader?: StaffUpdateOneRequiredWithoutDigitalResourcesNestedInput
+    branch?: BranchUpdateOneRequiredWithoutDigitalResourcesNestedInput
+    logs?: DigitalResourceLogUpdateManyWithoutResourceNestedInput
+  }
+
+  export type DigitalResourceUncheckedUpdateWithoutClassInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileType?: StringFieldUpdateOperationsInput | string
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    sectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectId?: NullableStringFieldUpdateOperationsInput | string | null
+    uploaderId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    logs?: DigitalResourceLogUncheckedUpdateManyWithoutResourceNestedInput
+  }
+
+  export type DigitalResourceUncheckedUpdateManyWithoutClassInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileType?: StringFieldUpdateOperationsInput | string
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    sectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectId?: NullableStringFieldUpdateOperationsInput | string | null
+    uploaderId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StudentCreateManySectionInput = {
     id?: string
     userId?: string | null
@@ -179170,8 +191018,10 @@ export namespace Prisma {
     title: string
     description?: string | null
     dueDate: Date | string
+    attachmentUrl?: string | null
     subjectId: string
     teacherId?: string | null
+    branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -179206,8 +191056,9 @@ export namespace Prisma {
     title: string
     description?: string | null
     meetingId: string
-    hostUrl: string
-    participantUrl: string
+    meetLink?: string | null
+    hostUrl?: string | null
+    participantUrl?: string | null
     classId?: string | null
     subjectId?: string | null
     hostId: string
@@ -179215,8 +191066,14 @@ export namespace Prisma {
     scheduledEnd: Date | string
     actualStart?: Date | string | null
     actualEnd?: Date | string | null
+    timezone?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    seriesId?: string | null
     status?: string
+    recordingId?: string | null
     recordingUrl?: string | null
+    recordingStatus?: string | null
     branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -179318,6 +191175,37 @@ export namespace Prisma {
     classId: string
     subjectId: string
     groupId: string
+    branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ClassScheduleCreateManySectionInput = {
+    id?: string
+    dayOfWeek: number
+    startTime: string
+    endTime: string
+    room?: string | null
+    classId: string
+    subjectId: string
+    teacherId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DigitalResourceCreateManySectionInput = {
+    id?: string
+    title: string
+    description?: string | null
+    fileUrl: string
+    fileType: string
+    fileSize?: number | null
+    thumbnailUrl?: string | null
+    category: string
+    sessionId: string
+    classId?: string | null
+    subjectId?: string | null
+    uploaderId: string
     branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -179529,11 +191417,13 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subject?: SubjectUpdateOneRequiredWithoutAssignmentsNestedInput
     submissions?: SubmissionUpdateManyWithoutAssignmentNestedInput
     teacher?: StaffUpdateOneWithoutAssignmentsNestedInput
+    branch?: BranchUpdateOneRequiredWithoutAssignmentsNestedInput
   }
 
   export type AssignmentUncheckedUpdateWithoutSectionInput = {
@@ -179541,8 +191431,10 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     subjectId?: StringFieldUpdateOperationsInput | string
     teacherId?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     submissions?: SubmissionUncheckedUpdateManyWithoutAssignmentNestedInput
@@ -179553,8 +191445,10 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     subjectId?: StringFieldUpdateOperationsInput | string
     teacherId?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -179639,14 +191533,21 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     meetingId?: StringFieldUpdateOperationsInput | string
-    hostUrl?: StringFieldUpdateOperationsInput | string
-    participantUrl?: StringFieldUpdateOperationsInput | string
+    meetLink?: NullableStringFieldUpdateOperationsInput | string | null
+    hostUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    participantUrl?: NullableStringFieldUpdateOperationsInput | string | null
     scheduledStart?: DateTimeFieldUpdateOperationsInput | Date | string
     scheduledEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     actualStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     actualEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timezone?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    seriesId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
+    recordingId?: NullableStringFieldUpdateOperationsInput | string | null
     recordingUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recordingStatus?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     class?: ClassUpdateOneWithoutLiveClassSessionsNestedInput
@@ -179661,8 +191562,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     meetingId?: StringFieldUpdateOperationsInput | string
-    hostUrl?: StringFieldUpdateOperationsInput | string
-    participantUrl?: StringFieldUpdateOperationsInput | string
+    meetLink?: NullableStringFieldUpdateOperationsInput | string | null
+    hostUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    participantUrl?: NullableStringFieldUpdateOperationsInput | string | null
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     subjectId?: NullableStringFieldUpdateOperationsInput | string | null
     hostId?: StringFieldUpdateOperationsInput | string
@@ -179670,8 +191572,14 @@ export namespace Prisma {
     scheduledEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     actualStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     actualEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timezone?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    seriesId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
+    recordingId?: NullableStringFieldUpdateOperationsInput | string | null
     recordingUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recordingStatus?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -179683,8 +191591,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     meetingId?: StringFieldUpdateOperationsInput | string
-    hostUrl?: StringFieldUpdateOperationsInput | string
-    participantUrl?: StringFieldUpdateOperationsInput | string
+    meetLink?: NullableStringFieldUpdateOperationsInput | string | null
+    hostUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    participantUrl?: NullableStringFieldUpdateOperationsInput | string | null
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     subjectId?: NullableStringFieldUpdateOperationsInput | string | null
     hostId?: StringFieldUpdateOperationsInput | string
@@ -179692,8 +191601,14 @@ export namespace Prisma {
     scheduledEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     actualStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     actualEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timezone?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    seriesId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
+    recordingId?: NullableStringFieldUpdateOperationsInput | string | null
     recordingUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recordingStatus?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -180004,13 +191919,110 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ClassScheduleUpdateWithoutSectionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dayOfWeek?: IntFieldUpdateOperationsInput | number
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    room?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    class?: ClassUpdateOneRequiredWithoutClassSchedulesNestedInput
+    subject?: SubjectUpdateOneRequiredWithoutClassSchedulesNestedInput
+    teacher?: StaffUpdateOneRequiredWithoutClassSchedulesNestedInput
+  }
+
+  export type ClassScheduleUncheckedUpdateWithoutSectionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dayOfWeek?: IntFieldUpdateOperationsInput | number
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    room?: NullableStringFieldUpdateOperationsInput | string | null
+    classId?: StringFieldUpdateOperationsInput | string
+    subjectId?: StringFieldUpdateOperationsInput | string
+    teacherId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClassScheduleUncheckedUpdateManyWithoutSectionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dayOfWeek?: IntFieldUpdateOperationsInput | number
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    room?: NullableStringFieldUpdateOperationsInput | string | null
+    classId?: StringFieldUpdateOperationsInput | string
+    subjectId?: StringFieldUpdateOperationsInput | string
+    teacherId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DigitalResourceUpdateWithoutSectionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileType?: StringFieldUpdateOperationsInput | string
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    session?: AcademicSessionUpdateOneRequiredWithoutDigitalResourcesNestedInput
+    class?: ClassUpdateOneWithoutDigitalResourcesNestedInput
+    subject?: SubjectUpdateOneWithoutDigitalResourcesNestedInput
+    uploader?: StaffUpdateOneRequiredWithoutDigitalResourcesNestedInput
+    branch?: BranchUpdateOneRequiredWithoutDigitalResourcesNestedInput
+    logs?: DigitalResourceLogUpdateManyWithoutResourceNestedInput
+  }
+
+  export type DigitalResourceUncheckedUpdateWithoutSectionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileType?: StringFieldUpdateOperationsInput | string
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectId?: NullableStringFieldUpdateOperationsInput | string | null
+    uploaderId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    logs?: DigitalResourceLogUncheckedUpdateManyWithoutResourceNestedInput
+  }
+
+  export type DigitalResourceUncheckedUpdateManyWithoutSectionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileType?: StringFieldUpdateOperationsInput | string
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectId?: NullableStringFieldUpdateOperationsInput | string | null
+    uploaderId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type AssignmentCreateManySubjectInput = {
     id?: string
     title: string
     description?: string | null
     dueDate: Date | string
+    attachmentUrl?: string | null
     sectionId: string
     teacherId?: string | null
+    branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -180045,8 +192057,9 @@ export namespace Prisma {
     title: string
     description?: string | null
     meetingId: string
-    hostUrl: string
-    participantUrl: string
+    meetLink?: string | null
+    hostUrl?: string | null
+    participantUrl?: string | null
     classId?: string | null
     sectionId?: string | null
     hostId: string
@@ -180054,8 +192067,14 @@ export namespace Prisma {
     scheduledEnd: Date | string
     actualStart?: Date | string | null
     actualEnd?: Date | string | null
+    timezone?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    seriesId?: string | null
     status?: string
+    recordingId?: string | null
     recordingUrl?: string | null
+    recordingStatus?: string | null
     branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -180072,6 +192091,37 @@ export namespace Prisma {
     classId: string
     sectionId?: string | null
     groupId: string
+    branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ClassScheduleCreateManySubjectInput = {
+    id?: string
+    dayOfWeek: number
+    startTime: string
+    endTime: string
+    room?: string | null
+    classId: string
+    sectionId: string
+    teacherId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DigitalResourceCreateManySubjectInput = {
+    id?: string
+    title: string
+    description?: string | null
+    fileUrl: string
+    fileType: string
+    fileSize?: number | null
+    thumbnailUrl?: string | null
+    category: string
+    sessionId: string
+    classId?: string | null
+    sectionId?: string | null
+    uploaderId: string
     branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -180096,6 +192146,9 @@ export namespace Prisma {
     assignments?: AssignmentUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUpdateManyWithoutHostNestedInput
     idCards?: IdCardUpdateManyWithoutStaffNestedInput
+    attendance?: StaffAttendanceUpdateManyWithoutStaffNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutTeacherNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutUploaderNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutSubjectsInput = {
@@ -180117,6 +192170,9 @@ export namespace Prisma {
     assignments?: AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUncheckedUpdateManyWithoutHostNestedInput
     idCards?: IdCardUncheckedUpdateManyWithoutStaffNestedInput
+    attendance?: StaffAttendanceUncheckedUpdateManyWithoutStaffNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutTeacherNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutUploaderNestedInput
   }
 
   export type StaffUncheckedUpdateManyWithoutSubjectsInput = {
@@ -180135,11 +192191,13 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     section?: SectionUpdateOneRequiredWithoutAssignmentsNestedInput
     submissions?: SubmissionUpdateManyWithoutAssignmentNestedInput
     teacher?: StaffUpdateOneWithoutAssignmentsNestedInput
+    branch?: BranchUpdateOneRequiredWithoutAssignmentsNestedInput
   }
 
   export type AssignmentUncheckedUpdateWithoutSubjectInput = {
@@ -180147,8 +192205,10 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: StringFieldUpdateOperationsInput | string
     teacherId?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     submissions?: SubmissionUncheckedUpdateManyWithoutAssignmentNestedInput
@@ -180159,8 +192219,10 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: StringFieldUpdateOperationsInput | string
     teacherId?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -180245,14 +192307,21 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     meetingId?: StringFieldUpdateOperationsInput | string
-    hostUrl?: StringFieldUpdateOperationsInput | string
-    participantUrl?: StringFieldUpdateOperationsInput | string
+    meetLink?: NullableStringFieldUpdateOperationsInput | string | null
+    hostUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    participantUrl?: NullableStringFieldUpdateOperationsInput | string | null
     scheduledStart?: DateTimeFieldUpdateOperationsInput | Date | string
     scheduledEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     actualStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     actualEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timezone?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    seriesId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
+    recordingId?: NullableStringFieldUpdateOperationsInput | string | null
     recordingUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recordingStatus?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     class?: ClassUpdateOneWithoutLiveClassSessionsNestedInput
@@ -180267,8 +192336,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     meetingId?: StringFieldUpdateOperationsInput | string
-    hostUrl?: StringFieldUpdateOperationsInput | string
-    participantUrl?: StringFieldUpdateOperationsInput | string
+    meetLink?: NullableStringFieldUpdateOperationsInput | string | null
+    hostUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    participantUrl?: NullableStringFieldUpdateOperationsInput | string | null
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     hostId?: StringFieldUpdateOperationsInput | string
@@ -180276,8 +192346,14 @@ export namespace Prisma {
     scheduledEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     actualStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     actualEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timezone?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    seriesId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
+    recordingId?: NullableStringFieldUpdateOperationsInput | string | null
     recordingUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recordingStatus?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -180289,8 +192365,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     meetingId?: StringFieldUpdateOperationsInput | string
-    hostUrl?: StringFieldUpdateOperationsInput | string
-    participantUrl?: StringFieldUpdateOperationsInput | string
+    meetLink?: NullableStringFieldUpdateOperationsInput | string | null
+    hostUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    participantUrl?: NullableStringFieldUpdateOperationsInput | string | null
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     hostId?: StringFieldUpdateOperationsInput | string
@@ -180298,8 +192375,14 @@ export namespace Prisma {
     scheduledEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     actualStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     actualEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timezone?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    seriesId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
+    recordingId?: NullableStringFieldUpdateOperationsInput | string | null
     recordingUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recordingStatus?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -180350,6 +192433,101 @@ export namespace Prisma {
     classId?: StringFieldUpdateOperationsInput | string
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     groupId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClassScheduleUpdateWithoutSubjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dayOfWeek?: IntFieldUpdateOperationsInput | number
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    room?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    class?: ClassUpdateOneRequiredWithoutClassSchedulesNestedInput
+    section?: SectionUpdateOneRequiredWithoutClassSchedulesNestedInput
+    teacher?: StaffUpdateOneRequiredWithoutClassSchedulesNestedInput
+  }
+
+  export type ClassScheduleUncheckedUpdateWithoutSubjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dayOfWeek?: IntFieldUpdateOperationsInput | number
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    room?: NullableStringFieldUpdateOperationsInput | string | null
+    classId?: StringFieldUpdateOperationsInput | string
+    sectionId?: StringFieldUpdateOperationsInput | string
+    teacherId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClassScheduleUncheckedUpdateManyWithoutSubjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dayOfWeek?: IntFieldUpdateOperationsInput | number
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    room?: NullableStringFieldUpdateOperationsInput | string | null
+    classId?: StringFieldUpdateOperationsInput | string
+    sectionId?: StringFieldUpdateOperationsInput | string
+    teacherId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DigitalResourceUpdateWithoutSubjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileType?: StringFieldUpdateOperationsInput | string
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    session?: AcademicSessionUpdateOneRequiredWithoutDigitalResourcesNestedInput
+    class?: ClassUpdateOneWithoutDigitalResourcesNestedInput
+    section?: SectionUpdateOneWithoutDigitalResourcesNestedInput
+    uploader?: StaffUpdateOneRequiredWithoutDigitalResourcesNestedInput
+    branch?: BranchUpdateOneRequiredWithoutDigitalResourcesNestedInput
+    logs?: DigitalResourceLogUpdateManyWithoutResourceNestedInput
+  }
+
+  export type DigitalResourceUncheckedUpdateWithoutSubjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileType?: StringFieldUpdateOperationsInput | string
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    sectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    uploaderId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    logs?: DigitalResourceLogUncheckedUpdateManyWithoutResourceNestedInput
+  }
+
+  export type DigitalResourceUncheckedUpdateManyWithoutSubjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileType?: StringFieldUpdateOperationsInput | string
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    sectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    uploaderId?: StringFieldUpdateOperationsInput | string
     branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -180841,6 +193019,7 @@ export namespace Prisma {
     startTime?: Date | string
     endTime?: Date | string | null
     score?: number | null
+    position?: number | null
     status?: $Enums.AttemptStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -180851,6 +193030,7 @@ export namespace Prisma {
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     score?: NullableFloatFieldUpdateOperationsInput | number | null
+    position?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -180864,6 +193044,7 @@ export namespace Prisma {
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     score?: NullableFloatFieldUpdateOperationsInput | number | null
+    position?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -180876,6 +193057,7 @@ export namespace Prisma {
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     score?: NullableFloatFieldUpdateOperationsInput | number | null
+    position?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -181194,6 +193376,24 @@ export namespace Prisma {
     templateId: string
     status?: string
     issueDate?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DigitalResourceCreateManySessionInput = {
+    id?: string
+    title: string
+    description?: string | null
+    fileUrl: string
+    fileType: string
+    fileSize?: number | null
+    thumbnailUrl?: string | null
+    category: string
+    classId?: string | null
+    sectionId?: string | null
+    subjectId?: string | null
+    uploaderId: string
+    branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -181693,6 +193893,62 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DigitalResourceUpdateWithoutSessionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileType?: StringFieldUpdateOperationsInput | string
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    class?: ClassUpdateOneWithoutDigitalResourcesNestedInput
+    section?: SectionUpdateOneWithoutDigitalResourcesNestedInput
+    subject?: SubjectUpdateOneWithoutDigitalResourcesNestedInput
+    uploader?: StaffUpdateOneRequiredWithoutDigitalResourcesNestedInput
+    branch?: BranchUpdateOneRequiredWithoutDigitalResourcesNestedInput
+    logs?: DigitalResourceLogUpdateManyWithoutResourceNestedInput
+  }
+
+  export type DigitalResourceUncheckedUpdateWithoutSessionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileType?: StringFieldUpdateOperationsInput | string
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    sectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectId?: NullableStringFieldUpdateOperationsInput | string | null
+    uploaderId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    logs?: DigitalResourceLogUncheckedUpdateManyWithoutResourceNestedInput
+  }
+
+  export type DigitalResourceUncheckedUpdateManyWithoutSessionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileType?: StringFieldUpdateOperationsInput | string
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    sectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectId?: NullableStringFieldUpdateOperationsInput | string | null
+    uploaderId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type VoucherCreateManyCategoryInput = {
     id?: string
     voucherNumber: string
@@ -181778,6 +194034,9 @@ export namespace Prisma {
     assignments?: AssignmentUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUpdateManyWithoutHostNestedInput
     idCards?: IdCardUpdateManyWithoutStaffNestedInput
+    attendance?: StaffAttendanceUpdateManyWithoutStaffNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutTeacherNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutUploaderNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutDepartmentInput = {
@@ -181799,6 +194058,9 @@ export namespace Prisma {
     assignments?: AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUncheckedUpdateManyWithoutHostNestedInput
     idCards?: IdCardUncheckedUpdateManyWithoutStaffNestedInput
+    attendance?: StaffAttendanceUncheckedUpdateManyWithoutStaffNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutTeacherNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutUploaderNestedInput
   }
 
   export type StaffUncheckedUpdateManyWithoutDepartmentInput = {
@@ -181840,6 +194102,9 @@ export namespace Prisma {
     assignments?: AssignmentUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUpdateManyWithoutHostNestedInput
     idCards?: IdCardUpdateManyWithoutStaffNestedInput
+    attendance?: StaffAttendanceUpdateManyWithoutStaffNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutTeacherNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutUploaderNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutDesignationRefInput = {
@@ -181861,6 +194126,9 @@ export namespace Prisma {
     assignments?: AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
     hostedSessions?: LiveClassSessionUncheckedUpdateManyWithoutHostNestedInput
     idCards?: IdCardUncheckedUpdateManyWithoutStaffNestedInput
+    attendance?: StaffAttendanceUncheckedUpdateManyWithoutStaffNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutTeacherNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutUploaderNestedInput
   }
 
   export type StaffUncheckedUpdateManyWithoutDesignationRefInput = {
@@ -183145,6 +195413,42 @@ export namespace Prisma {
     issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DigitalResourceLogCreateManyResourceInput = {
+    id?: string
+    userId: string
+    action: string
+    ipAddress?: string | null
+    userAgent?: string | null
+    createdAt?: Date | string
+  }
+
+  export type DigitalResourceLogUpdateWithoutResourceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutDigitalResourceLogsNestedInput
+  }
+
+  export type DigitalResourceLogUncheckedUpdateWithoutResourceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DigitalResourceLogUncheckedUpdateManyWithoutResourceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

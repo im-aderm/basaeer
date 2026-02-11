@@ -29,7 +29,22 @@ export default function StudentExamTakePage() {
         try {
             const data = await OnlineExamService.startExam(examId);
             setExam(data);
-            setTimeLeft(data.durationMinutes * 60);
+
+            // Reconstruct answers from previous session
+            const initialAnswers: Record<string, any> = {};
+            data.attempt.answers.forEach((ans: any) => {
+                initialAnswers[ans.questionId] = ans.selectedOptionId || ans.textAnswer;
+            });
+            setAnswers(initialAnswers);
+
+            // Persistent Timer: (Start + Duration) - Current
+            const startTime = new Date(data.attempt.startTime).getTime();
+            const durationMs = data.durationMinutes * 60 * 1000;
+            const now = new Date().getTime();
+            const remaining = Math.max(0, Math.floor((startTime + durationMs - now) / 1000));
+
+            setTimeLeft(remaining);
+            if (remaining <= 0) handleSubmit(true);
         } catch (error: any) {
             toast.error(error.response?.data?.message || 'Failed to start exam');
             router.push('/dashboard/online-exams');
@@ -41,6 +56,29 @@ export default function StudentExamTakePage() {
     useEffect(() => {
         fetchExam();
     }, [fetchExam]);
+
+    // Automatic Answer Syncing
+    useEffect(() => {
+        if (isFinished || Object.keys(answers).length === 0) return;
+
+        const syncTimeout = setTimeout(async () => {
+            try {
+                const formattedAnswers = Object.entries(answers).map(([qId, val]) => {
+                    const question = exam?.group.questions.find(q => q.id === qId);
+                    return {
+                        questionId: qId,
+                        selectedOptionId: (question?.type === QuestionType.MCQ || question?.type === QuestionType.TRUE_FALSE) ? val : undefined,
+                        textAnswer: question?.type === QuestionType.DESCRIPTIVE ? val : undefined
+                    };
+                });
+                await OnlineExamService.syncAnswers(examId, formattedAnswers);
+            } catch (error) {
+                console.error('Failed to sync progress');
+            }
+        }, 3000); // Sync after 3 seconds of inactivity
+
+        return () => clearTimeout(syncTimeout);
+    }, [answers, examId, isFinished, exam]);
 
     // Timer Logic
     useEffect(() => {

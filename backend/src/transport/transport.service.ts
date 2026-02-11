@@ -1,15 +1,19 @@
-import { Injectable, ConflictException, NotFoundException, BadRequestException } from '@nestjs/common';
+import { Injectable, ConflictException, NotFoundException, BadRequestException, ForbiddenException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateVehicleDto } from './dto/create-vehicle.dto';
 import { CreateRouteDto } from './dto/create-route.dto';
+import { UpdateVehicleDto } from './dto/update-vehicle.dto';
+import { UpdateRouteDto } from './dto/update-route.dto';
 import { AssignTransportDto } from './dto/assign-transport.dto';
 
 @Injectable()
 export class TransportService {
     constructor(private prisma: PrismaService) { }
 
-    async createVehicle(dto: CreateVehicleDto) {
-        return this.prisma.vehicle.create({ data: dto });
+    async createVehicle(dto: CreateVehicleDto, branchId: string) {
+        return this.prisma.vehicle.create({
+            data: { ...dto, branchId }
+        });
     }
 
     async findAllVehicles(branchId: string) {
@@ -19,8 +23,33 @@ export class TransportService {
         });
     }
 
-    async createRoute(dto: CreateRouteDto) {
-        return this.prisma.transportRoute.create({ data: dto });
+    async findVehicle(id: string, branchId: string) {
+        const vehicle = await this.prisma.vehicle.findFirst({
+            where: { id, branchId }
+        });
+        if (!vehicle) throw new NotFoundException('Vehicle not found');
+        return vehicle;
+    }
+
+    async updateVehicle(id: string, dto: UpdateVehicleDto, branchId: string) {
+        await this.findVehicle(id, branchId);
+        return this.prisma.vehicle.update({
+            where: { id },
+            data: dto
+        });
+    }
+
+    async deleteVehicle(id: string, branchId: string) {
+        await this.findVehicle(id, branchId);
+        return this.prisma.vehicle.delete({
+            where: { id }
+        });
+    }
+
+    async createRoute(dto: CreateRouteDto, branchId: string) {
+        return this.prisma.transportRoute.create({
+            data: { ...dto, branchId }
+        });
     }
 
     async findAllRoutes(branchId: string) {
@@ -30,31 +59,64 @@ export class TransportService {
         });
     }
 
-    async assignStudent(dto: AssignTransportDto) {
+    async findRoute(id: string, branchId: string) {
+        const route = await this.prisma.transportRoute.findFirst({
+            where: { id, branchId }
+        });
+        if (!route) throw new NotFoundException('Route not found');
+        return route;
+    }
+
+    async updateRoute(id: string, dto: UpdateRouteDto, branchId: string) {
+        await this.findRoute(id, branchId);
+        return this.prisma.transportRoute.update({
+            where: { id },
+            data: dto
+        });
+    }
+
+    async deleteRoute(id: string, branchId: string) {
+        await this.findRoute(id, branchId);
+        return this.prisma.transportRoute.delete({
+            where: { id }
+        });
+    }
+
+    async assignStudent(dto: AssignTransportDto, branchId: string) {
         const { studentId, vehicleId, routeId } = dto;
 
         return this.prisma.$transaction(async (tx) => {
-            // 1. Check vehicle capacity
-            const vehicle = await tx.vehicle.findUnique({
-                where: { id: vehicleId },
+            // 1. Verify Student belongs to branch
+            const student = await tx.student.findFirst({
+                where: { id: studentId, branchId }
+            });
+            if (!student) throw new NotFoundException('Student not found in this branch');
+
+            // 2. Verify Vehicle belongs to branch and check capacity
+            const vehicle = await tx.vehicle.findFirst({
+                where: { id: vehicleId, branchId },
                 include: { assignments: true },
             });
-
-            if (!vehicle) throw new NotFoundException('Vehicle not found');
+            if (!vehicle) throw new NotFoundException('Vehicle not found in this branch');
             if (vehicle.assignments.length >= vehicle.capacity) {
                 throw new BadRequestException('Vehicle is at full capacity');
             }
 
-            // 2. Check if student already assigned
+            // 3. Verify Route belongs to branch
+            const route = await tx.transportRoute.findFirst({
+                where: { id: routeId, branchId }
+            });
+            if (!route) throw new NotFoundException('Route not found in this branch');
+
+            // 4. Check if student already assigned
             const existing = await tx.transportAssignment.findUnique({
                 where: { studentId },
             });
-
             if (existing) {
                 throw new ConflictException('Student already assigned to transport');
             }
 
-            // 3. Create assignment
+            // 5. Create assignment
             return tx.transportAssignment.create({
                 data: {
                     studentId,
@@ -65,9 +127,26 @@ export class TransportService {
         });
     }
 
-    async removeAssignment(studentId: string) {
+    async removeAssignment(studentId: string, branchId: string) {
+        // Verify student belongs to branch before removing assignment
+        const student = await this.prisma.student.findFirst({
+            where: { id: studentId, branchId },
+            include: { transportAssignment: true }
+        });
+
+        if (!student) throw new NotFoundException('Student not found');
+        if (!student.transportAssignment) throw new NotFoundException('No transport assignment found for this student');
+
         return this.prisma.transportAssignment.delete({
             where: { studentId },
+        });
+    }
+
+    async getAssignmentsCount(branchId: string) {
+        return this.prisma.transportAssignment.count({
+            where: {
+                student: { branchId }
+            }
         });
     }
 }

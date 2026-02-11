@@ -15,6 +15,11 @@ export const AttendanceService = {
         return response.data;
     },
 
+    markBulk: async (records: any[]): Promise<any> => {
+        const response = await api.post("/attendance/bulk", { records });
+        return response.data;
+    },
+
     getBySection: async (sectionId: string, date: string): Promise<any[]> => {
         const response = await api.get(`/attendance/section`, {
             params: { sectionId, date }

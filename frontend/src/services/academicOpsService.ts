@@ -7,6 +7,7 @@ export interface AssignmentDto {
     classId: string;
     sectionId?: string;
     subjectId: string;
+    attachmentUrl?: string;
 }
 
 export interface AssignmentSubmissionDto {
@@ -18,8 +19,8 @@ export interface AssignmentSubmissionDto {
 
 export const AcademicOpsService = {
     // Assignments (Homework)
-    getAssignments: async (): Promise<any[]> => {
-        const response = await api.get("/assignments");
+    getAssignments: async (params?: any): Promise<any[]> => {
+        const response = await api.get("/assignments", { params });
         return response.data;
     },
 

@@ -44,8 +44,15 @@ export const HostelService = {
     },
 
     getById: async (id: string): Promise<Hostel> => {
-        const response = await api.get("/hostels");
-        return response.data.find((h: Hostel) => h.id === id);
+        const hostels = await HostelService.getAll();
+        const hostel = hostels.find((h: Hostel) => h.id === id);
+        if (!hostel) throw new Error("Hostel not found");
+        return hostel;
+    },
+
+    getStats: async (): Promise<any> => {
+        const response = await api.get("/hostels/stats");
+        return response.data;
     },
 
     createHostel: async (data: any): Promise<Hostel> => {
@@ -53,8 +60,28 @@ export const HostelService = {
         return response.data;
     },
 
+    updateHostel: async (id: string, data: any): Promise<Hostel> => {
+        const response = await api.patch(`/hostels/${id}`, data);
+        return response.data;
+    },
+
+    deleteHostel: async (id: string): Promise<any> => {
+        const response = await api.delete(`/hostels/${id}`);
+        return response.data;
+    },
+
     createRoom: async (data: any): Promise<Room> => {
         const response = await api.post("/hostels/rooms", data);
+        return response.data;
+    },
+
+    updateRoom: async (id: string, data: any): Promise<Room> => {
+        const response = await api.patch(`/hostels/rooms/${id}`, data);
+        return response.data;
+    },
+
+    deleteRoom: async (id: string): Promise<any> => {
+        const response = await api.delete(`/hostels/rooms/${id}`);
         return response.data;
     },
 

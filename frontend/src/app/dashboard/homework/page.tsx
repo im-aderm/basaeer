@@ -39,8 +39,8 @@ export default function TeacherHomeworkHub() {
         try {
             const [assignmentsData, classesData, subjectsData] = await Promise.all([
                 AcademicOpsService.getAssignments(),
-                ClassService.getClasses(),
-                SubjectService.getSubjects(),
+                ClassService.getAll(),
+                SubjectService.getAll(),
             ]);
             setAssignments(assignmentsData);
             setClasses(classesData);
@@ -65,6 +65,7 @@ export default function TeacherHomeworkHub() {
                 classId: "",
                 sectionId: "",
                 subjectId: "",
+                attachmentUrl: "",
             });
             fetchData();
         } catch (error) {
@@ -79,6 +80,8 @@ export default function TeacherHomeworkHub() {
             </div>
         );
     }
+
+    const availableSections = classes.find(c => c.id === formData.classId)?.sections || [];
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/20 dark:from-slate-950 dark:via-indigo-950/20 dark:to-purple-950/10 p-6">
@@ -105,14 +108,26 @@ export default function TeacherHomeworkHub() {
                                 <DialogTitle>Create New Assignment</DialogTitle>
                             </DialogHeader>
                             <form onSubmit={handleSubmit} className="space-y-4">
-                                <div>
-                                    <Label htmlFor="title">Title</Label>
-                                    <Input
-                                        id="title"
-                                        value={formData.title}
-                                        onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                                        required
-                                    />
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <Label htmlFor="title">Title</Label>
+                                        <Input
+                                            id="title"
+                                            value={formData.title}
+                                            onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                                            required
+                                        />
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="dueDate">Due Date</Label>
+                                        <Input
+                                            id="dueDate"
+                                            type="date"
+                                            value={formData.dueDate}
+                                            onChange={(e) => setFormData({ ...formData, dueDate: e.target.value })}
+                                            required
+                                        />
+                                    </div>
                                 </div>
                                 <div>
                                     <Label htmlFor="description">Description</Label>
@@ -120,10 +135,47 @@ export default function TeacherHomeworkHub() {
                                         id="description"
                                         value={formData.description}
                                         onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                                        rows={4}
+                                        rows={3}
                                     />
                                 </div>
-                                <div className="grid grid-cols-2 gap-4">
+                                <div className="grid grid-cols-3 gap-4">
+                                    <div>
+                                        <Label htmlFor="class">Class</Label>
+                                        <Select
+                                            value={formData.classId}
+                                            onValueChange={(value) => setFormData({ ...formData, classId: value, sectionId: "" })}
+                                        >
+                                            <SelectTrigger>
+                                                <SelectValue placeholder="Select class" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {classes.map((cls) => (
+                                                    <SelectItem key={cls.id} value={cls.id}>
+                                                        {cls.name}
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="section">Section</Label>
+                                        <Select
+                                            value={formData.sectionId}
+                                            onValueChange={(value) => setFormData({ ...formData, sectionId: value })}
+                                            disabled={!formData.classId}
+                                        >
+                                            <SelectTrigger>
+                                                <SelectValue placeholder="Select section" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {availableSections.map((sec) => (
+                                                    <SelectItem key={sec.id} value={sec.id}>
+                                                        {sec.name}
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
                                     <div>
                                         <Label htmlFor="subject">Subject</Label>
                                         <Select
@@ -142,22 +194,21 @@ export default function TeacherHomeworkHub() {
                                             </SelectContent>
                                         </Select>
                                     </div>
-                                    <div>
-                                        <Label htmlFor="dueDate">Due Date</Label>
-                                        <Input
-                                            id="dueDate"
-                                            type="date"
-                                            value={formData.dueDate}
-                                            onChange={(e) => setFormData({ ...formData, dueDate: e.target.value })}
-                                            required
-                                        />
-                                    </div>
                                 </div>
-                                <div className="flex justify-end gap-2">
-                                    <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>
+                                <div>
+                                    <Label htmlFor="attachmentUrl">Attachment URL (Optional)</Label>
+                                    <Input
+                                        id="attachmentUrl"
+                                        placeholder="Link to worksheet or resources"
+                                        value={formData.attachmentUrl}
+                                        onChange={(e) => setFormData({ ...formData, attachmentUrl: e.target.value })}
+                                    />
+                                </div>
+                                <div className="flex justify-end gap-2 text-indigo-100">
+                                    <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)} className="dark:text-white">
                                         Cancel
                                     </Button>
-                                    <Button type="submit">Create Assignment</Button>
+                                    <Button type="submit" className="bg-indigo-600 hover:bg-indigo-700">Create Assignment</Button>
                                 </div>
                             </form>
                         </DialogContent>

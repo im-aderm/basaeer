@@ -26,10 +26,10 @@ export default function AssignmentEvaluation() {
     const fetchData = async () => {
         try {
             const [assignmentData, submissionsData] = await Promise.all([
-                AcademicOpsService.getAssignments({ assignmentId }),
+                AcademicOpsService.getAssignmentById(assignmentId),
                 AcademicOpsService.getAssignmentSubmissions(assignmentId),
             ]);
-            setAssignment(assignmentData[0]);
+            setAssignment(assignmentData);
             setSubmissions(submissionsData);
         } catch (error) {
             toast.error("Failed to load assignment data");
@@ -40,7 +40,7 @@ export default function AssignmentEvaluation() {
 
     const handleGrade = async (submissionId: string, grade: number, feedback: string) => {
         try {
-            await AcademicOpsService.gradeSubmission(submissionId, { grade, feedback });
+            await AcademicOpsService.gradeSubmission(submissionId, grade, feedback);
             toast.success("Submission graded successfully!");
             fetchData();
         } catch (error) {
@@ -118,8 +118,8 @@ export default function AssignmentEvaluation() {
             cell: (row: any) => (
                 <span
                     className={`px-2 py-1 rounded-full text-xs ${row.status === "GRADED"
-                            ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300"
-                            : "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300"
+                        ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300"
+                        : "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300"
                         }`}
                 >
                     {row.status}
@@ -169,6 +169,19 @@ export default function AssignmentEvaluation() {
                             {submissions.filter((s) => s.status === "GRADED").length}
                         </div>
                     </div>
+                    {assignment?.attachmentUrl && (
+                        <div className="mt-4">
+                            <a
+                                href={assignment.attachmentUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 transition-colors text-sm font-medium"
+                            >
+                                <FileText className="w-4 h-4" />
+                                View Attached Resources
+                            </a>
+                        </div>
+                    )}
                 </div>
             </div>
 

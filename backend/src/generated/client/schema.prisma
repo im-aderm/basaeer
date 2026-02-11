@@ -134,10 +134,12 @@ model Branch {
   accessLogs        CampusAccessLog[]
   automationConfigs AutomationConfig[]
   idCardTemplates   IdCardTemplate[]
+  digitalResources  DigitalResource[]
 
   // Student Deactivation Phase
   deactivationReasons DeactivationReason[]
   loginDeactivations  LoginDeactivation[]
+  assignments         Assignment[]
 }
 
 model DeactivationReason {
@@ -192,6 +194,7 @@ model User {
   eventRSVPs                 EventRSVP[]
   accessLogs                 CampusAccessLog[]
   onlineAdmissions           OnlineAdmission[]
+  digitalResourceLogs        DigitalResourceLog[]
 }
 
 model Staff {
@@ -222,9 +225,12 @@ model Staff {
   assignments    Assignment[]
   hostedSessions LiveClassSession[]
   idCards        IdCard[]
+  attendance     StaffAttendance[]
+  classSchedules ClassSchedule[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  digitalResources DigitalResource[]
 }
 
 model Student {
@@ -374,6 +380,9 @@ model Class {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  classSchedules   ClassSchedule[]
+  digitalResources DigitalResource[]
+
   @@unique([branchId, name])
 }
 
@@ -395,6 +404,9 @@ model Section {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  classSchedules   ClassSchedule[]
+  digitalResources DigitalResource[]
+
   @@unique([classId, name])
 }
 
@@ -411,9 +423,37 @@ model Subject {
   assessmentRecords AssessmentRecord[]
   liveClassSessions LiveClassSession[]
   onlineExams       OnlineExam[]
+  classSchedules    ClassSchedule[]
+
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  digitalResources DigitalResource[]
+}
+
+model ClassSchedule {
+  id        String  @id @default(uuid())
+  dayOfWeek Int // 0 (Monday) to 6 (Sunday)
+  startTime String // HH:mm
+  endTime   String // HH:mm
+  room      String?
+
+  classId String
+  class   Class  @relation(fields: [classId], references: [id])
+
+  sectionId String
+  section   Section @relation(fields: [sectionId], references: [id])
+
+  subjectId String
+  subject   Subject @relation(fields: [subjectId], references: [id])
+
+  teacherId String
+  teacher   Staff  @relation(fields: [teacherId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@unique([teacherId, dayOfWeek, startTime])
+  @@unique([classId, sectionId, dayOfWeek, startTime])
 }
 
 model Attendance {
@@ -432,6 +472,21 @@ model Attendance {
   updatedAt DateTime @updatedAt
 
   @@unique([studentId, date])
+}
+
+model StaffAttendance {
+  id      String           @id @default(uuid())
+  date    DateTime
+  status  AttendanceStatus
+  remarks String?
+
+  staffId String
+  staff   Staff  @relation(fields: [staffId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([staffId, date])
 }
 
 model Hostel {
@@ -668,6 +723,7 @@ model OnlineExamAttempt {
   startTime DateTime         @default(now())
   endTime   DateTime?
   score     Float?
+  position  Int?
   status    AttemptStatus    @default(IN_PROGRESS)
   answers   QuestionAnswer[]
   createdAt DateTime         @default(now())
@@ -773,10 +829,11 @@ model TransportAssignment {
 }
 
 model Assignment {
-  id          String   @id @default(uuid())
-  title       String
-  description String?
-  dueDate     DateTime
+  id            String   @id @default(uuid())
+  title         String
+  description   String?
+  dueDate       DateTime
+  attachmentUrl String?
 
   subjectId String
   subject   Subject @relation(fields: [subjectId], references: [id])
@@ -788,6 +845,9 @@ model Assignment {
 
   teacherId String?
   teacher   Staff?  @relation(fields: [teacherId], references: [id])
+
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -828,8 +888,9 @@ model AcademicSession {
   onlineAdmissions   OnlineAdmission[]
   idCards            IdCard[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  digitalResources DigitalResource[]
 }
 
 model AssessmentRecord {
@@ -953,6 +1014,7 @@ model GradingScale {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
 model GlobalSetting {
   id        String   @id @default(uuid())
   key       String   @unique
@@ -1170,15 +1232,23 @@ model GoogleMeetConfig {
   branchId String @unique
   branch   Branch @relation(fields: [branchId], references: [id])
 
-  serviceAccountJson String // Encrypted
-  projectId          String
-  clientId           String
-  clientSecret       String // Encrypted
-  apiKey             String // Encrypted
+  // OAuth2 Fields
+  clientId     String?
+  clientSecret String? // Encrypted
+  accessToken  String? // Encrypted
+  refreshToken String? // Encrypted
+  expiryDate   DateTime?
+  redirectUri  String?
+  scopes       String? // Space-separated scopes
+
+  // Service Account (Legacy/Alternative)
+  serviceAccountJson String? // Encrypted
+  projectId          String?
+  apiKey             String? // Encrypted
 
   isEnabled       Boolean @default(false)
   defaultDuration Int     @default(60)
-  allowRecording  Boolean @default(false)
+  allowRecording  Boolean @default(true)
   requireApproval Boolean @default(true)
 
   createdAt DateTime @default(now())
@@ -1190,10 +1260,12 @@ model LiveClassSession {
   title       String
   description String?
 
-  meetingId      String @unique
-  hostUrl        String
-  participantUrl String
+  meetingId      String  @unique // This is the Google Event ID
+  meetLink       String? // The actual URL
+  hostUrl        String?
+  participantUrl String?
 
+  // Relations
   classId String?
   class   Class?  @relation(fields: [classId], references: [id])
 
@@ -1206,13 +1278,24 @@ model LiveClassSession {
   hostId String
   host   Staff  @relation(fields: [hostId], references: [id])
 
+  // Scheduling
   scheduledStart DateTime
   scheduledEnd   DateTime
   actualStart    DateTime?
   actualEnd      DateTime?
+  timezone       String    @default("UTC")
 
-  status       String  @default("SCHEDULED")
-  recordingUrl String?
+  // Recurring classes
+  isRecurring    Boolean @default(false)
+  recurrenceRule String? // RRule string
+  seriesId       String? // ID to group instances of recurring classes
+
+  status String @default("SCHEDULED") // SCHEDULED, LIVE, ENDED, CANCELLED
+
+  // Recording
+  recordingId     String? // Google Drive File ID
+  recordingUrl    String?
+  recordingStatus String? // READY, PROCESSING, NOT_AVAILABLE
 
   participants MeetingParticipant[]
 
@@ -1823,4 +1906,62 @@ model IdCard {
   updatedAt DateTime @updatedAt
 
   @@unique([studentId, sessionId])
+}
+
+// ============================================
+// ATTACHMENT BOOK (DIGITAL LIBRARY) MODULE
+// ============================================
+
+model DigitalResource {
+  id           String  @id @default(uuid())
+  title        String
+  description  String?
+  fileUrl      String // URL to the file in storage
+  fileType     String // e.g. PDF, DOCX, URL
+  fileSize     Int? // in bytes
+  thumbnailUrl String? // Optional thumbnail for the resource
+
+  category String // TEXTBOOK, NOTE, WORKSHEET, REFERENCE, LINK
+
+  // Academic Mapping
+  sessionId String
+  session   AcademicSession @relation(fields: [sessionId], references: [id])
+
+  classId String?
+  class   Class?  @relation(fields: [classId], references: [id])
+
+  sectionId String?
+  section   Section? @relation(fields: [sectionId], references: [id])
+
+  subjectId String?
+  subject   Subject? @relation(fields: [subjectId], references: [id])
+
+  uploaderId String
+  uploader   Staff  @relation(fields: [uploaderId], references: [id])
+
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id])
+
+  logs DigitalResourceLog[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([branchId, category])
+  @@index([classId, subjectId])
+}
+
+model DigitalResourceLog {
+  id         String          @id @default(uuid())
+  resourceId String
+  resource   DigitalResource @relation(fields: [resourceId], references: [id], onDelete: Cascade)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  action    String // VIEW, DOWNLOAD
+  ipAddress String?
+  userAgent String?
+
+  createdAt DateTime @default(now())
 }
