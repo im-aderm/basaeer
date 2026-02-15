@@ -161,9 +161,9 @@ export class EmployeesController {
 
   @Post('attendance/bulk')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
-  recordBulkAttendance(@Body() data: { staffIds: string[]; date: string; status: any }) {
-    const promises = data.staffIds.map(id =>
-      this.employeesService.recordAttendance({ staffId: id, date: data.date, status: data.status })
+  recordBulkAttendance(@Body() data: { records: { staffId: string; date: string; status: any; remarks?: string }[] }) {
+    const promises = data.records.map(record =>
+      this.employeesService.recordAttendance(record)
     );
     return Promise.all(promises);
   }

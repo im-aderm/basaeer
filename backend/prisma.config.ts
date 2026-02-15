@@ -11,5 +11,7 @@ export default defineConfig({
   },
   datasource: {
     url: process.env["DATABASE_URL"],
+    // @ts-expect-error - directUrl is required for Supabase but missing from types
+    directUrl: process.env["DIRECT_URL"],
   },
 });

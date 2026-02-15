@@ -9,10 +9,20 @@ export class AcademicsService {
 
     // Assignments
     async createAssignment(dto: CreateAssignmentDto) {
+        const teacher = await this.prisma.staff.findUnique({
+            where: { id: dto.teacherId },
+            include: { user: true }
+        });
+
+        if (!teacher || !teacher.user.branchId) {
+            throw new NotFoundException('Teacher not found or not assigned to a branch');
+        }
+
         return this.prisma.assignment.create({
             data: {
                 ...dto,
                 dueDate: new Date(dto.dueDate),
+                branchId: teacher.user.branchId,
             },
         });
     }

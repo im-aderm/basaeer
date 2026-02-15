@@ -62,8 +62,12 @@ export default function LibraryBorrowingPage() {
 
     const handleReturn = async (id: string) => {
         try {
-            await LibraryService.returnBook(id);
-            toast.success("Book returned successfully");
+            const result = await LibraryService.returnBook(id);
+            if (result.fineAmount > 0) {
+                toast.warning(`Book returned with a fine of $${result.fineAmount}`);
+            } else {
+                toast.success("Book returned successfully");
+            }
             fetchData();
         } catch (error) {
             console.error("Return failed:", error);

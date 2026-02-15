@@ -61,6 +61,12 @@ export class CreateInventoryProductDto {
     storeId?: string;
     @IsString()
     branchId?: string;
+    @IsOptional()
+    @IsNumber()
+    costPrice?: number;
+    @IsOptional()
+    @IsNumber()
+    sellingPrice?: number;
 }
 
 export class CreateInventoryPurchaseDto {
@@ -130,8 +136,15 @@ export class UpdateInventoryProductDto {
     @IsUUID()
     unitId?: string;
     @IsOptional()
+    @IsOptional()
     @IsUUID()
     storeId?: string;
+    @IsOptional()
+    @IsNumber()
+    costPrice?: number;
+    @IsOptional()
+    @IsNumber()
+    sellingPrice?: number;
 }
 
 export class UpdateInventoryCategoryDto {

@@ -342,6 +342,7 @@ const navigation: NavItem[] = [
         roles: ["STUDENT"],
         children: [
             { title: "My Certificates", href: "/dashboard/student/certificates" },
+            { title: "My Hostel", href: "/dashboard/student/hostel" },
         ],
     },
     {
@@ -412,27 +413,27 @@ export function Sidebar() {
                 "hidden md:flex flex-col fixed inset-y-0 left-0 transition-all duration-300 z-50",
                 isCollapsed ? "w-20" : "w-72"
             )}>
-                <div className="flex flex-col h-full bg-card border-r border-border shadow-sm overflow-hidden select-none">
+                <div className="flex flex-col h-full bg-white border-r border-[#E5E7EB] shadow-[4px_0_24px_rgba(0,0,0,0.02)] overflow-hidden select-none">
                     {/* Header */}
-                    <div className="h-16 flex items-center justify-between px-4 border-b border-border shrink-0">
+                    <div className="h-16 flex items-center justify-between px-4 border-b border-[#E5E7EB] shrink-0 bg-white">
                         <div className={cn("flex items-center gap-3 transition-opacity duration-300", isCollapsed && "opacity-0 invisible w-0")}>
-                            <div className="bg-primary/10 p-2 rounded-xl">
-                                <GraduationCap className="text-primary" size={24} />
+                            <div className="bg-[#2563EB]/10 p-2 rounded-xl">
+                                <GraduationCap className="text-[#2563EB]" size={24} />
                             </div>
-                            <span className="font-bold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70">
+                            <span className="font-bold text-xl tracking-tight text-[#111827]">
                                 Basaeer
                             </span>
                         </div>
                         <button
                             onClick={() => setIsCollapsed(!isCollapsed)}
-                            className="p-2 hover:bg-muted rounded-lg transition-colors text-muted-foreground"
+                            className="p-2 hover:bg-[#F3F4F6] rounded-lg transition-colors text-[#6B7280] hover:text-[#111827]"
                         >
                             <Menu size={20} />
                         </button>
                     </div>
 
                     {/* Navigation */}
-                    <div className="flex-1 overflow-y-auto overflow-x-hidden sidebar-scroll py-4 px-3 space-y-1">
+                    <div className="flex-1 overflow-y-auto overflow-x-hidden sidebar-scroll py-4 px-3 space-y-1 bg-white">
                         {navigation.filter(item => canSee(item)).map((item) => {
                             const isOpen = openMenus.includes(item.title);
                             const isActive = isBaseActive(item);
@@ -445,11 +446,11 @@ export function Sidebar() {
                                             onClick={() => toggleMenu(item.title)}
                                             className={cn(
                                                 "w-full flex items-center group px-3 py-2.5 rounded-xl transition-all duration-200",
-                                                isActive ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                                                isActive ? "bg-[#2563EB]/5 text-[#2563EB] font-medium" : "text-[#4B5563] hover:bg-[#F9FAFB] hover:text-[#111827]",
                                                 isCollapsed && "justify-center px-2"
                                             )}
                                         >
-                                            <item.icon className={cn("shrink-0 transition-transform", isActive ? "scale-110" : "group-hover:scale-110")} size={20} />
+                                            <item.icon className={cn("shrink-0 transition-transform duration-200", isActive ? "text-[#2563EB]" : "text-[#9CA3AF] group-hover:text-[#4B5563]")} size={20} />
                                             {!isCollapsed && (
                                                 <>
                                                     <span className="ml-3 text-sm font-medium flex-1 text-left">{item.title}</span>
@@ -462,11 +463,11 @@ export function Sidebar() {
                                             href={item.href || "#"}
                                             className={cn(
                                                 "flex items-center group px-3 py-2.5 rounded-xl transition-all duration-200",
-                                                isActive ? "bg-primary/10 text-primary shadow-sm" : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                                                isActive ? "bg-[#2563EB] text-white shadow-md shadow-blue-500/20" : "text-[#4B5563] hover:bg-[#F9FAFB] hover:text-[#111827]",
                                                 isCollapsed && "justify-center px-2"
                                             )}
                                         >
-                                            <item.icon className={cn("shrink-0 transition-transform", isActive ? "scale-110" : "group-hover:scale-110")} size={20} />
+                                            <item.icon className={cn("shrink-0 transition-transform duration-200", isActive ? "text-white" : "text-[#9CA3AF] group-hover:text-[#4B5563]")} size={20} />
                                             {!isCollapsed && (
                                                 <span className="ml-3 text-sm font-medium">{item.title}</span>
                                             )}
@@ -475,7 +476,7 @@ export function Sidebar() {
 
                                     {/* Dropdown Children */}
                                     {hasChildren && isOpen && !isCollapsed && (
-                                        <div className="mt-1 ml-4 pl-4 border-l border-border/50 space-y-1 animate-in fade-in slide-in-from-left-2 duration-200">
+                                        <div className="mt-1 ml-4 pl-4 border-l border-[#E5E7EB] space-y-1 animate-in fade-in slide-in-from-left-2 duration-200">
                                             {item.children?.filter(child => canSee(child)).map((child) => (
                                                 <Link
                                                     key={child.href}
@@ -483,8 +484,8 @@ export function Sidebar() {
                                                     className={cn(
                                                         "block py-2 px-3 text-sm rounded-lg transition-colors",
                                                         pathname === child.href
-                                                            ? "text-primary font-semibold bg-primary/5"
-                                                            : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                                                            ? "text-[#2563EB] font-semibold bg-[#2563EB]/5"
+                                                            : "text-[#6B7280] hover:text-[#111827] hover:bg-[#F9FAFB]"
                                                     )}
                                                 >
                                                     {child.title}
@@ -498,20 +499,21 @@ export function Sidebar() {
                     </div>
 
                     {/* Footer / User Profile */}
-                    <div className="p-4 border-t border-border shrink-0">
+                    <div className="p-4 border-t border-[#E5E7EB] shrink-0 bg-white">
                         <div className={cn("flex items-center gap-3 transition-all duration-300", isCollapsed && "justify-center px-0")}>
-                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center text-white font-bold shrink-0 shadow-lg shadow-primary/20">
+                            <div className="w-10 h-10 rounded-xl bg-[#2563EB]/10 flex items-center justify-center text-[#2563EB] font-bold shrink-0">
                                 {user?.firstName?.[0]}{user?.lastName?.[0]}
                             </div>
                             {!isCollapsed && (
                                 <div className="flex-1 min-w-0">
-                                    <p className="text-sm font-semibold text-foreground truncate">{user?.firstName} {user?.lastName}</p>
-                                    <p className="text-xs text-muted-foreground truncate">{user?.role?.replace('_', ' ')}</p>
+                                    <p className="text-sm font-semibold text-[#111827] truncate">{user?.firstName} {user?.lastName}</p>
+                                    <p className="text-xs text-[#6B7280] truncate">{user?.role?.replace('_', ' ')}</p>
                                 </div>
                             )}
                         </div>
                     </div>
                 </div>
+                {/* Removed overlay div that might have been here */}
             </aside>
 
             {/* Mobile Header & Sidebar */}
@@ -541,9 +543,9 @@ export function Sidebar() {
                                 <X size={20} />
                             </button>
                         </div>
-                        <div className="flex flex-col h-full bg-card border-r border-border shadow-sm overflow-hidden select-none">
+                        <div className="flex flex-col h-full bg-white border-r border-[#E5E7EB] shadow-[4px_0_24px_rgba(0,0,0,0.02)] overflow-hidden select-none">
                             {/* Header */}
-                            <div className="h-16 flex items-center justify-between px-4 border-b border-border shrink-0">
+                            <div className="h-16 flex items-center justify-between px-4 border-b border-[#E5E7EB] shrink-0 bg-white">
                                 <div className="flex items-center gap-3">
                                     <div className="bg-primary/10 p-2 rounded-xl">
                                         <GraduationCap className="text-primary" size={24} />

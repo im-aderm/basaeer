@@ -13,12 +13,12 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ({ className, variant = "default", size = "default", asChild = false, ...props }, ref) => {
         const Comp = asChild ? Slot : "button"
         const variants = {
-            default: "bg-primary text-primary-foreground hover:bg-primary/90",
-            destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-            outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-            secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-            ghost: "hover:bg-accent hover:text-accent-foreground",
-            link: "text-primary underline-offset-4 hover:underline",
+            default: "bg-[#2563EB] text-white shadow-sm hover:opacity-90 hover:scale-[1.02] transition-all",
+            destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-sm",
+            outline: "border border-input bg-background hover:bg-[#F9FAFB] hover:text-accent-foreground",
+            secondary: "bg-white text-[#111827] border border-[#E5E7EB] shadow-sm hover:bg-[#F9FAFB] hover:border-[#D1D5DB]",
+            ghost: "hover:bg-[#F3F4F6] text-[#6B7280] hover:text-[#111827]",
+            link: "text-[#2563EB] underline-offset-4 hover:underline",
         }
 
         const sizes = {

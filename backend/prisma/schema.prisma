@@ -1,5 +1,5 @@
 datasource db {
-  provider = "postgresql"
+  provider  = "postgresql"
 }
 
 generator client {
@@ -1615,6 +1615,8 @@ model InventoryProduct {
   store   InventoryStore? @relation(fields: [storeId], references: [id])
 
   stock Int @default(0)
+  costPrice Float @default(0)
+  sellingPrice Float @default(0)
 
   purchases InventoryPurchase[]
   sales     InventorySale[]

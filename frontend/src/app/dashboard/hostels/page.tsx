@@ -13,9 +13,12 @@ import {
     MoreVertical,
     Edit2,
     Trash2,
-    MapPin
+    MapPin,
+    Wrench,
+    CheckCircle2,
+    XCircle
 } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -26,13 +29,17 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { HostelService, Hostel } from "@/services/hostelService";
+import { HostelService, Hostel, MaintenanceRequest } from "@/services/hostelService";
 import Link from "next/link";
+import { format } from "date-fns";
 
 export default function HostelOverviewPage() {
     const [hostels, setHostels] = useState<Hostel[]>([]);
     const [stats, setStats] = useState<any>(null);
+    const [maintenanceRequests, setMaintenanceRequests] = useState<MaintenanceRequest[]>([]);
     const [loading, setLoading] = useState(true);
 
     // Modal states
@@ -50,15 +57,17 @@ export default function HostelOverviewPage() {
 
     const fetchData = async () => {
         try {
-            const [hostelData, statsData] = await Promise.all([
+            const [hostelData, statsData, maintenanceData] = await Promise.all([
                 HostelService.getAll(),
-                HostelService.getStats()
+                HostelService.getStats(),
+                HostelService.getMaintenanceRequests()
             ]);
             setHostels(hostelData);
             setStats(statsData);
+            setMaintenanceRequests(maintenanceData);
         } catch (error) {
             console.error("Failed to fetch data:", error);
-            toast.error("Failed to load hostel data");
+            toast.error("Failed to load data");
         } finally {
             setLoading(false);
         }
@@ -104,6 +113,17 @@ export default function HostelOverviewPage() {
         } catch (error) {
             console.error("Deletion failed:", error);
             toast.error("Failed to delete hostel");
+        }
+    };
+
+    const handleUpdateMaintenanceStatus = async (id: string, status: string) => {
+        try {
+            await HostelService.updateMaintenanceStatus(id, status);
+            toast.success(`Maintenance request marked as ${status.toLowerCase()}`);
+            fetchData();
+        } catch (error) {
+            console.error("Failed to update status:", error);
+            toast.error("Failed to update status");
         }
     };
 
@@ -172,12 +192,41 @@ export default function HostelOverviewPage() {
                     <p className="text-slate-300 text-xl font-medium max-w-2xl leading-relaxed italic">
                         Streamline your residential management. Track occupancy, manage building wings, and ensure a comfortable stay for every student.
                     </p>
-                    <div className="mt-8">
+                </div>
+                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
+                <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-purple-500/10 rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2" />
+            </div>
+
+            {/* Stats Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {statCards.map((stat, i) => (
+                    <Card key={i} className="rounded-[2.5rem] border-border/50 shadow-xl overflow-hidden group hover:scale-[1.02] transition-all bg-card/40 backdrop-blur-md">
+                        <CardContent className="p-8 text-center sm:text-left">
+                            <div className={`w-14 h-14 rounded-2xl ${stat.bgColor} ${stat.color} flex items-center justify-center mb-6 mx-auto sm:mx-0 group-hover:scale-110 transition-transform`}>
+                                <stat.icon size={28} />
+                            </div>
+                            <h3 className="text-4xl font-black italic tracking-tighter">{stat.value}</h3>
+                            <p className="text-muted-foreground font-bold mt-1">{stat.title}</p>
+                            <p className="text-[10px] uppercase tracking-widest font-black text-muted-foreground/30 mt-4">{stat.desc}</p>
+                        </CardContent>
+                    </Card>
+                ))}
+            </div>
+
+            <Tabs defaultValue="buildings" className="space-y-8">
+                <TabsList className="bg-muted/50 p-1 h-14 rounded-2xl w-full max-w-lg mx-auto grid grid-cols-3">
+                    <TabsTrigger value="buildings" className="rounded-xl h-12 font-bold italic data-[state=active]:bg-white data-[state=active]:shadow-md">Buildings</TabsTrigger>
+                    <TabsTrigger value="maintenance" className="rounded-xl h-12 font-bold italic data-[state=active]:bg-white data-[state=active]:shadow-md">Maintenance</TabsTrigger>
+                    <TabsTrigger value="leaves" className="rounded-xl h-12 font-bold italic data-[state=active]:bg-white data-[state=active]:shadow-md">Leave Requests</TabsTrigger>
+                </TabsList>
+
+                <TabsContent value="buildings" className="space-y-8 animate-in slide-in-from-bottom-4 duration-500">
+                    <div className="flex justify-end">
                         <Dialog open={isCreateModalOpen} onOpenChange={setIsCreateModalOpen}>
                             <DialogTrigger asChild>
                                 <Button
                                     onClick={() => setFormData({ id: "", name: "", type: "COED", address: "" })}
-                                    className="h-14 px-8 rounded-2xl bg-white text-slate-900 hover:bg-slate-100 font-black italic text-lg gap-2 shadow-xl"
+                                    className="h-14 px-8 rounded-2xl bg-primary text-white font-black italic text-lg gap-2 shadow-xl shadow-primary/20"
                                 >
                                     <Plus size={20} strokeWidth={3} />
                                     Register building
@@ -226,101 +275,164 @@ export default function HostelOverviewPage() {
                             </DialogContent>
                         </Dialog>
                     </div>
-                </div>
-                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
-                <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-purple-500/10 rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2" />
-            </div>
 
-            {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {statCards.map((stat, i) => (
-                    <Card key={i} className="rounded-[2.5rem] border-border/50 shadow-xl overflow-hidden group hover:scale-[1.02] transition-all bg-card/40 backdrop-blur-md">
-                        <CardContent className="p-8 text-center sm:text-left">
-                            <div className={`w-14 h-14 rounded-2xl ${stat.bgColor} ${stat.color} flex items-center justify-center mb-6 mx-auto sm:mx-0 group-hover:scale-110 transition-transform`}>
-                                <stat.icon size={28} />
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        {hostels.map(hostel => (
+                            <Card key={hostel.id} className="rounded-[3.5rem] border-border/50 shadow-xl p-8 hover:shadow-2xl transition-all group overflow-hidden relative">
+                                {/* Type Badge */}
+                                <div className={`absolute top-8 right-16 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest ${hostel.type === 'BOYS' ? 'bg-blue-100 text-blue-600' :
+                                    hostel.type === 'GIRLS' ? 'bg-pink-100 text-pink-600' :
+                                        'bg-purple-100 text-purple-600'
+                                    }`}>
+                                    {hostel.type}
+                                </div>
+
+                                {/* Actions Menu */}
+                                <div className="absolute top-8 right-8">
+                                    <DropdownMenu>
+                                        <DropdownMenuTrigger asChild>
+                                            <Button variant="ghost" size="icon" className="rounded-full h-10 w-10">
+                                                <MoreVertical size={20} className="text-muted-foreground" />
+                                            </Button>
+                                        </DropdownMenuTrigger>
+                                        <DropdownMenuContent align="end" className="rounded-2xl p-2 min-w-[160px]">
+                                            <DropdownMenuItem onClick={() => openEditModal(hostel)} className="rounded-xl gap-3 font-bold italic cursor-pointer">
+                                                <Edit2 size={16} className="text-primary" /> Edit Building
+                                            </DropdownMenuItem>
+                                            <DropdownMenuItem onClick={() => openDeleteAlert(hostel)} className="rounded-xl gap-3 font-bold italic text-destructive cursor-pointer">
+                                                <Trash2 size={16} /> Delete Building
+                                            </DropdownMenuItem>
+                                        </DropdownMenuContent>
+                                    </DropdownMenu>
+                                </div>
+
+                                <div className="flex gap-6 items-start">
+                                    <div className="w-[100px] h-[100px] rounded-[2rem] bg-muted/50 flex items-center justify-center shrink-0 border border-border/50">
+                                        <Home size={40} className="text-muted-foreground/50" />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <h3 className="text-3xl font-black italic tracking-tight">{hostel.name}</h3>
+                                        <div className="flex items-center gap-2 text-muted-foreground font-medium italic">
+                                            <MapPin size={16} />
+                                            {hostel.address || "No address provided"}
+                                        </div>
+                                        <div className="flex gap-4 pt-2">
+                                            <div className="flex items-center gap-1.5 text-xs font-black text-muted-foreground/70 uppercase tracking-widest">
+                                                <Building2 size={14} /> {hostel.rooms?.length || 0} Rooms
+                                            </div>
+                                            <div className="flex items-center gap-1.5 text-xs font-black text-muted-foreground/70 uppercase tracking-widest">
+                                                <Bed size={14} /> {hostel.rooms?.reduce((acc, r) => acc + r.capacity, 0) || 0} Beds
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="mt-10 flex gap-3">
+                                    <Link href={`/dashboard/hostels/manage?id=${hostel.id}`} className="flex-1">
+                                        <Button className="w-full h-14 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-black italic gap-2 transition-all">
+                                            Manage Rooms <ArrowRight size={18} />
+                                        </Button>
+                                    </Link>
+                                </div>
+                            </Card>
+                        ))}
+
+                        {hostels.length === 0 && (
+                            <div className="col-span-full py-32 text-center bg-card/50 border-2 border-dashed border-border/50 rounded-[4rem]">
+                                <div className="w-24 h-24 bg-muted/50 rounded-full flex items-center justify-center mx-auto mb-6">
+                                    <Building2 size={48} className="text-muted-foreground/30" />
+                                </div>
+                                <h2 className="text-3xl font-black italic mb-2">No Buildings Registered</h2>
+                                <p className="text-muted-foreground text-lg font-medium italic max-w-md mx-auto">
+                                    Start by adding your first school hostel building to manage rooms and allocations.
+                                </p>
                             </div>
-                            <h3 className="text-4xl font-black italic tracking-tighter">{stat.value}</h3>
-                            <p className="text-muted-foreground font-bold mt-1">{stat.title}</p>
-                            <p className="text-[10px] uppercase tracking-widest font-black text-muted-foreground/30 mt-4">{stat.desc}</p>
+                        )}
+                    </div>
+                </TabsContent>
+
+                <TabsContent value="maintenance" className="space-y-6 animate-in slide-in-from-bottom-4 duration-500">
+                    <Card className="rounded-[3.5rem] border-border/50 shadow-xl overflow-hidden">
+                        <CardHeader className="p-10 pb-4">
+                            <CardTitle className="text-3xl font-black italic">Maintenance Requests</CardTitle>
+                        </CardHeader>
+                        <CardContent className="p-10">
+                            <div className="space-y-4">
+                                {maintenanceRequests.length > 0 ? maintenanceRequests.map(req => (
+                                    <div key={req.id} className="p-6 rounded-[2rem] bg-muted/30 border border-border/50 flex flex-col md:flex-row gap-6 items-start justify-between group hover:bg-muted/50 transition-colors">
+                                        <div className="space-y-2">
+                                            <div className="flex items-center gap-3">
+                                                <Badge className={`rounded-lg px-3 py-1 font-black uppercase text-[10px] tracking-widest ${req.priority === 'URGENT' ? 'bg-red-500 hover:bg-red-600' :
+                                                    req.priority === 'HIGH' ? 'bg-orange-500 hover:bg-orange-600' :
+                                                        req.priority === 'MEDIUM' ? 'bg-yellow-500 text-yellow-950 hover:bg-yellow-600' :
+                                                            'bg-blue-500 hover:bg-blue-600'
+                                                    }`}>
+                                                    {req.priority} Priority
+                                                </Badge>
+                                                <Badge variant="outline" className={`rounded-lg px-3 py-1 font-black uppercase text-[10px] tracking-widest border-2 ${req.status === 'RESOLVED' ? 'border-green-500 text-green-600 bg-green-50' :
+                                                    req.status === 'IN_PROGRESS' ? 'border-blue-500 text-blue-600 bg-blue-50' :
+                                                        'border-slate-300 text-slate-500'
+                                                    }`}>
+                                                    {req.status.replace('_', ' ')}
+                                                </Badge>
+                                            </div>
+                                            <h3 className="text-xl font-bold italic">{req.title}</h3>
+                                            <p className="text-muted-foreground">{req.description}</p>
+                                            <div className="flex items-center gap-4 text-xs font-bold text-muted-foreground/70 pt-2">
+                                                {req.bed && (
+                                                    <span className="flex items-center gap-1.5 bg-background px-3 py-1.5 rounded-lg border">
+                                                        <Bed size={14} /> {req.bed.name} • Room {req.bed.room?.number}
+                                                    </span>
+                                                )}
+                                                {!req.bed && req.roomId && (
+                                                    <span className="flex items-center gap-1.5 bg-background px-3 py-1.5 rounded-lg border">
+                                                        <Home size={14} /> Room ID: {req.roomId}
+                                                    </span>
+                                                )}
+                                                {/* <span className="flex items-center gap-1.5">
+                                                    <Clock size={14} /> {format(new Date(req.createdAt), 'MMM dd, yyyy')}
+                                                </span> */}
+                                            </div>
+                                        </div>
+                                        <div className="flex items-center gap-3 shrink-0">
+                                            {req.status !== 'RESOLVED' && (
+                                                <Button
+                                                    size="sm"
+                                                    onClick={() => handleUpdateMaintenanceStatus(req.id, 'RESOLVED')}
+                                                    className="rounded-xl h-10 px-4 bg-green-600 hover:bg-green-700 text-white font-bold italic gap-2"
+                                                >
+                                                    <CheckCircle2 size={16} /> Mark Resolved
+                                                </Button>
+                                            )}
+                                            {req.status === 'OPEN' && (
+                                                <Button
+                                                    size="sm"
+                                                    onClick={() => handleUpdateMaintenanceStatus(req.id, 'IN_PROGRESS')}
+                                                    className="rounded-xl h-10 px-4 bg-blue-600 hover:bg-blue-700 text-white font-bold italic gap-2"
+                                                >
+                                                    <Wrench size={16} /> Start Work
+                                                </Button>
+                                            )}
+                                        </div>
+                                    </div>
+                                )) : (
+                                    <div className="py-20 text-center text-muted-foreground">
+                                        <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mx-auto mb-4">
+                                            <CheckCircle2 size={32} className="text-green-500" />
+                                        </div>
+                                        <h3 className="text-xl font-bold italic mb-2">All Systems Go!</h3>
+                                        <p className="max-w-xs mx-auto">No open maintenance requests at this time. Great job keeping the facilities in top shape.</p>
+                                    </div>
+                                )}
+                            </div>
                         </CardContent>
                     </Card>
-                ))}
-            </div>
+                </TabsContent>
 
-            {/* Hostel List */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {hostels.map(hostel => (
-                    <Card key={hostel.id} className="rounded-[3.5rem] border-border/50 shadow-xl p-8 hover:shadow-2xl transition-all group overflow-hidden relative">
-                        {/* Type Badge */}
-                        <div className={`absolute top-8 right-16 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest ${hostel.type === 'BOYS' ? 'bg-blue-100 text-blue-600' :
-                            hostel.type === 'GIRLS' ? 'bg-pink-100 text-pink-600' :
-                                'bg-purple-100 text-purple-600'
-                            }`}>
-                            {hostel.type}
-                        </div>
-
-                        {/* Actions Menu */}
-                        <div className="absolute top-8 right-8">
-                            <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
-                                    <Button variant="ghost" size="icon" className="rounded-full h-10 w-10">
-                                        <MoreVertical size={20} className="text-muted-foreground" />
-                                    </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end" className="rounded-2xl p-2 min-w-[160px]">
-                                    <DropdownMenuItem onClick={() => openEditModal(hostel)} className="rounded-xl gap-3 font-bold italic cursor-pointer">
-                                        <Edit2 size={16} className="text-primary" /> Edit Building
-                                    </DropdownMenuItem>
-                                    <DropdownMenuItem onClick={() => openDeleteAlert(hostel)} className="rounded-xl gap-3 font-bold italic text-destructive cursor-pointer">
-                                        <Trash2 size={16} /> Delete Building
-                                    </DropdownMenuItem>
-                                </DropdownMenuContent>
-                            </DropdownMenu>
-                        </div>
-
-                        <div className="flex gap-6 items-start">
-                            <div className="w-[100px] h-[100px] rounded-[2rem] bg-muted/50 flex items-center justify-center shrink-0 border border-border/50">
-                                <Home size={40} className="text-muted-foreground/50" />
-                            </div>
-                            <div className="space-y-2">
-                                <h3 className="text-3xl font-black italic tracking-tight">{hostel.name}</h3>
-                                <div className="flex items-center gap-2 text-muted-foreground font-medium italic">
-                                    <MapPin size={16} />
-                                    {hostel.address || "No address provided"}
-                                </div>
-                                <div className="flex gap-4 pt-2">
-                                    <div className="flex items-center gap-1.5 text-xs font-black text-muted-foreground/70 uppercase tracking-widest">
-                                        <Building2 size={14} /> {hostel.rooms?.length || 0} Rooms
-                                    </div>
-                                    <div className="flex items-center gap-1.5 text-xs font-black text-muted-foreground/70 uppercase tracking-widest">
-                                        <Bed size={14} /> {hostel.rooms?.reduce((acc, r) => acc + r.capacity, 0) || 0} Beds
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="mt-10 flex gap-3">
-                            <Link href={`/dashboard/hostels/manage?id=${hostel.id}`} className="flex-1">
-                                <Button className="w-full h-14 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-black italic gap-2 transition-all">
-                                    Manage Rooms <ArrowRight size={18} />
-                                </Button>
-                            </Link>
-                        </div>
-                    </Card>
-                ))}
-
-                {hostels.length === 0 && (
-                    <div className="col-span-full py-32 text-center bg-card/50 border-2 border-dashed border-border/50 rounded-[4rem] animate-in zoom-in-95">
-                        <div className="w-24 h-24 bg-muted/50 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <Building2 size={48} className="text-muted-foreground/30" />
-                        </div>
-                        <h2 className="text-3xl font-black italic mb-2">No Buildings Registered</h2>
-                        <p className="text-muted-foreground text-lg font-medium italic max-w-md mx-auto">
-                            Start by adding your first school hostel building to manage rooms and allocations.
-                        </p>
-                    </div>
-                )}
-            </div>
+                <TabsContent value="leaves" className="space-y-6 animate-in slide-in-from-bottom-4 duration-500">
+                    <LeaveManagementTab />
+                </TabsContent>
+            </Tabs>
 
             {/* Edit Modal */}
             <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
@@ -394,5 +506,98 @@ export default function HostelOverviewPage() {
                 </DialogContent>
             </Dialog>
         </div>
+    );
+}
+
+function LeaveManagementTab() {
+    const [leaves, setLeaves] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    const fetchLeaves = async () => {
+        try {
+            const data = await HostelService.getLeaves();
+            setLeaves(data);
+        } catch (error) {
+            console.error(error);
+            toast.error("Failed to fetch leaves");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchLeaves();
+    }, []);
+
+    const handleUpdateStatus = async (id: string, status: string) => {
+        try {
+            await HostelService.updateLeaveStatus(id, status);
+            toast.success(`Leave request ${status.toLowerCase()}`);
+            fetchLeaves();
+        } catch (error) {
+            console.error(error);
+            toast.error("Failed to update status");
+        }
+    };
+
+    if (loading) return <div className="p-10 flex justify-center"><Loader2 className="animate-spin text-primary" /></div>;
+
+    return (
+        <Card className="rounded-[3.5rem] border-border/50 shadow-xl overflow-hidden">
+            <CardHeader className="p-10 pb-4">
+                <CardTitle className="text-3xl font-black italic">Student Leave Requests</CardTitle>
+            </CardHeader>
+            <CardContent className="p-10">
+                <div className="space-y-4">
+                    {leaves.length > 0 ? leaves.map(leave => (
+                        <div key={leave.id} className="p-6 rounded-[2rem] bg-muted/30 border border-border/50 flex flex-col md:flex-row gap-6 items-start justify-between group hover:bg-muted/50 transition-colors">
+                            <div className="space-y-2">
+                                <div className="flex items-center gap-3">
+                                    <Badge variant="outline" className={`rounded-lg px-3 py-1 font-black uppercase text-[10px] tracking-widest border-2 ${leave.status === 'APPROVED' ? 'border-green-500 text-green-600 bg-green-50' :
+                                        leave.status === 'REJECTED' ? 'border-red-500 text-red-600 bg-red-50' :
+                                            'border-yellow-500 text-yellow-600 bg-yellow-50'
+                                        }`}>
+                                        {leave.status}
+                                    </Badge>
+                                    <span className="text-sm font-bold text-muted-foreground">
+                                        {format(new Date(leave.startDate), 'MMM dd')} - {format(new Date(leave.endDate), 'MMM dd, yyyy')}
+                                    </span>
+                                </div>
+                                <h3 className="text-xl font-bold italic">{leave.student?.name || 'Unknown Student'}</h3>
+                                <p className="text-muted-foreground">{leave.reason}</p>
+                            </div>
+                            <div className="flex items-center gap-3 shrink-0">
+                                {leave.status === 'PENDING' && (
+                                    <>
+                                        <Button
+                                            size="sm"
+                                            onClick={() => handleUpdateStatus(leave.id, 'APPROVED')}
+                                            className="rounded-xl h-10 px-4 bg-green-600 hover:bg-green-700 text-white font-bold italic gap-2"
+                                        >
+                                            <CheckCircle2 size={16} /> Approve
+                                        </Button>
+                                        <Button
+                                            size="sm"
+                                            onClick={() => handleUpdateStatus(leave.id, 'REJECTED')}
+                                            className="rounded-xl h-10 px-4 bg-red-100 hover:bg-red-200 text-red-600 font-bold italic gap-2"
+                                        >
+                                            <XCircle size={16} /> Reject
+                                        </Button>
+                                    </>
+                                )}
+                            </div>
+                        </div>
+                    )) : (
+                        <div className="py-20 text-center text-muted-foreground">
+                            <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mx-auto mb-4">
+                                <Users size={32} className="text-blue-500" />
+                            </div>
+                            <h3 className="text-xl font-bold italic mb-2">No Leave Requests</h3>
+                            <p className="max-w-xs mx-auto">All students are present and accounted for.</p>
+                        </div>
+                    )}
+                </div>
+            </CardContent>
+        </Card>
     );
 }

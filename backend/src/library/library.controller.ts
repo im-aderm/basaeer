@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Patch, UseGuards, Request } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Patch, UseGuards, Request, Query } from '@nestjs/common';
 import { LibraryService } from './library.service';
 import { CreateBookDto, BorrowBookDto } from './dto/library.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -19,8 +19,26 @@ export class LibraryController {
 
     @Get('books')
     @Roles(UserRole.SUPER_ADMIN, UserRole.LIBRARIAN, UserRole.BRANCH_ADMIN, UserRole.STUDENT, UserRole.TEACHER)
-    findAllBooks(@Request() req) {
-        return this.libraryService.findAllBooks(req.user.branchId);
+    findAllBooks(
+        @Request() req,
+        @Query('page') page?: string,
+        @Query('limit') limit?: string,
+        @Query('search') search?: string,
+        @Query('category') category?: string,
+    ) {
+        return this.libraryService.findAllBooks(
+            req.user.branchId,
+            page ? parseInt(page) : 1,
+            limit ? parseInt(limit) : 10,
+            search,
+            category
+        );
+    }
+
+    @Get('stats')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.LIBRARIAN, UserRole.BRANCH_ADMIN)
+    getStats(@Request() req) {
+        return this.libraryService.getLibraryStats(req.user.branchId);
     }
 
     @Get('books/:id')

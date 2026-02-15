@@ -15,11 +15,45 @@ export class LibraryService {
         });
     }
 
-    async findAllBooks(branchId: string | null) {
-        return this.prisma.book.findMany({
-            where: { ...(branchId && { branchId }) },
-            orderBy: { title: 'asc' },
-        });
+    async findAllBooks(
+        branchId: string | null,
+        page: number = 1,
+        limit: number = 10,
+        search?: string,
+        category?: string,
+    ) {
+        const skip = (page - 1) * limit;
+        const where: any = {
+            ...(branchId && { branchId }),
+            ...(category && { category }),
+            ...(search && {
+                OR: [
+                    { title: { contains: search, mode: 'insensitive' } },
+                    { author: { contains: search, mode: 'insensitive' } },
+                    { isbn: { contains: search, mode: 'insensitive' } },
+                ],
+            }),
+        };
+
+        const [data, total] = await Promise.all([
+            this.prisma.book.findMany({
+                where,
+                skip,
+                take: limit,
+                orderBy: { title: 'asc' },
+            }),
+            this.prisma.book.count({ where }),
+        ]);
+
+        return {
+            data,
+            meta: {
+                total,
+                page,
+                limit,
+                totalPages: Math.ceil(total / limit),
+            },
+        };
     }
 
     async findOneBook(id: string) {
@@ -65,19 +99,42 @@ export class LibraryService {
         if (!record) throw new NotFoundException('Borrow record not found');
         if (record.status === 'RETURNED') throw new BadRequestException('Book already returned');
 
+        const now = new Date();
+        const dueDate = new Date(record.dueDate);
+        let fineAmount = 0;
+
+        // Simple Fine Calculation: $10 per day overdue
+        if (now > dueDate) {
+            const diffTime = Math.abs(now.getTime() - dueDate.getTime());
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            fineAmount = diffDays * 10;
+        }
+
         return this.prisma.$transaction(async (tx) => {
             await tx.book.update({
                 where: { id: record.bookId },
                 data: { available: { increment: 1 } },
             });
 
-            return tx.borrowRecord.update({
+            const updatedRecord = await tx.borrowRecord.update({
                 where: { id: borrowRecordId },
                 data: {
                     status: 'RETURNED',
-                    returnDate: new Date(),
+                    returnDate: now,
                 },
             });
+
+            if (fineAmount > 0) {
+                await tx.libraryFine.create({
+                    data: {
+                        amount: fineAmount,
+                        status: 'PENDING',
+                        borrowRecordId: borrowRecordId
+                    }
+                });
+            }
+
+            return { ...updatedRecord, fineAmount };
         });
     }
 
@@ -114,5 +171,33 @@ export class LibraryService {
             },
             orderBy: { borrowDate: 'desc' },
         });
+    }
+
+    async getLibraryStats(branchId: string | null) {
+        const [totalBooks, availableBooks, borrowedRecords, overdueRecords, pendingFines] = await Promise.all([
+            this.prisma.book.count({ where: { ...(branchId && { branchId }) } }),
+            this.prisma.book.aggregate({
+                where: { ...(branchId && { branchId }) },
+                _sum: { available: true }
+            }),
+            this.prisma.borrowRecord.count({
+                where: { status: 'BORROWED', ...(branchId && { book: { branchId } }) }
+            }),
+            this.prisma.borrowRecord.count({
+                where: { status: 'BORROWED', dueDate: { lt: new Date() }, ...(branchId && { book: { branchId } }) }
+            }),
+            this.prisma.libraryFine.aggregate({
+                where: { status: 'PENDING' },
+                _sum: { amount: true }
+            })
+        ]);
+
+        return {
+            totalBooks,
+            availableBooks: availableBooks._sum.available || 0,
+            borrowedBooks: borrowedRecords,
+            overdueBooks: overdueRecords,
+            pendingFines: pendingFines._sum.amount || 0
+        };
     }
 }

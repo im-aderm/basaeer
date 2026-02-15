@@ -26,9 +26,17 @@ export interface BorrowRecord {
     student?: any;
 }
 
+export interface LibraryStats {
+    totalBooks: number;
+    availableBooks: number;
+    borrowedBooks: number;
+    overdueBooks: number;
+    pendingFines: number;
+}
+
 export const LibraryService = {
-    getAllBooks: async (): Promise<Book[]> => {
-        const response = await api.get("/library/books");
+    getAllBooks: async (params?: { page?: number; limit?: number; search?: string; category?: string }) => {
+        const response = await api.get("/library/books", { params });
         return response.data;
     },
 
@@ -47,7 +55,7 @@ export const LibraryService = {
         return response.data;
     },
 
-    returnBook: async (id: string): Promise<BorrowRecord> => {
+    returnBook: async (id: string): Promise<{ status: string; returnDate: string; fineAmount: number }> => {
         const response = await api.patch(`/library/return/${id}`);
         return response.data;
     },
@@ -64,6 +72,11 @@ export const LibraryService = {
 
     getAllBorrowRecords: async (): Promise<BorrowRecord[]> => {
         const response = await api.get("/library/borrow-records");
+        return response.data;
+    },
+
+    getLibraryStats: async (): Promise<LibraryStats> => {
+        const response = await api.get("/library/stats");
         return response.data;
     }
 };

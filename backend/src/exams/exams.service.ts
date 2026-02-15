@@ -232,6 +232,28 @@ export class ExamsService {
             const totalScore = studentRecords.reduce((acc, r) => acc + (r.total || 0), 0);
             const average = totalScore / studentRecords.length;
 
+            // Calculate Attendance Stats
+            // We'll fetch all attendance records for this student in this session
+            const session = await tx.academicSession.findUnique({ where: { id: sessionId } });
+            if (!session) {
+                // Should not happen if foreign keys are enforced, but good for safety
+                throw new Error(`Session ${sessionId} not found`);
+            }
+
+            const attendanceRecords = await tx.attendance.findMany({
+                where: {
+                    studentId,
+                    date: {
+                        gte: session.startDate,
+                        lte: session.endDate,
+                    }
+                }
+            });
+
+            const attendancePresent = attendanceRecords.filter(a => a.status === 'PRESENT' || a.status === 'LATE').length;
+            const attendanceAbsent = attendanceRecords.filter(a => a.status === 'ABSENT').length;
+            const attendanceOpen = attendanceRecords.length;
+
             const summary = await tx.resultSummary.upsert({
                 where: {
                     studentId_sessionId_term: { studentId, sessionId, term },
@@ -240,6 +262,9 @@ export class ExamsService {
                     totalScore,
                     average,
                     examTerm,
+                    attendancePresent,
+                    attendanceAbsent,
+                    attendanceOpen,
                 },
                 create: {
                     studentId,
@@ -248,11 +273,16 @@ export class ExamsService {
                     totalScore,
                     average,
                     examTerm,
+                    attendancePresent,
+                    attendanceAbsent,
+                    attendanceOpen,
                 },
             });
 
             // After updating this student, refresh class rankings for the summary
-            await this.updateClassRanking(tx, studentRecords[0].sectionId, sessionId, term);
+            if (studentRecords[0].sectionId) {
+                await this.updateClassRanking(tx, studentRecords[0].sectionId, sessionId, term);
+            }
 
             return summary;
         });

@@ -28,7 +28,8 @@ export default function InventoryProductPage() {
     const [units, setUnits] = useState<any[]>([]);
 
     const [formData, setFormData] = useState({
-        name: '', categoryId: '', storeId: '', unitId: '', code: '', description: ''
+        name: '', categoryId: '', storeId: '', unitId: '', code: '', description: '',
+        costPrice: 0, sellingPrice: 0
     });
 
     const fetchProducts = async () => {
@@ -68,7 +69,7 @@ export default function InventoryProductPage() {
             await InventoryService.createProduct({ ...formData, branchId: user?.branchId });
             toast.success('Product added successfully');
             setIsAddDialogOpen(false);
-            setFormData({ name: '', categoryId: '', storeId: '', unitId: '', code: '', description: '' });
+            setFormData({ name: '', categoryId: '', storeId: '', unitId: '', code: '', description: '', costPrice: 0, sellingPrice: 0 });
             fetchProducts();
         } catch (error) { toast.error('Failed to add product'); }
     };
@@ -121,6 +122,16 @@ export default function InventoryProductPage() {
                                 <div className="space-y-2">
                                     <Label className="font-black italic text-xs uppercase opacity-50 ml-1">Product Code</Label>
                                     <Input className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={formData.code} onChange={(e) => setFormData({ ...formData, code: e.target.value })} />
+                                </div>
+                            </div>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="space-y-2">
+                                    <Label className="font-black italic text-xs uppercase opacity-50 ml-1">Cost Price</Label>
+                                    <Input type="number" className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={formData.costPrice} onChange={(e) => setFormData({ ...formData, costPrice: parseFloat(e.target.value) || 0 })} />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label className="font-black italic text-xs uppercase opacity-50 ml-1">Selling Price</Label>
+                                    <Input type="number" className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={formData.sellingPrice} onChange={(e) => setFormData({ ...formData, sellingPrice: parseFloat(e.target.value) || 0 })} />
                                 </div>
                             </div>
                             <div className="grid grid-cols-3 gap-4">
@@ -221,7 +232,10 @@ export default function InventoryProductPage() {
                                                         storeId: p.storeId || '',
                                                         unitId: p.unitId,
                                                         code: p.code || '',
-                                                        description: p.description || ''
+                                                        code: p.code || '',
+                                                        description: p.description || '',
+                                                        costPrice: p.costPrice || 0,
+                                                        sellingPrice: p.sellingPrice || 0
                                                     });
                                                     setIsEditDialogOpen(true);
                                                 }}
@@ -259,6 +273,16 @@ export default function InventoryProductPage() {
                             <div className="space-y-2">
                                 <Label className="font-black italic text-xs uppercase opacity-50 ml-1">Product Code</Label>
                                 <Input className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={formData.code} onChange={(e) => setFormData({ ...formData, code: e.target.value })} />
+                            </div>
+                        </div>
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="space-y-2">
+                                <Label className="font-black italic text-xs uppercase opacity-50 ml-1">Cost Price</Label>
+                                <Input type="number" className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={formData.costPrice} onChange={(e) => setFormData({ ...formData, costPrice: parseFloat(e.target.value) || 0 })} />
+                            </div>
+                            <div className="space-y-2">
+                                <Label className="font-black italic text-xs uppercase opacity-50 ml-1">Selling Price</Label>
+                                <Input type="number" className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={formData.sellingPrice} onChange={(e) => setFormData({ ...formData, sellingPrice: parseFloat(e.target.value) || 0 })} />
                             </div>
                         </div>
                         <div className="grid grid-cols-3 gap-4">

@@ -1614,7 +1614,9 @@ model InventoryProduct {
   storeId String?
   store   InventoryStore? @relation(fields: [storeId], references: [id])
 
-  stock Int @default(0)
+  stock        Int   @default(0)
+  costPrice    Float @default(0)
+  sellingPrice Float @default(0)
 
   purchases InventoryPurchase[]
   sales     InventorySale[]

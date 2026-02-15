@@ -19,18 +19,18 @@ import { LibraryService, Book as BookType, BorrowRecord } from "@/services/libra
 import Link from "next/link";
 
 export default function LibraryOverviewPage() {
-    const [books, setBooks] = useState<BookType[]>([]);
+    const [statsData, setStatsData] = useState<any>(null);
     const [overdue, setOverdue] = useState<BorrowRecord[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const [booksData, overdueData] = await Promise.all([
-                    LibraryService.getAllBooks(),
+                const [libraryStats, overdueData] = await Promise.all([
+                    LibraryService.getLibraryStats(),
                     LibraryService.getOverdueBooks()
                 ]);
-                setBooks(booksData);
+                setStatsData(libraryStats);
                 setOverdue(overdueData);
             } catch (error) {
                 console.error("Failed to fetch library data:", error);
@@ -44,7 +44,7 @@ export default function LibraryOverviewPage() {
     const stats = [
         {
             title: "Total Books",
-            value: books.length,
+            value: statsData?.totalBooks || 0,
             icon: Book,
             color: "text-blue-500",
             bgColor: "bg-blue-500/10",
@@ -52,7 +52,7 @@ export default function LibraryOverviewPage() {
         },
         {
             title: "Borrowed",
-            value: books.reduce((acc, b) => acc + (b.quantity - b.available), 0),
+            value: statsData?.borrowedBooks || 0,
             icon: Bookmark,
             color: "text-purple-500",
             bgColor: "bg-purple-500/10",
@@ -60,7 +60,7 @@ export default function LibraryOverviewPage() {
         },
         {
             title: "Overdue",
-            value: overdue.length,
+            value: statsData?.overdueBooks || 0,
             icon: AlertCircle,
             color: "text-red-500",
             bgColor: "bg-red-500/10",
@@ -68,7 +68,7 @@ export default function LibraryOverviewPage() {
         },
         {
             title: "Available",
-            value: books.reduce((acc, b) => acc + b.available, 0),
+            value: statsData?.availableBooks || 0,
             icon: BookOpen,
             color: "text-green-500",
             bgColor: "bg-green-500/10",

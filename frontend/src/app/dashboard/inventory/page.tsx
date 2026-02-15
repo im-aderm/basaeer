@@ -45,7 +45,7 @@ export default function InventoryOverviewPage() {
     }, [user?.branchId]);
 
     const lowStock = products.filter(p => p.stock <= 5);
-    const totalStockValue = 0; // Placeholder for future logic if unit prices are tracked per product stock
+    const totalStockValue = products.reduce((sum, p) => sum + (p.stock * (p.costPrice || 0)), 0);
 
     const quickActions = [
         { title: 'Add Product', icon: Plus, href: '/dashboard/inventory/product', color: 'bg-primary' },
@@ -105,9 +105,11 @@ export default function InventoryOverviewPage() {
                     </CardContent>
                 </Card>
                 <Card className="rounded-[2.5rem] border-none shadow-2xl bg-emerald-500/5 hover:bg-emerald-500/10 transition-colors group">
-                    <CardHeader className="pb-2"><CardTitle className="text-[10px] font-black uppercase tracking-[0.2em] italic opacity-40">System Efficiency</CardTitle></CardHeader>
+                    <CardHeader className="pb-2"><CardTitle className="text-[10px] font-black uppercase tracking-[0.2em] italic opacity-40">Total Value</CardTitle></CardHeader>
                     <CardContent className="flex items-center justify-between">
-                        <span className="text-5xl font-black italic tracking-tighter text-emerald-600">98%</span>
+                        <span className="text-4xl font-black italic tracking-tighter text-emerald-600">
+                            {new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN' }).format(totalStockValue)}
+                        </span>
                         <TrendingUp className="h-10 w-10 text-emerald-500 opacity-20 group-hover:opacity-40 transition-opacity" />
                     </CardContent>
                 </Card>

@@ -37,6 +37,27 @@ export interface Allocation {
     bed?: Bed & { room?: Room & { hostel?: Hostel } };
 }
 
+export interface HostelLeave {
+    id: string;
+    studentId: string;
+    startDate: string;
+    endDate: string;
+    reason: string;
+    status: 'PENDING' | 'APPROVED' | 'REJECTED';
+    student?: any;
+}
+
+export interface MaintenanceRequest {
+    id: string;
+    title: string;
+    description: string;
+    status: 'OPEN' | 'IN_PROGRESS' | 'RESOLVED';
+    priority: 'LOW' | 'MEDIUM' | 'HIGH' | 'URGENT';
+    bedId?: string;
+    roomId?: string;
+    bed?: Bed & { room?: Room };
+}
+
 export const HostelService = {
     getAll: async (): Promise<Hostel[]> => {
         const response = await api.get("/hostels");
@@ -97,6 +118,43 @@ export const HostelService = {
 
     getVacancies: async (): Promise<any[]> => {
         const response = await api.get("/hostels/vacancies");
+        return response.data;
+    },
+
+    // Leaves
+    createLeave: async (data: any): Promise<HostelLeave> => {
+        const response = await api.post("/hostels/leave", data);
+        return response.data;
+    },
+
+    getLeaves: async (): Promise<HostelLeave[]> => {
+        const response = await api.get("/hostels/leaves");
+        return response.data;
+    },
+
+    updateLeaveStatus: async (id: string, status: string): Promise<HostelLeave> => {
+        const response = await api.patch(`/hostels/leaves/${id}`, { status });
+        return response.data;
+    },
+
+    // Maintenance
+    createMaintenance: async (data: any): Promise<MaintenanceRequest> => {
+        const response = await api.post("/hostels/maintenance", data);
+        return response.data;
+    },
+
+    getMaintenanceRequests: async (): Promise<MaintenanceRequest[]> => {
+        const response = await api.get("/hostels/maintenance");
+        return response.data;
+    },
+
+    updateMaintenanceStatus: async (id: string, status: string): Promise<MaintenanceRequest> => {
+        const response = await api.patch(`/hostels/maintenance/${id}`, { status });
+        return response.data;
+    },
+
+    getMyHostelDetails: async (): Promise<any> => {
+        const response = await api.get("/hostels/my-details");
         return response.data;
     }
 };

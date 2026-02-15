@@ -83,13 +83,44 @@ export class HostelsController {
 
     @Post('leave')
     @Roles(UserRole.STUDENT)
-    createLeave(@Body() dto: any) {
-        return this.hostelsService.createLeave(dto);
+    createLeave(@Body() dto: any, @Request() req) {
+        return this.hostelsService.createLeave(dto, req.user);
+    }
+
+    @Get('leaves')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN, UserRole.BRANCH_ADMIN, UserRole.STUDENT)
+    getLeaves(@Request() req) {
+        return this.hostelsService.getLeaves(req.user);
+    }
+
+    @Patch('leaves/:id')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN)
+    updateLeaveStatus(@Param('id') id: string, @Body('status') status: string, @Request() req) {
+        return this.hostelsService.updateLeaveStatus(id, status, req.user.branchId);
     }
 
     @Post('maintenance')
     @Roles(UserRole.STUDENT, UserRole.HOSTEL_ADMIN)
-    createMaintenance(@Body() dto: any) {
-        return this.hostelsService.createMaintenanceRequest(dto);
+    createMaintenance(@Body() dto: any, @Request() req) {
+        // Pass user to helper to link student if applicable
+        return this.hostelsService.createMaintenanceRequest(dto, req.user);
+    }
+
+    @Get('maintenance')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN, UserRole.BRANCH_ADMIN, UserRole.STUDENT)
+    getMaintenanceRequests(@Request() req) {
+        return this.hostelsService.getMaintenanceRequests(req.user);
+    }
+
+    @Get('my-details')
+    @Roles(UserRole.STUDENT)
+    getMyHostelDetails(@Request() req) {
+        return this.hostelsService.getMyHostelDetails(req.user);
+    }
+
+    @Patch('maintenance/:id')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN)
+    updateMaintenanceStatus(@Param('id') id: string, @Body('status') status: string, @Request() req) {
+        return this.hostelsService.updateMaintenanceStatus(id, status, req.user.branchId);
     }
 }

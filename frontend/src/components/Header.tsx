@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuth } from "@/context/AuthContext";
-import { ThemeToggle } from "@/components/ThemeToggle";
+// import { ThemeToggle } from "@/components/ThemeToggle"; // Removed
 import { LogOut, Bell, Search, User } from "lucide-react";
 import { Input } from "@/components/ui/input";
 
@@ -29,8 +29,6 @@ export function Header() {
                 <div className="h-8 w-[1px] bg-border mx-2"></div>
 
                 <div className="flex items-center gap-4">
-                    <ThemeToggle />
-
                     <div className="flex items-center gap-3 pl-2">
                         <div className="text-right hidden md:block">
                             <p className="text-sm font-black tracking-tight">{user?.firstName} {user?.lastName}</p>
@@ -49,9 +47,9 @@ export function Header() {
                             {/* Simple Dropdown simulation or just logout for now */}
                             <button
                                 onClick={logout}
-                                className="absolute top-12 right-0 w-48 bg-card border border-border shadow-2xl rounded-2xl p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 translate-y-2 group-hover:translate-y-0"
+                                className="absolute top-12 right-0 w-48 bg-white border border-border shadow-[0_4px_20px_rgba(0,0,0,0.08)] rounded-xl p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 translate-y-2 group-hover:translate-y-0"
                             >
-                                <div className="flex items-center gap-3 p-3 text-red-500 hover:bg-red-500/10 rounded-xl transition-colors font-bold text-sm">
+                                <div className="flex items-center gap-3 p-3 text-red-600 hover:bg-red-50 rounded-lg transition-colors font-bold text-sm">
                                     <LogOut size={18} />
                                     Sign Out
                                 </div>

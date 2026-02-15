@@ -37,4 +37,10 @@ export class AttendanceController {
     getStudentAttendance(@Query('id') studentId: string) {
         return this.attendanceService.getStudentAttendance(studentId);
     }
+
+    @Get('stats')
+    @Roles(UserRole.TEACHER, UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
+    getStats(@Request() req) {
+        return this.attendanceService.getStats(req.user.branchId);
+    }
 }

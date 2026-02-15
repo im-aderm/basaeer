@@ -29,6 +29,9 @@ export default function BookCatalogPage() {
     const [books, setBooks] = useState<BookType[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [isBorrowModalOpen, setIsBorrowModalOpen] = useState(false);
     const [selectedBook, setSelectedBook] = useState<BookType | null>(null);
@@ -50,11 +53,19 @@ export default function BookCatalogPage() {
     const fetchBooks = async () => {
         setLoading(true);
         try {
-            const [booksData, studentsData] = await Promise.all([
-                LibraryService.getAllBooks(),
-                api.get("/students").then(res => res.data) // Basic fetch for Quick Borrow
+            const [booksResponse, studentsData] = await Promise.all([
+                LibraryService.getAllBooks({ page, limit: 9, search: searchTerm }),
+                api.get("/students").then(res => res.data)
             ]);
-            setBooks(booksData);
+
+            // Handle response format change (array vs { data, meta })
+            if (Array.isArray(booksResponse)) {
+                setBooks(booksResponse);
+            } else {
+                setBooks(booksResponse.data);
+                setTotalPages(booksResponse.meta.totalPages);
+            }
+
             setStudents(studentsData);
         } catch (error) {
             console.error("Failed to fetch data:", error);
@@ -64,8 +75,11 @@ export default function BookCatalogPage() {
     };
 
     useEffect(() => {
-        fetchBooks();
-    }, []);
+        const timer = setTimeout(() => {
+            fetchBooks();
+        }, 500); // Debounce search
+        return () => clearTimeout(timer);
+    }, [page, searchTerm]);
 
     const handleQuickBorrow = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -99,12 +113,6 @@ export default function BookCatalogPage() {
             console.error("Failed to add book:", error);
         }
     };
-
-    const filteredBooks = books.filter(book =>
-        book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        book.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        book.isbn?.toLowerCase().includes(searchTerm.toLowerCase())
-    );
 
     if (loading && books.length === 0) return <div className="p-8 text-center"><Loader2 className="animate-spin mx-auto h-8 w-8 text-primary" /></div>;
 
@@ -213,7 +221,10 @@ export default function BookCatalogPage() {
                         placeholder="Search by title, author, or ISBN..."
                         className="w-full pl-12 pr-4 py-3 bg-card border border-border/50 rounded-xl focus:border-blue-500 outline-none transition-all font-medium"
                         value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
+                        onChange={(e) => {
+                            setSearchTerm(e.target.value);
+                            setPage(1); // Reset to first page on search
+                        }}
                     />
                 </div>
                 <div className="relative">
@@ -229,7 +240,7 @@ export default function BookCatalogPage() {
 
             {/* Books Shelf Design */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {filteredBooks.map((book) => (
+                {books.map((book) => (
                     <Card key={book.id} className="rounded-[2.5rem] border-border/50 shadow-xl hover:shadow-2xl transition-all duration-300 group overflow-hidden bg-card border-t-8 border-t-blue-500/30 hover:border-t-blue-500">
                         <CardContent className="p-8 space-y-6">
                             <div className="flex justify-between items-start">
@@ -290,6 +301,29 @@ export default function BookCatalogPage() {
                 ))}
             </div>
 
+            {/* Pagination Controls */}
+            {totalPages > 1 && (
+                <div className="flex justify-center gap-4 mt-8">
+                    <Button
+                        variant="outline"
+                        disabled={page === 1}
+                        onClick={() => setPage(page - 1)}
+                        className="rounded-xl"
+                    >
+                        Previous
+                    </Button>
+                    <span className="flex items-center font-bold">Page {page} of {totalPages}</span>
+                    <Button
+                        variant="outline"
+                        disabled={page === totalPages}
+                        onClick={() => setPage(page + 1)}
+                        className="rounded-xl"
+                    >
+                        Next
+                    </Button>
+                </div>
+            )}
+
             {/* Quick Borrow Modal */}
             <Dialog open={isBorrowModalOpen} onOpenChange={setIsBorrowModalOpen}>
                 <DialogContent className="max-w-md rounded-[2.5rem] p-8">
@@ -329,7 +363,7 @@ export default function BookCatalogPage() {
                 </DialogContent>
             </Dialog>
 
-            {filteredBooks.length === 0 && (
+            {books.length === 0 && !loading && (
                 <div className="py-24 text-center bg-card border-2 border-dashed border-border/50 rounded-[3rem] animate-in zoom-in-95">
                     <div className="w-20 h-20 bg-muted/50 rounded-full flex items-center justify-center mx-auto mb-6">
                         <Search size={32} className="text-muted-foreground/30" />

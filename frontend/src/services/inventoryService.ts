@@ -37,6 +37,8 @@ export interface InventoryProduct {
     unit?: InventoryUnit;
     storeId?: string;
     store?: InventoryStore;
+    costPrice: number;
+    sellingPrice: number;
 }
 
 export interface InventoryPurchase {

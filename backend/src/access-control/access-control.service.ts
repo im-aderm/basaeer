@@ -1,14 +1,38 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateAccessLogDto } from './dto/access-control.dto';
-
+import { AttendanceService } from '../attendance/attendance.service';
+import { AutomationService } from '../automation/automation.service';
 @Injectable()
 export class AccessControlService {
-    constructor(private prisma: PrismaService) { }
+    constructor(
+        private prisma: PrismaService,
+        private attendanceService: AttendanceService,
+        private automationService: AutomationService
+    ) { }
 
     async logAccess(branchId: string, dto: CreateAccessLogDto) {
         const user = await this.prisma.user.findUnique({ where: { id: dto.userId } });
         if (!user) throw new NotFoundException('User not found');
+
+        // Check for Automation
+        if (user.role === 'STUDENT' && dto.direction === 'ENTRY') {
+            const configs = await this.automationService.getConfigs(branchId);
+            const attendanceConfig = configs.find(c => c.type === 'ATTENDANCE_ON_ENTRY');
+
+            if (attendanceConfig && attendanceConfig.isEnabled) {
+                const student = await this.prisma.student.findFirst({ where: { userId: user.id } });
+                if (student && student.sectionId) {
+                    await this.attendanceService.markAttendance({
+                        studentId: student.id,
+                        date: new Date().toISOString(), // Use ISO string or Date object depending on DTO
+                        status: 'PRESENT',
+                        remarks: 'Auto-marked via QR Entry',
+                        sectionId: student.sectionId
+                    });
+                }
+            }
+        }
 
         return this.prisma.campusAccessLog.create({
             data: {

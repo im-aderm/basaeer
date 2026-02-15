@@ -90,4 +90,40 @@ export class AttendanceService {
             orderBy: { date: 'desc' },
         });
     }
+
+    async getStats(branchId: string) {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const [
+            totalStudents,
+            studentsPresent,
+            totalStaff,
+            staffPresent
+        ] = await Promise.all([
+            this.prisma.student.count({ where: { branchId, user: { isActive: true } } }),
+            this.prisma.attendance.count({
+                where: {
+                    date: today,
+                    status: { in: ['PRESENT', 'LATE'] },
+                    student: { branchId }
+                }
+            }),
+            this.prisma.staff.count({ where: { user: { branchId, isActive: true } } }),
+            this.prisma.staffAttendance.count({
+                where: {
+                    date: today,
+                    status: { in: ['PRESENT', 'LATE'] },
+                    staff: { user: { branchId } }
+                }
+            })
+        ]);
+
+        return {
+            totalStudents,
+            studentsPresent,
+            totalStaff,
+            staffPresent
+        };
+    }
 }

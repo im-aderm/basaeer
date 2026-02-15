@@ -7,11 +7,9 @@ import { ReactNode } from "react";
 
 export function Providers({ children }: { children: ReactNode }) {
     return (
-        <ThemeProvider attribute="data-theme" defaultTheme="system" enableSystem>
-            <AuthProvider>
-                {children}
-                <Toaster />
-            </AuthProvider>
-        </ThemeProvider>
+        <AuthProvider>
+            {children}
+            <Toaster />
+        </AuthProvider>
     );
 }
