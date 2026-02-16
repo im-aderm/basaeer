@@ -133,11 +133,16 @@ If you see "Invalid Credentials" after deployment, it likely means your producti
 1.  Get your **Supabase Connection String** (Transaction/Session/Pooled mode).
 2.  Update your local `backend/.env` `DATABASE_URL` to point to Supabase (temporarily) OR run the command with the var:
     ```bash
-    # Linux/Mac
-    export DATABASE_URL="postgresql://postgres.[ref]:[password]@aws-0-[region].pooler.supabase.com:6543/postgres"
-    cd backend
-    npx prisma db push
-    npx prisma db seed
+    # PROPER WAY TO SET ENV VARS FOR NETLIFY (Run in backend directory)
+    # Use the Transaction Pooler URL (port 6543) for Netlify
+    netlify env:set DATABASE_URL "postgresql://postgres.llknirjnyqlloijnjcjy:[password]@aws-1-eu-west-1.pooler.supabase.com:6543/postgres?pgbouncer=true"
+    
+    # FOR LOCAL SEEDING ONLY: Use Direct Connection (port 5432) & Force IPv4
+    echo 'DATABASE_URL="postgresql://postgres.llknirjnyqlloijnjcjy:[password]@aws-1-eu-west-1.pooler.supabase.com:5432/postgres"' > .env
+    
+    # Run with IPv4 preference (Required for Supabase connectivity from some networks)
+    NODE_OPTIONS='--dns-result-order=ipv4first' npx prisma db push
+    NODE_OPTIONS='--dns-result-order=ipv4first' npx prisma db seed
     ```
 3.  **Default Credentials**:
     *   **Email**: `superadmin@basaeer.com`
