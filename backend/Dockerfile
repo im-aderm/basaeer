@@ -35,8 +35,8 @@ RUN npm ci --only=production
 
 # Copy built assets from builder
 COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
-COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
+COPY --from=builder /app/src/generated/client ./src/generated/client
+COPY --from=builder /app/node_modules ./node_modules
 
 # expose port
 EXPOSE 3001
