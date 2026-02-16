@@ -30,6 +30,12 @@ export default async function handler(req, res) {
         server(req, res);
     } catch (error) {
         console.error('Server execution failed:', error);
+        // Manually set CORS headers for error response
+        res.setHeader('Access-Control-Allow-Origin', 'https://basaeer-frontend.vercel.app');
+        res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS');
+        res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+        res.setHeader('Access-Control-Allow-Credentials', 'true');
+
         res.status(500).json({
             statusCode: 500,
             message: 'Internal Server Error',
