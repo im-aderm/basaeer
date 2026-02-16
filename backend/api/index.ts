@@ -11,15 +11,18 @@ const createNestServer = async (expressInstance) => {
         new ExpressAdapter(expressInstance),
     );
     app.enableCors({
-        origin: '*', // Adjust this to your frontend URL in production
-        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+        origin: ['https://basaaer-frontend.vercel.app', 'http://localhost:3000'], // Update to Vercel URL
         credentials: true,
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     });
     await app.init();
+    return app;
 };
 
-createNestServer(server)
-    .then(() => console.log('NestJS initialized'))
-    .catch((err) => console.error('NestJS initialization failed', err));
-
-export default server;
+export default async function handler(req, res) {
+    if (!(server as any).isNestInitialized) {
+        await createNestServer(server);
+        (server as any).isNestInitialized = true;
+    }
+    server(req, res);
+}
