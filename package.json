@@ -4,5 +4,8 @@
   },
   "dependencies": {
     "ts-node": "^10.9.2"
+  },
+  "devDependencies": {
+    "@netlify/plugin-nextjs": "^5.15.8"
   }
 }
