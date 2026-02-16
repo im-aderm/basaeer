@@ -35,6 +35,7 @@ RUN npm ci --only=production
 
 # Copy built assets from builder
 COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/src/generated ./dist/generated
 COPY --from=builder /app/node_modules ./node_modules
 
 # expose port
