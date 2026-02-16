@@ -7,7 +7,11 @@ let server: Handler;
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
-    app.enableCors(); // Enable CORS for client access
+    app.enableCors({
+        origin: ['https://basaaer-frontend.netlify.app', 'http://localhost:3000'],
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+        credentials: true,
+    });
     await app.init();
 
     const expressApp = app.getHttpAdapter().getInstance();

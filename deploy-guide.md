@@ -126,7 +126,24 @@ If you see a 404 error:
 ### 2. Update API URL
 In your frontend code or environment variables, point to the production backend URL.
 
-### 3. Deploy via Netlify CLI (Manual)
+### 3. Database Seeding (Crucial for "Invalid Credentials")
+If you see "Invalid Credentials" after deployment, it likely means your production Supabase database is empty. You must seed it with the initial admin user.
+
+**Run this locally (pointing to your Supabase DB):**
+1.  Get your **Supabase Connection String** (Transaction/Session/Pooled mode).
+2.  Update your local `backend/.env` `DATABASE_URL` to point to Supabase (temporarily) OR run the command with the var:
+    ```bash
+    # Linux/Mac
+    export DATABASE_URL="postgresql://postgres.[ref]:[password]@aws-0-[region].pooler.supabase.com:6543/postgres"
+    cd backend
+    npx prisma db push
+    npx prisma db seed
+    ```
+3.  **Default Credentials**:
+    *   **Email**: `superadmin@basaeer.com`
+    *   **Password**: `admin123`
+
+### 4. Deploy via Netlify CLI (Manual)
 1.  Navigate to the frontend directory:
     ```bash
     cd frontend
