@@ -11,7 +11,8 @@ import {
     Image as ImageIcon,
     Loader2,
     CheckCircle2,
-    Save
+    Save,
+    Award
 } from "lucide-react";
 import api from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";

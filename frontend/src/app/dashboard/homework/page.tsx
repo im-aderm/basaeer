@@ -29,6 +29,7 @@ export default function TeacherHomeworkHub() {
         classId: "",
         sectionId: "",
         subjectId: "",
+        attachmentUrl: "",
     });
 
     useEffect(() => {
@@ -168,7 +169,7 @@ export default function TeacherHomeworkHub() {
                                                 <SelectValue placeholder="Select section" />
                                             </SelectTrigger>
                                             <SelectContent>
-                                                {availableSections.map((sec) => (
+                                                {availableSections.map((sec: any) => (
                                                     <SelectItem key={sec.id} value={sec.id}>
                                                         {sec.name}
                                                     </SelectItem>

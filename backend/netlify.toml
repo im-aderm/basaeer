@@ -1,6 +1,6 @@
 [build]
   command = "npm run build"
-  functions = "dist"
+  functions = "netlify/functions"
   publish = "dist"
 
 [functions]
@@ -9,5 +9,5 @@
 
 [[redirects]]
   from = "/*"
-  to = "/.netlify/functions/serverless"
+  to = "/.netlify/functions/api"
   status = 200

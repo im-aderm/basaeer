@@ -19,6 +19,7 @@ export default function StudentLiveClassesPage() {
     }, [user]);
 
     const fetchSessions = async () => {
+        if (!user?.student?.id) return;
         try {
             const response = await api.get(`/live-classes/sessions/student/${user.student.id}`);
             setSessions(response.data);
@@ -209,7 +210,7 @@ export default function StudentLiveClassesPage() {
                         <div className="space-y-3">
                             {pastSessions.slice(0, 5).map((session) => {
                                 const attended = session.participants?.some(
-                                    (p: any) => p.studentId === user.student.id
+                                    (p: any) => p.studentId === user?.student?.id
                                 );
 
                                 return (

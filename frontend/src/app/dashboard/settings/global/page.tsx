@@ -1,11 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { SettingsService, Setting } from "@/services/settingsService";
+import { SettingsService, GlobalSetting } from "@/services/settingsService";
 import { Save, Loader2, Globe, School, Coins, Clock, Bell, ShieldCheck } from "lucide-react";
 
 export default function GlobalSettingsPage() {
-    const [settings, setSettings] = useState<Setting[]>([]);
+    const [settings, setSettings] = useState<GlobalSetting[]>([]);
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [formData, setFormData] = useState<Record<string, string>>({
@@ -20,7 +20,7 @@ export default function GlobalSettingsPage() {
     useEffect(() => {
         const fetchSettings = async () => {
             try {
-                const data = await SettingsService.getAll();
+                const data = await SettingsService.getSettings();
                 setSettings(data);
                 const mapped: Record<string, string> = { ...formData };
                 data.forEach(s => {
@@ -43,7 +43,7 @@ export default function GlobalSettingsPage() {
     const handleSave = async (key: string) => {
         setSaving(true);
         try {
-            await SettingsService.update({ key, value: formData[key] });
+            await SettingsService.updateSetting(key, formData[key]);
         } catch (error) {
             console.error(`Failed to save ${key}:`, error);
         } finally {
@@ -55,7 +55,7 @@ export default function GlobalSettingsPage() {
         setSaving(true);
         try {
             for (const key of Object.keys(formData)) {
-                await SettingsService.update({ key, value: formData[key] });
+                await SettingsService.updateSetting(key, formData[key]);
             }
             alert("Settings saved successfully!");
         } catch (error) {

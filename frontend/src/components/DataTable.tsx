@@ -1,7 +1,7 @@
 "use client";
 
 interface Column<T> {
-    header: string;
+    header: string | (() => React.ReactNode);
     accessor?: keyof T | ((item: T) => React.ReactNode);
     accessorKey?: string;
     cell?: (item: T) => React.ReactNode;
@@ -26,7 +26,7 @@ export function DataTable<T extends { id: string }>({ columns, data, actions }: 
                     <tr>
                         {columns.map((col, index) => (
                             <th key={index} className="px-4 py-3 font-medium">
-                                {col.header}
+                                {typeof col.header === 'function' ? col.header() : col.header}
                             </th>
                         ))}
                         {actions && <th className="px-4 py-3 font-medium text-right">Actions</th>}

@@ -232,7 +232,7 @@ export default function InventoryProductPage() {
                                                         storeId: p.storeId || '',
                                                         unitId: p.unitId,
                                                         code: p.code || '',
-                                                        code: p.code || '',
+
                                                         description: p.description || '',
                                                         costPrice: p.costPrice || 0,
                                                         sellingPrice: p.sellingPrice || 0
