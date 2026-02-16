@@ -20,9 +20,21 @@ const createNestServer = async (expressInstance) => {
 };
 
 export default async function handler(req, res) {
-    if (!(server as any).isNestInitialized) {
-        await createNestServer(server);
-        (server as any).isNestInitialized = true;
+    try {
+        if (!(server as any).isNestInitialized) {
+            console.log('Initializing NestJS server...');
+            await createNestServer(server);
+            (server as any).isNestInitialized = true;
+            console.log('NestJS server initialized successfully');
+        }
+        server(req, res);
+    } catch (error) {
+        console.error('Server execution failed:', error);
+        res.status(500).json({
+            statusCode: 500,
+            message: 'Internal Server Error',
+            error: error.message,
+            stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+        });
     }
-    server(req, res);
 }
