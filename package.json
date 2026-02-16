@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "build": "npm install --prefix frontend && npm run build --prefix frontend"
+  },
   "dependencies": {
     "ts-node": "^10.9.2"
   }

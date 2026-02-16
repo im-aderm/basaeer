@@ -107,6 +107,22 @@ Ensure `frontend/netlify.toml` exists:
   package = "@netlify/plugin-nextjs"
 ```
 
+### Troubleshooting Netlify Frontend Builds
+
+### 1. CORS Troubleshooting
+If the frontend cannot access the backend, check `backend/src/main.ts` (or `api/index.ts` if using serverless). Ensure `enableCors` allows your Netlify frontend domain.
+
+### 2. Monorepo Build Errors (Missing script: "build")
+If Netlify deployment fails with `npm error Missing script: "build"`, it means it is trying to build from the root directory. To fix this:
+- **Option A (Recommended)**: In Netlify Site Settings > Build & Deploy, set the **Base directory** to `frontend` (for frontend site) or `backend` (for backend site).
+- **Option B (Patch)**: We have added a root `package.json` script that redirects the build to the frontend: `"build": "npm install --prefix frontend && npm run build --prefix frontend"`. This fixes the default root build.
+
+### 3. "Page Not Found" (404) on Frontend
+If you see a 404 error:
+- Ensure the build completed successfully.
+- Verify that `@netlify/plugin-nextjs` is installed and running (check build logs).
+- Provide the correct publish directory (usually `.next` for Next.js with the plugin).
+
 ### 2. Update API URL
 In your frontend code or environment variables, point to the production backend URL.
 
