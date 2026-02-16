@@ -11,7 +11,7 @@ const createNestServer = async (expressInstance) => {
         new ExpressAdapter(expressInstance),
     );
     app.enableCors({
-        origin: ['https://basaaer-frontend.vercel.app', 'http://localhost:3000'], // Update to Vercel URL
+        origin: ['https://basaeer-frontend.vercel.app', 'http://localhost:3000'], // Update to Vercel URL
         credentials: true,
         methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     });
