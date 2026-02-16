@@ -9,7 +9,11 @@ async function bootstrap() {
   console.log('NestJS application core created.');
 
   app.enableCors({
-    origin: ['https://basaaer-frontend.netlify.app', 'http://localhost:3000'],
+    origin: [
+      'https://basaeer-frontend.vercel.app',
+      'https://basaaer-frontend.netlify.app',
+      'http://localhost:3000',
+    ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
   });
