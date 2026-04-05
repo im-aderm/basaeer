@@ -31,9 +31,9 @@ export function TestimonialsSection() {
         <section className="py-20 lg:py-32 bg-white relative overflow-hidden border-t border-[#E5E7EB]">
             <div className="container mx-auto px-6">
                 <div className="text-center mb-16 space-y-4">
-                    <h2 className="text-3xl lg:text-4xl font-bold text-[#111827] tracking-tight">
+                    <h2 className="text-3xl lg:text-4xl font-bold text-brand-navy tracking-tight">
                         What Parents Say <br />
-                        <span className="text-[#2563EB]">About Basaeer</span>
+                        <span className="text-brand-gold">About Basaeer</span>
                     </h2>
                 </div>
 
@@ -41,19 +41,19 @@ export function TestimonialsSection() {
                     {testimonials.map((testimonial, idx) => (
                         <div
                             key={idx}
-                            className="relative p-8 rounded-xl bg-white border border-[#E5E7EB] hover:border-[#2563EB]/50 transition-all duration-300 hover:shadow-[0_4px_20px_rgba(0,0,0,0.06)]"
+                            className="relative p-8 rounded-xl bg-white border border-brand-sand/30 hover:border-brand-gold/50 transition-all duration-300 hover:shadow-[0_4px_20px_rgba(10,31,68,0.06)]"
                         >
-                            <div className="absolute top-8 right-8 text-[#E5E7EB]">
+                            <div className="absolute top-8 right-8 text-brand-sand/40">
                                 <MessageSquareQuote size={40} />
                             </div>
 
-                            <div className="flex gap-1 mb-6 text-[#F59E0B]">
+                            <div className="flex gap-1 mb-6 text-brand-gold">
                                 {[...Array(5)].map((_, i) => (
                                     <Star key={i} size={16} fill="currentColor" />
                                 ))}
                             </div>
 
-                            <p className="text-muted-foreground text-lg mb-8 leading-relaxed italic">
+                            <p className="text-slate-gray text-lg mb-8 leading-relaxed italic">
                                 &quot;{testimonial.content}&quot;
                             </p>
 
@@ -61,11 +61,11 @@ export function TestimonialsSection() {
                                 <img
                                     src={testimonial.avatar}
                                     alt={testimonial.name}
-                                    className="w-12 h-12 rounded-full object-cover border-2 border-primary"
+                                    className="w-12 h-12 rounded-full object-cover border-2 border-brand-gold"
                                 />
                                 <div>
-                                    <h4 className="font-bold text-foreground">{testimonial.name}</h4>
-                                    <p className="text-sm text-primary">{testimonial.role}</p>
+                                    <h4 className="font-bold text-brand-navy">{testimonial.name}</h4>
+                                    <p className="text-sm text-brand-gold font-medium">{testimonial.role}</p>
                                 </div>
                             </div>
                         </div>

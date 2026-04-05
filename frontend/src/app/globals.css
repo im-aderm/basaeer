@@ -1,50 +1,62 @@
 @import "tailwindcss";
 
 :root {
-  /* Base - Pure White & Near Black */
+  /* Base - Pure White & Deep Navy */
   --background: #FFFFFF;
-  --foreground: #111827; /* Gray 900 */
+  --foreground: #0A1F44;
+  /* Deep Navy */
 
   /* Surface & Cards */
   --card: #FFFFFF;
-  --card-foreground: #111827;
+  --card-foreground: #0A1F44;
   --popover: #FFFFFF;
-  --popover-foreground: #111827;
+  --popover-foreground: #0A1F44;
 
-  /* Primary - Vibrant Professional Blue */
-  --primary: #2563EB; /* Blue 600 */
-  --primary-foreground: #FFFFFF;
+  /* Primary Brand Colors */
+  --primary: #0A1F44;
+  /* Deep Navy */
+  --primary-foreground: #F9F5E9;
+  /* Cream White */
 
-  /* Secondary - Subtle Grays */
-  --secondary: #F3F4F6; /* Gray 100 */
-  --secondary-foreground: #111827;
+  --brand-gold: #C9A050;
+  --brand-gold-dark: #B38F40;
+  --brand-cream: #F9F5E9;
+  --brand-navy: #0A1F44;
+
+  /* Secondary Palette */
+  --brand-emerald: #1F5E4A;
+  --brand-copper: #B76E3C;
+  --brand-rose: #B89B8C;
+  --brand-teal: #1E5A6C;
+
+  /* Supporting Colors */
+  --brand-sand: #E8DDD0;
+  --brand-burgundy: #6D2E3A;
+  --slate-gray: #4A5568;
 
   /* Muted - For hints and disabled states */
   --muted: #F3F4F6;
-  --muted-foreground: #6B7280; /* Gray 500 */
+  --muted-foreground: #4A5568;
 
   /* Accent - Backgrounds for active states */
-  --accent: #F9FAFB; /* Gray 50 */
-  --accent-foreground: #111827;
+  --accent: #F9F5E9;
+  --accent-foreground: #0A1F44;
 
   /* Destructive - Clean Red */
-  --destructive: #DC2626; /* Red 600 */
+  --destructive: #DC2626;
   --destructive-foreground: #FFFFFF;
 
   /* Borders & Inputs */
-  --border: #E5E7EB; /* Gray 200 */
+  --border: #E5E7EB;
   --input: #E5E7EB;
-  --ring: #2563EB; /* Primary Blue Ring */
-
-  /* Chart Colors (Safe defaults) */
-  --chart-1: #2563EB;
-  --chart-2: #059669;
-  --chart-3: #D97706;
-  --chart-4: #7C3AED;
-  --chart-5: #6B7280;
+  --ring: #C9A050;
 
   /* Radius */
   --radius: 0.5rem;
+
+  /* Fonts */
+  --font-serif: var(--font-playfair), serif;
+  --font-sans: var(--font-montserrat), sans-serif;
 }
 
 @theme inline {
@@ -67,30 +79,80 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+
+  /* Brand Colors */
+  --color-brand-gold: var(--brand-gold);
+  --color-brand-gold-dark: var(--brand-gold-dark);
+  --color-brand-cream: var(--brand-cream);
+  --color-brand-navy: var(--brand-navy);
+  --color-brand-emerald: var(--brand-emerald);
+  --color-brand-copper: var(--brand-copper);
+  --color-brand-rose: var(--brand-rose);
+  --color-brand-teal: var(--brand-teal);
+  --color-brand-sand: var(--brand-sand);
+  --color-brand-burgundy: var(--brand-burgundy);
+  --color-slate-gray: var(--slate-gray);
+
   --radius-sm: calc(var(--radius) - 2px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 2px);
 }
 
-body {
-  @apply bg-background text-foreground antialiased font-sans;
-  background-color: var(--background); /* Redundant but safe */
+@layer base {
+  body {
+    @apply bg-background text-foreground antialiased font-sans;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply tracking-tight font-serif;
+  }
 }
 
-/* Typography Overrides */
-h1, h2, h3, h4, h5, h6 {
-  @apply tracking-tight text-foreground font-semibold;
+@layer components {
+
+  /* Islamic Geometric Patterns */
+  .pattern-classic {
+    background-color: var(--brand-navy);
+    background-image: repeating-linear-gradient(45deg, rgba(201, 160, 80, 0.05) 0px, rgba(201, 160, 80, 0.05) 2px, transparent 2px, transparent 8px);
+  }
+
+  .pattern-organic {
+    background-color: var(--brand-emerald);
+    background-image: radial-gradient(circle at 30% 40%, rgba(201, 160, 80, 0.1) 0%, transparent 30%);
+  }
+
+  .pattern-elegant {
+    background-color: var(--brand-teal);
+    background-image: repeating-linear-gradient(90deg, rgba(249, 245, 233, 0.05) 0px, rgba(249, 245, 233, 0.05) 1px, transparent 1px, transparent 20px);
+  }
+
+  /* Button System */
+  .btn-primary {
+    @apply bg-brand-gold text-brand-navy font-semibold px-8 py-3 rounded-[4px] transition-all duration-300 hover:bg-brand-gold-dark shadow-lg hover:shadow-xl active:scale-95;
+  }
+
+  .btn-outline {
+    @apply bg-transparent border-2 border-brand-gold text-brand-cream font-semibold px-8 py-3 rounded-[4px] transition-all duration-300 hover:bg-brand-gold/15 active:scale-95;
+  }
 }
+
 
 /* Custom Scrollbar - Minimal */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
+
 ::-webkit-scrollbar-track {
   background: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
   @apply bg-gray-200 rounded-full hover:bg-gray-300 transition-colors;
 }

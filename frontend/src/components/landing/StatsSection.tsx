@@ -9,7 +9,7 @@ export function StatsSection() {
     ];
 
     return (
-        <section className="py-20 bg-[#F9FAFB] border-y border-[#E5E7EB]">
+        <section className="py-20 bg-brand-cream border-y border-brand-sand/30">
             <div className="container mx-auto px-6">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                     {stats.map((stat, idx) => (
@@ -17,10 +17,10 @@ export function StatsSection() {
                             <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300 contrast-0 group-hover:contrast-100 opacity-80 group-hover:opacity-100">
                                 {stat.emoji}
                             </div>
-                            <h3 className="text-4xl lg:text-5xl font-extrabold text-[#111827] mb-2 tracking-tight">
+                            <h3 className="text-4xl lg:text-5xl font-extrabold text-brand-navy mb-2 tracking-tight">
                                 {stat.value}
                             </h3>
-                            <p className="text-[#6B7280] font-medium">
+                            <p className="text-slate-gray font-medium">
                                 {stat.label}
                             </p>
                         </div>

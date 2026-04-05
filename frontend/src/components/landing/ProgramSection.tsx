@@ -34,10 +34,10 @@ export function ProgramSection() {
         <section id="programs" className="py-20 lg:py-32 bg-background">
             <div className="container mx-auto px-6">
                 <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
-                    <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-foreground">
+                    <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-brand-navy">
                         Our Educational Programs
                     </h2>
-                    <p className="text-lg text-muted-foreground">
+                    <p className="text-lg text-slate-gray">
                         Comprehensive learning pathways designed for every stage of your child's growth.
                     </p>
                 </div>
@@ -46,14 +46,14 @@ export function ProgramSection() {
                     {programs.map((program, idx) => (
                         <div
                             key={idx}
-                            className="group p-8 rounded-xl bg-white border border-[#E5E7EB] hover:border-primary/50 transition-all duration-300 hover:shadow-lg"
+                            className="group p-8 rounded-xl bg-white border border-brand-sand/30 hover:border-brand-gold/50 transition-all duration-300 hover:shadow-lg"
                         >
-                            <div className="w-12 h-12 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
+                            <div className="w-12 h-12 rounded-lg bg-brand-gold/10 text-brand-gold flex items-center justify-center mb-6 group-hover:bg-brand-gold group-hover:text-brand-navy transition-colors">
                                 {program.icon}
                             </div>
 
-                            <h3 className="text-xl font-bold text-foreground mb-3">{program.title}</h3>
-                            <p className="text-muted-foreground text-sm leading-relaxed mb-6">
+                            <h3 className="text-xl font-bold text-brand-navy mb-3">{program.title}</h3>
+                            <p className="text-slate-gray text-sm leading-relaxed mb-6">
                                 {program.description}
                             </p>
 

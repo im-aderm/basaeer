@@ -63,13 +63,13 @@ export function AboutSection() {
 
                     {/* Content */}
                     <div className="flex-1 space-y-8">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary text-secondary-foreground text-sm font-medium">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-cream text-brand-navy text-sm font-medium">
                             About Basaeer School
                         </div>
 
-                        <h2 className="text-4xl lg:text-5xl font-bold text-foreground">
+                        <h2 className="text-4xl lg:text-5xl font-bold text-brand-navy">
                             Empowering Students Through <br />
-                            <span className="text-primary">Knowledge & Faith</span>
+                            <span className="text-brand-gold">Knowledge & Faith</span>
                         </h2>
 
                         <p className="text-lg text-muted-foreground leading-relaxed">
@@ -79,7 +79,7 @@ export function AboutSection() {
                         <ul className="grid grid-cols-1 gap-4">
                             {features.map((feature, idx) => (
                                 <li key={idx} className="flex items-center gap-3">
-                                    <div className="w-6 h-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center">
+                                    <div className="w-6 h-6 rounded-full bg-brand-emerald/10 text-brand-emerald flex items-center justify-center">
                                         <CheckCircle2 size={14} strokeWidth={3} />
                                     </div>
                                     <span className="font-medium text-foreground">{feature}</span>
@@ -87,7 +87,7 @@ export function AboutSection() {
                             ))}
                         </ul>
 
-                        <button className="px-8 py-4 bg-[#111827] text-white rounded-lg font-semibold hover:bg-[#111827]/90 transition-all shadow-sm">
+                        <button className="btn-primary">
                             Discover More
                         </button>
                     </div>
