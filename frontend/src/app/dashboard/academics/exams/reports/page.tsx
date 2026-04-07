@@ -137,17 +137,17 @@ export default function ReportCardPage() {
                     <button
                         onClick={handleDownloadBatch}
                         disabled={!selectedSectionId || batchDownloading || students.length === 0}
-                        className="flex items-center gap-3 px-8 py-4 bg-muted border border-border rounded-2xl font-black text-sm hover:bg-muted/80 transition-all italic shadow-sm disabled:opacity-50"
+                        className="flex items-center gap-3 px-8 py-4 bg-muted border border-border rounded-2xl font-semibold text-sm hover:bg-muted/80 transition-all shadow-sm disabled:opacity-50"
                     >
                         {batchDownloading ? <Loader2 size={18} className="animate-spin text-primary" /> : <Download size={18} className="text-primary" />}
                         Download All (ZIP)
                     </button>
                     <div>
-                        <h1 className="text-4xl font-black tracking-tight flex items-center gap-3 italic">
+                        <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
                             <FileText className="text-primary w-10 h-10" />
                             Report Card Management
                         </h1>
-                        <p className="text-muted-foreground mt-2 text-lg font-medium italic">Generate and distribute academic performance reports.</p>
+                        <p className="text-muted-foreground mt-2 text-lg font-medium">Generate and distribute academic performance reports.</p>
                     </div>
                 </div>
             </div>
@@ -155,9 +155,9 @@ export default function ReportCardPage() {
             {/* Filter Panel */}
             <div className="bg-card border border-border rounded-[3rem] p-10 shadow-sm flex flex-wrap items-end gap-8">
                 <div className="flex-1 min-w-[220px] space-y-3">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-3">Select Class</label>
+                    <label className="text-label text-muted-foreground ml-3">Select Class</label>
                     <select
-                        className="w-full p-5 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold italic"
+                        className="w-full p-5 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold"
                         value={selectedClassId}
                         onChange={e => setSelectedClassId(e.target.value)}
                     >
@@ -167,9 +167,9 @@ export default function ReportCardPage() {
                 </div>
 
                 <div className="flex-1 min-w-[220px] space-y-3">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-3">Select Section</label>
+                    <label className="text-label text-muted-foreground ml-3">Select Section</label>
                     <select
-                        className="w-full p-5 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold italic"
+                        className="w-full p-5 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold"
                         value={selectedSectionId}
                         onChange={e => setSelectedSectionId(e.target.value)}
                         disabled={!selectedClassId}
@@ -180,9 +180,9 @@ export default function ReportCardPage() {
                 </div>
 
                 <div className="flex-1 min-w-[180px] space-y-3">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-3">Academic Session</label>
+                    <label className="text-label text-muted-foreground ml-3">Academic Session</label>
                     <select
-                        className="w-full p-5 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold italic"
+                        className="w-full p-5 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold"
                         value={selectedSessionId}
                         onChange={e => setSelectedSessionId(e.target.value)}
                     >
@@ -191,9 +191,9 @@ export default function ReportCardPage() {
                 </div>
 
                 <div className="flex-1 min-w-[150px] space-y-3">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-3">Academic Term</label>
+                    <label className="text-label text-muted-foreground ml-3">Academic Term</label>
                     <select
-                        className="w-full p-5 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold italic"
+                        className="w-full p-5 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold"
                         value={selectedTerm}
                         onChange={e => setSelectedTerm(e.target.value as Term)}
                     >
@@ -217,7 +217,7 @@ export default function ReportCardPage() {
                 {loading ? (
                     <div className="py-32 flex flex-col items-center justify-center space-y-4">
                         <Loader2 className="w-12 h-12 animate-spin text-primary" />
-                        <p className="font-black italic text-muted-foreground">Retrieving student records...</p>
+                        <p className="font-semibold text-muted-foreground">Retrieving student records...</p>
                     </div>
                 ) : students.length > 0 ? (
                     <div className="divide-y divide-border/50">
@@ -226,16 +226,16 @@ export default function ReportCardPage() {
                             return (
                                 <div key={student.id} className="p-8 hover:bg-muted/5 transition-all flex flex-col md:flex-row md:items-center justify-between gap-6 group">
                                     <div className="flex items-center gap-6">
-                                        <div className="w-20 h-20 rounded-[2rem] bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/10 flex items-center justify-center text-primary font-black text-2xl italic shadow-inner">
+                                        <div className="w-20 h-20 rounded-[2rem] bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/10 flex items-center justify-center text-primary font-semibold text-h3 shadow-inner">
                                             {student.user?.firstName?.[0]}{student.user?.lastName?.[0]}
                                         </div>
                                         <div>
-                                            <h3 className="text-2xl font-black italic tracking-tight">{fullName}</h3>
+                                            <h3 className="text-h3 font-semibold tracking-tight">{fullName}</h3>
                                             <div className="flex items-center gap-4 mt-2">
-                                                <span className="text-[10px] font-black uppercase tracking-widest px-3 py-1 bg-muted rounded-full text-muted-foreground">
+                                                <span className="text-label px-3 py-1 bg-muted rounded-full text-muted-foreground">
                                                     {student.user?.email.split('@')[0].toUpperCase()}
                                                 </span>
-                                                <span className="text-xs font-bold italic text-primary">
+                                                <span className="text-xs font-bold text-primary">
                                                     {student.class?.name} - {student.section?.name}
                                                 </span>
                                             </div>
@@ -246,7 +246,7 @@ export default function ReportCardPage() {
                                         <button
                                             onClick={() => handleDownloadReport(student.id, fullName)}
                                             disabled={downloading === student.id}
-                                            className="flex items-center gap-3 px-6 py-3 bg-muted rounded-2xl font-black text-sm hover:bg-primary hover:text-white transition-all italic group-hover:shadow-lg"
+                                            className="flex items-center gap-3 px-6 py-3 bg-muted rounded-2xl font-semibold text-sm hover:bg-primary hover:text-white transition-all group-hover:shadow-lg"
                                         >
                                             {downloading === student.id ? <Loader2 size={18} className="animate-spin" /> : <Printer size={18} />}
                                             {selectedTerm} Term Report
@@ -256,7 +256,7 @@ export default function ReportCardPage() {
                                             <button
                                                 onClick={() => handleDownloadAnnual(student.id, fullName)}
                                                 disabled={downloading === `${student.id}-annual`}
-                                                className="flex items-center gap-3 px-6 py-3 bg-primary/10 text-primary rounded-2xl font-black text-sm hover:bg-primary hover:text-white transition-all italic group-hover:shadow-lg"
+                                                className="flex items-center gap-3 px-6 py-3 bg-primary/10 text-primary rounded-2xl font-semibold text-sm hover:bg-primary hover:text-white transition-all group-hover:shadow-lg"
                                             >
                                                 {downloading === `${student.id}-annual` ? <Loader2 size={18} className="animate-spin" /> : <Award size={18} />}
                                                 Annual Cumulative
@@ -276,8 +276,8 @@ export default function ReportCardPage() {
                         <div className="w-28 h-28 bg-muted/50 rounded-[3rem] flex items-center justify-center mx-auto mb-4 border border-border">
                             <SearchX size={48} className="text-muted-foreground/30" />
                         </div>
-                        <h3 className="text-2xl font-black italic">Search for Reports</h3>
-                        <p className="max-w-md mx-auto text-muted-foreground font-medium italic">
+                        <h3 className="text-h3 font-semibold">Search for Reports</h3>
+                        <p className="max-w-md mx-auto text-muted-foreground font-medium">
                             Select a class and section above to view students and generate their performance report sheets.
                         </p>
                     </div>
@@ -286,18 +286,18 @@ export default function ReportCardPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="p-10 bg-blue-500/5 border border-blue-500/10 rounded-[3rem] space-y-4">
-                    <div className="flex items-center gap-3 text-blue-600 font-black italic">
+                    <div className="flex items-center gap-3 text-blue-600 font-semibold">
                         <CheckCircle2 size={24} /> Automated Verification
                     </div>
-                    <p className="text-sm text-blue-800/80 font-medium leading-relaxed italic">
+                    <p className="text-sm text-blue-800/80 font-medium leading-relaxed">
                         All student positions, averages, and rankings are automatically computed as you save marks in the entry grid. Ensure all subject scores are recorded before generating final reports.
                     </p>
                 </div>
                 <div className="p-10 bg-amber-500/5 border border-amber-500/10 rounded-[3rem] space-y-4">
-                    <div className="flex items-center gap-3 text-amber-600 font-black italic">
+                    <div className="flex items-center gap-3 text-amber-600 font-semibold">
                         <Printer size={24} /> Print Configuration
                     </div>
-                    <p className="text-sm text-amber-800/80 font-medium leading-relaxed italic">
+                    <p className="text-sm text-amber-800/80 font-medium leading-relaxed">
                         Reports are generated in A4 PDF format. For best results, use "Save as PDF" with backgrounds enabled in your print settings.
                     </p>
                 </div>

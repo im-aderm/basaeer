@@ -4,48 +4,71 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import api from "@/lib/api";
 
-interface User {
+// ── Types ──────────────────────────────────────────────────────────────────────
+
+export interface StudentProfile {
+    id: string;
+    classId?: string;
+    sectionId?: string;
+}
+
+export interface StaffProfile {
+    id: string;
+    departmentId?: string;
+    designationId?: string;
+}
+
+export interface User {
     id: string;
     email: string;
     firstName: string;
     lastName: string;
     role: string;
     branchId?: string;
-    student?: any;
-    staff?: any;
+    phone?: string;
+    isActive?: boolean;
+    student?: StudentProfile;
+    staff?: StaffProfile;
 }
 
 interface AuthContextType {
     user: User | null;
     isAuthenticated: boolean;
     loading: boolean;
-    login: (token: string, userData: any) => void;
+    login: (token: string, userData: User) => Promise<void>;
     logout: () => void;
 }
+
+// ── Context ────────────────────────────────────────────────────────────────────
 
 const AuthContext = createContext<AuthContextType>({
     user: null,
     isAuthenticated: false,
     loading: true,
-    login: () => { },
+    login: async () => { },
     logout: () => { },
 });
+
+// ── Provider ───────────────────────────────────────────────────────────────────
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
     const router = useRouter();
 
+    // On mount: check for existing token and validate it
     useEffect(() => {
         const checkAuth = async () => {
             const token = localStorage.getItem("token");
             if (token) {
                 try {
-                    // Assuming you have a profile endpoint to get user data
-                    const res = await api.get("/auth/profile");
+                    const res = await api.get<User>("/auth/profile");
                     setUser(res.data);
-                } catch (error: any) {
-                    console.error("Auth check failed:", error.response?.data || error.message);
+                } catch (error) {
+                    // Token is invalid or expired — clear it
+                    // The 401 interceptor in api.ts also handles this,
+                    // but we catch here too for a clean state reset.
+                    console.warn("Auth check failed — clearing token");
                     localStorage.removeItem("token");
                     setUser(null);
                 }
@@ -56,14 +79,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         checkAuth();
     }, []);
 
-    const login = (token: string, userData: any) => {
+    /**
+     * Called after a successful login API response.
+     * Awaits the full profile fetch before navigating to ensure
+     * fresh data is available on the dashboard — eliminating the race condition.
+     */
+    const login = async (token: string, userData: User): Promise<void> => {
         localStorage.setItem("token", token);
+        // Set initial data immediately for fast UI response
         setUser(userData);
 
-        // Optimistically fetch profile to ensure fresh data
-        api.get("/auth/profile")
-            .then(res => setUser(res.data))
-            .catch(console.error);
+        try {
+            // Await the full profile to get complete user data (roles, relations, etc.)
+            const profileRes = await api.get<User>("/auth/profile");
+            setUser(profileRes.data);
+        } catch (error) {
+            // Profile fetch failed, but we still have the login response data — proceed
+            console.warn("Profile enrichment failed, using login response data");
+        }
 
         router.push("/dashboard");
     };

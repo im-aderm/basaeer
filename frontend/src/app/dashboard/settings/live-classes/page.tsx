@@ -108,7 +108,7 @@ export default function LiveClassesSettingsPage() {
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/20 dark:from-slate-950 dark:via-indigo-950/20 dark:to-purple-950/10 p-6">
             {/* Header */}
             <div className="mb-8">
-                <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                <h1 className="text-h1 font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
                     Google Meet Configuration
                 </h1>
                 <p className="text-slate-600 dark:text-slate-400 mt-2">

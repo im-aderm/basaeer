@@ -78,7 +78,7 @@ export default function GlobalSettingsPage() {
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-3xl font-bold tracking-tight">Global Settings</h1>
+                    <h1 className="text-h1 font-bold tracking-tight">Global Settings</h1>
                     <p className="text-muted-foreground mt-1">Configure system-wide parameters and regional preferences.</p>
                 </div>
                 <button
@@ -200,7 +200,7 @@ export default function GlobalSettingsPage() {
                             </div>
                             <div className="flex justify-between">
                                 <span className="text-muted-foreground">License</span>
-                                <span className="text-green-600 font-semibold italic">Enterprise Perpetual</span>
+                                <span className="text-green-600 font-semibold">Enterprise Perpetual</span>
                             </div>
                             <div className="flex justify-between">
                                 <span className="text-muted-foreground">Last Sync</span>

@@ -81,20 +81,20 @@ export default function BroadsheetPage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
-                    <h1 className="text-4xl font-black tracking-tight flex items-center gap-3 italic">
+                    <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
                         <FileSpreadsheet className="text-primary w-10 h-10" />
                         Class Broadsheet
                     </h1>
-                    <p className="text-muted-foreground mt-2 text-lg font-medium italic">Generate class-wide result summaries for administrative review.</p>
+                    <p className="text-muted-foreground mt-2 text-lg font-medium">Generate class-wide result summaries for administrative review.</p>
                 </div>
             </div>
 
             {/* Filter Panel */}
             <div className="bg-card border border-border rounded-[3rem] p-10 shadow-sm flex flex-wrap items-end gap-8">
                 <div className="flex-1 min-w-[220px] space-y-3">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-3">Select Class</label>
+                    <label className="text-label text-muted-foreground ml-3">Select Class</label>
                     <select
-                        className="w-full p-5 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold italic"
+                        className="w-full p-5 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold"
                         value={selectedClassId}
                         onChange={e => setSelectedClassId(e.target.value)}
                     >
@@ -104,9 +104,9 @@ export default function BroadsheetPage() {
                 </div>
 
                 <div className="flex-1 min-w-[220px] space-y-3">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-3">Select Section</label>
+                    <label className="text-label text-muted-foreground ml-3">Select Section</label>
                     <select
-                        className="w-full p-5 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold italic"
+                        className="w-full p-5 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold"
                         value={selectedSectionId}
                         onChange={e => setSelectedSectionId(e.target.value)}
                         disabled={!selectedClassId}
@@ -117,9 +117,9 @@ export default function BroadsheetPage() {
                 </div>
 
                 <div className="flex-1 min-w-[150px] space-y-3">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-3">Academic Session</label>
+                    <label className="text-label text-muted-foreground ml-3">Academic Session</label>
                     <select
-                        className="w-full p-5 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold italic"
+                        className="w-full p-5 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold"
                         value={selectedSessionId}
                         onChange={e => setSelectedSessionId(e.target.value)}
                     >
@@ -128,9 +128,9 @@ export default function BroadsheetPage() {
                 </div>
 
                 <div className="flex-1 min-w-[150px] space-y-3">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-3">Academic Term</label>
+                    <label className="text-label text-muted-foreground ml-3">Academic Term</label>
                     <select
-                        className="w-full p-5 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold italic"
+                        className="w-full p-5 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold"
                         value={selectedTerm}
                         onChange={e => setSelectedTerm(e.target.value as Term)}
                     >
@@ -144,7 +144,7 @@ export default function BroadsheetPage() {
                     <button
                         onClick={handleDownloadBroadsheet}
                         disabled={!selectedSectionId || exporting}
-                        className="flex items-center gap-3 px-8 py-5 bg-primary text-white rounded-[1.5rem] font-black shadow-xl shadow-primary/20 hover:scale-[1.05] active:scale-95 transition-all disabled:opacity-50"
+                        className="flex items-center gap-3 px-8 py-5 bg-primary text-white rounded-[1.5rem] font-semibold shadow-xl shadow-primary/20 hover:scale-[1.05] active:scale-95 transition-all disabled:opacity-50"
                     >
                         {exporting ? <Loader2 size={24} className="animate-spin" /> : <Download size={24} />}
                         Export Excel Broadsheet
@@ -158,8 +158,8 @@ export default function BroadsheetPage() {
                     <Table size={56} className="text-primary" />
                 </div>
                 <div className="space-y-4 max-w-2xl mx-auto">
-                    <h2 className="text-3xl font-black italic tracking-tight">Ready for Generation</h2>
-                    <p className="text-muted-foreground text-lg font-medium italic leading-relaxed">
+                    <h2 className="text-h1 font-semibold tracking-tight">Ready for Generation</h2>
+                    <p className="text-muted-foreground text-lg font-medium leading-relaxed">
                         The Broadsheet provides a comprehensive row-by-row analysis of all pupils in a section, showing scores across all subjects, totals, averages, and class positions.
                     </p>
                 </div>
@@ -167,15 +167,15 @@ export default function BroadsheetPage() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
                     <div className="p-6 bg-background rounded-[2rem] border border-border space-y-2">
                         <BookOpen className="mx-auto text-primary" />
-                        <p className="text-xs font-black uppercase tracking-widest text-muted-foreground">Subject Headers</p>
+                        <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Subject Headers</p>
                     </div>
                     <div className="p-6 bg-background rounded-[2rem] border border-border space-y-2">
                         <CheckCircle2 className="mx-auto text-primary" />
-                        <p className="text-xs font-black uppercase tracking-widest text-muted-foreground">Auto-Ranking</p>
+                        <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Auto-Ranking</p>
                     </div>
                     <div className="p-6 bg-background rounded-[2rem] border border-border space-y-2">
                         <FileText className="mx-auto text-primary" />
-                        <p className="text-xs font-black uppercase tracking-widest text-muted-foreground">Detailed Scores</p>
+                        <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Detailed Scores</p>
                     </div>
                 </div>
             </div>

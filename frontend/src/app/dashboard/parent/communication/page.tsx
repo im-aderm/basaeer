@@ -82,7 +82,7 @@ export default function CommunicationPage() {
                 <Card className="w-96 flex flex-col rounded-[2.5rem] border-border/50 shadow-2xl bg-background overflow-hidden">
                     <CardHeader className="p-6 border-b border-border/50 space-y-4">
                         <div className="flex justify-between items-center">
-                            <CardTitle className="text-xl font-black italic uppercase italic">Messages</CardTitle>
+                            <CardTitle className="text-h3 font-semibold uppercase">Messages</CardTitle>
                             <Button variant="secondary" size="icon" className="rounded-xl h-10 w-10">
                                 <Plus className="h-5 w-5" />
                             </Button>
@@ -102,12 +102,12 @@ export default function CommunicationPage() {
                                         onClick={() => { setSelectedId(conv.id); setMessages(conv.messages || []); }}
                                         className={`w-full flex gap-3 p-4 rounded-3xl transition-all ${selectedId === conv.id ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'hover:bg-muted'}`}
                                     >
-                                        <div className={`h-12 w-12 rounded-2xl flex items-center justify-center font-black italic text-lg ${selectedId === conv.id ? 'bg-white/20' : 'bg-primary/10 text-primary'}`}>
+                                        <div className={`h-12 w-12 rounded-2xl flex items-center justify-center font-semibold text-lg ${selectedId === conv.id ? 'bg-white/20' : 'bg-primary/10 text-primary'}`}>
                                             {participant?.firstName?.[0] || 'U'}
                                         </div>
                                         <div className="flex-1 text-left overflow-hidden">
                                             <div className="flex justify-between items-start">
-                                                <span className="font-black italic uppercase tracking-tight truncate">
+                                                <span className="font-semibold uppercase tracking-tight truncate">
                                                     {participant?.firstName} {participant?.lastName}
                                                 </span>
                                                 <span className={`text-[10px] font-bold ${selectedId === conv.id ? 'text-white/50' : 'text-muted-foreground'}`}>
@@ -131,11 +131,11 @@ export default function CommunicationPage() {
                         <>
                             <CardHeader className="p-6 border-b border-border/50 flex flex-row items-center justify-between">
                                 <div className="flex items-center gap-4">
-                                    <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary font-black italic">
+                                    <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary font-semibold">
                                         {otherParticipant?.firstName?.[0] || 'U'}
                                     </div>
                                     <div>
-                                        <CardTitle className="text-xl font-black italic uppercase italic">
+                                        <CardTitle className="text-h3 font-semibold uppercase">
                                             {otherParticipant?.firstName} {otherParticipant?.lastName}
                                         </CardTitle>
                                         <div className="flex items-center gap-1.5">
@@ -162,7 +162,7 @@ export default function CommunicationPage() {
                                                         }`}>
                                                         {msg.content}
                                                     </div>
-                                                    <div className={`flex items-center gap-1.5 text-[10px] font-bold opacity-40 italic ${isMine ? 'justify-end' : 'justify-start'}`}>
+                                                    <div className={`flex items-center gap-1.5 text-[10px] font-bold opacity-40 ${isMine ? 'justify-end' : 'justify-start'}`}>
                                                         {new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                                         {isMine && (msg.isRead ? <CheckCheck className="h-3 w-3" /> : <Check className="h-3 w-3" />)}
                                                     </div>
@@ -193,10 +193,10 @@ export default function CommunicationPage() {
                                 <MessageSquare className="h-12 w-12 text-muted-foreground opacity-20" />
                             </div>
                             <div>
-                                <h3 className="text-xl font-black italic uppercase italic">Your Messages</h3>
+                                <h3 className="text-h3 font-semibold uppercase">Your Messages</h3>
                                 <p className="text-muted-foreground font-medium max-w-xs mx-auto">Select a conversation or start a new one to bridge the gap between home and school.</p>
                             </div>
-                            <Button className="h-12 px-8 rounded-2xl font-black italic uppercase italic">New Conversation</Button>
+                            <Button className="h-12 px-8 rounded-2xl font-semibold uppercase">New Conversation</Button>
                         </div>
                     )}
                 </Card>

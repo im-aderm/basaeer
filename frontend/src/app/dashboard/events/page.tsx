@@ -84,39 +84,39 @@ export default function EventsPage() {
         <div className="max-w-7xl mx-auto space-y-8 pb-20">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
                 <div>
-                    <h1 className="text-4xl font-black tracking-tight italic uppercase">Campus Calendar</h1>
+                    <h1 className="text-h1 font-semibold tracking-tight uppercase">Campus Calendar</h1>
                     <p className="text-muted-foreground font-medium mt-1">Unified view of all school activities, holidays, and events.</p>
                 </div>
                 {(user?.role === 'SUPER_ADMIN' || user?.role === 'BRANCH_ADMIN') && (
                     <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
                         <DialogTrigger asChild>
-                            <Button className="h-12 px-8 rounded-2xl font-black gap-2 shadow-lg shadow-primary/20 italic uppercase italic">
+                            <Button className="h-12 px-8 rounded-2xl font-semibold gap-2 shadow-lg shadow-primary/20 uppercase">
                                 <Plus className="h-5 w-5" /> Schedule Event
                             </Button>
                         </DialogTrigger>
                         <DialogContent className="rounded-[2.5rem] max-w-2xl">
                             <DialogHeader>
-                                <CardTitle className="text-2xl font-black italic uppercase italic">New Campus Event</CardTitle>
+                                <CardTitle className="text-h3 font-semibold uppercase">New Campus Event</CardTitle>
                                 <CardDescription className="font-bold">Enter event details to notify the school community.</CardDescription>
                             </DialogHeader>
                             <form onSubmit={handleCreate} className="space-y-4 pt-4">
                                 <div className="space-y-2">
-                                    <Label className="font-black italic text-xs uppercase opacity-50 ml-1">Event Title</Label>
+                                    <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Event Title</Label>
                                     <Input required className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={eventForm.title} onChange={(e) => setEventForm({ ...eventForm, title: e.target.value })} />
                                 </div>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="space-y-2">
-                                        <Label className="font-black italic text-xs uppercase opacity-50 ml-1">Start Date</Label>
+                                        <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Start Date</Label>
                                         <Input type="datetime-local" required className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={eventForm.startDate} onChange={(e) => setEventForm({ ...eventForm, startDate: e.target.value })} />
                                     </div>
                                     <div className="space-y-2">
-                                        <Label className="font-black italic text-xs uppercase opacity-50 ml-1">End Date</Label>
+                                        <Label className="font-semibold text-xs uppercase opacity-50 ml-1">End Date</Label>
                                         <Input type="datetime-local" required className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={eventForm.endDate} onChange={(e) => setEventForm({ ...eventForm, endDate: e.target.value })} />
                                     </div>
                                 </div>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="space-y-2">
-                                        <Label className="font-black italic text-xs uppercase opacity-50 ml-1">Category</Label>
+                                        <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Category</Label>
                                         <Select value={eventForm.category} onValueChange={(v) => setEventForm({ ...eventForm, category: v })}>
                                             <SelectTrigger className="h-12 rounded-xl bg-muted/50 border-none font-bold">
                                                 <SelectValue />
@@ -127,11 +127,11 @@ export default function EventsPage() {
                                         </Select>
                                     </div>
                                     <div className="space-y-2">
-                                        <Label className="font-black italic text-xs uppercase opacity-50 ml-1">Location</Label>
+                                        <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Location</Label>
                                         <Input className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={eventForm.location} onChange={(e) => setEventForm({ ...eventForm, location: e.target.value })} />
                                     </div>
                                 </div>
-                                <Button type="submit" className="h-14 w-full rounded-2xl font-black uppercase italic tracking-wider shadow-xl shadow-primary/20">Create Event</Button>
+                                <Button type="submit" className="h-14 w-full rounded-2xl font-semibold uppercase tracking-wider shadow-xl shadow-primary/20">Create Event</Button>
                             </form>
                         </DialogContent>
                     </Dialog>
@@ -149,12 +149,12 @@ export default function EventsPage() {
                     />
                 </div>
                 <div className="flex gap-2 w-full md:w-auto">
-                    <Button variant="outline" className="h-14 px-6 rounded-2xl font-black gap-2 border-none bg-background shadow-sm hover:bg-muted/50">
+                    <Button variant="outline" className="h-14 px-6 rounded-2xl font-semibold gap-2 border-none bg-background shadow-sm hover:bg-muted/50">
                         <Filter className="h-5 w-5" /> Filter
                     </Button>
                     <div className="flex bg-background p-1 rounded-2xl shadow-sm border border-border/50">
-                        <Button variant="ghost" className="h-12 rounded-xl font-black px-6 bg-primary text-white shadow-lg shadow-primary/20">List</Button>
-                        <Button variant="ghost" className="h-12 rounded-xl font-black px-6 opacity-40">Calendar</Button>
+                        <Button variant="ghost" className="h-12 rounded-xl font-semibold px-6 bg-primary text-white shadow-lg shadow-primary/20">List</Button>
+                        <Button variant="ghost" className="h-12 rounded-xl font-semibold px-6 opacity-40">Calendar</Button>
                     </div>
                 </div>
             </div>
@@ -163,10 +163,10 @@ export default function EventsPage() {
                 {events.filter(e => e.title.toLowerCase().includes(searchTerm.toLowerCase())).map((event) => (
                     <Card key={event.id} className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background group hover:border-primary/50 transition-all duration-500">
                         <div className="p-8 border-b border-border/50 bg-primary/5 relative">
-                            <Badge className={`rounded-xl px-4 py-1.5 font-black italic uppercase tracking-tighter text-[10px] border-2 shadow-sm ${getCategoryColor(event.category)}`}>
+                            <Badge className={`rounded-xl px-4 py-1.5 font-semibold uppercase tracking-tighter text-[10px] border-2 shadow-sm ${getCategoryColor(event.category)}`}>
                                 {event.category}
                             </Badge>
-                            <h3 className="text-2xl font-black italic uppercase mt-4 group-hover:text-primary transition-colors italic">{event.title}</h3>
+                            <h3 className="text-h3 font-semibold uppercase mt-4 group-hover:text-primary transition-colors">{event.title}</h3>
                             <p className="text-sm font-medium text-muted-foreground mt-2 line-clamp-2">{event.description || 'No description provided.'}</p>
                         </div>
                         <CardContent className="p-8 space-y-6">
@@ -174,30 +174,30 @@ export default function EventsPage() {
                                 <div className="flex items-center gap-3 text-sm font-bold opacity-60">
                                     <div className="h-10 w-10 rounded-xl bg-muted/50 flex items-center justify-center text-primary"><Clock className="h-5 w-5" /></div>
                                     <div className="flex flex-col">
-                                        <span className="text-[10px] uppercase font-black opacity-40 leading-none">Date & Time</span>
-                                        <span className="italic uppercase italic">{new Date(event.startDate).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>
+                                        <span className="text-[10px] uppercase font-semibold opacity-40 leading-none">Date & Time</span>
+                                        <span className="italic uppercase">{new Date(event.startDate).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-3 text-sm font-bold opacity-60">
                                     <div className="h-10 w-10 rounded-xl bg-muted/50 flex items-center justify-center text-primary"><MapPin className="h-5 w-5" /></div>
                                     <div className="flex flex-col">
-                                        <span className="text-[10px] uppercase font-black opacity-40 leading-none">Location</span>
-                                        <span className="italic uppercase italic">{event.location || 'Campus Wide'}</span>
+                                        <span className="text-[10px] uppercase font-semibold opacity-40 leading-none">Location</span>
+                                        <span className="italic uppercase">{event.location || 'Campus Wide'}</span>
                                     </div>
                                 </div>
                             </div>
 
                             {event.allowRSVP && (
                                 <div className="pt-4 border-t border-border/50 space-y-4">
-                                    <div className="flex justify-between items-center text-sm font-black italic uppercase italic">
+                                    <div className="flex justify-between items-center text-sm font-semibold uppercase">
                                         <span className="flex items-center gap-2"><Users className="h-4 w-4" /> RSVP Status</span>
                                         <span className="text-primary">{event._count?.rsvps || 0} Attending</span>
                                     </div>
                                     <div className="grid grid-cols-2 gap-3">
-                                        <Button variant="outline" className="rounded-xl font-black italic uppercase text-xs h-10 border-2 border-emerald-500/20 text-emerald-500 hover:bg-emerald-500/10" onClick={() => handleRSVP(event.id, 'GOING')}>
+                                        <Button variant="outline" className="rounded-xl font-semibold uppercase text-xs h-10 border-2 border-emerald-500/20 text-emerald-500 hover:bg-emerald-500/10" onClick={() => handleRSVP(event.id, 'GOING')}>
                                             Going
                                         </Button>
-                                        <Button variant="outline" className="rounded-xl font-black italic uppercase text-xs h-10 border-2 border-primary/20 hover:bg-primary/10" onClick={() => handleRSVP(event.id, 'DECLINED')}>
+                                        <Button variant="outline" className="rounded-xl font-semibold uppercase text-xs h-10 border-2 border-primary/20 hover:bg-primary/10" onClick={() => handleRSVP(event.id, 'DECLINED')}>
                                             Decline
                                         </Button>
                                     </div>
@@ -211,7 +211,7 @@ export default function EventsPage() {
             {events.length === 0 && !loading && (
                 <div className="flex flex-col items-center justify-center py-40 text-center space-y-4 opacity-20">
                     <CalendarIcon className="h-24 w-24" strokeWidth={0.5} />
-                    <h3 className="text-2xl font-black italic uppercase italic">No Events Scheduled</h3>
+                    <h3 className="text-h3 font-semibold uppercase">No Events Scheduled</h3>
                     <p className="font-bold">The campus is quiet for now. Check back later!</p>
                 </div>
             )}

@@ -130,7 +130,7 @@ export default function ClassSchedulePage() {
             <div className="mb-8">
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                        <h1 className="text-h1 font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
                             Class Timetable
                         </h1>
                         <p className="text-slate-600 dark:text-slate-400 mt-2">

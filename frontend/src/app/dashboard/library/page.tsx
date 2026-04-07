@@ -83,8 +83,8 @@ export default function LibraryOverviewPage() {
             {/* Header section with glassmorphism */}
             <div className="relative overflow-hidden rounded-[3.5rem] bg-primary p-12 text-white shadow-2xl shadow-primary/20">
                 <div className="relative z-10">
-                    <h1 className="text-5xl font-black tracking-tight italic mb-4">Library Hub</h1>
-                    <p className="text-primary-foreground/80 text-xl font-medium max-w-2xl leading-relaxed italic">
+                    <h1 className="text-h1 font-semibold tracking-tight mb-4">Library Hub</h1>
+                    <p className="text-primary-foreground/80 text-xl font-medium max-w-2xl leading-relaxed">
                         Manage your school's literary resources, track borrowings, and maintain a seamless reading experience for students.
                     </p>
                 </div>
@@ -104,9 +104,9 @@ export default function LibraryOverviewPage() {
                                 </div>
                             </div>
                             <div className="mt-6">
-                                <h3 className="text-4xl font-black italic tracking-tighter">{stat.value}</h3>
+                                <h3 className="text-h1 font-semibold tracking-tighter">{stat.value}</h3>
                                 <p className="text-muted-foreground font-bold mt-1">{stat.title}</p>
-                                <p className="text-[10px] uppercase tracking-widest font-black text-muted-foreground/50 mt-4">{stat.description}</p>
+                                <p className="text-label text-muted-foreground/50 mt-4">{stat.description}</p>
                             </div>
                         </CardContent>
                     </Card>
@@ -119,27 +119,27 @@ export default function LibraryOverviewPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <Link href="/dashboard/library/books">
                             <Card className="rounded-[3rem] p-8 border-border/50 shadow-xl hover:shadow-2xl transition-all group bg-gradient-to-br from-card to-muted/30 cursor-pointer h-full border-t-8 border-t-blue-500">
-                                <h3 className="text-2xl font-black italic flex items-center justify-between">
+                                <h3 className="text-h3 font-semibold flex items-center justify-between">
                                     Book Catalog <ArrowRight className="group-hover:translate-x-2 transition-transform" />
                                 </h3>
-                                <p className="text-muted-foreground font-medium mt-2 italic text-sm">Explore and manage the entire library book collection.</p>
+                                <p className="text-muted-foreground font-medium mt-2 text-sm">Explore and manage the entire library book collection.</p>
                                 <div className="mt-8 flex gap-2">
-                                    <div className="px-4 py-2 bg-blue-500/10 text-blue-500 rounded-xl text-xs font-black uppercase">Search</div>
-                                    <div className="px-4 py-2 bg-blue-500/10 text-blue-500 rounded-xl text-xs font-black uppercase">Edit</div>
-                                    <div className="px-4 py-2 bg-blue-500/10 text-blue-500 rounded-xl text-xs font-black uppercase">Delete</div>
+                                    <div className="px-4 py-2 bg-blue-500/10 text-blue-500 rounded-xl text-xs font-semibold uppercase">Search</div>
+                                    <div className="px-4 py-2 bg-blue-500/10 text-blue-500 rounded-xl text-xs font-semibold uppercase">Edit</div>
+                                    <div className="px-4 py-2 bg-blue-500/10 text-blue-500 rounded-xl text-xs font-semibold uppercase">Delete</div>
                                 </div>
                             </Card>
                         </Link>
 
                         <Link href="/dashboard/library/borrowing">
                             <Card className="rounded-[3rem] p-8 border-border/50 shadow-xl hover:shadow-2xl transition-all group bg-gradient-to-br from-card to-muted/30 cursor-pointer h-full border-t-8 border-t-purple-500">
-                                <h3 className="text-2xl font-black italic flex items-center justify-between">
+                                <h3 className="text-h3 font-semibold flex items-center justify-between">
                                     Borrowing & Returns <ArrowRight className="group-hover:translate-x-2 transition-transform" />
                                 </h3>
-                                <p className="text-muted-foreground font-medium mt-2 italic text-sm">Handle check-outs, returns, and track due dates.</p>
+                                <p className="text-muted-foreground font-medium mt-2 text-sm">Handle check-outs, returns, and track due dates.</p>
                                 <div className="mt-8 flex gap-2">
-                                    <div className="px-4 py-2 bg-purple-500/10 text-purple-500 rounded-xl text-xs font-black uppercase">Issue</div>
-                                    <div className="px-4 py-2 bg-purple-500/10 text-purple-500 rounded-xl text-xs font-black uppercase">History</div>
+                                    <div className="px-4 py-2 bg-purple-500/10 text-purple-500 rounded-xl text-xs font-semibold uppercase">Issue</div>
+                                    <div className="px-4 py-2 bg-purple-500/10 text-purple-500 rounded-xl text-xs font-semibold uppercase">History</div>
                                 </div>
                             </Card>
                         </Link>
@@ -147,10 +147,10 @@ export default function LibraryOverviewPage() {
 
                     <Card className="rounded-[3rem] border-border/50 shadow-xl p-10 bg-card/50 overflow-hidden">
                         <div className="flex justify-between items-center mb-8">
-                            <h3 className="text-2xl font-black italic flex items-center gap-3">
+                            <h3 className="text-h3 font-semibold flex items-center gap-3">
                                 <AlertCircle className="text-red-500" /> Overdue Alerts
                             </h3>
-                            <Button variant="ghost" className="font-black italic rounded-xl">View All</Button>
+                            <Button variant="ghost" className="font-semibold rounded-xl">View All</Button>
                         </div>
                         <div className="space-y-4">
                             {overdue.length > 0 ? overdue.slice(0, 5).map(record => (
@@ -160,17 +160,17 @@ export default function LibraryOverviewPage() {
                                             <Bookmark size={20} />
                                         </div>
                                         <div>
-                                            <p className="font-black italic">{record.book?.title}</p>
+                                            <p className="font-semibold">{record.book?.title}</p>
                                             <p className="text-xs font-bold text-muted-foreground">Borrowed by: {record.student?.firstName} {record.student?.lastName}</p>
                                         </div>
                                     </div>
                                     <div className="text-right">
-                                        <p className="text-xs font-black uppercase text-red-500">Due: {new Date(record.dueDate).toLocaleDateString()}</p>
-                                        <Button size="sm" variant="outline" className="h-8 mt-2 rounded-lg text-[10px] font-black uppercase">Notify</Button>
+                                        <p className="text-xs font-semibold uppercase text-red-500">Due: {new Date(record.dueDate).toLocaleDateString()}</p>
+                                        <Button size="sm" variant="outline" className="h-8 mt-2 rounded-lg text-[10px] font-semibold uppercase">Notify</Button>
                                     </div>
                                 </div>
                             )) : (
-                                <div className="py-10 text-center text-muted-foreground font-bold italic">
+                                <div className="py-10 text-center text-muted-foreground font-bold">
                                     No overdue records found. Everything is on schedule!
                                 </div>
                             )}
@@ -180,24 +180,24 @@ export default function LibraryOverviewPage() {
 
                 <div className="space-y-8">
                     <Card className="rounded-[3rem] border-border/50 shadow-xl p-8 bg-primary/5 border-t-8 border-t-primary">
-                        <h3 className="text-2xl font-black italic mb-6">Quick Actions</h3>
+                        <h3 className="text-h3 font-semibold mb-6">Quick Actions</h3>
                         <div className="space-y-4">
                             <Link href="/dashboard/library/books">
-                                <Button className="w-full h-16 rounded-2xl font-black italic justify-start gap-4 shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all">
+                                <Button className="w-full h-16 rounded-2xl font-semibold justify-start gap-4 shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all">
                                     <Plus size={24} /> Register New Book
                                 </Button>
                             </Link>
-                            <Button variant="outline" className="w-full h-16 rounded-2xl font-black italic justify-start gap-4 hover:bg-primary/10 hover:text-primary transition-all border-2">
+                            <Button variant="outline" className="w-full h-16 rounded-2xl font-semibold justify-start gap-4 hover:bg-primary/10 hover:text-primary transition-all border-2">
                                 <UserPlus size={24} /> New Membership
                             </Button>
-                            <Button variant="outline" className="w-full h-16 rounded-2xl font-black italic justify-start gap-4 hover:bg-primary/10 hover:text-primary transition-all border-2">
+                            <Button variant="outline" className="w-full h-16 rounded-2xl font-semibold justify-start gap-4 hover:bg-primary/10 hover:text-primary transition-all border-2">
                                 <Search size={24} /> Book Search
                             </Button>
                         </div>
                     </Card>
 
                     <Card className="rounded-[3rem] border-border/50 shadow-xl p-8 bg-card/50">
-                        <h3 className="text-xl font-black italic mb-6 flex items-center gap-3">
+                        <h3 className="text-h3 font-semibold mb-6 flex items-center gap-3">
                             <History className="text-muted-foreground" /> Recent Activity
                         </h3>
                         <div className="space-y-6">
@@ -206,7 +206,7 @@ export default function LibraryOverviewPage() {
                                     <div className="w-2 h-2 rounded-full bg-primary mt-2" />
                                     <div>
                                         <p className="text-sm font-bold leading-tight">"Advanced Mathematics" returned by John Doe.</p>
-                                        <p className="text-[10px] font-black uppercase text-muted-foreground mt-1">2 hours ago</p>
+                                        <p className="text-[10px] font-semibold uppercase text-muted-foreground mt-1">2 hours ago</p>
                                     </div>
                                 </div>
                             ))}

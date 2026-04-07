@@ -137,7 +137,7 @@ export default function StudentIdCardsPage() {
         <div className="space-y-8 animate-in fade-in duration-500 pb-20">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
-                    <h1 className="text-4xl font-black tracking-tight italic flex items-center gap-3">
+                    <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
                         <Users className="text-primary w-10 h-10" />
                         Student ID Management
                     </h1>
@@ -147,7 +147,7 @@ export default function StudentIdCardsPage() {
                     <Button
                         disabled={selectedStudents.length === 0 || generating}
                         onClick={handleGenerate}
-                        className="gap-3 rounded-[1.5rem] h-14 px-8 font-black text-lg shadow-xl shadow-primary/20 hover:scale-105 transition-all bg-primary"
+                        className="gap-3 rounded-[1.5rem] h-14 px-8 font-semibold text-lg shadow-xl shadow-primary/20 hover:scale-105 transition-all bg-primary"
                     >
                         {generating ? <Loader2 className="animate-spin" /> : <ArrowRightCircle size={20} />}
                         Generate {selectedStudents.length > 0 ? `(${selectedStudents.length})` : ''} Cards
@@ -159,7 +159,7 @@ export default function StudentIdCardsPage() {
             <Card className="rounded-[3rem] border-border/50 shadow-lg bg-card/50 backdrop-blur-sm p-6">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                     <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase text-muted-foreground ml-2">Class</label>
+                        <label className="text-[10px] font-semibold uppercase text-muted-foreground ml-2">Class</label>
                         <select
                             className="w-full h-12 rounded-xl bg-muted/50 border-none font-bold px-4 focus:ring-2 ring-primary/20"
                             value={filters.classId}
@@ -170,7 +170,7 @@ export default function StudentIdCardsPage() {
                         </select>
                     </div>
                     <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase text-muted-foreground ml-2">Session</label>
+                        <label className="text-[10px] font-semibold uppercase text-muted-foreground ml-2">Session</label>
                         <select
                             className="w-full h-12 rounded-xl bg-muted/50 border-none font-bold px-4 focus:ring-2 ring-primary/20"
                             value={filters.sessionId}
@@ -180,7 +180,7 @@ export default function StudentIdCardsPage() {
                         </select>
                     </div>
                     <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase text-muted-foreground ml-2">ID Template</label>
+                        <label className="text-[10px] font-semibold uppercase text-muted-foreground ml-2">ID Template</label>
                         <select
                             className="w-full h-12 rounded-xl bg-muted/50 border-none font-bold px-4 focus:ring-2 ring-primary/20"
                             value={filters.templateId}
@@ -191,7 +191,7 @@ export default function StudentIdCardsPage() {
                         </select>
                     </div>
                     <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase text-muted-foreground ml-2">Search Students</label>
+                        <label className="text-[10px] font-semibold uppercase text-muted-foreground ml-2">Search Students</label>
                         <div className="relative">
                             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={18} />
                             <Input
@@ -209,7 +209,7 @@ export default function StudentIdCardsPage() {
             <Card className="rounded-[4rem] border-border/50 shadow-2xl overflow-hidden border-t-8 border-t-primary/10 bg-card/50 backdrop-blur-sm">
                 <CardHeader className="p-10 pb-0">
                     <div className="flex justify-between items-center">
-                        <CardTitle className="text-2xl font-black italic tracking-tight">Student Enrollment List</CardTitle>
+                        <CardTitle className="text-h3 font-semibold tracking-tight">Student Enrollment List</CardTitle>
                         <div className="text-sm font-bold text-muted-foreground">
                             {selectedStudents.length} selected / {filteredStudents.length} total
                         </div>
@@ -229,10 +229,10 @@ export default function StudentIdCardsPage() {
                                             }}
                                         />
                                     </th>
-                                    <th className="px-6 py-6 text-[10px] uppercase tracking-[0.3em] font-black text-muted-foreground">Student Info</th>
-                                    <th className="px-6 py-6 text-[10px] uppercase tracking-[0.3em] font-black text-muted-foreground">Class Info</th>
-                                    <th className="px-6 py-6 text-[10px] uppercase tracking-[0.3em] font-black text-muted-foreground">ID Status</th>
-                                    <th className="px-6 py-6 text-right text-[10px] uppercase tracking-[0.3em] font-black text-muted-foreground pr-10">Action</th>
+                                    <th className="px-6 py-6 text-[10px] uppercase tracking-[0.3em] font-semibold text-muted-foreground">Student Info</th>
+                                    <th className="px-6 py-6 text-[10px] uppercase tracking-[0.3em] font-semibold text-muted-foreground">Class Info</th>
+                                    <th className="px-6 py-6 text-[10px] uppercase tracking-[0.3em] font-semibold text-muted-foreground">ID Status</th>
+                                    <th className="px-6 py-6 text-right text-[10px] uppercase tracking-[0.3em] font-semibold text-muted-foreground pr-10">Action</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-border/30">
@@ -258,7 +258,7 @@ export default function StudentIdCardsPage() {
                                                         )}
                                                     </div>
                                                     <div>
-                                                        <div className="font-black text-lg italic tracking-tight">{student.firstName} {student.lastName}</div>
+                                                        <div className="font-semibold text-lg tracking-tight">{student.firstName} {student.lastName}</div>
                                                         <div className="text-xs font-bold text-muted-foreground">REG: {student.id.split('-')[0].toUpperCase()}</div>
                                                     </div>
                                                 </div>
@@ -269,11 +269,11 @@ export default function StudentIdCardsPage() {
                                             </td>
                                             <td className="px-6 py-6">
                                                 {card ? (
-                                                    <div className="flex items-center gap-2 text-green-600 font-black italic uppercase text-xs">
+                                                    <div className="flex items-center gap-2 text-green-600 font-semibold uppercase text-xs">
                                                         <CheckCircle2 size={16} /> Generated
                                                     </div>
                                                 ) : (
-                                                    <div className="flex items-center gap-2 text-amber-500 font-black italic uppercase text-xs">
+                                                    <div className="flex items-center gap-2 text-amber-500 font-semibold uppercase text-xs">
                                                         <Clock size={16} /> Not Issued
                                                     </div>
                                                 )}

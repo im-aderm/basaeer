@@ -74,7 +74,7 @@ export default function InvoicesPage() {
     return (
         <div className="space-y-6">
             <div className="flex justify-between items-center">
-                <h1 className="text-3xl font-bold tracking-tight">Student Invoices</h1>
+                <h1 className="text-h1 font-bold tracking-tight">Student Invoices</h1>
                 <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
                     <DialogTrigger asChild>
                         <Button className="gap-2">

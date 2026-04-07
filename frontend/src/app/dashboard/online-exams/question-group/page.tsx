@@ -58,24 +58,24 @@ export default function QuestionGroupPage() {
         <div className="max-w-6xl mx-auto space-y-8">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-4xl font-black tracking-tight italic">Question Groups</h1>
+                    <h1 className="text-h1 font-semibold tracking-tight">Question Groups</h1>
                     <p className="text-muted-foreground font-medium mt-1">Organize your assessment questions by topics, difficulty, or subjects.</p>
                 </div>
 
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                     <DialogTrigger asChild>
-                        <Button className="h-14 px-8 rounded-2xl font-black text-lg gap-2 shadow-xl shadow-primary/20 hover:scale-[1.02] transition-all">
+                        <Button className="h-14 px-8 rounded-2xl font-semibold text-lg gap-2 shadow-xl shadow-primary/20 hover:scale-[1.02] transition-all">
                             <Plus className="h-6 w-6" />
                             New Group
                         </Button>
                     </DialogTrigger>
                     <DialogContent className="rounded-[2rem] sm:max-w-[425px]">
                         <DialogHeader>
-                            <DialogTitle className="text-2xl font-black italic">Create Question Group</DialogTitle>
+                            <DialogTitle className="text-h3 font-semibold">Create Question Group</DialogTitle>
                         </DialogHeader>
                         <div className="space-y-4 py-4">
                             <div className="space-y-2">
-                                <Label className="text-xs font-black uppercase tracking-widest ml-1">Group Name</Label>
+                                <Label className="text-xs font-semibold uppercase tracking-widest ml-1">Group Name</Label>
                                 <Input
                                     placeholder="e.g. Mathematics - Algebra"
                                     className="h-12 rounded-2xl border-border/50 bg-background/50 font-bold"
@@ -95,7 +95,7 @@ export default function QuestionGroupPage() {
             <Card className="rounded-[2.5rem] border-border/50 shadow-2xl overflow-hidden bg-background">
                 <CardHeader className="p-8 pb-4">
                     <div className="flex justify-between items-center">
-                        <CardTitle className="text-2xl font-black italic flex items-center gap-3">
+                        <CardTitle className="text-h3 font-semibold flex items-center gap-3">
                             <Layers className="h-8 w-8 text-primary" />
                             All Groups
                         </CardTitle>
@@ -114,17 +114,17 @@ export default function QuestionGroupPage() {
                     <Table>
                         <TableHeader className="bg-muted/30 h-16">
                             <TableRow className="border-border/50 hover:bg-transparent">
-                                <TableHead className="font-black italic px-8 uppercase tracking-tighter text-muted-foreground">Group Name</TableHead>
-                                <TableHead className="font-black italic px-8 uppercase tracking-tighter text-muted-foreground text-center">Total Questions</TableHead>
-                                <TableHead className="font-black italic px-8 h-16 text-right uppercase tracking-tighter text-muted-foreground">Actions</TableHead>
+                                <TableHead className="font-semibold px-8 uppercase tracking-tighter text-muted-foreground">Group Name</TableHead>
+                                <TableHead className="font-semibold px-8 uppercase tracking-tighter text-muted-foreground text-center">Total Questions</TableHead>
+                                <TableHead className="font-semibold px-8 h-16 text-right uppercase tracking-tighter text-muted-foreground">Actions</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {filteredGroups.map((group) => (
                                 <TableRow key={group.id} className="border-border/50 h-20 transition-all hover:bg-muted/20">
-                                    <TableCell className="px-8 font-black italic text-lg leading-tight uppercase">{group.name}</TableCell>
+                                    <TableCell className="px-8 font-semibold text-lg leading-tight uppercase">{group.name}</TableCell>
                                     <TableCell className="px-8 text-center">
-                                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary font-black text-sm">
+                                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary font-semibold text-sm">
                                             <HelpCircle className="h-4 w-4" />
                                             {group._count?.questions || 0} Questions
                                         </div>
@@ -154,7 +154,7 @@ export default function QuestionGroupPage() {
                                     <TableCell colSpan={3} className="h-60 text-center">
                                         <div className="flex flex-col items-center justify-center gap-4 opacity-30 grayscale saturate-0">
                                             <Layers className="h-20 w-20 stroke-[1]" />
-                                            <p className="font-black italic text-xl">No question groups found</p>
+                                            <p className="font-semibold text-h3">No question groups found</p>
                                         </div>
                                     </TableCell>
                                 </TableRow>

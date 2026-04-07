@@ -103,11 +103,11 @@ export default function AdmissionsManagementPage() {
     const getPaymentBadge = (status?: string) => {
         switch (status) {
             case 'VERIFIED':
-                return <span className="bg-emerald-500 text-white font-black text-[10px] px-2 py-0.5 rounded-full">PAID</span>;
+                return <span className="bg-emerald-500 text-white font-semibold text-[10px] px-2 py-0.5 rounded-full">PAID</span>;
             case 'REJECTED':
-                return <span className="bg-red-500 text-white font-black text-[10px] px-2 py-0.5 rounded-full">FAILED</span>;
+                return <span className="bg-red-500 text-white font-semibold text-[10px] px-2 py-0.5 rounded-full">FAILED</span>;
             default:
-                return <span className="bg-amber-500/20 text-amber-600 font-black text-[10px] px-2 py-0.5 rounded-full">PENDING</span>;
+                return <span className="bg-amber-500/20 text-amber-600 font-semibold text-[10px] px-2 py-0.5 rounded-full">PENDING</span>;
         }
     };
 
@@ -130,10 +130,10 @@ export default function AdmissionsManagementPage() {
             {/* Header */}
             <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-8 bg-card border border-border p-10 rounded-[3rem] shadow-2xl shadow-primary/5 relative overflow-hidden">
                 <div className="space-y-3 relative z-10">
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 text-primary rounded-full text-xs font-black uppercase tracking-widest">
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 text-primary rounded-full text-xs font-semibold uppercase tracking-widest">
                         <Users size={14} /> Registrar Control
                     </div>
-                    <h1 className="text-5xl font-black tracking-tight italic">Admission Management</h1>
+                    <h1 className="text-h1 font-semibold tracking-tight">Admission Management</h1>
                     <p className="text-muted-foreground font-medium text-lg">Process, verify and enroll prospective students into the academy.</p>
                 </div>
 
@@ -172,9 +172,9 @@ export default function AdmissionsManagementPage() {
                             statusFilter === stat.status ? "bg-card border-primary ring-4 ring-primary/10 scale-105" : "bg-card border-border hover:border-primary/30"
                         )}
                     >
-                        <p className="text-xs font-black uppercase tracking-widest text-muted-foreground">{stat.label}</p>
+                        <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">{stat.label}</p>
                         <div className="flex items-end justify-between">
-                            <h3 className="text-4xl font-black italic">{stat.value}</h3>
+                            <h3 className="text-h1 font-semibold">{stat.value}</h3>
                             <div className={clsx("w-3 h-3 rounded-full animate-pulse", stat.color)} />
                         </div>
                     </button>
@@ -187,11 +187,11 @@ export default function AdmissionsManagementPage() {
                     <table className="w-full text-left border-collapse">
                         <thead>
                             <tr className="border-b border-border/50">
-                                <th className="px-10 py-8 text-xs font-black uppercase tracking-widest text-muted-foreground">Applicant</th>
-                                <th className="px-10 py-8 text-xs font-black uppercase tracking-widest text-muted-foreground">Academic Intent</th>
-                                <th className="px-10 py-8 text-xs font-black uppercase tracking-widest text-muted-foreground">Guardian Info</th>
-                                <th className="px-10 py-8 text-xs font-black uppercase tracking-widest text-muted-foreground">Status</th>
-                                <th className="px-10 py-8 text-xs font-black uppercase tracking-widest text-muted-foreground text-right">Actions</th>
+                                <th className="px-10 py-8 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Applicant</th>
+                                <th className="px-10 py-8 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Academic Intent</th>
+                                <th className="px-10 py-8 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Guardian Info</th>
+                                <th className="px-10 py-8 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Status</th>
+                                <th className="px-10 py-8 text-xs font-semibold uppercase tracking-widest text-muted-foreground text-right">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-border/30">
@@ -202,7 +202,7 @@ export default function AdmissionsManagementPage() {
                                             <div className="w-20 h-20 bg-muted/20 rounded-full flex items-center justify-center text-muted-foreground/30">
                                                 <Users size={40} />
                                             </div>
-                                            <p className="text-muted-foreground font-black italic text-xl">No applications found in this category.</p>
+                                            <p className="text-muted-foreground font-semibold text-h3">No applications found in this category.</p>
                                         </div>
                                     </td>
                                 </tr>
@@ -211,11 +211,11 @@ export default function AdmissionsManagementPage() {
                                     <tr key={adm.id} className="hover:bg-muted/10 transition-colors group">
                                         <td className="px-10 py-8">
                                             <div className="flex items-center gap-6">
-                                                <div className="w-16 h-16 rounded-[1.25rem] bg-muted/30 flex items-center justify-center font-black text-xl text-primary border-2 border-border group-hover:border-primary/20 transition-all">
+                                                <div className="w-16 h-16 rounded-[1.25rem] bg-muted/30 flex items-center justify-center font-semibold text-h3 text-primary border-2 border-border group-hover:border-primary/20 transition-all">
                                                     {adm.firstName[0]}{adm.lastName[0]}
                                                 </div>
                                                 <div className="space-y-1">
-                                                    <p className="font-black text-xl tracking-tight">{adm.firstName} {adm.lastName}</p>
+                                                    <p className="font-semibold text-h3 tracking-tight">{adm.firstName} {adm.lastName}</p>
                                                     <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground uppercase tracking-wider">
                                                         <Clock size={12} /> Applied: {new Date(adm.createdAt).toLocaleDateString()}
                                                     </div>
@@ -224,10 +224,10 @@ export default function AdmissionsManagementPage() {
                                         </td>
                                         <td className="px-10 py-8">
                                             <div className="space-y-1">
-                                                <p className="font-black text-foreground flex items-center gap-2">
+                                                <p className="font-semibold text-foreground flex items-center gap-2">
                                                     <GraduationCap size={16} className="text-primary" /> {adm.desiredClass?.name || "N/A"}
                                                 </p>
-                                                <p className="text-sm font-bold text-muted-foreground italic">{adm.academicSession?.name || "No Session"}</p>
+                                                <p className="text-sm font-bold text-muted-foreground">{adm.academicSession?.name || "No Session"}</p>
                                             </div>
                                         </td>
                                         <td className="px-10 py-8">
@@ -242,7 +242,7 @@ export default function AdmissionsManagementPage() {
                                                         <a
                                                             href={adm.paymentReceiptUrl}
                                                             target="_blank"
-                                                            className="text-[10px] text-primary font-black flex items-center gap-1 hover:underline group/receipt"
+                                                            className="text-[10px] text-primary font-semibold flex items-center gap-1 hover:underline group/receipt"
                                                         >
                                                             <Receipt className="h-3 w-3 group-hover/receipt:scale-110 transition-transform" /> VIEW RECEIPT
                                                         </a>
@@ -252,7 +252,7 @@ export default function AdmissionsManagementPage() {
                                         </td>
                                         <td className="px-10 py-8">
                                             <div className={clsx(
-                                                "inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-widest",
+                                                "inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-widest",
                                                 adm.status === 'PENDING' ? "bg-yellow-500/10 text-yellow-600 border border-yellow-500/20" :
                                                     adm.status === 'ENROLLED' ? "bg-green-500/10 text-green-600 border border-green-500/20" :
                                                         adm.status === 'APPROVED' ? "bg-blue-500/10 text-blue-600 border border-blue-500/20" :
@@ -307,7 +307,7 @@ export default function AdmissionsManagementPage() {
                     <ShieldAlert size={32} />
                 </div>
                 <div className="space-y-1 text-center md:text-left">
-                    <h4 className="text-xl font-black italic text-yellow-600">Administrative Advisory</h4>
+                    <h4 className="text-h3 font-semibold text-yellow-600">Administrative Advisory</h4>
                     <p className="text-yellow-600/70 font-bold leading-relaxed max-w-4xl">Approving an application will automatically generate a new Student ID and a portal account. Ensure all uploaded documents have been verified against school policy before final enrollment.</p>
                 </div>
             </div>

@@ -113,7 +113,7 @@ export default function SessionsPage() {
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-3xl font-bold tracking-tight">Academic Sessions</h1>
+                    <h1 className="text-h1 font-bold tracking-tight">Academic Sessions</h1>
                     <p className="text-muted-foreground mt-1">Manage school years and set current active term.</p>
                 </div>
                 <button

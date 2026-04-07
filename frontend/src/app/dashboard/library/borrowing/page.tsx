@@ -105,29 +105,29 @@ export default function LibraryBorrowingPage() {
             {/* Header section */}
             <div className="bg-card border border-border p-10 rounded-[3rem] shadow-sm relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div className="relative z-10">
-                    <h1 className="text-4xl font-black tracking-tight flex items-center gap-3 italic text-purple-600">
+                    <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3 text-purple-600">
                         <Bookmark className="w-10 h-10" />
                         Borrowing Records
                     </h1>
-                    <p className="text-muted-foreground mt-2 text-lg font-medium italic">Track book circulations and manage student returns.</p>
+                    <p className="text-muted-foreground mt-2 text-lg font-medium">Track book circulations and manage student returns.</p>
                 </div>
                 <div className="relative z-10">
                     <Dialog open={isIssueModalOpen} onOpenChange={setIsIssueModalOpen}>
                         <DialogTrigger asChild>
-                            <Button className="h-14 rounded-2xl px-10 font-black shadow-xl shadow-purple-500/20 hover:scale-105 active:scale-95 transition-all gap-3 bg-purple-600">
+                            <Button className="h-14 rounded-2xl px-10 font-semibold shadow-xl shadow-purple-500/20 hover:scale-105 active:scale-95 transition-all gap-3 bg-purple-600">
                                 Issue New Book <ArrowRight size={20} />
                             </Button>
                         </DialogTrigger>
                         <DialogContent className="max-w-md rounded-[2.5rem] p-8">
                             <DialogHeader>
-                                <DialogTitle className="text-2xl font-black italic mb-6">Issue Book</DialogTitle>
+                                <DialogTitle className="text-h3 font-semibold mb-6">Issue Book</DialogTitle>
                             </DialogHeader>
                             <form onSubmit={handleIssueBook} className="space-y-4">
                                 <div className="space-y-1.5">
-                                    <Label className="font-bold ml-1 italic">Select Book</Label>
+                                    <Label className="font-bold ml-1">Select Book</Label>
                                     <select
                                         required
-                                        className="w-full rounded-xl h-12 px-4 border bg-card font-bold italic"
+                                        className="w-full rounded-xl h-12 px-4 border bg-card font-bold"
                                         value={issueData.bookId}
                                         onChange={e => setIssueData({ ...issueData, bookId: e.target.value })}
                                     >
@@ -138,10 +138,10 @@ export default function LibraryBorrowingPage() {
                                     </select>
                                 </div>
                                 <div className="space-y-1.5">
-                                    <Label className="font-bold ml-1 italic">Select Student</Label>
+                                    <Label className="font-bold ml-1">Select Student</Label>
                                     <select
                                         required
-                                        className="w-full rounded-xl h-12 px-4 border bg-card font-bold italic"
+                                        className="w-full rounded-xl h-12 px-4 border bg-card font-bold"
                                         value={issueData.studentId}
                                         onChange={e => setIssueData({ ...issueData, studentId: e.target.value })}
                                     >
@@ -152,7 +152,7 @@ export default function LibraryBorrowingPage() {
                                     </select>
                                 </div>
                                 <div className="space-y-1.5">
-                                    <Label className="font-bold ml-1 italic">Due Date</Label>
+                                    <Label className="font-bold ml-1">Due Date</Label>
                                     <Input
                                         type="date"
                                         required
@@ -161,7 +161,7 @@ export default function LibraryBorrowingPage() {
                                         onChange={e => setIssueData({ ...issueData, dueDate: e.target.value })}
                                     />
                                 </div>
-                                <Button type="submit" className="w-full h-14 rounded-xl font-black italic text-lg shadow-lg shadow-purple-500/20 bg-purple-600 mt-4">
+                                <Button type="submit" className="w-full h-14 rounded-xl font-semibold text-lg shadow-lg shadow-purple-500/20 bg-purple-600 mt-4">
                                     Confirm Issue
                                 </Button>
                             </form>
@@ -177,18 +177,18 @@ export default function LibraryBorrowingPage() {
                     <table className="w-full border-collapse">
                         <thead>
                             <tr className="bg-muted/30 text-left border-b border-border">
-                                <th className="px-10 py-6 text-[10px] uppercase tracking-[0.2em] font-black text-muted-foreground italic text-center w-20">Status</th>
-                                <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-black text-muted-foreground italic">Resource / Book</th>
-                                <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-black text-muted-foreground italic text-center">Dates</th>
-                                <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-black text-muted-foreground italic">Student Details</th>
-                                <th className="px-10 py-6 text-[10px] text-right uppercase tracking-[0.2em] font-black text-muted-foreground italic">Actions</th>
+                                <th className="px-10 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground text-center w-20">Status</th>
+                                <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Resource / Book</th>
+                                <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground text-center">Dates</th>
+                                <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Student Details</th>
+                                <th className="px-10 py-6 text-[10px] text-right uppercase tracking-[0.2em] font-semibold text-muted-foreground">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-border/50">
                             {borrowingHistory.length > 0 ? borrowingHistory.map(record => (
                                 <tr key={record.id} className="hover:bg-muted/5 transition-all group">
                                     <td className="px-10 py-8 text-center">
-                                        <div className={`mx-auto w-12 h-12 rounded-2xl flex items-center justify-center font-black ${getStatusColor(record.status)} shadow-lg shadow-current/5`}>
+                                        <div className={`mx-auto w-12 h-12 rounded-2xl flex items-center justify-center font-semibold ${getStatusColor(record.status)} shadow-lg shadow-current/5`}>
                                             {record.status === 'BORROWED' && <Clock size={24} />}
                                             {record.status === 'OVERDUE' && <AlertCircle size={24} />}
                                             {record.status === 'RETURNED' && <CheckCircle size={24} />}
@@ -200,7 +200,7 @@ export default function LibraryBorrowingPage() {
                                                 <BookOpen size={20} className="text-muted-foreground/50" />
                                             </div>
                                             <div>
-                                                <p className="font-black text-lg italic tracking-tight">{record.book?.title}</p>
+                                                <p className="font-semibold text-lg tracking-tight">{record.book?.title}</p>
                                                 <p className="text-xs font-bold text-muted-foreground capitalize">{record.book?.category}</p>
                                             </div>
                                         </div>
@@ -225,8 +225,8 @@ export default function LibraryBorrowingPage() {
                                                 <User size={18} />
                                             </div>
                                             <div>
-                                                <p className="font-black italic">{record.student?.firstName} {record.student?.lastName}</p>
-                                                <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">ID: {record.student?.id.split('-')[0].toUpperCase()}</p>
+                                                <p className="font-semibold">{record.student?.firstName} {record.student?.lastName}</p>
+                                                <p className="text-label text-muted-foreground">ID: {record.student?.id.split('-')[0].toUpperCase()}</p>
                                             </div>
                                         </div>
                                     </td>
@@ -235,7 +235,7 @@ export default function LibraryBorrowingPage() {
                                             {record.status !== 'RETURNED' && (
                                                 <Button
                                                     variant="outline"
-                                                    className="h-10 rounded-xl font-black italic bg-green-500/10 border-green-500/20 text-green-600 hover:bg-green-600 hover:text-white transition-all px-4"
+                                                    className="h-10 rounded-xl font-semibold bg-green-500/10 border-green-500/20 text-green-600 hover:bg-green-600 hover:text-white transition-all px-4"
                                                     onClick={() => handleReturn(record.id)}
                                                 >
                                                     Mark Return
@@ -253,8 +253,8 @@ export default function LibraryBorrowingPage() {
                                         <div className="w-20 h-20 bg-muted/50 rounded-full flex items-center justify-center mx-auto border-2 border-dashed border-border">
                                             <Search size={32} className="text-muted-foreground/30" />
                                         </div>
-                                        <h3 className="text-xl font-black italic">No records found</h3>
-                                        <p className="text-muted-foreground font-medium italic">Active book circulations will appear here.</p>
+                                        <h3 className="text-h3 font-semibold">No records found</h3>
+                                        <p className="text-muted-foreground font-medium">Active book circulations will appear here.</p>
                                     </td>
                                 </tr>
                             )}

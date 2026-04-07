@@ -188,7 +188,7 @@ export default function AdvanceSalaryPage() {
             <div className="mb-8">
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-4xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+                        <h1 className="text-h1 font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
                             Advance Salary Management
                         </h1>
                         <p className="text-slate-600 dark:text-slate-400 mt-2">
@@ -261,7 +261,7 @@ export default function AdvanceSalaryPage() {
                             <DollarSign className="w-8 h-8 text-indigo-600" />
                         </div>
                         <p className="text-sm text-slate-600 dark:text-slate-400">Total Requests</p>
-                        <p className="text-3xl font-bold text-slate-900 dark:text-slate-100">
+                        <p className="text-h1 font-bold text-slate-900 dark:text-slate-100">
                             {stats.total}
                         </p>
                     </div>
@@ -271,7 +271,7 @@ export default function AdvanceSalaryPage() {
                             <Clock className="w-8 h-8 text-yellow-600" />
                         </div>
                         <p className="text-sm text-slate-600 dark:text-slate-400">Pending</p>
-                        <p className="text-3xl font-bold text-slate-900 dark:text-slate-100">
+                        <p className="text-h1 font-bold text-slate-900 dark:text-slate-100">
                             {stats.pending}
                         </p>
                     </div>
@@ -281,7 +281,7 @@ export default function AdvanceSalaryPage() {
                             <CheckCircle2 className="w-8 h-8 text-emerald-600" />
                         </div>
                         <p className="text-sm text-slate-600 dark:text-slate-400">Approved</p>
-                        <p className="text-3xl font-bold text-slate-900 dark:text-slate-100">
+                        <p className="text-h1 font-bold text-slate-900 dark:text-slate-100">
                             {stats.approved}
                         </p>
                     </div>
@@ -291,7 +291,7 @@ export default function AdvanceSalaryPage() {
                             <TrendingUp className="w-8 h-8 text-teal-600" />
                         </div>
                         <p className="text-sm text-slate-600 dark:text-slate-400">Total Amount</p>
-                        <p className="text-3xl font-bold text-slate-900 dark:text-slate-100">
+                        <p className="text-h1 font-bold text-slate-900 dark:text-slate-100">
                             ${stats.totalAmount.toLocaleString()}
                         </p>
                     </div>

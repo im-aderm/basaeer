@@ -194,7 +194,7 @@ model User {
   sentMessages               Message[]
   eventRSVPs                 EventRSVP[]
   accessLogs                 CampusAccessLog[]
-  onlineAdmissions           OnlineAdmission[]
+  onlineAdmissions           OnlineAdmission[]         @relation("ParentAdmission")
   digitalResourceLogs        DigitalResourceLog[]
 }
 
@@ -242,6 +242,7 @@ model Student {
   firstName String
   lastName  String
   dob       DateTime?
+  age       Int?
 
   branchId String
   branch   Branch @relation(fields: [branchId], references: [id])
@@ -275,7 +276,9 @@ model Student {
   category   StudentCategory? @relation(fields: [categoryId], references: [id])
 
   // Improved Admission Fields
+  surname       String?
   otherNames    String?
+  ninNumber     String?
   placeOfBirth  String?
   nationality   String?
   stateOfOrigin String?
@@ -285,29 +288,52 @@ model Student {
 
   guardianOccupation        String?
   guardianOfficeAddress     String?
+  
+  fatherName                String?
+  fatherOccupation          String?
+  fatherPhone               String?
+  motherName                String?
+  motherOccupation          String?
+  motherPhone               String?
+
   secondaryGuardianName     String?
   secondaryGuardianPhone    String?
   secondaryGuardianRelation String?
 
+  address                  String?
+  whatsappNumber           String?
+  languagesSpoken          String?
   city                     String?
   state                    String?
   country                  String?
   emergencyContactName     String?
   emergencyContactPhone    String?
   emergencyContactRelation String?
+  emergencySickness        String?
 
-  bloodGroup        String?
-  genotype          String?
-  allergies         String?
-  medicalConditions String?
-  specialNeeds      String?
-  familyDoctorName  String?
-  familyDoctorPhone String?
+  bloodGroup           String?
+  genotype             String?
+  allergies            String?
+  medicalConditions    String?
+  hasMedicalCondition  Boolean @default(false)
+  medicalConditionInfo String?
+  hasLearningDifficulty Boolean @default(false)
+  learningDifficultyInfo String?
+  hasSpecialNeeds      Boolean @default(false)
+  specialNeedsInfo     String?
+  familyDoctorName     String?
+  familyDoctorPhone    String?
 
   birthCertificateUrl    String?
   testimonialUrl         String?
   transferCertificateUrl String?
   immunizationCardUrl    String?
+  ninUrl                 String?
+  educationalCertUrl     String?
+  transferLetterUrl      String?
+  medicalReportUrl       String?
+  recommendationLetterUrl String?
+  schoolReportUrl        String?
 
   preferredLanguage   String?
   religionClassType   String?
@@ -317,6 +343,7 @@ model Student {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
 
 model Certificate {
   id                String   @id @default(uuid())
@@ -1345,16 +1372,22 @@ model OnlineAdmission {
   // 1. Student Basic Information
   admissionNumber String?  @unique
   firstName       String
+  surname         String?
   lastName        String
   otherNames      String?
   gender          String
   dateOfBirth     DateTime
+  age             Int?
+  ninNumber       String?
   placeOfBirth    String?
   nationality     String?
   stateOfOrigin   String?
   lga             String?
   religion        String?
   passportPhoto   String?
+  passportPhoto2  String?
+  passportPhoto3  String?
+  passportPhoto4  String?
 
   // 2. Admission Details
   academicSessionId String?
@@ -1365,10 +1398,11 @@ model OnlineAdmission {
   desiredSectionId  String?
   desiredSection    Section?         @relation(fields: [desiredSectionId], references: [id])
   admissionType     String? // NEW, TRANSFER, RETURNING
-  previousSchool    String?
+  previousSchools   PreviousSchool[]
   transferReason    String?
   assessmentScore   Float?
   status            String           @default("PENDING") // PENDING, APPROVED, REJECTED, ENROLLED
+  rejectionReason   String?
 
   // 3. Parent / Guardian Information
   guardianName              String
@@ -1378,41 +1412,67 @@ model OnlineAdmission {
   guardianAddress           String?
   guardianOccupation        String?
   guardianOfficeAddress     String?
+  
+  fatherName     String?
+  fatherOccupation String?
+  fatherPhone    String?
+  motherName     String?
+  motherOccupation String?
+  motherPhone    String?
+  
+  guardianContact1 String?
+  guardianContact2 String?
+
   secondaryGuardianName     String?
   secondaryGuardianPhone    String?
   secondaryGuardianRelation String?
 
   // 4. Contact & Address Information
   address                  String?
+  whatsappNumber           String?
+  languagesSpoken          String?
   city                     String?
   state                    String?
   country                  String?
   emergencyContactName     String?
   emergencyContactPhone    String?
   emergencyContactRelation String?
+  emergencySickness        String?
 
   // 5. Medical Information
-  bloodGroup        String?
-  genotype          String?
-  allergies         String?
-  medicalConditions String?
-  specialNeeds      String?
-  familyDoctorName  String?
-  familyDoctorPhone String?
+  bloodGroup           String?
+  genotype             String?
+  allergies            String?
+  medicalConditions    String?
+  hasMedicalCondition  Boolean @default(false)
+  medicalConditionInfo String?
+  hasLearningDifficulty Boolean @default(false)
+  learningDifficultyInfo String?
+  hasSpecialNeeds      Boolean @default(false)
+  specialNeedsInfo     String?
+  familyDoctorName     String?
+  familyDoctorPhone    String?
 
-  // 6. Hostel & Transport
-  hostelRequired    Boolean @default(false)
-  preferredHostel   String?
-  hostelNotes       String?
-  transportRequired Boolean @default(false)
-  pickupLocation    String?
-  preferredRoute    String?
+  // 6. Additional Information
+  hasAppliedBefore   Boolean @default(false)
+  howHeard          String?
+  seekingFinancialAid Boolean @default(false)
+  hasSiblingsInSchool Boolean @default(false)
+  siblingName        String?
+  siblingLevel       String?
 
   // 7. Documents Upload
   birthCertificateUrl    String?
   testimonialUrl         String?
   transferCertificateUrl String?
   immunizationCardUrl    String?
+  ninUrl                 String?
+  educationalCertUrl     String?
+  transferLetterUrl      String?
+  medicalReportUrl       String?
+  recommendationLetterUrl String?
+  schoolReportUrl        String?
+  paymentProofUrl        String?
 
   // 8. System & Administrative
   branchId            String
@@ -1446,7 +1506,7 @@ model OnlineAdmission {
   studentCategory   StudentCategory? @relation(fields: [studentCategoryId], references: [id])
 
   parentId String?
-  parent   User?   @relation(fields: [parentId], references: [id])
+  parent   User?   @relation("ParentAdmission", fields: [parentId], references: [id])
 
   // 11. Payment Information
   paymentReceiptUrl String?
@@ -1456,6 +1516,17 @@ model OnlineAdmission {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model PreviousSchool {
+  id                String          @id @default(uuid())
+  institutionName   String
+  address           String?
+  fromYear          String?
+  toYear            String?
+  admissionId       String
+  admission         OnlineAdmission @relation(fields: [admissionId], references: [id], onDelete: Cascade)
+}
+
 
 // ============================================
 // RECEPTION & FRONT DESK MODULE (PHASE 16)

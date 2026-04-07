@@ -319,6 +319,11 @@ export type StudentCategory = $Result.DefaultSelection<Prisma.$StudentCategoryPa
  */
 export type OnlineAdmission = $Result.DefaultSelection<Prisma.$OnlineAdmissionPayload>
 /**
+ * Model PreviousSchool
+ * 
+ */
+export type PreviousSchool = $Result.DefaultSelection<Prisma.$PreviousSchoolPayload>
+/**
  * Model AdmissionEnquiry
  * 
  */
@@ -1357,6 +1362,16 @@ export class PrismaClient<
   get onlineAdmission(): Prisma.OnlineAdmissionDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.previousSchool`: Exposes CRUD operations for the **PreviousSchool** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PreviousSchools
+    * const previousSchools = await prisma.previousSchool.findMany()
+    * ```
+    */
+  get previousSchool(): Prisma.PreviousSchoolDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.admissionEnquiry`: Exposes CRUD operations for the **AdmissionEnquiry** model.
     * Example usage:
     * ```ts
@@ -2120,6 +2135,7 @@ export namespace Prisma {
     MeetingParticipant: 'MeetingParticipant',
     StudentCategory: 'StudentCategory',
     OnlineAdmission: 'OnlineAdmission',
+    PreviousSchool: 'PreviousSchool',
     AdmissionEnquiry: 'AdmissionEnquiry',
     CallLog: 'CallLog',
     VisitorLog: 'VisitorLog',
@@ -2162,7 +2178,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "branch" | "deactivationReason" | "loginDeactivation" | "user" | "staff" | "student" | "certificate" | "certificateTemplate" | "class" | "section" | "subject" | "classSchedule" | "attendance" | "staffAttendance" | "hostel" | "room" | "bed" | "hostelAllocation" | "hostelLeave" | "maintenanceRequest" | "feeCategory" | "feeStructure" | "invoice" | "questionGroup" | "question" | "questionOption" | "onlineExam" | "onlineExamAttempt" | "questionAnswer" | "invoiceItem" | "payment" | "vehicle" | "transportRoute" | "transportAssignment" | "assignment" | "submission" | "academicSession" | "assessmentRecord" | "behaviouralRating" | "resultSummary" | "gradingScale" | "globalSetting" | "rolePermission" | "auditLog" | "expenseCategory" | "voucher" | "department" | "designation" | "book" | "borrowRecord" | "libraryFine" | "salaryTemplate" | "payroll" | "leaveRequest" | "staffAward" | "advanceSalary" | "googleMeetConfig" | "liveClassSession" | "meetingParticipant" | "studentCategory" | "onlineAdmission" | "admissionEnquiry" | "callLog" | "visitorLog" | "complaint" | "postalRecord" | "inventoryCategory" | "inventoryStore" | "inventorySupplier" | "inventoryUnit" | "inventoryProduct" | "inventoryPurchase" | "inventorySale" | "inventoryIssue" | "alumni" | "alumniEvent" | "alumniEventParticipant" | "conversation" | "conversationParticipant" | "message" | "campusEvent" | "eventRSVP" | "campusAccessLog" | "automationConfig" | "idCardTemplate" | "idCard" | "digitalResource" | "digitalResourceLog"
+      modelProps: "branch" | "deactivationReason" | "loginDeactivation" | "user" | "staff" | "student" | "certificate" | "certificateTemplate" | "class" | "section" | "subject" | "classSchedule" | "attendance" | "staffAttendance" | "hostel" | "room" | "bed" | "hostelAllocation" | "hostelLeave" | "maintenanceRequest" | "feeCategory" | "feeStructure" | "invoice" | "questionGroup" | "question" | "questionOption" | "onlineExam" | "onlineExamAttempt" | "questionAnswer" | "invoiceItem" | "payment" | "vehicle" | "transportRoute" | "transportAssignment" | "assignment" | "submission" | "academicSession" | "assessmentRecord" | "behaviouralRating" | "resultSummary" | "gradingScale" | "globalSetting" | "rolePermission" | "auditLog" | "expenseCategory" | "voucher" | "department" | "designation" | "book" | "borrowRecord" | "libraryFine" | "salaryTemplate" | "payroll" | "leaveRequest" | "staffAward" | "advanceSalary" | "googleMeetConfig" | "liveClassSession" | "meetingParticipant" | "studentCategory" | "onlineAdmission" | "previousSchool" | "admissionEnquiry" | "callLog" | "visitorLog" | "complaint" | "postalRecord" | "inventoryCategory" | "inventoryStore" | "inventorySupplier" | "inventoryUnit" | "inventoryProduct" | "inventoryPurchase" | "inventorySale" | "inventoryIssue" | "alumni" | "alumniEvent" | "alumniEventParticipant" | "conversation" | "conversationParticipant" | "message" | "campusEvent" | "eventRSVP" | "campusAccessLog" | "automationConfig" | "idCardTemplate" | "idCard" | "digitalResource" | "digitalResourceLog"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -6680,6 +6696,80 @@ export namespace Prisma {
           }
         }
       }
+      PreviousSchool: {
+        payload: Prisma.$PreviousSchoolPayload<ExtArgs>
+        fields: Prisma.PreviousSchoolFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PreviousSchoolFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreviousSchoolPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PreviousSchoolFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreviousSchoolPayload>
+          }
+          findFirst: {
+            args: Prisma.PreviousSchoolFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreviousSchoolPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PreviousSchoolFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreviousSchoolPayload>
+          }
+          findMany: {
+            args: Prisma.PreviousSchoolFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreviousSchoolPayload>[]
+          }
+          create: {
+            args: Prisma.PreviousSchoolCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreviousSchoolPayload>
+          }
+          createMany: {
+            args: Prisma.PreviousSchoolCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PreviousSchoolCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreviousSchoolPayload>[]
+          }
+          delete: {
+            args: Prisma.PreviousSchoolDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreviousSchoolPayload>
+          }
+          update: {
+            args: Prisma.PreviousSchoolUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreviousSchoolPayload>
+          }
+          deleteMany: {
+            args: Prisma.PreviousSchoolDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PreviousSchoolUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PreviousSchoolUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreviousSchoolPayload>[]
+          }
+          upsert: {
+            args: Prisma.PreviousSchoolUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreviousSchoolPayload>
+          }
+          aggregate: {
+            args: Prisma.PreviousSchoolAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePreviousSchool>
+          }
+          groupBy: {
+            args: Prisma.PreviousSchoolGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PreviousSchoolGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PreviousSchoolCountArgs<ExtArgs>
+            result: $Utils.Optional<PreviousSchoolCountAggregateOutputType> | number
+          }
+        }
+      }
       AdmissionEnquiry: {
         payload: Prisma.$AdmissionEnquiryPayload<ExtArgs>
         fields: Prisma.AdmissionEnquiryFieldRefs
@@ -8847,6 +8937,7 @@ export namespace Prisma {
     meetingParticipant?: MeetingParticipantOmit
     studentCategory?: StudentCategoryOmit
     onlineAdmission?: OnlineAdmissionOmit
+    previousSchool?: PreviousSchoolOmit
     admissionEnquiry?: AdmissionEnquiryOmit
     callLog?: CallLogOmit
     visitorLog?: VisitorLogOmit
@@ -10826,6 +10917,37 @@ export namespace Prisma {
    */
   export type StudentCategoryCountOutputTypeCountOnlineAdmissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: OnlineAdmissionWhereInput
+  }
+
+
+  /**
+   * Count Type OnlineAdmissionCountOutputType
+   */
+
+  export type OnlineAdmissionCountOutputType = {
+    previousSchools: number
+  }
+
+  export type OnlineAdmissionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    previousSchools?: boolean | OnlineAdmissionCountOutputTypeCountPreviousSchoolsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * OnlineAdmissionCountOutputType without action
+   */
+  export type OnlineAdmissionCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OnlineAdmissionCountOutputType
+     */
+    select?: OnlineAdmissionCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * OnlineAdmissionCountOutputType without action
+   */
+  export type OnlineAdmissionCountOutputTypeCountPreviousSchoolsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PreviousSchoolWhereInput
   }
 
 
@@ -18832,8 +18954,18 @@ export namespace Prisma {
 
   export type AggregateStudent = {
     _count: StudentCountAggregateOutputType | null
+    _avg: StudentAvgAggregateOutputType | null
+    _sum: StudentSumAggregateOutputType | null
     _min: StudentMinAggregateOutputType | null
     _max: StudentMaxAggregateOutputType | null
+  }
+
+  export type StudentAvgAggregateOutputType = {
+    age: number | null
+  }
+
+  export type StudentSumAggregateOutputType = {
+    age: number | null
   }
 
   export type StudentMinAggregateOutputType = {
@@ -18842,12 +18974,15 @@ export namespace Prisma {
     firstName: string | null
     lastName: string | null
     dob: Date | null
+    age: number | null
     branchId: string | null
     classId: string | null
     sectionId: string | null
     parentId: string | null
     categoryId: string | null
+    surname: string | null
     otherNames: string | null
+    ninNumber: string | null
     placeOfBirth: string | null
     nationality: string | null
     stateOfOrigin: string | null
@@ -18856,26 +18991,47 @@ export namespace Prisma {
     passportPhoto: string | null
     guardianOccupation: string | null
     guardianOfficeAddress: string | null
+    fatherName: string | null
+    fatherOccupation: string | null
+    fatherPhone: string | null
+    motherName: string | null
+    motherOccupation: string | null
+    motherPhone: string | null
     secondaryGuardianName: string | null
     secondaryGuardianPhone: string | null
     secondaryGuardianRelation: string | null
+    address: string | null
+    whatsappNumber: string | null
+    languagesSpoken: string | null
     city: string | null
     state: string | null
     country: string | null
     emergencyContactName: string | null
     emergencyContactPhone: string | null
     emergencyContactRelation: string | null
+    emergencySickness: string | null
     bloodGroup: string | null
     genotype: string | null
     allergies: string | null
     medicalConditions: string | null
-    specialNeeds: string | null
+    hasMedicalCondition: boolean | null
+    medicalConditionInfo: string | null
+    hasLearningDifficulty: boolean | null
+    learningDifficultyInfo: string | null
+    hasSpecialNeeds: boolean | null
+    specialNeedsInfo: string | null
     familyDoctorName: string | null
     familyDoctorPhone: string | null
     birthCertificateUrl: string | null
     testimonialUrl: string | null
     transferCertificateUrl: string | null
     immunizationCardUrl: string | null
+    ninUrl: string | null
+    educationalCertUrl: string | null
+    transferLetterUrl: string | null
+    medicalReportUrl: string | null
+    recommendationLetterUrl: string | null
+    schoolReportUrl: string | null
     preferredLanguage: string | null
     religionClassType: string | null
     scholarshipEligible: boolean | null
@@ -18890,12 +19046,15 @@ export namespace Prisma {
     firstName: string | null
     lastName: string | null
     dob: Date | null
+    age: number | null
     branchId: string | null
     classId: string | null
     sectionId: string | null
     parentId: string | null
     categoryId: string | null
+    surname: string | null
     otherNames: string | null
+    ninNumber: string | null
     placeOfBirth: string | null
     nationality: string | null
     stateOfOrigin: string | null
@@ -18904,26 +19063,47 @@ export namespace Prisma {
     passportPhoto: string | null
     guardianOccupation: string | null
     guardianOfficeAddress: string | null
+    fatherName: string | null
+    fatherOccupation: string | null
+    fatherPhone: string | null
+    motherName: string | null
+    motherOccupation: string | null
+    motherPhone: string | null
     secondaryGuardianName: string | null
     secondaryGuardianPhone: string | null
     secondaryGuardianRelation: string | null
+    address: string | null
+    whatsappNumber: string | null
+    languagesSpoken: string | null
     city: string | null
     state: string | null
     country: string | null
     emergencyContactName: string | null
     emergencyContactPhone: string | null
     emergencyContactRelation: string | null
+    emergencySickness: string | null
     bloodGroup: string | null
     genotype: string | null
     allergies: string | null
     medicalConditions: string | null
-    specialNeeds: string | null
+    hasMedicalCondition: boolean | null
+    medicalConditionInfo: string | null
+    hasLearningDifficulty: boolean | null
+    learningDifficultyInfo: string | null
+    hasSpecialNeeds: boolean | null
+    specialNeedsInfo: string | null
     familyDoctorName: string | null
     familyDoctorPhone: string | null
     birthCertificateUrl: string | null
     testimonialUrl: string | null
     transferCertificateUrl: string | null
     immunizationCardUrl: string | null
+    ninUrl: string | null
+    educationalCertUrl: string | null
+    transferLetterUrl: string | null
+    medicalReportUrl: string | null
+    recommendationLetterUrl: string | null
+    schoolReportUrl: string | null
     preferredLanguage: string | null
     religionClassType: string | null
     scholarshipEligible: boolean | null
@@ -18938,12 +19118,15 @@ export namespace Prisma {
     firstName: number
     lastName: number
     dob: number
+    age: number
     branchId: number
     classId: number
     sectionId: number
     parentId: number
     categoryId: number
+    surname: number
     otherNames: number
+    ninNumber: number
     placeOfBirth: number
     nationality: number
     stateOfOrigin: number
@@ -18952,26 +19135,47 @@ export namespace Prisma {
     passportPhoto: number
     guardianOccupation: number
     guardianOfficeAddress: number
+    fatherName: number
+    fatherOccupation: number
+    fatherPhone: number
+    motherName: number
+    motherOccupation: number
+    motherPhone: number
     secondaryGuardianName: number
     secondaryGuardianPhone: number
     secondaryGuardianRelation: number
+    address: number
+    whatsappNumber: number
+    languagesSpoken: number
     city: number
     state: number
     country: number
     emergencyContactName: number
     emergencyContactPhone: number
     emergencyContactRelation: number
+    emergencySickness: number
     bloodGroup: number
     genotype: number
     allergies: number
     medicalConditions: number
-    specialNeeds: number
+    hasMedicalCondition: number
+    medicalConditionInfo: number
+    hasLearningDifficulty: number
+    learningDifficultyInfo: number
+    hasSpecialNeeds: number
+    specialNeedsInfo: number
     familyDoctorName: number
     familyDoctorPhone: number
     birthCertificateUrl: number
     testimonialUrl: number
     transferCertificateUrl: number
     immunizationCardUrl: number
+    ninUrl: number
+    educationalCertUrl: number
+    transferLetterUrl: number
+    medicalReportUrl: number
+    recommendationLetterUrl: number
+    schoolReportUrl: number
     preferredLanguage: number
     religionClassType: number
     scholarshipEligible: number
@@ -18982,18 +19186,29 @@ export namespace Prisma {
   }
 
 
+  export type StudentAvgAggregateInputType = {
+    age?: true
+  }
+
+  export type StudentSumAggregateInputType = {
+    age?: true
+  }
+
   export type StudentMinAggregateInputType = {
     id?: true
     userId?: true
     firstName?: true
     lastName?: true
     dob?: true
+    age?: true
     branchId?: true
     classId?: true
     sectionId?: true
     parentId?: true
     categoryId?: true
+    surname?: true
     otherNames?: true
+    ninNumber?: true
     placeOfBirth?: true
     nationality?: true
     stateOfOrigin?: true
@@ -19002,26 +19217,47 @@ export namespace Prisma {
     passportPhoto?: true
     guardianOccupation?: true
     guardianOfficeAddress?: true
+    fatherName?: true
+    fatherOccupation?: true
+    fatherPhone?: true
+    motherName?: true
+    motherOccupation?: true
+    motherPhone?: true
     secondaryGuardianName?: true
     secondaryGuardianPhone?: true
     secondaryGuardianRelation?: true
+    address?: true
+    whatsappNumber?: true
+    languagesSpoken?: true
     city?: true
     state?: true
     country?: true
     emergencyContactName?: true
     emergencyContactPhone?: true
     emergencyContactRelation?: true
+    emergencySickness?: true
     bloodGroup?: true
     genotype?: true
     allergies?: true
     medicalConditions?: true
-    specialNeeds?: true
+    hasMedicalCondition?: true
+    medicalConditionInfo?: true
+    hasLearningDifficulty?: true
+    learningDifficultyInfo?: true
+    hasSpecialNeeds?: true
+    specialNeedsInfo?: true
     familyDoctorName?: true
     familyDoctorPhone?: true
     birthCertificateUrl?: true
     testimonialUrl?: true
     transferCertificateUrl?: true
     immunizationCardUrl?: true
+    ninUrl?: true
+    educationalCertUrl?: true
+    transferLetterUrl?: true
+    medicalReportUrl?: true
+    recommendationLetterUrl?: true
+    schoolReportUrl?: true
     preferredLanguage?: true
     religionClassType?: true
     scholarshipEligible?: true
@@ -19036,12 +19272,15 @@ export namespace Prisma {
     firstName?: true
     lastName?: true
     dob?: true
+    age?: true
     branchId?: true
     classId?: true
     sectionId?: true
     parentId?: true
     categoryId?: true
+    surname?: true
     otherNames?: true
+    ninNumber?: true
     placeOfBirth?: true
     nationality?: true
     stateOfOrigin?: true
@@ -19050,26 +19289,47 @@ export namespace Prisma {
     passportPhoto?: true
     guardianOccupation?: true
     guardianOfficeAddress?: true
+    fatherName?: true
+    fatherOccupation?: true
+    fatherPhone?: true
+    motherName?: true
+    motherOccupation?: true
+    motherPhone?: true
     secondaryGuardianName?: true
     secondaryGuardianPhone?: true
     secondaryGuardianRelation?: true
+    address?: true
+    whatsappNumber?: true
+    languagesSpoken?: true
     city?: true
     state?: true
     country?: true
     emergencyContactName?: true
     emergencyContactPhone?: true
     emergencyContactRelation?: true
+    emergencySickness?: true
     bloodGroup?: true
     genotype?: true
     allergies?: true
     medicalConditions?: true
-    specialNeeds?: true
+    hasMedicalCondition?: true
+    medicalConditionInfo?: true
+    hasLearningDifficulty?: true
+    learningDifficultyInfo?: true
+    hasSpecialNeeds?: true
+    specialNeedsInfo?: true
     familyDoctorName?: true
     familyDoctorPhone?: true
     birthCertificateUrl?: true
     testimonialUrl?: true
     transferCertificateUrl?: true
     immunizationCardUrl?: true
+    ninUrl?: true
+    educationalCertUrl?: true
+    transferLetterUrl?: true
+    medicalReportUrl?: true
+    recommendationLetterUrl?: true
+    schoolReportUrl?: true
     preferredLanguage?: true
     religionClassType?: true
     scholarshipEligible?: true
@@ -19084,12 +19344,15 @@ export namespace Prisma {
     firstName?: true
     lastName?: true
     dob?: true
+    age?: true
     branchId?: true
     classId?: true
     sectionId?: true
     parentId?: true
     categoryId?: true
+    surname?: true
     otherNames?: true
+    ninNumber?: true
     placeOfBirth?: true
     nationality?: true
     stateOfOrigin?: true
@@ -19098,26 +19361,47 @@ export namespace Prisma {
     passportPhoto?: true
     guardianOccupation?: true
     guardianOfficeAddress?: true
+    fatherName?: true
+    fatherOccupation?: true
+    fatherPhone?: true
+    motherName?: true
+    motherOccupation?: true
+    motherPhone?: true
     secondaryGuardianName?: true
     secondaryGuardianPhone?: true
     secondaryGuardianRelation?: true
+    address?: true
+    whatsappNumber?: true
+    languagesSpoken?: true
     city?: true
     state?: true
     country?: true
     emergencyContactName?: true
     emergencyContactPhone?: true
     emergencyContactRelation?: true
+    emergencySickness?: true
     bloodGroup?: true
     genotype?: true
     allergies?: true
     medicalConditions?: true
-    specialNeeds?: true
+    hasMedicalCondition?: true
+    medicalConditionInfo?: true
+    hasLearningDifficulty?: true
+    learningDifficultyInfo?: true
+    hasSpecialNeeds?: true
+    specialNeedsInfo?: true
     familyDoctorName?: true
     familyDoctorPhone?: true
     birthCertificateUrl?: true
     testimonialUrl?: true
     transferCertificateUrl?: true
     immunizationCardUrl?: true
+    ninUrl?: true
+    educationalCertUrl?: true
+    transferLetterUrl?: true
+    medicalReportUrl?: true
+    recommendationLetterUrl?: true
+    schoolReportUrl?: true
     preferredLanguage?: true
     religionClassType?: true
     scholarshipEligible?: true
@@ -19165,6 +19449,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: StudentAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: StudentSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: StudentMinAggregateInputType
@@ -19195,6 +19491,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: StudentCountAggregateInputType | true
+    _avg?: StudentAvgAggregateInputType
+    _sum?: StudentSumAggregateInputType
     _min?: StudentMinAggregateInputType
     _max?: StudentMaxAggregateInputType
   }
@@ -19205,12 +19503,15 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob: Date | null
+    age: number | null
     branchId: string
     classId: string | null
     sectionId: string | null
     parentId: string | null
     categoryId: string | null
+    surname: string | null
     otherNames: string | null
+    ninNumber: string | null
     placeOfBirth: string | null
     nationality: string | null
     stateOfOrigin: string | null
@@ -19219,26 +19520,47 @@ export namespace Prisma {
     passportPhoto: string | null
     guardianOccupation: string | null
     guardianOfficeAddress: string | null
+    fatherName: string | null
+    fatherOccupation: string | null
+    fatherPhone: string | null
+    motherName: string | null
+    motherOccupation: string | null
+    motherPhone: string | null
     secondaryGuardianName: string | null
     secondaryGuardianPhone: string | null
     secondaryGuardianRelation: string | null
+    address: string | null
+    whatsappNumber: string | null
+    languagesSpoken: string | null
     city: string | null
     state: string | null
     country: string | null
     emergencyContactName: string | null
     emergencyContactPhone: string | null
     emergencyContactRelation: string | null
+    emergencySickness: string | null
     bloodGroup: string | null
     genotype: string | null
     allergies: string | null
     medicalConditions: string | null
-    specialNeeds: string | null
+    hasMedicalCondition: boolean
+    medicalConditionInfo: string | null
+    hasLearningDifficulty: boolean
+    learningDifficultyInfo: string | null
+    hasSpecialNeeds: boolean
+    specialNeedsInfo: string | null
     familyDoctorName: string | null
     familyDoctorPhone: string | null
     birthCertificateUrl: string | null
     testimonialUrl: string | null
     transferCertificateUrl: string | null
     immunizationCardUrl: string | null
+    ninUrl: string | null
+    educationalCertUrl: string | null
+    transferLetterUrl: string | null
+    medicalReportUrl: string | null
+    recommendationLetterUrl: string | null
+    schoolReportUrl: string | null
     preferredLanguage: string | null
     religionClassType: string | null
     scholarshipEligible: boolean
@@ -19246,6 +19568,8 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     _count: StudentCountAggregateOutputType | null
+    _avg: StudentAvgAggregateOutputType | null
+    _sum: StudentSumAggregateOutputType | null
     _min: StudentMinAggregateOutputType | null
     _max: StudentMaxAggregateOutputType | null
   }
@@ -19270,12 +19594,15 @@ export namespace Prisma {
     firstName?: boolean
     lastName?: boolean
     dob?: boolean
+    age?: boolean
     branchId?: boolean
     classId?: boolean
     sectionId?: boolean
     parentId?: boolean
     categoryId?: boolean
+    surname?: boolean
     otherNames?: boolean
+    ninNumber?: boolean
     placeOfBirth?: boolean
     nationality?: boolean
     stateOfOrigin?: boolean
@@ -19284,26 +19611,47 @@ export namespace Prisma {
     passportPhoto?: boolean
     guardianOccupation?: boolean
     guardianOfficeAddress?: boolean
+    fatherName?: boolean
+    fatherOccupation?: boolean
+    fatherPhone?: boolean
+    motherName?: boolean
+    motherOccupation?: boolean
+    motherPhone?: boolean
     secondaryGuardianName?: boolean
     secondaryGuardianPhone?: boolean
     secondaryGuardianRelation?: boolean
+    address?: boolean
+    whatsappNumber?: boolean
+    languagesSpoken?: boolean
     city?: boolean
     state?: boolean
     country?: boolean
     emergencyContactName?: boolean
     emergencyContactPhone?: boolean
     emergencyContactRelation?: boolean
+    emergencySickness?: boolean
     bloodGroup?: boolean
     genotype?: boolean
     allergies?: boolean
     medicalConditions?: boolean
-    specialNeeds?: boolean
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: boolean
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: boolean
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: boolean
     familyDoctorName?: boolean
     familyDoctorPhone?: boolean
     birthCertificateUrl?: boolean
     testimonialUrl?: boolean
     transferCertificateUrl?: boolean
     immunizationCardUrl?: boolean
+    ninUrl?: boolean
+    educationalCertUrl?: boolean
+    transferLetterUrl?: boolean
+    medicalReportUrl?: boolean
+    recommendationLetterUrl?: boolean
+    schoolReportUrl?: boolean
     preferredLanguage?: boolean
     religionClassType?: boolean
     scholarshipEligible?: boolean
@@ -19340,12 +19688,15 @@ export namespace Prisma {
     firstName?: boolean
     lastName?: boolean
     dob?: boolean
+    age?: boolean
     branchId?: boolean
     classId?: boolean
     sectionId?: boolean
     parentId?: boolean
     categoryId?: boolean
+    surname?: boolean
     otherNames?: boolean
+    ninNumber?: boolean
     placeOfBirth?: boolean
     nationality?: boolean
     stateOfOrigin?: boolean
@@ -19354,26 +19705,47 @@ export namespace Prisma {
     passportPhoto?: boolean
     guardianOccupation?: boolean
     guardianOfficeAddress?: boolean
+    fatherName?: boolean
+    fatherOccupation?: boolean
+    fatherPhone?: boolean
+    motherName?: boolean
+    motherOccupation?: boolean
+    motherPhone?: boolean
     secondaryGuardianName?: boolean
     secondaryGuardianPhone?: boolean
     secondaryGuardianRelation?: boolean
+    address?: boolean
+    whatsappNumber?: boolean
+    languagesSpoken?: boolean
     city?: boolean
     state?: boolean
     country?: boolean
     emergencyContactName?: boolean
     emergencyContactPhone?: boolean
     emergencyContactRelation?: boolean
+    emergencySickness?: boolean
     bloodGroup?: boolean
     genotype?: boolean
     allergies?: boolean
     medicalConditions?: boolean
-    specialNeeds?: boolean
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: boolean
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: boolean
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: boolean
     familyDoctorName?: boolean
     familyDoctorPhone?: boolean
     birthCertificateUrl?: boolean
     testimonialUrl?: boolean
     transferCertificateUrl?: boolean
     immunizationCardUrl?: boolean
+    ninUrl?: boolean
+    educationalCertUrl?: boolean
+    transferLetterUrl?: boolean
+    medicalReportUrl?: boolean
+    recommendationLetterUrl?: boolean
+    schoolReportUrl?: boolean
     preferredLanguage?: boolean
     religionClassType?: boolean
     scholarshipEligible?: boolean
@@ -19394,12 +19766,15 @@ export namespace Prisma {
     firstName?: boolean
     lastName?: boolean
     dob?: boolean
+    age?: boolean
     branchId?: boolean
     classId?: boolean
     sectionId?: boolean
     parentId?: boolean
     categoryId?: boolean
+    surname?: boolean
     otherNames?: boolean
+    ninNumber?: boolean
     placeOfBirth?: boolean
     nationality?: boolean
     stateOfOrigin?: boolean
@@ -19408,26 +19783,47 @@ export namespace Prisma {
     passportPhoto?: boolean
     guardianOccupation?: boolean
     guardianOfficeAddress?: boolean
+    fatherName?: boolean
+    fatherOccupation?: boolean
+    fatherPhone?: boolean
+    motherName?: boolean
+    motherOccupation?: boolean
+    motherPhone?: boolean
     secondaryGuardianName?: boolean
     secondaryGuardianPhone?: boolean
     secondaryGuardianRelation?: boolean
+    address?: boolean
+    whatsappNumber?: boolean
+    languagesSpoken?: boolean
     city?: boolean
     state?: boolean
     country?: boolean
     emergencyContactName?: boolean
     emergencyContactPhone?: boolean
     emergencyContactRelation?: boolean
+    emergencySickness?: boolean
     bloodGroup?: boolean
     genotype?: boolean
     allergies?: boolean
     medicalConditions?: boolean
-    specialNeeds?: boolean
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: boolean
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: boolean
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: boolean
     familyDoctorName?: boolean
     familyDoctorPhone?: boolean
     birthCertificateUrl?: boolean
     testimonialUrl?: boolean
     transferCertificateUrl?: boolean
     immunizationCardUrl?: boolean
+    ninUrl?: boolean
+    educationalCertUrl?: boolean
+    transferLetterUrl?: boolean
+    medicalReportUrl?: boolean
+    recommendationLetterUrl?: boolean
+    schoolReportUrl?: boolean
     preferredLanguage?: boolean
     religionClassType?: boolean
     scholarshipEligible?: boolean
@@ -19448,12 +19844,15 @@ export namespace Prisma {
     firstName?: boolean
     lastName?: boolean
     dob?: boolean
+    age?: boolean
     branchId?: boolean
     classId?: boolean
     sectionId?: boolean
     parentId?: boolean
     categoryId?: boolean
+    surname?: boolean
     otherNames?: boolean
+    ninNumber?: boolean
     placeOfBirth?: boolean
     nationality?: boolean
     stateOfOrigin?: boolean
@@ -19462,26 +19861,47 @@ export namespace Prisma {
     passportPhoto?: boolean
     guardianOccupation?: boolean
     guardianOfficeAddress?: boolean
+    fatherName?: boolean
+    fatherOccupation?: boolean
+    fatherPhone?: boolean
+    motherName?: boolean
+    motherOccupation?: boolean
+    motherPhone?: boolean
     secondaryGuardianName?: boolean
     secondaryGuardianPhone?: boolean
     secondaryGuardianRelation?: boolean
+    address?: boolean
+    whatsappNumber?: boolean
+    languagesSpoken?: boolean
     city?: boolean
     state?: boolean
     country?: boolean
     emergencyContactName?: boolean
     emergencyContactPhone?: boolean
     emergencyContactRelation?: boolean
+    emergencySickness?: boolean
     bloodGroup?: boolean
     genotype?: boolean
     allergies?: boolean
     medicalConditions?: boolean
-    specialNeeds?: boolean
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: boolean
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: boolean
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: boolean
     familyDoctorName?: boolean
     familyDoctorPhone?: boolean
     birthCertificateUrl?: boolean
     testimonialUrl?: boolean
     transferCertificateUrl?: boolean
     immunizationCardUrl?: boolean
+    ninUrl?: boolean
+    educationalCertUrl?: boolean
+    transferLetterUrl?: boolean
+    medicalReportUrl?: boolean
+    recommendationLetterUrl?: boolean
+    schoolReportUrl?: boolean
     preferredLanguage?: boolean
     religionClassType?: boolean
     scholarshipEligible?: boolean
@@ -19490,7 +19910,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type StudentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "firstName" | "lastName" | "dob" | "branchId" | "classId" | "sectionId" | "parentId" | "categoryId" | "otherNames" | "placeOfBirth" | "nationality" | "stateOfOrigin" | "lga" | "religion" | "passportPhoto" | "guardianOccupation" | "guardianOfficeAddress" | "secondaryGuardianName" | "secondaryGuardianPhone" | "secondaryGuardianRelation" | "city" | "state" | "country" | "emergencyContactName" | "emergencyContactPhone" | "emergencyContactRelation" | "bloodGroup" | "genotype" | "allergies" | "medicalConditions" | "specialNeeds" | "familyDoctorName" | "familyDoctorPhone" | "birthCertificateUrl" | "testimonialUrl" | "transferCertificateUrl" | "immunizationCardUrl" | "preferredLanguage" | "religionClassType" | "scholarshipEligible" | "referralSource" | "createdAt" | "updatedAt", ExtArgs["result"]["student"]>
+  export type StudentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "firstName" | "lastName" | "dob" | "age" | "branchId" | "classId" | "sectionId" | "parentId" | "categoryId" | "surname" | "otherNames" | "ninNumber" | "placeOfBirth" | "nationality" | "stateOfOrigin" | "lga" | "religion" | "passportPhoto" | "guardianOccupation" | "guardianOfficeAddress" | "fatherName" | "fatherOccupation" | "fatherPhone" | "motherName" | "motherOccupation" | "motherPhone" | "secondaryGuardianName" | "secondaryGuardianPhone" | "secondaryGuardianRelation" | "address" | "whatsappNumber" | "languagesSpoken" | "city" | "state" | "country" | "emergencyContactName" | "emergencyContactPhone" | "emergencyContactRelation" | "emergencySickness" | "bloodGroup" | "genotype" | "allergies" | "medicalConditions" | "hasMedicalCondition" | "medicalConditionInfo" | "hasLearningDifficulty" | "learningDifficultyInfo" | "hasSpecialNeeds" | "specialNeedsInfo" | "familyDoctorName" | "familyDoctorPhone" | "birthCertificateUrl" | "testimonialUrl" | "transferCertificateUrl" | "immunizationCardUrl" | "ninUrl" | "educationalCertUrl" | "transferLetterUrl" | "medicalReportUrl" | "recommendationLetterUrl" | "schoolReportUrl" | "preferredLanguage" | "religionClassType" | "scholarshipEligible" | "referralSource" | "createdAt" | "updatedAt", ExtArgs["result"]["student"]>
   export type StudentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | Student$userArgs<ExtArgs>
     branch?: boolean | BranchDefaultArgs<ExtArgs>
@@ -19563,12 +19983,15 @@ export namespace Prisma {
       firstName: string
       lastName: string
       dob: Date | null
+      age: number | null
       branchId: string
       classId: string | null
       sectionId: string | null
       parentId: string | null
       categoryId: string | null
+      surname: string | null
       otherNames: string | null
+      ninNumber: string | null
       placeOfBirth: string | null
       nationality: string | null
       stateOfOrigin: string | null
@@ -19577,26 +20000,47 @@ export namespace Prisma {
       passportPhoto: string | null
       guardianOccupation: string | null
       guardianOfficeAddress: string | null
+      fatherName: string | null
+      fatherOccupation: string | null
+      fatherPhone: string | null
+      motherName: string | null
+      motherOccupation: string | null
+      motherPhone: string | null
       secondaryGuardianName: string | null
       secondaryGuardianPhone: string | null
       secondaryGuardianRelation: string | null
+      address: string | null
+      whatsappNumber: string | null
+      languagesSpoken: string | null
       city: string | null
       state: string | null
       country: string | null
       emergencyContactName: string | null
       emergencyContactPhone: string | null
       emergencyContactRelation: string | null
+      emergencySickness: string | null
       bloodGroup: string | null
       genotype: string | null
       allergies: string | null
       medicalConditions: string | null
-      specialNeeds: string | null
+      hasMedicalCondition: boolean
+      medicalConditionInfo: string | null
+      hasLearningDifficulty: boolean
+      learningDifficultyInfo: string | null
+      hasSpecialNeeds: boolean
+      specialNeedsInfo: string | null
       familyDoctorName: string | null
       familyDoctorPhone: string | null
       birthCertificateUrl: string | null
       testimonialUrl: string | null
       transferCertificateUrl: string | null
       immunizationCardUrl: string | null
+      ninUrl: string | null
+      educationalCertUrl: string | null
+      transferLetterUrl: string | null
+      medicalReportUrl: string | null
+      recommendationLetterUrl: string | null
+      schoolReportUrl: string | null
       preferredLanguage: string | null
       religionClassType: string | null
       scholarshipEligible: boolean
@@ -20052,12 +20496,15 @@ export namespace Prisma {
     readonly firstName: FieldRef<"Student", 'String'>
     readonly lastName: FieldRef<"Student", 'String'>
     readonly dob: FieldRef<"Student", 'DateTime'>
+    readonly age: FieldRef<"Student", 'Int'>
     readonly branchId: FieldRef<"Student", 'String'>
     readonly classId: FieldRef<"Student", 'String'>
     readonly sectionId: FieldRef<"Student", 'String'>
     readonly parentId: FieldRef<"Student", 'String'>
     readonly categoryId: FieldRef<"Student", 'String'>
+    readonly surname: FieldRef<"Student", 'String'>
     readonly otherNames: FieldRef<"Student", 'String'>
+    readonly ninNumber: FieldRef<"Student", 'String'>
     readonly placeOfBirth: FieldRef<"Student", 'String'>
     readonly nationality: FieldRef<"Student", 'String'>
     readonly stateOfOrigin: FieldRef<"Student", 'String'>
@@ -20066,26 +20513,47 @@ export namespace Prisma {
     readonly passportPhoto: FieldRef<"Student", 'String'>
     readonly guardianOccupation: FieldRef<"Student", 'String'>
     readonly guardianOfficeAddress: FieldRef<"Student", 'String'>
+    readonly fatherName: FieldRef<"Student", 'String'>
+    readonly fatherOccupation: FieldRef<"Student", 'String'>
+    readonly fatherPhone: FieldRef<"Student", 'String'>
+    readonly motherName: FieldRef<"Student", 'String'>
+    readonly motherOccupation: FieldRef<"Student", 'String'>
+    readonly motherPhone: FieldRef<"Student", 'String'>
     readonly secondaryGuardianName: FieldRef<"Student", 'String'>
     readonly secondaryGuardianPhone: FieldRef<"Student", 'String'>
     readonly secondaryGuardianRelation: FieldRef<"Student", 'String'>
+    readonly address: FieldRef<"Student", 'String'>
+    readonly whatsappNumber: FieldRef<"Student", 'String'>
+    readonly languagesSpoken: FieldRef<"Student", 'String'>
     readonly city: FieldRef<"Student", 'String'>
     readonly state: FieldRef<"Student", 'String'>
     readonly country: FieldRef<"Student", 'String'>
     readonly emergencyContactName: FieldRef<"Student", 'String'>
     readonly emergencyContactPhone: FieldRef<"Student", 'String'>
     readonly emergencyContactRelation: FieldRef<"Student", 'String'>
+    readonly emergencySickness: FieldRef<"Student", 'String'>
     readonly bloodGroup: FieldRef<"Student", 'String'>
     readonly genotype: FieldRef<"Student", 'String'>
     readonly allergies: FieldRef<"Student", 'String'>
     readonly medicalConditions: FieldRef<"Student", 'String'>
-    readonly specialNeeds: FieldRef<"Student", 'String'>
+    readonly hasMedicalCondition: FieldRef<"Student", 'Boolean'>
+    readonly medicalConditionInfo: FieldRef<"Student", 'String'>
+    readonly hasLearningDifficulty: FieldRef<"Student", 'Boolean'>
+    readonly learningDifficultyInfo: FieldRef<"Student", 'String'>
+    readonly hasSpecialNeeds: FieldRef<"Student", 'Boolean'>
+    readonly specialNeedsInfo: FieldRef<"Student", 'String'>
     readonly familyDoctorName: FieldRef<"Student", 'String'>
     readonly familyDoctorPhone: FieldRef<"Student", 'String'>
     readonly birthCertificateUrl: FieldRef<"Student", 'String'>
     readonly testimonialUrl: FieldRef<"Student", 'String'>
     readonly transferCertificateUrl: FieldRef<"Student", 'String'>
     readonly immunizationCardUrl: FieldRef<"Student", 'String'>
+    readonly ninUrl: FieldRef<"Student", 'String'>
+    readonly educationalCertUrl: FieldRef<"Student", 'String'>
+    readonly transferLetterUrl: FieldRef<"Student", 'String'>
+    readonly medicalReportUrl: FieldRef<"Student", 'String'>
+    readonly recommendationLetterUrl: FieldRef<"Student", 'String'>
+    readonly schoolReportUrl: FieldRef<"Student", 'String'>
     readonly preferredLanguage: FieldRef<"Student", 'String'>
     readonly religionClassType: FieldRef<"Student", 'String'>
     readonly scholarshipEligible: FieldRef<"Student", 'Boolean'>
@@ -83848,10 +84316,12 @@ export namespace Prisma {
   }
 
   export type OnlineAdmissionAvgAggregateOutputType = {
+    age: number | null
     assessmentScore: number | null
   }
 
   export type OnlineAdmissionSumAggregateOutputType = {
+    age: number | null
     assessmentScore: number | null
   }
 
@@ -83859,25 +84329,31 @@ export namespace Prisma {
     id: string | null
     admissionNumber: string | null
     firstName: string | null
+    surname: string | null
     lastName: string | null
     otherNames: string | null
     gender: string | null
     dateOfBirth: Date | null
+    age: number | null
+    ninNumber: string | null
     placeOfBirth: string | null
     nationality: string | null
     stateOfOrigin: string | null
     lga: string | null
     religion: string | null
     passportPhoto: string | null
+    passportPhoto2: string | null
+    passportPhoto3: string | null
+    passportPhoto4: string | null
     academicSessionId: string | null
     admissionTerm: $Enums.Term | null
     desiredClassId: string | null
     desiredSectionId: string | null
     admissionType: string | null
-    previousSchool: string | null
     transferReason: string | null
     assessmentScore: number | null
     status: string | null
+    rejectionReason: string | null
     guardianName: string | null
     guardianRelation: string | null
     guardianPhone: string | null
@@ -83885,33 +84361,56 @@ export namespace Prisma {
     guardianAddress: string | null
     guardianOccupation: string | null
     guardianOfficeAddress: string | null
+    fatherName: string | null
+    fatherOccupation: string | null
+    fatherPhone: string | null
+    motherName: string | null
+    motherOccupation: string | null
+    motherPhone: string | null
+    guardianContact1: string | null
+    guardianContact2: string | null
     secondaryGuardianName: string | null
     secondaryGuardianPhone: string | null
     secondaryGuardianRelation: string | null
     address: string | null
+    whatsappNumber: string | null
+    languagesSpoken: string | null
     city: string | null
     state: string | null
     country: string | null
     emergencyContactName: string | null
     emergencyContactPhone: string | null
     emergencyContactRelation: string | null
+    emergencySickness: string | null
     bloodGroup: string | null
     genotype: string | null
     allergies: string | null
     medicalConditions: string | null
-    specialNeeds: string | null
+    hasMedicalCondition: boolean | null
+    medicalConditionInfo: string | null
+    hasLearningDifficulty: boolean | null
+    learningDifficultyInfo: string | null
+    hasSpecialNeeds: boolean | null
+    specialNeedsInfo: string | null
     familyDoctorName: string | null
     familyDoctorPhone: string | null
-    hostelRequired: boolean | null
-    preferredHostel: string | null
-    hostelNotes: string | null
-    transportRequired: boolean | null
-    pickupLocation: string | null
-    preferredRoute: string | null
+    hasAppliedBefore: boolean | null
+    howHeard: string | null
+    seekingFinancialAid: boolean | null
+    hasSiblingsInSchool: boolean | null
+    siblingName: string | null
+    siblingLevel: string | null
     birthCertificateUrl: string | null
     testimonialUrl: string | null
     transferCertificateUrl: string | null
     immunizationCardUrl: string | null
+    ninUrl: string | null
+    educationalCertUrl: string | null
+    transferLetterUrl: string | null
+    medicalReportUrl: string | null
+    recommendationLetterUrl: string | null
+    schoolReportUrl: string | null
+    paymentProofUrl: string | null
     branchId: string | null
     createdByStaffId: string | null
     admissionDate: Date | null
@@ -83945,25 +84444,31 @@ export namespace Prisma {
     id: string | null
     admissionNumber: string | null
     firstName: string | null
+    surname: string | null
     lastName: string | null
     otherNames: string | null
     gender: string | null
     dateOfBirth: Date | null
+    age: number | null
+    ninNumber: string | null
     placeOfBirth: string | null
     nationality: string | null
     stateOfOrigin: string | null
     lga: string | null
     religion: string | null
     passportPhoto: string | null
+    passportPhoto2: string | null
+    passportPhoto3: string | null
+    passportPhoto4: string | null
     academicSessionId: string | null
     admissionTerm: $Enums.Term | null
     desiredClassId: string | null
     desiredSectionId: string | null
     admissionType: string | null
-    previousSchool: string | null
     transferReason: string | null
     assessmentScore: number | null
     status: string | null
+    rejectionReason: string | null
     guardianName: string | null
     guardianRelation: string | null
     guardianPhone: string | null
@@ -83971,33 +84476,56 @@ export namespace Prisma {
     guardianAddress: string | null
     guardianOccupation: string | null
     guardianOfficeAddress: string | null
+    fatherName: string | null
+    fatherOccupation: string | null
+    fatherPhone: string | null
+    motherName: string | null
+    motherOccupation: string | null
+    motherPhone: string | null
+    guardianContact1: string | null
+    guardianContact2: string | null
     secondaryGuardianName: string | null
     secondaryGuardianPhone: string | null
     secondaryGuardianRelation: string | null
     address: string | null
+    whatsappNumber: string | null
+    languagesSpoken: string | null
     city: string | null
     state: string | null
     country: string | null
     emergencyContactName: string | null
     emergencyContactPhone: string | null
     emergencyContactRelation: string | null
+    emergencySickness: string | null
     bloodGroup: string | null
     genotype: string | null
     allergies: string | null
     medicalConditions: string | null
-    specialNeeds: string | null
+    hasMedicalCondition: boolean | null
+    medicalConditionInfo: string | null
+    hasLearningDifficulty: boolean | null
+    learningDifficultyInfo: string | null
+    hasSpecialNeeds: boolean | null
+    specialNeedsInfo: string | null
     familyDoctorName: string | null
     familyDoctorPhone: string | null
-    hostelRequired: boolean | null
-    preferredHostel: string | null
-    hostelNotes: string | null
-    transportRequired: boolean | null
-    pickupLocation: string | null
-    preferredRoute: string | null
+    hasAppliedBefore: boolean | null
+    howHeard: string | null
+    seekingFinancialAid: boolean | null
+    hasSiblingsInSchool: boolean | null
+    siblingName: string | null
+    siblingLevel: string | null
     birthCertificateUrl: string | null
     testimonialUrl: string | null
     transferCertificateUrl: string | null
     immunizationCardUrl: string | null
+    ninUrl: string | null
+    educationalCertUrl: string | null
+    transferLetterUrl: string | null
+    medicalReportUrl: string | null
+    recommendationLetterUrl: string | null
+    schoolReportUrl: string | null
+    paymentProofUrl: string | null
     branchId: string | null
     createdByStaffId: string | null
     admissionDate: Date | null
@@ -84031,25 +84559,31 @@ export namespace Prisma {
     id: number
     admissionNumber: number
     firstName: number
+    surname: number
     lastName: number
     otherNames: number
     gender: number
     dateOfBirth: number
+    age: number
+    ninNumber: number
     placeOfBirth: number
     nationality: number
     stateOfOrigin: number
     lga: number
     religion: number
     passportPhoto: number
+    passportPhoto2: number
+    passportPhoto3: number
+    passportPhoto4: number
     academicSessionId: number
     admissionTerm: number
     desiredClassId: number
     desiredSectionId: number
     admissionType: number
-    previousSchool: number
     transferReason: number
     assessmentScore: number
     status: number
+    rejectionReason: number
     guardianName: number
     guardianRelation: number
     guardianPhone: number
@@ -84057,33 +84591,56 @@ export namespace Prisma {
     guardianAddress: number
     guardianOccupation: number
     guardianOfficeAddress: number
+    fatherName: number
+    fatherOccupation: number
+    fatherPhone: number
+    motherName: number
+    motherOccupation: number
+    motherPhone: number
+    guardianContact1: number
+    guardianContact2: number
     secondaryGuardianName: number
     secondaryGuardianPhone: number
     secondaryGuardianRelation: number
     address: number
+    whatsappNumber: number
+    languagesSpoken: number
     city: number
     state: number
     country: number
     emergencyContactName: number
     emergencyContactPhone: number
     emergencyContactRelation: number
+    emergencySickness: number
     bloodGroup: number
     genotype: number
     allergies: number
     medicalConditions: number
-    specialNeeds: number
+    hasMedicalCondition: number
+    medicalConditionInfo: number
+    hasLearningDifficulty: number
+    learningDifficultyInfo: number
+    hasSpecialNeeds: number
+    specialNeedsInfo: number
     familyDoctorName: number
     familyDoctorPhone: number
-    hostelRequired: number
-    preferredHostel: number
-    hostelNotes: number
-    transportRequired: number
-    pickupLocation: number
-    preferredRoute: number
+    hasAppliedBefore: number
+    howHeard: number
+    seekingFinancialAid: number
+    hasSiblingsInSchool: number
+    siblingName: number
+    siblingLevel: number
     birthCertificateUrl: number
     testimonialUrl: number
     transferCertificateUrl: number
     immunizationCardUrl: number
+    ninUrl: number
+    educationalCertUrl: number
+    transferLetterUrl: number
+    medicalReportUrl: number
+    recommendationLetterUrl: number
+    schoolReportUrl: number
+    paymentProofUrl: number
     branchId: number
     createdByStaffId: number
     admissionDate: number
@@ -84116,10 +84673,12 @@ export namespace Prisma {
 
 
   export type OnlineAdmissionAvgAggregateInputType = {
+    age?: true
     assessmentScore?: true
   }
 
   export type OnlineAdmissionSumAggregateInputType = {
+    age?: true
     assessmentScore?: true
   }
 
@@ -84127,25 +84686,31 @@ export namespace Prisma {
     id?: true
     admissionNumber?: true
     firstName?: true
+    surname?: true
     lastName?: true
     otherNames?: true
     gender?: true
     dateOfBirth?: true
+    age?: true
+    ninNumber?: true
     placeOfBirth?: true
     nationality?: true
     stateOfOrigin?: true
     lga?: true
     religion?: true
     passportPhoto?: true
+    passportPhoto2?: true
+    passportPhoto3?: true
+    passportPhoto4?: true
     academicSessionId?: true
     admissionTerm?: true
     desiredClassId?: true
     desiredSectionId?: true
     admissionType?: true
-    previousSchool?: true
     transferReason?: true
     assessmentScore?: true
     status?: true
+    rejectionReason?: true
     guardianName?: true
     guardianRelation?: true
     guardianPhone?: true
@@ -84153,33 +84718,56 @@ export namespace Prisma {
     guardianAddress?: true
     guardianOccupation?: true
     guardianOfficeAddress?: true
+    fatherName?: true
+    fatherOccupation?: true
+    fatherPhone?: true
+    motherName?: true
+    motherOccupation?: true
+    motherPhone?: true
+    guardianContact1?: true
+    guardianContact2?: true
     secondaryGuardianName?: true
     secondaryGuardianPhone?: true
     secondaryGuardianRelation?: true
     address?: true
+    whatsappNumber?: true
+    languagesSpoken?: true
     city?: true
     state?: true
     country?: true
     emergencyContactName?: true
     emergencyContactPhone?: true
     emergencyContactRelation?: true
+    emergencySickness?: true
     bloodGroup?: true
     genotype?: true
     allergies?: true
     medicalConditions?: true
-    specialNeeds?: true
+    hasMedicalCondition?: true
+    medicalConditionInfo?: true
+    hasLearningDifficulty?: true
+    learningDifficultyInfo?: true
+    hasSpecialNeeds?: true
+    specialNeedsInfo?: true
     familyDoctorName?: true
     familyDoctorPhone?: true
-    hostelRequired?: true
-    preferredHostel?: true
-    hostelNotes?: true
-    transportRequired?: true
-    pickupLocation?: true
-    preferredRoute?: true
+    hasAppliedBefore?: true
+    howHeard?: true
+    seekingFinancialAid?: true
+    hasSiblingsInSchool?: true
+    siblingName?: true
+    siblingLevel?: true
     birthCertificateUrl?: true
     testimonialUrl?: true
     transferCertificateUrl?: true
     immunizationCardUrl?: true
+    ninUrl?: true
+    educationalCertUrl?: true
+    transferLetterUrl?: true
+    medicalReportUrl?: true
+    recommendationLetterUrl?: true
+    schoolReportUrl?: true
+    paymentProofUrl?: true
     branchId?: true
     createdByStaffId?: true
     admissionDate?: true
@@ -84213,25 +84801,31 @@ export namespace Prisma {
     id?: true
     admissionNumber?: true
     firstName?: true
+    surname?: true
     lastName?: true
     otherNames?: true
     gender?: true
     dateOfBirth?: true
+    age?: true
+    ninNumber?: true
     placeOfBirth?: true
     nationality?: true
     stateOfOrigin?: true
     lga?: true
     religion?: true
     passportPhoto?: true
+    passportPhoto2?: true
+    passportPhoto3?: true
+    passportPhoto4?: true
     academicSessionId?: true
     admissionTerm?: true
     desiredClassId?: true
     desiredSectionId?: true
     admissionType?: true
-    previousSchool?: true
     transferReason?: true
     assessmentScore?: true
     status?: true
+    rejectionReason?: true
     guardianName?: true
     guardianRelation?: true
     guardianPhone?: true
@@ -84239,33 +84833,56 @@ export namespace Prisma {
     guardianAddress?: true
     guardianOccupation?: true
     guardianOfficeAddress?: true
+    fatherName?: true
+    fatherOccupation?: true
+    fatherPhone?: true
+    motherName?: true
+    motherOccupation?: true
+    motherPhone?: true
+    guardianContact1?: true
+    guardianContact2?: true
     secondaryGuardianName?: true
     secondaryGuardianPhone?: true
     secondaryGuardianRelation?: true
     address?: true
+    whatsappNumber?: true
+    languagesSpoken?: true
     city?: true
     state?: true
     country?: true
     emergencyContactName?: true
     emergencyContactPhone?: true
     emergencyContactRelation?: true
+    emergencySickness?: true
     bloodGroup?: true
     genotype?: true
     allergies?: true
     medicalConditions?: true
-    specialNeeds?: true
+    hasMedicalCondition?: true
+    medicalConditionInfo?: true
+    hasLearningDifficulty?: true
+    learningDifficultyInfo?: true
+    hasSpecialNeeds?: true
+    specialNeedsInfo?: true
     familyDoctorName?: true
     familyDoctorPhone?: true
-    hostelRequired?: true
-    preferredHostel?: true
-    hostelNotes?: true
-    transportRequired?: true
-    pickupLocation?: true
-    preferredRoute?: true
+    hasAppliedBefore?: true
+    howHeard?: true
+    seekingFinancialAid?: true
+    hasSiblingsInSchool?: true
+    siblingName?: true
+    siblingLevel?: true
     birthCertificateUrl?: true
     testimonialUrl?: true
     transferCertificateUrl?: true
     immunizationCardUrl?: true
+    ninUrl?: true
+    educationalCertUrl?: true
+    transferLetterUrl?: true
+    medicalReportUrl?: true
+    recommendationLetterUrl?: true
+    schoolReportUrl?: true
+    paymentProofUrl?: true
     branchId?: true
     createdByStaffId?: true
     admissionDate?: true
@@ -84299,25 +84916,31 @@ export namespace Prisma {
     id?: true
     admissionNumber?: true
     firstName?: true
+    surname?: true
     lastName?: true
     otherNames?: true
     gender?: true
     dateOfBirth?: true
+    age?: true
+    ninNumber?: true
     placeOfBirth?: true
     nationality?: true
     stateOfOrigin?: true
     lga?: true
     religion?: true
     passportPhoto?: true
+    passportPhoto2?: true
+    passportPhoto3?: true
+    passportPhoto4?: true
     academicSessionId?: true
     admissionTerm?: true
     desiredClassId?: true
     desiredSectionId?: true
     admissionType?: true
-    previousSchool?: true
     transferReason?: true
     assessmentScore?: true
     status?: true
+    rejectionReason?: true
     guardianName?: true
     guardianRelation?: true
     guardianPhone?: true
@@ -84325,33 +84948,56 @@ export namespace Prisma {
     guardianAddress?: true
     guardianOccupation?: true
     guardianOfficeAddress?: true
+    fatherName?: true
+    fatherOccupation?: true
+    fatherPhone?: true
+    motherName?: true
+    motherOccupation?: true
+    motherPhone?: true
+    guardianContact1?: true
+    guardianContact2?: true
     secondaryGuardianName?: true
     secondaryGuardianPhone?: true
     secondaryGuardianRelation?: true
     address?: true
+    whatsappNumber?: true
+    languagesSpoken?: true
     city?: true
     state?: true
     country?: true
     emergencyContactName?: true
     emergencyContactPhone?: true
     emergencyContactRelation?: true
+    emergencySickness?: true
     bloodGroup?: true
     genotype?: true
     allergies?: true
     medicalConditions?: true
-    specialNeeds?: true
+    hasMedicalCondition?: true
+    medicalConditionInfo?: true
+    hasLearningDifficulty?: true
+    learningDifficultyInfo?: true
+    hasSpecialNeeds?: true
+    specialNeedsInfo?: true
     familyDoctorName?: true
     familyDoctorPhone?: true
-    hostelRequired?: true
-    preferredHostel?: true
-    hostelNotes?: true
-    transportRequired?: true
-    pickupLocation?: true
-    preferredRoute?: true
+    hasAppliedBefore?: true
+    howHeard?: true
+    seekingFinancialAid?: true
+    hasSiblingsInSchool?: true
+    siblingName?: true
+    siblingLevel?: true
     birthCertificateUrl?: true
     testimonialUrl?: true
     transferCertificateUrl?: true
     immunizationCardUrl?: true
+    ninUrl?: true
+    educationalCertUrl?: true
+    transferLetterUrl?: true
+    medicalReportUrl?: true
+    recommendationLetterUrl?: true
+    schoolReportUrl?: true
+    paymentProofUrl?: true
     branchId?: true
     createdByStaffId?: true
     admissionDate?: true
@@ -84472,25 +85118,31 @@ export namespace Prisma {
     id: string
     admissionNumber: string | null
     firstName: string
+    surname: string | null
     lastName: string
     otherNames: string | null
     gender: string
     dateOfBirth: Date
+    age: number | null
+    ninNumber: string | null
     placeOfBirth: string | null
     nationality: string | null
     stateOfOrigin: string | null
     lga: string | null
     religion: string | null
     passportPhoto: string | null
+    passportPhoto2: string | null
+    passportPhoto3: string | null
+    passportPhoto4: string | null
     academicSessionId: string | null
     admissionTerm: $Enums.Term | null
     desiredClassId: string
     desiredSectionId: string | null
     admissionType: string | null
-    previousSchool: string | null
     transferReason: string | null
     assessmentScore: number | null
     status: string
+    rejectionReason: string | null
     guardianName: string
     guardianRelation: string | null
     guardianPhone: string
@@ -84498,33 +85150,56 @@ export namespace Prisma {
     guardianAddress: string | null
     guardianOccupation: string | null
     guardianOfficeAddress: string | null
+    fatherName: string | null
+    fatherOccupation: string | null
+    fatherPhone: string | null
+    motherName: string | null
+    motherOccupation: string | null
+    motherPhone: string | null
+    guardianContact1: string | null
+    guardianContact2: string | null
     secondaryGuardianName: string | null
     secondaryGuardianPhone: string | null
     secondaryGuardianRelation: string | null
     address: string | null
+    whatsappNumber: string | null
+    languagesSpoken: string | null
     city: string | null
     state: string | null
     country: string | null
     emergencyContactName: string | null
     emergencyContactPhone: string | null
     emergencyContactRelation: string | null
+    emergencySickness: string | null
     bloodGroup: string | null
     genotype: string | null
     allergies: string | null
     medicalConditions: string | null
-    specialNeeds: string | null
+    hasMedicalCondition: boolean
+    medicalConditionInfo: string | null
+    hasLearningDifficulty: boolean
+    learningDifficultyInfo: string | null
+    hasSpecialNeeds: boolean
+    specialNeedsInfo: string | null
     familyDoctorName: string | null
     familyDoctorPhone: string | null
-    hostelRequired: boolean
-    preferredHostel: string | null
-    hostelNotes: string | null
-    transportRequired: boolean
-    pickupLocation: string | null
-    preferredRoute: string | null
+    hasAppliedBefore: boolean
+    howHeard: string | null
+    seekingFinancialAid: boolean
+    hasSiblingsInSchool: boolean
+    siblingName: string | null
+    siblingLevel: string | null
     birthCertificateUrl: string | null
     testimonialUrl: string | null
     transferCertificateUrl: string | null
     immunizationCardUrl: string | null
+    ninUrl: string | null
+    educationalCertUrl: string | null
+    transferLetterUrl: string | null
+    medicalReportUrl: string | null
+    recommendationLetterUrl: string | null
+    schoolReportUrl: string | null
+    paymentProofUrl: string | null
     branchId: string
     createdByStaffId: string | null
     admissionDate: Date | null
@@ -84577,25 +85252,31 @@ export namespace Prisma {
     id?: boolean
     admissionNumber?: boolean
     firstName?: boolean
+    surname?: boolean
     lastName?: boolean
     otherNames?: boolean
     gender?: boolean
     dateOfBirth?: boolean
+    age?: boolean
+    ninNumber?: boolean
     placeOfBirth?: boolean
     nationality?: boolean
     stateOfOrigin?: boolean
     lga?: boolean
     religion?: boolean
     passportPhoto?: boolean
+    passportPhoto2?: boolean
+    passportPhoto3?: boolean
+    passportPhoto4?: boolean
     academicSessionId?: boolean
     admissionTerm?: boolean
     desiredClassId?: boolean
     desiredSectionId?: boolean
     admissionType?: boolean
-    previousSchool?: boolean
     transferReason?: boolean
     assessmentScore?: boolean
     status?: boolean
+    rejectionReason?: boolean
     guardianName?: boolean
     guardianRelation?: boolean
     guardianPhone?: boolean
@@ -84603,33 +85284,56 @@ export namespace Prisma {
     guardianAddress?: boolean
     guardianOccupation?: boolean
     guardianOfficeAddress?: boolean
+    fatherName?: boolean
+    fatherOccupation?: boolean
+    fatherPhone?: boolean
+    motherName?: boolean
+    motherOccupation?: boolean
+    motherPhone?: boolean
+    guardianContact1?: boolean
+    guardianContact2?: boolean
     secondaryGuardianName?: boolean
     secondaryGuardianPhone?: boolean
     secondaryGuardianRelation?: boolean
     address?: boolean
+    whatsappNumber?: boolean
+    languagesSpoken?: boolean
     city?: boolean
     state?: boolean
     country?: boolean
     emergencyContactName?: boolean
     emergencyContactPhone?: boolean
     emergencyContactRelation?: boolean
+    emergencySickness?: boolean
     bloodGroup?: boolean
     genotype?: boolean
     allergies?: boolean
     medicalConditions?: boolean
-    specialNeeds?: boolean
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: boolean
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: boolean
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: boolean
     familyDoctorName?: boolean
     familyDoctorPhone?: boolean
-    hostelRequired?: boolean
-    preferredHostel?: boolean
-    hostelNotes?: boolean
-    transportRequired?: boolean
-    pickupLocation?: boolean
-    preferredRoute?: boolean
+    hasAppliedBefore?: boolean
+    howHeard?: boolean
+    seekingFinancialAid?: boolean
+    hasSiblingsInSchool?: boolean
+    siblingName?: boolean
+    siblingLevel?: boolean
     birthCertificateUrl?: boolean
     testimonialUrl?: boolean
     transferCertificateUrl?: boolean
     immunizationCardUrl?: boolean
+    ninUrl?: boolean
+    educationalCertUrl?: boolean
+    transferLetterUrl?: boolean
+    medicalReportUrl?: boolean
+    recommendationLetterUrl?: boolean
+    schoolReportUrl?: boolean
+    paymentProofUrl?: boolean
     branchId?: boolean
     createdByStaffId?: boolean
     admissionDate?: boolean
@@ -84660,34 +85364,42 @@ export namespace Prisma {
     academicSession?: boolean | OnlineAdmission$academicSessionArgs<ExtArgs>
     desiredClass?: boolean | ClassDefaultArgs<ExtArgs>
     desiredSection?: boolean | OnlineAdmission$desiredSectionArgs<ExtArgs>
+    previousSchools?: boolean | OnlineAdmission$previousSchoolsArgs<ExtArgs>
     branch?: boolean | BranchDefaultArgs<ExtArgs>
     studentCategory?: boolean | OnlineAdmission$studentCategoryArgs<ExtArgs>
     parent?: boolean | OnlineAdmission$parentArgs<ExtArgs>
+    _count?: boolean | OnlineAdmissionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["onlineAdmission"]>
 
   export type OnlineAdmissionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     admissionNumber?: boolean
     firstName?: boolean
+    surname?: boolean
     lastName?: boolean
     otherNames?: boolean
     gender?: boolean
     dateOfBirth?: boolean
+    age?: boolean
+    ninNumber?: boolean
     placeOfBirth?: boolean
     nationality?: boolean
     stateOfOrigin?: boolean
     lga?: boolean
     religion?: boolean
     passportPhoto?: boolean
+    passportPhoto2?: boolean
+    passportPhoto3?: boolean
+    passportPhoto4?: boolean
     academicSessionId?: boolean
     admissionTerm?: boolean
     desiredClassId?: boolean
     desiredSectionId?: boolean
     admissionType?: boolean
-    previousSchool?: boolean
     transferReason?: boolean
     assessmentScore?: boolean
     status?: boolean
+    rejectionReason?: boolean
     guardianName?: boolean
     guardianRelation?: boolean
     guardianPhone?: boolean
@@ -84695,33 +85407,56 @@ export namespace Prisma {
     guardianAddress?: boolean
     guardianOccupation?: boolean
     guardianOfficeAddress?: boolean
+    fatherName?: boolean
+    fatherOccupation?: boolean
+    fatherPhone?: boolean
+    motherName?: boolean
+    motherOccupation?: boolean
+    motherPhone?: boolean
+    guardianContact1?: boolean
+    guardianContact2?: boolean
     secondaryGuardianName?: boolean
     secondaryGuardianPhone?: boolean
     secondaryGuardianRelation?: boolean
     address?: boolean
+    whatsappNumber?: boolean
+    languagesSpoken?: boolean
     city?: boolean
     state?: boolean
     country?: boolean
     emergencyContactName?: boolean
     emergencyContactPhone?: boolean
     emergencyContactRelation?: boolean
+    emergencySickness?: boolean
     bloodGroup?: boolean
     genotype?: boolean
     allergies?: boolean
     medicalConditions?: boolean
-    specialNeeds?: boolean
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: boolean
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: boolean
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: boolean
     familyDoctorName?: boolean
     familyDoctorPhone?: boolean
-    hostelRequired?: boolean
-    preferredHostel?: boolean
-    hostelNotes?: boolean
-    transportRequired?: boolean
-    pickupLocation?: boolean
-    preferredRoute?: boolean
+    hasAppliedBefore?: boolean
+    howHeard?: boolean
+    seekingFinancialAid?: boolean
+    hasSiblingsInSchool?: boolean
+    siblingName?: boolean
+    siblingLevel?: boolean
     birthCertificateUrl?: boolean
     testimonialUrl?: boolean
     transferCertificateUrl?: boolean
     immunizationCardUrl?: boolean
+    ninUrl?: boolean
+    educationalCertUrl?: boolean
+    transferLetterUrl?: boolean
+    medicalReportUrl?: boolean
+    recommendationLetterUrl?: boolean
+    schoolReportUrl?: boolean
+    paymentProofUrl?: boolean
     branchId?: boolean
     createdByStaffId?: boolean
     admissionDate?: boolean
@@ -84761,25 +85496,31 @@ export namespace Prisma {
     id?: boolean
     admissionNumber?: boolean
     firstName?: boolean
+    surname?: boolean
     lastName?: boolean
     otherNames?: boolean
     gender?: boolean
     dateOfBirth?: boolean
+    age?: boolean
+    ninNumber?: boolean
     placeOfBirth?: boolean
     nationality?: boolean
     stateOfOrigin?: boolean
     lga?: boolean
     religion?: boolean
     passportPhoto?: boolean
+    passportPhoto2?: boolean
+    passportPhoto3?: boolean
+    passportPhoto4?: boolean
     academicSessionId?: boolean
     admissionTerm?: boolean
     desiredClassId?: boolean
     desiredSectionId?: boolean
     admissionType?: boolean
-    previousSchool?: boolean
     transferReason?: boolean
     assessmentScore?: boolean
     status?: boolean
+    rejectionReason?: boolean
     guardianName?: boolean
     guardianRelation?: boolean
     guardianPhone?: boolean
@@ -84787,33 +85528,56 @@ export namespace Prisma {
     guardianAddress?: boolean
     guardianOccupation?: boolean
     guardianOfficeAddress?: boolean
+    fatherName?: boolean
+    fatherOccupation?: boolean
+    fatherPhone?: boolean
+    motherName?: boolean
+    motherOccupation?: boolean
+    motherPhone?: boolean
+    guardianContact1?: boolean
+    guardianContact2?: boolean
     secondaryGuardianName?: boolean
     secondaryGuardianPhone?: boolean
     secondaryGuardianRelation?: boolean
     address?: boolean
+    whatsappNumber?: boolean
+    languagesSpoken?: boolean
     city?: boolean
     state?: boolean
     country?: boolean
     emergencyContactName?: boolean
     emergencyContactPhone?: boolean
     emergencyContactRelation?: boolean
+    emergencySickness?: boolean
     bloodGroup?: boolean
     genotype?: boolean
     allergies?: boolean
     medicalConditions?: boolean
-    specialNeeds?: boolean
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: boolean
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: boolean
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: boolean
     familyDoctorName?: boolean
     familyDoctorPhone?: boolean
-    hostelRequired?: boolean
-    preferredHostel?: boolean
-    hostelNotes?: boolean
-    transportRequired?: boolean
-    pickupLocation?: boolean
-    preferredRoute?: boolean
+    hasAppliedBefore?: boolean
+    howHeard?: boolean
+    seekingFinancialAid?: boolean
+    hasSiblingsInSchool?: boolean
+    siblingName?: boolean
+    siblingLevel?: boolean
     birthCertificateUrl?: boolean
     testimonialUrl?: boolean
     transferCertificateUrl?: boolean
     immunizationCardUrl?: boolean
+    ninUrl?: boolean
+    educationalCertUrl?: boolean
+    transferLetterUrl?: boolean
+    medicalReportUrl?: boolean
+    recommendationLetterUrl?: boolean
+    schoolReportUrl?: boolean
+    paymentProofUrl?: boolean
     branchId?: boolean
     createdByStaffId?: boolean
     admissionDate?: boolean
@@ -84853,25 +85617,31 @@ export namespace Prisma {
     id?: boolean
     admissionNumber?: boolean
     firstName?: boolean
+    surname?: boolean
     lastName?: boolean
     otherNames?: boolean
     gender?: boolean
     dateOfBirth?: boolean
+    age?: boolean
+    ninNumber?: boolean
     placeOfBirth?: boolean
     nationality?: boolean
     stateOfOrigin?: boolean
     lga?: boolean
     religion?: boolean
     passportPhoto?: boolean
+    passportPhoto2?: boolean
+    passportPhoto3?: boolean
+    passportPhoto4?: boolean
     academicSessionId?: boolean
     admissionTerm?: boolean
     desiredClassId?: boolean
     desiredSectionId?: boolean
     admissionType?: boolean
-    previousSchool?: boolean
     transferReason?: boolean
     assessmentScore?: boolean
     status?: boolean
+    rejectionReason?: boolean
     guardianName?: boolean
     guardianRelation?: boolean
     guardianPhone?: boolean
@@ -84879,33 +85649,56 @@ export namespace Prisma {
     guardianAddress?: boolean
     guardianOccupation?: boolean
     guardianOfficeAddress?: boolean
+    fatherName?: boolean
+    fatherOccupation?: boolean
+    fatherPhone?: boolean
+    motherName?: boolean
+    motherOccupation?: boolean
+    motherPhone?: boolean
+    guardianContact1?: boolean
+    guardianContact2?: boolean
     secondaryGuardianName?: boolean
     secondaryGuardianPhone?: boolean
     secondaryGuardianRelation?: boolean
     address?: boolean
+    whatsappNumber?: boolean
+    languagesSpoken?: boolean
     city?: boolean
     state?: boolean
     country?: boolean
     emergencyContactName?: boolean
     emergencyContactPhone?: boolean
     emergencyContactRelation?: boolean
+    emergencySickness?: boolean
     bloodGroup?: boolean
     genotype?: boolean
     allergies?: boolean
     medicalConditions?: boolean
-    specialNeeds?: boolean
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: boolean
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: boolean
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: boolean
     familyDoctorName?: boolean
     familyDoctorPhone?: boolean
-    hostelRequired?: boolean
-    preferredHostel?: boolean
-    hostelNotes?: boolean
-    transportRequired?: boolean
-    pickupLocation?: boolean
-    preferredRoute?: boolean
+    hasAppliedBefore?: boolean
+    howHeard?: boolean
+    seekingFinancialAid?: boolean
+    hasSiblingsInSchool?: boolean
+    siblingName?: boolean
+    siblingLevel?: boolean
     birthCertificateUrl?: boolean
     testimonialUrl?: boolean
     transferCertificateUrl?: boolean
     immunizationCardUrl?: boolean
+    ninUrl?: boolean
+    educationalCertUrl?: boolean
+    transferLetterUrl?: boolean
+    medicalReportUrl?: boolean
+    recommendationLetterUrl?: boolean
+    schoolReportUrl?: boolean
+    paymentProofUrl?: boolean
     branchId?: boolean
     createdByStaffId?: boolean
     admissionDate?: boolean
@@ -84935,14 +85728,16 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type OnlineAdmissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "admissionNumber" | "firstName" | "lastName" | "otherNames" | "gender" | "dateOfBirth" | "placeOfBirth" | "nationality" | "stateOfOrigin" | "lga" | "religion" | "passportPhoto" | "academicSessionId" | "admissionTerm" | "desiredClassId" | "desiredSectionId" | "admissionType" | "previousSchool" | "transferReason" | "assessmentScore" | "status" | "guardianName" | "guardianRelation" | "guardianPhone" | "guardianEmail" | "guardianAddress" | "guardianOccupation" | "guardianOfficeAddress" | "secondaryGuardianName" | "secondaryGuardianPhone" | "secondaryGuardianRelation" | "address" | "city" | "state" | "country" | "emergencyContactName" | "emergencyContactPhone" | "emergencyContactRelation" | "bloodGroup" | "genotype" | "allergies" | "medicalConditions" | "specialNeeds" | "familyDoctorName" | "familyDoctorPhone" | "hostelRequired" | "preferredHostel" | "hostelNotes" | "transportRequired" | "pickupLocation" | "preferredRoute" | "birthCertificateUrl" | "testimonialUrl" | "transferCertificateUrl" | "immunizationCardUrl" | "branchId" | "createdByStaffId" | "admissionDate" | "approvalDate" | "approvedByStaffId" | "studentStatus" | "createPortalAccount" | "guardianConsent" | "dataProcessingConsent" | "schoolRulesAgreement" | "signature" | "consentDate" | "studentEmail" | "portalUsername" | "preferredLanguage" | "religionClassType" | "scholarshipEligible" | "referralSource" | "email" | "phone" | "studentCategoryId" | "parentId" | "paymentReceiptUrl" | "paymentStatus" | "paymentMethod" | "createdAt" | "updatedAt", ExtArgs["result"]["onlineAdmission"]>
+  export type OnlineAdmissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "admissionNumber" | "firstName" | "surname" | "lastName" | "otherNames" | "gender" | "dateOfBirth" | "age" | "ninNumber" | "placeOfBirth" | "nationality" | "stateOfOrigin" | "lga" | "religion" | "passportPhoto" | "passportPhoto2" | "passportPhoto3" | "passportPhoto4" | "academicSessionId" | "admissionTerm" | "desiredClassId" | "desiredSectionId" | "admissionType" | "transferReason" | "assessmentScore" | "status" | "rejectionReason" | "guardianName" | "guardianRelation" | "guardianPhone" | "guardianEmail" | "guardianAddress" | "guardianOccupation" | "guardianOfficeAddress" | "fatherName" | "fatherOccupation" | "fatherPhone" | "motherName" | "motherOccupation" | "motherPhone" | "guardianContact1" | "guardianContact2" | "secondaryGuardianName" | "secondaryGuardianPhone" | "secondaryGuardianRelation" | "address" | "whatsappNumber" | "languagesSpoken" | "city" | "state" | "country" | "emergencyContactName" | "emergencyContactPhone" | "emergencyContactRelation" | "emergencySickness" | "bloodGroup" | "genotype" | "allergies" | "medicalConditions" | "hasMedicalCondition" | "medicalConditionInfo" | "hasLearningDifficulty" | "learningDifficultyInfo" | "hasSpecialNeeds" | "specialNeedsInfo" | "familyDoctorName" | "familyDoctorPhone" | "hasAppliedBefore" | "howHeard" | "seekingFinancialAid" | "hasSiblingsInSchool" | "siblingName" | "siblingLevel" | "birthCertificateUrl" | "testimonialUrl" | "transferCertificateUrl" | "immunizationCardUrl" | "ninUrl" | "educationalCertUrl" | "transferLetterUrl" | "medicalReportUrl" | "recommendationLetterUrl" | "schoolReportUrl" | "paymentProofUrl" | "branchId" | "createdByStaffId" | "admissionDate" | "approvalDate" | "approvedByStaffId" | "studentStatus" | "createPortalAccount" | "guardianConsent" | "dataProcessingConsent" | "schoolRulesAgreement" | "signature" | "consentDate" | "studentEmail" | "portalUsername" | "preferredLanguage" | "religionClassType" | "scholarshipEligible" | "referralSource" | "email" | "phone" | "studentCategoryId" | "parentId" | "paymentReceiptUrl" | "paymentStatus" | "paymentMethod" | "createdAt" | "updatedAt", ExtArgs["result"]["onlineAdmission"]>
   export type OnlineAdmissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     academicSession?: boolean | OnlineAdmission$academicSessionArgs<ExtArgs>
     desiredClass?: boolean | ClassDefaultArgs<ExtArgs>
     desiredSection?: boolean | OnlineAdmission$desiredSectionArgs<ExtArgs>
+    previousSchools?: boolean | OnlineAdmission$previousSchoolsArgs<ExtArgs>
     branch?: boolean | BranchDefaultArgs<ExtArgs>
     studentCategory?: boolean | OnlineAdmission$studentCategoryArgs<ExtArgs>
     parent?: boolean | OnlineAdmission$parentArgs<ExtArgs>
+    _count?: boolean | OnlineAdmissionCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type OnlineAdmissionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     academicSession?: boolean | OnlineAdmission$academicSessionArgs<ExtArgs>
@@ -84967,6 +85762,7 @@ export namespace Prisma {
       academicSession: Prisma.$AcademicSessionPayload<ExtArgs> | null
       desiredClass: Prisma.$ClassPayload<ExtArgs>
       desiredSection: Prisma.$SectionPayload<ExtArgs> | null
+      previousSchools: Prisma.$PreviousSchoolPayload<ExtArgs>[]
       branch: Prisma.$BranchPayload<ExtArgs>
       studentCategory: Prisma.$StudentCategoryPayload<ExtArgs> | null
       parent: Prisma.$UserPayload<ExtArgs> | null
@@ -84975,25 +85771,31 @@ export namespace Prisma {
       id: string
       admissionNumber: string | null
       firstName: string
+      surname: string | null
       lastName: string
       otherNames: string | null
       gender: string
       dateOfBirth: Date
+      age: number | null
+      ninNumber: string | null
       placeOfBirth: string | null
       nationality: string | null
       stateOfOrigin: string | null
       lga: string | null
       religion: string | null
       passportPhoto: string | null
+      passportPhoto2: string | null
+      passportPhoto3: string | null
+      passportPhoto4: string | null
       academicSessionId: string | null
       admissionTerm: $Enums.Term | null
       desiredClassId: string
       desiredSectionId: string | null
       admissionType: string | null
-      previousSchool: string | null
       transferReason: string | null
       assessmentScore: number | null
       status: string
+      rejectionReason: string | null
       guardianName: string
       guardianRelation: string | null
       guardianPhone: string
@@ -85001,33 +85803,56 @@ export namespace Prisma {
       guardianAddress: string | null
       guardianOccupation: string | null
       guardianOfficeAddress: string | null
+      fatherName: string | null
+      fatherOccupation: string | null
+      fatherPhone: string | null
+      motherName: string | null
+      motherOccupation: string | null
+      motherPhone: string | null
+      guardianContact1: string | null
+      guardianContact2: string | null
       secondaryGuardianName: string | null
       secondaryGuardianPhone: string | null
       secondaryGuardianRelation: string | null
       address: string | null
+      whatsappNumber: string | null
+      languagesSpoken: string | null
       city: string | null
       state: string | null
       country: string | null
       emergencyContactName: string | null
       emergencyContactPhone: string | null
       emergencyContactRelation: string | null
+      emergencySickness: string | null
       bloodGroup: string | null
       genotype: string | null
       allergies: string | null
       medicalConditions: string | null
-      specialNeeds: string | null
+      hasMedicalCondition: boolean
+      medicalConditionInfo: string | null
+      hasLearningDifficulty: boolean
+      learningDifficultyInfo: string | null
+      hasSpecialNeeds: boolean
+      specialNeedsInfo: string | null
       familyDoctorName: string | null
       familyDoctorPhone: string | null
-      hostelRequired: boolean
-      preferredHostel: string | null
-      hostelNotes: string | null
-      transportRequired: boolean
-      pickupLocation: string | null
-      preferredRoute: string | null
+      hasAppliedBefore: boolean
+      howHeard: string | null
+      seekingFinancialAid: boolean
+      hasSiblingsInSchool: boolean
+      siblingName: string | null
+      siblingLevel: string | null
       birthCertificateUrl: string | null
       testimonialUrl: string | null
       transferCertificateUrl: string | null
       immunizationCardUrl: string | null
+      ninUrl: string | null
+      educationalCertUrl: string | null
+      transferLetterUrl: string | null
+      medicalReportUrl: string | null
+      recommendationLetterUrl: string | null
+      schoolReportUrl: string | null
+      paymentProofUrl: string | null
       branchId: string
       createdByStaffId: string | null
       admissionDate: Date | null
@@ -85452,6 +86277,7 @@ export namespace Prisma {
     academicSession<T extends OnlineAdmission$academicSessionArgs<ExtArgs> = {}>(args?: Subset<T, OnlineAdmission$academicSessionArgs<ExtArgs>>): Prisma__AcademicSessionClient<$Result.GetResult<Prisma.$AcademicSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     desiredClass<T extends ClassDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ClassDefaultArgs<ExtArgs>>): Prisma__ClassClient<$Result.GetResult<Prisma.$ClassPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     desiredSection<T extends OnlineAdmission$desiredSectionArgs<ExtArgs> = {}>(args?: Subset<T, OnlineAdmission$desiredSectionArgs<ExtArgs>>): Prisma__SectionClient<$Result.GetResult<Prisma.$SectionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    previousSchools<T extends OnlineAdmission$previousSchoolsArgs<ExtArgs> = {}>(args?: Subset<T, OnlineAdmission$previousSchoolsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreviousSchoolPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     branch<T extends BranchDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BranchDefaultArgs<ExtArgs>>): Prisma__BranchClient<$Result.GetResult<Prisma.$BranchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     studentCategory<T extends OnlineAdmission$studentCategoryArgs<ExtArgs> = {}>(args?: Subset<T, OnlineAdmission$studentCategoryArgs<ExtArgs>>): Prisma__StudentCategoryClient<$Result.GetResult<Prisma.$StudentCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     parent<T extends OnlineAdmission$parentArgs<ExtArgs> = {}>(args?: Subset<T, OnlineAdmission$parentArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -85487,25 +86313,31 @@ export namespace Prisma {
     readonly id: FieldRef<"OnlineAdmission", 'String'>
     readonly admissionNumber: FieldRef<"OnlineAdmission", 'String'>
     readonly firstName: FieldRef<"OnlineAdmission", 'String'>
+    readonly surname: FieldRef<"OnlineAdmission", 'String'>
     readonly lastName: FieldRef<"OnlineAdmission", 'String'>
     readonly otherNames: FieldRef<"OnlineAdmission", 'String'>
     readonly gender: FieldRef<"OnlineAdmission", 'String'>
     readonly dateOfBirth: FieldRef<"OnlineAdmission", 'DateTime'>
+    readonly age: FieldRef<"OnlineAdmission", 'Int'>
+    readonly ninNumber: FieldRef<"OnlineAdmission", 'String'>
     readonly placeOfBirth: FieldRef<"OnlineAdmission", 'String'>
     readonly nationality: FieldRef<"OnlineAdmission", 'String'>
     readonly stateOfOrigin: FieldRef<"OnlineAdmission", 'String'>
     readonly lga: FieldRef<"OnlineAdmission", 'String'>
     readonly religion: FieldRef<"OnlineAdmission", 'String'>
     readonly passportPhoto: FieldRef<"OnlineAdmission", 'String'>
+    readonly passportPhoto2: FieldRef<"OnlineAdmission", 'String'>
+    readonly passportPhoto3: FieldRef<"OnlineAdmission", 'String'>
+    readonly passportPhoto4: FieldRef<"OnlineAdmission", 'String'>
     readonly academicSessionId: FieldRef<"OnlineAdmission", 'String'>
     readonly admissionTerm: FieldRef<"OnlineAdmission", 'Term'>
     readonly desiredClassId: FieldRef<"OnlineAdmission", 'String'>
     readonly desiredSectionId: FieldRef<"OnlineAdmission", 'String'>
     readonly admissionType: FieldRef<"OnlineAdmission", 'String'>
-    readonly previousSchool: FieldRef<"OnlineAdmission", 'String'>
     readonly transferReason: FieldRef<"OnlineAdmission", 'String'>
     readonly assessmentScore: FieldRef<"OnlineAdmission", 'Float'>
     readonly status: FieldRef<"OnlineAdmission", 'String'>
+    readonly rejectionReason: FieldRef<"OnlineAdmission", 'String'>
     readonly guardianName: FieldRef<"OnlineAdmission", 'String'>
     readonly guardianRelation: FieldRef<"OnlineAdmission", 'String'>
     readonly guardianPhone: FieldRef<"OnlineAdmission", 'String'>
@@ -85513,33 +86345,56 @@ export namespace Prisma {
     readonly guardianAddress: FieldRef<"OnlineAdmission", 'String'>
     readonly guardianOccupation: FieldRef<"OnlineAdmission", 'String'>
     readonly guardianOfficeAddress: FieldRef<"OnlineAdmission", 'String'>
+    readonly fatherName: FieldRef<"OnlineAdmission", 'String'>
+    readonly fatherOccupation: FieldRef<"OnlineAdmission", 'String'>
+    readonly fatherPhone: FieldRef<"OnlineAdmission", 'String'>
+    readonly motherName: FieldRef<"OnlineAdmission", 'String'>
+    readonly motherOccupation: FieldRef<"OnlineAdmission", 'String'>
+    readonly motherPhone: FieldRef<"OnlineAdmission", 'String'>
+    readonly guardianContact1: FieldRef<"OnlineAdmission", 'String'>
+    readonly guardianContact2: FieldRef<"OnlineAdmission", 'String'>
     readonly secondaryGuardianName: FieldRef<"OnlineAdmission", 'String'>
     readonly secondaryGuardianPhone: FieldRef<"OnlineAdmission", 'String'>
     readonly secondaryGuardianRelation: FieldRef<"OnlineAdmission", 'String'>
     readonly address: FieldRef<"OnlineAdmission", 'String'>
+    readonly whatsappNumber: FieldRef<"OnlineAdmission", 'String'>
+    readonly languagesSpoken: FieldRef<"OnlineAdmission", 'String'>
     readonly city: FieldRef<"OnlineAdmission", 'String'>
     readonly state: FieldRef<"OnlineAdmission", 'String'>
     readonly country: FieldRef<"OnlineAdmission", 'String'>
     readonly emergencyContactName: FieldRef<"OnlineAdmission", 'String'>
     readonly emergencyContactPhone: FieldRef<"OnlineAdmission", 'String'>
     readonly emergencyContactRelation: FieldRef<"OnlineAdmission", 'String'>
+    readonly emergencySickness: FieldRef<"OnlineAdmission", 'String'>
     readonly bloodGroup: FieldRef<"OnlineAdmission", 'String'>
     readonly genotype: FieldRef<"OnlineAdmission", 'String'>
     readonly allergies: FieldRef<"OnlineAdmission", 'String'>
     readonly medicalConditions: FieldRef<"OnlineAdmission", 'String'>
-    readonly specialNeeds: FieldRef<"OnlineAdmission", 'String'>
+    readonly hasMedicalCondition: FieldRef<"OnlineAdmission", 'Boolean'>
+    readonly medicalConditionInfo: FieldRef<"OnlineAdmission", 'String'>
+    readonly hasLearningDifficulty: FieldRef<"OnlineAdmission", 'Boolean'>
+    readonly learningDifficultyInfo: FieldRef<"OnlineAdmission", 'String'>
+    readonly hasSpecialNeeds: FieldRef<"OnlineAdmission", 'Boolean'>
+    readonly specialNeedsInfo: FieldRef<"OnlineAdmission", 'String'>
     readonly familyDoctorName: FieldRef<"OnlineAdmission", 'String'>
     readonly familyDoctorPhone: FieldRef<"OnlineAdmission", 'String'>
-    readonly hostelRequired: FieldRef<"OnlineAdmission", 'Boolean'>
-    readonly preferredHostel: FieldRef<"OnlineAdmission", 'String'>
-    readonly hostelNotes: FieldRef<"OnlineAdmission", 'String'>
-    readonly transportRequired: FieldRef<"OnlineAdmission", 'Boolean'>
-    readonly pickupLocation: FieldRef<"OnlineAdmission", 'String'>
-    readonly preferredRoute: FieldRef<"OnlineAdmission", 'String'>
+    readonly hasAppliedBefore: FieldRef<"OnlineAdmission", 'Boolean'>
+    readonly howHeard: FieldRef<"OnlineAdmission", 'String'>
+    readonly seekingFinancialAid: FieldRef<"OnlineAdmission", 'Boolean'>
+    readonly hasSiblingsInSchool: FieldRef<"OnlineAdmission", 'Boolean'>
+    readonly siblingName: FieldRef<"OnlineAdmission", 'String'>
+    readonly siblingLevel: FieldRef<"OnlineAdmission", 'String'>
     readonly birthCertificateUrl: FieldRef<"OnlineAdmission", 'String'>
     readonly testimonialUrl: FieldRef<"OnlineAdmission", 'String'>
     readonly transferCertificateUrl: FieldRef<"OnlineAdmission", 'String'>
     readonly immunizationCardUrl: FieldRef<"OnlineAdmission", 'String'>
+    readonly ninUrl: FieldRef<"OnlineAdmission", 'String'>
+    readonly educationalCertUrl: FieldRef<"OnlineAdmission", 'String'>
+    readonly transferLetterUrl: FieldRef<"OnlineAdmission", 'String'>
+    readonly medicalReportUrl: FieldRef<"OnlineAdmission", 'String'>
+    readonly recommendationLetterUrl: FieldRef<"OnlineAdmission", 'String'>
+    readonly schoolReportUrl: FieldRef<"OnlineAdmission", 'String'>
+    readonly paymentProofUrl: FieldRef<"OnlineAdmission", 'String'>
     readonly branchId: FieldRef<"OnlineAdmission", 'String'>
     readonly createdByStaffId: FieldRef<"OnlineAdmission", 'String'>
     readonly admissionDate: FieldRef<"OnlineAdmission", 'DateTime'>
@@ -86001,6 +86856,30 @@ export namespace Prisma {
   }
 
   /**
+   * OnlineAdmission.previousSchools
+   */
+  export type OnlineAdmission$previousSchoolsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreviousSchool
+     */
+    select?: PreviousSchoolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PreviousSchool
+     */
+    omit?: PreviousSchoolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreviousSchoolInclude<ExtArgs> | null
+    where?: PreviousSchoolWhereInput
+    orderBy?: PreviousSchoolOrderByWithRelationInput | PreviousSchoolOrderByWithRelationInput[]
+    cursor?: PreviousSchoolWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PreviousSchoolScalarFieldEnum | PreviousSchoolScalarFieldEnum[]
+  }
+
+  /**
    * OnlineAdmission.studentCategory
    */
   export type OnlineAdmission$studentCategoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -86054,6 +86933,1077 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: OnlineAdmissionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PreviousSchool
+   */
+
+  export type AggregatePreviousSchool = {
+    _count: PreviousSchoolCountAggregateOutputType | null
+    _min: PreviousSchoolMinAggregateOutputType | null
+    _max: PreviousSchoolMaxAggregateOutputType | null
+  }
+
+  export type PreviousSchoolMinAggregateOutputType = {
+    id: string | null
+    institutionName: string | null
+    address: string | null
+    fromYear: string | null
+    toYear: string | null
+    admissionId: string | null
+  }
+
+  export type PreviousSchoolMaxAggregateOutputType = {
+    id: string | null
+    institutionName: string | null
+    address: string | null
+    fromYear: string | null
+    toYear: string | null
+    admissionId: string | null
+  }
+
+  export type PreviousSchoolCountAggregateOutputType = {
+    id: number
+    institutionName: number
+    address: number
+    fromYear: number
+    toYear: number
+    admissionId: number
+    _all: number
+  }
+
+
+  export type PreviousSchoolMinAggregateInputType = {
+    id?: true
+    institutionName?: true
+    address?: true
+    fromYear?: true
+    toYear?: true
+    admissionId?: true
+  }
+
+  export type PreviousSchoolMaxAggregateInputType = {
+    id?: true
+    institutionName?: true
+    address?: true
+    fromYear?: true
+    toYear?: true
+    admissionId?: true
+  }
+
+  export type PreviousSchoolCountAggregateInputType = {
+    id?: true
+    institutionName?: true
+    address?: true
+    fromYear?: true
+    toYear?: true
+    admissionId?: true
+    _all?: true
+  }
+
+  export type PreviousSchoolAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PreviousSchool to aggregate.
+     */
+    where?: PreviousSchoolWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PreviousSchools to fetch.
+     */
+    orderBy?: PreviousSchoolOrderByWithRelationInput | PreviousSchoolOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PreviousSchoolWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PreviousSchools from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PreviousSchools.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PreviousSchools
+    **/
+    _count?: true | PreviousSchoolCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PreviousSchoolMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PreviousSchoolMaxAggregateInputType
+  }
+
+  export type GetPreviousSchoolAggregateType<T extends PreviousSchoolAggregateArgs> = {
+        [P in keyof T & keyof AggregatePreviousSchool]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePreviousSchool[P]>
+      : GetScalarType<T[P], AggregatePreviousSchool[P]>
+  }
+
+
+
+
+  export type PreviousSchoolGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PreviousSchoolWhereInput
+    orderBy?: PreviousSchoolOrderByWithAggregationInput | PreviousSchoolOrderByWithAggregationInput[]
+    by: PreviousSchoolScalarFieldEnum[] | PreviousSchoolScalarFieldEnum
+    having?: PreviousSchoolScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PreviousSchoolCountAggregateInputType | true
+    _min?: PreviousSchoolMinAggregateInputType
+    _max?: PreviousSchoolMaxAggregateInputType
+  }
+
+  export type PreviousSchoolGroupByOutputType = {
+    id: string
+    institutionName: string
+    address: string | null
+    fromYear: string | null
+    toYear: string | null
+    admissionId: string
+    _count: PreviousSchoolCountAggregateOutputType | null
+    _min: PreviousSchoolMinAggregateOutputType | null
+    _max: PreviousSchoolMaxAggregateOutputType | null
+  }
+
+  type GetPreviousSchoolGroupByPayload<T extends PreviousSchoolGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PreviousSchoolGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PreviousSchoolGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PreviousSchoolGroupByOutputType[P]>
+            : GetScalarType<T[P], PreviousSchoolGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PreviousSchoolSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    institutionName?: boolean
+    address?: boolean
+    fromYear?: boolean
+    toYear?: boolean
+    admissionId?: boolean
+    admission?: boolean | OnlineAdmissionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["previousSchool"]>
+
+  export type PreviousSchoolSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    institutionName?: boolean
+    address?: boolean
+    fromYear?: boolean
+    toYear?: boolean
+    admissionId?: boolean
+    admission?: boolean | OnlineAdmissionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["previousSchool"]>
+
+  export type PreviousSchoolSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    institutionName?: boolean
+    address?: boolean
+    fromYear?: boolean
+    toYear?: boolean
+    admissionId?: boolean
+    admission?: boolean | OnlineAdmissionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["previousSchool"]>
+
+  export type PreviousSchoolSelectScalar = {
+    id?: boolean
+    institutionName?: boolean
+    address?: boolean
+    fromYear?: boolean
+    toYear?: boolean
+    admissionId?: boolean
+  }
+
+  export type PreviousSchoolOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "institutionName" | "address" | "fromYear" | "toYear" | "admissionId", ExtArgs["result"]["previousSchool"]>
+  export type PreviousSchoolInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    admission?: boolean | OnlineAdmissionDefaultArgs<ExtArgs>
+  }
+  export type PreviousSchoolIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    admission?: boolean | OnlineAdmissionDefaultArgs<ExtArgs>
+  }
+  export type PreviousSchoolIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    admission?: boolean | OnlineAdmissionDefaultArgs<ExtArgs>
+  }
+
+  export type $PreviousSchoolPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PreviousSchool"
+    objects: {
+      admission: Prisma.$OnlineAdmissionPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      institutionName: string
+      address: string | null
+      fromYear: string | null
+      toYear: string | null
+      admissionId: string
+    }, ExtArgs["result"]["previousSchool"]>
+    composites: {}
+  }
+
+  type PreviousSchoolGetPayload<S extends boolean | null | undefined | PreviousSchoolDefaultArgs> = $Result.GetResult<Prisma.$PreviousSchoolPayload, S>
+
+  type PreviousSchoolCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PreviousSchoolFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PreviousSchoolCountAggregateInputType | true
+    }
+
+  export interface PreviousSchoolDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PreviousSchool'], meta: { name: 'PreviousSchool' } }
+    /**
+     * Find zero or one PreviousSchool that matches the filter.
+     * @param {PreviousSchoolFindUniqueArgs} args - Arguments to find a PreviousSchool
+     * @example
+     * // Get one PreviousSchool
+     * const previousSchool = await prisma.previousSchool.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PreviousSchoolFindUniqueArgs>(args: SelectSubset<T, PreviousSchoolFindUniqueArgs<ExtArgs>>): Prisma__PreviousSchoolClient<$Result.GetResult<Prisma.$PreviousSchoolPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PreviousSchool that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PreviousSchoolFindUniqueOrThrowArgs} args - Arguments to find a PreviousSchool
+     * @example
+     * // Get one PreviousSchool
+     * const previousSchool = await prisma.previousSchool.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PreviousSchoolFindUniqueOrThrowArgs>(args: SelectSubset<T, PreviousSchoolFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PreviousSchoolClient<$Result.GetResult<Prisma.$PreviousSchoolPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PreviousSchool that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PreviousSchoolFindFirstArgs} args - Arguments to find a PreviousSchool
+     * @example
+     * // Get one PreviousSchool
+     * const previousSchool = await prisma.previousSchool.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PreviousSchoolFindFirstArgs>(args?: SelectSubset<T, PreviousSchoolFindFirstArgs<ExtArgs>>): Prisma__PreviousSchoolClient<$Result.GetResult<Prisma.$PreviousSchoolPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PreviousSchool that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PreviousSchoolFindFirstOrThrowArgs} args - Arguments to find a PreviousSchool
+     * @example
+     * // Get one PreviousSchool
+     * const previousSchool = await prisma.previousSchool.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PreviousSchoolFindFirstOrThrowArgs>(args?: SelectSubset<T, PreviousSchoolFindFirstOrThrowArgs<ExtArgs>>): Prisma__PreviousSchoolClient<$Result.GetResult<Prisma.$PreviousSchoolPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PreviousSchools that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PreviousSchoolFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PreviousSchools
+     * const previousSchools = await prisma.previousSchool.findMany()
+     * 
+     * // Get first 10 PreviousSchools
+     * const previousSchools = await prisma.previousSchool.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const previousSchoolWithIdOnly = await prisma.previousSchool.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PreviousSchoolFindManyArgs>(args?: SelectSubset<T, PreviousSchoolFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreviousSchoolPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PreviousSchool.
+     * @param {PreviousSchoolCreateArgs} args - Arguments to create a PreviousSchool.
+     * @example
+     * // Create one PreviousSchool
+     * const PreviousSchool = await prisma.previousSchool.create({
+     *   data: {
+     *     // ... data to create a PreviousSchool
+     *   }
+     * })
+     * 
+     */
+    create<T extends PreviousSchoolCreateArgs>(args: SelectSubset<T, PreviousSchoolCreateArgs<ExtArgs>>): Prisma__PreviousSchoolClient<$Result.GetResult<Prisma.$PreviousSchoolPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PreviousSchools.
+     * @param {PreviousSchoolCreateManyArgs} args - Arguments to create many PreviousSchools.
+     * @example
+     * // Create many PreviousSchools
+     * const previousSchool = await prisma.previousSchool.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PreviousSchoolCreateManyArgs>(args?: SelectSubset<T, PreviousSchoolCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PreviousSchools and returns the data saved in the database.
+     * @param {PreviousSchoolCreateManyAndReturnArgs} args - Arguments to create many PreviousSchools.
+     * @example
+     * // Create many PreviousSchools
+     * const previousSchool = await prisma.previousSchool.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PreviousSchools and only return the `id`
+     * const previousSchoolWithIdOnly = await prisma.previousSchool.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PreviousSchoolCreateManyAndReturnArgs>(args?: SelectSubset<T, PreviousSchoolCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreviousSchoolPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a PreviousSchool.
+     * @param {PreviousSchoolDeleteArgs} args - Arguments to delete one PreviousSchool.
+     * @example
+     * // Delete one PreviousSchool
+     * const PreviousSchool = await prisma.previousSchool.delete({
+     *   where: {
+     *     // ... filter to delete one PreviousSchool
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PreviousSchoolDeleteArgs>(args: SelectSubset<T, PreviousSchoolDeleteArgs<ExtArgs>>): Prisma__PreviousSchoolClient<$Result.GetResult<Prisma.$PreviousSchoolPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PreviousSchool.
+     * @param {PreviousSchoolUpdateArgs} args - Arguments to update one PreviousSchool.
+     * @example
+     * // Update one PreviousSchool
+     * const previousSchool = await prisma.previousSchool.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PreviousSchoolUpdateArgs>(args: SelectSubset<T, PreviousSchoolUpdateArgs<ExtArgs>>): Prisma__PreviousSchoolClient<$Result.GetResult<Prisma.$PreviousSchoolPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PreviousSchools.
+     * @param {PreviousSchoolDeleteManyArgs} args - Arguments to filter PreviousSchools to delete.
+     * @example
+     * // Delete a few PreviousSchools
+     * const { count } = await prisma.previousSchool.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PreviousSchoolDeleteManyArgs>(args?: SelectSubset<T, PreviousSchoolDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PreviousSchools.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PreviousSchoolUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PreviousSchools
+     * const previousSchool = await prisma.previousSchool.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PreviousSchoolUpdateManyArgs>(args: SelectSubset<T, PreviousSchoolUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PreviousSchools and returns the data updated in the database.
+     * @param {PreviousSchoolUpdateManyAndReturnArgs} args - Arguments to update many PreviousSchools.
+     * @example
+     * // Update many PreviousSchools
+     * const previousSchool = await prisma.previousSchool.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PreviousSchools and only return the `id`
+     * const previousSchoolWithIdOnly = await prisma.previousSchool.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PreviousSchoolUpdateManyAndReturnArgs>(args: SelectSubset<T, PreviousSchoolUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreviousSchoolPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one PreviousSchool.
+     * @param {PreviousSchoolUpsertArgs} args - Arguments to update or create a PreviousSchool.
+     * @example
+     * // Update or create a PreviousSchool
+     * const previousSchool = await prisma.previousSchool.upsert({
+     *   create: {
+     *     // ... data to create a PreviousSchool
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PreviousSchool we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PreviousSchoolUpsertArgs>(args: SelectSubset<T, PreviousSchoolUpsertArgs<ExtArgs>>): Prisma__PreviousSchoolClient<$Result.GetResult<Prisma.$PreviousSchoolPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PreviousSchools.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PreviousSchoolCountArgs} args - Arguments to filter PreviousSchools to count.
+     * @example
+     * // Count the number of PreviousSchools
+     * const count = await prisma.previousSchool.count({
+     *   where: {
+     *     // ... the filter for the PreviousSchools we want to count
+     *   }
+     * })
+    **/
+    count<T extends PreviousSchoolCountArgs>(
+      args?: Subset<T, PreviousSchoolCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PreviousSchoolCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PreviousSchool.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PreviousSchoolAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PreviousSchoolAggregateArgs>(args: Subset<T, PreviousSchoolAggregateArgs>): Prisma.PrismaPromise<GetPreviousSchoolAggregateType<T>>
+
+    /**
+     * Group by PreviousSchool.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PreviousSchoolGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PreviousSchoolGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PreviousSchoolGroupByArgs['orderBy'] }
+        : { orderBy?: PreviousSchoolGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PreviousSchoolGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPreviousSchoolGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PreviousSchool model
+   */
+  readonly fields: PreviousSchoolFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PreviousSchool.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PreviousSchoolClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    admission<T extends OnlineAdmissionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OnlineAdmissionDefaultArgs<ExtArgs>>): Prisma__OnlineAdmissionClient<$Result.GetResult<Prisma.$OnlineAdmissionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PreviousSchool model
+   */
+  interface PreviousSchoolFieldRefs {
+    readonly id: FieldRef<"PreviousSchool", 'String'>
+    readonly institutionName: FieldRef<"PreviousSchool", 'String'>
+    readonly address: FieldRef<"PreviousSchool", 'String'>
+    readonly fromYear: FieldRef<"PreviousSchool", 'String'>
+    readonly toYear: FieldRef<"PreviousSchool", 'String'>
+    readonly admissionId: FieldRef<"PreviousSchool", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PreviousSchool findUnique
+   */
+  export type PreviousSchoolFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreviousSchool
+     */
+    select?: PreviousSchoolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PreviousSchool
+     */
+    omit?: PreviousSchoolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreviousSchoolInclude<ExtArgs> | null
+    /**
+     * Filter, which PreviousSchool to fetch.
+     */
+    where: PreviousSchoolWhereUniqueInput
+  }
+
+  /**
+   * PreviousSchool findUniqueOrThrow
+   */
+  export type PreviousSchoolFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreviousSchool
+     */
+    select?: PreviousSchoolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PreviousSchool
+     */
+    omit?: PreviousSchoolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreviousSchoolInclude<ExtArgs> | null
+    /**
+     * Filter, which PreviousSchool to fetch.
+     */
+    where: PreviousSchoolWhereUniqueInput
+  }
+
+  /**
+   * PreviousSchool findFirst
+   */
+  export type PreviousSchoolFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreviousSchool
+     */
+    select?: PreviousSchoolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PreviousSchool
+     */
+    omit?: PreviousSchoolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreviousSchoolInclude<ExtArgs> | null
+    /**
+     * Filter, which PreviousSchool to fetch.
+     */
+    where?: PreviousSchoolWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PreviousSchools to fetch.
+     */
+    orderBy?: PreviousSchoolOrderByWithRelationInput | PreviousSchoolOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PreviousSchools.
+     */
+    cursor?: PreviousSchoolWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PreviousSchools from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PreviousSchools.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PreviousSchools.
+     */
+    distinct?: PreviousSchoolScalarFieldEnum | PreviousSchoolScalarFieldEnum[]
+  }
+
+  /**
+   * PreviousSchool findFirstOrThrow
+   */
+  export type PreviousSchoolFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreviousSchool
+     */
+    select?: PreviousSchoolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PreviousSchool
+     */
+    omit?: PreviousSchoolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreviousSchoolInclude<ExtArgs> | null
+    /**
+     * Filter, which PreviousSchool to fetch.
+     */
+    where?: PreviousSchoolWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PreviousSchools to fetch.
+     */
+    orderBy?: PreviousSchoolOrderByWithRelationInput | PreviousSchoolOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PreviousSchools.
+     */
+    cursor?: PreviousSchoolWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PreviousSchools from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PreviousSchools.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PreviousSchools.
+     */
+    distinct?: PreviousSchoolScalarFieldEnum | PreviousSchoolScalarFieldEnum[]
+  }
+
+  /**
+   * PreviousSchool findMany
+   */
+  export type PreviousSchoolFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreviousSchool
+     */
+    select?: PreviousSchoolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PreviousSchool
+     */
+    omit?: PreviousSchoolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreviousSchoolInclude<ExtArgs> | null
+    /**
+     * Filter, which PreviousSchools to fetch.
+     */
+    where?: PreviousSchoolWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PreviousSchools to fetch.
+     */
+    orderBy?: PreviousSchoolOrderByWithRelationInput | PreviousSchoolOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PreviousSchools.
+     */
+    cursor?: PreviousSchoolWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PreviousSchools from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PreviousSchools.
+     */
+    skip?: number
+    distinct?: PreviousSchoolScalarFieldEnum | PreviousSchoolScalarFieldEnum[]
+  }
+
+  /**
+   * PreviousSchool create
+   */
+  export type PreviousSchoolCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreviousSchool
+     */
+    select?: PreviousSchoolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PreviousSchool
+     */
+    omit?: PreviousSchoolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreviousSchoolInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PreviousSchool.
+     */
+    data: XOR<PreviousSchoolCreateInput, PreviousSchoolUncheckedCreateInput>
+  }
+
+  /**
+   * PreviousSchool createMany
+   */
+  export type PreviousSchoolCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PreviousSchools.
+     */
+    data: PreviousSchoolCreateManyInput | PreviousSchoolCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PreviousSchool createManyAndReturn
+   */
+  export type PreviousSchoolCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreviousSchool
+     */
+    select?: PreviousSchoolSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PreviousSchool
+     */
+    omit?: PreviousSchoolOmit<ExtArgs> | null
+    /**
+     * The data used to create many PreviousSchools.
+     */
+    data: PreviousSchoolCreateManyInput | PreviousSchoolCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreviousSchoolIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PreviousSchool update
+   */
+  export type PreviousSchoolUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreviousSchool
+     */
+    select?: PreviousSchoolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PreviousSchool
+     */
+    omit?: PreviousSchoolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreviousSchoolInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PreviousSchool.
+     */
+    data: XOR<PreviousSchoolUpdateInput, PreviousSchoolUncheckedUpdateInput>
+    /**
+     * Choose, which PreviousSchool to update.
+     */
+    where: PreviousSchoolWhereUniqueInput
+  }
+
+  /**
+   * PreviousSchool updateMany
+   */
+  export type PreviousSchoolUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PreviousSchools.
+     */
+    data: XOR<PreviousSchoolUpdateManyMutationInput, PreviousSchoolUncheckedUpdateManyInput>
+    /**
+     * Filter which PreviousSchools to update
+     */
+    where?: PreviousSchoolWhereInput
+    /**
+     * Limit how many PreviousSchools to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PreviousSchool updateManyAndReturn
+   */
+  export type PreviousSchoolUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreviousSchool
+     */
+    select?: PreviousSchoolSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PreviousSchool
+     */
+    omit?: PreviousSchoolOmit<ExtArgs> | null
+    /**
+     * The data used to update PreviousSchools.
+     */
+    data: XOR<PreviousSchoolUpdateManyMutationInput, PreviousSchoolUncheckedUpdateManyInput>
+    /**
+     * Filter which PreviousSchools to update
+     */
+    where?: PreviousSchoolWhereInput
+    /**
+     * Limit how many PreviousSchools to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreviousSchoolIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PreviousSchool upsert
+   */
+  export type PreviousSchoolUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreviousSchool
+     */
+    select?: PreviousSchoolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PreviousSchool
+     */
+    omit?: PreviousSchoolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreviousSchoolInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PreviousSchool to update in case it exists.
+     */
+    where: PreviousSchoolWhereUniqueInput
+    /**
+     * In case the PreviousSchool found by the `where` argument doesn't exist, create a new PreviousSchool with this data.
+     */
+    create: XOR<PreviousSchoolCreateInput, PreviousSchoolUncheckedCreateInput>
+    /**
+     * In case the PreviousSchool was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PreviousSchoolUpdateInput, PreviousSchoolUncheckedUpdateInput>
+  }
+
+  /**
+   * PreviousSchool delete
+   */
+  export type PreviousSchoolDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreviousSchool
+     */
+    select?: PreviousSchoolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PreviousSchool
+     */
+    omit?: PreviousSchoolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreviousSchoolInclude<ExtArgs> | null
+    /**
+     * Filter which PreviousSchool to delete.
+     */
+    where: PreviousSchoolWhereUniqueInput
+  }
+
+  /**
+   * PreviousSchool deleteMany
+   */
+  export type PreviousSchoolDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PreviousSchools to delete
+     */
+    where?: PreviousSchoolWhereInput
+    /**
+     * Limit how many PreviousSchools to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PreviousSchool without action
+   */
+  export type PreviousSchoolDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreviousSchool
+     */
+    select?: PreviousSchoolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PreviousSchool
+     */
+    omit?: PreviousSchoolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreviousSchoolInclude<ExtArgs> | null
   }
 
 
@@ -117299,12 +119249,15 @@ export namespace Prisma {
     firstName: 'firstName',
     lastName: 'lastName',
     dob: 'dob',
+    age: 'age',
     branchId: 'branchId',
     classId: 'classId',
     sectionId: 'sectionId',
     parentId: 'parentId',
     categoryId: 'categoryId',
+    surname: 'surname',
     otherNames: 'otherNames',
+    ninNumber: 'ninNumber',
     placeOfBirth: 'placeOfBirth',
     nationality: 'nationality',
     stateOfOrigin: 'stateOfOrigin',
@@ -117313,26 +119266,47 @@ export namespace Prisma {
     passportPhoto: 'passportPhoto',
     guardianOccupation: 'guardianOccupation',
     guardianOfficeAddress: 'guardianOfficeAddress',
+    fatherName: 'fatherName',
+    fatherOccupation: 'fatherOccupation',
+    fatherPhone: 'fatherPhone',
+    motherName: 'motherName',
+    motherOccupation: 'motherOccupation',
+    motherPhone: 'motherPhone',
     secondaryGuardianName: 'secondaryGuardianName',
     secondaryGuardianPhone: 'secondaryGuardianPhone',
     secondaryGuardianRelation: 'secondaryGuardianRelation',
+    address: 'address',
+    whatsappNumber: 'whatsappNumber',
+    languagesSpoken: 'languagesSpoken',
     city: 'city',
     state: 'state',
     country: 'country',
     emergencyContactName: 'emergencyContactName',
     emergencyContactPhone: 'emergencyContactPhone',
     emergencyContactRelation: 'emergencyContactRelation',
+    emergencySickness: 'emergencySickness',
     bloodGroup: 'bloodGroup',
     genotype: 'genotype',
     allergies: 'allergies',
     medicalConditions: 'medicalConditions',
-    specialNeeds: 'specialNeeds',
+    hasMedicalCondition: 'hasMedicalCondition',
+    medicalConditionInfo: 'medicalConditionInfo',
+    hasLearningDifficulty: 'hasLearningDifficulty',
+    learningDifficultyInfo: 'learningDifficultyInfo',
+    hasSpecialNeeds: 'hasSpecialNeeds',
+    specialNeedsInfo: 'specialNeedsInfo',
     familyDoctorName: 'familyDoctorName',
     familyDoctorPhone: 'familyDoctorPhone',
     birthCertificateUrl: 'birthCertificateUrl',
     testimonialUrl: 'testimonialUrl',
     transferCertificateUrl: 'transferCertificateUrl',
     immunizationCardUrl: 'immunizationCardUrl',
+    ninUrl: 'ninUrl',
+    educationalCertUrl: 'educationalCertUrl',
+    transferLetterUrl: 'transferLetterUrl',
+    medicalReportUrl: 'medicalReportUrl',
+    recommendationLetterUrl: 'recommendationLetterUrl',
+    schoolReportUrl: 'schoolReportUrl',
     preferredLanguage: 'preferredLanguage',
     religionClassType: 'religionClassType',
     scholarshipEligible: 'scholarshipEligible',
@@ -118168,25 +120142,31 @@ export namespace Prisma {
     id: 'id',
     admissionNumber: 'admissionNumber',
     firstName: 'firstName',
+    surname: 'surname',
     lastName: 'lastName',
     otherNames: 'otherNames',
     gender: 'gender',
     dateOfBirth: 'dateOfBirth',
+    age: 'age',
+    ninNumber: 'ninNumber',
     placeOfBirth: 'placeOfBirth',
     nationality: 'nationality',
     stateOfOrigin: 'stateOfOrigin',
     lga: 'lga',
     religion: 'religion',
     passportPhoto: 'passportPhoto',
+    passportPhoto2: 'passportPhoto2',
+    passportPhoto3: 'passportPhoto3',
+    passportPhoto4: 'passportPhoto4',
     academicSessionId: 'academicSessionId',
     admissionTerm: 'admissionTerm',
     desiredClassId: 'desiredClassId',
     desiredSectionId: 'desiredSectionId',
     admissionType: 'admissionType',
-    previousSchool: 'previousSchool',
     transferReason: 'transferReason',
     assessmentScore: 'assessmentScore',
     status: 'status',
+    rejectionReason: 'rejectionReason',
     guardianName: 'guardianName',
     guardianRelation: 'guardianRelation',
     guardianPhone: 'guardianPhone',
@@ -118194,33 +120174,56 @@ export namespace Prisma {
     guardianAddress: 'guardianAddress',
     guardianOccupation: 'guardianOccupation',
     guardianOfficeAddress: 'guardianOfficeAddress',
+    fatherName: 'fatherName',
+    fatherOccupation: 'fatherOccupation',
+    fatherPhone: 'fatherPhone',
+    motherName: 'motherName',
+    motherOccupation: 'motherOccupation',
+    motherPhone: 'motherPhone',
+    guardianContact1: 'guardianContact1',
+    guardianContact2: 'guardianContact2',
     secondaryGuardianName: 'secondaryGuardianName',
     secondaryGuardianPhone: 'secondaryGuardianPhone',
     secondaryGuardianRelation: 'secondaryGuardianRelation',
     address: 'address',
+    whatsappNumber: 'whatsappNumber',
+    languagesSpoken: 'languagesSpoken',
     city: 'city',
     state: 'state',
     country: 'country',
     emergencyContactName: 'emergencyContactName',
     emergencyContactPhone: 'emergencyContactPhone',
     emergencyContactRelation: 'emergencyContactRelation',
+    emergencySickness: 'emergencySickness',
     bloodGroup: 'bloodGroup',
     genotype: 'genotype',
     allergies: 'allergies',
     medicalConditions: 'medicalConditions',
-    specialNeeds: 'specialNeeds',
+    hasMedicalCondition: 'hasMedicalCondition',
+    medicalConditionInfo: 'medicalConditionInfo',
+    hasLearningDifficulty: 'hasLearningDifficulty',
+    learningDifficultyInfo: 'learningDifficultyInfo',
+    hasSpecialNeeds: 'hasSpecialNeeds',
+    specialNeedsInfo: 'specialNeedsInfo',
     familyDoctorName: 'familyDoctorName',
     familyDoctorPhone: 'familyDoctorPhone',
-    hostelRequired: 'hostelRequired',
-    preferredHostel: 'preferredHostel',
-    hostelNotes: 'hostelNotes',
-    transportRequired: 'transportRequired',
-    pickupLocation: 'pickupLocation',
-    preferredRoute: 'preferredRoute',
+    hasAppliedBefore: 'hasAppliedBefore',
+    howHeard: 'howHeard',
+    seekingFinancialAid: 'seekingFinancialAid',
+    hasSiblingsInSchool: 'hasSiblingsInSchool',
+    siblingName: 'siblingName',
+    siblingLevel: 'siblingLevel',
     birthCertificateUrl: 'birthCertificateUrl',
     testimonialUrl: 'testimonialUrl',
     transferCertificateUrl: 'transferCertificateUrl',
     immunizationCardUrl: 'immunizationCardUrl',
+    ninUrl: 'ninUrl',
+    educationalCertUrl: 'educationalCertUrl',
+    transferLetterUrl: 'transferLetterUrl',
+    medicalReportUrl: 'medicalReportUrl',
+    recommendationLetterUrl: 'recommendationLetterUrl',
+    schoolReportUrl: 'schoolReportUrl',
+    paymentProofUrl: 'paymentProofUrl',
     branchId: 'branchId',
     createdByStaffId: 'createdByStaffId',
     admissionDate: 'admissionDate',
@@ -118251,6 +120254,18 @@ export namespace Prisma {
   };
 
   export type OnlineAdmissionScalarFieldEnum = (typeof OnlineAdmissionScalarFieldEnum)[keyof typeof OnlineAdmissionScalarFieldEnum]
+
+
+  export const PreviousSchoolScalarFieldEnum: {
+    id: 'id',
+    institutionName: 'institutionName',
+    address: 'address',
+    fromYear: 'fromYear',
+    toYear: 'toYear',
+    admissionId: 'admissionId'
+  };
+
+  export type PreviousSchoolScalarFieldEnum = (typeof PreviousSchoolScalarFieldEnum)[keyof typeof PreviousSchoolScalarFieldEnum]
 
 
   export const AdmissionEnquiryScalarFieldEnum: {
@@ -118771,20 +120786,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Json'
-   */
-  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
-    
-
-
-  /**
-   * Reference to a field of type 'QueryMode'
-   */
-  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
-    
-
-
-  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -118795,6 +120796,20 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -119563,12 +121578,15 @@ export namespace Prisma {
     firstName?: StringFilter<"Student"> | string
     lastName?: StringFilter<"Student"> | string
     dob?: DateTimeNullableFilter<"Student"> | Date | string | null
+    age?: IntNullableFilter<"Student"> | number | null
     branchId?: StringFilter<"Student"> | string
     classId?: StringNullableFilter<"Student"> | string | null
     sectionId?: StringNullableFilter<"Student"> | string | null
     parentId?: StringNullableFilter<"Student"> | string | null
     categoryId?: StringNullableFilter<"Student"> | string | null
+    surname?: StringNullableFilter<"Student"> | string | null
     otherNames?: StringNullableFilter<"Student"> | string | null
+    ninNumber?: StringNullableFilter<"Student"> | string | null
     placeOfBirth?: StringNullableFilter<"Student"> | string | null
     nationality?: StringNullableFilter<"Student"> | string | null
     stateOfOrigin?: StringNullableFilter<"Student"> | string | null
@@ -119577,26 +121595,47 @@ export namespace Prisma {
     passportPhoto?: StringNullableFilter<"Student"> | string | null
     guardianOccupation?: StringNullableFilter<"Student"> | string | null
     guardianOfficeAddress?: StringNullableFilter<"Student"> | string | null
+    fatherName?: StringNullableFilter<"Student"> | string | null
+    fatherOccupation?: StringNullableFilter<"Student"> | string | null
+    fatherPhone?: StringNullableFilter<"Student"> | string | null
+    motherName?: StringNullableFilter<"Student"> | string | null
+    motherOccupation?: StringNullableFilter<"Student"> | string | null
+    motherPhone?: StringNullableFilter<"Student"> | string | null
     secondaryGuardianName?: StringNullableFilter<"Student"> | string | null
     secondaryGuardianPhone?: StringNullableFilter<"Student"> | string | null
     secondaryGuardianRelation?: StringNullableFilter<"Student"> | string | null
+    address?: StringNullableFilter<"Student"> | string | null
+    whatsappNumber?: StringNullableFilter<"Student"> | string | null
+    languagesSpoken?: StringNullableFilter<"Student"> | string | null
     city?: StringNullableFilter<"Student"> | string | null
     state?: StringNullableFilter<"Student"> | string | null
     country?: StringNullableFilter<"Student"> | string | null
     emergencyContactName?: StringNullableFilter<"Student"> | string | null
     emergencyContactPhone?: StringNullableFilter<"Student"> | string | null
     emergencyContactRelation?: StringNullableFilter<"Student"> | string | null
+    emergencySickness?: StringNullableFilter<"Student"> | string | null
     bloodGroup?: StringNullableFilter<"Student"> | string | null
     genotype?: StringNullableFilter<"Student"> | string | null
     allergies?: StringNullableFilter<"Student"> | string | null
     medicalConditions?: StringNullableFilter<"Student"> | string | null
-    specialNeeds?: StringNullableFilter<"Student"> | string | null
+    hasMedicalCondition?: BoolFilter<"Student"> | boolean
+    medicalConditionInfo?: StringNullableFilter<"Student"> | string | null
+    hasLearningDifficulty?: BoolFilter<"Student"> | boolean
+    learningDifficultyInfo?: StringNullableFilter<"Student"> | string | null
+    hasSpecialNeeds?: BoolFilter<"Student"> | boolean
+    specialNeedsInfo?: StringNullableFilter<"Student"> | string | null
     familyDoctorName?: StringNullableFilter<"Student"> | string | null
     familyDoctorPhone?: StringNullableFilter<"Student"> | string | null
     birthCertificateUrl?: StringNullableFilter<"Student"> | string | null
     testimonialUrl?: StringNullableFilter<"Student"> | string | null
     transferCertificateUrl?: StringNullableFilter<"Student"> | string | null
     immunizationCardUrl?: StringNullableFilter<"Student"> | string | null
+    ninUrl?: StringNullableFilter<"Student"> | string | null
+    educationalCertUrl?: StringNullableFilter<"Student"> | string | null
+    transferLetterUrl?: StringNullableFilter<"Student"> | string | null
+    medicalReportUrl?: StringNullableFilter<"Student"> | string | null
+    recommendationLetterUrl?: StringNullableFilter<"Student"> | string | null
+    schoolReportUrl?: StringNullableFilter<"Student"> | string | null
     preferredLanguage?: StringNullableFilter<"Student"> | string | null
     religionClassType?: StringNullableFilter<"Student"> | string | null
     scholarshipEligible?: BoolFilter<"Student"> | boolean
@@ -119632,12 +121671,15 @@ export namespace Prisma {
     firstName?: SortOrder
     lastName?: SortOrder
     dob?: SortOrderInput | SortOrder
+    age?: SortOrderInput | SortOrder
     branchId?: SortOrder
     classId?: SortOrderInput | SortOrder
     sectionId?: SortOrderInput | SortOrder
     parentId?: SortOrderInput | SortOrder
     categoryId?: SortOrderInput | SortOrder
+    surname?: SortOrderInput | SortOrder
     otherNames?: SortOrderInput | SortOrder
+    ninNumber?: SortOrderInput | SortOrder
     placeOfBirth?: SortOrderInput | SortOrder
     nationality?: SortOrderInput | SortOrder
     stateOfOrigin?: SortOrderInput | SortOrder
@@ -119646,26 +121688,47 @@ export namespace Prisma {
     passportPhoto?: SortOrderInput | SortOrder
     guardianOccupation?: SortOrderInput | SortOrder
     guardianOfficeAddress?: SortOrderInput | SortOrder
+    fatherName?: SortOrderInput | SortOrder
+    fatherOccupation?: SortOrderInput | SortOrder
+    fatherPhone?: SortOrderInput | SortOrder
+    motherName?: SortOrderInput | SortOrder
+    motherOccupation?: SortOrderInput | SortOrder
+    motherPhone?: SortOrderInput | SortOrder
     secondaryGuardianName?: SortOrderInput | SortOrder
     secondaryGuardianPhone?: SortOrderInput | SortOrder
     secondaryGuardianRelation?: SortOrderInput | SortOrder
+    address?: SortOrderInput | SortOrder
+    whatsappNumber?: SortOrderInput | SortOrder
+    languagesSpoken?: SortOrderInput | SortOrder
     city?: SortOrderInput | SortOrder
     state?: SortOrderInput | SortOrder
     country?: SortOrderInput | SortOrder
     emergencyContactName?: SortOrderInput | SortOrder
     emergencyContactPhone?: SortOrderInput | SortOrder
     emergencyContactRelation?: SortOrderInput | SortOrder
+    emergencySickness?: SortOrderInput | SortOrder
     bloodGroup?: SortOrderInput | SortOrder
     genotype?: SortOrderInput | SortOrder
     allergies?: SortOrderInput | SortOrder
     medicalConditions?: SortOrderInput | SortOrder
-    specialNeeds?: SortOrderInput | SortOrder
+    hasMedicalCondition?: SortOrder
+    medicalConditionInfo?: SortOrderInput | SortOrder
+    hasLearningDifficulty?: SortOrder
+    learningDifficultyInfo?: SortOrderInput | SortOrder
+    hasSpecialNeeds?: SortOrder
+    specialNeedsInfo?: SortOrderInput | SortOrder
     familyDoctorName?: SortOrderInput | SortOrder
     familyDoctorPhone?: SortOrderInput | SortOrder
     birthCertificateUrl?: SortOrderInput | SortOrder
     testimonialUrl?: SortOrderInput | SortOrder
     transferCertificateUrl?: SortOrderInput | SortOrder
     immunizationCardUrl?: SortOrderInput | SortOrder
+    ninUrl?: SortOrderInput | SortOrder
+    educationalCertUrl?: SortOrderInput | SortOrder
+    transferLetterUrl?: SortOrderInput | SortOrder
+    medicalReportUrl?: SortOrderInput | SortOrder
+    recommendationLetterUrl?: SortOrderInput | SortOrder
+    schoolReportUrl?: SortOrderInput | SortOrder
     preferredLanguage?: SortOrderInput | SortOrder
     religionClassType?: SortOrderInput | SortOrder
     scholarshipEligible?: SortOrder
@@ -119704,12 +121767,15 @@ export namespace Prisma {
     firstName?: StringFilter<"Student"> | string
     lastName?: StringFilter<"Student"> | string
     dob?: DateTimeNullableFilter<"Student"> | Date | string | null
+    age?: IntNullableFilter<"Student"> | number | null
     branchId?: StringFilter<"Student"> | string
     classId?: StringNullableFilter<"Student"> | string | null
     sectionId?: StringNullableFilter<"Student"> | string | null
     parentId?: StringNullableFilter<"Student"> | string | null
     categoryId?: StringNullableFilter<"Student"> | string | null
+    surname?: StringNullableFilter<"Student"> | string | null
     otherNames?: StringNullableFilter<"Student"> | string | null
+    ninNumber?: StringNullableFilter<"Student"> | string | null
     placeOfBirth?: StringNullableFilter<"Student"> | string | null
     nationality?: StringNullableFilter<"Student"> | string | null
     stateOfOrigin?: StringNullableFilter<"Student"> | string | null
@@ -119718,26 +121784,47 @@ export namespace Prisma {
     passportPhoto?: StringNullableFilter<"Student"> | string | null
     guardianOccupation?: StringNullableFilter<"Student"> | string | null
     guardianOfficeAddress?: StringNullableFilter<"Student"> | string | null
+    fatherName?: StringNullableFilter<"Student"> | string | null
+    fatherOccupation?: StringNullableFilter<"Student"> | string | null
+    fatherPhone?: StringNullableFilter<"Student"> | string | null
+    motherName?: StringNullableFilter<"Student"> | string | null
+    motherOccupation?: StringNullableFilter<"Student"> | string | null
+    motherPhone?: StringNullableFilter<"Student"> | string | null
     secondaryGuardianName?: StringNullableFilter<"Student"> | string | null
     secondaryGuardianPhone?: StringNullableFilter<"Student"> | string | null
     secondaryGuardianRelation?: StringNullableFilter<"Student"> | string | null
+    address?: StringNullableFilter<"Student"> | string | null
+    whatsappNumber?: StringNullableFilter<"Student"> | string | null
+    languagesSpoken?: StringNullableFilter<"Student"> | string | null
     city?: StringNullableFilter<"Student"> | string | null
     state?: StringNullableFilter<"Student"> | string | null
     country?: StringNullableFilter<"Student"> | string | null
     emergencyContactName?: StringNullableFilter<"Student"> | string | null
     emergencyContactPhone?: StringNullableFilter<"Student"> | string | null
     emergencyContactRelation?: StringNullableFilter<"Student"> | string | null
+    emergencySickness?: StringNullableFilter<"Student"> | string | null
     bloodGroup?: StringNullableFilter<"Student"> | string | null
     genotype?: StringNullableFilter<"Student"> | string | null
     allergies?: StringNullableFilter<"Student"> | string | null
     medicalConditions?: StringNullableFilter<"Student"> | string | null
-    specialNeeds?: StringNullableFilter<"Student"> | string | null
+    hasMedicalCondition?: BoolFilter<"Student"> | boolean
+    medicalConditionInfo?: StringNullableFilter<"Student"> | string | null
+    hasLearningDifficulty?: BoolFilter<"Student"> | boolean
+    learningDifficultyInfo?: StringNullableFilter<"Student"> | string | null
+    hasSpecialNeeds?: BoolFilter<"Student"> | boolean
+    specialNeedsInfo?: StringNullableFilter<"Student"> | string | null
     familyDoctorName?: StringNullableFilter<"Student"> | string | null
     familyDoctorPhone?: StringNullableFilter<"Student"> | string | null
     birthCertificateUrl?: StringNullableFilter<"Student"> | string | null
     testimonialUrl?: StringNullableFilter<"Student"> | string | null
     transferCertificateUrl?: StringNullableFilter<"Student"> | string | null
     immunizationCardUrl?: StringNullableFilter<"Student"> | string | null
+    ninUrl?: StringNullableFilter<"Student"> | string | null
+    educationalCertUrl?: StringNullableFilter<"Student"> | string | null
+    transferLetterUrl?: StringNullableFilter<"Student"> | string | null
+    medicalReportUrl?: StringNullableFilter<"Student"> | string | null
+    recommendationLetterUrl?: StringNullableFilter<"Student"> | string | null
+    schoolReportUrl?: StringNullableFilter<"Student"> | string | null
     preferredLanguage?: StringNullableFilter<"Student"> | string | null
     religionClassType?: StringNullableFilter<"Student"> | string | null
     scholarshipEligible?: BoolFilter<"Student"> | boolean
@@ -119773,12 +121860,15 @@ export namespace Prisma {
     firstName?: SortOrder
     lastName?: SortOrder
     dob?: SortOrderInput | SortOrder
+    age?: SortOrderInput | SortOrder
     branchId?: SortOrder
     classId?: SortOrderInput | SortOrder
     sectionId?: SortOrderInput | SortOrder
     parentId?: SortOrderInput | SortOrder
     categoryId?: SortOrderInput | SortOrder
+    surname?: SortOrderInput | SortOrder
     otherNames?: SortOrderInput | SortOrder
+    ninNumber?: SortOrderInput | SortOrder
     placeOfBirth?: SortOrderInput | SortOrder
     nationality?: SortOrderInput | SortOrder
     stateOfOrigin?: SortOrderInput | SortOrder
@@ -119787,26 +121877,47 @@ export namespace Prisma {
     passportPhoto?: SortOrderInput | SortOrder
     guardianOccupation?: SortOrderInput | SortOrder
     guardianOfficeAddress?: SortOrderInput | SortOrder
+    fatherName?: SortOrderInput | SortOrder
+    fatherOccupation?: SortOrderInput | SortOrder
+    fatherPhone?: SortOrderInput | SortOrder
+    motherName?: SortOrderInput | SortOrder
+    motherOccupation?: SortOrderInput | SortOrder
+    motherPhone?: SortOrderInput | SortOrder
     secondaryGuardianName?: SortOrderInput | SortOrder
     secondaryGuardianPhone?: SortOrderInput | SortOrder
     secondaryGuardianRelation?: SortOrderInput | SortOrder
+    address?: SortOrderInput | SortOrder
+    whatsappNumber?: SortOrderInput | SortOrder
+    languagesSpoken?: SortOrderInput | SortOrder
     city?: SortOrderInput | SortOrder
     state?: SortOrderInput | SortOrder
     country?: SortOrderInput | SortOrder
     emergencyContactName?: SortOrderInput | SortOrder
     emergencyContactPhone?: SortOrderInput | SortOrder
     emergencyContactRelation?: SortOrderInput | SortOrder
+    emergencySickness?: SortOrderInput | SortOrder
     bloodGroup?: SortOrderInput | SortOrder
     genotype?: SortOrderInput | SortOrder
     allergies?: SortOrderInput | SortOrder
     medicalConditions?: SortOrderInput | SortOrder
-    specialNeeds?: SortOrderInput | SortOrder
+    hasMedicalCondition?: SortOrder
+    medicalConditionInfo?: SortOrderInput | SortOrder
+    hasLearningDifficulty?: SortOrder
+    learningDifficultyInfo?: SortOrderInput | SortOrder
+    hasSpecialNeeds?: SortOrder
+    specialNeedsInfo?: SortOrderInput | SortOrder
     familyDoctorName?: SortOrderInput | SortOrder
     familyDoctorPhone?: SortOrderInput | SortOrder
     birthCertificateUrl?: SortOrderInput | SortOrder
     testimonialUrl?: SortOrderInput | SortOrder
     transferCertificateUrl?: SortOrderInput | SortOrder
     immunizationCardUrl?: SortOrderInput | SortOrder
+    ninUrl?: SortOrderInput | SortOrder
+    educationalCertUrl?: SortOrderInput | SortOrder
+    transferLetterUrl?: SortOrderInput | SortOrder
+    medicalReportUrl?: SortOrderInput | SortOrder
+    recommendationLetterUrl?: SortOrderInput | SortOrder
+    schoolReportUrl?: SortOrderInput | SortOrder
     preferredLanguage?: SortOrderInput | SortOrder
     religionClassType?: SortOrderInput | SortOrder
     scholarshipEligible?: SortOrder
@@ -119814,8 +121925,10 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: StudentCountOrderByAggregateInput
+    _avg?: StudentAvgOrderByAggregateInput
     _max?: StudentMaxOrderByAggregateInput
     _min?: StudentMinOrderByAggregateInput
+    _sum?: StudentSumOrderByAggregateInput
   }
 
   export type StudentScalarWhereWithAggregatesInput = {
@@ -119827,12 +121940,15 @@ export namespace Prisma {
     firstName?: StringWithAggregatesFilter<"Student"> | string
     lastName?: StringWithAggregatesFilter<"Student"> | string
     dob?: DateTimeNullableWithAggregatesFilter<"Student"> | Date | string | null
+    age?: IntNullableWithAggregatesFilter<"Student"> | number | null
     branchId?: StringWithAggregatesFilter<"Student"> | string
     classId?: StringNullableWithAggregatesFilter<"Student"> | string | null
     sectionId?: StringNullableWithAggregatesFilter<"Student"> | string | null
     parentId?: StringNullableWithAggregatesFilter<"Student"> | string | null
     categoryId?: StringNullableWithAggregatesFilter<"Student"> | string | null
+    surname?: StringNullableWithAggregatesFilter<"Student"> | string | null
     otherNames?: StringNullableWithAggregatesFilter<"Student"> | string | null
+    ninNumber?: StringNullableWithAggregatesFilter<"Student"> | string | null
     placeOfBirth?: StringNullableWithAggregatesFilter<"Student"> | string | null
     nationality?: StringNullableWithAggregatesFilter<"Student"> | string | null
     stateOfOrigin?: StringNullableWithAggregatesFilter<"Student"> | string | null
@@ -119841,26 +121957,47 @@ export namespace Prisma {
     passportPhoto?: StringNullableWithAggregatesFilter<"Student"> | string | null
     guardianOccupation?: StringNullableWithAggregatesFilter<"Student"> | string | null
     guardianOfficeAddress?: StringNullableWithAggregatesFilter<"Student"> | string | null
+    fatherName?: StringNullableWithAggregatesFilter<"Student"> | string | null
+    fatherOccupation?: StringNullableWithAggregatesFilter<"Student"> | string | null
+    fatherPhone?: StringNullableWithAggregatesFilter<"Student"> | string | null
+    motherName?: StringNullableWithAggregatesFilter<"Student"> | string | null
+    motherOccupation?: StringNullableWithAggregatesFilter<"Student"> | string | null
+    motherPhone?: StringNullableWithAggregatesFilter<"Student"> | string | null
     secondaryGuardianName?: StringNullableWithAggregatesFilter<"Student"> | string | null
     secondaryGuardianPhone?: StringNullableWithAggregatesFilter<"Student"> | string | null
     secondaryGuardianRelation?: StringNullableWithAggregatesFilter<"Student"> | string | null
+    address?: StringNullableWithAggregatesFilter<"Student"> | string | null
+    whatsappNumber?: StringNullableWithAggregatesFilter<"Student"> | string | null
+    languagesSpoken?: StringNullableWithAggregatesFilter<"Student"> | string | null
     city?: StringNullableWithAggregatesFilter<"Student"> | string | null
     state?: StringNullableWithAggregatesFilter<"Student"> | string | null
     country?: StringNullableWithAggregatesFilter<"Student"> | string | null
     emergencyContactName?: StringNullableWithAggregatesFilter<"Student"> | string | null
     emergencyContactPhone?: StringNullableWithAggregatesFilter<"Student"> | string | null
     emergencyContactRelation?: StringNullableWithAggregatesFilter<"Student"> | string | null
+    emergencySickness?: StringNullableWithAggregatesFilter<"Student"> | string | null
     bloodGroup?: StringNullableWithAggregatesFilter<"Student"> | string | null
     genotype?: StringNullableWithAggregatesFilter<"Student"> | string | null
     allergies?: StringNullableWithAggregatesFilter<"Student"> | string | null
     medicalConditions?: StringNullableWithAggregatesFilter<"Student"> | string | null
-    specialNeeds?: StringNullableWithAggregatesFilter<"Student"> | string | null
+    hasMedicalCondition?: BoolWithAggregatesFilter<"Student"> | boolean
+    medicalConditionInfo?: StringNullableWithAggregatesFilter<"Student"> | string | null
+    hasLearningDifficulty?: BoolWithAggregatesFilter<"Student"> | boolean
+    learningDifficultyInfo?: StringNullableWithAggregatesFilter<"Student"> | string | null
+    hasSpecialNeeds?: BoolWithAggregatesFilter<"Student"> | boolean
+    specialNeedsInfo?: StringNullableWithAggregatesFilter<"Student"> | string | null
     familyDoctorName?: StringNullableWithAggregatesFilter<"Student"> | string | null
     familyDoctorPhone?: StringNullableWithAggregatesFilter<"Student"> | string | null
     birthCertificateUrl?: StringNullableWithAggregatesFilter<"Student"> | string | null
     testimonialUrl?: StringNullableWithAggregatesFilter<"Student"> | string | null
     transferCertificateUrl?: StringNullableWithAggregatesFilter<"Student"> | string | null
     immunizationCardUrl?: StringNullableWithAggregatesFilter<"Student"> | string | null
+    ninUrl?: StringNullableWithAggregatesFilter<"Student"> | string | null
+    educationalCertUrl?: StringNullableWithAggregatesFilter<"Student"> | string | null
+    transferLetterUrl?: StringNullableWithAggregatesFilter<"Student"> | string | null
+    medicalReportUrl?: StringNullableWithAggregatesFilter<"Student"> | string | null
+    recommendationLetterUrl?: StringNullableWithAggregatesFilter<"Student"> | string | null
+    schoolReportUrl?: StringNullableWithAggregatesFilter<"Student"> | string | null
     preferredLanguage?: StringNullableWithAggregatesFilter<"Student"> | string | null
     religionClassType?: StringNullableWithAggregatesFilter<"Student"> | string | null
     scholarshipEligible?: BoolWithAggregatesFilter<"Student"> | boolean
@@ -124305,25 +126442,31 @@ export namespace Prisma {
     id?: StringFilter<"OnlineAdmission"> | string
     admissionNumber?: StringNullableFilter<"OnlineAdmission"> | string | null
     firstName?: StringFilter<"OnlineAdmission"> | string
+    surname?: StringNullableFilter<"OnlineAdmission"> | string | null
     lastName?: StringFilter<"OnlineAdmission"> | string
     otherNames?: StringNullableFilter<"OnlineAdmission"> | string | null
     gender?: StringFilter<"OnlineAdmission"> | string
     dateOfBirth?: DateTimeFilter<"OnlineAdmission"> | Date | string
+    age?: IntNullableFilter<"OnlineAdmission"> | number | null
+    ninNumber?: StringNullableFilter<"OnlineAdmission"> | string | null
     placeOfBirth?: StringNullableFilter<"OnlineAdmission"> | string | null
     nationality?: StringNullableFilter<"OnlineAdmission"> | string | null
     stateOfOrigin?: StringNullableFilter<"OnlineAdmission"> | string | null
     lga?: StringNullableFilter<"OnlineAdmission"> | string | null
     religion?: StringNullableFilter<"OnlineAdmission"> | string | null
     passportPhoto?: StringNullableFilter<"OnlineAdmission"> | string | null
+    passportPhoto2?: StringNullableFilter<"OnlineAdmission"> | string | null
+    passportPhoto3?: StringNullableFilter<"OnlineAdmission"> | string | null
+    passportPhoto4?: StringNullableFilter<"OnlineAdmission"> | string | null
     academicSessionId?: StringNullableFilter<"OnlineAdmission"> | string | null
     admissionTerm?: EnumTermNullableFilter<"OnlineAdmission"> | $Enums.Term | null
     desiredClassId?: StringFilter<"OnlineAdmission"> | string
     desiredSectionId?: StringNullableFilter<"OnlineAdmission"> | string | null
     admissionType?: StringNullableFilter<"OnlineAdmission"> | string | null
-    previousSchool?: StringNullableFilter<"OnlineAdmission"> | string | null
     transferReason?: StringNullableFilter<"OnlineAdmission"> | string | null
     assessmentScore?: FloatNullableFilter<"OnlineAdmission"> | number | null
     status?: StringFilter<"OnlineAdmission"> | string
+    rejectionReason?: StringNullableFilter<"OnlineAdmission"> | string | null
     guardianName?: StringFilter<"OnlineAdmission"> | string
     guardianRelation?: StringNullableFilter<"OnlineAdmission"> | string | null
     guardianPhone?: StringFilter<"OnlineAdmission"> | string
@@ -124331,33 +126474,56 @@ export namespace Prisma {
     guardianAddress?: StringNullableFilter<"OnlineAdmission"> | string | null
     guardianOccupation?: StringNullableFilter<"OnlineAdmission"> | string | null
     guardianOfficeAddress?: StringNullableFilter<"OnlineAdmission"> | string | null
+    fatherName?: StringNullableFilter<"OnlineAdmission"> | string | null
+    fatherOccupation?: StringNullableFilter<"OnlineAdmission"> | string | null
+    fatherPhone?: StringNullableFilter<"OnlineAdmission"> | string | null
+    motherName?: StringNullableFilter<"OnlineAdmission"> | string | null
+    motherOccupation?: StringNullableFilter<"OnlineAdmission"> | string | null
+    motherPhone?: StringNullableFilter<"OnlineAdmission"> | string | null
+    guardianContact1?: StringNullableFilter<"OnlineAdmission"> | string | null
+    guardianContact2?: StringNullableFilter<"OnlineAdmission"> | string | null
     secondaryGuardianName?: StringNullableFilter<"OnlineAdmission"> | string | null
     secondaryGuardianPhone?: StringNullableFilter<"OnlineAdmission"> | string | null
     secondaryGuardianRelation?: StringNullableFilter<"OnlineAdmission"> | string | null
     address?: StringNullableFilter<"OnlineAdmission"> | string | null
+    whatsappNumber?: StringNullableFilter<"OnlineAdmission"> | string | null
+    languagesSpoken?: StringNullableFilter<"OnlineAdmission"> | string | null
     city?: StringNullableFilter<"OnlineAdmission"> | string | null
     state?: StringNullableFilter<"OnlineAdmission"> | string | null
     country?: StringNullableFilter<"OnlineAdmission"> | string | null
     emergencyContactName?: StringNullableFilter<"OnlineAdmission"> | string | null
     emergencyContactPhone?: StringNullableFilter<"OnlineAdmission"> | string | null
     emergencyContactRelation?: StringNullableFilter<"OnlineAdmission"> | string | null
+    emergencySickness?: StringNullableFilter<"OnlineAdmission"> | string | null
     bloodGroup?: StringNullableFilter<"OnlineAdmission"> | string | null
     genotype?: StringNullableFilter<"OnlineAdmission"> | string | null
     allergies?: StringNullableFilter<"OnlineAdmission"> | string | null
     medicalConditions?: StringNullableFilter<"OnlineAdmission"> | string | null
-    specialNeeds?: StringNullableFilter<"OnlineAdmission"> | string | null
+    hasMedicalCondition?: BoolFilter<"OnlineAdmission"> | boolean
+    medicalConditionInfo?: StringNullableFilter<"OnlineAdmission"> | string | null
+    hasLearningDifficulty?: BoolFilter<"OnlineAdmission"> | boolean
+    learningDifficultyInfo?: StringNullableFilter<"OnlineAdmission"> | string | null
+    hasSpecialNeeds?: BoolFilter<"OnlineAdmission"> | boolean
+    specialNeedsInfo?: StringNullableFilter<"OnlineAdmission"> | string | null
     familyDoctorName?: StringNullableFilter<"OnlineAdmission"> | string | null
     familyDoctorPhone?: StringNullableFilter<"OnlineAdmission"> | string | null
-    hostelRequired?: BoolFilter<"OnlineAdmission"> | boolean
-    preferredHostel?: StringNullableFilter<"OnlineAdmission"> | string | null
-    hostelNotes?: StringNullableFilter<"OnlineAdmission"> | string | null
-    transportRequired?: BoolFilter<"OnlineAdmission"> | boolean
-    pickupLocation?: StringNullableFilter<"OnlineAdmission"> | string | null
-    preferredRoute?: StringNullableFilter<"OnlineAdmission"> | string | null
+    hasAppliedBefore?: BoolFilter<"OnlineAdmission"> | boolean
+    howHeard?: StringNullableFilter<"OnlineAdmission"> | string | null
+    seekingFinancialAid?: BoolFilter<"OnlineAdmission"> | boolean
+    hasSiblingsInSchool?: BoolFilter<"OnlineAdmission"> | boolean
+    siblingName?: StringNullableFilter<"OnlineAdmission"> | string | null
+    siblingLevel?: StringNullableFilter<"OnlineAdmission"> | string | null
     birthCertificateUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
     testimonialUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
     transferCertificateUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
     immunizationCardUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
+    ninUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
+    educationalCertUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
+    transferLetterUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
+    medicalReportUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
+    recommendationLetterUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
+    schoolReportUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
+    paymentProofUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
     branchId?: StringFilter<"OnlineAdmission"> | string
     createdByStaffId?: StringNullableFilter<"OnlineAdmission"> | string | null
     admissionDate?: DateTimeNullableFilter<"OnlineAdmission"> | Date | string | null
@@ -124388,6 +126554,7 @@ export namespace Prisma {
     academicSession?: XOR<AcademicSessionNullableScalarRelationFilter, AcademicSessionWhereInput> | null
     desiredClass?: XOR<ClassScalarRelationFilter, ClassWhereInput>
     desiredSection?: XOR<SectionNullableScalarRelationFilter, SectionWhereInput> | null
+    previousSchools?: PreviousSchoolListRelationFilter
     branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
     studentCategory?: XOR<StudentCategoryNullableScalarRelationFilter, StudentCategoryWhereInput> | null
     parent?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
@@ -124397,25 +126564,31 @@ export namespace Prisma {
     id?: SortOrder
     admissionNumber?: SortOrderInput | SortOrder
     firstName?: SortOrder
+    surname?: SortOrderInput | SortOrder
     lastName?: SortOrder
     otherNames?: SortOrderInput | SortOrder
     gender?: SortOrder
     dateOfBirth?: SortOrder
+    age?: SortOrderInput | SortOrder
+    ninNumber?: SortOrderInput | SortOrder
     placeOfBirth?: SortOrderInput | SortOrder
     nationality?: SortOrderInput | SortOrder
     stateOfOrigin?: SortOrderInput | SortOrder
     lga?: SortOrderInput | SortOrder
     religion?: SortOrderInput | SortOrder
     passportPhoto?: SortOrderInput | SortOrder
+    passportPhoto2?: SortOrderInput | SortOrder
+    passportPhoto3?: SortOrderInput | SortOrder
+    passportPhoto4?: SortOrderInput | SortOrder
     academicSessionId?: SortOrderInput | SortOrder
     admissionTerm?: SortOrderInput | SortOrder
     desiredClassId?: SortOrder
     desiredSectionId?: SortOrderInput | SortOrder
     admissionType?: SortOrderInput | SortOrder
-    previousSchool?: SortOrderInput | SortOrder
     transferReason?: SortOrderInput | SortOrder
     assessmentScore?: SortOrderInput | SortOrder
     status?: SortOrder
+    rejectionReason?: SortOrderInput | SortOrder
     guardianName?: SortOrder
     guardianRelation?: SortOrderInput | SortOrder
     guardianPhone?: SortOrder
@@ -124423,33 +126596,56 @@ export namespace Prisma {
     guardianAddress?: SortOrderInput | SortOrder
     guardianOccupation?: SortOrderInput | SortOrder
     guardianOfficeAddress?: SortOrderInput | SortOrder
+    fatherName?: SortOrderInput | SortOrder
+    fatherOccupation?: SortOrderInput | SortOrder
+    fatherPhone?: SortOrderInput | SortOrder
+    motherName?: SortOrderInput | SortOrder
+    motherOccupation?: SortOrderInput | SortOrder
+    motherPhone?: SortOrderInput | SortOrder
+    guardianContact1?: SortOrderInput | SortOrder
+    guardianContact2?: SortOrderInput | SortOrder
     secondaryGuardianName?: SortOrderInput | SortOrder
     secondaryGuardianPhone?: SortOrderInput | SortOrder
     secondaryGuardianRelation?: SortOrderInput | SortOrder
     address?: SortOrderInput | SortOrder
+    whatsappNumber?: SortOrderInput | SortOrder
+    languagesSpoken?: SortOrderInput | SortOrder
     city?: SortOrderInput | SortOrder
     state?: SortOrderInput | SortOrder
     country?: SortOrderInput | SortOrder
     emergencyContactName?: SortOrderInput | SortOrder
     emergencyContactPhone?: SortOrderInput | SortOrder
     emergencyContactRelation?: SortOrderInput | SortOrder
+    emergencySickness?: SortOrderInput | SortOrder
     bloodGroup?: SortOrderInput | SortOrder
     genotype?: SortOrderInput | SortOrder
     allergies?: SortOrderInput | SortOrder
     medicalConditions?: SortOrderInput | SortOrder
-    specialNeeds?: SortOrderInput | SortOrder
+    hasMedicalCondition?: SortOrder
+    medicalConditionInfo?: SortOrderInput | SortOrder
+    hasLearningDifficulty?: SortOrder
+    learningDifficultyInfo?: SortOrderInput | SortOrder
+    hasSpecialNeeds?: SortOrder
+    specialNeedsInfo?: SortOrderInput | SortOrder
     familyDoctorName?: SortOrderInput | SortOrder
     familyDoctorPhone?: SortOrderInput | SortOrder
-    hostelRequired?: SortOrder
-    preferredHostel?: SortOrderInput | SortOrder
-    hostelNotes?: SortOrderInput | SortOrder
-    transportRequired?: SortOrder
-    pickupLocation?: SortOrderInput | SortOrder
-    preferredRoute?: SortOrderInput | SortOrder
+    hasAppliedBefore?: SortOrder
+    howHeard?: SortOrderInput | SortOrder
+    seekingFinancialAid?: SortOrder
+    hasSiblingsInSchool?: SortOrder
+    siblingName?: SortOrderInput | SortOrder
+    siblingLevel?: SortOrderInput | SortOrder
     birthCertificateUrl?: SortOrderInput | SortOrder
     testimonialUrl?: SortOrderInput | SortOrder
     transferCertificateUrl?: SortOrderInput | SortOrder
     immunizationCardUrl?: SortOrderInput | SortOrder
+    ninUrl?: SortOrderInput | SortOrder
+    educationalCertUrl?: SortOrderInput | SortOrder
+    transferLetterUrl?: SortOrderInput | SortOrder
+    medicalReportUrl?: SortOrderInput | SortOrder
+    recommendationLetterUrl?: SortOrderInput | SortOrder
+    schoolReportUrl?: SortOrderInput | SortOrder
+    paymentProofUrl?: SortOrderInput | SortOrder
     branchId?: SortOrder
     createdByStaffId?: SortOrderInput | SortOrder
     admissionDate?: SortOrderInput | SortOrder
@@ -124480,6 +126676,7 @@ export namespace Prisma {
     academicSession?: AcademicSessionOrderByWithRelationInput
     desiredClass?: ClassOrderByWithRelationInput
     desiredSection?: SectionOrderByWithRelationInput
+    previousSchools?: PreviousSchoolOrderByRelationAggregateInput
     branch?: BranchOrderByWithRelationInput
     studentCategory?: StudentCategoryOrderByWithRelationInput
     parent?: UserOrderByWithRelationInput
@@ -124492,25 +126689,31 @@ export namespace Prisma {
     OR?: OnlineAdmissionWhereInput[]
     NOT?: OnlineAdmissionWhereInput | OnlineAdmissionWhereInput[]
     firstName?: StringFilter<"OnlineAdmission"> | string
+    surname?: StringNullableFilter<"OnlineAdmission"> | string | null
     lastName?: StringFilter<"OnlineAdmission"> | string
     otherNames?: StringNullableFilter<"OnlineAdmission"> | string | null
     gender?: StringFilter<"OnlineAdmission"> | string
     dateOfBirth?: DateTimeFilter<"OnlineAdmission"> | Date | string
+    age?: IntNullableFilter<"OnlineAdmission"> | number | null
+    ninNumber?: StringNullableFilter<"OnlineAdmission"> | string | null
     placeOfBirth?: StringNullableFilter<"OnlineAdmission"> | string | null
     nationality?: StringNullableFilter<"OnlineAdmission"> | string | null
     stateOfOrigin?: StringNullableFilter<"OnlineAdmission"> | string | null
     lga?: StringNullableFilter<"OnlineAdmission"> | string | null
     religion?: StringNullableFilter<"OnlineAdmission"> | string | null
     passportPhoto?: StringNullableFilter<"OnlineAdmission"> | string | null
+    passportPhoto2?: StringNullableFilter<"OnlineAdmission"> | string | null
+    passportPhoto3?: StringNullableFilter<"OnlineAdmission"> | string | null
+    passportPhoto4?: StringNullableFilter<"OnlineAdmission"> | string | null
     academicSessionId?: StringNullableFilter<"OnlineAdmission"> | string | null
     admissionTerm?: EnumTermNullableFilter<"OnlineAdmission"> | $Enums.Term | null
     desiredClassId?: StringFilter<"OnlineAdmission"> | string
     desiredSectionId?: StringNullableFilter<"OnlineAdmission"> | string | null
     admissionType?: StringNullableFilter<"OnlineAdmission"> | string | null
-    previousSchool?: StringNullableFilter<"OnlineAdmission"> | string | null
     transferReason?: StringNullableFilter<"OnlineAdmission"> | string | null
     assessmentScore?: FloatNullableFilter<"OnlineAdmission"> | number | null
     status?: StringFilter<"OnlineAdmission"> | string
+    rejectionReason?: StringNullableFilter<"OnlineAdmission"> | string | null
     guardianName?: StringFilter<"OnlineAdmission"> | string
     guardianRelation?: StringNullableFilter<"OnlineAdmission"> | string | null
     guardianPhone?: StringFilter<"OnlineAdmission"> | string
@@ -124518,33 +126721,56 @@ export namespace Prisma {
     guardianAddress?: StringNullableFilter<"OnlineAdmission"> | string | null
     guardianOccupation?: StringNullableFilter<"OnlineAdmission"> | string | null
     guardianOfficeAddress?: StringNullableFilter<"OnlineAdmission"> | string | null
+    fatherName?: StringNullableFilter<"OnlineAdmission"> | string | null
+    fatherOccupation?: StringNullableFilter<"OnlineAdmission"> | string | null
+    fatherPhone?: StringNullableFilter<"OnlineAdmission"> | string | null
+    motherName?: StringNullableFilter<"OnlineAdmission"> | string | null
+    motherOccupation?: StringNullableFilter<"OnlineAdmission"> | string | null
+    motherPhone?: StringNullableFilter<"OnlineAdmission"> | string | null
+    guardianContact1?: StringNullableFilter<"OnlineAdmission"> | string | null
+    guardianContact2?: StringNullableFilter<"OnlineAdmission"> | string | null
     secondaryGuardianName?: StringNullableFilter<"OnlineAdmission"> | string | null
     secondaryGuardianPhone?: StringNullableFilter<"OnlineAdmission"> | string | null
     secondaryGuardianRelation?: StringNullableFilter<"OnlineAdmission"> | string | null
     address?: StringNullableFilter<"OnlineAdmission"> | string | null
+    whatsappNumber?: StringNullableFilter<"OnlineAdmission"> | string | null
+    languagesSpoken?: StringNullableFilter<"OnlineAdmission"> | string | null
     city?: StringNullableFilter<"OnlineAdmission"> | string | null
     state?: StringNullableFilter<"OnlineAdmission"> | string | null
     country?: StringNullableFilter<"OnlineAdmission"> | string | null
     emergencyContactName?: StringNullableFilter<"OnlineAdmission"> | string | null
     emergencyContactPhone?: StringNullableFilter<"OnlineAdmission"> | string | null
     emergencyContactRelation?: StringNullableFilter<"OnlineAdmission"> | string | null
+    emergencySickness?: StringNullableFilter<"OnlineAdmission"> | string | null
     bloodGroup?: StringNullableFilter<"OnlineAdmission"> | string | null
     genotype?: StringNullableFilter<"OnlineAdmission"> | string | null
     allergies?: StringNullableFilter<"OnlineAdmission"> | string | null
     medicalConditions?: StringNullableFilter<"OnlineAdmission"> | string | null
-    specialNeeds?: StringNullableFilter<"OnlineAdmission"> | string | null
+    hasMedicalCondition?: BoolFilter<"OnlineAdmission"> | boolean
+    medicalConditionInfo?: StringNullableFilter<"OnlineAdmission"> | string | null
+    hasLearningDifficulty?: BoolFilter<"OnlineAdmission"> | boolean
+    learningDifficultyInfo?: StringNullableFilter<"OnlineAdmission"> | string | null
+    hasSpecialNeeds?: BoolFilter<"OnlineAdmission"> | boolean
+    specialNeedsInfo?: StringNullableFilter<"OnlineAdmission"> | string | null
     familyDoctorName?: StringNullableFilter<"OnlineAdmission"> | string | null
     familyDoctorPhone?: StringNullableFilter<"OnlineAdmission"> | string | null
-    hostelRequired?: BoolFilter<"OnlineAdmission"> | boolean
-    preferredHostel?: StringNullableFilter<"OnlineAdmission"> | string | null
-    hostelNotes?: StringNullableFilter<"OnlineAdmission"> | string | null
-    transportRequired?: BoolFilter<"OnlineAdmission"> | boolean
-    pickupLocation?: StringNullableFilter<"OnlineAdmission"> | string | null
-    preferredRoute?: StringNullableFilter<"OnlineAdmission"> | string | null
+    hasAppliedBefore?: BoolFilter<"OnlineAdmission"> | boolean
+    howHeard?: StringNullableFilter<"OnlineAdmission"> | string | null
+    seekingFinancialAid?: BoolFilter<"OnlineAdmission"> | boolean
+    hasSiblingsInSchool?: BoolFilter<"OnlineAdmission"> | boolean
+    siblingName?: StringNullableFilter<"OnlineAdmission"> | string | null
+    siblingLevel?: StringNullableFilter<"OnlineAdmission"> | string | null
     birthCertificateUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
     testimonialUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
     transferCertificateUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
     immunizationCardUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
+    ninUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
+    educationalCertUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
+    transferLetterUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
+    medicalReportUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
+    recommendationLetterUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
+    schoolReportUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
+    paymentProofUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
     branchId?: StringFilter<"OnlineAdmission"> | string
     createdByStaffId?: StringNullableFilter<"OnlineAdmission"> | string | null
     admissionDate?: DateTimeNullableFilter<"OnlineAdmission"> | Date | string | null
@@ -124575,6 +126801,7 @@ export namespace Prisma {
     academicSession?: XOR<AcademicSessionNullableScalarRelationFilter, AcademicSessionWhereInput> | null
     desiredClass?: XOR<ClassScalarRelationFilter, ClassWhereInput>
     desiredSection?: XOR<SectionNullableScalarRelationFilter, SectionWhereInput> | null
+    previousSchools?: PreviousSchoolListRelationFilter
     branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
     studentCategory?: XOR<StudentCategoryNullableScalarRelationFilter, StudentCategoryWhereInput> | null
     parent?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
@@ -124584,25 +126811,31 @@ export namespace Prisma {
     id?: SortOrder
     admissionNumber?: SortOrderInput | SortOrder
     firstName?: SortOrder
+    surname?: SortOrderInput | SortOrder
     lastName?: SortOrder
     otherNames?: SortOrderInput | SortOrder
     gender?: SortOrder
     dateOfBirth?: SortOrder
+    age?: SortOrderInput | SortOrder
+    ninNumber?: SortOrderInput | SortOrder
     placeOfBirth?: SortOrderInput | SortOrder
     nationality?: SortOrderInput | SortOrder
     stateOfOrigin?: SortOrderInput | SortOrder
     lga?: SortOrderInput | SortOrder
     religion?: SortOrderInput | SortOrder
     passportPhoto?: SortOrderInput | SortOrder
+    passportPhoto2?: SortOrderInput | SortOrder
+    passportPhoto3?: SortOrderInput | SortOrder
+    passportPhoto4?: SortOrderInput | SortOrder
     academicSessionId?: SortOrderInput | SortOrder
     admissionTerm?: SortOrderInput | SortOrder
     desiredClassId?: SortOrder
     desiredSectionId?: SortOrderInput | SortOrder
     admissionType?: SortOrderInput | SortOrder
-    previousSchool?: SortOrderInput | SortOrder
     transferReason?: SortOrderInput | SortOrder
     assessmentScore?: SortOrderInput | SortOrder
     status?: SortOrder
+    rejectionReason?: SortOrderInput | SortOrder
     guardianName?: SortOrder
     guardianRelation?: SortOrderInput | SortOrder
     guardianPhone?: SortOrder
@@ -124610,33 +126843,56 @@ export namespace Prisma {
     guardianAddress?: SortOrderInput | SortOrder
     guardianOccupation?: SortOrderInput | SortOrder
     guardianOfficeAddress?: SortOrderInput | SortOrder
+    fatherName?: SortOrderInput | SortOrder
+    fatherOccupation?: SortOrderInput | SortOrder
+    fatherPhone?: SortOrderInput | SortOrder
+    motherName?: SortOrderInput | SortOrder
+    motherOccupation?: SortOrderInput | SortOrder
+    motherPhone?: SortOrderInput | SortOrder
+    guardianContact1?: SortOrderInput | SortOrder
+    guardianContact2?: SortOrderInput | SortOrder
     secondaryGuardianName?: SortOrderInput | SortOrder
     secondaryGuardianPhone?: SortOrderInput | SortOrder
     secondaryGuardianRelation?: SortOrderInput | SortOrder
     address?: SortOrderInput | SortOrder
+    whatsappNumber?: SortOrderInput | SortOrder
+    languagesSpoken?: SortOrderInput | SortOrder
     city?: SortOrderInput | SortOrder
     state?: SortOrderInput | SortOrder
     country?: SortOrderInput | SortOrder
     emergencyContactName?: SortOrderInput | SortOrder
     emergencyContactPhone?: SortOrderInput | SortOrder
     emergencyContactRelation?: SortOrderInput | SortOrder
+    emergencySickness?: SortOrderInput | SortOrder
     bloodGroup?: SortOrderInput | SortOrder
     genotype?: SortOrderInput | SortOrder
     allergies?: SortOrderInput | SortOrder
     medicalConditions?: SortOrderInput | SortOrder
-    specialNeeds?: SortOrderInput | SortOrder
+    hasMedicalCondition?: SortOrder
+    medicalConditionInfo?: SortOrderInput | SortOrder
+    hasLearningDifficulty?: SortOrder
+    learningDifficultyInfo?: SortOrderInput | SortOrder
+    hasSpecialNeeds?: SortOrder
+    specialNeedsInfo?: SortOrderInput | SortOrder
     familyDoctorName?: SortOrderInput | SortOrder
     familyDoctorPhone?: SortOrderInput | SortOrder
-    hostelRequired?: SortOrder
-    preferredHostel?: SortOrderInput | SortOrder
-    hostelNotes?: SortOrderInput | SortOrder
-    transportRequired?: SortOrder
-    pickupLocation?: SortOrderInput | SortOrder
-    preferredRoute?: SortOrderInput | SortOrder
+    hasAppliedBefore?: SortOrder
+    howHeard?: SortOrderInput | SortOrder
+    seekingFinancialAid?: SortOrder
+    hasSiblingsInSchool?: SortOrder
+    siblingName?: SortOrderInput | SortOrder
+    siblingLevel?: SortOrderInput | SortOrder
     birthCertificateUrl?: SortOrderInput | SortOrder
     testimonialUrl?: SortOrderInput | SortOrder
     transferCertificateUrl?: SortOrderInput | SortOrder
     immunizationCardUrl?: SortOrderInput | SortOrder
+    ninUrl?: SortOrderInput | SortOrder
+    educationalCertUrl?: SortOrderInput | SortOrder
+    transferLetterUrl?: SortOrderInput | SortOrder
+    medicalReportUrl?: SortOrderInput | SortOrder
+    recommendationLetterUrl?: SortOrderInput | SortOrder
+    schoolReportUrl?: SortOrderInput | SortOrder
+    paymentProofUrl?: SortOrderInput | SortOrder
     branchId?: SortOrder
     createdByStaffId?: SortOrderInput | SortOrder
     admissionDate?: SortOrderInput | SortOrder
@@ -124678,25 +126934,31 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"OnlineAdmission"> | string
     admissionNumber?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     firstName?: StringWithAggregatesFilter<"OnlineAdmission"> | string
+    surname?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     lastName?: StringWithAggregatesFilter<"OnlineAdmission"> | string
     otherNames?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     gender?: StringWithAggregatesFilter<"OnlineAdmission"> | string
     dateOfBirth?: DateTimeWithAggregatesFilter<"OnlineAdmission"> | Date | string
+    age?: IntNullableWithAggregatesFilter<"OnlineAdmission"> | number | null
+    ninNumber?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     placeOfBirth?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     nationality?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     stateOfOrigin?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     lga?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     religion?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     passportPhoto?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
+    passportPhoto2?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
+    passportPhoto3?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
+    passportPhoto4?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     academicSessionId?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     admissionTerm?: EnumTermNullableWithAggregatesFilter<"OnlineAdmission"> | $Enums.Term | null
     desiredClassId?: StringWithAggregatesFilter<"OnlineAdmission"> | string
     desiredSectionId?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     admissionType?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
-    previousSchool?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     transferReason?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     assessmentScore?: FloatNullableWithAggregatesFilter<"OnlineAdmission"> | number | null
     status?: StringWithAggregatesFilter<"OnlineAdmission"> | string
+    rejectionReason?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     guardianName?: StringWithAggregatesFilter<"OnlineAdmission"> | string
     guardianRelation?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     guardianPhone?: StringWithAggregatesFilter<"OnlineAdmission"> | string
@@ -124704,33 +126966,56 @@ export namespace Prisma {
     guardianAddress?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     guardianOccupation?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     guardianOfficeAddress?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
+    fatherName?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
+    fatherOccupation?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
+    fatherPhone?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
+    motherName?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
+    motherOccupation?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
+    motherPhone?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
+    guardianContact1?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
+    guardianContact2?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     secondaryGuardianName?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     secondaryGuardianPhone?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     secondaryGuardianRelation?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     address?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
+    whatsappNumber?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
+    languagesSpoken?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     city?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     state?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     country?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     emergencyContactName?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     emergencyContactPhone?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     emergencyContactRelation?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
+    emergencySickness?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     bloodGroup?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     genotype?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     allergies?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     medicalConditions?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
-    specialNeeds?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
+    hasMedicalCondition?: BoolWithAggregatesFilter<"OnlineAdmission"> | boolean
+    medicalConditionInfo?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
+    hasLearningDifficulty?: BoolWithAggregatesFilter<"OnlineAdmission"> | boolean
+    learningDifficultyInfo?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
+    hasSpecialNeeds?: BoolWithAggregatesFilter<"OnlineAdmission"> | boolean
+    specialNeedsInfo?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     familyDoctorName?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     familyDoctorPhone?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
-    hostelRequired?: BoolWithAggregatesFilter<"OnlineAdmission"> | boolean
-    preferredHostel?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
-    hostelNotes?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
-    transportRequired?: BoolWithAggregatesFilter<"OnlineAdmission"> | boolean
-    pickupLocation?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
-    preferredRoute?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
+    hasAppliedBefore?: BoolWithAggregatesFilter<"OnlineAdmission"> | boolean
+    howHeard?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
+    seekingFinancialAid?: BoolWithAggregatesFilter<"OnlineAdmission"> | boolean
+    hasSiblingsInSchool?: BoolWithAggregatesFilter<"OnlineAdmission"> | boolean
+    siblingName?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
+    siblingLevel?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     birthCertificateUrl?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     testimonialUrl?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     transferCertificateUrl?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     immunizationCardUrl?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
+    ninUrl?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
+    educationalCertUrl?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
+    transferLetterUrl?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
+    medicalReportUrl?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
+    recommendationLetterUrl?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
+    schoolReportUrl?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
+    paymentProofUrl?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     branchId?: StringWithAggregatesFilter<"OnlineAdmission"> | string
     createdByStaffId?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     admissionDate?: DateTimeNullableWithAggregatesFilter<"OnlineAdmission"> | Date | string | null
@@ -124758,6 +127043,66 @@ export namespace Prisma {
     paymentMethod?: StringWithAggregatesFilter<"OnlineAdmission"> | string
     createdAt?: DateTimeWithAggregatesFilter<"OnlineAdmission"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"OnlineAdmission"> | Date | string
+  }
+
+  export type PreviousSchoolWhereInput = {
+    AND?: PreviousSchoolWhereInput | PreviousSchoolWhereInput[]
+    OR?: PreviousSchoolWhereInput[]
+    NOT?: PreviousSchoolWhereInput | PreviousSchoolWhereInput[]
+    id?: StringFilter<"PreviousSchool"> | string
+    institutionName?: StringFilter<"PreviousSchool"> | string
+    address?: StringNullableFilter<"PreviousSchool"> | string | null
+    fromYear?: StringNullableFilter<"PreviousSchool"> | string | null
+    toYear?: StringNullableFilter<"PreviousSchool"> | string | null
+    admissionId?: StringFilter<"PreviousSchool"> | string
+    admission?: XOR<OnlineAdmissionScalarRelationFilter, OnlineAdmissionWhereInput>
+  }
+
+  export type PreviousSchoolOrderByWithRelationInput = {
+    id?: SortOrder
+    institutionName?: SortOrder
+    address?: SortOrderInput | SortOrder
+    fromYear?: SortOrderInput | SortOrder
+    toYear?: SortOrderInput | SortOrder
+    admissionId?: SortOrder
+    admission?: OnlineAdmissionOrderByWithRelationInput
+  }
+
+  export type PreviousSchoolWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PreviousSchoolWhereInput | PreviousSchoolWhereInput[]
+    OR?: PreviousSchoolWhereInput[]
+    NOT?: PreviousSchoolWhereInput | PreviousSchoolWhereInput[]
+    institutionName?: StringFilter<"PreviousSchool"> | string
+    address?: StringNullableFilter<"PreviousSchool"> | string | null
+    fromYear?: StringNullableFilter<"PreviousSchool"> | string | null
+    toYear?: StringNullableFilter<"PreviousSchool"> | string | null
+    admissionId?: StringFilter<"PreviousSchool"> | string
+    admission?: XOR<OnlineAdmissionScalarRelationFilter, OnlineAdmissionWhereInput>
+  }, "id">
+
+  export type PreviousSchoolOrderByWithAggregationInput = {
+    id?: SortOrder
+    institutionName?: SortOrder
+    address?: SortOrderInput | SortOrder
+    fromYear?: SortOrderInput | SortOrder
+    toYear?: SortOrderInput | SortOrder
+    admissionId?: SortOrder
+    _count?: PreviousSchoolCountOrderByAggregateInput
+    _max?: PreviousSchoolMaxOrderByAggregateInput
+    _min?: PreviousSchoolMinOrderByAggregateInput
+  }
+
+  export type PreviousSchoolScalarWhereWithAggregatesInput = {
+    AND?: PreviousSchoolScalarWhereWithAggregatesInput | PreviousSchoolScalarWhereWithAggregatesInput[]
+    OR?: PreviousSchoolScalarWhereWithAggregatesInput[]
+    NOT?: PreviousSchoolScalarWhereWithAggregatesInput | PreviousSchoolScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PreviousSchool"> | string
+    institutionName?: StringWithAggregatesFilter<"PreviousSchool"> | string
+    address?: StringNullableWithAggregatesFilter<"PreviousSchool"> | string | null
+    fromYear?: StringNullableWithAggregatesFilter<"PreviousSchool"> | string | null
+    toYear?: StringNullableWithAggregatesFilter<"PreviousSchool"> | string | null
+    admissionId?: StringWithAggregatesFilter<"PreviousSchool"> | string
   }
 
   export type AdmissionEnquiryWhereInput = {
@@ -127659,7 +130004,10 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -127668,26 +130016,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -127723,12 +130092,15 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
     branchId: string
     classId?: string | null
     sectionId?: string | null
     parentId?: string | null
     categoryId?: string | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -127737,26 +130109,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -127785,7 +130178,10 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -127794,26 +130190,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -127849,12 +130266,15 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
     branchId?: StringFieldUpdateOperationsInput | string
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -127863,26 +130283,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -127912,12 +130353,15 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
     branchId: string
     classId?: string | null
     sectionId?: string | null
     parentId?: string | null
     categoryId?: string | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -127926,26 +130370,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -127959,7 +130424,10 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -127968,26 +130436,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -128002,12 +130491,15 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
     branchId?: StringFieldUpdateOperationsInput | string
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -128016,26 +130508,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -132792,22 +135305,28 @@ export namespace Prisma {
     id?: string
     admissionNumber?: string | null
     firstName: string
+    surname?: string | null
     lastName: string
     otherNames?: string | null
     gender: string
     dateOfBirth: Date | string
+    age?: number | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
     lga?: string | null
     religion?: string | null
     passportPhoto?: string | null
+    passportPhoto2?: string | null
+    passportPhoto3?: string | null
+    passportPhoto4?: string | null
     admissionTerm?: $Enums.Term | null
     admissionType?: string | null
-    previousSchool?: string | null
     transferReason?: string | null
     assessmentScore?: number | null
     status?: string
+    rejectionReason?: string | null
     guardianName: string
     guardianRelation?: string | null
     guardianPhone: string
@@ -132815,33 +135334,56 @@ export namespace Prisma {
     guardianAddress?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
+    guardianContact1?: string | null
+    guardianContact2?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
     address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
-    hostelRequired?: boolean
-    preferredHostel?: string | null
-    hostelNotes?: string | null
-    transportRequired?: boolean
-    pickupLocation?: string | null
-    preferredRoute?: string | null
+    hasAppliedBefore?: boolean
+    howHeard?: string | null
+    seekingFinancialAid?: boolean
+    hasSiblingsInSchool?: boolean
+    siblingName?: string | null
+    siblingLevel?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
+    paymentProofUrl?: string | null
     createdByStaffId?: string | null
     admissionDate?: Date | string | null
     approvalDate?: Date | string | null
@@ -132869,6 +135411,7 @@ export namespace Prisma {
     academicSession?: AcademicSessionCreateNestedOneWithoutOnlineAdmissionsInput
     desiredClass: ClassCreateNestedOneWithoutOnlineAdmissionsInput
     desiredSection?: SectionCreateNestedOneWithoutOnlineAdmissionsInput
+    previousSchools?: PreviousSchoolCreateNestedManyWithoutAdmissionInput
     branch: BranchCreateNestedOneWithoutOnlineAdmissionsInput
     studentCategory?: StudentCategoryCreateNestedOneWithoutOnlineAdmissionsInput
     parent?: UserCreateNestedOneWithoutOnlineAdmissionsInput
@@ -132878,25 +135421,31 @@ export namespace Prisma {
     id?: string
     admissionNumber?: string | null
     firstName: string
+    surname?: string | null
     lastName: string
     otherNames?: string | null
     gender: string
     dateOfBirth: Date | string
+    age?: number | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
     lga?: string | null
     religion?: string | null
     passportPhoto?: string | null
+    passportPhoto2?: string | null
+    passportPhoto3?: string | null
+    passportPhoto4?: string | null
     academicSessionId?: string | null
     admissionTerm?: $Enums.Term | null
     desiredClassId: string
     desiredSectionId?: string | null
     admissionType?: string | null
-    previousSchool?: string | null
     transferReason?: string | null
     assessmentScore?: number | null
     status?: string
+    rejectionReason?: string | null
     guardianName: string
     guardianRelation?: string | null
     guardianPhone: string
@@ -132904,33 +135453,56 @@ export namespace Prisma {
     guardianAddress?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
+    guardianContact1?: string | null
+    guardianContact2?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
     address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
-    hostelRequired?: boolean
-    preferredHostel?: string | null
-    hostelNotes?: string | null
-    transportRequired?: boolean
-    pickupLocation?: string | null
-    preferredRoute?: string | null
+    hasAppliedBefore?: boolean
+    howHeard?: string | null
+    seekingFinancialAid?: boolean
+    hasSiblingsInSchool?: boolean
+    siblingName?: string | null
+    siblingLevel?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
+    paymentProofUrl?: string | null
     branchId: string
     createdByStaffId?: string | null
     admissionDate?: Date | string | null
@@ -132958,28 +135530,35 @@ export namespace Prisma {
     paymentMethod?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    previousSchools?: PreviousSchoolUncheckedCreateNestedManyWithoutAdmissionInput
   }
 
   export type OnlineAdmissionUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     admissionNumber?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: StringFieldUpdateOperationsInput | string
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
     lga?: NullableStringFieldUpdateOperationsInput | string | null
     religion?: NullableStringFieldUpdateOperationsInput | string | null
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto2?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto3?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto4?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
-    previousSchool?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
     assessmentScore?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: StringFieldUpdateOperationsInput | string
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     guardianName?: StringFieldUpdateOperationsInput | string
     guardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianPhone?: StringFieldUpdateOperationsInput | string
@@ -132987,33 +135566,56 @@ export namespace Prisma {
     guardianAddress?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact1?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact2?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelRequired?: BoolFieldUpdateOperationsInput | boolean
-    preferredHostel?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    transportRequired?: BoolFieldUpdateOperationsInput | boolean
-    pickupLocation?: NullableStringFieldUpdateOperationsInput | string | null
-    preferredRoute?: NullableStringFieldUpdateOperationsInput | string | null
+    hasAppliedBefore?: BoolFieldUpdateOperationsInput | boolean
+    howHeard?: NullableStringFieldUpdateOperationsInput | string | null
+    seekingFinancialAid?: BoolFieldUpdateOperationsInput | boolean
+    hasSiblingsInSchool?: BoolFieldUpdateOperationsInput | boolean
+    siblingName?: NullableStringFieldUpdateOperationsInput | string | null
+    siblingLevel?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProofUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdByStaffId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     approvalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -133041,6 +135643,7 @@ export namespace Prisma {
     academicSession?: AcademicSessionUpdateOneWithoutOnlineAdmissionsNestedInput
     desiredClass?: ClassUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
     desiredSection?: SectionUpdateOneWithoutOnlineAdmissionsNestedInput
+    previousSchools?: PreviousSchoolUpdateManyWithoutAdmissionNestedInput
     branch?: BranchUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
     studentCategory?: StudentCategoryUpdateOneWithoutOnlineAdmissionsNestedInput
     parent?: UserUpdateOneWithoutOnlineAdmissionsNestedInput
@@ -133050,25 +135653,31 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     admissionNumber?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: StringFieldUpdateOperationsInput | string
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
     lga?: NullableStringFieldUpdateOperationsInput | string | null
     religion?: NullableStringFieldUpdateOperationsInput | string | null
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto2?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto3?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto4?: NullableStringFieldUpdateOperationsInput | string | null
     academicSessionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
     desiredClassId?: StringFieldUpdateOperationsInput | string
     desiredSectionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
-    previousSchool?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
     assessmentScore?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: StringFieldUpdateOperationsInput | string
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     guardianName?: StringFieldUpdateOperationsInput | string
     guardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianPhone?: StringFieldUpdateOperationsInput | string
@@ -133076,33 +135685,56 @@ export namespace Prisma {
     guardianAddress?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact1?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact2?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelRequired?: BoolFieldUpdateOperationsInput | boolean
-    preferredHostel?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    transportRequired?: BoolFieldUpdateOperationsInput | boolean
-    pickupLocation?: NullableStringFieldUpdateOperationsInput | string | null
-    preferredRoute?: NullableStringFieldUpdateOperationsInput | string | null
+    hasAppliedBefore?: BoolFieldUpdateOperationsInput | boolean
+    howHeard?: NullableStringFieldUpdateOperationsInput | string | null
+    seekingFinancialAid?: BoolFieldUpdateOperationsInput | boolean
+    hasSiblingsInSchool?: BoolFieldUpdateOperationsInput | boolean
+    siblingName?: NullableStringFieldUpdateOperationsInput | string | null
+    siblingLevel?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProofUrl?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
     createdByStaffId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -133130,31 +135762,38 @@ export namespace Prisma {
     paymentMethod?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    previousSchools?: PreviousSchoolUncheckedUpdateManyWithoutAdmissionNestedInput
   }
 
   export type OnlineAdmissionCreateManyInput = {
     id?: string
     admissionNumber?: string | null
     firstName: string
+    surname?: string | null
     lastName: string
     otherNames?: string | null
     gender: string
     dateOfBirth: Date | string
+    age?: number | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
     lga?: string | null
     religion?: string | null
     passportPhoto?: string | null
+    passportPhoto2?: string | null
+    passportPhoto3?: string | null
+    passportPhoto4?: string | null
     academicSessionId?: string | null
     admissionTerm?: $Enums.Term | null
     desiredClassId: string
     desiredSectionId?: string | null
     admissionType?: string | null
-    previousSchool?: string | null
     transferReason?: string | null
     assessmentScore?: number | null
     status?: string
+    rejectionReason?: string | null
     guardianName: string
     guardianRelation?: string | null
     guardianPhone: string
@@ -133162,33 +135801,56 @@ export namespace Prisma {
     guardianAddress?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
+    guardianContact1?: string | null
+    guardianContact2?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
     address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
-    hostelRequired?: boolean
-    preferredHostel?: string | null
-    hostelNotes?: string | null
-    transportRequired?: boolean
-    pickupLocation?: string | null
-    preferredRoute?: string | null
+    hasAppliedBefore?: boolean
+    howHeard?: string | null
+    seekingFinancialAid?: boolean
+    hasSiblingsInSchool?: boolean
+    siblingName?: string | null
+    siblingLevel?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
+    paymentProofUrl?: string | null
     branchId: string
     createdByStaffId?: string | null
     admissionDate?: Date | string | null
@@ -133222,22 +135884,28 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     admissionNumber?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: StringFieldUpdateOperationsInput | string
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
     lga?: NullableStringFieldUpdateOperationsInput | string | null
     religion?: NullableStringFieldUpdateOperationsInput | string | null
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto2?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto3?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto4?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
-    previousSchool?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
     assessmentScore?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: StringFieldUpdateOperationsInput | string
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     guardianName?: StringFieldUpdateOperationsInput | string
     guardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianPhone?: StringFieldUpdateOperationsInput | string
@@ -133245,33 +135913,56 @@ export namespace Prisma {
     guardianAddress?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact1?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact2?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelRequired?: BoolFieldUpdateOperationsInput | boolean
-    preferredHostel?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    transportRequired?: BoolFieldUpdateOperationsInput | boolean
-    pickupLocation?: NullableStringFieldUpdateOperationsInput | string | null
-    preferredRoute?: NullableStringFieldUpdateOperationsInput | string | null
+    hasAppliedBefore?: BoolFieldUpdateOperationsInput | boolean
+    howHeard?: NullableStringFieldUpdateOperationsInput | string | null
+    seekingFinancialAid?: BoolFieldUpdateOperationsInput | boolean
+    hasSiblingsInSchool?: BoolFieldUpdateOperationsInput | boolean
+    siblingName?: NullableStringFieldUpdateOperationsInput | string | null
+    siblingLevel?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProofUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdByStaffId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     approvalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -133302,25 +135993,31 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     admissionNumber?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: StringFieldUpdateOperationsInput | string
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
     lga?: NullableStringFieldUpdateOperationsInput | string | null
     religion?: NullableStringFieldUpdateOperationsInput | string | null
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto2?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto3?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto4?: NullableStringFieldUpdateOperationsInput | string | null
     academicSessionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
     desiredClassId?: StringFieldUpdateOperationsInput | string
     desiredSectionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
-    previousSchool?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
     assessmentScore?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: StringFieldUpdateOperationsInput | string
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     guardianName?: StringFieldUpdateOperationsInput | string
     guardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianPhone?: StringFieldUpdateOperationsInput | string
@@ -133328,33 +136025,56 @@ export namespace Prisma {
     guardianAddress?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact1?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact2?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelRequired?: BoolFieldUpdateOperationsInput | boolean
-    preferredHostel?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    transportRequired?: BoolFieldUpdateOperationsInput | boolean
-    pickupLocation?: NullableStringFieldUpdateOperationsInput | string | null
-    preferredRoute?: NullableStringFieldUpdateOperationsInput | string | null
+    hasAppliedBefore?: BoolFieldUpdateOperationsInput | boolean
+    howHeard?: NullableStringFieldUpdateOperationsInput | string | null
+    seekingFinancialAid?: BoolFieldUpdateOperationsInput | boolean
+    hasSiblingsInSchool?: BoolFieldUpdateOperationsInput | boolean
+    siblingName?: NullableStringFieldUpdateOperationsInput | string | null
+    siblingLevel?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProofUrl?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
     createdByStaffId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -133382,6 +136102,68 @@ export namespace Prisma {
     paymentMethod?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PreviousSchoolCreateInput = {
+    id?: string
+    institutionName: string
+    address?: string | null
+    fromYear?: string | null
+    toYear?: string | null
+    admission: OnlineAdmissionCreateNestedOneWithoutPreviousSchoolsInput
+  }
+
+  export type PreviousSchoolUncheckedCreateInput = {
+    id?: string
+    institutionName: string
+    address?: string | null
+    fromYear?: string | null
+    toYear?: string | null
+    admissionId: string
+  }
+
+  export type PreviousSchoolUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    institutionName?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    fromYear?: NullableStringFieldUpdateOperationsInput | string | null
+    toYear?: NullableStringFieldUpdateOperationsInput | string | null
+    admission?: OnlineAdmissionUpdateOneRequiredWithoutPreviousSchoolsNestedInput
+  }
+
+  export type PreviousSchoolUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    institutionName?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    fromYear?: NullableStringFieldUpdateOperationsInput | string | null
+    toYear?: NullableStringFieldUpdateOperationsInput | string | null
+    admissionId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PreviousSchoolCreateManyInput = {
+    id?: string
+    institutionName: string
+    address?: string | null
+    fromYear?: string | null
+    toYear?: string | null
+    admissionId: string
+  }
+
+  export type PreviousSchoolUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    institutionName?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    fromYear?: NullableStringFieldUpdateOperationsInput | string | null
+    toYear?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type PreviousSchoolUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    institutionName?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    fromYear?: NullableStringFieldUpdateOperationsInput | string | null
+    toYear?: NullableStringFieldUpdateOperationsInput | string | null
+    admissionId?: StringFieldUpdateOperationsInput | string
   }
 
   export type AdmissionEnquiryCreateInput = {
@@ -136655,6 +139437,17 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type UserNullableScalarRelationFilter = {
     is?: UserWhereInput | null
     isNot?: UserWhereInput | null
@@ -136791,12 +139584,15 @@ export namespace Prisma {
     firstName?: SortOrder
     lastName?: SortOrder
     dob?: SortOrder
+    age?: SortOrder
     branchId?: SortOrder
     classId?: SortOrder
     sectionId?: SortOrder
     parentId?: SortOrder
     categoryId?: SortOrder
+    surname?: SortOrder
     otherNames?: SortOrder
+    ninNumber?: SortOrder
     placeOfBirth?: SortOrder
     nationality?: SortOrder
     stateOfOrigin?: SortOrder
@@ -136805,26 +139601,47 @@ export namespace Prisma {
     passportPhoto?: SortOrder
     guardianOccupation?: SortOrder
     guardianOfficeAddress?: SortOrder
+    fatherName?: SortOrder
+    fatherOccupation?: SortOrder
+    fatherPhone?: SortOrder
+    motherName?: SortOrder
+    motherOccupation?: SortOrder
+    motherPhone?: SortOrder
     secondaryGuardianName?: SortOrder
     secondaryGuardianPhone?: SortOrder
     secondaryGuardianRelation?: SortOrder
+    address?: SortOrder
+    whatsappNumber?: SortOrder
+    languagesSpoken?: SortOrder
     city?: SortOrder
     state?: SortOrder
     country?: SortOrder
     emergencyContactName?: SortOrder
     emergencyContactPhone?: SortOrder
     emergencyContactRelation?: SortOrder
+    emergencySickness?: SortOrder
     bloodGroup?: SortOrder
     genotype?: SortOrder
     allergies?: SortOrder
     medicalConditions?: SortOrder
-    specialNeeds?: SortOrder
+    hasMedicalCondition?: SortOrder
+    medicalConditionInfo?: SortOrder
+    hasLearningDifficulty?: SortOrder
+    learningDifficultyInfo?: SortOrder
+    hasSpecialNeeds?: SortOrder
+    specialNeedsInfo?: SortOrder
     familyDoctorName?: SortOrder
     familyDoctorPhone?: SortOrder
     birthCertificateUrl?: SortOrder
     testimonialUrl?: SortOrder
     transferCertificateUrl?: SortOrder
     immunizationCardUrl?: SortOrder
+    ninUrl?: SortOrder
+    educationalCertUrl?: SortOrder
+    transferLetterUrl?: SortOrder
+    medicalReportUrl?: SortOrder
+    recommendationLetterUrl?: SortOrder
+    schoolReportUrl?: SortOrder
     preferredLanguage?: SortOrder
     religionClassType?: SortOrder
     scholarshipEligible?: SortOrder
@@ -136833,18 +139650,25 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type StudentAvgOrderByAggregateInput = {
+    age?: SortOrder
+  }
+
   export type StudentMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
     dob?: SortOrder
+    age?: SortOrder
     branchId?: SortOrder
     classId?: SortOrder
     sectionId?: SortOrder
     parentId?: SortOrder
     categoryId?: SortOrder
+    surname?: SortOrder
     otherNames?: SortOrder
+    ninNumber?: SortOrder
     placeOfBirth?: SortOrder
     nationality?: SortOrder
     stateOfOrigin?: SortOrder
@@ -136853,26 +139677,47 @@ export namespace Prisma {
     passportPhoto?: SortOrder
     guardianOccupation?: SortOrder
     guardianOfficeAddress?: SortOrder
+    fatherName?: SortOrder
+    fatherOccupation?: SortOrder
+    fatherPhone?: SortOrder
+    motherName?: SortOrder
+    motherOccupation?: SortOrder
+    motherPhone?: SortOrder
     secondaryGuardianName?: SortOrder
     secondaryGuardianPhone?: SortOrder
     secondaryGuardianRelation?: SortOrder
+    address?: SortOrder
+    whatsappNumber?: SortOrder
+    languagesSpoken?: SortOrder
     city?: SortOrder
     state?: SortOrder
     country?: SortOrder
     emergencyContactName?: SortOrder
     emergencyContactPhone?: SortOrder
     emergencyContactRelation?: SortOrder
+    emergencySickness?: SortOrder
     bloodGroup?: SortOrder
     genotype?: SortOrder
     allergies?: SortOrder
     medicalConditions?: SortOrder
-    specialNeeds?: SortOrder
+    hasMedicalCondition?: SortOrder
+    medicalConditionInfo?: SortOrder
+    hasLearningDifficulty?: SortOrder
+    learningDifficultyInfo?: SortOrder
+    hasSpecialNeeds?: SortOrder
+    specialNeedsInfo?: SortOrder
     familyDoctorName?: SortOrder
     familyDoctorPhone?: SortOrder
     birthCertificateUrl?: SortOrder
     testimonialUrl?: SortOrder
     transferCertificateUrl?: SortOrder
     immunizationCardUrl?: SortOrder
+    ninUrl?: SortOrder
+    educationalCertUrl?: SortOrder
+    transferLetterUrl?: SortOrder
+    medicalReportUrl?: SortOrder
+    recommendationLetterUrl?: SortOrder
+    schoolReportUrl?: SortOrder
     preferredLanguage?: SortOrder
     religionClassType?: SortOrder
     scholarshipEligible?: SortOrder
@@ -136887,12 +139732,15 @@ export namespace Prisma {
     firstName?: SortOrder
     lastName?: SortOrder
     dob?: SortOrder
+    age?: SortOrder
     branchId?: SortOrder
     classId?: SortOrder
     sectionId?: SortOrder
     parentId?: SortOrder
     categoryId?: SortOrder
+    surname?: SortOrder
     otherNames?: SortOrder
+    ninNumber?: SortOrder
     placeOfBirth?: SortOrder
     nationality?: SortOrder
     stateOfOrigin?: SortOrder
@@ -136901,32 +139749,57 @@ export namespace Prisma {
     passportPhoto?: SortOrder
     guardianOccupation?: SortOrder
     guardianOfficeAddress?: SortOrder
+    fatherName?: SortOrder
+    fatherOccupation?: SortOrder
+    fatherPhone?: SortOrder
+    motherName?: SortOrder
+    motherOccupation?: SortOrder
+    motherPhone?: SortOrder
     secondaryGuardianName?: SortOrder
     secondaryGuardianPhone?: SortOrder
     secondaryGuardianRelation?: SortOrder
+    address?: SortOrder
+    whatsappNumber?: SortOrder
+    languagesSpoken?: SortOrder
     city?: SortOrder
     state?: SortOrder
     country?: SortOrder
     emergencyContactName?: SortOrder
     emergencyContactPhone?: SortOrder
     emergencyContactRelation?: SortOrder
+    emergencySickness?: SortOrder
     bloodGroup?: SortOrder
     genotype?: SortOrder
     allergies?: SortOrder
     medicalConditions?: SortOrder
-    specialNeeds?: SortOrder
+    hasMedicalCondition?: SortOrder
+    medicalConditionInfo?: SortOrder
+    hasLearningDifficulty?: SortOrder
+    learningDifficultyInfo?: SortOrder
+    hasSpecialNeeds?: SortOrder
+    specialNeedsInfo?: SortOrder
     familyDoctorName?: SortOrder
     familyDoctorPhone?: SortOrder
     birthCertificateUrl?: SortOrder
     testimonialUrl?: SortOrder
     transferCertificateUrl?: SortOrder
     immunizationCardUrl?: SortOrder
+    ninUrl?: SortOrder
+    educationalCertUrl?: SortOrder
+    transferLetterUrl?: SortOrder
+    medicalReportUrl?: SortOrder
+    recommendationLetterUrl?: SortOrder
+    schoolReportUrl?: SortOrder
     preferredLanguage?: SortOrder
     religionClassType?: SortOrder
     scholarshipEligible?: SortOrder
     referralSource?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type StudentSumOrderByAggregateInput = {
+    age?: SortOrder
   }
 
   export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -136941,6 +139814,22 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
   export type JsonNullableFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -137128,17 +140017,6 @@ export namespace Prisma {
     _max?: NestedJsonFilter<$PrismaModel>
   }
 
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
   export type SectionListRelationFilter = {
     every?: SectionWhereInput
     some?: SectionWhereInput
@@ -137200,22 +140078,6 @@ export namespace Prisma {
 
   export type ClassSumOrderByAggregateInput = {
     gradeLevel?: SortOrder
-  }
-
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type ClassScalarRelationFilter = {
@@ -139921,29 +142783,45 @@ export namespace Prisma {
     isNot?: AcademicSessionWhereInput | null
   }
 
+  export type PreviousSchoolListRelationFilter = {
+    every?: PreviousSchoolWhereInput
+    some?: PreviousSchoolWhereInput
+    none?: PreviousSchoolWhereInput
+  }
+
+  export type PreviousSchoolOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type OnlineAdmissionCountOrderByAggregateInput = {
     id?: SortOrder
     admissionNumber?: SortOrder
     firstName?: SortOrder
+    surname?: SortOrder
     lastName?: SortOrder
     otherNames?: SortOrder
     gender?: SortOrder
     dateOfBirth?: SortOrder
+    age?: SortOrder
+    ninNumber?: SortOrder
     placeOfBirth?: SortOrder
     nationality?: SortOrder
     stateOfOrigin?: SortOrder
     lga?: SortOrder
     religion?: SortOrder
     passportPhoto?: SortOrder
+    passportPhoto2?: SortOrder
+    passportPhoto3?: SortOrder
+    passportPhoto4?: SortOrder
     academicSessionId?: SortOrder
     admissionTerm?: SortOrder
     desiredClassId?: SortOrder
     desiredSectionId?: SortOrder
     admissionType?: SortOrder
-    previousSchool?: SortOrder
     transferReason?: SortOrder
     assessmentScore?: SortOrder
     status?: SortOrder
+    rejectionReason?: SortOrder
     guardianName?: SortOrder
     guardianRelation?: SortOrder
     guardianPhone?: SortOrder
@@ -139951,33 +142829,56 @@ export namespace Prisma {
     guardianAddress?: SortOrder
     guardianOccupation?: SortOrder
     guardianOfficeAddress?: SortOrder
+    fatherName?: SortOrder
+    fatherOccupation?: SortOrder
+    fatherPhone?: SortOrder
+    motherName?: SortOrder
+    motherOccupation?: SortOrder
+    motherPhone?: SortOrder
+    guardianContact1?: SortOrder
+    guardianContact2?: SortOrder
     secondaryGuardianName?: SortOrder
     secondaryGuardianPhone?: SortOrder
     secondaryGuardianRelation?: SortOrder
     address?: SortOrder
+    whatsappNumber?: SortOrder
+    languagesSpoken?: SortOrder
     city?: SortOrder
     state?: SortOrder
     country?: SortOrder
     emergencyContactName?: SortOrder
     emergencyContactPhone?: SortOrder
     emergencyContactRelation?: SortOrder
+    emergencySickness?: SortOrder
     bloodGroup?: SortOrder
     genotype?: SortOrder
     allergies?: SortOrder
     medicalConditions?: SortOrder
-    specialNeeds?: SortOrder
+    hasMedicalCondition?: SortOrder
+    medicalConditionInfo?: SortOrder
+    hasLearningDifficulty?: SortOrder
+    learningDifficultyInfo?: SortOrder
+    hasSpecialNeeds?: SortOrder
+    specialNeedsInfo?: SortOrder
     familyDoctorName?: SortOrder
     familyDoctorPhone?: SortOrder
-    hostelRequired?: SortOrder
-    preferredHostel?: SortOrder
-    hostelNotes?: SortOrder
-    transportRequired?: SortOrder
-    pickupLocation?: SortOrder
-    preferredRoute?: SortOrder
+    hasAppliedBefore?: SortOrder
+    howHeard?: SortOrder
+    seekingFinancialAid?: SortOrder
+    hasSiblingsInSchool?: SortOrder
+    siblingName?: SortOrder
+    siblingLevel?: SortOrder
     birthCertificateUrl?: SortOrder
     testimonialUrl?: SortOrder
     transferCertificateUrl?: SortOrder
     immunizationCardUrl?: SortOrder
+    ninUrl?: SortOrder
+    educationalCertUrl?: SortOrder
+    transferLetterUrl?: SortOrder
+    medicalReportUrl?: SortOrder
+    recommendationLetterUrl?: SortOrder
+    schoolReportUrl?: SortOrder
+    paymentProofUrl?: SortOrder
     branchId?: SortOrder
     createdByStaffId?: SortOrder
     admissionDate?: SortOrder
@@ -140008,6 +142909,7 @@ export namespace Prisma {
   }
 
   export type OnlineAdmissionAvgOrderByAggregateInput = {
+    age?: SortOrder
     assessmentScore?: SortOrder
   }
 
@@ -140015,25 +142917,31 @@ export namespace Prisma {
     id?: SortOrder
     admissionNumber?: SortOrder
     firstName?: SortOrder
+    surname?: SortOrder
     lastName?: SortOrder
     otherNames?: SortOrder
     gender?: SortOrder
     dateOfBirth?: SortOrder
+    age?: SortOrder
+    ninNumber?: SortOrder
     placeOfBirth?: SortOrder
     nationality?: SortOrder
     stateOfOrigin?: SortOrder
     lga?: SortOrder
     religion?: SortOrder
     passportPhoto?: SortOrder
+    passportPhoto2?: SortOrder
+    passportPhoto3?: SortOrder
+    passportPhoto4?: SortOrder
     academicSessionId?: SortOrder
     admissionTerm?: SortOrder
     desiredClassId?: SortOrder
     desiredSectionId?: SortOrder
     admissionType?: SortOrder
-    previousSchool?: SortOrder
     transferReason?: SortOrder
     assessmentScore?: SortOrder
     status?: SortOrder
+    rejectionReason?: SortOrder
     guardianName?: SortOrder
     guardianRelation?: SortOrder
     guardianPhone?: SortOrder
@@ -140041,33 +142949,56 @@ export namespace Prisma {
     guardianAddress?: SortOrder
     guardianOccupation?: SortOrder
     guardianOfficeAddress?: SortOrder
+    fatherName?: SortOrder
+    fatherOccupation?: SortOrder
+    fatherPhone?: SortOrder
+    motherName?: SortOrder
+    motherOccupation?: SortOrder
+    motherPhone?: SortOrder
+    guardianContact1?: SortOrder
+    guardianContact2?: SortOrder
     secondaryGuardianName?: SortOrder
     secondaryGuardianPhone?: SortOrder
     secondaryGuardianRelation?: SortOrder
     address?: SortOrder
+    whatsappNumber?: SortOrder
+    languagesSpoken?: SortOrder
     city?: SortOrder
     state?: SortOrder
     country?: SortOrder
     emergencyContactName?: SortOrder
     emergencyContactPhone?: SortOrder
     emergencyContactRelation?: SortOrder
+    emergencySickness?: SortOrder
     bloodGroup?: SortOrder
     genotype?: SortOrder
     allergies?: SortOrder
     medicalConditions?: SortOrder
-    specialNeeds?: SortOrder
+    hasMedicalCondition?: SortOrder
+    medicalConditionInfo?: SortOrder
+    hasLearningDifficulty?: SortOrder
+    learningDifficultyInfo?: SortOrder
+    hasSpecialNeeds?: SortOrder
+    specialNeedsInfo?: SortOrder
     familyDoctorName?: SortOrder
     familyDoctorPhone?: SortOrder
-    hostelRequired?: SortOrder
-    preferredHostel?: SortOrder
-    hostelNotes?: SortOrder
-    transportRequired?: SortOrder
-    pickupLocation?: SortOrder
-    preferredRoute?: SortOrder
+    hasAppliedBefore?: SortOrder
+    howHeard?: SortOrder
+    seekingFinancialAid?: SortOrder
+    hasSiblingsInSchool?: SortOrder
+    siblingName?: SortOrder
+    siblingLevel?: SortOrder
     birthCertificateUrl?: SortOrder
     testimonialUrl?: SortOrder
     transferCertificateUrl?: SortOrder
     immunizationCardUrl?: SortOrder
+    ninUrl?: SortOrder
+    educationalCertUrl?: SortOrder
+    transferLetterUrl?: SortOrder
+    medicalReportUrl?: SortOrder
+    recommendationLetterUrl?: SortOrder
+    schoolReportUrl?: SortOrder
+    paymentProofUrl?: SortOrder
     branchId?: SortOrder
     createdByStaffId?: SortOrder
     admissionDate?: SortOrder
@@ -140101,25 +143032,31 @@ export namespace Prisma {
     id?: SortOrder
     admissionNumber?: SortOrder
     firstName?: SortOrder
+    surname?: SortOrder
     lastName?: SortOrder
     otherNames?: SortOrder
     gender?: SortOrder
     dateOfBirth?: SortOrder
+    age?: SortOrder
+    ninNumber?: SortOrder
     placeOfBirth?: SortOrder
     nationality?: SortOrder
     stateOfOrigin?: SortOrder
     lga?: SortOrder
     religion?: SortOrder
     passportPhoto?: SortOrder
+    passportPhoto2?: SortOrder
+    passportPhoto3?: SortOrder
+    passportPhoto4?: SortOrder
     academicSessionId?: SortOrder
     admissionTerm?: SortOrder
     desiredClassId?: SortOrder
     desiredSectionId?: SortOrder
     admissionType?: SortOrder
-    previousSchool?: SortOrder
     transferReason?: SortOrder
     assessmentScore?: SortOrder
     status?: SortOrder
+    rejectionReason?: SortOrder
     guardianName?: SortOrder
     guardianRelation?: SortOrder
     guardianPhone?: SortOrder
@@ -140127,33 +143064,56 @@ export namespace Prisma {
     guardianAddress?: SortOrder
     guardianOccupation?: SortOrder
     guardianOfficeAddress?: SortOrder
+    fatherName?: SortOrder
+    fatherOccupation?: SortOrder
+    fatherPhone?: SortOrder
+    motherName?: SortOrder
+    motherOccupation?: SortOrder
+    motherPhone?: SortOrder
+    guardianContact1?: SortOrder
+    guardianContact2?: SortOrder
     secondaryGuardianName?: SortOrder
     secondaryGuardianPhone?: SortOrder
     secondaryGuardianRelation?: SortOrder
     address?: SortOrder
+    whatsappNumber?: SortOrder
+    languagesSpoken?: SortOrder
     city?: SortOrder
     state?: SortOrder
     country?: SortOrder
     emergencyContactName?: SortOrder
     emergencyContactPhone?: SortOrder
     emergencyContactRelation?: SortOrder
+    emergencySickness?: SortOrder
     bloodGroup?: SortOrder
     genotype?: SortOrder
     allergies?: SortOrder
     medicalConditions?: SortOrder
-    specialNeeds?: SortOrder
+    hasMedicalCondition?: SortOrder
+    medicalConditionInfo?: SortOrder
+    hasLearningDifficulty?: SortOrder
+    learningDifficultyInfo?: SortOrder
+    hasSpecialNeeds?: SortOrder
+    specialNeedsInfo?: SortOrder
     familyDoctorName?: SortOrder
     familyDoctorPhone?: SortOrder
-    hostelRequired?: SortOrder
-    preferredHostel?: SortOrder
-    hostelNotes?: SortOrder
-    transportRequired?: SortOrder
-    pickupLocation?: SortOrder
-    preferredRoute?: SortOrder
+    hasAppliedBefore?: SortOrder
+    howHeard?: SortOrder
+    seekingFinancialAid?: SortOrder
+    hasSiblingsInSchool?: SortOrder
+    siblingName?: SortOrder
+    siblingLevel?: SortOrder
     birthCertificateUrl?: SortOrder
     testimonialUrl?: SortOrder
     transferCertificateUrl?: SortOrder
     immunizationCardUrl?: SortOrder
+    ninUrl?: SortOrder
+    educationalCertUrl?: SortOrder
+    transferLetterUrl?: SortOrder
+    medicalReportUrl?: SortOrder
+    recommendationLetterUrl?: SortOrder
+    schoolReportUrl?: SortOrder
+    paymentProofUrl?: SortOrder
     branchId?: SortOrder
     createdByStaffId?: SortOrder
     admissionDate?: SortOrder
@@ -140184,6 +143144,7 @@ export namespace Prisma {
   }
 
   export type OnlineAdmissionSumOrderByAggregateInput = {
+    age?: SortOrder
     assessmentScore?: SortOrder
   }
 
@@ -140195,6 +143156,38 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedEnumTermNullableFilter<$PrismaModel>
     _max?: NestedEnumTermNullableFilter<$PrismaModel>
+  }
+
+  export type OnlineAdmissionScalarRelationFilter = {
+    is?: OnlineAdmissionWhereInput
+    isNot?: OnlineAdmissionWhereInput
+  }
+
+  export type PreviousSchoolCountOrderByAggregateInput = {
+    id?: SortOrder
+    institutionName?: SortOrder
+    address?: SortOrder
+    fromYear?: SortOrder
+    toYear?: SortOrder
+    admissionId?: SortOrder
+  }
+
+  export type PreviousSchoolMaxOrderByAggregateInput = {
+    id?: SortOrder
+    institutionName?: SortOrder
+    address?: SortOrder
+    fromYear?: SortOrder
+    toYear?: SortOrder
+    admissionId?: SortOrder
+  }
+
+  export type PreviousSchoolMinOrderByAggregateInput = {
+    id?: SortOrder
+    institutionName?: SortOrder
+    address?: SortOrder
+    fromYear?: SortOrder
+    toYear?: SortOrder
+    admissionId?: SortOrder
   }
 
   export type AdmissionEnquiryCountOrderByAggregateInput = {
@@ -144757,6 +147750,14 @@ export namespace Prisma {
     set?: Date | string | null
   }
 
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type UserUpdateOneWithoutStudentNestedInput = {
     create?: XOR<UserCreateWithoutStudentInput, UserUncheckedCreateWithoutStudentInput>
     connectOrCreate?: UserCreateOrConnectWithoutStudentInput
@@ -145455,14 +148456,6 @@ export namespace Prisma {
     connectOrCreate?: DigitalResourceCreateOrConnectWithoutClassInput | DigitalResourceCreateOrConnectWithoutClassInput[]
     createMany?: DigitalResourceCreateManyClassInputEnvelope
     connect?: DigitalResourceWhereUniqueInput | DigitalResourceWhereUniqueInput[]
-  }
-
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type BranchUpdateOneRequiredWithoutClassesNestedInput = {
@@ -148891,6 +151884,13 @@ export namespace Prisma {
     connect?: SectionWhereUniqueInput
   }
 
+  export type PreviousSchoolCreateNestedManyWithoutAdmissionInput = {
+    create?: XOR<PreviousSchoolCreateWithoutAdmissionInput, PreviousSchoolUncheckedCreateWithoutAdmissionInput> | PreviousSchoolCreateWithoutAdmissionInput[] | PreviousSchoolUncheckedCreateWithoutAdmissionInput[]
+    connectOrCreate?: PreviousSchoolCreateOrConnectWithoutAdmissionInput | PreviousSchoolCreateOrConnectWithoutAdmissionInput[]
+    createMany?: PreviousSchoolCreateManyAdmissionInputEnvelope
+    connect?: PreviousSchoolWhereUniqueInput | PreviousSchoolWhereUniqueInput[]
+  }
+
   export type BranchCreateNestedOneWithoutOnlineAdmissionsInput = {
     create?: XOR<BranchCreateWithoutOnlineAdmissionsInput, BranchUncheckedCreateWithoutOnlineAdmissionsInput>
     connectOrCreate?: BranchCreateOrConnectWithoutOnlineAdmissionsInput
@@ -148907,6 +151907,13 @@ export namespace Prisma {
     create?: XOR<UserCreateWithoutOnlineAdmissionsInput, UserUncheckedCreateWithoutOnlineAdmissionsInput>
     connectOrCreate?: UserCreateOrConnectWithoutOnlineAdmissionsInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type PreviousSchoolUncheckedCreateNestedManyWithoutAdmissionInput = {
+    create?: XOR<PreviousSchoolCreateWithoutAdmissionInput, PreviousSchoolUncheckedCreateWithoutAdmissionInput> | PreviousSchoolCreateWithoutAdmissionInput[] | PreviousSchoolUncheckedCreateWithoutAdmissionInput[]
+    connectOrCreate?: PreviousSchoolCreateOrConnectWithoutAdmissionInput | PreviousSchoolCreateOrConnectWithoutAdmissionInput[]
+    createMany?: PreviousSchoolCreateManyAdmissionInputEnvelope
+    connect?: PreviousSchoolWhereUniqueInput | PreviousSchoolWhereUniqueInput[]
   }
 
   export type NullableEnumTermFieldUpdateOperationsInput = {
@@ -148941,6 +151948,20 @@ export namespace Prisma {
     update?: XOR<XOR<SectionUpdateToOneWithWhereWithoutOnlineAdmissionsInput, SectionUpdateWithoutOnlineAdmissionsInput>, SectionUncheckedUpdateWithoutOnlineAdmissionsInput>
   }
 
+  export type PreviousSchoolUpdateManyWithoutAdmissionNestedInput = {
+    create?: XOR<PreviousSchoolCreateWithoutAdmissionInput, PreviousSchoolUncheckedCreateWithoutAdmissionInput> | PreviousSchoolCreateWithoutAdmissionInput[] | PreviousSchoolUncheckedCreateWithoutAdmissionInput[]
+    connectOrCreate?: PreviousSchoolCreateOrConnectWithoutAdmissionInput | PreviousSchoolCreateOrConnectWithoutAdmissionInput[]
+    upsert?: PreviousSchoolUpsertWithWhereUniqueWithoutAdmissionInput | PreviousSchoolUpsertWithWhereUniqueWithoutAdmissionInput[]
+    createMany?: PreviousSchoolCreateManyAdmissionInputEnvelope
+    set?: PreviousSchoolWhereUniqueInput | PreviousSchoolWhereUniqueInput[]
+    disconnect?: PreviousSchoolWhereUniqueInput | PreviousSchoolWhereUniqueInput[]
+    delete?: PreviousSchoolWhereUniqueInput | PreviousSchoolWhereUniqueInput[]
+    connect?: PreviousSchoolWhereUniqueInput | PreviousSchoolWhereUniqueInput[]
+    update?: PreviousSchoolUpdateWithWhereUniqueWithoutAdmissionInput | PreviousSchoolUpdateWithWhereUniqueWithoutAdmissionInput[]
+    updateMany?: PreviousSchoolUpdateManyWithWhereWithoutAdmissionInput | PreviousSchoolUpdateManyWithWhereWithoutAdmissionInput[]
+    deleteMany?: PreviousSchoolScalarWhereInput | PreviousSchoolScalarWhereInput[]
+  }
+
   export type BranchUpdateOneRequiredWithoutOnlineAdmissionsNestedInput = {
     create?: XOR<BranchCreateWithoutOnlineAdmissionsInput, BranchUncheckedCreateWithoutOnlineAdmissionsInput>
     connectOrCreate?: BranchCreateOrConnectWithoutOnlineAdmissionsInput
@@ -148967,6 +151988,34 @@ export namespace Prisma {
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutOnlineAdmissionsInput, UserUpdateWithoutOnlineAdmissionsInput>, UserUncheckedUpdateWithoutOnlineAdmissionsInput>
+  }
+
+  export type PreviousSchoolUncheckedUpdateManyWithoutAdmissionNestedInput = {
+    create?: XOR<PreviousSchoolCreateWithoutAdmissionInput, PreviousSchoolUncheckedCreateWithoutAdmissionInput> | PreviousSchoolCreateWithoutAdmissionInput[] | PreviousSchoolUncheckedCreateWithoutAdmissionInput[]
+    connectOrCreate?: PreviousSchoolCreateOrConnectWithoutAdmissionInput | PreviousSchoolCreateOrConnectWithoutAdmissionInput[]
+    upsert?: PreviousSchoolUpsertWithWhereUniqueWithoutAdmissionInput | PreviousSchoolUpsertWithWhereUniqueWithoutAdmissionInput[]
+    createMany?: PreviousSchoolCreateManyAdmissionInputEnvelope
+    set?: PreviousSchoolWhereUniqueInput | PreviousSchoolWhereUniqueInput[]
+    disconnect?: PreviousSchoolWhereUniqueInput | PreviousSchoolWhereUniqueInput[]
+    delete?: PreviousSchoolWhereUniqueInput | PreviousSchoolWhereUniqueInput[]
+    connect?: PreviousSchoolWhereUniqueInput | PreviousSchoolWhereUniqueInput[]
+    update?: PreviousSchoolUpdateWithWhereUniqueWithoutAdmissionInput | PreviousSchoolUpdateWithWhereUniqueWithoutAdmissionInput[]
+    updateMany?: PreviousSchoolUpdateManyWithWhereWithoutAdmissionInput | PreviousSchoolUpdateManyWithWhereWithoutAdmissionInput[]
+    deleteMany?: PreviousSchoolScalarWhereInput | PreviousSchoolScalarWhereInput[]
+  }
+
+  export type OnlineAdmissionCreateNestedOneWithoutPreviousSchoolsInput = {
+    create?: XOR<OnlineAdmissionCreateWithoutPreviousSchoolsInput, OnlineAdmissionUncheckedCreateWithoutPreviousSchoolsInput>
+    connectOrCreate?: OnlineAdmissionCreateOrConnectWithoutPreviousSchoolsInput
+    connect?: OnlineAdmissionWhereUniqueInput
+  }
+
+  export type OnlineAdmissionUpdateOneRequiredWithoutPreviousSchoolsNestedInput = {
+    create?: XOR<OnlineAdmissionCreateWithoutPreviousSchoolsInput, OnlineAdmissionUncheckedCreateWithoutPreviousSchoolsInput>
+    connectOrCreate?: OnlineAdmissionCreateOrConnectWithoutPreviousSchoolsInput
+    upsert?: OnlineAdmissionUpsertWithoutPreviousSchoolsInput
+    connect?: OnlineAdmissionWhereUniqueInput
+    update?: XOR<XOR<OnlineAdmissionUpdateToOneWithWhereWithoutPreviousSchoolsInput, OnlineAdmissionUpdateWithoutPreviousSchoolsInput>, OnlineAdmissionUncheckedUpdateWithoutPreviousSchoolsInput>
   }
 
   export type BranchCreateNestedOneWithoutEnquiriesInput = {
@@ -150450,6 +153499,33 @@ export namespace Prisma {
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
   export type NestedJsonNullableFilter<$PrismaModel = never> =
     | PatchUndefined<
         Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
@@ -150495,33 +153571,6 @@ export namespace Prisma {
     gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
-
-  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -150867,7 +153916,10 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -150876,26 +153928,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -150930,11 +154003,14 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
     classId?: string | null
     sectionId?: string | null
     parentId?: string | null
     categoryId?: string | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -150943,26 +154019,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -151587,22 +154684,28 @@ export namespace Prisma {
     id?: string
     admissionNumber?: string | null
     firstName: string
+    surname?: string | null
     lastName: string
     otherNames?: string | null
     gender: string
     dateOfBirth: Date | string
+    age?: number | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
     lga?: string | null
     religion?: string | null
     passportPhoto?: string | null
+    passportPhoto2?: string | null
+    passportPhoto3?: string | null
+    passportPhoto4?: string | null
     admissionTerm?: $Enums.Term | null
     admissionType?: string | null
-    previousSchool?: string | null
     transferReason?: string | null
     assessmentScore?: number | null
     status?: string
+    rejectionReason?: string | null
     guardianName: string
     guardianRelation?: string | null
     guardianPhone: string
@@ -151610,33 +154713,56 @@ export namespace Prisma {
     guardianAddress?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
+    guardianContact1?: string | null
+    guardianContact2?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
     address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
-    hostelRequired?: boolean
-    preferredHostel?: string | null
-    hostelNotes?: string | null
-    transportRequired?: boolean
-    pickupLocation?: string | null
-    preferredRoute?: string | null
+    hasAppliedBefore?: boolean
+    howHeard?: string | null
+    seekingFinancialAid?: boolean
+    hasSiblingsInSchool?: boolean
+    siblingName?: string | null
+    siblingLevel?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
+    paymentProofUrl?: string | null
     createdByStaffId?: string | null
     admissionDate?: Date | string | null
     approvalDate?: Date | string | null
@@ -151664,6 +154790,7 @@ export namespace Prisma {
     academicSession?: AcademicSessionCreateNestedOneWithoutOnlineAdmissionsInput
     desiredClass: ClassCreateNestedOneWithoutOnlineAdmissionsInput
     desiredSection?: SectionCreateNestedOneWithoutOnlineAdmissionsInput
+    previousSchools?: PreviousSchoolCreateNestedManyWithoutAdmissionInput
     studentCategory?: StudentCategoryCreateNestedOneWithoutOnlineAdmissionsInput
     parent?: UserCreateNestedOneWithoutOnlineAdmissionsInput
   }
@@ -151672,25 +154799,31 @@ export namespace Prisma {
     id?: string
     admissionNumber?: string | null
     firstName: string
+    surname?: string | null
     lastName: string
     otherNames?: string | null
     gender: string
     dateOfBirth: Date | string
+    age?: number | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
     lga?: string | null
     religion?: string | null
     passportPhoto?: string | null
+    passportPhoto2?: string | null
+    passportPhoto3?: string | null
+    passportPhoto4?: string | null
     academicSessionId?: string | null
     admissionTerm?: $Enums.Term | null
     desiredClassId: string
     desiredSectionId?: string | null
     admissionType?: string | null
-    previousSchool?: string | null
     transferReason?: string | null
     assessmentScore?: number | null
     status?: string
+    rejectionReason?: string | null
     guardianName: string
     guardianRelation?: string | null
     guardianPhone: string
@@ -151698,33 +154831,56 @@ export namespace Prisma {
     guardianAddress?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
+    guardianContact1?: string | null
+    guardianContact2?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
     address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
-    hostelRequired?: boolean
-    preferredHostel?: string | null
-    hostelNotes?: string | null
-    transportRequired?: boolean
-    pickupLocation?: string | null
-    preferredRoute?: string | null
+    hasAppliedBefore?: boolean
+    howHeard?: string | null
+    seekingFinancialAid?: boolean
+    hasSiblingsInSchool?: boolean
+    siblingName?: string | null
+    siblingLevel?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
+    paymentProofUrl?: string | null
     createdByStaffId?: string | null
     admissionDate?: Date | string | null
     approvalDate?: Date | string | null
@@ -151751,6 +154907,7 @@ export namespace Prisma {
     paymentMethod?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    previousSchools?: PreviousSchoolUncheckedCreateNestedManyWithoutAdmissionInput
   }
 
   export type OnlineAdmissionCreateOrConnectWithoutBranchInput = {
@@ -152735,12 +155892,15 @@ export namespace Prisma {
     firstName?: StringFilter<"Student"> | string
     lastName?: StringFilter<"Student"> | string
     dob?: DateTimeNullableFilter<"Student"> | Date | string | null
+    age?: IntNullableFilter<"Student"> | number | null
     branchId?: StringFilter<"Student"> | string
     classId?: StringNullableFilter<"Student"> | string | null
     sectionId?: StringNullableFilter<"Student"> | string | null
     parentId?: StringNullableFilter<"Student"> | string | null
     categoryId?: StringNullableFilter<"Student"> | string | null
+    surname?: StringNullableFilter<"Student"> | string | null
     otherNames?: StringNullableFilter<"Student"> | string | null
+    ninNumber?: StringNullableFilter<"Student"> | string | null
     placeOfBirth?: StringNullableFilter<"Student"> | string | null
     nationality?: StringNullableFilter<"Student"> | string | null
     stateOfOrigin?: StringNullableFilter<"Student"> | string | null
@@ -152749,26 +155909,47 @@ export namespace Prisma {
     passportPhoto?: StringNullableFilter<"Student"> | string | null
     guardianOccupation?: StringNullableFilter<"Student"> | string | null
     guardianOfficeAddress?: StringNullableFilter<"Student"> | string | null
+    fatherName?: StringNullableFilter<"Student"> | string | null
+    fatherOccupation?: StringNullableFilter<"Student"> | string | null
+    fatherPhone?: StringNullableFilter<"Student"> | string | null
+    motherName?: StringNullableFilter<"Student"> | string | null
+    motherOccupation?: StringNullableFilter<"Student"> | string | null
+    motherPhone?: StringNullableFilter<"Student"> | string | null
     secondaryGuardianName?: StringNullableFilter<"Student"> | string | null
     secondaryGuardianPhone?: StringNullableFilter<"Student"> | string | null
     secondaryGuardianRelation?: StringNullableFilter<"Student"> | string | null
+    address?: StringNullableFilter<"Student"> | string | null
+    whatsappNumber?: StringNullableFilter<"Student"> | string | null
+    languagesSpoken?: StringNullableFilter<"Student"> | string | null
     city?: StringNullableFilter<"Student"> | string | null
     state?: StringNullableFilter<"Student"> | string | null
     country?: StringNullableFilter<"Student"> | string | null
     emergencyContactName?: StringNullableFilter<"Student"> | string | null
     emergencyContactPhone?: StringNullableFilter<"Student"> | string | null
     emergencyContactRelation?: StringNullableFilter<"Student"> | string | null
+    emergencySickness?: StringNullableFilter<"Student"> | string | null
     bloodGroup?: StringNullableFilter<"Student"> | string | null
     genotype?: StringNullableFilter<"Student"> | string | null
     allergies?: StringNullableFilter<"Student"> | string | null
     medicalConditions?: StringNullableFilter<"Student"> | string | null
-    specialNeeds?: StringNullableFilter<"Student"> | string | null
+    hasMedicalCondition?: BoolFilter<"Student"> | boolean
+    medicalConditionInfo?: StringNullableFilter<"Student"> | string | null
+    hasLearningDifficulty?: BoolFilter<"Student"> | boolean
+    learningDifficultyInfo?: StringNullableFilter<"Student"> | string | null
+    hasSpecialNeeds?: BoolFilter<"Student"> | boolean
+    specialNeedsInfo?: StringNullableFilter<"Student"> | string | null
     familyDoctorName?: StringNullableFilter<"Student"> | string | null
     familyDoctorPhone?: StringNullableFilter<"Student"> | string | null
     birthCertificateUrl?: StringNullableFilter<"Student"> | string | null
     testimonialUrl?: StringNullableFilter<"Student"> | string | null
     transferCertificateUrl?: StringNullableFilter<"Student"> | string | null
     immunizationCardUrl?: StringNullableFilter<"Student"> | string | null
+    ninUrl?: StringNullableFilter<"Student"> | string | null
+    educationalCertUrl?: StringNullableFilter<"Student"> | string | null
+    transferLetterUrl?: StringNullableFilter<"Student"> | string | null
+    medicalReportUrl?: StringNullableFilter<"Student"> | string | null
+    recommendationLetterUrl?: StringNullableFilter<"Student"> | string | null
+    schoolReportUrl?: StringNullableFilter<"Student"> | string | null
     preferredLanguage?: StringNullableFilter<"Student"> | string | null
     religionClassType?: StringNullableFilter<"Student"> | string | null
     scholarshipEligible?: BoolFilter<"Student"> | boolean
@@ -153319,25 +156500,31 @@ export namespace Prisma {
     id?: StringFilter<"OnlineAdmission"> | string
     admissionNumber?: StringNullableFilter<"OnlineAdmission"> | string | null
     firstName?: StringFilter<"OnlineAdmission"> | string
+    surname?: StringNullableFilter<"OnlineAdmission"> | string | null
     lastName?: StringFilter<"OnlineAdmission"> | string
     otherNames?: StringNullableFilter<"OnlineAdmission"> | string | null
     gender?: StringFilter<"OnlineAdmission"> | string
     dateOfBirth?: DateTimeFilter<"OnlineAdmission"> | Date | string
+    age?: IntNullableFilter<"OnlineAdmission"> | number | null
+    ninNumber?: StringNullableFilter<"OnlineAdmission"> | string | null
     placeOfBirth?: StringNullableFilter<"OnlineAdmission"> | string | null
     nationality?: StringNullableFilter<"OnlineAdmission"> | string | null
     stateOfOrigin?: StringNullableFilter<"OnlineAdmission"> | string | null
     lga?: StringNullableFilter<"OnlineAdmission"> | string | null
     religion?: StringNullableFilter<"OnlineAdmission"> | string | null
     passportPhoto?: StringNullableFilter<"OnlineAdmission"> | string | null
+    passportPhoto2?: StringNullableFilter<"OnlineAdmission"> | string | null
+    passportPhoto3?: StringNullableFilter<"OnlineAdmission"> | string | null
+    passportPhoto4?: StringNullableFilter<"OnlineAdmission"> | string | null
     academicSessionId?: StringNullableFilter<"OnlineAdmission"> | string | null
     admissionTerm?: EnumTermNullableFilter<"OnlineAdmission"> | $Enums.Term | null
     desiredClassId?: StringFilter<"OnlineAdmission"> | string
     desiredSectionId?: StringNullableFilter<"OnlineAdmission"> | string | null
     admissionType?: StringNullableFilter<"OnlineAdmission"> | string | null
-    previousSchool?: StringNullableFilter<"OnlineAdmission"> | string | null
     transferReason?: StringNullableFilter<"OnlineAdmission"> | string | null
     assessmentScore?: FloatNullableFilter<"OnlineAdmission"> | number | null
     status?: StringFilter<"OnlineAdmission"> | string
+    rejectionReason?: StringNullableFilter<"OnlineAdmission"> | string | null
     guardianName?: StringFilter<"OnlineAdmission"> | string
     guardianRelation?: StringNullableFilter<"OnlineAdmission"> | string | null
     guardianPhone?: StringFilter<"OnlineAdmission"> | string
@@ -153345,33 +156532,56 @@ export namespace Prisma {
     guardianAddress?: StringNullableFilter<"OnlineAdmission"> | string | null
     guardianOccupation?: StringNullableFilter<"OnlineAdmission"> | string | null
     guardianOfficeAddress?: StringNullableFilter<"OnlineAdmission"> | string | null
+    fatherName?: StringNullableFilter<"OnlineAdmission"> | string | null
+    fatherOccupation?: StringNullableFilter<"OnlineAdmission"> | string | null
+    fatherPhone?: StringNullableFilter<"OnlineAdmission"> | string | null
+    motherName?: StringNullableFilter<"OnlineAdmission"> | string | null
+    motherOccupation?: StringNullableFilter<"OnlineAdmission"> | string | null
+    motherPhone?: StringNullableFilter<"OnlineAdmission"> | string | null
+    guardianContact1?: StringNullableFilter<"OnlineAdmission"> | string | null
+    guardianContact2?: StringNullableFilter<"OnlineAdmission"> | string | null
     secondaryGuardianName?: StringNullableFilter<"OnlineAdmission"> | string | null
     secondaryGuardianPhone?: StringNullableFilter<"OnlineAdmission"> | string | null
     secondaryGuardianRelation?: StringNullableFilter<"OnlineAdmission"> | string | null
     address?: StringNullableFilter<"OnlineAdmission"> | string | null
+    whatsappNumber?: StringNullableFilter<"OnlineAdmission"> | string | null
+    languagesSpoken?: StringNullableFilter<"OnlineAdmission"> | string | null
     city?: StringNullableFilter<"OnlineAdmission"> | string | null
     state?: StringNullableFilter<"OnlineAdmission"> | string | null
     country?: StringNullableFilter<"OnlineAdmission"> | string | null
     emergencyContactName?: StringNullableFilter<"OnlineAdmission"> | string | null
     emergencyContactPhone?: StringNullableFilter<"OnlineAdmission"> | string | null
     emergencyContactRelation?: StringNullableFilter<"OnlineAdmission"> | string | null
+    emergencySickness?: StringNullableFilter<"OnlineAdmission"> | string | null
     bloodGroup?: StringNullableFilter<"OnlineAdmission"> | string | null
     genotype?: StringNullableFilter<"OnlineAdmission"> | string | null
     allergies?: StringNullableFilter<"OnlineAdmission"> | string | null
     medicalConditions?: StringNullableFilter<"OnlineAdmission"> | string | null
-    specialNeeds?: StringNullableFilter<"OnlineAdmission"> | string | null
+    hasMedicalCondition?: BoolFilter<"OnlineAdmission"> | boolean
+    medicalConditionInfo?: StringNullableFilter<"OnlineAdmission"> | string | null
+    hasLearningDifficulty?: BoolFilter<"OnlineAdmission"> | boolean
+    learningDifficultyInfo?: StringNullableFilter<"OnlineAdmission"> | string | null
+    hasSpecialNeeds?: BoolFilter<"OnlineAdmission"> | boolean
+    specialNeedsInfo?: StringNullableFilter<"OnlineAdmission"> | string | null
     familyDoctorName?: StringNullableFilter<"OnlineAdmission"> | string | null
     familyDoctorPhone?: StringNullableFilter<"OnlineAdmission"> | string | null
-    hostelRequired?: BoolFilter<"OnlineAdmission"> | boolean
-    preferredHostel?: StringNullableFilter<"OnlineAdmission"> | string | null
-    hostelNotes?: StringNullableFilter<"OnlineAdmission"> | string | null
-    transportRequired?: BoolFilter<"OnlineAdmission"> | boolean
-    pickupLocation?: StringNullableFilter<"OnlineAdmission"> | string | null
-    preferredRoute?: StringNullableFilter<"OnlineAdmission"> | string | null
+    hasAppliedBefore?: BoolFilter<"OnlineAdmission"> | boolean
+    howHeard?: StringNullableFilter<"OnlineAdmission"> | string | null
+    seekingFinancialAid?: BoolFilter<"OnlineAdmission"> | boolean
+    hasSiblingsInSchool?: BoolFilter<"OnlineAdmission"> | boolean
+    siblingName?: StringNullableFilter<"OnlineAdmission"> | string | null
+    siblingLevel?: StringNullableFilter<"OnlineAdmission"> | string | null
     birthCertificateUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
     testimonialUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
     transferCertificateUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
     immunizationCardUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
+    ninUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
+    educationalCertUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
+    transferLetterUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
+    medicalReportUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
+    recommendationLetterUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
+    schoolReportUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
+    paymentProofUrl?: StringNullableFilter<"OnlineAdmission"> | string | null
     branchId?: StringFilter<"OnlineAdmission"> | string
     createdByStaffId?: StringNullableFilter<"OnlineAdmission"> | string | null
     admissionDate?: DateTimeNullableFilter<"OnlineAdmission"> | Date | string | null
@@ -154982,7 +158192,10 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -154991,26 +158204,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -155044,12 +158278,15 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
     branchId: string
     classId?: string | null
     sectionId?: string | null
     parentId?: string | null
     categoryId?: string | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -155058,26 +158295,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -155111,7 +158369,10 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -155120,26 +158381,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -155174,11 +158456,14 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
     branchId: string
     classId?: string | null
     sectionId?: string | null
     categoryId?: string | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -155187,26 +158472,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -155490,22 +158796,28 @@ export namespace Prisma {
     id?: string
     admissionNumber?: string | null
     firstName: string
+    surname?: string | null
     lastName: string
     otherNames?: string | null
     gender: string
     dateOfBirth: Date | string
+    age?: number | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
     lga?: string | null
     religion?: string | null
     passportPhoto?: string | null
+    passportPhoto2?: string | null
+    passportPhoto3?: string | null
+    passportPhoto4?: string | null
     admissionTerm?: $Enums.Term | null
     admissionType?: string | null
-    previousSchool?: string | null
     transferReason?: string | null
     assessmentScore?: number | null
     status?: string
+    rejectionReason?: string | null
     guardianName: string
     guardianRelation?: string | null
     guardianPhone: string
@@ -155513,33 +158825,56 @@ export namespace Prisma {
     guardianAddress?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
+    guardianContact1?: string | null
+    guardianContact2?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
     address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
-    hostelRequired?: boolean
-    preferredHostel?: string | null
-    hostelNotes?: string | null
-    transportRequired?: boolean
-    pickupLocation?: string | null
-    preferredRoute?: string | null
+    hasAppliedBefore?: boolean
+    howHeard?: string | null
+    seekingFinancialAid?: boolean
+    hasSiblingsInSchool?: boolean
+    siblingName?: string | null
+    siblingLevel?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
+    paymentProofUrl?: string | null
     createdByStaffId?: string | null
     admissionDate?: Date | string | null
     approvalDate?: Date | string | null
@@ -155567,6 +158902,7 @@ export namespace Prisma {
     academicSession?: AcademicSessionCreateNestedOneWithoutOnlineAdmissionsInput
     desiredClass: ClassCreateNestedOneWithoutOnlineAdmissionsInput
     desiredSection?: SectionCreateNestedOneWithoutOnlineAdmissionsInput
+    previousSchools?: PreviousSchoolCreateNestedManyWithoutAdmissionInput
     branch: BranchCreateNestedOneWithoutOnlineAdmissionsInput
     studentCategory?: StudentCategoryCreateNestedOneWithoutOnlineAdmissionsInput
   }
@@ -155575,25 +158911,31 @@ export namespace Prisma {
     id?: string
     admissionNumber?: string | null
     firstName: string
+    surname?: string | null
     lastName: string
     otherNames?: string | null
     gender: string
     dateOfBirth: Date | string
+    age?: number | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
     lga?: string | null
     religion?: string | null
     passportPhoto?: string | null
+    passportPhoto2?: string | null
+    passportPhoto3?: string | null
+    passportPhoto4?: string | null
     academicSessionId?: string | null
     admissionTerm?: $Enums.Term | null
     desiredClassId: string
     desiredSectionId?: string | null
     admissionType?: string | null
-    previousSchool?: string | null
     transferReason?: string | null
     assessmentScore?: number | null
     status?: string
+    rejectionReason?: string | null
     guardianName: string
     guardianRelation?: string | null
     guardianPhone: string
@@ -155601,33 +158943,56 @@ export namespace Prisma {
     guardianAddress?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
+    guardianContact1?: string | null
+    guardianContact2?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
     address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
-    hostelRequired?: boolean
-    preferredHostel?: string | null
-    hostelNotes?: string | null
-    transportRequired?: boolean
-    pickupLocation?: string | null
-    preferredRoute?: string | null
+    hasAppliedBefore?: boolean
+    howHeard?: string | null
+    seekingFinancialAid?: boolean
+    hasSiblingsInSchool?: boolean
+    siblingName?: string | null
+    siblingLevel?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
+    paymentProofUrl?: string | null
     branchId: string
     createdByStaffId?: string | null
     admissionDate?: Date | string | null
@@ -155654,6 +159019,7 @@ export namespace Prisma {
     paymentMethod?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    previousSchools?: PreviousSchoolUncheckedCreateNestedManyWithoutAdmissionInput
   }
 
   export type OnlineAdmissionCreateOrConnectWithoutParentInput = {
@@ -155892,7 +159258,10 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -155901,26 +159270,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -155954,12 +159344,15 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
     branchId?: StringFieldUpdateOperationsInput | string
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -155968,26 +159361,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -159066,7 +162480,10 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -159075,26 +162492,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -159129,12 +162567,15 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
     branchId: string
     classId?: string | null
     sectionId?: string | null
     parentId?: string | null
     categoryId?: string | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -159143,26 +162584,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -159407,7 +162869,10 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -159416,26 +162881,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -159470,12 +162956,15 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
     branchId?: StringFieldUpdateOperationsInput | string
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -159484,26 +162973,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -160205,7 +163715,10 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -160214,26 +163727,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -160268,11 +163802,14 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
     branchId: string
     sectionId?: string | null
     parentId?: string | null
     categoryId?: string | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -160281,26 +163818,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -160487,22 +164045,28 @@ export namespace Prisma {
     id?: string
     admissionNumber?: string | null
     firstName: string
+    surname?: string | null
     lastName: string
     otherNames?: string | null
     gender: string
     dateOfBirth: Date | string
+    age?: number | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
     lga?: string | null
     religion?: string | null
     passportPhoto?: string | null
+    passportPhoto2?: string | null
+    passportPhoto3?: string | null
+    passportPhoto4?: string | null
     admissionTerm?: $Enums.Term | null
     admissionType?: string | null
-    previousSchool?: string | null
     transferReason?: string | null
     assessmentScore?: number | null
     status?: string
+    rejectionReason?: string | null
     guardianName: string
     guardianRelation?: string | null
     guardianPhone: string
@@ -160510,33 +164074,56 @@ export namespace Prisma {
     guardianAddress?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
+    guardianContact1?: string | null
+    guardianContact2?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
     address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
-    hostelRequired?: boolean
-    preferredHostel?: string | null
-    hostelNotes?: string | null
-    transportRequired?: boolean
-    pickupLocation?: string | null
-    preferredRoute?: string | null
+    hasAppliedBefore?: boolean
+    howHeard?: string | null
+    seekingFinancialAid?: boolean
+    hasSiblingsInSchool?: boolean
+    siblingName?: string | null
+    siblingLevel?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
+    paymentProofUrl?: string | null
     createdByStaffId?: string | null
     admissionDate?: Date | string | null
     approvalDate?: Date | string | null
@@ -160563,6 +164150,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     academicSession?: AcademicSessionCreateNestedOneWithoutOnlineAdmissionsInput
     desiredSection?: SectionCreateNestedOneWithoutOnlineAdmissionsInput
+    previousSchools?: PreviousSchoolCreateNestedManyWithoutAdmissionInput
     branch: BranchCreateNestedOneWithoutOnlineAdmissionsInput
     studentCategory?: StudentCategoryCreateNestedOneWithoutOnlineAdmissionsInput
     parent?: UserCreateNestedOneWithoutOnlineAdmissionsInput
@@ -160572,24 +164160,30 @@ export namespace Prisma {
     id?: string
     admissionNumber?: string | null
     firstName: string
+    surname?: string | null
     lastName: string
     otherNames?: string | null
     gender: string
     dateOfBirth: Date | string
+    age?: number | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
     lga?: string | null
     religion?: string | null
     passportPhoto?: string | null
+    passportPhoto2?: string | null
+    passportPhoto3?: string | null
+    passportPhoto4?: string | null
     academicSessionId?: string | null
     admissionTerm?: $Enums.Term | null
     desiredSectionId?: string | null
     admissionType?: string | null
-    previousSchool?: string | null
     transferReason?: string | null
     assessmentScore?: number | null
     status?: string
+    rejectionReason?: string | null
     guardianName: string
     guardianRelation?: string | null
     guardianPhone: string
@@ -160597,33 +164191,56 @@ export namespace Prisma {
     guardianAddress?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
+    guardianContact1?: string | null
+    guardianContact2?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
     address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
-    hostelRequired?: boolean
-    preferredHostel?: string | null
-    hostelNotes?: string | null
-    transportRequired?: boolean
-    pickupLocation?: string | null
-    preferredRoute?: string | null
+    hasAppliedBefore?: boolean
+    howHeard?: string | null
+    seekingFinancialAid?: boolean
+    hasSiblingsInSchool?: boolean
+    siblingName?: string | null
+    siblingLevel?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
+    paymentProofUrl?: string | null
     branchId: string
     createdByStaffId?: string | null
     admissionDate?: Date | string | null
@@ -160651,6 +164268,7 @@ export namespace Prisma {
     paymentMethod?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    previousSchools?: PreviousSchoolUncheckedCreateNestedManyWithoutAdmissionInput
   }
 
   export type OnlineAdmissionCreateOrConnectWithoutDesiredClassInput = {
@@ -161169,7 +164787,10 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -161178,26 +164799,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -161232,11 +164874,14 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
     branchId: string
     classId?: string | null
     parentId?: string | null
     categoryId?: string | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -161245,26 +164890,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -161498,22 +165164,28 @@ export namespace Prisma {
     id?: string
     admissionNumber?: string | null
     firstName: string
+    surname?: string | null
     lastName: string
     otherNames?: string | null
     gender: string
     dateOfBirth: Date | string
+    age?: number | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
     lga?: string | null
     religion?: string | null
     passportPhoto?: string | null
+    passportPhoto2?: string | null
+    passportPhoto3?: string | null
+    passportPhoto4?: string | null
     admissionTerm?: $Enums.Term | null
     admissionType?: string | null
-    previousSchool?: string | null
     transferReason?: string | null
     assessmentScore?: number | null
     status?: string
+    rejectionReason?: string | null
     guardianName: string
     guardianRelation?: string | null
     guardianPhone: string
@@ -161521,33 +165193,56 @@ export namespace Prisma {
     guardianAddress?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
+    guardianContact1?: string | null
+    guardianContact2?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
     address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
-    hostelRequired?: boolean
-    preferredHostel?: string | null
-    hostelNotes?: string | null
-    transportRequired?: boolean
-    pickupLocation?: string | null
-    preferredRoute?: string | null
+    hasAppliedBefore?: boolean
+    howHeard?: string | null
+    seekingFinancialAid?: boolean
+    hasSiblingsInSchool?: boolean
+    siblingName?: string | null
+    siblingLevel?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
+    paymentProofUrl?: string | null
     createdByStaffId?: string | null
     admissionDate?: Date | string | null
     approvalDate?: Date | string | null
@@ -161574,6 +165269,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     academicSession?: AcademicSessionCreateNestedOneWithoutOnlineAdmissionsInput
     desiredClass: ClassCreateNestedOneWithoutOnlineAdmissionsInput
+    previousSchools?: PreviousSchoolCreateNestedManyWithoutAdmissionInput
     branch: BranchCreateNestedOneWithoutOnlineAdmissionsInput
     studentCategory?: StudentCategoryCreateNestedOneWithoutOnlineAdmissionsInput
     parent?: UserCreateNestedOneWithoutOnlineAdmissionsInput
@@ -161583,24 +165279,30 @@ export namespace Prisma {
     id?: string
     admissionNumber?: string | null
     firstName: string
+    surname?: string | null
     lastName: string
     otherNames?: string | null
     gender: string
     dateOfBirth: Date | string
+    age?: number | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
     lga?: string | null
     religion?: string | null
     passportPhoto?: string | null
+    passportPhoto2?: string | null
+    passportPhoto3?: string | null
+    passportPhoto4?: string | null
     academicSessionId?: string | null
     admissionTerm?: $Enums.Term | null
     desiredClassId: string
     admissionType?: string | null
-    previousSchool?: string | null
     transferReason?: string | null
     assessmentScore?: number | null
     status?: string
+    rejectionReason?: string | null
     guardianName: string
     guardianRelation?: string | null
     guardianPhone: string
@@ -161608,33 +165310,56 @@ export namespace Prisma {
     guardianAddress?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
+    guardianContact1?: string | null
+    guardianContact2?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
     address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
-    hostelRequired?: boolean
-    preferredHostel?: string | null
-    hostelNotes?: string | null
-    transportRequired?: boolean
-    pickupLocation?: string | null
-    preferredRoute?: string | null
+    hasAppliedBefore?: boolean
+    howHeard?: string | null
+    seekingFinancialAid?: boolean
+    hasSiblingsInSchool?: boolean
+    siblingName?: string | null
+    siblingLevel?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
+    paymentProofUrl?: string | null
     branchId: string
     createdByStaffId?: string | null
     admissionDate?: Date | string | null
@@ -161662,6 +165387,7 @@ export namespace Prisma {
     paymentMethod?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    previousSchools?: PreviousSchoolUncheckedCreateNestedManyWithoutAdmissionInput
   }
 
   export type OnlineAdmissionCreateOrConnectWithoutDesiredSectionInput = {
@@ -163061,7 +166787,10 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -163070,26 +166799,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -163124,12 +166874,15 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
     branchId: string
     classId?: string | null
     sectionId?: string | null
     parentId?: string | null
     categoryId?: string | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -163138,26 +166891,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -163238,7 +167012,10 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -163247,26 +167024,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -163301,12 +167099,15 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
     branchId?: StringFieldUpdateOperationsInput | string
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -163315,26 +167116,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -164095,7 +167917,10 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -164104,26 +167929,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -164158,12 +168004,15 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
     branchId: string
     classId?: string | null
     sectionId?: string | null
     parentId?: string | null
     categoryId?: string | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -164172,26 +168021,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -164260,7 +168130,10 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -164269,26 +168142,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -164323,12 +168217,15 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
     branchId?: StringFieldUpdateOperationsInput | string
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -164337,26 +168234,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -164415,7 +168333,10 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -164424,26 +168345,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -164478,12 +168420,15 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
     branchId: string
     classId?: string | null
     sectionId?: string | null
     parentId?: string | null
     categoryId?: string | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -164492,26 +168437,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -164555,7 +168521,10 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -164564,26 +168533,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -164618,12 +168608,15 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
     branchId?: StringFieldUpdateOperationsInput | string
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -164632,26 +168625,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -165213,7 +169227,10 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -165222,26 +169239,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -165276,12 +169314,15 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
     branchId: string
     classId?: string | null
     sectionId?: string | null
     parentId?: string | null
     categoryId?: string | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -165290,26 +169331,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -165413,7 +169475,10 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -165422,26 +169487,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -165476,12 +169562,15 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
     branchId?: StringFieldUpdateOperationsInput | string
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -165490,26 +169579,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -166792,7 +170902,10 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -166801,26 +170914,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -166855,12 +170989,15 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
     branchId: string
     classId?: string | null
     sectionId?: string | null
     parentId?: string | null
     categoryId?: string | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -166869,26 +171006,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -167009,7 +171167,10 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -167018,26 +171179,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -167072,12 +171254,15 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
     branchId?: StringFieldUpdateOperationsInput | string
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -167086,26 +171271,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -168053,7 +172259,10 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -168062,26 +172271,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -168116,12 +172346,15 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
     branchId: string
     classId?: string | null
     sectionId?: string | null
     parentId?: string | null
     categoryId?: string | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -168130,26 +172363,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -168249,7 +172503,10 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -168258,26 +172515,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -168312,12 +172590,15 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
     branchId?: StringFieldUpdateOperationsInput | string
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -168326,26 +172607,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -169030,7 +173332,10 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -169039,26 +173344,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -169093,12 +173419,15 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
     branchId: string
     classId?: string | null
     sectionId?: string | null
     parentId?: string | null
     categoryId?: string | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -169107,26 +173436,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -169209,7 +173559,10 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -169218,26 +173571,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -169272,12 +173646,15 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
     branchId?: StringFieldUpdateOperationsInput | string
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -169286,26 +173663,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -169500,22 +173898,28 @@ export namespace Prisma {
     id?: string
     admissionNumber?: string | null
     firstName: string
+    surname?: string | null
     lastName: string
     otherNames?: string | null
     gender: string
     dateOfBirth: Date | string
+    age?: number | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
     lga?: string | null
     religion?: string | null
     passportPhoto?: string | null
+    passportPhoto2?: string | null
+    passportPhoto3?: string | null
+    passportPhoto4?: string | null
     admissionTerm?: $Enums.Term | null
     admissionType?: string | null
-    previousSchool?: string | null
     transferReason?: string | null
     assessmentScore?: number | null
     status?: string
+    rejectionReason?: string | null
     guardianName: string
     guardianRelation?: string | null
     guardianPhone: string
@@ -169523,33 +173927,56 @@ export namespace Prisma {
     guardianAddress?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
+    guardianContact1?: string | null
+    guardianContact2?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
     address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
-    hostelRequired?: boolean
-    preferredHostel?: string | null
-    hostelNotes?: string | null
-    transportRequired?: boolean
-    pickupLocation?: string | null
-    preferredRoute?: string | null
+    hasAppliedBefore?: boolean
+    howHeard?: string | null
+    seekingFinancialAid?: boolean
+    hasSiblingsInSchool?: boolean
+    siblingName?: string | null
+    siblingLevel?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
+    paymentProofUrl?: string | null
     createdByStaffId?: string | null
     admissionDate?: Date | string | null
     approvalDate?: Date | string | null
@@ -169576,6 +174003,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     desiredClass: ClassCreateNestedOneWithoutOnlineAdmissionsInput
     desiredSection?: SectionCreateNestedOneWithoutOnlineAdmissionsInput
+    previousSchools?: PreviousSchoolCreateNestedManyWithoutAdmissionInput
     branch: BranchCreateNestedOneWithoutOnlineAdmissionsInput
     studentCategory?: StudentCategoryCreateNestedOneWithoutOnlineAdmissionsInput
     parent?: UserCreateNestedOneWithoutOnlineAdmissionsInput
@@ -169585,24 +174013,30 @@ export namespace Prisma {
     id?: string
     admissionNumber?: string | null
     firstName: string
+    surname?: string | null
     lastName: string
     otherNames?: string | null
     gender: string
     dateOfBirth: Date | string
+    age?: number | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
     lga?: string | null
     religion?: string | null
     passportPhoto?: string | null
+    passportPhoto2?: string | null
+    passportPhoto3?: string | null
+    passportPhoto4?: string | null
     admissionTerm?: $Enums.Term | null
     desiredClassId: string
     desiredSectionId?: string | null
     admissionType?: string | null
-    previousSchool?: string | null
     transferReason?: string | null
     assessmentScore?: number | null
     status?: string
+    rejectionReason?: string | null
     guardianName: string
     guardianRelation?: string | null
     guardianPhone: string
@@ -169610,33 +174044,56 @@ export namespace Prisma {
     guardianAddress?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
+    guardianContact1?: string | null
+    guardianContact2?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
     address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
-    hostelRequired?: boolean
-    preferredHostel?: string | null
-    hostelNotes?: string | null
-    transportRequired?: boolean
-    pickupLocation?: string | null
-    preferredRoute?: string | null
+    hasAppliedBefore?: boolean
+    howHeard?: string | null
+    seekingFinancialAid?: boolean
+    hasSiblingsInSchool?: boolean
+    siblingName?: string | null
+    siblingLevel?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
+    paymentProofUrl?: string | null
     branchId: string
     createdByStaffId?: string | null
     admissionDate?: Date | string | null
@@ -169664,6 +174121,7 @@ export namespace Prisma {
     paymentMethod?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    previousSchools?: PreviousSchoolUncheckedCreateNestedManyWithoutAdmissionInput
   }
 
   export type OnlineAdmissionCreateOrConnectWithoutAcademicSessionInput = {
@@ -169857,7 +174315,10 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -169866,26 +174327,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -169920,12 +174402,15 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
     branchId: string
     classId?: string | null
     sectionId?: string | null
     parentId?: string | null
     categoryId?: string | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -169934,26 +174419,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -170108,7 +174614,10 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -170117,26 +174626,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -170171,12 +174701,15 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
     branchId?: StringFieldUpdateOperationsInput | string
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -170185,26 +174718,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -170361,7 +174915,10 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -170370,26 +174927,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -170424,12 +175002,15 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
     branchId: string
     classId?: string | null
     sectionId?: string | null
     parentId?: string | null
     categoryId?: string | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -170438,26 +175019,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -170540,7 +175142,10 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -170549,26 +175154,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -170603,12 +175229,15 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
     branchId?: StringFieldUpdateOperationsInput | string
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -170617,26 +175246,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -170709,7 +175359,10 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -170718,26 +175371,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -170772,12 +175446,15 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
     branchId: string
     classId?: string | null
     sectionId?: string | null
     parentId?: string | null
     categoryId?: string | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -170786,26 +175463,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -170888,7 +175586,10 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -170897,26 +175598,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -170951,12 +175673,15 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
     branchId?: StringFieldUpdateOperationsInput | string
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -170965,26 +175690,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -172836,7 +177582,10 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -172845,26 +177594,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -172899,12 +177669,15 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
     branchId: string
     classId?: string | null
     sectionId?: string | null
     parentId?: string | null
     categoryId?: string | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -172913,26 +177686,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -173045,7 +177839,10 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -173054,26 +177851,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -173108,12 +177926,15 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
     branchId?: StringFieldUpdateOperationsInput | string
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -173122,26 +177943,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -175069,7 +179911,10 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -175078,26 +179923,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -175132,11 +179998,14 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
     branchId: string
     classId?: string | null
     sectionId?: string | null
     parentId?: string | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -175145,26 +180014,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -175202,22 +180092,28 @@ export namespace Prisma {
     id?: string
     admissionNumber?: string | null
     firstName: string
+    surname?: string | null
     lastName: string
     otherNames?: string | null
     gender: string
     dateOfBirth: Date | string
+    age?: number | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
     lga?: string | null
     religion?: string | null
     passportPhoto?: string | null
+    passportPhoto2?: string | null
+    passportPhoto3?: string | null
+    passportPhoto4?: string | null
     admissionTerm?: $Enums.Term | null
     admissionType?: string | null
-    previousSchool?: string | null
     transferReason?: string | null
     assessmentScore?: number | null
     status?: string
+    rejectionReason?: string | null
     guardianName: string
     guardianRelation?: string | null
     guardianPhone: string
@@ -175225,33 +180121,56 @@ export namespace Prisma {
     guardianAddress?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
+    guardianContact1?: string | null
+    guardianContact2?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
     address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
-    hostelRequired?: boolean
-    preferredHostel?: string | null
-    hostelNotes?: string | null
-    transportRequired?: boolean
-    pickupLocation?: string | null
-    preferredRoute?: string | null
+    hasAppliedBefore?: boolean
+    howHeard?: string | null
+    seekingFinancialAid?: boolean
+    hasSiblingsInSchool?: boolean
+    siblingName?: string | null
+    siblingLevel?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
+    paymentProofUrl?: string | null
     createdByStaffId?: string | null
     admissionDate?: Date | string | null
     approvalDate?: Date | string | null
@@ -175279,6 +180198,7 @@ export namespace Prisma {
     academicSession?: AcademicSessionCreateNestedOneWithoutOnlineAdmissionsInput
     desiredClass: ClassCreateNestedOneWithoutOnlineAdmissionsInput
     desiredSection?: SectionCreateNestedOneWithoutOnlineAdmissionsInput
+    previousSchools?: PreviousSchoolCreateNestedManyWithoutAdmissionInput
     branch: BranchCreateNestedOneWithoutOnlineAdmissionsInput
     parent?: UserCreateNestedOneWithoutOnlineAdmissionsInput
   }
@@ -175287,25 +180207,31 @@ export namespace Prisma {
     id?: string
     admissionNumber?: string | null
     firstName: string
+    surname?: string | null
     lastName: string
     otherNames?: string | null
     gender: string
     dateOfBirth: Date | string
+    age?: number | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
     lga?: string | null
     religion?: string | null
     passportPhoto?: string | null
+    passportPhoto2?: string | null
+    passportPhoto3?: string | null
+    passportPhoto4?: string | null
     academicSessionId?: string | null
     admissionTerm?: $Enums.Term | null
     desiredClassId: string
     desiredSectionId?: string | null
     admissionType?: string | null
-    previousSchool?: string | null
     transferReason?: string | null
     assessmentScore?: number | null
     status?: string
+    rejectionReason?: string | null
     guardianName: string
     guardianRelation?: string | null
     guardianPhone: string
@@ -175313,33 +180239,56 @@ export namespace Prisma {
     guardianAddress?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
+    guardianContact1?: string | null
+    guardianContact2?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
     address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
-    hostelRequired?: boolean
-    preferredHostel?: string | null
-    hostelNotes?: string | null
-    transportRequired?: boolean
-    pickupLocation?: string | null
-    preferredRoute?: string | null
+    hasAppliedBefore?: boolean
+    howHeard?: string | null
+    seekingFinancialAid?: boolean
+    hasSiblingsInSchool?: boolean
+    siblingName?: string | null
+    siblingLevel?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
+    paymentProofUrl?: string | null
     branchId: string
     createdByStaffId?: string | null
     admissionDate?: Date | string | null
@@ -175366,6 +180315,7 @@ export namespace Prisma {
     paymentMethod?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    previousSchools?: PreviousSchoolUncheckedCreateNestedManyWithoutAdmissionInput
   }
 
   export type OnlineAdmissionCreateOrConnectWithoutStudentCategoryInput = {
@@ -175646,6 +180596,32 @@ export namespace Prisma {
   export type SectionCreateOrConnectWithoutOnlineAdmissionsInput = {
     where: SectionWhereUniqueInput
     create: XOR<SectionCreateWithoutOnlineAdmissionsInput, SectionUncheckedCreateWithoutOnlineAdmissionsInput>
+  }
+
+  export type PreviousSchoolCreateWithoutAdmissionInput = {
+    id?: string
+    institutionName: string
+    address?: string | null
+    fromYear?: string | null
+    toYear?: string | null
+  }
+
+  export type PreviousSchoolUncheckedCreateWithoutAdmissionInput = {
+    id?: string
+    institutionName: string
+    address?: string | null
+    fromYear?: string | null
+    toYear?: string | null
+  }
+
+  export type PreviousSchoolCreateOrConnectWithoutAdmissionInput = {
+    where: PreviousSchoolWhereUniqueInput
+    create: XOR<PreviousSchoolCreateWithoutAdmissionInput, PreviousSchoolUncheckedCreateWithoutAdmissionInput>
+  }
+
+  export type PreviousSchoolCreateManyAdmissionInputEnvelope = {
+    data: PreviousSchoolCreateManyAdmissionInput | PreviousSchoolCreateManyAdmissionInput[]
+    skipDuplicates?: boolean
   }
 
   export type BranchCreateWithoutOnlineAdmissionsInput = {
@@ -175980,6 +180956,34 @@ export namespace Prisma {
     digitalResources?: DigitalResourceUncheckedUpdateManyWithoutSectionNestedInput
   }
 
+  export type PreviousSchoolUpsertWithWhereUniqueWithoutAdmissionInput = {
+    where: PreviousSchoolWhereUniqueInput
+    update: XOR<PreviousSchoolUpdateWithoutAdmissionInput, PreviousSchoolUncheckedUpdateWithoutAdmissionInput>
+    create: XOR<PreviousSchoolCreateWithoutAdmissionInput, PreviousSchoolUncheckedCreateWithoutAdmissionInput>
+  }
+
+  export type PreviousSchoolUpdateWithWhereUniqueWithoutAdmissionInput = {
+    where: PreviousSchoolWhereUniqueInput
+    data: XOR<PreviousSchoolUpdateWithoutAdmissionInput, PreviousSchoolUncheckedUpdateWithoutAdmissionInput>
+  }
+
+  export type PreviousSchoolUpdateManyWithWhereWithoutAdmissionInput = {
+    where: PreviousSchoolScalarWhereInput
+    data: XOR<PreviousSchoolUpdateManyMutationInput, PreviousSchoolUncheckedUpdateManyWithoutAdmissionInput>
+  }
+
+  export type PreviousSchoolScalarWhereInput = {
+    AND?: PreviousSchoolScalarWhereInput | PreviousSchoolScalarWhereInput[]
+    OR?: PreviousSchoolScalarWhereInput[]
+    NOT?: PreviousSchoolScalarWhereInput | PreviousSchoolScalarWhereInput[]
+    id?: StringFilter<"PreviousSchool"> | string
+    institutionName?: StringFilter<"PreviousSchool"> | string
+    address?: StringNullableFilter<"PreviousSchool"> | string | null
+    fromYear?: StringNullableFilter<"PreviousSchool"> | string | null
+    toYear?: StringNullableFilter<"PreviousSchool"> | string | null
+    admissionId?: StringFilter<"PreviousSchool"> | string
+  }
+
   export type BranchUpsertWithoutOnlineAdmissionsInput = {
     update: XOR<BranchUpdateWithoutOnlineAdmissionsInput, BranchUncheckedUpdateWithoutOnlineAdmissionsInput>
     create: XOR<BranchCreateWithoutOnlineAdmissionsInput, BranchUncheckedCreateWithoutOnlineAdmissionsInput>
@@ -176195,6 +181199,482 @@ export namespace Prisma {
     eventRSVPs?: EventRSVPUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
     digitalResourceLogs?: DigitalResourceLogUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type OnlineAdmissionCreateWithoutPreviousSchoolsInput = {
+    id?: string
+    admissionNumber?: string | null
+    firstName: string
+    surname?: string | null
+    lastName: string
+    otherNames?: string | null
+    gender: string
+    dateOfBirth: Date | string
+    age?: number | null
+    ninNumber?: string | null
+    placeOfBirth?: string | null
+    nationality?: string | null
+    stateOfOrigin?: string | null
+    lga?: string | null
+    religion?: string | null
+    passportPhoto?: string | null
+    passportPhoto2?: string | null
+    passportPhoto3?: string | null
+    passportPhoto4?: string | null
+    admissionTerm?: $Enums.Term | null
+    admissionType?: string | null
+    transferReason?: string | null
+    assessmentScore?: number | null
+    status?: string
+    rejectionReason?: string | null
+    guardianName: string
+    guardianRelation?: string | null
+    guardianPhone: string
+    guardianEmail?: string | null
+    guardianAddress?: string | null
+    guardianOccupation?: string | null
+    guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
+    guardianContact1?: string | null
+    guardianContact2?: string | null
+    secondaryGuardianName?: string | null
+    secondaryGuardianPhone?: string | null
+    secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
+    city?: string | null
+    state?: string | null
+    country?: string | null
+    emergencyContactName?: string | null
+    emergencyContactPhone?: string | null
+    emergencyContactRelation?: string | null
+    emergencySickness?: string | null
+    bloodGroup?: string | null
+    genotype?: string | null
+    allergies?: string | null
+    medicalConditions?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
+    familyDoctorName?: string | null
+    familyDoctorPhone?: string | null
+    hasAppliedBefore?: boolean
+    howHeard?: string | null
+    seekingFinancialAid?: boolean
+    hasSiblingsInSchool?: boolean
+    siblingName?: string | null
+    siblingLevel?: string | null
+    birthCertificateUrl?: string | null
+    testimonialUrl?: string | null
+    transferCertificateUrl?: string | null
+    immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
+    paymentProofUrl?: string | null
+    createdByStaffId?: string | null
+    admissionDate?: Date | string | null
+    approvalDate?: Date | string | null
+    approvedByStaffId?: string | null
+    studentStatus?: string
+    createPortalAccount?: boolean
+    guardianConsent?: boolean
+    dataProcessingConsent?: boolean
+    schoolRulesAgreement?: boolean
+    signature?: string | null
+    consentDate?: Date | string | null
+    studentEmail?: string | null
+    portalUsername?: string | null
+    preferredLanguage?: string | null
+    religionClassType?: string | null
+    scholarshipEligible?: boolean
+    referralSource?: string | null
+    email?: string | null
+    phone?: string | null
+    paymentReceiptUrl?: string | null
+    paymentStatus?: string
+    paymentMethod?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    academicSession?: AcademicSessionCreateNestedOneWithoutOnlineAdmissionsInput
+    desiredClass: ClassCreateNestedOneWithoutOnlineAdmissionsInput
+    desiredSection?: SectionCreateNestedOneWithoutOnlineAdmissionsInput
+    branch: BranchCreateNestedOneWithoutOnlineAdmissionsInput
+    studentCategory?: StudentCategoryCreateNestedOneWithoutOnlineAdmissionsInput
+    parent?: UserCreateNestedOneWithoutOnlineAdmissionsInput
+  }
+
+  export type OnlineAdmissionUncheckedCreateWithoutPreviousSchoolsInput = {
+    id?: string
+    admissionNumber?: string | null
+    firstName: string
+    surname?: string | null
+    lastName: string
+    otherNames?: string | null
+    gender: string
+    dateOfBirth: Date | string
+    age?: number | null
+    ninNumber?: string | null
+    placeOfBirth?: string | null
+    nationality?: string | null
+    stateOfOrigin?: string | null
+    lga?: string | null
+    religion?: string | null
+    passportPhoto?: string | null
+    passportPhoto2?: string | null
+    passportPhoto3?: string | null
+    passportPhoto4?: string | null
+    academicSessionId?: string | null
+    admissionTerm?: $Enums.Term | null
+    desiredClassId: string
+    desiredSectionId?: string | null
+    admissionType?: string | null
+    transferReason?: string | null
+    assessmentScore?: number | null
+    status?: string
+    rejectionReason?: string | null
+    guardianName: string
+    guardianRelation?: string | null
+    guardianPhone: string
+    guardianEmail?: string | null
+    guardianAddress?: string | null
+    guardianOccupation?: string | null
+    guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
+    guardianContact1?: string | null
+    guardianContact2?: string | null
+    secondaryGuardianName?: string | null
+    secondaryGuardianPhone?: string | null
+    secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
+    city?: string | null
+    state?: string | null
+    country?: string | null
+    emergencyContactName?: string | null
+    emergencyContactPhone?: string | null
+    emergencyContactRelation?: string | null
+    emergencySickness?: string | null
+    bloodGroup?: string | null
+    genotype?: string | null
+    allergies?: string | null
+    medicalConditions?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
+    familyDoctorName?: string | null
+    familyDoctorPhone?: string | null
+    hasAppliedBefore?: boolean
+    howHeard?: string | null
+    seekingFinancialAid?: boolean
+    hasSiblingsInSchool?: boolean
+    siblingName?: string | null
+    siblingLevel?: string | null
+    birthCertificateUrl?: string | null
+    testimonialUrl?: string | null
+    transferCertificateUrl?: string | null
+    immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
+    paymentProofUrl?: string | null
+    branchId: string
+    createdByStaffId?: string | null
+    admissionDate?: Date | string | null
+    approvalDate?: Date | string | null
+    approvedByStaffId?: string | null
+    studentStatus?: string
+    createPortalAccount?: boolean
+    guardianConsent?: boolean
+    dataProcessingConsent?: boolean
+    schoolRulesAgreement?: boolean
+    signature?: string | null
+    consentDate?: Date | string | null
+    studentEmail?: string | null
+    portalUsername?: string | null
+    preferredLanguage?: string | null
+    religionClassType?: string | null
+    scholarshipEligible?: boolean
+    referralSource?: string | null
+    email?: string | null
+    phone?: string | null
+    studentCategoryId?: string | null
+    parentId?: string | null
+    paymentReceiptUrl?: string | null
+    paymentStatus?: string
+    paymentMethod?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OnlineAdmissionCreateOrConnectWithoutPreviousSchoolsInput = {
+    where: OnlineAdmissionWhereUniqueInput
+    create: XOR<OnlineAdmissionCreateWithoutPreviousSchoolsInput, OnlineAdmissionUncheckedCreateWithoutPreviousSchoolsInput>
+  }
+
+  export type OnlineAdmissionUpsertWithoutPreviousSchoolsInput = {
+    update: XOR<OnlineAdmissionUpdateWithoutPreviousSchoolsInput, OnlineAdmissionUncheckedUpdateWithoutPreviousSchoolsInput>
+    create: XOR<OnlineAdmissionCreateWithoutPreviousSchoolsInput, OnlineAdmissionUncheckedCreateWithoutPreviousSchoolsInput>
+    where?: OnlineAdmissionWhereInput
+  }
+
+  export type OnlineAdmissionUpdateToOneWithWhereWithoutPreviousSchoolsInput = {
+    where?: OnlineAdmissionWhereInput
+    data: XOR<OnlineAdmissionUpdateWithoutPreviousSchoolsInput, OnlineAdmissionUncheckedUpdateWithoutPreviousSchoolsInput>
+  }
+
+  export type OnlineAdmissionUpdateWithoutPreviousSchoolsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    admissionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: StringFieldUpdateOperationsInput | string
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
+    nationality?: NullableStringFieldUpdateOperationsInput | string | null
+    stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
+    lga?: NullableStringFieldUpdateOperationsInput | string | null
+    religion?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto2?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto3?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto4?: NullableStringFieldUpdateOperationsInput | string | null
+    admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
+    admissionType?: NullableStringFieldUpdateOperationsInput | string | null
+    transferReason?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianName?: StringFieldUpdateOperationsInput | string
+    guardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianPhone?: StringFieldUpdateOperationsInput | string
+    guardianEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact1?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact2?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    genotype?: NullableStringFieldUpdateOperationsInput | string | null
+    allergies?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
+    familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    hasAppliedBefore?: BoolFieldUpdateOperationsInput | boolean
+    howHeard?: NullableStringFieldUpdateOperationsInput | string | null
+    seekingFinancialAid?: BoolFieldUpdateOperationsInput | boolean
+    hasSiblingsInSchool?: BoolFieldUpdateOperationsInput | boolean
+    siblingName?: NullableStringFieldUpdateOperationsInput | string | null
+    siblingLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProofUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdByStaffId?: NullableStringFieldUpdateOperationsInput | string | null
+    admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    approvalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    approvedByStaffId?: NullableStringFieldUpdateOperationsInput | string | null
+    studentStatus?: StringFieldUpdateOperationsInput | string
+    createPortalAccount?: BoolFieldUpdateOperationsInput | boolean
+    guardianConsent?: BoolFieldUpdateOperationsInput | boolean
+    dataProcessingConsent?: BoolFieldUpdateOperationsInput | boolean
+    schoolRulesAgreement?: BoolFieldUpdateOperationsInput | boolean
+    signature?: NullableStringFieldUpdateOperationsInput | string | null
+    consentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    studentEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    portalUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
+    religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
+    scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
+    referralSource?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    paymentMethod?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    academicSession?: AcademicSessionUpdateOneWithoutOnlineAdmissionsNestedInput
+    desiredClass?: ClassUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
+    desiredSection?: SectionUpdateOneWithoutOnlineAdmissionsNestedInput
+    branch?: BranchUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
+    studentCategory?: StudentCategoryUpdateOneWithoutOnlineAdmissionsNestedInput
+    parent?: UserUpdateOneWithoutOnlineAdmissionsNestedInput
+  }
+
+  export type OnlineAdmissionUncheckedUpdateWithoutPreviousSchoolsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    admissionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: StringFieldUpdateOperationsInput | string
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
+    nationality?: NullableStringFieldUpdateOperationsInput | string | null
+    stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
+    lga?: NullableStringFieldUpdateOperationsInput | string | null
+    religion?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto2?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto3?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto4?: NullableStringFieldUpdateOperationsInput | string | null
+    academicSessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
+    desiredClassId?: StringFieldUpdateOperationsInput | string
+    desiredSectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    admissionType?: NullableStringFieldUpdateOperationsInput | string | null
+    transferReason?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianName?: StringFieldUpdateOperationsInput | string
+    guardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianPhone?: StringFieldUpdateOperationsInput | string
+    guardianEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact1?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact2?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    genotype?: NullableStringFieldUpdateOperationsInput | string | null
+    allergies?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
+    familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    hasAppliedBefore?: BoolFieldUpdateOperationsInput | boolean
+    howHeard?: NullableStringFieldUpdateOperationsInput | string | null
+    seekingFinancialAid?: BoolFieldUpdateOperationsInput | boolean
+    hasSiblingsInSchool?: BoolFieldUpdateOperationsInput | boolean
+    siblingName?: NullableStringFieldUpdateOperationsInput | string | null
+    siblingLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProofUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdByStaffId?: NullableStringFieldUpdateOperationsInput | string | null
+    admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    approvalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    approvedByStaffId?: NullableStringFieldUpdateOperationsInput | string | null
+    studentStatus?: StringFieldUpdateOperationsInput | string
+    createPortalAccount?: BoolFieldUpdateOperationsInput | boolean
+    guardianConsent?: BoolFieldUpdateOperationsInput | boolean
+    dataProcessingConsent?: BoolFieldUpdateOperationsInput | boolean
+    schoolRulesAgreement?: BoolFieldUpdateOperationsInput | boolean
+    signature?: NullableStringFieldUpdateOperationsInput | string | null
+    consentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    studentEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    portalUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
+    religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
+    scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
+    referralSource?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    studentCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    paymentMethod?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BranchCreateWithoutEnquiriesInput = {
@@ -179960,7 +185440,10 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -179969,26 +185452,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -180023,12 +185527,15 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
     branchId: string
     classId?: string | null
     sectionId?: string | null
     parentId?: string | null
     categoryId?: string | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -180037,26 +185544,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -180323,7 +185851,10 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -180332,26 +185863,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -180386,12 +185938,15 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
     branchId?: StringFieldUpdateOperationsInput | string
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -180400,26 +185955,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -180570,7 +186146,10 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -180579,26 +186158,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -180633,12 +186233,15 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
     branchId: string
     classId?: string | null
     sectionId?: string | null
     parentId?: string | null
     categoryId?: string | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -180647,26 +186250,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -180853,7 +186477,10 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -180862,26 +186489,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -180916,12 +186564,15 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
     branchId?: StringFieldUpdateOperationsInput | string
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -180930,26 +186581,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -183594,7 +189266,10 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -183603,26 +189278,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -183657,12 +189353,15 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
     branchId: string
     classId?: string | null
     sectionId?: string | null
     parentId?: string | null
     categoryId?: string | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -183671,26 +189370,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -183853,7 +189573,10 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -183862,26 +189585,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -183916,12 +189660,15 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
     branchId?: StringFieldUpdateOperationsInput | string
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -183930,26 +189677,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -185060,11 +190828,14 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
     classId?: string | null
     sectionId?: string | null
     parentId?: string | null
     categoryId?: string | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -185073,26 +190844,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -185273,25 +191065,31 @@ export namespace Prisma {
     id?: string
     admissionNumber?: string | null
     firstName: string
+    surname?: string | null
     lastName: string
     otherNames?: string | null
     gender: string
     dateOfBirth: Date | string
+    age?: number | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
     lga?: string | null
     religion?: string | null
     passportPhoto?: string | null
+    passportPhoto2?: string | null
+    passportPhoto3?: string | null
+    passportPhoto4?: string | null
     academicSessionId?: string | null
     admissionTerm?: $Enums.Term | null
     desiredClassId: string
     desiredSectionId?: string | null
     admissionType?: string | null
-    previousSchool?: string | null
     transferReason?: string | null
     assessmentScore?: number | null
     status?: string
+    rejectionReason?: string | null
     guardianName: string
     guardianRelation?: string | null
     guardianPhone: string
@@ -185299,33 +191097,56 @@ export namespace Prisma {
     guardianAddress?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
+    guardianContact1?: string | null
+    guardianContact2?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
     address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
-    hostelRequired?: boolean
-    preferredHostel?: string | null
-    hostelNotes?: string | null
-    transportRequired?: boolean
-    pickupLocation?: string | null
-    preferredRoute?: string | null
+    hasAppliedBefore?: boolean
+    howHeard?: string | null
+    seekingFinancialAid?: boolean
+    hasSiblingsInSchool?: boolean
+    siblingName?: string | null
+    siblingLevel?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
+    paymentProofUrl?: string | null
     createdByStaffId?: string | null
     admissionDate?: Date | string | null
     approvalDate?: Date | string | null
@@ -185732,7 +191553,10 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -185741,26 +191565,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -185795,11 +191640,14 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -185808,26 +191656,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -185857,11 +191726,14 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -185870,26 +191742,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -186462,22 +192355,28 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     admissionNumber?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: StringFieldUpdateOperationsInput | string
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
     lga?: NullableStringFieldUpdateOperationsInput | string | null
     religion?: NullableStringFieldUpdateOperationsInput | string | null
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto2?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto3?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto4?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
-    previousSchool?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
     assessmentScore?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: StringFieldUpdateOperationsInput | string
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     guardianName?: StringFieldUpdateOperationsInput | string
     guardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianPhone?: StringFieldUpdateOperationsInput | string
@@ -186485,33 +192384,56 @@ export namespace Prisma {
     guardianAddress?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact1?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact2?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelRequired?: BoolFieldUpdateOperationsInput | boolean
-    preferredHostel?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    transportRequired?: BoolFieldUpdateOperationsInput | boolean
-    pickupLocation?: NullableStringFieldUpdateOperationsInput | string | null
-    preferredRoute?: NullableStringFieldUpdateOperationsInput | string | null
+    hasAppliedBefore?: BoolFieldUpdateOperationsInput | boolean
+    howHeard?: NullableStringFieldUpdateOperationsInput | string | null
+    seekingFinancialAid?: BoolFieldUpdateOperationsInput | boolean
+    hasSiblingsInSchool?: BoolFieldUpdateOperationsInput | boolean
+    siblingName?: NullableStringFieldUpdateOperationsInput | string | null
+    siblingLevel?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProofUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdByStaffId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     approvalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -186539,6 +192461,7 @@ export namespace Prisma {
     academicSession?: AcademicSessionUpdateOneWithoutOnlineAdmissionsNestedInput
     desiredClass?: ClassUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
     desiredSection?: SectionUpdateOneWithoutOnlineAdmissionsNestedInput
+    previousSchools?: PreviousSchoolUpdateManyWithoutAdmissionNestedInput
     studentCategory?: StudentCategoryUpdateOneWithoutOnlineAdmissionsNestedInput
     parent?: UserUpdateOneWithoutOnlineAdmissionsNestedInput
   }
@@ -186547,25 +192470,31 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     admissionNumber?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: StringFieldUpdateOperationsInput | string
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
     lga?: NullableStringFieldUpdateOperationsInput | string | null
     religion?: NullableStringFieldUpdateOperationsInput | string | null
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto2?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto3?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto4?: NullableStringFieldUpdateOperationsInput | string | null
     academicSessionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
     desiredClassId?: StringFieldUpdateOperationsInput | string
     desiredSectionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
-    previousSchool?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
     assessmentScore?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: StringFieldUpdateOperationsInput | string
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     guardianName?: StringFieldUpdateOperationsInput | string
     guardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianPhone?: StringFieldUpdateOperationsInput | string
@@ -186573,33 +192502,56 @@ export namespace Prisma {
     guardianAddress?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact1?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact2?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelRequired?: BoolFieldUpdateOperationsInput | boolean
-    preferredHostel?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    transportRequired?: BoolFieldUpdateOperationsInput | boolean
-    pickupLocation?: NullableStringFieldUpdateOperationsInput | string | null
-    preferredRoute?: NullableStringFieldUpdateOperationsInput | string | null
+    hasAppliedBefore?: BoolFieldUpdateOperationsInput | boolean
+    howHeard?: NullableStringFieldUpdateOperationsInput | string | null
+    seekingFinancialAid?: BoolFieldUpdateOperationsInput | boolean
+    hasSiblingsInSchool?: BoolFieldUpdateOperationsInput | boolean
+    siblingName?: NullableStringFieldUpdateOperationsInput | string | null
+    siblingLevel?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProofUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdByStaffId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     approvalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -186626,31 +192578,38 @@ export namespace Prisma {
     paymentMethod?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    previousSchools?: PreviousSchoolUncheckedUpdateManyWithoutAdmissionNestedInput
   }
 
   export type OnlineAdmissionUncheckedUpdateManyWithoutBranchInput = {
     id?: StringFieldUpdateOperationsInput | string
     admissionNumber?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: StringFieldUpdateOperationsInput | string
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
     lga?: NullableStringFieldUpdateOperationsInput | string | null
     religion?: NullableStringFieldUpdateOperationsInput | string | null
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto2?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto3?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto4?: NullableStringFieldUpdateOperationsInput | string | null
     academicSessionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
     desiredClassId?: StringFieldUpdateOperationsInput | string
     desiredSectionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
-    previousSchool?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
     assessmentScore?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: StringFieldUpdateOperationsInput | string
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     guardianName?: StringFieldUpdateOperationsInput | string
     guardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianPhone?: StringFieldUpdateOperationsInput | string
@@ -186658,33 +192617,56 @@ export namespace Prisma {
     guardianAddress?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact1?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact2?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelRequired?: BoolFieldUpdateOperationsInput | boolean
-    preferredHostel?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    transportRequired?: BoolFieldUpdateOperationsInput | boolean
-    pickupLocation?: NullableStringFieldUpdateOperationsInput | string | null
-    preferredRoute?: NullableStringFieldUpdateOperationsInput | string | null
+    hasAppliedBefore?: BoolFieldUpdateOperationsInput | boolean
+    howHeard?: NullableStringFieldUpdateOperationsInput | string | null
+    seekingFinancialAid?: BoolFieldUpdateOperationsInput | boolean
+    hasSiblingsInSchool?: BoolFieldUpdateOperationsInput | boolean
+    siblingName?: NullableStringFieldUpdateOperationsInput | string | null
+    siblingLevel?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProofUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdByStaffId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     approvalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -187721,11 +193703,14 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
     branchId: string
     classId?: string | null
     sectionId?: string | null
     categoryId?: string | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -187734,26 +193719,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -187849,25 +193855,31 @@ export namespace Prisma {
     id?: string
     admissionNumber?: string | null
     firstName: string
+    surname?: string | null
     lastName: string
     otherNames?: string | null
     gender: string
     dateOfBirth: Date | string
+    age?: number | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
     lga?: string | null
     religion?: string | null
     passportPhoto?: string | null
+    passportPhoto2?: string | null
+    passportPhoto3?: string | null
+    passportPhoto4?: string | null
     academicSessionId?: string | null
     admissionTerm?: $Enums.Term | null
     desiredClassId: string
     desiredSectionId?: string | null
     admissionType?: string | null
-    previousSchool?: string | null
     transferReason?: string | null
     assessmentScore?: number | null
     status?: string
+    rejectionReason?: string | null
     guardianName: string
     guardianRelation?: string | null
     guardianPhone: string
@@ -187875,33 +193887,56 @@ export namespace Prisma {
     guardianAddress?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
+    guardianContact1?: string | null
+    guardianContact2?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
     address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
-    hostelRequired?: boolean
-    preferredHostel?: string | null
-    hostelNotes?: string | null
-    transportRequired?: boolean
-    pickupLocation?: string | null
-    preferredRoute?: string | null
+    hasAppliedBefore?: boolean
+    howHeard?: string | null
+    seekingFinancialAid?: boolean
+    hasSiblingsInSchool?: boolean
+    siblingName?: string | null
+    siblingLevel?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
+    paymentProofUrl?: string | null
     branchId: string
     createdByStaffId?: string | null
     admissionDate?: Date | string | null
@@ -187944,7 +193979,10 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -187953,26 +193991,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -188007,11 +194066,14 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
     branchId?: StringFieldUpdateOperationsInput | string
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -188020,26 +194082,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -188069,11 +194152,14 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
     branchId?: StringFieldUpdateOperationsInput | string
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -188082,26 +194168,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -188363,22 +194470,28 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     admissionNumber?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: StringFieldUpdateOperationsInput | string
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
     lga?: NullableStringFieldUpdateOperationsInput | string | null
     religion?: NullableStringFieldUpdateOperationsInput | string | null
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto2?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto3?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto4?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
-    previousSchool?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
     assessmentScore?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: StringFieldUpdateOperationsInput | string
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     guardianName?: StringFieldUpdateOperationsInput | string
     guardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianPhone?: StringFieldUpdateOperationsInput | string
@@ -188386,33 +194499,56 @@ export namespace Prisma {
     guardianAddress?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact1?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact2?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelRequired?: BoolFieldUpdateOperationsInput | boolean
-    preferredHostel?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    transportRequired?: BoolFieldUpdateOperationsInput | boolean
-    pickupLocation?: NullableStringFieldUpdateOperationsInput | string | null
-    preferredRoute?: NullableStringFieldUpdateOperationsInput | string | null
+    hasAppliedBefore?: BoolFieldUpdateOperationsInput | boolean
+    howHeard?: NullableStringFieldUpdateOperationsInput | string | null
+    seekingFinancialAid?: BoolFieldUpdateOperationsInput | boolean
+    hasSiblingsInSchool?: BoolFieldUpdateOperationsInput | boolean
+    siblingName?: NullableStringFieldUpdateOperationsInput | string | null
+    siblingLevel?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProofUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdByStaffId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     approvalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -188440,6 +194576,7 @@ export namespace Prisma {
     academicSession?: AcademicSessionUpdateOneWithoutOnlineAdmissionsNestedInput
     desiredClass?: ClassUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
     desiredSection?: SectionUpdateOneWithoutOnlineAdmissionsNestedInput
+    previousSchools?: PreviousSchoolUpdateManyWithoutAdmissionNestedInput
     branch?: BranchUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
     studentCategory?: StudentCategoryUpdateOneWithoutOnlineAdmissionsNestedInput
   }
@@ -188448,25 +194585,31 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     admissionNumber?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: StringFieldUpdateOperationsInput | string
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
     lga?: NullableStringFieldUpdateOperationsInput | string | null
     religion?: NullableStringFieldUpdateOperationsInput | string | null
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto2?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto3?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto4?: NullableStringFieldUpdateOperationsInput | string | null
     academicSessionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
     desiredClassId?: StringFieldUpdateOperationsInput | string
     desiredSectionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
-    previousSchool?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
     assessmentScore?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: StringFieldUpdateOperationsInput | string
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     guardianName?: StringFieldUpdateOperationsInput | string
     guardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianPhone?: StringFieldUpdateOperationsInput | string
@@ -188474,33 +194617,56 @@ export namespace Prisma {
     guardianAddress?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact1?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact2?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelRequired?: BoolFieldUpdateOperationsInput | boolean
-    preferredHostel?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    transportRequired?: BoolFieldUpdateOperationsInput | boolean
-    pickupLocation?: NullableStringFieldUpdateOperationsInput | string | null
-    preferredRoute?: NullableStringFieldUpdateOperationsInput | string | null
+    hasAppliedBefore?: BoolFieldUpdateOperationsInput | boolean
+    howHeard?: NullableStringFieldUpdateOperationsInput | string | null
+    seekingFinancialAid?: BoolFieldUpdateOperationsInput | boolean
+    hasSiblingsInSchool?: BoolFieldUpdateOperationsInput | boolean
+    siblingName?: NullableStringFieldUpdateOperationsInput | string | null
+    siblingLevel?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProofUrl?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
     createdByStaffId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -188527,31 +194693,38 @@ export namespace Prisma {
     paymentMethod?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    previousSchools?: PreviousSchoolUncheckedUpdateManyWithoutAdmissionNestedInput
   }
 
   export type OnlineAdmissionUncheckedUpdateManyWithoutParentInput = {
     id?: StringFieldUpdateOperationsInput | string
     admissionNumber?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: StringFieldUpdateOperationsInput | string
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
     lga?: NullableStringFieldUpdateOperationsInput | string | null
     religion?: NullableStringFieldUpdateOperationsInput | string | null
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto2?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto3?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto4?: NullableStringFieldUpdateOperationsInput | string | null
     academicSessionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
     desiredClassId?: StringFieldUpdateOperationsInput | string
     desiredSectionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
-    previousSchool?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
     assessmentScore?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: StringFieldUpdateOperationsInput | string
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     guardianName?: StringFieldUpdateOperationsInput | string
     guardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianPhone?: StringFieldUpdateOperationsInput | string
@@ -188559,33 +194732,56 @@ export namespace Prisma {
     guardianAddress?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact1?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact2?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelRequired?: BoolFieldUpdateOperationsInput | boolean
-    preferredHostel?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    transportRequired?: BoolFieldUpdateOperationsInput | boolean
-    pickupLocation?: NullableStringFieldUpdateOperationsInput | string | null
-    preferredRoute?: NullableStringFieldUpdateOperationsInput | string | null
+    hasAppliedBefore?: BoolFieldUpdateOperationsInput | boolean
+    howHeard?: NullableStringFieldUpdateOperationsInput | string | null
+    seekingFinancialAid?: BoolFieldUpdateOperationsInput | boolean
+    hasSiblingsInSchool?: BoolFieldUpdateOperationsInput | boolean
+    siblingName?: NullableStringFieldUpdateOperationsInput | string | null
+    siblingLevel?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProofUrl?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
     createdByStaffId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -190143,11 +196339,14 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
     branchId: string
     sectionId?: string | null
     parentId?: string | null
     categoryId?: string | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -190156,26 +196355,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -190225,24 +196445,30 @@ export namespace Prisma {
     id?: string
     admissionNumber?: string | null
     firstName: string
+    surname?: string | null
     lastName: string
     otherNames?: string | null
     gender: string
     dateOfBirth: Date | string
+    age?: number | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
     lga?: string | null
     religion?: string | null
     passportPhoto?: string | null
+    passportPhoto2?: string | null
+    passportPhoto3?: string | null
+    passportPhoto4?: string | null
     academicSessionId?: string | null
     admissionTerm?: $Enums.Term | null
     desiredSectionId?: string | null
     admissionType?: string | null
-    previousSchool?: string | null
     transferReason?: string | null
     assessmentScore?: number | null
     status?: string
+    rejectionReason?: string | null
     guardianName: string
     guardianRelation?: string | null
     guardianPhone: string
@@ -190250,33 +196476,56 @@ export namespace Prisma {
     guardianAddress?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
+    guardianContact1?: string | null
+    guardianContact2?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
     address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
-    hostelRequired?: boolean
-    preferredHostel?: string | null
-    hostelNotes?: string | null
-    transportRequired?: boolean
-    pickupLocation?: string | null
-    preferredRoute?: string | null
+    hasAppliedBefore?: boolean
+    howHeard?: string | null
+    seekingFinancialAid?: boolean
+    hasSiblingsInSchool?: boolean
+    siblingName?: string | null
+    siblingLevel?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
+    paymentProofUrl?: string | null
     branchId: string
     createdByStaffId?: string | null
     admissionDate?: Date | string | null
@@ -190397,7 +196646,10 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -190406,26 +196658,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -190460,11 +196733,14 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
     branchId?: StringFieldUpdateOperationsInput | string
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -190473,26 +196749,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -190522,11 +196819,14 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
     branchId?: StringFieldUpdateOperationsInput | string
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -190535,26 +196835,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -190680,22 +197001,28 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     admissionNumber?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: StringFieldUpdateOperationsInput | string
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
     lga?: NullableStringFieldUpdateOperationsInput | string | null
     religion?: NullableStringFieldUpdateOperationsInput | string | null
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto2?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto3?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto4?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
-    previousSchool?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
     assessmentScore?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: StringFieldUpdateOperationsInput | string
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     guardianName?: StringFieldUpdateOperationsInput | string
     guardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianPhone?: StringFieldUpdateOperationsInput | string
@@ -190703,33 +197030,56 @@ export namespace Prisma {
     guardianAddress?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact1?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact2?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelRequired?: BoolFieldUpdateOperationsInput | boolean
-    preferredHostel?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    transportRequired?: BoolFieldUpdateOperationsInput | boolean
-    pickupLocation?: NullableStringFieldUpdateOperationsInput | string | null
-    preferredRoute?: NullableStringFieldUpdateOperationsInput | string | null
+    hasAppliedBefore?: BoolFieldUpdateOperationsInput | boolean
+    howHeard?: NullableStringFieldUpdateOperationsInput | string | null
+    seekingFinancialAid?: BoolFieldUpdateOperationsInput | boolean
+    hasSiblingsInSchool?: BoolFieldUpdateOperationsInput | boolean
+    siblingName?: NullableStringFieldUpdateOperationsInput | string | null
+    siblingLevel?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProofUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdByStaffId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     approvalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -190756,6 +197106,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     academicSession?: AcademicSessionUpdateOneWithoutOnlineAdmissionsNestedInput
     desiredSection?: SectionUpdateOneWithoutOnlineAdmissionsNestedInput
+    previousSchools?: PreviousSchoolUpdateManyWithoutAdmissionNestedInput
     branch?: BranchUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
     studentCategory?: StudentCategoryUpdateOneWithoutOnlineAdmissionsNestedInput
     parent?: UserUpdateOneWithoutOnlineAdmissionsNestedInput
@@ -190765,24 +197116,30 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     admissionNumber?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: StringFieldUpdateOperationsInput | string
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
     lga?: NullableStringFieldUpdateOperationsInput | string | null
     religion?: NullableStringFieldUpdateOperationsInput | string | null
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto2?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto3?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto4?: NullableStringFieldUpdateOperationsInput | string | null
     academicSessionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
     desiredSectionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
-    previousSchool?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
     assessmentScore?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: StringFieldUpdateOperationsInput | string
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     guardianName?: StringFieldUpdateOperationsInput | string
     guardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianPhone?: StringFieldUpdateOperationsInput | string
@@ -190790,33 +197147,56 @@ export namespace Prisma {
     guardianAddress?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact1?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact2?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelRequired?: BoolFieldUpdateOperationsInput | boolean
-    preferredHostel?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    transportRequired?: BoolFieldUpdateOperationsInput | boolean
-    pickupLocation?: NullableStringFieldUpdateOperationsInput | string | null
-    preferredRoute?: NullableStringFieldUpdateOperationsInput | string | null
+    hasAppliedBefore?: BoolFieldUpdateOperationsInput | boolean
+    howHeard?: NullableStringFieldUpdateOperationsInput | string | null
+    seekingFinancialAid?: BoolFieldUpdateOperationsInput | boolean
+    hasSiblingsInSchool?: BoolFieldUpdateOperationsInput | boolean
+    siblingName?: NullableStringFieldUpdateOperationsInput | string | null
+    siblingLevel?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProofUrl?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
     createdByStaffId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -190844,30 +197224,37 @@ export namespace Prisma {
     paymentMethod?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    previousSchools?: PreviousSchoolUncheckedUpdateManyWithoutAdmissionNestedInput
   }
 
   export type OnlineAdmissionUncheckedUpdateManyWithoutDesiredClassInput = {
     id?: StringFieldUpdateOperationsInput | string
     admissionNumber?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: StringFieldUpdateOperationsInput | string
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
     lga?: NullableStringFieldUpdateOperationsInput | string | null
     religion?: NullableStringFieldUpdateOperationsInput | string | null
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto2?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto3?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto4?: NullableStringFieldUpdateOperationsInput | string | null
     academicSessionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
     desiredSectionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
-    previousSchool?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
     assessmentScore?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: StringFieldUpdateOperationsInput | string
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     guardianName?: StringFieldUpdateOperationsInput | string
     guardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianPhone?: StringFieldUpdateOperationsInput | string
@@ -190875,33 +197262,56 @@ export namespace Prisma {
     guardianAddress?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact1?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact2?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelRequired?: BoolFieldUpdateOperationsInput | boolean
-    preferredHostel?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    transportRequired?: BoolFieldUpdateOperationsInput | boolean
-    pickupLocation?: NullableStringFieldUpdateOperationsInput | string | null
-    preferredRoute?: NullableStringFieldUpdateOperationsInput | string | null
+    hasAppliedBefore?: BoolFieldUpdateOperationsInput | boolean
+    howHeard?: NullableStringFieldUpdateOperationsInput | string | null
+    seekingFinancialAid?: BoolFieldUpdateOperationsInput | boolean
+    hasSiblingsInSchool?: BoolFieldUpdateOperationsInput | boolean
+    siblingName?: NullableStringFieldUpdateOperationsInput | string | null
+    siblingLevel?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProofUrl?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
     createdByStaffId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -191082,11 +197492,14 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
     branchId: string
     classId?: string | null
     parentId?: string | null
     categoryId?: string | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -191095,26 +197508,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -191203,24 +197637,30 @@ export namespace Prisma {
     id?: string
     admissionNumber?: string | null
     firstName: string
+    surname?: string | null
     lastName: string
     otherNames?: string | null
     gender: string
     dateOfBirth: Date | string
+    age?: number | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
     lga?: string | null
     religion?: string | null
     passportPhoto?: string | null
+    passportPhoto2?: string | null
+    passportPhoto3?: string | null
+    passportPhoto4?: string | null
     academicSessionId?: string | null
     admissionTerm?: $Enums.Term | null
     desiredClassId: string
     admissionType?: string | null
-    previousSchool?: string | null
     transferReason?: string | null
     assessmentScore?: number | null
     status?: string
+    rejectionReason?: string | null
     guardianName: string
     guardianRelation?: string | null
     guardianPhone: string
@@ -191228,33 +197668,56 @@ export namespace Prisma {
     guardianAddress?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
+    guardianContact1?: string | null
+    guardianContact2?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
     address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
-    hostelRequired?: boolean
-    preferredHostel?: string | null
-    hostelNotes?: string | null
-    transportRequired?: boolean
-    pickupLocation?: string | null
-    preferredRoute?: string | null
+    hasAppliedBefore?: boolean
+    howHeard?: string | null
+    seekingFinancialAid?: boolean
+    hasSiblingsInSchool?: boolean
+    siblingName?: string | null
+    siblingLevel?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
+    paymentProofUrl?: string | null
     branchId: string
     createdByStaffId?: string | null
     admissionDate?: Date | string | null
@@ -191336,7 +197799,10 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -191345,26 +197811,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -191399,11 +197886,14 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
     branchId?: StringFieldUpdateOperationsInput | string
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -191412,26 +197902,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -191461,11 +197972,14 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
     branchId?: StringFieldUpdateOperationsInput | string
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -191474,26 +197988,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -191738,22 +198273,28 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     admissionNumber?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: StringFieldUpdateOperationsInput | string
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
     lga?: NullableStringFieldUpdateOperationsInput | string | null
     religion?: NullableStringFieldUpdateOperationsInput | string | null
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto2?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto3?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto4?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
-    previousSchool?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
     assessmentScore?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: StringFieldUpdateOperationsInput | string
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     guardianName?: StringFieldUpdateOperationsInput | string
     guardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianPhone?: StringFieldUpdateOperationsInput | string
@@ -191761,33 +198302,56 @@ export namespace Prisma {
     guardianAddress?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact1?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact2?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelRequired?: BoolFieldUpdateOperationsInput | boolean
-    preferredHostel?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    transportRequired?: BoolFieldUpdateOperationsInput | boolean
-    pickupLocation?: NullableStringFieldUpdateOperationsInput | string | null
-    preferredRoute?: NullableStringFieldUpdateOperationsInput | string | null
+    hasAppliedBefore?: BoolFieldUpdateOperationsInput | boolean
+    howHeard?: NullableStringFieldUpdateOperationsInput | string | null
+    seekingFinancialAid?: BoolFieldUpdateOperationsInput | boolean
+    hasSiblingsInSchool?: BoolFieldUpdateOperationsInput | boolean
+    siblingName?: NullableStringFieldUpdateOperationsInput | string | null
+    siblingLevel?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProofUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdByStaffId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     approvalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -191814,6 +198378,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     academicSession?: AcademicSessionUpdateOneWithoutOnlineAdmissionsNestedInput
     desiredClass?: ClassUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
+    previousSchools?: PreviousSchoolUpdateManyWithoutAdmissionNestedInput
     branch?: BranchUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
     studentCategory?: StudentCategoryUpdateOneWithoutOnlineAdmissionsNestedInput
     parent?: UserUpdateOneWithoutOnlineAdmissionsNestedInput
@@ -191823,24 +198388,30 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     admissionNumber?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: StringFieldUpdateOperationsInput | string
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
     lga?: NullableStringFieldUpdateOperationsInput | string | null
     religion?: NullableStringFieldUpdateOperationsInput | string | null
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto2?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto3?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto4?: NullableStringFieldUpdateOperationsInput | string | null
     academicSessionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
     desiredClassId?: StringFieldUpdateOperationsInput | string
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
-    previousSchool?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
     assessmentScore?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: StringFieldUpdateOperationsInput | string
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     guardianName?: StringFieldUpdateOperationsInput | string
     guardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianPhone?: StringFieldUpdateOperationsInput | string
@@ -191848,33 +198419,56 @@ export namespace Prisma {
     guardianAddress?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact1?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact2?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelRequired?: BoolFieldUpdateOperationsInput | boolean
-    preferredHostel?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    transportRequired?: BoolFieldUpdateOperationsInput | boolean
-    pickupLocation?: NullableStringFieldUpdateOperationsInput | string | null
-    preferredRoute?: NullableStringFieldUpdateOperationsInput | string | null
+    hasAppliedBefore?: BoolFieldUpdateOperationsInput | boolean
+    howHeard?: NullableStringFieldUpdateOperationsInput | string | null
+    seekingFinancialAid?: BoolFieldUpdateOperationsInput | boolean
+    hasSiblingsInSchool?: BoolFieldUpdateOperationsInput | boolean
+    siblingName?: NullableStringFieldUpdateOperationsInput | string | null
+    siblingLevel?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProofUrl?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
     createdByStaffId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -191902,30 +198496,37 @@ export namespace Prisma {
     paymentMethod?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    previousSchools?: PreviousSchoolUncheckedUpdateManyWithoutAdmissionNestedInput
   }
 
   export type OnlineAdmissionUncheckedUpdateManyWithoutDesiredSectionInput = {
     id?: StringFieldUpdateOperationsInput | string
     admissionNumber?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: StringFieldUpdateOperationsInput | string
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
     lga?: NullableStringFieldUpdateOperationsInput | string | null
     religion?: NullableStringFieldUpdateOperationsInput | string | null
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto2?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto3?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto4?: NullableStringFieldUpdateOperationsInput | string | null
     academicSessionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
     desiredClassId?: StringFieldUpdateOperationsInput | string
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
-    previousSchool?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
     assessmentScore?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: StringFieldUpdateOperationsInput | string
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     guardianName?: StringFieldUpdateOperationsInput | string
     guardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianPhone?: StringFieldUpdateOperationsInput | string
@@ -191933,33 +198534,56 @@ export namespace Prisma {
     guardianAddress?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact1?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact2?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelRequired?: BoolFieldUpdateOperationsInput | boolean
-    preferredHostel?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    transportRequired?: BoolFieldUpdateOperationsInput | boolean
-    pickupLocation?: NullableStringFieldUpdateOperationsInput | string | null
-    preferredRoute?: NullableStringFieldUpdateOperationsInput | string | null
+    hasAppliedBefore?: BoolFieldUpdateOperationsInput | boolean
+    howHeard?: NullableStringFieldUpdateOperationsInput | string | null
+    seekingFinancialAid?: BoolFieldUpdateOperationsInput | boolean
+    hasSiblingsInSchool?: BoolFieldUpdateOperationsInput | boolean
+    siblingName?: NullableStringFieldUpdateOperationsInput | string | null
+    siblingLevel?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProofUrl?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
     createdByStaffId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -193408,24 +200032,30 @@ export namespace Prisma {
     id?: string
     admissionNumber?: string | null
     firstName: string
+    surname?: string | null
     lastName: string
     otherNames?: string | null
     gender: string
     dateOfBirth: Date | string
+    age?: number | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
     lga?: string | null
     religion?: string | null
     passportPhoto?: string | null
+    passportPhoto2?: string | null
+    passportPhoto3?: string | null
+    passportPhoto4?: string | null
     admissionTerm?: $Enums.Term | null
     desiredClassId: string
     desiredSectionId?: string | null
     admissionType?: string | null
-    previousSchool?: string | null
     transferReason?: string | null
     assessmentScore?: number | null
     status?: string
+    rejectionReason?: string | null
     guardianName: string
     guardianRelation?: string | null
     guardianPhone: string
@@ -193433,33 +200063,56 @@ export namespace Prisma {
     guardianAddress?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
+    guardianContact1?: string | null
+    guardianContact2?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
     address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
-    hostelRequired?: boolean
-    preferredHostel?: string | null
-    hostelNotes?: string | null
-    transportRequired?: boolean
-    pickupLocation?: string | null
-    preferredRoute?: string | null
+    hasAppliedBefore?: boolean
+    howHeard?: string | null
+    seekingFinancialAid?: boolean
+    hasSiblingsInSchool?: boolean
+    siblingName?: string | null
+    siblingLevel?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
+    paymentProofUrl?: string | null
     branchId: string
     createdByStaffId?: string | null
     admissionDate?: Date | string | null
@@ -193729,22 +200382,28 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     admissionNumber?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: StringFieldUpdateOperationsInput | string
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
     lga?: NullableStringFieldUpdateOperationsInput | string | null
     religion?: NullableStringFieldUpdateOperationsInput | string | null
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto2?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto3?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto4?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
-    previousSchool?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
     assessmentScore?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: StringFieldUpdateOperationsInput | string
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     guardianName?: StringFieldUpdateOperationsInput | string
     guardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianPhone?: StringFieldUpdateOperationsInput | string
@@ -193752,33 +200411,56 @@ export namespace Prisma {
     guardianAddress?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact1?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact2?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelRequired?: BoolFieldUpdateOperationsInput | boolean
-    preferredHostel?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    transportRequired?: BoolFieldUpdateOperationsInput | boolean
-    pickupLocation?: NullableStringFieldUpdateOperationsInput | string | null
-    preferredRoute?: NullableStringFieldUpdateOperationsInput | string | null
+    hasAppliedBefore?: BoolFieldUpdateOperationsInput | boolean
+    howHeard?: NullableStringFieldUpdateOperationsInput | string | null
+    seekingFinancialAid?: BoolFieldUpdateOperationsInput | boolean
+    hasSiblingsInSchool?: BoolFieldUpdateOperationsInput | boolean
+    siblingName?: NullableStringFieldUpdateOperationsInput | string | null
+    siblingLevel?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProofUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdByStaffId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     approvalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -193805,6 +200487,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     desiredClass?: ClassUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
     desiredSection?: SectionUpdateOneWithoutOnlineAdmissionsNestedInput
+    previousSchools?: PreviousSchoolUpdateManyWithoutAdmissionNestedInput
     branch?: BranchUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
     studentCategory?: StudentCategoryUpdateOneWithoutOnlineAdmissionsNestedInput
     parent?: UserUpdateOneWithoutOnlineAdmissionsNestedInput
@@ -193814,24 +200497,30 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     admissionNumber?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: StringFieldUpdateOperationsInput | string
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
     lga?: NullableStringFieldUpdateOperationsInput | string | null
     religion?: NullableStringFieldUpdateOperationsInput | string | null
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto2?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto3?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto4?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
     desiredClassId?: StringFieldUpdateOperationsInput | string
     desiredSectionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
-    previousSchool?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
     assessmentScore?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: StringFieldUpdateOperationsInput | string
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     guardianName?: StringFieldUpdateOperationsInput | string
     guardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianPhone?: StringFieldUpdateOperationsInput | string
@@ -193839,33 +200528,56 @@ export namespace Prisma {
     guardianAddress?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact1?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact2?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelRequired?: BoolFieldUpdateOperationsInput | boolean
-    preferredHostel?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    transportRequired?: BoolFieldUpdateOperationsInput | boolean
-    pickupLocation?: NullableStringFieldUpdateOperationsInput | string | null
-    preferredRoute?: NullableStringFieldUpdateOperationsInput | string | null
+    hasAppliedBefore?: BoolFieldUpdateOperationsInput | boolean
+    howHeard?: NullableStringFieldUpdateOperationsInput | string | null
+    seekingFinancialAid?: BoolFieldUpdateOperationsInput | boolean
+    hasSiblingsInSchool?: BoolFieldUpdateOperationsInput | boolean
+    siblingName?: NullableStringFieldUpdateOperationsInput | string | null
+    siblingLevel?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProofUrl?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
     createdByStaffId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -193893,30 +200605,37 @@ export namespace Prisma {
     paymentMethod?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    previousSchools?: PreviousSchoolUncheckedUpdateManyWithoutAdmissionNestedInput
   }
 
   export type OnlineAdmissionUncheckedUpdateManyWithoutAcademicSessionInput = {
     id?: StringFieldUpdateOperationsInput | string
     admissionNumber?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: StringFieldUpdateOperationsInput | string
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
     lga?: NullableStringFieldUpdateOperationsInput | string | null
     religion?: NullableStringFieldUpdateOperationsInput | string | null
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto2?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto3?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto4?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
     desiredClassId?: StringFieldUpdateOperationsInput | string
     desiredSectionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
-    previousSchool?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
     assessmentScore?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: StringFieldUpdateOperationsInput | string
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     guardianName?: StringFieldUpdateOperationsInput | string
     guardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianPhone?: StringFieldUpdateOperationsInput | string
@@ -193924,33 +200643,56 @@ export namespace Prisma {
     guardianAddress?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact1?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact2?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelRequired?: BoolFieldUpdateOperationsInput | boolean
-    preferredHostel?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    transportRequired?: BoolFieldUpdateOperationsInput | boolean
-    pickupLocation?: NullableStringFieldUpdateOperationsInput | string | null
-    preferredRoute?: NullableStringFieldUpdateOperationsInput | string | null
+    hasAppliedBefore?: BoolFieldUpdateOperationsInput | boolean
+    howHeard?: NullableStringFieldUpdateOperationsInput | string | null
+    seekingFinancialAid?: BoolFieldUpdateOperationsInput | boolean
+    hasSiblingsInSchool?: BoolFieldUpdateOperationsInput | boolean
+    siblingName?: NullableStringFieldUpdateOperationsInput | string | null
+    siblingLevel?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProofUrl?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
     createdByStaffId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -194389,11 +201131,14 @@ export namespace Prisma {
     firstName: string
     lastName: string
     dob?: Date | string | null
+    age?: number | null
     branchId: string
     classId?: string | null
     sectionId?: string | null
     parentId?: string | null
+    surname?: string | null
     otherNames?: string | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
@@ -194402,26 +201147,47 @@ export namespace Prisma {
     passportPhoto?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
+    address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
     preferredLanguage?: string | null
     religionClassType?: string | null
     scholarshipEligible?: boolean
@@ -194434,25 +201200,31 @@ export namespace Prisma {
     id?: string
     admissionNumber?: string | null
     firstName: string
+    surname?: string | null
     lastName: string
     otherNames?: string | null
     gender: string
     dateOfBirth: Date | string
+    age?: number | null
+    ninNumber?: string | null
     placeOfBirth?: string | null
     nationality?: string | null
     stateOfOrigin?: string | null
     lga?: string | null
     religion?: string | null
     passportPhoto?: string | null
+    passportPhoto2?: string | null
+    passportPhoto3?: string | null
+    passportPhoto4?: string | null
     academicSessionId?: string | null
     admissionTerm?: $Enums.Term | null
     desiredClassId: string
     desiredSectionId?: string | null
     admissionType?: string | null
-    previousSchool?: string | null
     transferReason?: string | null
     assessmentScore?: number | null
     status?: string
+    rejectionReason?: string | null
     guardianName: string
     guardianRelation?: string | null
     guardianPhone: string
@@ -194460,33 +201232,56 @@ export namespace Prisma {
     guardianAddress?: string | null
     guardianOccupation?: string | null
     guardianOfficeAddress?: string | null
+    fatherName?: string | null
+    fatherOccupation?: string | null
+    fatherPhone?: string | null
+    motherName?: string | null
+    motherOccupation?: string | null
+    motherPhone?: string | null
+    guardianContact1?: string | null
+    guardianContact2?: string | null
     secondaryGuardianName?: string | null
     secondaryGuardianPhone?: string | null
     secondaryGuardianRelation?: string | null
     address?: string | null
+    whatsappNumber?: string | null
+    languagesSpoken?: string | null
     city?: string | null
     state?: string | null
     country?: string | null
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     emergencyContactRelation?: string | null
+    emergencySickness?: string | null
     bloodGroup?: string | null
     genotype?: string | null
     allergies?: string | null
     medicalConditions?: string | null
-    specialNeeds?: string | null
+    hasMedicalCondition?: boolean
+    medicalConditionInfo?: string | null
+    hasLearningDifficulty?: boolean
+    learningDifficultyInfo?: string | null
+    hasSpecialNeeds?: boolean
+    specialNeedsInfo?: string | null
     familyDoctorName?: string | null
     familyDoctorPhone?: string | null
-    hostelRequired?: boolean
-    preferredHostel?: string | null
-    hostelNotes?: string | null
-    transportRequired?: boolean
-    pickupLocation?: string | null
-    preferredRoute?: string | null
+    hasAppliedBefore?: boolean
+    howHeard?: string | null
+    seekingFinancialAid?: boolean
+    hasSiblingsInSchool?: boolean
+    siblingName?: string | null
+    siblingLevel?: string | null
     birthCertificateUrl?: string | null
     testimonialUrl?: string | null
     transferCertificateUrl?: string | null
     immunizationCardUrl?: string | null
+    ninUrl?: string | null
+    educationalCertUrl?: string | null
+    transferLetterUrl?: string | null
+    medicalReportUrl?: string | null
+    recommendationLetterUrl?: string | null
+    schoolReportUrl?: string | null
+    paymentProofUrl?: string | null
     branchId: string
     createdByStaffId?: string | null
     admissionDate?: Date | string | null
@@ -194520,7 +201315,10 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -194529,26 +201327,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -194583,11 +201402,14 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
     branchId?: StringFieldUpdateOperationsInput | string
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -194596,26 +201418,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -194645,11 +201488,14 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
     branchId?: StringFieldUpdateOperationsInput | string
     classId?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -194658,26 +201504,47 @@ export namespace Prisma {
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
     preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
     religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
     scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -194690,22 +201557,28 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     admissionNumber?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: StringFieldUpdateOperationsInput | string
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
     lga?: NullableStringFieldUpdateOperationsInput | string | null
     religion?: NullableStringFieldUpdateOperationsInput | string | null
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto2?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto3?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto4?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
-    previousSchool?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
     assessmentScore?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: StringFieldUpdateOperationsInput | string
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     guardianName?: StringFieldUpdateOperationsInput | string
     guardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianPhone?: StringFieldUpdateOperationsInput | string
@@ -194713,33 +201586,56 @@ export namespace Prisma {
     guardianAddress?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact1?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact2?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelRequired?: BoolFieldUpdateOperationsInput | boolean
-    preferredHostel?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    transportRequired?: BoolFieldUpdateOperationsInput | boolean
-    pickupLocation?: NullableStringFieldUpdateOperationsInput | string | null
-    preferredRoute?: NullableStringFieldUpdateOperationsInput | string | null
+    hasAppliedBefore?: BoolFieldUpdateOperationsInput | boolean
+    howHeard?: NullableStringFieldUpdateOperationsInput | string | null
+    seekingFinancialAid?: BoolFieldUpdateOperationsInput | boolean
+    hasSiblingsInSchool?: BoolFieldUpdateOperationsInput | boolean
+    siblingName?: NullableStringFieldUpdateOperationsInput | string | null
+    siblingLevel?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProofUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdByStaffId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     approvalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -194767,6 +201663,7 @@ export namespace Prisma {
     academicSession?: AcademicSessionUpdateOneWithoutOnlineAdmissionsNestedInput
     desiredClass?: ClassUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
     desiredSection?: SectionUpdateOneWithoutOnlineAdmissionsNestedInput
+    previousSchools?: PreviousSchoolUpdateManyWithoutAdmissionNestedInput
     branch?: BranchUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
     parent?: UserUpdateOneWithoutOnlineAdmissionsNestedInput
   }
@@ -194775,25 +201672,31 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     admissionNumber?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
     otherNames?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: StringFieldUpdateOperationsInput | string
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
     nationality?: NullableStringFieldUpdateOperationsInput | string | null
     stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
     lga?: NullableStringFieldUpdateOperationsInput | string | null
     religion?: NullableStringFieldUpdateOperationsInput | string | null
     passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto2?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto3?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto4?: NullableStringFieldUpdateOperationsInput | string | null
     academicSessionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
     desiredClassId?: StringFieldUpdateOperationsInput | string
     desiredSectionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
-    previousSchool?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
     assessmentScore?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: StringFieldUpdateOperationsInput | string
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     guardianName?: StringFieldUpdateOperationsInput | string
     guardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianPhone?: StringFieldUpdateOperationsInput | string
@@ -194801,33 +201704,171 @@ export namespace Prisma {
     guardianAddress?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
     guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact1?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact2?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     genotype?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: NullableStringFieldUpdateOperationsInput | string | null
     medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
     familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelRequired?: BoolFieldUpdateOperationsInput | boolean
-    preferredHostel?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    transportRequired?: BoolFieldUpdateOperationsInput | boolean
-    pickupLocation?: NullableStringFieldUpdateOperationsInput | string | null
-    preferredRoute?: NullableStringFieldUpdateOperationsInput | string | null
+    hasAppliedBefore?: BoolFieldUpdateOperationsInput | boolean
+    howHeard?: NullableStringFieldUpdateOperationsInput | string | null
+    seekingFinancialAid?: BoolFieldUpdateOperationsInput | boolean
+    hasSiblingsInSchool?: BoolFieldUpdateOperationsInput | boolean
+    siblingName?: NullableStringFieldUpdateOperationsInput | string | null
+    siblingLevel?: NullableStringFieldUpdateOperationsInput | string | null
     birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
     transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
     immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProofUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdByStaffId?: NullableStringFieldUpdateOperationsInput | string | null
+    admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    approvalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    approvedByStaffId?: NullableStringFieldUpdateOperationsInput | string | null
+    studentStatus?: StringFieldUpdateOperationsInput | string
+    createPortalAccount?: BoolFieldUpdateOperationsInput | boolean
+    guardianConsent?: BoolFieldUpdateOperationsInput | boolean
+    dataProcessingConsent?: BoolFieldUpdateOperationsInput | boolean
+    schoolRulesAgreement?: BoolFieldUpdateOperationsInput | boolean
+    signature?: NullableStringFieldUpdateOperationsInput | string | null
+    consentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    studentEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    portalUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
+    religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
+    scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
+    referralSource?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    paymentMethod?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    previousSchools?: PreviousSchoolUncheckedUpdateManyWithoutAdmissionNestedInput
+  }
+
+  export type OnlineAdmissionUncheckedUpdateManyWithoutStudentCategoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    admissionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    surname?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    otherNames?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: StringFieldUpdateOperationsInput | string
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
+    nationality?: NullableStringFieldUpdateOperationsInput | string | null
+    stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
+    lga?: NullableStringFieldUpdateOperationsInput | string | null
+    religion?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto2?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto3?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhoto4?: NullableStringFieldUpdateOperationsInput | string | null
+    academicSessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
+    desiredClassId?: StringFieldUpdateOperationsInput | string
+    desiredSectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    admissionType?: NullableStringFieldUpdateOperationsInput | string | null
+    transferReason?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianName?: StringFieldUpdateOperationsInput | string
+    guardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianPhone?: StringFieldUpdateOperationsInput | string
+    guardianEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    fatherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherOccupation?: NullableStringFieldUpdateOperationsInput | string | null
+    motherPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact1?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact2?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencySickness?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    genotype?: NullableStringFieldUpdateOperationsInput | string | null
+    allergies?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
+    hasMedicalCondition?: BoolFieldUpdateOperationsInput | boolean
+    medicalConditionInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasLearningDifficulty?: BoolFieldUpdateOperationsInput | boolean
+    learningDifficultyInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    hasSpecialNeeds?: BoolFieldUpdateOperationsInput | boolean
+    specialNeedsInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
+    familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    hasAppliedBefore?: BoolFieldUpdateOperationsInput | boolean
+    howHeard?: NullableStringFieldUpdateOperationsInput | string | null
+    seekingFinancialAid?: BoolFieldUpdateOperationsInput | boolean
+    hasSiblingsInSchool?: BoolFieldUpdateOperationsInput | boolean
+    siblingName?: NullableStringFieldUpdateOperationsInput | string | null
+    siblingLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    educationalCertUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    transferLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendationLetterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProofUrl?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
     createdByStaffId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -194856,89 +201897,36 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type OnlineAdmissionUncheckedUpdateManyWithoutStudentCategoryInput = {
+  export type PreviousSchoolCreateManyAdmissionInput = {
+    id?: string
+    institutionName: string
+    address?: string | null
+    fromYear?: string | null
+    toYear?: string | null
+  }
+
+  export type PreviousSchoolUpdateWithoutAdmissionInput = {
     id?: StringFieldUpdateOperationsInput | string
-    admissionNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    otherNames?: NullableStringFieldUpdateOperationsInput | string | null
-    gender?: StringFieldUpdateOperationsInput | string
-    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
-    placeOfBirth?: NullableStringFieldUpdateOperationsInput | string | null
-    nationality?: NullableStringFieldUpdateOperationsInput | string | null
-    stateOfOrigin?: NullableStringFieldUpdateOperationsInput | string | null
-    lga?: NullableStringFieldUpdateOperationsInput | string | null
-    religion?: NullableStringFieldUpdateOperationsInput | string | null
-    passportPhoto?: NullableStringFieldUpdateOperationsInput | string | null
-    academicSessionId?: NullableStringFieldUpdateOperationsInput | string | null
-    admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
-    desiredClassId?: StringFieldUpdateOperationsInput | string
-    desiredSectionId?: NullableStringFieldUpdateOperationsInput | string | null
-    admissionType?: NullableStringFieldUpdateOperationsInput | string | null
-    previousSchool?: NullableStringFieldUpdateOperationsInput | string | null
-    transferReason?: NullableStringFieldUpdateOperationsInput | string | null
-    assessmentScore?: NullableFloatFieldUpdateOperationsInput | number | null
-    status?: StringFieldUpdateOperationsInput | string
-    guardianName?: StringFieldUpdateOperationsInput | string
-    guardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
-    guardianPhone?: StringFieldUpdateOperationsInput | string
-    guardianEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    guardianAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    guardianOccupation?: NullableStringFieldUpdateOperationsInput | string | null
-    guardianOfficeAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    secondaryGuardianName?: NullableStringFieldUpdateOperationsInput | string | null
-    secondaryGuardianPhone?: NullableStringFieldUpdateOperationsInput | string | null
-    secondaryGuardianRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    institutionName?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
-    country?: NullableStringFieldUpdateOperationsInput | string | null
-    emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
-    emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
-    emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
-    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
-    genotype?: NullableStringFieldUpdateOperationsInput | string | null
-    allergies?: NullableStringFieldUpdateOperationsInput | string | null
-    medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
-    specialNeeds?: NullableStringFieldUpdateOperationsInput | string | null
-    familyDoctorName?: NullableStringFieldUpdateOperationsInput | string | null
-    familyDoctorPhone?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelRequired?: BoolFieldUpdateOperationsInput | boolean
-    preferredHostel?: NullableStringFieldUpdateOperationsInput | string | null
-    hostelNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    transportRequired?: BoolFieldUpdateOperationsInput | boolean
-    pickupLocation?: NullableStringFieldUpdateOperationsInput | string | null
-    preferredRoute?: NullableStringFieldUpdateOperationsInput | string | null
-    birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    testimonialUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    transferCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    immunizationCardUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    branchId?: StringFieldUpdateOperationsInput | string
-    createdByStaffId?: NullableStringFieldUpdateOperationsInput | string | null
-    admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    approvalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    approvedByStaffId?: NullableStringFieldUpdateOperationsInput | string | null
-    studentStatus?: StringFieldUpdateOperationsInput | string
-    createPortalAccount?: BoolFieldUpdateOperationsInput | boolean
-    guardianConsent?: BoolFieldUpdateOperationsInput | boolean
-    dataProcessingConsent?: BoolFieldUpdateOperationsInput | boolean
-    schoolRulesAgreement?: BoolFieldUpdateOperationsInput | boolean
-    signature?: NullableStringFieldUpdateOperationsInput | string | null
-    consentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    studentEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    portalUsername?: NullableStringFieldUpdateOperationsInput | string | null
-    preferredLanguage?: NullableStringFieldUpdateOperationsInput | string | null
-    religionClassType?: NullableStringFieldUpdateOperationsInput | string | null
-    scholarshipEligible?: BoolFieldUpdateOperationsInput | boolean
-    referralSource?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    parentId?: NullableStringFieldUpdateOperationsInput | string | null
-    paymentReceiptUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    paymentStatus?: StringFieldUpdateOperationsInput | string
-    paymentMethod?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    fromYear?: NullableStringFieldUpdateOperationsInput | string | null
+    toYear?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type PreviousSchoolUncheckedUpdateWithoutAdmissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    institutionName?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    fromYear?: NullableStringFieldUpdateOperationsInput | string | null
+    toYear?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type PreviousSchoolUncheckedUpdateManyWithoutAdmissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    institutionName?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    fromYear?: NullableStringFieldUpdateOperationsInput | string | null
+    toYear?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type InventoryProductCreateManyCategoryInput = {

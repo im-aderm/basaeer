@@ -99,7 +99,7 @@ export default function ReceptionConfigPage() {
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-3xl font-bold tracking-tight">Reception Setup</h1>
+                    <h1 className="text-h1 font-bold tracking-tight">Reception Setup</h1>
                     <p className="text-muted-foreground mt-1">Configure dropdown values for the Reception module.</p>
                 </div>
                 <button

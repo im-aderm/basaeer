@@ -25,14 +25,13 @@ export default function GlobalSearch({ isOpen, onClose }: GlobalSearchProps) {
         }
     }, [isOpen]);
 
+    // Keyboard shortcut: Ctrl+K / Cmd+K to open; Escape to close
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
                 e.preventDefault();
                 if (isOpen) {
                     onClose();
-                } else {
-                    // This would be triggered from parent
                 }
             }
             if (e.key === 'Escape' && isOpen) {
@@ -44,6 +43,7 @@ export default function GlobalSearch({ isOpen, onClose }: GlobalSearchProps) {
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, [isOpen, onClose]);
 
+    // Debounced search
     useEffect(() => {
         const delayDebounceFn = setTimeout(async () => {
             if (query.length >= 2) {
@@ -79,51 +79,61 @@ export default function GlobalSearch({ isOpen, onClose }: GlobalSearchProps) {
     );
 
     return (
-        <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4">
+        <div
+            className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Global search"
+        >
             {/* Backdrop */}
             <div
-                className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+                className="absolute inset-0 bg-foreground/20 backdrop-blur-sm"
                 onClick={onClose}
+                aria-hidden="true"
             />
 
             {/* Search Modal */}
-            <div className="relative w-full max-w-2xl bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+            <div className="relative w-full max-w-2xl bg-card rounded-xl shadow-2xl border border-border overflow-hidden">
                 {/* Search Input */}
-                <div className="flex items-center gap-3 p-4 border-b border-gray-200 dark:border-gray-700">
-                    <Search className="w-5 h-5 text-gray-400" />
+                <div className="flex items-center gap-3 p-4 border-b border-border">
+                    <Search className="w-5 h-5 text-muted-foreground shrink-0" aria-hidden="true" />
                     <input
                         ref={inputRef}
                         type="text"
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                         placeholder="Search students, staff, inventory, events..."
-                        className="flex-1 bg-transparent border-none outline-none text-gray-900 dark:text-white placeholder-gray-400"
+                        className="flex-1 bg-transparent border-none outline-none text-foreground placeholder:text-muted-foreground text-sm"
+                        aria-label="Search query"
                     />
-                    {loading && <Loader2 className="w-5 h-5 text-gray-400 animate-spin" />}
+                    {loading && <Loader2 className="w-5 h-5 text-muted-foreground animate-spin" aria-label="Searching..." />}
                     <button
                         onClick={onClose}
-                        className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                        className="p-1 hover:bg-muted rounded-md transition-colors"
+                        aria-label="Close search"
                     >
-                        <X className="w-5 h-5 text-gray-400" />
+                        <X className="w-5 h-5 text-muted-foreground" aria-hidden="true" />
                     </button>
                 </div>
 
                 {/* Results */}
-                <div className="max-h-96 overflow-y-auto">
+                <div className="max-h-96 overflow-y-auto" role="listbox" aria-label="Search results">
                     {query.length < 2 && (
-                        <div className="p-8 text-center text-gray-500 dark:text-gray-400">
-                            <Search className="w-12 h-12 mx-auto mb-3 opacity-50" />
-                            <p>Type at least 2 characters to search</p>
-                            <p className="text-sm mt-2">
-                                Press <kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded text-xs">Ctrl+K</kbd> to toggle
+                        <div className="p-8 text-center text-muted-foreground">
+                            <Search className="w-12 h-12 mx-auto mb-3 opacity-30" aria-hidden="true" />
+                            <p className="text-sm font-medium">Type at least 2 characters to search</p>
+                            <p className="text-xs mt-2 text-muted-foreground">
+                                Press{' '}
+                                <kbd className="px-2 py-0.5 bg-muted rounded text-xs border border-border font-mono">Ctrl+K</kbd>
+                                {' '}to toggle
                             </p>
                         </div>
                     )}
 
                     {query.length >= 2 && !loading && !hasResults && (
-                        <div className="p-8 text-center text-gray-500 dark:text-gray-400">
-                            <Search className="w-12 h-12 mx-auto mb-3 opacity-50" />
-                            <p>No results found for &quot;{query}&quot;</p>
+                        <div className="p-8 text-center text-muted-foreground">
+                            <Search className="w-12 h-12 mx-auto mb-3 opacity-30" aria-hidden="true" />
+                            <p className="text-sm font-medium">No results found for &quot;{query}&quot;</p>
                         </div>
                     )}
 
@@ -132,7 +142,7 @@ export default function GlobalSearch({ isOpen, onClose }: GlobalSearchProps) {
                             {/* Students */}
                             {results.students.length > 0 && (
                                 <div>
-                                    <h3 className="px-3 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">
+                                    <h3 className="px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                                         Students
                                     </h3>
                                     <div className="space-y-1">
@@ -140,17 +150,19 @@ export default function GlobalSearch({ isOpen, onClose }: GlobalSearchProps) {
                                             <button
                                                 key={student.id}
                                                 onClick={() => handleNavigate(`/dashboard/students/${student.id}`)}
-                                                className="w-full flex items-center gap-3 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors text-left"
+                                                className="w-full flex items-center gap-3 px-3 py-2 hover:bg-muted rounded-lg transition-colors text-left"
+                                                role="option"
+                                                aria-selected="false"
                                             >
-                                                <div className="p-2 bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-lg">
-                                                    <User className="w-4 h-4" />
+                                                <div className="p-2 bg-blue-500/10 text-blue-600 rounded-lg shrink-0">
+                                                    <User className="w-4 h-4" aria-hidden="true" />
                                                 </div>
                                                 <div className="flex-1 min-w-0">
-                                                    <p className="font-medium text-gray-900 dark:text-white truncate">
+                                                    <p className="font-medium text-foreground text-sm truncate">
                                                         {student.firstName} {student.lastName}
                                                     </p>
                                                     {student.email && (
-                                                        <p className="text-sm text-gray-500 dark:text-gray-400 truncate">
+                                                        <p className="text-xs text-muted-foreground truncate">
                                                             {student.email}
                                                         </p>
                                                     )}
@@ -164,7 +176,7 @@ export default function GlobalSearch({ isOpen, onClose }: GlobalSearchProps) {
                             {/* Staff */}
                             {results.staff.length > 0 && (
                                 <div>
-                                    <h3 className="px-3 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">
+                                    <h3 className="px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                                         Staff
                                     </h3>
                                     <div className="space-y-1">
@@ -172,16 +184,18 @@ export default function GlobalSearch({ isOpen, onClose }: GlobalSearchProps) {
                                             <button
                                                 key={staff.id}
                                                 onClick={() => handleNavigate(`/dashboard/hr/staff/${staff.id}`)}
-                                                className="w-full flex items-center gap-3 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors text-left"
+                                                className="w-full flex items-center gap-3 px-3 py-2 hover:bg-muted rounded-lg transition-colors text-left"
+                                                role="option"
+                                                aria-selected="false"
                                             >
-                                                <div className="p-2 bg-green-500/10 text-green-600 dark:text-green-400 rounded-lg">
-                                                    <Users className="w-4 h-4" />
+                                                <div className="p-2 bg-green-500/10 text-green-600 rounded-lg shrink-0">
+                                                    <Users className="w-4 h-4" aria-hidden="true" />
                                                 </div>
                                                 <div className="flex-1 min-w-0">
-                                                    <p className="font-medium text-gray-900 dark:text-white truncate">
+                                                    <p className="font-medium text-foreground text-sm truncate">
                                                         {staff.firstName} {staff.lastName}
                                                     </p>
-                                                    <p className="text-sm text-gray-500 dark:text-gray-400 truncate">
+                                                    <p className="text-xs text-muted-foreground truncate">
                                                         {staff.role} • {staff.email}
                                                     </p>
                                                 </div>
@@ -194,24 +208,26 @@ export default function GlobalSearch({ isOpen, onClose }: GlobalSearchProps) {
                             {/* Inventory */}
                             {results.inventory.length > 0 && (
                                 <div>
-                                    <h3 className="px-3 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">
+                                    <h3 className="px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                                         Inventory
                                     </h3>
                                     <div className="space-y-1">
                                         {results.inventory.map((item) => (
                                             <button
                                                 key={item.id}
-                                                onClick={() => handleNavigate(`/dashboard/inventory`)}
-                                                className="w-full flex items-center gap-3 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors text-left"
+                                                onClick={() => handleNavigate('/dashboard/inventory')}
+                                                className="w-full flex items-center gap-3 px-3 py-2 hover:bg-muted rounded-lg transition-colors text-left"
+                                                role="option"
+                                                aria-selected="false"
                                             >
-                                                <div className="p-2 bg-orange-500/10 text-orange-600 dark:text-orange-400 rounded-lg">
-                                                    <Package className="w-4 h-4" />
+                                                <div className="p-2 bg-orange-500/10 text-orange-600 rounded-lg shrink-0">
+                                                    <Package className="w-4 h-4" aria-hidden="true" />
                                                 </div>
                                                 <div className="flex-1 min-w-0">
-                                                    <p className="font-medium text-gray-900 dark:text-white truncate">
+                                                    <p className="font-medium text-foreground text-sm truncate">
                                                         {item.name}
                                                     </p>
-                                                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                                                    <p className="text-xs text-muted-foreground">
                                                         Stock: {item.stock}
                                                     </p>
                                                 </div>
@@ -224,24 +240,26 @@ export default function GlobalSearch({ isOpen, onClose }: GlobalSearchProps) {
                             {/* Events */}
                             {results.events.length > 0 && (
                                 <div>
-                                    <h3 className="px-3 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">
+                                    <h3 className="px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                                         Events
                                     </h3>
                                     <div className="space-y-1">
                                         {results.events.map((event) => (
                                             <button
                                                 key={event.id}
-                                                onClick={() => handleNavigate(`/dashboard/campus/events`)}
-                                                className="w-full flex items-center gap-3 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors text-left"
+                                                onClick={() => handleNavigate('/dashboard/events')}
+                                                className="w-full flex items-center gap-3 px-3 py-2 hover:bg-muted rounded-lg transition-colors text-left"
+                                                role="option"
+                                                aria-selected="false"
                                             >
-                                                <div className="p-2 bg-purple-500/10 text-purple-600 dark:text-purple-400 rounded-lg">
-                                                    <Calendar className="w-4 h-4" />
+                                                <div className="p-2 bg-purple-500/10 text-purple-600 rounded-lg shrink-0">
+                                                    <Calendar className="w-4 h-4" aria-hidden="true" />
                                                 </div>
                                                 <div className="flex-1 min-w-0">
-                                                    <p className="font-medium text-gray-900 dark:text-white truncate">
+                                                    <p className="font-medium text-foreground text-sm truncate">
                                                         {event.title}
                                                     </p>
-                                                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                                                    <p className="text-xs text-muted-foreground">
                                                         {new Date(event.startDate).toLocaleDateString()}
                                                     </p>
                                                 </div>

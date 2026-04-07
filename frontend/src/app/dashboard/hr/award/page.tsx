@@ -156,7 +156,7 @@ export default function StaffAwardsPage() {
             <div className="mb-8">
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-4xl font-bold bg-gradient-to-r from-yellow-600 to-amber-600 bg-clip-text text-transparent">
+                        <h1 className="text-h1 font-bold bg-gradient-to-r from-yellow-600 to-amber-600 bg-clip-text text-transparent">
                             Staff Awards & Recognition
                         </h1>
                         <p className="text-slate-600 dark:text-slate-400 mt-2">
@@ -259,7 +259,7 @@ export default function StaffAwardsPage() {
                             <Trophy className="w-8 h-8 text-yellow-600" />
                         </div>
                         <p className="text-sm text-slate-600 dark:text-slate-400">Total Awards</p>
-                        <p className="text-3xl font-bold text-slate-900 dark:text-slate-100">
+                        <p className="text-h1 font-bold text-slate-900 dark:text-slate-100">
                             {stats.total}
                         </p>
                     </div>
@@ -269,7 +269,7 @@ export default function StaffAwardsPage() {
                             <Star className="w-8 h-8 text-amber-600" />
                         </div>
                         <p className="text-sm text-slate-600 dark:text-slate-400">This Month</p>
-                        <p className="text-3xl font-bold text-slate-900 dark:text-slate-100">
+                        <p className="text-h1 font-bold text-slate-900 dark:text-slate-100">
                             {stats.thisMonth}
                         </p>
                     </div>
@@ -279,7 +279,7 @@ export default function StaffAwardsPage() {
                             <Medal className="w-8 h-8 text-orange-600" />
                         </div>
                         <p className="text-sm text-slate-600 dark:text-slate-400">This Year</p>
-                        <p className="text-3xl font-bold text-slate-900 dark:text-slate-100">
+                        <p className="text-h1 font-bold text-slate-900 dark:text-slate-100">
                             {stats.thisYear}
                         </p>
                     </div>

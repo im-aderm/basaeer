@@ -78,20 +78,20 @@ export default function AddEmployeePage() {
                     <CheckCircle2 size={64} />
                 </div>
                 <div className="space-y-4">
-                    <h2 className="text-5xl font-black tracking-tight italic">Employee Registered!</h2>
+                    <h2 className="text-h1 font-semibold tracking-tight">Employee Registered!</h2>
                     <p className="text-xl text-muted-foreground font-medium">New staff member has been added and workspace prepared.</p>
                 </div>
                 <div className="flex gap-4 justify-center pt-8">
                     <Button
                         onClick={() => setSuccess(false)}
-                        className="h-16 px-10 rounded-[2rem] font-black text-lg"
+                        className="h-16 px-10 rounded-[2rem] font-semibold text-lg"
                     >
                         Add Another Staff
                     </Button>
                     <Button
                         variant="ghost"
                         onClick={() => router.push('/dashboard/employees')}
-                        className="h-16 px-10 rounded-[2rem] font-black text-lg"
+                        className="h-16 px-10 rounded-[2rem] font-semibold text-lg"
                     >
                         Staff Directory
                     </Button>
@@ -106,7 +106,7 @@ export default function AddEmployeePage() {
                 <div className="inline-flex items-center justify-center w-20 h-20 rounded-[2rem] bg-primary/10 text-primary mb-4 transform -rotate-6">
                     <UserPlus size={40} />
                 </div>
-                <h1 className="text-5xl font-black tracking-tight italic">Staff Registration</h1>
+                <h1 className="text-h1 font-semibold tracking-tight">Staff Registration</h1>
                 <p className="text-muted-foreground text-xl font-medium max-w-2xl mx-auto">Onboard a new employee by providing their personal and professional details.</p>
             </div>
 
@@ -114,13 +114,13 @@ export default function AddEmployeePage() {
                 {/* Personal Information */}
                 <Card className="rounded-[3rem] p-10 lg:p-16 border-t-8 border-t-primary shadow-2xl shadow-primary/5 border-border/50">
                     <div className="flex items-center gap-4 mb-10">
-                        <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-black text-xs">01</div>
-                        <h2 className="text-2xl font-black tracking-tight">Identity & Contact</h2>
+                        <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-semibold text-xs">01</div>
+                        <h2 className="text-h3 font-semibold tracking-tight">Identity & Contact</h2>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div className="space-y-3">
-                            <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground flex items-center gap-2">
+                            <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground flex items-center gap-2">
                                 <User size={14} className="text-primary" /> First Name
                             </label>
                             <Input
@@ -132,7 +132,7 @@ export default function AddEmployeePage() {
                             />
                         </div>
                         <div className="space-y-3">
-                            <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground flex items-center gap-2">
+                            <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground flex items-center gap-2">
                                 <User size={14} className="text-primary" /> Last Name
                             </label>
                             <Input
@@ -144,7 +144,7 @@ export default function AddEmployeePage() {
                             />
                         </div>
                         <div className="space-y-3">
-                            <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground flex items-center gap-2">
+                            <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground flex items-center gap-2">
                                 <Mail size={14} className="text-primary" /> Professional Email
                             </label>
                             <Input
@@ -157,7 +157,7 @@ export default function AddEmployeePage() {
                             />
                         </div>
                         <div className="space-y-3">
-                            <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground flex items-center gap-2">
+                            <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground flex items-center gap-2">
                                 <ShieldCheck size={14} className="text-primary" /> System Password
                             </label>
                             <Input
@@ -170,7 +170,7 @@ export default function AddEmployeePage() {
                             />
                         </div>
                         <div className="space-y-3">
-                            <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground flex items-center gap-2">
+                            <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground flex items-center gap-2">
                                 <Phone size={14} className="text-primary" /> Phone Number
                             </label>
                             <Input
@@ -186,13 +186,13 @@ export default function AddEmployeePage() {
                 {/* Professional Placement */}
                 <Card className="rounded-[3rem] p-10 lg:p-16 border-t-8 border-t-primary/40 shadow-2xl shadow-primary/5">
                     <div className="flex items-center gap-4 mb-10">
-                        <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-black text-xs">02</div>
-                        <h2 className="text-2xl font-black tracking-tight">Professional Placement</h2>
+                        <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-semibold text-xs">02</div>
+                        <h2 className="text-h3 font-semibold tracking-tight">Professional Placement</h2>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div className="space-y-3">
-                            <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground flex items-center gap-2">
+                            <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground flex items-center gap-2">
                                 <ShieldCheck size={14} className="text-primary" /> Role
                             </label>
                             <Select onValueChange={(val) => setFormData({ ...formData, role: val })} value={formData.role}>
@@ -208,7 +208,7 @@ export default function AddEmployeePage() {
                             </Select>
                         </div>
                         <div className="space-y-3">
-                            <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground flex items-center gap-2">
+                            <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground flex items-center gap-2">
                                 <Building2 size={14} className="text-primary" /> Department
                             </label>
                             <Select onValueChange={(val) => setFormData({ ...formData, departmentId: val })} value={formData.departmentId}>
@@ -223,7 +223,7 @@ export default function AddEmployeePage() {
                             </Select>
                         </div>
                         <div className="space-y-3">
-                            <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground flex items-center gap-2">
+                            <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground flex items-center gap-2">
                                 <Briefcase size={14} className="text-primary" /> Designation
                             </label>
                             <Select onValueChange={(val) => setFormData({ ...formData, designationId: val })} value={formData.designationId}>
@@ -243,13 +243,13 @@ export default function AddEmployeePage() {
                 {/* Submit button */}
                 <div className="flex flex-col md:flex-row items-center justify-between gap-6 pt-10 px-4">
                     <div className="max-w-md text-center md:text-left">
-                        <p className="text-sm font-black uppercase tracking-widest text-primary mb-1">Confirmation</p>
-                        <p className="text-muted-foreground font-medium italic">All credentials will be sent to the employee's email automatically.</p>
+                        <p className="text-sm font-semibold uppercase tracking-widest text-primary mb-1">Confirmation</p>
+                        <p className="text-muted-foreground font-medium">All credentials will be sent to the employee's email automatically.</p>
                     </div>
                     <Button
                         type="submit"
                         disabled={submitting}
-                        className="w-full md:w-auto px-16 py-8 rounded-[2rem] font-black text-xl shadow-2xl shadow-primary/30 hover:scale-105 transition-all"
+                        className="w-full md:w-auto px-16 py-8 rounded-[2rem] font-semibold text-h3 shadow-2xl shadow-primary/30 hover:scale-105 transition-all"
                     >
                         {submitting ? <Loader2 className="animate-spin mr-2" /> : <UserPlus size={24} className="mr-2" />}
                         Complete Onboarding

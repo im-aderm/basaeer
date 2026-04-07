@@ -153,14 +153,14 @@ export default function QuestionBankPage() {
             <div className="lg:col-span-1 space-y-4">
                 <Card className="rounded-[2.5rem] border-border/50 shadow-xl overflow-hidden bg-background border-t-8 border-t-primary/20">
                     <CardHeader className="pb-4">
-                        <CardTitle className="text-xl font-black italic">Target Group</CardTitle>
+                        <CardTitle className="text-h3 font-semibold">Target Group</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-2 p-2">
                         {groups.map(group => (
                             <button
                                 key={group.id}
                                 onClick={() => setSelectedGroupId(group.id)}
-                                className={`w-full flex items-center justify-between px-6 py-4 rounded-2xl transition-all font-bold italic text-left ${selectedGroupId === group.id
+                                className={`w-full flex items-center justify-between px-6 py-4 rounded-2xl transition-all font-bold text-left ${selectedGroupId === group.id
                                     ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/20'
                                     : 'hover:bg-muted text-muted-foreground'
                                     }`}
@@ -177,27 +177,27 @@ export default function QuestionBankPage() {
             <div className="lg:col-span-3 space-y-6">
                 <div className="flex justify-between items-end">
                     <div>
-                        <h1 className="text-4xl font-black tracking-tight italic">Question Bank</h1>
+                        <h1 className="text-h1 font-semibold tracking-tight">Question Bank</h1>
                         <p className="text-muted-foreground font-medium mt-1">Manage and preview questions for the selected group.</p>
                     </div>
 
                     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                         <DialogTrigger asChild>
-                            <Button className="h-14 px-8 rounded-2xl font-black text-lg gap-2 shadow-xl shadow-primary/20 hover:scale-[1.02] transition-all">
+                            <Button className="h-14 px-8 rounded-2xl font-semibold text-lg gap-2 shadow-xl shadow-primary/20 hover:scale-[1.02] transition-all">
                                 <Plus className="h-6 w-6" />
                                 Add Question
                             </Button>
                         </DialogTrigger>
                         <DialogContent className="rounded-[2.5rem] max-w-2xl max-h-[90vh] overflow-y-auto sidebar-scroll">
                             <DialogHeader>
-                                <DialogTitle className="text-2xl font-black italic">
+                                <DialogTitle className="text-h3 font-semibold">
                                     {editingQuestionId ? 'Edit Question' : 'Configure New Question'}
                                 </DialogTitle>
                             </DialogHeader>
                             <div className="space-y-6 py-4">
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="space-y-2">
-                                        <Label className="text-xs font-black uppercase tracking-widest ml-1">Type</Label>
+                                        <Label className="text-xs font-semibold uppercase tracking-widest ml-1">Type</Label>
                                         <Select value={qType} onValueChange={(v) => {
                                             setQType(v as QuestionType);
                                             if (v === QuestionType.TRUE_FALSE) {
@@ -217,7 +217,7 @@ export default function QuestionBankPage() {
                                         </Select>
                                     </div>
                                     <div className="space-y-2">
-                                        <Label className="text-xs font-black uppercase tracking-widest ml-1">Marks</Label>
+                                        <Label className="text-xs font-semibold uppercase tracking-widest ml-1">Marks</Label>
                                         <Input
                                             type="number"
                                             className="h-12 rounded-2xl border-none bg-muted/50 font-bold text-center text-xl"
@@ -228,7 +228,7 @@ export default function QuestionBankPage() {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label className="text-xs font-black uppercase tracking-widest ml-1">Question Content</Label>
+                                    <Label className="text-xs font-semibold uppercase tracking-widest ml-1">Question Content</Label>
                                     <textarea
                                         className="w-full min-h-[120px] rounded-3xl p-6 bg-muted/50 border-none font-bold text-lg focus:ring-2 ring-primary/20 outline-none"
                                         placeholder="Type your question here..."
@@ -240,7 +240,7 @@ export default function QuestionBankPage() {
                                 {(qType === QuestionType.MCQ || qType === QuestionType.TRUE_FALSE) && (
                                     <div className="space-y-4">
                                         <div className="flex justify-between items-center">
-                                            <Label className="text-xs font-black uppercase tracking-widest ml-1">Options & Answers</Label>
+                                            <Label className="text-xs font-semibold uppercase tracking-widest ml-1">Options & Answers</Label>
                                             {qType === QuestionType.MCQ && (
                                                 <Button variant="ghost" size="sm" onClick={handleAddOption} className="rounded-full font-bold text-primary">
                                                     <Plus className="h-4 w-4 mr-1" /> Add Option
@@ -275,7 +275,7 @@ export default function QuestionBankPage() {
                             </div>
                             <DialogFooter>
                                 <Button variant="ghost" className="rounded-2xl h-12 font-bold" onClick={() => { setIsDialogOpen(false); resetForm(); }}>Cancel</Button>
-                                <Button className="rounded-2xl h-12 font-black px-12" onClick={handleCreateQuestion}>Save Question</Button>
+                                <Button className="rounded-2xl h-12 font-semibold px-12" onClick={handleCreateQuestion}>Save Question</Button>
                             </DialogFooter>
                         </DialogContent>
                     </Dialog>
@@ -287,12 +287,12 @@ export default function QuestionBankPage() {
                             <CardContent className="p-8">
                                 <div className="flex justify-between items-start mb-6">
                                     <div className="flex items-center gap-3">
-                                        <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary font-black italic">
+                                        <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary font-semibold">
                                             {idx + 1}
                                         </div>
                                         <div className="flex gap-2">
-                                            <span className="px-3 py-1 rounded-full bg-muted text-[10px] font-black uppercase tracking-widest">{q.type}</span>
-                                            <span className="px-3 py-1 rounded-full bg-amber-500/10 text-amber-600 text-[10px] font-black uppercase tracking-widest">{q.marks} Marks</span>
+                                            <span className="px-3 py-1 rounded-full bg-muted text-label">{q.type}</span>
+                                            <span className="px-3 py-1 rounded-full bg-amber-500/10 text-amber-600 text-label">{q.marks} Marks</span>
                                         </div>
                                     </div>
                                     <div className="flex gap-2 text-muted-foreground">
@@ -304,16 +304,16 @@ export default function QuestionBankPage() {
                                         </Button>
                                     </div>
                                 </div>
-                                <h3 className="text-xl font-black italic mb-6 leading-relaxed">"{q.content}"</h3>
+                                <h3 className="text-h3 font-semibold mb-6 leading-relaxed">"{q.content}"</h3>
 
                                 {q.options && q.options.length > 0 && (
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                                         {q.options.map((opt, oIdx) => (
                                             <div key={opt.id} className={`flex items-center gap-3 p-4 rounded-2xl ${opt.isCorrect ? 'bg-emerald-500/5 border border-emerald-500/20' : 'bg-muted/30'}`}>
-                                                <div className={`h-8 w-8 rounded-lg flex items-center justify-center text-xs font-black ${opt.isCorrect ? 'bg-emerald-500 text-white' : 'bg-muted text-muted-foreground'}`}>
+                                                <div className={`h-8 w-8 rounded-lg flex items-center justify-center text-xs font-semibold ${opt.isCorrect ? 'bg-emerald-500 text-white' : 'bg-muted text-muted-foreground'}`}>
                                                     {String.fromCharCode(65 + oIdx)}
                                                 </div>
-                                                <span className={`font-bold italic ${opt.isCorrect ? 'text-emerald-700' : 'text-muted-foreground'}`}>{opt.content}</span>
+                                                <span className={`font-bold ${opt.isCorrect ? 'text-emerald-700' : 'text-muted-foreground'}`}>{opt.content}</span>
                                             </div>
                                         ))}
                                     </div>
@@ -326,7 +326,7 @@ export default function QuestionBankPage() {
                         <div className="h-80 flex flex-col items-center justify-center gap-6 opacity-30 grayscale saturate-0">
                             <HelpCircle className="h-24 w-24 stroke-[1]" />
                             <div className="text-center">
-                                <p className="font-black italic text-2xl">This questions group is empty</p>
+                                <p className="font-semibold text-h3">This questions group is empty</p>
                                 <p className="font-medium">Selected group: {groups.find(g => g.id === selectedGroupId)?.name}</p>
                             </div>
                         </div>

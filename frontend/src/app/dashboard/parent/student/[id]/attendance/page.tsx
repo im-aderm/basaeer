@@ -45,7 +45,7 @@ export default function ChildAttendancePage() {
 
     const attendanceRate = stats.total > 0 ? Math.round((stats.present / stats.total) * 100) : 0;
 
-    if (loading) return <div className="flex h-96 items-center justify-center font-black animate-pulse uppercase italic">Loading Attendance...</div>;
+    if (loading) return <div className="flex h-96 items-center justify-center font-semibold animate-pulse uppercase">Loading Attendance...</div>;
 
     return (
         <div className="max-w-7xl mx-auto space-y-8 pb-20">
@@ -59,34 +59,34 @@ export default function ChildAttendancePage() {
                     <ChevronLeft className="h-6 w-6" />
                 </Button>
                 <div>
-                    <h1 className="text-4xl font-black tracking-tight italic uppercase">Attendance History</h1>
+                    <h1 className="text-h1 font-semibold tracking-tight uppercase">Attendance History</h1>
                     <p className="text-muted-foreground font-medium mt-1">Daily presence logs and patterns.</p>
                 </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                 <Card className="rounded-[2rem] border-border/50 shadow-xl bg-background p-6 space-y-2">
-                    <p className="text-[10px] font-black uppercase opacity-50">Attendance Rate</p>
-                    <div className="text-4xl font-black italic text-primary">{attendanceRate}%</div>
+                    <p className="text-[10px] font-semibold uppercase opacity-50">Attendance Rate</p>
+                    <div className="text-h1 font-semibold text-primary">{attendanceRate}%</div>
                 </Card>
                 <Card className="rounded-[2rem] border-border/50 shadow-xl bg-background p-6 space-y-2">
-                    <p className="text-[10px] font-black uppercase opacity-50">Present Days</p>
-                    <div className="text-4xl font-black italic text-emerald-500">{stats.present}</div>
+                    <p className="text-[10px] font-semibold uppercase opacity-50">Present Days</p>
+                    <div className="text-h1 font-semibold text-emerald-500">{stats.present}</div>
                 </Card>
                 <Card className="rounded-[2rem] border-border/50 shadow-xl bg-background p-6 space-y-2">
-                    <p className="text-[10px] font-black uppercase opacity-50">Absent Days</p>
-                    <div className="text-4xl font-black italic text-rose-500">{stats.absent}</div>
+                    <p className="text-[10px] font-semibold uppercase opacity-50">Absent Days</p>
+                    <div className="text-h1 font-semibold text-rose-500">{stats.absent}</div>
                 </Card>
                 <Card className="rounded-[2rem] border-border/50 shadow-xl bg-background p-6 space-y-2">
-                    <p className="text-[10px] font-black uppercase opacity-50">Late Arrivals</p>
-                    <div className="text-4xl font-black italic text-amber-500">{stats.late}</div>
+                    <p className="text-[10px] font-semibold uppercase opacity-50">Late Arrivals</p>
+                    <div className="text-h1 font-semibold text-amber-500">{stats.late}</div>
                 </Card>
             </div>
 
             <Card className="rounded-[3rem] border-border/50 shadow-2xl bg-background overflow-hidden">
                 <CardHeader className="p-8 border-b border-border/50 flex flex-row items-center justify-between">
                     <div>
-                        <CardTitle className="text-2xl font-black italic uppercase flex items-center gap-3">
+                        <CardTitle className="text-h3 font-semibold uppercase flex items-center gap-3">
                             <CalendarIcon className="h-8 w-8 text-primary" />
                             Daily Logs
                         </CardTitle>
@@ -98,9 +98,9 @@ export default function ChildAttendancePage() {
                         <table className="w-full text-left border-collapse">
                             <thead>
                                 <tr className="border-b border-border/50 bg-muted/30">
-                                    <th className="p-6 font-black italic uppercase text-xs opacity-50">Date</th>
-                                    <th className="p-6 font-black italic uppercase text-xs opacity-50">Status</th>
-                                    <th className="p-6 font-black italic uppercase text-xs opacity-50">Remarks</th>
+                                    <th className="p-6 font-semibold uppercase text-xs opacity-50">Date</th>
+                                    <th className="p-6 font-semibold uppercase text-xs opacity-50">Status</th>
+                                    <th className="p-6 font-semibold uppercase text-xs opacity-50">Remarks</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -111,7 +111,7 @@ export default function ChildAttendancePage() {
                                         </td>
                                         <td className="p-6">
                                             <Badge
-                                                className={`rounded-xl px-4 py-1.5 font-black italic uppercase text-[10px] ${record.status === 'PRESENT' ? 'bg-emerald-500/10 text-emerald-500' :
+                                                className={`rounded-xl px-4 py-1.5 font-semibold uppercase text-[10px] ${record.status === 'PRESENT' ? 'bg-emerald-500/10 text-emerald-500' :
                                                         record.status === 'ABSENT' ? 'bg-rose-500/10 text-rose-500' :
                                                             'bg-amber-500/10 text-amber-500'
                                                     }`}
@@ -119,13 +119,13 @@ export default function ChildAttendancePage() {
                                                 {record.status}
                                             </Badge>
                                         </td>
-                                        <td className="p-6 font-medium text-sm text-muted-foreground italic">
+                                        <td className="p-6 font-medium text-sm text-muted-foreground">
                                             {record.remarks || 'No remarks provided'}
                                         </td>
                                     </tr>
                                 )) : (
                                     <tr>
-                                        <td colSpan={3} className="p-12 text-center font-black italic uppercase opacity-20 text-2xl">
+                                        <td colSpan={3} className="p-12 text-center font-semibold uppercase opacity-20 text-2xl">
                                             No attendance records found
                                         </td>
                                     </tr>

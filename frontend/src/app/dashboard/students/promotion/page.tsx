@@ -188,7 +188,7 @@ export default function StudentPromotionPage() {
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50/30 to-teal-50/20 dark:from-slate-950 dark:via-emerald-950/20 dark:to-teal-950/10 p-6">
             {/* Header */}
             <div className="mb-8">
-                <h1 className="text-4xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+                <h1 className="text-h1 font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
                     Student Promotion
                 </h1>
                 <p className="text-slate-600 dark:text-slate-400 mt-2">

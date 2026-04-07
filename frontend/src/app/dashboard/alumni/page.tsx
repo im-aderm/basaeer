@@ -86,41 +86,41 @@ export default function AlumniPage() {
         <div className="max-w-7xl mx-auto space-y-8 pb-20">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-4xl font-black tracking-tight italic uppercase">Alumni & Graduates</h1>
+                    <h1 className="text-h1 font-semibold tracking-tight uppercase">Alumni & Graduates</h1>
                     <p className="text-muted-foreground font-medium mt-1">Celebrating success and maintaining professional connections.</p>
                 </div>
                 <div className="flex gap-4">
                     <Dialog open={isAddEventOpen} onOpenChange={setIsAddEventOpen}>
                         <DialogTrigger asChild>
-                            <Button variant="outline" className="h-12 px-6 rounded-2xl font-black gap-2 border-primary/20">
+                            <Button variant="outline" className="h-12 px-6 rounded-2xl font-semibold gap-2 border-primary/20">
                                 <Calendar className="h-5 w-5" /> Schedule Event
                             </Button>
                         </DialogTrigger>
                         <DialogContent className="rounded-[2.5rem]">
                             <DialogHeader>
-                                <DialogTitle className="text-2xl font-black italic uppercase italic">Post New Event</DialogTitle>
+                                <DialogTitle className="text-h3 font-semibold uppercase">Post New Event</DialogTitle>
                             </DialogHeader>
                             <form onSubmit={handleAddEvent} className="space-y-4 pt-4">
                                 <div className="space-y-2">
-                                    <Label className="font-black italic text-xs uppercase opacity-50 ml-1">Event Title</Label>
+                                    <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Event Title</Label>
                                     <Input required className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={eventForm.title} onChange={(e) => setEventForm({ ...eventForm, title: e.target.value })} />
                                 </div>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="space-y-2">
-                                        <Label className="font-black italic text-xs uppercase opacity-50 ml-1">Date</Label>
+                                        <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Date</Label>
                                         <Input type="date" required className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={eventForm.eventDate} onChange={(e) => setEventForm({ ...eventForm, eventDate: e.target.value })} />
                                     </div>
                                     <div className="space-y-2">
-                                        <Label className="font-black italic text-xs uppercase opacity-50 ml-1">Location</Label>
+                                        <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Location</Label>
                                         <Input className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={eventForm.location} onChange={(e) => setEventForm({ ...eventForm, location: e.target.value })} />
                                     </div>
                                 </div>
-                                <Button type="submit" className="h-12 w-full rounded-xl font-black uppercase italic tracking-wider">Create Event</Button>
+                                <Button type="submit" className="h-12 w-full rounded-xl font-semibold uppercase tracking-wider">Create Event</Button>
                             </form>
                         </DialogContent>
                     </Dialog>
 
-                    <Button onClick={() => setIsAddAlumniOpen(true)} className="h-12 px-6 rounded-2xl font-black gap-2 shadow-lg shadow-primary/20">
+                    <Button onClick={() => setIsAddAlumniOpen(true)} className="h-12 px-6 rounded-2xl font-semibold gap-2 shadow-lg shadow-primary/20">
                         <Plus className="h-5 w-5" /> Register Alumni
                     </Button>
                 </div>
@@ -130,7 +130,7 @@ export default function AlumniPage() {
                 <div className="lg:col-span-2 space-y-6">
                     <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background">
                         <CardHeader className="p-8 border-b border-border/50 flex flex-row items-center justify-between">
-                            <CardTitle className="text-2xl font-black italic flex items-center gap-3">
+                            <CardTitle className="text-h3 font-semibold flex items-center gap-3">
                                 <Users className="h-8 w-8 text-primary" />
                                 Alumni Directory
                             </CardTitle>
@@ -148,16 +148,16 @@ export default function AlumniPage() {
                             <Table>
                                 <TableHeader className="bg-muted/30 h-16">
                                     <TableRow className="border-border/50 hover:bg-transparent">
-                                        <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Name & Graduation</TableHead>
-                                        <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Current Profile</TableHead>
-                                        <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-right">Connect</TableHead>
+                                        <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Name & Graduation</TableHead>
+                                        <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Current Profile</TableHead>
+                                        <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-right">Connect</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
                                     {alumni.filter(a => (a.student?.firstName + ' ' + a.student?.lastName).toLowerCase().includes(searchTerm.toLowerCase())).map((a) => (
                                         <TableRow key={a.id} className="border-border/50 h-24 transition-all hover:bg-muted/20">
                                             <TableCell className="px-8 flex flex-col justify-center h-24">
-                                                <span className="font-black italic uppercase italic">{a.student?.firstName} {a.student?.lastName}</span>
+                                                <span className="font-semibold uppercase">{a.student?.firstName} {a.student?.lastName}</span>
                                                 <span className="text-xs font-bold text-muted-foreground opacity-60 tracking-wider flex items-center gap-1">
                                                     <GraduationCap className="h-3 w-3" /> Class of {new Date(a.graduationDate).getFullYear()}
                                                 </span>
@@ -191,25 +191,25 @@ export default function AlumniPage() {
                 <div className="space-y-6">
                     <Card className="rounded-[3rem] border-border/50 shadow-2xl bg-background overflow-hidden border-l-4 border-l-primary">
                         <CardHeader className="p-8 border-b border-border/50">
-                            <CardTitle className="text-2xl font-black italic uppercase italic">Upcoming Meetups</CardTitle>
+                            <CardTitle className="text-h3 font-semibold uppercase">Upcoming Meetups</CardTitle>
                         </CardHeader>
                         <CardContent className="p-8 space-y-4">
                             {events.map((event) => (
                                 <div key={event.id} className="p-5 rounded-3xl bg-muted/30 border border-transparent hover:border-primary/20 transition-all space-y-4">
                                     <div className="flex justify-between items-start">
-                                        <Badge className="rounded-lg bg-primary/10 text-primary hover:bg-primary/20 border-none font-black italic">
+                                        <Badge className="rounded-lg bg-primary/10 text-primary hover:bg-primary/20 border-none font-semibold">
                                             {new Date(event.eventDate).toLocaleDateString()}
                                         </Badge>
                                         <Users className="h-5 w-5 opacity-20" />
                                     </div>
                                     <div>
-                                        <div className="font-black italic uppercase text-lg italic">{event.title}</div>
+                                        <div className="font-semibold uppercase text-lg">{event.title}</div>
                                         <p className="text-xs font-medium text-muted-foreground line-clamp-2">{event.description}</p>
                                     </div>
-                                    <div className="flex items-center gap-2 text-[10px] font-bold uppercase italic text-muted-foreground">
+                                    <div className="flex items-center gap-2 text-[10px] font-bold uppercase text-muted-foreground">
                                         <MapPin className="h-3 w-3" /> {event.location || 'Location Pending'}
                                     </div>
-                                    <Button className="w-full h-10 rounded-xl font-black uppercase italic tracking-wider text-xs bg-primary/5 text-primary hover:bg-primary/10 border-none shadow-none">
+                                    <Button className="w-full h-10 rounded-xl font-semibold uppercase tracking-wider text-xs bg-primary/5 text-primary hover:bg-primary/10 border-none shadow-none">
                                         Join Event <ExternalLink className="ml-2 h-3 w-3" />
                                     </Button>
                                 </div>

@@ -88,20 +88,20 @@ export default function AccessControlPage() {
         <div className="max-w-7xl mx-auto space-y-8 pb-20">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-4xl font-black tracking-tight italic uppercase">Campus Access</h1>
+                    <h1 className="text-h1 font-semibold tracking-tight uppercase">Campus Access</h1>
                     <p className="text-muted-foreground font-medium mt-1">Real-time entry/exit monitoring and security logs.</p>
                 </div>
                 <div className="flex bg-muted/50 p-1 rounded-2xl shadow-sm border border-border/50">
                     <Button
                         variant="ghost"
-                        className={`h-12 rounded-xl font-black px-6 transition-all ${direction === 'ENTRY' ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/20' : 'opacity-40'}`}
+                        className={`h-12 rounded-xl font-semibold px-6 transition-all ${direction === 'ENTRY' ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/20' : 'opacity-40'}`}
                         onClick={() => setDirection('ENTRY')}
                     >
                         Entry
                     </Button>
                     <Button
                         variant="ghost"
-                        className={`h-12 rounded-xl font-black px-6 transition-all ${direction === 'EXIT' ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/20' : 'opacity-40'}`}
+                        className={`h-12 rounded-xl font-semibold px-6 transition-all ${direction === 'EXIT' ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/20' : 'opacity-40'}`}
                         onClick={() => setDirection('EXIT')}
                     >
                         Exit
@@ -113,7 +113,7 @@ export default function AccessControlPage() {
                 {/* Scanner Interface */}
                 <Card className="rounded-[3rem] border-border/50 shadow-2xl bg-background overflow-hidden relative flex flex-col">
                     <CardHeader className="p-8 border-b border-border/50">
-                        <CardTitle className="text-2xl font-black italic uppercase italic flex items-center gap-3">
+                        <CardTitle className="text-h3 font-semibold uppercase flex items-center gap-3">
                             <QrCode className="h-8 w-8 text-primary" />
                             Live Scanner
                         </CardTitle>
@@ -124,7 +124,7 @@ export default function AccessControlPage() {
                                 <div id="qr-reader" className="overflow-hidden rounded-[2rem] border-4 border-primary/20 bg-black" />
                                 <Button
                                     variant="outline"
-                                    className="w-full h-14 rounded-2xl font-black uppercase italic tracking-wider gap-2 border-primary/20"
+                                    className="w-full h-14 rounded-2xl font-semibold uppercase tracking-wider gap-2 border-primary/20"
                                     onClick={() => setScanning(false)}
                                 >
                                     <RefreshCcw className="h-5 w-5" /> Stop Scanner
@@ -136,11 +136,11 @@ export default function AccessControlPage() {
                                     <Camera className="h-20 w-20 text-primary/10 group-hover:scale-110 group-hover:text-primary/30 transition-all" />
                                 </div>
                                 <div>
-                                    <h3 className="text-xl font-black italic uppercase italic">Scanner Ready</h3>
+                                    <h3 className="text-h3 font-semibold uppercase">Scanner Ready</h3>
                                     <p className="text-muted-foreground font-medium max-w-xs mx-auto mt-2">Activate camera to begin logging student and staff movements.</p>
                                 </div>
                                 <Button
-                                    className="h-16 px-12 rounded-[2rem] font-black uppercase italic tracking-wider gap-3 shadow-xl shadow-primary/20"
+                                    className="h-16 px-12 rounded-[2rem] font-semibold uppercase tracking-wider gap-3 shadow-xl shadow-primary/20"
                                     onClick={() => setScanning(true)}
                                 >
                                     <ShieldCheck className="h-6 w-6" /> Start Monitoring
@@ -153,12 +153,12 @@ export default function AccessControlPage() {
                         <div className="absolute bottom-8 left-8 right-8 animate-in slide-in-from-bottom-8 duration-500">
                             <div className="p-6 rounded-3xl bg-primary text-white shadow-2xl flex items-center justify-between">
                                 <div className="flex items-center gap-4">
-                                    <div className="h-14 w-14 rounded-2xl bg-white/20 flex items-center justify-center text-2xl font-black italic">
+                                    <div className="h-14 w-14 rounded-2xl bg-white/20 flex items-center justify-center text-h3 font-semibold">
                                         {lastScan.user?.firstName[0]}
                                     </div>
                                     <div>
-                                        <div className="font-black italic uppercase italic tracking-tight">{lastScan.user?.firstName} {lastScan.user?.lastName}</div>
-                                        <Badge variant="secondary" className="bg-white/10 text-white rounded-lg border-none text-[10px] font-black italic mt-1">
+                                        <div className="font-semibold uppercase tracking-tight">{lastScan.user?.firstName} {lastScan.user?.lastName}</div>
+                                        <Badge variant="secondary" className="bg-white/10 text-white rounded-lg border-none text-[10px] font-semibold mt-1">
                                             {lastScan.user?.role} • {lastScan.direction}
                                         </Badge>
                                     </div>
@@ -173,12 +173,12 @@ export default function AccessControlPage() {
                 <Card className="rounded-[3rem] border-border/50 shadow-2xl bg-background overflow-hidden flex flex-col">
                     <CardHeader className="p-8 border-b border-border/50 flex flex-row items-center justify-between">
                         <div>
-                            <CardTitle className="text-2xl font-black italic uppercase italic flex items-center gap-3">
+                            <CardTitle className="text-h3 font-semibold uppercase flex items-center gap-3">
                                 <History className="h-8 w-8 text-primary" />
                                 Activity Feed
                             </CardTitle>
                         </div>
-                        <Badge variant="outline" className="rounded-lg font-black italic uppercase italic text-[10px] opacity-50 px-4">Live Updates</Badge>
+                        <Badge variant="outline" className="rounded-lg font-semibold uppercase text-[10px] opacity-50 px-4">Live Updates</Badge>
                     </CardHeader>
                     <ScrollArea className="flex-1">
                         <div className="p-4 space-y-2">
@@ -189,12 +189,12 @@ export default function AccessControlPage() {
                                             {log.direction === 'ENTRY' ? <ArrowDownLeft className="h-6 w-6" /> : <ArrowUpRight className="h-6 w-6" />}
                                         </div>
                                         <div>
-                                            <div className="font-black italic uppercase text-sm italic">{log.user?.firstName} {log.user?.lastName}</div>
+                                            <div className="font-semibold uppercase text-sm">{log.user?.firstName} {log.user?.lastName}</div>
                                             <div className="text-[10px] font-bold text-muted-foreground opacity-50 uppercase">{log.user?.role} • {log.location || 'Entrance'}</div>
                                         </div>
                                     </div>
                                     <div className="text-right">
-                                        <div className="text-xs font-black italic">{new Date(log.scanTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+                                        <div className="text-xs font-semibold">{new Date(log.scanTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
                                         <div className="text-[10px] font-bold text-muted-foreground opacity-30">{new Date(log.scanTime).toLocaleDateString()}</div>
                                     </div>
                                 </div>

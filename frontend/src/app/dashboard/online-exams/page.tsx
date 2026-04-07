@@ -97,24 +97,24 @@ export default function OnlineExamsPage() {
         <div className="max-w-7xl mx-auto space-y-8 pb-20">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-4xl font-black tracking-tight italic">Online Examinations</h1>
+                    <h1 className="text-h1 font-semibold tracking-tight">Online Examinations</h1>
                     <p className="text-muted-foreground font-medium mt-1">Schedule and monitor digital assessments for students.</p>
                 </div>
 
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                     <DialogTrigger asChild>
-                        <Button className="h-14 px-8 rounded-2xl font-black text-lg gap-2 shadow-xl shadow-primary/20 hover:scale-[1.02] transition-all">
+                        <Button className="h-14 px-8 rounded-2xl font-semibold text-lg gap-2 shadow-xl shadow-primary/20 hover:scale-[1.02] transition-all">
                             <Plus className="h-6 w-6" />
                             Schedule Exam
                         </Button>
                     </DialogTrigger>
                     <DialogContent className="rounded-[2.5rem] max-w-3xl">
                         <DialogHeader>
-                            <DialogTitle className="text-2xl font-black italic">New Examination Setup</DialogTitle>
+                            <DialogTitle className="text-h3 font-semibold">New Examination Setup</DialogTitle>
                         </DialogHeader>
                         <div className="grid grid-cols-2 gap-6 py-4">
                             <div className="col-span-2 space-y-2">
-                                <Label className="text-xs font-black uppercase tracking-widest ml-1">Exam Title</Label>
+                                <Label className="text-xs font-semibold uppercase tracking-widest ml-1">Exam Title</Label>
                                 <Input
                                     placeholder="e.g. Mid-Term Mathematics Assessment"
                                     className="h-12 rounded-2xl border-none bg-muted/50 font-bold"
@@ -124,7 +124,7 @@ export default function OnlineExamsPage() {
                             </div>
 
                             <div className="space-y-2">
-                                <Label className="text-xs font-black uppercase tracking-widest ml-1">Class</Label>
+                                <Label className="text-xs font-semibold uppercase tracking-widest ml-1">Class</Label>
                                 <Select value={formData.classId} onValueChange={(v) => setFormData({ ...formData, classId: v })}>
                                     <SelectTrigger className="h-12 rounded-2xl bg-muted/50 font-bold border-none">
                                         <SelectValue placeholder="Select Class" />
@@ -136,7 +136,7 @@ export default function OnlineExamsPage() {
                             </div>
 
                             <div className="space-y-2">
-                                <Label className="text-xs font-black uppercase tracking-widest ml-1">Subject</Label>
+                                <Label className="text-xs font-semibold uppercase tracking-widest ml-1">Subject</Label>
                                 <Select value={formData.subjectId} onValueChange={(v) => setFormData({ ...formData, subjectId: v })}>
                                     <SelectTrigger className="h-12 rounded-2xl bg-muted/50 font-bold border-none">
                                         <SelectValue placeholder="Select Subject" />
@@ -148,7 +148,7 @@ export default function OnlineExamsPage() {
                             </div>
 
                             <div className="space-y-2">
-                                <Label className="text-xs font-black uppercase tracking-widest ml-1">Question Group</Label>
+                                <Label className="text-xs font-semibold uppercase tracking-widest ml-1">Question Group</Label>
                                 <Select value={formData.groupId} onValueChange={(v) => setFormData({ ...formData, groupId: v })}>
                                     <SelectTrigger className="h-12 rounded-2xl bg-muted/50 font-bold border-none">
                                         <SelectValue placeholder="Link Question Bank" />
@@ -160,7 +160,7 @@ export default function OnlineExamsPage() {
                             </div>
 
                             <div className="space-y-2">
-                                <Label className="text-xs font-black uppercase tracking-widest ml-1">Scheduled Date & Time</Label>
+                                <Label className="text-xs font-semibold uppercase tracking-widest ml-1">Scheduled Date & Time</Label>
                                 <Input
                                     type="datetime-local"
                                     className="h-12 rounded-2xl border-none bg-muted/50 font-bold"
@@ -170,7 +170,7 @@ export default function OnlineExamsPage() {
                             </div>
 
                             <div className="space-y-2">
-                                <Label className="text-xs font-black uppercase tracking-widest ml-1">Duration (Min)</Label>
+                                <Label className="text-xs font-semibold uppercase tracking-widest ml-1">Duration (Min)</Label>
                                 <Input
                                     type="number"
                                     className="h-12 rounded-2xl border-none bg-muted/50 font-bold"
@@ -180,7 +180,7 @@ export default function OnlineExamsPage() {
                             </div>
 
                             <div className="space-y-2">
-                                <Label className="text-xs font-black uppercase tracking-widest ml-1">Pass %</Label>
+                                <Label className="text-xs font-semibold uppercase tracking-widest ml-1">Pass %</Label>
                                 <Input
                                     type="number"
                                     className="h-12 rounded-2xl border-none bg-muted/50 font-bold"
@@ -191,7 +191,7 @@ export default function OnlineExamsPage() {
                         </div>
                         <DialogFooter>
                             <Button variant="ghost" className="rounded-2xl h-12 font-bold px-8" onClick={() => setIsDialogOpen(false)}>Cancel</Button>
-                            <Button className="rounded-2xl h-12 font-black px-12" onClick={handleCreateExam}>Schedule Exam</Button>
+                            <Button className="rounded-2xl h-12 font-semibold px-12" onClick={handleCreateExam}>Schedule Exam</Button>
                         </DialogFooter>
                     </DialogContent>
                 </Dialog>
@@ -199,30 +199,30 @@ export default function OnlineExamsPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                 <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-primary/5 border-l-4 border-l-primary">
-                    <CardHeader className="pb-2"><CardTitle className="text-xs font-black uppercase tracking-widest italic opacity-50">Total Exams</CardTitle></CardHeader>
+                    <CardHeader className="pb-2"><CardTitle className="text-xs font-semibold uppercase tracking-widest opacity-50">Total Exams</CardTitle></CardHeader>
                     <CardContent className="flex items-center gap-4">
-                        <span className="text-4xl font-black italic">{exams.length}</span>
+                        <span className="text-h1 font-semibold">{exams.length}</span>
                         <BookOpen className="h-8 w-8 text-primary/40" />
                     </CardContent>
                 </Card>
                 <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-emerald-500/5 border-l-4 border-l-emerald-500">
-                    <CardHeader className="pb-2"><CardTitle className="text-xs font-black uppercase tracking-widest italic opacity-50">Active Now</CardTitle></CardHeader>
+                    <CardHeader className="pb-2"><CardTitle className="text-xs font-semibold uppercase tracking-widest opacity-50">Active Now</CardTitle></CardHeader>
                     <CardContent className="flex items-center gap-4">
-                        <span className="text-4xl font-black italic">{exams.filter(e => e.status === ExamStatus.LIVE).length}</span>
+                        <span className="text-h1 font-semibold">{exams.filter(e => e.status === ExamStatus.LIVE).length}</span>
                         <div className="h-3 w-3 rounded-full bg-emerald-500 animate-pulse" />
                     </CardContent>
                 </Card>
                 <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-amber-500/5 border-l-4 border-l-amber-500">
-                    <CardHeader className="pb-2"><CardTitle className="text-xs font-black uppercase tracking-widest italic opacity-50">Upcoming</CardTitle></CardHeader>
+                    <CardHeader className="pb-2"><CardTitle className="text-xs font-semibold uppercase tracking-widest opacity-50">Upcoming</CardTitle></CardHeader>
                     <CardContent className="flex items-center gap-4">
-                        <span className="text-4xl font-black italic">{exams.filter(e => e.status === ExamStatus.PUBLISHED || e.status === ExamStatus.UPCOMING).length}</span>
+                        <span className="text-h1 font-semibold">{exams.filter(e => e.status === ExamStatus.PUBLISHED || e.status === ExamStatus.UPCOMING).length}</span>
                         <Calendar className="h-8 w-8 text-amber-500/40" />
                     </CardContent>
                 </Card>
                 <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-muted/30 border-l-4 border-l-muted-foreground">
-                    <CardHeader className="pb-2"><CardTitle className="text-xs font-black uppercase tracking-widest italic opacity-50">Completed</CardTitle></CardHeader>
+                    <CardHeader className="pb-2"><CardTitle className="text-xs font-semibold uppercase tracking-widest opacity-50">Completed</CardTitle></CardHeader>
                     <CardContent className="flex items-center gap-4">
-                        <span className="text-4xl font-black italic">{exams.filter(e => e.status === ExamStatus.ENDED).length}</span>
+                        <span className="text-h1 font-semibold">{exams.filter(e => e.status === ExamStatus.ENDED).length}</span>
                         <BarChart3 className="h-8 w-8 text-muted-foreground/40" />
                     </CardContent>
                 </Card>
@@ -230,7 +230,7 @@ export default function OnlineExamsPage() {
 
             <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background">
                 <CardHeader className="p-8 pb-4">
-                    <CardTitle className="text-2xl font-black italic flex items-center gap-3">
+                    <CardTitle className="text-h3 font-semibold flex items-center gap-3">
                         <Users className="h-8 w-8 text-primary" />
                         Examination Roster
                     </CardTitle>
@@ -239,11 +239,11 @@ export default function OnlineExamsPage() {
                     <Table>
                         <TableHeader className="bg-muted/30 h-16">
                             <TableRow className="border-border/50 hover:bg-transparent">
-                                <TableHead className="font-black italic px-8 uppercase tracking-tighter text-muted-foreground">Exam Details</TableHead>
-                                <TableHead className="font-black italic px-8 uppercase tracking-tighter text-muted-foreground">Class & Subject</TableHead>
-                                <TableHead className="font-black italic px-8 uppercase tracking-tighter text-muted-foreground">Schedule</TableHead>
-                                <TableHead className="font-black italic px-8 uppercase tracking-tighter text-muted-foreground">Status</TableHead>
-                                <TableHead className="font-black italic px-8 text-right uppercase tracking-tighter text-muted-foreground">Actions</TableHead>
+                                <TableHead className="font-semibold px-8 uppercase tracking-tighter text-muted-foreground">Exam Details</TableHead>
+                                <TableHead className="font-semibold px-8 uppercase tracking-tighter text-muted-foreground">Class & Subject</TableHead>
+                                <TableHead className="font-semibold px-8 uppercase tracking-tighter text-muted-foreground">Schedule</TableHead>
+                                <TableHead className="font-semibold px-8 uppercase tracking-tighter text-muted-foreground">Status</TableHead>
+                                <TableHead className="font-semibold px-8 text-right uppercase tracking-tighter text-muted-foreground">Actions</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -251,7 +251,7 @@ export default function OnlineExamsPage() {
                                 <TableRow key={exam.id} className="border-border/50 h-24 transition-all hover:bg-muted/20">
                                     <TableCell className="px-8">
                                         <div className="space-y-1">
-                                            <div className="font-black italic text-lg leading-tight uppercase">{exam.title}</div>
+                                            <div className="font-semibold text-lg leading-tight uppercase">{exam.title}</div>
                                             <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground">
                                                 <Activity className="h-3 w-3" />
                                                 {exam.group?.name} ({exam.group?._count?.questions || 0} Questions)
@@ -260,12 +260,12 @@ export default function OnlineExamsPage() {
                                     </TableCell>
                                     <TableCell className="px-8">
                                         <div className="flex flex-col gap-1">
-                                            <div className="px-3 py-1 rounded-full bg-primary/5 text-primary text-[10px] font-black w-fit uppercase">{exam.class?.name}</div>
-                                            <div className="px-3 py-1 rounded-full bg-muted text-[10px] font-black w-fit uppercase">{exam.subject?.name}</div>
+                                            <div className="px-3 py-1 rounded-full bg-primary/5 text-primary text-[10px] font-semibold w-fit uppercase">{exam.class?.name}</div>
+                                            <div className="px-3 py-1 rounded-full bg-muted text-[10px] font-semibold w-fit uppercase">{exam.subject?.name}</div>
                                         </div>
                                     </TableCell>
                                     <TableCell className="px-8">
-                                        <div className="flex flex-col gap-1 font-bold italic text-sm">
+                                        <div className="flex flex-col gap-1 font-bold text-sm">
                                             <div className="flex items-center gap-2 text-muted-foreground">
                                                 <Calendar className="h-4 w-4" />
                                                 {new Date(exam.scheduledDate).toLocaleDateString()}
@@ -277,7 +277,7 @@ export default function OnlineExamsPage() {
                                         </div>
                                     </TableCell>
                                     <TableCell className="px-8">
-                                        <div className={`px-4 py-1.5 rounded-full font-black text-[10px] uppercase tracking-widest w-fit shadow-sm ${getStatusColor(exam.status)}`}>
+                                        <div className={`px-4 py-1.5 rounded-full font-semibold text-[10px] uppercase tracking-widest w-fit shadow-sm ${getStatusColor(exam.status)}`}>
                                             {exam.status}
                                         </div>
                                     </TableCell>
@@ -285,7 +285,7 @@ export default function OnlineExamsPage() {
                                         <div className="flex justify-end gap-3">
                                             {user?.role === 'STUDENT' ? (
                                                 <Button
-                                                    className="h-12 px-6 rounded-2xl font-black gap-2 shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all"
+                                                    className="h-12 px-6 rounded-2xl font-semibold gap-2 shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all"
                                                     disabled={exam.status !== ExamStatus.LIVE}
                                                     onClick={() => router.push(`/dashboard/online-exams/take/${exam.id}`)}
                                                 >
@@ -319,7 +319,7 @@ export default function OnlineExamsPage() {
                                     <TableCell colSpan={5} className="h-60 text-center">
                                         <div className="flex flex-col items-center justify-center gap-4 opacity-30 grayscale saturate-0">
                                             <GraduationCap className="h-24 w-24 stroke-[1]" />
-                                            <p className="font-black italic text-2xl uppercase tracking-tighter">No Examinations Scheduled</p>
+                                            <p className="font-semibold text-h3 uppercase tracking-tighter">No Examinations Scheduled</p>
                                         </div>
                                     </TableCell>
                                 </TableRow>

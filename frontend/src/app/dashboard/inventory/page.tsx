@@ -68,7 +68,7 @@ export default function InventoryOverviewPage() {
             {/* Header section with branding */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                 <div className="space-y-2">
-                    <h1 className="text-5xl font-black tracking-tighter italic uppercase bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">
+                    <h1 className="text-h1 font-semibold tracking-tighter uppercase bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">
                         Inventory Command
                     </h1>
                     <p className="text-muted-foreground font-medium text-lg max-w-xl">
@@ -79,9 +79,9 @@ export default function InventoryOverviewPage() {
                 <div className="flex flex-wrap gap-3">
                     {quickActions.map((action) => (
                         <Link key={action.href} href={action.href}>
-                            <Button className={`h-14 px-6 rounded-[1.25rem] font-black gap-3 shadow-xl shadow-primary/10 hover:scale-105 active:scale-95 transition-all ${action.color}`}>
+                            <Button className={`h-14 px-6 rounded-[1.25rem] font-semibold gap-3 shadow-xl shadow-primary/10 hover:scale-105 active:scale-95 transition-all ${action.color}`}>
                                 <action.icon className="h-5 w-5" />
-                                <span className="uppercase italic tracking-wider">{action.title}</span>
+                                <span className="uppercase tracking-wider">{action.title}</span>
                             </Button>
                         </Link>
                     ))}
@@ -91,32 +91,32 @@ export default function InventoryOverviewPage() {
             {/* Top metrics grid */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                 <Card className="rounded-[2.5rem] border-none shadow-2xl bg-primary/5 hover:bg-primary/10 transition-colors group">
-                    <CardHeader className="pb-2"><CardTitle className="text-[10px] font-black uppercase tracking-[0.2em] italic opacity-40">Total SKUs</CardTitle></CardHeader>
+                    <CardHeader className="pb-2"><CardTitle className="text-label opacity-40">Total SKUs</CardTitle></CardHeader>
                     <CardContent className="flex items-center justify-between">
-                        <span className="text-5xl font-black italic tracking-tighter">{products.length}</span>
+                        <span className="text-h1 font-semibold tracking-tighter">{products.length}</span>
                         <Package className="h-10 w-10 text-primary opacity-20 group-hover:opacity-40 transition-opacity" />
                     </CardContent>
                 </Card>
                 <Card className="rounded-[2.5rem] border-none shadow-2xl bg-destructive/5 hover:bg-destructive/10 transition-colors group">
-                    <CardHeader className="pb-2"><CardTitle className="text-[10px] font-black uppercase tracking-[0.2em] italic opacity-40">Stock Alerts</CardTitle></CardHeader>
+                    <CardHeader className="pb-2"><CardTitle className="text-label opacity-40">Stock Alerts</CardTitle></CardHeader>
                     <CardContent className="flex items-center justify-between">
-                        <span className="text-5xl font-black italic tracking-tighter text-destructive">{lowStock.length}</span>
+                        <span className="text-h1 font-semibold tracking-tighter text-destructive">{lowStock.length}</span>
                         <AlertTriangle className="h-10 w-10 text-destructive opacity-20 group-hover:opacity-40 transition-opacity" />
                     </CardContent>
                 </Card>
                 <Card className="rounded-[2.5rem] border-none shadow-2xl bg-emerald-500/5 hover:bg-emerald-500/10 transition-colors group">
-                    <CardHeader className="pb-2"><CardTitle className="text-[10px] font-black uppercase tracking-[0.2em] italic opacity-40">Total Value</CardTitle></CardHeader>
+                    <CardHeader className="pb-2"><CardTitle className="text-label opacity-40">Total Value</CardTitle></CardHeader>
                     <CardContent className="flex items-center justify-between">
-                        <span className="text-4xl font-black italic tracking-tighter text-emerald-600">
+                        <span className="text-h1 font-semibold tracking-tighter text-emerald-600">
                             {new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN' }).format(totalStockValue)}
                         </span>
                         <TrendingUp className="h-10 w-10 text-emerald-500 opacity-20 group-hover:opacity-40 transition-opacity" />
                     </CardContent>
                 </Card>
                 <Card className="rounded-[2.5rem] border-none shadow-2xl bg-blue-500/5 hover:bg-blue-500/10 transition-colors group">
-                    <CardHeader className="pb-2"><CardTitle className="text-[10px] font-black uppercase tracking-[0.2em] italic opacity-40">Stores Active</CardTitle></CardHeader>
+                    <CardHeader className="pb-2"><CardTitle className="text-label opacity-40">Stores Active</CardTitle></CardHeader>
                     <CardContent className="flex items-center justify-between">
-                        <span className="text-5xl font-black italic tracking-tighter text-blue-600">Active</span>
+                        <span className="text-h1 font-semibold tracking-tighter text-blue-600">Active</span>
                         <Warehouse className="h-10 w-10 text-blue-500 opacity-20 group-hover:opacity-40 transition-opacity" />
                     </CardContent>
                 </Card>
@@ -132,7 +132,7 @@ export default function InventoryOverviewPage() {
                                     <link.icon className="h-6 w-6" />
                                 </div>
                                 <div>
-                                    <CardTitle className="text-xl font-black italic uppercase tracking-tight">{link.title}</CardTitle>
+                                    <CardTitle className="text-h3 font-semibold uppercase tracking-tight">{link.title}</CardTitle>
                                     <CardDescription className="text-xs font-bold uppercase opacity-60 tracking-widest">{link.desc}</CardDescription>
                                 </div>
                             </CardHeader>
@@ -147,12 +147,12 @@ export default function InventoryOverviewPage() {
                     <div className="flex items-center gap-4">
                         <AlertTriangle className="h-8 w-8 text-destructive animate-pulse" />
                         <div>
-                            <CardTitle className="text-2xl font-black italic uppercase text-destructive">Critical Stock Levels</CardTitle>
+                            <CardTitle className="text-h3 font-semibold uppercase text-destructive">Critical Stock Levels</CardTitle>
                             <CardDescription className="font-bold">Immediately restock these products to avoid operational delays.</CardDescription>
                         </div>
                     </div>
                     <Link href="/dashboard/inventory/purchase">
-                        <Button variant="ghost" className="font-black italic uppercase text-xs hover:bg-primary/5">Restock All Items</Button>
+                        <Button variant="ghost" className="font-semibold uppercase text-xs hover:bg-primary/5">Restock All Items</Button>
                     </Link>
                 </CardHeader>
                 <CardContent className="p-0">
@@ -161,18 +161,18 @@ export default function InventoryOverviewPage() {
                             lowStock.slice(0, 6).map((p) => (
                                 <div key={p.id} className="p-6 flex items-center justify-between hover:bg-destructive/5 transition-colors">
                                     <div className="flex flex-col">
-                                        <span className="font-black uppercase text-sm">{p.name}</span>
+                                        <span className="font-semibold uppercase text-sm">{p.name}</span>
                                         <span className="text-[10px] font-bold text-muted-foreground opacity-50 uppercase tracking-widest">{p.category?.name}</span>
                                     </div>
                                     <div className="flex flex-col items-end">
-                                        <span className="text-2xl font-black italic text-destructive">{p.stock}</span>
-                                        <span className="text-[10px] font-black uppercase opacity-30 italic">{p.unit?.name} remaining</span>
+                                        <span className="text-h3 font-semibold text-destructive">{p.stock}</span>
+                                        <span className="text-[10px] font-semibold uppercase opacity-30">{p.unit?.name} remaining</span>
                                     </div>
                                 </div>
                             ))
                         ) : (
                             <div className="col-span-full p-12 text-center">
-                                <span className="font-black italic uppercase text-muted-foreground opacity-20 text-3xl select-none">All Stock Levels Healthy</span>
+                                <span className="font-semibold uppercase text-muted-foreground opacity-20 text-h1 select-none">All Stock Levels Healthy</span>
                             </div>
                         )}
                     </div>

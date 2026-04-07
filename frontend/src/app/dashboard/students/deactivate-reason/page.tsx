@@ -149,7 +149,7 @@ export default function DeactivationReasonPage() {
             <div className="mb-8">
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-4xl font-bold bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent">
+                        <h1 className="text-h1 font-bold bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent">
                             Deactivation Reasons
                         </h1>
                         <p className="text-slate-600 dark:text-slate-400 mt-2">

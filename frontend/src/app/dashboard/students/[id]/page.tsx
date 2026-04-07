@@ -52,7 +52,7 @@ export default function StudentProfilePage() {
     }, [id]);
 
     if (loading) return <div className="p-8 text-center"><Loader2 className="animate-spin mx-auto h-8 w-8 text-primary" /></div>;
-    if (!student) return <div className="p-8 text-center font-bold text-2xl italic">Student Not Found</div>;
+    if (!student) return <div className="p-8 text-center font-bold text-2xl">Student Not Found</div>;
 
     const handlePrint = () => {
         window.print();
@@ -72,14 +72,14 @@ export default function StudentProfilePage() {
                         <ArrowLeft size={24} />
                     </Button>
                     <div>
-                        <h1 className="text-4xl font-black tracking-tight italic flex items-center gap-3">
+                        <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
                             {student.firstName} {student.lastName}
                         </h1>
                         <div className="flex items-center gap-2 mt-1">
-                            <Badge className="bg-primary/10 text-primary border-none font-black px-3 py-1">
+                            <Badge className="bg-primary/10 text-primary border-none font-semibold px-3 py-1">
                                 ID: {student.id.split('-')[0].toUpperCase()}
                             </Badge>
-                            <Badge className="bg-green-500/10 text-green-500 border-none font-black px-3 py-1">
+                            <Badge className="bg-green-500/10 text-green-500 border-none font-semibold px-3 py-1">
                                 ACTIVE
                             </Badge>
                         </div>
@@ -88,11 +88,11 @@ export default function StudentProfilePage() {
                 <div className="flex gap-3">
                     <Button
                         onClick={() => setIsIdCardOpen(true)}
-                        className="gap-2 rounded-2xl h-12 px-6 font-black shadow-lg shadow-primary/10 bg-muted text-foreground hover:bg-muted/80"
+                        className="gap-2 rounded-2xl h-12 px-6 font-semibold shadow-lg shadow-primary/10 bg-muted text-foreground hover:bg-muted/80"
                     >
                         <CreditCard size={18} /> ID Card
                     </Button>
-                    <Button className="gap-2 rounded-2xl h-12 px-6 font-black shadow-xl shadow-primary/20">
+                    <Button className="gap-2 rounded-2xl h-12 px-6 font-semibold shadow-xl shadow-primary/20">
                         <Edit3 size={18} /> Edit Profile
                     </Button>
                 </div>
@@ -105,7 +105,7 @@ export default function StudentProfilePage() {
                         <div className="w-32 h-32 rounded-[2.5rem] bg-primary/10 flex items-center justify-center mx-auto text-primary mb-4 transform rotate-6 hover:rotate-0 transition-transform duration-500 shadow-xl shadow-primary/10">
                             <User size={64} />
                         </div>
-                        <CardTitle className="text-2xl font-black italic">{student.firstName} {student.lastName}</CardTitle>
+                        <CardTitle className="text-h3 font-semibold">{student.firstName} {student.lastName}</CardTitle>
                         <p className="text-muted-foreground font-bold">{student.class?.name || "No Class"} - {student.section?.name || "No Section"}</p>
                     </CardHeader>
                     <CardContent className="p-10 space-y-6">
@@ -115,7 +115,7 @@ export default function StudentProfilePage() {
                                     <Mail size={18} />
                                 </div>
                                 <div>
-                                    <p className="text-[10px] uppercase font-black tracking-widest text-muted-foreground">Email Address</p>
+                                    <p className="text-label text-muted-foreground">Email Address</p>
                                     <p className="font-bold text-lg">{student.user?.email}</p>
                                 </div>
                             </div>
@@ -124,7 +124,7 @@ export default function StudentProfilePage() {
                                     <Phone size={18} />
                                 </div>
                                 <div>
-                                    <p className="text-[10px] uppercase font-black tracking-widest text-muted-foreground">Phone Number</p>
+                                    <p className="text-label text-muted-foreground">Phone Number</p>
                                     <p className="font-bold text-lg">{student.user?.phone || "Not Provided"}</p>
                                 </div>
                             </div>
@@ -133,26 +133,26 @@ export default function StudentProfilePage() {
                                     <Calendar size={18} />
                                 </div>
                                 <div>
-                                    <p className="text-[10px] uppercase font-black tracking-widest text-muted-foreground">Date of Birth</p>
+                                    <p className="text-label text-muted-foreground">Date of Birth</p>
                                     <p className="font-bold text-lg">{student.dob ? new Date(student.dob).toLocaleDateString() : "Not Provided"}</p>
                                 </div>
                             </div>
                         </div>
 
                         <div className="pt-6 border-t border-border/50">
-                            <h4 className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground mb-4">Quick Stats</h4>
+                            <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground mb-4">Quick Stats</h4>
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="p-4 rounded-2xl bg-muted/30 text-center">
-                                    <p className="text-2xl font-black italic text-primary">
+                                    <p className="text-h3 font-semibold text-primary">
                                         {student.attendance && student.attendance.length > 0
                                             ? `${Math.round((student.attendance.filter(a => ['PRESENT', 'LATE'].includes(a.status)).length / student.attendance.length) * 100)}%`
                                             : "N/A"}
                                     </p>
-                                    <p className="text-[10px] font-black uppercase text-muted-foreground">Attendance</p>
+                                    <p className="text-[10px] font-semibold uppercase text-muted-foreground">Attendance</p>
                                 </div>
                                 <div className="p-4 rounded-2xl bg-muted/30 text-center">
-                                    <p className="text-2xl font-black italic text-primary">A-</p>
-                                    <p className="text-[10px] font-black uppercase text-muted-foreground">Avg Grade</p>
+                                    <p className="text-h3 font-semibold text-primary">A-</p>
+                                    <p className="text-[10px] font-semibold uppercase text-muted-foreground">Avg Grade</p>
                                 </div>
                             </div>
                         </div>
@@ -163,16 +163,16 @@ export default function StudentProfilePage() {
                 <div className="lg:col-span-2 space-y-8">
                     <Tabs defaultValue="overview" className="w-full">
                         <TabsList className="bg-muted/30 p-2 rounded-[2rem] h-16 w-full max-w-2xl border border-border/50">
-                            <TabsTrigger value="overview" className="rounded-[1.5rem] font-black italic transition-all data-[state=active]:bg-background data-[state=active]:shadow-lg flex gap-2">
+                            <TabsTrigger value="overview" className="rounded-[1.5rem] font-semibold transition-all data-[state=active]:bg-background data-[state=active]:shadow-lg flex gap-2">
                                 <BookOpen size={18} /> Overview
                             </TabsTrigger>
-                            <TabsTrigger value="attendance" className="rounded-[1.5rem] font-black italic transition-all data-[state=active]:bg-background data-[state=active]:shadow-lg flex gap-2">
+                            <TabsTrigger value="attendance" className="rounded-[1.5rem] font-semibold transition-all data-[state=active]:bg-background data-[state=active]:shadow-lg flex gap-2">
                                 <Clock size={18} /> Attendance
                             </TabsTrigger>
-                            <TabsTrigger value="transport" className="rounded-[1.5rem] font-black italic transition-all data-[state=active]:bg-background data-[state=active]:shadow-lg flex gap-2">
+                            <TabsTrigger value="transport" className="rounded-[1.5rem] font-semibold transition-all data-[state=active]:bg-background data-[state=active]:shadow-lg flex gap-2">
                                 <Bus size={18} /> Transport
                             </TabsTrigger>
-                            <TabsTrigger value="docs" className="rounded-[1.5rem] font-black italic transition-all data-[state=active]:bg-background data-[state=active]:shadow-lg flex gap-2">
+                            <TabsTrigger value="docs" className="rounded-[1.5rem] font-semibold transition-all data-[state=active]:bg-background data-[state=active]:shadow-lg flex gap-2">
                                 <FileText size={18} /> Documents
                             </TabsTrigger>
                         </TabsList>
@@ -180,7 +180,7 @@ export default function StudentProfilePage() {
                         <TabsContent value="overview" className="mt-8 animate-in slide-in-from-left-4 duration-500">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <Card className="rounded-[2.5rem] border-border/50 shadow-xl p-8 bg-card/50">
-                                    <h3 className="text-xl font-black italic flex items-center gap-3 mb-6">
+                                    <h3 className="text-h3 font-semibold flex items-center gap-3 mb-6">
                                         <ShieldCheck className="text-primary" /> Father Details
                                     </h3>
                                     <div className="space-y-4">
@@ -190,7 +190,7 @@ export default function StudentProfilePage() {
                                     </div>
                                 </Card>
                                 <Card className="rounded-[2.5rem] border-border/50 shadow-xl p-8 bg-card/50">
-                                    <h3 className="text-xl font-black italic flex items-center gap-3 mb-6">
+                                    <h3 className="text-h3 font-semibold flex items-center gap-3 mb-6">
                                         <ShieldCheck className="text-primary" /> Mother Details
                                     </h3>
                                     <div className="space-y-4">
@@ -200,10 +200,10 @@ export default function StudentProfilePage() {
                                     </div>
                                 </Card>
                                 <Card className="md:col-span-2 rounded-[2.5rem] border-border/50 shadow-xl p-8 bg-card/50">
-                                    <h3 className="text-xl font-black italic flex items-center gap-3 mb-6">
+                                    <h3 className="text-h3 font-semibold flex items-center gap-3 mb-6">
                                         <MapPin className="text-primary" /> Residential Address
                                     </h3>
-                                    <p className="font-bold text-lg italic text-muted-foreground">
+                                    <p className="font-bold text-lg text-muted-foreground">
                                         {student.city ? `${student.city}, ${student.state}, ${student.country}` : "Address not set"}
                                     </p>
                                 </Card>
@@ -213,7 +213,7 @@ export default function StudentProfilePage() {
                         <TabsContent value="transport" className="mt-8 animate-in slide-in-from-left-4 duration-500">
                             <Card className="rounded-[3rem] border-border/50 shadow-xl p-10 bg-card/50 text-center border-t-8 border-t-blue-500">
                                 <Bus size={48} className="mx-auto text-blue-500 mb-6" />
-                                <h3 className="text-2xl font-black italic mb-2">Transport Details</h3>
+                                <h3 className="text-h3 font-semibold mb-2">Transport Details</h3>
                                 {student.transportAssignment ? (
                                     <div className="space-y-4 max-w-md mx-auto mt-6">
                                         <div className="p-4 rounded-2xl bg-muted/30 font-bold flex justify-between">
@@ -224,7 +224,7 @@ export default function StudentProfilePage() {
                                         </div>
                                     </div>
                                 ) : (
-                                    <p className="text-muted-foreground font-medium italic">This student is not assigned to any school transport route.</p>
+                                    <p className="text-muted-foreground font-medium">This student is not assigned to any school transport route.</p>
                                 )}
                             </Card>
                         </TabsContent>
@@ -232,8 +232,8 @@ export default function StudentProfilePage() {
                         <TabsContent value="docs" className="mt-8 animate-in slide-in-from-left-4 duration-500">
                             <Card className="rounded-[3rem] border-border/50 shadow-xl p-10 bg-card/50 overflow-hidden">
                                 <div className="flex justify-between items-center mb-10">
-                                    <h3 className="text-2xl font-black italic">Issued Documents</h3>
-                                    <Button variant="outline" className="rounded-xl font-black italic">
+                                    <h3 className="text-h3 font-semibold">Issued Documents</h3>
+                                    <Button variant="outline" className="rounded-xl font-semibold">
                                         <Award className="mr-2" size={18} /> View All
                                     </Button>
                                 </div>
@@ -242,11 +242,11 @@ export default function StudentProfilePage() {
                                         student.certificates.map(cert => (
                                             <div key={cert.id} className="p-6 rounded-2xl bg-muted/20 border border-border/30 flex justify-between items-center group hover:bg-muted/40 transition-colors">
                                                 <div className="flex items-center gap-4">
-                                                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary font-black">
+                                                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary font-semibold">
                                                         <FileText size={20} />
                                                     </div>
                                                     <div>
-                                                        <p className="font-black italic uppercase">{cert.type}</p>
+                                                        <p className="font-semibold uppercase">{cert.type}</p>
                                                         <p className="text-xs font-bold text-muted-foreground">{cert.certificateNumber}</p>
                                                     </div>
                                                 </div>
@@ -258,7 +258,7 @@ export default function StudentProfilePage() {
                                     ) : (
                                         <div className="text-center py-10">
                                             <FileText size={40} className="mx-auto text-muted-foreground/30 mb-4" />
-                                            <p className="text-muted-foreground font-bold italic">No documents issued yet.</p>
+                                            <p className="text-muted-foreground font-bold">No documents issued yet.</p>
                                         </div>
                                     )}
                                 </div>
@@ -272,15 +272,15 @@ export default function StudentProfilePage() {
             <Dialog open={isIdCardOpen} onOpenChange={setIsIdCardOpen}>
                 <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl bg-background/80 backdrop-blur-xl">
                     <DialogHeader>
-                        <DialogTitle className="text-3xl font-black italic mb-6 tracking-tight">Student ID Card</DialogTitle>
+                        <DialogTitle className="text-h1 font-semibold mb-6 tracking-tight">Student ID Card</DialogTitle>
                     </DialogHeader>
                     <div className="flex flex-col items-center gap-10">
                         <StudentIDCard student={student} />
                         <div className="flex gap-4">
-                            <Button onClick={handlePrint} className="gap-3 h-14 rounded-2xl px-10 font-black text-lg shadow-xl shadow-primary/20">
+                            <Button onClick={handlePrint} className="gap-3 h-14 rounded-2xl px-10 font-semibold text-lg shadow-xl shadow-primary/20">
                                 <Printer size={20} /> Print Card
                             </Button>
-                            <Button variant="outline" onClick={() => setIsIdCardOpen(false)} className="h-14 rounded-2xl px-10 font-black text-lg border-2">
+                            <Button variant="outline" onClick={() => setIsIdCardOpen(false)} className="h-14 rounded-2xl px-10 font-semibold text-lg border-2">
                                 Close
                             </Button>
                         </div>

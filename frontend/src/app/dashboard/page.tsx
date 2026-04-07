@@ -46,12 +46,12 @@ export default function DashboardPage() {
                         <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
                             <GraduationCap size={32} />
                         </div>
-                        <h2 className="text-4xl lg:text-5xl font-black text-foreground italic tracking-tight uppercase">Dashboard Overview</h2>
+                        <h1 className="text-h1 tracking-tight">Dashboard Overview</h1>
                     </div>
 
-                    <p className="text-xl lg:text-2xl text-muted-foreground font-medium max-w-2xl leading-relaxed italic">
-                        Welcome back, <span className="text-primary font-black uppercase tracking-wider">{user?.firstName}</span>!
-                        Your management portal is active for <span className="font-bold text-foreground border-b-4 border-primary/20">{user?.role?.replace('_', ' ')}</span>.
+                    <p className="text-body text-muted-foreground max-w-2xl">
+                        Welcome back, <span className="text-primary font-semibold">{user?.firstName}</span>!
+                        Your management portal is active for <span className="font-medium text-foreground">{user?.role?.replace('_', ' ')}</span>.
                     </p>
 
                     <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -62,19 +62,19 @@ export default function DashboardPage() {
                         ].map((stat, i) => (
                             <div key={i} className="bg-muted/30 border border-border/50 rounded-[2.5rem] p-10 hover:bg-muted/50 transition-all group relative overflow-hidden">
                                 <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-500" />
-                                <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground mb-4 group-hover:text-primary transition-colors flex items-center gap-2">
+                                <h3 className="text-label mb-4 group-hover:text-primary transition-colors flex items-center gap-2">
                                     <stat.icon size={12} className={stat.color} /> {stat.title}
                                 </h3>
                                 <div className="flex items-end gap-3 relative z-10">
-                                    <p className="text-5xl font-black italic tracking-tighter">{loading ? "..." : stat.value}</p>
-                                    <span className="text-primary font-black text-[10px] mb-2 uppercase tracking-widest">{stat.trend}</span>
+                                    <p className="text-h1 font-semibold tracking-tight">{loading ? "..." : stat.value}</p>
+                                    <span className="text-primary text-label mb-1">{stat.trend}</span>
                                 </div>
                             </div>
                         ))}
                     </div>
                 </div>
 
-                {/* Decorative background element */}
+                {/* Decorative background elements */}
                 <div className="absolute -right-20 -top-20 w-80 h-80 bg-primary/5 rounded-full blur-[100px]"></div>
                 <div className="absolute -left-20 -bottom-20 w-80 h-80 bg-blue-500/5 rounded-full blur-[100px]"></div>
             </div>
@@ -82,25 +82,25 @@ export default function DashboardPage() {
             {/* Quick Links / Navigation Cards */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-12">
                 <Card className="rounded-[3rem] p-10 border-border/50 shadow-xl bg-card/50 backdrop-blur-sm border-b-8 border-b-blue-500/20">
-                    <h3 className="text-2xl font-black italic mb-6 flex items-center gap-3"><Bus className="text-blue-500" /> Transport</h3>
-                    <p className="text-muted-foreground font-medium italic mb-8">Manage fleet logistics, routes, and student assignments efficiently.</p>
-                    <a href="/dashboard/transport" className="inline-flex items-center gap-2 font-black text-blue-500 hover:gap-4 transition-all uppercase tracking-widest text-xs">
+                    <h3 className="text-h3 mb-4 flex items-center gap-3"><Bus className="text-blue-500" /> Transport</h3>
+                    <p className="text-body text-muted-foreground mb-8">Manage fleet logistics, routes, and student assignments efficiently.</p>
+                    <a href="/dashboard/transport" className="inline-flex items-center gap-2 text-btn text-blue-500 hover:gap-4 transition-all">
                         Open Transport Dashboard <TrendingUp size={16} />
                     </a>
                 </Card>
 
                 <Card className="rounded-[3rem] p-10 border-border/50 shadow-xl bg-card/50 backdrop-blur-sm border-b-8 border-b-green-500/20">
-                    <h3 className="text-2xl font-black italic mb-6 flex items-center gap-3"><Users className="text-green-500" /> Students</h3>
-                    <p className="text-muted-foreground font-medium italic mb-8">Comprehensive directory, admissions, and student performance tracking.</p>
-                    <a href="/dashboard/students" className="inline-flex items-center gap-2 font-black text-green-500 hover:gap-4 transition-all uppercase tracking-widest text-xs">
+                    <h3 className="text-h3 mb-4 flex items-center gap-3"><Users className="text-green-500" /> Students</h3>
+                    <p className="text-body text-muted-foreground mb-8">Comprehensive directory, admissions, and student performance tracking.</p>
+                    <a href="/dashboard/students" className="inline-flex items-center gap-2 text-btn text-green-500 hover:gap-4 transition-all">
                         Open Student Dashboard <TrendingUp size={16} />
                     </a>
                 </Card>
 
                 <Card className="rounded-[3rem] p-10 border-border/50 shadow-xl bg-card/50 backdrop-blur-sm border-b-8 border-b-purple-500/20">
-                    <h3 className="text-2xl font-black italic mb-6 flex items-center gap-3"><Calendar className="text-purple-500" /> Academic</h3>
-                    <p className="text-muted-foreground font-medium italic mb-8">Handle class schedules, exams, and academic sessions effortlessly.</p>
-                    <a href="/dashboard/academics" className="inline-flex items-center gap-2 font-black text-purple-500 hover:gap-4 transition-all uppercase tracking-widest text-xs">
+                    <h3 className="text-h3 mb-4 flex items-center gap-3"><Calendar className="text-purple-500" /> Academic</h3>
+                    <p className="text-body text-muted-foreground mb-8">Handle class schedules, exams, and academic sessions effortlessly.</p>
+                    <a href="/dashboard/academics" className="inline-flex items-center gap-2 text-btn text-purple-500 hover:gap-4 transition-all">
                         Manage Academics <TrendingUp size={16} />
                     </a>
                 </Card>

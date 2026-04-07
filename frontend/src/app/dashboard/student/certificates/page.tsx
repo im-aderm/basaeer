@@ -73,7 +73,7 @@ export default function StudentCertificatesPage() {
                 <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
                 <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                     <div>
-                        <h1 className="text-4xl font-black tracking-tight italic flex items-center gap-3">
+                        <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
                             <Award className="text-primary w-10 h-10" />
                             My Achievements
                         </h1>
@@ -102,8 +102,8 @@ export default function StudentCertificatesPage() {
                                 <div className="bg-white/80 p-4 rounded-full shadow-lg mb-3 group-hover:scale-110 transition-transform duration-500">
                                     <Award className="w-10 h-10 text-primary" />
                                 </div>
-                                <h3 className="text-xl font-black italic tracking-tight line-clamp-1">{cert.type}</h3>
-                                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground mt-1">Ref: {cert.certificateNumber}</p>
+                                <h3 className="text-h3 font-semibold tracking-tight line-clamp-1">{cert.type}</h3>
+                                <p className="text-label text-muted-foreground mt-1">Ref: {cert.certificateNumber}</p>
                             </div>
 
                             {/* Details Area */}
@@ -121,7 +121,7 @@ export default function StudentCertificatesPage() {
 
                                 <div className="flex gap-3 pt-2">
                                     <Button
-                                        className="flex-1 gap-2 rounded-2xl h-12 font-black text-sm transition-all shadow-lg shadow-primary/10"
+                                        className="flex-1 gap-2 rounded-2xl h-12 font-semibold text-sm transition-all shadow-lg shadow-primary/10"
                                         onClick={() => handleDownload(cert.id, user?.firstName + "_" + cert.type)}
                                     >
                                         <Download size={18} /> Download PDF
@@ -145,7 +145,7 @@ export default function StudentCertificatesPage() {
                             <FileText className="w-12 h-12 text-muted-foreground" />
                         </div>
                         <div>
-                            <h3 className="text-3xl font-black italic text-slate-300">No Certificates Found</h3>
+                            <h3 className="text-h1 font-semibold text-slate-300">No Certificates Found</h3>
                             <p className="text-slate-400 font-medium max-w-sm mx-auto mt-2">Any achievements or official documents issued to you will appear here.</p>
                         </div>
                     </div>

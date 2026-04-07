@@ -188,8 +188,8 @@ export default function HostelOverviewPage() {
             {/* Header Section */}
             <div className="relative overflow-hidden rounded-[3.5rem] bg-slate-900 p-12 text-white shadow-2xl">
                 <div className="relative z-10">
-                    <h1 className="text-5xl font-black tracking-tight italic mb-4">Hostel Hub</h1>
-                    <p className="text-slate-300 text-xl font-medium max-w-2xl leading-relaxed italic">
+                    <h1 className="text-h1 font-semibold tracking-tight mb-4">Hostel Hub</h1>
+                    <p className="text-slate-300 text-xl font-medium max-w-2xl leading-relaxed">
                         Streamline your residential management. Track occupancy, manage building wings, and ensure a comfortable stay for every student.
                     </p>
                 </div>
@@ -205,9 +205,9 @@ export default function HostelOverviewPage() {
                             <div className={`w-14 h-14 rounded-2xl ${stat.bgColor} ${stat.color} flex items-center justify-center mb-6 mx-auto sm:mx-0 group-hover:scale-110 transition-transform`}>
                                 <stat.icon size={28} />
                             </div>
-                            <h3 className="text-4xl font-black italic tracking-tighter">{stat.value}</h3>
+                            <h3 className="text-h1 font-semibold tracking-tighter">{stat.value}</h3>
                             <p className="text-muted-foreground font-bold mt-1">{stat.title}</p>
-                            <p className="text-[10px] uppercase tracking-widest font-black text-muted-foreground/30 mt-4">{stat.desc}</p>
+                            <p className="text-label text-muted-foreground/30 mt-4">{stat.desc}</p>
                         </CardContent>
                     </Card>
                 ))}
@@ -215,9 +215,9 @@ export default function HostelOverviewPage() {
 
             <Tabs defaultValue="buildings" className="space-y-8">
                 <TabsList className="bg-muted/50 p-1 h-14 rounded-2xl w-full max-w-lg mx-auto grid grid-cols-3">
-                    <TabsTrigger value="buildings" className="rounded-xl h-12 font-bold italic data-[state=active]:bg-white data-[state=active]:shadow-md">Buildings</TabsTrigger>
-                    <TabsTrigger value="maintenance" className="rounded-xl h-12 font-bold italic data-[state=active]:bg-white data-[state=active]:shadow-md">Maintenance</TabsTrigger>
-                    <TabsTrigger value="leaves" className="rounded-xl h-12 font-bold italic data-[state=active]:bg-white data-[state=active]:shadow-md">Leave Requests</TabsTrigger>
+                    <TabsTrigger value="buildings" className="rounded-xl h-12 font-bold data-[state=active]:bg-white data-[state=active]:shadow-md">Buildings</TabsTrigger>
+                    <TabsTrigger value="maintenance" className="rounded-xl h-12 font-bold data-[state=active]:bg-white data-[state=active]:shadow-md">Maintenance</TabsTrigger>
+                    <TabsTrigger value="leaves" className="rounded-xl h-12 font-bold data-[state=active]:bg-white data-[state=active]:shadow-md">Leave Requests</TabsTrigger>
                 </TabsList>
 
                 <TabsContent value="buildings" className="space-y-8 animate-in slide-in-from-bottom-4 duration-500">
@@ -226,7 +226,7 @@ export default function HostelOverviewPage() {
                             <DialogTrigger asChild>
                                 <Button
                                     onClick={() => setFormData({ id: "", name: "", type: "COED", address: "" })}
-                                    className="h-14 px-8 rounded-2xl bg-primary text-white font-black italic text-lg gap-2 shadow-xl shadow-primary/20"
+                                    className="h-14 px-8 rounded-2xl bg-primary text-white font-semibold text-lg gap-2 shadow-xl shadow-primary/20"
                                 >
                                     <Plus size={20} strokeWidth={3} />
                                     Register building
@@ -234,11 +234,11 @@ export default function HostelOverviewPage() {
                             </DialogTrigger>
                             <DialogContent className="max-w-md rounded-[2.5rem] p-8">
                                 <DialogHeader>
-                                    <DialogTitle className="text-2xl font-black italic">Add New Building</DialogTitle>
+                                    <DialogTitle className="text-h3 font-semibold">Add New Building</DialogTitle>
                                 </DialogHeader>
                                 <form onSubmit={handleCreateHostel} className="space-y-4 pt-4">
                                     <div className="space-y-1.5">
-                                        <Label className="font-bold ml-1 italic">Building Name</Label>
+                                        <Label className="font-bold ml-1">Building Name</Label>
                                         <Input
                                             required
                                             className="rounded-xl h-12"
@@ -248,9 +248,9 @@ export default function HostelOverviewPage() {
                                         />
                                     </div>
                                     <div className="space-y-1.5">
-                                        <Label className="font-bold ml-1 italic">Type</Label>
+                                        <Label className="font-bold ml-1">Type</Label>
                                         <select
-                                            className="w-full rounded-xl h-12 px-4 border bg-background font-bold italic appearance-none"
+                                            className="w-full rounded-xl h-12 px-4 border bg-background font-bold appearance-none"
                                             value={formData.type}
                                             onChange={e => setFormData({ ...formData, type: e.target.value as any })}
                                         >
@@ -260,7 +260,7 @@ export default function HostelOverviewPage() {
                                         </select>
                                     </div>
                                     <div className="space-y-1.5">
-                                        <Label className="font-bold ml-1 italic">Address / Location</Label>
+                                        <Label className="font-bold ml-1">Address / Location</Label>
                                         <Input
                                             className="rounded-xl h-12"
                                             placeholder="Building address"
@@ -268,7 +268,7 @@ export default function HostelOverviewPage() {
                                             onChange={e => setFormData({ ...formData, address: e.target.value })}
                                         />
                                     </div>
-                                    <Button type="submit" className="w-full h-14 rounded-xl font-black italic text-lg shadow-lg shadow-primary/20 mt-4">
+                                    <Button type="submit" className="w-full h-14 rounded-xl font-semibold text-lg shadow-lg shadow-primary/20 mt-4">
                                         Register Building
                                     </Button>
                                 </form>
@@ -280,7 +280,7 @@ export default function HostelOverviewPage() {
                         {hostels.map(hostel => (
                             <Card key={hostel.id} className="rounded-[3.5rem] border-border/50 shadow-xl p-8 hover:shadow-2xl transition-all group overflow-hidden relative">
                                 {/* Type Badge */}
-                                <div className={`absolute top-8 right-16 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest ${hostel.type === 'BOYS' ? 'bg-blue-100 text-blue-600' :
+                                <div className={`absolute top-8 right-16 px-4 py-2 rounded-xl text-label ${hostel.type === 'BOYS' ? 'bg-blue-100 text-blue-600' :
                                     hostel.type === 'GIRLS' ? 'bg-pink-100 text-pink-600' :
                                         'bg-purple-100 text-purple-600'
                                     }`}>
@@ -296,10 +296,10 @@ export default function HostelOverviewPage() {
                                             </Button>
                                         </DropdownMenuTrigger>
                                         <DropdownMenuContent align="end" className="rounded-2xl p-2 min-w-[160px]">
-                                            <DropdownMenuItem onClick={() => openEditModal(hostel)} className="rounded-xl gap-3 font-bold italic cursor-pointer">
+                                            <DropdownMenuItem onClick={() => openEditModal(hostel)} className="rounded-xl gap-3 font-bold cursor-pointer">
                                                 <Edit2 size={16} className="text-primary" /> Edit Building
                                             </DropdownMenuItem>
-                                            <DropdownMenuItem onClick={() => openDeleteAlert(hostel)} className="rounded-xl gap-3 font-bold italic text-destructive cursor-pointer">
+                                            <DropdownMenuItem onClick={() => openDeleteAlert(hostel)} className="rounded-xl gap-3 font-bold text-destructive cursor-pointer">
                                                 <Trash2 size={16} /> Delete Building
                                             </DropdownMenuItem>
                                         </DropdownMenuContent>
@@ -311,16 +311,16 @@ export default function HostelOverviewPage() {
                                         <Home size={40} className="text-muted-foreground/50" />
                                     </div>
                                     <div className="space-y-2">
-                                        <h3 className="text-3xl font-black italic tracking-tight">{hostel.name}</h3>
-                                        <div className="flex items-center gap-2 text-muted-foreground font-medium italic">
+                                        <h3 className="text-h1 font-semibold tracking-tight">{hostel.name}</h3>
+                                        <div className="flex items-center gap-2 text-muted-foreground font-medium">
                                             <MapPin size={16} />
                                             {hostel.address || "No address provided"}
                                         </div>
                                         <div className="flex gap-4 pt-2">
-                                            <div className="flex items-center gap-1.5 text-xs font-black text-muted-foreground/70 uppercase tracking-widest">
+                                            <div className="flex items-center gap-1.5 text-xs font-semibold text-muted-foreground/70 uppercase tracking-widest">
                                                 <Building2 size={14} /> {hostel.rooms?.length || 0} Rooms
                                             </div>
-                                            <div className="flex items-center gap-1.5 text-xs font-black text-muted-foreground/70 uppercase tracking-widest">
+                                            <div className="flex items-center gap-1.5 text-xs font-semibold text-muted-foreground/70 uppercase tracking-widest">
                                                 <Bed size={14} /> {hostel.rooms?.reduce((acc, r) => acc + r.capacity, 0) || 0} Beds
                                             </div>
                                         </div>
@@ -329,7 +329,7 @@ export default function HostelOverviewPage() {
 
                                 <div className="mt-10 flex gap-3">
                                     <Link href={`/dashboard/hostels/manage?id=${hostel.id}`} className="flex-1">
-                                        <Button className="w-full h-14 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-black italic gap-2 transition-all">
+                                        <Button className="w-full h-14 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-semibold gap-2 transition-all">
                                             Manage Rooms <ArrowRight size={18} />
                                         </Button>
                                     </Link>
@@ -342,8 +342,8 @@ export default function HostelOverviewPage() {
                                 <div className="w-24 h-24 bg-muted/50 rounded-full flex items-center justify-center mx-auto mb-6">
                                     <Building2 size={48} className="text-muted-foreground/30" />
                                 </div>
-                                <h2 className="text-3xl font-black italic mb-2">No Buildings Registered</h2>
-                                <p className="text-muted-foreground text-lg font-medium italic max-w-md mx-auto">
+                                <h2 className="text-h1 font-semibold mb-2">No Buildings Registered</h2>
+                                <p className="text-muted-foreground text-lg font-medium max-w-md mx-auto">
                                     Start by adding your first school hostel building to manage rooms and allocations.
                                 </p>
                             </div>
@@ -354,7 +354,7 @@ export default function HostelOverviewPage() {
                 <TabsContent value="maintenance" className="space-y-6 animate-in slide-in-from-bottom-4 duration-500">
                     <Card className="rounded-[3.5rem] border-border/50 shadow-xl overflow-hidden">
                         <CardHeader className="p-10 pb-4">
-                            <CardTitle className="text-3xl font-black italic">Maintenance Requests</CardTitle>
+                            <CardTitle className="text-h1 font-semibold">Maintenance Requests</CardTitle>
                         </CardHeader>
                         <CardContent className="p-10">
                             <div className="space-y-4">
@@ -362,21 +362,21 @@ export default function HostelOverviewPage() {
                                     <div key={req.id} className="p-6 rounded-[2rem] bg-muted/30 border border-border/50 flex flex-col md:flex-row gap-6 items-start justify-between group hover:bg-muted/50 transition-colors">
                                         <div className="space-y-2">
                                             <div className="flex items-center gap-3">
-                                                <Badge className={`rounded-lg px-3 py-1 font-black uppercase text-[10px] tracking-widest ${req.priority === 'URGENT' ? 'bg-red-500 hover:bg-red-600' :
+                                                <Badge className={`rounded-lg px-3 py-1 font-semibold uppercase text-[10px] tracking-widest ${req.priority === 'URGENT' ? 'bg-red-500 hover:bg-red-600' :
                                                     req.priority === 'HIGH' ? 'bg-orange-500 hover:bg-orange-600' :
                                                         req.priority === 'MEDIUM' ? 'bg-yellow-500 text-yellow-950 hover:bg-yellow-600' :
                                                             'bg-blue-500 hover:bg-blue-600'
                                                     }`}>
                                                     {req.priority} Priority
                                                 </Badge>
-                                                <Badge variant="outline" className={`rounded-lg px-3 py-1 font-black uppercase text-[10px] tracking-widest border-2 ${req.status === 'RESOLVED' ? 'border-green-500 text-green-600 bg-green-50' :
+                                                <Badge variant="outline" className={`rounded-lg px-3 py-1 font-semibold uppercase text-[10px] tracking-widest border-2 ${req.status === 'RESOLVED' ? 'border-green-500 text-green-600 bg-green-50' :
                                                     req.status === 'IN_PROGRESS' ? 'border-blue-500 text-blue-600 bg-blue-50' :
                                                         'border-slate-300 text-slate-500'
                                                     }`}>
                                                     {req.status.replace('_', ' ')}
                                                 </Badge>
                                             </div>
-                                            <h3 className="text-xl font-bold italic">{req.title}</h3>
+                                            <h3 className="text-xl font-bold">{req.title}</h3>
                                             <p className="text-muted-foreground">{req.description}</p>
                                             <div className="flex items-center gap-4 text-xs font-bold text-muted-foreground/70 pt-2">
                                                 {req.bed && (
@@ -399,7 +399,7 @@ export default function HostelOverviewPage() {
                                                 <Button
                                                     size="sm"
                                                     onClick={() => handleUpdateMaintenanceStatus(req.id, 'RESOLVED')}
-                                                    className="rounded-xl h-10 px-4 bg-green-600 hover:bg-green-700 text-white font-bold italic gap-2"
+                                                    className="rounded-xl h-10 px-4 bg-green-600 hover:bg-green-700 text-white font-bold gap-2"
                                                 >
                                                     <CheckCircle2 size={16} /> Mark Resolved
                                                 </Button>
@@ -408,7 +408,7 @@ export default function HostelOverviewPage() {
                                                 <Button
                                                     size="sm"
                                                     onClick={() => handleUpdateMaintenanceStatus(req.id, 'IN_PROGRESS')}
-                                                    className="rounded-xl h-10 px-4 bg-blue-600 hover:bg-blue-700 text-white font-bold italic gap-2"
+                                                    className="rounded-xl h-10 px-4 bg-blue-600 hover:bg-blue-700 text-white font-bold gap-2"
                                                 >
                                                     <Wrench size={16} /> Start Work
                                                 </Button>
@@ -420,7 +420,7 @@ export default function HostelOverviewPage() {
                                         <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mx-auto mb-4">
                                             <CheckCircle2 size={32} className="text-green-500" />
                                         </div>
-                                        <h3 className="text-xl font-bold italic mb-2">All Systems Go!</h3>
+                                        <h3 className="text-xl font-bold mb-2">All Systems Go!</h3>
                                         <p className="max-w-xs mx-auto">No open maintenance requests at this time. Great job keeping the facilities in top shape.</p>
                                     </div>
                                 )}
@@ -438,11 +438,11 @@ export default function HostelOverviewPage() {
             <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
                 <DialogContent className="max-w-md rounded-[2.5rem] p-8">
                     <DialogHeader>
-                        <DialogTitle className="text-2xl font-black italic">Edit Building</DialogTitle>
+                        <DialogTitle className="text-h3 font-semibold">Edit Building</DialogTitle>
                     </DialogHeader>
                     <form onSubmit={handleUpdateHostel} className="space-y-4 pt-4">
                         <div className="space-y-1.5">
-                            <Label className="font-bold ml-1 italic">Building Name</Label>
+                            <Label className="font-bold ml-1">Building Name</Label>
                             <Input
                                 required
                                 className="rounded-xl h-12"
@@ -452,9 +452,9 @@ export default function HostelOverviewPage() {
                             />
                         </div>
                         <div className="space-y-1.5">
-                            <Label className="font-bold ml-1 italic">Type</Label>
+                            <Label className="font-bold ml-1">Type</Label>
                             <select
-                                className="w-full rounded-xl h-12 px-4 border bg-background font-bold italic appearance-none"
+                                className="w-full rounded-xl h-12 px-4 border bg-background font-bold appearance-none"
                                 value={formData.type}
                                 onChange={e => setFormData({ ...formData, type: e.target.value as any })}
                             >
@@ -464,7 +464,7 @@ export default function HostelOverviewPage() {
                             </select>
                         </div>
                         <div className="space-y-1.5">
-                            <Label className="font-bold ml-1 italic">Address / Location</Label>
+                            <Label className="font-bold ml-1">Address / Location</Label>
                             <Input
                                 className="rounded-xl h-12"
                                 placeholder="Building address"
@@ -472,7 +472,7 @@ export default function HostelOverviewPage() {
                                 onChange={e => setFormData({ ...formData, address: e.target.value })}
                             />
                         </div>
-                        <Button type="submit" className="w-full h-14 rounded-xl font-black italic text-lg shadow-lg shadow-primary/20 mt-4">
+                        <Button type="submit" className="w-full h-14 rounded-xl font-semibold text-lg shadow-lg shadow-primary/20 mt-4">
                             Save Changes
                         </Button>
                     </form>
@@ -483,22 +483,22 @@ export default function HostelOverviewPage() {
             <Dialog open={isDeleteAlertOpen} onOpenChange={setIsDeleteAlertOpen}>
                 <DialogContent className="max-w-md rounded-[2.5rem] p-8">
                     <DialogHeader>
-                        <DialogTitle className="text-2xl font-black italic text-destructive">Delete Building?</DialogTitle>
+                        <DialogTitle className="text-h3 font-semibold text-destructive">Delete Building?</DialogTitle>
                     </DialogHeader>
-                    <div className="py-4 font-medium italic text-base">
-                        This will permanently remove <span className="font-black text-foreground">"{formData.name}"</span> and all room assignments within it. This action cannot be undone.
+                    <div className="py-4 font-medium text-base">
+                        This will permanently remove <span className="font-semibold text-foreground">"{formData.name}"</span> and all room assignments within it. This action cannot be undone.
                     </div>
                     <div className="flex gap-4 mt-4">
                         <Button
                             variant="outline"
                             onClick={() => setIsDeleteAlertOpen(false)}
-                            className="flex-1 h-12 rounded-xl font-bold italic"
+                            className="flex-1 h-12 rounded-xl font-bold"
                         >
                             Cancel
                         </Button>
                         <Button
                             onClick={handleDeleteHostel}
-                            className="flex-1 h-12 rounded-xl bg-destructive hover:bg-destructive/90 text-white font-black italic shadow-lg shadow-destructive/20"
+                            className="flex-1 h-12 rounded-xl bg-destructive hover:bg-destructive/90 text-white font-semibold shadow-lg shadow-destructive/20"
                         >
                             Delete Building
                         </Button>
@@ -545,7 +545,7 @@ function LeaveManagementTab() {
     return (
         <Card className="rounded-[3.5rem] border-border/50 shadow-xl overflow-hidden">
             <CardHeader className="p-10 pb-4">
-                <CardTitle className="text-3xl font-black italic">Student Leave Requests</CardTitle>
+                <CardTitle className="text-h1 font-semibold">Student Leave Requests</CardTitle>
             </CardHeader>
             <CardContent className="p-10">
                 <div className="space-y-4">
@@ -553,7 +553,7 @@ function LeaveManagementTab() {
                         <div key={leave.id} className="p-6 rounded-[2rem] bg-muted/30 border border-border/50 flex flex-col md:flex-row gap-6 items-start justify-between group hover:bg-muted/50 transition-colors">
                             <div className="space-y-2">
                                 <div className="flex items-center gap-3">
-                                    <Badge variant="outline" className={`rounded-lg px-3 py-1 font-black uppercase text-[10px] tracking-widest border-2 ${leave.status === 'APPROVED' ? 'border-green-500 text-green-600 bg-green-50' :
+                                    <Badge variant="outline" className={`rounded-lg px-3 py-1 font-semibold uppercase text-[10px] tracking-widest border-2 ${leave.status === 'APPROVED' ? 'border-green-500 text-green-600 bg-green-50' :
                                         leave.status === 'REJECTED' ? 'border-red-500 text-red-600 bg-red-50' :
                                             'border-yellow-500 text-yellow-600 bg-yellow-50'
                                         }`}>
@@ -563,7 +563,7 @@ function LeaveManagementTab() {
                                         {format(new Date(leave.startDate), 'MMM dd')} - {format(new Date(leave.endDate), 'MMM dd, yyyy')}
                                     </span>
                                 </div>
-                                <h3 className="text-xl font-bold italic">{leave.student?.name || 'Unknown Student'}</h3>
+                                <h3 className="text-xl font-bold">{leave.student?.name || 'Unknown Student'}</h3>
                                 <p className="text-muted-foreground">{leave.reason}</p>
                             </div>
                             <div className="flex items-center gap-3 shrink-0">
@@ -572,14 +572,14 @@ function LeaveManagementTab() {
                                         <Button
                                             size="sm"
                                             onClick={() => handleUpdateStatus(leave.id, 'APPROVED')}
-                                            className="rounded-xl h-10 px-4 bg-green-600 hover:bg-green-700 text-white font-bold italic gap-2"
+                                            className="rounded-xl h-10 px-4 bg-green-600 hover:bg-green-700 text-white font-bold gap-2"
                                         >
                                             <CheckCircle2 size={16} /> Approve
                                         </Button>
                                         <Button
                                             size="sm"
                                             onClick={() => handleUpdateStatus(leave.id, 'REJECTED')}
-                                            className="rounded-xl h-10 px-4 bg-red-100 hover:bg-red-200 text-red-600 font-bold italic gap-2"
+                                            className="rounded-xl h-10 px-4 bg-red-100 hover:bg-red-200 text-red-600 font-bold gap-2"
                                         >
                                             <XCircle size={16} /> Reject
                                         </Button>
@@ -592,7 +592,7 @@ function LeaveManagementTab() {
                             <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mx-auto mb-4">
                                 <Users size={32} className="text-blue-500" />
                             </div>
-                            <h3 className="text-xl font-bold italic mb-2">No Leave Requests</h3>
+                            <h3 className="text-xl font-bold mb-2">No Leave Requests</h3>
                             <p className="max-w-xs mx-auto">All students are present and accounted for.</p>
                         </div>
                     )}

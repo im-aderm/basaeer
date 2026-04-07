@@ -63,7 +63,7 @@ export default function LoginDeactivationPage() {
         <div className="space-y-8 max-w-6xl mx-auto">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-4xl font-black tracking-tight italic">Login Management</h1>
+                    <h1 className="text-h1 font-semibold tracking-tight">Login Management</h1>
                     <p className="text-muted-foreground font-medium mt-1">Deactivate or activate user logins across the system.</p>
                 </div>
                 <div className="relative w-72">
@@ -79,7 +79,7 @@ export default function LoginDeactivationPage() {
 
             <Card className="rounded-[2.5rem] border-border/50 shadow-2xl overflow-hidden border-t-8 border-t-destructive/20 bg-background/50 backdrop-blur-xl">
                 <CardHeader className="p-8 pb-4">
-                    <CardTitle className="text-xl font-black italic flex items-center gap-2 text-destructive">
+                    <CardTitle className="text-h3 font-semibold flex items-center gap-2 text-destructive">
                         <UserX className="h-6 w-6" />
                         User Access Control
                     </CardTitle>
@@ -89,10 +89,10 @@ export default function LoginDeactivationPage() {
                         <Table>
                             <TableHeader className="bg-muted/50 h-16">
                                 <TableRow className="border-border/50 hover:bg-transparent">
-                                    <TableHead className="font-black italic px-8 h-16">User Details</TableHead>
-                                    <TableHead className="font-black italic px-8 h-16 text-center">Role</TableHead>
-                                    <TableHead className="font-black italic px-8 h-16 text-center">Status</TableHead>
-                                    <TableHead className="font-black italic px-8 h-16 text-right">Access Toggle</TableHead>
+                                    <TableHead className="font-semibold px-8 h-16">User Details</TableHead>
+                                    <TableHead className="font-semibold px-8 h-16 text-center">Role</TableHead>
+                                    <TableHead className="font-semibold px-8 h-16 text-center">Status</TableHead>
+                                    <TableHead className="font-semibold px-8 h-16 text-right">Access Toggle</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
@@ -100,12 +100,12 @@ export default function LoginDeactivationPage() {
                                     <TableRow key={u.id} className="border-border/50 h-20 transition-all hover:bg-muted/30">
                                         <TableCell className="px-8">
                                             <div>
-                                                <p className="font-black italic text-lg leading-tight">{u.firstName} {u.lastName}</p>
+                                                <p className="font-semibold text-lg leading-tight">{u.firstName} {u.lastName}</p>
                                                 <p className="text-sm font-medium text-muted-foreground">{u.email}</p>
                                             </div>
                                         </TableCell>
                                         <TableCell className="text-center">
-                                            <Badge variant="outline" className="font-black italic tracking-tighter text-[10px] rounded-lg border-primary/20 bg-primary/5 text-primary px-3 py-1">
+                                            <Badge variant="outline" className="font-semibold tracking-tighter text-[10px] rounded-lg border-primary/20 bg-primary/5 text-primary px-3 py-1">
                                                 {u.role.replace('_', ' ')}
                                             </Badge>
                                         </TableCell>
@@ -113,18 +113,18 @@ export default function LoginDeactivationPage() {
                                             {u.isActive ? (
                                                 <div className="flex items-center justify-center gap-2 text-emerald-600">
                                                     <ShieldCheck className="h-4 w-4" />
-                                                    <span className="text-xs font-black italic tracking-widest">ACTIVE</span>
+                                                    <span className="text-xs font-semibold tracking-widest">ACTIVE</span>
                                                 </div>
                                             ) : (
                                                 <div className="flex items-center justify-center gap-2 text-destructive">
                                                     <ShieldAlert className="h-4 w-4" />
-                                                    <span className="text-xs font-black italic tracking-widest">SUSPENDED</span>
+                                                    <span className="text-xs font-semibold tracking-widest">SUSPENDED</span>
                                                 </div>
                                             )}
                                         </TableCell>
                                         <TableCell className="text-right px-8">
                                             <div className="flex justify-end items-center gap-4">
-                                                <span className={`text-[10px] font-black italic tracking-widest ${u.isActive ? 'text-muted-foreground' : 'text-destructive underline decoration-2 underline-offset-4'}`}>
+                                                <span className={`text-[10px] font-semibold tracking-widest ${u.isActive ? 'text-muted-foreground' : 'text-destructive underline decoration-2 underline-offset-4'}`}>
                                                     {u.isActive ? 'AUTHORIZED' : 'DENIED'}
                                                 </span>
                                                 <Switch
@@ -142,7 +142,7 @@ export default function LoginDeactivationPage() {
                                         <TableCell colSpan={4} className="h-40 text-center">
                                             <div className="flex flex-col items-center justify-center gap-2 text-muted-foreground">
                                                 <UserX className="h-12 w-12 opacity-20" />
-                                                <p className="font-black italic">No users found matching your search</p>
+                                                <p className="font-semibold">No users found matching your search</p>
                                             </div>
                                         </TableCell>
                                     </TableRow>

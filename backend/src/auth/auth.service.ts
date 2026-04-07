@@ -30,9 +30,13 @@ export class AuthService {
                 firstName: user.firstName,
                 lastName: user.lastName,
                 role: user.role,
-                branchId: user.branchId
+                branchId: user.branchId,
             }
         };
+    }
+
+    async getFullProfile(userId: string) {
+        return this.usersService.findById(userId);
     }
 
     async createSuperAdmin() {

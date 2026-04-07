@@ -111,7 +111,7 @@ export default function TeacherSchedulePage() {
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/20 dark:from-slate-950 dark:via-indigo-950/20 dark:to-purple-950/10 p-6">
             {/* Header */}
             <div className="mb-8">
-                <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                <h1 className="text-h1 font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
                     Teacher Schedule
                 </h1>
                 <p className="text-slate-600 dark:text-slate-400 mt-2">
@@ -167,7 +167,7 @@ export default function TeacherSchedulePage() {
                                 <Clock className="w-8 h-8 text-indigo-600" />
                             </div>
                             <p className="text-sm text-slate-600 dark:text-slate-400">Total Periods</p>
-                            <p className="text-3xl font-bold text-slate-900 dark:text-slate-100">
+                            <p className="text-h1 font-bold text-slate-900 dark:text-slate-100">
                                 {workload.totalPeriods}
                             </p>
                         </div>
@@ -177,7 +177,7 @@ export default function TeacherSchedulePage() {
                                 <TrendingUp className="w-8 h-8 text-purple-600" />
                             </div>
                             <p className="text-sm text-slate-600 dark:text-slate-400">Avg/Day</p>
-                            <p className="text-3xl font-bold text-slate-900 dark:text-slate-100">
+                            <p className="text-h1 font-bold text-slate-900 dark:text-slate-100">
                                 {workload.avgPeriodsPerDay}
                             </p>
                         </div>
@@ -187,7 +187,7 @@ export default function TeacherSchedulePage() {
                                 <Calendar className="w-8 h-8 text-teal-600" />
                             </div>
                             <p className="text-sm text-slate-600 dark:text-slate-400">Max/Day</p>
-                            <p className="text-3xl font-bold text-slate-900 dark:text-slate-100">
+                            <p className="text-h1 font-bold text-slate-900 dark:text-slate-100">
                                 {workload.maxPeriodsPerDay}
                             </p>
                         </div>
@@ -197,7 +197,7 @@ export default function TeacherSchedulePage() {
                                 <BookOpen className="w-8 h-8 text-emerald-600" />
                             </div>
                             <p className="text-sm text-slate-600 dark:text-slate-400">Classes</p>
-                            <p className="text-3xl font-bold text-slate-900 dark:text-slate-100">
+                            <p className="text-h1 font-bold text-slate-900 dark:text-slate-100">
                                 {workload.uniqueClasses}
                             </p>
                         </div>
@@ -207,7 +207,7 @@ export default function TeacherSchedulePage() {
                                 <BookOpen className="w-8 h-8 text-orange-600" />
                             </div>
                             <p className="text-sm text-slate-600 dark:text-slate-400">Subjects</p>
-                            <p className="text-3xl font-bold text-slate-900 dark:text-slate-100">
+                            <p className="text-h1 font-bold text-slate-900 dark:text-slate-100">
                                 {workload.uniqueSubjects}
                             </p>
                         </div>
@@ -228,7 +228,7 @@ export default function TeacherSchedulePage() {
                                             </span>
                                         </h3>
                                         {daySchedule.length === 0 ? (
-                                            <p className="text-sm text-slate-500 italic">No classes</p>
+                                            <p className="text-sm text-slate-500">No classes</p>
                                         ) : (
                                             <div className="space-y-2">
                                                 {daySchedule.map((period) => (

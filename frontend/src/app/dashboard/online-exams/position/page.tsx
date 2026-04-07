@@ -54,7 +54,7 @@ export default function OnlineExamPositionPage() {
         <div className="max-w-4xl mx-auto space-y-8 pb-20">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-4xl font-black tracking-tight italic">Position Generation</h1>
+                    <h1 className="text-h1 font-semibold tracking-tight">Position Generation</h1>
                     <p className="text-muted-foreground font-medium mt-1">Calculate and rank student performance for online assessments.</p>
                 </div>
                 <div className="h-14 w-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
@@ -64,12 +64,12 @@ export default function OnlineExamPositionPage() {
 
             <Card className="rounded-[2.5rem] border-border/50 shadow-2xl overflow-hidden bg-background">
                 <CardHeader className="p-8 bg-muted/30 border-b border-border/50">
-                    <CardTitle className="text-xl font-black italic">Rank Assessment Engine</CardTitle>
+                    <CardTitle className="text-h3 font-semibold">Rank Assessment Engine</CardTitle>
                     <CardDescription className="font-bold">Select a completed examination to finalize student rankings.</CardDescription>
                 </CardHeader>
                 <CardContent className="p-10 space-y-8">
                     <div className="space-y-4">
-                        <label className="text-xs font-black uppercase tracking-widest ml-1 text-muted-foreground">Select Examination</label>
+                        <label className="text-xs font-semibold uppercase tracking-widest ml-1 text-muted-foreground">Select Examination</label>
                         <Select value={selectedExamId} onValueChange={setSelectedExamId}>
                             <SelectTrigger className="h-16 rounded-2xl bg-muted/50 font-bold border-none text-lg">
                                 <SelectValue placeholder="Choose an exam to rank..." />
@@ -91,8 +91,8 @@ export default function OnlineExamPositionPage() {
                                     <Users className="h-6 w-6" />
                                 </div>
                                 <div>
-                                    <p className="text-xs font-black uppercase tracking-widest opacity-50 italic">Class</p>
-                                    <p className="text-lg font-black">{selectedExam.class?.name}</p>
+                                    <p className="text-xs font-semibold uppercase tracking-widest opacity-50">Class</p>
+                                    <p className="text-lg font-semibold">{selectedExam.class?.name}</p>
                                 </div>
                             </div>
                             <div className="p-6 rounded-3xl bg-amber-500/5 border border-amber-500/10 flex items-center gap-4">
@@ -100,8 +100,8 @@ export default function OnlineExamPositionPage() {
                                     <Award className="h-6 w-6" />
                                 </div>
                                 <div>
-                                    <p className="text-xs font-black uppercase tracking-widest opacity-50 italic">Subject</p>
-                                    <p className="text-lg font-black">{selectedExam.subject?.name}</p>
+                                    <p className="text-xs font-semibold uppercase tracking-widest opacity-50">Subject</p>
+                                    <p className="text-lg font-semibold">{selectedExam.subject?.name}</p>
                                 </div>
                             </div>
                         </div>
@@ -112,7 +112,7 @@ export default function OnlineExamPositionPage() {
                             <Play className="h-8 w-8 text-primary fill-primary" />
                         </div>
                         <div className="space-y-1">
-                            <h3 className="font-black italic text-lg uppercase">Ready to Process?</h3>
+                            <h3 className="font-semibold text-lg uppercase">Ready to Process?</h3>
                             <p className="text-sm text-muted-foreground font-medium max-w-sm">
                                 This will analyze all submitted scores and assign a numerical rank to each student based on their performance.
                             </p>
@@ -122,7 +122,7 @@ export default function OnlineExamPositionPage() {
                     <Button
                         onClick={handleGenerate}
                         disabled={!selectedExamId || processing}
-                        className="w-full h-16 rounded-2xl font-black text-xl gap-3 shadow-xl shadow-primary/20 hover:scale-[1.01] transition-all"
+                        className="w-full h-16 rounded-2xl font-semibold text-h3 gap-3 shadow-xl shadow-primary/20 hover:scale-[1.01] transition-all"
                     >
                         {processing ? <Loader2 className="h-6 w-6 animate-spin" /> : <CheckCircle className="h-6 w-6" />}
                         {processing ? 'Processing Ranks...' : 'Generate Student Positions'}
@@ -133,7 +133,7 @@ export default function OnlineExamPositionPage() {
             <div className="bg-amber-500/5 border border-amber-500/20 p-6 rounded-3xl flex gap-4">
                 <AlertCircle className="h-6 w-6 text-amber-600 shrink-0" />
                 <div className="space-y-1">
-                    <p className="font-black italic text-amber-900 uppercase text-xs">Processing Note</p>
+                    <p className="font-semibold text-amber-900 uppercase text-xs">Processing Note</p>
                     <p className="text-sm text-amber-800 font-medium">
                         Position generation should only be performed after all descriptive answers (if any) have been manually graded by the respective subject teacher.
                     </p>

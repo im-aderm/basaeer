@@ -1,6 +1,7 @@
 "use client";
 
 import { Star, MessageSquareQuote } from "lucide-react";
+import Image from "next/image";
 
 export function TestimonialsSection() {
     const testimonials = [
@@ -28,7 +29,7 @@ export function TestimonialsSection() {
     ];
 
     return (
-        <section className="py-20 lg:py-32 bg-white relative overflow-hidden border-t border-[#E5E7EB]">
+        <section className="py-20 lg:py-32 bg-white relative overflow-hidden border-t border-[#E5E7EB]" aria-label="Testimonials">
             <div className="container mx-auto px-6">
                 <div className="text-center mb-16 space-y-4">
                     <h2 className="text-3xl lg:text-4xl font-bold text-brand-navy tracking-tight">
@@ -44,12 +45,12 @@ export function TestimonialsSection() {
                             className="relative p-8 rounded-xl bg-white border border-brand-sand/30 hover:border-brand-gold/50 transition-all duration-300 hover:shadow-[0_4px_20px_rgba(10,31,68,0.06)]"
                         >
                             <div className="absolute top-8 right-8 text-brand-sand/40">
-                                <MessageSquareQuote size={40} />
+                                <MessageSquareQuote size={40} aria-hidden="true" />
                             </div>
 
-                            <div className="flex gap-1 mb-6 text-brand-gold">
+                            <div className="flex gap-1 mb-6 text-brand-gold" aria-label="5 stars rating">
                                 {[...Array(5)].map((_, i) => (
-                                    <Star key={i} size={16} fill="currentColor" />
+                                    <Star key={i} size={16} fill="currentColor" aria-hidden="true" />
                                 ))}
                             </div>
 
@@ -58,10 +59,13 @@ export function TestimonialsSection() {
                             </p>
 
                             <div className="flex items-center gap-4">
-                                <img
+                                <Image
                                     src={testimonial.avatar}
-                                    alt={testimonial.name}
-                                    className="w-12 h-12 rounded-full object-cover border-2 border-brand-gold"
+                                    alt={`Avatar of ${testimonial.name}`}
+                                    width={48}
+                                    height={48}
+                                    className="rounded-full object-cover border-2 border-brand-gold"
+                                    unoptimized // For pravatar external links
                                 />
                                 <div>
                                     <h4 className="font-bold text-brand-navy">{testimonial.name}</h4>

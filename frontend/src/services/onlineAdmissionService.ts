@@ -1,29 +1,44 @@
 import api from "@/lib/api";
 
+export interface PreviousSchool {
+    id?: string;
+    institutionName: string;
+    address?: string;
+    fromYear?: string;
+    toYear?: string;
+}
+
 export interface OnlineAdmission {
     id: string;
     admissionNumber?: string;
     firstName: string;
+    surname?: string;
     lastName: string;
     otherNames?: string;
     gender: string;
     dateOfBirth: string;
+    age?: number;
+    ninNumber?: string;
     placeOfBirth?: string;
     nationality?: string;
     stateOfOrigin?: string;
     lga?: string;
     religion?: string;
     passportPhoto?: string;
+    passportPhoto2?: string;
+    passportPhoto3?: string;
+    passportPhoto4?: string;
 
     academicSessionId?: string;
     admissionTerm?: string;
     desiredClassId: string;
     desiredSectionId?: string;
     admissionType?: string;
-    previousSchool?: string;
+    previousSchools?: PreviousSchool[];
     transferReason?: string;
     assessmentScore?: number;
     status: string;
+    rejectionReason?: string;
 
     guardianName: string;
     guardianRelation?: string;
@@ -32,37 +47,63 @@ export interface OnlineAdmission {
     guardianAddress?: string;
     guardianOccupation?: string;
     guardianOfficeAddress?: string;
+    
+    fatherName?: string;
+    fatherOccupation?: string;
+    fatherPhone?: string;
+    motherName?: string;
+    motherOccupation?: string;
+    motherPhone?: string;
+    
+    guardianContact1?: string;
+    guardianContact2?: string;
+
     secondaryGuardianName?: string;
     secondaryGuardianPhone?: string;
     secondaryGuardianRelation?: string;
 
     address?: string;
+    whatsappNumber?: string;
+    languagesSpoken?: string;
     city?: string;
     state?: string;
     country?: string;
     emergencyContactName?: string;
     emergencyContactPhone?: string;
     emergencyContactRelation?: string;
+    emergencySickness?: string;
 
     bloodGroup?: string;
     genotype?: string;
     allergies?: string;
     medicalConditions?: string;
-    specialNeeds?: string;
+    hasMedicalCondition: boolean;
+    medicalConditionInfo?: string;
+    hasLearningDifficulty: boolean;
+    learningDifficultyInfo?: string;
+    hasSpecialNeeds: boolean;
+    specialNeedsInfo?: string;
     familyDoctorName?: string;
     familyDoctorPhone?: string;
 
-    hostelRequired: boolean;
-    preferredHostel?: string;
-    hostelNotes?: string;
-    transportRequired: boolean;
-    pickupLocation?: string;
-    preferredRoute?: string;
+    hasAppliedBefore: boolean;
+    howHeard?: string;
+    seekingFinancialAid: boolean;
+    hasSiblingsInSchool: boolean;
+    siblingName?: string;
+    siblingLevel?: string;
 
     birthCertificateUrl?: string;
     testimonialUrl?: string;
     transferCertificateUrl?: string;
     immunizationCardUrl?: string;
+    ninUrl?: string;
+    educationalCertUrl?: string;
+    transferLetterUrl?: string;
+    medicalReportUrl?: string;
+    recommendationLetterUrl?: string;
+    schoolReportUrl?: string;
+    paymentProofUrl?: string;
 
     branchId: string;
     studentStatus: string;
@@ -116,8 +157,13 @@ export const OnlineAdmissionService = {
         return response.data;
     },
 
-    approve: async (id: string): Promise<any> => {
-        const response = await api.post(`/online-admissions/${id}/approve`);
+    approve: async (id: string, approvalData?: { classId?: string, sectionId?: string }): Promise<any> => {
+        const response = await api.post(`/online-admissions/${id}/approve`, approvalData);
+        return response.data;
+    },
+
+    reject: async (id: string, reason: string): Promise<any> => {
+        const response = await api.post(`/online-admissions/${id}/reject`, { reason });
         return response.data;
     },
 

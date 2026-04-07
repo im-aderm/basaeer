@@ -110,7 +110,7 @@ export default function CertificatesPage() {
         <div className="space-y-8 animate-in fade-in duration-500 pb-20">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
-                    <h1 className="text-4xl font-black tracking-tight italic flex items-center gap-3">
+                    <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
                         <FileText className="text-primary w-10 h-10" />
                         Certificate Vault
                     </h1>
@@ -118,17 +118,17 @@ export default function CertificatesPage() {
                 </div>
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                     <DialogTrigger asChild>
-                        <Button className="gap-3 rounded-[1.5rem] h-14 px-8 font-black text-lg shadow-xl shadow-primary/20 hover:scale-105 transition-all">
+                        <Button className="gap-3 rounded-[1.5rem] h-14 px-8 font-semibold text-lg shadow-xl shadow-primary/20 hover:scale-105 transition-all">
                             <Plus size={20} /> Issue New Certificate
                         </Button>
                     </DialogTrigger>
                     <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl bg-background/80 backdrop-blur-xl">
                         <DialogHeader>
-                            <DialogTitle className="text-3xl font-black italic mb-6 tracking-tight">Issue Student Certificate</DialogTitle>
+                            <DialogTitle className="text-h1 font-semibold mb-6 tracking-tight">Issue Student Certificate</DialogTitle>
                         </DialogHeader>
                         <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-3">
-                                <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Certificate Type</label>
+                                <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground ml-1">Certificate Type</label>
                                 <select
                                     className="w-full h-14 rounded-2xl bg-muted/30 border-none font-bold text-lg px-4 appearance-none focus:ring-2 ring-primary/20 cursor-pointer"
                                     value={formData.type}
@@ -141,7 +141,7 @@ export default function CertificatesPage() {
                                 </select>
                             </div>
                             <div className="space-y-3">
-                                <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Reference Number</label>
+                                <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground ml-1">Reference Number</label>
                                 <Input
                                     placeholder="e.g. TC/2024/001"
                                     value={formData.certificateNumber}
@@ -151,7 +151,7 @@ export default function CertificatesPage() {
                                 />
                             </div>
                             <div className="space-y-3 md:col-span-2">
-                                <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Select Student</label>
+                                <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground ml-1">Select Student</label>
                                 <select
                                     className="w-full h-14 rounded-2xl bg-muted/30 border-none font-bold text-lg px-4 appearance-none focus:ring-2 ring-primary/20 cursor-pointer"
                                     value={formData.studentId}
@@ -165,7 +165,7 @@ export default function CertificatesPage() {
                                 </select>
                             </div>
                             <div className="space-y-3 md:col-span-2">
-                                <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Certificate Template</label>
+                                <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground ml-1">Certificate Template</label>
                                 <select
                                     className="w-full h-14 rounded-2xl bg-muted/30 border-none font-bold text-lg px-4 appearance-none focus:ring-2 ring-primary/20 cursor-pointer"
                                     value={formData.templateId}
@@ -178,7 +178,7 @@ export default function CertificatesPage() {
                                 </select>
                             </div>
                             <div className="space-y-3 md:col-span-2">
-                                <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Certificate Notes / Remarks</label>
+                                <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground ml-1">Certificate Notes / Remarks</label>
                                 <textarea
                                     placeholder="Add any specific details or remarks for the certificate..."
                                     value={formData.content}
@@ -186,7 +186,7 @@ export default function CertificatesPage() {
                                     className="w-full h-32 rounded-2xl bg-muted/30 border-none font-bold text-lg p-4 focus:ring-2 ring-primary/20 outline-none resize-none"
                                 />
                             </div>
-                            <Button type="submit" className="md:col-span-2 h-14 rounded-2xl font-black text-xl shadow-xl shadow-primary/20 mt-4 transition-all hover:scale-[1.02]">
+                            <Button type="submit" className="md:col-span-2 h-14 rounded-2xl font-semibold text-h3 shadow-xl shadow-primary/20 mt-4 transition-all hover:scale-[1.02]">
                                 Generate & Save Certificate
                             </Button>
                         </form>
@@ -196,7 +196,7 @@ export default function CertificatesPage() {
 
             <Card className="rounded-[4rem] border-border/50 shadow-2xl shadow-primary/5 overflow-hidden border-t-8 border-t-primary/20 bg-card/50 backdrop-blur-sm">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-7 p-10">
-                    <CardTitle className="text-2xl font-black italic tracking-tight">Issued Certificates</CardTitle>
+                    <CardTitle className="text-h3 font-semibold tracking-tight">Issued Certificates</CardTitle>
                     <div className="relative w-80">
                         <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-muted-foreground" size={20} />
                         <Input
@@ -212,10 +212,10 @@ export default function CertificatesPage() {
                         <table className="w-full border-collapse">
                             <thead>
                                 <tr className="bg-muted/50 text-left">
-                                    <th className="px-10 py-6 text-[10px] uppercase tracking-[0.3em] font-black text-muted-foreground">Type & Ref</th>
-                                    <th className="px-10 py-6 text-[10px] uppercase tracking-[0.3em] font-black text-muted-foreground">Student Name</th>
-                                    <th className="px-10 py-6 text-[10px] uppercase tracking-[0.3em] font-black text-muted-foreground">Issue Date</th>
-                                    <th className="px-10 py-6 text-right text-[10px] uppercase tracking-[0.3em] font-black text-muted-foreground">Actions</th>
+                                    <th className="px-10 py-6 text-[10px] uppercase tracking-[0.3em] font-semibold text-muted-foreground">Type & Ref</th>
+                                    <th className="px-10 py-6 text-[10px] uppercase tracking-[0.3em] font-semibold text-muted-foreground">Student Name</th>
+                                    <th className="px-10 py-6 text-[10px] uppercase tracking-[0.3em] font-semibold text-muted-foreground">Issue Date</th>
+                                    <th className="px-10 py-6 text-right text-[10px] uppercase tracking-[0.3em] font-semibold text-muted-foreground">Actions</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-border/50">
@@ -227,8 +227,8 @@ export default function CertificatesPage() {
                                                     <FileText size={24} />
                                                 </div>
                                                 <div>
-                                                    <span className="font-black text-lg block italic uppercase tracking-tight">{cert.type.replace('_', ' ')}</span>
-                                                    <span className="text-xs font-black text-muted-foreground bg-muted px-2 py-0.5 rounded-lg border border-border/50">{cert.certificateNumber}</span>
+                                                    <span className="font-semibold text-lg block uppercase tracking-tight">{cert.type.replace('_', ' ')}</span>
+                                                    <span className="text-xs font-semibold text-muted-foreground bg-muted px-2 py-0.5 rounded-lg border border-border/50">{cert.certificateNumber}</span>
                                                 </div>
                                             </div>
                                         </td>
@@ -237,11 +237,11 @@ export default function CertificatesPage() {
                                                 <div className="w-8 h-8 rounded-xl bg-muted flex items-center justify-center text-muted-foreground">
                                                     <UserCircle size={20} />
                                                 </div>
-                                                <span className="font-black text-xl italic">{cert.student.firstName} {cert.student.lastName}</span>
+                                                <span className="font-semibold text-h3">{cert.student.firstName} {cert.student.lastName}</span>
                                             </div>
                                         </td>
                                         <td className="px-10 py-8">
-                                            <div className="flex items-center gap-2 text-muted-foreground font-black italic">
+                                            <div className="flex items-center gap-2 text-muted-foreground font-semibold">
                                                 <Clock size={16} className="text-primary/60" />
                                                 {new Date(cert.issueDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
                                             </div>
@@ -282,8 +282,8 @@ export default function CertificatesPage() {
                                             <div className="w-20 h-20 bg-muted/50 rounded-full flex items-center justify-center mx-auto mb-6">
                                                 <FileText size={40} className="text-muted-foreground/30" />
                                             </div>
-                                            <h3 className="text-2xl font-black italic tracking-tight">No Certificates Issued</h3>
-                                            <p className="text-muted-foreground font-medium italic mt-2">Start by issuing a new certificate to a student.</p>
+                                            <h3 className="text-h3 font-semibold tracking-tight">No Certificates Issued</h3>
+                                            <p className="text-muted-foreground font-medium mt-2">Start by issuing a new certificate to a student.</p>
                                         </td>
                                     </tr>
                                 )}

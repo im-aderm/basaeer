@@ -149,7 +149,7 @@ export default function AssignmentEvaluation() {
                     Back to Assignments
                 </Button>
                 <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50">
-                    <h1 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-2">
+                    <h1 className="text-h1 font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-2">
                         {assignment?.title}
                     </h1>
                     <p className="text-slate-600 dark:text-slate-400 mb-4">

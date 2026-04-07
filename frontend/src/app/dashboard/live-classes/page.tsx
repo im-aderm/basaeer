@@ -176,7 +176,7 @@ export default function LiveClassesPage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold tracking-tight">Live Classrooms</h1>
+                    <h1 className="text-h1 font-bold tracking-tight">Live Classrooms</h1>
                     <p className="text-muted-foreground mt-1">Institutional Google Meet integration for seamless teaching.</p>
                 </div>
                 {(user?.role === 'STAFF' || user?.role === 'SUPER_ADMIN') && (
@@ -350,7 +350,7 @@ export default function LiveClassesPage() {
                         ) : (
                             <div className="col-span-full py-20 text-center border-2 border-dashed rounded-2xl bg-muted/10">
                                 <Calendar className="mx-auto h-12 w-12 text-muted-foreground/30 mb-4" />
-                                <h3 className="text-xl font-bold italic tracking-tight">No sessions scheduled</h3>
+                                <h3 className="text-xl font-bold tracking-tight">No sessions scheduled</h3>
                             </div>
                         )}
                     </div>
@@ -366,7 +366,7 @@ export default function LiveClassesPage() {
                                     </div>
                                     <div className="flex-1 space-y-1">
                                         <div className="flex items-center gap-2">
-                                            <h3 className="text-xl font-black">{session.title}</h3>
+                                            <h3 className="text-h3 font-semibold">{session.title}</h3>
                                             <Badge className="bg-emerald-500 animate-pulse">ACTIVE</Badge>
                                         </div>
                                         <p className="text-muted-foreground text-sm uppercase font-bold tracking-tighter">
@@ -387,7 +387,7 @@ export default function LiveClassesPage() {
                     ) : (
                         <div className="py-20 text-center bg-muted/5 border-2 border-dashed rounded-3xl">
                             <Activity className="mx-auto h-16 w-16 text-muted-foreground/20 animate-pulse" />
-                            <p className="mt-4 text-muted-foreground font-black italic uppercase tracking-widest">No active sessions right now</p>
+                            <p className="mt-4 text-muted-foreground font-semibold uppercase tracking-widest">No active sessions right now</p>
                         </div>
                     )}
                 </TabsContent>
@@ -429,7 +429,7 @@ export default function LiveClassesPage() {
                                     ))
                                 ) : (
                                     <TableRow>
-                                        <TableCell colSpan={5} className="h-32 text-center text-muted-foreground italic">No past history found.</TableCell>
+                                        <TableCell colSpan={5} className="h-32 text-center text-muted-foreground">No past history found.</TableCell>
                                     </TableRow>
                                 )}
                             </TableBody>
@@ -450,7 +450,7 @@ export default function LiveClassesPage() {
                                 {config?.isAuthorized ? <CheckCircle2 className="h-6 w-6 text-emerald-600" /> : <AlertCircle className="h-6 w-6 text-amber-600" />}
                                 <div>
                                     <p className="font-bold text-sm">Status: {config?.isAuthorized ? 'Authorized' : 'Action Required'}</p>
-                                    <p className="text-[10px] text-muted-foreground uppercase font-black">Institutional OAuth2 Flow</p>
+                                    <p className="text-[10px] text-muted-foreground uppercase font-semibold">Institutional OAuth2 Flow</p>
                                 </div>
                             </div>
                             <Button size="sm" variant={config?.isAuthorized ? 'outline' : 'default'} onClick={handleAuthorize}>
@@ -459,11 +459,11 @@ export default function LiveClassesPage() {
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-1 p-3 border rounded-xl">
-                                <Label className="text-[10px] uppercase font-black text-muted-foreground">Default Duration</Label>
+                                <Label className="text-[10px] uppercase font-semibold text-muted-foreground">Default Duration</Label>
                                 <p className="font-bold underline">{config?.defaultDuration || 60} min</p>
                             </div>
                             <div className="space-y-1 p-3 border rounded-xl">
-                                <Label className="text-[10px] uppercase font-black text-muted-foreground">Cloud Recording</Label>
+                                <Label className="text-[10px] uppercase font-semibold text-muted-foreground">Cloud Recording</Label>
                                 <p className="font-bold underline text-emerald-600">{config?.allowRecording ? 'Enabled' : 'Disabled'}</p>
                             </div>
                         </div>

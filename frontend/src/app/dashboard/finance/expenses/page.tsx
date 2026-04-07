@@ -84,7 +84,7 @@ export default function ExpensesPage() {
     return (
         <div className="space-y-6">
             <div className="flex justify-between items-center">
-                <h1 className="text-3xl font-bold tracking-tight">Office Expenses</h1>
+                <h1 className="text-h1 font-bold tracking-tight">Office Expenses</h1>
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                     <DialogTrigger asChild>
                         <Button className="gap-2">

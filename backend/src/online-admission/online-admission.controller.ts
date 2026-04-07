@@ -58,7 +58,20 @@ export class OnlineAdmissionController {
     @Post(':id/approve')
     @UseGuards(JwtAuthGuard, RolesGuard)
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-    approve(@Param('id') id: string) {
-        return this.onlineAdmissionService.approve(id);
+    approve(
+        @Param('id') id: string,
+        @Body() approvalData: { classId?: string, sectionId?: string }
+    ) {
+        return this.onlineAdmissionService.approve(id, approvalData);
+    }
+
+    @Post(':id/reject')
+    @UseGuards(JwtAuthGuard, RolesGuard)
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+    reject(
+        @Param('id') id: string,
+        @Body('reason') reason: string
+    ) {
+        return this.onlineAdmissionService.reject(id, reason);
     }
 }

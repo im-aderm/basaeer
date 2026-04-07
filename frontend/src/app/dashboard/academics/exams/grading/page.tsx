@@ -96,18 +96,18 @@ export default function GradingPage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
-                    <h1 className="text-4xl font-black tracking-tight flex items-center gap-3 italic">
+                    <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
                         <Award className="text-primary w-10 h-10" />
                         Grading Configuration
                     </h1>
-                    <p className="text-muted-foreground mt-2 text-lg font-medium italic">Define how pupil performance is translated into grades and remarks.</p>
+                    <p className="text-muted-foreground mt-2 text-lg font-medium">Define how pupil performance is translated into grades and remarks.</p>
                 </div>
 
                 {user?.role === UserRole.SUPER_ADMIN && (
                     <div className="flex items-center gap-4 bg-card p-4 rounded-3xl border border-border shadow-sm">
                         <Building2 className="text-primary" size={20} />
                         <select
-                            className="bg-transparent border-none outline-none font-black italic text-sm"
+                            className="bg-transparent border-none outline-none font-semibold text-sm"
                             value={selectedBranchId}
                             onChange={(e) => setSelectedBranchId(e.target.value)}
                         >
@@ -124,13 +124,13 @@ export default function GradingPage() {
                 {/* Configuration Form */}
                 <div className="lg:col-span-1 space-y-6">
                     <div className="bg-card border border-border rounded-[2.5rem] p-8 space-y-8 shadow-sm">
-                        <h2 className="text-xl font-black italic flex items-center gap-2">
+                        <h2 className="text-h3 font-semibold flex items-center gap-2">
                             <Plus className="text-primary" size={20} /> Add New Grade
                         </h2>
 
                         <div className="space-y-6">
                             <div className="space-y-2">
-                                <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Grade Label (e.g. A1)</label>
+                                <label className="text-label text-muted-foreground">Grade Label (e.g. A1)</label>
                                 <input
                                     className="w-full p-4 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold"
                                     value={newScale.grade}
@@ -140,7 +140,7 @@ export default function GradingPage() {
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="space-y-2">
-                                    <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Min Score</label>
+                                    <label className="text-label text-muted-foreground">Min Score</label>
                                     <input
                                         type="number"
                                         className="w-full p-4 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold"
@@ -149,7 +149,7 @@ export default function GradingPage() {
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Max Score</label>
+                                    <label className="text-label text-muted-foreground">Max Score</label>
                                     <input
                                         type="number"
                                         className="w-full p-4 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold"
@@ -159,7 +159,7 @@ export default function GradingPage() {
                                 </div>
                             </div>
                             <div className="space-y-2">
-                                <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Remark</label>
+                                <label className="text-label text-muted-foreground">Remark</label>
                                 <input
                                     className="w-full p-4 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold"
                                     value={newScale.remark}
@@ -171,7 +171,7 @@ export default function GradingPage() {
                             <button
                                 onClick={handleAdd}
                                 disabled={saving || !newScale.grade}
-                                className="w-full py-4 bg-primary text-white rounded-2xl font-black shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-50"
+                                className="w-full py-4 bg-primary text-white rounded-2xl font-semibold shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-50"
                             >
                                 {saving ? <Loader2 size={24} className="animate-spin mx-auto" /> : "Save Grading Rule"}
                             </button>
@@ -179,7 +179,7 @@ export default function GradingPage() {
                     </div>
 
                     <div className="p-8 bg-amber-500/5 border border-amber-500/10 rounded-[2rem] space-y-4">
-                        <div className="flex items-center gap-2 text-amber-600 font-black text-sm italic">
+                        <div className="flex items-center gap-2 text-amber-600 font-semibold text-sm">
                             <AlertCircle size={18} /> Implementation Note
                         </div>
                         <p className="text-xs text-amber-700 font-medium leading-relaxed">
@@ -192,7 +192,7 @@ export default function GradingPage() {
                 <div className="lg:col-span-2">
                     <div className="bg-card border border-border rounded-[3rem] shadow-sm overflow-hidden border-t-8 border-t-primary">
                         <div className="p-8 border-b border-border bg-muted/10">
-                            <h2 className="text-2xl font-black italic tracking-tight flex items-center gap-3">
+                            <h2 className="text-h3 font-semibold tracking-tight flex items-center gap-3">
                                 <Sliders className="text-primary" size={24} />
                                 Current Branch Scale
                             </h2>
@@ -201,33 +201,33 @@ export default function GradingPage() {
                             <table className="w-full border-collapse">
                                 <thead>
                                     <tr className="bg-muted/30 text-left border-b border-border">
-                                        <th className="px-10 py-6 text-[10px] uppercase tracking-[0.2em] font-black text-muted-foreground">Grade</th>
-                                        <th className="px-10 py-6 text-[10px] uppercase tracking-[0.2em] font-black text-muted-foreground">Range</th>
-                                        <th className="px-10 py-6 text-[10px] uppercase tracking-[0.2em] font-black text-muted-foreground">Remark</th>
-                                        <th className="px-10 py-6 text-[10px] uppercase tracking-[0.2em] font-black text-muted-foreground text-right">Scope</th>
+                                        <th className="px-10 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Grade</th>
+                                        <th className="px-10 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Range</th>
+                                        <th className="px-10 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Remark</th>
+                                        <th className="px-10 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground text-right">Scope</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-border/50">
                                     {scales.map((scale) => (
                                         <tr key={scale.id} className="hover:bg-muted/5 transition-colors">
                                             <td className="px-10 py-6">
-                                                <span className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 text-primary rounded-xl font-black text-lg italic">
+                                                <span className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 text-primary rounded-xl font-semibold text-lg">
                                                     {scale.grade}
                                                 </span>
                                             </td>
                                             <td className="px-10 py-6">
-                                                <p className="font-black text-lg italic tracking-tight">
+                                                <p className="font-semibold text-lg tracking-tight">
                                                     {scale.minScore} - {scale.maxScore}
                                                 </p>
                                             </td>
                                             <td className="px-10 py-6">
-                                                <p className="font-medium text-muted-foreground italic">
+                                                <p className="font-medium text-muted-foreground">
                                                     {scale.remark || "No remark"}
                                                 </p>
                                             </td>
                                             <td className="px-10 py-6 text-right">
                                                 <span className={clsx(
-                                                    "px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest",
+                                                    "px-4 py-1.5 rounded-full text-label",
                                                     scale.branchId ? "bg-blue-500/10 text-blue-600 border border-blue-500/20" : "bg-green-500/10 text-green-600 border border-green-500/20"
                                                 )}>
                                                     {scale.branchId ? "Branch Spec" : "Global System"}
@@ -238,7 +238,7 @@ export default function GradingPage() {
                                     {scales.length === 0 && (
                                         <tr>
                                             <td colSpan={4} className="px-10 py-20 text-center">
-                                                <p className="text-muted-foreground font-black italic">No grading scales defined. Using system defaults.</p>
+                                                <p className="text-muted-foreground font-semibold">No grading scales defined. Using system defaults.</p>
                                             </td>
                                         </tr>
                                     )}

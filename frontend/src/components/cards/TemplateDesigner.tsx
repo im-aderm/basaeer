@@ -138,7 +138,7 @@ export default function TemplateDesigner({
                         <Palette size={24} />
                     </div>
                     <div>
-                        <h2 className="text-xl font-black text-white italic tracking-tight">{template.name}</h2>
+                        <h2 className="text-xl font-semibold text-white tracking-tight">{template.name}</h2>
                         <p className="text-xs font-bold text-white/40 uppercase tracking-widest">Visual Template Designer</p>
                     </div>
                 </div>
@@ -147,7 +147,7 @@ export default function TemplateDesigner({
                         <X size={20} className="mr-2" /> Cancel
                     </Button>
                     <Button
-                        className="bg-primary text-white font-black px-8 rounded-xl h-11"
+                        className="bg-primary text-white font-semibold px-8 rounded-xl h-11"
                         onClick={handleSave}
                         disabled={saving}
                     >
@@ -161,7 +161,7 @@ export default function TemplateDesigner({
                 {/* Sidebar - Fields */}
                 <div className="w-80 border-r border-white/10 p-8 flex flex-col gap-8 shrink-0 overflow-y-auto">
                     <div>
-                        <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 mb-6">Available Fields</h3>
+                        <h3 className="text-[10px] font-semibold uppercase tracking-[0.3em] text-white/40 mb-6">Available Fields</h3>
                         <div className="space-y-3">
                             {availableFields.map(field => (
                                 <button
@@ -184,12 +184,12 @@ export default function TemplateDesigner({
 
                     {selectedField && (
                         <div className="space-y-6 pt-6 border-t border-white/10 animate-in slide-in-from-bottom-4 duration-300">
-                            <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40">Field Properties: {selectedField}</h3>
+                            <h3 className="text-[10px] font-semibold uppercase tracking-[0.3em] text-white/40">Field Properties: {selectedField}</h3>
                             <div className="space-y-4">
                                 {selectedField !== 'photo' && selectedField !== 'logo' ? (
                                     <>
                                         <div className="space-y-2">
-                                            <label className="text-[10px] font-black text-white/60 uppercase">Font Size</label>
+                                            <label className="text-[10px] font-semibold text-white/60 uppercase">Font Size</label>
                                             <div className="flex items-center gap-3">
                                                 <Button
                                                     size="icon" variant="outline" className="w-8 h-8 rounded-lg border-white/10 hover:bg-white/10"
@@ -219,7 +219,7 @@ export default function TemplateDesigner({
                                             </div>
                                         </div>
                                         <div className="space-y-2">
-                                            <label className="text-[10px] font-black text-white/60 uppercase">Text Color</label>
+                                            <label className="text-[10px] font-semibold text-white/60 uppercase">Text Color</label>
                                             <input
                                                 type="color"
                                                 className="w-full h-10 rounded-lg bg-transparent cursor-pointer"
@@ -237,7 +237,7 @@ export default function TemplateDesigner({
                                 ) : (
                                     <div className="space-y-4">
                                         <div className="space-y-2">
-                                            <label className="text-[10px] font-black text-white/60 uppercase">Size (px)</label>
+                                            <label className="text-[10px] font-semibold text-white/60 uppercase">Size (px)</label>
                                             <input
                                                 type="range" min="20" max="300"
                                                 className="w-full"
@@ -290,7 +290,7 @@ export default function TemplateDesigner({
                         {!template.backgroundImage && (
                             <div className="absolute inset-0 flex flex-col items-center justify-center text-muted-foreground/10 pointer-events-none">
                                 <CreditCard size={120} />
-                                <span className="text-xl font-black italic mt-4 uppercase tracking-[0.2em]">Background Area</span>
+                                <span className="text-xl font-semibold mt-4 uppercase tracking-[0.2em]">Background Area</span>
                             </div>
                         )}
 

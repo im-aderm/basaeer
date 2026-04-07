@@ -79,25 +79,25 @@ export default function InventoryUnitPage() {
         <div className="max-w-7xl mx-auto space-y-8 pb-20">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-4xl font-black tracking-tight italic uppercase">Units of Measure</h1>
+                    <h1 className="text-h1 font-semibold tracking-tight uppercase">Units of Measure</h1>
                     <p className="text-muted-foreground font-medium mt-1">Define quantities like KG, Pcs, Liters, etc.</p>
                 </div>
                 <div className="flex gap-4">
                     <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
                         <DialogTrigger asChild>
-                            <Button className="h-12 px-6 rounded-2xl font-black gap-2 shadow-lg shadow-primary/20">
+                            <Button className="h-12 px-6 rounded-2xl font-semibold gap-2 shadow-lg shadow-primary/20">
                                 <Plus className="h-5 w-5" />
                                 Add Unit
                             </Button>
                         </DialogTrigger>
                         <DialogContent className="rounded-[2.5rem]">
                             <DialogHeader>
-                                <DialogTitle className="text-2xl font-black italic uppercase">New Unit</DialogTitle>
+                                <DialogTitle className="text-h3 font-semibold uppercase">New Unit</DialogTitle>
                                 <DialogDescription className="font-bold">Define a new measurement unit for products.</DialogDescription>
                             </DialogHeader>
                             <form onSubmit={handleCreate} className="space-y-6 pt-4">
                                 <div className="space-y-2">
-                                    <Label className="font-black italic text-xs uppercase opacity-50 ml-1">Unit Name</Label>
+                                    <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Unit Name</Label>
                                     <Input
                                         required
                                         className="h-12 rounded-xl bg-muted/50 border-none font-bold"
@@ -107,7 +107,7 @@ export default function InventoryUnitPage() {
                                     />
                                 </div>
                                 <DialogFooter>
-                                    <Button type="submit" className="h-12 w-full rounded-xl font-black uppercase italic tracking-wider">Add Unit</Button>
+                                    <Button type="submit" className="h-12 w-full rounded-xl font-semibold uppercase tracking-wider">Add Unit</Button>
                                 </DialogFooter>
                             </form>
                         </DialogContent>
@@ -117,7 +117,7 @@ export default function InventoryUnitPage() {
 
             <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background">
                 <CardHeader className="p-8 border-b border-border/50 flex flex-row items-center justify-between">
-                    <CardTitle className="text-2xl font-black italic flex items-center gap-3">
+                    <CardTitle className="text-h3 font-semibold flex items-center gap-3">
                         <Ruler className="h-8 w-8 text-primary" />
                         Measurement Units
                     </CardTitle>
@@ -126,14 +126,14 @@ export default function InventoryUnitPage() {
                     <Table>
                         <TableHeader className="bg-muted/30 h-16">
                             <TableRow className="border-border/50 hover:bg-transparent">
-                                <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Unit Name</TableHead>
-                                <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-right">Actions</TableHead>
+                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Unit Name</TableHead>
+                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-right">Actions</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {units.map((u) => (
                                 <TableRow key={u.id} className="border-border/50 h-20 transition-all hover:bg-muted/20">
-                                    <TableCell className="px-8 font-black italic uppercase leading-tight">
+                                    <TableCell className="px-8 font-semibold uppercase leading-tight">
                                         {u.name}
                                     </TableCell>
                                     <TableCell className="text-right px-8">
@@ -141,7 +141,7 @@ export default function InventoryUnitPage() {
                                             <Button
                                                 variant="secondary"
                                                 size="sm"
-                                                className="h-9 px-4 rounded-xl font-black uppercase text-[10px] gap-1.5"
+                                                className="h-9 px-4 rounded-xl font-semibold uppercase text-[10px] gap-1.5"
                                                 onClick={() => { setSelectedUnit(u); setEditName(u.name); setIsEditDialogOpen(true); }}
                                             >
                                                 Pencil Edit
@@ -149,7 +149,7 @@ export default function InventoryUnitPage() {
                                             <Button
                                                 variant="secondary"
                                                 size="sm"
-                                                className="h-9 px-4 rounded-xl font-black uppercase text-[10px] gap-1.5 bg-destructive/10 text-destructive hover:bg-destructive/20"
+                                                className="h-9 px-4 rounded-xl font-semibold uppercase text-[10px] gap-1.5 bg-destructive/10 text-destructive hover:bg-destructive/20"
                                                 onClick={() => handleDelete(u.id)}
                                             >
                                                 Trash2 Delete
@@ -166,11 +166,11 @@ export default function InventoryUnitPage() {
             <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
                 <DialogContent className="rounded-[2.5rem]">
                     <DialogHeader>
-                        <DialogTitle className="text-2xl font-black italic uppercase">Edit Unit</DialogTitle>
+                        <DialogTitle className="text-h3 font-semibold uppercase">Edit Unit</DialogTitle>
                     </DialogHeader>
                     <form onSubmit={handleUpdate} className="space-y-6 pt-4">
                         <div className="space-y-2">
-                            <Label className="font-black italic text-xs uppercase opacity-50 ml-1">Unit Name</Label>
+                            <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Unit Name</Label>
                             <Input
                                 required
                                 className="h-12 rounded-xl bg-muted/50 border-none font-bold"
@@ -179,7 +179,7 @@ export default function InventoryUnitPage() {
                             />
                         </div>
                         <DialogFooter>
-                            <Button type="submit" className="h-12 w-full rounded-xl font-black uppercase italic tracking-wider">Update Unit</Button>
+                            <Button type="submit" className="h-12 w-full rounded-xl font-semibold uppercase tracking-wider">Update Unit</Button>
                         </DialogFooter>
                     </form>
                 </DialogContent>

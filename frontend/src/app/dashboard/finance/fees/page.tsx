@@ -30,18 +30,13 @@ export default function FeeSetupPage() {
         }
     };
 
-    useEffect(() => {
-        fetchCategories();
-    }, []);
+    useEffect(() => { fetchCategories(); }, []);
 
     const handleAddCategory = async () => {
         if (!newCategory.name) return;
         setSubmitting(true);
         try {
-            await api.post('/finance/fee-categories', {
-                ...newCategory,
-                branchId: user?.branchId
-            });
+            await api.post('/finance/fee-categories', { ...newCategory, branchId: user?.branchId });
             setNewCategory({ name: '', description: '' });
             fetchCategories();
             toast.success('Fee category added');
@@ -56,13 +51,13 @@ export default function FeeSetupPage() {
     return (
         <div className="space-y-6">
             <div className="flex justify-between items-center">
-                <h1 className="text-3xl font-bold tracking-tight">Fee Structure Setup</h1>
+                <h1 className="text-h1">Fee Structure Setup</h1>
             </div>
 
             <div className="grid gap-6 md:grid-cols-2">
                 <Card>
                     <CardHeader>
-                        <CardTitle>Fee Categories</CardTitle>
+                        <CardTitle className="text-h3">Fee Categories</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
                         <div className="flex gap-2">
@@ -70,39 +65,40 @@ export default function FeeSetupPage() {
                                 placeholder="Category Name (e.g. Tuition)"
                                 value={newCategory.name}
                                 onChange={(e) => setNewCategory({ ...newCategory, name: e.target.value })}
+                                className="text-body"
                             />
-                            <Button onClick={handleAddCategory} disabled={submitting}>
+                            <Button onClick={handleAddCategory} disabled={submitting} className="text-btn font-medium">
                                 {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Add'}
                             </Button>
                         </div>
-                        <div className="text-sm text-muted-foreground">
+                        <p className="text-secondary">
                             Define the types of fees collected (e.g., Tuition, Transport, Hostel, Uniform).
-                        </div>
+                        </p>
 
                         <div className="border rounded-md">
                             <Table>
                                 <TableHeader>
                                     <TableRow>
-                                        <TableHead>Name</TableHead>
-                                        <TableHead>Description</TableHead>
+                                        <TableHead className="text-label">Name</TableHead>
+                                        <TableHead className="text-label">Description</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
                                     {loading ? (
                                         <TableRow>
-                                            <TableCell colSpan={2} className="text-center py-4">Loading...</TableCell>
+                                            <TableCell colSpan={2} className="text-center py-4 text-secondary">Loading...</TableCell>
                                         </TableRow>
                                     ) : categories.length === 0 ? (
                                         <TableRow>
-                                            <TableCell colSpan={2} className="text-center py-4 text-muted-foreground">
+                                            <TableCell colSpan={2} className="text-center py-4 text-secondary">
                                                 No categories found
                                             </TableCell>
                                         </TableRow>
                                     ) : (
                                         categories.map((category) => (
                                             <TableRow key={category.id}>
-                                                <TableCell className="font-medium">{category.name}</TableCell>
-                                                <TableCell>{category.description || '-'}</TableCell>
+                                                <TableCell className="text-table-cell font-medium">{category.name}</TableCell>
+                                                <TableCell className="text-table-cell">{category.description || '-'}</TableCell>
                                             </TableRow>
                                         ))
                                     )}
@@ -114,13 +110,13 @@ export default function FeeSetupPage() {
 
                 <Card>
                     <CardHeader>
-                        <CardTitle>Class Fee Structures</CardTitle>
+                        <CardTitle className="text-h3">Class Fee Structures</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <p className="text-sm text-muted-foreground mb-4">
+                        <p className="text-secondary mb-4">
                             Assign standard fee amounts to specific classes.
                         </p>
-                        <Button variant="outline" className="w-full">
+                        <Button variant="outline" className="w-full text-btn font-medium">
                             <Plus className="h-4 w-4 mr-2" /> Assign Fees to Class
                         </Button>
                     </CardContent>

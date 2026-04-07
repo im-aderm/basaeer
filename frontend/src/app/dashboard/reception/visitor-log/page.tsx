@@ -158,7 +158,7 @@ export default function VisitorLogPage() {
         <div className="max-w-7xl mx-auto space-y-8 pb-20 animate-in fade-in duration-500">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                 <div>
-                    <h1 className="text-4xl font-black tracking-tight italic uppercase">Visitor Log</h1>
+                    <h1 className="text-h1 font-semibold tracking-tight uppercase">Visitor Log</h1>
                     <p className="text-muted-foreground font-medium mt-1">Manage and monitor school campus visitors.</p>
                 </div>
 
@@ -174,20 +174,20 @@ export default function VisitorLogPage() {
                     </div>
                     <Dialog open={isAddDialogOpen} onOpenChange={(open) => { setIsAddDialogOpen(open); if (!open) resetForm(); }}>
                         <DialogTrigger asChild>
-                            <Button className="h-12 px-6 rounded-2xl font-black gap-2 shadow-lg shadow-primary/20 transition-all hover:scale-105 active:scale-95">
+                            <Button className="h-12 px-6 rounded-2xl font-semibold gap-2 shadow-lg shadow-primary/20 transition-all hover:scale-105 active:scale-95">
                                 <UserPlus className="h-5 w-5" />
                                 Add Entry
                             </Button>
                         </DialogTrigger>
                         <DialogContent className="rounded-[2.5rem] max-w-2xl bg-card border-border shadow-2xl">
                             <DialogHeader>
-                                <DialogTitle className="text-2xl font-black italic uppercase">Visitor Entry</DialogTitle>
+                                <DialogTitle className="text-h3 font-semibold uppercase">Visitor Entry</DialogTitle>
                                 <DialogDescription className="font-bold">Record new visitor credentials.</DialogDescription>
                             </DialogHeader>
                             <form onSubmit={handleCreate} className="space-y-6 pt-4">
                                 <VisitorForm formData={formData} setFormData={setFormData} purposes={purposes} />
                                 <DialogFooter>
-                                    <Button type="submit" className="h-12 w-full rounded-xl font-black uppercase italic tracking-wider">Authorize Visitor</Button>
+                                    <Button type="submit" className="h-12 w-full rounded-xl font-semibold uppercase tracking-wider">Authorize Visitor</Button>
                                 </DialogFooter>
                             </form>
                         </DialogContent>
@@ -197,7 +197,7 @@ export default function VisitorLogPage() {
 
             <Card className="rounded-[3rem] border-border shadow-2xl overflow-hidden bg-card">
                 <CardHeader className="p-8 border-b border-border bg-muted/20">
-                    <CardTitle className="text-2xl font-black italic flex items-center gap-3">
+                    <CardTitle className="text-h3 font-semibold flex items-center gap-3">
                         <ShieldCheck className="h-8 w-8 text-primary" />
                         Campus Access Log
                     </CardTitle>
@@ -206,27 +206,27 @@ export default function VisitorLogPage() {
                     <Table>
                         <TableHeader className="bg-muted/30 h-16">
                             <TableRow className="border-border/50 hover:bg-transparent">
-                                <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Visitor</TableHead>
-                                <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Purpose</TableHead>
-                                <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground">ID/Badge</TableHead>
-                                <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Timeline</TableHead>
-                                <TableHead className="font-black px-8 h-16 text-right uppercase tracking-widest text-[10px] text-muted-foreground">Actions</TableHead>
+                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Visitor</TableHead>
+                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Purpose</TableHead>
+                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">ID/Badge</TableHead>
+                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Timeline</TableHead>
+                                <TableHead className="font-semibold px-8 h-16 text-right uppercase tracking-widest text-[10px] text-muted-foreground">Actions</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {filtered.map((l) => (
                                 <TableRow key={l.id} className="border-border/50 h-24 transition-all hover:bg-primary/5">
-                                    <TableCell className="px-8 font-black italic uppercase leading-tight text-sm">
+                                    <TableCell className="px-8 font-semibold uppercase leading-tight text-sm">
                                         <div className="flex flex-col">
                                             <span>{l.name}</span>
                                             <span className="text-[10px] font-bold text-muted-foreground opacity-50">{l.phone} ({l.numPerson} People)</span>
                                         </div>
                                     </TableCell>
-                                    <TableCell className="px-8 font-black text-[10px] uppercase text-primary/70 italic">
+                                    <TableCell className="px-8 font-semibold text-[10px] uppercase text-primary/70">
                                         {l.purpose}
                                     </TableCell>
                                     <TableCell className="px-8">
-                                        <div className="inline-flex items-center gap-1.5 font-bold text-xs uppercase italic opacity-60">
+                                        <div className="inline-flex items-center gap-1.5 font-bold text-xs uppercase opacity-60">
                                             <ShieldCheck className="h-3 w-3" />
                                             {l.idCard || 'N/A'}
                                         </div>
@@ -234,7 +234,7 @@ export default function VisitorLogPage() {
                                     <TableCell className="px-8 font-bold text-xs whitespace-nowrap">
                                         <div className="flex flex-col gap-1">
                                             <span className="flex items-center gap-1.5"><Calendar className="h-3 w-3 text-primary" /> {new Date(l.date).toLocaleDateString()}</span>
-                                            <span className="text-[10px] font-black italic text-muted-foreground uppercase opacity-60">
+                                            <span className="text-[10px] font-semibold text-muted-foreground uppercase opacity-60">
                                                 {l.inTime || 'N/A'} - {l.outTime || 'IN'}
                                             </span>
                                         </div>
@@ -271,13 +271,13 @@ export default function VisitorLogPage() {
             <Dialog open={!!editingLog} onOpenChange={(open) => { if (!open) setEditingLog(null); }}>
                 <DialogContent className="rounded-[2.5rem] max-w-2xl bg-card border-border shadow-2xl">
                     <DialogHeader>
-                        <DialogTitle className="text-2xl font-black italic uppercase">Edit Visitor Entry</DialogTitle>
-                        <DialogDescription className="font-black italic opacity-60">Update details for {editingLog?.name}</DialogDescription>
+                        <DialogTitle className="text-h3 font-semibold uppercase">Edit Visitor Entry</DialogTitle>
+                        <DialogDescription className="font-semibold opacity-60">Update details for {editingLog?.name}</DialogDescription>
                     </DialogHeader>
                     <form onSubmit={handleUpdate} className="space-y-6 pt-4">
                         <VisitorForm formData={formData} setFormData={setFormData} purposes={purposes} />
                         <DialogFooter>
-                            <Button type="submit" className="h-12 w-full rounded-xl font-black uppercase italic tracking-wider">Update Entry</Button>
+                            <Button type="submit" className="h-12 w-full rounded-xl font-semibold uppercase tracking-wider">Update Entry</Button>
                         </DialogFooter>
                     </form>
                 </DialogContent>
@@ -291,7 +291,7 @@ function VisitorForm({ formData, setFormData, purposes }: { formData: any, setFo
         <div className="space-y-6">
             <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                    <Label className="font-black italic text-[10px] uppercase opacity-50 ml-1">Visitor Name</Label>
+                    <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Visitor Name</Label>
                     <Input
                         required
                         className="h-12 rounded-xl bg-muted/50 border-none font-bold placeholder:opacity-30"
@@ -301,7 +301,7 @@ function VisitorForm({ formData, setFormData, purposes }: { formData: any, setFo
                     />
                 </div>
                 <div className="space-y-2">
-                    <Label className="font-black italic text-[10px] uppercase opacity-50 ml-1">Phone Number</Label>
+                    <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Phone Number</Label>
                     <Input
                         required
                         className="h-12 rounded-xl bg-muted/50 border-none font-bold placeholder:opacity-30"
@@ -313,12 +313,12 @@ function VisitorForm({ formData, setFormData, purposes }: { formData: any, setFo
             </div>
             <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                    <Label className="font-black italic text-[10px] uppercase opacity-50 ml-1">Purpose of Visit</Label>
+                    <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Purpose of Visit</Label>
                     <Select value={formData.purpose} onValueChange={(v) => setFormData({ ...formData, purpose: v })}>
                         <SelectTrigger className="h-12 rounded-xl bg-muted/50 border-none font-bold">
                             <SelectValue placeholder="Select Purpose" />
                         </SelectTrigger>
-                        <SelectContent className="rounded-xl border-border bg-card font-bold text-xs uppercase italic">
+                        <SelectContent className="rounded-xl border-border bg-card font-bold text-xs uppercase">
                             {purposes.map(purpose => (
                                 <SelectItem key={purpose} value={purpose}>{purpose}</SelectItem>
                             ))}
@@ -326,7 +326,7 @@ function VisitorForm({ formData, setFormData, purposes }: { formData: any, setFo
                     </Select>
                 </div>
                 <div className="space-y-2">
-                    <Label className="font-black italic text-[10px] uppercase opacity-50 ml-1">ID Card / Badge No.</Label>
+                    <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">ID Card / Badge No.</Label>
                     <Input
                         className="h-12 rounded-xl bg-muted/50 border-none font-bold placeholder:opacity-30"
                         placeholder="ID-12345"
@@ -337,7 +337,7 @@ function VisitorForm({ formData, setFormData, purposes }: { formData: any, setFo
             </div>
             <div className="grid grid-cols-3 gap-4">
                 <div className="space-y-2">
-                    <Label className="font-black italic text-[10px] uppercase opacity-50 ml-1">No. Persons</Label>
+                    <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">No. Persons</Label>
                     <Input
                         type="number"
                         min="1"
@@ -347,7 +347,7 @@ function VisitorForm({ formData, setFormData, purposes }: { formData: any, setFo
                     />
                 </div>
                 <div className="space-y-2">
-                    <Label className="font-black italic text-[10px] uppercase opacity-50 ml-1">In Time</Label>
+                    <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">In Time</Label>
                     <Input
                         type="time"
                         className="h-12 rounded-xl bg-muted/50 border-none font-bold text-xs"
@@ -356,7 +356,7 @@ function VisitorForm({ formData, setFormData, purposes }: { formData: any, setFo
                     />
                 </div>
                 <div className="space-y-2">
-                    <Label className="font-black italic text-[10px] uppercase opacity-50 ml-1">Out Time</Label>
+                    <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Out Time</Label>
                     <Input
                         type="time"
                         className="h-12 rounded-xl bg-muted/50 border-none font-bold text-xs"
@@ -366,7 +366,7 @@ function VisitorForm({ formData, setFormData, purposes }: { formData: any, setFo
                 </div>
             </div>
             <div className="space-y-2">
-                <Label className="font-black italic text-[10px] uppercase opacity-50 ml-1">Notes / Remarks</Label>
+                <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Notes / Remarks</Label>
                 <Textarea
                     className="rounded-xl bg-muted/50 border-none font-bold min-h-[80px] placeholder:opacity-30"
                     placeholder="Any specific observations..."

@@ -131,7 +131,7 @@ export default function BranchesPage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold tracking-tight">Branch Management</h1>
+                    <h1 className="text-h1 font-bold tracking-tight">Branch Management</h1>
                     <p className="text-muted-foreground mt-1">Manage multiple school campuses and campuses-specific settings.</p>
                 </div>
                 <div className="flex items-center gap-3">

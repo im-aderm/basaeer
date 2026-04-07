@@ -45,7 +45,7 @@ export default function FinanceDashboard() {
     return (
         <div className="space-y-6">
             <div className="flex justify-between items-center">
-                <h1 className="text-3xl font-bold tracking-tight">Financial Overview</h1>
+                <h1 className="text-h1 font-bold tracking-tight">Financial Overview</h1>
                 <div className="flex gap-2">
                     <Link href="/dashboard/finance/fees">
                         <Button variant="outline">Fee Setup</Button>

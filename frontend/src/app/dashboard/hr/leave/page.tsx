@@ -59,7 +59,7 @@ export default function LeaveManagementPage() {
                     </div>
                     <div>
                         <div className="font-bold">{req.staff?.user?.firstName} {req.staff?.user?.lastName}</div>
-                        <div className="text-[10px] text-muted-foreground uppercase font-black">{req.type}</div>
+                        <div className="text-[10px] text-muted-foreground uppercase font-semibold">{req.type}</div>
                     </div>
                 </div>
             )
@@ -68,7 +68,7 @@ export default function LeaveManagementPage() {
             header: "Duration",
             accessor: (req: LeaveRequest) => (
                 <div className="space-y-1">
-                    <div className="flex items-center gap-2 text-xs font-bold italic">
+                    <div className="flex items-center gap-2 text-xs font-bold">
                         <Calendar size={12} className="text-muted-foreground" />
                         {new Date(req.startDate).toLocaleDateString()} - {new Date(req.endDate).toLocaleDateString()}
                     </div>
@@ -78,7 +78,7 @@ export default function LeaveManagementPage() {
         {
             header: "Reason",
             accessor: (req: LeaveRequest) => (
-                <div className="max-w-[200px] truncate text-xs font-medium italic text-muted-foreground">
+                <div className="max-w-[200px] truncate text-xs font-medium text-muted-foreground">
                     {req.reason}
                 </div>
             )
@@ -86,7 +86,7 @@ export default function LeaveManagementPage() {
         {
             header: "Status",
             accessor: (req: LeaveRequest) => (
-                <Badge className={`rounded-xl px-4 py-1.5 font-black italic tracking-wide text-[10px] ${req.status === 'APPROVED' ? "bg-green-500/10 text-green-600 border border-green-500/20" :
+                <Badge className={`rounded-xl px-4 py-1.5 font-semibold tracking-wide text-[10px] ${req.status === 'APPROVED' ? "bg-green-500/10 text-green-600 border border-green-500/20" :
                         req.status === 'REJECTED' ? "bg-red-500/10 text-red-600 border border-red-500/20" :
                             "bg-amber-500/10 text-amber-600 border border-amber-500/20"
                     }`}>
@@ -104,15 +104,15 @@ export default function LeaveManagementPage() {
             <div className="relative overflow-hidden rounded-[3.5rem] bg-indigo-900 p-12 text-white shadow-2xl">
                 <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-6">
                     <div>
-                        <h1 className="text-5xl font-black tracking-tight italic mb-4">Leave Management</h1>
-                        <p className="text-indigo-200 text-xl font-medium max-w-2xl leading-relaxed italic">
+                        <h1 className="text-h1 font-semibold tracking-tight mb-4">Leave Management</h1>
+                        <p className="text-indigo-200 text-xl font-medium max-w-2xl leading-relaxed">
                             Review and approve time-off requests. Maintain operational continuity while supporting staff well-being.
                         </p>
                     </div>
                     <div className="flex gap-4">
                         <Card className="bg-white/10 backdrop-blur-md border-none p-6 rounded-[2rem] text-center min-w-[120px]">
-                            <p className="text-indigo-200 text-[10px] font-black uppercase tracking-widest mb-1">Pending</p>
-                            <p className="text-3xl font-black italic">{requests.filter(r => r.status === 'PENDING').length}</p>
+                            <p className="text-indigo-200 text-label mb-1">Pending</p>
+                            <p className="text-h1 font-semibold">{requests.filter(r => r.status === 'PENDING').length}</p>
                         </Card>
                     </div>
                 </div>
@@ -122,11 +122,11 @@ export default function LeaveManagementPage() {
 
             <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden border-t-8 border-t-indigo-500/20">
                 <CardHeader className="p-10 border-b border-border flex flex-row items-center justify-between bg-muted/5">
-                    <CardTitle className="text-2xl font-black italic flex items-center gap-3">
+                    <CardTitle className="text-h3 font-semibold flex items-center gap-3">
                         <Clock className="text-indigo-600" /> Pending Applications
                     </CardTitle>
                     <div className="flex gap-2">
-                        <Button variant="outline" className="rounded-xl font-black italic border-2"><Filter size={16} className="mr-2" /> Filter</Button>
+                        <Button variant="outline" className="rounded-xl font-semibold border-2"><Filter size={16} className="mr-2" /> Filter</Button>
                     </div>
                 </CardHeader>
                 <CardContent className="p-10">
@@ -139,7 +139,7 @@ export default function LeaveManagementPage() {
                                     <>
                                         <Button
                                             size="sm"
-                                            className="rounded-xl font-black italic bg-green-500 hover:bg-green-600 shadow-lg shadow-green-500/20 px-6"
+                                            className="rounded-xl font-semibold bg-green-500 hover:bg-green-600 shadow-lg shadow-green-500/20 px-6"
                                             onClick={() => handleStatusUpdate(req.id, 'APPROVED')}
                                         >
                                             <Check size={16} className="mr-2" /> Approve
@@ -147,21 +147,21 @@ export default function LeaveManagementPage() {
                                         <Button
                                             size="sm"
                                             variant="outline"
-                                            className="rounded-xl font-black italic border-2 border-red-500/20 text-red-500 hover:bg-red-500 hover:text-white px-6"
+                                            className="rounded-xl font-semibold border-2 border-red-500/20 text-red-500 hover:bg-red-500 hover:text-white px-6"
                                             onClick={() => handleStatusUpdate(req.id, 'REJECTED')}
                                         >
                                             <X size={16} className="mr-2" /> Reject
                                         </Button>
                                     </>
                                 )}
-                                <Button variant="ghost" size="sm" className="rounded-xl font-black italic text-muted-foreground">View Details</Button>
+                                <Button variant="ghost" size="sm" className="rounded-xl font-semibold text-muted-foreground">View Details</Button>
                             </div>
                         )}
                     />
                     {requests.length === 0 && (
                         <div className="py-20 text-center space-y-4">
                             <Clock size={48} className="mx-auto text-muted-foreground/20" />
-                            <p className="text-muted-foreground font-bold italic">No leave applications currently pending.</p>
+                            <p className="text-muted-foreground font-bold">No leave applications currently pending.</p>
                         </div>
                     )}
                 </CardContent>

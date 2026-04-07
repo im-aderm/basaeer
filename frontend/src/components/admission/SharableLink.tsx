@@ -61,7 +61,7 @@ export default function SharableLink({ branchId, label = "Online Admission Link"
                     <Share2 size={20} />
                 </div>
                 <div>
-                    <h3 className="font-black italic text-lg leading-none">{label}</h3>
+                    <h3 className="font-semibold text-lg leading-none">{label}</h3>
                     <p className="text-xs font-medium opacity-70">Share this link with parents to accept online applications.</p>
                 </div>
             </div>

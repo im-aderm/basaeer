@@ -9,8 +9,9 @@ import * as bcrypt from 'bcrypt';
 export class OnlineAdmissionService {
     constructor(private prisma: PrismaService) { }
 
-    create(createDto: CreateOnlineAdmissionDto) {
-        const { dateOfBirth, admissionDate, approvalDate, consentDate, ...rest } = createDto;
+    async create(createDto: CreateOnlineAdmissionDto) {
+        const { dateOfBirth, admissionDate, approvalDate, consentDate, previousSchools, ...rest } = createDto;
+        
         return this.prisma.onlineAdmission.create({
             data: {
                 ...rest,
@@ -18,7 +19,13 @@ export class OnlineAdmissionService {
                 ...(admissionDate && { admissionDate: new Date(admissionDate) }),
                 ...(approvalDate && { approvalDate: new Date(approvalDate) }),
                 ...(consentDate && { consentDate: new Date(consentDate) }),
+                previousSchools: {
+                    create: previousSchools || [],
+                },
             },
+            include: {
+                previousSchools: true,
+            }
         });
     }
 
@@ -30,6 +37,7 @@ export class OnlineAdmissionService {
                 desiredSection: true,
                 studentCategory: true,
                 academicSession: true,
+                previousSchools: true,
             },
             orderBy: { createdAt: 'desc' },
         });
@@ -43,14 +51,23 @@ export class OnlineAdmissionService {
                 desiredSection: true,
                 studentCategory: true,
                 academicSession: true,
+                previousSchools: true,
             },
         });
         if (!admission) throw new NotFoundException(`Admission application with ID ${id} not found`);
         return admission;
     }
 
-    update(id: string, updateDto: UpdateOnlineAdmissionDto) {
-        const { dateOfBirth, admissionDate, approvalDate, consentDate, ...rest } = updateDto;
+    async update(id: string, updateDto: UpdateOnlineAdmissionDto) {
+        const { dateOfBirth, admissionDate, approvalDate, consentDate, previousSchools, ...rest } = updateDto;
+        
+        // Handle previousSchools update if provided (simple clear and recreate for now)
+        if (previousSchools) {
+            await this.prisma.previousSchool.deleteMany({
+                where: { admissionId: id }
+            });
+        }
+
         return this.prisma.onlineAdmission.update({
             where: { id },
             data: {
@@ -59,7 +76,15 @@ export class OnlineAdmissionService {
                 ...(admissionDate && { admissionDate: new Date(admissionDate) }),
                 ...(approvalDate && { approvalDate: new Date(approvalDate) }),
                 ...(consentDate && { consentDate: new Date(consentDate) }),
+                ...(previousSchools && {
+                    previousSchools: {
+                        create: previousSchools,
+                    }
+                }),
             },
+            include: {
+                previousSchools: true,
+            }
         });
     }
 
@@ -69,7 +94,24 @@ export class OnlineAdmissionService {
         });
     }
 
-    async approve(id: string) {
+    async reject(id: string, reason: string) {
+        const admission = await this.findOne(id);
+        
+        const updated = await this.prisma.onlineAdmission.update({
+            where: { id },
+            data: {
+                status: 'REJECTED',
+                rejectionReason: reason,
+            }
+        });
+
+        // TODO: Send rejection email here
+        // this.emailService.sendRejectionEmail(admission.guardianEmail, reason);
+
+        return updated;
+    }
+
+    async approve(id: string, approvalData?: { classId?: string, sectionId?: string }) {
         const admission = await this.findOne(id);
         if (admission.status === 'ENROLLED') {
             throw new ConflictException('Application is already enrolled');
@@ -87,30 +129,22 @@ export class OnlineAdmissionService {
             let parentId = admission.parentId;
 
             if (!parentId && admission.guardianEmail) {
-                // Check if a parent with this email already exists
                 const existingParent = await tx.user.findUnique({
                     where: { email: admission.guardianEmail }
                 });
 
-                if (existingParent) {
-                    if (existingParent.role !== UserRole.PARENT) {
-                        // Optional: Handle if email exists but isn't a parent. 
-                        // For now, we'll just use it if it's a parent, otherwise create new with modified email or throw.
-                        // Standard practice: if email exists, use it if roles match.
-                    } else {
-                        parentId = existingParent.id;
-                    }
+                if (existingParent && existingParent.role === UserRole.PARENT) {
+                    parentId = existingParent.id;
                 }
 
                 if (!parentId) {
-                    // Create new parent account
                     const parentPassword = await bcrypt.hash('parent123', 10);
                     const newParent = await tx.user.create({
                         data: {
                             email: admission.guardianEmail,
                             password: parentPassword,
                             firstName: admission.guardianName.split(' ')[0],
-                            lastName: admission.guardianName.split(' ').slice(1).join(' ') || admission.lastName,
+                            lastName: (admission.surname || admission.lastName || admission.guardianName.split(' ').slice(1).join(' ')),
                             phone: admission.guardianPhone,
                             role: UserRole.PARENT,
                             branchId: admission.branchId,
@@ -124,7 +158,7 @@ export class OnlineAdmissionService {
 
             // 3. Create Student User if portal account is requested
             if (admission.createPortalAccount) {
-                const email = admission.studentEmail || `std.${admission.firstName.toLowerCase()}.${admission.lastName.toLowerCase()}${count + 1}@basaeer.com`;
+                const email = admission.studentEmail || `std.${admission.firstName.toLowerCase()}.${(admission.surname || admission.lastName).toLowerCase()}${count + 1}@basaeer.com`;
                 const hashedPassword = await bcrypt.hash('student123', 10);
 
                 const user = await tx.user.create({
@@ -132,7 +166,7 @@ export class OnlineAdmissionService {
                         email,
                         password: hashedPassword,
                         firstName: admission.firstName,
-                        lastName: admission.lastName,
+                        lastName: admission.surname || admission.lastName,
                         phone: admission.guardianPhone,
                         role: UserRole.STUDENT,
                         branchId: admission.branchId,
@@ -145,16 +179,19 @@ export class OnlineAdmissionService {
             const student = await tx.student.create({
                 data: {
                     userId,
-                    parentId, // Link to parent
+                    parentId,
                     firstName: admission.firstName,
                     lastName: admission.lastName,
+                    surname: admission.surname,
                     otherNames: admission.otherNames,
                     dob: admission.dateOfBirth,
+                    age: admission.age,
                     branchId: admission.branchId,
-                    classId: admission.desiredClassId,
-                    sectionId: admission.desiredSectionId,
+                    classId: approvalData?.classId || admission.desiredClassId,
+                    sectionId: approvalData?.sectionId || admission.desiredSectionId,
                     categoryId: admission.studentCategoryId,
 
+                    ninNumber: admission.ninNumber,
                     placeOfBirth: admission.placeOfBirth,
                     nationality: admission.nationality,
                     stateOfOrigin: admission.stateOfOrigin,
@@ -164,22 +201,39 @@ export class OnlineAdmissionService {
 
                     guardianOccupation: admission.guardianOccupation,
                     guardianOfficeAddress: admission.guardianOfficeAddress,
+                    
+                    fatherName: admission.fatherName,
+                    fatherOccupation: admission.fatherOccupation,
+                    fatherPhone: admission.fatherPhone,
+                    motherName: admission.motherName,
+                    motherOccupation: admission.motherOccupation,
+                    motherPhone: admission.motherPhone,
+
                     secondaryGuardianName: admission.secondaryGuardianName,
                     secondaryGuardianPhone: admission.secondaryGuardianPhone,
                     secondaryGuardianRelation: admission.secondaryGuardianRelation,
 
+                    address: admission.address,
+                    whatsappNumber: admission.whatsappNumber,
+                    languagesSpoken: admission.languagesSpoken,
                     city: admission.city,
                     state: admission.state,
                     country: admission.country,
                     emergencyContactName: admission.emergencyContactName,
                     emergencyContactPhone: admission.emergencyContactPhone,
                     emergencyContactRelation: admission.emergencyContactRelation,
+                    emergencySickness: admission.emergencySickness,
 
                     bloodGroup: admission.bloodGroup,
                     genotype: admission.genotype,
                     allergies: admission.allergies,
                     medicalConditions: admission.medicalConditions,
-                    specialNeeds: admission.specialNeeds,
+                    hasMedicalCondition: admission.hasMedicalCondition,
+                    medicalConditionInfo: admission.medicalConditionInfo,
+                    hasLearningDifficulty: admission.hasLearningDifficulty,
+                    learningDifficultyInfo: admission.learningDifficultyInfo,
+                    hasSpecialNeeds: admission.hasSpecialNeeds,
+                    specialNeedsInfo: admission.specialNeedsInfo,
                     familyDoctorName: admission.familyDoctorName,
                     familyDoctorPhone: admission.familyDoctorPhone,
 
@@ -187,6 +241,12 @@ export class OnlineAdmissionService {
                     testimonialUrl: admission.testimonialUrl,
                     transferCertificateUrl: admission.transferCertificateUrl,
                     immunizationCardUrl: admission.immunizationCardUrl,
+                    ninUrl: admission.ninUrl,
+                    educationalCertUrl: admission.educationalCertUrl,
+                    transferLetterUrl: admission.transferLetterUrl,
+                    medicalReportUrl: admission.medicalReportUrl,
+                    recommendationLetterUrl: admission.recommendationLetterUrl,
+                    schoolReportUrl: admission.schoolReportUrl,
 
                     preferredLanguage: admission.preferredLanguage,
                     religionClassType: admission.religionClassType,
@@ -204,6 +264,9 @@ export class OnlineAdmissionService {
                     admissionNumber: studentIdNumber
                 }
             });
+
+            // TODO: Send approval email here
+            // this.emailService.sendApprovalEmail(admission.guardianEmail, studentIdNumber);
 
             return student;
         });

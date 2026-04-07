@@ -107,13 +107,13 @@ export default function StudentHostelPage() {
             {/* Header / Current Residence */}
             <div className="relative overflow-hidden rounded-[3.5rem] bg-slate-900 p-8 md:p-12 text-white shadow-2xl">
                 <div className="relative z-10">
-                    <h1 className="text-4xl font-black tracking-tight italic mb-2">My Hostel Residence</h1>
+                    <h1 className="text-h1 font-semibold tracking-tight mb-2">My Hostel Residence</h1>
 
                     {myDetails ? (
                         <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/10">
                                 <div className="text-white/60 font-bold uppercase tracking-widest text-xs mb-1">Building</div>
-                                <div className="text-2xl font-black italic flex items-center gap-2">
+                                <div className="text-h3 font-semibold flex items-center gap-2">
                                     <Home className="text-blue-400" /> {myDetails.hostelName}
                                 </div>
                                 <div className="mt-2 text-xs font-medium bg-blue-500/20 px-2 py-1 rounded inline-block text-blue-200">
@@ -123,7 +123,7 @@ export default function StudentHostelPage() {
 
                             <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/10">
                                 <div className="text-white/60 font-bold uppercase tracking-widest text-xs mb-1">Room & Bed</div>
-                                <div className="text-2xl font-black italic flex items-center gap-2">
+                                <div className="text-h3 font-semibold flex items-center gap-2">
                                     <Bed className="text-purple-400" /> {myDetails.bedName}
                                 </div>
                                 <div className="mt-2 text-sm font-medium text-purple-200">
@@ -133,7 +133,7 @@ export default function StudentHostelPage() {
 
                             <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/10">
                                 <div className="text-white/60 font-bold uppercase tracking-widest text-xs mb-1">Check-in Date</div>
-                                <div className="text-2xl font-black italic flex items-center gap-2">
+                                <div className="text-h3 font-semibold flex items-center gap-2">
                                     <Calendar className="text-green-400" /> {format(new Date(myDetails.checkInDate), 'MMM dd, yyyy')}
                                 </div>
                                 <div className="mt-2 text-sm font-medium text-green-200">
@@ -143,7 +143,7 @@ export default function StudentHostelPage() {
                         </div>
                     ) : (
                         <div className="mt-6 p-6 bg-white/5 rounded-3xl border border-dashed border-white/20 text-center">
-                            <p className="text-xl font-medium italic text-slate-300">You are not currently allocated to any hostel room.</p>
+                            <p className="text-xl font-medium text-slate-300">You are not currently allocated to any hostel room.</p>
                             <p className="text-sm text-slate-400 mt-2">Please contact the hostel administrator if this is a mistake.</p>
                         </div>
                     )}
@@ -158,26 +158,26 @@ export default function StudentHostelPage() {
             {myDetails && (
                 <Tabs defaultValue="leaves" className="space-y-8">
                     <TabsList className="bg-muted/50 p-1 h-14 rounded-2xl w-full max-w-md mx-auto grid grid-cols-2">
-                        <TabsTrigger value="leaves" className="rounded-xl h-12 font-bold italic data-[state=active]:bg-white data-[state=active]:shadow-md">Leave Requests</TabsTrigger>
-                        <TabsTrigger value="maintenance" className="rounded-xl h-12 font-bold italic data-[state=active]:bg-white data-[state=active]:shadow-md">Maintenance</TabsTrigger>
+                        <TabsTrigger value="leaves" className="rounded-xl h-12 font-bold data-[state=active]:bg-white data-[state=active]:shadow-md">Leave Requests</TabsTrigger>
+                        <TabsTrigger value="maintenance" className="rounded-xl h-12 font-bold data-[state=active]:bg-white data-[state=active]:shadow-md">Maintenance</TabsTrigger>
                     </TabsList>
 
                     <TabsContent value="leaves" className="space-y-6 animate-in slide-in-from-bottom-4 duration-500">
                         <div className="flex justify-end">
                             <Dialog open={isLeaveModalOpen} onOpenChange={setIsLeaveModalOpen}>
                                 <DialogTrigger asChild>
-                                    <Button className="h-12 px-6 rounded-xl bg-primary text-white font-black italic shadow-lg shadow-primary/20 gap-2">
+                                    <Button className="h-12 px-6 rounded-xl bg-primary text-white font-semibold shadow-lg shadow-primary/20 gap-2">
                                         <Plus size={18} strokeWidth={3} /> Request Leave
                                     </Button>
                                 </DialogTrigger>
                                 <DialogContent className="rounded-[2.5rem] p-8 max-w-md">
                                     <DialogHeader>
-                                        <DialogTitle className="text-2xl font-black italic">Request Hostel Leave</DialogTitle>
+                                        <DialogTitle className="text-h3 font-semibold">Request Hostel Leave</DialogTitle>
                                     </DialogHeader>
                                     <form onSubmit={handleCreateLeave} className="space-y-4 pt-4">
                                         <div className="grid grid-cols-2 gap-4">
                                             <div className="space-y-1.5">
-                                                <Label className="font-bold ml-1 italic">From Date</Label>
+                                                <Label className="font-bold ml-1">From Date</Label>
                                                 <Input
                                                     type="date"
                                                     required
@@ -187,7 +187,7 @@ export default function StudentHostelPage() {
                                                 />
                                             </div>
                                             <div className="space-y-1.5">
-                                                <Label className="font-bold ml-1 italic">To Date</Label>
+                                                <Label className="font-bold ml-1">To Date</Label>
                                                 <Input
                                                     type="date"
                                                     required
@@ -198,7 +198,7 @@ export default function StudentHostelPage() {
                                             </div>
                                         </div>
                                         <div className="space-y-1.5">
-                                            <Label className="font-bold ml-1 italic">Reason</Label>
+                                            <Label className="font-bold ml-1">Reason</Label>
                                             <Textarea
                                                 required
                                                 className="rounded-xl min-h-[100px] resize-none"
@@ -207,7 +207,7 @@ export default function StudentHostelPage() {
                                                 onChange={e => setLeaveForm({ ...leaveForm, reason: e.target.value })}
                                             />
                                         </div>
-                                        <Button type="submit" className="w-full h-14 rounded-xl font-black italic text-lg mt-2">
+                                        <Button type="submit" className="w-full h-14 rounded-xl font-semibold text-lg mt-2">
                                             Submit Request
                                         </Button>
                                     </form>
@@ -221,7 +221,7 @@ export default function StudentHostelPage() {
                                     <CardContent className="p-6 flex items-center justify-between gap-4">
                                         <div className="space-y-1">
                                             <div className="flex items-center gap-3">
-                                                <Badge variant="outline" className={`rounded-lg px-2 py-0.5 font-black uppercase text-[10px] tracking-widest border-2 ${leave.status === 'APPROVED' ? 'border-green-500 text-green-600 bg-green-50' :
+                                                <Badge variant="outline" className={`rounded-lg px-2 py-0.5 font-semibold uppercase text-[10px] tracking-widest border-2 ${leave.status === 'APPROVED' ? 'border-green-500 text-green-600 bg-green-50' :
                                                         leave.status === 'REJECTED' ? 'border-red-500 text-red-600 bg-red-50' :
                                                             'border-yellow-500 text-yellow-600 bg-yellow-50'
                                                     }`}>
@@ -232,7 +232,7 @@ export default function StudentHostelPage() {
                                                     {format(new Date(leave.startDate), 'MMM dd')} - {format(new Date(leave.endDate), 'MMM dd, yyyy')}
                                                 </span>
                                             </div>
-                                            <p className="font-medium italic text-lg">{leave.reason}</p>
+                                            <p className="font-medium text-lg">{leave.reason}</p>
                                         </div>
                                     </CardContent>
                                 </Card>
@@ -248,17 +248,17 @@ export default function StudentHostelPage() {
                         <div className="flex justify-end">
                             <Dialog open={isMaintenanceModalOpen} onOpenChange={setIsMaintenanceModalOpen}>
                                 <DialogTrigger asChild>
-                                    <Button className="h-12 px-6 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-black italic shadow-lg shadow-orange-500/20 gap-2">
+                                    <Button className="h-12 px-6 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-semibold shadow-lg shadow-orange-500/20 gap-2">
                                         <Wrench size={18} strokeWidth={3} /> Report Issue
                                     </Button>
                                 </DialogTrigger>
                                 <DialogContent className="rounded-[2.5rem] p-8 max-w-md">
                                     <DialogHeader>
-                                        <DialogTitle className="text-2xl font-black italic">Report Maintenance Issue</DialogTitle>
+                                        <DialogTitle className="text-h3 font-semibold">Report Maintenance Issue</DialogTitle>
                                     </DialogHeader>
                                     <form onSubmit={handleCreateMaintenance} className="space-y-4 pt-4">
                                         <div className="space-y-1.5">
-                                            <Label className="font-bold ml-1 italic">Issue Title</Label>
+                                            <Label className="font-bold ml-1">Issue Title</Label>
                                             <Input
                                                 required
                                                 className="rounded-xl h-12"
@@ -268,9 +268,9 @@ export default function StudentHostelPage() {
                                             />
                                         </div>
                                         <div className="space-y-1.5">
-                                            <Label className="font-bold ml-1 italic">Priority</Label>
+                                            <Label className="font-bold ml-1">Priority</Label>
                                             <select
-                                                className="w-full rounded-xl h-12 px-4 border bg-background font-bold italic appearance-none"
+                                                className="w-full rounded-xl h-12 px-4 border bg-background font-bold appearance-none"
                                                 value={maintenanceForm.priority}
                                                 onChange={e => setMaintenanceForm({ ...maintenanceForm, priority: e.target.value })}
                                             >
@@ -281,7 +281,7 @@ export default function StudentHostelPage() {
                                             </select>
                                         </div>
                                         <div className="space-y-1.5">
-                                            <Label className="font-bold ml-1 italic">Description</Label>
+                                            <Label className="font-bold ml-1">Description</Label>
                                             <Textarea
                                                 required
                                                 className="rounded-xl min-h-[100px] resize-none"
@@ -290,7 +290,7 @@ export default function StudentHostelPage() {
                                                 onChange={e => setMaintenanceForm({ ...maintenanceForm, description: e.target.value })}
                                             />
                                         </div>
-                                        <Button type="submit" className="w-full h-14 rounded-xl font-black italic text-lg mt-2">
+                                        <Button type="submit" className="w-full h-14 rounded-xl font-semibold text-lg mt-2">
                                             Submit Report
                                         </Button>
                                     </form>
@@ -304,21 +304,21 @@ export default function StudentHostelPage() {
                                     <CardContent className="p-6 flex items-center justify-between gap-4">
                                         <div className="space-y-1">
                                             <div className="flex items-center gap-3">
-                                                <Badge className={`rounded-lg px-2 py-0.5 font-black uppercase text-[10px] tracking-widest ${req.priority === 'URGENT' ? 'bg-red-500' :
+                                                <Badge className={`rounded-lg px-2 py-0.5 font-semibold uppercase text-[10px] tracking-widest ${req.priority === 'URGENT' ? 'bg-red-500' :
                                                         req.priority === 'HIGH' ? 'bg-orange-500' :
                                                             req.priority === 'MEDIUM' ? 'bg-yellow-500 text-yellow-950' :
                                                                 'bg-blue-500'
                                                     }`}>
                                                     {req.priority}
                                                 </Badge>
-                                                <Badge variant="outline" className={`rounded-lg px-2 py-0.5 font-black uppercase text-[10px] tracking-widest border-2 ${req.status === 'RESOLVED' ? 'border-green-500 text-green-600 bg-green-50' :
+                                                <Badge variant="outline" className={`rounded-lg px-2 py-0.5 font-semibold uppercase text-[10px] tracking-widest border-2 ${req.status === 'RESOLVED' ? 'border-green-500 text-green-600 bg-green-50' :
                                                         req.status === 'IN_PROGRESS' ? 'border-blue-500 text-blue-600 bg-blue-50' :
                                                             'border-slate-300 text-slate-500'
                                                     }`}>
                                                     {req.status.replace('_', ' ')}
                                                 </Badge>
                                             </div>
-                                            <h3 className="font-bold italic text-lg">{req.title}</h3>
+                                            <h3 className="font-bold text-lg">{req.title}</h3>
                                             <p className="text-muted-foreground text-sm">{req.description}</p>
                                         </div>
                                     </CardContent>

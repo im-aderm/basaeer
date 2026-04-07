@@ -76,16 +76,16 @@ export default function AutomationPanelPage() {
         }
     };
 
-    if (loading) return <div className="flex h-96 items-center justify-center font-black animate-pulse uppercase italic">Synchronizing Automation Hub...</div>;
+    if (loading) return <div className="flex h-96 items-center justify-center font-semibold animate-pulse uppercase">Synchronizing Automation Hub...</div>;
 
     return (
         <div className="max-w-5xl mx-auto space-y-8 pb-20">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-4xl font-black tracking-tight italic uppercase">Automation Hub</h1>
+                    <h1 className="text-h1 font-semibold tracking-tight uppercase">Automation Hub</h1>
                     <p className="text-muted-foreground font-medium mt-1">Intelligent triggers and scheduled communication workflows.</p>
                 </div>
-                <Button variant="outline" className="h-12 px-6 rounded-2xl font-black gap-2 border-primary/20" onClick={() => fetchData()}>
+                <Button variant="outline" className="h-12 px-6 rounded-2xl font-semibold gap-2 border-primary/20" onClick={() => fetchData()}>
                     <Play className="h-4 w-4" /> Run All Now
                 </Button>
             </div>
@@ -100,10 +100,10 @@ export default function AutomationPanelPage() {
                                 </div>
                                 <div>
                                     <div className="flex items-center gap-3">
-                                        <CardTitle className="text-2xl font-black italic uppercase italic tracking-tight">
+                                        <CardTitle className="text-h3 font-semibold uppercase tracking-tight">
                                             {config.type.replace(/_/g, ' ')}
                                         </CardTitle>
-                                        <Badge className={`rounded-lg uppercase font-black italic text-[10px] ${config.isEnabled ? 'bg-emerald-500/10 text-emerald-500' : 'bg-muted text-muted-foreground opacity-50'}`}>
+                                        <Badge className={`rounded-lg uppercase font-semibold text-[10px] ${config.isEnabled ? 'bg-emerald-500/10 text-emerald-500' : 'bg-muted text-muted-foreground opacity-50'}`}>
                                             {config.isEnabled ? 'Active' : 'Disabled'}
                                         </Badge>
                                     </div>
@@ -119,7 +119,7 @@ export default function AutomationPanelPage() {
                         <CardContent className="p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
                             <div className="space-y-4">
                                 <div className="space-y-2">
-                                    <Label className="font-black italic text-xs uppercase opacity-50 ml-1">Message Template</Label>
+                                    <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Message Template</Label>
                                     <Textarea
                                         className="min-h-[120px] rounded-2xl bg-muted/30 border-none font-medium p-4 resize-none focus:ring-primary/20"
                                         placeholder="Enter communication template..."
@@ -131,21 +131,21 @@ export default function AutomationPanelPage() {
                             </div>
                             <div className="space-y-6">
                                 <div className="space-y-2">
-                                    <Label className="font-black italic text-xs uppercase opacity-50 ml-1">Trigger Days</Label>
+                                    <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Trigger Days</Label>
                                     <div className="flex items-center gap-4">
                                         <Input
                                             type="number"
-                                            className="h-12 w-24 rounded-xl bg-muted/30 border-none font-black text-center"
+                                            className="h-12 w-24 rounded-xl bg-muted/30 border-none font-semibold text-center"
                                             defaultValue={config.triggerDays || 0}
                                             onBlur={(e) => handleUpdate(config.type, { triggerDays: parseInt(e.target.value) })}
                                         />
-                                        <span className="text-sm font-bold opacity-60 uppercase italic">Days before/after event</span>
+                                        <span className="text-sm font-bold opacity-60 uppercase">Days before/after event</span>
                                     </div>
                                 </div>
                                 <div className="p-4 rounded-2xl bg-primary/5 border border-primary/10 flex items-center justify-between">
-                                    <div className="flex items-center gap-3 text-sm font-bold italic opacity-60">
+                                    <div className="flex items-center gap-3 text-sm font-bold opacity-60">
                                         <Clock className="h-4 w-4" /> Next Run:
-                                        <span className="text-primary font-black uppercase">Tomorrow 09:00 AM</span>
+                                        <span className="text-primary font-semibold uppercase">Tomorrow 09:00 AM</span>
                                     </div>
                                     {saving === config.type ? (
                                         <div className="h-8 w-8 rounded-full border-2 border-primary border-t-transparent animate-spin" />
@@ -167,12 +167,12 @@ export default function AutomationPanelPage() {
                     <AlertTriangle className="h-10 w-10 text-primary" strokeWidth={1.5} />
                 </div>
                 <div>
-                    <h3 className="text-2xl font-black italic uppercase italic">Custom Workflows?</h3>
+                    <h3 className="text-h3 font-semibold uppercase">Custom Workflows?</h3>
                     <p className="text-muted-foreground font-medium max-w-lg mx-auto mt-2">
                         Advanced AI-driven automation and custom triggers can be configured per branch requirements. Contact system support for specialized logic.
                     </p>
                 </div>
-                <Button className="h-14 px-10 rounded-2xl font-black uppercase italic tracking-wider shadow-lg shadow-primary/20">
+                <Button className="h-14 px-10 rounded-2xl font-semibold uppercase tracking-wider shadow-lg shadow-primary/20">
                     Request Custom Automation
                 </Button>
             </Card>

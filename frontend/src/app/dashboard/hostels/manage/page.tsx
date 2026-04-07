@@ -189,8 +189,8 @@ function ManageRoomsContent() {
                         <ChevronLeft size={24} strokeWidth={3} />
                     </Button>
                     <div>
-                        <h1 className="text-4xl font-black italic tracking-tight">{hostel.name}</h1>
-                        <p className="text-muted-foreground font-bold italic uppercase tracking-widest text-xs mt-1">Management Portal • {hostel.type}</p>
+                        <h1 className="text-h1 font-semibold tracking-tight">{hostel.name}</h1>
+                        <p className="text-muted-foreground font-bold uppercase tracking-widest text-xs mt-1">Management Portal • {hostel.type}</p>
                     </div>
                 </div>
 
@@ -198,18 +198,18 @@ function ManageRoomsContent() {
                     <DialogTrigger asChild>
                         <Button
                             onClick={() => setRoomForm({ id: "", number: "", floor: 1, capacity: 4 })}
-                            className="h-14 px-8 rounded-2xl bg-primary text-white font-black italic gap-3 shadow-xl shadow-primary/20"
+                            className="h-14 px-8 rounded-2xl bg-primary text-white font-semibold gap-3 shadow-xl shadow-primary/20"
                         >
                             <Plus size={20} /> Add New Room
                         </Button>
                     </DialogTrigger>
                     <DialogContent className="max-w-md rounded-[2.5rem] p-8">
                         <DialogHeader>
-                            <DialogTitle className="text-2xl font-black italic">{roomForm.id ? 'Edit Room' : 'Create New Room'}</DialogTitle>
+                            <DialogTitle className="text-h3 font-semibold">{roomForm.id ? 'Edit Room' : 'Create New Room'}</DialogTitle>
                         </DialogHeader>
                         <form onSubmit={handleRoomSubmit} className="space-y-4 pt-4">
                             <div className="space-y-1.5">
-                                <Label className="font-bold ml-1 italic">Room Number / ID</Label>
+                                <Label className="font-bold ml-1">Room Number / ID</Label>
                                 <Input
                                     required
                                     className="rounded-xl h-12"
@@ -220,7 +220,7 @@ function ManageRoomsContent() {
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="space-y-1.5">
-                                    <Label className="font-bold ml-1 italic">Floor</Label>
+                                    <Label className="font-bold ml-1">Floor</Label>
                                     <Input
                                         type="number"
                                         required
@@ -231,7 +231,7 @@ function ManageRoomsContent() {
                                     />
                                 </div>
                                 <div className="space-y-1.5">
-                                    <Label className="font-bold ml-1 italic">Bed Capacity</Label>
+                                    <Label className="font-bold ml-1">Bed Capacity</Label>
                                     <Input
                                         type="number"
                                         required
@@ -241,10 +241,10 @@ function ManageRoomsContent() {
                                         readOnly={!!roomForm.id}
                                         onChange={e => setRoomForm({ ...roomForm, capacity: parseInt(e.target.value) })}
                                     />
-                                    {roomForm.id && <p className="text-[10px] text-muted-foreground italic ml-1">Capacity cannot be changed after creation</p>}
+                                    {roomForm.id && <p className="text-[10px] text-muted-foreground ml-1">Capacity cannot be changed after creation</p>}
                                 </div>
                             </div>
-                            <Button type="submit" className="w-full h-14 rounded-xl font-black italic text-lg mt-4 shadow-lg shadow-primary/20">
+                            <Button type="submit" className="w-full h-14 rounded-xl font-semibold text-lg mt-4 shadow-lg shadow-primary/20">
                                 {roomForm.id ? 'Update Room' : 'Confirm Creation'}
                             </Button>
                         </form>
@@ -255,18 +255,18 @@ function ManageRoomsContent() {
             {/* Legend */}
             <div className="flex flex-wrap gap-4 md:gap-8 px-8 py-4 bg-muted/30 rounded-[2rem] border border-border/50 items-center justify-between">
                 <div className="flex flex-wrap gap-4 md:gap-8 items-center">
-                    <span className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground mr-4">Status Legend:</span>
+                    <span className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground mr-4">Status Legend:</span>
                     <div className="flex items-center gap-2 text-green-600">
                         <div className="w-4 h-4 rounded-full bg-green-500 shadow-sm" />
-                        <span className="text-[10px] font-black italic uppercase tracking-widest">Available</span>
+                        <span className="text-label">Available</span>
                     </div>
                     <div className="flex items-center gap-2 text-red-600">
                         <div className="w-4 h-4 rounded-full bg-red-500 shadow-sm" />
-                        <span className="text-[10px] font-black italic uppercase tracking-widest">Occupied</span>
+                        <span className="text-label">Occupied</span>
                     </div>
                     <div className="flex items-center gap-2 text-slate-500">
                         <div className="w-4 h-4 rounded-full bg-slate-400 shadow-sm" />
-                        <span className="text-[10px] font-black italic uppercase tracking-widest">Maintenance</span>
+                        <span className="text-label">Maintenance</span>
                     </div>
                 </div>
             </div>
@@ -284,10 +284,10 @@ function ManageRoomsContent() {
                                     </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end" className="rounded-2xl p-2 min-w-[160px]">
-                                    <DropdownMenuItem onClick={() => openEditRoom(room)} className="rounded-xl gap-3 font-bold italic cursor-pointer">
+                                    <DropdownMenuItem onClick={() => openEditRoom(room)} className="rounded-xl gap-3 font-bold cursor-pointer">
                                         <Edit2 size={16} className="text-primary" /> Edit Room
                                     </DropdownMenuItem>
-                                    <DropdownMenuItem onClick={() => openDeleteRoom(room)} className="rounded-xl gap-3 font-bold italic text-destructive cursor-pointer">
+                                    <DropdownMenuItem onClick={() => openDeleteRoom(room)} className="rounded-xl gap-3 font-bold text-destructive cursor-pointer">
                                         <Trash2 size={16} /> Delete Room
                                     </DropdownMenuItem>
                                 </DropdownMenuContent>
@@ -300,8 +300,8 @@ function ManageRoomsContent() {
                                     <Home size={28} />
                                 </div>
                                 <div className="space-y-0.5">
-                                    <h3 className="text-3xl font-black italic">Room {room.number}</h3>
-                                    <p className="text-muted-foreground font-black text-[10px] uppercase tracking-widest italic">Floor {room.floor} • Wing {room.number[0]}</p>
+                                    <h3 className="text-h1 font-semibold">Room {room.number}</h3>
+                                    <p className="text-muted-foreground font-semibold text-[10px] uppercase tracking-widest">Floor {room.floor} • Wing {room.number[0]}</p>
                                 </div>
                             </div>
                         </CardHeader>
@@ -327,7 +327,7 @@ function ManageRoomsContent() {
                                     >
                                         <div className="flex items-center gap-2">
                                             <Bed size={16} strokeWidth={bed.status === 'AVAILABLE' ? 3 : 2} />
-                                            <span className="font-black italic text-sm">{bed.name.split(' ')[1]}</span>
+                                            <span className="font-semibold text-sm">{bed.name.split(' ')[1]}</span>
                                         </div>
                                         {bed.status === 'AVAILABLE' && <Plus size={14} strokeWidth={3} className="opacity-0 group-hover:opacity-100" />}
                                         {bed.status === 'OCCUPIED' && <User size={14} strokeWidth={3} className="opacity-50" />}
@@ -335,10 +335,10 @@ function ManageRoomsContent() {
                                 ))}
                             </div>
                             <div className="pt-6 flex justify-between items-center">
-                                <p className={`text-[10px] font-black uppercase tracking-widest ${room.beds?.filter(b => b.status === "AVAILABLE").length === 0 ? 'text-red-500' : 'text-muted-foreground/50'}`}>
+                                <p className={`text-label ${room.beds?.filter(b => b.status === "AVAILABLE").length === 0 ? 'text-red-500' : 'text-muted-foreground/50'}`}>
                                     {room.beds?.filter(b => b.status === "AVAILABLE").length} / {room.capacity} Vacant Beds
                                 </p>
-                                <Button variant="ghost" size="sm" className="rounded-xl h-8 px-3 text-[10px] font-black uppercase hover:bg-muted/50">
+                                <Button variant="ghost" size="sm" className="rounded-xl h-8 px-3 text-[10px] font-semibold uppercase hover:bg-muted/50">
                                     <Settings size={14} className="mr-1" /> Config
                                 </Button>
                             </div>
@@ -351,13 +351,13 @@ function ManageRoomsContent() {
             <Dialog open={isCheckInOpen} onOpenChange={setIsCheckInOpen}>
                 <DialogContent className="max-w-md rounded-[2.5rem] p-8">
                     <DialogHeader>
-                        <DialogTitle className="text-2xl font-black italic mb-2">Check-in Student</DialogTitle>
-                        <p className="text-muted-foreground font-bold italic text-sm italic">Assigning Bed {selectedBed?.name} • Room {hostel.rooms?.find(r => r.beds?.some(b => b.id === selectedBed?.id))?.number}</p>
+                        <DialogTitle className="text-h3 font-semibold mb-2">Check-in Student</DialogTitle>
+                        <p className="text-muted-foreground font-bold text-sm">Assigning Bed {selectedBed?.name} • Room {hostel.rooms?.find(r => r.beds?.some(b => b.id === selectedBed?.id))?.number}</p>
                     </DialogHeader>
                     <form onSubmit={handleCheckIn} className="space-y-4 pt-4">
                         <div className="space-y-4">
                             <div className="space-y-1.5">
-                                <Label className="font-bold ml-1 italic">Find Student</Label>
+                                <Label className="font-bold ml-1">Find Student</Label>
                                 <div className="relative">
                                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={16} />
                                     <Input
@@ -369,7 +369,7 @@ function ManageRoomsContent() {
                                 </div>
                             </div>
                             <div className="space-y-1.5">
-                                <Label className="font-bold ml-1 italic text-xs uppercase tracking-widest opacity-50">Select Results</Label>
+                                <Label className="font-bold ml-1 text-xs uppercase tracking-widest opacity-50">Select Results</Label>
                                 <div className="max-h-[200px] overflow-y-auto rounded-xl border p-2 space-y-1 bg-muted/20">
                                     {filteredStudents.length > 0 ? filteredStudents.slice(0, 50).map(student => (
                                         <div
@@ -381,18 +381,18 @@ function ManageRoomsContent() {
                                                 <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs ${checkInData.studentId === student.id ? 'bg-white/20' : 'bg-primary/10 text-primary'}`}>
                                                     {student.firstName[0]}
                                                 </div>
-                                                <span className="font-bold italic text-sm">{student.firstName} {student.lastName}</span>
+                                                <span className="font-bold text-sm">{student.firstName} {student.lastName}</span>
                                             </div>
-                                            <span className={`text-[10px] font-black uppercase ${checkInData.studentId === student.id ? 'text-white/70' : 'text-muted-foreground'}`}>{student.studentId || student.id.slice(0, 6)}</span>
+                                            <span className={`text-[10px] font-semibold uppercase ${checkInData.studentId === student.id ? 'text-white/70' : 'text-muted-foreground'}`}>{student.studentId || student.id.slice(0, 6)}</span>
                                         </div>
                                     )) : (
-                                        <div className="p-8 text-center text-muted-foreground italic text-xs">No students found</div>
+                                        <div className="p-8 text-center text-muted-foreground text-xs">No students found</div>
                                     )}
                                 </div>
                             </div>
                         </div>
                         <div className="space-y-1.5 pt-2">
-                            <Label className="font-bold ml-1 italic">Check-in Date</Label>
+                            <Label className="font-bold ml-1">Check-in Date</Label>
                             <Input
                                 type="date"
                                 required
@@ -404,7 +404,7 @@ function ManageRoomsContent() {
                         <Button
                             type="submit"
                             disabled={!checkInData.studentId}
-                            className="w-full h-14 rounded-xl font-black italic text-lg shadow-lg shadow-primary/20 bg-primary text-white mt-4"
+                            className="w-full h-14 rounded-xl font-semibold text-lg shadow-lg shadow-primary/20 bg-primary text-white mt-4"
                         >
                             <UserPlus className="mr-2" /> Assign Bed
                         </Button>
@@ -416,22 +416,22 @@ function ManageRoomsContent() {
             <Dialog open={isDeleteRoomOpen} onOpenChange={setIsDeleteRoomOpen}>
                 <DialogContent className="max-w-md rounded-[2.5rem] p-8">
                     <DialogHeader>
-                        <DialogTitle className="text-2xl font-black italic text-destructive">Delete Room?</DialogTitle>
+                        <DialogTitle className="text-h3 font-semibold text-destructive">Delete Room?</DialogTitle>
                     </DialogHeader>
-                    <div className="py-4 font-medium italic text-base leading-relaxed">
-                        Are you sure you want to delete <span className="font-black text-foreground">Room {roomForm.number}</span>? This will remove all beds and current assignments in this room.
+                    <div className="py-4 font-medium text-base leading-relaxed">
+                        Are you sure you want to delete <span className="font-semibold text-foreground">Room {roomForm.number}</span>? This will remove all beds and current assignments in this room.
                     </div>
                     <div className="flex gap-4 mt-4">
                         <Button
                             variant="outline"
                             onClick={() => setIsDeleteRoomOpen(false)}
-                            className="flex-1 h-12 rounded-xl font-bold italic"
+                            className="flex-1 h-12 rounded-xl font-bold"
                         >
                             Cancel
                         </Button>
                         <Button
                             onClick={handleDeleteRoom}
-                            className="flex-1 h-12 rounded-xl bg-destructive hover:bg-destructive/90 text-white font-black italic shadow-lg shadow-destructive/20"
+                            className="flex-1 h-12 rounded-xl bg-destructive hover:bg-destructive/90 text-white font-semibold shadow-lg shadow-destructive/20"
                         >
                             Delete Room
                         </Button>
@@ -443,32 +443,32 @@ function ManageRoomsContent() {
             <Dialog open={isCheckOutOpen} onOpenChange={setIsCheckOutOpen}>
                 <DialogContent className="max-w-md rounded-[2.5rem] p-8">
                     <DialogHeader>
-                        <DialogTitle className="text-2xl font-black italic mb-2 tracking-tight">Process Check-out</DialogTitle>
-                        <p className="text-muted-foreground font-bold italic text-sm">Bed {selectedBed?.name} is currently occupied.</p>
+                        <DialogTitle className="text-h3 font-semibold mb-2 tracking-tight">Process Check-out</DialogTitle>
+                        <p className="text-muted-foreground font-bold text-sm">Bed {selectedBed?.name} is currently occupied.</p>
                     </DialogHeader>
 
                     {selectedBed?.allocations?.[0] && (
                         <div className="bg-muted/30 p-6 rounded-[2rem] border-2 border-border/50 space-y-4 my-6">
                             <div className="flex items-center gap-4">
-                                <div className="w-14 h-14 rounded-2xl bg-primary shadow-lg flex items-center justify-center text-white font-black text-xl italic uppercase">
+                                <div className="w-14 h-14 rounded-2xl bg-primary shadow-lg flex items-center justify-center text-white font-semibold text-h3 uppercase">
                                     {selectedBed.allocations[0].student?.firstName?.[0]}{selectedBed.allocations[0].student?.lastName?.[0]}
                                 </div>
                                 <div>
-                                    <p className="font-black italic text-xl tracking-tight leading-none">{selectedBed.allocations[0].student?.firstName} {selectedBed.allocations[0].student?.lastName}</p>
-                                    <p className="text-[10px] font-black uppercase tracking-widest text-primary mt-1">Active Resident</p>
+                                    <p className="font-semibold text-h3 tracking-tight leading-none">{selectedBed.allocations[0].student?.firstName} {selectedBed.allocations[0].student?.lastName}</p>
+                                    <p className="text-label text-primary mt-1">Active Resident</p>
                                 </div>
                             </div>
-                            <div className="flex items-center gap-2 text-sm font-bold italic text-muted-foreground pt-2">
+                            <div className="flex items-center gap-2 text-sm font-bold text-muted-foreground pt-2">
                                 <Clock size={16} /> Checked in on {new Date(selectedBed.allocations[0].checkInDate).toLocaleDateString()}
                             </div>
                         </div>
                     )}
 
                     <div className="grid grid-cols-2 gap-4 mt-2">
-                        <Button variant="outline" className="h-14 rounded-xl font-black italic" onClick={() => setIsCheckOutOpen(false)}>
+                        <Button variant="outline" className="h-14 rounded-xl font-semibold" onClick={() => setIsCheckOutOpen(false)}>
                             Keep Assignment
                         </Button>
-                        <Button className="h-14 rounded-xl bg-red-500 hover:bg-red-600 text-white font-black italic gap-2 shadow-lg shadow-red-500/20" onClick={handleCheckOut}>
+                        <Button className="h-14 rounded-xl bg-red-500 hover:bg-red-600 text-white font-semibold gap-2 shadow-lg shadow-red-500/20" onClick={handleCheckOut}>
                             <LogOut size={20} /> Release Bed
                         </Button>
                     </div>
@@ -480,8 +480,8 @@ function ManageRoomsContent() {
                     <div className="w-24 h-24 bg-muted/50 rounded-full flex items-center justify-center mx-auto mb-6">
                         <Home size={48} className="text-muted-foreground/30" />
                     </div>
-                    <h2 className="text-3xl font-black italic mb-2">No Rooms in this Building</h2>
-                    <p className="text-muted-foreground text-lg font-medium italic max-w-sm mx-auto leading-relaxed">
+                    <h2 className="text-h1 font-semibold mb-2">No Rooms in this Building</h2>
+                    <p className="text-muted-foreground text-lg font-medium max-w-sm mx-auto leading-relaxed">
                         Click the "Add New Room" button in the top right to start populating this hostel building.
                     </p>
                 </div>
@@ -495,7 +495,7 @@ export default function ManageRoomsPage() {
         <Suspense fallback={
             <div className="flex h-[80vh] flex-col items-center justify-center gap-4 animate-pulse">
                 <Loader2 className="w-12 h-12 animate-spin text-primary opacity-20" />
-                <p className="font-black italic text-muted-foreground/20 uppercase tracking-[0.3em] text-xs">Accessing Portal...</p>
+                <p className="font-semibold text-muted-foreground/20 uppercase tracking-[0.3em] text-xs">Accessing Portal...</p>
             </div>
         }>
             <ManageRoomsContent />

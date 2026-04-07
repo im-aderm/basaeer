@@ -80,25 +80,25 @@ export default function InventoryCategoryPage() {
         <div className="max-w-7xl mx-auto space-y-8 pb-20">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-4xl font-black tracking-tight italic uppercase">Item Categories</h1>
+                    <h1 className="text-h1 font-semibold tracking-tight uppercase">Item Categories</h1>
                     <p className="text-muted-foreground font-medium mt-1">Organize your inventory items by logical groupings.</p>
                 </div>
                 <div className="flex gap-4">
                     <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
                         <DialogTrigger asChild>
-                            <Button className="h-12 px-6 rounded-2xl font-black gap-2 shadow-lg shadow-primary/20">
+                            <Button className="h-12 px-6 rounded-2xl font-semibold gap-2 shadow-lg shadow-primary/20">
                                 <Plus className="h-5 w-5" />
                                 Add Category
                             </Button>
                         </DialogTrigger>
                         <DialogContent className="rounded-[2.5rem]">
                             <DialogHeader>
-                                <DialogTitle className="text-2xl font-black italic uppercase">New Category</DialogTitle>
+                                <DialogTitle className="text-h3 font-semibold uppercase">New Category</DialogTitle>
                                 <DialogDescription className="font-bold">Enter a name for the new inventory grouping.</DialogDescription>
                             </DialogHeader>
                             <form onSubmit={handleCreate} className="space-y-6 pt-4">
                                 <div className="space-y-2">
-                                    <Label className="font-black italic text-xs uppercase opacity-50 ml-1">Category Name</Label>
+                                    <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Category Name</Label>
                                     <Input
                                         required
                                         className="h-12 rounded-xl bg-muted/50 border-none font-bold"
@@ -108,7 +108,7 @@ export default function InventoryCategoryPage() {
                                     />
                                 </div>
                                 <DialogFooter>
-                                    <Button type="submit" className="h-12 w-full rounded-xl font-black uppercase italic tracking-wider">Create Category</Button>
+                                    <Button type="submit" className="h-12 w-full rounded-xl font-semibold uppercase tracking-wider">Create Category</Button>
                                 </DialogFooter>
                             </form>
                         </DialogContent>
@@ -118,7 +118,7 @@ export default function InventoryCategoryPage() {
 
             <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background">
                 <CardHeader className="p-8 border-b border-border/50 flex flex-row items-center justify-between">
-                    <CardTitle className="text-2xl font-black italic flex items-center gap-3">
+                    <CardTitle className="text-h3 font-semibold flex items-center gap-3">
                         <Layers className="h-8 w-8 text-primary" />
                         Category List
                     </CardTitle>
@@ -127,14 +127,14 @@ export default function InventoryCategoryPage() {
                     <Table>
                         <TableHeader className="bg-muted/30 h-16">
                             <TableRow className="border-border/50 hover:bg-transparent">
-                                <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Category Name</TableHead>
-                                <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-right">Actions</TableHead>
+                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Category Name</TableHead>
+                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-right">Actions</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {categories.filter(c => c.name.toLowerCase().includes(searchTerm.toLowerCase())).map((c) => (
                                 <TableRow key={c.id} className="border-border/50 h-20 transition-all hover:bg-muted/20">
-                                    <TableCell className="px-8 font-black italic uppercase leading-tight">
+                                    <TableCell className="px-8 font-semibold uppercase leading-tight">
                                         {c.name}
                                     </TableCell>
                                     <TableCell className="text-right px-8">
@@ -142,7 +142,7 @@ export default function InventoryCategoryPage() {
                                             <Button
                                                 variant="secondary"
                                                 size="sm"
-                                                className="h-9 px-4 rounded-xl font-black uppercase text-[10px] gap-1.5"
+                                                className="h-9 px-4 rounded-xl font-semibold uppercase text-[10px] gap-1.5"
                                                 onClick={() => { setSelectedCategory(c); setEditName(c.name); setIsEditDialogOpen(true); }}
                                             >
                                                 <Pencil className="h-3 w-3" /> Edit
@@ -150,7 +150,7 @@ export default function InventoryCategoryPage() {
                                             <Button
                                                 variant="secondary"
                                                 size="sm"
-                                                className="h-9 px-4 rounded-xl font-black uppercase text-[10px] gap-1.5 bg-destructive/10 text-destructive hover:bg-destructive/20"
+                                                className="h-9 px-4 rounded-xl font-semibold uppercase text-[10px] gap-1.5 bg-destructive/10 text-destructive hover:bg-destructive/20"
                                                 onClick={() => handleDelete(c.id)}
                                             >
                                                 <Trash2 className="h-3 w-3" /> Delete
@@ -167,11 +167,11 @@ export default function InventoryCategoryPage() {
             <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
                 <DialogContent className="rounded-[2.5rem]">
                     <DialogHeader>
-                        <DialogTitle className="text-2xl font-black italic uppercase">Edit Category</DialogTitle>
+                        <DialogTitle className="text-h3 font-semibold uppercase">Edit Category</DialogTitle>
                     </DialogHeader>
                     <form onSubmit={handleUpdate} className="space-y-6 pt-4">
                         <div className="space-y-2">
-                            <Label className="font-black italic text-xs uppercase opacity-50 ml-1">Category Name</Label>
+                            <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Category Name</Label>
                             <Input
                                 required
                                 className="h-12 rounded-xl bg-muted/50 border-none font-bold"
@@ -180,7 +180,7 @@ export default function InventoryCategoryPage() {
                             />
                         </div>
                         <DialogFooter>
-                            <Button type="submit" className="h-12 w-full rounded-xl font-black uppercase italic tracking-wider">Update Category</Button>
+                            <Button type="submit" className="h-12 w-full rounded-xl font-semibold uppercase tracking-wider">Update Category</Button>
                         </DialogFooter>
                     </form>
                 </DialogContent>

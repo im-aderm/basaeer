@@ -67,13 +67,13 @@ export default function GeneralSettingsPage() {
         <div className="max-w-4xl mx-auto space-y-8 pb-20">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-4xl font-black tracking-tight italic">System Settings</h1>
+                    <h1 className="text-h1 font-semibold tracking-tight">System Settings</h1>
                     <p className="text-muted-foreground font-medium mt-1">Configure global parameters and school information.</p>
                 </div>
                 <Button
                     onClick={handleSave}
                     disabled={isSaving}
-                    className="h-14 px-8 rounded-2xl font-black text-lg gap-2 shadow-xl shadow-primary/20 hover:scale-[1.02] transition-all"
+                    className="h-14 px-8 rounded-2xl font-semibold text-lg gap-2 shadow-xl shadow-primary/20 hover:scale-[1.02] transition-all"
                 >
                     <Save className="h-5 w-5" />
                     {isSaving ? 'Saving...' : 'Save Configuration'}
@@ -89,14 +89,14 @@ export default function GeneralSettingsPage() {
                                 <School className="h-6 w-6" />
                             </div>
                             <div>
-                                <CardTitle className="text-xl font-black italic">School Profile</CardTitle>
+                                <CardTitle className="text-h3 font-semibold">School Profile</CardTitle>
                                 <CardDescription className="font-medium">Primary details for reports and communication.</CardDescription>
                             </div>
                         </div>
                     </CardHeader>
                     <CardContent className="pt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-2">
-                            <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">School Name</Label>
+                            <Label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground ml-1">School Name</Label>
                             <div className="relative">
                                 <Globe className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                                 <Input
@@ -107,7 +107,7 @@ export default function GeneralSettingsPage() {
                             </div>
                         </div>
                         <div className="space-y-2">
-                            <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">Official Email</Label>
+                            <Label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground ml-1">Official Email</Label>
                             <div className="relative">
                                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                                 <Input
@@ -118,7 +118,7 @@ export default function GeneralSettingsPage() {
                             </div>
                         </div>
                         <div className="space-y-2">
-                            <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">Contact Phone</Label>
+                            <Label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground ml-1">Contact Phone</Label>
                             <div className="relative">
                                 <Phone className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                                 <Input
@@ -129,7 +129,7 @@ export default function GeneralSettingsPage() {
                             </div>
                         </div>
                         <div className="space-y-2">
-                            <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">Location Address</Label>
+                            <Label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground ml-1">Location Address</Label>
                             <div className="relative">
                                 <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                                 <Input
@@ -150,14 +150,14 @@ export default function GeneralSettingsPage() {
                                 <Coins className="h-6 w-6" />
                             </div>
                             <div>
-                                <CardTitle className="text-xl font-black italic">Localization</CardTitle>
+                                <CardTitle className="text-h3 font-semibold">Localization</CardTitle>
                                 <CardDescription className="font-medium">Currency and regional preferences.</CardDescription>
                             </div>
                         </div>
                     </CardHeader>
                     <CardContent className="pt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-2">
-                            <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">Currency Symbol</Label>
+                            <Label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground ml-1">Currency Symbol</Label>
                             <Input
                                 className="h-12 rounded-2xl border-border/50 bg-background/50 font-bold text-center text-2xl"
                                 value={settings.currency_symbol}
@@ -165,7 +165,7 @@ export default function GeneralSettingsPage() {
                             />
                         </div>
                         <div className="space-y-2">
-                            <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">System Language</Label>
+                            <Label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground ml-1">System Language</Label>
                             <div className="relative">
                                 <Languages className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                                 <Input

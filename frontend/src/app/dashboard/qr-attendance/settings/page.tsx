@@ -46,7 +46,7 @@ export default function QRSettingsPage() {
         <div className="max-w-4xl mx-auto space-y-8 animate-in fade-in duration-500 pb-20">
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-4xl font-black italic tracking-tight">QR Settings</h1>
+                    <h1 className="text-h1 font-semibold tracking-tight">QR Settings</h1>
                     <p className="text-muted-foreground font-medium text-lg">Configure automated actions for QR scans.</p>
                 </div>
             </div>
@@ -54,7 +54,7 @@ export default function QRSettingsPage() {
             <div className="grid grid-cols-1 gap-8">
                 <Card className="rounded-[2.5rem] border-border/50 shadow-xl overflow-hidden">
                     <CardHeader className="p-8 border-b border-border/50">
-                        <CardTitle className="text-2xl font-black italic uppercase flex items-center gap-3">
+                        <CardTitle className="text-h3 font-semibold uppercase flex items-center gap-3">
                             <Settings className="h-8 w-8 text-primary" />
                             Automation Rules
                         </CardTitle>
@@ -69,7 +69,7 @@ export default function QRSettingsPage() {
                             <>
                                 <div className="flex items-center justify-between space-x-4">
                                     <div className="flex-1 space-y-1">
-                                        <Label htmlFor="attendance-entry" className="text-xl font-black italic">Auto-Mark Attendance</Label>
+                                        <Label htmlFor="attendance-entry" className="text-h3 font-semibold">Auto-Mark Attendance</Label>
                                         <p className="text-muted-foreground font-medium">
                                             Automatically mark a student as "PRESENT" when they scan their ID at the entry gate.
                                         </p>
@@ -84,7 +84,7 @@ export default function QRSettingsPage() {
                                 <div className="h-px bg-border/50" />
                                 <div className="flex items-center justify-between space-x-4 opacity-50 pointer-events-none">
                                     <div className="flex-1 space-y-1">
-                                        <Label className="text-xl font-black italic">SMS Notification (Coming Soon)</Label>
+                                        <Label className="text-h3 font-semibold">SMS Notification (Coming Soon)</Label>
                                         <p className="text-muted-foreground font-medium">
                                             Send an SMS to parents immediately upon entry scan.
                                         </p>

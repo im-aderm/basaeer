@@ -55,17 +55,17 @@ export default function InventoryHistoryPage() {
                     <Link href="/dashboard/inventory" className="flex items-center gap-2 text-muted-foreground hover:text-primary font-bold transition-colors mb-2">
                         <ArrowLeft className="h-4 w-4" /> Back to Inventory
                     </Link>
-                    <h1 className="text-4xl font-black tracking-tight italic uppercase">Transaction History</h1>
+                    <h1 className="text-h1 font-semibold tracking-tight uppercase">Transaction History</h1>
                     <p className="text-muted-foreground font-medium mt-1">Detailed log of all stock movements and issuances.</p>
                 </div>
             </div>
 
             <Tabs defaultValue="purchases" className="space-y-8">
                 <TabsList className="bg-muted/50 p-1.5 rounded-2xl h-14">
-                    <TabsTrigger value="purchases" className="rounded-xl font-black italic uppercase px-8 data-[state=active]:bg-background">
+                    <TabsTrigger value="purchases" className="rounded-xl font-semibold uppercase px-8 data-[state=active]:bg-background">
                         <ArrowUpRight className="h-4 w-4 mr-2" /> Purchases
                     </TabsTrigger>
-                    <TabsTrigger value="issues" className="rounded-xl font-black italic uppercase px-8 data-[state=active]:bg-background">
+                    <TabsTrigger value="issues" className="rounded-xl font-semibold uppercase px-8 data-[state=active]:bg-background">
                         <ArrowDownRight className="h-4 w-4 mr-2" /> Issuances
                     </TabsTrigger>
                 </TabsList>
@@ -73,7 +73,7 @@ export default function InventoryHistoryPage() {
                 <TabsContent value="purchases">
                     <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background">
                         <CardHeader className="p-8 border-b border-border/50">
-                            <CardTitle className="text-2xl font-black italic flex items-center gap-3">
+                            <CardTitle className="text-h3 font-semibold flex items-center gap-3">
                                 <Package className="h-8 w-8 text-emerald-500" />
                                 Procurement Log
                             </CardTitle>
@@ -82,26 +82,26 @@ export default function InventoryHistoryPage() {
                             <Table>
                                 <TableHeader className="bg-muted/30 h-16">
                                     <TableRow className="border-border/50 hover:bg-transparent">
-                                        <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Date / Voucher</TableHead>
-                                        <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Product</TableHead>
-                                        <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Supplier</TableHead>
-                                        <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Qty</TableHead>
-                                        <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-right">Total Price</TableHead>
+                                        <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Date / Voucher</TableHead>
+                                        <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Product</TableHead>
+                                        <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Supplier</TableHead>
+                                        <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Qty</TableHead>
+                                        <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-right">Total Price</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
                                     {purchases.map((p) => (
                                         <TableRow key={p.id} className="border-border/50 h-20 transition-all hover:bg-muted/20">
-                                            <TableCell className="px-8 font-black italic">
+                                            <TableCell className="px-8 font-semibold">
                                                 <div className="flex flex-col">
                                                     <span>{p.voucherNo || 'N/A'}</span>
                                                     <span className="text-[10px] font-bold text-muted-foreground uppercase">{new Date(p.createdAt).toLocaleDateString()}</span>
                                                 </div>
                                             </TableCell>
-                                            <TableCell className="px-8 font-black uppercase text-xs">{p.product?.name}</TableCell>
-                                            <TableCell className="px-8 font-bold text-muted-foreground italic text-xs uppercase">{p.supplier?.name}</TableCell>
-                                            <TableCell className="px-8 font-black">{p.quantity}</TableCell>
-                                            <TableCell className="text-right px-8 font-black text-emerald-600">${(p.quantity * p.unitPrice).toFixed(2)}</TableCell>
+                                            <TableCell className="px-8 font-semibold uppercase text-xs">{p.product?.name}</TableCell>
+                                            <TableCell className="px-8 font-bold text-muted-foreground text-xs uppercase">{p.supplier?.name}</TableCell>
+                                            <TableCell className="px-8 font-semibold">{p.quantity}</TableCell>
+                                            <TableCell className="text-right px-8 font-semibold text-emerald-600">${(p.quantity * p.unitPrice).toFixed(2)}</TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>
@@ -113,7 +113,7 @@ export default function InventoryHistoryPage() {
                 <TabsContent value="issues">
                     <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background">
                         <CardHeader className="p-8 border-b border-border/50">
-                            <CardTitle className="text-2xl font-black italic flex items-center gap-3">
+                            <CardTitle className="text-h3 font-semibold flex items-center gap-3">
                                 <ArrowDownRight className="h-8 w-8 text-amber-500" />
                                 Issuance Log
                             </CardTitle>
@@ -122,31 +122,31 @@ export default function InventoryHistoryPage() {
                             <Table>
                                 <TableHeader className="bg-muted/30 h-16">
                                     <TableRow className="border-border/50 hover:bg-transparent">
-                                        <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Date / User</TableHead>
-                                        <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Product</TableHead>
-                                        <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Issued To</TableHead>
-                                        <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-center">Qty</TableHead>
-                                        <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-center">Status</TableHead>
-                                        <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-right">Action</TableHead>
+                                        <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Date / User</TableHead>
+                                        <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Product</TableHead>
+                                        <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Issued To</TableHead>
+                                        <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-center">Qty</TableHead>
+                                        <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-center">Status</TableHead>
+                                        <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-right">Action</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
                                     {issues.map((i) => (
                                         <TableRow key={i.id} className="border-border/50 h-20 transition-all hover:bg-muted/20">
-                                            <TableCell className="px-8 font-black italic">
+                                            <TableCell className="px-8 font-semibold">
                                                 <span className="text-[10px] font-bold text-muted-foreground uppercase">{new Date(i.createdAt).toLocaleDateString()}</span>
                                             </TableCell>
-                                            <TableCell className="px-8 font-black uppercase text-xs">{i.product?.name}</TableCell>
-                                            <TableCell className="px-8 font-bold text-muted-foreground italic text-xs uppercase">{i.issuedTo}</TableCell>
-                                            <TableCell className="px-8 text-center font-black">{i.quantity}</TableCell>
+                                            <TableCell className="px-8 font-semibold uppercase text-xs">{i.product?.name}</TableCell>
+                                            <TableCell className="px-8 font-bold text-muted-foreground text-xs uppercase">{i.issuedTo}</TableCell>
+                                            <TableCell className="px-8 text-center font-semibold">{i.quantity}</TableCell>
                                             <TableCell className="px-8 text-center">
-                                                <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase italic ${i.status === 'RETURNED' ? 'bg-emerald-500/10 text-emerald-600' : 'bg-amber-500/10 text-amber-600'}`}>
+                                                <span className={`px-3 py-1 rounded-full text-[10px] font-semibold uppercase ${i.status === 'RETURNED' ? 'bg-emerald-500/10 text-emerald-600' : 'bg-amber-500/10 text-amber-600'}`}>
                                                     {i.status}
                                                 </span>
                                             </TableCell>
                                             <TableCell className="text-right px-8">
                                                 {i.status === 'ISSUED' && (
-                                                    <Button variant="secondary" size="sm" className="h-9 px-4 rounded-xl font-black uppercase text-[10px] gap-1.5" onClick={() => handleReturn(i.id)}>
+                                                    <Button variant="secondary" size="sm" className="h-9 px-4 rounded-xl font-semibold uppercase text-[10px] gap-1.5" onClick={() => handleReturn(i.id)}>
                                                         <RotateCcw className="h-3 w-3" /> Return
                                                     </Button>
                                                 )}

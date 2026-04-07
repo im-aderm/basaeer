@@ -73,7 +73,7 @@ export default function ExamMasterDashboard() {
         <div className="max-w-7xl mx-auto space-y-12 pb-20">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                 <div className="space-y-2">
-                    <h1 className="text-5xl font-black tracking-tighter italic flex items-center gap-4">
+                    <h1 className="text-h1 font-semibold tracking-tighter flex items-center gap-4">
                         <LayoutDashboard className="h-12 w-12 text-primary" />
                         Exam Master
                     </h1>
@@ -82,18 +82,18 @@ export default function ExamMasterDashboard() {
 
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                     <DialogTrigger asChild>
-                        <Button className="h-16 px-10 rounded-[2rem] font-black text-xl gap-3 shadow-2xl shadow-primary/20 hover:scale-[1.02] transition-all">
+                        <Button className="h-16 px-10 rounded-[2rem] font-semibold text-h3 gap-3 shadow-2xl shadow-primary/20 hover:scale-[1.02] transition-all">
                             <Plus className="h-7 w-7" />
                             New Session
                         </Button>
                     </DialogTrigger>
                     <DialogContent className="rounded-[3rem] max-w-2xl p-10">
                         <DialogHeader>
-                            <DialogTitle className="text-3xl font-black italic">Initialize Academic Session</DialogTitle>
+                            <DialogTitle className="text-h1 font-semibold">Initialize Academic Session</DialogTitle>
                         </DialogHeader>
                         <div className="space-y-8 py-6">
                             <div className="space-y-3">
-                                <Label className="text-sm font-black uppercase tracking-widest ml-1">Session Name</Label>
+                                <Label className="text-sm font-semibold uppercase tracking-widest ml-1">Session Name</Label>
                                 <Input
                                     placeholder="e.g. 2025/2026 Academic Session"
                                     className="h-14 rounded-2xl border-none bg-muted font-bold text-lg"
@@ -104,7 +104,7 @@ export default function ExamMasterDashboard() {
 
                             <div className="grid grid-cols-2 gap-6">
                                 <div className="space-y-3">
-                                    <Label className="text-sm font-black uppercase tracking-widest ml-1">Start Date</Label>
+                                    <Label className="text-sm font-semibold uppercase tracking-widest ml-1">Start Date</Label>
                                     <Input
                                         type="date"
                                         className="h-14 rounded-2xl border-none bg-muted font-bold text-lg"
@@ -113,7 +113,7 @@ export default function ExamMasterDashboard() {
                                     />
                                 </div>
                                 <div className="space-y-3">
-                                    <Label className="text-sm font-black uppercase tracking-widest ml-1">End Date</Label>
+                                    <Label className="text-sm font-semibold uppercase tracking-widest ml-1">End Date</Label>
                                     <Input
                                         type="date"
                                         className="h-14 rounded-2xl border-none bg-muted font-bold text-lg"
@@ -125,7 +125,7 @@ export default function ExamMasterDashboard() {
                         </div>
                         <DialogFooter className="pt-6">
                             <Button variant="ghost" className="rounded-2xl h-14 font-bold text-lg px-8" onClick={() => setIsDialogOpen(false)}>Cancel</Button>
-                            <Button className="rounded-2xl h-14 font-black text-lg px-12" onClick={handleCreateSession}>Create Session</Button>
+                            <Button className="rounded-2xl h-14 font-semibold text-lg px-12" onClick={handleCreateSession}>Create Session</Button>
                         </DialogFooter>
                     </DialogContent>
                 </Dialog>
@@ -149,7 +149,7 @@ export default function ExamMasterDashboard() {
                                 <action.icon className="h-8 w-8" />
                             </div>
                             <div>
-                                <CardTitle className="text-2xl font-black italic">{action.title}</CardTitle>
+                                <CardTitle className="text-h3 font-semibold">{action.title}</CardTitle>
                                 <CardDescription className="font-bold text-base mt-1">{action.desc}</CardDescription>
                             </div>
                         </CardHeader>
@@ -165,7 +165,7 @@ export default function ExamMasterDashboard() {
             <div className="space-y-6">
                 <div className="flex items-center gap-3">
                     <CalendarDays className="h-8 w-8 text-primary" />
-                    <h2 className="text-3xl font-black italic uppercase tracking-tighter">Academic Sessions</h2>
+                    <h2 className="text-h1 font-semibold uppercase tracking-tighter">Academic Sessions</h2>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -173,28 +173,28 @@ export default function ExamMasterDashboard() {
                         <Card key={session.id} className="rounded-[3rem] border-border/50 shadow-lg overflow-hidden group hover:border-primary/30 transition-all">
                             <CardHeader className="p-10 pb-6 flex flex-row items-center justify-between">
                                 <div className="space-y-1">
-                                    <h3 className="text-3xl font-black italic">{session.name}</h3>
+                                    <h3 className="text-h1 font-semibold">{session.name}</h3>
                                     <div className="flex items-center gap-3 text-muted-foreground font-bold">
                                         <Calendar className="h-4 w-4" />
                                         {new Date(session.startDate).toLocaleDateString()} - {new Date(session.endDate).toLocaleDateString()}
                                     </div>
                                 </div>
                                 {session.isActive ? (
-                                    <Badge className="bg-emerald-500/10 text-emerald-600 border-none px-4 py-2 rounded-full font-black text-xs uppercase tracking-widest gap-2">
+                                    <Badge className="bg-emerald-500/10 text-emerald-600 border-none px-4 py-2 rounded-full font-semibold text-xs uppercase tracking-widest gap-2">
                                         <CheckCircle2 className="h-3 w-3" /> Active
                                     </Badge>
                                 ) : (
-                                    <Badge className="bg-muted text-muted-foreground border-none px-4 py-2 rounded-full font-black text-xs uppercase tracking-widest gap-2">
+                                    <Badge className="bg-muted text-muted-foreground border-none px-4 py-2 rounded-full font-semibold text-xs uppercase tracking-widest gap-2">
                                         <XCircle className="h-3 w-3" /> Inactive
                                     </Badge>
                                 )}
                             </CardHeader>
                             <CardContent className="p-10 pt-0">
                                 <div className="flex gap-4">
-                                    <Button variant="outline" className="flex-1 h-14 rounded-2xl font-black italic border-2 border-border/50 hover:bg-primary/5 hover:border-primary/20">
+                                    <Button variant="outline" className="flex-1 h-14 rounded-2xl font-semibold border-2 border-border/50 hover:bg-primary/5 hover:border-primary/20">
                                         Configuration
                                     </Button>
-                                    <Button className="flex-1 h-14 rounded-2xl font-black italic shadow-lg shadow-primary/10">
+                                    <Button className="flex-1 h-14 rounded-2xl font-semibold shadow-lg shadow-primary/10">
                                         View Analytics
                                     </Button>
                                 </div>
@@ -204,7 +204,7 @@ export default function ExamMasterDashboard() {
                     {sessions.length === 0 && (
                         <div className="col-span-2 h-80 rounded-[3rem] border-4 border-dashed border-muted flex flex-col items-center justify-center space-y-4 opacity-30 grayscale saturate-0">
                             <Calendar className="h-20 w-20 stroke-[1]" />
-                            <p className="text-2xl font-black italic uppercase">No Sessions Configured</p>
+                            <p className="text-h3 font-semibold uppercase">No Sessions Configured</p>
                         </div>
                     )}
                 </div>

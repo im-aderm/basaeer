@@ -107,7 +107,7 @@ export default function AdmitTemplatesPage() {
         <div className="space-y-8 animate-in fade-in duration-500 pb-20">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
-                    <h1 className="text-4xl font-black tracking-tight italic flex items-center gap-3">
+                    <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
                         <BookOpen className="text-primary w-10 h-10" />
                         Admit Card Templates
                     </h1>
@@ -115,17 +115,17 @@ export default function AdmitTemplatesPage() {
                 </div>
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                     <DialogTrigger asChild>
-                        <Button className="gap-3 rounded-[1.5rem] h-14 px-8 font-black text-lg shadow-xl shadow-primary/20 hover:scale-105 transition-all">
+                        <Button className="gap-3 rounded-[1.5rem] h-14 px-8 font-semibold text-lg shadow-xl shadow-primary/20 hover:scale-105 transition-all">
                             <Plus size={20} /> New Admit Template
                         </Button>
                     </DialogTrigger>
                     <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl bg-background/80 backdrop-blur-xl">
                         <DialogHeader>
-                            <DialogTitle className="text-3xl font-black italic mb-6 tracking-tight">New Admit Card Template</DialogTitle>
+                            <DialogTitle className="text-h1 font-semibold mb-6 tracking-tight">New Admit Card Template</DialogTitle>
                         </DialogHeader>
                         <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-6">
                             <div className="space-y-3">
-                                <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Template Name</label>
+                                <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground ml-1">Template Name</label>
                                 <Input
                                     placeholder="e.g. First Term Exam 2024"
                                     value={formData.name}
@@ -136,7 +136,7 @@ export default function AdmitTemplatesPage() {
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="space-y-3">
-                                    <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Card Type</label>
+                                    <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground ml-1">Card Type</label>
                                     <Input
                                         value="Admit Card"
                                         readOnly
@@ -144,7 +144,7 @@ export default function AdmitTemplatesPage() {
                                     />
                                 </div>
                                 <div className="space-y-3">
-                                    <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Background Image</label>
+                                    <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground ml-1">Background Image</label>
                                     <div className="relative">
                                         <input
                                             type="file"
@@ -166,7 +166,7 @@ export default function AdmitTemplatesPage() {
                                     </div>
                                 </div>
                             </div>
-                            <Button type="submit" className="h-14 rounded-2xl font-black text-xl shadow-xl shadow-primary/20 mt-4 transition-all hover:scale-[1.02]">
+                            <Button type="submit" className="h-14 rounded-2xl font-semibold text-h3 shadow-xl shadow-primary/20 mt-4 transition-all hover:scale-[1.02]">
                                 Create & Setup Layout
                             </Button>
                         </form>
@@ -216,13 +216,13 @@ export default function AdmitTemplatesPage() {
                                 </Button>
                             </div>
                             <div className="absolute top-4 left-4">
-                                <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[10px] font-black uppercase tracking-widest text-primary shadow-sm">
+                                <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-label text-primary shadow-sm">
                                     {template.type}
                                 </span>
                             </div>
                         </div>
                         <CardHeader className="p-8">
-                            <CardTitle className="text-xl font-black italic tracking-tight flex items-center justify-between">
+                            <CardTitle className="text-h3 font-semibold tracking-tight flex items-center justify-between">
                                 {template.name}
                                 <Edit3 size={18} className="opacity-0 group-hover:opacity-50 transition-opacity" />
                             </CardTitle>
@@ -235,8 +235,8 @@ export default function AdmitTemplatesPage() {
                         <div className="w-20 h-20 bg-muted/50 rounded-full flex items-center justify-center mx-auto mb-6">
                             <BookOpen size={40} className="text-muted-foreground/30" />
                         </div>
-                        <h3 className="text-2xl font-black italic tracking-tight">No Admit Templates Found</h3>
-                        <p className="text-muted-foreground font-medium italic mt-2">Start by creating your first admit card layout.</p>
+                        <h3 className="text-h3 font-semibold tracking-tight">No Admit Templates Found</h3>
+                        <p className="text-muted-foreground font-medium mt-2">Start by creating your first admit card layout.</p>
                     </div>
                 )}
             </div>

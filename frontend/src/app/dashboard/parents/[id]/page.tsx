@@ -87,7 +87,7 @@ export default function ParentDetailsPage() {
 
     if (loading) {
         return (
-            <div className="flex h-[80vh] items-center justify-center font-black animate-pulse uppercase italic gap-3 text-2xl">
+            <div className="flex h-[80vh] items-center justify-center font-semibold animate-pulse uppercase gap-3 text-2xl">
                 <Loader2 className="animate-spin h-8 w-8" />
                 Retrieving Family Profile...
             </div>
@@ -108,19 +108,19 @@ export default function ParentDetailsPage() {
                     <Button
                         variant="ghost"
                         onClick={() => router.back()}
-                        className="mb-4 gap-2 font-black italic uppercase text-xs p-0 hover:bg-transparent hover:text-primary"
+                        className="mb-4 gap-2 font-semibold uppercase text-xs p-0 hover:bg-transparent hover:text-primary"
                     >
                         <ChevronLeft className="h-4 w-4" /> Back to List
                     </Button>
-                    <h1 className="text-4xl font-black tracking-tight italic uppercase flex items-center gap-4">
-                        <div className="h-14 w-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary font-black italic text-2xl shadow-sm">
+                    <h1 className="text-h1 font-semibold tracking-tight uppercase flex items-center gap-4">
+                        <div className="h-14 w-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary font-semibold text-h3 shadow-sm">
                             {parent.firstName[0]}{parent.lastName[0]}
                         </div>
                         {parent.firstName} {parent.lastName}
                     </h1>
                 </div>
                 <div className="flex gap-4">
-                    <Badge className={`rounded-2xl px-6 py-2 font-black italic uppercase text-xs ${parent.isActive ? 'bg-emerald-500/10 text-emerald-500' : 'bg-rose-500/10 text-rose-500'
+                    <Badge className={`rounded-2xl px-6 py-2 font-semibold uppercase text-xs ${parent.isActive ? 'bg-emerald-500/10 text-emerald-500' : 'bg-rose-500/10 text-rose-500'
                         }`}>
                         {parent.isActive ? 'Active Member' : 'Deactivated'}
                     </Badge>
@@ -132,27 +132,27 @@ export default function ParentDetailsPage() {
                 <div className="space-y-8">
                     <Card className="rounded-[2.5rem] border-border/50 shadow-2xl bg-card border-t-8 border-t-primary">
                         <CardHeader className="p-8 pb-4">
-                            <CardTitle className="text-xl font-black italic uppercase tracking-tight">Parent Credentials</CardTitle>
+                            <CardTitle className="text-h3 font-semibold uppercase tracking-tight">Parent Credentials</CardTitle>
                         </CardHeader>
                         <CardContent className="p-8 pt-0 space-y-6">
                             <div className="space-y-4">
                                 <div className="p-4 rounded-2xl bg-muted/30 border border-border/50">
-                                    <div className="text-[10px] font-black uppercase opacity-50 italic mb-1">Email Address</div>
+                                    <div className="text-[10px] font-semibold uppercase opacity-50 mb-1">Email Address</div>
                                     <div className="font-bold flex items-center gap-2">
                                         <Mail className="h-4 w-4 text-primary" />
                                         {parent.email}
                                     </div>
                                 </div>
                                 <div className="p-4 rounded-2xl bg-muted/30 border border-border/50">
-                                    <div className="text-[10px] font-black uppercase opacity-50 italic mb-1">Phone Number</div>
+                                    <div className="text-[10px] font-semibold uppercase opacity-50 mb-1">Phone Number</div>
                                     <div className="font-bold flex items-center gap-2">
                                         <Phone className="h-4 w-4 text-primary" />
                                         {parent.phone || 'Not provided'}
                                     </div>
                                 </div>
                                 <div className="p-4 rounded-2xl bg-muted/30 border border-border/50">
-                                    <div className="text-[10px] font-black uppercase opacity-50 italic mb-1">Member Since</div>
-                                    <div className="font-bold flex items-center gap-2 text-primary uppercase italic">
+                                    <div className="text-[10px] font-semibold uppercase opacity-50 mb-1">Member Since</div>
+                                    <div className="font-bold flex items-center gap-2 text-primary uppercase">
                                         <Clock className="h-4 w-4" />
                                         {new Date(parent.createdAt).toLocaleDateString(undefined, { month: 'long', year: 'numeric' })}
                                     </div>
@@ -165,10 +165,10 @@ export default function ParentDetailsPage() {
                         <div className="p-8 bg-primary/10">
                             <div className="flex justify-between items-center mb-4">
                                 <DollarSign className="text-primary h-8 w-8" />
-                                <Badge className="bg-primary text-white font-black italic uppercase text-[10px]">Financial Summary</Badge>
+                                <Badge className="bg-primary text-white font-semibold uppercase text-[10px]">Financial Summary</Badge>
                             </div>
-                            <div className="text-4xl font-black italic">${totalBalance.toLocaleString()}</div>
-                            <div className="text-xs font-bold opacity-50 uppercase tracking-widest italic mt-1">Outstanding Family Balance</div>
+                            <div className="text-h1 font-semibold">${totalBalance.toLocaleString()}</div>
+                            <div className="text-xs font-bold opacity-50 uppercase tracking-widest mt-1">Outstanding Family Balance</div>
                         </div>
                     </Card>
                 </div>
@@ -178,8 +178,8 @@ export default function ParentDetailsPage() {
                     <Card className="rounded-[2.5rem] border-border/50 shadow-2xl bg-card">
                         <CardHeader className="p-10 pb-4 flex flex-row items-center justify-between">
                             <div>
-                                <CardTitle className="text-2xl font-black italic uppercase tracking-tight">Linked Students</CardTitle>
-                                <CardDescription className="font-bold italic mt-2">Managing the relationship for {parent.parentOf.length} student(s)</CardDescription>
+                                <CardTitle className="text-h3 font-semibold uppercase tracking-tight">Linked Students</CardTitle>
+                                <CardDescription className="font-bold mt-2">Managing the relationship for {parent.parentOf.length} student(s)</CardDescription>
                             </div>
                             <Users className="text-primary h-10 w-10 opacity-20" />
                         </CardHeader>
@@ -188,16 +188,16 @@ export default function ParentDetailsPage() {
                                 {parent.parentOf.length > 0 ? parent.parentOf.map((student: any) => (
                                     <div key={student.id} className="flex items-center justify-between p-6 rounded-[2rem] bg-muted/20 border border-border/50 hover:bg-muted/40 transition-all group">
                                         <div className="flex items-center gap-6">
-                                            <div className="h-14 w-14 rounded-2xl bg-background flex items-center justify-center text-primary font-black italic shadow-sm group-hover:scale-110 transition-transform">
+                                            <div className="h-14 w-14 rounded-2xl bg-background flex items-center justify-center text-primary font-semibold shadow-sm group-hover:scale-110 transition-transform">
                                                 <GraduationCap className="h-7 w-7" />
                                             </div>
                                             <div>
-                                                <div className="font-black italic text-xl uppercase">{student.firstName} {student.lastName}</div>
+                                                <div className="font-semibold text-h3 uppercase">{student.firstName} {student.lastName}</div>
                                                 <div className="flex gap-2 mt-1">
-                                                    <Badge variant="outline" className="text-[10px] font-black uppercase italic border-primary/20 text-primary">
+                                                    <Badge variant="outline" className="text-[10px] font-semibold uppercase border-primary/20 text-primary">
                                                         {student.class?.name || 'No Class'} - {student.section?.name || 'N/A'}
                                                     </Badge>
-                                                    <Badge className="text-[10px] font-black uppercase italic bg-rose-500/10 text-rose-500">
+                                                    <Badge className="text-[10px] font-semibold uppercase bg-rose-500/10 text-rose-500">
                                                         Bal: ${student.invoices.reduce((acc: number, inv: any) => acc + inv.balance, 0)}
                                                     </Badge>
                                                 </div>
@@ -222,13 +222,13 @@ export default function ParentDetailsPage() {
                                 )) : (
                                     <div className="text-center p-12 border-2 border-dashed border-border/50 rounded-[2.5rem] bg-muted/5">
                                         <Users className="h-12 w-12 text-muted-foreground mx-auto mb-4 opacity-20" />
-                                        <p className="font-black italic uppercase text-muted-foreground text-sm">No students currently linked to this account</p>
+                                        <p className="font-semibold uppercase text-muted-foreground text-sm">No students currently linked to this account</p>
                                     </div>
                                 )}
                             </div>
 
                             <div className="p-8 rounded-[2.5rem] bg-primary/5 border border-primary/10 space-y-4">
-                                <h4 className="font-black italic text-primary text-lg uppercase flex items-center gap-2">
+                                <h4 className="font-semibold text-primary text-lg uppercase flex items-center gap-2">
                                     <Plus className="h-5 w-5" /> Link New Student
                                 </h4>
                                 <div className="flex gap-4">
@@ -247,13 +247,13 @@ export default function ParentDetailsPage() {
                                     <Button
                                         onClick={handleLinkStudent}
                                         disabled={!selectedStudent || linking}
-                                        className="h-14 px-8 rounded-2xl font-black italic uppercase gap-2 shadow-lg shadow-primary/20"
+                                        className="h-14 px-8 rounded-2xl font-semibold uppercase gap-2 shadow-lg shadow-primary/20"
                                     >
                                         {linking ? <Loader2 className="animate-spin" /> : <Plus />}
                                         Link
                                     </Button>
                                 </div>
-                                <p className="text-[10px] font-bold text-muted-foreground italic px-2">Linking a student allows this parent to access their attendance, grades, and financials.</p>
+                                <p className="text-[10px] font-bold text-muted-foreground px-2">Linking a student allows this parent to access their attendance, grades, and financials.</p>
                             </div>
                         </CardContent>
                     </Card>

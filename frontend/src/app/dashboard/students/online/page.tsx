@@ -80,13 +80,13 @@ export default function OnlineAdmissionsDashboard() {
     const getStatusBadge = (status: string) => {
         switch (status) {
             case 'PENDING':
-                return <Badge variant="secondary" className="bg-amber-500/10 text-amber-600 border-amber-500/20 font-black">PENDING</Badge>;
+                return <Badge variant="secondary" className="bg-amber-500/10 text-amber-600 border-amber-500/20 font-semibold">PENDING</Badge>;
             case 'APPROVED':
-                return <Badge variant="secondary" className="bg-emerald-500/10 text-emerald-600 border-emerald-500/20 font-black">APPROVED</Badge>;
+                return <Badge variant="secondary" className="bg-emerald-500/10 text-emerald-600 border-emerald-500/20 font-semibold">APPROVED</Badge>;
             case 'REJECTED':
-                return <Badge variant="destructive" className="font-black">REJECTED</Badge>;
+                return <Badge variant="destructive" className="font-semibold">REJECTED</Badge>;
             case 'ENROLLED':
-                return <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 font-black">ENROLLED</Badge>;
+                return <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 font-semibold">ENROLLED</Badge>;
             default:
                 return <Badge variant="outline">{status}</Badge>;
         }
@@ -95,11 +95,11 @@ export default function OnlineAdmissionsDashboard() {
     const getPaymentBadge = (status?: string) => {
         switch (status) {
             case 'VERIFIED':
-                return <Badge className="bg-emerald-500 text-white font-black text-[10px] px-2">PAID</Badge>;
+                return <Badge className="bg-emerald-500 text-white font-semibold text-[10px] px-2">PAID</Badge>;
             case 'REJECTED':
-                return <Badge variant="destructive" className="font-black text-[10px] px-2">FAILED</Badge>;
+                return <Badge variant="destructive" className="font-semibold text-[10px] px-2">FAILED</Badge>;
             default:
-                return <Badge variant="secondary" className="font-black text-[10px] px-2">PENDING</Badge>;
+                return <Badge variant="secondary" className="font-semibold text-[10px] px-2">PENDING</Badge>;
         }
     };
 
@@ -109,7 +109,7 @@ export default function OnlineAdmissionsDashboard() {
         <div className="space-y-6">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-4xl font-black tracking-tight italic">Online Admissions</h1>
+                    <h1 className="text-h1 font-semibold tracking-tight">Online Admissions</h1>
                     <p className="text-muted-foreground font-medium">Review and process online admission applications.</p>
                 </div>
             </div>
@@ -120,7 +120,7 @@ export default function OnlineAdmissionsDashboard() {
 
             <Card className="rounded-[2rem] shadow-2xl shadow-primary/5 border-border/50 overflow-hidden border-t-8 border-t-primary/20">
                 <CardHeader className="pb-4">
-                    <CardTitle className="text-xl font-black italic flex items-center gap-2">
+                    <CardTitle className="text-h3 font-semibold flex items-center gap-2">
                         <UserPlus className="h-5 w-5 text-primary" />
                         Application List
                     </CardTitle>
@@ -130,13 +130,13 @@ export default function OnlineAdmissionsDashboard() {
                         <Table>
                             <TableHeader className="bg-muted/50">
                                 <TableRow className="hover:bg-transparent border-border/50">
-                                    <TableHead className="font-black h-14">Student Name</TableHead>
-                                    <TableHead className="font-black h-14">Applied Class</TableHead>
-                                    <TableHead className="font-black h-14">Guardian</TableHead>
-                                    <TableHead className="font-black h-14">Payment</TableHead>
-                                    <TableHead className="font-black h-14">Status</TableHead>
-                                    <TableHead className="font-black h-14">Applied Date</TableHead>
-                                    <TableHead className="text-right font-black h-14 px-6">Actions</TableHead>
+                                    <TableHead className="font-semibold h-14">Student Name</TableHead>
+                                    <TableHead className="font-semibold h-14">Applied Class</TableHead>
+                                    <TableHead className="font-semibold h-14">Guardian</TableHead>
+                                    <TableHead className="font-semibold h-14">Payment</TableHead>
+                                    <TableHead className="font-semibold h-14">Status</TableHead>
+                                    <TableHead className="font-semibold h-14">Applied Date</TableHead>
+                                    <TableHead className="text-right font-semibold h-14 px-6">Actions</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
@@ -144,7 +144,7 @@ export default function OnlineAdmissionsDashboard() {
                                     <TableRow key={adm.id} className="border-border/50 hover:bg-muted/30 transition-colors">
                                         <TableCell className="font-bold py-4">
                                             <div className="flex items-center gap-3">
-                                                <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-black text-xs">
+                                                <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold text-xs">
                                                     {adm.firstName[0]}{adm.lastName[0]}
                                                 </div>
                                                 <div>
@@ -164,7 +164,7 @@ export default function OnlineAdmissionsDashboard() {
                                             <div className="flex flex-col gap-1">
                                                 {getPaymentBadge(adm.paymentStatus)}
                                                 {adm.paymentReceiptUrl && (
-                                                    <a href={adm.paymentReceiptUrl} target="_blank" className="text-[10px] text-primary font-black flex items-center gap-1 hover:underline">
+                                                    <a href={adm.paymentReceiptUrl} target="_blank" className="text-[10px] text-primary font-semibold flex items-center gap-1 hover:underline">
                                                         <Receipt className="h-3 w-3" /> VIEW RECEIPT
                                                     </a>
                                                 )}
@@ -210,7 +210,7 @@ export default function OnlineAdmissionsDashboard() {
                                 ))}
                                 {admissions.length === 0 && (
                                     <TableRow>
-                                        <TableCell colSpan={7} className="text-center py-12 text-muted-foreground font-medium italic text-lg uppercase tracking-widest opacity-50">
+                                        <TableCell colSpan={7} className="text-center py-12 text-muted-foreground font-medium text-lg uppercase tracking-widest opacity-50">
                                             No applications found.
                                         </TableCell>
                                     </TableRow>

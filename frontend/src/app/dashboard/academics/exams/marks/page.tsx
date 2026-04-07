@@ -198,28 +198,28 @@ export default function ScoreEntryPage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
-                    <h1 className="text-4xl font-black tracking-tight flex items-center gap-3 italic">
+                    <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
                         <Calculator className="text-primary w-10 h-10" />
                         Marks Entry Grid
                     </h1>
-                    <p className="text-muted-foreground mt-2 text-lg font-medium italic">Record and process academic performance scores.</p>
+                    <p className="text-muted-foreground mt-2 text-lg font-medium">Record and process academic performance scores.</p>
                 </div>
 
                 <div className="flex gap-4">
-                    <label className="flex items-center gap-2 px-6 py-3 bg-muted/50 border border-border rounded-2xl font-black text-sm hover:bg-muted transition-all italic cursor-pointer">
+                    <label className="flex items-center gap-2 px-6 py-3 bg-muted/50 border border-border rounded-2xl font-semibold text-sm hover:bg-muted transition-all cursor-pointer">
                         <Download size={18} /> Import CSV
                         <input type="file" accept=".csv" className="hidden" onChange={handleImportCSV} />
                     </label>
                     <button
                         onClick={() => handlePublish(true)}
-                        className="flex items-center gap-2 px-6 py-3 bg-amber-500 text-white rounded-2xl font-black text-sm hover:bg-amber-600 transition-all italic shadow-lg shadow-amber-500/20"
+                        className="flex items-center gap-2 px-6 py-3 bg-amber-500 text-white rounded-2xl font-semibold text-sm hover:bg-amber-600 transition-all shadow-lg shadow-amber-500/20"
                     >
                         <CheckCircle2 size={18} /> Publish Results
                     </button>
                     <button
                         onClick={handleSave}
                         disabled={saving || students.length === 0}
-                        className="flex items-center gap-2 px-8 py-4 bg-primary text-white rounded-[1.5rem] font-black shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-50"
+                        className="flex items-center gap-2 px-8 py-4 bg-primary text-white rounded-[1.5rem] font-semibold shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-50"
                     >
                         {saving ? <Loader2 size={24} className="animate-spin" /> : <Save size={24} />}
                         Save Changes
@@ -230,9 +230,9 @@ export default function ScoreEntryPage() {
             {/* Filters Bar */}
             <div className="p-8 bg-card border border-border rounded-[2.5rem] shadow-sm flex flex-wrap items-end gap-6">
                 <div className="flex-1 min-w-[200px] space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-2">Class</label>
+                    <label className="text-label text-muted-foreground ml-2">Class</label>
                     <select
-                        className="w-full p-4 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold italic"
+                        className="w-full p-4 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold"
                         value={selectedClassId}
                         onChange={e => setSelectedClassId(e.target.value)}
                     >
@@ -242,9 +242,9 @@ export default function ScoreEntryPage() {
                 </div>
 
                 <div className="flex-1 min-w-[200px] space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-2">Section</label>
+                    <label className="text-label text-muted-foreground ml-2">Section</label>
                     <select
-                        className="w-full p-4 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold italic"
+                        className="w-full p-4 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold"
                         value={selectedSectionId}
                         onChange={e => setSelectedSectionId(e.target.value)}
                     >
@@ -254,9 +254,9 @@ export default function ScoreEntryPage() {
                 </div>
 
                 <div className="flex-1 min-w-[200px] space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-2">Subject</label>
+                    <label className="text-label text-muted-foreground ml-2">Subject</label>
                     <select
-                        className="w-full p-4 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold italic"
+                        className="w-full p-4 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold"
                         value={selectedSubjectId}
                         onChange={e => setSelectedSubjectId(e.target.value)}
                     >
@@ -266,9 +266,9 @@ export default function ScoreEntryPage() {
                 </div>
 
                 <div className="flex-1 min-w-[150px] space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-2">Session</label>
+                    <label className="text-label text-muted-foreground ml-2">Session</label>
                     <select
-                        className="w-full p-4 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold italic"
+                        className="w-full p-4 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold"
                         value={selectedSessionId}
                         onChange={e => setSelectedSessionId(e.target.value)}
                     >
@@ -277,9 +277,9 @@ export default function ScoreEntryPage() {
                 </div>
 
                 <div className="flex-1 min-w-[150px] space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-2">Term</label>
+                    <label className="text-label text-muted-foreground ml-2">Term</label>
                     <select
-                        className="w-full p-4 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold italic"
+                        className="w-full p-4 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold"
                         value={selectedTerm}
                         onChange={e => setSelectedTerm(e.target.value as Term)}
                     >
@@ -299,7 +299,7 @@ export default function ScoreEntryPage() {
             </div>
 
             {success && (
-                <div className="p-6 bg-green-500/10 border border-green-500/20 rounded-[2rem] flex items-center gap-4 text-green-600 font-black animate-in zoom-in-95">
+                <div className="p-6 bg-green-500/10 border border-green-500/20 rounded-[2rem] flex items-center gap-4 text-green-600 font-semibold animate-in zoom-in-95">
                     <CheckCircle2 />
                     Scores saved and rankings updated successfully!
                 </div>
@@ -312,14 +312,14 @@ export default function ScoreEntryPage() {
                         <table className="w-full border-collapse">
                             <thead>
                                 <tr className="bg-muted/30 text-left border-b border-border">
-                                    <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-black text-muted-foreground min-w-[250px]">Pupil Name</th>
-                                    <th className="px-6 py-6 text-[10px] uppercase tracking-[0.2em] font-black text-primary text-center">Eligible?</th>
-                                    <th className="px-6 py-6 text-[10px] uppercase tracking-[0.2em] font-black text-primary text-center">Assgn 1 (10)</th>
-                                    <th className="px-6 py-6 text-[10px] uppercase tracking-[0.2em] font-black text-primary text-center">Assgn 2 (10)</th>
-                                    <th className="px-6 py-6 text-[10px] uppercase tracking-[0.2em] font-black text-blue-600 text-center">Test 1 (20)</th>
-                                    <th className="px-6 py-6 text-[10px] uppercase tracking-[0.2em] font-black text-blue-600 text-center">Test 2 (20)</th>
-                                    <th className="px-6 py-6 text-[10px] uppercase tracking-[0.2em] font-black text-amber-600 text-center">Exam (40)</th>
-                                    <th className="px-6 py-6 text-[10px] uppercase tracking-[0.2em] font-black text-muted-foreground text-center bg-muted/20">Total (100)</th>
+                                    <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground min-w-[250px]">Pupil Name</th>
+                                    <th className="px-6 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-primary text-center">Eligible?</th>
+                                    <th className="px-6 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-primary text-center">Assgn 1 (10)</th>
+                                    <th className="px-6 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-primary text-center">Assgn 2 (10)</th>
+                                    <th className="px-6 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-blue-600 text-center">Test 1 (20)</th>
+                                    <th className="px-6 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-blue-600 text-center">Test 2 (20)</th>
+                                    <th className="px-6 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-amber-600 text-center">Exam (40)</th>
+                                    <th className="px-6 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground text-center bg-muted/20">Total (100)</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-border/50">
@@ -339,11 +339,11 @@ export default function ScoreEntryPage() {
                                             </td>
                                             <td className="px-8 py-4">
                                                 <div className="flex items-center gap-3">
-                                                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-black text-xs italic">
+                                                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold text-xs">
                                                         {student.id.slice(0, 2).toUpperCase()}
                                                     </div>
                                                     <div>
-                                                        <p className="font-black italic text-lg tracking-tight">
+                                                        <p className="font-semibold text-lg tracking-tight">
                                                             {student.user?.firstName} {student.user?.lastName}
                                                         </p>
                                                         <p className="text-xs text-muted-foreground font-medium">{student.user?.email.split('@')[0].toUpperCase()}</p>
@@ -353,7 +353,7 @@ export default function ScoreEntryPage() {
                                             <td className="px-6 py-4">
                                                 <input
                                                     type="number"
-                                                    className="w-20 mx-auto p-3 bg-muted/20 border-none rounded-xl text-center font-black outline-none focus:ring-2 ring-primary/30"
+                                                    className="w-20 mx-auto p-3 bg-muted/20 border-none rounded-xl text-center font-semibold outline-none focus:ring-2 ring-primary/30"
                                                     value={s.asgn1 ?? ""}
                                                     onChange={e => handleScoreChange(student.id, "asgn1", e.target.value)}
                                                     max={10}
@@ -362,7 +362,7 @@ export default function ScoreEntryPage() {
                                             <td className="px-6 py-4">
                                                 <input
                                                     type="number"
-                                                    className="w-20 mx-auto p-3 bg-muted/20 border-none rounded-xl text-center font-black outline-none focus:ring-2 ring-primary/30"
+                                                    className="w-20 mx-auto p-3 bg-muted/20 border-none rounded-xl text-center font-semibold outline-none focus:ring-2 ring-primary/30"
                                                     value={s.asgn2 ?? ""}
                                                     onChange={e => handleScoreChange(student.id, "asgn2", e.target.value)}
                                                     max={10}
@@ -371,7 +371,7 @@ export default function ScoreEntryPage() {
                                             <td className="px-6 py-4">
                                                 <input
                                                     type="number"
-                                                    className="w-20 mx-auto p-3 bg-blue-500/5 text-blue-600 border-none rounded-xl text-center font-black outline-none focus:ring-2 ring-blue-500/30"
+                                                    className="w-20 mx-auto p-3 bg-blue-500/5 text-blue-600 border-none rounded-xl text-center font-semibold outline-none focus:ring-2 ring-blue-500/30"
                                                     value={s.test1 ?? ""}
                                                     onChange={e => handleScoreChange(student.id, "test1", e.target.value)}
                                                     max={20}
@@ -380,7 +380,7 @@ export default function ScoreEntryPage() {
                                             <td className="px-6 py-4">
                                                 <input
                                                     type="number"
-                                                    className="w-20 mx-auto p-3 bg-blue-500/5 text-blue-600 border-none rounded-xl text-center font-black outline-none focus:ring-2 ring-blue-500/30"
+                                                    className="w-20 mx-auto p-3 bg-blue-500/5 text-blue-600 border-none rounded-xl text-center font-semibold outline-none focus:ring-2 ring-blue-500/30"
                                                     value={s.test2 ?? ""}
                                                     onChange={e => handleScoreChange(student.id, "test2", e.target.value)}
                                                     max={20}
@@ -389,7 +389,7 @@ export default function ScoreEntryPage() {
                                             <td className="px-6 py-4">
                                                 <input
                                                     type="number"
-                                                    className="w-20 mx-auto p-3 bg-amber-500/5 text-amber-600 border-none rounded-xl text-center font-black outline-none focus:ring-2 ring-amber-500/30"
+                                                    className="w-20 mx-auto p-3 bg-amber-500/5 text-amber-600 border-none rounded-xl text-center font-semibold outline-none focus:ring-2 ring-amber-500/30"
                                                     value={s.examScore ?? ""}
                                                     onChange={e => handleScoreChange(student.id, "examScore", e.target.value)}
                                                     max={40}
@@ -397,7 +397,7 @@ export default function ScoreEntryPage() {
                                             </td>
                                             <td className="px-6 py-4 text-center bg-muted/20">
                                                 <span className={clsx(
-                                                    "inline-flex items-center justify-center w-14 h-14 rounded-2xl font-black text-xl italic",
+                                                    "inline-flex items-center justify-center w-14 h-14 rounded-2xl font-semibold text-h3",
                                                     total >= 50 ? "text-primary" : "text-destructive"
                                                 )}>
                                                     {total}
@@ -414,8 +414,8 @@ export default function ScoreEntryPage() {
                         <div className="w-24 h-24 bg-muted/50 rounded-[2rem] flex items-center justify-center mx-auto mb-6">
                             <Filter size={48} className="text-muted-foreground/30" />
                         </div>
-                        <h3 className="text-2xl font-black italic">No records to display</h3>
-                        <p className="text-muted-foreground font-medium italic">Select class and subject to begin recording marks.</p>
+                        <h3 className="text-h3 font-semibold">No records to display</h3>
+                        <p className="text-muted-foreground font-medium">Select class and subject to begin recording marks.</p>
                     </div>
                 )}
             </div>

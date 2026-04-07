@@ -117,7 +117,7 @@ export default function TransportVehiclesPage() {
         <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in duration-500 pb-20">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
-                    <h1 className="text-4xl font-black tracking-tight italic flex items-center gap-3">
+                    <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
                         <Bus className="text-primary w-10 h-10" />
                         School Fleet
                     </h1>
@@ -131,19 +131,19 @@ export default function TransportVehiclesPage() {
                     }
                 }}>
                     <DialogTrigger asChild>
-                        <Button className="gap-3 rounded-[1.5rem] h-14 px-8 font-black text-lg shadow-xl shadow-primary/20 hover:scale-105 transition-all">
+                        <Button className="gap-3 rounded-[1.5rem] h-14 px-8 font-semibold text-lg shadow-xl shadow-primary/20 hover:scale-105 transition-all">
                             <Plus size={20} /> Add New Vehicle
                         </Button>
                     </DialogTrigger>
                     <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl">
                         <DialogHeader>
-                            <DialogTitle className="text-3xl font-black italic mb-6">
+                            <DialogTitle className="text-h1 font-semibold mb-6">
                                 {editingVehicle ? "Edit Vehicle" : "Register Vehicle"}
                             </DialogTitle>
                         </DialogHeader>
                         <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-3">
-                                <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Reg Number</label>
+                                <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground ml-1">Reg Number</label>
                                 <Input
                                     placeholder="e.g. ABC-123-XY"
                                     value={formData.registrationNumber}
@@ -153,7 +153,7 @@ export default function TransportVehiclesPage() {
                                 />
                             </div>
                             <div className="space-y-3">
-                                <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Model / Make</label>
+                                <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground ml-1">Model / Make</label>
                                 <Input
                                     placeholder="e.g. Toyota Coaster 2024"
                                     value={formData.model}
@@ -163,7 +163,7 @@ export default function TransportVehiclesPage() {
                                 />
                             </div>
                             <div className="space-y-3">
-                                <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Capacity</label>
+                                <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground ml-1">Capacity</label>
                                 <Input
                                     type="number"
                                     placeholder="e.g. 32"
@@ -174,7 +174,7 @@ export default function TransportVehiclesPage() {
                                 />
                             </div>
                             <div className="space-y-3">
-                                <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Driver Name</label>
+                                <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground ml-1">Driver Name</label>
                                 <Input
                                     placeholder="e.g. John Smith"
                                     value={formData.driverName}
@@ -184,7 +184,7 @@ export default function TransportVehiclesPage() {
                                 />
                             </div>
                             <div className="space-y-3 md:col-span-2">
-                                <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Driver Phone</label>
+                                <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground ml-1">Driver Phone</label>
                                 <Input
                                     placeholder="e.g. +234..."
                                     value={formData.driverPhone}
@@ -192,7 +192,7 @@ export default function TransportVehiclesPage() {
                                     className="h-14 rounded-2xl bg-muted/30 border-none font-bold text-lg"
                                 />
                             </div>
-                            <Button type="submit" className="md:col-span-2 h-14 rounded-2xl font-black text-xl shadow-xl shadow-primary/20 mt-4 transition-all hover:scale-[1.02]">
+                            <Button type="submit" className="md:col-span-2 h-14 rounded-2xl font-semibold text-h3 shadow-xl shadow-primary/20 mt-4 transition-all hover:scale-[1.02]">
                                 {editingVehicle ? "Update Vehicle" : "Register Vehicle"}
                             </Button>
                         </form>
@@ -235,7 +235,7 @@ export default function TransportVehiclesPage() {
                                 </DropdownMenu>
                             </div>
                             <div className="mt-6">
-                                <h3 className="text-2xl font-black italic tracking-tight">{vehicle.registrationNumber}</h3>
+                                <h3 className="text-h3 font-semibold tracking-tight">{vehicle.registrationNumber}</h3>
                                 <p className="text-muted-foreground font-bold">{vehicle.model}</p>
                             </div>
                         </CardHeader>
@@ -243,9 +243,9 @@ export default function TransportVehiclesPage() {
                             <div className="flex items-center justify-between py-4 border-y border-border/50">
                                 <div className="flex items-center gap-2">
                                     <Users size={18} className="text-primary/60" />
-                                    <span className="text-sm font-black text-muted-foreground">Capacity</span>
+                                    <span className="text-sm font-semibold text-muted-foreground">Capacity</span>
                                 </div>
-                                <span className="font-black text-lg">{vehicle.capacity} Seats</span>
+                                <span className="font-semibold text-lg">{vehicle.capacity} Seats</span>
                             </div>
                             <div className="space-y-4">
                                 <div className="flex items-center gap-4">
@@ -253,7 +253,7 @@ export default function TransportVehiclesPage() {
                                         <User size={20} />
                                     </div>
                                     <div>
-                                        <p className="text-[10px] uppercase font-black text-muted-foreground tracking-widest">Driver</p>
+                                        <p className="text-[10px] uppercase font-semibold text-muted-foreground tracking-widest">Driver</p>
                                         <p className="font-bold">{vehicle.driverName}</p>
                                     </div>
                                 </div>
@@ -262,12 +262,12 @@ export default function TransportVehiclesPage() {
                                         <Phone size={20} />
                                     </div>
                                     <div>
-                                        <p className="text-[10px] uppercase font-black text-muted-foreground tracking-widest">Contact</p>
+                                        <p className="text-[10px] uppercase font-semibold text-muted-foreground tracking-widest">Contact</p>
                                         <p className="font-bold">{vehicle.driverPhone || "N/A"}</p>
                                     </div>
                                 </div>
                             </div>
-                            <Button variant="outline" className="w-full rounded-2xl h-12 font-black border-2 hover:bg-primary hover:text-white hover:border-primary transition-all">
+                            <Button variant="outline" className="w-full rounded-2xl h-12 font-semibold border-2 hover:bg-primary hover:text-white hover:border-primary transition-all">
                                 Assignment Details
                             </Button>
                         </CardContent>
@@ -276,7 +276,7 @@ export default function TransportVehiclesPage() {
             </div>
 
             {filteredVehicles.length === 0 && (
-                <div className="py-20 text-center text-muted-foreground font-medium italic animate-in fade-in zoom-in-95">
+                <div className="py-20 text-center text-muted-foreground font-medium animate-in fade-in zoom-in-95">
                     No vehicles registered in the fleet.
                 </div>
             )}

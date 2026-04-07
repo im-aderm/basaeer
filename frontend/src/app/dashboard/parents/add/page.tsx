@@ -50,27 +50,27 @@ export default function AddParentPage() {
                 <Button
                     variant="ghost"
                     onClick={() => router.back()}
-                    className="w-fit gap-2 font-black italic uppercase text-xs p-0 hover:bg-transparent hover:text-primary"
+                    className="w-fit gap-2 font-semibold uppercase text-xs p-0 hover:bg-transparent hover:text-primary"
                 >
                     <ChevronLeft className="h-4 w-4" /> Back to Parents
                 </Button>
-                <h1 className="text-4xl font-black tracking-tight italic uppercase flex items-center gap-4">
+                <h1 className="text-h1 font-semibold tracking-tight uppercase flex items-center gap-4">
                     <UserPlus className="text-primary w-10 h-10" />
                     Register Parent
                 </h1>
-                <p className="text-muted-foreground text-lg font-medium italic">Create a new family portal account.</p>
+                <p className="text-muted-foreground text-lg font-medium">Create a new family portal account.</p>
             </div>
 
             <Card className="rounded-[2.5rem] border-border/50 shadow-2xl bg-card overflow-hidden border-t-8 border-t-primary">
                 <CardHeader className="p-10 pb-0">
-                    <CardTitle className="text-2xl font-black italic uppercase">Account Details</CardTitle>
-                    <CardDescription className="font-bold italic">Enter the primary contact information for the family.</CardDescription>
+                    <CardTitle className="text-h3 font-semibold uppercase">Account Details</CardTitle>
+                    <CardDescription className="font-bold">Enter the primary contact information for the family.</CardDescription>
                 </CardHeader>
                 <CardContent className="p-10 pt-8">
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-2">
-                                <label className="text-[10px] font-black uppercase opacity-50 italic px-2">First Name</label>
+                                <label className="text-[10px] font-semibold uppercase opacity-50 px-2">First Name</label>
                                 <div className="relative">
                                     <User className="absolute left-4 top-1/2 -translate-y-1/2 text-primary w-5 h-5" />
                                     <Input
@@ -83,7 +83,7 @@ export default function AddParentPage() {
                                 </div>
                             </div>
                             <div className="space-y-2">
-                                <label className="text-[10px] font-black uppercase opacity-50 italic px-2">Last Name</label>
+                                <label className="text-[10px] font-semibold uppercase opacity-50 px-2">Last Name</label>
                                 <div className="relative">
                                     <User className="absolute left-4 top-1/2 -translate-y-1/2 text-primary w-5 h-5" />
                                     <Input
@@ -98,7 +98,7 @@ export default function AddParentPage() {
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-[10px] font-black uppercase opacity-50 italic px-2">Email Address</label>
+                            <label className="text-[10px] font-semibold uppercase opacity-50 px-2">Email Address</label>
                             <div className="relative">
                                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-primary w-5 h-5" />
                                 <Input
@@ -113,7 +113,7 @@ export default function AddParentPage() {
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-[10px] font-black uppercase opacity-50 italic px-2">Portal Password</label>
+                            <label className="text-[10px] font-semibold uppercase opacity-50 px-2">Portal Password</label>
                             <div className="relative">
                                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-primary w-5 h-5" />
                                 <Input
@@ -128,7 +128,7 @@ export default function AddParentPage() {
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-[10px] font-black uppercase opacity-50 italic px-2">Mobile Number (Optional)</label>
+                            <label className="text-[10px] font-semibold uppercase opacity-50 px-2">Mobile Number (Optional)</label>
                             <div className="relative">
                                 <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-primary w-5 h-5" />
                                 <Input
@@ -144,7 +144,7 @@ export default function AddParentPage() {
                             <Button
                                 type="submit"
                                 disabled={loading}
-                                className="w-full h-16 rounded-2xl font-black text-xl italic uppercase gap-4 shadow-2xl shadow-primary/30 hover:scale-[1.02] transition-all"
+                                className="w-full h-16 rounded-2xl font-semibold text-h3 uppercase gap-4 shadow-2xl shadow-primary/30 hover:scale-[1.02] transition-all"
                             >
                                 {loading ? <Loader2 className="animate-spin h-6 w-6" /> : <ShieldCheck className="h-6 w-6" />}
                                 Create Parent Account
@@ -155,7 +155,7 @@ export default function AddParentPage() {
             </Card>
 
             <div className="p-8 rounded-[2.5rem] bg-muted/30 border border-border/50">
-                <p className="text-xs font-bold text-muted-foreground italic text-center leading-relaxed">
+                <p className="text-xs font-bold text-muted-foreground text-center leading-relaxed">
                     Once the account is created, you will be redirected to the profile where you can link students to this parent.
                     The parent will be able to log in immediately using the credentials provided above.
                 </p>

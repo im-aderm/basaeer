@@ -68,13 +68,13 @@ export default function BackupManagementPage() {
         <div className="max-w-5xl mx-auto space-y-8">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-4xl font-black tracking-tight italic">Database Backups</h1>
+                    <h1 className="text-h1 font-semibold tracking-tight">Database Backups</h1>
                     <p className="text-muted-foreground font-medium mt-1">Manage and secure your school data with manual snapshots.</p>
                 </div>
                 <Button
                     onClick={handleCreateBackup}
                     disabled={isCreating}
-                    className="h-14 px-8 rounded-2xl font-black text-lg gap-2 shadow-xl shadow-emerald-500/20 bg-emerald-600 hover:bg-emerald-700 hover:scale-[1.02] transition-all"
+                    className="h-14 px-8 rounded-2xl font-semibold text-lg gap-2 shadow-xl shadow-emerald-500/20 bg-emerald-600 hover:bg-emerald-700 hover:scale-[1.02] transition-all"
                 >
                     <Plus className="h-6 w-6" />
                     {isCreating ? 'Creating Snapshot...' : 'Create New Backup'}
@@ -84,11 +84,11 @@ export default function BackupManagementPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-primary/5 border-l-4 border-l-primary/40">
                     <CardHeader className="pb-2">
-                        <CardTitle className="text-sm font-black uppercase tracking-widest text-muted-foreground italic">Total Backups</CardTitle>
+                        <CardTitle className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">Total Backups</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <div className="flex items-center gap-4">
-                            <span className="text-4xl font-black italic">{backups.length}</span>
+                            <span className="text-h1 font-semibold">{backups.length}</span>
                             <HardDrive className="h-8 w-8 text-primary/40" />
                         </div>
                     </CardContent>
@@ -96,11 +96,11 @@ export default function BackupManagementPage() {
 
                 <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-emerald-500/5 border-l-4 border-l-emerald-500/40">
                     <CardHeader className="pb-2">
-                        <CardTitle className="text-sm font-black uppercase tracking-widest text-muted-foreground italic">Storage Status</CardTitle>
+                        <CardTitle className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">Storage Status</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <div className="flex items-center gap-4">
-                            <span className="text-4xl font-black italic">Healthy</span>
+                            <span className="text-h1 font-semibold">Healthy</span>
                             <div className="h-3 w-3 rounded-full bg-emerald-500 animate-pulse" />
                         </div>
                     </CardContent>
@@ -108,12 +108,12 @@ export default function BackupManagementPage() {
 
                 <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-amber-500/5 border-l-4 border-l-amber-500/40">
                     <CardHeader className="pb-2">
-                        <CardTitle className="text-sm font-black uppercase tracking-widest text-muted-foreground italic">Latest Sync</CardTitle>
+                        <CardTitle className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">Latest Sync</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <div className="flex items-center gap-3">
                             <Clock className="h-5 w-5 text-amber-600" />
-                            <span className="font-bold italic text-amber-900/70">
+                            <span className="font-bold text-amber-900/70">
                                 {backups.length > 0 ? new Date(backups[0].createdAt).toLocaleDateString() : 'No backups found'}
                             </span>
                         </div>
@@ -123,7 +123,7 @@ export default function BackupManagementPage() {
 
             <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background">
                 <CardHeader className="p-8 pb-4">
-                    <CardTitle className="text-2xl font-black italic flex items-center gap-3">
+                    <CardTitle className="text-h3 font-semibold flex items-center gap-3">
                         <Database className="h-8 w-8 text-primary" />
                         Backup History
                     </CardTitle>
@@ -132,10 +132,10 @@ export default function BackupManagementPage() {
                     <Table>
                         <TableHeader className="bg-muted/30 h-16">
                             <TableRow className="border-border/50 hover:bg-transparent">
-                                <TableHead className="font-black italic px-8 uppercase tracking-tighter text-muted-foreground">Snapshot File</TableHead>
-                                <TableHead className="font-black italic px-8 h-16 uppercase tracking-tighter text-muted-foreground">File Size</TableHead>
-                                <TableHead className="font-black italic px-8 h-16 uppercase tracking-tighter text-muted-foreground">Created At</TableHead>
-                                <TableHead className="font-black italic px-8 h-16 text-right uppercase tracking-tighter text-muted-foreground">Actions</TableHead>
+                                <TableHead className="font-semibold px-8 uppercase tracking-tighter text-muted-foreground">Snapshot File</TableHead>
+                                <TableHead className="font-semibold px-8 h-16 uppercase tracking-tighter text-muted-foreground">File Size</TableHead>
+                                <TableHead className="font-semibold px-8 h-16 uppercase tracking-tighter text-muted-foreground">Created At</TableHead>
+                                <TableHead className="font-semibold px-8 h-16 text-right uppercase tracking-tighter text-muted-foreground">Actions</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -146,13 +146,13 @@ export default function BackupManagementPage() {
                                             <div className="h-10 w-10 rounded-xl bg-muted flex items-center justify-center text-muted-foreground">
                                                 <FileType className="h-5 w-5" />
                                             </div>
-                                            <span className="font-black italic text-lg leading-tight truncate max-w-[300px]">{b.filename}</span>
+                                            <span className="font-semibold text-lg leading-tight truncate max-w-[300px]">{b.filename}</span>
                                         </div>
                                     </TableCell>
                                     <TableCell className="px-8 font-bold text-muted-foreground">
                                         {formatSize(b.size)}
                                     </TableCell>
-                                    <TableCell className="px-8 font-medium italic">
+                                    <TableCell className="px-8 font-medium">
                                         {new Date(b.createdAt).toLocaleString()}
                                     </TableCell>
                                     <TableCell className="text-right px-8">
@@ -182,7 +182,7 @@ export default function BackupManagementPage() {
                                     <TableCell colSpan={4} className="h-60 text-center">
                                         <div className="flex flex-col items-center justify-center gap-4 opacity-30 grayscale saturate-0">
                                             <Database className="h-20 w-20 stroke-[1]" />
-                                            <p className="font-black italic text-xl">No database snapshots found</p>
+                                            <p className="font-semibold text-h3">No database snapshots found</p>
                                         </div>
                                     </TableCell>
                                 </TableRow>

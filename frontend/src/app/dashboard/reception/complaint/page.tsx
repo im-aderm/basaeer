@@ -171,7 +171,7 @@ export default function ComplaintPage() {
         <div className="max-w-7xl mx-auto space-y-8 pb-20 animate-in fade-in duration-500">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                 <div>
-                    <h1 className="text-4xl font-black tracking-tight italic uppercase">Complaints & Feedback</h1>
+                    <h1 className="text-h1 font-semibold tracking-tight uppercase">Complaints & Feedback</h1>
                     <p className="text-muted-foreground font-medium mt-1">Track and resolve issues raised by parents, students, or staff.</p>
                 </div>
                 <div className="flex gap-4 w-full md:w-auto">
@@ -186,20 +186,20 @@ export default function ComplaintPage() {
                     </div>
                     <Dialog open={isAddDialogOpen} onOpenChange={(open) => { setIsAddDialogOpen(open); if (!open) resetForm(); }}>
                         <DialogTrigger asChild>
-                            <Button className="h-12 px-6 rounded-2xl font-black gap-2 shadow-lg shadow-primary/20 transition-all hover:scale-105 active:scale-95">
+                            <Button className="h-12 px-6 rounded-2xl font-semibold gap-2 shadow-lg shadow-primary/20 transition-all hover:scale-105 active:scale-95">
                                 <Plus className="h-5 w-5" />
                                 Log Complaint
                             </Button>
                         </DialogTrigger>
                         <DialogContent className="rounded-[2.5rem] max-w-2xl max-h-[90vh] overflow-y-auto bg-card border-border shadow-2xl">
                             <DialogHeader>
-                                <DialogTitle className="text-2xl font-black italic uppercase">New Complaint</DialogTitle>
-                                <DialogDescription className="font-bold text-muted-foreground italic">Record details of the complaint for tracking and resolution.</DialogDescription>
+                                <DialogTitle className="text-h3 font-semibold uppercase">New Complaint</DialogTitle>
+                                <DialogDescription className="font-bold text-muted-foreground">Record details of the complaint for tracking and resolution.</DialogDescription>
                             </DialogHeader>
                             <form onSubmit={handleCreate} className="space-y-6 pt-4">
                                 <ComplaintForm form={form} setForm={setForm} complaintTypes={complaintTypes} />
                                 <DialogFooter>
-                                    <Button type="submit" className="h-12 w-full rounded-xl font-black uppercase italic tracking-wider">Log Complaint</Button>
+                                    <Button type="submit" className="h-12 w-full rounded-xl font-semibold uppercase tracking-wider">Log Complaint</Button>
                                 </DialogFooter>
                             </form>
                         </DialogContent>
@@ -209,7 +209,7 @@ export default function ComplaintPage() {
 
             <Card className="rounded-[3rem] border-border shadow-2xl overflow-hidden bg-card">
                 <CardHeader className="p-8 border-b border-border bg-muted/20">
-                    <CardTitle className="text-2xl font-black italic flex items-center gap-3">
+                    <CardTitle className="text-h3 font-semibold flex items-center gap-3">
                         <MessageSquare className="h-8 w-8 text-primary" />
                         Complaint Records
                     </CardTitle>
@@ -218,36 +218,36 @@ export default function ComplaintPage() {
                     <Table>
                         <TableHeader className="bg-muted/30 h-16">
                             <TableRow className="border-border/50 hover:bg-transparent">
-                                <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Complainant</TableHead>
-                                <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Type/Source</TableHead>
-                                <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Description</TableHead>
-                                <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Status</TableHead>
-                                <TableHead className="font-black px-8 h-16 text-right uppercase tracking-widest text-[10px] text-muted-foreground">Actions</TableHead>
+                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Complainant</TableHead>
+                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Type/Source</TableHead>
+                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Description</TableHead>
+                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Status</TableHead>
+                                <TableHead className="font-semibold px-8 h-16 text-right uppercase tracking-widest text-[10px] text-muted-foreground">Actions</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {filtered.map((c) => (
                                 <TableRow key={c.id} className="border-border/50 h-24 transition-all hover:bg-primary/5">
                                     <TableCell className="px-8 flex flex-col justify-center h-24">
-                                        <span className="font-black italic uppercase text-sm leading-tight">{c.name}</span>
+                                        <span className="font-semibold uppercase text-sm leading-tight">{c.name}</span>
                                         <span className="text-[10px] font-bold text-muted-foreground opacity-60 tracking-wider">#{c.phone}</span>
                                     </TableCell>
-                                    <TableCell className="px-8 font-bold text-[10px] uppercase italic">
+                                    <TableCell className="px-8 font-bold text-[10px] uppercase">
                                         <span className="block text-primary">{c.complaintType}</span>
                                         <span className="block text-muted-foreground opacity-50">{c.source}</span>
                                     </TableCell>
-                                    <TableCell className="px-8 max-w-xs font-medium text-xs text-muted-foreground italic truncate">
+                                    <TableCell className="px-8 max-w-xs font-medium text-xs text-muted-foreground truncate">
                                         "{c.description}"
                                     </TableCell>
                                     <TableCell className="px-8">
                                         <Select value={c.status} onValueChange={(v) => handleStatusUpdate(c.id, v)}>
-                                            <SelectTrigger className="h-9 w-36 rounded-full font-black italic uppercase text-[10px] border-none bg-muted/50">
+                                            <SelectTrigger className="h-9 w-36 rounded-full font-semibold uppercase text-[10px] border-none bg-muted/50">
                                                 <div className="flex items-center gap-2">
                                                     {getStatusIcon(c.status)}
                                                     <SelectValue />
                                                 </div>
                                             </SelectTrigger>
-                                            <SelectContent className="rounded-xl border-border bg-card font-black italic uppercase text-[10px]">
+                                            <SelectContent className="rounded-xl border-border bg-card font-semibold uppercase text-[10px]">
                                                 <SelectItem value="PENDING">PENDING</SelectItem>
                                                 <SelectItem value="IN_PROGRESS">IN PROGRESS</SelectItem>
                                                 <SelectItem value="RESOLVED">RESOLVED</SelectItem>
@@ -275,13 +275,13 @@ export default function ComplaintPage() {
             <Dialog open={!!editingComplaint} onOpenChange={(open) => { if (!open) setEditingComplaint(null); }}>
                 <DialogContent className="rounded-[2.5rem] max-w-2xl max-h-[90vh] overflow-y-auto bg-card border-border shadow-2xl">
                     <DialogHeader>
-                        <DialogTitle className="text-2xl font-black italic uppercase">Edit Complaint</DialogTitle>
-                        <DialogDescription className="font-black italic opacity-60">Update tracking info for {editingComplaint?.name}</DialogDescription>
+                        <DialogTitle className="text-h3 font-semibold uppercase">Edit Complaint</DialogTitle>
+                        <DialogDescription className="font-semibold opacity-60">Update tracking info for {editingComplaint?.name}</DialogDescription>
                     </DialogHeader>
                     <form onSubmit={handleUpdate} className="space-y-6 pt-4">
                         <ComplaintForm form={form} setForm={setForm} complaintTypes={complaintTypes} isEdit />
                         <DialogFooter>
-                            <Button type="submit" className="h-12 w-full rounded-xl font-black uppercase italic tracking-wider">Update Complaint</Button>
+                            <Button type="submit" className="h-12 w-full rounded-xl font-semibold uppercase tracking-wider">Update Complaint</Button>
                         </DialogFooter>
                     </form>
                 </DialogContent>
@@ -295,22 +295,22 @@ function ComplaintForm({ form, setForm, complaintTypes, isEdit = false }: { form
         <div className="space-y-6">
             <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                    <Label className="font-black italic text-[10px] uppercase opacity-50 ml-1">Complainant Name</Label>
+                    <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Complainant Name</Label>
                     <Input required className="h-12 rounded-xl bg-muted/50 border-none font-bold" placeholder="Full Name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
                 </div>
                 <div className="space-y-2">
-                    <Label className="font-black italic text-[10px] uppercase opacity-50 ml-1">Phone Number</Label>
+                    <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Phone Number</Label>
                     <Input required className="h-12 rounded-xl bg-muted/50 border-none font-bold" placeholder="+234..." value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
                 </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                    <Label className="font-black italic text-[10px] uppercase opacity-50 ml-1">Complaint Type</Label>
+                    <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Complaint Type</Label>
                     <Select value={form.complaintType} onValueChange={(v) => setForm({ ...form, complaintType: v })}>
                         <SelectTrigger className="h-12 rounded-xl bg-muted/50 border-none font-bold">
                             <SelectValue placeholder="Select type" />
                         </SelectTrigger>
-                        <SelectContent className="rounded-xl border-border bg-card font-bold text-xs uppercase italic">
+                        <SelectContent className="rounded-xl border-border bg-card font-bold text-xs uppercase">
                             {complaintTypes.map(t => (
                                 <SelectItem key={t} value={t}>{t}</SelectItem>
                             ))}
@@ -319,27 +319,27 @@ function ComplaintForm({ form, setForm, complaintTypes, isEdit = false }: { form
                     </Select>
                 </div>
                 <div className="space-y-2">
-                    <Label className="font-black italic text-[10px] uppercase opacity-50 ml-1">Source</Label>
+                    <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Source</Label>
                     <Input placeholder="e.g., In-person, Phone, Email" className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={form.source} onChange={(e) => setForm({ ...form, source: e.target.value })} />
                 </div>
             </div>
             <div className="space-y-2">
-                <Label className="font-black italic text-[10px] uppercase opacity-50 ml-1">Issue Description</Label>
+                <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Issue Description</Label>
                 <Textarea required className="rounded-xl bg-muted/50 border-none font-bold min-h-[100px]" placeholder="Explain the problem in detail..." rows={3} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
             </div>
             <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                    <Label className="font-black italic text-[10px] uppercase opacity-50 ml-1">Assigned To</Label>
+                    <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Assigned To</Label>
                     <Input className="h-12 rounded-xl bg-muted/50 border-none font-bold" placeholder="Staff name" value={form.assignedTo} onChange={(e) => setForm({ ...form, assignedTo: e.target.value })} />
                 </div>
                 <div className="space-y-2">
-                    <Label className="font-black italic text-[10px] uppercase opacity-50 ml-1">Date</Label>
+                    <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Date</Label>
                     <Input type="date" className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} />
                 </div>
             </div>
             {isEdit && (
                 <div className="space-y-2 border-t pt-4 border-border/50">
-                    <Label className="font-black italic text-[10px] uppercase text-primary ml-1">Resolution / Action Taken</Label>
+                    <Label className="font-semibold text-[10px] uppercase text-primary ml-1">Resolution / Action Taken</Label>
                     <Textarea className="rounded-xl bg-primary/5 border-none font-bold min-h-[80px]" placeholder="What was done to resolve this?" value={form.actionTaken} onChange={(e) => setForm({ ...form, actionTaken: e.target.value })} />
                 </div>
             )}

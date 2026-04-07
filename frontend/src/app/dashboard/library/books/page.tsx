@@ -121,26 +121,26 @@ export default function BookCatalogPage() {
             {/* Header section with specialized design */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-card border border-border p-10 rounded-[3rem] shadow-sm relative overflow-hidden">
                 <div className="relative z-10">
-                    <h1 className="text-4xl font-black tracking-tight flex items-center gap-3 italic">
+                    <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
                         <BookOpen className="text-blue-500 w-10 h-10" />
                         Book Catalog
                     </h1>
-                    <p className="text-muted-foreground mt-2 text-lg font-medium italic">Explore and manage your school's library collection.</p>
+                    <p className="text-muted-foreground mt-2 text-lg font-medium">Explore and manage your school's library collection.</p>
                 </div>
                 <div className="relative z-10">
                     <Dialog open={isAddModalOpen} onOpenChange={setIsAddModalOpen}>
                         <DialogTrigger asChild>
-                            <Button className="h-14 truncate rounded-2xl px-10 font-black shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all gap-3 bg-blue-600">
+                            <Button className="h-14 truncate rounded-2xl px-10 font-semibold shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all gap-3 bg-blue-600">
                                 <Plus size={20} /> Register New Book
                             </Button>
                         </DialogTrigger>
                         <DialogContent className="max-w-md rounded-[2.5rem] p-8">
                             <DialogHeader>
-                                <DialogTitle className="text-2xl font-black italic mb-6">Register New Book</DialogTitle>
+                                <DialogTitle className="text-h3 font-semibold mb-6">Register New Book</DialogTitle>
                             </DialogHeader>
                             <form onSubmit={handleAddBook} className="space-y-4">
                                 <div className="space-y-1.5">
-                                    <Label className="font-bold ml-1 italic">Book Title</Label>
+                                    <Label className="font-bold ml-1">Book Title</Label>
                                     <Input
                                         required
                                         className="rounded-xl h-12"
@@ -151,7 +151,7 @@ export default function BookCatalogPage() {
                                 </div>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="space-y-1.5">
-                                        <Label className="font-bold ml-1 italic">Author</Label>
+                                        <Label className="font-bold ml-1">Author</Label>
                                         <Input
                                             required
                                             className="rounded-xl h-12"
@@ -161,7 +161,7 @@ export default function BookCatalogPage() {
                                         />
                                     </div>
                                     <div className="space-y-1.5">
-                                        <Label className="font-bold ml-1 italic">Category</Label>
+                                        <Label className="font-bold ml-1">Category</Label>
                                         <Input
                                             required
                                             className="rounded-xl h-12"
@@ -173,7 +173,7 @@ export default function BookCatalogPage() {
                                 </div>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="space-y-1.5">
-                                        <Label className="font-bold ml-1 italic">ISBN</Label>
+                                        <Label className="font-bold ml-1">ISBN</Label>
                                         <Input
                                             className="rounded-xl h-12"
                                             placeholder="Optional"
@@ -182,7 +182,7 @@ export default function BookCatalogPage() {
                                         />
                                     </div>
                                     <div className="space-y-1.5">
-                                        <Label className="font-bold ml-1 italic">Quantity</Label>
+                                        <Label className="font-bold ml-1">Quantity</Label>
                                         <Input
                                             type="number"
                                             required
@@ -194,7 +194,7 @@ export default function BookCatalogPage() {
                                     </div>
                                 </div>
                                 <div className="space-y-1.5">
-                                    <Label className="font-bold ml-1 italic">Storage Location</Label>
+                                    <Label className="font-bold ml-1">Storage Location</Label>
                                     <Input
                                         className="rounded-xl h-12"
                                         placeholder="Shelf A-1"
@@ -202,7 +202,7 @@ export default function BookCatalogPage() {
                                         onChange={e => setNewBook({ ...newBook, location: e.target.value })}
                                     />
                                 </div>
-                                <Button type="submit" className="w-full h-14 rounded-xl font-black italic text-lg shadow-lg shadow-blue-500/20 bg-blue-600 mt-4">
+                                <Button type="submit" className="w-full h-14 rounded-xl font-semibold text-lg shadow-lg shadow-blue-500/20 bg-blue-600 mt-4">
                                     Complete Registration
                                 </Button>
                             </form>
@@ -229,7 +229,7 @@ export default function BookCatalogPage() {
                 </div>
                 <div className="relative">
                     <Filter className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={18} />
-                    <select className="w-full pl-12 pr-4 py-3 bg-card border border-border/50 rounded-xl focus:border-blue-500 outline-none appearance-none font-bold italic cursor-pointer">
+                    <select className="w-full pl-12 pr-4 py-3 bg-card border border-border/50 rounded-xl focus:border-blue-500 outline-none appearance-none font-bold cursor-pointer">
                         <option value="">All Categories</option>
                         <option value="science">Science</option>
                         <option value="mathematics">Mathematics</option>
@@ -248,39 +248,39 @@ export default function BookCatalogPage() {
                                     <Book size={32} />
                                 </div>
                                 <div className="flex flex-col items-end gap-2">
-                                    <Badge className={`${book.available > 0 ? 'bg-green-500/10 text-green-500' : 'bg-red-500/10 text-red-500'} border-none font-black px-3 py-1 rounded-lg`}>
+                                    <Badge className={`${book.available > 0 ? 'bg-green-500/10 text-green-500' : 'bg-red-500/10 text-red-500'} border-none font-semibold px-3 py-1 rounded-lg`}>
                                         {book.available > 0 ? 'IN STOCK' : 'OUT OF STOCK'}
                                     </Badge>
-                                    <p className="text-[10px] font-black uppercase text-muted-foreground/50 tracking-widest">{book.category}</p>
+                                    <p className="text-[10px] font-semibold uppercase text-muted-foreground/50 tracking-widest">{book.category}</p>
                                 </div>
                             </div>
 
                             <div className="space-y-1">
-                                <h3 className="text-xl font-black italic truncate leading-tight group-hover:text-blue-600 transition-colors" title={book.title}>
+                                <h3 className="text-h3 font-semibold truncate leading-tight group-hover:text-blue-600 transition-colors" title={book.title}>
                                     {book.title}
                                 </h3>
-                                <p className="text-muted-foreground font-bold italic">by {book.author}</p>
+                                <p className="text-muted-foreground font-bold">by {book.author}</p>
                             </div>
 
                             <div className="grid grid-cols-2 gap-3">
                                 <div className="p-3 rounded-xl bg-muted/50 space-y-1">
-                                    <div className="flex items-center gap-1.5 text-[10px] uppercase font-black tracking-widest text-muted-foreground">
+                                    <div className="flex items-center gap-1.5 text-label text-muted-foreground">
                                         <Layers size={12} /> Available
                                     </div>
-                                    <p className="font-black text-lg">{book.available} / {book.quantity}</p>
+                                    <p className="font-semibold text-lg">{book.available} / {book.quantity}</p>
                                 </div>
                                 <div className="p-3 rounded-xl bg-muted/50 space-y-1">
-                                    <div className="flex items-center gap-1.5 text-[10px] uppercase font-black tracking-widest text-muted-foreground">
+                                    <div className="flex items-center gap-1.5 text-label text-muted-foreground">
                                         <MapPin size={12} /> Location
                                     </div>
-                                    <p className="font-black text-sm italic truncate">{book.location || 'N/A'}</p>
+                                    <p className="font-semibold text-sm truncate">{book.location || 'N/A'}</p>
                                 </div>
                             </div>
 
                             <div className="flex items-center gap-2 pt-2 border-t border-border/50">
                                 <Button
                                     variant="outline"
-                                    className="flex-1 rounded-xl font-black italic hover:bg-blue-500/10 hover:text-blue-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                    className="flex-1 rounded-xl font-semibold hover:bg-blue-500/10 hover:text-blue-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                                     disabled={book.available <= 0}
                                     onClick={() => {
                                         setSelectedBook(book);
@@ -328,15 +328,15 @@ export default function BookCatalogPage() {
             <Dialog open={isBorrowModalOpen} onOpenChange={setIsBorrowModalOpen}>
                 <DialogContent className="max-w-md rounded-[2.5rem] p-8">
                     <DialogHeader>
-                        <DialogTitle className="text-2xl font-black italic mb-2">Quick Borrow</DialogTitle>
-                        <p className="text-muted-foreground font-bold italic text-sm mb-6">Book: {selectedBook?.title}</p>
+                        <DialogTitle className="text-h3 font-semibold mb-2">Quick Borrow</DialogTitle>
+                        <p className="text-muted-foreground font-bold text-sm mb-6">Book: {selectedBook?.title}</p>
                     </DialogHeader>
                     <form onSubmit={handleQuickBorrow} className="space-y-4">
                         <div className="space-y-1.5">
-                            <Label className="font-bold ml-1 italic">Select Student</Label>
+                            <Label className="font-bold ml-1">Select Student</Label>
                             <select
                                 required
-                                className="w-full rounded-xl h-12 px-4 border bg-card font-bold italic"
+                                className="w-full rounded-xl h-12 px-4 border bg-card font-bold"
                                 value={borrowData.studentId}
                                 onChange={e => setBorrowData({ ...borrowData, studentId: e.target.value })}
                             >
@@ -347,7 +347,7 @@ export default function BookCatalogPage() {
                             </select>
                         </div>
                         <div className="space-y-1.5">
-                            <Label className="font-bold ml-1 italic">Return Due Date</Label>
+                            <Label className="font-bold ml-1">Return Due Date</Label>
                             <Input
                                 type="date"
                                 required
@@ -356,7 +356,7 @@ export default function BookCatalogPage() {
                                 onChange={e => setBorrowData({ ...borrowData, dueDate: e.target.value })}
                             />
                         </div>
-                        <Button type="submit" className="w-full h-14 rounded-xl font-black italic text-lg shadow-lg shadow-blue-500/20 bg-blue-600 mt-4">
+                        <Button type="submit" className="w-full h-14 rounded-xl font-semibold text-lg shadow-lg shadow-blue-500/20 bg-blue-600 mt-4">
                             Confirm Borrow
                         </Button>
                     </form>
@@ -368,8 +368,8 @@ export default function BookCatalogPage() {
                     <div className="w-20 h-20 bg-muted/50 rounded-full flex items-center justify-center mx-auto mb-6">
                         <Search size={32} className="text-muted-foreground/30" />
                     </div>
-                    <h2 className="text-2xl font-black italic">No books match your search</h2>
-                    <p className="text-muted-foreground mt-2 max-w-xs mx-auto font-medium italic leading-relaxed">Try adjusting your filters or use different search terms to find what you need.</p>
+                    <h2 className="text-h3 font-semibold">No books match your search</h2>
+                    <p className="text-muted-foreground mt-2 max-w-xs mx-auto font-medium leading-relaxed">Try adjusting your filters or use different search terms to find what you need.</p>
                 </div>
             )}
         </div>

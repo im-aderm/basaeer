@@ -96,7 +96,7 @@ export default function StaffAttendancePage() {
                     <ArrowLeft size={22} />
                 </Button>
                 <div>
-                    <h1 className="text-3xl font-black italic tracking-tight">Staff Attendance</h1>
+                    <h1 className="text-h1 font-semibold tracking-tight">Staff Attendance</h1>
                     <p className="text-muted-foreground">Track daily attendance for employees.</p>
                 </div>
             </div>
@@ -121,7 +121,7 @@ export default function StaffAttendancePage() {
                             <Button
                                 onClick={handleSubmit}
                                 disabled={loading || staff.length === 0}
-                                className="h-12 px-8 rounded-xl font-black bg-purple-600 hover:bg-purple-700 text-white shadow-lg shadow-purple-500/20"
+                                className="h-12 px-8 rounded-xl font-semibold bg-purple-600 hover:bg-purple-700 text-white shadow-lg shadow-purple-500/20"
                             >
                                 <Save className="w-5 h-5 mr-2" />
                                 Save Records

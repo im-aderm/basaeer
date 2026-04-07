@@ -92,7 +92,7 @@ export default function QRAttendanceScanner() {
                     >
                         <ArrowLeft className="mr-2 h-4 w-4" /> Back to Dashboard
                     </Button>
-                    <h1 className="text-4xl font-black italic tracking-tight">QR Attendance</h1>
+                    <h1 className="text-h1 font-semibold tracking-tight">QR Attendance</h1>
                     <p className="text-muted-foreground font-medium text-lg">Scan your ID card to mark attendance instantly.</p>
                 </div>
             </div>
@@ -100,7 +100,7 @@ export default function QRAttendanceScanner() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
                 <Card className="rounded-[3rem] border-border/50 shadow-2xl bg-background overflow-hidden relative flex flex-col min-h-[500px]">
                     <CardHeader className="p-8 border-b border-border/50">
-                        <CardTitle className="text-2xl font-black italic uppercase flex items-center gap-3">
+                        <CardTitle className="text-h3 font-semibold uppercase flex items-center gap-3">
                             <QrCode className="h-8 w-8 text-primary" />
                             Scanner
                         </CardTitle>
@@ -127,7 +127,7 @@ export default function QRAttendanceScanner() {
                                 </div>
                                 <Button
                                     variant="outline"
-                                    className="w-full h-14 rounded-2xl font-black uppercase italic tracking-wider gap-2 border-primary/20"
+                                    className="w-full h-14 rounded-2xl font-semibold uppercase tracking-wider gap-2 border-primary/20"
                                     onClick={() => setScanning(false)}
                                 >
                                     <RefreshCcw className="h-5 w-5" /> Stop Scanner
@@ -139,11 +139,11 @@ export default function QRAttendanceScanner() {
                                     <Camera className="h-20 w-20 text-primary/10 group-hover:scale-110 group-hover:text-primary/30 transition-all" />
                                 </div>
                                 <div>
-                                    <h3 className="text-xl font-black italic uppercase">Ready to Scan</h3>
+                                    <h3 className="text-h3 font-semibold uppercase">Ready to Scan</h3>
                                     <p className="text-muted-foreground font-medium max-w-xs mx-auto mt-2">Tap below to activate the camera.</p>
                                 </div>
                                 <Button
-                                    className="h-16 px-12 rounded-[2rem] font-black uppercase italic tracking-wider gap-3 shadow-xl shadow-primary/20"
+                                    className="h-16 px-12 rounded-[2rem] font-semibold uppercase tracking-wider gap-3 shadow-xl shadow-primary/20"
                                     onClick={() => setScanning(true)}
                                 >
                                     <ShieldCheck className="h-6 w-6" /> Start Scanning
@@ -156,16 +156,16 @@ export default function QRAttendanceScanner() {
                 <div className="space-y-6">
                     <Card className="rounded-[2.5rem] border-border/50 shadow-xl overflow-hidden">
                         <CardHeader className="p-8 pb-4">
-                            <CardTitle className="text-xl font-black italic uppercase text-muted-foreground">Last Scanned</CardTitle>
+                            <CardTitle className="text-h3 font-semibold uppercase text-muted-foreground">Last Scanned</CardTitle>
                         </CardHeader>
                         <CardContent className="p-8 pt-2">
                             {lastScan ? (
                                 <div className="space-y-4 animate-in slide-in-from-right duration-500">
-                                    <div className="h-24 w-24 rounded-3xl bg-primary/10 flex items-center justify-center text-4xl font-black italic text-primary mx-auto mb-4">
+                                    <div className="h-24 w-24 rounded-3xl bg-primary/10 flex items-center justify-center text-h1 font-semibold text-primary mx-auto mb-4">
                                         {lastScan.user?.firstName[0]}
                                     </div>
                                     <div className="text-center space-y-1">
-                                        <div className="text-2xl font-black italic uppercase tracking-tight">
+                                        <div className="text-h3 font-semibold uppercase tracking-tight">
                                             {lastScan.user?.firstName} {lastScan.user?.lastName}
                                         </div>
                                         <Badge variant="outline" className="font-bold border-primary/20 text-primary bg-primary/5">
@@ -174,9 +174,9 @@ export default function QRAttendanceScanner() {
                                     </div>
                                     <div className="bg-muted p-4 rounded-2xl flex justify-between items-center text-sm font-medium">
                                         <span className="text-muted-foreground">Time</span>
-                                        <span className="font-black italic">{new Date(lastScan.scanTime).toLocaleTimeString()}</span>
+                                        <span className="font-semibold">{new Date(lastScan.scanTime).toLocaleTimeString()}</span>
                                     </div>
-                                    <div className="bg-emerald-500/10 text-emerald-600 p-4 rounded-2xl flex justify-between items-center text-sm font-black italic">
+                                    <div className="bg-emerald-500/10 text-emerald-600 p-4 rounded-2xl flex justify-between items-center text-sm font-semibold">
                                         <span>Status</span>
                                         <span className="flex items-center gap-2"><CheckCircle className="w-4 h-4" /> MARKED</span>
                                     </div>

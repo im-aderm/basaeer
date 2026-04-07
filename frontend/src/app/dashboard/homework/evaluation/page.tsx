@@ -140,7 +140,7 @@ export default function HomeworkEvaluationReport() {
             <div className="mb-8">
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                        <h1 className="text-h1 font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
                             Homework Evaluation Report
                         </h1>
                         <p className="text-slate-600 dark:text-slate-400 mt-2">
@@ -161,7 +161,7 @@ export default function HomeworkEvaluationReport() {
                         <FileText className="w-8 h-8 text-indigo-600" />
                     </div>
                     <p className="text-sm text-slate-600 dark:text-slate-400">Total Assignments</p>
-                    <p className="text-3xl font-bold text-slate-900 dark:text-slate-100">{stats.totalAssignments}</p>
+                    <p className="text-h1 font-bold text-slate-900 dark:text-slate-100">{stats.totalAssignments}</p>
                 </div>
 
                 <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50">
@@ -169,7 +169,7 @@ export default function HomeworkEvaluationReport() {
                         <Users className="w-8 h-8 text-emerald-600" />
                     </div>
                     <p className="text-sm text-slate-600 dark:text-slate-400">Total Submissions</p>
-                    <p className="text-3xl font-bold text-slate-900 dark:text-slate-100">{stats.totalSubmissions}</p>
+                    <p className="text-h1 font-bold text-slate-900 dark:text-slate-100">{stats.totalSubmissions}</p>
                 </div>
 
                 <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50">
@@ -177,7 +177,7 @@ export default function HomeworkEvaluationReport() {
                         <BarChart3 className="w-8 h-8 text-purple-600" />
                     </div>
                     <p className="text-sm text-slate-600 dark:text-slate-400">Graded</p>
-                    <p className="text-3xl font-bold text-slate-900 dark:text-slate-100">{stats.gradedSubmissions}</p>
+                    <p className="text-h1 font-bold text-slate-900 dark:text-slate-100">{stats.gradedSubmissions}</p>
                 </div>
 
                 <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50">
@@ -185,7 +185,7 @@ export default function HomeworkEvaluationReport() {
                         <TrendingUp className="w-8 h-8 text-yellow-600" />
                     </div>
                     <p className="text-sm text-slate-600 dark:text-slate-400">Avg Grade</p>
-                    <p className="text-3xl font-bold text-slate-900 dark:text-slate-100">{stats.avgGrade}%</p>
+                    <p className="text-h1 font-bold text-slate-900 dark:text-slate-100">{stats.avgGrade}%</p>
                 </div>
 
                 <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50">
@@ -193,7 +193,7 @@ export default function HomeworkEvaluationReport() {
                         <FileText className="w-8 h-8 text-teal-600" />
                     </div>
                     <p className="text-sm text-slate-600 dark:text-slate-400">Submission Rate</p>
-                    <p className="text-3xl font-bold text-slate-900 dark:text-slate-100">{stats.submissionRate}%</p>
+                    <p className="text-h1 font-bold text-slate-900 dark:text-slate-100">{stats.submissionRate}%</p>
                 </div>
             </div>
 

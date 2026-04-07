@@ -79,25 +79,25 @@ export default function InventoryStorePage() {
         <div className="max-w-7xl mx-auto space-y-8 pb-20">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-4xl font-black tracking-tight italic uppercase">Store Locations</h1>
+                    <h1 className="text-h1 font-semibold tracking-tight uppercase">Store Locations</h1>
                     <p className="text-muted-foreground font-medium mt-1">Manage physical warehouses and storage rooms.</p>
                 </div>
                 <div className="flex gap-4">
                     <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
                         <DialogTrigger asChild>
-                            <Button className="h-12 px-6 rounded-2xl font-black gap-2 shadow-lg shadow-primary/20">
+                            <Button className="h-12 px-6 rounded-2xl font-semibold gap-2 shadow-lg shadow-primary/20">
                                 <Plus className="h-5 w-5" />
                                 Add Store
                             </Button>
                         </DialogTrigger>
                         <DialogContent className="rounded-[2.5rem]">
                             <DialogHeader>
-                                <DialogTitle className="text-2xl font-black italic uppercase">New Store</DialogTitle>
+                                <DialogTitle className="text-h3 font-semibold uppercase">New Store</DialogTitle>
                                 <DialogDescription className="font-bold">Define a new physical storage area.</DialogDescription>
                             </DialogHeader>
                             <form onSubmit={handleCreate} className="space-y-6 pt-4">
                                 <div className="space-y-2">
-                                    <Label className="font-black italic text-xs uppercase opacity-50 ml-1">Store Name</Label>
+                                    <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Store Name</Label>
                                     <Input
                                         required
                                         className="h-12 rounded-xl bg-muted/50 border-none font-bold"
@@ -107,7 +107,7 @@ export default function InventoryStorePage() {
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label className="font-black italic text-xs uppercase opacity-50 ml-1">Store Code</Label>
+                                    <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Store Code</Label>
                                     <Input
                                         className="h-12 rounded-xl bg-muted/50 border-none font-bold"
                                         placeholder="WH-01"
@@ -116,7 +116,7 @@ export default function InventoryStorePage() {
                                     />
                                 </div>
                                 <DialogFooter>
-                                    <Button type="submit" className="h-12 w-full rounded-xl font-black uppercase italic tracking-wider">Add Store</Button>
+                                    <Button type="submit" className="h-12 w-full rounded-xl font-semibold uppercase tracking-wider">Add Store</Button>
                                 </DialogFooter>
                             </form>
                         </DialogContent>
@@ -126,7 +126,7 @@ export default function InventoryStorePage() {
 
             <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background">
                 <CardHeader className="p-8 border-b border-border/50 flex flex-row items-center justify-between">
-                    <CardTitle className="text-2xl font-black italic flex items-center gap-3">
+                    <CardTitle className="text-h3 font-semibold flex items-center gap-3">
                         <Store className="h-8 w-8 text-primary" />
                         Active Warehouses
                     </CardTitle>
@@ -135,21 +135,21 @@ export default function InventoryStorePage() {
                     <Table>
                         <TableHeader className="bg-muted/30 h-16">
                             <TableRow className="border-border/50 hover:bg-transparent">
-                                <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Store Location</TableHead>
-                                <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Code</TableHead>
-                                <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-right">Actions</TableHead>
+                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Store Location</TableHead>
+                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Code</TableHead>
+                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-right">Actions</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {stores.map((s) => (
                                 <TableRow key={s.id} className="border-border/50 h-20 transition-all hover:bg-muted/20">
-                                    <TableCell className="px-8 font-black italic uppercase leading-tight">
+                                    <TableCell className="px-8 font-semibold uppercase leading-tight">
                                         <div className="flex items-center gap-2">
                                             <MapPin className="h-4 w-4 text-primary/50" />
                                             {s.name}
                                         </div>
                                     </TableCell>
-                                    <TableCell className="px-8 font-black text-xs opacity-50">
+                                    <TableCell className="px-8 font-semibold text-xs opacity-50">
                                         {s.code || 'N/A'}
                                     </TableCell>
                                     <TableCell className="text-right px-8">
@@ -157,7 +157,7 @@ export default function InventoryStorePage() {
                                             <Button
                                                 variant="secondary"
                                                 size="sm"
-                                                className="h-9 px-4 rounded-xl font-black uppercase text-[10px] gap-1.5"
+                                                className="h-9 px-4 rounded-xl font-semibold uppercase text-[10px] gap-1.5"
                                                 onClick={() => { setSelectedStore(s); setEditData({ name: s.name, code: s.code || '' }); setIsEditDialogOpen(true); }}
                                             >
                                                 Pencil Edit
@@ -165,7 +165,7 @@ export default function InventoryStorePage() {
                                             <Button
                                                 variant="secondary"
                                                 size="sm"
-                                                className="h-9 px-4 rounded-xl font-black uppercase text-[10px] gap-1.5 bg-destructive/10 text-destructive hover:bg-destructive/20"
+                                                className="h-9 px-4 rounded-xl font-semibold uppercase text-[10px] gap-1.5 bg-destructive/10 text-destructive hover:bg-destructive/20"
                                                 onClick={() => handleDelete(s.id)}
                                             >
                                                 Trash2 Delete
@@ -182,11 +182,11 @@ export default function InventoryStorePage() {
             <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
                 <DialogContent className="rounded-[2.5rem]">
                     <DialogHeader>
-                        <DialogTitle className="text-2xl font-black italic uppercase">Edit Store</DialogTitle>
+                        <DialogTitle className="text-h3 font-semibold uppercase">Edit Store</DialogTitle>
                     </DialogHeader>
                     <form onSubmit={handleUpdate} className="space-y-6 pt-4">
                         <div className="space-y-2">
-                            <Label className="font-black italic text-xs uppercase opacity-50 ml-1">Store Name</Label>
+                            <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Store Name</Label>
                             <Input
                                 required
                                 className="h-12 rounded-xl bg-muted/50 border-none font-bold"
@@ -195,7 +195,7 @@ export default function InventoryStorePage() {
                             />
                         </div>
                         <div className="space-y-2">
-                            <Label className="font-black italic text-xs uppercase opacity-50 ml-1">Store Code</Label>
+                            <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Store Code</Label>
                             <Input
                                 className="h-12 rounded-xl bg-muted/50 border-none font-bold"
                                 value={editData.code}
@@ -203,7 +203,7 @@ export default function InventoryStorePage() {
                             />
                         </div>
                         <DialogFooter>
-                            <Button type="submit" className="h-12 w-full rounded-xl font-black uppercase italic tracking-wider">Update Store</Button>
+                            <Button type="submit" className="h-12 w-full rounded-xl font-semibold uppercase tracking-wider">Update Store</Button>
                         </DialogFooter>
                     </form>
                 </DialogContent>

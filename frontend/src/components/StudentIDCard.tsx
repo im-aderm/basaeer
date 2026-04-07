@@ -22,8 +22,8 @@ export const StudentIDCard: React.FC<StudentIDCardProps> = ({ student }) => {
 
                 {/* School Logo/Name */}
                 <div className="relative z-10 p-8 text-center">
-                    <h2 className="text-white font-black text-2xl italic tracking-tighter">BASAEER</h2>
-                    <p className="text-white/70 text-[10px] uppercase font-black tracking-[0.3em] mt-1">Modern School System</p>
+                    <h2 className="text-white font-semibold text-2xl tracking-tighter">BASAEER</h2>
+                    <p className="text-white/70 text-[10px] uppercase font-semibold tracking-[0.3em] mt-1">Modern School System</p>
                 </div>
 
                 {/* Profile Section */}
@@ -34,8 +34,8 @@ export const StudentIDCard: React.FC<StudentIDCardProps> = ({ student }) => {
                         </div>
                     </div>
                     <div className="text-center mt-6 px-6">
-                        <h3 className="text-3xl font-black italic tracking-tight text-foreground">{student.firstName} {student.lastName}</h3>
-                        <p className="text-primary font-black uppercase tracking-widest text-xs mt-2 border-b-2 border-primary/20 pb-2 inline-block">Student</p>
+                        <h3 className="text-3xl font-semibold tracking-tight text-foreground">{student.firstName} {student.lastName}</h3>
+                        <p className="text-primary font-semibold uppercase tracking-widest text-xs mt-2 border-b-2 border-primary/20 pb-2 inline-block">Student</p>
                     </div>
                 </div>
 
@@ -46,8 +46,8 @@ export const StudentIDCard: React.FC<StudentIDCardProps> = ({ student }) => {
                             <GraduationCap size={18} />
                         </div>
                         <div>
-                            <p className="text-[10px] uppercase font-black text-muted-foreground tracking-widest">Grade / Level</p>
-                            <p className="font-bold text-foreground italic">{student.class?.name || 'Class A'} • {student.section?.name || 'Alpha'}</p>
+                            <p className="text-[10px] uppercase font-semibold text-muted-foreground tracking-widest">Grade / Level</p>
+                            <p className="font-bold text-foreground">{student.class?.name || 'Class A'} • {student.section?.name || 'Alpha'}</p>
                         </div>
                     </div>
                     <div className="flex items-center gap-4">
@@ -55,8 +55,8 @@ export const StudentIDCard: React.FC<StudentIDCardProps> = ({ student }) => {
                             <User size={18} />
                         </div>
                         <div>
-                            <p className="text-[10px] uppercase font-black text-muted-foreground tracking-widest">Student ID</p>
-                            <p className="font-bold text-foreground italic">#{student.id.split('-')[0].toUpperCase()}</p>
+                            <p className="text-[10px] uppercase font-semibold text-muted-foreground tracking-widest">Student ID</p>
+                            <p className="font-bold text-foreground">#{student.id.split('-')[0].toUpperCase()}</p>
                         </div>
                     </div>
                 </div>
@@ -65,7 +65,7 @@ export const StudentIDCard: React.FC<StudentIDCardProps> = ({ student }) => {
                 <div className="h-4 bg-primary" />
                 <div className="p-4 bg-muted/10 text-center">
                     <div className="w-24 h-6 border-2 border-dashed border-muted-foreground/30 mx-auto rounded-lg flex items-center justify-center">
-                        <span className="text-[8px] font-black text-muted-foreground/50 italic uppercase tracking-tighter">QR CODE AREA</span>
+                        <span className="text-[8px] font-semibold text-muted-foreground/50 uppercase tracking-tighter">QR CODE AREA</span>
                     </div>
                 </div>
             </div>
@@ -74,7 +74,7 @@ export const StudentIDCard: React.FC<StudentIDCardProps> = ({ student }) => {
             <div className="relative w-[350px] h-[550px] bg-card rounded-[2.5rem] shadow-2xl overflow-hidden border-border/50 border flex flex-col group transition-all hover:scale-[1.02]">
                 <div className="p-8 space-y-8">
                     <div>
-                        <h4 className="text-[10px] font-black uppercase tracking-widest text-primary mb-4 border-b border-border pb-2">Institutional Info</h4>
+                        <h4 className="text-[10px] font-semibold uppercase tracking-widest text-primary mb-4 border-b border-border pb-2">Institutional Info</h4>
                         <div className="space-y-4">
                             <div className="flex items-start gap-3">
                                 <MapPin size={16} className="text-muted-foreground mt-0.5" />
@@ -92,8 +92,8 @@ export const StudentIDCard: React.FC<StudentIDCardProps> = ({ student }) => {
                     </div>
 
                     <div>
-                        <h4 className="text-[10px] font-black uppercase tracking-widest text-primary mb-4 border-b border-border pb-2">Security Instructions</h4>
-                        <ul className="space-y-2 list-disc list-inside text-[10px] font-bold text-muted-foreground italic leading-relaxed">
+                        <h4 className="text-[10px] font-semibold uppercase tracking-widest text-primary mb-4 border-b border-border pb-2">Security Instructions</h4>
+                        <ul className="space-y-2 list-disc list-inside text-[10px] font-bold text-muted-foreground leading-relaxed">
                             <li>This card remains the property of Basaeer School System.</li>
                             <li>Loss of card must be reported immediately to the admin office.</li>
                             <li>This card is non-transferable and must be worn at all times.</li>
@@ -105,17 +105,17 @@ export const StudentIDCard: React.FC<StudentIDCardProps> = ({ student }) => {
                         <div className="w-16 h-16 bg-muted/30 rounded-2xl mx-auto flex items-center justify-center mb-2">
                             <div className="w-10 h-10 border border-muted-foreground/20 rotate-45" />
                         </div>
-                        <p className="text-[8px] font-black uppercase tracking-widest text-muted-foreground">Authorized Signature</p>
+                        <p className="text-[8px] font-semibold uppercase tracking-widest text-muted-foreground">Authorized Signature</p>
                     </div>
                 </div>
 
                 <div className="mt-auto p-8 bg-muted/30 flex justify-between items-center">
                     <div className="text-left">
-                        <p className="text-[8px] font-black text-muted-foreground uppercase opacity-50">Valid Until</p>
-                        <p className="text-xs font-black text-primary italic">AUG 2026</p>
+                        <p className="text-[8px] font-semibold text-muted-foreground uppercase opacity-50">Valid Until</p>
+                        <p className="text-xs font-semibold text-primary">AUG 2026</p>
                     </div>
                     <div className="text-right">
-                        <h2 className="text-muted-foreground font-black text-sm italic tracking-tighter opacity-30">BASAEER</h2>
+                        <h2 className="text-muted-foreground font-semibold text-sm tracking-tighter opacity-30">BASAEER</h2>
                     </div>
                 </div>
             </div>

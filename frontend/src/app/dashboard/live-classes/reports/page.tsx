@@ -61,7 +61,7 @@ export default function LiveClassReportsPage() {
             <div className="lg:col-span-1 space-y-4">
                 <Card className="rounded-[2.5rem] border-border/50 shadow-xl overflow-hidden bg-background">
                     <CardHeader className="pb-4">
-                        <CardTitle className="text-xl font-black italic">Ended Sessions</CardTitle>
+                        <CardTitle className="text-h3 font-semibold">Ended Sessions</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-3 p-2 h-[600px] overflow-y-auto sidebar-scroll">
                         {sessions.map(session => (
@@ -73,7 +73,7 @@ export default function LiveClassReportsPage() {
                                     : 'hover:bg-muted border-transparent'
                                     }`}
                             >
-                                <div className="font-black italic text-sm leading-tight uppercase mb-2 line-clamp-2">
+                                <div className="font-semibold text-sm leading-tight uppercase mb-2 line-clamp-2">
                                     {session.title}
                                 </div>
                                 <div className="flex flex-col gap-1 text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
@@ -93,10 +93,10 @@ export default function LiveClassReportsPage() {
                     <>
                         <div className="flex justify-between items-end">
                             <div>
-                                <h1 className="text-4xl font-black tracking-tight italic uppercase">{activeSession.title}</h1>
+                                <h1 className="text-h1 font-semibold tracking-tight uppercase">{activeSession.title}</h1>
                                 <p className="text-muted-foreground font-medium mt-1">Detailed participation and duration analysis.</p>
                             </div>
-                            <Button className="h-12 px-6 rounded-2xl font-black gap-2 shadow-lg shadow-primary/20">
+                            <Button className="h-12 px-6 rounded-2xl font-semibold gap-2 shadow-lg shadow-primary/20">
                                 <Download className="h-5 w-5" />
                                 Export Analytics
                             </Button>
@@ -104,23 +104,23 @@ export default function LiveClassReportsPage() {
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <Card className="rounded-[2rem] border-border/50 shadow-xl bg-muted/20">
-                                <CardHeader className="pb-2"><CardTitle className="text-xs font-black uppercase tracking-widest italic opacity-50">Attendance Rate</CardTitle></CardHeader>
+                                <CardHeader className="pb-2"><CardTitle className="text-xs font-semibold uppercase tracking-widest opacity-50">Attendance Rate</CardTitle></CardHeader>
                                 <CardContent className="flex items-center gap-4">
-                                    <span className="text-4xl font-black italic">{reports.length > 0 ? '84%' : '0%'}</span>
+                                    <span className="text-h1 font-semibold">{reports.length > 0 ? '84%' : '0%'}</span>
                                     <UserCheck className="h-8 w-8 text-emerald-500/40" />
                                 </CardContent>
                             </Card>
                             <Card className="rounded-[2rem] border-border/50 shadow-xl bg-muted/20">
-                                <CardHeader className="pb-2"><CardTitle className="text-xs font-black uppercase tracking-widest italic opacity-50">Average Duration</CardTitle></CardHeader>
+                                <CardHeader className="pb-2"><CardTitle className="text-xs font-semibold uppercase tracking-widest opacity-50">Average Duration</CardTitle></CardHeader>
                                 <CardContent className="flex items-center gap-4">
-                                    <span className="text-4xl font-black italic">42m</span>
+                                    <span className="text-h1 font-semibold">42m</span>
                                     <Timer className="h-8 w-8 text-blue-500/40" />
                                 </CardContent>
                             </Card>
                             <Card className="rounded-[2rem] border-border/50 shadow-xl bg-muted/20">
-                                <CardHeader className="pb-2"><CardTitle className="text-xs font-black uppercase tracking-widest italic opacity-50">Total Participants</CardTitle></CardHeader>
+                                <CardHeader className="pb-2"><CardTitle className="text-xs font-semibold uppercase tracking-widest opacity-50">Total Participants</CardTitle></CardHeader>
                                 <CardContent className="flex items-center gap-4">
-                                    <span className="text-4xl font-black italic">{reports.length}</span>
+                                    <span className="text-h1 font-semibold">{reports.length}</span>
                                     <Users className="h-8 w-8 text-primary/40" />
                                 </CardContent>
                             </Card>
@@ -128,7 +128,7 @@ export default function LiveClassReportsPage() {
 
                         <Card className="rounded-[2.5rem] border-border/50 shadow-2xl overflow-hidden bg-background">
                             <CardHeader className="p-8 border-b border-border/50 flex flex-row items-center justify-between">
-                                <CardTitle className="text-xl font-black italic flex items-center gap-3">
+                                <CardTitle className="text-h3 font-semibold flex items-center gap-3">
                                     <BarChart3 className="h-6 w-6 text-primary" />
                                     Participant Logs
                                 </CardTitle>
@@ -146,17 +146,17 @@ export default function LiveClassReportsPage() {
                                 <Table>
                                     <TableHeader className="bg-muted/30 h-14">
                                         <TableRow className="border-border/50 hover:bg-transparent">
-                                            <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Student Name</TableHead>
-                                            <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Joined At</TableHead>
-                                            <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Left At</TableHead>
-                                            <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-center">Duration</TableHead>
-                                            <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-right">Status</TableHead>
+                                            <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Student Name</TableHead>
+                                            <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Joined At</TableHead>
+                                            <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Left At</TableHead>
+                                            <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-center">Duration</TableHead>
+                                            <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-right">Status</TableHead>
                                         </TableRow>
                                     </TableHeader>
                                     <TableBody>
                                         {reports.map((p, idx) => (
                                             <TableRow key={idx} className="border-border/50 h-20 transition-all hover:bg-muted/20">
-                                                <TableCell className="px-8 font-black italic uppercase leading-tight">
+                                                <TableCell className="px-8 font-semibold uppercase leading-tight">
                                                     {p.name}
                                                 </TableCell>
                                                 <TableCell className="px-8 font-bold text-muted-foreground text-sm">
@@ -165,11 +165,11 @@ export default function LiveClassReportsPage() {
                                                 <TableCell className="px-8 font-bold text-muted-foreground text-sm">
                                                     {p.leftAt ? new Date(p.leftAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '-'}
                                                 </TableCell>
-                                                <TableCell className="px-8 text-center font-black italic text-primary">
+                                                <TableCell className="px-8 text-center font-semibold text-primary">
                                                     {p.duration || 0}m
                                                 </TableCell>
                                                 <TableCell className="px-8 text-right">
-                                                    <div className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 font-black text-[10px] uppercase w-fit ml-auto">
+                                                    <div className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 font-semibold text-[10px] uppercase w-fit ml-auto">
                                                         Present
                                                     </div>
                                                 </TableCell>
@@ -180,7 +180,7 @@ export default function LiveClassReportsPage() {
                                                 <TableCell colSpan={5} className="h-60 text-center">
                                                     <div className="flex flex-col items-center justify-center gap-4 opacity-30 grayscale saturate-0">
                                                         <FileText className="h-16 w-16 stroke-[1]" />
-                                                        <p className="font-black italic text-xl uppercase tracking-tighter">No participant logs found for this session</p>
+                                                        <p className="font-semibold text-h3 uppercase tracking-tighter">No participant logs found for this session</p>
                                                     </div>
                                                 </TableCell>
                                             </TableRow>
@@ -194,7 +194,7 @@ export default function LiveClassReportsPage() {
                     <div className="h-full flex flex-col items-center justify-center space-y-6 opacity-30 grayscale saturate-0">
                         <Activity className="h-32 w-32 stroke-[1]" />
                         <div className="text-center">
-                            <h2 className="text-4xl font-black italic tracking-tighter uppercase">Select a Session</h2>
+                            <h2 className="text-h1 font-semibold tracking-tighter uppercase">Select a Session</h2>
                             <p className="font-medium text-lg">Choose a past class to view its participation analytics.</p>
                         </div>
                     </div>

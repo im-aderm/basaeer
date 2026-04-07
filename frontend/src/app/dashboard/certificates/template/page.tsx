@@ -83,7 +83,7 @@ export default function CertificateTemplatesPage() {
         <div className="space-y-8 animate-in fade-in duration-500 pb-20">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
-                    <h1 className="text-4xl font-black tracking-tight italic flex items-center gap-3">
+                    <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
                         <Palette className="text-primary w-10 h-10" />
                         Design Center
                     </h1>
@@ -91,17 +91,17 @@ export default function CertificateTemplatesPage() {
                 </div>
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                     <DialogTrigger asChild>
-                        <Button className="gap-3 rounded-[1.5rem] h-14 px-8 font-black text-lg shadow-xl shadow-primary/20 hover:scale-105 transition-all">
+                        <Button className="gap-3 rounded-[1.5rem] h-14 px-8 font-semibold text-lg shadow-xl shadow-primary/20 hover:scale-105 transition-all">
                             <Plus size={20} /> Create New Template
                         </Button>
                     </DialogTrigger>
                     <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl bg-background/80 backdrop-blur-xl">
                         <DialogHeader>
-                            <DialogTitle className="text-3xl font-black italic mb-6 tracking-tight">Design New Template</DialogTitle>
+                            <DialogTitle className="text-h1 font-semibold mb-6 tracking-tight">Design New Template</DialogTitle>
                         </DialogHeader>
                         <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-3 md:col-span-2">
-                                <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Template Name</label>
+                                <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground ml-1">Template Name</label>
                                 <Input
                                     placeholder="e.g. Classic Achievement Template"
                                     value={formData.name}
@@ -111,7 +111,7 @@ export default function CertificateTemplatesPage() {
                                 />
                             </div>
                             <div className="space-y-3">
-                                <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Certificate Type</label>
+                                <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground ml-1">Certificate Type</label>
                                 <select
                                     className="w-full h-14 rounded-2xl bg-muted/30 border-none font-bold text-lg px-4 appearance-none focus:ring-2 ring-primary/20 cursor-pointer"
                                     value={formData.type}
@@ -124,7 +124,7 @@ export default function CertificateTemplatesPage() {
                                 </select>
                             </div>
                             <div className="space-y-3">
-                                <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Primary Color</label>
+                                <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground ml-1">Primary Color</label>
                                 <div className="flex gap-4 items-center">
                                     <input
                                         type="color"
@@ -135,7 +135,7 @@ export default function CertificateTemplatesPage() {
                                     <span className="font-mono font-bold text-lg">{formData.config.primaryColor}</span>
                                 </div>
                             </div>
-                            <Button type="submit" className="md:col-span-2 h-14 rounded-2xl font-black text-xl shadow-xl shadow-primary/20 mt-4 transition-all hover:scale-[1.02]">
+                            <Button type="submit" className="md:col-span-2 h-14 rounded-2xl font-semibold text-h3 shadow-xl shadow-primary/20 mt-4 transition-all hover:scale-[1.02]">
                                 <Save className="mr-2" /> Save Design
                             </Button>
                         </form>
@@ -154,9 +154,9 @@ export default function CertificateTemplatesPage() {
                             <Award className="w-16 h-16 text-slate-400 group-hover:scale-110 transition-transform duration-500" />
                         </div>
                         <CardHeader className="p-8">
-                            <CardTitle className="text-2xl font-black italic tracking-tight">{tpl.name}</CardTitle>
+                            <CardTitle className="text-h3 font-semibold tracking-tight">{tpl.name}</CardTitle>
                             <div className="flex items-center gap-2 mt-2">
-                                <span className="text-[10px] font-black tracking-[0.2em] uppercase px-3 py-1 bg-primary/10 text-primary rounded-full">
+                                <span className="text-[10px] font-semibold tracking-[0.2em] uppercase px-3 py-1 bg-primary/10 text-primary rounded-full">
                                     {tpl.type}
                                 </span>
                             </div>
@@ -186,7 +186,7 @@ export default function CertificateTemplatesPage() {
                 {templates.length === 0 && (
                     <div className="md:col-span-3 py-20 text-center space-y-4">
                         <Palette className="w-16 h-16 text-slate-200 mx-auto" />
-                        <h3 className="text-2xl font-black italic text-slate-300">No Custom Templates Yet</h3>
+                        <h3 className="text-h3 font-semibold text-slate-300">No Custom Templates Yet</h3>
                         <p className="text-slate-400 font-medium max-w-xs mx-auto">Create beautiful layouts to personalize your institution's digital certificates.</p>
                     </div>
                 )}

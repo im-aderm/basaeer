@@ -87,7 +87,7 @@ export default function StudentListPage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
-                    <h1 className="text-4xl font-black tracking-tight flex items-center gap-3 italic">
+                    <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
                         <Users className="text-primary w-10 h-10" />
                         Student Directory
                     </h1>
@@ -110,7 +110,7 @@ export default function StudentListPage() {
                     </div>
                     <button
                         onClick={() => window.location.href = "/dashboard/students/admission"}
-                        className="flex items-center gap-2 px-8 py-3.5 bg-primary text-white rounded-2xl font-black shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all"
+                        className="flex items-center gap-2 px-8 py-3.5 bg-primary text-white rounded-2xl font-semibold shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all"
                     >
                         Admission
                     </button>
@@ -154,10 +154,10 @@ export default function StudentListPage() {
                         <table className="w-full border-collapse">
                             <thead>
                                 <tr className="bg-muted/30 text-left border-b border-border">
-                                    <th className="px-10 py-6 text-[10px] uppercase tracking-[0.2em] font-black text-muted-foreground">Student Name</th>
-                                    <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-black text-muted-foreground">Class & Section</th>
-                                    <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-black text-muted-foreground">Email / Login</th>
-                                    <th className="px-10 py-6 text-[10px] text-right uppercase tracking-[0.2em] font-black text-muted-foreground">Actions</th>
+                                    <th className="px-10 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Student Name</th>
+                                    <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Class & Section</th>
+                                    <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Email / Login</th>
+                                    <th className="px-10 py-6 text-[10px] text-right uppercase tracking-[0.2em] font-semibold text-muted-foreground">Actions</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-border/50">
@@ -165,22 +165,22 @@ export default function StudentListPage() {
                                     <tr key={student.id} className="hover:bg-muted/10 transition-colors group">
                                         <td className="px-10 py-6">
                                             <div className="flex items-center gap-4">
-                                                <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary font-black text-lg group-hover:scale-110 transition-transform">
+                                                <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary font-semibold text-lg group-hover:scale-110 transition-transform">
                                                     {student.firstName[0]}{student.lastName[0]}
                                                 </div>
                                                 <div>
-                                                    <p className="font-black text-lg">{student.firstName} {student.lastName}</p>
-                                                    <p className="text-xs text-muted-foreground font-black uppercase tracking-widest mt-0.5">ID: {student.id.split('-')[0].toUpperCase()}</p>
+                                                    <p className="font-semibold text-lg">{student.firstName} {student.lastName}</p>
+                                                    <p className="text-xs text-muted-foreground font-semibold uppercase tracking-widest mt-0.5">ID: {student.id.split('-')[0].toUpperCase()}</p>
                                                 </div>
                                             </div>
                                         </td>
                                         <td className="px-8 py-6">
                                             <div className="flex flex-col gap-1">
-                                                <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-primary/5 border border-primary/10 rounded-lg text-xs font-black text-primary w-fit uppercase tracking-tighter">
+                                                <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-primary/5 border border-primary/10 rounded-lg text-xs font-semibold text-primary w-fit uppercase tracking-tighter">
                                                     <GraduationCap size={12} />
                                                     {student.class?.name || "No Class"}
                                                 </span>
-                                                <span className="text-xs text-muted-foreground font-bold pl-1 italic">
+                                                <span className="text-xs text-muted-foreground font-bold pl-1">
                                                     Section: {student.section?.name || "N/A"}
                                                 </span>
                                             </div>
@@ -247,7 +247,7 @@ export default function StudentListPage() {
                     {filteredStudents.map(student => (
                         <div key={student.id} className="bg-card border border-border rounded-[2.5rem] p-8 space-y-6 hover:shadow-2xl hover:shadow-primary/5 transition-all text-center group border-t-8 border-t-primary/10 hover:border-t-primary">
                             <div className="relative mx-auto w-24 h-24">
-                                <div className="w-24 h-24 rounded-[2rem] bg-muted/50 border-4 border-card group-hover:bg-primary/10 transition-colors flex items-center justify-center text-3xl font-black text-muted-foreground group-hover:text-primary transform group-hover:rotate-6 transition-all duration-500">
+                                <div className="w-24 h-24 rounded-[2rem] bg-muted/50 border-4 border-card group-hover:bg-primary/10 transition-colors flex items-center justify-center text-h1 font-semibold text-muted-foreground group-hover:text-primary transform group-hover:rotate-6 transition-all duration-500">
                                     {student.firstName[0]}{student.lastName[0]}
                                 </div>
                                 <div className="absolute -bottom-2 -right-2 w-10 h-10 rounded-2xl bg-primary text-white flex items-center justify-center shadow-lg border-4 border-card">
@@ -256,8 +256,8 @@ export default function StudentListPage() {
                             </div>
 
                             <div className="space-y-1">
-                                <h3 className="text-2xl font-black italic">{student.firstName} {student.lastName}</h3>
-                                <p className="text-sm font-black text-primary uppercase tracking-widest">{student.class?.name} • {student.section?.name}</p>
+                                <h3 className="text-h3 font-semibold">{student.firstName} {student.lastName}</h3>
+                                <p className="text-sm font-semibold text-primary uppercase tracking-widest">{student.class?.name} • {student.section?.name}</p>
                             </div>
 
                             <div className="pt-4 flex items-center justify-center gap-3">
@@ -266,7 +266,7 @@ export default function StudentListPage() {
                                         setSelectedStudentForCard(student);
                                         setIsCardModalOpen(true);
                                     }}
-                                    className="flex-1 py-3 bg-muted hover:bg-primary/10 text-muted-foreground hover:text-primary transition-all rounded-2xl font-black text-xs uppercase tracking-widest flex items-center justify-center gap-2"
+                                    className="flex-1 py-3 bg-muted hover:bg-primary/10 text-muted-foreground hover:text-primary transition-all rounded-2xl font-semibold text-xs uppercase tracking-widest flex items-center justify-center gap-2"
                                 >
                                     <IdCard size={14} /> Card
                                 </button>
@@ -288,7 +288,7 @@ export default function StudentListPage() {
                 <DialogContent className="max-w-4xl rounded-[3rem] border-border/50 shadow-2xl overflow-hidden p-0 bg-transparent border-none">
                     <div className="bg-background/80 backdrop-blur-xl border border-border/50 rounded-[3rem] overflow-hidden">
                         <DialogHeader className="p-8 pb-0 flex flex-row items-center justify-between">
-                            <DialogTitle className="text-3xl font-black italic tracking-tight">Student ID Card</DialogTitle>
+                            <DialogTitle className="text-h1 font-semibold tracking-tight">Student ID Card</DialogTitle>
                             <div className="flex gap-2">
                                 <button
                                     onClick={() => window.print()}
@@ -317,8 +317,8 @@ export default function StudentListPage() {
                         <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-muted mb-6">
                             <Users size={48} className="text-muted-foreground/30" />
                         </div>
-                        <h2 className="text-2xl font-black">No matching records</h2>
-                        <p className="text-muted-foreground mt-2 max-w-xs mx-auto font-medium italic">Adjust your filters or search terms to find the student you're looking for.</p>
+                        <h2 className="text-h3 font-semibold">No matching records</h2>
+                        <p className="text-muted-foreground mt-2 max-w-xs mx-auto font-medium">Adjust your filters or search terms to find the student you're looking for.</p>
                     </div>
                 )
             }

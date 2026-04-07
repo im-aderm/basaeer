@@ -107,7 +107,7 @@ export default function OnlineExamResultsPage() {
         <div className="max-w-7xl mx-auto space-y-8 pb-20">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-4xl font-black tracking-tight italic uppercase">Assessment Analytics</h1>
+                    <h1 className="text-h1 font-semibold tracking-tight uppercase">Assessment Analytics</h1>
                     <p className="text-muted-foreground font-medium mt-1">Grade descriptive answers and generate class rankings.</p>
                 </div>
 
@@ -144,7 +144,7 @@ export default function OnlineExamResultsPage() {
                     <Button
                         variant="secondary"
                         onClick={generatePositions}
-                        className="h-14 px-6 rounded-2xl font-black gap-2 bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/20 shadow-none border-none"
+                        className="h-14 px-6 rounded-2xl font-semibold gap-2 bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/20 shadow-none border-none"
                     >
                         <Trophy className="h-6 w-6" />
                         Rankings
@@ -154,34 +154,34 @@ export default function OnlineExamResultsPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                 <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-primary/5 border-l-4 border-l-primary">
-                    <CardHeader className="pb-2"><CardTitle className="text-xs font-black uppercase tracking-widest italic opacity-50">Appeared</CardTitle></CardHeader>
+                    <CardHeader className="pb-2"><CardTitle className="text-xs font-semibold uppercase tracking-widest opacity-50">Appeared</CardTitle></CardHeader>
                     <CardContent className="flex items-center gap-4">
-                        <span className="text-4xl font-black italic">{attempts.length}</span>
+                        <span className="text-h1 font-semibold">{attempts.length}</span>
                         <Users className="h-8 w-8 text-primary/40" />
                     </CardContent>
                 </Card>
                 <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-emerald-500/5 border-l-4 border-l-emerald-500">
-                    <CardHeader className="pb-2"><CardTitle className="text-xs font-black uppercase tracking-widest italic opacity-50">Avg Score</CardTitle></CardHeader>
+                    <CardHeader className="pb-2"><CardTitle className="text-xs font-semibold uppercase tracking-widest opacity-50">Avg Score</CardTitle></CardHeader>
                     <CardContent className="flex items-center gap-4">
-                        <span className="text-4xl font-black italic">
+                        <span className="text-h1 font-semibold">
                             {attempts.length > 0 ? (attempts.reduce((sum, a) => sum + (a.score || 0), 0) / attempts.length).toFixed(1) : 0}
                         </span>
                         <TrendingUp className="h-8 w-8 text-emerald-500/40" />
                     </CardContent>
                 </Card>
                 <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-amber-500/5 border-l-4 border-l-amber-500">
-                    <CardHeader className="pb-2"><CardTitle className="text-xs font-black uppercase tracking-widest italic opacity-50">Pass Rate</CardTitle></CardHeader>
+                    <CardHeader className="pb-2"><CardTitle className="text-xs font-semibold uppercase tracking-widest opacity-50">Pass Rate</CardTitle></CardHeader>
                     <CardContent className="flex items-center gap-4">
-                        <span className="text-4xl font-black italic">
+                        <span className="text-h1 font-semibold">
                             {attempts.length > 0 ? Math.round((attempts.filter(a => (a.score || 0) >= (activeExam?.passPercentage || 40)).length / attempts.length) * 100) : 0}%
                         </span>
                         <Award className="h-8 w-8 text-amber-500/40" />
                     </CardContent>
                 </Card>
                 <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-muted/30 border-l-4 border-l-muted-foreground">
-                    <CardHeader className="pb-2"><CardTitle className="text-xs font-black uppercase tracking-widest italic opacity-50">Highest Score</CardTitle></CardHeader>
+                    <CardHeader className="pb-2"><CardTitle className="text-xs font-semibold uppercase tracking-widest opacity-50">Highest Score</CardTitle></CardHeader>
                     <CardContent className="flex items-center gap-4">
-                        <span className="text-4xl font-black italic">
+                        <span className="text-h1 font-semibold">
                             {attempts.length > 0 ? Math.max(...attempts.map(a => a.score || 0)) : 0}
                         </span>
                         <Trophy className="h-8 w-8 text-muted-foreground/40" />
@@ -191,7 +191,7 @@ export default function OnlineExamResultsPage() {
 
             <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background">
                 <CardHeader className="p-8 border-b border-border/50">
-                    <CardTitle className="text-2xl font-black italic flex items-center gap-3">
+                    <CardTitle className="text-h3 font-semibold flex items-center gap-3">
                         <BarChart3 className="h-8 w-8 text-primary" />
                         Performance Result Sheet
                     </CardTitle>
@@ -200,12 +200,12 @@ export default function OnlineExamResultsPage() {
                     <Table>
                         <TableHeader className="bg-muted/30 h-16">
                             <TableRow className="border-border/50 hover:bg-transparent">
-                                <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Adm. No</TableHead>
-                                <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Student Name</TableHead>
-                                <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-center">Score / 100</TableHead>
-                                <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-center">Position</TableHead>
-                                <TableHead className="font-black px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-center">Outcome</TableHead>
-                                <TableHead className="font-black px-8 h-16 text-right uppercase tracking-widest text-[10px] text-muted-foreground">Grading</TableHead>
+                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Adm. No</TableHead>
+                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Student Name</TableHead>
+                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-center">Score / 100</TableHead>
+                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-center">Position</TableHead>
+                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-center">Outcome</TableHead>
+                                <TableHead className="font-semibold px-8 h-16 text-right uppercase tracking-widest text-[10px] text-muted-foreground">Grading</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -214,16 +214,16 @@ export default function OnlineExamResultsPage() {
                                 .filter(a => (filters.sectionId === '' || filters.sectionId === 'all' || a.student?.sectionId === filters.sectionId))
                                 .map((attempt) => (
                                     <TableRow key={attempt.id} className="border-border/50 h-20 transition-all hover:bg-muted/20">
-                                        <TableCell className="px-8 font-black uppercase text-xs opacity-50">{attempt.student?.admissionNumber || 'N/A'}</TableCell>
-                                        <TableCell className="px-8 font-black italic uppercase leading-tight">
+                                        <TableCell className="px-8 font-semibold uppercase text-xs opacity-50">{attempt.student?.admissionNumber || 'N/A'}</TableCell>
+                                        <TableCell className="px-8 font-semibold uppercase leading-tight">
                                             {attempt.student?.user?.firstName} {attempt.student?.user?.lastName}
                                         </TableCell>
-                                        <TableCell className="px-8 text-center font-black text-2xl italic text-primary">
+                                        <TableCell className="px-8 text-center font-semibold text-h3 text-primary">
                                             {attempt.score || 0}
                                         </TableCell>
                                         <TableCell className="px-8 text-center">
                                             {attempt.position ? (
-                                                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500 text-white font-black text-xs shadow-lg shadow-amber-500/20">
+                                                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500 text-white font-semibold text-xs shadow-lg shadow-amber-500/20">
                                                     <Trophy className="h-3 w-3" />
                                                     #{attempt.position}
                                                 </div>
@@ -231,11 +231,11 @@ export default function OnlineExamResultsPage() {
                                         </TableCell>
                                         <TableCell className="px-8 text-center">
                                             {(attempt.score || 0) >= (activeExam?.passPercentage || 40) ? (
-                                                <div className="inline-flex items-center gap-2 text-emerald-600 font-black italic uppercase text-xs">
+                                                <div className="inline-flex items-center gap-2 text-emerald-600 font-semibold uppercase text-xs">
                                                     <CheckCircle2 className="h-4 w-4" /> Passed
                                                 </div>
                                             ) : (
-                                                <div className="inline-flex items-center gap-2 text-destructive font-black italic uppercase text-xs">
+                                                <div className="inline-flex items-center gap-2 text-destructive font-semibold uppercase text-xs">
                                                     <AlertCircle className="h-4 w-4" /> Failed
                                                 </div>
                                             )}
@@ -261,7 +261,7 @@ export default function OnlineExamResultsPage() {
             <Dialog open={isGradeDialogOpen} onOpenChange={setIsGradeDialogOpen}>
                 <DialogContent className="rounded-[2.5rem] max-w-4xl max-h-[85vh] overflow-y-auto sidebar-scroll">
                     <DialogHeader>
-                        <DialogTitle className="text-2xl font-black italic uppercase">Detailed Grade Review</DialogTitle>
+                        <DialogTitle className="text-h3 font-semibold uppercase">Detailed Grade Review</DialogTitle>
                         <DialogDescription className="font-bold -mt-1">
                             Reviewing answers for {selectedAttempt?.student?.user?.firstName} {selectedAttempt?.student?.user?.lastName}
                         </DialogDescription>
@@ -271,18 +271,18 @@ export default function OnlineExamResultsPage() {
                             <Card key={ans.id} className="rounded-3xl border-border/50 shadow-sm overflow-hidden border-l-4 border-l-primary/30">
                                 <CardContent className="p-8 space-y-6">
                                     <div className="flex justify-between items-start">
-                                        <div className="font-black italic text-lg leading-tight w-2/3">
+                                        <div className="font-semibold text-lg leading-tight w-2/3">
                                             Q{idx + 1}: {ans.question?.content}
                                         </div>
                                         <div className="flex flex-col items-end gap-2">
-                                            <span className="text-[10px] font-black uppercase tracking-widest px-3 py-1 bg-muted rounded-full">
+                                            <span className="text-label px-3 py-1 bg-muted rounded-full">
                                                 {ans.question?.type}
                                             </span>
                                             <div className="flex items-center gap-2">
-                                                <Label className="font-black italic text-xs uppercase opacity-50">Awarded Marks:</Label>
+                                                <Label className="font-semibold text-xs uppercase opacity-50">Awarded Marks:</Label>
                                                 <Input
                                                     type="number"
-                                                    className="h-10 w-24 text-center font-black text-lg bg-muted/50 border-none rounded-xl"
+                                                    className="h-10 w-24 text-center font-semibold text-lg bg-muted/50 border-none rounded-xl"
                                                     defaultValue={ans.marksAwarded || 0}
                                                     onBlur={(e) => handleGradeSubmit(selectedAttempt.id, ans.questionId, parseFloat(e.target.value))}
                                                     disabled={ans.question?.type !== 'DESCRIPTIVE' || gradingLoading === `${selectedAttempt.id}-${ans.questionId}`}
@@ -295,13 +295,13 @@ export default function OnlineExamResultsPage() {
                                     </div>
 
                                     <div className="space-y-3">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest text-primary italic">Student Answer:</Label>
-                                        <div className="p-6 rounded-2xl bg-muted/30 font-bold italic leading-relaxed border-border/20 border min-h-[60px]">
+                                        <Label className="text-label text-primary">Student Answer:</Label>
+                                        <div className="p-6 rounded-2xl bg-muted/30 font-bold leading-relaxed border-border/20 border min-h-[60px]">
                                             {ans.question?.type === 'DESCRIPTIVE' ? (
-                                                ans.textAnswer || <span className="opacity-30 italic">No answer provided</span>
+                                                ans.textAnswer || <span className="opacity-30">No answer provided</span>
                                             ) : (
                                                 <div className="flex items-center gap-3">
-                                                    <div className={`h-8 w-8 rounded-lg flex items-center justify-center font-black ${ans.isCorrect ? 'bg-emerald-500 text-white' : 'bg-destructive text-white'}`}>
+                                                    <div className={`h-8 w-8 rounded-lg flex items-center justify-center font-semibold ${ans.isCorrect ? 'bg-emerald-500 text-white' : 'bg-destructive text-white'}`}>
                                                         {ans.isCorrect ? '✓' : '✗'}
                                                     </div>
                                                     <span>Selected: {ans.question?.options?.find((o: any) => o.id === ans.selectedOptionId)?.content}</span>

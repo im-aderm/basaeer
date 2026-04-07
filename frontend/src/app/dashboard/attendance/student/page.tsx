@@ -142,7 +142,7 @@ export default function StudentAttendancePage() {
                     <ArrowLeft size={22} />
                 </Button>
                 <div>
-                    <h1 className="text-3xl font-black italic tracking-tight">Student Attendance</h1>
+                    <h1 className="text-h1 font-semibold tracking-tight">Student Attendance</h1>
                     <p className="text-muted-foreground">Mark daily attendance for your class.</p>
                 </div>
             </div>
@@ -193,7 +193,7 @@ export default function StudentAttendancePage() {
                             <Button
                                 onClick={handleSubmit}
                                 disabled={loading || students.length === 0}
-                                className="h-12 w-full rounded-xl font-black bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20"
+                                className="h-12 w-full rounded-xl font-semibold bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20"
                             >
                                 {loading ? <Loader2 className="animate-spin w-5 h-5 mr-2" /> : <Save className="w-5 h-5 mr-2" />}
                                 Save Attendance

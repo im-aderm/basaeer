@@ -40,7 +40,7 @@ export default function ChildFinancialsPage() {
     const totalBalance = invoices.reduce((acc, inv) => acc + inv.balance, 0);
     const paidInvoices = invoices.filter(inv => inv.status === 'PAID').length;
 
-    if (loading) return <div className="flex h-96 items-center justify-center font-black animate-pulse uppercase italic">Loading Financials...</div>;
+    if (loading) return <div className="flex h-96 items-center justify-center font-semibold animate-pulse uppercase">Loading Financials...</div>;
 
     return (
         <div className="max-w-7xl mx-auto space-y-8 pb-20">
@@ -54,17 +54,17 @@ export default function ChildFinancialsPage() {
                     <ChevronLeft className="h-6 w-6" />
                 </Button>
                 <div>
-                    <h1 className="text-4xl font-black tracking-tight italic uppercase">Financial Overview</h1>
+                    <h1 className="text-h1 font-semibold tracking-tight uppercase">Financial Overview</h1>
                     <p className="text-muted-foreground font-medium mt-1">Invoice history and payment tracking.</p>
                 </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-background p-8 space-y-4">
-                    <div className="flex items-center gap-3 font-black italic uppercase text-xs opacity-50">
+                    <div className="flex items-center gap-3 font-semibold uppercase text-xs opacity-50">
                         <Wallet className="h-4 w-4" /> Total Outstanding
                     </div>
-                    <div className="text-5xl font-black italic text-rose-500">${totalBalance.toLocaleString()}</div>
+                    <div className="text-h1 font-semibold text-rose-500">${totalBalance.toLocaleString()}</div>
                     <p className="text-xs font-bold opacity-70">Total balance across all active invoices.</p>
                 </Card>
 
@@ -75,12 +75,12 @@ export default function ChildFinancialsPage() {
                     </div>
                     <div className="relative z-10 h-full flex flex-col justify-between">
                         <div className="space-y-2">
-                            <h3 className="text-xl font-black italic uppercase italic">Account Health</h3>
+                            <h3 className="text-h3 font-semibold uppercase">Account Health</h3>
                             <p className="text-white/50 font-medium">You have {paidInvoices} paid and {invoices.length - paidInvoices} pending invoices.</p>
                         </div>
                         <div className="flex gap-4 mt-8">
-                            <Button className="h-12 px-8 rounded-xl font-black italic uppercase italic shadow-lg shadow-primary/20">Pay Outstanding Balance</Button>
-                            <Button variant="outline" className="h-12 px-8 rounded-xl font-black italic uppercase italic border-white/10 hover:bg-white/5">Auto-Pay Settings</Button>
+                            <Button className="h-12 px-8 rounded-xl font-semibold uppercase shadow-lg shadow-primary/20">Pay Outstanding Balance</Button>
+                            <Button variant="outline" className="h-12 px-8 rounded-xl font-semibold uppercase border-white/10 hover:bg-white/5">Auto-Pay Settings</Button>
                         </div>
                     </div>
                 </Card>
@@ -89,7 +89,7 @@ export default function ChildFinancialsPage() {
             <Card className="rounded-[3rem] border-border/50 shadow-2xl bg-background overflow-hidden">
                 <CardHeader className="p-8 border-b border-border/50 flex flex-row items-center justify-between">
                     <div>
-                        <CardTitle className="text-2xl font-black italic uppercase flex items-center gap-3">
+                        <CardTitle className="text-h3 font-semibold uppercase flex items-center gap-3">
                             <FileText className="h-8 w-8 text-primary" />
                             Invoice History
                         </CardTitle>
@@ -101,24 +101,24 @@ export default function ChildFinancialsPage() {
                         <table className="w-full text-left border-collapse">
                             <thead>
                                 <tr className="border-b border-border/50 bg-muted/30">
-                                    <th className="p-6 font-black italic uppercase text-xs opacity-50">Invoice #</th>
-                                    <th className="p-6 font-black italic uppercase text-xs opacity-50">Total</th>
-                                    <th className="p-6 font-black italic uppercase text-xs opacity-50">Balance</th>
-                                    <th className="p-6 font-black italic uppercase text-xs opacity-50">Due Date</th>
-                                    <th className="p-6 font-black italic uppercase text-xs opacity-50">Status</th>
-                                    <th className="p-6 font-black italic uppercase text-xs opacity-50 text-right">Actions</th>
+                                    <th className="p-6 font-semibold uppercase text-xs opacity-50">Invoice #</th>
+                                    <th className="p-6 font-semibold uppercase text-xs opacity-50">Total</th>
+                                    <th className="p-6 font-semibold uppercase text-xs opacity-50">Balance</th>
+                                    <th className="p-6 font-semibold uppercase text-xs opacity-50">Due Date</th>
+                                    <th className="p-6 font-semibold uppercase text-xs opacity-50">Status</th>
+                                    <th className="p-6 font-semibold uppercase text-xs opacity-50 text-right">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {invoices.length > 0 ? invoices.map((inv) => (
                                     <tr key={inv.id} className="border-b border-border/50 hover:bg-primary/5 transition-colors">
-                                        <td className="p-6 font-black italic uppercase text-sm">#{inv.invoiceNumber}</td>
+                                        <td className="p-6 font-semibold uppercase text-sm">#{inv.invoiceNumber}</td>
                                         <td className="p-6 font-bold text-sm">${inv.totalAmount.toLocaleString()}</td>
-                                        <td className="p-6 font-black text-rose-500 text-sm">${inv.balance.toLocaleString()}</td>
+                                        <td className="p-6 font-semibold text-rose-500 text-sm">${inv.balance.toLocaleString()}</td>
                                         <td className="p-6 font-bold text-sm opacity-60">{new Date(inv.dueDate).toLocaleDateString()}</td>
                                         <td className="p-6">
                                             <Badge
-                                                className={`rounded-xl px-4 py-1.5 font-black italic uppercase text-[10px] ${inv.status === 'PAID' ? 'bg-emerald-500/10 text-emerald-500' :
+                                                className={`rounded-xl px-4 py-1.5 font-semibold uppercase text-[10px] ${inv.status === 'PAID' ? 'bg-emerald-500/10 text-emerald-500' :
                                                         inv.status === 'PARTIALLY_PAID' ? 'bg-amber-500/10 text-amber-500' :
                                                             'bg-rose-500/10 text-rose-500'
                                                     }`}
@@ -137,7 +137,7 @@ export default function ChildFinancialsPage() {
                                     </tr>
                                 )) : (
                                     <tr>
-                                        <td colSpan={6} className="p-12 text-center font-black italic uppercase opacity-20 text-2xl">
+                                        <td colSpan={6} className="p-12 text-center font-semibold uppercase opacity-20 text-2xl">
                                             No financial records found
                                         </td>
                                     </tr>

@@ -157,7 +157,7 @@ export default function StudentExamTakePage() {
         return `${m}:${s < 10 ? '0' : ''}${s}`;
     };
 
-    if (loading) return <div className="h-screen flex items-center justify-center font-black italic text-2xl animate-pulse">Initializing Secure Testing Environment...</div>;
+    if (loading) return <div className="h-screen flex items-center justify-center font-semibold text-h3 animate-pulse">Initializing Secure Testing Environment...</div>;
     if (!exam) return null;
 
     if (isFinished) {
@@ -167,11 +167,11 @@ export default function StudentExamTakePage() {
                     <CheckCircle2 className="h-24 w-24" />
                 </div>
                 <div className="text-center space-y-2">
-                    <h1 className="text-5xl font-black italic tracking-tighter uppercase">Submission Confirmed</h1>
+                    <h1 className="text-h1 font-semibold tracking-tighter uppercase">Submission Confirmed</h1>
                     <p className="text-muted-foreground font-bold text-lg">Your answers have been securely transmitted and recorded.</p>
                 </div>
                 <Button
-                    className="h-14 px-12 rounded-2xl font-black text-lg bg-primary hover:scale-[1.02] active:scale-95 transition-all shadow-xl shadow-primary/20"
+                    className="h-14 px-12 rounded-2xl font-semibold text-lg bg-primary hover:scale-[1.02] active:scale-95 transition-all shadow-xl shadow-primary/20"
                     onClick={() => router.push('/dashboard/online-exams')}
                 >
                     Return to Dashboard
@@ -191,11 +191,11 @@ export default function StudentExamTakePage() {
                 <div className="max-w-7xl mx-auto flex justify-between items-center">
                     <div className="flex items-center gap-6">
                         <div className="h-16 w-16 rounded-3xl bg-primary flex flex-col items-center justify-center text-white shadow-xl shadow-primary/20">
-                            <span className="text-[10px] font-black uppercase leading-none opacity-60">Ques</span>
-                            <span className="text-2xl font-black leading-tight italic">{currentIdx + 1}</span>
+                            <span className="text-[10px] font-semibold uppercase leading-none opacity-60">Ques</span>
+                            <span className="text-h3 font-semibold leading-tight">{currentIdx + 1}</span>
                         </div>
                         <div>
-                            <h1 className="text-2xl font-black italic leading-tight uppercase tracking-tight">{exam.title}</h1>
+                            <h1 className="text-h3 font-semibold leading-tight uppercase tracking-tight">{exam.title}</h1>
                             <div className="flex gap-3 text-xs font-bold text-muted-foreground mt-1 uppercase tracking-widest">
                                 <span className="flex items-center gap-1"><BookOpen className="h-3 w-3" /> {exam.subject?.name}</span>
                                 <span className="flex items-center gap-1"><Users className="h-3 w-3" /> Grade {exam.class?.name}</span>
@@ -205,14 +205,14 @@ export default function StudentExamTakePage() {
 
                     <div className="flex items-center gap-8">
                         <div className="flex flex-col items-center">
-                            <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-1">Time Remaining</span>
-                            <div className={`flex items-center gap-3 px-8 py-3 rounded-2xl font-black text-2xl italic tracking-tighter shadow-inner ${timeLeft < 300 ? 'bg-destructive/10 text-destructive animate-pulse' : 'bg-muted/50 text-foreground'}`}>
+                            <span className="text-label text-muted-foreground mb-1">Time Remaining</span>
+                            <div className={`flex items-center gap-3 px-8 py-3 rounded-2xl font-semibold text-h3 tracking-tighter shadow-inner ${timeLeft < 300 ? 'bg-destructive/10 text-destructive animate-pulse' : 'bg-muted/50 text-foreground'}`}>
                                 <Clock className="h-6 w-6" />
                                 {formatTime(timeLeft)}
                             </div>
                         </div>
                         <Button
-                            className="h-16 px-10 rounded-3xl font-black text-xl gap-2 shadow-2xl shadow-primary/20 hover:scale-[1.05] transition-all bg-primary"
+                            className="h-16 px-10 rounded-3xl font-semibold text-h3 gap-2 shadow-2xl shadow-primary/20 hover:scale-[1.05] transition-all bg-primary"
                             onClick={() => handleSubmit()}
                             disabled={isSubmitting}
                         >
@@ -230,7 +230,7 @@ export default function StudentExamTakePage() {
                     <div className="bg-amber-500/10 border border-amber-500/20 p-6 rounded-[2rem] flex items-center gap-6 animate-bounce">
                         <ShieldAlert className="h-12 w-12 text-amber-500" />
                         <div>
-                            <p className="font-black italic text-xl text-amber-600 uppercase">Attention Required!</p>
+                            <p className="font-semibold text-h3 text-amber-600 uppercase">Attention Required!</p>
                             <p className="text-amber-700/80 font-bold">You have {warnings} warning(s). Maintain focus on the exam window.</p>
                         </div>
                     </div>
@@ -239,7 +239,7 @@ export default function StudentExamTakePage() {
                 {/* Question Area */}
                 <div className="space-y-10">
                     <div className="flex items-center gap-4">
-                        <span className="px-5 py-2 rounded-full bg-primary/10 text-primary font-black text-sm uppercase italic tracking-widest">
+                        <span className="px-5 py-2 rounded-full bg-primary/10 text-primary font-semibold text-sm uppercase tracking-widest">
                             {currentQuestion.type}
                         </span>
                         <span className="px-5 py-2 rounded-full bg-muted font-bold text-sm text-muted-foreground">
@@ -247,7 +247,7 @@ export default function StudentExamTakePage() {
                         </span>
                     </div>
 
-                    <h2 className="text-4xl md:text-5xl font-black italic leading-[1.1] tracking-tighter">
+                    <h2 className="text-h1 md:text-h1 font-semibold leading-[1.1] tracking-tighter">
                         {currentQuestion.content}
                     </h2>
 
@@ -266,12 +266,12 @@ export default function StudentExamTakePage() {
                                             : 'bg-background border-border/50 hover:border-primary/30 hover:bg-primary/[0.02]'
                                             }`}
                                     >
-                                        <div className={`h-10 w-10 flex-shrink-0 rounded-2xl flex items-center justify-center font-black transition-all ${answers[currentQuestion.id] === opt.id ? 'bg-primary text-white scale-110 shadow-lg' : 'bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary'
+                                        <div className={`h-10 w-10 flex-shrink-0 rounded-2xl flex items-center justify-center font-semibold transition-all ${answers[currentQuestion.id] === opt.id ? 'bg-primary text-white scale-110 shadow-lg' : 'bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary'
                                             }`}>
                                             <RadioGroupItem value={opt.id} className="sr-only" />
                                             {String.fromCharCode(65 + idx)}
                                         </div>
-                                        <span className={`text-xl font-bold italic leading-tight ${answers[currentQuestion.id] === opt.id ? 'text-primary' : 'text-foreground/70'}`}>
+                                        <span className={`text-xl font-bold leading-tight ${answers[currentQuestion.id] === opt.id ? 'text-primary' : 'text-foreground/70'}`}>
                                             {opt.content}
                                         </span>
                                     </Label>
@@ -293,7 +293,7 @@ export default function StudentExamTakePage() {
                     <Button
                         variant="ghost"
                         size="lg"
-                        className="h-16 rounded-3xl font-black text-lg gap-3 px-8 italic disabled:opacity-20"
+                        className="h-16 rounded-3xl font-semibold text-lg gap-3 px-8 disabled:opacity-20"
                         onClick={() => setCurrentIdx(prev => prev - 1)}
                         disabled={currentIdx === 0}
                     >
@@ -314,7 +314,7 @@ export default function StudentExamTakePage() {
                     <Button
                         variant="secondary"
                         size="lg"
-                        className="h-16 rounded-3xl font-black text-lg gap-3 px-8 italic bg-background border-2 border-border/50 hover:bg-muted"
+                        className="h-16 rounded-3xl font-semibold text-lg gap-3 px-8 bg-background border-2 border-border/50 hover:bg-muted"
                         onClick={() => {
                             if (currentIdx < exam.group.questions.length - 1) {
                                 setCurrentIdx(prev => prev + 1);
@@ -329,7 +329,7 @@ export default function StudentExamTakePage() {
             </main>
 
             {/* Float Stats for Student */}
-            <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 bg-background/90 backdrop-blur-xl border border-border/50 px-12 py-4 rounded-full shadow-2xl flex items-center gap-8 font-black italic text-sm">
+            <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 bg-background/90 backdrop-blur-xl border border-border/50 px-12 py-4 rounded-full shadow-2xl flex items-center gap-8 font-semibold text-sm">
                 <div className="flex items-center gap-4 border-r border-border/50 pr-8">
                     <div className="h-2 w-2 rounded-full bg-emerald-500" />
                     <span>{answeredCount} / {exam.group.questions.length} Answered</span>

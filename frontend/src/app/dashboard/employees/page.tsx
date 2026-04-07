@@ -39,9 +39,7 @@ export default function EmployeesListPage() {
     };
 
     useEffect(() => {
-        if (user) {
-            fetchEmployees();
-        }
+        if (user) fetchEmployees();
     }, [user]);
 
     const filteredEmployees = employees.filter(emp =>
@@ -54,12 +52,12 @@ export default function EmployeesListPage() {
             header: 'Name',
             accessor: (emp: any) => (
                 <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-xs">
+                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold text-xs">
                         {emp.user.firstName[0]}{emp.user.lastName[0]}
                     </div>
                     <div>
-                        <div className="font-bold">{emp.user.firstName} {emp.user.lastName}</div>
-                        <div className="text-xs text-muted-foreground">{emp.user.role.replace('_', ' ')}</div>
+                        <div className="text-body font-medium">{emp.user.firstName} {emp.user.lastName}</div>
+                        <div className="text-secondary">{emp.user.role.replace('_', ' ')}</div>
                     </div>
                 </div>
             )
@@ -68,12 +66,12 @@ export default function EmployeesListPage() {
             header: 'Contact',
             accessor: (emp: any) => (
                 <div className="space-y-1">
-                    <div className="flex items-center gap-2 text-xs">
-                        <Mail size={12} className="text-muted-foreground" /> {emp.user.email}
+                    <div className="flex items-center gap-2 text-secondary">
+                        <Mail size={12} /> {emp.user.email}
                     </div>
                     {emp.user.phone && (
-                        <div className="flex items-center gap-2 text-xs">
-                            <Phone size={12} className="text-muted-foreground" /> {emp.user.phone}
+                        <div className="flex items-center gap-2 text-secondary">
+                            <Phone size={12} /> {emp.user.phone}
                         </div>
                     )}
                 </div>
@@ -82,7 +80,7 @@ export default function EmployeesListPage() {
         {
             header: 'Department',
             accessor: (emp: any) => (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 text-table-cell">
                     <Building2 size={14} className="text-muted-foreground" />
                     <span>{emp.department?.name || 'Unassigned'}</span>
                 </div>
@@ -91,7 +89,7 @@ export default function EmployeesListPage() {
         {
             header: 'Designation',
             accessor: (emp: any) => (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 text-table-cell">
                     <Briefcase size={14} className="text-muted-foreground" />
                     <span>{emp.designationRef?.name || emp.designation || 'Unassigned'}</span>
                 </div>
@@ -100,8 +98,7 @@ export default function EmployeesListPage() {
         {
             header: 'Status',
             accessor: (emp: any) => (
-                <span className={`px-2 py-1 rounded-full text-xs font-bold ${emp.status === 'ACTIVE' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
-                    }`}>
+                <span className={`px-2 py-1 rounded-full text-label font-medium ${emp.status === 'ACTIVE' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
                     {emp.status}
                 </span>
             )
@@ -114,24 +111,24 @@ export default function EmployeesListPage() {
         <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in duration-500">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
-                    <h1 className="text-4xl font-black tracking-tight italic">Employee Management</h1>
-                    <p className="text-muted-foreground font-medium text-lg">Manage and monitor all staff members across the branch.</p>
+                    <h1 className="text-h1">Employee Management</h1>
+                    <p className="text-body text-muted-foreground mt-1">Manage and monitor all staff members across the branch.</p>
                 </div>
                 <Link href="/dashboard/employees/add">
-                    <Button className="gap-3 rounded-[1.5rem] h-14 px-8 font-black text-lg shadow-xl shadow-primary/20 hover:scale-105 transition-all">
-                        <UserPlus size={20} /> Add New Employee
+                    <Button className="gap-2 rounded-2xl h-11 px-6 font-medium shadow-lg shadow-primary/20 hover:scale-105 transition-all">
+                        <UserPlus size={18} /> Add New Employee
                     </Button>
                 </Link>
             </div>
 
-            <Card className="rounded-[3rem] border-border/50 shadow-2xl shadow-primary/5 overflow-hidden border-t-8 border-t-primary/20">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-7">
-                    <CardTitle className="text-xl font-black italic">Staff Directory</CardTitle>
+            <Card className="rounded-2xl border-border/50 shadow-lg overflow-hidden border-t-4 border-t-primary/20">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+                    <CardTitle className="text-h3">Staff Directory</CardTitle>
                     <div className="relative w-64">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={16} />
                         <Input
                             placeholder="Search employees..."
-                            className="pl-10 rounded-xl bg-muted/30 border-none font-medium"
+                            className="pl-10 rounded-xl bg-muted/30 border-none text-body"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
@@ -147,14 +144,14 @@ export default function EmployeesListPage() {
                                     variant={emp.status === 'ACTIVE' ? 'outline' : 'default'}
                                     size="sm"
                                     className={cn(
-                                        "rounded-xl font-black border-2 transition-all",
+                                        "rounded-lg font-medium border transition-all text-btn",
                                         emp.status === 'ACTIVE' ? "text-red-500 border-red-500/20 hover:bg-red-500 hover:text-white" : "bg-green-500 hover:bg-green-600 text-white border-green-500"
                                     )}
                                     onClick={() => handleToggleStatus(emp)}
                                 >
                                     {emp.status === 'ACTIVE' ? 'Deactivate' : 'Activate'}
                                 </Button>
-                                <Button variant="ghost" size="sm" className="rounded-xl font-black hover:bg-muted">Details</Button>
+                                <Button variant="ghost" size="sm" className="rounded-lg font-medium hover:bg-muted text-btn">Details</Button>
                             </div>
                         )}
                     />
@@ -163,4 +160,3 @@ export default function EmployeesListPage() {
         </div>
     );
 }
-

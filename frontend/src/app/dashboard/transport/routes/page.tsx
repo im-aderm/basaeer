@@ -133,7 +133,7 @@ export default function TransportRoutesPage() {
         <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in duration-500 pb-20">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
-                    <h1 className="text-4xl font-black tracking-tight italic flex items-center gap-3">
+                    <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
                         <Map className="text-primary w-10 h-10" />
                         Transport Routes
                     </h1>
@@ -147,19 +147,19 @@ export default function TransportRoutesPage() {
                     }
                 }}>
                     <DialogTrigger asChild>
-                        <Button className="gap-3 rounded-[1.5rem] h-14 px-8 font-black text-lg shadow-xl shadow-primary/20 hover:scale-105 transition-all">
+                        <Button className="gap-3 rounded-[1.5rem] h-14 px-8 font-semibold text-lg shadow-xl shadow-primary/20 hover:scale-105 transition-all">
                             <Plus size={20} /> Add New Route
                         </Button>
                     </DialogTrigger>
                     <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-lg">
                         <DialogHeader>
-                            <DialogTitle className="text-3xl font-black italic mb-6">
+                            <DialogTitle className="text-h1 font-semibold mb-6">
                                 {editingRoute ? "Edit Route" : "Create New Route"}
                             </DialogTitle>
                         </DialogHeader>
                         <form onSubmit={handleSubmit} className="space-y-6">
                             <div className="space-y-2">
-                                <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Route Name</label>
+                                <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground ml-1">Route Name</label>
                                 <Input
                                     placeholder="e.g. North Area Bus A"
                                     value={formData.name}
@@ -170,7 +170,7 @@ export default function TransportRoutesPage() {
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="space-y-2">
-                                    <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Start Point</label>
+                                    <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground ml-1">Start Point</label>
                                     <Input
                                         placeholder="e.g. School Gate"
                                         value={formData.startPoint}
@@ -180,7 +180,7 @@ export default function TransportRoutesPage() {
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">End Point</label>
+                                    <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground ml-1">End Point</label>
                                     <Input
                                         placeholder="e.g. Digital Valley"
                                         value={formData.endPoint}
@@ -191,7 +191,7 @@ export default function TransportRoutesPage() {
                                 </div>
                             </div>
                             <div className="space-y-2">
-                                <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Intermediate Stops (Comma separated)</label>
+                                <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground ml-1">Intermediate Stops (Comma separated)</label>
                                 <textarea
                                     placeholder="e.g. Landmark Mall, City Center, Square Plaza"
                                     value={formData.stops}
@@ -199,7 +199,7 @@ export default function TransportRoutesPage() {
                                     className="w-full min-h-[100px] p-4 rounded-2xl bg-muted/30 border-none font-bold text-lg focus:ring-2 ring-primary/20 transition-all resize-none"
                                 />
                             </div>
-                            <Button type="submit" className="w-full h-14 rounded-2xl font-black text-xl shadow-xl shadow-primary/20 mt-4 transition-all hover:scale-[1.02]">
+                            <Button type="submit" className="w-full h-14 rounded-2xl font-semibold text-h3 shadow-xl shadow-primary/20 mt-4 transition-all hover:scale-[1.02]">
                                 {editingRoute ? "Update Route" : "Create Route"}
                             </Button>
                         </form>
@@ -209,7 +209,7 @@ export default function TransportRoutesPage() {
 
             <Card className="rounded-[3rem] border-border/50 shadow-2xl shadow-primary/5 overflow-hidden border-t-8 border-t-primary/20">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-7 p-8">
-                    <CardTitle className="text-xl font-black italic">Route Directory</CardTitle>
+                    <CardTitle className="text-h3 font-semibold">Route Directory</CardTitle>
                     <div className="relative w-72">
                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={18} />
                         <Input
@@ -225,10 +225,10 @@ export default function TransportRoutesPage() {
                         <table className="w-full border-collapse">
                             <thead>
                                 <tr className="bg-muted/30 text-left">
-                                    <th className="px-8 py-5 text-[10px] uppercase tracking-[0.2em] font-black text-muted-foreground">Route Name</th>
-                                    <th className="px-8 py-5 text-[10px] uppercase tracking-[0.2em] font-black text-muted-foreground">Path Way</th>
-                                    <th className="px-8 py-5 text-[10px] uppercase tracking-[0.2em] font-black text-muted-foreground">Stops</th>
-                                    <th className="px-8 py-5 text-right text-[10px] uppercase tracking-[0.2em] font-black text-muted-foreground">Actions</th>
+                                    <th className="px-8 py-5 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Route Name</th>
+                                    <th className="px-8 py-5 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Path Way</th>
+                                    <th className="px-8 py-5 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Stops</th>
+                                    <th className="px-8 py-5 text-right text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Actions</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-border/50">
@@ -239,7 +239,7 @@ export default function TransportRoutesPage() {
                                                 <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
                                                     <Navigation size={20} />
                                                 </div>
-                                                <span className="font-black text-lg italic">{route.name}</span>
+                                                <span className="font-semibold text-lg">{route.name}</span>
                                             </div>
                                         </td>
                                         <td className="px-8 py-6">
@@ -278,7 +278,7 @@ export default function TransportRoutesPage() {
                                 ))}
                                 {filteredRoutes.length === 0 && (
                                     <tr>
-                                        <td colSpan={4} className="px-8 py-20 text-center text-muted-foreground font-medium italic">
+                                        <td colSpan={4} className="px-8 py-20 text-center text-muted-foreground font-medium">
                                             No transport routes found.
                                         </td>
                                     </tr>

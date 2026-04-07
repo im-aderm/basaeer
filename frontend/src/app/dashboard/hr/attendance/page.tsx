@@ -115,11 +115,11 @@ export default function StaffAttendancePage() {
             header: 'Staff Member',
             accessor: (staff: any) => (
                 <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-black text-sm">
+                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold text-sm">
                         {staff.user.firstName[0]}{staff.user.lastName[0]}
                     </div>
                     <div>
-                        <div className="font-black italic">{staff.user.firstName} {staff.user.lastName}</div>
+                        <div className="font-semibold">{staff.user.firstName} {staff.user.lastName}</div>
                         <div className="text-[10px] text-muted-foreground font-bold uppercase">{staff.designationRef?.name || 'Staff'}</div>
                     </div>
                 </div>
@@ -143,14 +143,14 @@ export default function StaffAttendancePage() {
                         onValueChange={(val) => handleStatusChange(staff.id, val)}
                     >
                         <SelectTrigger className={cn(
-                            "w-32 h-10 rounded-xl font-bold italic text-xs border-2 shadow-sm",
+                            "w-32 h-10 rounded-xl font-bold text-xs border-2 shadow-sm",
                             attendanceData[staff.id]?.status === 'PRESENT' && "border-green-500/50 text-green-700 bg-green-50",
                             attendanceData[staff.id]?.status === 'ABSENT' && "border-red-500/50 text-red-700 bg-red-50",
                             attendanceData[staff.id]?.status === 'LATE' && "border-amber-500/50 text-amber-700 bg-amber-50"
                         )}>
                             <SelectValue placeholder="Status" />
                         </SelectTrigger>
-                        <SelectContent className="rounded-xl border-2 font-bold italic">
+                        <SelectContent className="rounded-xl border-2 font-bold">
                             <SelectItem value="PRESENT">Present</SelectItem>
                             <SelectItem value="LATE">Late</SelectItem>
                             <SelectItem value="ABSENT">Absent</SelectItem>
@@ -176,11 +176,11 @@ export default function StaffAttendancePage() {
             <div className="relative overflow-hidden rounded-[3.5rem] bg-emerald-950 p-12 text-white shadow-2xl">
                 <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-8">
                     <div className="space-y-4">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 text-emerald-400 font-black text-[10px] uppercase tracking-widest backdrop-blur-md">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 text-emerald-400 font-semibold text-[10px] uppercase tracking-widest backdrop-blur-md">
                             <Clock size={12} /> Workforce pulse
                         </div>
-                        <h1 className="text-5xl font-black tracking-tight italic">Staff Attendance</h1>
-                        <p className="text-emerald-200/60 text-lg font-medium max-w-xl italic">
+                        <h1 className="text-h1 font-semibold tracking-tight">Staff Attendance</h1>
+                        <p className="text-emerald-200/60 text-lg font-medium max-w-xl">
                             Monitor and manage staff punctuality. Real-time logging for precise payroll calculations.
                         </p>
                     </div>
@@ -192,7 +192,7 @@ export default function StaffAttendancePage() {
                                 <Calendar className="text-emerald-400 mt-3" size={24} />
                                 <Input
                                     type="date"
-                                    className="h-14 rounded-2xl bg-black/20 border-white/10 font-black text-xl text-white appearance-none"
+                                    className="h-14 rounded-2xl bg-black/20 border-white/10 font-semibold text-h3 text-white appearance-none"
                                     value={date}
                                     onChange={(e) => setDate(e.target.value)}
                                 />
@@ -210,14 +210,14 @@ export default function StaffAttendancePage() {
                 <Card className="flex-1 rounded-[2.5rem] p-8 border-border/50 shadow-xl bg-gradient-to-br from-background to-muted/20">
                     <div className="flex items-center justify-between gap-6">
                         <div className="space-y-1">
-                            <h3 className="text-lg font-black italic">Bulk Operations</h3>
-                            <p className="text-xs text-muted-foreground font-medium italic">Apply status to all staff for {new Date(date).toLocaleDateString()}.</p>
+                            <h3 className="text-lg font-semibold">Bulk Operations</h3>
+                            <p className="text-xs text-muted-foreground font-medium">Apply status to all staff for {new Date(date).toLocaleDateString()}.</p>
                         </div>
                         <div className="flex gap-3">
                             <Button
                                 onClick={() => handleMarkAll('PRESENT')}
                                 disabled={saving || loading}
-                                className="rounded-2xl h-14 px-8 font-black italic bg-emerald-600 hover:bg-emerald-700 shadow-lg shadow-emerald-500/20"
+                                className="rounded-2xl h-14 px-8 font-semibold bg-emerald-600 hover:bg-emerald-700 shadow-lg shadow-emerald-500/20"
                             >
                                 Mark All Present
                             </Button>
@@ -225,7 +225,7 @@ export default function StaffAttendancePage() {
                                 onClick={() => handleMarkAll('ABSENT')}
                                 disabled={saving || loading}
                                 variant="outline"
-                                className="rounded-2xl h-14 px-8 font-black italic border-2 border-red-500/20 text-red-500 hover:bg-red-500 hover:text-white"
+                                className="rounded-2xl h-14 px-8 font-semibold border-2 border-red-500/20 text-red-500 hover:bg-red-500 hover:text-white"
                             >
                                 Mark All Absent
                             </Button>
@@ -237,7 +237,7 @@ export default function StaffAttendancePage() {
             {/* Attendance List */}
             <Card className="rounded-[3.5rem] border-border/50 shadow-2xl overflow-hidden border-t-8 border-t-emerald-500/20">
                 <CardHeader className="p-10 border-b border-border/50 flex flex-col md:flex-row items-center justify-between bg-muted/5 gap-6">
-                    <CardTitle className="text-2xl font-black italic flex items-center gap-3">
+                    <CardTitle className="text-h3 font-semibold flex items-center gap-3">
                         <Clock className="text-emerald-600" /> Attendance Ledger
                     </CardTitle>
                     <div className="flex items-center gap-4 w-full md:w-96">
@@ -245,7 +245,7 @@ export default function StaffAttendancePage() {
                             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={18} />
                             <Input
                                 placeholder="Search by name or department..."
-                                className="h-14 pl-12 rounded-2xl bg-muted/40 border-none font-bold italic text-sm"
+                                className="h-14 pl-12 rounded-2xl bg-muted/40 border-none font-bold text-sm"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                             />
@@ -266,7 +266,7 @@ export default function StaffAttendancePage() {
                                 <div className="p-2 bg-muted/30 rounded-xl">
                                     <Input
                                         placeholder="Add remarks..."
-                                        className="bg-transparent border-none text-[10px] font-bold italic h-8 focus-visible:ring-0"
+                                        className="bg-transparent border-none text-[10px] font-bold h-8 focus-visible:ring-0"
                                         value={attendanceData[staff.id]?.remarks || ''}
                                         onChange={(e) => {
                                             setAttendanceData(prev => ({
@@ -283,7 +283,7 @@ export default function StaffAttendancePage() {
                     {!loading && filteredStaff.length === 0 && (
                         <div className="py-20 text-center space-y-4 opacity-30">
                             <UserCircle size={64} className="mx-auto" />
-                            <p className="text-xl font-black italic">No staff members found matching your criteria.</p>
+                            <p className="text-h3 font-semibold">No staff members found matching your criteria.</p>
                         </div>
                     )}
                 </CardContent>
@@ -292,8 +292,8 @@ export default function StaffAttendancePage() {
             {/* Persistence Note */}
             <div className="flex items-center gap-3 px-10 py-6 rounded-[2rem] bg-amber-500/5 border-2 border-amber-500/10 text-amber-700/80">
                 <AlertCircle size={20} className="shrink-0" />
-                <p className="text-xs font-bold italic">
-                    <span className="font-black uppercase tracking-widest text-[10px] block mb-1">Warning</span>
+                <p className="text-xs font-bold">
+                    <span className="font-semibold uppercase tracking-widest text-[10px] block mb-1">Warning</span>
                     Records are automatically committed when using bulk actions. Individual adjustments require hitting the save icon next to the status selector.
                 </p>
             </div>

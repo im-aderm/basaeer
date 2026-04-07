@@ -116,7 +116,7 @@ export default function SubjectsPage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
-                    <h1 className="text-4xl font-black tracking-tight flex items-center gap-3">
+                    <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
                         <BookOpen className="text-primary w-10 h-10" />
                         Subjects Registry
                     </h1>
@@ -153,10 +153,10 @@ export default function SubjectsPage() {
                     <table className="w-full border-collapse">
                         <thead>
                             <tr className="bg-muted/30 text-left border-b border-border">
-                                <th className="px-10 py-6 text-[10px] items-center gap-2 uppercase tracking-[0.2em] font-black text-muted-foreground">Subject Details</th>
-                                <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-black text-muted-foreground">Code</th>
-                                <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-black text-muted-foreground">Date Registered</th>
-                                <th className="px-10 py-6 text-[10px] text-right uppercase tracking-[0.2em] font-black text-muted-foreground">Actions</th>
+                                <th className="px-10 py-6 text-[10px] items-center gap-2 uppercase tracking-[0.2em] font-semibold text-muted-foreground">Subject Details</th>
+                                <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Code</th>
+                                <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Date Registered</th>
+                                <th className="px-10 py-6 text-[10px] text-right uppercase tracking-[0.2em] font-semibold text-muted-foreground">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-border/50">
@@ -168,7 +168,7 @@ export default function SubjectsPage() {
                                                 <BookOpen size={20} />
                                             </div>
                                             <div>
-                                                <p className="font-black text-lg leading-tight">{subject.name}</p>
+                                                <p className="font-semibold text-lg leading-tight">{subject.name}</p>
                                                 <p className="text-xs text-muted-foreground font-semibold mt-1 flex items-center gap-1.5">
                                                     <Tag size={12} className="text-primary/50" />
                                                     Academic Curriculum
@@ -177,7 +177,7 @@ export default function SubjectsPage() {
                                         </div>
                                     </td>
                                     <td className="px-8 py-6">
-                                        <span className="px-4 py-2 bg-muted/50 border border-border rounded-xl text-xs font-black font-mono uppercase tracking-widest text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+                                        <span className="px-4 py-2 bg-muted/50 border border-border rounded-xl text-xs font-semibold font-mono uppercase tracking-widest text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-colors">
                                             {subject.code || "---"}
                                         </span>
                                     </td>
@@ -230,7 +230,7 @@ export default function SubjectsPage() {
                         <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-muted mb-6">
                             <Hash size={48} className="text-muted-foreground/30" />
                         </div>
-                        <h2 className="text-2xl font-black">No subjects found</h2>
+                        <h2 className="text-h3 font-semibold">No subjects found</h2>
                         <p className="text-muted-foreground mt-2 max-w-xs mx-auto font-medium">Try adjusting your search or add a new subject to the registry.</p>
                     </div>
                 )}
@@ -242,12 +242,12 @@ export default function SubjectsPage() {
                     <div className="bg-card w-full max-w-lg rounded-[3rem] border border-border shadow-2xl animate-in zoom-in-95 duration-300 overflow-hidden">
                         <form onSubmit={handleCreateOrUpdate}>
                             <div className="p-12 border-b border-border bg-muted/20">
-                                <h3 className="text-3xl font-black">{selectedSubject ? "Edit Subject" : "Create Subject"}</h3>
+                                <h3 className="text-h1 font-semibold">{selectedSubject ? "Edit Subject" : "Create Subject"}</h3>
                                 <p className="text-muted-foreground mt-2 text-lg font-medium">Registration details for school subjects.</p>
                             </div>
                             <div className="p-12 space-y-8">
                                 <div className="space-y-3">
-                                    <label className="text-sm font-black uppercase tracking-widest text-muted-foreground">Subject Name</label>
+                                    <label className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">Subject Name</label>
                                     <input
                                         required
                                         placeholder="e.g. Mathematics, English Language"
@@ -257,18 +257,18 @@ export default function SubjectsPage() {
                                     />
                                 </div>
                                 <div className="space-y-3">
-                                    <label className="text-sm font-black uppercase tracking-widest text-muted-foreground">Subject Code (Optional)</label>
+                                    <label className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">Subject Code (Optional)</label>
                                     <input
                                         placeholder="e.g. MATH-101"
-                                        className="w-full p-5 bg-background border-2 border-border rounded-2xl focus:border-primary outline-none transition-all font-black font-mono uppercase tracking-widest"
+                                        className="w-full p-5 bg-background border-2 border-border rounded-2xl focus:border-primary outline-none transition-all font-semibold font-mono uppercase tracking-widest"
                                         value={formData.code}
                                         onChange={(e) => setFormData({ ...formData, code: e.target.value })}
                                     />
                                 </div>
                             </div>
                             <div className="p-12 border-t border-border bg-muted/20 flex gap-4">
-                                <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 py-5 font-black rounded-2xl bg-muted hover:bg-muted/80 transition-colors">Cancel</button>
-                                <button type="submit" disabled={submitting} className="flex-2 py-5 bg-primary text-white rounded-2xl font-black transition-all shadow-xl shadow-primary/20 active:scale-95 disabled:opacity-50">
+                                <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 py-5 font-semibold rounded-2xl bg-muted hover:bg-muted/80 transition-colors">Cancel</button>
+                                <button type="submit" disabled={submitting} className="flex-2 py-5 bg-primary text-white rounded-2xl font-semibold transition-all shadow-xl shadow-primary/20 active:scale-95 disabled:opacity-50">
                                     {submitting ? <Loader2 className="animate-spin mx-auto" /> : (selectedSubject ? "Update Subject" : "Register Subject")}
                                 </button>
                             </div>
@@ -283,12 +283,12 @@ export default function SubjectsPage() {
                     <div className="bg-card w-full max-w-lg rounded-[3rem] border border-border shadow-2xl overflow-hidden">
                         <form onSubmit={handleAssignTeacher}>
                             <div className="p-12 border-b border-border bg-muted/20">
-                                <h3 className="text-2xl font-black">Assign Subject Teacher</h3>
-                                <p className="text-muted-foreground font-medium mt-2">Associate a specialist teacher with <span className="text-foreground font-black">{selectedSubject?.name}</span>.</p>
+                                <h3 className="text-h3 font-semibold">Assign Subject Teacher</h3>
+                                <p className="text-muted-foreground font-medium mt-2">Associate a specialist teacher with <span className="text-foreground font-semibold">{selectedSubject?.name}</span>.</p>
                             </div>
                             <div className="p-12 space-y-8">
                                 <div className="space-y-3">
-                                    <label className="text-sm font-black uppercase tracking-widest text-muted-foreground">Select Teacher</label>
+                                    <label className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">Select Teacher</label>
                                     <select
                                         required
                                         className="w-full p-5 bg-background border-2 border-border rounded-2xl focus:border-primary outline-none transition-all font-bold appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M5%207L10%2012L15%207%22%20stroke%3D%22%236B7280%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E')] bg-[length:24px] bg-[right_1.25rem_center] bg-no-repeat"
@@ -303,8 +303,8 @@ export default function SubjectsPage() {
                                 </div>
                             </div>
                             <div className="p-12 border-t border-border bg-muted/20 flex gap-4">
-                                <button type="button" onClick={() => setIsAssignModalOpen(false)} className="flex-1 py-5 font-black rounded-2xl bg-muted hover:bg-muted/80 transition-colors">Cancel</button>
-                                <button type="submit" disabled={submitting} className="flex-2 py-5 bg-primary text-white rounded-2xl font-black transition-all shadow-xl shadow-primary/20 active:scale-95 disabled:opacity-50 flex items-center justify-center gap-2">
+                                <button type="button" onClick={() => setIsAssignModalOpen(false)} className="flex-1 py-5 font-semibold rounded-2xl bg-muted hover:bg-muted/80 transition-colors">Cancel</button>
+                                <button type="submit" disabled={submitting} className="flex-2 py-5 bg-primary text-white rounded-2xl font-semibold transition-all shadow-xl shadow-primary/20 active:scale-95 disabled:opacity-50 flex items-center justify-center gap-2">
                                     {submitting && <Loader2 size={20} className="animate-spin" />}
                                     Assign Specialist
                                 </button>

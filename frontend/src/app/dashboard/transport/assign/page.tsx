@@ -107,7 +107,7 @@ export default function TransportAssignmentPage() {
         <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in duration-500 h-full pb-20">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
-                    <h1 className="text-4xl font-black tracking-tight italic flex items-center gap-3">
+                    <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
                         <Users className="text-primary w-10 h-10" />
                         Transport Management
                     </h1>
@@ -117,10 +117,10 @@ export default function TransportAssignmentPage() {
 
             <Tabs defaultValue="new" className="space-y-8">
                 <TabsList className="bg-muted/50 p-1.5 rounded-[2rem] h-16 w-full max-w-md shadow-inner">
-                    <TabsTrigger value="new" className="rounded-[1.5rem] h-13 font-black text-sm data-[state=active]:bg-primary data-[state=active]:text-white shadow-none transition-all">
+                    <TabsTrigger value="new" className="rounded-[1.5rem] h-13 font-semibold text-sm data-[state=active]:bg-primary data-[state=active]:text-white shadow-none transition-all">
                         <UserPlus size={18} className="mr-2" /> New Assignment
                     </TabsTrigger>
-                    <TabsTrigger value="active" className="rounded-[1.5rem] h-13 font-black text-sm data-[state=active]:bg-primary data-[state=active]:text-white shadow-none transition-all">
+                    <TabsTrigger value="active" className="rounded-[1.5rem] h-13 font-semibold text-sm data-[state=active]:bg-primary data-[state=active]:text-white shadow-none transition-all">
                         <UserCheck size={18} className="mr-2" /> Active Assignments
                     </TabsTrigger>
                 </TabsList>
@@ -130,8 +130,8 @@ export default function TransportAssignmentPage() {
                     <Card className="rounded-[3.5rem] border-border/50 shadow-2xl shadow-primary/5 lg:col-span-2 overflow-hidden min-h-[600px] flex flex-col">
                         <CardHeader className="p-10 pb-4">
                             <div className="flex justify-between items-center mb-6">
-                                <CardTitle className="text-2xl font-black italic">Unassigned Students</CardTitle>
-                                <span className="text-xs font-black uppercase tracking-widest text-muted-foreground bg-muted px-4 py-2 rounded-xl">
+                                <CardTitle className="text-h3 font-semibold">Unassigned Students</CardTitle>
+                                <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground bg-muted px-4 py-2 rounded-xl">
                                     {unassignedStudents.length} Students
                                 </span>
                             </div>
@@ -153,18 +153,18 @@ export default function TransportAssignmentPage() {
                                         onClick={() => setSelectedStudent(student)}
                                         className={`p-6 rounded-[2rem] border-2 transition-all flex items-center gap-4 text-left group ${selectedStudent?.id === student.id ? 'border-primary bg-primary/5 shadow-lg shadow-primary/10' : 'border-border/50 hover:border-primary/30 hover:bg-muted/30'}`}
                                     >
-                                        <div className={`w-14 h-14 rounded-2xl flex items-center justify-center font-black text-lg transition-transform group-hover:scale-110 ${selectedStudent?.id === student.id ? 'bg-primary text-white' : 'bg-muted text-muted-foreground'}`}>
+                                        <div className={`w-14 h-14 rounded-2xl flex items-center justify-center font-semibold text-lg transition-transform group-hover:scale-110 ${selectedStudent?.id === student.id ? 'bg-primary text-white' : 'bg-muted text-muted-foreground'}`}>
                                             {student.firstName[0]}{student.lastName[0]}
                                         </div>
                                         <div className="flex-1">
-                                            <p className="font-black text-lg italic">{student.firstName} {student.lastName}</p>
-                                            <p className="text-xs font-black text-primary/60 uppercase tracking-tighter">{student.class?.name || "No Class"}</p>
+                                            <p className="font-semibold text-lg">{student.firstName} {student.lastName}</p>
+                                            <p className="text-xs font-semibold text-primary/60 uppercase tracking-tighter">{student.class?.name || "No Class"}</p>
                                         </div>
                                         {selectedStudent?.id === student.id && <CheckCircle2 className="text-primary" size={24} />}
                                     </button>
                                 ))}
                                 {unassignedStudents.length === 0 && (
-                                    <div className="col-span-2 py-20 text-center text-muted-foreground italic font-bold">
+                                    <div className="col-span-2 py-20 text-center text-muted-foreground font-bold">
                                         No unassigned students found.
                                     </div>
                                 )}
@@ -175,20 +175,20 @@ export default function TransportAssignmentPage() {
                     {/* Assignment Form */}
                     <Card className="rounded-[3.5rem] border-border/50 shadow-2xl shadow-primary/5 p-10 space-y-8 sticky top-8 bg-card border-t-8 border-t-primary/20">
                         <div>
-                            <h3 className="text-2xl font-black italic mb-2 tracking-tight">Assignment Details</h3>
-                            <p className="text-muted-foreground font-medium text-sm italic">Complete the selection below.</p>
+                            <h3 className="text-h3 font-semibold mb-2 tracking-tight">Assignment Details</h3>
+                            <p className="text-muted-foreground font-medium text-sm">Complete the selection below.</p>
                         </div>
 
                         {selectedStudent ? (
                             <div className="p-6 bg-primary/5 rounded-[2rem] border border-primary/20 animate-in zoom-in-95 duration-300">
                                 <div className="flex items-center gap-4 mb-4">
                                     <GraduationCap className="text-primary" size={24} />
-                                    <h4 className="font-black text-xl italic">{selectedStudent.firstName} {selectedStudent.lastName}</h4>
+                                    <h4 className="font-semibold text-h3">{selectedStudent.firstName} {selectedStudent.lastName}</h4>
                                 </div>
                                 <div className="h-px bg-primary/10 mb-4" />
                                 <div className="space-y-4">
                                     <div className="space-y-3">
-                                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary ml-1">Commute Route</label>
+                                        <label className="text-label text-primary ml-1">Commute Route</label>
                                         <select
                                             className="w-full p-4 bg-background border-2 border-border/50 rounded-2xl focus:border-primary outline-none transition-all font-bold appearance-none cursor-pointer"
                                             value={selectedRoute}
@@ -199,7 +199,7 @@ export default function TransportAssignmentPage() {
                                         </select>
                                     </div>
                                     <div className="space-y-3">
-                                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary ml-1">Fleet Vehicle</label>
+                                        <label className="text-label text-primary ml-1">Fleet Vehicle</label>
                                         <select
                                             className="w-full p-4 bg-background border-2 border-border/50 rounded-2xl focus:border-primary outline-none transition-all font-bold appearance-none cursor-pointer"
                                             value={selectedVehicle}
@@ -212,7 +212,7 @@ export default function TransportAssignmentPage() {
                                     <Button
                                         onClick={handleAssign}
                                         disabled={!selectedRoute || !selectedVehicle}
-                                        className="w-full h-16 rounded-[1.5rem] font-black text-xl shadow-xl shadow-primary/20 mt-6 group overflow-hidden"
+                                        className="w-full h-16 rounded-[1.5rem] font-semibold text-h3 shadow-xl shadow-primary/20 mt-6 group overflow-hidden"
                                     >
                                         <span className="relative z-10 flex items-center justify-center gap-3">
                                             Confirm Assignment <ArrowRight className="group-hover:translate-x-2 transition-transform" />
@@ -225,7 +225,7 @@ export default function TransportAssignmentPage() {
                                 <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto">
                                     <UserPlus className="text-muted-foreground/30" size={32} />
                                 </div>
-                                <p className="text-muted-foreground font-bold italic px-10">Select a student from the directory to begin assignment.</p>
+                                <p className="text-muted-foreground font-bold px-10">Select a student from the directory to begin assignment.</p>
                             </div>
                         )}
                     </Card>
@@ -235,7 +235,7 @@ export default function TransportAssignmentPage() {
                     <Card className="rounded-[3.5rem] border-border/50 shadow-2xl shadow-primary/5 overflow-hidden border-t-8 border-t-primary/20">
                         <CardHeader className="p-10 pb-0">
                             <div className="flex justify-between items-center mb-6">
-                                <CardTitle className="text-2xl font-black italic">Active Assignments</CardTitle>
+                                <CardTitle className="text-h3 font-semibold">Active Assignments</CardTitle>
                                 <div className="relative w-72">
                                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={18} />
                                     <input
@@ -252,10 +252,10 @@ export default function TransportAssignmentPage() {
                                 <table className="w-full border-collapse">
                                     <thead>
                                         <tr className="bg-muted/30 text-left">
-                                            <th className="px-10 py-5 text-[10px] uppercase tracking-[0.2em] font-black text-muted-foreground">Student</th>
-                                            <th className="px-10 py-5 text-[10px] uppercase tracking-[0.2em] font-black text-muted-foreground">Route</th>
-                                            <th className="px-10 py-5 text-[10px] uppercase tracking-[0.2em] font-black text-muted-foreground">Vehicle</th>
-                                            <th className="px-10 py-5 text-right text-[10px] uppercase tracking-[0.2em] font-black text-muted-foreground">Actions</th>
+                                            <th className="px-10 py-5 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Student</th>
+                                            <th className="px-10 py-5 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Route</th>
+                                            <th className="px-10 py-5 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Vehicle</th>
+                                            <th className="px-10 py-5 text-right text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-border/50">
@@ -263,12 +263,12 @@ export default function TransportAssignmentPage() {
                                             <tr key={student.id} className="hover:bg-muted/10 transition-colors">
                                                 <td className="px-10 py-6">
                                                     <div className="flex items-center gap-4">
-                                                        <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center font-black text-xs text-primary">
+                                                        <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center font-semibold text-xs text-primary">
                                                             {student.firstName[0]}{student.lastName[0]}
                                                         </div>
                                                         <div>
-                                                            <p className="font-black italic text-lg">{student.firstName} {student.lastName}</p>
-                                                            <p className="text-[10px] font-black text-muted-foreground uppercase">{student.class?.name}</p>
+                                                            <p className="font-semibold text-lg">{student.firstName} {student.lastName}</p>
+                                                            <p className="text-[10px] font-semibold text-muted-foreground uppercase">{student.class?.name}</p>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -298,7 +298,7 @@ export default function TransportAssignmentPage() {
                                         ))}
                                         {assignedStudents.length === 0 && (
                                             <tr>
-                                                <td colSpan={4} className="px-10 py-20 text-center text-muted-foreground italic font-medium">
+                                                <td colSpan={4} className="px-10 py-20 text-center text-muted-foreground font-medium">
                                                     No students are currently assigned to transport.
                                                 </td>
                                             </tr>

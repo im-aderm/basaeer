@@ -221,7 +221,7 @@ export default function StudentLoginDeactivationPage() {
             <div className="mb-8">
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-4xl font-bold bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent">
+                        <h1 className="text-h1 font-bold bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent">
                             Student Login Management
                         </h1>
                         <p className="text-slate-600 dark:text-slate-400 mt-2">
@@ -296,7 +296,7 @@ export default function StudentLoginDeactivationPage() {
                         <Shield className="w-8 h-8 text-indigo-600" />
                     </div>
                     <p className="text-sm text-slate-600 dark:text-slate-400">Total Students</p>
-                    <p className="text-3xl font-bold text-slate-900 dark:text-slate-100">
+                    <p className="text-h1 font-bold text-slate-900 dark:text-slate-100">
                         {stats.total}
                     </p>
                 </div>
@@ -306,7 +306,7 @@ export default function StudentLoginDeactivationPage() {
                         <UserCheck className="w-8 h-8 text-emerald-600" />
                     </div>
                     <p className="text-sm text-slate-600 dark:text-slate-400">Active Logins</p>
-                    <p className="text-3xl font-bold text-slate-900 dark:text-slate-100">
+                    <p className="text-h1 font-bold text-slate-900 dark:text-slate-100">
                         {stats.active}
                     </p>
                 </div>
@@ -316,7 +316,7 @@ export default function StudentLoginDeactivationPage() {
                         <UserX className="w-8 h-8 text-red-600" />
                     </div>
                     <p className="text-sm text-slate-600 dark:text-slate-400">Inactive Logins</p>
-                    <p className="text-3xl font-bold text-slate-900 dark:text-slate-100">
+                    <p className="text-h1 font-bold text-slate-900 dark:text-slate-100">
                         {stats.inactive}
                     </p>
                 </div>
@@ -326,7 +326,7 @@ export default function StudentLoginDeactivationPage() {
                         <History className="w-8 h-8 text-orange-600" />
                     </div>
                     <p className="text-sm text-slate-600 dark:text-slate-400">Recent (30d)</p>
-                    <p className="text-3xl font-bold text-slate-900 dark:text-slate-100">
+                    <p className="text-h1 font-bold text-slate-900 dark:text-slate-100">
                         {stats.recentDeactivations}
                     </p>
                 </div>

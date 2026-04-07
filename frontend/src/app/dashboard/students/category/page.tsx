@@ -84,7 +84,7 @@ export default function StudentCategoryPage() {
         <div className="space-y-6">
             <div className="flex justify-between items-center">
                 <div>
-                    <h1 className="text-4xl font-black tracking-tight italic">Student Categories</h1>
+                    <h1 className="text-h1 font-semibold tracking-tight">Student Categories</h1>
                     <p className="text-muted-foreground font-medium">Categorize students for better organization and reporting.</p>
                 </div>
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -95,11 +95,11 @@ export default function StudentCategoryPage() {
                     </DialogTrigger>
                     <DialogContent className="rounded-[2.5rem] border-border/50 shadow-2xl p-10 max-w-lg">
                         <DialogHeader>
-                            <DialogTitle className="text-3xl font-black italic mb-6">Add New Category</DialogTitle>
+                            <DialogTitle className="text-h1 font-semibold mb-6">Add New Category</DialogTitle>
                         </DialogHeader>
                         <form onSubmit={handleSubmit} className="space-y-6">
                             <div className="space-y-3">
-                                <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Category Name</label>
+                                <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground ml-1">Category Name</label>
                                 <Input
                                     placeholder="e.g. Science, Arts, Special Needs"
                                     value={formData.name}
@@ -109,7 +109,7 @@ export default function StudentCategoryPage() {
                                 />
                             </div>
                             <div className="space-y-3">
-                                <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Description</label>
+                                <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground ml-1">Description</label>
                                 <Input
                                     placeholder="Optional description"
                                     value={formData.description}
@@ -117,7 +117,7 @@ export default function StudentCategoryPage() {
                                     className="h-14 rounded-2xl bg-muted/30 border-none font-bold text-lg"
                                 />
                             </div>
-                            <Button type="submit" className="w-full h-14 rounded-2xl font-black text-xl shadow-xl shadow-primary/20 mt-4 transition-all hover:scale-[1.02]">
+                            <Button type="submit" className="w-full h-14 rounded-2xl font-semibold text-h3 shadow-xl shadow-primary/20 mt-4 transition-all hover:scale-[1.02]">
                                 Create Category
                             </Button>
                         </form>
@@ -127,7 +127,7 @@ export default function StudentCategoryPage() {
 
             <Card className="rounded-[2rem] shadow-2xl shadow-primary/5 border-border/50 overflow-hidden border-t-8 border-t-primary/20">
                 <CardHeader className="pb-4">
-                    <CardTitle className="text-xl font-black italic flex items-center gap-2">
+                    <CardTitle className="text-h3 font-semibold flex items-center gap-2">
                         <Tag className="h-5 w-5 text-primary" />
                         Category List
                     </CardTitle>
@@ -137,10 +137,10 @@ export default function StudentCategoryPage() {
                         <Table>
                             <TableHeader className="bg-muted/50">
                                 <TableRow className="hover:bg-transparent border-border/50">
-                                    <TableHead className="font-black h-14">Name</TableHead>
-                                    <TableHead className="font-black h-14">Description</TableHead>
-                                    <TableHead className="font-black h-14 text-center">Students</TableHead>
-                                    <TableHead className="text-right font-black h-14 px-6">Actions</TableHead>
+                                    <TableHead className="font-semibold h-14">Name</TableHead>
+                                    <TableHead className="font-semibold h-14">Description</TableHead>
+                                    <TableHead className="font-semibold h-14 text-center">Students</TableHead>
+                                    <TableHead className="text-right font-semibold h-14 px-6">Actions</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
@@ -149,7 +149,7 @@ export default function StudentCategoryPage() {
                                         <TableCell className="font-bold py-4">{cat.name}</TableCell>
                                         <TableCell className="text-muted-foreground font-medium">{cat.description || '-'}</TableCell>
                                         <TableCell className="text-center">
-                                            <span className="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-black">
+                                            <span className="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-semibold">
                                                 {cat._count?.students || 0}
                                             </span>
                                         </TableCell>
@@ -167,7 +167,7 @@ export default function StudentCategoryPage() {
                                 ))}
                                 {categories.length === 0 && (
                                     <TableRow>
-                                        <TableCell colSpan={4} className="text-center py-12 text-muted-foreground font-medium italic">
+                                        <TableCell colSpan={4} className="text-center py-12 text-muted-foreground font-medium">
                                             No categories found.
                                         </TableCell>
                                     </TableRow>

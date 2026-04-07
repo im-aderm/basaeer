@@ -19,16 +19,17 @@ const SLIDES = [
         id: 1,
         type: "video",
         src: "https://player.vimeo.com/external/494252666.sd.mp4?s=72fd290c010c730e0129f123381e33f38994784a&profile_id=165",
-        headline: "America's first public Islamic school.",
-        subheadline: "Basaeer International School's mission-first commissioned at its founding in 2010-is to involve the city of Boston in preserving and proliferating Islamic values through academic excellence.",
-        featuredLabel: "Featured Program",
-        featuredValue: "Cambridge Curriculum in 4.5 Minutes",
+        headline: "Excellence in education, rooted in faith.",
+        subheadline: "Basaeer International School bridges the best of secular and Islamic education — nurturing minds that excel academically while embodying the values of the Quran.",
+        featuredLabel: "Our Curriculum",
+        featuredValue: "Cambridge Accredited & Quran Integrated",
         actionLeft: "Our History & Mission",
-        actionLeftLink: "/about",
+        actionLeftLink: "/#about",
         actionRight: "VIEW ACADEMICS",
-        actionRightLink: "/academics",
-        location: "Boston, MA",
-        ctaLabel: "Explore",
+        actionRightLink: "/#programs",
+        location: "Basaeer International School",
+        ctaLabel: "Apply Now",
+        ctaLink: "/admission",
         gradient: "linear-gradient(135deg, rgba(10, 31, 68, 0.4) 0%, rgba(10, 31, 68, 0.2) 100%)",
     },
     {
@@ -40,11 +41,12 @@ const SLIDES = [
         featuredLabel: "Featured Subject",
         featuredValue: "Islamic Integration in Sciences",
         actionLeft: "Curriculum Overview",
-        actionLeftLink: "/curriculum",
+        actionLeftLink: "/#programs",
         actionRight: "VIEW SUBJECTS",
-        actionRightLink: "/subjects",
+        actionRightLink: "/#programs",
         location: "Academic Wing",
         ctaLabel: "Learn More",
+        ctaLink: "/#programs",
         gradient: "linear-gradient(135deg, rgba(10, 31, 68, 0.4) 0%, rgba(10, 31, 68, 0.2) 100%)",
     },
     {
@@ -56,11 +58,12 @@ const SLIDES = [
         featuredLabel: "Featured Achievement",
         featuredValue: "15 Huffadh Graduated in 2025",
         actionLeft: "Quran Program",
-        actionLeftLink: "/hifdh",
+        actionLeftLink: "/#programs",
         actionRight: "VIEW HIFDH TRACK",
-        actionRightLink: "/hifdh-track",
+        actionRightLink: "/#programs",
         location: "Quranic Wing",
-        ctaLabel: "Apply Now",
+        ctaLabel: "Apply for Tahfeez",
+        ctaLink: "/admission",
         gradient: "linear-gradient(135deg, rgba(31, 94, 74, 0.4) 0%, rgba(31, 94, 74, 0.2) 100%)",
         showPlayIcon: true,
     },
@@ -73,14 +76,16 @@ const SLIDES = [
         featuredLabel: "Featured Event",
         featuredValue: "Annual Spring Fundraiser in 2 Weeks",
         actionLeft: "Community Events",
-        actionLeftLink: "/events",
+        actionLeftLink: "/#contact",
         actionRight: "GET INVOLVED",
-        actionRightLink: "/volunteer",
+        actionRightLink: "/#contact",
         location: "Community",
-        ctaLabel: "Join Us",
+        ctaLabel: "Join Our Community",
+        ctaLink: "/#contact",
         gradient: "linear-gradient(135deg, rgba(183, 110, 60, 0.4) 0%, rgba(183, 110, 60, 0.2) 100%)",
     },
 ];
+
 
 
 
@@ -247,18 +252,17 @@ export function HeroSlider() {
                 </div>
 
                 {/* Footer CTA */}
-                <button className="group relative px-6 py-2.5 bg-brand-gold text-brand-navy rounded-sm font-bold text-[10px] uppercase tracking-[2px] overflow-hidden transition-all duration-300 shadow-lg hover:shadow-brand-gold/20 active:scale-95">
+                <a
+                    href={(SLIDES[activeIndex] as any).ctaLink || '/admission'}
+                    className="group relative px-6 py-2.5 bg-brand-gold text-brand-navy rounded-sm font-bold text-[10px] uppercase tracking-[2px] overflow-hidden transition-all duration-300 shadow-lg hover:shadow-brand-gold/20 active:scale-95"
+                    aria-label={SLIDES[activeIndex].ctaLabel}
+                >
                     <span className="relative z-10 transition-colors duration-300 group-hover:text-brand-cream">{SLIDES[activeIndex].ctaLabel}</span>
-                    <div className="absolute inset-0 bg-brand-navy translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-                </button>
+                    <div className="absolute inset-0 bg-brand-navy translate-y-full group-hover:translate-y-0 transition-transform duration-300" aria-hidden="true" />
+                </a>
             </div>
 
-            <style jsx global>{`
-                .swiper-button-disabled {
-                    opacity: 0.2;
-                    cursor: not-allowed;
-                }
-            `}</style>
+            {/* NOTE: Swiper disabled button styles are now in globals.css */}
         </section>
     );
 }

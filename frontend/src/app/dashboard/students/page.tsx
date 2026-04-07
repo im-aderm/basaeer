@@ -8,14 +8,12 @@ import {
     TrendingUp,
     Award,
     ClipboardList,
-    Search,
     ArrowRight
 } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { StudentService, Student } from "@/services/studentService";
-import { ClassService } from "@/services/classService";
+import { StudentService } from "@/services/studentService";
 
 export default function StudentsDashboard() {
     const [stats, setStats] = useState({
@@ -27,24 +25,21 @@ export default function StudentsDashboard() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        Promise.all([
-            StudentService.getStats(),
-            StudentService.getAll(),
-            ClassService.getAll()
-        ]).then(([statsData, students, classes]) => {
-            setStats({
-                total: statsData.total,
-                newThisMonth: statsData.newThisMonth,
-                activeClasses: statsData.activeClasses,
-                attendance: statsData.attendanceRate
-            });
-            setLoading(false);
-        }).catch(err => {
-            console.error("Failed to fetch dashboard stats:", err);
-            setLoading(false);
-        });
+        StudentService.getStats()
+            .then((statsData) => {
+                setStats({
+                    total: statsData.total,
+                    newThisMonth: statsData.newThisMonth,
+                    activeClasses: statsData.activeClasses,
+                    attendance: statsData.attendanceRate
+                });
+            })
+            .catch((err: unknown) => {
+                const errMsg = err instanceof Error ? err.message : String(err);
+                console.warn("Failed to fetch student stats:", errMsg);
+            })
+            .finally(() => setLoading(false));
     }, []);
-
 
     const quickActions = [
         {
@@ -86,15 +81,15 @@ export default function StudentsDashboard() {
             {/* Header */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
-                    <h1 className="text-4xl font-black tracking-tight flex items-center gap-3 italic">
-                        <GraduationCap className="text-primary w-10 h-10" />
+                    <h1 className="text-h1 flex items-center gap-3">
+                        <GraduationCap className="text-primary w-7 h-7" />
                         Student Operations
                     </h1>
-                    <p className="text-muted-foreground mt-2 text-lg font-medium italic">Comprehensive overview of the student body and academic status.</p>
+                    <p className="text-body text-muted-foreground mt-1">Comprehensive overview of the student body and academic status.</p>
                 </div>
                 <Link href="/dashboard/students/admission">
-                    <Button className="gap-3 rounded-[1.5rem] h-14 px-8 font-black text-lg shadow-xl shadow-primary/20 hover:scale-105 transition-all">
-                        <UserPlus size={20} /> Enroll Student
+                    <Button className="gap-2 rounded-2xl h-11 px-6 font-medium shadow-lg shadow-primary/20 hover:scale-105 transition-all">
+                        <UserPlus size={18} /> Enroll Student
                     </Button>
                 </Link>
             </div>
@@ -107,68 +102,68 @@ export default function StudentsDashboard() {
                     { label: "Avg Attendance", value: stats.attendance, icon: ClipboardList, trend: "Daily" },
                     { label: "New Enrollments", value: stats.newThisMonth, icon: TrendingUp, trend: "This Month" }
                 ].map((item, i) => (
-                    <Card key={i} className="rounded-[2.5rem] border-border/50 shadow-2xl shadow-primary/5 p-8 border-t-8 border-t-primary/10 hover:border-t-primary transition-all group">
-                        <div className="flex justify-between items-center mb-4">
-                            <div className="w-12 h-12 rounded-2xl bg-muted/50 flex items-center justify-center text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-all">
-                                <item.icon size={24} />
+                    <Card key={i} className="rounded-2xl border-border/50 shadow-lg p-6 border-t-4 border-t-primary/10 hover:border-t-primary transition-all group">
+                        <div className="flex justify-between items-center mb-3">
+                            <div className="w-10 h-10 rounded-xl bg-muted/50 flex items-center justify-center text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-all">
+                                <item.icon size={20} />
                             </div>
-                            <span className="text-xs font-black bg-muted px-3 py-1 rounded-full text-muted-foreground uppercase">{item.trend}</span>
+                            <span className="text-label bg-muted px-2 py-1 rounded-full">{item.trend}</span>
                         </div>
-                        <h3 className="text-sm font-black text-muted-foreground uppercase tracking-widest">{item.label}</h3>
-                        <p className="text-3xl font-black italic mt-1">{loading ? "..." : item.value}</p>
+                        <p className="text-label mb-1">{item.label}</p>
+                        <p className="text-h1">{loading ? "..." : item.value}</p>
                     </Card>
                 ))}
             </div>
 
             {/* Quick Actions */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <Card className="rounded-[3.5rem] border-border/50 shadow-2xl shadow-primary/5 p-10 bg-card/50 backdrop-blur-sm">
-                    <h3 className="text-2xl font-black italic mb-8 flex items-center gap-4">
-                        <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
-                            <ArrowRight size={24} />
+                <Card className="rounded-3xl border-border/50 shadow-lg p-8 bg-card/50 backdrop-blur-sm">
+                    <h3 className="text-h3 mb-6 flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                            <ArrowRight size={18} />
                         </div>
                         Quick Navigation
                     </h3>
-                    <div className="grid grid-cols-1 gap-4">
+                    <div className="grid grid-cols-1 gap-3">
                         {quickActions.map((action, i) => (
                             <Link key={i} href={action.href}>
-                                <div className="flex items-center gap-6 p-6 rounded-[2rem] bg-muted/20 hover:bg-muted/40 transition-all border border-transparent hover:border-border/50 group">
-                                    <div className={`w-14 h-14 rounded-2xl ${action.bg} ${action.color} flex items-center justify-center group-hover:scale-110 transition-transform`}>
-                                        <action.icon size={28} />
+                                <div className="flex items-center gap-4 p-4 rounded-2xl bg-muted/20 hover:bg-muted/40 transition-all border border-transparent hover:border-border/50 group">
+                                    <div className={`w-10 h-10 rounded-xl ${action.bg} ${action.color} flex items-center justify-center group-hover:scale-110 transition-transform`}>
+                                        <action.icon size={20} />
                                     </div>
                                     <div className="flex-1">
-                                        <h4 className="font-black text-xl italic">{action.title}</h4>
-                                        <p className="text-sm text-muted-foreground font-medium">{action.description}</p>
+                                        <p className="text-body font-medium">{action.title}</p>
+                                        <p className="text-secondary">{action.description}</p>
                                     </div>
-                                    <ArrowRight className="text-muted-foreground group-hover:translate-x-2 transition-transform" />
+                                    <ArrowRight className="text-muted-foreground group-hover:translate-x-1 transition-transform" size={16} />
                                 </div>
                             </Link>
                         ))}
                     </div>
                 </Card>
 
-                <Card className="rounded-[3.5rem] border-border/50 shadow-2xl shadow-primary/5 p-10 bg-card/50 overflow-hidden relative border-t-8 border-t-primary">
+                <Card className="rounded-3xl border-border/50 shadow-lg p-8 bg-card/50 overflow-hidden relative border-t-4 border-t-primary">
                     <div className="relative z-10">
-                        <h3 className="text-2xl font-black italic mb-2 tracking-tight">Recent Activity</h3>
-                        <p className="text-muted-foreground font-medium italic mb-8">Stay updated with the latest changes.</p>
+                        <h3 className="text-h3 mb-1">Recent Activity</h3>
+                        <p className="text-secondary mb-6">Stay updated with the latest changes.</p>
 
-                        <div className="space-y-6">
+                        <div className="space-y-4">
                             {[
                                 "New student enrolled in Grade 10A",
                                 "Attendance report generated for Branch A",
                                 "15 Certificates issued to Grade 12",
                                 "ID Cards sent for printing"
                             ].map((activity, i) => (
-                                <div key={i} className="flex gap-4 items-start">
-                                    <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
-                                    <p className="text-sm font-bold text-muted-foreground leading-relaxed italic">{activity}</p>
+                                <div key={i} className="flex gap-3 items-start">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
+                                    <p className="text-body text-muted-foreground">{activity}</p>
                                 </div>
                             ))}
                         </div>
 
-                        <div className="mt-12 p-8 rounded-[2.5rem] bg-primary/5 border border-primary/10">
-                            <h4 className="font-black italic text-primary text-xl mb-2 text-center">Need Help?</h4>
-                            <p className="text-xs text-center text-muted-foreground font-bold leading-relaxed px-4">Contact the administrative support team at support@basaeer.com if you encounter any issues.</p>
+                        <div className="mt-8 p-6 rounded-2xl bg-primary/5 border border-primary/10">
+                            <h4 className="text-body font-semibold text-primary mb-1 text-center">Need Help?</h4>
+                            <p className="text-secondary text-center">Contact the administrative support team at support@basaeer.com if you encounter any issues.</p>
                         </div>
                     </div>
                 </Card>

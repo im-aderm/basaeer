@@ -1,4 +1,23 @@
-import { IsString, IsNotEmpty, IsOptional, IsEmail, IsDateString, IsUUID, IsNumber, IsBoolean } from 'class-validator';
+import { IsString, IsNotEmpty, IsOptional, IsEmail, IsDateString, IsUUID, IsNumber, IsBoolean, IsArray, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
+
+class PreviousSchoolDto {
+    @IsString()
+    @IsNotEmpty()
+    institutionName: string;
+
+    @IsString()
+    @IsOptional()
+    address?: string;
+
+    @IsString()
+    @IsOptional()
+    fromYear?: string;
+
+    @IsString()
+    @IsOptional()
+    toYear?: string;
+}
 
 export class CreateOnlineAdmissionDto {
     // 1. Student Basic Information
@@ -9,6 +28,10 @@ export class CreateOnlineAdmissionDto {
     @IsString()
     @IsNotEmpty()
     firstName: string;
+
+    @IsString()
+    @IsOptional()
+    surname?: string;
 
     @IsString()
     @IsNotEmpty()
@@ -25,6 +48,14 @@ export class CreateOnlineAdmissionDto {
     @IsDateString()
     @IsNotEmpty()
     dateOfBirth: string;
+
+    @IsNumber()
+    @IsOptional()
+    age?: number;
+
+    @IsString()
+    @IsOptional()
+    ninNumber?: string;
 
     @IsString()
     @IsOptional()
@@ -50,6 +81,18 @@ export class CreateOnlineAdmissionDto {
     @IsOptional()
     passportPhoto?: string;
 
+    @IsString()
+    @IsOptional()
+    passportPhoto2?: string;
+
+    @IsString()
+    @IsOptional()
+    passportPhoto3?: string;
+
+    @IsString()
+    @IsOptional()
+    passportPhoto4?: string;
+
     // 2. Admission Details
     @IsUUID()
     @IsOptional()
@@ -71,9 +114,11 @@ export class CreateOnlineAdmissionDto {
     @IsOptional()
     admissionType?: string; // NEW, TRANSFER, RETURNING
 
-    @IsString()
+    @IsArray()
     @IsOptional()
-    previousSchool?: string;
+    @ValidateNested({ each: true })
+    @Type(() => PreviousSchoolDto)
+    previousSchools?: PreviousSchoolDto[];
 
     @IsString()
     @IsOptional()
@@ -114,6 +159,38 @@ export class CreateOnlineAdmissionDto {
 
     @IsString()
     @IsOptional()
+    fatherName?: string;
+
+    @IsString()
+    @IsOptional()
+    fatherOccupation?: string;
+
+    @IsString()
+    @IsOptional()
+    fatherPhone?: string;
+
+    @IsString()
+    @IsOptional()
+    motherName?: string;
+
+    @IsString()
+    @IsOptional()
+    motherOccupation?: string;
+
+    @IsString()
+    @IsOptional()
+    motherPhone?: string;
+
+    @IsString()
+    @IsOptional()
+    guardianContact1?: string;
+
+    @IsString()
+    @IsOptional()
+    guardianContact2?: string;
+
+    @IsString()
+    @IsOptional()
     secondaryGuardianName?: string;
 
     @IsString()
@@ -128,6 +205,14 @@ export class CreateOnlineAdmissionDto {
     @IsString()
     @IsOptional()
     address?: string;
+
+    @IsString()
+    @IsOptional()
+    whatsappNumber?: string;
+
+    @IsString()
+    @IsOptional()
+    languagesSpoken?: string;
 
     @IsString()
     @IsOptional()
@@ -153,6 +238,10 @@ export class CreateOnlineAdmissionDto {
     @IsOptional()
     emergencyContactRelation?: string;
 
+    @IsString()
+    @IsOptional()
+    emergencySickness?: string;
+
     // 5. Medical Information
     @IsString()
     @IsOptional()
@@ -170,9 +259,29 @@ export class CreateOnlineAdmissionDto {
     @IsOptional()
     medicalConditions?: string;
 
+    @IsBoolean()
+    @IsOptional()
+    hasMedicalCondition?: boolean;
+
     @IsString()
     @IsOptional()
-    specialNeeds?: string;
+    medicalConditionInfo?: string;
+
+    @IsBoolean()
+    @IsOptional()
+    hasLearningDifficulty?: boolean;
+
+    @IsString()
+    @IsOptional()
+    learningDifficultyInfo?: string;
+
+    @IsBoolean()
+    @IsOptional()
+    hasSpecialNeeds?: boolean;
+
+    @IsString()
+    @IsOptional()
+    specialNeedsInfo?: string;
 
     @IsString()
     @IsOptional()
@@ -182,30 +291,30 @@ export class CreateOnlineAdmissionDto {
     @IsOptional()
     familyDoctorPhone?: string;
 
-    // 6. Hostel & Transport
+    // 6. Additional Information
     @IsBoolean()
     @IsOptional()
-    hostelRequired?: boolean;
+    hasAppliedBefore?: boolean;
 
     @IsString()
     @IsOptional()
-    preferredHostel?: string;
-
-    @IsString()
-    @IsOptional()
-    hostelNotes?: string;
+    howHeard?: string;
 
     @IsBoolean()
     @IsOptional()
-    transportRequired?: boolean;
+    seekingFinancialAid?: boolean;
+
+    @IsBoolean()
+    @IsOptional()
+    hasSiblingsInSchool?: boolean;
 
     @IsString()
     @IsOptional()
-    pickupLocation?: string;
+    siblingName?: string;
 
     @IsString()
     @IsOptional()
-    preferredRoute?: string;
+    siblingLevel?: string;
 
     // 7. Documents Upload (URLs after upload)
     @IsString()
@@ -223,6 +332,30 @@ export class CreateOnlineAdmissionDto {
     @IsString()
     @IsOptional()
     immunizationCardUrl?: string;
+
+    @IsString()
+    @IsOptional()
+    ninUrl?: string;
+
+    @IsString()
+    @IsOptional()
+    educationalCertUrl?: string;
+
+    @IsString()
+    @IsOptional()
+    transferLetterUrl?: string;
+
+    @IsString()
+    @IsOptional()
+    medicalReportUrl?: string;
+
+    @IsString()
+    @IsOptional()
+    recommendationLetterUrl?: string;
+
+    @IsString()
+    @IsOptional()
+    schoolReportUrl?: string;
 
     // 8. System & Administrative
     @IsUUID()

@@ -52,8 +52,8 @@ export default function PayrollDashboard() {
             <div className="relative overflow-hidden rounded-[3.5rem] bg-slate-900 p-12 text-white shadow-2xl">
                 <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
                     <div>
-                        <h1 className="text-5xl font-black tracking-tight italic mb-4">Payroll Engine</h1>
-                        <p className="text-slate-400 text-xl font-medium max-w-xl leading-relaxed italic">
+                        <h1 className="text-h1 font-semibold tracking-tight mb-4">Payroll Engine</h1>
+                        <p className="text-slate-400 text-xl font-medium max-w-xl leading-relaxed">
                             Automate salary generation across the entire branch. Ensure accuracy and timeliness in staff compensation.
                         </p>
                     </div>
@@ -64,28 +64,28 @@ export default function PayrollDashboard() {
                             </div>
                             <div className="flex gap-3">
                                 <Select value={month} onValueChange={setMonth}>
-                                    <SelectTrigger className="h-14 rounded-2xl bg-slate-900/50 border-slate-700 font-black italic">
+                                    <SelectTrigger className="h-14 rounded-2xl bg-slate-900/50 border-slate-700 font-semibold">
                                         <SelectValue placeholder="Month" />
                                     </SelectTrigger>
                                     <SelectContent className="rounded-2xl border-slate-700 bg-slate-800 text-slate-200">
                                         {months.map((m, i) => (
-                                            <SelectItem key={i} value={(i + 1).toString()} className="font-bold italic">{m}</SelectItem>
+                                            <SelectItem key={i} value={(i + 1).toString()} className="font-bold">{m}</SelectItem>
                                         ))}
                                     </SelectContent>
                                 </Select>
                                 <Select value={year} onValueChange={setYear}>
-                                    <SelectTrigger className="h-14 rounded-2xl bg-slate-900/50 border-slate-700 font-black italic w-32">
+                                    <SelectTrigger className="h-14 rounded-2xl bg-slate-900/50 border-slate-700 font-semibold w-32">
                                         <SelectValue placeholder="Year" />
                                     </SelectTrigger>
                                     <SelectContent className="rounded-2xl border-slate-700 bg-slate-800 text-slate-200">
                                         {years.map(y => (
-                                            <SelectItem key={y} value={y.toString()} className="font-bold italic">{y}</SelectItem>
+                                            <SelectItem key={y} value={y.toString()} className="font-bold">{y}</SelectItem>
                                         ))}
                                     </SelectContent>
                                 </Select>
                             </div>
                             <Button
-                                className="h-14 rounded-2xl font-black italic tracking-wide text-lg bg-primary hover:bg-primary/90 shadow-xl shadow-primary/20 hover:scale-105 transition-all mt-2"
+                                className="h-14 rounded-2xl font-semibold tracking-wide text-lg bg-primary hover:bg-primary/90 shadow-xl shadow-primary/20 hover:scale-105 transition-all mt-2"
                                 onClick={handleGenerate}
                                 disabled={generating}
                             >
@@ -108,18 +108,18 @@ export default function PayrollDashboard() {
                         <CheckCircle2 className="text-muted-foreground/30" />
                     </div>
                     <div className="mt-6">
-                        <h3 className="text-4xl font-black italic tracking-tighter">₦0</h3>
-                        <p className="text-muted-foreground font-bold mt-1 italic uppercase text-xs">Total Disbursed (MTD)</p>
+                        <h3 className="text-h1 font-semibold tracking-tighter">₦0</h3>
+                        <p className="text-muted-foreground font-bold mt-1 uppercase text-xs">Total Disbursed (MTD)</p>
                     </div>
                 </Card>
                 <Card className="rounded-[2.5rem] border-border/50 shadow-xl p-8 bg-card group hover:scale-[1.02] transition-all border-t-8 border-t-blue-500">
                     <div className="flex items-start justify-between">
                         <div className="p-4 rounded-2xl bg-blue-500/10 text-blue-600"><FileText size={24} /></div>
-                        <div className="bg-blue-500/20 px-3 py-1 rounded-full text-[10px] font-black italic text-blue-700">ACTIVE</div>
+                        <div className="bg-blue-500/20 px-3 py-1 rounded-full text-[10px] font-semibold text-blue-700">ACTIVE</div>
                     </div>
                     <div className="mt-6">
-                        <h3 className="text-4xl font-black italic tracking-tighter italic">0</h3>
-                        <p className="text-muted-foreground font-bold mt-1 italic uppercase text-xs">Generated Slips</p>
+                        <h3 className="text-h1 font-semibold tracking-tighter">0</h3>
+                        <p className="text-muted-foreground font-bold mt-1 uppercase text-xs">Generated Slips</p>
                     </div>
                 </Card>
                 <Card className="rounded-[2.5rem] border-border/50 shadow-xl p-8 bg-card group hover:scale-[1.02] transition-all border-t-8 border-t-amber-500">
@@ -127,8 +127,8 @@ export default function PayrollDashboard() {
                         <div className="p-4 rounded-2xl bg-amber-500/10 text-amber-600"><AlertCircle size={24} /></div>
                     </div>
                     <div className="mt-6">
-                        <h3 className="text-4xl font-black italic tracking-tighter">0</h3>
-                        <p className="text-muted-foreground font-bold mt-1 italic uppercase text-xs">Missing Templates</p>
+                        <h3 className="text-h1 font-semibold tracking-tighter">0</h3>
+                        <p className="text-muted-foreground font-bold mt-1 uppercase text-xs">Missing Templates</p>
                     </div>
                 </Card>
                 <Card className="rounded-[2.5rem] border-border/50 shadow-xl p-8 bg-card group hover:scale-[1.02] transition-all border-t-8 border-t-slate-900/20">
@@ -136,8 +136,8 @@ export default function PayrollDashboard() {
                         <div className="p-4 rounded-2xl bg-slate-500/10 text-slate-600"><Download size={24} /></div>
                     </div>
                     <div className="mt-6">
-                        <h3 className="text-2xl font-black italic tracking-tight italic pt-2">Reports</h3>
-                        <p className="text-muted-foreground font-bold mt-1 italic uppercase text-xs">Download History</p>
+                        <h3 className="text-h3 font-semibold tracking-tight pt-2">Reports</h3>
+                        <p className="text-muted-foreground font-bold mt-1 uppercase text-xs">Download History</p>
                     </div>
                 </Card>
             </div>
@@ -146,23 +146,23 @@ export default function PayrollDashboard() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
                 <Card className="lg:col-span-2 rounded-[3.5rem] border-border/50 shadow-2xl overflow-hidden min-h-[500px]">
                     <CardHeader className="p-10 border-b border-border bg-muted/10 flex flex-row items-center justify-between">
-                        <CardTitle className="text-2xl font-black italic flex items-center gap-3">
+                        <CardTitle className="text-h3 font-semibold flex items-center gap-3">
                             <History size={24} className="text-primary" /> Recent Batches
                         </CardTitle>
-                        <Button variant="ghost" className="font-black italic rounded-xl">View Archive</Button>
+                        <Button variant="ghost" className="font-semibold rounded-xl">View Archive</Button>
                     </CardHeader>
                     <CardContent className="p-0 flex flex-col items-center justify-center p-20 text-center space-y-4">
                         <div className="w-20 h-20 rounded-full bg-muted/50 flex items-center justify-center border-4 border-dashed border-border mb-4">
                             <Search className="text-muted-foreground/30" size={32} />
                         </div>
-                        <p className="text-muted-foreground font-bold italic text-lg">No active batches detected for {months[Number(month) - 1]} {year}.</p>
-                        <p className="text-muted-foreground/60 text-sm italic max-w-sm">Hit "Run Payroll Batch" to generate vouchers for all eligible staff members in this branch.</p>
+                        <p className="text-muted-foreground font-bold text-lg">No active batches detected for {months[Number(month) - 1]} {year}.</p>
+                        <p className="text-muted-foreground/60 text-sm max-w-sm">Hit "Run Payroll Batch" to generate vouchers for all eligible staff members in this branch.</p>
                     </CardContent>
                 </Card>
 
                 <div className="space-y-8">
                     <Card className="rounded-[3rem] border-border/50 shadow-2xl p-8 bg-primary/5 border-t-8 border-t-primary">
-                        <h3 className="text-xl font-black italic mb-6">Payroll Checklist</h3>
+                        <h3 className="text-h3 font-semibold mb-6">Payroll Checklist</h3>
                         <div className="space-y-6">
                             {[
                                 { t: "Staff Base Salaries Defined", d: "Ensure templates are active." },
@@ -174,8 +174,8 @@ export default function PayrollDashboard() {
                                         <CheckCircle2 size={16} />
                                     </div>
                                     <div>
-                                        <p className="font-black text-sm italic">{item.t}</p>
-                                        <p className="text-[10px] text-muted-foreground font-bold italic">{item.d}</p>
+                                        <p className="font-semibold text-sm">{item.t}</p>
+                                        <p className="text-[10px] text-muted-foreground font-bold">{item.d}</p>
                                     </div>
                                 </div>
                             ))}
@@ -183,12 +183,12 @@ export default function PayrollDashboard() {
                     </Card>
 
                     <Card className="rounded-[3rem] border-border/50 shadow-2xl p-8 bg-card/50">
-                        <h3 className="text-xl font-black italic mb-6">Quick Tools</h3>
+                        <h3 className="text-h3 font-semibold mb-6">Quick Tools</h3>
                         <div className="space-y-4">
-                            <Button variant="outline" className="w-full h-14 rounded-2xl justify-start font-black italic gap-4 hover:bg-slate-900 hover:text-white transition-all border-2">
+                            <Button variant="outline" className="w-full h-14 rounded-2xl justify-start font-semibold gap-4 hover:bg-slate-900 hover:text-white transition-all border-2">
                                 <DollarSign size={20} /> View All Templates
                             </Button>
-                            <Button variant="outline" className="w-full h-14 rounded-2xl justify-start font-black italic gap-4 hover:bg-slate-900 hover:text-white transition-all border-2">
+                            <Button variant="outline" className="w-full h-14 rounded-2xl justify-start font-semibold gap-4 hover:bg-slate-900 hover:text-white transition-all border-2">
                                 <FileText size={20} /> Batch Export Payslips
                             </Button>
                         </div>

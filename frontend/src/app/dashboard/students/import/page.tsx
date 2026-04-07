@@ -8,7 +8,6 @@ import { Input } from '@/components/ui/input';
 import { Upload, Download, AlertCircle, CheckCircle2, XCircle, FileSpreadsheet } from 'lucide-react';
 import { StudentService } from '@/services/studentService';
 import { toast } from 'sonner';
-import * as ExcelJS from 'exceljs';
 
 export default function BulkImportPage() {
     const { user } = useAuth();
@@ -44,31 +43,19 @@ export default function BulkImportPage() {
         }
     };
 
-    const downloadSample = async () => {
-        const workbook = new ExcelJS.Workbook();
-        const worksheet = workbook.addWorksheet('Students');
-
-        worksheet.columns = [
-            { header: 'First Name *', key: 'firstName', width: 20 },
-            { header: 'Last Name *', key: 'lastName', width: 20 },
-            { header: 'Gender (MALE/FEMALE) *', key: 'gender', width: 15 },
-            { header: 'DOB (YYYY-MM-DD) *', key: 'dob', width: 15 },
-            { header: 'Class (Name or ID) *', key: 'className', width: 20 },
-            { header: 'Academic Session (Name or ID) *', key: 'sessionName', width: 25 },
-            { header: 'Guardian Name *', key: 'guardianName', width: 20 },
-            { header: 'Guardian Phone *', key: 'guardianPhone', width: 20 },
-            { header: 'Home Address', key: 'address', width: 30 },
-        ];
-
-        worksheet.addRow(['John', 'Doe', 'MALE', '2015-05-15', 'Grade 1', '2023/2024 Session', 'Robert Doe', '08012345678', '123 School Road, City']);
-        worksheet.addRow(['Jane', 'Smith', 'FEMALE', '2016-08-20', 'Grade 2', '2023/2024 Session', 'Mary Smith', '08098765432', '456 Academy Ave, State']);
-
-        const buffer = await workbook.xlsx.writeBuffer();
-        const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    const downloadSample = () => {
+        // Construct a simple CSV fallback
+        const headers = ['First Name *', 'Last Name *', 'Gender (MALE/FEMALE) *', 'DOB (YYYY-MM-DD) *', 'Class (Name or ID) *', 'Academic Session (Name or ID) *', 'Guardian Name *', 'Guardian Phone *', 'Home Address'];
+        const row1 = ['John', 'Doe', 'MALE', '2015-05-15', 'Grade 1', '2023/2024 Session', 'Robert Doe', '08012345678', '123 School Road, City'];
+        const row2 = ['Jane', 'Smith', 'FEMALE', '2016-08-20', 'Grade 2', '2023/2024 Session', 'Mary Smith', '08098765432', '456 Academy Ave, State'];
+        
+        const csvContent = [headers.join(','), row1.join(','), row2.join(',')].join('\n');
+        
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
         const url = window.URL.createObjectURL(blob);
         const anchor = document.createElement('a');
         anchor.href = url;
-        anchor.download = 'student_import_sample.xlsx';
+        anchor.download = 'student_import_sample.csv';
         anchor.click();
         window.URL.revokeObjectURL(url);
     };
@@ -77,15 +64,15 @@ export default function BulkImportPage() {
         <div className="max-w-5xl mx-auto space-y-8">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-4xl font-black tracking-tight italic">Bulk Student Import</h1>
-                    <p className="text-muted-foreground font-medium mt-1">Enroll multiple students at once using an Excel file.</p>
+                    <h1 className="text-h1 font-semibold tracking-tight">Bulk Student Import</h1>
+                    <p className="text-muted-foreground font-medium mt-1">Enroll multiple students at once using an Excel or CSV file.</p>
                 </div>
                 <Button
                     variant="outline"
                     onClick={downloadSample}
                     className="gap-2 rounded-xl h-12 border-primary/20 hover:bg-primary/5 transition-all"
                 >
-                    <Download className="h-4 w-4" /> Download Sample
+                    <Download className="h-4 w-4" /> Download Sample CSV
                 </Button>
             </div>
 
@@ -93,7 +80,7 @@ export default function BulkImportPage() {
                 {/* Instructions */}
                 <Card className="lg:col-span-1 rounded-[2rem] border-border/50 shadow-xl overflow-hidden self-start">
                     <CardHeader className="bg-primary/5 pb-4">
-                        <CardTitle className="text-xl font-black italic flex items-center gap-2">
+                        <CardTitle className="text-h3 font-semibold flex items-center gap-2">
                             <AlertCircle className="h-5 w-5 text-primary" />
                             Instructions
                         </CardTitle>
@@ -101,19 +88,19 @@ export default function BulkImportPage() {
                     <CardContent className="pt-6 space-y-4">
                         <ul className="space-y-4">
                             <li className="flex gap-3">
-                                <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center shrink-0 font-black text-xs text-primary mt-0.5">1</div>
-                                <p className="text-sm font-medium">Download the sample Excel template using the button above.</p>
+                                <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center shrink-0 font-semibold text-xs text-primary mt-0.5">1</div>
+                                <p className="text-sm font-medium">Download the sample template using the button above.</p>
                             </li>
                             <li className="flex gap-3">
-                                <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center shrink-0 font-black text-xs text-primary mt-0.5">2</div>
-                                <p className="text-sm font-medium">Fill in the student details. <b>Email, First Name,</b> and <b>Last Name</b> are required.</p>
+                                <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center shrink-0 font-semibold text-xs text-primary mt-0.5">2</div>
+                                <p className="text-sm font-medium">Fill in the student details. <b>First Name, Last Name, Gender, DOB, Class,</b> and <b>Session</b> are required.</p>
                             </li>
                             <li className="flex gap-3">
-                                <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center shrink-0 font-black text-xs text-primary mt-0.5">3</div>
+                                <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center shrink-0 font-semibold text-xs text-primary mt-0.5">3</div>
                                 <p className="text-sm font-medium">Ensure the date format for DOB is <b>YYYY-MM-DD</b>.</p>
                             </li>
                             <li className="flex gap-3">
-                                <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center shrink-0 font-black text-xs text-primary mt-0.5">4</div>
+                                <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center shrink-0 font-semibold text-xs text-primary mt-0.5">4</div>
                                 <p className="text-sm font-medium">Upload the file and click <b>Start Import</b>.</p>
                             </li>
                         </ul>
@@ -124,7 +111,7 @@ export default function BulkImportPage() {
                 <div className="lg:col-span-2 space-y-8">
                     <Card className="rounded-[2rem] border-border/50 shadow-2xl overflow-hidden border-t-8 border-t-primary/20">
                         <CardHeader className="pb-4">
-                            <CardTitle className="text-xl font-black italic flex items-center gap-2">
+                            <CardTitle className="text-h3 font-semibold flex items-center gap-2">
                                 <Upload className="h-5 w-5 text-primary" />
                                 Upload File
                             </CardTitle>
@@ -148,12 +135,12 @@ export default function BulkImportPage() {
                                     </div>
                                     {file ? (
                                         <div className="space-y-1">
-                                            <p className="text-lg font-black italic">{file.name}</p>
+                                            <p className="text-lg font-semibold">{file.name}</p>
                                             <p className="text-sm text-muted-foreground font-medium">{(file.size / 1024).toFixed(2)} KB</p>
                                         </div>
                                     ) : (
                                         <div className="space-y-2">
-                                            <p className="text-lg font-black italic">Click to browse or drag and drop</p>
+                                            <p className="text-lg font-semibold">Click to browse or drag and drop</p>
                                             <p className="text-sm text-muted-foreground font-medium">Only .xlsx and .csv files supported</p>
                                         </div>
                                     )}
@@ -173,7 +160,7 @@ export default function BulkImportPage() {
                             </div>
 
                             <Button
-                                className="w-full h-14 rounded-2xl font-black text-xl shadow-xl shadow-primary/20 transition-all hover:scale-[1.01]"
+                                className="w-full h-14 rounded-2xl font-semibold text-h3 shadow-xl shadow-primary/20 transition-all hover:scale-[1.01]"
                                 disabled={!file || isUploading}
                                 onClick={handleUpload}
                             >
@@ -186,7 +173,7 @@ export default function BulkImportPage() {
                     {results && (
                         <Card className="rounded-[2rem] border-border/50 shadow-2xl overflow-hidden">
                             <CardHeader className="bg-muted/50 pb-4">
-                                <CardTitle className="text-xl font-black italic">Import Results</CardTitle>
+                                <CardTitle className="text-h3 font-semibold">Import Results</CardTitle>
                             </CardHeader>
                             <CardContent className="pt-8 space-y-6">
                                 <div className="grid grid-cols-2 gap-4">
@@ -195,8 +182,8 @@ export default function BulkImportPage() {
                                             <CheckCircle2 className="h-6 w-6" />
                                         </div>
                                         <div>
-                                            <p className="text-sm font-black uppercase tracking-tighter text-emerald-600">Success</p>
-                                            <p className="text-2xl font-black">{results.success}</p>
+                                            <p className="text-sm font-semibold uppercase tracking-tighter text-emerald-600">Success</p>
+                                            <p className="text-h3 font-semibold">{results.success}</p>
                                         </div>
                                     </div>
                                     <div className="bg-destructive/10 border border-destructive/20 p-6 rounded-[1.5rem] flex items-center gap-4">
@@ -204,22 +191,22 @@ export default function BulkImportPage() {
                                             <XCircle className="h-6 w-6" />
                                         </div>
                                         <div>
-                                            <p className="text-sm font-black uppercase tracking-tighter text-destructive">Failed</p>
-                                            <p className="text-2xl font-black">{results.failed}</p>
+                                            <p className="text-sm font-semibold uppercase tracking-tighter text-destructive">Failed</p>
+                                            <p className="text-h3 font-semibold">{results.failed}</p>
                                         </div>
                                     </div>
                                 </div>
 
-                                {(results.details.length > 0 || results.parsingErrors.length > 0) && (
+                                {(results.details?.length > 0 || results.parsingErrors?.length > 0) && (
                                     <div className="space-y-3">
-                                        <p className="text-sm font-black uppercase tracking-widest text-muted-foreground ml-1">Issues Found</p>
+                                        <p className="text-sm font-semibold uppercase tracking-widest text-muted-foreground ml-1">Issues Found</p>
                                         <div className="rounded-[1.5rem] border border-border/50 max-h-60 overflow-y-auto p-4 bg-muted/30 font-medium text-sm space-y-2">
-                                            {results.parsingErrors.map((err: string, i: number) => (
+                                            {results.parsingErrors?.map((err: string, i: number) => (
                                                 <p key={i} className="text-amber-600 flex gap-2">
                                                     <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" /> {err}
                                                 </p>
                                             ))}
-                                            {results.details.map((err: string, i: number) => (
+                                            {results.details?.map((err: string, i: number) => (
                                                 <p key={i} className="text-destructive flex gap-2">
                                                     <XCircle className="h-4 w-4 shrink-0 mt-0.5" /> {err}
                                                 </p>
