@@ -35,7 +35,7 @@ interface AuthContextType {
     user: User | null;
     isAuthenticated: boolean;
     loading: boolean;
-    login: (token: string, userData: User) => Promise<void>;
+    login: (userData: User) => Promise<void>;
     logout: () => void;
 }
 
@@ -56,24 +56,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [loading, setLoading] = useState(true);
     const router = useRouter();
 
-    // On mount: check for existing token and validate it
+    // On mount: validate the session via API utilizing the automatic httpOnly cookie
     useEffect(() => {
         const checkAuth = async () => {
-            const token = localStorage.getItem("token");
-            if (token) {
-                try {
-                    const res = await api.get<User>("/auth/profile");
-                    setUser(res.data);
-                } catch (error) {
-                    // Token is invalid or expired — clear it
-                    // The 401 interceptor in api.ts also handles this,
-                    // but we catch here too for a clean state reset.
-                    console.warn("Auth check failed — clearing token");
-                    localStorage.removeItem("token");
-                    setUser(null);
-                }
+            try {
+                const res = await api.get<User>("/auth/profile");
+                setUser(res.data);
+            } catch (error) {
+                // If it fails, there is no valid cookie session
+                setUser(null);
+            } finally {
+                setLoading(false);
             }
-            setLoading(false);
         };
 
         checkAuth();
@@ -81,11 +75,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     /**
      * Called after a successful login API response.
-     * Awaits the full profile fetch before navigating to ensure
-     * fresh data is available on the dashboard — eliminating the race condition.
+     * With cookies, the backend already sent the hidden access_token cookie in the response header.
      */
-    const login = async (token: string, userData: User): Promise<void> => {
-        localStorage.setItem("token", token);
+    const login = async (userData: User): Promise<void> => {
         // Set initial data immediately for fast UI response
         setUser(userData);
 
@@ -94,17 +86,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             const profileRes = await api.get<User>("/auth/profile");
             setUser(profileRes.data);
         } catch (error) {
-            // Profile fetch failed, but we still have the login response data — proceed
             console.warn("Profile enrichment failed, using login response data");
         }
 
         router.push("/dashboard");
     };
 
-    const logout = () => {
-        localStorage.removeItem("token");
-        setUser(null);
-        router.push("/login");
+    const logout = async () => {
+        try {
+            // Immediately flush the cookie securely at the source
+            await api.post("/auth/logout");
+        } catch (error) {
+            console.warn("Backend logout failed softly");
+        } finally {
+            setUser(null);
+            router.push("/login");
+        }
     };
 
     return (

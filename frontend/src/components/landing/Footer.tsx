@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { School, MapPin, Phone, Mail, Facebook, Twitter, Instagram, Linkedin, Send } from "lucide-react";
 
 export function Footer() {
@@ -11,8 +12,8 @@ export function Footer() {
 
                     {/* Column 1: About */}
                     <div className="space-y-6">
-                        <div className="flex items-center gap-2 font-bold text-2xl text-brand-cream">
-                            <School size={32} className="text-brand-gold" aria-hidden="true" />
+                        <div className="flex items-center gap-3 font-bold text-2xl text-brand-cream">
+                            <Image src="/logo.png" alt="Basaeer Logo" width={40} height={40} className="w-10 h-10 object-contain rounded-full bg-brand-navy border border-brand-gold/30" />
                             <span>Basaeer</span>
                         </div>
                         <p className="text-brand-cream/60 leading-relaxed">
@@ -88,14 +89,32 @@ export function Footer() {
                         </p>
                         <form
                             className="relative"
-                            onSubmit={(e) => {
+                            onSubmit={async (e) => {
                                 e.preventDefault();
-                                // TODO: Connect to newsletter endpoint when backend integration is ready
                                 const form = e.currentTarget;
                                 const emailInput = form.querySelector<HTMLInputElement>('input[type="email"]');
-                                if (emailInput?.value) {
-                                    alert(`Thank you! We'll be in touch at ${emailInput.value}`);
-                                    form.reset();
+                                const button = form.querySelector('button');
+                                if (emailInput?.value && button) {
+                                    button.disabled = true;
+                                    try {
+                                        // Importing api dynamically to avoid issues if used without full context, 
+                                        // or simply fetch directly if api lib is complex
+                                        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/newsletter/subscribe`, {
+                                            method: 'POST',
+                                            headers: { 'Content-Type': 'application/json' },
+                                            body: JSON.stringify({ email: emailInput.value })
+                                        });
+                                        if (response.ok) {
+                                            alert(`Thank you! You have been subscribed.`);
+                                            form.reset();
+                                        } else {
+                                            alert(`Something went wrong. Please try again!`);
+                                        }
+                                    } catch (err) {
+                                        alert(`Unable to subscribe at this moment.`);
+                                    } finally {
+                                        button.disabled = false;
+                                    }
                                 }
                             }}
                         >
@@ -109,7 +128,7 @@ export function Footer() {
                             />
                             <button
                                 type="submit"
-                                className="absolute right-1 top-1 w-10 h-10 bg-brand-gold rounded-full flex items-center justify-center hover:bg-brand-gold-dark transition-colors"
+                                className="absolute right-1 top-1 w-10 h-10 bg-brand-gold rounded-full flex items-center justify-center hover:bg-brand-gold-dark transition-colors disabled:opacity-50"
                                 aria-label="Subscribe to newsletter"
                             >
                                 <Send size={18} className="text-brand-navy ml-0.5" aria-hidden="true" />

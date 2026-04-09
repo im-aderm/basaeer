@@ -1,23 +1,49 @@
-import { Controller, Request, Post, UseGuards, Body, UnauthorizedException, Get, ForbiddenException } from '@nestjs/common';
+import { Controller, Request, Post, UseGuards, Body, UnauthorizedException, Get, ForbiddenException, Res } from '@nestjs/common';
+import { Response } from 'express';
+import { Throttle } from '@nestjs/throttler';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { RolesGuard } from './roles.guard';
 import { Roles } from './roles.decorator';
 import { UserRole } from '../generated/client/client';
 import { LoginDto } from './dto/login.dto';
+import { ForgotPasswordDto } from './dto/forgot-password.dto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
 
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) { }
 
+  @Throttle({ default: { limit: 5, ttl: 60000 } })
   @Post('login')
-  async login(@Body() loginDto: LoginDto) {
+  async login(@Body() loginDto: LoginDto, @Res({ passthrough: true }) response: Response) {
     const user = await this.authService.validateUser(loginDto.email, loginDto.password);
     if (!user) {
       throw new UnauthorizedException('Invalid email or password');
     }
-    return this.authService.login(user);
+    const authData = await this.authService.login(user);
+    
+    // Set httpOnly cookie 
+    response.cookie('access_token', authData.access_token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days (matching the typical jwt lifespan)
+    });
+
+    // Return the user without the access_token snippet (mitigates localStorage temptation)
+    return { user: authData.user };
+  }
+
+  @Post('logout')
+  async logout(@Res({ passthrough: true }) response: Response) {
+    response.clearCookie('access_token', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+    });
+    return { success: true, message: 'Successfully logged out' };
   }
 
   /**
@@ -49,5 +75,21 @@ export class AuthController {
   async getProfile(@Request() req) {
     // Return the full user record from the database, not just the JWT payload
     return this.authService.getFullProfile(req.user.sub);
+  }
+
+  @Throttle({ default: { limit: 3, ttl: 60000 } })
+  @Post('forgot-password')
+  async forgotPassword(@Body() forgotPasswordDto: ForgotPasswordDto) {
+    return this.authService.forgotPassword(forgotPasswordDto.email);
+  }
+
+  @Throttle({ default: { limit: 3, ttl: 60000 } })
+  @Post('reset-password')
+  async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
+    return this.authService.resetPassword(
+      resetPasswordDto.id,
+      resetPasswordDto.token,
+      resetPasswordDto.newPassword
+    );
   }
 }

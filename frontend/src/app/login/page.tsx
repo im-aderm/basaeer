@@ -22,7 +22,7 @@ export default function LoginPage() {
         try {
             const res = await api.post("/auth/login", { email, password });
             // login() is now async — await it to ensure profile is fetched before navigation
-            await login(res.data.access_token, res.data.user);
+            await login(res.data.user);
         } catch (err: unknown) {
             const axiosError = err as { response?: { status?: number; data?: { message?: string } } };
             if (axiosError.response?.status === 401) {
@@ -74,6 +74,9 @@ export default function LoginPage() {
                         <div className="space-y-2">
                             <div className="flex justify-between items-center ml-1">
                                 <label htmlFor="password" className="text-sm font-medium text-[#111827]">Password</label>
+                                <Link href="/forgot-password" className="text-sm font-medium text-[#2563EB] hover:text-[#2563EB]/80 transition-colors">
+                                    Forgot Password?
+                                </Link>
                             </div>
                             <div className="relative">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#9CA3AF]" aria-hidden="true">

@@ -19,7 +19,6 @@ import {
 } from 'lucide-react';
 import { AutomationEventsService, AccessLog } from '@/services/automationEventsService';
 import { toast } from 'sonner';
-import { Html5QrcodeScanner } from 'html5-qrcode';
 
 export default function AccessControlPage() {
     const { user } = useAuth();
@@ -27,7 +26,7 @@ export default function AccessControlPage() {
     const [scanning, setScanning] = useState(false);
     const [direction, setDirection] = useState<'ENTRY' | 'EXIT'>('ENTRY');
     const [lastScan, setLastScan] = useState<any>(null);
-    const scannerRef = useRef<Html5QrcodeScanner | null>(null);
+    const scannerRef = useRef<any>(null);
 
     const fetchLogs = async () => {
         try {
@@ -44,12 +43,14 @@ export default function AccessControlPage() {
 
     useEffect(() => {
         if (scanning) {
-            scannerRef.current = new Html5QrcodeScanner(
-                "qr-reader",
-                { fps: 10, qrbox: { width: 250, height: 250 } },
-                /* verbose= */ false
-            );
-            scannerRef.current.render(onScanSuccess, onScanFailure);
+            import('html5-qrcode').then(({ Html5QrcodeScanner }) => {
+                scannerRef.current = new Html5QrcodeScanner(
+                    "qr-reader",
+                    { fps: 10, qrbox: { width: 250, height: 250 } },
+                    /* verbose= */ false
+                );
+                scannerRef.current.render(onScanSuccess, onScanFailure);
+            });
         } else {
             if (scannerRef.current) {
                 scannerRef.current.clear().catch(error => console.error("Failed to clear scanner", error));

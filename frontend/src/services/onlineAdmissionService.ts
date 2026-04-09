@@ -176,6 +176,11 @@ export const OnlineAdmissionService = {
         await api.delete(`/online-admissions/${id}`);
     },
 
+    verifyPayment: async (id: string): Promise<any> => {
+        const response = await api.post(`/online-admissions/${id}/verify-payment`);
+        return response.data;
+    },
+
     getPublicInitData: async (branchId: string): Promise<any> => {
         const response = await api.get(`/online-admissions/public/init/${branchId}`);
         return response.data;

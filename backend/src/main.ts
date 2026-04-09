@@ -3,6 +3,8 @@ dotenv.config();
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
+import helmet from 'helmet';
+import cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   console.log('Starting NestJS application...');
@@ -12,8 +14,8 @@ async function bootstrap() {
   // ── Security Headers ────────────────────────────────────────────────────────
   // NOTE: Run `npm install helmet` to enable this.
   // Once installed, uncomment the two lines below:
-  // import helmet from 'helmet';
-  // app.use(helmet());
+  app.use(helmet());
+  app.use(cookieParser());
 
   // ── CORS ────────────────────────────────────────────────────────────────────
   app.enableCors({

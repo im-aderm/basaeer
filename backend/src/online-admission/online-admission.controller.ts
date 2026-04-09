@@ -74,4 +74,21 @@ export class OnlineAdmissionController {
     ) {
         return this.onlineAdmissionService.reject(id, reason);
     }
+
+    @Post(':id/verify-payment')
+    @UseGuards(JwtAuthGuard, RolesGuard)
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+    verifyPayment(@Param('id') id: string) {
+        return this.onlineAdmissionService.verifyPayment(id);
+    }
+
+    @Post(':id/reject-payment')
+    @UseGuards(JwtAuthGuard, RolesGuard)
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+    rejectPayment(
+        @Param('id') id: string,
+        @Body('reason') reason: string
+    ) {
+        return this.onlineAdmissionService.rejectPayment(id, reason);
+    }
 }

@@ -1,5 +1,15 @@
 import api from "@/lib/api";
 
+export interface UserBasicInfo { id?: string; firstName?: string; lastName?: string; email?: string; phone?: string; role?: string; }
+export interface ParentBasicInfo { id?: string; userId?: string; user?: UserBasicInfo; }
+export interface ClassBasicInfo { id?: string; name: string; gradeLevel?: number; }
+export interface SectionBasicInfo { id?: string; name: string; classId?: string; }
+export interface RouteBasicInfo { id?: string; name: string; }
+export interface VehicleBasicInfo { id?: string; numberPlate: string; }
+export interface CertificateBasicInfo { id?: string; name: string; issueDate?: string; }
+export interface AttendanceBasicInfo { id?: string; date: string; status: string; }
+export interface StudentStats { total: number; active: number; inactive: number; newAdmissions?: number; }
+
 export interface Student {
     id: string;
     userId?: string;
@@ -31,18 +41,18 @@ export interface Student {
     emergencyContactPhone?: string;
     emergencyContactRelation?: string;
     dob?: string;
-    user?: any;
-    parent?: any;
-    class?: any;
+    user?: UserBasicInfo;
+    parent?: ParentBasicInfo;
+    class?: ClassBasicInfo;
     classId?: string;
-    section?: any;
+    section?: SectionBasicInfo;
     sectionId?: string;
     transportAssignment?: {
-        route?: any;
-        vehicle?: any;
+        route?: RouteBasicInfo;
+        vehicle?: VehicleBasicInfo;
     };
-    certificates?: any[];
-    attendance?: any[];
+    certificates?: CertificateBasicInfo[];
+    attendance?: AttendanceBasicInfo[];
     birthCertificateUrl?: string;
     testimonialUrl?: string;
     transferCertificateUrl?: string;
@@ -76,12 +86,12 @@ export const StudentService = {
         return response.data;
     },
 
-    create: async (data: any): Promise<any> => {
+    create: async (data: Partial<Student>): Promise<Student> => {
         const response = await api.post("/students", data);
         return response.data;
     },
 
-    update: async (id: string, data: any): Promise<any> => {
+    update: async (id: string, data: Partial<Student>): Promise<Student> => {
         const response = await api.patch(`/students/${id}`, data);
         return response.data;
     },
@@ -96,12 +106,12 @@ export const StudentService = {
         return response.data;
     },
 
-    createCategory: async (data: any): Promise<StudentCategory> => {
+    createCategory: async (data: Partial<StudentCategory>): Promise<StudentCategory> => {
         const response = await api.post("/student-categories", data);
         return response.data;
     },
 
-    updateCategory: async (id: string, data: any): Promise<StudentCategory> => {
+    updateCategory: async (id: string, data: Partial<StudentCategory>): Promise<StudentCategory> => {
         const response = await api.patch(`/student-categories/${id}`, data);
         return response.data;
     },
@@ -110,7 +120,7 @@ export const StudentService = {
         await api.delete(`/student-categories/${id}`);
     },
 
-    importStudents: async (file: File, branchId: string): Promise<any> => {
+    importStudents: async (file: File, branchId: string): Promise<{ success: boolean; count: number; message: string }> => {
         const formData = new FormData();
         formData.append("file", file);
         const response = await api.post("/students/import", formData, {
@@ -120,7 +130,7 @@ export const StudentService = {
         return response.data;
     },
 
-    getStats: async (branchId?: string): Promise<any> => {
+    getStats: async (branchId?: string): Promise<StudentStats> => {
         const response = await api.get("/students/stats", { params: { branchId } });
         return response.data;
     }

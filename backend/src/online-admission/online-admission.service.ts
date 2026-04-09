@@ -5,14 +5,19 @@ import { UpdateOnlineAdmissionDto } from './dto/update-online-admission.dto';
 import { UserRole } from '../generated/client/client';
 import * as bcrypt from 'bcrypt';
 
+import { MailService } from '../mail/mail.service';
+
 @Injectable()
 export class OnlineAdmissionService {
-    constructor(private prisma: PrismaService) { }
+    constructor(
+        private prisma: PrismaService,
+        private mailService: MailService,
+    ) { }
 
     async create(createDto: CreateOnlineAdmissionDto) {
         const { dateOfBirth, admissionDate, approvalDate, consentDate, previousSchools, ...rest } = createDto;
         
-        return this.prisma.onlineAdmission.create({
+        const admission = await this.prisma.onlineAdmission.create({
             data: {
                 ...rest,
                 dateOfBirth: new Date(dateOfBirth),
@@ -27,6 +32,15 @@ export class OnlineAdmissionService {
                 previousSchools: true,
             }
         });
+
+        // Send acknowledgement email
+        try {
+            await this.mailService.sendAdmissionReceived(admission.guardianEmail || '', `${admission.firstName} ${admission.lastName}`);
+        } catch (e) {
+            console.error('Failed to send acknowledgement email', e);
+        }
+
+        return admission;
     }
 
     findAll(branchId: string | null) {
@@ -94,6 +108,25 @@ export class OnlineAdmissionService {
         });
     }
 
+    async verifyPayment(id: string, branchId?: string) {
+        return this.prisma.onlineAdmission.update({
+            where: { id },
+            data: {
+                paymentStatus: 'VERIFIED',
+            }
+        });
+    }
+
+    async rejectPayment(id: string, reason: string) {
+        return this.prisma.onlineAdmission.update({
+            where: { id },
+            data: {
+                paymentStatus: 'REJECTED',
+                rejectionReason: reason // Overloading rejectionReason for payment issues too
+            }
+        });
+    }
+
     async reject(id: string, reason: string) {
         const admission = await this.findOne(id);
         
@@ -105,8 +138,12 @@ export class OnlineAdmissionService {
             }
         });
 
-        // TODO: Send rejection email here
-        // this.emailService.sendRejectionEmail(admission.guardianEmail, reason);
+        // Send rejection email here
+        try {
+            await this.mailService.sendRejectionEmail(admission.guardianEmail || '', `${admission.firstName} ${admission.lastName}`, reason);
+        } catch (e) {
+            console.error('Failed to send rejection email', e);
+        }
 
         return updated;
     }
@@ -265,8 +302,12 @@ export class OnlineAdmissionService {
                 }
             });
 
-            // TODO: Send approval email here
-            // this.emailService.sendApprovalEmail(admission.guardianEmail, studentIdNumber);
+            // Send approval email here
+            try {
+                await this.mailService.sendApprovalEmail(admission.guardianEmail || '', `${admission.firstName} ${admission.lastName}`, studentIdNumber);
+            } catch (e) {
+                console.error('Failed to send approval email', e);
+            }
 
             return student;
         });

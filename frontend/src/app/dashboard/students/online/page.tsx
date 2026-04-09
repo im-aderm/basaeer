@@ -12,9 +12,25 @@ import { BranchService, Branch } from "@/services/branchService";
 import { toast } from 'sonner';
 import SharableLink from '@/components/admission/SharableLink';
 
+import { AdmissionDetailDialog } from '@/components/admission/AdmissionDetailDialog';
+import { 
+    AlertDialog, 
+    AlertDialogAction, 
+    AlertDialogCancel, 
+    AlertDialogContent, 
+    AlertDialogDescription, 
+    AlertDialogFooter, 
+    AlertDialogHeader, 
+    AlertDialogTitle 
+} from "../../../../components/ui/alert-dialog";
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+
 export default function OnlineAdmissionsDashboard() {
     const { user } = useAuth();
     const [selectedAdmission, setSelectedAdmission] = useState<OnlineAdmission | null>(null);
+    const [rejectionTargetId, setRejectionTargetId] = useState<string | null>(null);
+    const [rejectionReason, setRejectionReason] = useState("");
     const [branches, setBranches] = useState<Branch[]>([]);
     const [resolvedBranchId, setResolvedBranchId] = useState<string | null>(null);
     const [admissions, setAdmissions] = useState<OnlineAdmission[]>([]);
@@ -39,7 +55,6 @@ export default function OnlineAdmissionsDashboard() {
                 setResolvedBranchId(user.branchId);
                 fetchAdmissions(user.branchId);
             } else {
-                // Super Admin case - fetch all branches to find a fallback
                 BranchService.getAll().then(data => {
                     setBranches(data);
                     if (data.length > 0) {
@@ -54,15 +69,49 @@ export default function OnlineAdmissionsDashboard() {
     }, [user]);
 
     const handleApprove = async (id: string) => {
+        toast.promise(OnlineAdmissionService.approve(id), {
+          loading: 'Processing enrolment...',
+          success: () => {
+             if (resolvedBranchId) fetchAdmissions(resolvedBranchId);
+             setSelectedAdmission(null);
+             return 'Application approved and student enrolled!';
+          },
+          error: 'Failed to approve application'
+        });
+    };
+
+    const handleReject = async () => {
+        if (!rejectionTargetId || !rejectionReason.trim()) {
+            toast.error("Please provide a rejection reason");
+            return;
+        }
+
         try {
-            await OnlineAdmissionService.approve(id);
-            toast.success('Application approved successfully');
+            await OnlineAdmissionService.reject(rejectionTargetId, rejectionReason);
+            toast.success('Application rejected');
             if (resolvedBranchId) fetchAdmissions(resolvedBranchId);
+            setRejectionTargetId(null);
+            setRejectionReason("");
+            setSelectedAdmission(null);
         } catch (error) {
-            console.error('Approval failed', error);
-            toast.error('Failed to approve application');
+            toast.error('Failed to reject application');
         }
     };
+
+    const handleVerifyPayment = async (id: string) => {
+        try {
+            await OnlineAdmissionService.verifyPayment(id);
+            toast.success('Payment verified');
+            if (resolvedBranchId) fetchAdmissions(resolvedBranchId);
+            // Update selected admission state if open
+            if (selectedAdmission?.id === id) {
+              const updated = await OnlineAdmissionService.getById(id);
+              setSelectedAdmission(updated);
+            }
+        } catch (error) {
+            toast.error('Failed to verify payment');
+        }
+    }
 
     const handleDelete = async (id: string) => {
         if (confirm('Are you sure you want to delete this application?')) {
@@ -82,11 +131,10 @@ export default function OnlineAdmissionsDashboard() {
             case 'PENDING':
                 return <Badge variant="secondary" className="bg-amber-500/10 text-amber-600 border-amber-500/20 font-semibold">PENDING</Badge>;
             case 'APPROVED':
-                return <Badge variant="secondary" className="bg-emerald-500/10 text-emerald-600 border-emerald-500/20 font-semibold">APPROVED</Badge>;
-            case 'REJECTED':
-                return <Badge variant="destructive" className="font-semibold">REJECTED</Badge>;
             case 'ENROLLED':
-                return <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 font-semibold">ENROLLED</Badge>;
+                return <Badge variant="secondary" className="bg-emerald-500/10 text-emerald-600 border-emerald-500/20 font-semibold">ENROLLED</Badge>;
+            case 'REJECTED':
+                return <Badge variant="destructive" className="font-semibold text-[10px] tracking-widest">REJECTED</Badge>;
             default:
                 return <Badge variant="outline">{status}</Badge>;
         }
@@ -95,11 +143,11 @@ export default function OnlineAdmissionsDashboard() {
     const getPaymentBadge = (status?: string) => {
         switch (status) {
             case 'VERIFIED':
-                return <Badge className="bg-emerald-500 text-white font-semibold text-[10px] px-2">PAID</Badge>;
+                return <Badge className="bg-emerald-500 text-white font-bold text-[10px] px-2 rounded-lg">PAID</Badge>;
             case 'REJECTED':
-                return <Badge variant="destructive" className="font-semibold text-[10px] px-2">FAILED</Badge>;
+                return <Badge variant="destructive" className="font-bold text-[10px] px-2 rounded-lg">FAILED</Badge>;
             default:
-                return <Badge variant="secondary" className="font-semibold text-[10px] px-2">PENDING</Badge>;
+                return <Badge variant="secondary" className="bg-amber-500/10 text-amber-600 border-amber-500/20 font-bold text-[10px] px-2 rounded-lg">PENDING</Badge>;
         }
     };
 
@@ -108,9 +156,9 @@ export default function OnlineAdmissionsDashboard() {
     return (
         <div className="space-y-6">
             <div className="flex justify-between items-end">
-                <div>
-                    <h1 className="text-h1 font-semibold tracking-tight">Online Admissions</h1>
-                    <p className="text-muted-foreground font-medium">Review and process online admission applications.</p>
+                <div className="space-y-1">
+                    <h1 className="text-4xl font-black italic tracking-tight text-primary uppercase">Admission Control</h1>
+                    <p className="text-muted-foreground font-medium italic">Review and manage incoming student applications.</p>
                 </div>
             </div>
 
@@ -118,108 +166,119 @@ export default function OnlineAdmissionsDashboard() {
                 <SharableLink branchId={resolvedBranchId} />
             )}
 
-            <Card className="rounded-[2rem] shadow-2xl shadow-primary/5 border-border/50 overflow-hidden border-t-8 border-t-primary/20">
-                <CardHeader className="pb-4">
-                    <CardTitle className="text-h3 font-semibold flex items-center gap-2">
-                        <UserPlus className="h-5 w-5 text-primary" />
-                        Application List
+            <Card className="rounded-[2.5rem] shadow-2xl border-none overflow-hidden">
+                <CardHeader className="p-8 bg-muted/30 border-b border-border">
+                    <CardTitle className="text-h3 font-black italic uppercase flex items-center gap-3">
+                        <UserPlus className="h-6 w-6 text-primary" />
+                        Application Pipeline
                     </CardTitle>
                 </CardHeader>
-                <CardContent>
-                    <div className="rounded-2xl border border-border/50 overflow-hidden">
-                        <Table>
-                            <TableHeader className="bg-muted/50">
-                                <TableRow className="hover:bg-transparent border-border/50">
-                                    <TableHead className="font-semibold h-14">Student Name</TableHead>
-                                    <TableHead className="font-semibold h-14">Applied Class</TableHead>
-                                    <TableHead className="font-semibold h-14">Guardian</TableHead>
-                                    <TableHead className="font-semibold h-14">Payment</TableHead>
-                                    <TableHead className="font-semibold h-14">Status</TableHead>
-                                    <TableHead className="font-semibold h-14">Applied Date</TableHead>
-                                    <TableHead className="text-right font-semibold h-14 px-6">Actions</TableHead>
+                <CardContent className="p-0">
+                    <Table>
+                        <TableHeader className="bg-muted/50">
+                            <TableRow className="hover:bg-transparent border-border/50">
+                                <TableHead className="font-black h-16 uppercase text-[10px] tracking-widest pl-8">Student</TableHead>
+                                <TableHead className="font-black h-16 uppercase text-[10px] tracking-widest">Applied Class</TableHead>
+                                <TableHead className="font-black h-16 uppercase text-[10px] tracking-widest">Guardian</TableHead>
+                                <TableHead className="font-black h-16 uppercase text-[10px] tracking-widest">Payment</TableHead>
+                                <TableHead className="font-black h-16 uppercase text-[10px] tracking-widest">Status</TableHead>
+                                <TableHead className="text-right font-black h-16 uppercase text-[10px] tracking-widest pr-8">Actions</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {admissions.map((adm) => (
+                                <TableRow key={adm.id} className="border-border/50 hover:bg-primary/5 transition-colors group">
+                                    <TableCell className="py-6 pl-8">
+                                        <div className="flex items-center gap-4">
+                                            <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary font-black text-xs shadow-inner">
+                                                {adm.firstName[0]}{adm.lastName[0]}
+                                            </div>
+                                            <div>
+                                                <p className="font-black italic uppercase text-primary">{adm.firstName} {adm.lastName}</p>
+                                                <p className="text-[10px] text-muted-foreground font-bold tracking-tight">{new Date(adm.createdAt).toLocaleDateString()}</p>
+                                            </div>
+                                        </div>
+                                    </TableCell>
+                                    <TableCell className="font-bold">{adm.desiredClass?.name || 'N/A'}</TableCell>
+                                    <TableCell>
+                                        <p className="font-bold text-sm italic">{adm.guardianName}</p>
+                                        <p className="text-[10px] text-muted-foreground font-bold tracking-tighter">{adm.guardianPhone}</p>
+                                    </TableCell>
+                                    <TableCell>
+                                        <div className="flex items-center gap-2">
+                                            {getPaymentBadge(adm.paymentStatus)}
+                                        </div>
+                                    </TableCell>
+                                    <TableCell>{getStatusBadge(adm.status)}</TableCell>
+                                    <TableCell className="text-right pr-8">
+                                        <div className="flex justify-end gap-2">
+                                            <Button
+                                                variant="ghost"
+                                                className="h-10 px-4 rounded-xl text-primary hover:bg-primary/10 transition-all border-2 border-primary/5 font-black italic uppercase text-[10px]"
+                                                onClick={() => setSelectedAdmission(adm)}
+                                            >
+                                                <Eye className="h-4 w-4 mr-1.5" /> Details
+                                            </Button>
+                                            <Button
+                                                size="icon"
+                                                variant="ghost"
+                                                className="h-10 w-10 rounded-xl text-destructive hover:bg-destructive/10 transition-all border-2 border-destructive/5"
+                                                onClick={() => handleDelete(adm.id)}
+                                            >
+                                                <Trash2 className="h-4 w-4" />
+                                            </Button>
+                                        </div>
+                                    </TableCell>
                                 </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {admissions.map((adm) => (
-                                    <TableRow key={adm.id} className="border-border/50 hover:bg-muted/30 transition-colors">
-                                        <TableCell className="font-bold py-4">
-                                            <div className="flex items-center gap-3">
-                                                <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold text-xs">
-                                                    {adm.firstName[0]}{adm.lastName[0]}
-                                                </div>
-                                                <div>
-                                                    <p>{adm.firstName} {adm.lastName}</p>
-                                                    <p className="text-[10px] text-muted-foreground font-medium uppercase tracking-tighter">{adm.email || adm.phone}</p>
-                                                </div>
-                                            </div>
-                                        </TableCell>
-                                        <TableCell>
-                                            <p className="font-bold text-sm tracking-tight">{adm.desiredClass?.name || 'N/A'}</p>
-                                        </TableCell>
-                                        <TableCell>
-                                            <p className="font-medium text-sm">{adm.guardianName}</p>
-                                            <p className="text-[10px] text-muted-foreground font-bold">{adm.guardianPhone}</p>
-                                        </TableCell>
-                                        <TableCell>
-                                            <div className="flex flex-col gap-1">
-                                                {getPaymentBadge(adm.paymentStatus)}
-                                                {adm.paymentReceiptUrl && (
-                                                    <a href={adm.paymentReceiptUrl} target="_blank" className="text-[10px] text-primary font-semibold flex items-center gap-1 hover:underline">
-                                                        <Receipt className="h-3 w-3" /> VIEW RECEIPT
-                                                    </a>
-                                                )}
-                                            </div>
-                                        </TableCell>
-                                        <TableCell>{getStatusBadge(adm.status)}</TableCell>
-                                        <TableCell className="text-muted-foreground font-medium text-sm">
-                                            {new Date(adm.createdAt).toLocaleDateString()}
-                                        </TableCell>
-                                        <TableCell className="text-right px-6">
-                                            <div className="flex justify-end gap-2">
-                                                {adm.status === 'PENDING' && (
-                                                    <Button
-                                                        size="icon"
-                                                        variant="ghost"
-                                                        className="h-9 w-9 rounded-xl text-emerald-600 hover:bg-emerald-500/10 transition-all border border-emerald-500/10"
-                                                        onClick={() => handleApprove(adm.id)}
-                                                        title="Approve"
-                                                    >
-                                                        <CheckCircle2 className="h-4 w-4" />
-                                                    </Button>
-                                                )}
-                                                <Button
-                                                    size="icon"
-                                                    variant="ghost"
-                                                    className="h-9 w-9 rounded-xl text-primary hover:bg-primary/10 transition-all border border-primary/10"
-                                                    title="View Details"
-                                                >
-                                                    <Eye className="h-4 w-4" />
-                                                </Button>
-                                                <Button
-                                                    size="icon"
-                                                    variant="ghost"
-                                                    className="h-9 w-9 rounded-xl text-destructive hover:bg-destructive/10 transition-all border border-destructive/10"
-                                                    onClick={() => handleDelete(adm.id)}
-                                                    title="Delete"
-                                                >
-                                                    <Trash2 className="h-4 w-4" />
-                                                </Button>
-                                            </div>
-                                        </TableCell>
-                                    </TableRow>
-                                ))}
-                                {admissions.length === 0 && (
-                                    <TableRow>
-                                        <TableCell colSpan={7} className="text-center py-12 text-muted-foreground font-medium text-lg uppercase tracking-widest opacity-50">
-                                            No applications found.
-                                        </TableCell>
-                                    </TableRow>
-                                )}
-                            </TableBody>
-                        </Table>
-                    </div>
+                            ))}
+                            {admissions.length === 0 && (
+                                <TableRow>
+                                    <TableCell colSpan={6} className="text-center py-20 text-muted-foreground font-black italic uppercase tracking-widest opacity-30 text-2xl">
+                                        Queue Empty
+                                    </TableCell>
+                                </TableRow>
+                            )}
+                        </TableBody>
+                    </Table>
                 </CardContent>
             </Card>
+
+            <AdmissionDetailDialog 
+                admission={selectedAdmission} 
+                onClose={() => setSelectedAdmission(null)}
+                onApprove={handleApprove}
+                onReject={(id) => setRejectionTargetId(id)}
+                onVerifyPayment={handleVerifyPayment}
+            />
+
+            <AlertDialog open={!!rejectionTargetId} onOpenChange={() => setRejectionTargetId(null)}>
+                <AlertDialogContent className="rounded-[2.5rem] p-10">
+                    <AlertDialogHeader>
+                        <AlertDialogTitle className="text-2xl font-black italic uppercase tracking-tight">Reject Application</AlertDialogTitle>
+                        <AlertDialogDescription className="font-medium italic">
+                            Please provide a reason for rejection. This will be visible to the parent.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <div className="py-6 space-y-2">
+                        <Label className="text-[10px] font-black uppercase tracking-widest ml-1">Reason for Rejection</Label>
+                        <Input 
+                            value={rejectionReason} 
+                            onChange={(e) => setRejectionReason(e.target.value)}
+                            placeholder="e.g. Incomplete documents, Failed entrance test..."
+                            className="h-12 rounded-2xl border-2 font-bold italic"
+                        />
+                    </div>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel className="rounded-2xl h-12 font-bold italic">Cancel</AlertDialogCancel>
+                        <AlertDialogAction 
+                            onClick={handleReject}
+                            className="rounded-2xl h-12 font-black italic bg-destructive text-white hover:bg-destructive/90"
+                        >
+                            Confirm Rejection
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
         </div>
     );
 }

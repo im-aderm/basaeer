@@ -414,28 +414,7 @@ export default function AdmissionPage() {
                 </div>
             </form>
 
-            <style jsx global>{`
-                .input-premium {
-                    width: 100%;
-                    padding: 1.25rem 1.5rem;
-                    background: rgba(var(--muted), 0.3);
-                    border: 2px solid transparent;
-                    border-radius: 1.5rem;
-                    outline: none;
-                    font-weight: 700;
-                    font-size: 1.125rem;
-                    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-                    color: inherit;
-                }
-                .input-premium:focus {
-                    background: transparent;
-                    border-color: rgba(var(--primary), 0.3);
-                    box-shadow: 0 0 0 4px rgba(var(--primary), 0.1);
-                    transform: translateY(-2px);
-                }
-                .hide-scrollbar::-webkit-scrollbar { display: none; }
-                .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-            `}</style>
+
         </div>
     );
 }

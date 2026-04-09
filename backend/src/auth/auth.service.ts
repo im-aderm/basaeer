@@ -46,4 +46,46 @@ export class AuthService {
     async register(data: any) {
         return this.usersService.createUser(data);
     }
+
+    async forgotPassword(email: string) {
+        const user = await this.usersService.findOne(email);
+        if (!user) {
+            // Do not reveal if user exists or not
+            return { message: 'If that email address is in our database, we will send you an email to reset your password.' };
+        }
+
+        // Create a unique secret based on password so the link expires once used
+        const secret = (process.env.JWT_SECRET || 'fallback_secret') + user.password;
+        const token = this.jwtService.sign({ sub: user.id }, { secret, expiresIn: '15m' });
+
+        const resetLink = `${process.env.FRONTEND_URL || 'http://localhost:3000'}/reset-password?token=${token}&id=${user.id}`;
+        
+        // TODO: Replace with real email transport (e.g. Resend, Sendgrid)
+        console.log(`\n================= PASSWORD RESET LINK =================`);
+        console.log(`To reset password for ${user.email}, please click:`);
+        console.log(resetLink);
+        console.log(`=======================================================\n`);
+
+        return { message: 'If that email address is in our database, we will send you an email to reset your password.' };
+    }
+
+    async resetPassword(userId: string, token: string, newPasswordPlain: string) {
+        const user = await this.usersService.findById(userId);
+        if (!user) {
+            throw new UnauthorizedException('Invalid or expired password reset token');
+        }
+
+        const secret = (process.env.JWT_SECRET || 'fallback_secret') + user.password;
+        
+        try {
+            this.jwtService.verify(token, { secret });
+        } catch (error) {
+            throw new UnauthorizedException('Invalid or expired password reset token');
+        }
+
+        const newHashedPassword = await bcrypt.hash(newPasswordPlain, 10);
+        await this.usersService.updatePassword(user.id, newHashedPassword);
+        
+        return { message: 'Password has been successfully reset' };
+    }
 }

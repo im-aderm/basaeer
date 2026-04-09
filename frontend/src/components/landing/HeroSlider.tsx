@@ -150,8 +150,9 @@ export function HeroSlider() {
                                         animate={{ opacity: 1, scale: 1 }}
                                         whileHover={{ scale: 1.1 }}
                                         className={`absolute ${slide.showPlayIcon ? 'bottom-8 right-8' : 'inset-0 m-auto'} z-10 w-20 h-20 rounded-full border-2 border-brand-cream/60 bg-brand-navy/30 backdrop-blur-sm flex items-center justify-center transition-all duration-300 hover:bg-brand-navy/50`}
+                                        aria-label={`Play ${slide.headline}`}
                                     >
-                                        <Play className="w-8 h-8 text-brand-gold fill-current ml-1" />
+                                        <Play className="w-8 h-8 text-brand-gold fill-current ml-1" aria-hidden="true" />
                                     </motion.button>
                                 )}
                             </div>
@@ -231,14 +232,14 @@ export function HeroSlider() {
                 <div className="flex items-center gap-12 h-full">
                     {/* Slide Counter */}
                     <div className="flex items-center gap-6">
-                        <button className="swiper-button-prev-slider p-2 text-brand-gold/60 hover:text-brand-gold transition-colors">
-                            <ChevronLeft size={20} />
+                        <button className="swiper-button-prev-slider p-2 text-brand-gold/60 hover:text-brand-gold transition-colors" aria-label="Previous Slide">
+                            <ChevronLeft size={20} aria-hidden="true" />
                         </button>
                         <span className="text-sm font-bold tracking-widest min-w-[2.5rem] text-center">
                             {(activeIndex + 1).toString().padStart(2, '0')} / {SLIDES.length.toString().padStart(2, '0')}
                         </span>
-                        <button className="swiper-button-next-slider p-2 text-brand-gold/60 hover:text-brand-gold transition-colors">
-                            <ChevronRight size={20} />
+                        <button className="swiper-button-next-slider p-2 text-brand-gold/60 hover:text-brand-gold transition-colors" aria-label="Next Slide">
+                            <ChevronRight size={20} aria-hidden="true" />
                         </button>
                     </div>
 

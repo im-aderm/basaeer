@@ -48,9 +48,9 @@ async function main() {
             data: {
                 name: 'Main Campus',
                 code: 'MAIN001',
-                address: '123 Education Street, City Center',
-                phone: '08012345678',
-                email: 'main@basaeer.com',
+                address: '12 Basaeer Avenue, Wuse II, Abuja, Nigeria',
+                phone: '+2348012345678',
+                email: 'admissions@basaeer.edu.ng',
             },
         })
     );

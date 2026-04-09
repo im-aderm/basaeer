@@ -2,12 +2,13 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { School, Menu, X, ChevronDown } from "lucide-react";
 
 const sections = [
     { name: "About Us", href: "/#about" },
     { name: "Programs", href: "/#programs" },
-    { name: "Admissions", href: "/admission" },
+    { name: "Apply Now", href: "/admission" },
     { name: "Contact Us", href: "/#contact" },
 ];
 
@@ -78,10 +79,10 @@ export function Navbar() {
                     {/* Center Logo */}
                     <Link
                         href="/"
-                        className="flex items-center gap-2 font-bold text-2xl text-brand-cream shrink-0"
+                        className="flex items-center gap-3 font-bold text-2xl text-brand-cream shrink-0"
                         aria-label="Basaeer International School — Home"
                     >
-                        <School size={32} className="text-brand-gold" aria-hidden="true" />
+                        <Image src="/logo.png" alt="Basaeer Logo" width={40} height={40} className="w-10 h-10 object-contain rounded-full bg-brand-navy border border-brand-gold/30" />
                         <span className="hidden sm:block">Basaeer</span>
                     </Link>
 
@@ -91,7 +92,7 @@ export function Navbar() {
                             <Link
                                 key={link.name}
                                 href={link.href}
-                                className={`text-sm font-medium tracking-wide transition-colors ${link.name === "Admissions"
+                                className={`text-sm font-medium tracking-wide transition-colors ${link.name === "Apply Now"
                                     ? "px-4 py-2 bg-brand-gold text-brand-navy rounded-full hover:bg-brand-gold/90"
                                     : "text-brand-cream/80 hover:text-brand-cream"
                                     }`}
@@ -131,7 +132,7 @@ export function Navbar() {
                                 key={link.name}
                                 href={link.href}
                                 onClick={() => setIsMobileOpen(false)}
-                                className={`text-base font-medium transition-colors ${link.name === "Admissions"
+                                className={`text-base font-medium transition-colors ${link.name === "Apply Now"
                                     ? "text-brand-gold"
                                     : "text-brand-cream/80 hover:text-brand-cream"
                                     }`}

@@ -1,7 +1,11 @@
 "use client";
 
-import { HeroSlider } from "./HeroSlider";
+import dynamic from "next/dynamic";
 
+const HeroSlider = dynamic(() => import("./HeroSlider").then((mod) => mod.HeroSlider), {
+    ssr: false,
+    loading: () => <div className="w-full h-full bg-brand-navy animate-pulse" />
+});
 export function HeroSection() {
     return (
         <section id="hero" className="relative w-full h-[100vh] overflow-hidden">

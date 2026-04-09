@@ -6,24 +6,25 @@ import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
-import { Html5QrcodeScanner } from 'html5-qrcode';
 import { AutomationEventsService } from '@/services/automationEventsService';
 
 export default function QRAttendanceScanner() {
     const router = useRouter();
     const [scanning, setScanning] = useState(false);
     const [lastScan, setLastScan] = useState<any>(null);
-    const scannerRef = useRef<Html5QrcodeScanner | null>(null);
+    const scannerRef = useRef<any>(null);
     const [scanStatus, setScanStatus] = useState<'IDLE' | 'SUCCESS' | 'ERROR'>('IDLE');
 
     useEffect(() => {
         if (scanning) {
-            scannerRef.current = new Html5QrcodeScanner(
-                "qr-reader",
-                { fps: 10, qrbox: { width: 250, height: 250 } },
-                /* verbose= */ false
-            );
-            scannerRef.current.render(onScanSuccess, onScanFailure);
+            import('html5-qrcode').then(({ Html5QrcodeScanner }) => {
+                scannerRef.current = new Html5QrcodeScanner(
+                    "qr-reader",
+                    { fps: 10, qrbox: { width: 250, height: 250 } },
+                    /* verbose= */ false
+                );
+                scannerRef.current.render(onScanSuccess, onScanFailure);
+            });
         } else {
             if (scannerRef.current) {
                 scannerRef.current.clear().catch(error => console.error("Failed to clear scanner", error));

@@ -60,4 +60,11 @@ export class UsersService {
             data: { isActive },
         });
     }
+
+    async updatePassword(id: string, passwordHashed: string) {
+        return this.prisma.user.update({
+            where: { id },
+            data: { password: passwordHashed }
+        });
+    }
 }

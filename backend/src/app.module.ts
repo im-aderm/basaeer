@@ -34,15 +34,16 @@ import { AutomationModule } from './automation/automation.module';
 import { SearchModule } from './search/search.module';
 import { AssignmentsModule } from './assignments/assignments.module';
 import { CardsModule } from './cards/cards.module';
+import { MailModule } from './mail/mail.module';
 
 // NOTE: Run `npm install @nestjs/throttler` to enable rate limiting, then
 // uncomment the ThrottlerModule import and include it in the imports array below.
-// import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
-// import { APP_GUARD } from '@nestjs/core';
+import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
-    // ThrottlerModule.forRoot([{ ttl: 60000, limit: 10 }]), // 10 requests per minute globally; auth routes use stricter limits
+    ThrottlerModule.forRoot([{ ttl: 60000, limit: 10 }]), // 10 requests per minute globally; auth routes use stricter limits
     AuthModule,
     EmployeesModule,
     UsersModule,
@@ -76,12 +77,13 @@ import { CardsModule } from './cards/cards.module';
     SearchModule,
     AssignmentsModule,
     CardsModule,
+    MailModule,
   ],
   controllers: [AppController],
   providers: [
     AppService,
     // Uncomment after installing @nestjs/throttler:
-    // { provide: APP_GUARD, useClass: ThrottlerGuard },
+    { provide: APP_GUARD, useClass: ThrottlerGuard },
   ],
 })
 export class AppModule { }

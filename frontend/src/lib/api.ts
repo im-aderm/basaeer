@@ -2,20 +2,10 @@ import axios from 'axios';
 
 const api = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001',
+    withCredentials: true, // Crucial for sending/receiving httpOnly auth cookies across domains
 });
 
-// ── Request Interceptor: attach JWT token ─────────────────────────────────────
-api.interceptors.request.use((config) => {
-    if (typeof window !== 'undefined') {
-        const token = localStorage.getItem('token');
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
-        }
-    }
-    return config;
-});
-
-// ── Response Interceptor: handle expired/invalid tokens ──────────────────────
+// ── Response Interceptor: handle expired/invalid sessions ────────────────────
 api.interceptors.response.use(
     (response) => response,
     (error) => {
@@ -23,8 +13,7 @@ api.interceptors.response.use(
             typeof window !== 'undefined' &&
             error.response?.status === 401
         ) {
-            // Token is expired or invalid — clear auth state and redirect to login
-            localStorage.removeItem('token');
+            // Session is expired or invalid — redirect to login
             // Avoid redirect loops: only redirect if not already on login page
             if (!window.location.pathname.startsWith('/login')) {
                 window.location.href = '/login';

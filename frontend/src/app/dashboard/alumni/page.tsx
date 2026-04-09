@@ -20,7 +20,10 @@ import {
     Users,
     ChevronRight,
     MapPin,
-    ExternalLink
+    ExternalLink,
+    Pencil,
+    Trash2,
+    CheckCircle2
 } from 'lucide-react';
 import { StakeholderService, Alumni, AlumniEvent } from '@/services/stakeholderService';
 import { toast } from 'sonner';
@@ -150,7 +153,8 @@ export default function AlumniPage() {
                                     <TableRow className="border-border/50 hover:bg-transparent">
                                         <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Name & Graduation</TableHead>
                                         <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Current Profile</TableHead>
-                                        <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-right">Connect</TableHead>
+                                        <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Status</TableHead>
+                                        <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-right">Actions</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
@@ -168,15 +172,27 @@ export default function AlumniPage() {
                                                 </div>
                                                 <div className="text-muted-foreground opacity-60 ml-5">{a.currentCompany || 'N/A'}</div>
                                             </TableCell>
+                                            <TableCell className="px-8">
+                                                <Badge variant="outline" className="bg-emerald-500/10 text-emerald-600 border-none font-bold text-[10px] flex items-center gap-1 w-fit">
+                                                    <CheckCircle2 className="w-3 h-3" /> Active Network
+                                                </Badge>
+                                            </TableCell>
                                             <TableCell className="text-right px-8">
                                                 <div className="flex justify-end gap-2">
+                                                    <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl hover:bg-muted" title="Edit Profile">
+                                                        <Pencil className="h-4 w-4 text-muted-foreground" />
+                                                    </Button>
+                                                    <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl hover:bg-red-50 group" title="Delete record">
+                                                        <Trash2 className="h-4 w-4 text-muted-foreground group-hover:text-red-500 transition-colors" />
+                                                    </Button>
+                                                    <div className="w-[1px] h-4 bg-border mx-1 self-center" />
                                                     {a.linkedInUrl && (
-                                                        <Button variant="secondary" size="icon" className="h-10 w-10 rounded-xl" asChild>
+                                                        <Button variant="secondary" size="icon" className="h-9 w-9 rounded-xl shadow-sm" asChild title="LinkedIn Profile">
                                                             <a href={a.linkedInUrl} target="_blank" rel="noopener noreferrer"><Linkedin className="h-4 w-4" /></a>
                                                         </Button>
                                                     )}
-                                                    <Button variant="outline" size="icon" className="h-10 w-10 rounded-xl">
-                                                        <Mail className="h-4 w-4" />
+                                                    <Button variant="outline" size="icon" className="h-9 w-9 rounded-xl border-primary/20 hover:bg-primary/5" title="Send Email">
+                                                        <Mail className="h-4 w-4 text-primary" />
                                                     </Button>
                                                 </div>
                                             </TableCell>
