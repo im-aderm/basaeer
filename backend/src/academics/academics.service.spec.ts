@@ -20,6 +20,9 @@ describe('AcademicsService - Assignments', () => {
         student: {
             findUnique: jest.fn(),
         },
+        staff: {
+            findUnique: jest.fn(),
+        },
     };
 
     beforeEach(async () => {
@@ -52,18 +55,26 @@ describe('AcademicsService - Assignments', () => {
                 teacherId: 'teacher-123',
             };
 
+            const mockTeacher = {
+                id: 'teacher-123',
+                user: { branchId: 'branch-123' },
+            };
+
             const mockAssignment = {
                 id: 'assignment-123',
                 ...dto,
                 dueDate: new Date(dto.dueDate),
+                branchId: 'branch-123',
             };
 
+            mockPrismaService.staff.findUnique.mockResolvedValue(mockTeacher);
             mockPrismaService.assignment.create.mockResolvedValue(mockAssignment);
 
             const result = await service.createAssignment(dto);
 
             expect(result).toBeDefined();
             expect(result.title).toBe('Math Homework 1');
+            expect(mockPrismaService.staff.findUnique).toHaveBeenCalled();
             expect(mockPrismaService.assignment.create).toHaveBeenCalled();
         });
     });
@@ -120,11 +131,13 @@ describe('AcademicsService - Assignments', () => {
 
             const mockSubmission = {
                 id: 'submission-123',
-                ...dto,
+                assignmentId: dto.assignmentId,
+                studentId: dto.studentId,
+                contentUrl: dto.contentUrl,
                 status: 'SUBMITTED',
             };
 
-            mockPrismaService.submission.create.mockResolvedValue(mockSubmission);
+            mockPrismaService.submission.upsert.mockResolvedValue(mockSubmission);
 
             const result = await service.submitAssignment(dto);
 

@@ -80,11 +80,17 @@ describe('LeaveService', () => {
             const requestId = 'leave-123';
             const dto = { status: 'APPROVED' as const };
 
+            const mockRequest = {
+                id: requestId,
+                status: 'PENDING',
+            };
+
             const mockUpdated = {
                 id: requestId,
                 status: 'APPROVED',
             };
 
+            mockPrismaService.leaveRequest.findUnique.mockResolvedValue(mockRequest);
             mockPrismaService.leaveRequest.update.mockResolvedValue(mockUpdated);
 
             const result = await service.updateLeaveStatus(requestId, dto);
@@ -100,11 +106,17 @@ describe('LeaveService', () => {
             const requestId = 'leave-123';
             const dto = { status: 'REJECTED' as const };
 
+            const mockRequest = {
+                id: requestId,
+                status: 'PENDING',
+            };
+
             const mockUpdated = {
                 id: requestId,
                 status: 'REJECTED',
             };
 
+            mockPrismaService.leaveRequest.findUnique.mockResolvedValue(mockRequest);
             mockPrismaService.leaveRequest.update.mockResolvedValue(mockUpdated);
 
             const result = await service.updateLeaveStatus(requestId, dto);
@@ -145,7 +157,7 @@ describe('LeaveService', () => {
             expect(result).toHaveLength(2);
             expect(mockPrismaService.leaveRequest.findMany).toHaveBeenCalledWith({
                 where: { staffId },
-                orderBy: { createdAt: 'desc' },
+                orderBy: { startDate: 'desc' },
             });
         });
     });

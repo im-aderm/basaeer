@@ -148,7 +148,17 @@ export const OnlineAdmissionService = {
     },
 
     create: async (data: any): Promise<OnlineAdmission> => {
-        const response = await api.post("/online-admissions", data);
+        // Map frontend field names to backend DTO field names
+        const payload = {
+            ...data,
+            // Map paymentProofUrl -> paymentReceiptUrl for backend
+            paymentReceiptUrl: data.paymentProofUrl || data.paymentReceiptUrl,
+            // Ensure surname is set (fallback to lastName)
+            surname: data.surname || data.lastName,
+            // Map otherName if present
+            otherNames: data.otherNames || data.lastNameName || "",
+        };
+        const response = await api.post("/online-admissions", payload);
         return response.data;
     },
 

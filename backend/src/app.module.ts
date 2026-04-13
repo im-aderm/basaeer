@@ -35,6 +35,7 @@ import { SearchModule } from './search/search.module';
 import { AssignmentsModule } from './assignments/assignments.module';
 import { CardsModule } from './cards/cards.module';
 import { MailModule } from './mail/mail.module';
+import { UploadModule } from './upload/upload.module';
 
 // NOTE: Run `npm install @nestjs/throttler` to enable rate limiting, then
 // uncomment the ThrottlerModule import and include it in the imports array below.
@@ -78,6 +79,7 @@ import { APP_GUARD } from '@nestjs/core';
     AssignmentsModule,
     CardsModule,
     MailModule,
+    UploadModule,
   ],
   controllers: [AppController],
   providers: [

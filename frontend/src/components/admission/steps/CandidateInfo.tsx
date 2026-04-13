@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AdmissionSchema, AdmissionFormData } from "@/types/admission-schema";
 import { useEffect } from "react";
+import { useDebounce } from "@/hooks/useDebounce";
 
 export function CandidateInfo() {
   const { formData, updateFormData } = useAdmissionStore();
@@ -26,11 +27,13 @@ export function CandidateInfo() {
     defaultValues: formData,
   });
 
-  // Sync with store on change
+  // Sync with store on change (debounced to avoid re-render loops)
   const watchedFields = watch();
+  const debouncedFields = useDebounce(watchedFields, 500);
+
   useEffect(() => {
-    updateFormData(watchedFields);
-  }, [watchedFields, updateFormData]);
+    updateFormData(debouncedFields);
+  }, [debouncedFields, updateFormData]);
 
   return (
     <CardContent className="p-8 space-y-6">

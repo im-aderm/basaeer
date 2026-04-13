@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AdmissionSchema, AdmissionFormData } from "@/types/admission-schema";
 import { useEffect } from "react";
+import { useDebounce } from "@/hooks/useDebounce";
 import { User, ShieldCheck } from "lucide-react";
 
 export function ParentInfo() {
@@ -32,11 +33,12 @@ export function ParentInfo() {
   });
 
   const watchedFields = watch();
-  const guardianType = watch("guardianType");
+  const guardianType = watchedFields.guardianType;
+  const debouncedFields = useDebounce(watchedFields, 500);
 
   useEffect(() => {
-    updateFormData(watchedFields);
-  }, [watchedFields, updateFormData]);
+    updateFormData(debouncedFields);
+  }, [debouncedFields, updateFormData]);
 
   return (
     <CardContent className="p-8 space-y-8">

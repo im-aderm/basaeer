@@ -34,7 +34,13 @@ export const useAdmissionStore = create<AdmissionState>()(
       currentStep: 1,
       setStep: (step) => set({ currentStep: step }),
       updateFormData: (data) =>
-        set((state) => ({ formData: { ...state.formData, ...data } })),
+        set((state) => {
+          const hasChanged = Object.entries(data).some(
+            ([key, value]) => state.formData[key as keyof AdmissionFormData] !== value
+          );
+          if (!hasChanged) return state;
+          return { formData: { ...state.formData, ...data } };
+        }),
       nextStep: () => set((state) => ({ currentStep: state.currentStep + 1 })),
       prevStep: () => set((state) => ({ currentStep: state.currentStep - 1 })),
       resetForm: () => set({ currentStep: 1, formData: {} }),

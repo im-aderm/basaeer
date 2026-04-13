@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AdmissionSchema, AdmissionFormData } from "@/types/admission-schema";
 import { useEffect } from "react";
+import { useDebounce } from "@/hooks/useDebounce";
 import { HeartPulse, Info, Users } from "lucide-react";
 
 export function MedicalInfo() {
@@ -32,14 +33,16 @@ export function MedicalInfo() {
   });
 
   const watchedFields = watch();
-  const hasMedical = watch("hasMedicalCondition");
-  const hasDifficulty = watch("hasLearningDifficulty");
-  const hasSpecial = watch("hasSpecialNeeds");
-  const hasSiblings = watch("hasSiblingsInSchool");
+  const debouncedFields = useDebounce(watchedFields, 500);
 
   useEffect(() => {
-    updateFormData(watchedFields);
-  }, [watchedFields, updateFormData]);
+    updateFormData(debouncedFields);
+  }, [debouncedFields, updateFormData]);
+
+  const hasMedical = watchedFields.hasMedicalCondition;
+  const hasDifficulty = watchedFields.hasLearningDifficulty;
+  const hasSpecial = watchedFields.hasSpecialNeeds;
+  const hasSiblings = watchedFields.hasSiblingsInSchool;
 
   return (
     <CardContent className="p-8 space-y-10">

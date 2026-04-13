@@ -1,0 +1,105 @@
+import {
+  Controller,
+  Post,
+  UploadedFile,
+  UseInterceptors,
+  BadRequestException,
+  Query,
+} from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { UploadService } from './upload.service';
+import { Public } from '../auth/public.decorator';
+
+@Controller('upload')
+export class UploadController {
+  constructor(private readonly uploadService: UploadService) {}
+
+  @Post('admission-document')
+  @Public()
+  @UseInterceptors(
+    FileInterceptor('file', {
+      limits: {
+        fileSize: 5 * 1024 * 1024, // 5MB
+      },
+      fileFilter: (req, file, cb) => {
+        const allowedMimeTypes = [
+          'image/jpeg',
+          'image/png',
+          'image/webp',
+          'application/pdf',
+        ];
+        if (allowedMimeTypes.includes(file.mimetype)) {
+          cb(null, true);
+        } else {
+          cb(
+            new BadRequestException(
+              'Only JPEG, PNG, WebP images and PDF files are allowed',
+            ),
+            false,
+          );
+        }
+      },
+    }),
+  )
+  async uploadAdmissionDocument(
+    @UploadedFile() file: Express.Multer.File,
+    @Query('category') category?: string,
+  ) {
+    if (!file) {
+      throw new BadRequestException('No file uploaded');
+    }
+
+    const url = await this.uploadService.saveFile(file, category);
+
+    return {
+      success: true,
+      url,
+      filename: file.originalname,
+      size: file.size,
+      mimeType: file.mimetype,
+    };
+  }
+
+  @Post('payment-proof')
+  @Public()
+  @UseInterceptors(
+    FileInterceptor('file', {
+      limits: {
+        fileSize: 5 * 1024 * 1024, // 5MB
+      },
+      fileFilter: (req, file, cb) => {
+        const allowedMimeTypes = [
+          'image/jpeg',
+          'image/png',
+          'image/webp',
+          'application/pdf',
+        ];
+        if (allowedMimeTypes.includes(file.mimetype)) {
+          cb(null, true);
+        } else {
+          cb(
+            new BadRequestException(
+              'Only JPEG, PNG, WebP images and PDF files are allowed',
+            ),
+            false,
+          );
+        }
+      },
+    }),
+  )
+  async uploadPaymentProof(@UploadedFile() file: Express.Multer.File) {
+    if (!file) {
+      throw new BadRequestException('No file uploaded');
+    }
+
+    const url = await this.uploadService.saveFile(file, 'payments');
+
+    return {
+      success: true,
+      url,
+      filename: file.originalname,
+      size: file.size,
+      mimeType: file.mimetype,
+    };
+  }
+}

@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
+import { Injectable, NotFoundException, ConflictException, Logger } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateOnlineAdmissionDto } from './dto/create-online-admission.dto';
 import { UpdateOnlineAdmissionDto } from './dto/update-online-admission.dto';
@@ -9,6 +9,8 @@ import { MailService } from '../mail/mail.service';
 
 @Injectable()
 export class OnlineAdmissionService {
+    private readonly logger = new Logger(OnlineAdmissionService.name);
+
     constructor(
         private prisma: PrismaService,
         private mailService: MailService,
@@ -36,8 +38,13 @@ export class OnlineAdmissionService {
         // Send acknowledgement email
         try {
             await this.mailService.sendAdmissionReceived(admission.guardianEmail || '', `${admission.firstName} ${admission.lastName}`);
-        } catch (e) {
-            console.error('Failed to send acknowledgement email', e);
+            this.logger.log(`Acknowledgement email sent to ${admission.guardianEmail} for application ${admission.id}`);
+        } catch (error) {
+            this.logger.error(
+                `Failed to send acknowledgement email to ${admission.guardianEmail} for application ${admission.id}`,
+                error instanceof Error ? error.stack : String(error),
+            );
+            // Don't throw - application creation should succeed even if email fails
         }
 
         return admission;
@@ -141,8 +148,12 @@ export class OnlineAdmissionService {
         // Send rejection email here
         try {
             await this.mailService.sendRejectionEmail(admission.guardianEmail || '', `${admission.firstName} ${admission.lastName}`, reason);
-        } catch (e) {
-            console.error('Failed to send rejection email', e);
+            this.logger.log(`Rejection email sent to ${admission.guardianEmail} for application ${id}`);
+        } catch (error) {
+            this.logger.error(
+                `Failed to send rejection email to ${admission.guardianEmail} for application ${id}`,
+                error instanceof Error ? error.stack : String(error),
+            );
         }
 
         return updated;
@@ -181,7 +192,7 @@ export class OnlineAdmissionService {
                             email: admission.guardianEmail,
                             password: parentPassword,
                             firstName: admission.guardianName.split(' ')[0],
-                            lastName: (admission.surname || admission.lastName || admission.guardianName.split(' ').slice(1).join(' ')),
+                            lastName: (admission.lastName || admission.guardianName.split(' ').slice(1).join(' ')),
                             phone: admission.guardianPhone,
                             role: UserRole.PARENT,
                             branchId: admission.branchId,
@@ -195,7 +206,7 @@ export class OnlineAdmissionService {
 
             // 3. Create Student User if portal account is requested
             if (admission.createPortalAccount) {
-                const email = admission.studentEmail || `std.${admission.firstName.toLowerCase()}.${(admission.surname || admission.lastName).toLowerCase()}${count + 1}@basaeer.com`;
+                const email = admission.studentEmail || `std.${admission.firstName.toLowerCase()}.${admission.lastName.toLowerCase()}${count + 1}@basaeer.com`;
                 const hashedPassword = await bcrypt.hash('student123', 10);
 
                 const user = await tx.user.create({
@@ -203,7 +214,7 @@ export class OnlineAdmissionService {
                         email,
                         password: hashedPassword,
                         firstName: admission.firstName,
-                        lastName: admission.surname || admission.lastName,
+                        lastName: admission.lastName,
                         phone: admission.guardianPhone,
                         role: UserRole.STUDENT,
                         branchId: admission.branchId,
@@ -219,16 +230,13 @@ export class OnlineAdmissionService {
                     parentId,
                     firstName: admission.firstName,
                     lastName: admission.lastName,
-                    surname: admission.surname,
                     otherNames: admission.otherNames,
                     dob: admission.dateOfBirth,
-                    age: admission.age,
                     branchId: admission.branchId,
                     classId: approvalData?.classId || admission.desiredClassId,
                     sectionId: approvalData?.sectionId || admission.desiredSectionId,
                     categoryId: admission.studentCategoryId,
 
-                    ninNumber: admission.ninNumber,
                     placeOfBirth: admission.placeOfBirth,
                     nationality: admission.nationality,
                     stateOfOrigin: admission.stateOfOrigin,
@@ -238,39 +246,23 @@ export class OnlineAdmissionService {
 
                     guardianOccupation: admission.guardianOccupation,
                     guardianOfficeAddress: admission.guardianOfficeAddress,
-                    
-                    fatherName: admission.fatherName,
-                    fatherOccupation: admission.fatherOccupation,
-                    fatherPhone: admission.fatherPhone,
-                    motherName: admission.motherName,
-                    motherOccupation: admission.motherOccupation,
-                    motherPhone: admission.motherPhone,
 
                     secondaryGuardianName: admission.secondaryGuardianName,
                     secondaryGuardianPhone: admission.secondaryGuardianPhone,
                     secondaryGuardianRelation: admission.secondaryGuardianRelation,
 
-                    address: admission.address,
-                    whatsappNumber: admission.whatsappNumber,
-                    languagesSpoken: admission.languagesSpoken,
                     city: admission.city,
                     state: admission.state,
                     country: admission.country,
                     emergencyContactName: admission.emergencyContactName,
                     emergencyContactPhone: admission.emergencyContactPhone,
                     emergencyContactRelation: admission.emergencyContactRelation,
-                    emergencySickness: admission.emergencySickness,
 
                     bloodGroup: admission.bloodGroup,
                     genotype: admission.genotype,
                     allergies: admission.allergies,
                     medicalConditions: admission.medicalConditions,
-                    hasMedicalCondition: admission.hasMedicalCondition,
-                    medicalConditionInfo: admission.medicalConditionInfo,
-                    hasLearningDifficulty: admission.hasLearningDifficulty,
-                    learningDifficultyInfo: admission.learningDifficultyInfo,
-                    hasSpecialNeeds: admission.hasSpecialNeeds,
-                    specialNeedsInfo: admission.specialNeedsInfo,
+                    specialNeeds: admission.specialNeeds,
                     familyDoctorName: admission.familyDoctorName,
                     familyDoctorPhone: admission.familyDoctorPhone,
 
@@ -278,12 +270,6 @@ export class OnlineAdmissionService {
                     testimonialUrl: admission.testimonialUrl,
                     transferCertificateUrl: admission.transferCertificateUrl,
                     immunizationCardUrl: admission.immunizationCardUrl,
-                    ninUrl: admission.ninUrl,
-                    educationalCertUrl: admission.educationalCertUrl,
-                    transferLetterUrl: admission.transferLetterUrl,
-                    medicalReportUrl: admission.medicalReportUrl,
-                    recommendationLetterUrl: admission.recommendationLetterUrl,
-                    schoolReportUrl: admission.schoolReportUrl,
 
                     preferredLanguage: admission.preferredLanguage,
                     religionClassType: admission.religionClassType,
@@ -305,8 +291,12 @@ export class OnlineAdmissionService {
             // Send approval email here
             try {
                 await this.mailService.sendApprovalEmail(admission.guardianEmail || '', `${admission.firstName} ${admission.lastName}`, studentIdNumber);
-            } catch (e) {
-                console.error('Failed to send approval email', e);
+                this.logger.log(`Approval email sent to ${admission.guardianEmail} for student ${studentIdNumber}`);
+            } catch (error) {
+                this.logger.error(
+                    `Failed to send approval email to ${admission.guardianEmail} for application ${id}`,
+                    error instanceof Error ? error.stack : String(error),
+                );
             }
 
             return student;

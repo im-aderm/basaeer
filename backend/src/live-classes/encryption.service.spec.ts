@@ -68,8 +68,9 @@ describe('EncryptionService', () => {
             const encrypted = service.encrypt('test');
             const [iv, ciphertext, tag] = encrypted.split(':');
 
-            // Tamper with the ciphertext
-            const tampered = `${iv}:${ciphertext}modified:${tag}`;
+            // Tamper with the ciphertext by modifying a character
+            const tamperedCiphertext = ciphertext.slice(0, -1) + (ciphertext.slice(-1) === 'a' ? 'b' : 'a');
+            const tampered = `${iv}:${tamperedCiphertext}:${tag}`;
 
             expect(() => service.decrypt(tampered)).toThrow('Decryption failed');
         });
