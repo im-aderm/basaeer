@@ -42,9 +42,13 @@ export class StudentsController {
   findAll(
     @GetTenantContext() context: TenantContext,
     @Query('classId') classId?: string,
-    @Query('sectionId') sectionId?: string
+    @Query('sectionId') sectionId?: string,
+    @Query('skip') skip?: string,
+    @Query('take') take?: string
   ) {
-    return this.studentsService.findAll(context, classId, sectionId);
+    const skipNum = skip ? parseInt(skip, 10) : undefined;
+    const takeNum = take ? parseInt(take, 10) : undefined;
+    return this.studentsService.findAll(context, classId, sectionId, skipNum, takeNum);
   }
 
   // Deactivation Reasons

@@ -584,6 +584,15 @@ export const AttemptStatus: {
 
 export type AttemptStatus = (typeof AttemptStatus)[keyof typeof AttemptStatus]
 
+
+export const VoucherStatus: {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+};
+
+export type VoucherStatus = (typeof VoucherStatus)[keyof typeof VoucherStatus]
+
 }
 
 export type UserRole = $Enums.UserRole
@@ -633,6 +642,10 @@ export const ExamStatus: typeof $Enums.ExamStatus
 export type AttemptStatus = $Enums.AttemptStatus
 
 export const AttemptStatus: typeof $Enums.AttemptStatus
+
+export type VoucherStatus = $Enums.VoucherStatus
+
+export const VoucherStatus: typeof $Enums.VoucherStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -67117,7 +67130,7 @@ export namespace Prisma {
     paidTo: string | null
     approvedByUserId: string | null
     branchId: string | null
-    status: string | null
+    status: $Enums.VoucherStatus | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -67132,7 +67145,7 @@ export namespace Prisma {
     paidTo: string | null
     approvedByUserId: string | null
     branchId: string | null
-    status: string | null
+    status: $Enums.VoucherStatus | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -67304,7 +67317,7 @@ export namespace Prisma {
     paidTo: string
     approvedByUserId: string | null
     branchId: string
-    status: string
+    status: $Enums.VoucherStatus
     createdAt: Date
     updatedAt: Date
     _count: VoucherCountAggregateOutputType | null
@@ -67431,7 +67444,7 @@ export namespace Prisma {
       paidTo: string
       approvedByUserId: string | null
       branchId: string
-      status: string
+      status: $Enums.VoucherStatus
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["voucher"]>
@@ -67869,7 +67882,7 @@ export namespace Prisma {
     readonly paidTo: FieldRef<"Voucher", 'String'>
     readonly approvedByUserId: FieldRef<"Voucher", 'String'>
     readonly branchId: FieldRef<"Voucher", 'String'>
-    readonly status: FieldRef<"Voucher", 'String'>
+    readonly status: FieldRef<"Voucher", 'VoucherStatus'>
     readonly createdAt: FieldRef<"Voucher", 'DateTime'>
     readonly updatedAt: FieldRef<"Voucher", 'DateTime'>
   }
@@ -120810,6 +120823,20 @@ export namespace Prisma {
    */
   export type ListEnumExamTermFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ExamTerm[]'>
     
+
+
+  /**
+   * Reference to a field of type 'VoucherStatus'
+   */
+  export type EnumVoucherStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VoucherStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'VoucherStatus[]'
+   */
+  export type ListEnumVoucherStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VoucherStatus[]'>
+    
   /**
    * Deep Input Types
    */
@@ -124983,7 +125010,7 @@ export namespace Prisma {
     paidTo?: StringFilter<"Voucher"> | string
     approvedByUserId?: StringNullableFilter<"Voucher"> | string | null
     branchId?: StringFilter<"Voucher"> | string
-    status?: StringFilter<"Voucher"> | string
+    status?: EnumVoucherStatusFilter<"Voucher"> | $Enums.VoucherStatus
     createdAt?: DateTimeFilter<"Voucher"> | Date | string
     updatedAt?: DateTimeFilter<"Voucher"> | Date | string
     approvedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
@@ -125022,7 +125049,7 @@ export namespace Prisma {
     paidTo?: StringFilter<"Voucher"> | string
     approvedByUserId?: StringNullableFilter<"Voucher"> | string | null
     branchId?: StringFilter<"Voucher"> | string
-    status?: StringFilter<"Voucher"> | string
+    status?: EnumVoucherStatusFilter<"Voucher"> | $Enums.VoucherStatus
     createdAt?: DateTimeFilter<"Voucher"> | Date | string
     updatedAt?: DateTimeFilter<"Voucher"> | Date | string
     approvedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
@@ -125063,7 +125090,7 @@ export namespace Prisma {
     paidTo?: StringWithAggregatesFilter<"Voucher"> | string
     approvedByUserId?: StringNullableWithAggregatesFilter<"Voucher"> | string | null
     branchId?: StringWithAggregatesFilter<"Voucher"> | string
-    status?: StringWithAggregatesFilter<"Voucher"> | string
+    status?: EnumVoucherStatusWithAggregatesFilter<"Voucher"> | $Enums.VoucherStatus
     createdAt?: DateTimeWithAggregatesFilter<"Voucher"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Voucher"> | Date | string
   }
@@ -133503,7 +133530,7 @@ export namespace Prisma {
     amount: number
     description: string
     paidTo: string
-    status?: string
+    status?: $Enums.VoucherStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     approvedBy?: UserCreateNestedOneWithoutApprovedVouchersInput
@@ -133521,7 +133548,7 @@ export namespace Prisma {
     paidTo: string
     approvedByUserId?: string | null
     branchId: string
-    status?: string
+    status?: $Enums.VoucherStatus
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -133533,7 +133560,7 @@ export namespace Prisma {
     amount?: FloatFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
     paidTo?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumVoucherStatusFieldUpdateOperationsInput | $Enums.VoucherStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     approvedBy?: UserUpdateOneWithoutApprovedVouchersNestedInput
@@ -133551,7 +133578,7 @@ export namespace Prisma {
     paidTo?: StringFieldUpdateOperationsInput | string
     approvedByUserId?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumVoucherStatusFieldUpdateOperationsInput | $Enums.VoucherStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -133566,7 +133593,7 @@ export namespace Prisma {
     paidTo: string
     approvedByUserId?: string | null
     branchId: string
-    status?: string
+    status?: $Enums.VoucherStatus
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -133578,7 +133605,7 @@ export namespace Prisma {
     amount?: FloatFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
     paidTo?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumVoucherStatusFieldUpdateOperationsInput | $Enums.VoucherStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -133593,7 +133620,7 @@ export namespace Prisma {
     paidTo?: StringFieldUpdateOperationsInput | string
     approvedByUserId?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumVoucherStatusFieldUpdateOperationsInput | $Enums.VoucherStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -141414,6 +141441,13 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type EnumVoucherStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.VoucherStatus | EnumVoucherStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.VoucherStatus[] | ListEnumVoucherStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VoucherStatus[] | ListEnumVoucherStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumVoucherStatusFilter<$PrismaModel> | $Enums.VoucherStatus
+  }
+
   export type ExpenseCategoryScalarRelationFilter = {
     is?: ExpenseCategoryWhereInput
     isNot?: ExpenseCategoryWhereInput
@@ -141470,6 +141504,16 @@ export namespace Prisma {
 
   export type VoucherSumOrderByAggregateInput = {
     amount?: SortOrder
+  }
+
+  export type EnumVoucherStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.VoucherStatus | EnumVoucherStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.VoucherStatus[] | ListEnumVoucherStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VoucherStatus[] | ListEnumVoucherStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumVoucherStatusWithAggregatesFilter<$PrismaModel> | $Enums.VoucherStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumVoucherStatusFilter<$PrismaModel>
+    _max?: NestedEnumVoucherStatusFilter<$PrismaModel>
   }
 
   export type DepartmentCountOrderByAggregateInput = {
@@ -150962,6 +151006,10 @@ export namespace Prisma {
     connect?: ExpenseCategoryWhereUniqueInput
   }
 
+  export type EnumVoucherStatusFieldUpdateOperationsInput = {
+    set?: $Enums.VoucherStatus
+  }
+
   export type UserUpdateOneWithoutApprovedVouchersNestedInput = {
     create?: XOR<UserCreateWithoutApprovedVouchersInput, UserUncheckedCreateWithoutApprovedVouchersInput>
     connectOrCreate?: UserCreateOrConnectWithoutApprovedVouchersInput
@@ -153534,6 +153582,23 @@ export namespace Prisma {
     _max?: NestedEnumExamTermFilter<$PrismaModel>
   }
 
+  export type NestedEnumVoucherStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.VoucherStatus | EnumVoucherStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.VoucherStatus[] | ListEnumVoucherStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VoucherStatus[] | ListEnumVoucherStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumVoucherStatusFilter<$PrismaModel> | $Enums.VoucherStatus
+  }
+
+  export type NestedEnumVoucherStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.VoucherStatus | EnumVoucherStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.VoucherStatus[] | ListEnumVoucherStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VoucherStatus[] | ListEnumVoucherStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumVoucherStatusWithAggregatesFilter<$PrismaModel> | $Enums.VoucherStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumVoucherStatusFilter<$PrismaModel>
+    _max?: NestedEnumVoucherStatusFilter<$PrismaModel>
+  }
+
   export type NestedEnumTermNullableFilter<$PrismaModel = never> = {
     equals?: $Enums.Term | EnumTermFieldRefInput<$PrismaModel> | null
     in?: $Enums.Term[] | ListEnumTermFieldRefInput<$PrismaModel> | null
@@ -155403,7 +155468,7 @@ export namespace Prisma {
     amount: number
     description: string
     paidTo: string
-    status?: string
+    status?: $Enums.VoucherStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     approvedBy?: UserCreateNestedOneWithoutApprovedVouchersInput
@@ -155419,7 +155484,7 @@ export namespace Prisma {
     expenseCategoryId: string
     paidTo: string
     approvedByUserId?: string | null
-    status?: string
+    status?: $Enums.VoucherStatus
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -157323,7 +157388,7 @@ export namespace Prisma {
     paidTo?: StringFilter<"Voucher"> | string
     approvedByUserId?: StringNullableFilter<"Voucher"> | string | null
     branchId?: StringFilter<"Voucher"> | string
-    status?: StringFilter<"Voucher"> | string
+    status?: EnumVoucherStatusFilter<"Voucher"> | $Enums.VoucherStatus
     createdAt?: DateTimeFilter<"Voucher"> | Date | string
     updatedAt?: DateTimeFilter<"Voucher"> | Date | string
   }
@@ -159128,7 +159193,7 @@ export namespace Prisma {
     amount: number
     description: string
     paidTo: string
-    status?: string
+    status?: $Enums.VoucherStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     branch: BranchCreateNestedOneWithoutVouchersInput
@@ -159144,7 +159209,7 @@ export namespace Prisma {
     expenseCategoryId: string
     paidTo: string
     branchId: string
-    status?: string
+    status?: $Enums.VoucherStatus
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -177325,7 +177390,7 @@ export namespace Prisma {
     amount: number
     description: string
     paidTo: string
-    status?: string
+    status?: $Enums.VoucherStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     approvedBy?: UserCreateNestedOneWithoutApprovedVouchersInput
@@ -177341,7 +177406,7 @@ export namespace Prisma {
     paidTo: string
     approvedByUserId?: string | null
     branchId: string
-    status?: string
+    status?: $Enums.VoucherStatus
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -193124,7 +193189,7 @@ export namespace Prisma {
     expenseCategoryId: string
     paidTo: string
     approvedByUserId?: string | null
-    status?: string
+    status?: $Enums.VoucherStatus
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -195239,7 +195304,7 @@ export namespace Prisma {
     amount?: FloatFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
     paidTo?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumVoucherStatusFieldUpdateOperationsInput | $Enums.VoucherStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     approvedBy?: UserUpdateOneWithoutApprovedVouchersNestedInput
@@ -195255,7 +195320,7 @@ export namespace Prisma {
     expenseCategoryId?: StringFieldUpdateOperationsInput | string
     paidTo?: StringFieldUpdateOperationsInput | string
     approvedByUserId?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumVoucherStatusFieldUpdateOperationsInput | $Enums.VoucherStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -195269,7 +195334,7 @@ export namespace Prisma {
     expenseCategoryId?: StringFieldUpdateOperationsInput | string
     paidTo?: StringFieldUpdateOperationsInput | string
     approvedByUserId?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumVoucherStatusFieldUpdateOperationsInput | $Enums.VoucherStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -195917,7 +195982,7 @@ export namespace Prisma {
     expenseCategoryId: string
     paidTo: string
     branchId: string
-    status?: string
+    status?: $Enums.VoucherStatus
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -196591,7 +196656,7 @@ export namespace Prisma {
     amount?: FloatFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
     paidTo?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumVoucherStatusFieldUpdateOperationsInput | $Enums.VoucherStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branch?: BranchUpdateOneRequiredWithoutVouchersNestedInput
@@ -196607,7 +196672,7 @@ export namespace Prisma {
     expenseCategoryId?: StringFieldUpdateOperationsInput | string
     paidTo?: StringFieldUpdateOperationsInput | string
     branchId?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumVoucherStatusFieldUpdateOperationsInput | $Enums.VoucherStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -196621,7 +196686,7 @@ export namespace Prisma {
     expenseCategoryId?: StringFieldUpdateOperationsInput | string
     paidTo?: StringFieldUpdateOperationsInput | string
     branchId?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumVoucherStatusFieldUpdateOperationsInput | $Enums.VoucherStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -202113,7 +202178,7 @@ export namespace Prisma {
     paidTo: string
     approvedByUserId?: string | null
     branchId: string
-    status?: string
+    status?: $Enums.VoucherStatus
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -202125,7 +202190,7 @@ export namespace Prisma {
     amount?: FloatFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
     paidTo?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumVoucherStatusFieldUpdateOperationsInput | $Enums.VoucherStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     approvedBy?: UserUpdateOneWithoutApprovedVouchersNestedInput
@@ -202141,7 +202206,7 @@ export namespace Prisma {
     paidTo?: StringFieldUpdateOperationsInput | string
     approvedByUserId?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumVoucherStatusFieldUpdateOperationsInput | $Enums.VoucherStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -202155,7 +202220,7 @@ export namespace Prisma {
     paidTo?: StringFieldUpdateOperationsInput | string
     approvedByUserId?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumVoucherStatusFieldUpdateOperationsInput | $Enums.VoucherStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

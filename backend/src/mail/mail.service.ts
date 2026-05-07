@@ -16,6 +16,8 @@ export class MailService implements OnModuleInit {
   private transporter: nodemailer.Transporter;
   private readonly logger = new Logger(MailService.name);
   private isConfigured = false;
+  private emailQueue: { to: string; subject: string; html: string; retries: number }[] = [];
+  private isProcessing = false;
 
   onModuleInit() {
     const host = process.env.SMTP_HOST;
@@ -43,6 +45,8 @@ export class MailService implements OnModuleInit {
     } else {
       this.logger.warn('SMTP not configured with real credentials. Using fallback (ethereal.email). Emails will not be delivered.');
     }
+
+    this.startQueueProcessor();
   }
 
   /**
@@ -232,29 +236,60 @@ export class MailService implements OnModuleInit {
       .replace(/'/g, '&#039;');
   }
 
-  private async sendMail(to: string, subject: string, html: string) {
-    const from = `"Basaeer Admissions" <${process.env.SMTP_FROM || 'admissions@basaeer.edu'}>`;
+  private startQueueProcessor() {
+    setInterval(() => {
+      this.processQueue();
+    }, 5000); // Process queue every 5 seconds
+  }
 
-    try {
-      const info = await this.transporter.sendMail({
-        from,
-        to,
-        subject,
-        html,
-      });
+  private async processQueue() {
+    if (this.isProcessing || this.emailQueue.length === 0) return;
+    this.isProcessing = true;
 
-      this.logger.log(`✅ Email sent to ${to} | Subject: "${subject}" | MessageId: ${info.messageId}`);
-
-      // Log preview URL for ethereal.email (testing only)
-      if (info.messageId && process.env.SMTP_HOST === 'smtp.ethereal.email') {
-        const previewUrl = nodemailer.getTestMessageUrl(info);
-        this.logger.log(`📧 Ethereal preview: ${previewUrl}`);
+    while (this.emailQueue.length > 0) {
+      const email = this.emailQueue[0];
+      try {
+        await this.sendMailDirect(email.to, email.subject, email.html);
+        this.emailQueue.shift(); // Remove successfully sent email
+      } catch (error) {
+        email.retries++;
+        this.logger.error(`Failed to send email to ${email.to} in background (attempt ${email.retries})`, error.stack);
+        if (email.retries >= 3) {
+          this.logger.error(`Dropping email to ${email.to} after 3 failed attempts.`);
+          this.emailQueue.shift(); // Drop after 3 retries
+        } else {
+          // Move to the back of the queue
+          this.emailQueue.push(this.emailQueue.shift()!);
+          break; // Stop processing current batch to avoid rapid spamming on connection errors
+        }
       }
-
-      return info;
-    } catch (error) {
-      this.logger.error(`❌ Failed to send email to ${to} | Subject: "${subject}"`, error.stack);
-      throw error;
     }
+
+    this.isProcessing = false;
+  }
+
+  private async sendMailDirect(to: string, subject: string, html: string) {
+    const from = `"Basaeer Admissions" <${process.env.SMTP_FROM || 'admissions@basaeer.edu'}>`;
+    const info = await this.transporter.sendMail({
+      from,
+      to,
+      subject,
+      html,
+    });
+
+    this.logger.log(`✅ Email sent to ${to} | Subject: "${subject}" | MessageId: ${info.messageId}`);
+
+    if (info.messageId && process.env.SMTP_HOST === 'smtp.ethereal.email') {
+      const previewUrl = nodemailer.getTestMessageUrl(info);
+      this.logger.log(`📧 Ethereal preview: ${previewUrl}`);
+    }
+
+    return info;
+  }
+
+  private async sendMail(to: string, subject: string, html: string) {
+    this.emailQueue.push({ to, subject, html, retries: 0 });
+    this.logger.log(`📧 Email queued for ${to} | Subject: "${subject}"`);
+    return { queued: true, message: `Email queued for ${to}` };
   }
 }

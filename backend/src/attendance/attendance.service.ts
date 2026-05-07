@@ -87,7 +87,7 @@ export class AttendanceService {
         );
     }
 
-    async findBySectionAndDate(sectionId: string, date: string, context: TenantContext) {
+    async findBySectionAndDate(sectionId: string, date: string, context: TenantContext, skip?: number, take: number = 100) {
         const searchDate = new Date(date);
         searchDate.setHours(0, 0, 0, 0);
 
@@ -96,6 +96,8 @@ export class AttendanceService {
                 sectionId,
                 date: searchDate,
             }, context),
+            skip: skip ? Number(skip) : undefined,
+            take: take ? Number(take) : 100,
             include: {
                 student: {
                     select: {

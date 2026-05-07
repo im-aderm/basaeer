@@ -28,8 +28,16 @@ export class AttendanceController {
 
     @Get('section')
     @Roles(UserRole.TEACHER, UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
-    findBySection(@Query('sectionId') sectionId: string, @Query('date') date: string, @GetTenantContext() context: TenantContext) {
-        return this.attendanceService.findBySectionAndDate(sectionId, date, context);
+    findBySection(
+        @Query('sectionId') sectionId: string, 
+        @Query('date') date: string, 
+        @GetTenantContext() context: TenantContext,
+        @Query('skip') skip?: string,
+        @Query('take') take?: string
+    ) {
+        const skipNum = skip ? parseInt(skip, 10) : undefined;
+        const takeNum = take ? parseInt(take, 10) : undefined;
+        return this.attendanceService.findBySectionAndDate(sectionId, date, context, skipNum, takeNum);
     }
 
     @Get('student/:id')

@@ -70,12 +70,14 @@ export class StudentsService {
     return result;
   }
 
-  findAll(context: TenantContext, classId?: string, sectionId?: string) {
+  findAll(context: TenantContext, classId?: string, sectionId?: string, skip?: number, take: number = 100) {
     return this.prisma.student.findMany({
       where: TenantHelper.applyIsolation({
         ...(classId && { classId }),
         ...(sectionId && { sectionId }),
       }, context),
+      skip: skip ? Number(skip) : undefined,
+      take: take ? Number(take) : 100,
       include: {
         user: true,
         class: true,
@@ -176,43 +178,53 @@ export class StudentsService {
 
     const hashedPassword = await bcrypt.hash('student123', 10);
 
-    for (const studentData of studentsToCreate) {
-      try {
-        await this.prisma.$transaction(async (tx) => {
-          const existingUser = await tx.user.findUnique({ where: { email: studentData.email } });
-          if (existingUser) {
-            throw new Error(`Email ${studentData.email} already exists`);
+    const chunkSize = 50;
+    for (let i = 0; i < studentsToCreate.length; i += chunkSize) {
+      const chunk = studentsToCreate.slice(i, i + chunkSize);
+
+      await Promise.all(
+        chunk.map(async (studentData) => {
+          try {
+            await this.prisma.$transaction(async (tx) => {
+              const existingUser = await tx.user.findUnique({ where: { email: studentData.email } });
+              if (existingUser) {
+                throw new Error(`Email ${studentData.email} already exists`);
+              }
+
+              const user = await tx.user.create({
+                data: {
+                  email: studentData.email,
+                  password: hashedPassword,
+                  firstName: studentData.firstName,
+                  lastName: studentData.lastName,
+                  phone: studentData.phone,
+                  role: UserRole.STUDENT,
+                  branchId: studentData.branchId,
+                },
+              });
+
+              await tx.student.create({
+                data: {
+                  userId: user.id,
+                  firstName: studentData.firstName,
+                  lastName: studentData.lastName,
+                  branchId: studentData.branchId,
+                  classId: studentData.classId,
+                  sectionId: studentData.sectionId,
+                  dob: studentData.dob,
+                },
+              });
+            });
+            results.success++;
+          } catch (error) {
+            results.failed++;
+            results.details.push(`Failed to import ${studentData.email}: ${error.message}`);
           }
+        })
+      );
 
-          const user = await tx.user.create({
-            data: {
-              email: studentData.email,
-              password: hashedPassword,
-              firstName: studentData.firstName,
-              lastName: studentData.lastName,
-              phone: studentData.phone,
-              role: UserRole.STUDENT,
-              branchId: studentData.branchId,
-            },
-          });
-
-          await tx.student.create({
-            data: {
-              userId: user.id,
-              firstName: studentData.firstName,
-              lastName: studentData.lastName,
-              branchId: studentData.branchId,
-              classId: studentData.classId,
-              sectionId: studentData.sectionId,
-              dob: studentData.dob,
-            },
-          });
-        });
-        results.success++;
-      } catch (error) {
-        results.failed++;
-        results.details.push(`Failed to import ${studentData.email}: ${error.message}`);
-      }
+      // Yield execution to the event loop so other requests are processed without latency
+      await new Promise((resolve) => setImmediate(resolve));
     }
 
     return {

@@ -46,6 +46,7 @@ interface NavChild {
     title: string;
     href: string;
     roles?: string[];
+    isBeta?: boolean;
 }
 
 interface NavItem {
@@ -53,6 +54,7 @@ interface NavItem {
     icon: React.ElementType;
     href?: string;
     roles?: string[];
+    isBeta?: boolean;
     children?: NavChild[];
 }
 
@@ -155,7 +157,7 @@ const navigation: NavItem[] = [
         children: [
             { title: "Certificate Vault", href: "/dashboard/certificates/vault" },
             { title: "Certificate Template", href: "/dashboard/certificates/template" },
-            { title: "Generate Student", href: "/dashboard/certificates/generate-student" },
+            { title: "Generate Student", href: "/dashboard/certificates/generate-student", isBeta: true },
         ],
     },
     {
@@ -191,6 +193,7 @@ const navigation: NavItem[] = [
     {
         title: "Attachments Book",
         icon: Paperclip,
+        isBeta: true,
         children: [
             { title: "Upload Content", href: "/dashboard/attachments/upload" },
             { title: "Attachment Type", href: "/dashboard/attachments/type" },
@@ -259,8 +262,8 @@ const navigation: NavItem[] = [
         children: [
             { title: "Attendance", href: "/dashboard/qr-attendance" },
             { title: "Settings", href: "/dashboard/qr-attendance/settings" },
-            { title: "Submission Settings", href: "/dashboard/qr-attendance/submissions" },
-            { title: "Reports", href: "/dashboard/qr-attendance/reports" },
+            { title: "Submission Settings", href: "/dashboard/qr-attendance/submissions", isBeta: true },
+            { title: "Reports", href: "/dashboard/qr-attendance/reports", isBeta: true },
         ],
     },
     {
@@ -270,10 +273,10 @@ const navigation: NavItem[] = [
         children: [
             { title: "Library Overview", href: "/dashboard/library" },
             { title: "Books", href: "/dashboard/library/books" },
-            { title: "Books Category", href: "/dashboard/library/category" },
+            { title: "Books Category", href: "/dashboard/library/category", isBeta: true },
             { title: "Borrowing History", href: "/dashboard/library/borrowing" },
-            { title: "My Issued Book", href: "/dashboard/library/issued" },
-            { title: "Book Issue / Return", href: "/dashboard/library/manage" },
+            { title: "My Issued Book", href: "/dashboard/library/issued", isBeta: true },
+            { title: "Book Issue / Return", href: "/dashboard/library/manage", isBeta: true },
         ],
     },
     {
@@ -287,6 +290,7 @@ const navigation: NavItem[] = [
     {
         title: "Bulk SMS & Email",
         icon: MessageSquare,
+        isBeta: true,
         children: [
             { title: "Send SMS / Email", href: "/dashboard/bulk-comms/send" },
             { title: "SMS / Email Report", href: "/dashboard/bulk-comms/report" },
@@ -311,12 +315,12 @@ const navigation: NavItem[] = [
         title: "Reports",
         icon: FileBarChart,
         children: [
-            { title: "Student Reports", href: "/dashboard/reports/students" },
-            { title: "Fees Reports", href: "/dashboard/reports/fees" },
-            { title: "Financial Reports", href: "/dashboard/reports/financial" },
-            { title: "Attendance Reports", href: "/dashboard/reports/attendance" },
-            { title: "Human Resource Reports", href: "/dashboard/reports/hr" },
-            { title: "Examination Reports", href: "/dashboard/reports/exams" },
+            { title: "Student Reports", href: "/dashboard/reports/students", isBeta: true },
+            { title: "Fees Reports", href: "/dashboard/reports/fees", isBeta: true },
+            { title: "Financial Reports", href: "/dashboard/reports/financial", isBeta: true },
+            { title: "Attendance Reports", href: "/dashboard/reports/attendance", isBeta: true },
+            { title: "Human Resource Reports", href: "/dashboard/reports/hr", isBeta: true },
+            { title: "Examination Reports", href: "/dashboard/reports/exams", isBeta: true },
             { title: "Inventory Reports", href: "/dashboard/reports/inventory" },
         ],
     },
@@ -325,7 +329,7 @@ const navigation: NavItem[] = [
         icon: GraduationCap,
         children: [
             { title: "Manage Alumni", href: "/dashboard/alumni" },
-            { title: "Alumni Events", href: "/dashboard/alumni/events" },
+            { title: "Alumni Events", href: "/dashboard/alumni/events", isBeta: true },
         ],
     },
     {
@@ -344,14 +348,14 @@ const navigation: NavItem[] = [
             { title: "General Settings", href: "/dashboard/settings/general" },
             { title: "Role Permission", href: "/dashboard/settings/permissions" },
             { title: "Session Settings", href: "/dashboard/settings/sessions" },
-            { title: "Translations", href: "/dashboard/settings/translations" },
-            { title: "Cron Job", href: "/dashboard/settings/cron" },
-            { title: "Modules", href: "/dashboard/settings/modules" },
-            { title: "System Student Field", href: "/dashboard/settings/student-fields" },
-            { title: "Custom Field", href: "/dashboard/settings/custom-fields" },
+            { title: "Translations", href: "/dashboard/settings/translations", isBeta: true },
+            { title: "Cron Job", href: "/dashboard/settings/cron", isBeta: true },
+            { title: "Modules", href: "/dashboard/settings/modules", isBeta: true },
+            { title: "System Student Field", href: "/dashboard/settings/student-fields", isBeta: true },
+            { title: "Custom Field", href: "/dashboard/settings/custom-fields", isBeta: true },
             { title: "Backup Management", href: "/dashboard/settings/backups" },
-            { title: "System Update", href: "/dashboard/settings/update" },
-            { title: "User Login Log", href: "/dashboard/settings/login-log" },
+            { title: "System Update", href: "/dashboard/settings/update", isBeta: true },
+            { title: "User Login Log", href: "/dashboard/settings/login-log", isBeta: true },
         ],
     },
 ];
@@ -505,6 +509,7 @@ export function Sidebar() {
     }, [isCollapsed]);
 
     const canSee = useCallback((item: NavItem | NavChild): boolean => {
+        if (item.isBeta) return false;
         if (!('roles' in item) || !item.roles) return true;
         if (!user) return false;
         return item.roles.includes(user.role);

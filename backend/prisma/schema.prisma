@@ -226,6 +226,8 @@ model Student {
   transportAssignment       TransportAssignment?
 
   @@index([branchId])
+  @@index([branchId, classId, sectionId])
+  @@index([classId, sectionId])
 }
 
 model Certificate {
@@ -357,6 +359,8 @@ model Attendance {
 
   @@unique([studentId, date])
   @@index([branchId])
+  @@index([branchId, sectionId, date])
+  @@index([sectionId, date])
 }
 
 model StaffAttendance {
@@ -871,7 +875,7 @@ model Voucher {
   paidTo            String
   approvedByUserId  String?
   branchId          String
-  status            String          @default("PENDING")
+  status            VoucherStatus   @default(PENDING)
   createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt
   approvedBy        User?           @relation("VoucherApprover", fields: [approvedByUserId], references: [id])
@@ -1695,4 +1699,10 @@ enum AttemptStatus {
   IN_PROGRESS
   SUBMITTED
   GRADED
+}
+
+enum VoucherStatus {
+  PENDING
+  APPROVED
+  REJECTED
 }

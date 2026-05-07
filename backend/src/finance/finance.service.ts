@@ -5,7 +5,7 @@ import { CreateFeeStructureDto } from './dto/create-fee-structure.dto';
 import { CreateInvoiceDto } from './dto/create-invoice.dto';
 import { RecordPaymentDto } from './dto/record-payment.dto';
 import { CreateExpenseCategoryDto, CreateVoucherDto } from './dto/voucher.dto';
-import { PaymentStatus, InvoiceStatus, PaymentMethod } from '../generated/client/client';
+import { PaymentStatus, InvoiceStatus, PaymentMethod, VoucherStatus } from '../generated/client/client';
 import { TenantContext } from '../auth/branch.guard';
 import { TenantHelper } from '../prisma/tenant-helper';
 
@@ -229,7 +229,7 @@ export class FinanceService {
         });
     }
 
-    async updateVoucherStatus(id: string, status: string, context: TenantContext) {
+    async updateVoucherStatus(id: string, status: VoucherStatus, context: TenantContext) {
         const voucher = await this.prisma.voucher.findFirst({
             where: TenantHelper.applyIsolation({ id }, context)
         });
@@ -244,9 +244,11 @@ export class FinanceService {
         });
     }
 
-    async getVouchers(context: TenantContext) {
+    async getVouchers(context: TenantContext, skip?: number, take: number = 100) {
         return this.prisma.voucher.findMany({
             where: TenantHelper.applyIsolation({}, context),
+            skip: skip ? Number(skip) : undefined,
+            take: take ? Number(take) : 100,
             include: { category: true, approvedBy: true },
             orderBy: { date: 'desc' }
         });

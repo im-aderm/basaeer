@@ -7,7 +7,7 @@ import { RecordPaymentDto } from './dto/record-payment.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
-import { UserRole } from '../generated/client/client';
+import { UserRole, VoucherStatus } from '../generated/client/client';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 
@@ -92,13 +92,19 @@ export class FinanceController {
 
     @Patch('vouchers/:id/status')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-    updateVoucherStatus(@Param('id') id: string, @Body('status') status: string, @GetTenantContext() context: TenantContext) {
+    updateVoucherStatus(@Param('id') id: string, @Body('status') status: VoucherStatus, @GetTenantContext() context: TenantContext) {
         return this.financeService.updateVoucherStatus(id, status, context);
     }
 
     @Get('vouchers')
     @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
-    getVouchers(@GetTenantContext() context: TenantContext) {
-        return this.financeService.getVouchers(context);
+    getVouchers(
+        @GetTenantContext() context: TenantContext,
+        @Query('skip') skip?: string,
+        @Query('take') take?: string
+    ) {
+        const skipNum = skip ? parseInt(skip, 10) : undefined;
+        const takeNum = take ? parseInt(take, 10) : undefined;
+        return this.financeService.getVouchers(context, skipNum, takeNum);
     }
 }

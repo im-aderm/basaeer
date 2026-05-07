@@ -1435,6 +1435,12 @@ exports.ExamTerm = exports.$Enums.ExamTerm = {
   ANNUAL_CUMULATIVE: 'ANNUAL_CUMULATIVE'
 };
 
+exports.VoucherStatus = exports.$Enums.VoucherStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+};
+
 exports.Prisma.ModelName = {
   Branch: 'Branch',
   DeactivationReason: 'DeactivationReason',

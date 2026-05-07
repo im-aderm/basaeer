@@ -63,4 +63,24 @@ describe('Security Phase 1 (e2e)', () => {
   it('JWT Secret requirement should be enforced (checked by logic)', () => {
     // If we were to unset process.env.JWT_SECRET, the app would fail to start.
   });
+
+  it('BranchGuard should block a Branch Admin from requesting another branch context', async () => {
+    const branchAdmin = await usersService.createUser({
+      email: `admin-a-${Date.now()}@example.com`,
+      password: 'password123',
+      firstName: 'Branch A',
+      lastName: 'Admin',
+      role: UserRole.BRANCH_ADMIN,
+      branchId: 'branch-A-id',
+    });
+
+    const token = jwtService.sign({ sub: branchAdmin.id, email: branchAdmin.email, role: branchAdmin.role, branchId: 'branch-A-id' });
+
+    const response = await request(app.getHttpServer())
+      .get('/students?branchId=branch-B-id')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(403);
+    expect(response.body.message).toBe('You do not have access to this branch');
+  });
 });
