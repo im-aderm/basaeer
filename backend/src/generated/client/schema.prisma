@@ -125,6 +125,8 @@ model User {
   student                    Student?
   branch                     Branch?                   @relation(fields: [branchId], references: [id])
   approvedVouchers           Voucher[]                 @relation("VoucherApprover")
+
+  @@index([branchId])
 }
 
 model Staff {
@@ -222,6 +224,8 @@ model Student {
   user                      User?                @relation(fields: [userId], references: [id])
   submissions               Submission[]
   transportAssignment       TransportAssignment?
+
+  @@index([branchId])
 }
 
 model Certificate {
@@ -487,6 +491,9 @@ model Invoice {
   student       Student       @relation(fields: [studentId], references: [id])
   items         InvoiceItem[]
   payments      Payment[]
+
+  @@index([branchId])
+  @@index([studentId])
 }
 
 model QuestionGroup {
@@ -870,6 +877,8 @@ model Voucher {
   approvedBy        User?           @relation("VoucherApprover", fields: [approvedByUserId], references: [id])
   branch            Branch          @relation(fields: [branchId], references: [id])
   category          ExpenseCategory @relation(fields: [expenseCategoryId], references: [id])
+
+  @@index([branchId])
 }
 
 model Department {
@@ -881,6 +890,8 @@ model Department {
   updatedAt   DateTime @updatedAt
   branch      Branch   @relation(fields: [branchId], references: [id])
   staff       Staff[]
+
+  @@index([branchId])
 }
 
 model Designation {
