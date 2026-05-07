@@ -300,6 +300,7 @@ exports.Prisma.AttendanceScalarFieldEnum = {
   remarks: 'remarks',
   studentId: 'studentId',
   sectionId: 'sectionId',
+  branchId: 'branchId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -310,6 +311,7 @@ exports.Prisma.StaffAttendanceScalarFieldEnum = {
   status: 'status',
   remarks: 'remarks',
   staffId: 'staffId',
+  branchId: 'branchId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -564,6 +566,7 @@ exports.Prisma.AcademicSessionScalarFieldEnum = {
   isActive: 'isActive',
   nextTermBegins: 'nextTermBegins',
   termEnds: 'termEnds',
+  branchId: 'branchId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -587,6 +590,7 @@ exports.Prisma.AssessmentRecordScalarFieldEnum = {
   subjectId: 'subjectId',
   sectionId: 'sectionId',
   sessionId: 'sessionId',
+  branchId: 'branchId',
   term: 'term',
   examTerm: 'examTerm',
   isEligible: 'isEligible',
@@ -609,6 +613,7 @@ exports.Prisma.BehaviouralRatingScalarFieldEnum = {
   participation: 'participation',
   studentId: 'studentId',
   sessionId: 'sessionId',
+  branchId: 'branchId',
   term: 'term',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -632,6 +637,7 @@ exports.Prisma.ResultSummaryScalarFieldEnum = {
   attendanceAbsent: 'attendanceAbsent',
   studentId: 'studentId',
   sessionId: 'sessionId',
+  branchId: 'branchId',
   term: 'term',
   examTerm: 'examTerm',
   isActive: 'isActive',

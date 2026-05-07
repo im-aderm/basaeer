@@ -3,7 +3,6 @@
 import { OnlineAdmission } from "@/services/onlineAdmissionService";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { User, Phone, Mail, MapPin, School, HeartPulse, FileText, CheckCircle2, XCircle, CreditCard, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -26,8 +25,8 @@ export function AdmissionDetailDialog({
 
   return (
     <Dialog open={!!admission} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-[90vh] p-0 overflow-hidden border-none rounded-[3rem] shadow-2xl">
-        <DialogHeader className="p-8 bg-primary text-white">
+      <DialogContent className="max-w-4xl max-h-[90vh] p-0 overflow-hidden border-none rounded-[3rem] shadow-2xl flex flex-col">
+        <DialogHeader className="p-8 bg-primary text-white flex-shrink-0">
           <div className="flex justify-between items-start">
             <div className="space-y-1">
               <DialogTitle className="text-3xl font-black italic uppercase">
@@ -49,8 +48,8 @@ export function AdmissionDetailDialog({
           </div>
         </DialogHeader>
 
-        <ScrollArea className="flex-1 p-8 bg-background">
-          <div className="space-y-12 pb-10">
+        <div className="flex-1 overflow-y-auto p-8 bg-background">
+          <div className="space-y-12 pb-4">
             {/* Candidate Section */}
             <Section title="Candidate Information" icon={User}>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -136,14 +135,14 @@ export function AdmissionDetailDialog({
                 <DocumentLink label="Last School Report" url={admission.schoolReportUrl} />
                 <DocumentLink label="Payment Proof" url={admission.paymentProofUrl} isPayment />
               </div>
-              
+
               <div className="mt-6 p-6 bg-emerald-500/10 rounded-[2.5rem] border-2 border-emerald-500/20 flex items-center justify-between">
                 <div>
                   <p className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">Payment Status</p>
                   <p className="text-xl font-black italic text-emerald-700 uppercase">{admission.paymentStatus || 'PENDING'}</p>
                 </div>
                 {admission.paymentStatus !== 'VERIFIED' && (
-                  <Button 
+                  <Button
                     onClick={() => onVerifyPayment(admission.id)}
                     className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-2xl px-6 h-12 font-black italic shadow-lg shadow-emerald-500/20"
                   >
@@ -153,19 +152,19 @@ export function AdmissionDetailDialog({
               </div>
             </Section>
           </div>
-        </ScrollArea>
+        </div>
 
         {/* Action Footer */}
-        <div className="p-8 bg-muted/30 border-t border-border flex justify-end gap-4 shadow-inner">
-          <Button 
-            variant="outline" 
+        <div className="p-8 bg-muted/30 border-t border-border flex justify-end gap-4 shadow-inner flex-shrink-0">
+          <Button
+            variant="outline"
             onClick={() => onReject(admission.id)}
             className="rounded-2xl px-8 h-12 font-black text-destructive border-destructive/20 hover:bg-destructive/10 italic"
           >
             <XCircle className="mr-2 h-4 w-4" /> Reject Application
           </Button>
           {admission.status !== 'ENROLLED' && (
-            <Button 
+            <Button
               onClick={() => onApprove(admission.id)}
               className="rounded-2xl px-10 h-12 font-black italic bg-primary shadow-xl shadow-primary/20"
             >

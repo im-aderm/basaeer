@@ -67,7 +67,7 @@ export default function StudentListPage() {
         const matchesSearch =
             student.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
             student.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            student.user?.email.toLowerCase().includes(searchTerm.toLowerCase());
+            student.user?.email?.toLowerCase().includes(searchTerm.toLowerCase());
 
         const matchesClass = selectedClassId === "" || student.classId === selectedClassId;
 

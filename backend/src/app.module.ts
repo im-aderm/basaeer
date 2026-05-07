@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
+import { AuditModule } from './audit/audit.module';
 import { EmployeesModule } from './employees/employees.module';
 import { UsersModule } from './users/users.module';
 import { PrismaModule } from './prisma/prisma.module';
@@ -46,6 +47,7 @@ import { APP_GUARD } from '@nestjs/core';
   imports: [
     ThrottlerModule.forRoot([{ ttl: 60000, limit: 10 }]), // 10 requests per minute globally; auth routes use stricter limits
     AuthModule,
+    AuditModule,
     EmployeesModule,
     UsersModule,
     PrismaModule,

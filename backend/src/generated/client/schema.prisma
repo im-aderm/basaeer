@@ -63,6 +63,14 @@ model Branch {
   vehicles             Vehicle[]
   visitorLogs          VisitorLog[]
   vouchers             Voucher[]
+  academicSessions     AcademicSession[]
+  attendance           Attendance[]
+  staffAttendance      StaffAttendance[]
+  assessmentRecords    AssessmentRecord[]
+  behaviouralRatings   BehaviouralRating[]
+  resultSummaries      ResultSummary[]
+  gradingScales        GradingScale[]
+  globalSettings       GlobalSetting[]
 }
 
 model DeactivationReason {
@@ -334,12 +342,15 @@ model Attendance {
   remarks   String?
   studentId String
   sectionId String?
+  branchId  String
   createdAt DateTime         @default(now())
   updatedAt DateTime         @updatedAt
+  branch    Branch           @relation(fields: [branchId], references: [id])
   section   Section?         @relation(fields: [sectionId], references: [id])
   student   Student          @relation(fields: [studentId], references: [id])
 
   @@unique([studentId, date])
+  @@index([branchId])
 }
 
 model StaffAttendance {
@@ -348,11 +359,14 @@ model StaffAttendance {
   status    AttendanceStatus
   remarks   String?
   staffId   String
+  branchId  String
   createdAt DateTime         @default(now())
   updatedAt DateTime         @updatedAt
+  branch    Branch           @relation(fields: [branchId], references: [id])
   staff     Staff            @relation(fields: [staffId], references: [id])
 
   @@unique([staffId, date])
+  @@index([branchId])
 }
 
 model Hostel {
@@ -669,14 +683,18 @@ model AcademicSession {
   isActive           Boolean             @default(true)
   nextTermBegins     DateTime?
   termEnds           DateTime?
+  branchId           String
   createdAt          DateTime            @default(now())
   updatedAt          DateTime            @updatedAt
+  branch             Branch              @relation(fields: [branchId], references: [id])
   assessmentRecords  AssessmentRecord[]
   behaviouralRatings BehaviouralRating[]
   digitalResources   DigitalResource[]
   idCards            IdCard[]
   onlineAdmissions   OnlineAdmission[]
   resultSummaries    ResultSummary[]
+
+  @@index([branchId])
 }
 
 model AssessmentRecord {
@@ -698,17 +716,20 @@ model AssessmentRecord {
   subjectId  String
   sectionId  String
   sessionId  String
+  branchId   String
   term       Term
   examTerm   ExamTerm
   isEligible Boolean         @default(true)
   createdAt  DateTime        @default(now())
   updatedAt  DateTime        @updatedAt
+  branch     Branch          @relation(fields: [branchId], references: [id])
   section    Section         @relation(fields: [sectionId], references: [id])
   session    AcademicSession @relation(fields: [sessionId], references: [id])
   student    Student         @relation(fields: [studentId], references: [id])
   subject    Subject         @relation(fields: [subjectId], references: [id])
 
   @@unique([studentId, subjectId, sessionId, term])
+  @@index([branchId])
 }
 
 model BehaviouralRating {
@@ -726,13 +747,16 @@ model BehaviouralRating {
   participation          String?
   studentId              String
   sessionId              String
+  branchId               String
   term                   Term
   createdAt              DateTime        @default(now())
   updatedAt              DateTime        @updatedAt
+  branch                 Branch          @relation(fields: [branchId], references: [id])
   session                AcademicSession @relation(fields: [sessionId], references: [id])
   student                Student         @relation(fields: [studentId], references: [id])
 
   @@unique([studentId, sessionId, term])
+  @@index([branchId])
 }
 
 model ResultSummary {
@@ -753,16 +777,19 @@ model ResultSummary {
   attendanceAbsent  Int?
   studentId         String
   sessionId         String
+  branchId          String
   term              Term
   examTerm          ExamTerm
   isActive          Boolean         @default(true)
   isLocked          Boolean         @default(false)
   createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt
+  branch            Branch          @relation(fields: [branchId], references: [id])
   session           AcademicSession @relation(fields: [sessionId], references: [id])
   student           Student         @relation(fields: [studentId], references: [id])
 
   @@unique([studentId, sessionId, term])
+  @@index([branchId])
 }
 
 model GradingScale {
@@ -772,18 +799,25 @@ model GradingScale {
   maxScore  Float
   grade     String
   remark    String?
-  branchId  String?
+  branchId  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  branch    Branch   @relation(fields: [branchId], references: [id])
+
+  @@index([branchId])
 }
 
 model GlobalSetting {
   id        String   @id @default(uuid())
-  key       String   @unique
+  key       String
   value     String
   branchId  String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  branch    Branch?  @relation(fields: [branchId], references: [id])
+
+  @@unique([key, branchId])
+  @@index([branchId])
 }
 
 model RolePermission {

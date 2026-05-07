@@ -9,6 +9,16 @@ const api = axios.create({
 api.interceptors.response.use(
     (response) => response,
     (error) => {
+        // Log detailed error info for debugging
+        if (error.response) {
+            console.error('API Error Response:', {
+                status: error.response.status,
+                data: error.response.data,
+                url: error.config?.url,
+                method: error.config?.method,
+            });
+        }
+        
         if (
             typeof window !== 'undefined' &&
             error.response?.status === 401

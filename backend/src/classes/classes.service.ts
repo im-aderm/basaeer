@@ -1,31 +1,46 @@
 
-import { Injectable } from '@nestjs/common';
+import { Injectable, ForbiddenException, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma, Class, Section } from '../generated/client/client';
+import { TenantContext } from '../auth/branch.guard';
+import { TenantHelper } from '../prisma/tenant-helper';
 
 @Injectable()
 export class ClassesService {
     constructor(private prisma: PrismaService) { }
 
-    async create(data: Prisma.ClassCreateInput): Promise<Class> {
-        return this.prisma.class.create({ data });
+    async create(data: Prisma.ClassCreateInput, context: TenantContext): Promise<Class> {
+        const branchId = (data.branch as any)?.connect?.id || context.branchId;
+        if (!branchId) throw new ForbiddenException('Branch context required');
+        
+        return this.prisma.class.create({ 
+            data: {
+                ...data,
+                branch: { connect: { id: branchId } }
+            } 
+        });
     }
 
-    async findAll(branchId: string | null): Promise<Class[]> {
+    async findAll(context: TenantContext): Promise<Class[]> {
         return this.prisma.class.findMany({
-            where: { ...(branchId && { branchId }) },
+            where: TenantHelper.applyIsolation({}, context),
             include: { sections: true },
         });
     }
 
-    async findOne(id: string): Promise<Class | null> {
-        return this.prisma.class.findUnique({
-            where: { id },
+    async findOne(id: string, context: TenantContext): Promise<Class> {
+        const cls = await this.prisma.class.findFirst({
+            where: TenantHelper.applyIsolation({ id }, context),
             include: { sections: true },
         });
+        if (!cls) throw new NotFoundException('Class not found');
+        return cls;
     }
 
-    async addSection(classId: string, name: string): Promise<Section> {
+    async addSection(classId: string, name: string, context: TenantContext): Promise<Section> {
+        // Ownership check
+        await this.findOne(classId, context);
+
         return this.prisma.section.create({
             data: {
                 name,
@@ -34,7 +49,10 @@ export class ClassesService {
         });
     }
 
-    async assignTeacher(classId: string, teacherId: string): Promise<Class> {
+    async assignTeacher(classId: string, teacherId: string, context: TenantContext): Promise<Class> {
+        // Ownership check
+        await this.findOne(classId, context);
+
         return this.prisma.class.update({
             where: { id: classId },
             data: {

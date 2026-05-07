@@ -59,13 +59,14 @@ async function main() {
     // 2. Academic Session
     const sessionName = '2024/2025';
     const session = await findOrCreate(
-        () => prisma.academicSession.findFirst({ where: { name: sessionName } }),
+        () => prisma.academicSession.findFirst({ where: { name: sessionName, branchId: branch.id } }),
         () => prisma.academicSession.create({
             data: {
                 name: sessionName,
                 startDate: new Date('2024-09-01'),
                 endDate: new Date('2025-07-31'),
                 isActive: true,
+                branchId: branch.id,
             },
         })
     );

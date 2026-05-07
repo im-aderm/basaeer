@@ -6,9 +6,9 @@ export interface ClassBasicInfo { id?: string; name: string; gradeLevel?: number
 export interface SectionBasicInfo { id?: string; name: string; classId?: string; }
 export interface RouteBasicInfo { id?: string; name: string; }
 export interface VehicleBasicInfo { id?: string; numberPlate: string; }
-export interface CertificateBasicInfo { id?: string; name: string; issueDate?: string; }
+export interface CertificateBasicInfo { id?: string; type: string; certificateNumber: string; issueDate?: string; }
 export interface AttendanceBasicInfo { id?: string; date: string; status: string; }
-export interface StudentStats { total: number; active: number; inactive: number; newAdmissions?: number; }
+export interface StudentStats { total: number; newThisMonth: number; activeClasses: number; attendanceRate: string; }
 
 export interface Student {
     id: string;
@@ -120,7 +120,7 @@ export const StudentService = {
         await api.delete(`/student-categories/${id}`);
     },
 
-    importStudents: async (file: File, branchId: string): Promise<{ success: boolean; count: number; message: string }> => {
+    importStudents: async (file: File, branchId: string): Promise<{ success: number; failed: number; message: string; details: string[]; parsingErrors: string[] }> => {
         const formData = new FormData();
         formData.append("file", file);
         const response = await api.post("/students/import", formData, {

@@ -148,16 +148,29 @@ export const OnlineAdmissionService = {
     },
 
     create: async (data: any): Promise<OnlineAdmission> => {
+        // Fields to strip - not in backend DTO (only internal frontend fields)
+        const { guardianType, siblings, phoneNumber, paymentProofUrl, ...cleanData } = data;
+
         // Map frontend field names to backend DTO field names
         const payload = {
-            ...data,
-            // Map paymentProofUrl -> paymentReceiptUrl for backend
+            ...cleanData,
+            // Map paymentProofUrl -> paymentReceiptUrl (backend field name)
             paymentReceiptUrl: data.paymentProofUrl || data.paymentReceiptUrl,
             // Ensure surname is set (fallback to lastName)
             surname: data.surname || data.lastName,
             // Map otherName if present
             otherNames: data.otherNames || data.lastNameName || "",
+            // Map guardianContact1 -> guardianPhone (backend required field)
+            guardianPhone: data.guardianContact1 || data.guardianPhone || data.phoneNumber,
+            // Ensure dateOfBirth is in ISO date string format
+            dateOfBirth: data.dateOfBirth ? new Date(data.dateOfBirth).toISOString() : data.dateOfBirth,
         };
+        
+        console.log("Submitting admission payload:", {
+            ...payload,
+            paymentReceiptUrl: payload.paymentReceiptUrl ? "[URL present]" : null,
+        });
+        
         const response = await api.post("/online-admissions", payload);
         return response.data;
     },

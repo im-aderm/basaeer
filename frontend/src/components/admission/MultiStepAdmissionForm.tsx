@@ -42,9 +42,19 @@ export function MultiStepAdmissionForm() {
       resetForm();
       window.scrollTo({ top: 0, behavior: 'smooth' });
       toast.success("Application submitted successfully!");
-    } catch (error) {
+    } catch (error: any) {
       console.error("Submission error:", error);
-      toast.error("Failed to submit application. Please try again.");
+      const errorMessage = error.response?.data?.message || 
+        (error.response?.data?.errors ? JSON.stringify(error.response.data.errors) : "Failed to submit application. Please try again.");
+      
+      // Show specific validation errors if available
+      if (Array.isArray(error.response?.data?.message)) {
+        toast.error(`Validation failed: ${error.response.data.message.slice(0, 3).join(", ")}`);
+      } else if (typeof error.response?.data?.message === "string") {
+        toast.error(errorMessage);
+      } else {
+        toast.error("Failed to submit application. Please check all fields and try again.");
+      }
     } finally {
       setIsSubmitting(false);
     }

@@ -1,15 +1,26 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, ForbiddenException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateAttendanceDto } from './dto/create-attendance.dto';
+import { TenantContext } from '../auth/branch.guard';
+import { TenantHelper } from '../prisma/tenant-helper';
 
 @Injectable()
 export class AttendanceService {
     constructor(private prisma: PrismaService) { }
 
-    async markAttendance(dto: CreateAttendanceDto) {
+    async markAttendance(dto: CreateAttendanceDto, context: TenantContext) {
         const { studentId, date, status, remarks, sectionId } = dto;
+        const branchId = context.branchId;
+        if (!branchId) throw new ForbiddenException('Branch context required');
+
         const attendanceDate = new Date(date);
         attendanceDate.setHours(0, 0, 0, 0);
+
+        // Ownership check for student
+        const student = await this.prisma.student.findFirst({
+            where: TenantHelper.applyIsolation({ id: studentId }, context)
+        });
+        if (!student) throw new ForbiddenException('Student not found in your branch');
 
         return this.prisma.attendance.upsert({
             where: {
@@ -29,13 +40,25 @@ export class AttendanceService {
                 status,
                 remarks,
                 sectionId,
+                branchId,
             },
         });
     }
 
-    async markBulkAttendance(dto: { records: CreateAttendanceDto[] }) {
+    async markBulkAttendance(dto: { records: CreateAttendanceDto[] }, context: TenantContext) {
+        const branchId = context.branchId;
+        if (!branchId) throw new ForbiddenException('Branch context required');
+
+        // Note: For large bulks, we should validate students efficiently
+        const studentIds = dto.records.map(r => r.studentId);
+        const validStudents = await this.prisma.student.findMany({
+            where: TenantHelper.applyIsolation({ id: { in: studentIds } }, context),
+            select: { id: true }
+        });
+        const validStudentIds = new Set(validStudents.map(s => s.id));
+
         return this.prisma.$transaction(
-            dto.records.map((record) => {
+            dto.records.filter(r => validStudentIds.has(r.studentId)).map((record) => {
                 const attendanceDate = new Date(record.date);
                 attendanceDate.setHours(0, 0, 0, 0);
 
@@ -57,21 +80,22 @@ export class AttendanceService {
                         status: record.status,
                         remarks: record.remarks,
                         sectionId: record.sectionId,
+                        branchId,
                     },
                 });
             })
         );
     }
 
-    async findBySectionAndDate(sectionId: string, date: string) {
+    async findBySectionAndDate(sectionId: string, date: string, context: TenantContext) {
         const searchDate = new Date(date);
         searchDate.setHours(0, 0, 0, 0);
 
         return this.prisma.attendance.findMany({
-            where: {
+            where: TenantHelper.applyIsolation({
                 sectionId,
                 date: searchDate,
-            },
+            }, context),
             include: {
                 student: {
                     select: {
@@ -84,14 +108,17 @@ export class AttendanceService {
         });
     }
 
-    async getStudentAttendance(studentId: string) {
+    async getStudentAttendance(studentId: string, context: TenantContext) {
         return this.prisma.attendance.findMany({
-            where: { studentId },
+            where: TenantHelper.applyIsolation({ studentId }, context),
             orderBy: { date: 'desc' },
         });
     }
 
-    async getStats(branchId: string) {
+    async getStats(context: TenantContext) {
+        const branchId = context.branchId;
+        if (!branchId) throw new ForbiddenException('Branch context required');
+
         const today = new Date();
         today.setHours(0, 0, 0, 0);
 
@@ -104,17 +131,17 @@ export class AttendanceService {
             this.prisma.student.count({ where: { branchId, user: { isActive: true } } }),
             this.prisma.attendance.count({
                 where: {
+                    branchId,
                     date: today,
-                    status: { in: ['PRESENT', 'LATE'] },
-                    student: { branchId }
+                    status: { in: ['PRESENT', 'LATE'] }
                 }
             }),
             this.prisma.staff.count({ where: { user: { branchId, isActive: true } } }),
             this.prisma.staffAttendance.count({
                 where: {
+                    branchId,
                     date: today,
-                    status: { in: ['PRESENT', 'LATE'] },
-                    staff: { user: { branchId } }
+                    status: { in: ['PRESENT', 'LATE'] }
                 }
             })
         ]);

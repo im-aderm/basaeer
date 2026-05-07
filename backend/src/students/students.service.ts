@@ -1,16 +1,32 @@
-import { Injectable, ConflictException } from '@nestjs/common';
+import { Injectable, ConflictException, ForbiddenException, NotFoundException } from '@nestjs/common';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import { UserRole } from '../generated/client/client';
 import * as bcrypt from 'bcrypt';
+import { TenantContext } from '../auth/branch.guard';
+import { TenantHelper } from '../prisma/tenant-helper';
+import { AuditService } from '../audit/audit.service';
 
 @Injectable()
 export class StudentsService {
-  constructor(private prisma: PrismaService) { }
+  constructor(
+    private prisma: PrismaService,
+    private audit: AuditService,
+  ) { }
 
-  async create(createStudentDto: CreateStudentDto) {
-    const { email, password, firstName, lastName, branchId, classId, sectionId, dob, phone, parentId } = createStudentDto;
+  async create(createStudentDto: CreateStudentDto, context: TenantContext) {
+    const { email, password, firstName, lastName, classId, sectionId, dob, phone, parentId } = createStudentDto;
+    const branchId = createStudentDto.branchId || context.branchId;
+
+    if (!branchId) {
+      throw new ForbiddenException('Branch context is required');
+    }
+
+    // Ensure user has access to this branch
+    if (!context.isSuperAdmin && context.branchId !== branchId) {
+      throw new ForbiddenException('You do not have access to this branch');
+    }
 
     // Check if user exists
     const existingUser = await this.prisma.user.findUnique({ where: { email } });
@@ -21,7 +37,7 @@ export class StudentsService {
     const hashedPassword = await bcrypt.hash(password || 'student123', 10);
 
     // Transaction: Create User + Student
-    return this.prisma.$transaction(async (tx) => {
+    const result = await this.prisma.$transaction(async (tx) => {
       const user = await tx.user.create({
         data: {
           email,
@@ -49,41 +65,52 @@ export class StudentsService {
 
       return { user, student };
     });
+
+    await this.audit.log('CREATE_STUDENT', 'STUDENTS', context, { studentId: result.student.id, email });
+    return result;
   }
 
-  findAll(branchId: string | null, classId?: string, sectionId?: string) {
+  findAll(context: TenantContext, classId?: string, sectionId?: string) {
     return this.prisma.student.findMany({
-      where: {
-        ...(branchId && { branchId }), // Only filter by branchId if it's provided
+      where: TenantHelper.applyIsolation({
         ...(classId && { classId }),
         ...(sectionId && { sectionId }),
-      },
+      }, context),
       include: {
         user: true,
         class: true,
         section: true,
         transportAssignment: true,
-        assessmentRecords: true, // Useful for marks entry
+        assessmentRecords: true,
       }
     });
   }
 
-  findOne(id: string) {
-    return this.prisma.student.findUnique({
-      where: { id },
+  async findOne(id: string, context: TenantContext) {
+    const student = await this.prisma.student.findFirst({
+      where: TenantHelper.applyIsolation({ id }, context),
       include: {
         user: true,
         class: true,
         section: true,
         parent: { include: { student: true } },
-        attendance: { take: 30, orderBy: { date: 'desc' } }, // Latest 30 records
+        attendance: { take: 30, orderBy: { date: 'desc' } },
         transportAssignment: { include: { route: true, vehicle: true } },
         certificates: true
       }
     });
+
+    if (!student) {
+      throw new NotFoundException('Student not found or access denied');
+    }
+
+    return student;
   }
 
-  async importStudents(fileBuffer: Buffer, branchId: string) {
+  async importStudents(fileBuffer: Buffer, context: TenantContext) {
+    const branchId = context.branchId;
+    if (!branchId) throw new ForbiddenException('Branch context required for import');
+
     const ExcelJS = require('exceljs');
     const workbook = new ExcelJS.Workbook();
     await workbook.xlsx.load(fileBuffer);
@@ -96,14 +123,13 @@ export class StudentsService {
     const studentsToCreate: any[] = [];
     const errors: string[] = [];
 
-    // Helper to resolve class/section IDs from names
     const classes = await this.prisma.class.findMany({ where: { branchId } });
     const sections = await this.prisma.section.findMany({
       where: { class: { branchId } }
     });
 
     worksheet.eachRow((row, rowNumber) => {
-      if (rowNumber === 1) return; // Skip header
+      if (rowNumber === 1) return;
 
       const email = row.getCell(1).value?.toString();
       const firstName = row.getCell(2).value?.toString();
@@ -118,14 +144,12 @@ export class StudentsService {
         return;
       }
 
-      // Resolve classId
       let classId: string | null = null;
       if (className) {
         const classMatch = classes.find(c => c.name.toLowerCase() === className.toLowerCase() || c.id === className);
         classId = classMatch?.id || null;
       }
 
-      // Resolve sectionId
       let sectionId: string | null = null;
       if (sectionName && classId) {
         const sectionMatch = sections.find(s => s.classId === classId && (s.name.toLowerCase() === sectionName.toLowerCase() || s.id === sectionName));
@@ -198,25 +222,29 @@ export class StudentsService {
     };
   }
 
-  update(id: string, updateStudentDto: UpdateStudentDto) {
+  async update(id: string, updateStudentDto: UpdateStudentDto, context: TenantContext) {
+    // Ownership check
+    await this.findOne(id, context);
+
     return this.prisma.student.update({
       where: { id },
       data: updateStudentDto,
     });
   }
 
-  remove(id: string) {
+  async remove(id: string, context: TenantContext) {
+    // Ownership check
+    await this.findOne(id, context);
+
     return this.prisma.student.delete({
       where: { id },
     });
   }
 
   // Deactivation Reasons
-  async fetchDeactivationReasons(branchId: string | null) {
+  async fetchDeactivationReasons(context: TenantContext) {
     return this.prisma.deactivationReason.findMany({
-      where: {
-        ...(branchId ? { branchId } : {})
-      },
+      where: TenantHelper.applyIsolation({}, context),
       include: {
         _count: {
           select: { deactivations: true }
@@ -225,50 +253,66 @@ export class StudentsService {
     });
   }
 
-  async createDeactivationReason(data: any) {
+  async createDeactivationReason(data: any, context: TenantContext) {
+    const branchId = data.branchId || context.branchId;
+    if (!branchId) throw new ForbiddenException('Branch context required');
+    
     return this.prisma.deactivationReason.create({
-      data
+      data: { ...data, branchId }
     });
   }
 
-  async updateDeactivationReason(id: string, data: any) {
+  async updateDeactivationReason(id: string, data: any, context: TenantContext) {
+    // Ownership check
+    const reason = await this.prisma.deactivationReason.findFirst({
+      where: TenantHelper.applyIsolation({ id }, context)
+    });
+    if (!reason) throw new NotFoundException('Reason not found');
+
     return this.prisma.deactivationReason.update({
       where: { id },
       data
     });
   }
 
-  async deleteDeactivationReason(id: string) {
+  async deleteDeactivationReason(id: string, context: TenantContext) {
+    // Ownership check
+    const reason = await this.prisma.deactivationReason.findFirst({
+      where: TenantHelper.applyIsolation({ id }, context)
+    });
+    if (!reason) throw new NotFoundException('Reason not found');
+
     return this.prisma.deactivationReason.delete({
       where: { id }
     });
   }
 
   // Login Deactivation
-  async deactivateLogin(studentIds: string[], reason: string, branchId: string | null, reasonId?: string) {
+  async deactivateLogin(studentIds: string[], reason: string, context: TenantContext, reasonId?: string) {
+    const branchId = context.branchId;
+    if (!branchId) throw new ForbiddenException('Branch context required');
+
     return this.prisma.$transaction(async (tx) => {
       const students = await tx.student.findMany({
-        where: { id: { in: studentIds } },
+        where: TenantHelper.applyIsolation({ id: { in: studentIds } }, context),
         include: { user: true }
       });
 
       const deactivations: any[] = [];
       for (const student of students) {
         if (student.userId) {
-          // Deactivate User
           await tx.user.update({
             where: { id: student.userId },
             data: { isActive: false }
           });
 
-          // Record Deactivation
           const deactivation = await tx.loginDeactivation.create({
             data: {
               studentId: student.id,
               userId: student.userId,
               reason,
               reasonId,
-              branchId: branchId || student.branchId // Use passed branchId or student's branchId
+              branchId
             }
           });
           deactivations.push(deactivation);
@@ -278,11 +322,13 @@ export class StudentsService {
     });
   }
 
-  async reactivateLogin(studentId: string) {
-    const student = await this.prisma.student.findUnique({
-      where: { id: studentId },
+  async reactivateLogin(studentId: string, context: TenantContext) {
+    const student = await this.prisma.student.findFirst({
+      where: TenantHelper.applyIsolation({ id: studentId }, context),
       include: { user: true }
     });
+
+    if (!student) throw new NotFoundException('Student not found');
 
     if (student?.userId) {
       return this.prisma.user.update({
@@ -293,38 +339,34 @@ export class StudentsService {
     return null;
   }
 
-  async getLoginDeactivations(branchId: string | null) {
+  async getLoginDeactivations(context: TenantContext) {
     return this.prisma.loginDeactivation.findMany({
-      where: branchId ? { branchId } : {},
+      where: TenantHelper.applyIsolation({}, context),
       orderBy: { createdAt: 'desc' }
     });
   }
 
-  async getStats(branchId: string) {
+  async getStats(context: TenantContext) {
     const now = new Date();
     const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
 
+    const where = TenantHelper.applyIsolation({}, context);
+
     const [total, newThisMonth, totalAttendance] = await Promise.all([
-      this.prisma.student.count({
-        where: branchId ? { branchId } : {}
-      }),
+      this.prisma.student.count({ where }),
       this.prisma.student.count({
         where: {
-          ...(branchId && { branchId }),
+          ...where,
           createdAt: { gte: firstDayOfMonth }
         }
       }),
       this.prisma.attendance.findMany({
-        where: {
-          student: branchId ? { branchId } : {}
-        },
+        where: { branchId: context.branchId || undefined },
         select: { status: true }
       })
     ]);
 
-    const activeClasses = await this.prisma.class.count({
-      where: branchId ? { branchId } : {}
-    });
+    const activeClasses = await this.prisma.class.count({ where });
 
     const attendanceRate = totalAttendance.length > 0
       ? (totalAttendance.filter(a => ['PRESENT', 'LATE'].includes(a.status)).length / totalAttendance.length) * 100

@@ -184,9 +184,9 @@ export default function StudentProfilePage() {
                                         <ShieldCheck className="text-primary" /> Father Details
                                     </h3>
                                     <div className="space-y-4">
-                                        <p className="font-bold flex justify-between"><span className="text-muted-foreground">Full Name:</span> {student.parent?.firstName || "N/A"} {student.parent?.lastName || ""}</p>
+                                        <p className="font-bold flex justify-between"><span className="text-muted-foreground">Full Name:</span> {student.parent?.user?.firstName || "N/A"} {student.parent?.user?.lastName || ""}</p>
                                         <p className="font-bold flex justify-between"><span className="text-muted-foreground">Occupation:</span> {student.guardianOccupation || "N/A"}</p>
-                                        <p className="font-bold flex justify-between"><span className="text-muted-foreground">Phone:</span> {student.parent?.phone || "N/A"}</p>
+                                        <p className="font-bold flex justify-between"><span className="text-muted-foreground">Phone:</span> {student.parent?.user?.phone || "N/A"}</p>
                                     </div>
                                 </Card>
                                 <Card className="rounded-[2.5rem] border-border/50 shadow-xl p-8 bg-card/50">
@@ -194,9 +194,9 @@ export default function StudentProfilePage() {
                                         <ShieldCheck className="text-primary" /> Mother Details
                                     </h3>
                                     <div className="space-y-4">
-                                        <p className="font-bold flex justify-between"><span className="text-muted-foreground">Full Name:</span> {student.parent?.firstName || "N/A"} {student.parent?.lastName || ""}</p>
+                                        <p className="font-bold flex justify-between"><span className="text-muted-foreground">Full Name:</span> {student.parent?.user?.firstName || "N/A"} {student.parent?.user?.lastName || ""}</p>
                                         <p className="font-bold flex justify-between"><span className="text-muted-foreground">Occupation:</span> {student.guardianOccupation || "N/A"}</p>
-                                        <p className="font-bold flex justify-between"><span className="text-muted-foreground">Phone:</span> {student.parent?.phone || "N/A"}</p>
+                                        <p className="font-bold flex justify-between"><span className="text-muted-foreground">Phone:</span> {student.parent?.user?.phone || "N/A"}</p>
                                     </div>
                                 </Card>
                                 <Card className="md:col-span-2 rounded-[2.5rem] border-border/50 shadow-xl p-8 bg-card/50">
@@ -220,7 +220,7 @@ export default function StudentProfilePage() {
                                             <span>Route:</span> <span className="text-blue-500">{student.transportAssignment.route?.name || 'N/A'}</span>
                                         </div>
                                         <div className="p-4 rounded-2xl bg-muted/30 font-bold flex justify-between">
-                                            <span>Vehicle:</span> <span className="text-blue-500">{student.transportAssignment.vehicle?.registrationNumber || 'Pending'}</span>
+                                            <span>Vehicle:</span> <span className="text-blue-500">{student.transportAssignment.vehicle?.numberPlate || 'Pending'}</span>
                                         </div>
                                     </div>
                                 ) : (

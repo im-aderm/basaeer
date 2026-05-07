@@ -280,7 +280,7 @@ const navigation: NavItem[] = [
         title: "Events",
         icon: Calendar,
         children: [
-            { title: "Event Type", href: "/dashboard/events/type" },
+            // { title: "Event Type", href: "/dashboard/events/type" },
             { title: "Events", href: "/dashboard/events" },
         ],
     },
@@ -304,7 +304,7 @@ const navigation: NavItem[] = [
             { title: "Fees Structure", href: "/dashboard/finance/fees" },
             { title: "Invoices & Billing", href: "/dashboard/finance/invoices" },
             { title: "Expense Tracking", href: "/dashboard/finance/expenses" },
-            { title: "Voucher Management", href: "/dashboard/finance/vouchers" },
+            // { title: "Voucher Management", href: "/dashboard/finance/vouchers" },
         ],
     },
     {

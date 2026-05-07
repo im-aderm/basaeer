@@ -186,11 +186,17 @@ export function PaymentStep() {
             className="hidden"
           />
 
-          <button
-            type="button"
-            onClick={() => fileInputRef.current?.click()}
-            disabled={uploading}
-            className="group relative flex flex-col items-center justify-center gap-3 w-full md:w-80 h-40 bg-white border-4 border-dashed border-primary/20 rounded-[2.5rem] hover:border-primary hover:bg-primary/5 transition-all text-muted-foreground hover:text-primary disabled:opacity-50 disabled:cursor-not-allowed"
+          <div
+            role="button"
+            tabIndex={0}
+            onClick={() => !uploading && fileInputRef.current?.click()}
+            onKeyDown={(e) => {
+              if (!uploading && (e.key === 'Enter' || e.key === ' ')) {
+                e.preventDefault();
+                fileInputRef.current?.click();
+              }
+            }}
+            className={`group relative flex flex-col items-center justify-center gap-3 w-full md:w-80 h-40 bg-white border-4 border-dashed border-primary/20 rounded-[2.5rem] hover:border-primary hover:bg-primary/5 transition-all text-muted-foreground hover:text-primary ${uploading ? 'opacity-50 cursor-not-allowed' : ''}`}
           >
             {uploading ? (
               <>
@@ -223,7 +229,7 @@ export function PaymentStep() {
                 </button>
               </div>
             )}
-          </button>
+          </div>
 
           {preview && (
             <img

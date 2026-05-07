@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pm2 *)",
+      "Bash(docker-compose *)",
+      "Bash(docker ps *)",
+      "Bash(journalctl *)",
+      "Bash(grep *)",
+      "Bash(timeout *)",
+      "Bash(wait *)",
+      "Bash(kill *)"
+    ]
+  },
+  "$version": 3
+}

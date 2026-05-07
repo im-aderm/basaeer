@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Patch, UseGuards, Request, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Patch, UseGuards, Query } from '@nestjs/common';
 import { FinanceService } from './finance.service';
 import { CreateFeeCategoryDto } from './dto/create-fee-category.dto';
 import { CreateFeeStructureDto } from './dto/create-fee-structure.dto';
@@ -8,110 +8,97 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 import { UserRole } from '../generated/client/client';
+import { BranchGuard, TenantContext } from '../auth/branch.guard';
+import { GetTenantContext } from '../auth/tenant-context.decorator';
 
-@UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
 @Controller('finance')
 export class FinanceController {
     constructor(private readonly financeService: FinanceService) { }
 
     @Post('fee-categories')
     @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
-    createCategory(@Request() req, @Body() dto: CreateFeeCategoryDto) {
-        if (!dto.branchId && req.user.branchId) {
-            dto.branchId = req.user.branchId;
-        }
-        return this.financeService.createFeeCategory(dto);
+    createCategory(@Body() dto: CreateFeeCategoryDto, @GetTenantContext() context: TenantContext) {
+        return this.financeService.createFeeCategory(dto, context);
     }
 
     @Get('fee-categories')
     @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
-    getCategories(@Request() req) {
-        return this.financeService.getFeeCategories(req.user.branchId);
+    getCategories(@GetTenantContext() context: TenantContext) {
+        return this.financeService.getFeeCategories(context);
     }
 
     @Post('fee-structures')
     @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
-    createStructure(@Request() req, @Body() dto: CreateFeeStructureDto) {
-        if (!dto.branchId && req.user.branchId) {
-            dto.branchId = req.user.branchId;
-        }
-        return this.financeService.createFeeStructure(dto);
+    createStructure(@Body() dto: CreateFeeStructureDto, @GetTenantContext() context: TenantContext) {
+        return this.financeService.createFeeStructure(dto, context);
     }
 
     @Get('fee-structures')
     @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
-    getStructures(@Request() req) {
-        return this.financeService.getFeeStructures(req.user.branchId);
+    getStructures(@GetTenantContext() context: TenantContext) {
+        return this.financeService.getFeeStructures(context);
     }
 
     @Post('invoices')
     @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
-    createInvoice(@Request() req, @Body() dto: CreateInvoiceDto) {
-        if (!dto.branchId && req.user.branchId) {
-            dto.branchId = req.user.branchId;
-        }
-        return this.financeService.createInvoice(dto);
+    createInvoice(@Body() dto: CreateInvoiceDto, @GetTenantContext() context: TenantContext) {
+        return this.financeService.createInvoice(dto, context);
     }
 
     @Post('payments')
     @Roles(UserRole.STUDENT, UserRole.PARENT, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
-    recordPayment(@Request() req, @Body() dto: RecordPaymentDto) {
-        if (!dto.branchId && req.user.branchId) {
-            dto.branchId = req.user.branchId;
-        }
-        return this.financeService.recordPayment(dto);
+    recordPayment(@Body() dto: RecordPaymentDto, @GetTenantContext() context: TenantContext) {
+        return this.financeService.recordPayment(dto, context);
     }
 
     @Patch('payments/:id/verify')
     @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
-    verifyPayment(@Param('id') id: string, @Body('isApproved') isApproved: boolean) {
-        return this.financeService.verifyPayment(id, isApproved);
+    verifyPayment(@Param('id') id: string, @Body('isApproved') isApproved: boolean, @GetTenantContext() context: TenantContext) {
+        return this.financeService.verifyPayment(id, isApproved, context);
     }
 
     @Get('invoices/student/:studentId')
     @Roles(UserRole.STUDENT, UserRole.PARENT, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
-    getStudentInvoices(@Param('studentId') studentId: string) {
-        return this.financeService.getStudentInvoices(studentId);
+    getStudentInvoices(@Param('studentId') studentId: string, @GetTenantContext() context: TenantContext) {
+        return this.financeService.getStudentInvoices(studentId, context);
     }
 
     @Get('stats')
     @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
-    getStats(@Request() req) {
-        return this.financeService.getBranchFinancials(req.user.branchId);
+    getStats(@GetTenantContext() context: TenantContext) {
+        return this.financeService.getBranchFinancials(context);
     }
 
     // Voucher Endpoints
 
     @Post('expense-categories')
     @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
-    createExpenseCategory(@Request() req, @Body() dto: any) {
-        if (!dto.branchId && req.user.branchId) {
-            dto.branchId = req.user.branchId;
-        }
-        return this.financeService.createExpenseCategory(dto);
+    createExpenseCategory(@Body() dto: any, @GetTenantContext() context: TenantContext) {
+        return this.financeService.createExpenseCategory(dto, context);
     }
 
     @Get('expense-categories')
     @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
-    getExpenseCategories(@Request() req) {
-        return this.financeService.getExpenseCategories(req.user.branchId);
+    getExpenseCategories(@GetTenantContext() context: TenantContext) {
+        return this.financeService.getExpenseCategories(context);
     }
 
     @Post('vouchers')
     @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
-    createVoucher(@Body() dto: any, @Request() req) {
-        return this.financeService.createVoucher({ ...dto, branchId: req.user.branchId });
+    createVoucher(@Body() dto: any, @GetTenantContext() context: TenantContext) {
+        return this.financeService.createVoucher(dto, context);
     }
 
     @Patch('vouchers/:id/status')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-    updateVoucherStatus(@Param('id') id: string, @Body('status') status: string, @Request() req) {
-        return this.financeService.updateVoucherStatus(id, status, req.user.id);
+    updateVoucherStatus(@Param('id') id: string, @Body('status') status: string, @GetTenantContext() context: TenantContext) {
+        return this.financeService.updateVoucherStatus(id, status, context);
     }
 
     @Get('vouchers')
     @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
-    getVouchers(@Request() req) {
-        return this.financeService.getVouchers(req.user.branchId);
+    getVouchers(@GetTenantContext() context: TenantContext) {
+        return this.financeService.getVouchers(context);
     }
 }

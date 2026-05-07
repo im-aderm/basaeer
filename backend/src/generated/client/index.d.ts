@@ -9089,6 +9089,14 @@ export namespace Prisma {
     vehicles: number
     visitorLogs: number
     vouchers: number
+    academicSessions: number
+    attendance: number
+    staffAttendance: number
+    assessmentRecords: number
+    behaviouralRatings: number
+    resultSummaries: number
+    gradingScales: number
+    globalSettings: number
   }
 
   export type BranchCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9136,6 +9144,14 @@ export namespace Prisma {
     vehicles?: boolean | BranchCountOutputTypeCountVehiclesArgs
     visitorLogs?: boolean | BranchCountOutputTypeCountVisitorLogsArgs
     vouchers?: boolean | BranchCountOutputTypeCountVouchersArgs
+    academicSessions?: boolean | BranchCountOutputTypeCountAcademicSessionsArgs
+    attendance?: boolean | BranchCountOutputTypeCountAttendanceArgs
+    staffAttendance?: boolean | BranchCountOutputTypeCountStaffAttendanceArgs
+    assessmentRecords?: boolean | BranchCountOutputTypeCountAssessmentRecordsArgs
+    behaviouralRatings?: boolean | BranchCountOutputTypeCountBehaviouralRatingsArgs
+    resultSummaries?: boolean | BranchCountOutputTypeCountResultSummariesArgs
+    gradingScales?: boolean | BranchCountOutputTypeCountGradingScalesArgs
+    globalSettings?: boolean | BranchCountOutputTypeCountGlobalSettingsArgs
   }
 
   // Custom InputTypes
@@ -9455,6 +9471,62 @@ export namespace Prisma {
    */
   export type BranchCountOutputTypeCountVouchersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: VoucherWhereInput
+  }
+
+  /**
+   * BranchCountOutputType without action
+   */
+  export type BranchCountOutputTypeCountAcademicSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AcademicSessionWhereInput
+  }
+
+  /**
+   * BranchCountOutputType without action
+   */
+  export type BranchCountOutputTypeCountAttendanceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AttendanceWhereInput
+  }
+
+  /**
+   * BranchCountOutputType without action
+   */
+  export type BranchCountOutputTypeCountStaffAttendanceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StaffAttendanceWhereInput
+  }
+
+  /**
+   * BranchCountOutputType without action
+   */
+  export type BranchCountOutputTypeCountAssessmentRecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AssessmentRecordWhereInput
+  }
+
+  /**
+   * BranchCountOutputType without action
+   */
+  export type BranchCountOutputTypeCountBehaviouralRatingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BehaviouralRatingWhereInput
+  }
+
+  /**
+   * BranchCountOutputType without action
+   */
+  export type BranchCountOutputTypeCountResultSummariesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ResultSummaryWhereInput
+  }
+
+  /**
+   * BranchCountOutputType without action
+   */
+  export type BranchCountOutputTypeCountGradingScalesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GradingScaleWhereInput
+  }
+
+  /**
+   * BranchCountOutputType without action
+   */
+  export type BranchCountOutputTypeCountGlobalSettingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GlobalSettingWhereInput
   }
 
 
@@ -11564,6 +11636,14 @@ export namespace Prisma {
     vehicles?: boolean | Branch$vehiclesArgs<ExtArgs>
     visitorLogs?: boolean | Branch$visitorLogsArgs<ExtArgs>
     vouchers?: boolean | Branch$vouchersArgs<ExtArgs>
+    academicSessions?: boolean | Branch$academicSessionsArgs<ExtArgs>
+    attendance?: boolean | Branch$attendanceArgs<ExtArgs>
+    staffAttendance?: boolean | Branch$staffAttendanceArgs<ExtArgs>
+    assessmentRecords?: boolean | Branch$assessmentRecordsArgs<ExtArgs>
+    behaviouralRatings?: boolean | Branch$behaviouralRatingsArgs<ExtArgs>
+    resultSummaries?: boolean | Branch$resultSummariesArgs<ExtArgs>
+    gradingScales?: boolean | Branch$gradingScalesArgs<ExtArgs>
+    globalSettings?: boolean | Branch$globalSettingsArgs<ExtArgs>
     _count?: boolean | BranchCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["branch"]>
 
@@ -11650,6 +11730,14 @@ export namespace Prisma {
     vehicles?: boolean | Branch$vehiclesArgs<ExtArgs>
     visitorLogs?: boolean | Branch$visitorLogsArgs<ExtArgs>
     vouchers?: boolean | Branch$vouchersArgs<ExtArgs>
+    academicSessions?: boolean | Branch$academicSessionsArgs<ExtArgs>
+    attendance?: boolean | Branch$attendanceArgs<ExtArgs>
+    staffAttendance?: boolean | Branch$staffAttendanceArgs<ExtArgs>
+    assessmentRecords?: boolean | Branch$assessmentRecordsArgs<ExtArgs>
+    behaviouralRatings?: boolean | Branch$behaviouralRatingsArgs<ExtArgs>
+    resultSummaries?: boolean | Branch$resultSummariesArgs<ExtArgs>
+    gradingScales?: boolean | Branch$gradingScalesArgs<ExtArgs>
+    globalSettings?: boolean | Branch$globalSettingsArgs<ExtArgs>
     _count?: boolean | BranchCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type BranchIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -11703,6 +11791,14 @@ export namespace Prisma {
       vehicles: Prisma.$VehiclePayload<ExtArgs>[]
       visitorLogs: Prisma.$VisitorLogPayload<ExtArgs>[]
       vouchers: Prisma.$VoucherPayload<ExtArgs>[]
+      academicSessions: Prisma.$AcademicSessionPayload<ExtArgs>[]
+      attendance: Prisma.$AttendancePayload<ExtArgs>[]
+      staffAttendance: Prisma.$StaffAttendancePayload<ExtArgs>[]
+      assessmentRecords: Prisma.$AssessmentRecordPayload<ExtArgs>[]
+      behaviouralRatings: Prisma.$BehaviouralRatingPayload<ExtArgs>[]
+      resultSummaries: Prisma.$ResultSummaryPayload<ExtArgs>[]
+      gradingScales: Prisma.$GradingScalePayload<ExtArgs>[]
+      globalSettings: Prisma.$GlobalSettingPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -12153,6 +12249,14 @@ export namespace Prisma {
     vehicles<T extends Branch$vehiclesArgs<ExtArgs> = {}>(args?: Subset<T, Branch$vehiclesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VehiclePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     visitorLogs<T extends Branch$visitorLogsArgs<ExtArgs> = {}>(args?: Subset<T, Branch$visitorLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VisitorLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     vouchers<T extends Branch$vouchersArgs<ExtArgs> = {}>(args?: Subset<T, Branch$vouchersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VoucherPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    academicSessions<T extends Branch$academicSessionsArgs<ExtArgs> = {}>(args?: Subset<T, Branch$academicSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AcademicSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    attendance<T extends Branch$attendanceArgs<ExtArgs> = {}>(args?: Subset<T, Branch$attendanceArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    staffAttendance<T extends Branch$staffAttendanceArgs<ExtArgs> = {}>(args?: Subset<T, Branch$staffAttendanceArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StaffAttendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    assessmentRecords<T extends Branch$assessmentRecordsArgs<ExtArgs> = {}>(args?: Subset<T, Branch$assessmentRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssessmentRecordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    behaviouralRatings<T extends Branch$behaviouralRatingsArgs<ExtArgs> = {}>(args?: Subset<T, Branch$behaviouralRatingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BehaviouralRatingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    resultSummaries<T extends Branch$resultSummariesArgs<ExtArgs> = {}>(args?: Subset<T, Branch$resultSummariesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResultSummaryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    gradingScales<T extends Branch$gradingScalesArgs<ExtArgs> = {}>(args?: Subset<T, Branch$gradingScalesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GradingScalePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    globalSettings<T extends Branch$globalSettingsArgs<ExtArgs> = {}>(args?: Subset<T, Branch$globalSettingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GlobalSettingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -13651,6 +13755,198 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: VoucherScalarFieldEnum | VoucherScalarFieldEnum[]
+  }
+
+  /**
+   * Branch.academicSessions
+   */
+  export type Branch$academicSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AcademicSession
+     */
+    select?: AcademicSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AcademicSession
+     */
+    omit?: AcademicSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AcademicSessionInclude<ExtArgs> | null
+    where?: AcademicSessionWhereInput
+    orderBy?: AcademicSessionOrderByWithRelationInput | AcademicSessionOrderByWithRelationInput[]
+    cursor?: AcademicSessionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AcademicSessionScalarFieldEnum | AcademicSessionScalarFieldEnum[]
+  }
+
+  /**
+   * Branch.attendance
+   */
+  export type Branch$attendanceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attendance
+     */
+    select?: AttendanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Attendance
+     */
+    omit?: AttendanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceInclude<ExtArgs> | null
+    where?: AttendanceWhereInput
+    orderBy?: AttendanceOrderByWithRelationInput | AttendanceOrderByWithRelationInput[]
+    cursor?: AttendanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AttendanceScalarFieldEnum | AttendanceScalarFieldEnum[]
+  }
+
+  /**
+   * Branch.staffAttendance
+   */
+  export type Branch$staffAttendanceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffAttendance
+     */
+    select?: StaffAttendanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StaffAttendance
+     */
+    omit?: StaffAttendanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffAttendanceInclude<ExtArgs> | null
+    where?: StaffAttendanceWhereInput
+    orderBy?: StaffAttendanceOrderByWithRelationInput | StaffAttendanceOrderByWithRelationInput[]
+    cursor?: StaffAttendanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StaffAttendanceScalarFieldEnum | StaffAttendanceScalarFieldEnum[]
+  }
+
+  /**
+   * Branch.assessmentRecords
+   */
+  export type Branch$assessmentRecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssessmentRecord
+     */
+    select?: AssessmentRecordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssessmentRecord
+     */
+    omit?: AssessmentRecordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssessmentRecordInclude<ExtArgs> | null
+    where?: AssessmentRecordWhereInput
+    orderBy?: AssessmentRecordOrderByWithRelationInput | AssessmentRecordOrderByWithRelationInput[]
+    cursor?: AssessmentRecordWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AssessmentRecordScalarFieldEnum | AssessmentRecordScalarFieldEnum[]
+  }
+
+  /**
+   * Branch.behaviouralRatings
+   */
+  export type Branch$behaviouralRatingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BehaviouralRating
+     */
+    select?: BehaviouralRatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BehaviouralRating
+     */
+    omit?: BehaviouralRatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BehaviouralRatingInclude<ExtArgs> | null
+    where?: BehaviouralRatingWhereInput
+    orderBy?: BehaviouralRatingOrderByWithRelationInput | BehaviouralRatingOrderByWithRelationInput[]
+    cursor?: BehaviouralRatingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BehaviouralRatingScalarFieldEnum | BehaviouralRatingScalarFieldEnum[]
+  }
+
+  /**
+   * Branch.resultSummaries
+   */
+  export type Branch$resultSummariesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResultSummary
+     */
+    select?: ResultSummarySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResultSummary
+     */
+    omit?: ResultSummaryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResultSummaryInclude<ExtArgs> | null
+    where?: ResultSummaryWhereInput
+    orderBy?: ResultSummaryOrderByWithRelationInput | ResultSummaryOrderByWithRelationInput[]
+    cursor?: ResultSummaryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ResultSummaryScalarFieldEnum | ResultSummaryScalarFieldEnum[]
+  }
+
+  /**
+   * Branch.gradingScales
+   */
+  export type Branch$gradingScalesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GradingScale
+     */
+    select?: GradingScaleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GradingScale
+     */
+    omit?: GradingScaleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GradingScaleInclude<ExtArgs> | null
+    where?: GradingScaleWhereInput
+    orderBy?: GradingScaleOrderByWithRelationInput | GradingScaleOrderByWithRelationInput[]
+    cursor?: GradingScaleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GradingScaleScalarFieldEnum | GradingScaleScalarFieldEnum[]
+  }
+
+  /**
+   * Branch.globalSettings
+   */
+  export type Branch$globalSettingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GlobalSetting
+     */
+    select?: GlobalSettingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GlobalSetting
+     */
+    omit?: GlobalSettingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GlobalSettingInclude<ExtArgs> | null
+    where?: GlobalSettingWhereInput
+    orderBy?: GlobalSettingOrderByWithRelationInput | GlobalSettingOrderByWithRelationInput[]
+    cursor?: GlobalSettingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GlobalSettingScalarFieldEnum | GlobalSettingScalarFieldEnum[]
   }
 
   /**
@@ -28560,6 +28856,7 @@ export namespace Prisma {
     remarks: string | null
     studentId: string | null
     sectionId: string | null
+    branchId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -28571,6 +28868,7 @@ export namespace Prisma {
     remarks: string | null
     studentId: string | null
     sectionId: string | null
+    branchId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -28582,6 +28880,7 @@ export namespace Prisma {
     remarks: number
     studentId: number
     sectionId: number
+    branchId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -28595,6 +28894,7 @@ export namespace Prisma {
     remarks?: true
     studentId?: true
     sectionId?: true
+    branchId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -28606,6 +28906,7 @@ export namespace Prisma {
     remarks?: true
     studentId?: true
     sectionId?: true
+    branchId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -28617,6 +28918,7 @@ export namespace Prisma {
     remarks?: true
     studentId?: true
     sectionId?: true
+    branchId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -28701,6 +29003,7 @@ export namespace Prisma {
     remarks: string | null
     studentId: string
     sectionId: string | null
+    branchId: string
     createdAt: Date
     updatedAt: Date
     _count: AttendanceCountAggregateOutputType | null
@@ -28729,8 +29032,10 @@ export namespace Prisma {
     remarks?: boolean
     studentId?: boolean
     sectionId?: boolean
+    branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
     section?: boolean | Attendance$sectionArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["attendance"]>
@@ -28742,8 +29047,10 @@ export namespace Prisma {
     remarks?: boolean
     studentId?: boolean
     sectionId?: boolean
+    branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
     section?: boolean | Attendance$sectionArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["attendance"]>
@@ -28755,8 +29062,10 @@ export namespace Prisma {
     remarks?: boolean
     studentId?: boolean
     sectionId?: boolean
+    branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
     section?: boolean | Attendance$sectionArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["attendance"]>
@@ -28768,20 +29077,24 @@ export namespace Prisma {
     remarks?: boolean
     studentId?: boolean
     sectionId?: boolean
+    branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type AttendanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "status" | "remarks" | "studentId" | "sectionId" | "createdAt" | "updatedAt", ExtArgs["result"]["attendance"]>
+  export type AttendanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "status" | "remarks" | "studentId" | "sectionId" | "branchId" | "createdAt" | "updatedAt", ExtArgs["result"]["attendance"]>
   export type AttendanceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
     section?: boolean | Attendance$sectionArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
   }
   export type AttendanceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
     section?: boolean | Attendance$sectionArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
   }
   export type AttendanceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
     section?: boolean | Attendance$sectionArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
   }
@@ -28789,6 +29102,7 @@ export namespace Prisma {
   export type $AttendancePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Attendance"
     objects: {
+      branch: Prisma.$BranchPayload<ExtArgs>
       section: Prisma.$SectionPayload<ExtArgs> | null
       student: Prisma.$StudentPayload<ExtArgs>
     }
@@ -28799,6 +29113,7 @@ export namespace Prisma {
       remarks: string | null
       studentId: string
       sectionId: string | null
+      branchId: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["attendance"]>
@@ -29195,6 +29510,7 @@ export namespace Prisma {
    */
   export interface Prisma__AttendanceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    branch<T extends BranchDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BranchDefaultArgs<ExtArgs>>): Prisma__BranchClient<$Result.GetResult<Prisma.$BranchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     section<T extends Attendance$sectionArgs<ExtArgs> = {}>(args?: Subset<T, Attendance$sectionArgs<ExtArgs>>): Prisma__SectionClient<$Result.GetResult<Prisma.$SectionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     student<T extends StudentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StudentDefaultArgs<ExtArgs>>): Prisma__StudentClient<$Result.GetResult<Prisma.$StudentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
@@ -29232,6 +29548,7 @@ export namespace Prisma {
     readonly remarks: FieldRef<"Attendance", 'String'>
     readonly studentId: FieldRef<"Attendance", 'String'>
     readonly sectionId: FieldRef<"Attendance", 'String'>
+    readonly branchId: FieldRef<"Attendance", 'String'>
     readonly createdAt: FieldRef<"Attendance", 'DateTime'>
     readonly updatedAt: FieldRef<"Attendance", 'DateTime'>
   }
@@ -29683,6 +30000,7 @@ export namespace Prisma {
     status: $Enums.AttendanceStatus | null
     remarks: string | null
     staffId: string | null
+    branchId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -29693,6 +30011,7 @@ export namespace Prisma {
     status: $Enums.AttendanceStatus | null
     remarks: string | null
     staffId: string | null
+    branchId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -29703,6 +30022,7 @@ export namespace Prisma {
     status: number
     remarks: number
     staffId: number
+    branchId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -29715,6 +30035,7 @@ export namespace Prisma {
     status?: true
     remarks?: true
     staffId?: true
+    branchId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -29725,6 +30046,7 @@ export namespace Prisma {
     status?: true
     remarks?: true
     staffId?: true
+    branchId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -29735,6 +30057,7 @@ export namespace Prisma {
     status?: true
     remarks?: true
     staffId?: true
+    branchId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -29818,6 +30141,7 @@ export namespace Prisma {
     status: $Enums.AttendanceStatus
     remarks: string | null
     staffId: string
+    branchId: string
     createdAt: Date
     updatedAt: Date
     _count: StaffAttendanceCountAggregateOutputType | null
@@ -29845,8 +30169,10 @@ export namespace Prisma {
     status?: boolean
     remarks?: boolean
     staffId?: boolean
+    branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
     staff?: boolean | StaffDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["staffAttendance"]>
 
@@ -29856,8 +30182,10 @@ export namespace Prisma {
     status?: boolean
     remarks?: boolean
     staffId?: boolean
+    branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
     staff?: boolean | StaffDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["staffAttendance"]>
 
@@ -29867,8 +30195,10 @@ export namespace Prisma {
     status?: boolean
     remarks?: boolean
     staffId?: boolean
+    branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
     staff?: boolean | StaffDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["staffAttendance"]>
 
@@ -29878,24 +30208,29 @@ export namespace Prisma {
     status?: boolean
     remarks?: boolean
     staffId?: boolean
+    branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type StaffAttendanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "status" | "remarks" | "staffId" | "createdAt" | "updatedAt", ExtArgs["result"]["staffAttendance"]>
+  export type StaffAttendanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "status" | "remarks" | "staffId" | "branchId" | "createdAt" | "updatedAt", ExtArgs["result"]["staffAttendance"]>
   export type StaffAttendanceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
     staff?: boolean | StaffDefaultArgs<ExtArgs>
   }
   export type StaffAttendanceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
     staff?: boolean | StaffDefaultArgs<ExtArgs>
   }
   export type StaffAttendanceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
     staff?: boolean | StaffDefaultArgs<ExtArgs>
   }
 
   export type $StaffAttendancePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "StaffAttendance"
     objects: {
+      branch: Prisma.$BranchPayload<ExtArgs>
       staff: Prisma.$StaffPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -29904,6 +30239,7 @@ export namespace Prisma {
       status: $Enums.AttendanceStatus
       remarks: string | null
       staffId: string
+      branchId: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["staffAttendance"]>
@@ -30300,6 +30636,7 @@ export namespace Prisma {
    */
   export interface Prisma__StaffAttendanceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    branch<T extends BranchDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BranchDefaultArgs<ExtArgs>>): Prisma__BranchClient<$Result.GetResult<Prisma.$BranchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     staff<T extends StaffDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StaffDefaultArgs<ExtArgs>>): Prisma__StaffClient<$Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -30335,6 +30672,7 @@ export namespace Prisma {
     readonly status: FieldRef<"StaffAttendance", 'AttendanceStatus'>
     readonly remarks: FieldRef<"StaffAttendance", 'String'>
     readonly staffId: FieldRef<"StaffAttendance", 'String'>
+    readonly branchId: FieldRef<"StaffAttendance", 'String'>
     readonly createdAt: FieldRef<"StaffAttendance", 'DateTime'>
     readonly updatedAt: FieldRef<"StaffAttendance", 'DateTime'>
   }
@@ -55985,6 +56323,7 @@ export namespace Prisma {
     isActive: boolean | null
     nextTermBegins: Date | null
     termEnds: Date | null
+    branchId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -55997,6 +56336,7 @@ export namespace Prisma {
     isActive: boolean | null
     nextTermBegins: Date | null
     termEnds: Date | null
+    branchId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -56009,6 +56349,7 @@ export namespace Prisma {
     isActive: number
     nextTermBegins: number
     termEnds: number
+    branchId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -56023,6 +56364,7 @@ export namespace Prisma {
     isActive?: true
     nextTermBegins?: true
     termEnds?: true
+    branchId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -56035,6 +56377,7 @@ export namespace Prisma {
     isActive?: true
     nextTermBegins?: true
     termEnds?: true
+    branchId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -56047,6 +56390,7 @@ export namespace Prisma {
     isActive?: true
     nextTermBegins?: true
     termEnds?: true
+    branchId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -56132,6 +56476,7 @@ export namespace Prisma {
     isActive: boolean
     nextTermBegins: Date | null
     termEnds: Date | null
+    branchId: string
     createdAt: Date
     updatedAt: Date
     _count: AcademicSessionCountAggregateOutputType | null
@@ -56161,8 +56506,10 @@ export namespace Prisma {
     isActive?: boolean
     nextTermBegins?: boolean
     termEnds?: boolean
+    branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
     assessmentRecords?: boolean | AcademicSession$assessmentRecordsArgs<ExtArgs>
     behaviouralRatings?: boolean | AcademicSession$behaviouralRatingsArgs<ExtArgs>
     digitalResources?: boolean | AcademicSession$digitalResourcesArgs<ExtArgs>
@@ -56180,8 +56527,10 @@ export namespace Prisma {
     isActive?: boolean
     nextTermBegins?: boolean
     termEnds?: boolean
+    branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["academicSession"]>
 
   export type AcademicSessionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -56192,8 +56541,10 @@ export namespace Prisma {
     isActive?: boolean
     nextTermBegins?: boolean
     termEnds?: boolean
+    branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["academicSession"]>
 
   export type AcademicSessionSelectScalar = {
@@ -56204,12 +56555,14 @@ export namespace Prisma {
     isActive?: boolean
     nextTermBegins?: boolean
     termEnds?: boolean
+    branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type AcademicSessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "startDate" | "endDate" | "isActive" | "nextTermBegins" | "termEnds" | "createdAt" | "updatedAt", ExtArgs["result"]["academicSession"]>
+  export type AcademicSessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "startDate" | "endDate" | "isActive" | "nextTermBegins" | "termEnds" | "branchId" | "createdAt" | "updatedAt", ExtArgs["result"]["academicSession"]>
   export type AcademicSessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
     assessmentRecords?: boolean | AcademicSession$assessmentRecordsArgs<ExtArgs>
     behaviouralRatings?: boolean | AcademicSession$behaviouralRatingsArgs<ExtArgs>
     digitalResources?: boolean | AcademicSession$digitalResourcesArgs<ExtArgs>
@@ -56218,12 +56571,17 @@ export namespace Prisma {
     resultSummaries?: boolean | AcademicSession$resultSummariesArgs<ExtArgs>
     _count?: boolean | AcademicSessionCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type AcademicSessionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type AcademicSessionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type AcademicSessionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+  }
+  export type AcademicSessionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+  }
 
   export type $AcademicSessionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "AcademicSession"
     objects: {
+      branch: Prisma.$BranchPayload<ExtArgs>
       assessmentRecords: Prisma.$AssessmentRecordPayload<ExtArgs>[]
       behaviouralRatings: Prisma.$BehaviouralRatingPayload<ExtArgs>[]
       digitalResources: Prisma.$DigitalResourcePayload<ExtArgs>[]
@@ -56239,6 +56597,7 @@ export namespace Prisma {
       isActive: boolean
       nextTermBegins: Date | null
       termEnds: Date | null
+      branchId: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["academicSession"]>
@@ -56635,6 +56994,7 @@ export namespace Prisma {
    */
   export interface Prisma__AcademicSessionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    branch<T extends BranchDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BranchDefaultArgs<ExtArgs>>): Prisma__BranchClient<$Result.GetResult<Prisma.$BranchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     assessmentRecords<T extends AcademicSession$assessmentRecordsArgs<ExtArgs> = {}>(args?: Subset<T, AcademicSession$assessmentRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssessmentRecordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     behaviouralRatings<T extends AcademicSession$behaviouralRatingsArgs<ExtArgs> = {}>(args?: Subset<T, AcademicSession$behaviouralRatingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BehaviouralRatingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     digitalResources<T extends AcademicSession$digitalResourcesArgs<ExtArgs> = {}>(args?: Subset<T, AcademicSession$digitalResourcesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DigitalResourcePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -56677,6 +57037,7 @@ export namespace Prisma {
     readonly isActive: FieldRef<"AcademicSession", 'Boolean'>
     readonly nextTermBegins: FieldRef<"AcademicSession", 'DateTime'>
     readonly termEnds: FieldRef<"AcademicSession", 'DateTime'>
+    readonly branchId: FieldRef<"AcademicSession", 'String'>
     readonly createdAt: FieldRef<"AcademicSession", 'DateTime'>
     readonly updatedAt: FieldRef<"AcademicSession", 'DateTime'>
   }
@@ -56928,6 +57289,10 @@ export namespace Prisma {
      */
     data: AcademicSessionCreateManyInput | AcademicSessionCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AcademicSessionIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -56998,6 +57363,10 @@ export namespace Prisma {
      * Limit how many AcademicSessions to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AcademicSessionIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -57288,6 +57657,7 @@ export namespace Prisma {
     subjectId: string | null
     sectionId: string | null
     sessionId: string | null
+    branchId: string | null
     term: $Enums.Term | null
     examTerm: $Enums.ExamTerm | null
     isEligible: boolean | null
@@ -57314,6 +57684,7 @@ export namespace Prisma {
     subjectId: string | null
     sectionId: string | null
     sessionId: string | null
+    branchId: string | null
     term: $Enums.Term | null
     examTerm: $Enums.ExamTerm | null
     isEligible: boolean | null
@@ -57340,6 +57711,7 @@ export namespace Prisma {
     subjectId: number
     sectionId: number
     sessionId: number
+    branchId: number
     term: number
     examTerm: number
     isEligible: number
@@ -57396,6 +57768,7 @@ export namespace Prisma {
     subjectId?: true
     sectionId?: true
     sessionId?: true
+    branchId?: true
     term?: true
     examTerm?: true
     isEligible?: true
@@ -57422,6 +57795,7 @@ export namespace Prisma {
     subjectId?: true
     sectionId?: true
     sessionId?: true
+    branchId?: true
     term?: true
     examTerm?: true
     isEligible?: true
@@ -57448,6 +57822,7 @@ export namespace Prisma {
     subjectId?: true
     sectionId?: true
     sessionId?: true
+    branchId?: true
     term?: true
     examTerm?: true
     isEligible?: true
@@ -57561,6 +57936,7 @@ export namespace Prisma {
     subjectId: string
     sectionId: string
     sessionId: string
+    branchId: string
     term: $Enums.Term
     examTerm: $Enums.ExamTerm
     isEligible: boolean
@@ -57606,11 +57982,13 @@ export namespace Prisma {
     subjectId?: boolean
     sectionId?: boolean
     sessionId?: boolean
+    branchId?: boolean
     term?: boolean
     examTerm?: boolean
     isEligible?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
     section?: boolean | SectionDefaultArgs<ExtArgs>
     session?: boolean | AcademicSessionDefaultArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
@@ -57636,11 +58014,13 @@ export namespace Prisma {
     subjectId?: boolean
     sectionId?: boolean
     sessionId?: boolean
+    branchId?: boolean
     term?: boolean
     examTerm?: boolean
     isEligible?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
     section?: boolean | SectionDefaultArgs<ExtArgs>
     session?: boolean | AcademicSessionDefaultArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
@@ -57666,11 +58046,13 @@ export namespace Prisma {
     subjectId?: boolean
     sectionId?: boolean
     sessionId?: boolean
+    branchId?: boolean
     term?: boolean
     examTerm?: boolean
     isEligible?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
     section?: boolean | SectionDefaultArgs<ExtArgs>
     session?: boolean | AcademicSessionDefaultArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
@@ -57696,6 +58078,7 @@ export namespace Prisma {
     subjectId?: boolean
     sectionId?: boolean
     sessionId?: boolean
+    branchId?: boolean
     term?: boolean
     examTerm?: boolean
     isEligible?: boolean
@@ -57703,20 +58086,23 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type AssessmentRecordOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "asgn1" | "asgn2" | "test1" | "test2" | "examScore" | "total" | "grade" | "position" | "outOf" | "lowScore" | "highScore" | "classAvg" | "remark" | "studentId" | "subjectId" | "sectionId" | "sessionId" | "term" | "examTerm" | "isEligible" | "createdAt" | "updatedAt", ExtArgs["result"]["assessmentRecord"]>
+  export type AssessmentRecordOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "asgn1" | "asgn2" | "test1" | "test2" | "examScore" | "total" | "grade" | "position" | "outOf" | "lowScore" | "highScore" | "classAvg" | "remark" | "studentId" | "subjectId" | "sectionId" | "sessionId" | "branchId" | "term" | "examTerm" | "isEligible" | "createdAt" | "updatedAt", ExtArgs["result"]["assessmentRecord"]>
   export type AssessmentRecordInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
     section?: boolean | SectionDefaultArgs<ExtArgs>
     session?: boolean | AcademicSessionDefaultArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
     subject?: boolean | SubjectDefaultArgs<ExtArgs>
   }
   export type AssessmentRecordIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
     section?: boolean | SectionDefaultArgs<ExtArgs>
     session?: boolean | AcademicSessionDefaultArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
     subject?: boolean | SubjectDefaultArgs<ExtArgs>
   }
   export type AssessmentRecordIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
     section?: boolean | SectionDefaultArgs<ExtArgs>
     session?: boolean | AcademicSessionDefaultArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
@@ -57726,6 +58112,7 @@ export namespace Prisma {
   export type $AssessmentRecordPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "AssessmentRecord"
     objects: {
+      branch: Prisma.$BranchPayload<ExtArgs>
       section: Prisma.$SectionPayload<ExtArgs>
       session: Prisma.$AcademicSessionPayload<ExtArgs>
       student: Prisma.$StudentPayload<ExtArgs>
@@ -57750,6 +58137,7 @@ export namespace Prisma {
       subjectId: string
       sectionId: string
       sessionId: string
+      branchId: string
       term: $Enums.Term
       examTerm: $Enums.ExamTerm
       isEligible: boolean
@@ -58149,6 +58537,7 @@ export namespace Prisma {
    */
   export interface Prisma__AssessmentRecordClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    branch<T extends BranchDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BranchDefaultArgs<ExtArgs>>): Prisma__BranchClient<$Result.GetResult<Prisma.$BranchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     section<T extends SectionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SectionDefaultArgs<ExtArgs>>): Prisma__SectionClient<$Result.GetResult<Prisma.$SectionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     session<T extends AcademicSessionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AcademicSessionDefaultArgs<ExtArgs>>): Prisma__AcademicSessionClient<$Result.GetResult<Prisma.$AcademicSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     student<T extends StudentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StudentDefaultArgs<ExtArgs>>): Prisma__StudentClient<$Result.GetResult<Prisma.$StudentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
@@ -58200,6 +58589,7 @@ export namespace Prisma {
     readonly subjectId: FieldRef<"AssessmentRecord", 'String'>
     readonly sectionId: FieldRef<"AssessmentRecord", 'String'>
     readonly sessionId: FieldRef<"AssessmentRecord", 'String'>
+    readonly branchId: FieldRef<"AssessmentRecord", 'String'>
     readonly term: FieldRef<"AssessmentRecord", 'Term'>
     readonly examTerm: FieldRef<"AssessmentRecord", 'ExamTerm'>
     readonly isEligible: FieldRef<"AssessmentRecord", 'Boolean'>
@@ -58644,6 +59034,7 @@ export namespace Prisma {
     participation: string | null
     studentId: string | null
     sessionId: string | null
+    branchId: string | null
     term: $Enums.Term | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -58664,6 +59055,7 @@ export namespace Prisma {
     participation: string | null
     studentId: string | null
     sessionId: string | null
+    branchId: string | null
     term: $Enums.Term | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -58684,6 +59076,7 @@ export namespace Prisma {
     participation: number
     studentId: number
     sessionId: number
+    branchId: number
     term: number
     createdAt: number
     updatedAt: number
@@ -58706,6 +59099,7 @@ export namespace Prisma {
     participation?: true
     studentId?: true
     sessionId?: true
+    branchId?: true
     term?: true
     createdAt?: true
     updatedAt?: true
@@ -58726,6 +59120,7 @@ export namespace Prisma {
     participation?: true
     studentId?: true
     sessionId?: true
+    branchId?: true
     term?: true
     createdAt?: true
     updatedAt?: true
@@ -58746,6 +59141,7 @@ export namespace Prisma {
     participation?: true
     studentId?: true
     sessionId?: true
+    branchId?: true
     term?: true
     createdAt?: true
     updatedAt?: true
@@ -58839,6 +59235,7 @@ export namespace Prisma {
     participation: string | null
     studentId: string
     sessionId: string
+    branchId: string
     term: $Enums.Term
     createdAt: Date
     updatedAt: Date
@@ -58876,9 +59273,11 @@ export namespace Prisma {
     participation?: boolean
     studentId?: boolean
     sessionId?: boolean
+    branchId?: boolean
     term?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
     session?: boolean | AcademicSessionDefaultArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["behaviouralRating"]>
@@ -58898,9 +59297,11 @@ export namespace Prisma {
     participation?: boolean
     studentId?: boolean
     sessionId?: boolean
+    branchId?: boolean
     term?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
     session?: boolean | AcademicSessionDefaultArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["behaviouralRating"]>
@@ -58920,9 +59321,11 @@ export namespace Prisma {
     participation?: boolean
     studentId?: boolean
     sessionId?: boolean
+    branchId?: boolean
     term?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
     session?: boolean | AcademicSessionDefaultArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["behaviouralRating"]>
@@ -58942,21 +59345,25 @@ export namespace Prisma {
     participation?: boolean
     studentId?: boolean
     sessionId?: boolean
+    branchId?: boolean
     term?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type BehaviouralRatingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "punctuality" | "classAttendance" | "attentiveness" | "neatness" | "honesty" | "selfControl" | "relationships" | "sports" | "toolHandling" | "carryingOutAssignments" | "participation" | "studentId" | "sessionId" | "term" | "createdAt" | "updatedAt", ExtArgs["result"]["behaviouralRating"]>
+  export type BehaviouralRatingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "punctuality" | "classAttendance" | "attentiveness" | "neatness" | "honesty" | "selfControl" | "relationships" | "sports" | "toolHandling" | "carryingOutAssignments" | "participation" | "studentId" | "sessionId" | "branchId" | "term" | "createdAt" | "updatedAt", ExtArgs["result"]["behaviouralRating"]>
   export type BehaviouralRatingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
     session?: boolean | AcademicSessionDefaultArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
   }
   export type BehaviouralRatingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
     session?: boolean | AcademicSessionDefaultArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
   }
   export type BehaviouralRatingIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
     session?: boolean | AcademicSessionDefaultArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
   }
@@ -58964,6 +59371,7 @@ export namespace Prisma {
   export type $BehaviouralRatingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "BehaviouralRating"
     objects: {
+      branch: Prisma.$BranchPayload<ExtArgs>
       session: Prisma.$AcademicSessionPayload<ExtArgs>
       student: Prisma.$StudentPayload<ExtArgs>
     }
@@ -58982,6 +59390,7 @@ export namespace Prisma {
       participation: string | null
       studentId: string
       sessionId: string
+      branchId: string
       term: $Enums.Term
       createdAt: Date
       updatedAt: Date
@@ -59379,6 +59788,7 @@ export namespace Prisma {
    */
   export interface Prisma__BehaviouralRatingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    branch<T extends BranchDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BranchDefaultArgs<ExtArgs>>): Prisma__BranchClient<$Result.GetResult<Prisma.$BranchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     session<T extends AcademicSessionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AcademicSessionDefaultArgs<ExtArgs>>): Prisma__AcademicSessionClient<$Result.GetResult<Prisma.$AcademicSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     student<T extends StudentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StudentDefaultArgs<ExtArgs>>): Prisma__StudentClient<$Result.GetResult<Prisma.$StudentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
@@ -59424,6 +59834,7 @@ export namespace Prisma {
     readonly participation: FieldRef<"BehaviouralRating", 'String'>
     readonly studentId: FieldRef<"BehaviouralRating", 'String'>
     readonly sessionId: FieldRef<"BehaviouralRating", 'String'>
+    readonly branchId: FieldRef<"BehaviouralRating", 'String'>
     readonly term: FieldRef<"BehaviouralRating", 'Term'>
     readonly createdAt: FieldRef<"BehaviouralRating", 'DateTime'>
     readonly updatedAt: FieldRef<"BehaviouralRating", 'DateTime'>
@@ -59897,6 +60308,7 @@ export namespace Prisma {
     attendanceAbsent: number | null
     studentId: string | null
     sessionId: string | null
+    branchId: string | null
     term: $Enums.Term | null
     examTerm: $Enums.ExamTerm | null
     isActive: boolean | null
@@ -59923,6 +60335,7 @@ export namespace Prisma {
     attendanceAbsent: number | null
     studentId: string | null
     sessionId: string | null
+    branchId: string | null
     term: $Enums.Term | null
     examTerm: $Enums.ExamTerm | null
     isActive: boolean | null
@@ -59949,6 +60362,7 @@ export namespace Prisma {
     attendanceAbsent: number
     studentId: number
     sessionId: number
+    branchId: number
     term: number
     examTerm: number
     isActive: number
@@ -60003,6 +60417,7 @@ export namespace Prisma {
     attendanceAbsent?: true
     studentId?: true
     sessionId?: true
+    branchId?: true
     term?: true
     examTerm?: true
     isActive?: true
@@ -60029,6 +60444,7 @@ export namespace Prisma {
     attendanceAbsent?: true
     studentId?: true
     sessionId?: true
+    branchId?: true
     term?: true
     examTerm?: true
     isActive?: true
@@ -60055,6 +60471,7 @@ export namespace Prisma {
     attendanceAbsent?: true
     studentId?: true
     sessionId?: true
+    branchId?: true
     term?: true
     examTerm?: true
     isActive?: true
@@ -60168,6 +60585,7 @@ export namespace Prisma {
     attendanceAbsent: number | null
     studentId: string
     sessionId: string
+    branchId: string
     term: $Enums.Term
     examTerm: $Enums.ExamTerm
     isActive: boolean
@@ -60213,12 +60631,14 @@ export namespace Prisma {
     attendanceAbsent?: boolean
     studentId?: boolean
     sessionId?: boolean
+    branchId?: boolean
     term?: boolean
     examTerm?: boolean
     isActive?: boolean
     isLocked?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
     session?: boolean | AcademicSessionDefaultArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["resultSummary"]>
@@ -60241,12 +60661,14 @@ export namespace Prisma {
     attendanceAbsent?: boolean
     studentId?: boolean
     sessionId?: boolean
+    branchId?: boolean
     term?: boolean
     examTerm?: boolean
     isActive?: boolean
     isLocked?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
     session?: boolean | AcademicSessionDefaultArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["resultSummary"]>
@@ -60269,12 +60691,14 @@ export namespace Prisma {
     attendanceAbsent?: boolean
     studentId?: boolean
     sessionId?: boolean
+    branchId?: boolean
     term?: boolean
     examTerm?: boolean
     isActive?: boolean
     isLocked?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
     session?: boolean | AcademicSessionDefaultArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["resultSummary"]>
@@ -60297,6 +60721,7 @@ export namespace Prisma {
     attendanceAbsent?: boolean
     studentId?: boolean
     sessionId?: boolean
+    branchId?: boolean
     term?: boolean
     examTerm?: boolean
     isActive?: boolean
@@ -60305,16 +60730,19 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type ResultSummaryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "totalScore" | "average" | "classPosition" | "highestAvg" | "lowestAvg" | "countInClass" | "finalGrade" | "finalRemark" | "promotionStatus" | "cgpa" | "classOfResult" | "attendanceOpen" | "attendancePresent" | "attendanceAbsent" | "studentId" | "sessionId" | "term" | "examTerm" | "isActive" | "isLocked" | "createdAt" | "updatedAt", ExtArgs["result"]["resultSummary"]>
+  export type ResultSummaryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "totalScore" | "average" | "classPosition" | "highestAvg" | "lowestAvg" | "countInClass" | "finalGrade" | "finalRemark" | "promotionStatus" | "cgpa" | "classOfResult" | "attendanceOpen" | "attendancePresent" | "attendanceAbsent" | "studentId" | "sessionId" | "branchId" | "term" | "examTerm" | "isActive" | "isLocked" | "createdAt" | "updatedAt", ExtArgs["result"]["resultSummary"]>
   export type ResultSummaryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
     session?: boolean | AcademicSessionDefaultArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
   }
   export type ResultSummaryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
     session?: boolean | AcademicSessionDefaultArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
   }
   export type ResultSummaryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
     session?: boolean | AcademicSessionDefaultArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
   }
@@ -60322,6 +60750,7 @@ export namespace Prisma {
   export type $ResultSummaryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "ResultSummary"
     objects: {
+      branch: Prisma.$BranchPayload<ExtArgs>
       session: Prisma.$AcademicSessionPayload<ExtArgs>
       student: Prisma.$StudentPayload<ExtArgs>
     }
@@ -60343,6 +60772,7 @@ export namespace Prisma {
       attendanceAbsent: number | null
       studentId: string
       sessionId: string
+      branchId: string
       term: $Enums.Term
       examTerm: $Enums.ExamTerm
       isActive: boolean
@@ -60743,6 +61173,7 @@ export namespace Prisma {
    */
   export interface Prisma__ResultSummaryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    branch<T extends BranchDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BranchDefaultArgs<ExtArgs>>): Prisma__BranchClient<$Result.GetResult<Prisma.$BranchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     session<T extends AcademicSessionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AcademicSessionDefaultArgs<ExtArgs>>): Prisma__AcademicSessionClient<$Result.GetResult<Prisma.$AcademicSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     student<T extends StudentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StudentDefaultArgs<ExtArgs>>): Prisma__StudentClient<$Result.GetResult<Prisma.$StudentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
@@ -60791,6 +61222,7 @@ export namespace Prisma {
     readonly attendanceAbsent: FieldRef<"ResultSummary", 'Int'>
     readonly studentId: FieldRef<"ResultSummary", 'String'>
     readonly sessionId: FieldRef<"ResultSummary", 'String'>
+    readonly branchId: FieldRef<"ResultSummary", 'String'>
     readonly term: FieldRef<"ResultSummary", 'Term'>
     readonly examTerm: FieldRef<"ResultSummary", 'ExamTerm'>
     readonly isActive: FieldRef<"ResultSummary", 'Boolean'>
@@ -61411,7 +61843,7 @@ export namespace Prisma {
     maxScore: number
     grade: string
     remark: string | null
-    branchId: string | null
+    branchId: string
     createdAt: Date
     updatedAt: Date
     _count: GradingScaleCountAggregateOutputType | null
@@ -61445,6 +61877,7 @@ export namespace Prisma {
     branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["gradingScale"]>
 
   export type GradingScaleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -61457,6 +61890,7 @@ export namespace Prisma {
     branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["gradingScale"]>
 
   export type GradingScaleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -61469,6 +61903,7 @@ export namespace Prisma {
     branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["gradingScale"]>
 
   export type GradingScaleSelectScalar = {
@@ -61484,10 +61919,21 @@ export namespace Prisma {
   }
 
   export type GradingScaleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "minScore" | "maxScore" | "grade" | "remark" | "branchId" | "createdAt" | "updatedAt", ExtArgs["result"]["gradingScale"]>
+  export type GradingScaleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+  }
+  export type GradingScaleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+  }
+  export type GradingScaleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+  }
 
   export type $GradingScalePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "GradingScale"
-    objects: {}
+    objects: {
+      branch: Prisma.$BranchPayload<ExtArgs>
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
@@ -61495,7 +61941,7 @@ export namespace Prisma {
       maxScore: number
       grade: string
       remark: string | null
-      branchId: string | null
+      branchId: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["gradingScale"]>
@@ -61892,6 +62338,7 @@ export namespace Prisma {
    */
   export interface Prisma__GradingScaleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    branch<T extends BranchDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BranchDefaultArgs<ExtArgs>>): Prisma__BranchClient<$Result.GetResult<Prisma.$BranchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -61947,6 +62394,10 @@ export namespace Prisma {
      */
     omit?: GradingScaleOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GradingScaleInclude<ExtArgs> | null
+    /**
      * Filter, which GradingScale to fetch.
      */
     where: GradingScaleWhereUniqueInput
@@ -61965,6 +62416,10 @@ export namespace Prisma {
      */
     omit?: GradingScaleOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GradingScaleInclude<ExtArgs> | null
+    /**
      * Filter, which GradingScale to fetch.
      */
     where: GradingScaleWhereUniqueInput
@@ -61982,6 +62437,10 @@ export namespace Prisma {
      * Omit specific fields from the GradingScale
      */
     omit?: GradingScaleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GradingScaleInclude<ExtArgs> | null
     /**
      * Filter, which GradingScale to fetch.
      */
@@ -62031,6 +62490,10 @@ export namespace Prisma {
      */
     omit?: GradingScaleOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GradingScaleInclude<ExtArgs> | null
+    /**
      * Filter, which GradingScale to fetch.
      */
     where?: GradingScaleWhereInput
@@ -62079,6 +62542,10 @@ export namespace Prisma {
      */
     omit?: GradingScaleOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GradingScaleInclude<ExtArgs> | null
+    /**
      * Filter, which GradingScales to fetch.
      */
     where?: GradingScaleWhereInput
@@ -62122,6 +62589,10 @@ export namespace Prisma {
      */
     omit?: GradingScaleOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GradingScaleInclude<ExtArgs> | null
+    /**
      * The data needed to create a GradingScale.
      */
     data: XOR<GradingScaleCreateInput, GradingScaleUncheckedCreateInput>
@@ -62155,6 +62626,10 @@ export namespace Prisma {
      */
     data: GradingScaleCreateManyInput | GradingScaleCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GradingScaleIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -62169,6 +62644,10 @@ export namespace Prisma {
      * Omit specific fields from the GradingScale
      */
     omit?: GradingScaleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GradingScaleInclude<ExtArgs> | null
     /**
      * The data needed to update a GradingScale.
      */
@@ -62221,6 +62700,10 @@ export namespace Prisma {
      * Limit how many GradingScales to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GradingScaleIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -62235,6 +62718,10 @@ export namespace Prisma {
      * Omit specific fields from the GradingScale
      */
     omit?: GradingScaleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GradingScaleInclude<ExtArgs> | null
     /**
      * The filter to search for the GradingScale to update in case it exists.
      */
@@ -62261,6 +62748,10 @@ export namespace Prisma {
      * Omit specific fields from the GradingScale
      */
     omit?: GradingScaleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GradingScaleInclude<ExtArgs> | null
     /**
      * Filter which GradingScale to delete.
      */
@@ -62293,6 +62784,10 @@ export namespace Prisma {
      * Omit specific fields from the GradingScale
      */
     omit?: GradingScaleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GradingScaleInclude<ExtArgs> | null
   }
 
 
@@ -62468,6 +62963,7 @@ export namespace Prisma {
     branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    branch?: boolean | GlobalSetting$branchArgs<ExtArgs>
   }, ExtArgs["result"]["globalSetting"]>
 
   export type GlobalSettingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -62477,6 +62973,7 @@ export namespace Prisma {
     branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    branch?: boolean | GlobalSetting$branchArgs<ExtArgs>
   }, ExtArgs["result"]["globalSetting"]>
 
   export type GlobalSettingSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -62486,6 +62983,7 @@ export namespace Prisma {
     branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    branch?: boolean | GlobalSetting$branchArgs<ExtArgs>
   }, ExtArgs["result"]["globalSetting"]>
 
   export type GlobalSettingSelectScalar = {
@@ -62498,10 +62996,21 @@ export namespace Prisma {
   }
 
   export type GlobalSettingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "key" | "value" | "branchId" | "createdAt" | "updatedAt", ExtArgs["result"]["globalSetting"]>
+  export type GlobalSettingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | GlobalSetting$branchArgs<ExtArgs>
+  }
+  export type GlobalSettingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | GlobalSetting$branchArgs<ExtArgs>
+  }
+  export type GlobalSettingIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | GlobalSetting$branchArgs<ExtArgs>
+  }
 
   export type $GlobalSettingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "GlobalSetting"
-    objects: {}
+    objects: {
+      branch: Prisma.$BranchPayload<ExtArgs> | null
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       key: string
@@ -62903,6 +63412,7 @@ export namespace Prisma {
    */
   export interface Prisma__GlobalSettingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    branch<T extends GlobalSetting$branchArgs<ExtArgs> = {}>(args?: Subset<T, GlobalSetting$branchArgs<ExtArgs>>): Prisma__BranchClient<$Result.GetResult<Prisma.$BranchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -62955,6 +63465,10 @@ export namespace Prisma {
      */
     omit?: GlobalSettingOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GlobalSettingInclude<ExtArgs> | null
+    /**
      * Filter, which GlobalSetting to fetch.
      */
     where: GlobalSettingWhereUniqueInput
@@ -62973,6 +63487,10 @@ export namespace Prisma {
      */
     omit?: GlobalSettingOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GlobalSettingInclude<ExtArgs> | null
+    /**
      * Filter, which GlobalSetting to fetch.
      */
     where: GlobalSettingWhereUniqueInput
@@ -62990,6 +63508,10 @@ export namespace Prisma {
      * Omit specific fields from the GlobalSetting
      */
     omit?: GlobalSettingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GlobalSettingInclude<ExtArgs> | null
     /**
      * Filter, which GlobalSetting to fetch.
      */
@@ -63039,6 +63561,10 @@ export namespace Prisma {
      */
     omit?: GlobalSettingOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GlobalSettingInclude<ExtArgs> | null
+    /**
      * Filter, which GlobalSetting to fetch.
      */
     where?: GlobalSettingWhereInput
@@ -63087,6 +63613,10 @@ export namespace Prisma {
      */
     omit?: GlobalSettingOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GlobalSettingInclude<ExtArgs> | null
+    /**
      * Filter, which GlobalSettings to fetch.
      */
     where?: GlobalSettingWhereInput
@@ -63130,6 +63660,10 @@ export namespace Prisma {
      */
     omit?: GlobalSettingOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GlobalSettingInclude<ExtArgs> | null
+    /**
      * The data needed to create a GlobalSetting.
      */
     data: XOR<GlobalSettingCreateInput, GlobalSettingUncheckedCreateInput>
@@ -63163,6 +63697,10 @@ export namespace Prisma {
      */
     data: GlobalSettingCreateManyInput | GlobalSettingCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GlobalSettingIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -63177,6 +63715,10 @@ export namespace Prisma {
      * Omit specific fields from the GlobalSetting
      */
     omit?: GlobalSettingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GlobalSettingInclude<ExtArgs> | null
     /**
      * The data needed to update a GlobalSetting.
      */
@@ -63229,6 +63771,10 @@ export namespace Prisma {
      * Limit how many GlobalSettings to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GlobalSettingIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -63243,6 +63789,10 @@ export namespace Prisma {
      * Omit specific fields from the GlobalSetting
      */
     omit?: GlobalSettingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GlobalSettingInclude<ExtArgs> | null
     /**
      * The filter to search for the GlobalSetting to update in case it exists.
      */
@@ -63270,6 +63820,10 @@ export namespace Prisma {
      */
     omit?: GlobalSettingOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GlobalSettingInclude<ExtArgs> | null
+    /**
      * Filter which GlobalSetting to delete.
      */
     where: GlobalSettingWhereUniqueInput
@@ -63290,6 +63844,25 @@ export namespace Prisma {
   }
 
   /**
+   * GlobalSetting.branch
+   */
+  export type GlobalSetting$branchArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Branch
+     */
+    select?: BranchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Branch
+     */
+    omit?: BranchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BranchInclude<ExtArgs> | null
+    where?: BranchWhereInput
+  }
+
+  /**
    * GlobalSetting without action
    */
   export type GlobalSettingDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -63301,6 +63874,10 @@ export namespace Prisma {
      * Omit specific fields from the GlobalSetting
      */
     omit?: GlobalSettingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GlobalSettingInclude<ExtArgs> | null
   }
 
 
@@ -118660,6 +119237,7 @@ export namespace Prisma {
     remarks: 'remarks',
     studentId: 'studentId',
     sectionId: 'sectionId',
+    branchId: 'branchId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -118673,6 +119251,7 @@ export namespace Prisma {
     status: 'status',
     remarks: 'remarks',
     staffId: 'staffId',
+    branchId: 'branchId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -118996,6 +119575,7 @@ export namespace Prisma {
     isActive: 'isActive',
     nextTermBegins: 'nextTermBegins',
     termEnds: 'termEnds',
+    branchId: 'branchId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -119022,6 +119602,7 @@ export namespace Prisma {
     subjectId: 'subjectId',
     sectionId: 'sectionId',
     sessionId: 'sessionId',
+    branchId: 'branchId',
     term: 'term',
     examTerm: 'examTerm',
     isEligible: 'isEligible',
@@ -119047,6 +119628,7 @@ export namespace Prisma {
     participation: 'participation',
     studentId: 'studentId',
     sessionId: 'sessionId',
+    branchId: 'branchId',
     term: 'term',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -119073,6 +119655,7 @@ export namespace Prisma {
     attendanceAbsent: 'attendanceAbsent',
     studentId: 'studentId',
     sessionId: 'sessionId',
+    branchId: 'branchId',
     term: 'term',
     examTerm: 'examTerm',
     isActive: 'isActive',
@@ -120262,6 +120845,14 @@ export namespace Prisma {
     vehicles?: VehicleListRelationFilter
     visitorLogs?: VisitorLogListRelationFilter
     vouchers?: VoucherListRelationFilter
+    academicSessions?: AcademicSessionListRelationFilter
+    attendance?: AttendanceListRelationFilter
+    staffAttendance?: StaffAttendanceListRelationFilter
+    assessmentRecords?: AssessmentRecordListRelationFilter
+    behaviouralRatings?: BehaviouralRatingListRelationFilter
+    resultSummaries?: ResultSummaryListRelationFilter
+    gradingScales?: GradingScaleListRelationFilter
+    globalSettings?: GlobalSettingListRelationFilter
   }
 
   export type BranchOrderByWithRelationInput = {
@@ -120319,6 +120910,14 @@ export namespace Prisma {
     vehicles?: VehicleOrderByRelationAggregateInput
     visitorLogs?: VisitorLogOrderByRelationAggregateInput
     vouchers?: VoucherOrderByRelationAggregateInput
+    academicSessions?: AcademicSessionOrderByRelationAggregateInput
+    attendance?: AttendanceOrderByRelationAggregateInput
+    staffAttendance?: StaffAttendanceOrderByRelationAggregateInput
+    assessmentRecords?: AssessmentRecordOrderByRelationAggregateInput
+    behaviouralRatings?: BehaviouralRatingOrderByRelationAggregateInput
+    resultSummaries?: ResultSummaryOrderByRelationAggregateInput
+    gradingScales?: GradingScaleOrderByRelationAggregateInput
+    globalSettings?: GlobalSettingOrderByRelationAggregateInput
   }
 
   export type BranchWhereUniqueInput = Prisma.AtLeast<{
@@ -120379,6 +120978,14 @@ export namespace Prisma {
     vehicles?: VehicleListRelationFilter
     visitorLogs?: VisitorLogListRelationFilter
     vouchers?: VoucherListRelationFilter
+    academicSessions?: AcademicSessionListRelationFilter
+    attendance?: AttendanceListRelationFilter
+    staffAttendance?: StaffAttendanceListRelationFilter
+    assessmentRecords?: AssessmentRecordListRelationFilter
+    behaviouralRatings?: BehaviouralRatingListRelationFilter
+    resultSummaries?: ResultSummaryListRelationFilter
+    gradingScales?: GradingScaleListRelationFilter
+    globalSettings?: GlobalSettingListRelationFilter
   }, "id" | "code">
 
   export type BranchOrderByWithAggregationInput = {
@@ -121648,8 +122255,10 @@ export namespace Prisma {
     remarks?: StringNullableFilter<"Attendance"> | string | null
     studentId?: StringFilter<"Attendance"> | string
     sectionId?: StringNullableFilter<"Attendance"> | string | null
+    branchId?: StringFilter<"Attendance"> | string
     createdAt?: DateTimeFilter<"Attendance"> | Date | string
     updatedAt?: DateTimeFilter<"Attendance"> | Date | string
+    branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
     section?: XOR<SectionNullableScalarRelationFilter, SectionWhereInput> | null
     student?: XOR<StudentScalarRelationFilter, StudentWhereInput>
   }
@@ -121661,8 +122270,10 @@ export namespace Prisma {
     remarks?: SortOrderInput | SortOrder
     studentId?: SortOrder
     sectionId?: SortOrderInput | SortOrder
+    branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    branch?: BranchOrderByWithRelationInput
     section?: SectionOrderByWithRelationInput
     student?: StudentOrderByWithRelationInput
   }
@@ -121678,8 +122289,10 @@ export namespace Prisma {
     remarks?: StringNullableFilter<"Attendance"> | string | null
     studentId?: StringFilter<"Attendance"> | string
     sectionId?: StringNullableFilter<"Attendance"> | string | null
+    branchId?: StringFilter<"Attendance"> | string
     createdAt?: DateTimeFilter<"Attendance"> | Date | string
     updatedAt?: DateTimeFilter<"Attendance"> | Date | string
+    branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
     section?: XOR<SectionNullableScalarRelationFilter, SectionWhereInput> | null
     student?: XOR<StudentScalarRelationFilter, StudentWhereInput>
   }, "id" | "studentId_date">
@@ -121691,6 +122304,7 @@ export namespace Prisma {
     remarks?: SortOrderInput | SortOrder
     studentId?: SortOrder
     sectionId?: SortOrderInput | SortOrder
+    branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: AttendanceCountOrderByAggregateInput
@@ -121708,6 +122322,7 @@ export namespace Prisma {
     remarks?: StringNullableWithAggregatesFilter<"Attendance"> | string | null
     studentId?: StringWithAggregatesFilter<"Attendance"> | string
     sectionId?: StringNullableWithAggregatesFilter<"Attendance"> | string | null
+    branchId?: StringWithAggregatesFilter<"Attendance"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Attendance"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Attendance"> | Date | string
   }
@@ -121721,8 +122336,10 @@ export namespace Prisma {
     status?: EnumAttendanceStatusFilter<"StaffAttendance"> | $Enums.AttendanceStatus
     remarks?: StringNullableFilter<"StaffAttendance"> | string | null
     staffId?: StringFilter<"StaffAttendance"> | string
+    branchId?: StringFilter<"StaffAttendance"> | string
     createdAt?: DateTimeFilter<"StaffAttendance"> | Date | string
     updatedAt?: DateTimeFilter<"StaffAttendance"> | Date | string
+    branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
     staff?: XOR<StaffScalarRelationFilter, StaffWhereInput>
   }
 
@@ -121732,8 +122349,10 @@ export namespace Prisma {
     status?: SortOrder
     remarks?: SortOrderInput | SortOrder
     staffId?: SortOrder
+    branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    branch?: BranchOrderByWithRelationInput
     staff?: StaffOrderByWithRelationInput
   }
 
@@ -121747,8 +122366,10 @@ export namespace Prisma {
     status?: EnumAttendanceStatusFilter<"StaffAttendance"> | $Enums.AttendanceStatus
     remarks?: StringNullableFilter<"StaffAttendance"> | string | null
     staffId?: StringFilter<"StaffAttendance"> | string
+    branchId?: StringFilter<"StaffAttendance"> | string
     createdAt?: DateTimeFilter<"StaffAttendance"> | Date | string
     updatedAt?: DateTimeFilter<"StaffAttendance"> | Date | string
+    branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
     staff?: XOR<StaffScalarRelationFilter, StaffWhereInput>
   }, "id" | "staffId_date">
 
@@ -121758,6 +122379,7 @@ export namespace Prisma {
     status?: SortOrder
     remarks?: SortOrderInput | SortOrder
     staffId?: SortOrder
+    branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: StaffAttendanceCountOrderByAggregateInput
@@ -121774,6 +122396,7 @@ export namespace Prisma {
     status?: EnumAttendanceStatusWithAggregatesFilter<"StaffAttendance"> | $Enums.AttendanceStatus
     remarks?: StringNullableWithAggregatesFilter<"StaffAttendance"> | string | null
     staffId?: StringWithAggregatesFilter<"StaffAttendance"> | string
+    branchId?: StringWithAggregatesFilter<"StaffAttendance"> | string
     createdAt?: DateTimeWithAggregatesFilter<"StaffAttendance"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"StaffAttendance"> | Date | string
   }
@@ -123452,8 +124075,10 @@ export namespace Prisma {
     isActive?: BoolFilter<"AcademicSession"> | boolean
     nextTermBegins?: DateTimeNullableFilter<"AcademicSession"> | Date | string | null
     termEnds?: DateTimeNullableFilter<"AcademicSession"> | Date | string | null
+    branchId?: StringFilter<"AcademicSession"> | string
     createdAt?: DateTimeFilter<"AcademicSession"> | Date | string
     updatedAt?: DateTimeFilter<"AcademicSession"> | Date | string
+    branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
     assessmentRecords?: AssessmentRecordListRelationFilter
     behaviouralRatings?: BehaviouralRatingListRelationFilter
     digitalResources?: DigitalResourceListRelationFilter
@@ -123470,8 +124095,10 @@ export namespace Prisma {
     isActive?: SortOrder
     nextTermBegins?: SortOrderInput | SortOrder
     termEnds?: SortOrderInput | SortOrder
+    branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    branch?: BranchOrderByWithRelationInput
     assessmentRecords?: AssessmentRecordOrderByRelationAggregateInput
     behaviouralRatings?: BehaviouralRatingOrderByRelationAggregateInput
     digitalResources?: DigitalResourceOrderByRelationAggregateInput
@@ -123491,8 +124118,10 @@ export namespace Prisma {
     isActive?: BoolFilter<"AcademicSession"> | boolean
     nextTermBegins?: DateTimeNullableFilter<"AcademicSession"> | Date | string | null
     termEnds?: DateTimeNullableFilter<"AcademicSession"> | Date | string | null
+    branchId?: StringFilter<"AcademicSession"> | string
     createdAt?: DateTimeFilter<"AcademicSession"> | Date | string
     updatedAt?: DateTimeFilter<"AcademicSession"> | Date | string
+    branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
     assessmentRecords?: AssessmentRecordListRelationFilter
     behaviouralRatings?: BehaviouralRatingListRelationFilter
     digitalResources?: DigitalResourceListRelationFilter
@@ -123509,6 +124138,7 @@ export namespace Prisma {
     isActive?: SortOrder
     nextTermBegins?: SortOrderInput | SortOrder
     termEnds?: SortOrderInput | SortOrder
+    branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: AcademicSessionCountOrderByAggregateInput
@@ -123527,6 +124157,7 @@ export namespace Prisma {
     isActive?: BoolWithAggregatesFilter<"AcademicSession"> | boolean
     nextTermBegins?: DateTimeNullableWithAggregatesFilter<"AcademicSession"> | Date | string | null
     termEnds?: DateTimeNullableWithAggregatesFilter<"AcademicSession"> | Date | string | null
+    branchId?: StringWithAggregatesFilter<"AcademicSession"> | string
     createdAt?: DateTimeWithAggregatesFilter<"AcademicSession"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"AcademicSession"> | Date | string
   }
@@ -123553,11 +124184,13 @@ export namespace Prisma {
     subjectId?: StringFilter<"AssessmentRecord"> | string
     sectionId?: StringFilter<"AssessmentRecord"> | string
     sessionId?: StringFilter<"AssessmentRecord"> | string
+    branchId?: StringFilter<"AssessmentRecord"> | string
     term?: EnumTermFilter<"AssessmentRecord"> | $Enums.Term
     examTerm?: EnumExamTermFilter<"AssessmentRecord"> | $Enums.ExamTerm
     isEligible?: BoolFilter<"AssessmentRecord"> | boolean
     createdAt?: DateTimeFilter<"AssessmentRecord"> | Date | string
     updatedAt?: DateTimeFilter<"AssessmentRecord"> | Date | string
+    branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
     section?: XOR<SectionScalarRelationFilter, SectionWhereInput>
     session?: XOR<AcademicSessionScalarRelationFilter, AcademicSessionWhereInput>
     student?: XOR<StudentScalarRelationFilter, StudentWhereInput>
@@ -123583,11 +124216,13 @@ export namespace Prisma {
     subjectId?: SortOrder
     sectionId?: SortOrder
     sessionId?: SortOrder
+    branchId?: SortOrder
     term?: SortOrder
     examTerm?: SortOrder
     isEligible?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    branch?: BranchOrderByWithRelationInput
     section?: SectionOrderByWithRelationInput
     session?: AcademicSessionOrderByWithRelationInput
     student?: StudentOrderByWithRelationInput
@@ -123617,11 +124252,13 @@ export namespace Prisma {
     subjectId?: StringFilter<"AssessmentRecord"> | string
     sectionId?: StringFilter<"AssessmentRecord"> | string
     sessionId?: StringFilter<"AssessmentRecord"> | string
+    branchId?: StringFilter<"AssessmentRecord"> | string
     term?: EnumTermFilter<"AssessmentRecord"> | $Enums.Term
     examTerm?: EnumExamTermFilter<"AssessmentRecord"> | $Enums.ExamTerm
     isEligible?: BoolFilter<"AssessmentRecord"> | boolean
     createdAt?: DateTimeFilter<"AssessmentRecord"> | Date | string
     updatedAt?: DateTimeFilter<"AssessmentRecord"> | Date | string
+    branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
     section?: XOR<SectionScalarRelationFilter, SectionWhereInput>
     session?: XOR<AcademicSessionScalarRelationFilter, AcademicSessionWhereInput>
     student?: XOR<StudentScalarRelationFilter, StudentWhereInput>
@@ -123647,6 +124284,7 @@ export namespace Prisma {
     subjectId?: SortOrder
     sectionId?: SortOrder
     sessionId?: SortOrder
+    branchId?: SortOrder
     term?: SortOrder
     examTerm?: SortOrder
     isEligible?: SortOrder
@@ -123681,6 +124319,7 @@ export namespace Prisma {
     subjectId?: StringWithAggregatesFilter<"AssessmentRecord"> | string
     sectionId?: StringWithAggregatesFilter<"AssessmentRecord"> | string
     sessionId?: StringWithAggregatesFilter<"AssessmentRecord"> | string
+    branchId?: StringWithAggregatesFilter<"AssessmentRecord"> | string
     term?: EnumTermWithAggregatesFilter<"AssessmentRecord"> | $Enums.Term
     examTerm?: EnumExamTermWithAggregatesFilter<"AssessmentRecord"> | $Enums.ExamTerm
     isEligible?: BoolWithAggregatesFilter<"AssessmentRecord"> | boolean
@@ -123706,9 +124345,11 @@ export namespace Prisma {
     participation?: StringNullableFilter<"BehaviouralRating"> | string | null
     studentId?: StringFilter<"BehaviouralRating"> | string
     sessionId?: StringFilter<"BehaviouralRating"> | string
+    branchId?: StringFilter<"BehaviouralRating"> | string
     term?: EnumTermFilter<"BehaviouralRating"> | $Enums.Term
     createdAt?: DateTimeFilter<"BehaviouralRating"> | Date | string
     updatedAt?: DateTimeFilter<"BehaviouralRating"> | Date | string
+    branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
     session?: XOR<AcademicSessionScalarRelationFilter, AcademicSessionWhereInput>
     student?: XOR<StudentScalarRelationFilter, StudentWhereInput>
   }
@@ -123728,9 +124369,11 @@ export namespace Prisma {
     participation?: SortOrderInput | SortOrder
     studentId?: SortOrder
     sessionId?: SortOrder
+    branchId?: SortOrder
     term?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    branch?: BranchOrderByWithRelationInput
     session?: AcademicSessionOrderByWithRelationInput
     student?: StudentOrderByWithRelationInput
   }
@@ -123754,9 +124397,11 @@ export namespace Prisma {
     participation?: StringNullableFilter<"BehaviouralRating"> | string | null
     studentId?: StringFilter<"BehaviouralRating"> | string
     sessionId?: StringFilter<"BehaviouralRating"> | string
+    branchId?: StringFilter<"BehaviouralRating"> | string
     term?: EnumTermFilter<"BehaviouralRating"> | $Enums.Term
     createdAt?: DateTimeFilter<"BehaviouralRating"> | Date | string
     updatedAt?: DateTimeFilter<"BehaviouralRating"> | Date | string
+    branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
     session?: XOR<AcademicSessionScalarRelationFilter, AcademicSessionWhereInput>
     student?: XOR<StudentScalarRelationFilter, StudentWhereInput>
   }, "id" | "studentId_sessionId_term">
@@ -123776,6 +124421,7 @@ export namespace Prisma {
     participation?: SortOrderInput | SortOrder
     studentId?: SortOrder
     sessionId?: SortOrder
+    branchId?: SortOrder
     term?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -123802,6 +124448,7 @@ export namespace Prisma {
     participation?: StringNullableWithAggregatesFilter<"BehaviouralRating"> | string | null
     studentId?: StringWithAggregatesFilter<"BehaviouralRating"> | string
     sessionId?: StringWithAggregatesFilter<"BehaviouralRating"> | string
+    branchId?: StringWithAggregatesFilter<"BehaviouralRating"> | string
     term?: EnumTermWithAggregatesFilter<"BehaviouralRating"> | $Enums.Term
     createdAt?: DateTimeWithAggregatesFilter<"BehaviouralRating"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"BehaviouralRating"> | Date | string
@@ -123828,12 +124475,14 @@ export namespace Prisma {
     attendanceAbsent?: IntNullableFilter<"ResultSummary"> | number | null
     studentId?: StringFilter<"ResultSummary"> | string
     sessionId?: StringFilter<"ResultSummary"> | string
+    branchId?: StringFilter<"ResultSummary"> | string
     term?: EnumTermFilter<"ResultSummary"> | $Enums.Term
     examTerm?: EnumExamTermFilter<"ResultSummary"> | $Enums.ExamTerm
     isActive?: BoolFilter<"ResultSummary"> | boolean
     isLocked?: BoolFilter<"ResultSummary"> | boolean
     createdAt?: DateTimeFilter<"ResultSummary"> | Date | string
     updatedAt?: DateTimeFilter<"ResultSummary"> | Date | string
+    branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
     session?: XOR<AcademicSessionScalarRelationFilter, AcademicSessionWhereInput>
     student?: XOR<StudentScalarRelationFilter, StudentWhereInput>
   }
@@ -123856,12 +124505,14 @@ export namespace Prisma {
     attendanceAbsent?: SortOrderInput | SortOrder
     studentId?: SortOrder
     sessionId?: SortOrder
+    branchId?: SortOrder
     term?: SortOrder
     examTerm?: SortOrder
     isActive?: SortOrder
     isLocked?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    branch?: BranchOrderByWithRelationInput
     session?: AcademicSessionOrderByWithRelationInput
     student?: StudentOrderByWithRelationInput
   }
@@ -123888,12 +124539,14 @@ export namespace Prisma {
     attendanceAbsent?: IntNullableFilter<"ResultSummary"> | number | null
     studentId?: StringFilter<"ResultSummary"> | string
     sessionId?: StringFilter<"ResultSummary"> | string
+    branchId?: StringFilter<"ResultSummary"> | string
     term?: EnumTermFilter<"ResultSummary"> | $Enums.Term
     examTerm?: EnumExamTermFilter<"ResultSummary"> | $Enums.ExamTerm
     isActive?: BoolFilter<"ResultSummary"> | boolean
     isLocked?: BoolFilter<"ResultSummary"> | boolean
     createdAt?: DateTimeFilter<"ResultSummary"> | Date | string
     updatedAt?: DateTimeFilter<"ResultSummary"> | Date | string
+    branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
     session?: XOR<AcademicSessionScalarRelationFilter, AcademicSessionWhereInput>
     student?: XOR<StudentScalarRelationFilter, StudentWhereInput>
   }, "id" | "studentId_sessionId_term">
@@ -123916,6 +124569,7 @@ export namespace Prisma {
     attendanceAbsent?: SortOrderInput | SortOrder
     studentId?: SortOrder
     sessionId?: SortOrder
+    branchId?: SortOrder
     term?: SortOrder
     examTerm?: SortOrder
     isActive?: SortOrder
@@ -123950,6 +124604,7 @@ export namespace Prisma {
     attendanceAbsent?: IntNullableWithAggregatesFilter<"ResultSummary"> | number | null
     studentId?: StringWithAggregatesFilter<"ResultSummary"> | string
     sessionId?: StringWithAggregatesFilter<"ResultSummary"> | string
+    branchId?: StringWithAggregatesFilter<"ResultSummary"> | string
     term?: EnumTermWithAggregatesFilter<"ResultSummary"> | $Enums.Term
     examTerm?: EnumExamTermWithAggregatesFilter<"ResultSummary"> | $Enums.ExamTerm
     isActive?: BoolWithAggregatesFilter<"ResultSummary"> | boolean
@@ -123968,9 +124623,10 @@ export namespace Prisma {
     maxScore?: FloatFilter<"GradingScale"> | number
     grade?: StringFilter<"GradingScale"> | string
     remark?: StringNullableFilter<"GradingScale"> | string | null
-    branchId?: StringNullableFilter<"GradingScale"> | string | null
+    branchId?: StringFilter<"GradingScale"> | string
     createdAt?: DateTimeFilter<"GradingScale"> | Date | string
     updatedAt?: DateTimeFilter<"GradingScale"> | Date | string
+    branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
   }
 
   export type GradingScaleOrderByWithRelationInput = {
@@ -123980,9 +124636,10 @@ export namespace Prisma {
     maxScore?: SortOrder
     grade?: SortOrder
     remark?: SortOrderInput | SortOrder
-    branchId?: SortOrderInput | SortOrder
+    branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    branch?: BranchOrderByWithRelationInput
   }
 
   export type GradingScaleWhereUniqueInput = Prisma.AtLeast<{
@@ -123995,9 +124652,10 @@ export namespace Prisma {
     maxScore?: FloatFilter<"GradingScale"> | number
     grade?: StringFilter<"GradingScale"> | string
     remark?: StringNullableFilter<"GradingScale"> | string | null
-    branchId?: StringNullableFilter<"GradingScale"> | string | null
+    branchId?: StringFilter<"GradingScale"> | string
     createdAt?: DateTimeFilter<"GradingScale"> | Date | string
     updatedAt?: DateTimeFilter<"GradingScale"> | Date | string
+    branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
   }, "id">
 
   export type GradingScaleOrderByWithAggregationInput = {
@@ -124007,7 +124665,7 @@ export namespace Prisma {
     maxScore?: SortOrder
     grade?: SortOrder
     remark?: SortOrderInput | SortOrder
-    branchId?: SortOrderInput | SortOrder
+    branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: GradingScaleCountOrderByAggregateInput
@@ -124027,7 +124685,7 @@ export namespace Prisma {
     maxScore?: FloatWithAggregatesFilter<"GradingScale"> | number
     grade?: StringWithAggregatesFilter<"GradingScale"> | string
     remark?: StringNullableWithAggregatesFilter<"GradingScale"> | string | null
-    branchId?: StringNullableWithAggregatesFilter<"GradingScale"> | string | null
+    branchId?: StringWithAggregatesFilter<"GradingScale"> | string
     createdAt?: DateTimeWithAggregatesFilter<"GradingScale"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"GradingScale"> | Date | string
   }
@@ -124042,6 +124700,7 @@ export namespace Prisma {
     branchId?: StringNullableFilter<"GlobalSetting"> | string | null
     createdAt?: DateTimeFilter<"GlobalSetting"> | Date | string
     updatedAt?: DateTimeFilter<"GlobalSetting"> | Date | string
+    branch?: XOR<BranchNullableScalarRelationFilter, BranchWhereInput> | null
   }
 
   export type GlobalSettingOrderByWithRelationInput = {
@@ -124051,19 +124710,22 @@ export namespace Prisma {
     branchId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    branch?: BranchOrderByWithRelationInput
   }
 
   export type GlobalSettingWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    key?: string
+    key_branchId?: GlobalSettingKeyBranchIdCompoundUniqueInput
     AND?: GlobalSettingWhereInput | GlobalSettingWhereInput[]
     OR?: GlobalSettingWhereInput[]
     NOT?: GlobalSettingWhereInput | GlobalSettingWhereInput[]
+    key?: StringFilter<"GlobalSetting"> | string
     value?: StringFilter<"GlobalSetting"> | string
     branchId?: StringNullableFilter<"GlobalSetting"> | string | null
     createdAt?: DateTimeFilter<"GlobalSetting"> | Date | string
     updatedAt?: DateTimeFilter<"GlobalSetting"> | Date | string
-  }, "id" | "key">
+    branch?: XOR<BranchNullableScalarRelationFilter, BranchWhereInput> | null
+  }, "id" | "key_branchId">
 
   export type GlobalSettingOrderByWithAggregationInput = {
     id?: SortOrder
@@ -128323,6 +128985,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateInput = {
@@ -128380,6 +129050,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUpdateInput = {
@@ -128437,6 +129115,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateInput = {
@@ -128494,6 +129180,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateManyInput = {
@@ -129912,6 +130606,7 @@ export namespace Prisma {
     remarks?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutAttendanceInput
     section?: SectionCreateNestedOneWithoutAttendanceInput
     student: StudentCreateNestedOneWithoutAttendanceInput
   }
@@ -129923,6 +130618,7 @@ export namespace Prisma {
     remarks?: string | null
     studentId: string
     sectionId?: string | null
+    branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -129934,6 +130630,7 @@ export namespace Prisma {
     remarks?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutAttendanceNestedInput
     section?: SectionUpdateOneWithoutAttendanceNestedInput
     student?: StudentUpdateOneRequiredWithoutAttendanceNestedInput
   }
@@ -129945,6 +130642,7 @@ export namespace Prisma {
     remarks?: NullableStringFieldUpdateOperationsInput | string | null
     studentId?: StringFieldUpdateOperationsInput | string
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -129956,6 +130654,7 @@ export namespace Prisma {
     remarks?: string | null
     studentId: string
     sectionId?: string | null
+    branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -129976,6 +130675,7 @@ export namespace Prisma {
     remarks?: NullableStringFieldUpdateOperationsInput | string | null
     studentId?: StringFieldUpdateOperationsInput | string
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -129987,6 +130687,7 @@ export namespace Prisma {
     remarks?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutStaffAttendanceInput
     staff: StaffCreateNestedOneWithoutAttendanceInput
   }
 
@@ -129996,6 +130697,7 @@ export namespace Prisma {
     status: $Enums.AttendanceStatus
     remarks?: string | null
     staffId: string
+    branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -130007,6 +130709,7 @@ export namespace Prisma {
     remarks?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutStaffAttendanceNestedInput
     staff?: StaffUpdateOneRequiredWithoutAttendanceNestedInput
   }
 
@@ -130016,6 +130719,7 @@ export namespace Prisma {
     status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
     remarks?: NullableStringFieldUpdateOperationsInput | string | null
     staffId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -130026,6 +130730,7 @@ export namespace Prisma {
     status: $Enums.AttendanceStatus
     remarks?: string | null
     staffId: string
+    branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -130045,6 +130750,7 @@ export namespace Prisma {
     status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
     remarks?: NullableStringFieldUpdateOperationsInput | string | null
     staffId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -131784,6 +132490,7 @@ export namespace Prisma {
     termEnds?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutAcademicSessionsInput
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutSessionInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutSessionInput
     digitalResources?: DigitalResourceCreateNestedManyWithoutSessionInput
@@ -131800,6 +132507,7 @@ export namespace Prisma {
     isActive?: boolean
     nextTermBegins?: Date | string | null
     termEnds?: Date | string | null
+    branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutSessionInput
@@ -131820,6 +132528,7 @@ export namespace Prisma {
     termEnds?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutAcademicSessionsNestedInput
     assessmentRecords?: AssessmentRecordUpdateManyWithoutSessionNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutSessionNestedInput
     digitalResources?: DigitalResourceUpdateManyWithoutSessionNestedInput
@@ -131836,6 +132545,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     nextTermBegins?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     termEnds?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutSessionNestedInput
@@ -131854,6 +132564,7 @@ export namespace Prisma {
     isActive?: boolean
     nextTermBegins?: Date | string | null
     termEnds?: Date | string | null
+    branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -131878,6 +132589,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     nextTermBegins?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     termEnds?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -131902,6 +132614,7 @@ export namespace Prisma {
     isEligible?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutAssessmentRecordsInput
     section: SectionCreateNestedOneWithoutAssessmentRecordsInput
     session: AcademicSessionCreateNestedOneWithoutAssessmentRecordsInput
     student: StudentCreateNestedOneWithoutAssessmentRecordsInput
@@ -131927,6 +132640,7 @@ export namespace Prisma {
     subjectId: string
     sectionId: string
     sessionId: string
+    branchId: string
     term: $Enums.Term
     examTerm: $Enums.ExamTerm
     isEligible?: boolean
@@ -131954,6 +132668,7 @@ export namespace Prisma {
     isEligible?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutAssessmentRecordsNestedInput
     section?: SectionUpdateOneRequiredWithoutAssessmentRecordsNestedInput
     session?: AcademicSessionUpdateOneRequiredWithoutAssessmentRecordsNestedInput
     student?: StudentUpdateOneRequiredWithoutAssessmentRecordsNestedInput
@@ -131979,6 +132694,7 @@ export namespace Prisma {
     subjectId?: StringFieldUpdateOperationsInput | string
     sectionId?: StringFieldUpdateOperationsInput | string
     sessionId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
     term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
     examTerm?: EnumExamTermFieldUpdateOperationsInput | $Enums.ExamTerm
     isEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -132005,6 +132721,7 @@ export namespace Prisma {
     subjectId: string
     sectionId: string
     sessionId: string
+    branchId: string
     term: $Enums.Term
     examTerm: $Enums.ExamTerm
     isEligible?: boolean
@@ -132053,6 +132770,7 @@ export namespace Prisma {
     subjectId?: StringFieldUpdateOperationsInput | string
     sectionId?: StringFieldUpdateOperationsInput | string
     sessionId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
     term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
     examTerm?: EnumExamTermFieldUpdateOperationsInput | $Enums.ExamTerm
     isEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -132076,6 +132794,7 @@ export namespace Prisma {
     term: $Enums.Term
     createdAt?: Date | string
     updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutBehaviouralRatingsInput
     session: AcademicSessionCreateNestedOneWithoutBehaviouralRatingsInput
     student: StudentCreateNestedOneWithoutBehaviouralRatingsInput
   }
@@ -132095,6 +132814,7 @@ export namespace Prisma {
     participation?: string | null
     studentId: string
     sessionId: string
+    branchId: string
     term: $Enums.Term
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -132116,6 +132836,7 @@ export namespace Prisma {
     term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutBehaviouralRatingsNestedInput
     session?: AcademicSessionUpdateOneRequiredWithoutBehaviouralRatingsNestedInput
     student?: StudentUpdateOneRequiredWithoutBehaviouralRatingsNestedInput
   }
@@ -132135,6 +132856,7 @@ export namespace Prisma {
     participation?: NullableStringFieldUpdateOperationsInput | string | null
     studentId?: StringFieldUpdateOperationsInput | string
     sessionId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
     term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -132155,6 +132877,7 @@ export namespace Prisma {
     participation?: string | null
     studentId: string
     sessionId: string
+    branchId: string
     term: $Enums.Term
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -132193,6 +132916,7 @@ export namespace Prisma {
     participation?: NullableStringFieldUpdateOperationsInput | string | null
     studentId?: StringFieldUpdateOperationsInput | string
     sessionId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
     term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -132220,6 +132944,7 @@ export namespace Prisma {
     isLocked?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutResultSummariesInput
     session: AcademicSessionCreateNestedOneWithoutResultSummariesInput
     student: StudentCreateNestedOneWithoutResultSummariesInput
   }
@@ -132242,6 +132967,7 @@ export namespace Prisma {
     attendanceAbsent?: number | null
     studentId: string
     sessionId: string
+    branchId: string
     term: $Enums.Term
     examTerm: $Enums.ExamTerm
     isActive?: boolean
@@ -132272,6 +132998,7 @@ export namespace Prisma {
     isLocked?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutResultSummariesNestedInput
     session?: AcademicSessionUpdateOneRequiredWithoutResultSummariesNestedInput
     student?: StudentUpdateOneRequiredWithoutResultSummariesNestedInput
   }
@@ -132294,6 +133021,7 @@ export namespace Prisma {
     attendanceAbsent?: NullableIntFieldUpdateOperationsInput | number | null
     studentId?: StringFieldUpdateOperationsInput | string
     sessionId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
     term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
     examTerm?: EnumExamTermFieldUpdateOperationsInput | $Enums.ExamTerm
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -132320,6 +133048,7 @@ export namespace Prisma {
     attendanceAbsent?: number | null
     studentId: string
     sessionId: string
+    branchId: string
     term: $Enums.Term
     examTerm: $Enums.ExamTerm
     isActive?: boolean
@@ -132370,6 +133099,7 @@ export namespace Prisma {
     attendanceAbsent?: NullableIntFieldUpdateOperationsInput | number | null
     studentId?: StringFieldUpdateOperationsInput | string
     sessionId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
     term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
     examTerm?: EnumExamTermFieldUpdateOperationsInput | $Enums.ExamTerm
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -132385,9 +133115,9 @@ export namespace Prisma {
     maxScore: number
     grade: string
     remark?: string | null
-    branchId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutGradingScalesInput
   }
 
   export type GradingScaleUncheckedCreateInput = {
@@ -132397,7 +133127,7 @@ export namespace Prisma {
     maxScore: number
     grade: string
     remark?: string | null
-    branchId?: string | null
+    branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -132409,9 +133139,9 @@ export namespace Prisma {
     maxScore?: FloatFieldUpdateOperationsInput | number
     grade?: StringFieldUpdateOperationsInput | string
     remark?: NullableStringFieldUpdateOperationsInput | string | null
-    branchId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutGradingScalesNestedInput
   }
 
   export type GradingScaleUncheckedUpdateInput = {
@@ -132421,7 +133151,7 @@ export namespace Prisma {
     maxScore?: FloatFieldUpdateOperationsInput | number
     grade?: StringFieldUpdateOperationsInput | string
     remark?: NullableStringFieldUpdateOperationsInput | string | null
-    branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -132433,7 +133163,7 @@ export namespace Prisma {
     maxScore: number
     grade: string
     remark?: string | null
-    branchId?: string | null
+    branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -132445,7 +133175,6 @@ export namespace Prisma {
     maxScore?: FloatFieldUpdateOperationsInput | number
     grade?: StringFieldUpdateOperationsInput | string
     remark?: NullableStringFieldUpdateOperationsInput | string | null
-    branchId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -132457,7 +133186,7 @@ export namespace Prisma {
     maxScore?: FloatFieldUpdateOperationsInput | number
     grade?: StringFieldUpdateOperationsInput | string
     remark?: NullableStringFieldUpdateOperationsInput | string | null
-    branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -132466,9 +133195,9 @@ export namespace Prisma {
     id?: string
     key: string
     value: string
-    branchId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    branch?: BranchCreateNestedOneWithoutGlobalSettingsInput
   }
 
   export type GlobalSettingUncheckedCreateInput = {
@@ -132484,9 +133213,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     key?: StringFieldUpdateOperationsInput | string
     value?: StringFieldUpdateOperationsInput | string
-    branchId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneWithoutGlobalSettingsNestedInput
   }
 
   export type GlobalSettingUncheckedUpdateInput = {
@@ -132511,7 +133240,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     key?: StringFieldUpdateOperationsInput | string
     value?: StringFieldUpdateOperationsInput | string
-    branchId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -137406,6 +138134,54 @@ export namespace Prisma {
     none?: VoucherWhereInput
   }
 
+  export type AcademicSessionListRelationFilter = {
+    every?: AcademicSessionWhereInput
+    some?: AcademicSessionWhereInput
+    none?: AcademicSessionWhereInput
+  }
+
+  export type AttendanceListRelationFilter = {
+    every?: AttendanceWhereInput
+    some?: AttendanceWhereInput
+    none?: AttendanceWhereInput
+  }
+
+  export type StaffAttendanceListRelationFilter = {
+    every?: StaffAttendanceWhereInput
+    some?: StaffAttendanceWhereInput
+    none?: StaffAttendanceWhereInput
+  }
+
+  export type AssessmentRecordListRelationFilter = {
+    every?: AssessmentRecordWhereInput
+    some?: AssessmentRecordWhereInput
+    none?: AssessmentRecordWhereInput
+  }
+
+  export type BehaviouralRatingListRelationFilter = {
+    every?: BehaviouralRatingWhereInput
+    some?: BehaviouralRatingWhereInput
+    none?: BehaviouralRatingWhereInput
+  }
+
+  export type ResultSummaryListRelationFilter = {
+    every?: ResultSummaryWhereInput
+    some?: ResultSummaryWhereInput
+    none?: ResultSummaryWhereInput
+  }
+
+  export type GradingScaleListRelationFilter = {
+    every?: GradingScaleWhereInput
+    some?: GradingScaleWhereInput
+    none?: GradingScaleWhereInput
+  }
+
+  export type GlobalSettingListRelationFilter = {
+    every?: GlobalSettingWhereInput
+    some?: GlobalSettingWhereInput
+    none?: GlobalSettingWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -137584,6 +138360,38 @@ export namespace Prisma {
   }
 
   export type VoucherOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AcademicSessionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AttendanceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type StaffAttendanceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AssessmentRecordOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type BehaviouralRatingOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ResultSummaryOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type GradingScaleOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type GlobalSettingOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -137935,12 +138743,6 @@ export namespace Prisma {
     isNot?: UserWhereInput
   }
 
-  export type StaffAttendanceListRelationFilter = {
-    every?: StaffAttendanceWhereInput
-    some?: StaffAttendanceWhereInput
-    none?: StaffAttendanceWhereInput
-  }
-
   export type StaffAwardListRelationFilter = {
     every?: StaffAwardWhereInput
     some?: StaffAwardWhereInput
@@ -137964,10 +138766,6 @@ export namespace Prisma {
   }
 
   export type PayrollOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type StaffAttendanceOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -138024,24 +138822,6 @@ export namespace Prisma {
     isNot?: AlumniWhereInput | null
   }
 
-  export type AssessmentRecordListRelationFilter = {
-    every?: AssessmentRecordWhereInput
-    some?: AssessmentRecordWhereInput
-    none?: AssessmentRecordWhereInput
-  }
-
-  export type AttendanceListRelationFilter = {
-    every?: AttendanceWhereInput
-    some?: AttendanceWhereInput
-    none?: AttendanceWhereInput
-  }
-
-  export type BehaviouralRatingListRelationFilter = {
-    every?: BehaviouralRatingWhereInput
-    some?: BehaviouralRatingWhereInput
-    none?: BehaviouralRatingWhereInput
-  }
-
   export type BorrowRecordListRelationFilter = {
     every?: BorrowRecordWhereInput
     some?: BorrowRecordWhereInput
@@ -138070,12 +138850,6 @@ export namespace Prisma {
     every?: OnlineExamAttemptWhereInput
     some?: OnlineExamAttemptWhereInput
     none?: OnlineExamAttemptWhereInput
-  }
-
-  export type ResultSummaryListRelationFilter = {
-    every?: ResultSummaryWhereInput
-    some?: ResultSummaryWhereInput
-    none?: ResultSummaryWhereInput
   }
 
   export type StudentCategoryNullableScalarRelationFilter = {
@@ -138109,18 +138883,6 @@ export namespace Prisma {
     isNot?: TransportAssignmentWhereInput | null
   }
 
-  export type AssessmentRecordOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type AttendanceOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type BehaviouralRatingOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type BorrowRecordOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -138138,10 +138900,6 @@ export namespace Prisma {
   }
 
   export type OnlineExamAttemptOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type ResultSummaryOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -138777,6 +139535,7 @@ export namespace Prisma {
     remarks?: SortOrder
     studentId?: SortOrder
     sectionId?: SortOrder
+    branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -138788,6 +139547,7 @@ export namespace Prisma {
     remarks?: SortOrder
     studentId?: SortOrder
     sectionId?: SortOrder
+    branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -138799,6 +139559,7 @@ export namespace Prisma {
     remarks?: SortOrder
     studentId?: SortOrder
     sectionId?: SortOrder
+    branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -138824,6 +139585,7 @@ export namespace Prisma {
     status?: SortOrder
     remarks?: SortOrder
     staffId?: SortOrder
+    branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -138834,6 +139596,7 @@ export namespace Prisma {
     status?: SortOrder
     remarks?: SortOrder
     staffId?: SortOrder
+    branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -138844,6 +139607,7 @@ export namespace Prisma {
     status?: SortOrder
     remarks?: SortOrder
     staffId?: SortOrder
+    branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -140059,6 +140823,7 @@ export namespace Prisma {
     isActive?: SortOrder
     nextTermBegins?: SortOrder
     termEnds?: SortOrder
+    branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -140071,6 +140836,7 @@ export namespace Prisma {
     isActive?: SortOrder
     nextTermBegins?: SortOrder
     termEnds?: SortOrder
+    branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -140083,6 +140849,7 @@ export namespace Prisma {
     isActive?: SortOrder
     nextTermBegins?: SortOrder
     termEnds?: SortOrder
+    branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -140132,6 +140899,7 @@ export namespace Prisma {
     subjectId?: SortOrder
     sectionId?: SortOrder
     sessionId?: SortOrder
+    branchId?: SortOrder
     term?: SortOrder
     examTerm?: SortOrder
     isEligible?: SortOrder
@@ -140172,6 +140940,7 @@ export namespace Prisma {
     subjectId?: SortOrder
     sectionId?: SortOrder
     sessionId?: SortOrder
+    branchId?: SortOrder
     term?: SortOrder
     examTerm?: SortOrder
     isEligible?: SortOrder
@@ -140198,6 +140967,7 @@ export namespace Prisma {
     subjectId?: SortOrder
     sectionId?: SortOrder
     sessionId?: SortOrder
+    branchId?: SortOrder
     term?: SortOrder
     examTerm?: SortOrder
     isEligible?: SortOrder
@@ -140260,6 +141030,7 @@ export namespace Prisma {
     participation?: SortOrder
     studentId?: SortOrder
     sessionId?: SortOrder
+    branchId?: SortOrder
     term?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -140280,6 +141051,7 @@ export namespace Prisma {
     participation?: SortOrder
     studentId?: SortOrder
     sessionId?: SortOrder
+    branchId?: SortOrder
     term?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -140300,6 +141072,7 @@ export namespace Prisma {
     participation?: SortOrder
     studentId?: SortOrder
     sessionId?: SortOrder
+    branchId?: SortOrder
     term?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -140329,6 +141102,7 @@ export namespace Prisma {
     attendanceAbsent?: SortOrder
     studentId?: SortOrder
     sessionId?: SortOrder
+    branchId?: SortOrder
     term?: SortOrder
     examTerm?: SortOrder
     isActive?: SortOrder
@@ -140368,6 +141142,7 @@ export namespace Prisma {
     attendanceAbsent?: SortOrder
     studentId?: SortOrder
     sessionId?: SortOrder
+    branchId?: SortOrder
     term?: SortOrder
     examTerm?: SortOrder
     isActive?: SortOrder
@@ -140394,6 +141169,7 @@ export namespace Prisma {
     attendanceAbsent?: SortOrder
     studentId?: SortOrder
     sessionId?: SortOrder
+    branchId?: SortOrder
     term?: SortOrder
     examTerm?: SortOrder
     isActive?: SortOrder
@@ -140459,6 +141235,11 @@ export namespace Prisma {
   export type GradingScaleSumOrderByAggregateInput = {
     minScore?: SortOrder
     maxScore?: SortOrder
+  }
+
+  export type GlobalSettingKeyBranchIdCompoundUniqueInput = {
+    key: string
+    branchId: string
   }
 
   export type GlobalSettingCountOrderByAggregateInput = {
@@ -143083,6 +143864,62 @@ export namespace Prisma {
     connect?: VoucherWhereUniqueInput | VoucherWhereUniqueInput[]
   }
 
+  export type AcademicSessionCreateNestedManyWithoutBranchInput = {
+    create?: XOR<AcademicSessionCreateWithoutBranchInput, AcademicSessionUncheckedCreateWithoutBranchInput> | AcademicSessionCreateWithoutBranchInput[] | AcademicSessionUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: AcademicSessionCreateOrConnectWithoutBranchInput | AcademicSessionCreateOrConnectWithoutBranchInput[]
+    createMany?: AcademicSessionCreateManyBranchInputEnvelope
+    connect?: AcademicSessionWhereUniqueInput | AcademicSessionWhereUniqueInput[]
+  }
+
+  export type AttendanceCreateNestedManyWithoutBranchInput = {
+    create?: XOR<AttendanceCreateWithoutBranchInput, AttendanceUncheckedCreateWithoutBranchInput> | AttendanceCreateWithoutBranchInput[] | AttendanceUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: AttendanceCreateOrConnectWithoutBranchInput | AttendanceCreateOrConnectWithoutBranchInput[]
+    createMany?: AttendanceCreateManyBranchInputEnvelope
+    connect?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+  }
+
+  export type StaffAttendanceCreateNestedManyWithoutBranchInput = {
+    create?: XOR<StaffAttendanceCreateWithoutBranchInput, StaffAttendanceUncheckedCreateWithoutBranchInput> | StaffAttendanceCreateWithoutBranchInput[] | StaffAttendanceUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: StaffAttendanceCreateOrConnectWithoutBranchInput | StaffAttendanceCreateOrConnectWithoutBranchInput[]
+    createMany?: StaffAttendanceCreateManyBranchInputEnvelope
+    connect?: StaffAttendanceWhereUniqueInput | StaffAttendanceWhereUniqueInput[]
+  }
+
+  export type AssessmentRecordCreateNestedManyWithoutBranchInput = {
+    create?: XOR<AssessmentRecordCreateWithoutBranchInput, AssessmentRecordUncheckedCreateWithoutBranchInput> | AssessmentRecordCreateWithoutBranchInput[] | AssessmentRecordUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: AssessmentRecordCreateOrConnectWithoutBranchInput | AssessmentRecordCreateOrConnectWithoutBranchInput[]
+    createMany?: AssessmentRecordCreateManyBranchInputEnvelope
+    connect?: AssessmentRecordWhereUniqueInput | AssessmentRecordWhereUniqueInput[]
+  }
+
+  export type BehaviouralRatingCreateNestedManyWithoutBranchInput = {
+    create?: XOR<BehaviouralRatingCreateWithoutBranchInput, BehaviouralRatingUncheckedCreateWithoutBranchInput> | BehaviouralRatingCreateWithoutBranchInput[] | BehaviouralRatingUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: BehaviouralRatingCreateOrConnectWithoutBranchInput | BehaviouralRatingCreateOrConnectWithoutBranchInput[]
+    createMany?: BehaviouralRatingCreateManyBranchInputEnvelope
+    connect?: BehaviouralRatingWhereUniqueInput | BehaviouralRatingWhereUniqueInput[]
+  }
+
+  export type ResultSummaryCreateNestedManyWithoutBranchInput = {
+    create?: XOR<ResultSummaryCreateWithoutBranchInput, ResultSummaryUncheckedCreateWithoutBranchInput> | ResultSummaryCreateWithoutBranchInput[] | ResultSummaryUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: ResultSummaryCreateOrConnectWithoutBranchInput | ResultSummaryCreateOrConnectWithoutBranchInput[]
+    createMany?: ResultSummaryCreateManyBranchInputEnvelope
+    connect?: ResultSummaryWhereUniqueInput | ResultSummaryWhereUniqueInput[]
+  }
+
+  export type GradingScaleCreateNestedManyWithoutBranchInput = {
+    create?: XOR<GradingScaleCreateWithoutBranchInput, GradingScaleUncheckedCreateWithoutBranchInput> | GradingScaleCreateWithoutBranchInput[] | GradingScaleUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: GradingScaleCreateOrConnectWithoutBranchInput | GradingScaleCreateOrConnectWithoutBranchInput[]
+    createMany?: GradingScaleCreateManyBranchInputEnvelope
+    connect?: GradingScaleWhereUniqueInput | GradingScaleWhereUniqueInput[]
+  }
+
+  export type GlobalSettingCreateNestedManyWithoutBranchInput = {
+    create?: XOR<GlobalSettingCreateWithoutBranchInput, GlobalSettingUncheckedCreateWithoutBranchInput> | GlobalSettingCreateWithoutBranchInput[] | GlobalSettingUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: GlobalSettingCreateOrConnectWithoutBranchInput | GlobalSettingCreateOrConnectWithoutBranchInput[]
+    createMany?: GlobalSettingCreateManyBranchInputEnvelope
+    connect?: GlobalSettingWhereUniqueInput | GlobalSettingWhereUniqueInput[]
+  }
+
   export type AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput = {
     create?: XOR<AdmissionEnquiryCreateWithoutBranchInput, AdmissionEnquiryUncheckedCreateWithoutBranchInput> | AdmissionEnquiryCreateWithoutBranchInput[] | AdmissionEnquiryUncheckedCreateWithoutBranchInput[]
     connectOrCreate?: AdmissionEnquiryCreateOrConnectWithoutBranchInput | AdmissionEnquiryCreateOrConnectWithoutBranchInput[]
@@ -143395,6 +144232,62 @@ export namespace Prisma {
     connectOrCreate?: VoucherCreateOrConnectWithoutBranchInput | VoucherCreateOrConnectWithoutBranchInput[]
     createMany?: VoucherCreateManyBranchInputEnvelope
     connect?: VoucherWhereUniqueInput | VoucherWhereUniqueInput[]
+  }
+
+  export type AcademicSessionUncheckedCreateNestedManyWithoutBranchInput = {
+    create?: XOR<AcademicSessionCreateWithoutBranchInput, AcademicSessionUncheckedCreateWithoutBranchInput> | AcademicSessionCreateWithoutBranchInput[] | AcademicSessionUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: AcademicSessionCreateOrConnectWithoutBranchInput | AcademicSessionCreateOrConnectWithoutBranchInput[]
+    createMany?: AcademicSessionCreateManyBranchInputEnvelope
+    connect?: AcademicSessionWhereUniqueInput | AcademicSessionWhereUniqueInput[]
+  }
+
+  export type AttendanceUncheckedCreateNestedManyWithoutBranchInput = {
+    create?: XOR<AttendanceCreateWithoutBranchInput, AttendanceUncheckedCreateWithoutBranchInput> | AttendanceCreateWithoutBranchInput[] | AttendanceUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: AttendanceCreateOrConnectWithoutBranchInput | AttendanceCreateOrConnectWithoutBranchInput[]
+    createMany?: AttendanceCreateManyBranchInputEnvelope
+    connect?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+  }
+
+  export type StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput = {
+    create?: XOR<StaffAttendanceCreateWithoutBranchInput, StaffAttendanceUncheckedCreateWithoutBranchInput> | StaffAttendanceCreateWithoutBranchInput[] | StaffAttendanceUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: StaffAttendanceCreateOrConnectWithoutBranchInput | StaffAttendanceCreateOrConnectWithoutBranchInput[]
+    createMany?: StaffAttendanceCreateManyBranchInputEnvelope
+    connect?: StaffAttendanceWhereUniqueInput | StaffAttendanceWhereUniqueInput[]
+  }
+
+  export type AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput = {
+    create?: XOR<AssessmentRecordCreateWithoutBranchInput, AssessmentRecordUncheckedCreateWithoutBranchInput> | AssessmentRecordCreateWithoutBranchInput[] | AssessmentRecordUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: AssessmentRecordCreateOrConnectWithoutBranchInput | AssessmentRecordCreateOrConnectWithoutBranchInput[]
+    createMany?: AssessmentRecordCreateManyBranchInputEnvelope
+    connect?: AssessmentRecordWhereUniqueInput | AssessmentRecordWhereUniqueInput[]
+  }
+
+  export type BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput = {
+    create?: XOR<BehaviouralRatingCreateWithoutBranchInput, BehaviouralRatingUncheckedCreateWithoutBranchInput> | BehaviouralRatingCreateWithoutBranchInput[] | BehaviouralRatingUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: BehaviouralRatingCreateOrConnectWithoutBranchInput | BehaviouralRatingCreateOrConnectWithoutBranchInput[]
+    createMany?: BehaviouralRatingCreateManyBranchInputEnvelope
+    connect?: BehaviouralRatingWhereUniqueInput | BehaviouralRatingWhereUniqueInput[]
+  }
+
+  export type ResultSummaryUncheckedCreateNestedManyWithoutBranchInput = {
+    create?: XOR<ResultSummaryCreateWithoutBranchInput, ResultSummaryUncheckedCreateWithoutBranchInput> | ResultSummaryCreateWithoutBranchInput[] | ResultSummaryUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: ResultSummaryCreateOrConnectWithoutBranchInput | ResultSummaryCreateOrConnectWithoutBranchInput[]
+    createMany?: ResultSummaryCreateManyBranchInputEnvelope
+    connect?: ResultSummaryWhereUniqueInput | ResultSummaryWhereUniqueInput[]
+  }
+
+  export type GradingScaleUncheckedCreateNestedManyWithoutBranchInput = {
+    create?: XOR<GradingScaleCreateWithoutBranchInput, GradingScaleUncheckedCreateWithoutBranchInput> | GradingScaleCreateWithoutBranchInput[] | GradingScaleUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: GradingScaleCreateOrConnectWithoutBranchInput | GradingScaleCreateOrConnectWithoutBranchInput[]
+    createMany?: GradingScaleCreateManyBranchInputEnvelope
+    connect?: GradingScaleWhereUniqueInput | GradingScaleWhereUniqueInput[]
+  }
+
+  export type GlobalSettingUncheckedCreateNestedManyWithoutBranchInput = {
+    create?: XOR<GlobalSettingCreateWithoutBranchInput, GlobalSettingUncheckedCreateWithoutBranchInput> | GlobalSettingCreateWithoutBranchInput[] | GlobalSettingUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: GlobalSettingCreateOrConnectWithoutBranchInput | GlobalSettingCreateOrConnectWithoutBranchInput[]
+    createMany?: GlobalSettingCreateManyBranchInputEnvelope
+    connect?: GlobalSettingWhereUniqueInput | GlobalSettingWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -144039,6 +144932,118 @@ export namespace Prisma {
     deleteMany?: VoucherScalarWhereInput | VoucherScalarWhereInput[]
   }
 
+  export type AcademicSessionUpdateManyWithoutBranchNestedInput = {
+    create?: XOR<AcademicSessionCreateWithoutBranchInput, AcademicSessionUncheckedCreateWithoutBranchInput> | AcademicSessionCreateWithoutBranchInput[] | AcademicSessionUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: AcademicSessionCreateOrConnectWithoutBranchInput | AcademicSessionCreateOrConnectWithoutBranchInput[]
+    upsert?: AcademicSessionUpsertWithWhereUniqueWithoutBranchInput | AcademicSessionUpsertWithWhereUniqueWithoutBranchInput[]
+    createMany?: AcademicSessionCreateManyBranchInputEnvelope
+    set?: AcademicSessionWhereUniqueInput | AcademicSessionWhereUniqueInput[]
+    disconnect?: AcademicSessionWhereUniqueInput | AcademicSessionWhereUniqueInput[]
+    delete?: AcademicSessionWhereUniqueInput | AcademicSessionWhereUniqueInput[]
+    connect?: AcademicSessionWhereUniqueInput | AcademicSessionWhereUniqueInput[]
+    update?: AcademicSessionUpdateWithWhereUniqueWithoutBranchInput | AcademicSessionUpdateWithWhereUniqueWithoutBranchInput[]
+    updateMany?: AcademicSessionUpdateManyWithWhereWithoutBranchInput | AcademicSessionUpdateManyWithWhereWithoutBranchInput[]
+    deleteMany?: AcademicSessionScalarWhereInput | AcademicSessionScalarWhereInput[]
+  }
+
+  export type AttendanceUpdateManyWithoutBranchNestedInput = {
+    create?: XOR<AttendanceCreateWithoutBranchInput, AttendanceUncheckedCreateWithoutBranchInput> | AttendanceCreateWithoutBranchInput[] | AttendanceUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: AttendanceCreateOrConnectWithoutBranchInput | AttendanceCreateOrConnectWithoutBranchInput[]
+    upsert?: AttendanceUpsertWithWhereUniqueWithoutBranchInput | AttendanceUpsertWithWhereUniqueWithoutBranchInput[]
+    createMany?: AttendanceCreateManyBranchInputEnvelope
+    set?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    disconnect?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    delete?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    connect?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    update?: AttendanceUpdateWithWhereUniqueWithoutBranchInput | AttendanceUpdateWithWhereUniqueWithoutBranchInput[]
+    updateMany?: AttendanceUpdateManyWithWhereWithoutBranchInput | AttendanceUpdateManyWithWhereWithoutBranchInput[]
+    deleteMany?: AttendanceScalarWhereInput | AttendanceScalarWhereInput[]
+  }
+
+  export type StaffAttendanceUpdateManyWithoutBranchNestedInput = {
+    create?: XOR<StaffAttendanceCreateWithoutBranchInput, StaffAttendanceUncheckedCreateWithoutBranchInput> | StaffAttendanceCreateWithoutBranchInput[] | StaffAttendanceUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: StaffAttendanceCreateOrConnectWithoutBranchInput | StaffAttendanceCreateOrConnectWithoutBranchInput[]
+    upsert?: StaffAttendanceUpsertWithWhereUniqueWithoutBranchInput | StaffAttendanceUpsertWithWhereUniqueWithoutBranchInput[]
+    createMany?: StaffAttendanceCreateManyBranchInputEnvelope
+    set?: StaffAttendanceWhereUniqueInput | StaffAttendanceWhereUniqueInput[]
+    disconnect?: StaffAttendanceWhereUniqueInput | StaffAttendanceWhereUniqueInput[]
+    delete?: StaffAttendanceWhereUniqueInput | StaffAttendanceWhereUniqueInput[]
+    connect?: StaffAttendanceWhereUniqueInput | StaffAttendanceWhereUniqueInput[]
+    update?: StaffAttendanceUpdateWithWhereUniqueWithoutBranchInput | StaffAttendanceUpdateWithWhereUniqueWithoutBranchInput[]
+    updateMany?: StaffAttendanceUpdateManyWithWhereWithoutBranchInput | StaffAttendanceUpdateManyWithWhereWithoutBranchInput[]
+    deleteMany?: StaffAttendanceScalarWhereInput | StaffAttendanceScalarWhereInput[]
+  }
+
+  export type AssessmentRecordUpdateManyWithoutBranchNestedInput = {
+    create?: XOR<AssessmentRecordCreateWithoutBranchInput, AssessmentRecordUncheckedCreateWithoutBranchInput> | AssessmentRecordCreateWithoutBranchInput[] | AssessmentRecordUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: AssessmentRecordCreateOrConnectWithoutBranchInput | AssessmentRecordCreateOrConnectWithoutBranchInput[]
+    upsert?: AssessmentRecordUpsertWithWhereUniqueWithoutBranchInput | AssessmentRecordUpsertWithWhereUniqueWithoutBranchInput[]
+    createMany?: AssessmentRecordCreateManyBranchInputEnvelope
+    set?: AssessmentRecordWhereUniqueInput | AssessmentRecordWhereUniqueInput[]
+    disconnect?: AssessmentRecordWhereUniqueInput | AssessmentRecordWhereUniqueInput[]
+    delete?: AssessmentRecordWhereUniqueInput | AssessmentRecordWhereUniqueInput[]
+    connect?: AssessmentRecordWhereUniqueInput | AssessmentRecordWhereUniqueInput[]
+    update?: AssessmentRecordUpdateWithWhereUniqueWithoutBranchInput | AssessmentRecordUpdateWithWhereUniqueWithoutBranchInput[]
+    updateMany?: AssessmentRecordUpdateManyWithWhereWithoutBranchInput | AssessmentRecordUpdateManyWithWhereWithoutBranchInput[]
+    deleteMany?: AssessmentRecordScalarWhereInput | AssessmentRecordScalarWhereInput[]
+  }
+
+  export type BehaviouralRatingUpdateManyWithoutBranchNestedInput = {
+    create?: XOR<BehaviouralRatingCreateWithoutBranchInput, BehaviouralRatingUncheckedCreateWithoutBranchInput> | BehaviouralRatingCreateWithoutBranchInput[] | BehaviouralRatingUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: BehaviouralRatingCreateOrConnectWithoutBranchInput | BehaviouralRatingCreateOrConnectWithoutBranchInput[]
+    upsert?: BehaviouralRatingUpsertWithWhereUniqueWithoutBranchInput | BehaviouralRatingUpsertWithWhereUniqueWithoutBranchInput[]
+    createMany?: BehaviouralRatingCreateManyBranchInputEnvelope
+    set?: BehaviouralRatingWhereUniqueInput | BehaviouralRatingWhereUniqueInput[]
+    disconnect?: BehaviouralRatingWhereUniqueInput | BehaviouralRatingWhereUniqueInput[]
+    delete?: BehaviouralRatingWhereUniqueInput | BehaviouralRatingWhereUniqueInput[]
+    connect?: BehaviouralRatingWhereUniqueInput | BehaviouralRatingWhereUniqueInput[]
+    update?: BehaviouralRatingUpdateWithWhereUniqueWithoutBranchInput | BehaviouralRatingUpdateWithWhereUniqueWithoutBranchInput[]
+    updateMany?: BehaviouralRatingUpdateManyWithWhereWithoutBranchInput | BehaviouralRatingUpdateManyWithWhereWithoutBranchInput[]
+    deleteMany?: BehaviouralRatingScalarWhereInput | BehaviouralRatingScalarWhereInput[]
+  }
+
+  export type ResultSummaryUpdateManyWithoutBranchNestedInput = {
+    create?: XOR<ResultSummaryCreateWithoutBranchInput, ResultSummaryUncheckedCreateWithoutBranchInput> | ResultSummaryCreateWithoutBranchInput[] | ResultSummaryUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: ResultSummaryCreateOrConnectWithoutBranchInput | ResultSummaryCreateOrConnectWithoutBranchInput[]
+    upsert?: ResultSummaryUpsertWithWhereUniqueWithoutBranchInput | ResultSummaryUpsertWithWhereUniqueWithoutBranchInput[]
+    createMany?: ResultSummaryCreateManyBranchInputEnvelope
+    set?: ResultSummaryWhereUniqueInput | ResultSummaryWhereUniqueInput[]
+    disconnect?: ResultSummaryWhereUniqueInput | ResultSummaryWhereUniqueInput[]
+    delete?: ResultSummaryWhereUniqueInput | ResultSummaryWhereUniqueInput[]
+    connect?: ResultSummaryWhereUniqueInput | ResultSummaryWhereUniqueInput[]
+    update?: ResultSummaryUpdateWithWhereUniqueWithoutBranchInput | ResultSummaryUpdateWithWhereUniqueWithoutBranchInput[]
+    updateMany?: ResultSummaryUpdateManyWithWhereWithoutBranchInput | ResultSummaryUpdateManyWithWhereWithoutBranchInput[]
+    deleteMany?: ResultSummaryScalarWhereInput | ResultSummaryScalarWhereInput[]
+  }
+
+  export type GradingScaleUpdateManyWithoutBranchNestedInput = {
+    create?: XOR<GradingScaleCreateWithoutBranchInput, GradingScaleUncheckedCreateWithoutBranchInput> | GradingScaleCreateWithoutBranchInput[] | GradingScaleUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: GradingScaleCreateOrConnectWithoutBranchInput | GradingScaleCreateOrConnectWithoutBranchInput[]
+    upsert?: GradingScaleUpsertWithWhereUniqueWithoutBranchInput | GradingScaleUpsertWithWhereUniqueWithoutBranchInput[]
+    createMany?: GradingScaleCreateManyBranchInputEnvelope
+    set?: GradingScaleWhereUniqueInput | GradingScaleWhereUniqueInput[]
+    disconnect?: GradingScaleWhereUniqueInput | GradingScaleWhereUniqueInput[]
+    delete?: GradingScaleWhereUniqueInput | GradingScaleWhereUniqueInput[]
+    connect?: GradingScaleWhereUniqueInput | GradingScaleWhereUniqueInput[]
+    update?: GradingScaleUpdateWithWhereUniqueWithoutBranchInput | GradingScaleUpdateWithWhereUniqueWithoutBranchInput[]
+    updateMany?: GradingScaleUpdateManyWithWhereWithoutBranchInput | GradingScaleUpdateManyWithWhereWithoutBranchInput[]
+    deleteMany?: GradingScaleScalarWhereInput | GradingScaleScalarWhereInput[]
+  }
+
+  export type GlobalSettingUpdateManyWithoutBranchNestedInput = {
+    create?: XOR<GlobalSettingCreateWithoutBranchInput, GlobalSettingUncheckedCreateWithoutBranchInput> | GlobalSettingCreateWithoutBranchInput[] | GlobalSettingUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: GlobalSettingCreateOrConnectWithoutBranchInput | GlobalSettingCreateOrConnectWithoutBranchInput[]
+    upsert?: GlobalSettingUpsertWithWhereUniqueWithoutBranchInput | GlobalSettingUpsertWithWhereUniqueWithoutBranchInput[]
+    createMany?: GlobalSettingCreateManyBranchInputEnvelope
+    set?: GlobalSettingWhereUniqueInput | GlobalSettingWhereUniqueInput[]
+    disconnect?: GlobalSettingWhereUniqueInput | GlobalSettingWhereUniqueInput[]
+    delete?: GlobalSettingWhereUniqueInput | GlobalSettingWhereUniqueInput[]
+    connect?: GlobalSettingWhereUniqueInput | GlobalSettingWhereUniqueInput[]
+    update?: GlobalSettingUpdateWithWhereUniqueWithoutBranchInput | GlobalSettingUpdateWithWhereUniqueWithoutBranchInput[]
+    updateMany?: GlobalSettingUpdateManyWithWhereWithoutBranchInput | GlobalSettingUpdateManyWithWhereWithoutBranchInput[]
+    deleteMany?: GlobalSettingScalarWhereInput | GlobalSettingScalarWhereInput[]
+  }
+
   export type AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput = {
     create?: XOR<AdmissionEnquiryCreateWithoutBranchInput, AdmissionEnquiryUncheckedCreateWithoutBranchInput> | AdmissionEnquiryCreateWithoutBranchInput[] | AdmissionEnquiryUncheckedCreateWithoutBranchInput[]
     connectOrCreate?: AdmissionEnquiryCreateOrConnectWithoutBranchInput | AdmissionEnquiryCreateOrConnectWithoutBranchInput[]
@@ -144663,6 +145668,118 @@ export namespace Prisma {
     update?: VoucherUpdateWithWhereUniqueWithoutBranchInput | VoucherUpdateWithWhereUniqueWithoutBranchInput[]
     updateMany?: VoucherUpdateManyWithWhereWithoutBranchInput | VoucherUpdateManyWithWhereWithoutBranchInput[]
     deleteMany?: VoucherScalarWhereInput | VoucherScalarWhereInput[]
+  }
+
+  export type AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput = {
+    create?: XOR<AcademicSessionCreateWithoutBranchInput, AcademicSessionUncheckedCreateWithoutBranchInput> | AcademicSessionCreateWithoutBranchInput[] | AcademicSessionUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: AcademicSessionCreateOrConnectWithoutBranchInput | AcademicSessionCreateOrConnectWithoutBranchInput[]
+    upsert?: AcademicSessionUpsertWithWhereUniqueWithoutBranchInput | AcademicSessionUpsertWithWhereUniqueWithoutBranchInput[]
+    createMany?: AcademicSessionCreateManyBranchInputEnvelope
+    set?: AcademicSessionWhereUniqueInput | AcademicSessionWhereUniqueInput[]
+    disconnect?: AcademicSessionWhereUniqueInput | AcademicSessionWhereUniqueInput[]
+    delete?: AcademicSessionWhereUniqueInput | AcademicSessionWhereUniqueInput[]
+    connect?: AcademicSessionWhereUniqueInput | AcademicSessionWhereUniqueInput[]
+    update?: AcademicSessionUpdateWithWhereUniqueWithoutBranchInput | AcademicSessionUpdateWithWhereUniqueWithoutBranchInput[]
+    updateMany?: AcademicSessionUpdateManyWithWhereWithoutBranchInput | AcademicSessionUpdateManyWithWhereWithoutBranchInput[]
+    deleteMany?: AcademicSessionScalarWhereInput | AcademicSessionScalarWhereInput[]
+  }
+
+  export type AttendanceUncheckedUpdateManyWithoutBranchNestedInput = {
+    create?: XOR<AttendanceCreateWithoutBranchInput, AttendanceUncheckedCreateWithoutBranchInput> | AttendanceCreateWithoutBranchInput[] | AttendanceUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: AttendanceCreateOrConnectWithoutBranchInput | AttendanceCreateOrConnectWithoutBranchInput[]
+    upsert?: AttendanceUpsertWithWhereUniqueWithoutBranchInput | AttendanceUpsertWithWhereUniqueWithoutBranchInput[]
+    createMany?: AttendanceCreateManyBranchInputEnvelope
+    set?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    disconnect?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    delete?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    connect?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    update?: AttendanceUpdateWithWhereUniqueWithoutBranchInput | AttendanceUpdateWithWhereUniqueWithoutBranchInput[]
+    updateMany?: AttendanceUpdateManyWithWhereWithoutBranchInput | AttendanceUpdateManyWithWhereWithoutBranchInput[]
+    deleteMany?: AttendanceScalarWhereInput | AttendanceScalarWhereInput[]
+  }
+
+  export type StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput = {
+    create?: XOR<StaffAttendanceCreateWithoutBranchInput, StaffAttendanceUncheckedCreateWithoutBranchInput> | StaffAttendanceCreateWithoutBranchInput[] | StaffAttendanceUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: StaffAttendanceCreateOrConnectWithoutBranchInput | StaffAttendanceCreateOrConnectWithoutBranchInput[]
+    upsert?: StaffAttendanceUpsertWithWhereUniqueWithoutBranchInput | StaffAttendanceUpsertWithWhereUniqueWithoutBranchInput[]
+    createMany?: StaffAttendanceCreateManyBranchInputEnvelope
+    set?: StaffAttendanceWhereUniqueInput | StaffAttendanceWhereUniqueInput[]
+    disconnect?: StaffAttendanceWhereUniqueInput | StaffAttendanceWhereUniqueInput[]
+    delete?: StaffAttendanceWhereUniqueInput | StaffAttendanceWhereUniqueInput[]
+    connect?: StaffAttendanceWhereUniqueInput | StaffAttendanceWhereUniqueInput[]
+    update?: StaffAttendanceUpdateWithWhereUniqueWithoutBranchInput | StaffAttendanceUpdateWithWhereUniqueWithoutBranchInput[]
+    updateMany?: StaffAttendanceUpdateManyWithWhereWithoutBranchInput | StaffAttendanceUpdateManyWithWhereWithoutBranchInput[]
+    deleteMany?: StaffAttendanceScalarWhereInput | StaffAttendanceScalarWhereInput[]
+  }
+
+  export type AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput = {
+    create?: XOR<AssessmentRecordCreateWithoutBranchInput, AssessmentRecordUncheckedCreateWithoutBranchInput> | AssessmentRecordCreateWithoutBranchInput[] | AssessmentRecordUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: AssessmentRecordCreateOrConnectWithoutBranchInput | AssessmentRecordCreateOrConnectWithoutBranchInput[]
+    upsert?: AssessmentRecordUpsertWithWhereUniqueWithoutBranchInput | AssessmentRecordUpsertWithWhereUniqueWithoutBranchInput[]
+    createMany?: AssessmentRecordCreateManyBranchInputEnvelope
+    set?: AssessmentRecordWhereUniqueInput | AssessmentRecordWhereUniqueInput[]
+    disconnect?: AssessmentRecordWhereUniqueInput | AssessmentRecordWhereUniqueInput[]
+    delete?: AssessmentRecordWhereUniqueInput | AssessmentRecordWhereUniqueInput[]
+    connect?: AssessmentRecordWhereUniqueInput | AssessmentRecordWhereUniqueInput[]
+    update?: AssessmentRecordUpdateWithWhereUniqueWithoutBranchInput | AssessmentRecordUpdateWithWhereUniqueWithoutBranchInput[]
+    updateMany?: AssessmentRecordUpdateManyWithWhereWithoutBranchInput | AssessmentRecordUpdateManyWithWhereWithoutBranchInput[]
+    deleteMany?: AssessmentRecordScalarWhereInput | AssessmentRecordScalarWhereInput[]
+  }
+
+  export type BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput = {
+    create?: XOR<BehaviouralRatingCreateWithoutBranchInput, BehaviouralRatingUncheckedCreateWithoutBranchInput> | BehaviouralRatingCreateWithoutBranchInput[] | BehaviouralRatingUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: BehaviouralRatingCreateOrConnectWithoutBranchInput | BehaviouralRatingCreateOrConnectWithoutBranchInput[]
+    upsert?: BehaviouralRatingUpsertWithWhereUniqueWithoutBranchInput | BehaviouralRatingUpsertWithWhereUniqueWithoutBranchInput[]
+    createMany?: BehaviouralRatingCreateManyBranchInputEnvelope
+    set?: BehaviouralRatingWhereUniqueInput | BehaviouralRatingWhereUniqueInput[]
+    disconnect?: BehaviouralRatingWhereUniqueInput | BehaviouralRatingWhereUniqueInput[]
+    delete?: BehaviouralRatingWhereUniqueInput | BehaviouralRatingWhereUniqueInput[]
+    connect?: BehaviouralRatingWhereUniqueInput | BehaviouralRatingWhereUniqueInput[]
+    update?: BehaviouralRatingUpdateWithWhereUniqueWithoutBranchInput | BehaviouralRatingUpdateWithWhereUniqueWithoutBranchInput[]
+    updateMany?: BehaviouralRatingUpdateManyWithWhereWithoutBranchInput | BehaviouralRatingUpdateManyWithWhereWithoutBranchInput[]
+    deleteMany?: BehaviouralRatingScalarWhereInput | BehaviouralRatingScalarWhereInput[]
+  }
+
+  export type ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput = {
+    create?: XOR<ResultSummaryCreateWithoutBranchInput, ResultSummaryUncheckedCreateWithoutBranchInput> | ResultSummaryCreateWithoutBranchInput[] | ResultSummaryUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: ResultSummaryCreateOrConnectWithoutBranchInput | ResultSummaryCreateOrConnectWithoutBranchInput[]
+    upsert?: ResultSummaryUpsertWithWhereUniqueWithoutBranchInput | ResultSummaryUpsertWithWhereUniqueWithoutBranchInput[]
+    createMany?: ResultSummaryCreateManyBranchInputEnvelope
+    set?: ResultSummaryWhereUniqueInput | ResultSummaryWhereUniqueInput[]
+    disconnect?: ResultSummaryWhereUniqueInput | ResultSummaryWhereUniqueInput[]
+    delete?: ResultSummaryWhereUniqueInput | ResultSummaryWhereUniqueInput[]
+    connect?: ResultSummaryWhereUniqueInput | ResultSummaryWhereUniqueInput[]
+    update?: ResultSummaryUpdateWithWhereUniqueWithoutBranchInput | ResultSummaryUpdateWithWhereUniqueWithoutBranchInput[]
+    updateMany?: ResultSummaryUpdateManyWithWhereWithoutBranchInput | ResultSummaryUpdateManyWithWhereWithoutBranchInput[]
+    deleteMany?: ResultSummaryScalarWhereInput | ResultSummaryScalarWhereInput[]
+  }
+
+  export type GradingScaleUncheckedUpdateManyWithoutBranchNestedInput = {
+    create?: XOR<GradingScaleCreateWithoutBranchInput, GradingScaleUncheckedCreateWithoutBranchInput> | GradingScaleCreateWithoutBranchInput[] | GradingScaleUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: GradingScaleCreateOrConnectWithoutBranchInput | GradingScaleCreateOrConnectWithoutBranchInput[]
+    upsert?: GradingScaleUpsertWithWhereUniqueWithoutBranchInput | GradingScaleUpsertWithWhereUniqueWithoutBranchInput[]
+    createMany?: GradingScaleCreateManyBranchInputEnvelope
+    set?: GradingScaleWhereUniqueInput | GradingScaleWhereUniqueInput[]
+    disconnect?: GradingScaleWhereUniqueInput | GradingScaleWhereUniqueInput[]
+    delete?: GradingScaleWhereUniqueInput | GradingScaleWhereUniqueInput[]
+    connect?: GradingScaleWhereUniqueInput | GradingScaleWhereUniqueInput[]
+    update?: GradingScaleUpdateWithWhereUniqueWithoutBranchInput | GradingScaleUpdateWithWhereUniqueWithoutBranchInput[]
+    updateMany?: GradingScaleUpdateManyWithWhereWithoutBranchInput | GradingScaleUpdateManyWithWhereWithoutBranchInput[]
+    deleteMany?: GradingScaleScalarWhereInput | GradingScaleScalarWhereInput[]
+  }
+
+  export type GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput = {
+    create?: XOR<GlobalSettingCreateWithoutBranchInput, GlobalSettingUncheckedCreateWithoutBranchInput> | GlobalSettingCreateWithoutBranchInput[] | GlobalSettingUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: GlobalSettingCreateOrConnectWithoutBranchInput | GlobalSettingCreateOrConnectWithoutBranchInput[]
+    upsert?: GlobalSettingUpsertWithWhereUniqueWithoutBranchInput | GlobalSettingUpsertWithWhereUniqueWithoutBranchInput[]
+    createMany?: GlobalSettingCreateManyBranchInputEnvelope
+    set?: GlobalSettingWhereUniqueInput | GlobalSettingWhereUniqueInput[]
+    disconnect?: GlobalSettingWhereUniqueInput | GlobalSettingWhereUniqueInput[]
+    delete?: GlobalSettingWhereUniqueInput | GlobalSettingWhereUniqueInput[]
+    connect?: GlobalSettingWhereUniqueInput | GlobalSettingWhereUniqueInput[]
+    update?: GlobalSettingUpdateWithWhereUniqueWithoutBranchInput | GlobalSettingUpdateWithWhereUniqueWithoutBranchInput[]
+    updateMany?: GlobalSettingUpdateManyWithWhereWithoutBranchInput | GlobalSettingUpdateManyWithWhereWithoutBranchInput[]
+    deleteMany?: GlobalSettingScalarWhereInput | GlobalSettingScalarWhereInput[]
   }
 
   export type BranchCreateNestedOneWithoutDeactivationReasonsInput = {
@@ -147873,6 +148990,12 @@ export namespace Prisma {
     update?: XOR<XOR<StaffUpdateToOneWithWhereWithoutClassSchedulesInput, StaffUpdateWithoutClassSchedulesInput>, StaffUncheckedUpdateWithoutClassSchedulesInput>
   }
 
+  export type BranchCreateNestedOneWithoutAttendanceInput = {
+    create?: XOR<BranchCreateWithoutAttendanceInput, BranchUncheckedCreateWithoutAttendanceInput>
+    connectOrCreate?: BranchCreateOrConnectWithoutAttendanceInput
+    connect?: BranchWhereUniqueInput
+  }
+
   export type SectionCreateNestedOneWithoutAttendanceInput = {
     create?: XOR<SectionCreateWithoutAttendanceInput, SectionUncheckedCreateWithoutAttendanceInput>
     connectOrCreate?: SectionCreateOrConnectWithoutAttendanceInput
@@ -147887,6 +149010,14 @@ export namespace Prisma {
 
   export type EnumAttendanceStatusFieldUpdateOperationsInput = {
     set?: $Enums.AttendanceStatus
+  }
+
+  export type BranchUpdateOneRequiredWithoutAttendanceNestedInput = {
+    create?: XOR<BranchCreateWithoutAttendanceInput, BranchUncheckedCreateWithoutAttendanceInput>
+    connectOrCreate?: BranchCreateOrConnectWithoutAttendanceInput
+    upsert?: BranchUpsertWithoutAttendanceInput
+    connect?: BranchWhereUniqueInput
+    update?: XOR<XOR<BranchUpdateToOneWithWhereWithoutAttendanceInput, BranchUpdateWithoutAttendanceInput>, BranchUncheckedUpdateWithoutAttendanceInput>
   }
 
   export type SectionUpdateOneWithoutAttendanceNestedInput = {
@@ -147907,10 +149038,24 @@ export namespace Prisma {
     update?: XOR<XOR<StudentUpdateToOneWithWhereWithoutAttendanceInput, StudentUpdateWithoutAttendanceInput>, StudentUncheckedUpdateWithoutAttendanceInput>
   }
 
+  export type BranchCreateNestedOneWithoutStaffAttendanceInput = {
+    create?: XOR<BranchCreateWithoutStaffAttendanceInput, BranchUncheckedCreateWithoutStaffAttendanceInput>
+    connectOrCreate?: BranchCreateOrConnectWithoutStaffAttendanceInput
+    connect?: BranchWhereUniqueInput
+  }
+
   export type StaffCreateNestedOneWithoutAttendanceInput = {
     create?: XOR<StaffCreateWithoutAttendanceInput, StaffUncheckedCreateWithoutAttendanceInput>
     connectOrCreate?: StaffCreateOrConnectWithoutAttendanceInput
     connect?: StaffWhereUniqueInput
+  }
+
+  export type BranchUpdateOneRequiredWithoutStaffAttendanceNestedInput = {
+    create?: XOR<BranchCreateWithoutStaffAttendanceInput, BranchUncheckedCreateWithoutStaffAttendanceInput>
+    connectOrCreate?: BranchCreateOrConnectWithoutStaffAttendanceInput
+    upsert?: BranchUpsertWithoutStaffAttendanceInput
+    connect?: BranchWhereUniqueInput
+    update?: XOR<XOR<BranchUpdateToOneWithWhereWithoutStaffAttendanceInput, BranchUpdateWithoutStaffAttendanceInput>, BranchUncheckedUpdateWithoutStaffAttendanceInput>
   }
 
   export type StaffUpdateOneRequiredWithoutAttendanceNestedInput = {
@@ -149213,6 +150358,12 @@ export namespace Prisma {
     update?: XOR<XOR<StudentUpdateToOneWithWhereWithoutSubmissionsInput, StudentUpdateWithoutSubmissionsInput>, StudentUncheckedUpdateWithoutSubmissionsInput>
   }
 
+  export type BranchCreateNestedOneWithoutAcademicSessionsInput = {
+    create?: XOR<BranchCreateWithoutAcademicSessionsInput, BranchUncheckedCreateWithoutAcademicSessionsInput>
+    connectOrCreate?: BranchCreateOrConnectWithoutAcademicSessionsInput
+    connect?: BranchWhereUniqueInput
+  }
+
   export type AssessmentRecordCreateNestedManyWithoutSessionInput = {
     create?: XOR<AssessmentRecordCreateWithoutSessionInput, AssessmentRecordUncheckedCreateWithoutSessionInput> | AssessmentRecordCreateWithoutSessionInput[] | AssessmentRecordUncheckedCreateWithoutSessionInput[]
     connectOrCreate?: AssessmentRecordCreateOrConnectWithoutSessionInput | AssessmentRecordCreateOrConnectWithoutSessionInput[]
@@ -149295,6 +150446,14 @@ export namespace Prisma {
     connectOrCreate?: ResultSummaryCreateOrConnectWithoutSessionInput | ResultSummaryCreateOrConnectWithoutSessionInput[]
     createMany?: ResultSummaryCreateManySessionInputEnvelope
     connect?: ResultSummaryWhereUniqueInput | ResultSummaryWhereUniqueInput[]
+  }
+
+  export type BranchUpdateOneRequiredWithoutAcademicSessionsNestedInput = {
+    create?: XOR<BranchCreateWithoutAcademicSessionsInput, BranchUncheckedCreateWithoutAcademicSessionsInput>
+    connectOrCreate?: BranchCreateOrConnectWithoutAcademicSessionsInput
+    upsert?: BranchUpsertWithoutAcademicSessionsInput
+    connect?: BranchWhereUniqueInput
+    update?: XOR<XOR<BranchUpdateToOneWithWhereWithoutAcademicSessionsInput, BranchUpdateWithoutAcademicSessionsInput>, BranchUncheckedUpdateWithoutAcademicSessionsInput>
   }
 
   export type AssessmentRecordUpdateManyWithoutSessionNestedInput = {
@@ -149465,6 +150624,12 @@ export namespace Prisma {
     deleteMany?: ResultSummaryScalarWhereInput | ResultSummaryScalarWhereInput[]
   }
 
+  export type BranchCreateNestedOneWithoutAssessmentRecordsInput = {
+    create?: XOR<BranchCreateWithoutAssessmentRecordsInput, BranchUncheckedCreateWithoutAssessmentRecordsInput>
+    connectOrCreate?: BranchCreateOrConnectWithoutAssessmentRecordsInput
+    connect?: BranchWhereUniqueInput
+  }
+
   export type SectionCreateNestedOneWithoutAssessmentRecordsInput = {
     create?: XOR<SectionCreateWithoutAssessmentRecordsInput, SectionUncheckedCreateWithoutAssessmentRecordsInput>
     connectOrCreate?: SectionCreateOrConnectWithoutAssessmentRecordsInput
@@ -149495,6 +150660,14 @@ export namespace Prisma {
 
   export type EnumExamTermFieldUpdateOperationsInput = {
     set?: $Enums.ExamTerm
+  }
+
+  export type BranchUpdateOneRequiredWithoutAssessmentRecordsNestedInput = {
+    create?: XOR<BranchCreateWithoutAssessmentRecordsInput, BranchUncheckedCreateWithoutAssessmentRecordsInput>
+    connectOrCreate?: BranchCreateOrConnectWithoutAssessmentRecordsInput
+    upsert?: BranchUpsertWithoutAssessmentRecordsInput
+    connect?: BranchWhereUniqueInput
+    update?: XOR<XOR<BranchUpdateToOneWithWhereWithoutAssessmentRecordsInput, BranchUpdateWithoutAssessmentRecordsInput>, BranchUncheckedUpdateWithoutAssessmentRecordsInput>
   }
 
   export type SectionUpdateOneRequiredWithoutAssessmentRecordsNestedInput = {
@@ -149529,6 +150702,12 @@ export namespace Prisma {
     update?: XOR<XOR<SubjectUpdateToOneWithWhereWithoutAssessmentRecordsInput, SubjectUpdateWithoutAssessmentRecordsInput>, SubjectUncheckedUpdateWithoutAssessmentRecordsInput>
   }
 
+  export type BranchCreateNestedOneWithoutBehaviouralRatingsInput = {
+    create?: XOR<BranchCreateWithoutBehaviouralRatingsInput, BranchUncheckedCreateWithoutBehaviouralRatingsInput>
+    connectOrCreate?: BranchCreateOrConnectWithoutBehaviouralRatingsInput
+    connect?: BranchWhereUniqueInput
+  }
+
   export type AcademicSessionCreateNestedOneWithoutBehaviouralRatingsInput = {
     create?: XOR<AcademicSessionCreateWithoutBehaviouralRatingsInput, AcademicSessionUncheckedCreateWithoutBehaviouralRatingsInput>
     connectOrCreate?: AcademicSessionCreateOrConnectWithoutBehaviouralRatingsInput
@@ -149539,6 +150718,14 @@ export namespace Prisma {
     create?: XOR<StudentCreateWithoutBehaviouralRatingsInput, StudentUncheckedCreateWithoutBehaviouralRatingsInput>
     connectOrCreate?: StudentCreateOrConnectWithoutBehaviouralRatingsInput
     connect?: StudentWhereUniqueInput
+  }
+
+  export type BranchUpdateOneRequiredWithoutBehaviouralRatingsNestedInput = {
+    create?: XOR<BranchCreateWithoutBehaviouralRatingsInput, BranchUncheckedCreateWithoutBehaviouralRatingsInput>
+    connectOrCreate?: BranchCreateOrConnectWithoutBehaviouralRatingsInput
+    upsert?: BranchUpsertWithoutBehaviouralRatingsInput
+    connect?: BranchWhereUniqueInput
+    update?: XOR<XOR<BranchUpdateToOneWithWhereWithoutBehaviouralRatingsInput, BranchUpdateWithoutBehaviouralRatingsInput>, BranchUncheckedUpdateWithoutBehaviouralRatingsInput>
   }
 
   export type AcademicSessionUpdateOneRequiredWithoutBehaviouralRatingsNestedInput = {
@@ -149557,6 +150744,12 @@ export namespace Prisma {
     update?: XOR<XOR<StudentUpdateToOneWithWhereWithoutBehaviouralRatingsInput, StudentUpdateWithoutBehaviouralRatingsInput>, StudentUncheckedUpdateWithoutBehaviouralRatingsInput>
   }
 
+  export type BranchCreateNestedOneWithoutResultSummariesInput = {
+    create?: XOR<BranchCreateWithoutResultSummariesInput, BranchUncheckedCreateWithoutResultSummariesInput>
+    connectOrCreate?: BranchCreateOrConnectWithoutResultSummariesInput
+    connect?: BranchWhereUniqueInput
+  }
+
   export type AcademicSessionCreateNestedOneWithoutResultSummariesInput = {
     create?: XOR<AcademicSessionCreateWithoutResultSummariesInput, AcademicSessionUncheckedCreateWithoutResultSummariesInput>
     connectOrCreate?: AcademicSessionCreateOrConnectWithoutResultSummariesInput
@@ -149567,6 +150760,14 @@ export namespace Prisma {
     create?: XOR<StudentCreateWithoutResultSummariesInput, StudentUncheckedCreateWithoutResultSummariesInput>
     connectOrCreate?: StudentCreateOrConnectWithoutResultSummariesInput
     connect?: StudentWhereUniqueInput
+  }
+
+  export type BranchUpdateOneRequiredWithoutResultSummariesNestedInput = {
+    create?: XOR<BranchCreateWithoutResultSummariesInput, BranchUncheckedCreateWithoutResultSummariesInput>
+    connectOrCreate?: BranchCreateOrConnectWithoutResultSummariesInput
+    upsert?: BranchUpsertWithoutResultSummariesInput
+    connect?: BranchWhereUniqueInput
+    update?: XOR<XOR<BranchUpdateToOneWithWhereWithoutResultSummariesInput, BranchUpdateWithoutResultSummariesInput>, BranchUncheckedUpdateWithoutResultSummariesInput>
   }
 
   export type AcademicSessionUpdateOneRequiredWithoutResultSummariesNestedInput = {
@@ -149583,6 +150784,36 @@ export namespace Prisma {
     upsert?: StudentUpsertWithoutResultSummariesInput
     connect?: StudentWhereUniqueInput
     update?: XOR<XOR<StudentUpdateToOneWithWhereWithoutResultSummariesInput, StudentUpdateWithoutResultSummariesInput>, StudentUncheckedUpdateWithoutResultSummariesInput>
+  }
+
+  export type BranchCreateNestedOneWithoutGradingScalesInput = {
+    create?: XOR<BranchCreateWithoutGradingScalesInput, BranchUncheckedCreateWithoutGradingScalesInput>
+    connectOrCreate?: BranchCreateOrConnectWithoutGradingScalesInput
+    connect?: BranchWhereUniqueInput
+  }
+
+  export type BranchUpdateOneRequiredWithoutGradingScalesNestedInput = {
+    create?: XOR<BranchCreateWithoutGradingScalesInput, BranchUncheckedCreateWithoutGradingScalesInput>
+    connectOrCreate?: BranchCreateOrConnectWithoutGradingScalesInput
+    upsert?: BranchUpsertWithoutGradingScalesInput
+    connect?: BranchWhereUniqueInput
+    update?: XOR<XOR<BranchUpdateToOneWithWhereWithoutGradingScalesInput, BranchUpdateWithoutGradingScalesInput>, BranchUncheckedUpdateWithoutGradingScalesInput>
+  }
+
+  export type BranchCreateNestedOneWithoutGlobalSettingsInput = {
+    create?: XOR<BranchCreateWithoutGlobalSettingsInput, BranchUncheckedCreateWithoutGlobalSettingsInput>
+    connectOrCreate?: BranchCreateOrConnectWithoutGlobalSettingsInput
+    connect?: BranchWhereUniqueInput
+  }
+
+  export type BranchUpdateOneWithoutGlobalSettingsNestedInput = {
+    create?: XOR<BranchCreateWithoutGlobalSettingsInput, BranchUncheckedCreateWithoutGlobalSettingsInput>
+    connectOrCreate?: BranchCreateOrConnectWithoutGlobalSettingsInput
+    upsert?: BranchUpsertWithoutGlobalSettingsInput
+    disconnect?: BranchWhereInput | boolean
+    delete?: BranchWhereInput | boolean
+    connect?: BranchWhereUniqueInput
+    update?: XOR<XOR<BranchUpdateToOneWithWhereWithoutGlobalSettingsInput, BranchUpdateWithoutGlobalSettingsInput>, BranchUncheckedUpdateWithoutGlobalSettingsInput>
   }
 
   export type UserCreateNestedOneWithoutAuditLogsInput = {
@@ -154141,6 +155372,346 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type AcademicSessionCreateWithoutBranchInput = {
+    id?: string
+    name: string
+    startDate: Date | string
+    endDate: Date | string
+    isActive?: boolean
+    nextTermBegins?: Date | string | null
+    termEnds?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutSessionInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutSessionInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutSessionInput
+    idCards?: IdCardCreateNestedManyWithoutSessionInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutAcademicSessionInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutSessionInput
+  }
+
+  export type AcademicSessionUncheckedCreateWithoutBranchInput = {
+    id?: string
+    name: string
+    startDate: Date | string
+    endDate: Date | string
+    isActive?: boolean
+    nextTermBegins?: Date | string | null
+    termEnds?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutSessionInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutSessionInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutSessionInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutSessionInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutAcademicSessionInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutSessionInput
+  }
+
+  export type AcademicSessionCreateOrConnectWithoutBranchInput = {
+    where: AcademicSessionWhereUniqueInput
+    create: XOR<AcademicSessionCreateWithoutBranchInput, AcademicSessionUncheckedCreateWithoutBranchInput>
+  }
+
+  export type AcademicSessionCreateManyBranchInputEnvelope = {
+    data: AcademicSessionCreateManyBranchInput | AcademicSessionCreateManyBranchInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AttendanceCreateWithoutBranchInput = {
+    id?: string
+    date: Date | string
+    status: $Enums.AttendanceStatus
+    remarks?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    section?: SectionCreateNestedOneWithoutAttendanceInput
+    student: StudentCreateNestedOneWithoutAttendanceInput
+  }
+
+  export type AttendanceUncheckedCreateWithoutBranchInput = {
+    id?: string
+    date: Date | string
+    status: $Enums.AttendanceStatus
+    remarks?: string | null
+    studentId: string
+    sectionId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AttendanceCreateOrConnectWithoutBranchInput = {
+    where: AttendanceWhereUniqueInput
+    create: XOR<AttendanceCreateWithoutBranchInput, AttendanceUncheckedCreateWithoutBranchInput>
+  }
+
+  export type AttendanceCreateManyBranchInputEnvelope = {
+    data: AttendanceCreateManyBranchInput | AttendanceCreateManyBranchInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type StaffAttendanceCreateWithoutBranchInput = {
+    id?: string
+    date: Date | string
+    status: $Enums.AttendanceStatus
+    remarks?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    staff: StaffCreateNestedOneWithoutAttendanceInput
+  }
+
+  export type StaffAttendanceUncheckedCreateWithoutBranchInput = {
+    id?: string
+    date: Date | string
+    status: $Enums.AttendanceStatus
+    remarks?: string | null
+    staffId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StaffAttendanceCreateOrConnectWithoutBranchInput = {
+    where: StaffAttendanceWhereUniqueInput
+    create: XOR<StaffAttendanceCreateWithoutBranchInput, StaffAttendanceUncheckedCreateWithoutBranchInput>
+  }
+
+  export type StaffAttendanceCreateManyBranchInputEnvelope = {
+    data: StaffAttendanceCreateManyBranchInput | StaffAttendanceCreateManyBranchInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AssessmentRecordCreateWithoutBranchInput = {
+    id?: string
+    asgn1?: number | null
+    asgn2?: number | null
+    test1?: number | null
+    test2?: number | null
+    examScore?: number | null
+    total?: number | null
+    grade?: string | null
+    position?: number | null
+    outOf?: number | null
+    lowScore?: number | null
+    highScore?: number | null
+    classAvg?: number | null
+    remark?: string | null
+    term: $Enums.Term
+    examTerm: $Enums.ExamTerm
+    isEligible?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    section: SectionCreateNestedOneWithoutAssessmentRecordsInput
+    session: AcademicSessionCreateNestedOneWithoutAssessmentRecordsInput
+    student: StudentCreateNestedOneWithoutAssessmentRecordsInput
+    subject: SubjectCreateNestedOneWithoutAssessmentRecordsInput
+  }
+
+  export type AssessmentRecordUncheckedCreateWithoutBranchInput = {
+    id?: string
+    asgn1?: number | null
+    asgn2?: number | null
+    test1?: number | null
+    test2?: number | null
+    examScore?: number | null
+    total?: number | null
+    grade?: string | null
+    position?: number | null
+    outOf?: number | null
+    lowScore?: number | null
+    highScore?: number | null
+    classAvg?: number | null
+    remark?: string | null
+    studentId: string
+    subjectId: string
+    sectionId: string
+    sessionId: string
+    term: $Enums.Term
+    examTerm: $Enums.ExamTerm
+    isEligible?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AssessmentRecordCreateOrConnectWithoutBranchInput = {
+    where: AssessmentRecordWhereUniqueInput
+    create: XOR<AssessmentRecordCreateWithoutBranchInput, AssessmentRecordUncheckedCreateWithoutBranchInput>
+  }
+
+  export type AssessmentRecordCreateManyBranchInputEnvelope = {
+    data: AssessmentRecordCreateManyBranchInput | AssessmentRecordCreateManyBranchInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BehaviouralRatingCreateWithoutBranchInput = {
+    id?: string
+    punctuality?: string | null
+    classAttendance?: string | null
+    attentiveness?: string | null
+    neatness?: string | null
+    honesty?: string | null
+    selfControl?: string | null
+    relationships?: string | null
+    sports?: string | null
+    toolHandling?: string | null
+    carryingOutAssignments?: string | null
+    participation?: string | null
+    term: $Enums.Term
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    session: AcademicSessionCreateNestedOneWithoutBehaviouralRatingsInput
+    student: StudentCreateNestedOneWithoutBehaviouralRatingsInput
+  }
+
+  export type BehaviouralRatingUncheckedCreateWithoutBranchInput = {
+    id?: string
+    punctuality?: string | null
+    classAttendance?: string | null
+    attentiveness?: string | null
+    neatness?: string | null
+    honesty?: string | null
+    selfControl?: string | null
+    relationships?: string | null
+    sports?: string | null
+    toolHandling?: string | null
+    carryingOutAssignments?: string | null
+    participation?: string | null
+    studentId: string
+    sessionId: string
+    term: $Enums.Term
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BehaviouralRatingCreateOrConnectWithoutBranchInput = {
+    where: BehaviouralRatingWhereUniqueInput
+    create: XOR<BehaviouralRatingCreateWithoutBranchInput, BehaviouralRatingUncheckedCreateWithoutBranchInput>
+  }
+
+  export type BehaviouralRatingCreateManyBranchInputEnvelope = {
+    data: BehaviouralRatingCreateManyBranchInput | BehaviouralRatingCreateManyBranchInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ResultSummaryCreateWithoutBranchInput = {
+    id?: string
+    totalScore?: number | null
+    average?: number | null
+    classPosition?: number | null
+    highestAvg?: number | null
+    lowestAvg?: number | null
+    countInClass?: number | null
+    finalGrade?: string | null
+    finalRemark?: string | null
+    promotionStatus?: string | null
+    cgpa?: number | null
+    classOfResult?: string | null
+    attendanceOpen?: number | null
+    attendancePresent?: number | null
+    attendanceAbsent?: number | null
+    term: $Enums.Term
+    examTerm: $Enums.ExamTerm
+    isActive?: boolean
+    isLocked?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    session: AcademicSessionCreateNestedOneWithoutResultSummariesInput
+    student: StudentCreateNestedOneWithoutResultSummariesInput
+  }
+
+  export type ResultSummaryUncheckedCreateWithoutBranchInput = {
+    id?: string
+    totalScore?: number | null
+    average?: number | null
+    classPosition?: number | null
+    highestAvg?: number | null
+    lowestAvg?: number | null
+    countInClass?: number | null
+    finalGrade?: string | null
+    finalRemark?: string | null
+    promotionStatus?: string | null
+    cgpa?: number | null
+    classOfResult?: string | null
+    attendanceOpen?: number | null
+    attendancePresent?: number | null
+    attendanceAbsent?: number | null
+    studentId: string
+    sessionId: string
+    term: $Enums.Term
+    examTerm: $Enums.ExamTerm
+    isActive?: boolean
+    isLocked?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ResultSummaryCreateOrConnectWithoutBranchInput = {
+    where: ResultSummaryWhereUniqueInput
+    create: XOR<ResultSummaryCreateWithoutBranchInput, ResultSummaryUncheckedCreateWithoutBranchInput>
+  }
+
+  export type ResultSummaryCreateManyBranchInputEnvelope = {
+    data: ResultSummaryCreateManyBranchInput | ResultSummaryCreateManyBranchInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type GradingScaleCreateWithoutBranchInput = {
+    id?: string
+    name: string
+    minScore: number
+    maxScore: number
+    grade: string
+    remark?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type GradingScaleUncheckedCreateWithoutBranchInput = {
+    id?: string
+    name: string
+    minScore: number
+    maxScore: number
+    grade: string
+    remark?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type GradingScaleCreateOrConnectWithoutBranchInput = {
+    where: GradingScaleWhereUniqueInput
+    create: XOR<GradingScaleCreateWithoutBranchInput, GradingScaleUncheckedCreateWithoutBranchInput>
+  }
+
+  export type GradingScaleCreateManyBranchInputEnvelope = {
+    data: GradingScaleCreateManyBranchInput | GradingScaleCreateManyBranchInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type GlobalSettingCreateWithoutBranchInput = {
+    id?: string
+    key: string
+    value: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type GlobalSettingUncheckedCreateWithoutBranchInput = {
+    id?: string
+    key: string
+    value: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type GlobalSettingCreateOrConnectWithoutBranchInput = {
+    where: GlobalSettingWhereUniqueInput
+    create: XOR<GlobalSettingCreateWithoutBranchInput, GlobalSettingUncheckedCreateWithoutBranchInput>
+  }
+
+  export type GlobalSettingCreateManyBranchInputEnvelope = {
+    data: GlobalSettingCreateManyBranchInput | GlobalSettingCreateManyBranchInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AdmissionEnquiryUpsertWithWhereUniqueWithoutBranchInput = {
     where: AdmissionEnquiryWhereUniqueInput
     update: XOR<AdmissionEnquiryUpdateWithoutBranchInput, AdmissionEnquiryUncheckedUpdateWithoutBranchInput>
@@ -155693,6 +157264,290 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Voucher"> | Date | string
   }
 
+  export type AcademicSessionUpsertWithWhereUniqueWithoutBranchInput = {
+    where: AcademicSessionWhereUniqueInput
+    update: XOR<AcademicSessionUpdateWithoutBranchInput, AcademicSessionUncheckedUpdateWithoutBranchInput>
+    create: XOR<AcademicSessionCreateWithoutBranchInput, AcademicSessionUncheckedCreateWithoutBranchInput>
+  }
+
+  export type AcademicSessionUpdateWithWhereUniqueWithoutBranchInput = {
+    where: AcademicSessionWhereUniqueInput
+    data: XOR<AcademicSessionUpdateWithoutBranchInput, AcademicSessionUncheckedUpdateWithoutBranchInput>
+  }
+
+  export type AcademicSessionUpdateManyWithWhereWithoutBranchInput = {
+    where: AcademicSessionScalarWhereInput
+    data: XOR<AcademicSessionUpdateManyMutationInput, AcademicSessionUncheckedUpdateManyWithoutBranchInput>
+  }
+
+  export type AcademicSessionScalarWhereInput = {
+    AND?: AcademicSessionScalarWhereInput | AcademicSessionScalarWhereInput[]
+    OR?: AcademicSessionScalarWhereInput[]
+    NOT?: AcademicSessionScalarWhereInput | AcademicSessionScalarWhereInput[]
+    id?: StringFilter<"AcademicSession"> | string
+    name?: StringFilter<"AcademicSession"> | string
+    startDate?: DateTimeFilter<"AcademicSession"> | Date | string
+    endDate?: DateTimeFilter<"AcademicSession"> | Date | string
+    isActive?: BoolFilter<"AcademicSession"> | boolean
+    nextTermBegins?: DateTimeNullableFilter<"AcademicSession"> | Date | string | null
+    termEnds?: DateTimeNullableFilter<"AcademicSession"> | Date | string | null
+    branchId?: StringFilter<"AcademicSession"> | string
+    createdAt?: DateTimeFilter<"AcademicSession"> | Date | string
+    updatedAt?: DateTimeFilter<"AcademicSession"> | Date | string
+  }
+
+  export type AttendanceUpsertWithWhereUniqueWithoutBranchInput = {
+    where: AttendanceWhereUniqueInput
+    update: XOR<AttendanceUpdateWithoutBranchInput, AttendanceUncheckedUpdateWithoutBranchInput>
+    create: XOR<AttendanceCreateWithoutBranchInput, AttendanceUncheckedCreateWithoutBranchInput>
+  }
+
+  export type AttendanceUpdateWithWhereUniqueWithoutBranchInput = {
+    where: AttendanceWhereUniqueInput
+    data: XOR<AttendanceUpdateWithoutBranchInput, AttendanceUncheckedUpdateWithoutBranchInput>
+  }
+
+  export type AttendanceUpdateManyWithWhereWithoutBranchInput = {
+    where: AttendanceScalarWhereInput
+    data: XOR<AttendanceUpdateManyMutationInput, AttendanceUncheckedUpdateManyWithoutBranchInput>
+  }
+
+  export type AttendanceScalarWhereInput = {
+    AND?: AttendanceScalarWhereInput | AttendanceScalarWhereInput[]
+    OR?: AttendanceScalarWhereInput[]
+    NOT?: AttendanceScalarWhereInput | AttendanceScalarWhereInput[]
+    id?: StringFilter<"Attendance"> | string
+    date?: DateTimeFilter<"Attendance"> | Date | string
+    status?: EnumAttendanceStatusFilter<"Attendance"> | $Enums.AttendanceStatus
+    remarks?: StringNullableFilter<"Attendance"> | string | null
+    studentId?: StringFilter<"Attendance"> | string
+    sectionId?: StringNullableFilter<"Attendance"> | string | null
+    branchId?: StringFilter<"Attendance"> | string
+    createdAt?: DateTimeFilter<"Attendance"> | Date | string
+    updatedAt?: DateTimeFilter<"Attendance"> | Date | string
+  }
+
+  export type StaffAttendanceUpsertWithWhereUniqueWithoutBranchInput = {
+    where: StaffAttendanceWhereUniqueInput
+    update: XOR<StaffAttendanceUpdateWithoutBranchInput, StaffAttendanceUncheckedUpdateWithoutBranchInput>
+    create: XOR<StaffAttendanceCreateWithoutBranchInput, StaffAttendanceUncheckedCreateWithoutBranchInput>
+  }
+
+  export type StaffAttendanceUpdateWithWhereUniqueWithoutBranchInput = {
+    where: StaffAttendanceWhereUniqueInput
+    data: XOR<StaffAttendanceUpdateWithoutBranchInput, StaffAttendanceUncheckedUpdateWithoutBranchInput>
+  }
+
+  export type StaffAttendanceUpdateManyWithWhereWithoutBranchInput = {
+    where: StaffAttendanceScalarWhereInput
+    data: XOR<StaffAttendanceUpdateManyMutationInput, StaffAttendanceUncheckedUpdateManyWithoutBranchInput>
+  }
+
+  export type StaffAttendanceScalarWhereInput = {
+    AND?: StaffAttendanceScalarWhereInput | StaffAttendanceScalarWhereInput[]
+    OR?: StaffAttendanceScalarWhereInput[]
+    NOT?: StaffAttendanceScalarWhereInput | StaffAttendanceScalarWhereInput[]
+    id?: StringFilter<"StaffAttendance"> | string
+    date?: DateTimeFilter<"StaffAttendance"> | Date | string
+    status?: EnumAttendanceStatusFilter<"StaffAttendance"> | $Enums.AttendanceStatus
+    remarks?: StringNullableFilter<"StaffAttendance"> | string | null
+    staffId?: StringFilter<"StaffAttendance"> | string
+    branchId?: StringFilter<"StaffAttendance"> | string
+    createdAt?: DateTimeFilter<"StaffAttendance"> | Date | string
+    updatedAt?: DateTimeFilter<"StaffAttendance"> | Date | string
+  }
+
+  export type AssessmentRecordUpsertWithWhereUniqueWithoutBranchInput = {
+    where: AssessmentRecordWhereUniqueInput
+    update: XOR<AssessmentRecordUpdateWithoutBranchInput, AssessmentRecordUncheckedUpdateWithoutBranchInput>
+    create: XOR<AssessmentRecordCreateWithoutBranchInput, AssessmentRecordUncheckedCreateWithoutBranchInput>
+  }
+
+  export type AssessmentRecordUpdateWithWhereUniqueWithoutBranchInput = {
+    where: AssessmentRecordWhereUniqueInput
+    data: XOR<AssessmentRecordUpdateWithoutBranchInput, AssessmentRecordUncheckedUpdateWithoutBranchInput>
+  }
+
+  export type AssessmentRecordUpdateManyWithWhereWithoutBranchInput = {
+    where: AssessmentRecordScalarWhereInput
+    data: XOR<AssessmentRecordUpdateManyMutationInput, AssessmentRecordUncheckedUpdateManyWithoutBranchInput>
+  }
+
+  export type AssessmentRecordScalarWhereInput = {
+    AND?: AssessmentRecordScalarWhereInput | AssessmentRecordScalarWhereInput[]
+    OR?: AssessmentRecordScalarWhereInput[]
+    NOT?: AssessmentRecordScalarWhereInput | AssessmentRecordScalarWhereInput[]
+    id?: StringFilter<"AssessmentRecord"> | string
+    asgn1?: FloatNullableFilter<"AssessmentRecord"> | number | null
+    asgn2?: FloatNullableFilter<"AssessmentRecord"> | number | null
+    test1?: FloatNullableFilter<"AssessmentRecord"> | number | null
+    test2?: FloatNullableFilter<"AssessmentRecord"> | number | null
+    examScore?: FloatNullableFilter<"AssessmentRecord"> | number | null
+    total?: FloatNullableFilter<"AssessmentRecord"> | number | null
+    grade?: StringNullableFilter<"AssessmentRecord"> | string | null
+    position?: IntNullableFilter<"AssessmentRecord"> | number | null
+    outOf?: IntNullableFilter<"AssessmentRecord"> | number | null
+    lowScore?: FloatNullableFilter<"AssessmentRecord"> | number | null
+    highScore?: FloatNullableFilter<"AssessmentRecord"> | number | null
+    classAvg?: FloatNullableFilter<"AssessmentRecord"> | number | null
+    remark?: StringNullableFilter<"AssessmentRecord"> | string | null
+    studentId?: StringFilter<"AssessmentRecord"> | string
+    subjectId?: StringFilter<"AssessmentRecord"> | string
+    sectionId?: StringFilter<"AssessmentRecord"> | string
+    sessionId?: StringFilter<"AssessmentRecord"> | string
+    branchId?: StringFilter<"AssessmentRecord"> | string
+    term?: EnumTermFilter<"AssessmentRecord"> | $Enums.Term
+    examTerm?: EnumExamTermFilter<"AssessmentRecord"> | $Enums.ExamTerm
+    isEligible?: BoolFilter<"AssessmentRecord"> | boolean
+    createdAt?: DateTimeFilter<"AssessmentRecord"> | Date | string
+    updatedAt?: DateTimeFilter<"AssessmentRecord"> | Date | string
+  }
+
+  export type BehaviouralRatingUpsertWithWhereUniqueWithoutBranchInput = {
+    where: BehaviouralRatingWhereUniqueInput
+    update: XOR<BehaviouralRatingUpdateWithoutBranchInput, BehaviouralRatingUncheckedUpdateWithoutBranchInput>
+    create: XOR<BehaviouralRatingCreateWithoutBranchInput, BehaviouralRatingUncheckedCreateWithoutBranchInput>
+  }
+
+  export type BehaviouralRatingUpdateWithWhereUniqueWithoutBranchInput = {
+    where: BehaviouralRatingWhereUniqueInput
+    data: XOR<BehaviouralRatingUpdateWithoutBranchInput, BehaviouralRatingUncheckedUpdateWithoutBranchInput>
+  }
+
+  export type BehaviouralRatingUpdateManyWithWhereWithoutBranchInput = {
+    where: BehaviouralRatingScalarWhereInput
+    data: XOR<BehaviouralRatingUpdateManyMutationInput, BehaviouralRatingUncheckedUpdateManyWithoutBranchInput>
+  }
+
+  export type BehaviouralRatingScalarWhereInput = {
+    AND?: BehaviouralRatingScalarWhereInput | BehaviouralRatingScalarWhereInput[]
+    OR?: BehaviouralRatingScalarWhereInput[]
+    NOT?: BehaviouralRatingScalarWhereInput | BehaviouralRatingScalarWhereInput[]
+    id?: StringFilter<"BehaviouralRating"> | string
+    punctuality?: StringNullableFilter<"BehaviouralRating"> | string | null
+    classAttendance?: StringNullableFilter<"BehaviouralRating"> | string | null
+    attentiveness?: StringNullableFilter<"BehaviouralRating"> | string | null
+    neatness?: StringNullableFilter<"BehaviouralRating"> | string | null
+    honesty?: StringNullableFilter<"BehaviouralRating"> | string | null
+    selfControl?: StringNullableFilter<"BehaviouralRating"> | string | null
+    relationships?: StringNullableFilter<"BehaviouralRating"> | string | null
+    sports?: StringNullableFilter<"BehaviouralRating"> | string | null
+    toolHandling?: StringNullableFilter<"BehaviouralRating"> | string | null
+    carryingOutAssignments?: StringNullableFilter<"BehaviouralRating"> | string | null
+    participation?: StringNullableFilter<"BehaviouralRating"> | string | null
+    studentId?: StringFilter<"BehaviouralRating"> | string
+    sessionId?: StringFilter<"BehaviouralRating"> | string
+    branchId?: StringFilter<"BehaviouralRating"> | string
+    term?: EnumTermFilter<"BehaviouralRating"> | $Enums.Term
+    createdAt?: DateTimeFilter<"BehaviouralRating"> | Date | string
+    updatedAt?: DateTimeFilter<"BehaviouralRating"> | Date | string
+  }
+
+  export type ResultSummaryUpsertWithWhereUniqueWithoutBranchInput = {
+    where: ResultSummaryWhereUniqueInput
+    update: XOR<ResultSummaryUpdateWithoutBranchInput, ResultSummaryUncheckedUpdateWithoutBranchInput>
+    create: XOR<ResultSummaryCreateWithoutBranchInput, ResultSummaryUncheckedCreateWithoutBranchInput>
+  }
+
+  export type ResultSummaryUpdateWithWhereUniqueWithoutBranchInput = {
+    where: ResultSummaryWhereUniqueInput
+    data: XOR<ResultSummaryUpdateWithoutBranchInput, ResultSummaryUncheckedUpdateWithoutBranchInput>
+  }
+
+  export type ResultSummaryUpdateManyWithWhereWithoutBranchInput = {
+    where: ResultSummaryScalarWhereInput
+    data: XOR<ResultSummaryUpdateManyMutationInput, ResultSummaryUncheckedUpdateManyWithoutBranchInput>
+  }
+
+  export type ResultSummaryScalarWhereInput = {
+    AND?: ResultSummaryScalarWhereInput | ResultSummaryScalarWhereInput[]
+    OR?: ResultSummaryScalarWhereInput[]
+    NOT?: ResultSummaryScalarWhereInput | ResultSummaryScalarWhereInput[]
+    id?: StringFilter<"ResultSummary"> | string
+    totalScore?: FloatNullableFilter<"ResultSummary"> | number | null
+    average?: FloatNullableFilter<"ResultSummary"> | number | null
+    classPosition?: IntNullableFilter<"ResultSummary"> | number | null
+    highestAvg?: FloatNullableFilter<"ResultSummary"> | number | null
+    lowestAvg?: FloatNullableFilter<"ResultSummary"> | number | null
+    countInClass?: IntNullableFilter<"ResultSummary"> | number | null
+    finalGrade?: StringNullableFilter<"ResultSummary"> | string | null
+    finalRemark?: StringNullableFilter<"ResultSummary"> | string | null
+    promotionStatus?: StringNullableFilter<"ResultSummary"> | string | null
+    cgpa?: FloatNullableFilter<"ResultSummary"> | number | null
+    classOfResult?: StringNullableFilter<"ResultSummary"> | string | null
+    attendanceOpen?: IntNullableFilter<"ResultSummary"> | number | null
+    attendancePresent?: IntNullableFilter<"ResultSummary"> | number | null
+    attendanceAbsent?: IntNullableFilter<"ResultSummary"> | number | null
+    studentId?: StringFilter<"ResultSummary"> | string
+    sessionId?: StringFilter<"ResultSummary"> | string
+    branchId?: StringFilter<"ResultSummary"> | string
+    term?: EnumTermFilter<"ResultSummary"> | $Enums.Term
+    examTerm?: EnumExamTermFilter<"ResultSummary"> | $Enums.ExamTerm
+    isActive?: BoolFilter<"ResultSummary"> | boolean
+    isLocked?: BoolFilter<"ResultSummary"> | boolean
+    createdAt?: DateTimeFilter<"ResultSummary"> | Date | string
+    updatedAt?: DateTimeFilter<"ResultSummary"> | Date | string
+  }
+
+  export type GradingScaleUpsertWithWhereUniqueWithoutBranchInput = {
+    where: GradingScaleWhereUniqueInput
+    update: XOR<GradingScaleUpdateWithoutBranchInput, GradingScaleUncheckedUpdateWithoutBranchInput>
+    create: XOR<GradingScaleCreateWithoutBranchInput, GradingScaleUncheckedCreateWithoutBranchInput>
+  }
+
+  export type GradingScaleUpdateWithWhereUniqueWithoutBranchInput = {
+    where: GradingScaleWhereUniqueInput
+    data: XOR<GradingScaleUpdateWithoutBranchInput, GradingScaleUncheckedUpdateWithoutBranchInput>
+  }
+
+  export type GradingScaleUpdateManyWithWhereWithoutBranchInput = {
+    where: GradingScaleScalarWhereInput
+    data: XOR<GradingScaleUpdateManyMutationInput, GradingScaleUncheckedUpdateManyWithoutBranchInput>
+  }
+
+  export type GradingScaleScalarWhereInput = {
+    AND?: GradingScaleScalarWhereInput | GradingScaleScalarWhereInput[]
+    OR?: GradingScaleScalarWhereInput[]
+    NOT?: GradingScaleScalarWhereInput | GradingScaleScalarWhereInput[]
+    id?: StringFilter<"GradingScale"> | string
+    name?: StringFilter<"GradingScale"> | string
+    minScore?: FloatFilter<"GradingScale"> | number
+    maxScore?: FloatFilter<"GradingScale"> | number
+    grade?: StringFilter<"GradingScale"> | string
+    remark?: StringNullableFilter<"GradingScale"> | string | null
+    branchId?: StringFilter<"GradingScale"> | string
+    createdAt?: DateTimeFilter<"GradingScale"> | Date | string
+    updatedAt?: DateTimeFilter<"GradingScale"> | Date | string
+  }
+
+  export type GlobalSettingUpsertWithWhereUniqueWithoutBranchInput = {
+    where: GlobalSettingWhereUniqueInput
+    update: XOR<GlobalSettingUpdateWithoutBranchInput, GlobalSettingUncheckedUpdateWithoutBranchInput>
+    create: XOR<GlobalSettingCreateWithoutBranchInput, GlobalSettingUncheckedCreateWithoutBranchInput>
+  }
+
+  export type GlobalSettingUpdateWithWhereUniqueWithoutBranchInput = {
+    where: GlobalSettingWhereUniqueInput
+    data: XOR<GlobalSettingUpdateWithoutBranchInput, GlobalSettingUncheckedUpdateWithoutBranchInput>
+  }
+
+  export type GlobalSettingUpdateManyWithWhereWithoutBranchInput = {
+    where: GlobalSettingScalarWhereInput
+    data: XOR<GlobalSettingUpdateManyMutationInput, GlobalSettingUncheckedUpdateManyWithoutBranchInput>
+  }
+
+  export type GlobalSettingScalarWhereInput = {
+    AND?: GlobalSettingScalarWhereInput | GlobalSettingScalarWhereInput[]
+    OR?: GlobalSettingScalarWhereInput[]
+    NOT?: GlobalSettingScalarWhereInput | GlobalSettingScalarWhereInput[]
+    id?: StringFilter<"GlobalSetting"> | string
+    key?: StringFilter<"GlobalSetting"> | string
+    value?: StringFilter<"GlobalSetting"> | string
+    branchId?: StringNullableFilter<"GlobalSetting"> | string | null
+    createdAt?: DateTimeFilter<"GlobalSetting"> | Date | string
+    updatedAt?: DateTimeFilter<"GlobalSetting"> | Date | string
+  }
+
   export type BranchCreateWithoutDeactivationReasonsInput = {
     id?: string
     name: string
@@ -155747,6 +157602,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutDeactivationReasonsInput = {
@@ -155803,6 +157666,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutDeactivationReasonsInput = {
@@ -155905,6 +157776,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutDeactivationReasonsInput = {
@@ -155961,6 +157840,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type LoginDeactivationUpsertWithWhereUniqueWithoutReasonRefInput = {
@@ -156033,6 +157920,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutLoginDeactivationsInput = {
@@ -156089,6 +157984,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutLoginDeactivationsInput = {
@@ -156184,6 +158087,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutLoginDeactivationsInput = {
@@ -156240,6 +158151,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type DeactivationReasonUpsertWithoutDeactivationsInput = {
@@ -157059,6 +158978,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutUsersInput = {
@@ -157115,6 +159042,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutUsersInput = {
@@ -157656,6 +159591,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutUsersInput = {
@@ -157712,6 +159655,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type VoucherUpsertWithWhereUniqueWithoutApprovedByInput = {
@@ -158261,6 +160212,7 @@ export namespace Prisma {
     remarks?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutStaffAttendanceInput
   }
 
   export type StaffAttendanceUncheckedCreateWithoutStaffInput = {
@@ -158268,6 +160220,7 @@ export namespace Prisma {
     date: Date | string
     status: $Enums.AttendanceStatus
     remarks?: string | null
+    branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -158748,19 +160701,6 @@ export namespace Prisma {
     data: XOR<StaffAttendanceUpdateManyMutationInput, StaffAttendanceUncheckedUpdateManyWithoutStaffInput>
   }
 
-  export type StaffAttendanceScalarWhereInput = {
-    AND?: StaffAttendanceScalarWhereInput | StaffAttendanceScalarWhereInput[]
-    OR?: StaffAttendanceScalarWhereInput[]
-    NOT?: StaffAttendanceScalarWhereInput | StaffAttendanceScalarWhereInput[]
-    id?: StringFilter<"StaffAttendance"> | string
-    date?: DateTimeFilter<"StaffAttendance"> | Date | string
-    status?: EnumAttendanceStatusFilter<"StaffAttendance"> | $Enums.AttendanceStatus
-    remarks?: StringNullableFilter<"StaffAttendance"> | string | null
-    staffId?: StringFilter<"StaffAttendance"> | string
-    createdAt?: DateTimeFilter<"StaffAttendance"> | Date | string
-    updatedAt?: DateTimeFilter<"StaffAttendance"> | Date | string
-  }
-
   export type StaffAwardUpsertWithWhereUniqueWithoutStaffInput = {
     where: StaffAwardWhereUniqueInput
     update: XOR<StaffAwardUpdateWithoutStaffInput, StaffAwardUncheckedUpdateWithoutStaffInput>
@@ -158859,6 +160799,7 @@ export namespace Prisma {
     isEligible?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutAssessmentRecordsInput
     section: SectionCreateNestedOneWithoutAssessmentRecordsInput
     session: AcademicSessionCreateNestedOneWithoutAssessmentRecordsInput
     subject: SubjectCreateNestedOneWithoutAssessmentRecordsInput
@@ -158882,6 +160823,7 @@ export namespace Prisma {
     subjectId: string
     sectionId: string
     sessionId: string
+    branchId: string
     term: $Enums.Term
     examTerm: $Enums.ExamTerm
     isEligible?: boolean
@@ -158906,6 +160848,7 @@ export namespace Prisma {
     remarks?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutAttendanceInput
     section?: SectionCreateNestedOneWithoutAttendanceInput
   }
 
@@ -158915,6 +160858,7 @@ export namespace Prisma {
     status: $Enums.AttendanceStatus
     remarks?: string | null
     sectionId?: string | null
+    branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -158945,6 +160889,7 @@ export namespace Prisma {
     term: $Enums.Term
     createdAt?: Date | string
     updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutBehaviouralRatingsInput
     session: AcademicSessionCreateNestedOneWithoutBehaviouralRatingsInput
   }
 
@@ -158962,6 +160907,7 @@ export namespace Prisma {
     carryingOutAssignments?: string | null
     participation?: string | null
     sessionId: string
+    branchId: string
     term: $Enums.Term
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -159277,6 +161223,7 @@ export namespace Prisma {
     isLocked?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutResultSummariesInput
     session: AcademicSessionCreateNestedOneWithoutResultSummariesInput
   }
 
@@ -159297,6 +161244,7 @@ export namespace Prisma {
     attendancePresent?: number | null
     attendanceAbsent?: number | null
     sessionId: string
+    branchId: string
     term: $Enums.Term
     examTerm: $Enums.ExamTerm
     isActive?: boolean
@@ -159369,6 +161317,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutStudentsInput = {
@@ -159425,6 +161381,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutStudentsInput = {
@@ -159755,35 +161719,6 @@ export namespace Prisma {
     data: XOR<AssessmentRecordUpdateManyMutationInput, AssessmentRecordUncheckedUpdateManyWithoutStudentInput>
   }
 
-  export type AssessmentRecordScalarWhereInput = {
-    AND?: AssessmentRecordScalarWhereInput | AssessmentRecordScalarWhereInput[]
-    OR?: AssessmentRecordScalarWhereInput[]
-    NOT?: AssessmentRecordScalarWhereInput | AssessmentRecordScalarWhereInput[]
-    id?: StringFilter<"AssessmentRecord"> | string
-    asgn1?: FloatNullableFilter<"AssessmentRecord"> | number | null
-    asgn2?: FloatNullableFilter<"AssessmentRecord"> | number | null
-    test1?: FloatNullableFilter<"AssessmentRecord"> | number | null
-    test2?: FloatNullableFilter<"AssessmentRecord"> | number | null
-    examScore?: FloatNullableFilter<"AssessmentRecord"> | number | null
-    total?: FloatNullableFilter<"AssessmentRecord"> | number | null
-    grade?: StringNullableFilter<"AssessmentRecord"> | string | null
-    position?: IntNullableFilter<"AssessmentRecord"> | number | null
-    outOf?: IntNullableFilter<"AssessmentRecord"> | number | null
-    lowScore?: FloatNullableFilter<"AssessmentRecord"> | number | null
-    highScore?: FloatNullableFilter<"AssessmentRecord"> | number | null
-    classAvg?: FloatNullableFilter<"AssessmentRecord"> | number | null
-    remark?: StringNullableFilter<"AssessmentRecord"> | string | null
-    studentId?: StringFilter<"AssessmentRecord"> | string
-    subjectId?: StringFilter<"AssessmentRecord"> | string
-    sectionId?: StringFilter<"AssessmentRecord"> | string
-    sessionId?: StringFilter<"AssessmentRecord"> | string
-    term?: EnumTermFilter<"AssessmentRecord"> | $Enums.Term
-    examTerm?: EnumExamTermFilter<"AssessmentRecord"> | $Enums.ExamTerm
-    isEligible?: BoolFilter<"AssessmentRecord"> | boolean
-    createdAt?: DateTimeFilter<"AssessmentRecord"> | Date | string
-    updatedAt?: DateTimeFilter<"AssessmentRecord"> | Date | string
-  }
-
   export type AttendanceUpsertWithWhereUniqueWithoutStudentInput = {
     where: AttendanceWhereUniqueInput
     update: XOR<AttendanceUpdateWithoutStudentInput, AttendanceUncheckedUpdateWithoutStudentInput>
@@ -159800,20 +161735,6 @@ export namespace Prisma {
     data: XOR<AttendanceUpdateManyMutationInput, AttendanceUncheckedUpdateManyWithoutStudentInput>
   }
 
-  export type AttendanceScalarWhereInput = {
-    AND?: AttendanceScalarWhereInput | AttendanceScalarWhereInput[]
-    OR?: AttendanceScalarWhereInput[]
-    NOT?: AttendanceScalarWhereInput | AttendanceScalarWhereInput[]
-    id?: StringFilter<"Attendance"> | string
-    date?: DateTimeFilter<"Attendance"> | Date | string
-    status?: EnumAttendanceStatusFilter<"Attendance"> | $Enums.AttendanceStatus
-    remarks?: StringNullableFilter<"Attendance"> | string | null
-    studentId?: StringFilter<"Attendance"> | string
-    sectionId?: StringNullableFilter<"Attendance"> | string | null
-    createdAt?: DateTimeFilter<"Attendance"> | Date | string
-    updatedAt?: DateTimeFilter<"Attendance"> | Date | string
-  }
-
   export type BehaviouralRatingUpsertWithWhereUniqueWithoutStudentInput = {
     where: BehaviouralRatingWhereUniqueInput
     update: XOR<BehaviouralRatingUpdateWithoutStudentInput, BehaviouralRatingUncheckedUpdateWithoutStudentInput>
@@ -159828,29 +161749,6 @@ export namespace Prisma {
   export type BehaviouralRatingUpdateManyWithWhereWithoutStudentInput = {
     where: BehaviouralRatingScalarWhereInput
     data: XOR<BehaviouralRatingUpdateManyMutationInput, BehaviouralRatingUncheckedUpdateManyWithoutStudentInput>
-  }
-
-  export type BehaviouralRatingScalarWhereInput = {
-    AND?: BehaviouralRatingScalarWhereInput | BehaviouralRatingScalarWhereInput[]
-    OR?: BehaviouralRatingScalarWhereInput[]
-    NOT?: BehaviouralRatingScalarWhereInput | BehaviouralRatingScalarWhereInput[]
-    id?: StringFilter<"BehaviouralRating"> | string
-    punctuality?: StringNullableFilter<"BehaviouralRating"> | string | null
-    classAttendance?: StringNullableFilter<"BehaviouralRating"> | string | null
-    attentiveness?: StringNullableFilter<"BehaviouralRating"> | string | null
-    neatness?: StringNullableFilter<"BehaviouralRating"> | string | null
-    honesty?: StringNullableFilter<"BehaviouralRating"> | string | null
-    selfControl?: StringNullableFilter<"BehaviouralRating"> | string | null
-    relationships?: StringNullableFilter<"BehaviouralRating"> | string | null
-    sports?: StringNullableFilter<"BehaviouralRating"> | string | null
-    toolHandling?: StringNullableFilter<"BehaviouralRating"> | string | null
-    carryingOutAssignments?: StringNullableFilter<"BehaviouralRating"> | string | null
-    participation?: StringNullableFilter<"BehaviouralRating"> | string | null
-    studentId?: StringFilter<"BehaviouralRating"> | string
-    sessionId?: StringFilter<"BehaviouralRating"> | string
-    term?: EnumTermFilter<"BehaviouralRating"> | $Enums.Term
-    createdAt?: DateTimeFilter<"BehaviouralRating"> | Date | string
-    updatedAt?: DateTimeFilter<"BehaviouralRating"> | Date | string
   }
 
   export type BorrowRecordUpsertWithWhereUniqueWithoutStudentInput = {
@@ -160072,35 +161970,6 @@ export namespace Prisma {
     data: XOR<ResultSummaryUpdateManyMutationInput, ResultSummaryUncheckedUpdateManyWithoutStudentInput>
   }
 
-  export type ResultSummaryScalarWhereInput = {
-    AND?: ResultSummaryScalarWhereInput | ResultSummaryScalarWhereInput[]
-    OR?: ResultSummaryScalarWhereInput[]
-    NOT?: ResultSummaryScalarWhereInput | ResultSummaryScalarWhereInput[]
-    id?: StringFilter<"ResultSummary"> | string
-    totalScore?: FloatNullableFilter<"ResultSummary"> | number | null
-    average?: FloatNullableFilter<"ResultSummary"> | number | null
-    classPosition?: IntNullableFilter<"ResultSummary"> | number | null
-    highestAvg?: FloatNullableFilter<"ResultSummary"> | number | null
-    lowestAvg?: FloatNullableFilter<"ResultSummary"> | number | null
-    countInClass?: IntNullableFilter<"ResultSummary"> | number | null
-    finalGrade?: StringNullableFilter<"ResultSummary"> | string | null
-    finalRemark?: StringNullableFilter<"ResultSummary"> | string | null
-    promotionStatus?: StringNullableFilter<"ResultSummary"> | string | null
-    cgpa?: FloatNullableFilter<"ResultSummary"> | number | null
-    classOfResult?: StringNullableFilter<"ResultSummary"> | string | null
-    attendanceOpen?: IntNullableFilter<"ResultSummary"> | number | null
-    attendancePresent?: IntNullableFilter<"ResultSummary"> | number | null
-    attendanceAbsent?: IntNullableFilter<"ResultSummary"> | number | null
-    studentId?: StringFilter<"ResultSummary"> | string
-    sessionId?: StringFilter<"ResultSummary"> | string
-    term?: EnumTermFilter<"ResultSummary"> | $Enums.Term
-    examTerm?: EnumExamTermFilter<"ResultSummary"> | $Enums.ExamTerm
-    isActive?: BoolFilter<"ResultSummary"> | boolean
-    isLocked?: BoolFilter<"ResultSummary"> | boolean
-    createdAt?: DateTimeFilter<"ResultSummary"> | Date | string
-    updatedAt?: DateTimeFilter<"ResultSummary"> | Date | string
-  }
-
   export type BranchUpsertWithoutStudentsInput = {
     update: XOR<BranchUpdateWithoutStudentsInput, BranchUncheckedUpdateWithoutStudentsInput>
     create: XOR<BranchCreateWithoutStudentsInput, BranchUncheckedCreateWithoutStudentsInput>
@@ -160166,6 +162035,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutStudentsInput = {
@@ -160222,6 +162099,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StudentCategoryUpsertWithoutStudentsInput = {
@@ -160581,6 +162466,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutCertificatesInput = {
@@ -160637,6 +162530,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutCertificatesInput = {
@@ -160922,6 +162823,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutCertificatesInput = {
@@ -160978,6 +162887,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type UserUpsertWithoutIssuedCertificatesInput = {
@@ -161305,6 +163222,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutCertificateTemplatesInput = {
@@ -161361,6 +163286,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutCertificateTemplatesInput = {
@@ -161449,6 +163382,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutCertificateTemplatesInput = {
@@ -161505,6 +163446,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutClassesInput = {
@@ -161561,6 +163510,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutClassesInput = {
@@ -161617,6 +163574,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutClassesInput = {
@@ -162324,6 +164289,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutClassesInput = {
@@ -162380,6 +164353,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StaffUpsertWithoutClassesInput = {
@@ -162613,6 +164594,7 @@ export namespace Prisma {
     isEligible?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutAssessmentRecordsInput
     session: AcademicSessionCreateNestedOneWithoutAssessmentRecordsInput
     student: StudentCreateNestedOneWithoutAssessmentRecordsInput
     subject: SubjectCreateNestedOneWithoutAssessmentRecordsInput
@@ -162636,6 +164618,7 @@ export namespace Prisma {
     studentId: string
     subjectId: string
     sessionId: string
+    branchId: string
     term: $Enums.Term
     examTerm: $Enums.ExamTerm
     isEligible?: boolean
@@ -162698,6 +164681,7 @@ export namespace Prisma {
     remarks?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutAttendanceInput
     student: StudentCreateNestedOneWithoutAttendanceInput
   }
 
@@ -162707,6 +164691,7 @@ export namespace Prisma {
     status: $Enums.AttendanceStatus
     remarks?: string | null
     studentId: string
+    branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -163481,6 +165466,7 @@ export namespace Prisma {
     isEligible?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutAssessmentRecordsInput
     section: SectionCreateNestedOneWithoutAssessmentRecordsInput
     session: AcademicSessionCreateNestedOneWithoutAssessmentRecordsInput
     student: StudentCreateNestedOneWithoutAssessmentRecordsInput
@@ -163504,6 +165490,7 @@ export namespace Prisma {
     studentId: string
     sectionId: string
     sessionId: string
+    branchId: string
     term: $Enums.Term
     examTerm: $Enums.ExamTerm
     isEligible?: boolean
@@ -163809,6 +165796,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutSubjectsInput = {
@@ -163865,6 +165860,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutSubjectsInput = {
@@ -164086,6 +166089,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutSubjectsInput = {
@@ -164142,6 +166153,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StaffUpsertWithWhereUniqueWithoutSubjectsInput = {
@@ -164526,6 +166545,139 @@ export namespace Prisma {
     subjects?: SubjectUncheckedUpdateManyWithoutTeachersNestedInput
   }
 
+  export type BranchCreateWithoutAttendanceInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
+    alumni?: AlumniCreateNestedManyWithoutBranchInput
+    alumniEvents?: AlumniEventCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
+    automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    books?: BookCreateNestedManyWithoutBranchInput
+    callLogs?: CallLogCreateNestedManyWithoutBranchInput
+    accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
+    campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
+    certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
+    classes?: ClassCreateNestedManyWithoutBranchInput
+    complaints?: ComplaintCreateNestedManyWithoutBranchInput
+    conversations?: ConversationCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    departments?: DepartmentCreateNestedManyWithoutBranchInput
+    designations?: DesignationCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
+    expenseCategories?: ExpenseCategoryCreateNestedManyWithoutBranchInput
+    feeCategories?: FeeCategoryCreateNestedManyWithoutBranchInput
+    googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
+    hostels?: HostelCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    inventoryCategories?: InventoryCategoryCreateNestedManyWithoutBranchInput
+    inventoryIssues?: InventoryIssueCreateNestedManyWithoutBranchInput
+    inventoryProducts?: InventoryProductCreateNestedManyWithoutBranchInput
+    inventoryPurchases?: InventoryPurchaseCreateNestedManyWithoutBranchInput
+    inventorySales?: InventorySaleCreateNestedManyWithoutBranchInput
+    inventoryStores?: InventoryStoreCreateNestedManyWithoutBranchInput
+    inventorySuppliers?: InventorySupplierCreateNestedManyWithoutBranchInput
+    inventoryUnits?: InventoryUnitCreateNestedManyWithoutBranchInput
+    liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutBranchInput
+    onlineExams?: OnlineExamCreateNestedManyWithoutBranchInput
+    postalRecords?: PostalRecordCreateNestedManyWithoutBranchInput
+    questionGroups?: QuestionGroupCreateNestedManyWithoutBranchInput
+    students?: StudentCreateNestedManyWithoutBranchInput
+    studentCategories?: StudentCategoryCreateNestedManyWithoutBranchInput
+    subjects?: SubjectCreateNestedManyWithoutBranchInput
+    routes?: TransportRouteCreateNestedManyWithoutBranchInput
+    users?: UserCreateNestedManyWithoutBranchInput
+    vehicles?: VehicleCreateNestedManyWithoutBranchInput
+    visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
+    vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
+  }
+
+  export type BranchUncheckedCreateWithoutAttendanceInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
+    alumni?: AlumniUncheckedCreateNestedManyWithoutBranchInput
+    alumniEvents?: AlumniEventUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
+    automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    books?: BookUncheckedCreateNestedManyWithoutBranchInput
+    callLogs?: CallLogUncheckedCreateNestedManyWithoutBranchInput
+    accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
+    campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
+    certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
+    classes?: ClassUncheckedCreateNestedManyWithoutBranchInput
+    complaints?: ComplaintUncheckedCreateNestedManyWithoutBranchInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
+    designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
+    expenseCategories?: ExpenseCategoryUncheckedCreateNestedManyWithoutBranchInput
+    feeCategories?: FeeCategoryUncheckedCreateNestedManyWithoutBranchInput
+    googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
+    hostels?: HostelUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    inventoryCategories?: InventoryCategoryUncheckedCreateNestedManyWithoutBranchInput
+    inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutBranchInput
+    inventoryProducts?: InventoryProductUncheckedCreateNestedManyWithoutBranchInput
+    inventoryPurchases?: InventoryPurchaseUncheckedCreateNestedManyWithoutBranchInput
+    inventorySales?: InventorySaleUncheckedCreateNestedManyWithoutBranchInput
+    inventoryStores?: InventoryStoreUncheckedCreateNestedManyWithoutBranchInput
+    inventorySuppliers?: InventorySupplierUncheckedCreateNestedManyWithoutBranchInput
+    inventoryUnits?: InventoryUnitUncheckedCreateNestedManyWithoutBranchInput
+    liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutBranchInput
+    onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutBranchInput
+    postalRecords?: PostalRecordUncheckedCreateNestedManyWithoutBranchInput
+    questionGroups?: QuestionGroupUncheckedCreateNestedManyWithoutBranchInput
+    students?: StudentUncheckedCreateNestedManyWithoutBranchInput
+    studentCategories?: StudentCategoryUncheckedCreateNestedManyWithoutBranchInput
+    subjects?: SubjectUncheckedCreateNestedManyWithoutBranchInput
+    routes?: TransportRouteUncheckedCreateNestedManyWithoutBranchInput
+    users?: UserUncheckedCreateNestedManyWithoutBranchInput
+    vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
+    visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
+    vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
+  }
+
+  export type BranchCreateOrConnectWithoutAttendanceInput = {
+    where: BranchWhereUniqueInput
+    create: XOR<BranchCreateWithoutAttendanceInput, BranchUncheckedCreateWithoutAttendanceInput>
+  }
+
   export type SectionCreateWithoutAttendanceInput = {
     id?: string
     name: string
@@ -164690,6 +166842,145 @@ export namespace Prisma {
   export type StudentCreateOrConnectWithoutAttendanceInput = {
     where: StudentWhereUniqueInput
     create: XOR<StudentCreateWithoutAttendanceInput, StudentUncheckedCreateWithoutAttendanceInput>
+  }
+
+  export type BranchUpsertWithoutAttendanceInput = {
+    update: XOR<BranchUpdateWithoutAttendanceInput, BranchUncheckedUpdateWithoutAttendanceInput>
+    create: XOR<BranchCreateWithoutAttendanceInput, BranchUncheckedCreateWithoutAttendanceInput>
+    where?: BranchWhereInput
+  }
+
+  export type BranchUpdateToOneWithWhereWithoutAttendanceInput = {
+    where?: BranchWhereInput
+    data: XOR<BranchUpdateWithoutAttendanceInput, BranchUncheckedUpdateWithoutAttendanceInput>
+  }
+
+  export type BranchUpdateWithoutAttendanceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
+    alumni?: AlumniUpdateManyWithoutBranchNestedInput
+    alumniEvents?: AlumniEventUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
+    automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    books?: BookUpdateManyWithoutBranchNestedInput
+    callLogs?: CallLogUpdateManyWithoutBranchNestedInput
+    accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
+    campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
+    certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
+    classes?: ClassUpdateManyWithoutBranchNestedInput
+    complaints?: ComplaintUpdateManyWithoutBranchNestedInput
+    conversations?: ConversationUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    departments?: DepartmentUpdateManyWithoutBranchNestedInput
+    designations?: DesignationUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
+    expenseCategories?: ExpenseCategoryUpdateManyWithoutBranchNestedInput
+    feeCategories?: FeeCategoryUpdateManyWithoutBranchNestedInput
+    googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
+    hostels?: HostelUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    inventoryCategories?: InventoryCategoryUpdateManyWithoutBranchNestedInput
+    inventoryIssues?: InventoryIssueUpdateManyWithoutBranchNestedInput
+    inventoryProducts?: InventoryProductUpdateManyWithoutBranchNestedInput
+    inventoryPurchases?: InventoryPurchaseUpdateManyWithoutBranchNestedInput
+    inventorySales?: InventorySaleUpdateManyWithoutBranchNestedInput
+    inventoryStores?: InventoryStoreUpdateManyWithoutBranchNestedInput
+    inventorySuppliers?: InventorySupplierUpdateManyWithoutBranchNestedInput
+    inventoryUnits?: InventoryUnitUpdateManyWithoutBranchNestedInput
+    liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutBranchNestedInput
+    onlineExams?: OnlineExamUpdateManyWithoutBranchNestedInput
+    postalRecords?: PostalRecordUpdateManyWithoutBranchNestedInput
+    questionGroups?: QuestionGroupUpdateManyWithoutBranchNestedInput
+    students?: StudentUpdateManyWithoutBranchNestedInput
+    studentCategories?: StudentCategoryUpdateManyWithoutBranchNestedInput
+    subjects?: SubjectUpdateManyWithoutBranchNestedInput
+    routes?: TransportRouteUpdateManyWithoutBranchNestedInput
+    users?: UserUpdateManyWithoutBranchNestedInput
+    vehicles?: VehicleUpdateManyWithoutBranchNestedInput
+    visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
+    vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
+  }
+
+  export type BranchUncheckedUpdateWithoutAttendanceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
+    alumni?: AlumniUncheckedUpdateManyWithoutBranchNestedInput
+    alumniEvents?: AlumniEventUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
+    automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    books?: BookUncheckedUpdateManyWithoutBranchNestedInput
+    callLogs?: CallLogUncheckedUpdateManyWithoutBranchNestedInput
+    accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
+    campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
+    certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    classes?: ClassUncheckedUpdateManyWithoutBranchNestedInput
+    complaints?: ComplaintUncheckedUpdateManyWithoutBranchNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
+    designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
+    expenseCategories?: ExpenseCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    feeCategories?: FeeCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
+    hostels?: HostelUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryCategories?: InventoryCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryProducts?: InventoryProductUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryPurchases?: InventoryPurchaseUncheckedUpdateManyWithoutBranchNestedInput
+    inventorySales?: InventorySaleUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryStores?: InventoryStoreUncheckedUpdateManyWithoutBranchNestedInput
+    inventorySuppliers?: InventorySupplierUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryUnits?: InventoryUnitUncheckedUpdateManyWithoutBranchNestedInput
+    liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutBranchNestedInput
+    onlineExams?: OnlineExamUncheckedUpdateManyWithoutBranchNestedInput
+    postalRecords?: PostalRecordUncheckedUpdateManyWithoutBranchNestedInput
+    questionGroups?: QuestionGroupUncheckedUpdateManyWithoutBranchNestedInput
+    students?: StudentUncheckedUpdateManyWithoutBranchNestedInput
+    studentCategories?: StudentCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    subjects?: SubjectUncheckedUpdateManyWithoutBranchNestedInput
+    routes?: TransportRouteUncheckedUpdateManyWithoutBranchNestedInput
+    users?: UserUncheckedUpdateManyWithoutBranchNestedInput
+    vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
+    visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
+    vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type SectionUpsertWithoutAttendanceInput = {
@@ -164870,6 +167161,139 @@ export namespace Prisma {
     transportAssignment?: TransportAssignmentUncheckedUpdateOneWithoutStudentNestedInput
   }
 
+  export type BranchCreateWithoutStaffAttendanceInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
+    alumni?: AlumniCreateNestedManyWithoutBranchInput
+    alumniEvents?: AlumniEventCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
+    automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    books?: BookCreateNestedManyWithoutBranchInput
+    callLogs?: CallLogCreateNestedManyWithoutBranchInput
+    accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
+    campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
+    certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
+    classes?: ClassCreateNestedManyWithoutBranchInput
+    complaints?: ComplaintCreateNestedManyWithoutBranchInput
+    conversations?: ConversationCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    departments?: DepartmentCreateNestedManyWithoutBranchInput
+    designations?: DesignationCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
+    expenseCategories?: ExpenseCategoryCreateNestedManyWithoutBranchInput
+    feeCategories?: FeeCategoryCreateNestedManyWithoutBranchInput
+    googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
+    hostels?: HostelCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    inventoryCategories?: InventoryCategoryCreateNestedManyWithoutBranchInput
+    inventoryIssues?: InventoryIssueCreateNestedManyWithoutBranchInput
+    inventoryProducts?: InventoryProductCreateNestedManyWithoutBranchInput
+    inventoryPurchases?: InventoryPurchaseCreateNestedManyWithoutBranchInput
+    inventorySales?: InventorySaleCreateNestedManyWithoutBranchInput
+    inventoryStores?: InventoryStoreCreateNestedManyWithoutBranchInput
+    inventorySuppliers?: InventorySupplierCreateNestedManyWithoutBranchInput
+    inventoryUnits?: InventoryUnitCreateNestedManyWithoutBranchInput
+    liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutBranchInput
+    onlineExams?: OnlineExamCreateNestedManyWithoutBranchInput
+    postalRecords?: PostalRecordCreateNestedManyWithoutBranchInput
+    questionGroups?: QuestionGroupCreateNestedManyWithoutBranchInput
+    students?: StudentCreateNestedManyWithoutBranchInput
+    studentCategories?: StudentCategoryCreateNestedManyWithoutBranchInput
+    subjects?: SubjectCreateNestedManyWithoutBranchInput
+    routes?: TransportRouteCreateNestedManyWithoutBranchInput
+    users?: UserCreateNestedManyWithoutBranchInput
+    vehicles?: VehicleCreateNestedManyWithoutBranchInput
+    visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
+    vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
+  }
+
+  export type BranchUncheckedCreateWithoutStaffAttendanceInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
+    alumni?: AlumniUncheckedCreateNestedManyWithoutBranchInput
+    alumniEvents?: AlumniEventUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
+    automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    books?: BookUncheckedCreateNestedManyWithoutBranchInput
+    callLogs?: CallLogUncheckedCreateNestedManyWithoutBranchInput
+    accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
+    campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
+    certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
+    classes?: ClassUncheckedCreateNestedManyWithoutBranchInput
+    complaints?: ComplaintUncheckedCreateNestedManyWithoutBranchInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
+    designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
+    expenseCategories?: ExpenseCategoryUncheckedCreateNestedManyWithoutBranchInput
+    feeCategories?: FeeCategoryUncheckedCreateNestedManyWithoutBranchInput
+    googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
+    hostels?: HostelUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    inventoryCategories?: InventoryCategoryUncheckedCreateNestedManyWithoutBranchInput
+    inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutBranchInput
+    inventoryProducts?: InventoryProductUncheckedCreateNestedManyWithoutBranchInput
+    inventoryPurchases?: InventoryPurchaseUncheckedCreateNestedManyWithoutBranchInput
+    inventorySales?: InventorySaleUncheckedCreateNestedManyWithoutBranchInput
+    inventoryStores?: InventoryStoreUncheckedCreateNestedManyWithoutBranchInput
+    inventorySuppliers?: InventorySupplierUncheckedCreateNestedManyWithoutBranchInput
+    inventoryUnits?: InventoryUnitUncheckedCreateNestedManyWithoutBranchInput
+    liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutBranchInput
+    onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutBranchInput
+    postalRecords?: PostalRecordUncheckedCreateNestedManyWithoutBranchInput
+    questionGroups?: QuestionGroupUncheckedCreateNestedManyWithoutBranchInput
+    students?: StudentUncheckedCreateNestedManyWithoutBranchInput
+    studentCategories?: StudentCategoryUncheckedCreateNestedManyWithoutBranchInput
+    subjects?: SubjectUncheckedCreateNestedManyWithoutBranchInput
+    routes?: TransportRouteUncheckedCreateNestedManyWithoutBranchInput
+    users?: UserUncheckedCreateNestedManyWithoutBranchInput
+    vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
+    visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
+    vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
+  }
+
+  export type BranchCreateOrConnectWithoutStaffAttendanceInput = {
+    where: BranchWhereUniqueInput
+    create: XOR<BranchCreateWithoutStaffAttendanceInput, BranchUncheckedCreateWithoutStaffAttendanceInput>
+  }
+
   export type StaffCreateWithoutAttendanceInput = {
     id?: string
     designation?: string | null
@@ -164921,6 +167345,145 @@ export namespace Prisma {
   export type StaffCreateOrConnectWithoutAttendanceInput = {
     where: StaffWhereUniqueInput
     create: XOR<StaffCreateWithoutAttendanceInput, StaffUncheckedCreateWithoutAttendanceInput>
+  }
+
+  export type BranchUpsertWithoutStaffAttendanceInput = {
+    update: XOR<BranchUpdateWithoutStaffAttendanceInput, BranchUncheckedUpdateWithoutStaffAttendanceInput>
+    create: XOR<BranchCreateWithoutStaffAttendanceInput, BranchUncheckedCreateWithoutStaffAttendanceInput>
+    where?: BranchWhereInput
+  }
+
+  export type BranchUpdateToOneWithWhereWithoutStaffAttendanceInput = {
+    where?: BranchWhereInput
+    data: XOR<BranchUpdateWithoutStaffAttendanceInput, BranchUncheckedUpdateWithoutStaffAttendanceInput>
+  }
+
+  export type BranchUpdateWithoutStaffAttendanceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
+    alumni?: AlumniUpdateManyWithoutBranchNestedInput
+    alumniEvents?: AlumniEventUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
+    automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    books?: BookUpdateManyWithoutBranchNestedInput
+    callLogs?: CallLogUpdateManyWithoutBranchNestedInput
+    accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
+    campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
+    certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
+    classes?: ClassUpdateManyWithoutBranchNestedInput
+    complaints?: ComplaintUpdateManyWithoutBranchNestedInput
+    conversations?: ConversationUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    departments?: DepartmentUpdateManyWithoutBranchNestedInput
+    designations?: DesignationUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
+    expenseCategories?: ExpenseCategoryUpdateManyWithoutBranchNestedInput
+    feeCategories?: FeeCategoryUpdateManyWithoutBranchNestedInput
+    googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
+    hostels?: HostelUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    inventoryCategories?: InventoryCategoryUpdateManyWithoutBranchNestedInput
+    inventoryIssues?: InventoryIssueUpdateManyWithoutBranchNestedInput
+    inventoryProducts?: InventoryProductUpdateManyWithoutBranchNestedInput
+    inventoryPurchases?: InventoryPurchaseUpdateManyWithoutBranchNestedInput
+    inventorySales?: InventorySaleUpdateManyWithoutBranchNestedInput
+    inventoryStores?: InventoryStoreUpdateManyWithoutBranchNestedInput
+    inventorySuppliers?: InventorySupplierUpdateManyWithoutBranchNestedInput
+    inventoryUnits?: InventoryUnitUpdateManyWithoutBranchNestedInput
+    liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutBranchNestedInput
+    onlineExams?: OnlineExamUpdateManyWithoutBranchNestedInput
+    postalRecords?: PostalRecordUpdateManyWithoutBranchNestedInput
+    questionGroups?: QuestionGroupUpdateManyWithoutBranchNestedInput
+    students?: StudentUpdateManyWithoutBranchNestedInput
+    studentCategories?: StudentCategoryUpdateManyWithoutBranchNestedInput
+    subjects?: SubjectUpdateManyWithoutBranchNestedInput
+    routes?: TransportRouteUpdateManyWithoutBranchNestedInput
+    users?: UserUpdateManyWithoutBranchNestedInput
+    vehicles?: VehicleUpdateManyWithoutBranchNestedInput
+    visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
+    vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
+  }
+
+  export type BranchUncheckedUpdateWithoutStaffAttendanceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
+    alumni?: AlumniUncheckedUpdateManyWithoutBranchNestedInput
+    alumniEvents?: AlumniEventUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
+    automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    books?: BookUncheckedUpdateManyWithoutBranchNestedInput
+    callLogs?: CallLogUncheckedUpdateManyWithoutBranchNestedInput
+    accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
+    campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
+    certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    classes?: ClassUncheckedUpdateManyWithoutBranchNestedInput
+    complaints?: ComplaintUncheckedUpdateManyWithoutBranchNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
+    designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
+    expenseCategories?: ExpenseCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    feeCategories?: FeeCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
+    hostels?: HostelUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryCategories?: InventoryCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryProducts?: InventoryProductUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryPurchases?: InventoryPurchaseUncheckedUpdateManyWithoutBranchNestedInput
+    inventorySales?: InventorySaleUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryStores?: InventoryStoreUncheckedUpdateManyWithoutBranchNestedInput
+    inventorySuppliers?: InventorySupplierUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryUnits?: InventoryUnitUncheckedUpdateManyWithoutBranchNestedInput
+    liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutBranchNestedInput
+    onlineExams?: OnlineExamUncheckedUpdateManyWithoutBranchNestedInput
+    postalRecords?: PostalRecordUncheckedUpdateManyWithoutBranchNestedInput
+    questionGroups?: QuestionGroupUncheckedUpdateManyWithoutBranchNestedInput
+    students?: StudentUncheckedUpdateManyWithoutBranchNestedInput
+    studentCategories?: StudentCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    subjects?: SubjectUncheckedUpdateManyWithoutBranchNestedInput
+    routes?: TransportRouteUncheckedUpdateManyWithoutBranchNestedInput
+    users?: UserUncheckedUpdateManyWithoutBranchNestedInput
+    vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
+    visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
+    vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StaffUpsertWithoutAttendanceInput = {
@@ -165036,6 +167599,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutHostelsInput = {
@@ -165092,6 +167663,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutHostelsInput = {
@@ -165194,6 +167773,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutHostelsInput = {
@@ -165250,6 +167837,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type RoomUpsertWithWhereUniqueWithoutHostelInput = {
@@ -166254,6 +168849,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutFeeCategoriesInput = {
@@ -166310,6 +168913,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutFeeCategoriesInput = {
@@ -166436,6 +169047,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutFeeCategoriesInput = {
@@ -166492,6 +169111,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type FeeStructureUpsertWithWhereUniqueWithoutCategoryInput = {
@@ -167180,6 +169807,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutQuestionGroupsInput = {
@@ -167236,6 +169871,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutQuestionGroupsInput = {
@@ -167353,6 +169996,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutQuestionGroupsInput = {
@@ -167409,6 +170060,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type QuestionGroupCreateWithoutQuestionsInput = {
@@ -167688,6 +170347,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutOnlineExamsInput = {
@@ -167744,6 +170411,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutOnlineExamsInput = {
@@ -167986,6 +170661,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutOnlineExamsInput = {
@@ -168042,6 +170725,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type ClassUpsertWithoutOnlineExamsInput = {
@@ -169022,6 +171713,14 @@ export namespace Prisma {
     users?: UserCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutVehiclesInput = {
@@ -169078,6 +171777,14 @@ export namespace Prisma {
     users?: UserUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutVehiclesInput = {
@@ -169178,6 +171885,14 @@ export namespace Prisma {
     users?: UserUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutVehiclesInput = {
@@ -169234,6 +171949,14 @@ export namespace Prisma {
     users?: UserUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type TransportAssignmentCreateWithoutRouteInput = {
@@ -169316,6 +172039,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutRoutesInput = {
@@ -169372,6 +172103,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutRoutesInput = {
@@ -169460,6 +172199,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutRoutesInput = {
@@ -169516,6 +172263,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type TransportRouteCreateWithoutAssignmentsInput = {
@@ -169960,6 +172715,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAssignmentsInput = {
@@ -170016,6 +172779,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAssignmentsInput = {
@@ -170245,6 +173016,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAssignmentsInput = {
@@ -170301,6 +173080,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type SectionUpsertWithoutAssignmentsInput = {
@@ -170798,6 +173585,139 @@ export namespace Prisma {
     transportAssignment?: TransportAssignmentUncheckedUpdateOneWithoutStudentNestedInput
   }
 
+  export type BranchCreateWithoutAcademicSessionsInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
+    alumni?: AlumniCreateNestedManyWithoutBranchInput
+    alumniEvents?: AlumniEventCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
+    automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    books?: BookCreateNestedManyWithoutBranchInput
+    callLogs?: CallLogCreateNestedManyWithoutBranchInput
+    accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
+    campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
+    certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
+    classes?: ClassCreateNestedManyWithoutBranchInput
+    complaints?: ComplaintCreateNestedManyWithoutBranchInput
+    conversations?: ConversationCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    departments?: DepartmentCreateNestedManyWithoutBranchInput
+    designations?: DesignationCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
+    expenseCategories?: ExpenseCategoryCreateNestedManyWithoutBranchInput
+    feeCategories?: FeeCategoryCreateNestedManyWithoutBranchInput
+    googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
+    hostels?: HostelCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    inventoryCategories?: InventoryCategoryCreateNestedManyWithoutBranchInput
+    inventoryIssues?: InventoryIssueCreateNestedManyWithoutBranchInput
+    inventoryProducts?: InventoryProductCreateNestedManyWithoutBranchInput
+    inventoryPurchases?: InventoryPurchaseCreateNestedManyWithoutBranchInput
+    inventorySales?: InventorySaleCreateNestedManyWithoutBranchInput
+    inventoryStores?: InventoryStoreCreateNestedManyWithoutBranchInput
+    inventorySuppliers?: InventorySupplierCreateNestedManyWithoutBranchInput
+    inventoryUnits?: InventoryUnitCreateNestedManyWithoutBranchInput
+    liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutBranchInput
+    onlineExams?: OnlineExamCreateNestedManyWithoutBranchInput
+    postalRecords?: PostalRecordCreateNestedManyWithoutBranchInput
+    questionGroups?: QuestionGroupCreateNestedManyWithoutBranchInput
+    students?: StudentCreateNestedManyWithoutBranchInput
+    studentCategories?: StudentCategoryCreateNestedManyWithoutBranchInput
+    subjects?: SubjectCreateNestedManyWithoutBranchInput
+    routes?: TransportRouteCreateNestedManyWithoutBranchInput
+    users?: UserCreateNestedManyWithoutBranchInput
+    vehicles?: VehicleCreateNestedManyWithoutBranchInput
+    visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
+    vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
+  }
+
+  export type BranchUncheckedCreateWithoutAcademicSessionsInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
+    alumni?: AlumniUncheckedCreateNestedManyWithoutBranchInput
+    alumniEvents?: AlumniEventUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
+    automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    books?: BookUncheckedCreateNestedManyWithoutBranchInput
+    callLogs?: CallLogUncheckedCreateNestedManyWithoutBranchInput
+    accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
+    campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
+    certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
+    classes?: ClassUncheckedCreateNestedManyWithoutBranchInput
+    complaints?: ComplaintUncheckedCreateNestedManyWithoutBranchInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
+    designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
+    expenseCategories?: ExpenseCategoryUncheckedCreateNestedManyWithoutBranchInput
+    feeCategories?: FeeCategoryUncheckedCreateNestedManyWithoutBranchInput
+    googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
+    hostels?: HostelUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    inventoryCategories?: InventoryCategoryUncheckedCreateNestedManyWithoutBranchInput
+    inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutBranchInput
+    inventoryProducts?: InventoryProductUncheckedCreateNestedManyWithoutBranchInput
+    inventoryPurchases?: InventoryPurchaseUncheckedCreateNestedManyWithoutBranchInput
+    inventorySales?: InventorySaleUncheckedCreateNestedManyWithoutBranchInput
+    inventoryStores?: InventoryStoreUncheckedCreateNestedManyWithoutBranchInput
+    inventorySuppliers?: InventorySupplierUncheckedCreateNestedManyWithoutBranchInput
+    inventoryUnits?: InventoryUnitUncheckedCreateNestedManyWithoutBranchInput
+    liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutBranchInput
+    onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutBranchInput
+    postalRecords?: PostalRecordUncheckedCreateNestedManyWithoutBranchInput
+    questionGroups?: QuestionGroupUncheckedCreateNestedManyWithoutBranchInput
+    students?: StudentUncheckedCreateNestedManyWithoutBranchInput
+    studentCategories?: StudentCategoryUncheckedCreateNestedManyWithoutBranchInput
+    subjects?: SubjectUncheckedCreateNestedManyWithoutBranchInput
+    routes?: TransportRouteUncheckedCreateNestedManyWithoutBranchInput
+    users?: UserUncheckedCreateNestedManyWithoutBranchInput
+    vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
+    visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
+    vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
+  }
+
+  export type BranchCreateOrConnectWithoutAcademicSessionsInput = {
+    where: BranchWhereUniqueInput
+    create: XOR<BranchCreateWithoutAcademicSessionsInput, BranchUncheckedCreateWithoutAcademicSessionsInput>
+  }
+
   export type AssessmentRecordCreateWithoutSessionInput = {
     id?: string
     asgn1?: number | null
@@ -170818,6 +173738,7 @@ export namespace Prisma {
     isEligible?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutAssessmentRecordsInput
     section: SectionCreateNestedOneWithoutAssessmentRecordsInput
     student: StudentCreateNestedOneWithoutAssessmentRecordsInput
     subject: SubjectCreateNestedOneWithoutAssessmentRecordsInput
@@ -170841,6 +173762,7 @@ export namespace Prisma {
     studentId: string
     subjectId: string
     sectionId: string
+    branchId: string
     term: $Enums.Term
     examTerm: $Enums.ExamTerm
     isEligible?: boolean
@@ -170874,6 +173796,7 @@ export namespace Prisma {
     term: $Enums.Term
     createdAt?: Date | string
     updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutBehaviouralRatingsInput
     student: StudentCreateNestedOneWithoutBehaviouralRatingsInput
   }
 
@@ -170891,6 +173814,7 @@ export namespace Prisma {
     carryingOutAssignments?: string | null
     participation?: string | null
     studentId: string
+    branchId: string
     term: $Enums.Term
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -171190,6 +174114,7 @@ export namespace Prisma {
     isLocked?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutResultSummariesInput
     student: StudentCreateNestedOneWithoutResultSummariesInput
   }
 
@@ -171210,6 +174135,7 @@ export namespace Prisma {
     attendancePresent?: number | null
     attendanceAbsent?: number | null
     studentId: string
+    branchId: string
     term: $Enums.Term
     examTerm: $Enums.ExamTerm
     isActive?: boolean
@@ -171226,6 +174152,145 @@ export namespace Prisma {
   export type ResultSummaryCreateManySessionInputEnvelope = {
     data: ResultSummaryCreateManySessionInput | ResultSummaryCreateManySessionInput[]
     skipDuplicates?: boolean
+  }
+
+  export type BranchUpsertWithoutAcademicSessionsInput = {
+    update: XOR<BranchUpdateWithoutAcademicSessionsInput, BranchUncheckedUpdateWithoutAcademicSessionsInput>
+    create: XOR<BranchCreateWithoutAcademicSessionsInput, BranchUncheckedCreateWithoutAcademicSessionsInput>
+    where?: BranchWhereInput
+  }
+
+  export type BranchUpdateToOneWithWhereWithoutAcademicSessionsInput = {
+    where?: BranchWhereInput
+    data: XOR<BranchUpdateWithoutAcademicSessionsInput, BranchUncheckedUpdateWithoutAcademicSessionsInput>
+  }
+
+  export type BranchUpdateWithoutAcademicSessionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
+    alumni?: AlumniUpdateManyWithoutBranchNestedInput
+    alumniEvents?: AlumniEventUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
+    automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    books?: BookUpdateManyWithoutBranchNestedInput
+    callLogs?: CallLogUpdateManyWithoutBranchNestedInput
+    accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
+    campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
+    certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
+    classes?: ClassUpdateManyWithoutBranchNestedInput
+    complaints?: ComplaintUpdateManyWithoutBranchNestedInput
+    conversations?: ConversationUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    departments?: DepartmentUpdateManyWithoutBranchNestedInput
+    designations?: DesignationUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
+    expenseCategories?: ExpenseCategoryUpdateManyWithoutBranchNestedInput
+    feeCategories?: FeeCategoryUpdateManyWithoutBranchNestedInput
+    googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
+    hostels?: HostelUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    inventoryCategories?: InventoryCategoryUpdateManyWithoutBranchNestedInput
+    inventoryIssues?: InventoryIssueUpdateManyWithoutBranchNestedInput
+    inventoryProducts?: InventoryProductUpdateManyWithoutBranchNestedInput
+    inventoryPurchases?: InventoryPurchaseUpdateManyWithoutBranchNestedInput
+    inventorySales?: InventorySaleUpdateManyWithoutBranchNestedInput
+    inventoryStores?: InventoryStoreUpdateManyWithoutBranchNestedInput
+    inventorySuppliers?: InventorySupplierUpdateManyWithoutBranchNestedInput
+    inventoryUnits?: InventoryUnitUpdateManyWithoutBranchNestedInput
+    liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutBranchNestedInput
+    onlineExams?: OnlineExamUpdateManyWithoutBranchNestedInput
+    postalRecords?: PostalRecordUpdateManyWithoutBranchNestedInput
+    questionGroups?: QuestionGroupUpdateManyWithoutBranchNestedInput
+    students?: StudentUpdateManyWithoutBranchNestedInput
+    studentCategories?: StudentCategoryUpdateManyWithoutBranchNestedInput
+    subjects?: SubjectUpdateManyWithoutBranchNestedInput
+    routes?: TransportRouteUpdateManyWithoutBranchNestedInput
+    users?: UserUpdateManyWithoutBranchNestedInput
+    vehicles?: VehicleUpdateManyWithoutBranchNestedInput
+    visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
+    vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
+  }
+
+  export type BranchUncheckedUpdateWithoutAcademicSessionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
+    alumni?: AlumniUncheckedUpdateManyWithoutBranchNestedInput
+    alumniEvents?: AlumniEventUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
+    automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    books?: BookUncheckedUpdateManyWithoutBranchNestedInput
+    callLogs?: CallLogUncheckedUpdateManyWithoutBranchNestedInput
+    accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
+    campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
+    certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    classes?: ClassUncheckedUpdateManyWithoutBranchNestedInput
+    complaints?: ComplaintUncheckedUpdateManyWithoutBranchNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
+    designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
+    expenseCategories?: ExpenseCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    feeCategories?: FeeCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
+    hostels?: HostelUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryCategories?: InventoryCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryProducts?: InventoryProductUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryPurchases?: InventoryPurchaseUncheckedUpdateManyWithoutBranchNestedInput
+    inventorySales?: InventorySaleUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryStores?: InventoryStoreUncheckedUpdateManyWithoutBranchNestedInput
+    inventorySuppliers?: InventorySupplierUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryUnits?: InventoryUnitUncheckedUpdateManyWithoutBranchNestedInput
+    liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutBranchNestedInput
+    onlineExams?: OnlineExamUncheckedUpdateManyWithoutBranchNestedInput
+    postalRecords?: PostalRecordUncheckedUpdateManyWithoutBranchNestedInput
+    questionGroups?: QuestionGroupUncheckedUpdateManyWithoutBranchNestedInput
+    students?: StudentUncheckedUpdateManyWithoutBranchNestedInput
+    studentCategories?: StudentCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    subjects?: SubjectUncheckedUpdateManyWithoutBranchNestedInput
+    routes?: TransportRouteUncheckedUpdateManyWithoutBranchNestedInput
+    users?: UserUncheckedUpdateManyWithoutBranchNestedInput
+    vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
+    visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
+    vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type AssessmentRecordUpsertWithWhereUniqueWithoutSessionInput = {
@@ -171324,6 +174389,139 @@ export namespace Prisma {
     data: XOR<ResultSummaryUpdateManyMutationInput, ResultSummaryUncheckedUpdateManyWithoutSessionInput>
   }
 
+  export type BranchCreateWithoutAssessmentRecordsInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
+    alumni?: AlumniCreateNestedManyWithoutBranchInput
+    alumniEvents?: AlumniEventCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
+    automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    books?: BookCreateNestedManyWithoutBranchInput
+    callLogs?: CallLogCreateNestedManyWithoutBranchInput
+    accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
+    campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
+    certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
+    classes?: ClassCreateNestedManyWithoutBranchInput
+    complaints?: ComplaintCreateNestedManyWithoutBranchInput
+    conversations?: ConversationCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    departments?: DepartmentCreateNestedManyWithoutBranchInput
+    designations?: DesignationCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
+    expenseCategories?: ExpenseCategoryCreateNestedManyWithoutBranchInput
+    feeCategories?: FeeCategoryCreateNestedManyWithoutBranchInput
+    googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
+    hostels?: HostelCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    inventoryCategories?: InventoryCategoryCreateNestedManyWithoutBranchInput
+    inventoryIssues?: InventoryIssueCreateNestedManyWithoutBranchInput
+    inventoryProducts?: InventoryProductCreateNestedManyWithoutBranchInput
+    inventoryPurchases?: InventoryPurchaseCreateNestedManyWithoutBranchInput
+    inventorySales?: InventorySaleCreateNestedManyWithoutBranchInput
+    inventoryStores?: InventoryStoreCreateNestedManyWithoutBranchInput
+    inventorySuppliers?: InventorySupplierCreateNestedManyWithoutBranchInput
+    inventoryUnits?: InventoryUnitCreateNestedManyWithoutBranchInput
+    liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutBranchInput
+    onlineExams?: OnlineExamCreateNestedManyWithoutBranchInput
+    postalRecords?: PostalRecordCreateNestedManyWithoutBranchInput
+    questionGroups?: QuestionGroupCreateNestedManyWithoutBranchInput
+    students?: StudentCreateNestedManyWithoutBranchInput
+    studentCategories?: StudentCategoryCreateNestedManyWithoutBranchInput
+    subjects?: SubjectCreateNestedManyWithoutBranchInput
+    routes?: TransportRouteCreateNestedManyWithoutBranchInput
+    users?: UserCreateNestedManyWithoutBranchInput
+    vehicles?: VehicleCreateNestedManyWithoutBranchInput
+    visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
+    vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
+  }
+
+  export type BranchUncheckedCreateWithoutAssessmentRecordsInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
+    alumni?: AlumniUncheckedCreateNestedManyWithoutBranchInput
+    alumniEvents?: AlumniEventUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
+    automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    books?: BookUncheckedCreateNestedManyWithoutBranchInput
+    callLogs?: CallLogUncheckedCreateNestedManyWithoutBranchInput
+    accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
+    campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
+    certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
+    classes?: ClassUncheckedCreateNestedManyWithoutBranchInput
+    complaints?: ComplaintUncheckedCreateNestedManyWithoutBranchInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
+    designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
+    expenseCategories?: ExpenseCategoryUncheckedCreateNestedManyWithoutBranchInput
+    feeCategories?: FeeCategoryUncheckedCreateNestedManyWithoutBranchInput
+    googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
+    hostels?: HostelUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    inventoryCategories?: InventoryCategoryUncheckedCreateNestedManyWithoutBranchInput
+    inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutBranchInput
+    inventoryProducts?: InventoryProductUncheckedCreateNestedManyWithoutBranchInput
+    inventoryPurchases?: InventoryPurchaseUncheckedCreateNestedManyWithoutBranchInput
+    inventorySales?: InventorySaleUncheckedCreateNestedManyWithoutBranchInput
+    inventoryStores?: InventoryStoreUncheckedCreateNestedManyWithoutBranchInput
+    inventorySuppliers?: InventorySupplierUncheckedCreateNestedManyWithoutBranchInput
+    inventoryUnits?: InventoryUnitUncheckedCreateNestedManyWithoutBranchInput
+    liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutBranchInput
+    onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutBranchInput
+    postalRecords?: PostalRecordUncheckedCreateNestedManyWithoutBranchInput
+    questionGroups?: QuestionGroupUncheckedCreateNestedManyWithoutBranchInput
+    students?: StudentUncheckedCreateNestedManyWithoutBranchInput
+    studentCategories?: StudentCategoryUncheckedCreateNestedManyWithoutBranchInput
+    subjects?: SubjectUncheckedCreateNestedManyWithoutBranchInput
+    routes?: TransportRouteUncheckedCreateNestedManyWithoutBranchInput
+    users?: UserUncheckedCreateNestedManyWithoutBranchInput
+    vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
+    visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
+    vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
+  }
+
+  export type BranchCreateOrConnectWithoutAssessmentRecordsInput = {
+    where: BranchWhereUniqueInput
+    create: XOR<BranchCreateWithoutAssessmentRecordsInput, BranchUncheckedCreateWithoutAssessmentRecordsInput>
+  }
+
   export type SectionCreateWithoutAssessmentRecordsInput = {
     id?: string
     name: string
@@ -171371,6 +174569,7 @@ export namespace Prisma {
     termEnds?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutAcademicSessionsInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutSessionInput
     digitalResources?: DigitalResourceCreateNestedManyWithoutSessionInput
     idCards?: IdCardCreateNestedManyWithoutSessionInput
@@ -171386,6 +174585,7 @@ export namespace Prisma {
     isActive?: boolean
     nextTermBegins?: Date | string | null
     termEnds?: Date | string | null
+    branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutSessionInput
@@ -171564,6 +174764,145 @@ export namespace Prisma {
     create: XOR<SubjectCreateWithoutAssessmentRecordsInput, SubjectUncheckedCreateWithoutAssessmentRecordsInput>
   }
 
+  export type BranchUpsertWithoutAssessmentRecordsInput = {
+    update: XOR<BranchUpdateWithoutAssessmentRecordsInput, BranchUncheckedUpdateWithoutAssessmentRecordsInput>
+    create: XOR<BranchCreateWithoutAssessmentRecordsInput, BranchUncheckedCreateWithoutAssessmentRecordsInput>
+    where?: BranchWhereInput
+  }
+
+  export type BranchUpdateToOneWithWhereWithoutAssessmentRecordsInput = {
+    where?: BranchWhereInput
+    data: XOR<BranchUpdateWithoutAssessmentRecordsInput, BranchUncheckedUpdateWithoutAssessmentRecordsInput>
+  }
+
+  export type BranchUpdateWithoutAssessmentRecordsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
+    alumni?: AlumniUpdateManyWithoutBranchNestedInput
+    alumniEvents?: AlumniEventUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
+    automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    books?: BookUpdateManyWithoutBranchNestedInput
+    callLogs?: CallLogUpdateManyWithoutBranchNestedInput
+    accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
+    campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
+    certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
+    classes?: ClassUpdateManyWithoutBranchNestedInput
+    complaints?: ComplaintUpdateManyWithoutBranchNestedInput
+    conversations?: ConversationUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    departments?: DepartmentUpdateManyWithoutBranchNestedInput
+    designations?: DesignationUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
+    expenseCategories?: ExpenseCategoryUpdateManyWithoutBranchNestedInput
+    feeCategories?: FeeCategoryUpdateManyWithoutBranchNestedInput
+    googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
+    hostels?: HostelUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    inventoryCategories?: InventoryCategoryUpdateManyWithoutBranchNestedInput
+    inventoryIssues?: InventoryIssueUpdateManyWithoutBranchNestedInput
+    inventoryProducts?: InventoryProductUpdateManyWithoutBranchNestedInput
+    inventoryPurchases?: InventoryPurchaseUpdateManyWithoutBranchNestedInput
+    inventorySales?: InventorySaleUpdateManyWithoutBranchNestedInput
+    inventoryStores?: InventoryStoreUpdateManyWithoutBranchNestedInput
+    inventorySuppliers?: InventorySupplierUpdateManyWithoutBranchNestedInput
+    inventoryUnits?: InventoryUnitUpdateManyWithoutBranchNestedInput
+    liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutBranchNestedInput
+    onlineExams?: OnlineExamUpdateManyWithoutBranchNestedInput
+    postalRecords?: PostalRecordUpdateManyWithoutBranchNestedInput
+    questionGroups?: QuestionGroupUpdateManyWithoutBranchNestedInput
+    students?: StudentUpdateManyWithoutBranchNestedInput
+    studentCategories?: StudentCategoryUpdateManyWithoutBranchNestedInput
+    subjects?: SubjectUpdateManyWithoutBranchNestedInput
+    routes?: TransportRouteUpdateManyWithoutBranchNestedInput
+    users?: UserUpdateManyWithoutBranchNestedInput
+    vehicles?: VehicleUpdateManyWithoutBranchNestedInput
+    visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
+    vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
+  }
+
+  export type BranchUncheckedUpdateWithoutAssessmentRecordsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
+    alumni?: AlumniUncheckedUpdateManyWithoutBranchNestedInput
+    alumniEvents?: AlumniEventUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
+    automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    books?: BookUncheckedUpdateManyWithoutBranchNestedInput
+    callLogs?: CallLogUncheckedUpdateManyWithoutBranchNestedInput
+    accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
+    campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
+    certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    classes?: ClassUncheckedUpdateManyWithoutBranchNestedInput
+    complaints?: ComplaintUncheckedUpdateManyWithoutBranchNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
+    designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
+    expenseCategories?: ExpenseCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    feeCategories?: FeeCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
+    hostels?: HostelUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryCategories?: InventoryCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryProducts?: InventoryProductUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryPurchases?: InventoryPurchaseUncheckedUpdateManyWithoutBranchNestedInput
+    inventorySales?: InventorySaleUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryStores?: InventoryStoreUncheckedUpdateManyWithoutBranchNestedInput
+    inventorySuppliers?: InventorySupplierUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryUnits?: InventoryUnitUncheckedUpdateManyWithoutBranchNestedInput
+    liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutBranchNestedInput
+    onlineExams?: OnlineExamUncheckedUpdateManyWithoutBranchNestedInput
+    postalRecords?: PostalRecordUncheckedUpdateManyWithoutBranchNestedInput
+    questionGroups?: QuestionGroupUncheckedUpdateManyWithoutBranchNestedInput
+    students?: StudentUncheckedUpdateManyWithoutBranchNestedInput
+    studentCategories?: StudentCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    subjects?: SubjectUncheckedUpdateManyWithoutBranchNestedInput
+    routes?: TransportRouteUncheckedUpdateManyWithoutBranchNestedInput
+    users?: UserUncheckedUpdateManyWithoutBranchNestedInput
+    vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
+    visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
+    vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
+  }
+
   export type SectionUpsertWithoutAssessmentRecordsInput = {
     update: XOR<SectionUpdateWithoutAssessmentRecordsInput, SectionUncheckedUpdateWithoutAssessmentRecordsInput>
     create: XOR<SectionCreateWithoutAssessmentRecordsInput, SectionUncheckedCreateWithoutAssessmentRecordsInput>
@@ -171628,6 +174967,7 @@ export namespace Prisma {
     termEnds?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutAcademicSessionsNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutSessionNestedInput
     digitalResources?: DigitalResourceUpdateManyWithoutSessionNestedInput
     idCards?: IdCardUpdateManyWithoutSessionNestedInput
@@ -171643,6 +174983,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     nextTermBegins?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     termEnds?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutSessionNestedInput
@@ -171828,6 +175169,139 @@ export namespace Prisma {
     teachers?: StaffUncheckedUpdateManyWithoutSubjectsNestedInput
   }
 
+  export type BranchCreateWithoutBehaviouralRatingsInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
+    alumni?: AlumniCreateNestedManyWithoutBranchInput
+    alumniEvents?: AlumniEventCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
+    automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    books?: BookCreateNestedManyWithoutBranchInput
+    callLogs?: CallLogCreateNestedManyWithoutBranchInput
+    accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
+    campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
+    certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
+    classes?: ClassCreateNestedManyWithoutBranchInput
+    complaints?: ComplaintCreateNestedManyWithoutBranchInput
+    conversations?: ConversationCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    departments?: DepartmentCreateNestedManyWithoutBranchInput
+    designations?: DesignationCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
+    expenseCategories?: ExpenseCategoryCreateNestedManyWithoutBranchInput
+    feeCategories?: FeeCategoryCreateNestedManyWithoutBranchInput
+    googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
+    hostels?: HostelCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    inventoryCategories?: InventoryCategoryCreateNestedManyWithoutBranchInput
+    inventoryIssues?: InventoryIssueCreateNestedManyWithoutBranchInput
+    inventoryProducts?: InventoryProductCreateNestedManyWithoutBranchInput
+    inventoryPurchases?: InventoryPurchaseCreateNestedManyWithoutBranchInput
+    inventorySales?: InventorySaleCreateNestedManyWithoutBranchInput
+    inventoryStores?: InventoryStoreCreateNestedManyWithoutBranchInput
+    inventorySuppliers?: InventorySupplierCreateNestedManyWithoutBranchInput
+    inventoryUnits?: InventoryUnitCreateNestedManyWithoutBranchInput
+    liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutBranchInput
+    onlineExams?: OnlineExamCreateNestedManyWithoutBranchInput
+    postalRecords?: PostalRecordCreateNestedManyWithoutBranchInput
+    questionGroups?: QuestionGroupCreateNestedManyWithoutBranchInput
+    students?: StudentCreateNestedManyWithoutBranchInput
+    studentCategories?: StudentCategoryCreateNestedManyWithoutBranchInput
+    subjects?: SubjectCreateNestedManyWithoutBranchInput
+    routes?: TransportRouteCreateNestedManyWithoutBranchInput
+    users?: UserCreateNestedManyWithoutBranchInput
+    vehicles?: VehicleCreateNestedManyWithoutBranchInput
+    visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
+    vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
+  }
+
+  export type BranchUncheckedCreateWithoutBehaviouralRatingsInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
+    alumni?: AlumniUncheckedCreateNestedManyWithoutBranchInput
+    alumniEvents?: AlumniEventUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
+    automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    books?: BookUncheckedCreateNestedManyWithoutBranchInput
+    callLogs?: CallLogUncheckedCreateNestedManyWithoutBranchInput
+    accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
+    campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
+    certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
+    classes?: ClassUncheckedCreateNestedManyWithoutBranchInput
+    complaints?: ComplaintUncheckedCreateNestedManyWithoutBranchInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
+    designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
+    expenseCategories?: ExpenseCategoryUncheckedCreateNestedManyWithoutBranchInput
+    feeCategories?: FeeCategoryUncheckedCreateNestedManyWithoutBranchInput
+    googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
+    hostels?: HostelUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    inventoryCategories?: InventoryCategoryUncheckedCreateNestedManyWithoutBranchInput
+    inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutBranchInput
+    inventoryProducts?: InventoryProductUncheckedCreateNestedManyWithoutBranchInput
+    inventoryPurchases?: InventoryPurchaseUncheckedCreateNestedManyWithoutBranchInput
+    inventorySales?: InventorySaleUncheckedCreateNestedManyWithoutBranchInput
+    inventoryStores?: InventoryStoreUncheckedCreateNestedManyWithoutBranchInput
+    inventorySuppliers?: InventorySupplierUncheckedCreateNestedManyWithoutBranchInput
+    inventoryUnits?: InventoryUnitUncheckedCreateNestedManyWithoutBranchInput
+    liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutBranchInput
+    onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutBranchInput
+    postalRecords?: PostalRecordUncheckedCreateNestedManyWithoutBranchInput
+    questionGroups?: QuestionGroupUncheckedCreateNestedManyWithoutBranchInput
+    students?: StudentUncheckedCreateNestedManyWithoutBranchInput
+    studentCategories?: StudentCategoryUncheckedCreateNestedManyWithoutBranchInput
+    subjects?: SubjectUncheckedCreateNestedManyWithoutBranchInput
+    routes?: TransportRouteUncheckedCreateNestedManyWithoutBranchInput
+    users?: UserUncheckedCreateNestedManyWithoutBranchInput
+    vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
+    visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
+    vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
+  }
+
+  export type BranchCreateOrConnectWithoutBehaviouralRatingsInput = {
+    where: BranchWhereUniqueInput
+    create: XOR<BranchCreateWithoutBehaviouralRatingsInput, BranchUncheckedCreateWithoutBehaviouralRatingsInput>
+  }
+
   export type AcademicSessionCreateWithoutBehaviouralRatingsInput = {
     id?: string
     name: string
@@ -171838,6 +175312,7 @@ export namespace Prisma {
     termEnds?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutAcademicSessionsInput
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutSessionInput
     digitalResources?: DigitalResourceCreateNestedManyWithoutSessionInput
     idCards?: IdCardCreateNestedManyWithoutSessionInput
@@ -171853,6 +175328,7 @@ export namespace Prisma {
     isActive?: boolean
     nextTermBegins?: Date | string | null
     termEnds?: Date | string | null
+    branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutSessionInput
@@ -171996,6 +175472,145 @@ export namespace Prisma {
     create: XOR<StudentCreateWithoutBehaviouralRatingsInput, StudentUncheckedCreateWithoutBehaviouralRatingsInput>
   }
 
+  export type BranchUpsertWithoutBehaviouralRatingsInput = {
+    update: XOR<BranchUpdateWithoutBehaviouralRatingsInput, BranchUncheckedUpdateWithoutBehaviouralRatingsInput>
+    create: XOR<BranchCreateWithoutBehaviouralRatingsInput, BranchUncheckedCreateWithoutBehaviouralRatingsInput>
+    where?: BranchWhereInput
+  }
+
+  export type BranchUpdateToOneWithWhereWithoutBehaviouralRatingsInput = {
+    where?: BranchWhereInput
+    data: XOR<BranchUpdateWithoutBehaviouralRatingsInput, BranchUncheckedUpdateWithoutBehaviouralRatingsInput>
+  }
+
+  export type BranchUpdateWithoutBehaviouralRatingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
+    alumni?: AlumniUpdateManyWithoutBranchNestedInput
+    alumniEvents?: AlumniEventUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
+    automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    books?: BookUpdateManyWithoutBranchNestedInput
+    callLogs?: CallLogUpdateManyWithoutBranchNestedInput
+    accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
+    campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
+    certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
+    classes?: ClassUpdateManyWithoutBranchNestedInput
+    complaints?: ComplaintUpdateManyWithoutBranchNestedInput
+    conversations?: ConversationUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    departments?: DepartmentUpdateManyWithoutBranchNestedInput
+    designations?: DesignationUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
+    expenseCategories?: ExpenseCategoryUpdateManyWithoutBranchNestedInput
+    feeCategories?: FeeCategoryUpdateManyWithoutBranchNestedInput
+    googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
+    hostels?: HostelUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    inventoryCategories?: InventoryCategoryUpdateManyWithoutBranchNestedInput
+    inventoryIssues?: InventoryIssueUpdateManyWithoutBranchNestedInput
+    inventoryProducts?: InventoryProductUpdateManyWithoutBranchNestedInput
+    inventoryPurchases?: InventoryPurchaseUpdateManyWithoutBranchNestedInput
+    inventorySales?: InventorySaleUpdateManyWithoutBranchNestedInput
+    inventoryStores?: InventoryStoreUpdateManyWithoutBranchNestedInput
+    inventorySuppliers?: InventorySupplierUpdateManyWithoutBranchNestedInput
+    inventoryUnits?: InventoryUnitUpdateManyWithoutBranchNestedInput
+    liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutBranchNestedInput
+    onlineExams?: OnlineExamUpdateManyWithoutBranchNestedInput
+    postalRecords?: PostalRecordUpdateManyWithoutBranchNestedInput
+    questionGroups?: QuestionGroupUpdateManyWithoutBranchNestedInput
+    students?: StudentUpdateManyWithoutBranchNestedInput
+    studentCategories?: StudentCategoryUpdateManyWithoutBranchNestedInput
+    subjects?: SubjectUpdateManyWithoutBranchNestedInput
+    routes?: TransportRouteUpdateManyWithoutBranchNestedInput
+    users?: UserUpdateManyWithoutBranchNestedInput
+    vehicles?: VehicleUpdateManyWithoutBranchNestedInput
+    visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
+    vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
+  }
+
+  export type BranchUncheckedUpdateWithoutBehaviouralRatingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
+    alumni?: AlumniUncheckedUpdateManyWithoutBranchNestedInput
+    alumniEvents?: AlumniEventUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
+    automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    books?: BookUncheckedUpdateManyWithoutBranchNestedInput
+    callLogs?: CallLogUncheckedUpdateManyWithoutBranchNestedInput
+    accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
+    campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
+    certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    classes?: ClassUncheckedUpdateManyWithoutBranchNestedInput
+    complaints?: ComplaintUncheckedUpdateManyWithoutBranchNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
+    designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
+    expenseCategories?: ExpenseCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    feeCategories?: FeeCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
+    hostels?: HostelUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryCategories?: InventoryCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryProducts?: InventoryProductUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryPurchases?: InventoryPurchaseUncheckedUpdateManyWithoutBranchNestedInput
+    inventorySales?: InventorySaleUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryStores?: InventoryStoreUncheckedUpdateManyWithoutBranchNestedInput
+    inventorySuppliers?: InventorySupplierUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryUnits?: InventoryUnitUncheckedUpdateManyWithoutBranchNestedInput
+    liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutBranchNestedInput
+    onlineExams?: OnlineExamUncheckedUpdateManyWithoutBranchNestedInput
+    postalRecords?: PostalRecordUncheckedUpdateManyWithoutBranchNestedInput
+    questionGroups?: QuestionGroupUncheckedUpdateManyWithoutBranchNestedInput
+    students?: StudentUncheckedUpdateManyWithoutBranchNestedInput
+    studentCategories?: StudentCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    subjects?: SubjectUncheckedUpdateManyWithoutBranchNestedInput
+    routes?: TransportRouteUncheckedUpdateManyWithoutBranchNestedInput
+    users?: UserUncheckedUpdateManyWithoutBranchNestedInput
+    vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
+    visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
+    vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
+  }
+
   export type AcademicSessionUpsertWithoutBehaviouralRatingsInput = {
     update: XOR<AcademicSessionUpdateWithoutBehaviouralRatingsInput, AcademicSessionUncheckedUpdateWithoutBehaviouralRatingsInput>
     create: XOR<AcademicSessionCreateWithoutBehaviouralRatingsInput, AcademicSessionUncheckedCreateWithoutBehaviouralRatingsInput>
@@ -172017,6 +175632,7 @@ export namespace Prisma {
     termEnds?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutAcademicSessionsNestedInput
     assessmentRecords?: AssessmentRecordUpdateManyWithoutSessionNestedInput
     digitalResources?: DigitalResourceUpdateManyWithoutSessionNestedInput
     idCards?: IdCardUpdateManyWithoutSessionNestedInput
@@ -172032,6 +175648,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     nextTermBegins?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     termEnds?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutSessionNestedInput
@@ -172176,6 +175793,139 @@ export namespace Prisma {
     transportAssignment?: TransportAssignmentUncheckedUpdateOneWithoutStudentNestedInput
   }
 
+  export type BranchCreateWithoutResultSummariesInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
+    alumni?: AlumniCreateNestedManyWithoutBranchInput
+    alumniEvents?: AlumniEventCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
+    automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    books?: BookCreateNestedManyWithoutBranchInput
+    callLogs?: CallLogCreateNestedManyWithoutBranchInput
+    accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
+    campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
+    certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
+    classes?: ClassCreateNestedManyWithoutBranchInput
+    complaints?: ComplaintCreateNestedManyWithoutBranchInput
+    conversations?: ConversationCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    departments?: DepartmentCreateNestedManyWithoutBranchInput
+    designations?: DesignationCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
+    expenseCategories?: ExpenseCategoryCreateNestedManyWithoutBranchInput
+    feeCategories?: FeeCategoryCreateNestedManyWithoutBranchInput
+    googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
+    hostels?: HostelCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    inventoryCategories?: InventoryCategoryCreateNestedManyWithoutBranchInput
+    inventoryIssues?: InventoryIssueCreateNestedManyWithoutBranchInput
+    inventoryProducts?: InventoryProductCreateNestedManyWithoutBranchInput
+    inventoryPurchases?: InventoryPurchaseCreateNestedManyWithoutBranchInput
+    inventorySales?: InventorySaleCreateNestedManyWithoutBranchInput
+    inventoryStores?: InventoryStoreCreateNestedManyWithoutBranchInput
+    inventorySuppliers?: InventorySupplierCreateNestedManyWithoutBranchInput
+    inventoryUnits?: InventoryUnitCreateNestedManyWithoutBranchInput
+    liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutBranchInput
+    onlineExams?: OnlineExamCreateNestedManyWithoutBranchInput
+    postalRecords?: PostalRecordCreateNestedManyWithoutBranchInput
+    questionGroups?: QuestionGroupCreateNestedManyWithoutBranchInput
+    students?: StudentCreateNestedManyWithoutBranchInput
+    studentCategories?: StudentCategoryCreateNestedManyWithoutBranchInput
+    subjects?: SubjectCreateNestedManyWithoutBranchInput
+    routes?: TransportRouteCreateNestedManyWithoutBranchInput
+    users?: UserCreateNestedManyWithoutBranchInput
+    vehicles?: VehicleCreateNestedManyWithoutBranchInput
+    visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
+    vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
+  }
+
+  export type BranchUncheckedCreateWithoutResultSummariesInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
+    alumni?: AlumniUncheckedCreateNestedManyWithoutBranchInput
+    alumniEvents?: AlumniEventUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
+    automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    books?: BookUncheckedCreateNestedManyWithoutBranchInput
+    callLogs?: CallLogUncheckedCreateNestedManyWithoutBranchInput
+    accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
+    campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
+    certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
+    classes?: ClassUncheckedCreateNestedManyWithoutBranchInput
+    complaints?: ComplaintUncheckedCreateNestedManyWithoutBranchInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
+    designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
+    expenseCategories?: ExpenseCategoryUncheckedCreateNestedManyWithoutBranchInput
+    feeCategories?: FeeCategoryUncheckedCreateNestedManyWithoutBranchInput
+    googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
+    hostels?: HostelUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    inventoryCategories?: InventoryCategoryUncheckedCreateNestedManyWithoutBranchInput
+    inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutBranchInput
+    inventoryProducts?: InventoryProductUncheckedCreateNestedManyWithoutBranchInput
+    inventoryPurchases?: InventoryPurchaseUncheckedCreateNestedManyWithoutBranchInput
+    inventorySales?: InventorySaleUncheckedCreateNestedManyWithoutBranchInput
+    inventoryStores?: InventoryStoreUncheckedCreateNestedManyWithoutBranchInput
+    inventorySuppliers?: InventorySupplierUncheckedCreateNestedManyWithoutBranchInput
+    inventoryUnits?: InventoryUnitUncheckedCreateNestedManyWithoutBranchInput
+    liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutBranchInput
+    onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutBranchInput
+    postalRecords?: PostalRecordUncheckedCreateNestedManyWithoutBranchInput
+    questionGroups?: QuestionGroupUncheckedCreateNestedManyWithoutBranchInput
+    students?: StudentUncheckedCreateNestedManyWithoutBranchInput
+    studentCategories?: StudentCategoryUncheckedCreateNestedManyWithoutBranchInput
+    subjects?: SubjectUncheckedCreateNestedManyWithoutBranchInput
+    routes?: TransportRouteUncheckedCreateNestedManyWithoutBranchInput
+    users?: UserUncheckedCreateNestedManyWithoutBranchInput
+    vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
+    visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
+    vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
+  }
+
+  export type BranchCreateOrConnectWithoutResultSummariesInput = {
+    where: BranchWhereUniqueInput
+    create: XOR<BranchCreateWithoutResultSummariesInput, BranchUncheckedCreateWithoutResultSummariesInput>
+  }
+
   export type AcademicSessionCreateWithoutResultSummariesInput = {
     id?: string
     name: string
@@ -172186,6 +175936,7 @@ export namespace Prisma {
     termEnds?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutAcademicSessionsInput
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutSessionInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutSessionInput
     digitalResources?: DigitalResourceCreateNestedManyWithoutSessionInput
@@ -172201,6 +175952,7 @@ export namespace Prisma {
     isActive?: boolean
     nextTermBegins?: Date | string | null
     termEnds?: Date | string | null
+    branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutSessionInput
@@ -172344,6 +176096,145 @@ export namespace Prisma {
     create: XOR<StudentCreateWithoutResultSummariesInput, StudentUncheckedCreateWithoutResultSummariesInput>
   }
 
+  export type BranchUpsertWithoutResultSummariesInput = {
+    update: XOR<BranchUpdateWithoutResultSummariesInput, BranchUncheckedUpdateWithoutResultSummariesInput>
+    create: XOR<BranchCreateWithoutResultSummariesInput, BranchUncheckedCreateWithoutResultSummariesInput>
+    where?: BranchWhereInput
+  }
+
+  export type BranchUpdateToOneWithWhereWithoutResultSummariesInput = {
+    where?: BranchWhereInput
+    data: XOR<BranchUpdateWithoutResultSummariesInput, BranchUncheckedUpdateWithoutResultSummariesInput>
+  }
+
+  export type BranchUpdateWithoutResultSummariesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
+    alumni?: AlumniUpdateManyWithoutBranchNestedInput
+    alumniEvents?: AlumniEventUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
+    automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    books?: BookUpdateManyWithoutBranchNestedInput
+    callLogs?: CallLogUpdateManyWithoutBranchNestedInput
+    accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
+    campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
+    certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
+    classes?: ClassUpdateManyWithoutBranchNestedInput
+    complaints?: ComplaintUpdateManyWithoutBranchNestedInput
+    conversations?: ConversationUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    departments?: DepartmentUpdateManyWithoutBranchNestedInput
+    designations?: DesignationUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
+    expenseCategories?: ExpenseCategoryUpdateManyWithoutBranchNestedInput
+    feeCategories?: FeeCategoryUpdateManyWithoutBranchNestedInput
+    googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
+    hostels?: HostelUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    inventoryCategories?: InventoryCategoryUpdateManyWithoutBranchNestedInput
+    inventoryIssues?: InventoryIssueUpdateManyWithoutBranchNestedInput
+    inventoryProducts?: InventoryProductUpdateManyWithoutBranchNestedInput
+    inventoryPurchases?: InventoryPurchaseUpdateManyWithoutBranchNestedInput
+    inventorySales?: InventorySaleUpdateManyWithoutBranchNestedInput
+    inventoryStores?: InventoryStoreUpdateManyWithoutBranchNestedInput
+    inventorySuppliers?: InventorySupplierUpdateManyWithoutBranchNestedInput
+    inventoryUnits?: InventoryUnitUpdateManyWithoutBranchNestedInput
+    liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutBranchNestedInput
+    onlineExams?: OnlineExamUpdateManyWithoutBranchNestedInput
+    postalRecords?: PostalRecordUpdateManyWithoutBranchNestedInput
+    questionGroups?: QuestionGroupUpdateManyWithoutBranchNestedInput
+    students?: StudentUpdateManyWithoutBranchNestedInput
+    studentCategories?: StudentCategoryUpdateManyWithoutBranchNestedInput
+    subjects?: SubjectUpdateManyWithoutBranchNestedInput
+    routes?: TransportRouteUpdateManyWithoutBranchNestedInput
+    users?: UserUpdateManyWithoutBranchNestedInput
+    vehicles?: VehicleUpdateManyWithoutBranchNestedInput
+    visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
+    vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
+  }
+
+  export type BranchUncheckedUpdateWithoutResultSummariesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
+    alumni?: AlumniUncheckedUpdateManyWithoutBranchNestedInput
+    alumniEvents?: AlumniEventUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
+    automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    books?: BookUncheckedUpdateManyWithoutBranchNestedInput
+    callLogs?: CallLogUncheckedUpdateManyWithoutBranchNestedInput
+    accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
+    campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
+    certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    classes?: ClassUncheckedUpdateManyWithoutBranchNestedInput
+    complaints?: ComplaintUncheckedUpdateManyWithoutBranchNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
+    designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
+    expenseCategories?: ExpenseCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    feeCategories?: FeeCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
+    hostels?: HostelUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryCategories?: InventoryCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryProducts?: InventoryProductUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryPurchases?: InventoryPurchaseUncheckedUpdateManyWithoutBranchNestedInput
+    inventorySales?: InventorySaleUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryStores?: InventoryStoreUncheckedUpdateManyWithoutBranchNestedInput
+    inventorySuppliers?: InventorySupplierUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryUnits?: InventoryUnitUncheckedUpdateManyWithoutBranchNestedInput
+    liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutBranchNestedInput
+    onlineExams?: OnlineExamUncheckedUpdateManyWithoutBranchNestedInput
+    postalRecords?: PostalRecordUncheckedUpdateManyWithoutBranchNestedInput
+    questionGroups?: QuestionGroupUncheckedUpdateManyWithoutBranchNestedInput
+    students?: StudentUncheckedUpdateManyWithoutBranchNestedInput
+    studentCategories?: StudentCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    subjects?: SubjectUncheckedUpdateManyWithoutBranchNestedInput
+    routes?: TransportRouteUncheckedUpdateManyWithoutBranchNestedInput
+    users?: UserUncheckedUpdateManyWithoutBranchNestedInput
+    vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
+    visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
+    vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
+  }
+
   export type AcademicSessionUpsertWithoutResultSummariesInput = {
     update: XOR<AcademicSessionUpdateWithoutResultSummariesInput, AcademicSessionUncheckedUpdateWithoutResultSummariesInput>
     create: XOR<AcademicSessionCreateWithoutResultSummariesInput, AcademicSessionUncheckedCreateWithoutResultSummariesInput>
@@ -172365,6 +176256,7 @@ export namespace Prisma {
     termEnds?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutAcademicSessionsNestedInput
     assessmentRecords?: AssessmentRecordUpdateManyWithoutSessionNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutSessionNestedInput
     digitalResources?: DigitalResourceUpdateManyWithoutSessionNestedInput
@@ -172380,6 +176272,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     nextTermBegins?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     termEnds?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutSessionNestedInput
@@ -172522,6 +176415,550 @@ export namespace Prisma {
     onlineExamAttempts?: OnlineExamAttemptUncheckedUpdateManyWithoutStudentNestedInput
     submissions?: SubmissionUncheckedUpdateManyWithoutStudentNestedInput
     transportAssignment?: TransportAssignmentUncheckedUpdateOneWithoutStudentNestedInput
+  }
+
+  export type BranchCreateWithoutGradingScalesInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
+    alumni?: AlumniCreateNestedManyWithoutBranchInput
+    alumniEvents?: AlumniEventCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
+    automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    books?: BookCreateNestedManyWithoutBranchInput
+    callLogs?: CallLogCreateNestedManyWithoutBranchInput
+    accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
+    campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
+    certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
+    classes?: ClassCreateNestedManyWithoutBranchInput
+    complaints?: ComplaintCreateNestedManyWithoutBranchInput
+    conversations?: ConversationCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    departments?: DepartmentCreateNestedManyWithoutBranchInput
+    designations?: DesignationCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
+    expenseCategories?: ExpenseCategoryCreateNestedManyWithoutBranchInput
+    feeCategories?: FeeCategoryCreateNestedManyWithoutBranchInput
+    googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
+    hostels?: HostelCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    inventoryCategories?: InventoryCategoryCreateNestedManyWithoutBranchInput
+    inventoryIssues?: InventoryIssueCreateNestedManyWithoutBranchInput
+    inventoryProducts?: InventoryProductCreateNestedManyWithoutBranchInput
+    inventoryPurchases?: InventoryPurchaseCreateNestedManyWithoutBranchInput
+    inventorySales?: InventorySaleCreateNestedManyWithoutBranchInput
+    inventoryStores?: InventoryStoreCreateNestedManyWithoutBranchInput
+    inventorySuppliers?: InventorySupplierCreateNestedManyWithoutBranchInput
+    inventoryUnits?: InventoryUnitCreateNestedManyWithoutBranchInput
+    liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutBranchInput
+    onlineExams?: OnlineExamCreateNestedManyWithoutBranchInput
+    postalRecords?: PostalRecordCreateNestedManyWithoutBranchInput
+    questionGroups?: QuestionGroupCreateNestedManyWithoutBranchInput
+    students?: StudentCreateNestedManyWithoutBranchInput
+    studentCategories?: StudentCategoryCreateNestedManyWithoutBranchInput
+    subjects?: SubjectCreateNestedManyWithoutBranchInput
+    routes?: TransportRouteCreateNestedManyWithoutBranchInput
+    users?: UserCreateNestedManyWithoutBranchInput
+    vehicles?: VehicleCreateNestedManyWithoutBranchInput
+    visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
+    vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
+  }
+
+  export type BranchUncheckedCreateWithoutGradingScalesInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
+    alumni?: AlumniUncheckedCreateNestedManyWithoutBranchInput
+    alumniEvents?: AlumniEventUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
+    automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    books?: BookUncheckedCreateNestedManyWithoutBranchInput
+    callLogs?: CallLogUncheckedCreateNestedManyWithoutBranchInput
+    accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
+    campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
+    certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
+    classes?: ClassUncheckedCreateNestedManyWithoutBranchInput
+    complaints?: ComplaintUncheckedCreateNestedManyWithoutBranchInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
+    designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
+    expenseCategories?: ExpenseCategoryUncheckedCreateNestedManyWithoutBranchInput
+    feeCategories?: FeeCategoryUncheckedCreateNestedManyWithoutBranchInput
+    googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
+    hostels?: HostelUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    inventoryCategories?: InventoryCategoryUncheckedCreateNestedManyWithoutBranchInput
+    inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutBranchInput
+    inventoryProducts?: InventoryProductUncheckedCreateNestedManyWithoutBranchInput
+    inventoryPurchases?: InventoryPurchaseUncheckedCreateNestedManyWithoutBranchInput
+    inventorySales?: InventorySaleUncheckedCreateNestedManyWithoutBranchInput
+    inventoryStores?: InventoryStoreUncheckedCreateNestedManyWithoutBranchInput
+    inventorySuppliers?: InventorySupplierUncheckedCreateNestedManyWithoutBranchInput
+    inventoryUnits?: InventoryUnitUncheckedCreateNestedManyWithoutBranchInput
+    liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutBranchInput
+    onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutBranchInput
+    postalRecords?: PostalRecordUncheckedCreateNestedManyWithoutBranchInput
+    questionGroups?: QuestionGroupUncheckedCreateNestedManyWithoutBranchInput
+    students?: StudentUncheckedCreateNestedManyWithoutBranchInput
+    studentCategories?: StudentCategoryUncheckedCreateNestedManyWithoutBranchInput
+    subjects?: SubjectUncheckedCreateNestedManyWithoutBranchInput
+    routes?: TransportRouteUncheckedCreateNestedManyWithoutBranchInput
+    users?: UserUncheckedCreateNestedManyWithoutBranchInput
+    vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
+    visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
+    vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
+  }
+
+  export type BranchCreateOrConnectWithoutGradingScalesInput = {
+    where: BranchWhereUniqueInput
+    create: XOR<BranchCreateWithoutGradingScalesInput, BranchUncheckedCreateWithoutGradingScalesInput>
+  }
+
+  export type BranchUpsertWithoutGradingScalesInput = {
+    update: XOR<BranchUpdateWithoutGradingScalesInput, BranchUncheckedUpdateWithoutGradingScalesInput>
+    create: XOR<BranchCreateWithoutGradingScalesInput, BranchUncheckedCreateWithoutGradingScalesInput>
+    where?: BranchWhereInput
+  }
+
+  export type BranchUpdateToOneWithWhereWithoutGradingScalesInput = {
+    where?: BranchWhereInput
+    data: XOR<BranchUpdateWithoutGradingScalesInput, BranchUncheckedUpdateWithoutGradingScalesInput>
+  }
+
+  export type BranchUpdateWithoutGradingScalesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
+    alumni?: AlumniUpdateManyWithoutBranchNestedInput
+    alumniEvents?: AlumniEventUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
+    automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    books?: BookUpdateManyWithoutBranchNestedInput
+    callLogs?: CallLogUpdateManyWithoutBranchNestedInput
+    accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
+    campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
+    certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
+    classes?: ClassUpdateManyWithoutBranchNestedInput
+    complaints?: ComplaintUpdateManyWithoutBranchNestedInput
+    conversations?: ConversationUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    departments?: DepartmentUpdateManyWithoutBranchNestedInput
+    designations?: DesignationUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
+    expenseCategories?: ExpenseCategoryUpdateManyWithoutBranchNestedInput
+    feeCategories?: FeeCategoryUpdateManyWithoutBranchNestedInput
+    googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
+    hostels?: HostelUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    inventoryCategories?: InventoryCategoryUpdateManyWithoutBranchNestedInput
+    inventoryIssues?: InventoryIssueUpdateManyWithoutBranchNestedInput
+    inventoryProducts?: InventoryProductUpdateManyWithoutBranchNestedInput
+    inventoryPurchases?: InventoryPurchaseUpdateManyWithoutBranchNestedInput
+    inventorySales?: InventorySaleUpdateManyWithoutBranchNestedInput
+    inventoryStores?: InventoryStoreUpdateManyWithoutBranchNestedInput
+    inventorySuppliers?: InventorySupplierUpdateManyWithoutBranchNestedInput
+    inventoryUnits?: InventoryUnitUpdateManyWithoutBranchNestedInput
+    liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutBranchNestedInput
+    onlineExams?: OnlineExamUpdateManyWithoutBranchNestedInput
+    postalRecords?: PostalRecordUpdateManyWithoutBranchNestedInput
+    questionGroups?: QuestionGroupUpdateManyWithoutBranchNestedInput
+    students?: StudentUpdateManyWithoutBranchNestedInput
+    studentCategories?: StudentCategoryUpdateManyWithoutBranchNestedInput
+    subjects?: SubjectUpdateManyWithoutBranchNestedInput
+    routes?: TransportRouteUpdateManyWithoutBranchNestedInput
+    users?: UserUpdateManyWithoutBranchNestedInput
+    vehicles?: VehicleUpdateManyWithoutBranchNestedInput
+    visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
+    vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
+  }
+
+  export type BranchUncheckedUpdateWithoutGradingScalesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
+    alumni?: AlumniUncheckedUpdateManyWithoutBranchNestedInput
+    alumniEvents?: AlumniEventUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
+    automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    books?: BookUncheckedUpdateManyWithoutBranchNestedInput
+    callLogs?: CallLogUncheckedUpdateManyWithoutBranchNestedInput
+    accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
+    campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
+    certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    classes?: ClassUncheckedUpdateManyWithoutBranchNestedInput
+    complaints?: ComplaintUncheckedUpdateManyWithoutBranchNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
+    designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
+    expenseCategories?: ExpenseCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    feeCategories?: FeeCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
+    hostels?: HostelUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryCategories?: InventoryCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryProducts?: InventoryProductUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryPurchases?: InventoryPurchaseUncheckedUpdateManyWithoutBranchNestedInput
+    inventorySales?: InventorySaleUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryStores?: InventoryStoreUncheckedUpdateManyWithoutBranchNestedInput
+    inventorySuppliers?: InventorySupplierUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryUnits?: InventoryUnitUncheckedUpdateManyWithoutBranchNestedInput
+    liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutBranchNestedInput
+    onlineExams?: OnlineExamUncheckedUpdateManyWithoutBranchNestedInput
+    postalRecords?: PostalRecordUncheckedUpdateManyWithoutBranchNestedInput
+    questionGroups?: QuestionGroupUncheckedUpdateManyWithoutBranchNestedInput
+    students?: StudentUncheckedUpdateManyWithoutBranchNestedInput
+    studentCategories?: StudentCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    subjects?: SubjectUncheckedUpdateManyWithoutBranchNestedInput
+    routes?: TransportRouteUncheckedUpdateManyWithoutBranchNestedInput
+    users?: UserUncheckedUpdateManyWithoutBranchNestedInput
+    vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
+    visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
+    vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
+  }
+
+  export type BranchCreateWithoutGlobalSettingsInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
+    alumni?: AlumniCreateNestedManyWithoutBranchInput
+    alumniEvents?: AlumniEventCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
+    automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    books?: BookCreateNestedManyWithoutBranchInput
+    callLogs?: CallLogCreateNestedManyWithoutBranchInput
+    accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
+    campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
+    certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
+    classes?: ClassCreateNestedManyWithoutBranchInput
+    complaints?: ComplaintCreateNestedManyWithoutBranchInput
+    conversations?: ConversationCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    departments?: DepartmentCreateNestedManyWithoutBranchInput
+    designations?: DesignationCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
+    expenseCategories?: ExpenseCategoryCreateNestedManyWithoutBranchInput
+    feeCategories?: FeeCategoryCreateNestedManyWithoutBranchInput
+    googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
+    hostels?: HostelCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    inventoryCategories?: InventoryCategoryCreateNestedManyWithoutBranchInput
+    inventoryIssues?: InventoryIssueCreateNestedManyWithoutBranchInput
+    inventoryProducts?: InventoryProductCreateNestedManyWithoutBranchInput
+    inventoryPurchases?: InventoryPurchaseCreateNestedManyWithoutBranchInput
+    inventorySales?: InventorySaleCreateNestedManyWithoutBranchInput
+    inventoryStores?: InventoryStoreCreateNestedManyWithoutBranchInput
+    inventorySuppliers?: InventorySupplierCreateNestedManyWithoutBranchInput
+    inventoryUnits?: InventoryUnitCreateNestedManyWithoutBranchInput
+    liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutBranchInput
+    onlineExams?: OnlineExamCreateNestedManyWithoutBranchInput
+    postalRecords?: PostalRecordCreateNestedManyWithoutBranchInput
+    questionGroups?: QuestionGroupCreateNestedManyWithoutBranchInput
+    students?: StudentCreateNestedManyWithoutBranchInput
+    studentCategories?: StudentCategoryCreateNestedManyWithoutBranchInput
+    subjects?: SubjectCreateNestedManyWithoutBranchInput
+    routes?: TransportRouteCreateNestedManyWithoutBranchInput
+    users?: UserCreateNestedManyWithoutBranchInput
+    vehicles?: VehicleCreateNestedManyWithoutBranchInput
+    visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
+    vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+  }
+
+  export type BranchUncheckedCreateWithoutGlobalSettingsInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
+    alumni?: AlumniUncheckedCreateNestedManyWithoutBranchInput
+    alumniEvents?: AlumniEventUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
+    automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    books?: BookUncheckedCreateNestedManyWithoutBranchInput
+    callLogs?: CallLogUncheckedCreateNestedManyWithoutBranchInput
+    accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
+    campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
+    certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
+    classes?: ClassUncheckedCreateNestedManyWithoutBranchInput
+    complaints?: ComplaintUncheckedCreateNestedManyWithoutBranchInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
+    designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
+    expenseCategories?: ExpenseCategoryUncheckedCreateNestedManyWithoutBranchInput
+    feeCategories?: FeeCategoryUncheckedCreateNestedManyWithoutBranchInput
+    googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
+    hostels?: HostelUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    inventoryCategories?: InventoryCategoryUncheckedCreateNestedManyWithoutBranchInput
+    inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutBranchInput
+    inventoryProducts?: InventoryProductUncheckedCreateNestedManyWithoutBranchInput
+    inventoryPurchases?: InventoryPurchaseUncheckedCreateNestedManyWithoutBranchInput
+    inventorySales?: InventorySaleUncheckedCreateNestedManyWithoutBranchInput
+    inventoryStores?: InventoryStoreUncheckedCreateNestedManyWithoutBranchInput
+    inventorySuppliers?: InventorySupplierUncheckedCreateNestedManyWithoutBranchInput
+    inventoryUnits?: InventoryUnitUncheckedCreateNestedManyWithoutBranchInput
+    liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutBranchInput
+    onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutBranchInput
+    postalRecords?: PostalRecordUncheckedCreateNestedManyWithoutBranchInput
+    questionGroups?: QuestionGroupUncheckedCreateNestedManyWithoutBranchInput
+    students?: StudentUncheckedCreateNestedManyWithoutBranchInput
+    studentCategories?: StudentCategoryUncheckedCreateNestedManyWithoutBranchInput
+    subjects?: SubjectUncheckedCreateNestedManyWithoutBranchInput
+    routes?: TransportRouteUncheckedCreateNestedManyWithoutBranchInput
+    users?: UserUncheckedCreateNestedManyWithoutBranchInput
+    vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
+    visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
+    vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+  }
+
+  export type BranchCreateOrConnectWithoutGlobalSettingsInput = {
+    where: BranchWhereUniqueInput
+    create: XOR<BranchCreateWithoutGlobalSettingsInput, BranchUncheckedCreateWithoutGlobalSettingsInput>
+  }
+
+  export type BranchUpsertWithoutGlobalSettingsInput = {
+    update: XOR<BranchUpdateWithoutGlobalSettingsInput, BranchUncheckedUpdateWithoutGlobalSettingsInput>
+    create: XOR<BranchCreateWithoutGlobalSettingsInput, BranchUncheckedCreateWithoutGlobalSettingsInput>
+    where?: BranchWhereInput
+  }
+
+  export type BranchUpdateToOneWithWhereWithoutGlobalSettingsInput = {
+    where?: BranchWhereInput
+    data: XOR<BranchUpdateWithoutGlobalSettingsInput, BranchUncheckedUpdateWithoutGlobalSettingsInput>
+  }
+
+  export type BranchUpdateWithoutGlobalSettingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
+    alumni?: AlumniUpdateManyWithoutBranchNestedInput
+    alumniEvents?: AlumniEventUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
+    automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    books?: BookUpdateManyWithoutBranchNestedInput
+    callLogs?: CallLogUpdateManyWithoutBranchNestedInput
+    accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
+    campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
+    certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
+    classes?: ClassUpdateManyWithoutBranchNestedInput
+    complaints?: ComplaintUpdateManyWithoutBranchNestedInput
+    conversations?: ConversationUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    departments?: DepartmentUpdateManyWithoutBranchNestedInput
+    designations?: DesignationUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
+    expenseCategories?: ExpenseCategoryUpdateManyWithoutBranchNestedInput
+    feeCategories?: FeeCategoryUpdateManyWithoutBranchNestedInput
+    googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
+    hostels?: HostelUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    inventoryCategories?: InventoryCategoryUpdateManyWithoutBranchNestedInput
+    inventoryIssues?: InventoryIssueUpdateManyWithoutBranchNestedInput
+    inventoryProducts?: InventoryProductUpdateManyWithoutBranchNestedInput
+    inventoryPurchases?: InventoryPurchaseUpdateManyWithoutBranchNestedInput
+    inventorySales?: InventorySaleUpdateManyWithoutBranchNestedInput
+    inventoryStores?: InventoryStoreUpdateManyWithoutBranchNestedInput
+    inventorySuppliers?: InventorySupplierUpdateManyWithoutBranchNestedInput
+    inventoryUnits?: InventoryUnitUpdateManyWithoutBranchNestedInput
+    liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutBranchNestedInput
+    onlineExams?: OnlineExamUpdateManyWithoutBranchNestedInput
+    postalRecords?: PostalRecordUpdateManyWithoutBranchNestedInput
+    questionGroups?: QuestionGroupUpdateManyWithoutBranchNestedInput
+    students?: StudentUpdateManyWithoutBranchNestedInput
+    studentCategories?: StudentCategoryUpdateManyWithoutBranchNestedInput
+    subjects?: SubjectUpdateManyWithoutBranchNestedInput
+    routes?: TransportRouteUpdateManyWithoutBranchNestedInput
+    users?: UserUpdateManyWithoutBranchNestedInput
+    vehicles?: VehicleUpdateManyWithoutBranchNestedInput
+    visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
+    vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+  }
+
+  export type BranchUncheckedUpdateWithoutGlobalSettingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
+    alumni?: AlumniUncheckedUpdateManyWithoutBranchNestedInput
+    alumniEvents?: AlumniEventUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
+    automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    books?: BookUncheckedUpdateManyWithoutBranchNestedInput
+    callLogs?: CallLogUncheckedUpdateManyWithoutBranchNestedInput
+    accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
+    campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
+    certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    classes?: ClassUncheckedUpdateManyWithoutBranchNestedInput
+    complaints?: ComplaintUncheckedUpdateManyWithoutBranchNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
+    designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
+    expenseCategories?: ExpenseCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    feeCategories?: FeeCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
+    hostels?: HostelUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryCategories?: InventoryCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryProducts?: InventoryProductUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryPurchases?: InventoryPurchaseUncheckedUpdateManyWithoutBranchNestedInput
+    inventorySales?: InventorySaleUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryStores?: InventoryStoreUncheckedUpdateManyWithoutBranchNestedInput
+    inventorySuppliers?: InventorySupplierUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryUnits?: InventoryUnitUncheckedUpdateManyWithoutBranchNestedInput
+    liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutBranchNestedInput
+    onlineExams?: OnlineExamUncheckedUpdateManyWithoutBranchNestedInput
+    postalRecords?: PostalRecordUncheckedUpdateManyWithoutBranchNestedInput
+    questionGroups?: QuestionGroupUncheckedUpdateManyWithoutBranchNestedInput
+    students?: StudentUncheckedUpdateManyWithoutBranchNestedInput
+    studentCategories?: StudentCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    subjects?: SubjectUncheckedUpdateManyWithoutBranchNestedInput
+    routes?: TransportRouteUncheckedUpdateManyWithoutBranchNestedInput
+    users?: UserUncheckedUpdateManyWithoutBranchNestedInput
+    vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
+    visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
+    vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type UserCreateWithoutAuditLogsInput = {
@@ -172698,6 +177135,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutExpenseCategoriesInput = {
@@ -172754,6 +177199,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutExpenseCategoriesInput = {
@@ -172864,6 +177317,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutExpenseCategoriesInput = {
@@ -172920,6 +177381,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type VoucherUpsertWithWhereUniqueWithoutCategoryInput = {
@@ -173049,6 +177518,14 @@ export namespace Prisma {
     users?: UserCreateNestedManyWithoutBranchInput
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutVouchersInput = {
@@ -173105,6 +177582,14 @@ export namespace Prisma {
     users?: UserUncheckedCreateNestedManyWithoutBranchInput
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutVouchersInput = {
@@ -173263,6 +177748,14 @@ export namespace Prisma {
     users?: UserUpdateManyWithoutBranchNestedInput
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutVouchersInput = {
@@ -173319,6 +177812,14 @@ export namespace Prisma {
     users?: UserUncheckedUpdateManyWithoutBranchNestedInput
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type ExpenseCategoryUpsertWithoutVouchersInput = {
@@ -173404,6 +177905,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutDepartmentsInput = {
@@ -173460,6 +177969,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutDepartmentsInput = {
@@ -173590,6 +178107,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutDepartmentsInput = {
@@ -173646,6 +178171,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StaffUpsertWithWhereUniqueWithoutDepartmentInput = {
@@ -173718,6 +178251,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutDesignationsInput = {
@@ -173774,6 +178315,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutDesignationsInput = {
@@ -173904,6 +178453,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutDesignationsInput = {
@@ -173960,6 +178517,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StaffUpsertWithWhereUniqueWithoutDesignationRefInput = {
@@ -174032,6 +178597,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutBooksInput = {
@@ -174088,6 +178661,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutBooksInput = {
@@ -174194,6 +178775,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutBooksInput = {
@@ -174250,6 +178839,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BorrowRecordUpsertWithWhereUniqueWithoutBookInput = {
@@ -175343,6 +179940,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutGoogleMeetConfigInput = {
@@ -175399,6 +180004,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutGoogleMeetConfigInput = {
@@ -175471,6 +180084,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutGoogleMeetConfigInput = {
@@ -175527,6 +180148,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutLiveClassSessionsInput = {
@@ -175583,6 +180212,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutLiveClassSessionsInput = {
@@ -175639,6 +180276,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutLiveClassSessionsInput = {
@@ -175905,6 +180550,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutLiveClassSessionsInput = {
@@ -175961,6 +180614,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type ClassUpsertWithoutLiveClassSessionsInput = {
@@ -176789,6 +181450,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutStudentCategoriesInput = {
@@ -176845,6 +181514,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutStudentCategoriesInput = {
@@ -176949,6 +181626,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutStudentCategoriesInput = {
@@ -177005,6 +181690,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type OnlineAdmissionCreateWithoutPreviousSchoolsInput = {
@@ -177377,6 +182070,7 @@ export namespace Prisma {
     termEnds?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutAcademicSessionsInput
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutSessionInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutSessionInput
     digitalResources?: DigitalResourceCreateNestedManyWithoutSessionInput
@@ -177392,6 +182086,7 @@ export namespace Prisma {
     isActive?: boolean
     nextTermBegins?: Date | string | null
     termEnds?: Date | string | null
+    branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutSessionInput
@@ -177460,6 +182155,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutOnlineAdmissionsInput = {
@@ -177516,6 +182219,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutOnlineAdmissionsInput = {
@@ -177728,6 +182439,7 @@ export namespace Prisma {
     termEnds?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutAcademicSessionsNestedInput
     assessmentRecords?: AssessmentRecordUpdateManyWithoutSessionNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutSessionNestedInput
     digitalResources?: DigitalResourceUpdateManyWithoutSessionNestedInput
@@ -177743,6 +182455,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     nextTermBegins?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     termEnds?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutSessionNestedInput
@@ -177817,6 +182530,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutOnlineAdmissionsInput = {
@@ -177873,6 +182594,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type ClassUpsertWithoutOnlineAdmissionsInput = {
@@ -178139,6 +182868,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutEnquiriesInput = {
@@ -178195,6 +182932,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutEnquiriesInput = {
@@ -178267,6 +183012,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutEnquiriesInput = {
@@ -178323,6 +183076,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutCallLogsInput = {
@@ -178379,6 +183140,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutCallLogsInput = {
@@ -178435,6 +183204,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutCallLogsInput = {
@@ -178507,6 +183284,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutCallLogsInput = {
@@ -178563,6 +183348,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutVisitorLogsInput = {
@@ -178619,6 +183412,14 @@ export namespace Prisma {
     users?: UserCreateNestedManyWithoutBranchInput
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutVisitorLogsInput = {
@@ -178675,6 +183476,14 @@ export namespace Prisma {
     users?: UserUncheckedCreateNestedManyWithoutBranchInput
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutVisitorLogsInput = {
@@ -178747,6 +183556,14 @@ export namespace Prisma {
     users?: UserUpdateManyWithoutBranchNestedInput
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutVisitorLogsInput = {
@@ -178803,6 +183620,14 @@ export namespace Prisma {
     users?: UserUncheckedUpdateManyWithoutBranchNestedInput
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutComplaintsInput = {
@@ -178859,6 +183684,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutComplaintsInput = {
@@ -178915,6 +183748,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutComplaintsInput = {
@@ -178987,6 +183828,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutComplaintsInput = {
@@ -179043,6 +183892,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutPostalRecordsInput = {
@@ -179099,6 +183956,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutPostalRecordsInput = {
@@ -179155,6 +184020,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutPostalRecordsInput = {
@@ -179227,6 +184100,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutPostalRecordsInput = {
@@ -179283,6 +184164,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutInventoryCategoriesInput = {
@@ -179339,6 +184228,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventoryCategoriesInput = {
@@ -179395,6 +184292,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventoryCategoriesInput = {
@@ -179513,6 +184418,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventoryCategoriesInput = {
@@ -179569,6 +184482,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryProductUpsertWithWhereUniqueWithoutCategoryInput = {
@@ -179687,6 +184608,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventoryStoresInput = {
@@ -179743,6 +184672,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventoryStoresInput = {
@@ -179831,6 +184768,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventoryStoresInput = {
@@ -179887,6 +184832,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryPurchaseCreateWithoutSupplierInput = {
@@ -179979,6 +184932,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventorySuppliersInput = {
@@ -180035,6 +184996,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventorySuppliersInput = {
@@ -180123,6 +185092,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventorySuppliersInput = {
@@ -180179,6 +185156,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryProductCreateWithoutUnitInput = {
@@ -180281,6 +185266,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventoryUnitsInput = {
@@ -180337,6 +185330,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventoryUnitsInput = {
@@ -180425,6 +185426,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventoryUnitsInput = {
@@ -180481,6 +185490,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryIssueCreateWithoutProductInput = {
@@ -180575,6 +185592,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventoryProductsInput = {
@@ -180631,6 +185656,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventoryProductsInput = {
@@ -180856,6 +185889,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventoryProductsInput = {
@@ -180912,6 +185953,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryCategoryUpsertWithoutProductsInput = {
@@ -181083,6 +186132,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventoryPurchasesInput = {
@@ -181139,6 +186196,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventoryPurchasesInput = {
@@ -181281,6 +186346,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventoryPurchasesInput = {
@@ -181337,6 +186410,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryProductUpsertWithoutPurchasesInput = {
@@ -181475,6 +186556,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventorySalesInput = {
@@ -181531,6 +186620,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventorySalesInput = {
@@ -181644,6 +186741,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventorySalesInput = {
@@ -181700,6 +186805,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryProductUpsertWithoutSalesInput = {
@@ -181803,6 +186916,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventoryIssuesInput = {
@@ -181859,6 +186980,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventoryIssuesInput = {
@@ -182154,6 +187283,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventoryIssuesInput = {
@@ -182210,6 +187347,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryProductUpsertWithoutIssuesInput = {
@@ -182507,6 +187652,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAlumniInput = {
@@ -182563,6 +187716,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAlumniInput = {
@@ -182790,6 +187951,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAlumniInput = {
@@ -182846,6 +188015,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StudentUpsertWithoutAlumniInput = {
@@ -183065,6 +188242,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAlumniEventsInput = {
@@ -183121,6 +188306,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAlumniEventsInput = {
@@ -183219,6 +188412,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAlumniEventsInput = {
@@ -183275,6 +188476,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type AlumniEventParticipantUpsertWithWhereUniqueWithoutEventInput = {
@@ -183487,6 +188696,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutConversationsInput = {
@@ -183543,6 +188760,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutConversationsInput = {
@@ -183669,6 +188894,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutConversationsInput = {
@@ -183725,6 +188958,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type ConversationParticipantUpsertWithWhereUniqueWithoutConversationInput = {
@@ -184165,6 +189406,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutCampusEventsInput = {
@@ -184221,6 +189470,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutCampusEventsInput = {
@@ -184319,6 +189576,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutCampusEventsInput = {
@@ -184375,6 +189640,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type EventRSVPUpsertWithWhereUniqueWithoutEventInput = {
@@ -184643,6 +189916,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAccessLogsInput = {
@@ -184699,6 +189980,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAccessLogsInput = {
@@ -184828,6 +190117,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAccessLogsInput = {
@@ -184884,6 +190181,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type UserUpsertWithoutAccessLogsInput = {
@@ -185003,6 +190308,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAutomationConfigsInput = {
@@ -185059,6 +190372,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAutomationConfigsInput = {
@@ -185131,6 +190452,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAutomationConfigsInput = {
@@ -185187,6 +190516,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type IdCardCreateWithoutTemplateInput = {
@@ -185275,6 +190612,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutIdCardTemplatesInput = {
@@ -185331,6 +190676,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutIdCardTemplatesInput = {
@@ -185419,6 +190772,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutIdCardTemplatesInput = {
@@ -185475,6 +190836,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type AcademicSessionCreateWithoutIdCardsInput = {
@@ -185487,6 +190856,7 @@ export namespace Prisma {
     termEnds?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutAcademicSessionsInput
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutSessionInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutSessionInput
     digitalResources?: DigitalResourceCreateNestedManyWithoutSessionInput
@@ -185502,6 +190872,7 @@ export namespace Prisma {
     isActive?: boolean
     nextTermBegins?: Date | string | null
     termEnds?: Date | string | null
+    branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutSessionInput
@@ -185746,6 +191117,7 @@ export namespace Prisma {
     termEnds?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutAcademicSessionsNestedInput
     assessmentRecords?: AssessmentRecordUpdateManyWithoutSessionNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutSessionNestedInput
     digitalResources?: DigitalResourceUpdateManyWithoutSessionNestedInput
@@ -185761,6 +191133,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     nextTermBegins?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     termEnds?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutSessionNestedInput
@@ -186051,6 +191424,14 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
     vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutDigitalResourcesInput = {
@@ -186107,6 +191488,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
     visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
     vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutDigitalResourcesInput = {
@@ -186200,6 +191589,7 @@ export namespace Prisma {
     termEnds?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutAcademicSessionsInput
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutSessionInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutSessionInput
     idCards?: IdCardCreateNestedManyWithoutSessionInput
@@ -186215,6 +191605,7 @@ export namespace Prisma {
     isActive?: boolean
     nextTermBegins?: Date | string | null
     termEnds?: Date | string | null
+    branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutSessionInput
@@ -186410,6 +191801,14 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutDigitalResourcesInput = {
@@ -186466,6 +191865,14 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
     visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
     vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type ClassUpsertWithoutDigitalResourcesInput = {
@@ -186577,6 +191984,7 @@ export namespace Prisma {
     termEnds?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutAcademicSessionsNestedInput
     assessmentRecords?: AssessmentRecordUpdateManyWithoutSessionNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutSessionNestedInput
     idCards?: IdCardUpdateManyWithoutSessionNestedInput
@@ -186592,6 +192000,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     nextTermBegins?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     termEnds?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutSessionNestedInput
@@ -187546,6 +192955,130 @@ export namespace Prisma {
     paidTo: string
     approvedByUserId?: string | null
     status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AcademicSessionCreateManyBranchInput = {
+    id?: string
+    name: string
+    startDate: Date | string
+    endDate: Date | string
+    isActive?: boolean
+    nextTermBegins?: Date | string | null
+    termEnds?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AttendanceCreateManyBranchInput = {
+    id?: string
+    date: Date | string
+    status: $Enums.AttendanceStatus
+    remarks?: string | null
+    studentId: string
+    sectionId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StaffAttendanceCreateManyBranchInput = {
+    id?: string
+    date: Date | string
+    status: $Enums.AttendanceStatus
+    remarks?: string | null
+    staffId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AssessmentRecordCreateManyBranchInput = {
+    id?: string
+    asgn1?: number | null
+    asgn2?: number | null
+    test1?: number | null
+    test2?: number | null
+    examScore?: number | null
+    total?: number | null
+    grade?: string | null
+    position?: number | null
+    outOf?: number | null
+    lowScore?: number | null
+    highScore?: number | null
+    classAvg?: number | null
+    remark?: string | null
+    studentId: string
+    subjectId: string
+    sectionId: string
+    sessionId: string
+    term: $Enums.Term
+    examTerm: $Enums.ExamTerm
+    isEligible?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BehaviouralRatingCreateManyBranchInput = {
+    id?: string
+    punctuality?: string | null
+    classAttendance?: string | null
+    attentiveness?: string | null
+    neatness?: string | null
+    honesty?: string | null
+    selfControl?: string | null
+    relationships?: string | null
+    sports?: string | null
+    toolHandling?: string | null
+    carryingOutAssignments?: string | null
+    participation?: string | null
+    studentId: string
+    sessionId: string
+    term: $Enums.Term
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ResultSummaryCreateManyBranchInput = {
+    id?: string
+    totalScore?: number | null
+    average?: number | null
+    classPosition?: number | null
+    highestAvg?: number | null
+    lowestAvg?: number | null
+    countInClass?: number | null
+    finalGrade?: string | null
+    finalRemark?: string | null
+    promotionStatus?: string | null
+    cgpa?: number | null
+    classOfResult?: string | null
+    attendanceOpen?: number | null
+    attendancePresent?: number | null
+    attendanceAbsent?: number | null
+    studentId: string
+    sessionId: string
+    term: $Enums.Term
+    examTerm: $Enums.ExamTerm
+    isActive?: boolean
+    isLocked?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type GradingScaleCreateManyBranchInput = {
+    id?: string
+    name: string
+    minScore: number
+    maxScore: number
+    grade: string
+    remark?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type GlobalSettingCreateManyBranchInput = {
+    id?: string
+    key: string
+    value: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -189565,6 +195098,390 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type AcademicSessionUpdateWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    nextTermBegins?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    termEnds?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutSessionNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutSessionNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutSessionNestedInput
+    idCards?: IdCardUpdateManyWithoutSessionNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutAcademicSessionNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutSessionNestedInput
+  }
+
+  export type AcademicSessionUncheckedUpdateWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    nextTermBegins?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    termEnds?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutSessionNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutSessionNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutSessionNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutSessionNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutAcademicSessionNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutSessionNestedInput
+  }
+
+  export type AcademicSessionUncheckedUpdateManyWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    nextTermBegins?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    termEnds?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AttendanceUpdateWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    section?: SectionUpdateOneWithoutAttendanceNestedInput
+    student?: StudentUpdateOneRequiredWithoutAttendanceNestedInput
+  }
+
+  export type AttendanceUncheckedUpdateWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    studentId?: StringFieldUpdateOperationsInput | string
+    sectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AttendanceUncheckedUpdateManyWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    studentId?: StringFieldUpdateOperationsInput | string
+    sectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffAttendanceUpdateWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    staff?: StaffUpdateOneRequiredWithoutAttendanceNestedInput
+  }
+
+  export type StaffAttendanceUncheckedUpdateWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    staffId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffAttendanceUncheckedUpdateManyWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    staffId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AssessmentRecordUpdateWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    asgn1?: NullableFloatFieldUpdateOperationsInput | number | null
+    asgn2?: NullableFloatFieldUpdateOperationsInput | number | null
+    test1?: NullableFloatFieldUpdateOperationsInput | number | null
+    test2?: NullableFloatFieldUpdateOperationsInput | number | null
+    examScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    total?: NullableFloatFieldUpdateOperationsInput | number | null
+    grade?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableIntFieldUpdateOperationsInput | number | null
+    outOf?: NullableIntFieldUpdateOperationsInput | number | null
+    lowScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    highScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    classAvg?: NullableFloatFieldUpdateOperationsInput | number | null
+    remark?: NullableStringFieldUpdateOperationsInput | string | null
+    term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
+    examTerm?: EnumExamTermFieldUpdateOperationsInput | $Enums.ExamTerm
+    isEligible?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    section?: SectionUpdateOneRequiredWithoutAssessmentRecordsNestedInput
+    session?: AcademicSessionUpdateOneRequiredWithoutAssessmentRecordsNestedInput
+    student?: StudentUpdateOneRequiredWithoutAssessmentRecordsNestedInput
+    subject?: SubjectUpdateOneRequiredWithoutAssessmentRecordsNestedInput
+  }
+
+  export type AssessmentRecordUncheckedUpdateWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    asgn1?: NullableFloatFieldUpdateOperationsInput | number | null
+    asgn2?: NullableFloatFieldUpdateOperationsInput | number | null
+    test1?: NullableFloatFieldUpdateOperationsInput | number | null
+    test2?: NullableFloatFieldUpdateOperationsInput | number | null
+    examScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    total?: NullableFloatFieldUpdateOperationsInput | number | null
+    grade?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableIntFieldUpdateOperationsInput | number | null
+    outOf?: NullableIntFieldUpdateOperationsInput | number | null
+    lowScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    highScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    classAvg?: NullableFloatFieldUpdateOperationsInput | number | null
+    remark?: NullableStringFieldUpdateOperationsInput | string | null
+    studentId?: StringFieldUpdateOperationsInput | string
+    subjectId?: StringFieldUpdateOperationsInput | string
+    sectionId?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
+    examTerm?: EnumExamTermFieldUpdateOperationsInput | $Enums.ExamTerm
+    isEligible?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AssessmentRecordUncheckedUpdateManyWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    asgn1?: NullableFloatFieldUpdateOperationsInput | number | null
+    asgn2?: NullableFloatFieldUpdateOperationsInput | number | null
+    test1?: NullableFloatFieldUpdateOperationsInput | number | null
+    test2?: NullableFloatFieldUpdateOperationsInput | number | null
+    examScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    total?: NullableFloatFieldUpdateOperationsInput | number | null
+    grade?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableIntFieldUpdateOperationsInput | number | null
+    outOf?: NullableIntFieldUpdateOperationsInput | number | null
+    lowScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    highScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    classAvg?: NullableFloatFieldUpdateOperationsInput | number | null
+    remark?: NullableStringFieldUpdateOperationsInput | string | null
+    studentId?: StringFieldUpdateOperationsInput | string
+    subjectId?: StringFieldUpdateOperationsInput | string
+    sectionId?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
+    examTerm?: EnumExamTermFieldUpdateOperationsInput | $Enums.ExamTerm
+    isEligible?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BehaviouralRatingUpdateWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    punctuality?: NullableStringFieldUpdateOperationsInput | string | null
+    classAttendance?: NullableStringFieldUpdateOperationsInput | string | null
+    attentiveness?: NullableStringFieldUpdateOperationsInput | string | null
+    neatness?: NullableStringFieldUpdateOperationsInput | string | null
+    honesty?: NullableStringFieldUpdateOperationsInput | string | null
+    selfControl?: NullableStringFieldUpdateOperationsInput | string | null
+    relationships?: NullableStringFieldUpdateOperationsInput | string | null
+    sports?: NullableStringFieldUpdateOperationsInput | string | null
+    toolHandling?: NullableStringFieldUpdateOperationsInput | string | null
+    carryingOutAssignments?: NullableStringFieldUpdateOperationsInput | string | null
+    participation?: NullableStringFieldUpdateOperationsInput | string | null
+    term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    session?: AcademicSessionUpdateOneRequiredWithoutBehaviouralRatingsNestedInput
+    student?: StudentUpdateOneRequiredWithoutBehaviouralRatingsNestedInput
+  }
+
+  export type BehaviouralRatingUncheckedUpdateWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    punctuality?: NullableStringFieldUpdateOperationsInput | string | null
+    classAttendance?: NullableStringFieldUpdateOperationsInput | string | null
+    attentiveness?: NullableStringFieldUpdateOperationsInput | string | null
+    neatness?: NullableStringFieldUpdateOperationsInput | string | null
+    honesty?: NullableStringFieldUpdateOperationsInput | string | null
+    selfControl?: NullableStringFieldUpdateOperationsInput | string | null
+    relationships?: NullableStringFieldUpdateOperationsInput | string | null
+    sports?: NullableStringFieldUpdateOperationsInput | string | null
+    toolHandling?: NullableStringFieldUpdateOperationsInput | string | null
+    carryingOutAssignments?: NullableStringFieldUpdateOperationsInput | string | null
+    participation?: NullableStringFieldUpdateOperationsInput | string | null
+    studentId?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BehaviouralRatingUncheckedUpdateManyWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    punctuality?: NullableStringFieldUpdateOperationsInput | string | null
+    classAttendance?: NullableStringFieldUpdateOperationsInput | string | null
+    attentiveness?: NullableStringFieldUpdateOperationsInput | string | null
+    neatness?: NullableStringFieldUpdateOperationsInput | string | null
+    honesty?: NullableStringFieldUpdateOperationsInput | string | null
+    selfControl?: NullableStringFieldUpdateOperationsInput | string | null
+    relationships?: NullableStringFieldUpdateOperationsInput | string | null
+    sports?: NullableStringFieldUpdateOperationsInput | string | null
+    toolHandling?: NullableStringFieldUpdateOperationsInput | string | null
+    carryingOutAssignments?: NullableStringFieldUpdateOperationsInput | string | null
+    participation?: NullableStringFieldUpdateOperationsInput | string | null
+    studentId?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ResultSummaryUpdateWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    totalScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    average?: NullableFloatFieldUpdateOperationsInput | number | null
+    classPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    highestAvg?: NullableFloatFieldUpdateOperationsInput | number | null
+    lowestAvg?: NullableFloatFieldUpdateOperationsInput | number | null
+    countInClass?: NullableIntFieldUpdateOperationsInput | number | null
+    finalGrade?: NullableStringFieldUpdateOperationsInput | string | null
+    finalRemark?: NullableStringFieldUpdateOperationsInput | string | null
+    promotionStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    cgpa?: NullableFloatFieldUpdateOperationsInput | number | null
+    classOfResult?: NullableStringFieldUpdateOperationsInput | string | null
+    attendanceOpen?: NullableIntFieldUpdateOperationsInput | number | null
+    attendancePresent?: NullableIntFieldUpdateOperationsInput | number | null
+    attendanceAbsent?: NullableIntFieldUpdateOperationsInput | number | null
+    term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
+    examTerm?: EnumExamTermFieldUpdateOperationsInput | $Enums.ExamTerm
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isLocked?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    session?: AcademicSessionUpdateOneRequiredWithoutResultSummariesNestedInput
+    student?: StudentUpdateOneRequiredWithoutResultSummariesNestedInput
+  }
+
+  export type ResultSummaryUncheckedUpdateWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    totalScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    average?: NullableFloatFieldUpdateOperationsInput | number | null
+    classPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    highestAvg?: NullableFloatFieldUpdateOperationsInput | number | null
+    lowestAvg?: NullableFloatFieldUpdateOperationsInput | number | null
+    countInClass?: NullableIntFieldUpdateOperationsInput | number | null
+    finalGrade?: NullableStringFieldUpdateOperationsInput | string | null
+    finalRemark?: NullableStringFieldUpdateOperationsInput | string | null
+    promotionStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    cgpa?: NullableFloatFieldUpdateOperationsInput | number | null
+    classOfResult?: NullableStringFieldUpdateOperationsInput | string | null
+    attendanceOpen?: NullableIntFieldUpdateOperationsInput | number | null
+    attendancePresent?: NullableIntFieldUpdateOperationsInput | number | null
+    attendanceAbsent?: NullableIntFieldUpdateOperationsInput | number | null
+    studentId?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
+    examTerm?: EnumExamTermFieldUpdateOperationsInput | $Enums.ExamTerm
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isLocked?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ResultSummaryUncheckedUpdateManyWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    totalScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    average?: NullableFloatFieldUpdateOperationsInput | number | null
+    classPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    highestAvg?: NullableFloatFieldUpdateOperationsInput | number | null
+    lowestAvg?: NullableFloatFieldUpdateOperationsInput | number | null
+    countInClass?: NullableIntFieldUpdateOperationsInput | number | null
+    finalGrade?: NullableStringFieldUpdateOperationsInput | string | null
+    finalRemark?: NullableStringFieldUpdateOperationsInput | string | null
+    promotionStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    cgpa?: NullableFloatFieldUpdateOperationsInput | number | null
+    classOfResult?: NullableStringFieldUpdateOperationsInput | string | null
+    attendanceOpen?: NullableIntFieldUpdateOperationsInput | number | null
+    attendancePresent?: NullableIntFieldUpdateOperationsInput | number | null
+    attendanceAbsent?: NullableIntFieldUpdateOperationsInput | number | null
+    studentId?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
+    examTerm?: EnumExamTermFieldUpdateOperationsInput | $Enums.ExamTerm
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isLocked?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GradingScaleUpdateWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    minScore?: FloatFieldUpdateOperationsInput | number
+    maxScore?: FloatFieldUpdateOperationsInput | number
+    grade?: StringFieldUpdateOperationsInput | string
+    remark?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GradingScaleUncheckedUpdateWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    minScore?: FloatFieldUpdateOperationsInput | number
+    maxScore?: FloatFieldUpdateOperationsInput | number
+    grade?: StringFieldUpdateOperationsInput | string
+    remark?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GradingScaleUncheckedUpdateManyWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    minScore?: FloatFieldUpdateOperationsInput | number
+    maxScore?: FloatFieldUpdateOperationsInput | number
+    grade?: StringFieldUpdateOperationsInput | string
+    remark?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GlobalSettingUpdateWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GlobalSettingUncheckedUpdateWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GlobalSettingUncheckedUpdateManyWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type LoginDeactivationCreateManyReasonRefInput = {
     id?: string
     studentId: string
@@ -190675,6 +196592,7 @@ export namespace Prisma {
     date: Date | string
     status: $Enums.AttendanceStatus
     remarks?: string | null
+    branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -191128,6 +197046,7 @@ export namespace Prisma {
     remarks?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutStaffAttendanceNestedInput
   }
 
   export type StaffAttendanceUncheckedUpdateWithoutStaffInput = {
@@ -191135,6 +197054,7 @@ export namespace Prisma {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
     remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -191144,6 +197064,7 @@ export namespace Prisma {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
     remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -191232,6 +197153,7 @@ export namespace Prisma {
     subjectId: string
     sectionId: string
     sessionId: string
+    branchId: string
     term: $Enums.Term
     examTerm: $Enums.ExamTerm
     isEligible?: boolean
@@ -191245,6 +197167,7 @@ export namespace Prisma {
     status: $Enums.AttendanceStatus
     remarks?: string | null
     sectionId?: string | null
+    branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -191263,6 +197186,7 @@ export namespace Prisma {
     carryingOutAssignments?: string | null
     participation?: string | null
     sessionId: string
+    branchId: string
     term: $Enums.Term
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -191380,6 +197304,7 @@ export namespace Prisma {
     attendancePresent?: number | null
     attendanceAbsent?: number | null
     sessionId: string
+    branchId: string
     term: $Enums.Term
     examTerm: $Enums.ExamTerm
     isActive?: boolean
@@ -191419,6 +197344,7 @@ export namespace Prisma {
     isEligible?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutAssessmentRecordsNestedInput
     section?: SectionUpdateOneRequiredWithoutAssessmentRecordsNestedInput
     session?: AcademicSessionUpdateOneRequiredWithoutAssessmentRecordsNestedInput
     subject?: SubjectUpdateOneRequiredWithoutAssessmentRecordsNestedInput
@@ -191442,6 +197368,7 @@ export namespace Prisma {
     subjectId?: StringFieldUpdateOperationsInput | string
     sectionId?: StringFieldUpdateOperationsInput | string
     sessionId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
     term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
     examTerm?: EnumExamTermFieldUpdateOperationsInput | $Enums.ExamTerm
     isEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -191467,6 +197394,7 @@ export namespace Prisma {
     subjectId?: StringFieldUpdateOperationsInput | string
     sectionId?: StringFieldUpdateOperationsInput | string
     sessionId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
     term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
     examTerm?: EnumExamTermFieldUpdateOperationsInput | $Enums.ExamTerm
     isEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -191481,6 +197409,7 @@ export namespace Prisma {
     remarks?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutAttendanceNestedInput
     section?: SectionUpdateOneWithoutAttendanceNestedInput
   }
 
@@ -191490,6 +197419,7 @@ export namespace Prisma {
     status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
     remarks?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -191500,6 +197430,7 @@ export namespace Prisma {
     status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
     remarks?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -191520,6 +197451,7 @@ export namespace Prisma {
     term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutBehaviouralRatingsNestedInput
     session?: AcademicSessionUpdateOneRequiredWithoutBehaviouralRatingsNestedInput
   }
 
@@ -191537,6 +197469,7 @@ export namespace Prisma {
     carryingOutAssignments?: NullableStringFieldUpdateOperationsInput | string | null
     participation?: NullableStringFieldUpdateOperationsInput | string | null
     sessionId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
     term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -191556,6 +197489,7 @@ export namespace Prisma {
     carryingOutAssignments?: NullableStringFieldUpdateOperationsInput | string | null
     participation?: NullableStringFieldUpdateOperationsInput | string | null
     sessionId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
     term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -191876,6 +197810,7 @@ export namespace Prisma {
     isLocked?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutResultSummariesNestedInput
     session?: AcademicSessionUpdateOneRequiredWithoutResultSummariesNestedInput
   }
 
@@ -191896,6 +197831,7 @@ export namespace Prisma {
     attendancePresent?: NullableIntFieldUpdateOperationsInput | number | null
     attendanceAbsent?: NullableIntFieldUpdateOperationsInput | number | null
     sessionId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
     term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
     examTerm?: EnumExamTermFieldUpdateOperationsInput | $Enums.ExamTerm
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -191921,6 +197857,7 @@ export namespace Prisma {
     attendancePresent?: NullableIntFieldUpdateOperationsInput | number | null
     attendanceAbsent?: NullableIntFieldUpdateOperationsInput | number | null
     sessionId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
     term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
     examTerm?: EnumExamTermFieldUpdateOperationsInput | $Enums.ExamTerm
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -192988,6 +198925,7 @@ export namespace Prisma {
     studentId: string
     subjectId: string
     sessionId: string
+    branchId: string
     term: $Enums.Term
     examTerm: $Enums.ExamTerm
     isEligible?: boolean
@@ -193014,6 +198952,7 @@ export namespace Prisma {
     status: $Enums.AttendanceStatus
     remarks?: string | null
     studentId: string
+    branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -193245,6 +199184,7 @@ export namespace Prisma {
     isEligible?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutAssessmentRecordsNestedInput
     session?: AcademicSessionUpdateOneRequiredWithoutAssessmentRecordsNestedInput
     student?: StudentUpdateOneRequiredWithoutAssessmentRecordsNestedInput
     subject?: SubjectUpdateOneRequiredWithoutAssessmentRecordsNestedInput
@@ -193268,6 +199208,7 @@ export namespace Prisma {
     studentId?: StringFieldUpdateOperationsInput | string
     subjectId?: StringFieldUpdateOperationsInput | string
     sessionId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
     term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
     examTerm?: EnumExamTermFieldUpdateOperationsInput | $Enums.ExamTerm
     isEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -193293,6 +199234,7 @@ export namespace Prisma {
     studentId?: StringFieldUpdateOperationsInput | string
     subjectId?: StringFieldUpdateOperationsInput | string
     sessionId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
     term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
     examTerm?: EnumExamTermFieldUpdateOperationsInput | $Enums.ExamTerm
     isEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -193348,6 +199290,7 @@ export namespace Prisma {
     remarks?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutAttendanceNestedInput
     student?: StudentUpdateOneRequiredWithoutAttendanceNestedInput
   }
 
@@ -193357,6 +199300,7 @@ export namespace Prisma {
     status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
     remarks?: NullableStringFieldUpdateOperationsInput | string | null
     studentId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -193367,6 +199311,7 @@ export namespace Prisma {
     status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
     remarks?: NullableStringFieldUpdateOperationsInput | string | null
     studentId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -194048,6 +199993,7 @@ export namespace Prisma {
     studentId: string
     sectionId: string
     sessionId: string
+    branchId: string
     term: $Enums.Term
     examTerm: $Enums.ExamTerm
     isEligible?: boolean
@@ -194163,6 +200109,7 @@ export namespace Prisma {
     isEligible?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutAssessmentRecordsNestedInput
     section?: SectionUpdateOneRequiredWithoutAssessmentRecordsNestedInput
     session?: AcademicSessionUpdateOneRequiredWithoutAssessmentRecordsNestedInput
     student?: StudentUpdateOneRequiredWithoutAssessmentRecordsNestedInput
@@ -194186,6 +200133,7 @@ export namespace Prisma {
     studentId?: StringFieldUpdateOperationsInput | string
     sectionId?: StringFieldUpdateOperationsInput | string
     sessionId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
     term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
     examTerm?: EnumExamTermFieldUpdateOperationsInput | $Enums.ExamTerm
     isEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -194211,6 +200159,7 @@ export namespace Prisma {
     studentId?: StringFieldUpdateOperationsInput | string
     sectionId?: StringFieldUpdateOperationsInput | string
     sessionId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
     term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
     examTerm?: EnumExamTermFieldUpdateOperationsInput | $Enums.ExamTerm
     isEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -195249,6 +201198,7 @@ export namespace Prisma {
     studentId: string
     subjectId: string
     sectionId: string
+    branchId: string
     term: $Enums.Term
     examTerm: $Enums.ExamTerm
     isEligible?: boolean
@@ -195270,6 +201220,7 @@ export namespace Prisma {
     carryingOutAssignments?: string | null
     participation?: string | null
     studentId: string
+    branchId: string
     term: $Enums.Term
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -195406,6 +201357,7 @@ export namespace Prisma {
     attendancePresent?: number | null
     attendanceAbsent?: number | null
     studentId: string
+    branchId: string
     term: $Enums.Term
     examTerm: $Enums.ExamTerm
     isActive?: boolean
@@ -195434,6 +201386,7 @@ export namespace Prisma {
     isEligible?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutAssessmentRecordsNestedInput
     section?: SectionUpdateOneRequiredWithoutAssessmentRecordsNestedInput
     student?: StudentUpdateOneRequiredWithoutAssessmentRecordsNestedInput
     subject?: SubjectUpdateOneRequiredWithoutAssessmentRecordsNestedInput
@@ -195457,6 +201410,7 @@ export namespace Prisma {
     studentId?: StringFieldUpdateOperationsInput | string
     subjectId?: StringFieldUpdateOperationsInput | string
     sectionId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
     term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
     examTerm?: EnumExamTermFieldUpdateOperationsInput | $Enums.ExamTerm
     isEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -195482,6 +201436,7 @@ export namespace Prisma {
     studentId?: StringFieldUpdateOperationsInput | string
     subjectId?: StringFieldUpdateOperationsInput | string
     sectionId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
     term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
     examTerm?: EnumExamTermFieldUpdateOperationsInput | $Enums.ExamTerm
     isEligible?: BoolFieldUpdateOperationsInput | boolean
@@ -195505,6 +201460,7 @@ export namespace Prisma {
     term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutBehaviouralRatingsNestedInput
     student?: StudentUpdateOneRequiredWithoutBehaviouralRatingsNestedInput
   }
 
@@ -195522,6 +201478,7 @@ export namespace Prisma {
     carryingOutAssignments?: NullableStringFieldUpdateOperationsInput | string | null
     participation?: NullableStringFieldUpdateOperationsInput | string | null
     studentId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
     term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -195541,6 +201498,7 @@ export namespace Prisma {
     carryingOutAssignments?: NullableStringFieldUpdateOperationsInput | string | null
     participation?: NullableStringFieldUpdateOperationsInput | string | null
     studentId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
     term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -195914,6 +201872,7 @@ export namespace Prisma {
     isLocked?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutResultSummariesNestedInput
     student?: StudentUpdateOneRequiredWithoutResultSummariesNestedInput
   }
 
@@ -195934,6 +201893,7 @@ export namespace Prisma {
     attendancePresent?: NullableIntFieldUpdateOperationsInput | number | null
     attendanceAbsent?: NullableIntFieldUpdateOperationsInput | number | null
     studentId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
     term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
     examTerm?: EnumExamTermFieldUpdateOperationsInput | $Enums.ExamTerm
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -195959,6 +201919,7 @@ export namespace Prisma {
     attendancePresent?: NullableIntFieldUpdateOperationsInput | number | null
     attendanceAbsent?: NullableIntFieldUpdateOperationsInput | number | null
     studentId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
     term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
     examTerm?: EnumExamTermFieldUpdateOperationsInput | $Enums.ExamTerm
     isActive?: BoolFieldUpdateOperationsInput | boolean

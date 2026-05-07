@@ -8,7 +8,7 @@ interface StudentIDCardProps {
         id: string;
         class?: { name: string };
         section?: { name: string };
-        user?: { email: string; phone?: string };
+        user?: { email?: string; phone?: string };
     };
 }
 

@@ -27,14 +27,14 @@ export default function QRAttendanceScanner() {
             });
         } else {
             if (scannerRef.current) {
-                scannerRef.current.clear().catch(error => console.error("Failed to clear scanner", error));
+                scannerRef.current.clear().catch((error: unknown) => console.error("Failed to clear scanner", error));
                 scannerRef.current = null;
             }
         }
 
         return () => {
             if (scannerRef.current) {
-                scannerRef.current.clear().catch(error => console.error("Failed to cleanup scanner", error));
+                scannerRef.current.clear().catch((error: unknown) => console.error("Failed to cleanup scanner", error));
             }
         };
     }, [scanning]);
