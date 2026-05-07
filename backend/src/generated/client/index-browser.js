@@ -163,7 +163,9 @@ exports.Prisma.UserScalarFieldEnum = {
   role: 'role',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  branchId: 'branchId'
+  branchId: 'branchId',
+  resetTokenHash: 'resetTokenHash',
+  resetTokenExpires: 'resetTokenExpires'
 };
 
 exports.Prisma.StaffScalarFieldEnum = {

@@ -1,5 +1,14 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
+
+const requiredEnv = ['DATABASE_URL', 'JWT_SECRET', 'SEED_ADMIN_PASSWORD', 'SEED_DEFAULT_PASSWORD', 'BOOTSTRAP_SECRET'];
+for (const envVar of requiredEnv) {
+  if (!process.env[envVar]) {
+    console.error(`FATAL ERROR: Environment variable "${envVar}" is required but missing!`);
+    process.exit(1);
+  }
+}
+
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';

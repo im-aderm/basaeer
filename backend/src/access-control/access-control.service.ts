@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { UserRole } from '../generated/client/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateAccessLogDto } from './dto/access-control.dto';
 import { AttendanceService } from '../attendance/attendance.service';
@@ -16,7 +17,7 @@ export class AccessControlService {
         if (!user) throw new NotFoundException('User not found');
 
         // Check for Automation
-        if (user.role === 'STUDENT' && dto.direction === 'ENTRY') {
+        if (user.role === UserRole.STUDENT && dto.direction === 'ENTRY') {
             const configs = await this.automationService.getConfigs(branchId);
             const attendanceConfig = configs.find(c => c.type === 'ATTENDANCE_ON_ENTRY');
 
@@ -29,6 +30,11 @@ export class AccessControlService {
                         status: 'PRESENT',
                         remarks: 'Auto-marked via QR Entry',
                         sectionId: student.sectionId
+                    }, {
+                        branchId,
+                        userId: user.id,
+                        isSuperAdmin: false,
+                        role: user.role
                     });
                 }
             }

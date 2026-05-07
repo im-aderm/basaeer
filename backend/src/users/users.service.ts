@@ -25,13 +25,18 @@ export class UsersService {
     }
 
     async createSuperAdmin(): Promise<User> {
-        const email = 'superadmin@basaeer.com';
+        const email = process.env.SUPER_ADMIN_EMAIL || 'superadmin@basaeer.com';
         const existing = await this.prisma.user.findUnique({ where: { email } });
         if (existing) return existing;
 
+        const password = process.env.SEED_ADMIN_PASSWORD;
+        if (!password) {
+            throw new Error('SEED_ADMIN_PASSWORD environment variable is required to bootstrap SuperAdmin.');
+        }
+
         return this.createUser({
             email,
-            password: 'admin123',
+            password,
             firstName: 'Super',
             lastName: 'Admin',
             role: UserRole.SUPER_ADMIN,
@@ -65,6 +70,37 @@ export class UsersService {
         return this.prisma.user.update({
             where: { id },
             data: { password: passwordHashed }
+        });
+    }
+
+    async setPasswordResetToken(id: string, hash: string, expires: Date) {
+        return this.prisma.user.update({
+            where: { id },
+            data: {
+                resetTokenHash: hash,
+                resetTokenExpires: expires,
+            },
+        });
+    }
+
+    async findByResetToken(hash: string) {
+        return this.prisma.user.findFirst({
+            where: {
+                resetTokenHash: hash,
+                resetTokenExpires: {
+                    gt: new Date(),
+                },
+            },
+        });
+    }
+
+    async clearResetToken(id: string) {
+        return this.prisma.user.update({
+            where: { id },
+            data: {
+                resetTokenHash: null,
+                resetTokenExpires: null,
+            },
         });
     }
 }

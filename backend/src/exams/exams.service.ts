@@ -26,9 +26,13 @@ export class ExamsService {
     }
 
     async createSession(dto: CreateAcademicSessionDto) {
+        if (!dto.branchId) {
+            throw new BadRequestException('branchId is required to create an academic session');
+        }
         return this.prisma.academicSession.create({
             data: {
                 ...dto,
+                branchId: dto.branchId,
                 startDate: new Date(dto.startDate),
                 endDate: new Date(dto.endDate),
             },
@@ -60,16 +64,23 @@ export class ExamsService {
 
             // Fetch grading scale for this branch if it exists, otherwise get global (branchId null)
             const gradingScale = await tx.gradingScale.findMany({
-                where: {
-                    OR: [
-                        { branchId: branchId },
-                        { branchId: null }
-                    ]
-                },
+                where: { branchId },
                 orderBy: { minScore: 'desc' },
             });
 
             for (const score of scores) {
+                let sBranchId = branchId;
+                if (!sBranchId) {
+                    const student = await tx.student.findUnique({
+                        where: { id: score.studentId },
+                        select: { branchId: true }
+                    });
+                    sBranchId = student?.branchId;
+                }
+                if (!sBranchId) {
+                    throw new BadRequestException(`Branch ID not found for student ${score.studentId}.`);
+                }
+
                 const total = (score.asgn1 || 0) + (score.asgn2 || 0) + (score.test1 || 0) + (score.test2 || 0) + (score.examScore || 0);
 
                 const gradeInfo = this.calculateGradeDynamic(total, gradingScale);
@@ -95,6 +106,7 @@ export class ExamsService {
                         grade,
                         remark,
                         examTerm,
+                        branchId: sBranchId,
                     },
                     create: {
                         studentId: score.studentId,
@@ -111,6 +123,7 @@ export class ExamsService {
                         total,
                         grade,
                         remark,
+                        branchId: sBranchId,
                     },
                 });
                 records.push(record);
@@ -143,10 +156,19 @@ export class ExamsService {
     }
 
     async lockResults(studentId: string, sessionId: string, term: Term, isLocked: boolean) {
+        const student = await this.prisma.student.findUnique({
+            where: { id: studentId },
+            select: { branchId: true }
+        });
+        if (!student) {
+            throw new NotFoundException(`Student ${studentId} not found`);
+        }
+        const branchId = student.branchId;
+
         return this.prisma.resultSummary.upsert({
             where: { studentId_sessionId_term: { studentId, sessionId, term } },
-            update: { isLocked },
-            create: { studentId, sessionId, term, isLocked, examTerm: ExamTerm.END_OF_SESSION }
+            update: { isLocked, branchId },
+            create: { studentId, sessionId, term, isLocked, examTerm: ExamTerm.END_OF_SESSION, branchId }
         });
     }
 
@@ -208,6 +230,18 @@ export class ExamsService {
     }
 
     async recordBehavioural(dto: RecordBehaviouralDto) {
+        let branchId = dto.branchId;
+        if (!branchId) {
+            const student = await this.prisma.student.findUnique({
+                where: { id: dto.studentId },
+                select: { branchId: true }
+            });
+            if (!student) {
+                throw new NotFoundException(`Student ${dto.studentId} not found`);
+            }
+            branchId = student.branchId;
+        }
+
         return this.prisma.behaviouralRating.upsert({
             where: {
                 studentId_sessionId_term: {
@@ -216,13 +250,22 @@ export class ExamsService {
                     term: dto.term,
                 },
             },
-            update: dto,
-            create: dto,
+            update: { ...dto, branchId },
+            create: { ...dto, branchId },
         });
     }
 
     async generateTermSummary(studentId: string, sessionId: string, term: Term, examTerm: ExamTerm) {
         return this.prisma.$transaction(async (tx) => {
+            const student = await tx.student.findUnique({
+                where: { id: studentId },
+                select: { branchId: true }
+            });
+            if (!student) {
+                throw new NotFoundException(`Student ${studentId} not found`);
+            }
+            const branchId = student.branchId;
+
             const studentRecords = await tx.assessmentRecord.findMany({
                 where: { studentId, sessionId, term },
             });
@@ -265,6 +308,7 @@ export class ExamsService {
                     attendancePresent,
                     attendanceAbsent,
                     attendanceOpen,
+                    branchId,
                 },
                 create: {
                     studentId,
@@ -276,6 +320,7 @@ export class ExamsService {
                     attendancePresent,
                     attendanceAbsent,
                     attendanceOpen,
+                    branchId,
                 },
             });
 
@@ -334,8 +379,8 @@ export class ExamsService {
         const rating = student.behaviouralRatings[0] || {};
 
         // Fetch School Logo and Watermark from GlobalSettings (mocking base64 for now)
-        const schoolLogoSetting = await this.prisma.globalSetting.findUnique({ where: { key: 'SCHOOL_LOGO' } });
-        const schoolWatermarkSetting = await this.prisma.globalSetting.findUnique({ where: { key: 'SCHOOL_WATERMARK' } });
+        const schoolLogoSetting = await this.prisma.globalSetting.findFirst({ where: { key: 'SCHOOL_LOGO' } });
+        const schoolWatermarkSetting = await this.prisma.globalSetting.findFirst({ where: { key: 'SCHOOL_WATERMARK' } });
 
         return {
             schoolName: student.branch?.name || 'Basaeer Modern School',
@@ -457,6 +502,15 @@ export class ExamsService {
 
     async generateAnnualCumulative(studentId: string, sessionId: string) {
         return this.prisma.$transaction(async (tx) => {
+            const student = await tx.student.findUnique({
+                where: { id: studentId },
+                select: { branchId: true }
+            });
+            if (!student) {
+                throw new NotFoundException(`Student ${studentId} not found`);
+            }
+            const branchId = student.branchId;
+
             const allTermsRecords = await tx.assessmentRecord.findMany({
                 where: { studentId, sessionId },
                 include: { subject: true },
@@ -493,6 +547,7 @@ export class ExamsService {
                     average: overallAvg, // This could be the session average
                     cgpa: overallAvg / 20, // Simplified Nigerian 5.0 CGPA conversion if needed, or keeping it 100-based
                     examTerm: ExamTerm.ANNUAL_CUMULATIVE,
+                    branchId,
                 },
                 create: {
                     studentId,
@@ -500,6 +555,7 @@ export class ExamsService {
                     term: Term.THIRD,
                     average: overallAvg,
                     examTerm: ExamTerm.ANNUAL_CUMULATIVE,
+                    branchId,
                 },
             });
         });
@@ -530,8 +586,8 @@ export class ExamsService {
         const summary = student.resultSummaries[0] || {};
 
         // Fetch School Logo and Watermark from GlobalSettings (mocking base64 for now)
-        const schoolLogoSetting = await this.prisma.globalSetting.findUnique({ where: { key: 'SCHOOL_LOGO' } });
-        const schoolWatermarkSetting = await this.prisma.globalSetting.findUnique({ where: { key: 'SCHOOL_WATERMARK' } });
+        const schoolLogoSetting = await this.prisma.globalSetting.findFirst({ where: { key: 'SCHOOL_LOGO' } });
+        const schoolWatermarkSetting = await this.prisma.globalSetting.findFirst({ where: { key: 'SCHOOL_WATERMARK' } });
 
         // Group records by subject
         const subjectsMap = {};
@@ -635,12 +691,7 @@ export class ExamsService {
 
     async getGradingScales(branchId: string) {
         return this.prisma.gradingScale.findMany({
-            where: {
-                OR: [
-                    { branchId },
-                    { branchId: null }
-                ]
-            },
+            where: { branchId },
             orderBy: { minScore: 'desc' },
         });
     }

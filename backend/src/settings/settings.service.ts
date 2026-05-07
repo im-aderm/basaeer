@@ -18,16 +18,37 @@ export class SettingsService {
     }
 
     async updateSetting(dto: UpdateSettingDto, branchId?: string) {
-        return this.prisma.globalSetting.upsert({
-            where: { key: dto.key },
-            update: { value: dto.value, branchId: branchId || null },
-            create: { key: dto.key, value: dto.value, branchId: branchId || null }
+        const bId = branchId || null;
+        
+        const existing = await this.prisma.globalSetting.findFirst({
+            where: {
+                key: dto.key,
+                branchId: bId,
+            }
         });
+
+        if (existing) {
+            return this.prisma.globalSetting.update({
+                where: { id: existing.id },
+                data: { value: dto.value }
+            });
+        } else {
+            return this.prisma.globalSetting.create({
+                data: {
+                    key: dto.key,
+                    value: dto.value,
+                    branchId: bId,
+                }
+            });
+        }
     }
 
-    async getSettingByKey(key: string) {
-        return this.prisma.globalSetting.findUnique({
-            where: { key }
+    async getSettingByKey(key: string, branchId?: string) {
+        return this.prisma.globalSetting.findFirst({
+            where: {
+                key,
+                branchId: branchId || null,
+            }
         });
     }
 }

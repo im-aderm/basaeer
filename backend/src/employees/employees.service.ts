@@ -1,4 +1,4 @@
-import { Injectable, ConflictException, NotFoundException } from '@nestjs/common';
+import { Injectable, ConflictException, NotFoundException, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UserRole } from '../generated/client/client';
@@ -178,6 +178,18 @@ export class EmployeesService {
 
     // --- Staff Attendance ---
     async recordAttendance(data: { staffId: string; date: string; status: any; remarks?: string }) {
+        const staff = await this.prisma.staff.findUnique({
+            where: { id: data.staffId },
+            include: { user: true }
+        });
+        if (!staff || !staff.user) {
+            throw new NotFoundException(`Staff ${data.staffId} not found`);
+        }
+        if (!staff.user.branchId) {
+            throw new BadRequestException(`Branch ID not found for staff ${data.staffId}`);
+        }
+        const branchId = staff.user.branchId;
+
         return this.prisma.staffAttendance.upsert({
             where: {
                 staffId_date: {
@@ -188,12 +200,14 @@ export class EmployeesService {
             update: {
                 status: data.status,
                 remarks: data.remarks,
+                branchId,
             },
             create: {
                 staffId: data.staffId,
                 date: new Date(data.date),
                 status: data.status,
                 remarks: data.remarks,
+                branchId,
             },
         });
     }

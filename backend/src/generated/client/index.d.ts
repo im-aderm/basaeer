@@ -16215,6 +16215,8 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     branchId: string | null
+    resetTokenHash: string | null
+    resetTokenExpires: Date | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -16229,6 +16231,8 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     branchId: string | null
+    resetTokenHash: string | null
+    resetTokenExpires: Date | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -16243,6 +16247,8 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     branchId: number
+    resetTokenHash: number
+    resetTokenExpires: number
     _all: number
   }
 
@@ -16259,6 +16265,8 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     branchId?: true
+    resetTokenHash?: true
+    resetTokenExpires?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -16273,6 +16281,8 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     branchId?: true
+    resetTokenHash?: true
+    resetTokenExpires?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -16287,6 +16297,8 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     branchId?: true
+    resetTokenHash?: true
+    resetTokenExpires?: true
     _all?: true
   }
 
@@ -16374,6 +16386,8 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     branchId: string | null
+    resetTokenHash: string | null
+    resetTokenExpires: Date | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -16405,6 +16419,8 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     branchId?: boolean
+    resetTokenHash?: boolean
+    resetTokenExpires?: boolean
     auditLogs?: boolean | User$auditLogsArgs<ExtArgs>
     accessLogs?: boolean | User$accessLogsArgs<ExtArgs>
     issuedCertificates?: boolean | User$issuedCertificatesArgs<ExtArgs>
@@ -16434,6 +16450,8 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     branchId?: boolean
+    resetTokenHash?: boolean
+    resetTokenExpires?: boolean
     branch?: boolean | User$branchArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -16449,6 +16467,8 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     branchId?: boolean
+    resetTokenHash?: boolean
+    resetTokenExpires?: boolean
     branch?: boolean | User$branchArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -16464,9 +16484,11 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     branchId?: boolean
+    resetTokenHash?: boolean
+    resetTokenExpires?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "firstName" | "lastName" | "phone" | "isActive" | "role" | "createdAt" | "updatedAt" | "branchId", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "firstName" | "lastName" | "phone" | "isActive" | "role" | "createdAt" | "updatedAt" | "branchId" | "resetTokenHash" | "resetTokenExpires", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     auditLogs?: boolean | User$auditLogsArgs<ExtArgs>
     accessLogs?: boolean | User$accessLogsArgs<ExtArgs>
@@ -16521,6 +16543,8 @@ export namespace Prisma {
       createdAt: Date
       updatedAt: Date
       branchId: string | null
+      resetTokenHash: string | null
+      resetTokenExpires: Date | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -16969,6 +16993,8 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
     readonly branchId: FieldRef<"User", 'String'>
+    readonly resetTokenHash: FieldRef<"User", 'String'>
+    readonly resetTokenExpires: FieldRef<"User", 'DateTime'>
   }
     
 
@@ -119073,7 +119099,9 @@ export namespace Prisma {
     role: 'role',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    branchId: 'branchId'
+    branchId: 'branchId',
+    resetTokenHash: 'resetTokenHash',
+    resetTokenExpires: 'resetTokenExpires'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -121169,6 +121197,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     branchId?: StringNullableFilter<"User"> | string | null
+    resetTokenHash?: StringNullableFilter<"User"> | string | null
+    resetTokenExpires?: DateTimeNullableFilter<"User"> | Date | string | null
     auditLogs?: AuditLogListRelationFilter
     accessLogs?: CampusAccessLogListRelationFilter
     issuedCertificates?: CertificateListRelationFilter
@@ -121197,6 +121227,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     branchId?: SortOrderInput | SortOrder
+    resetTokenHash?: SortOrderInput | SortOrder
+    resetTokenExpires?: SortOrderInput | SortOrder
     auditLogs?: AuditLogOrderByRelationAggregateInput
     accessLogs?: CampusAccessLogOrderByRelationAggregateInput
     issuedCertificates?: CertificateOrderByRelationAggregateInput
@@ -121228,6 +121260,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     branchId?: StringNullableFilter<"User"> | string | null
+    resetTokenHash?: StringNullableFilter<"User"> | string | null
+    resetTokenExpires?: DateTimeNullableFilter<"User"> | Date | string | null
     auditLogs?: AuditLogListRelationFilter
     accessLogs?: CampusAccessLogListRelationFilter
     issuedCertificates?: CertificateListRelationFilter
@@ -121256,6 +121290,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     branchId?: SortOrderInput | SortOrder
+    resetTokenHash?: SortOrderInput | SortOrder
+    resetTokenExpires?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -121276,6 +121312,8 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     branchId?: StringNullableWithAggregatesFilter<"User"> | string | null
+    resetTokenHash?: StringNullableWithAggregatesFilter<"User"> | string | null
+    resetTokenExpires?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   }
 
   export type StaffWhereInput = {
@@ -129378,6 +129416,8 @@ export namespace Prisma {
     role: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
     issuedCertificates?: CertificateCreateNestedManyWithoutIssuedByInput
@@ -129406,6 +129446,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
     issuedCertificates?: CertificateUncheckedCreateNestedManyWithoutIssuedByInput
@@ -129432,6 +129474,8 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
     issuedCertificates?: CertificateUpdateManyWithoutIssuedByNestedInput
@@ -129460,6 +129504,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
     issuedCertificates?: CertificateUncheckedUpdateManyWithoutIssuedByNestedInput
@@ -129487,6 +129533,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -129500,6 +129548,8 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -129514,6 +129564,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type StaffCreateInput = {
@@ -138566,6 +138618,17 @@ export namespace Prisma {
     not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type AuditLogListRelationFilter = {
     every?: AuditLogWhereInput
     some?: AuditLogWhereInput
@@ -138653,6 +138716,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     branchId?: SortOrder
+    resetTokenHash?: SortOrder
+    resetTokenExpires?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -138667,6 +138732,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     branchId?: SortOrder
+    resetTokenHash?: SortOrder
+    resetTokenExpires?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -138681,6 +138748,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     branchId?: SortOrder
+    resetTokenHash?: SortOrder
+    resetTokenExpires?: SortOrder
   }
 
   export type EnumUserRoleWithAggregatesFilter<$PrismaModel = never> = {
@@ -138691,6 +138760,20 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumUserRoleFilter<$PrismaModel>
     _max?: NestedEnumUserRoleFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type AdvanceSalaryListRelationFilter = {
@@ -138804,17 +138887,6 @@ export namespace Prisma {
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-  }
-
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type AlumniNullableScalarRelationFilter = {
@@ -139049,20 +139121,6 @@ export namespace Prisma {
     referralSource?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
   export type JsonNullableFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -146056,6 +146114,10 @@ export namespace Prisma {
     set?: $Enums.UserRole
   }
 
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
   export type AuditLogUpdateManyWithoutUserNestedInput = {
     create?: XOR<AuditLogCreateWithoutUserInput, AuditLogUncheckedCreateWithoutUserInput> | AuditLogCreateWithoutUserInput[] | AuditLogUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutUserInput | AuditLogCreateOrConnectWithoutUserInput[]
@@ -147274,10 +147336,6 @@ export namespace Prisma {
     create?: XOR<TransportAssignmentCreateWithoutStudentInput, TransportAssignmentUncheckedCreateWithoutStudentInput>
     connectOrCreate?: TransportAssignmentCreateOrConnectWithoutStudentInput
     connect?: TransportAssignmentWhereUniqueInput
-  }
-
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
   }
 
   export type AlumniUpdateOneWithoutStudentNestedInput = {
@@ -153109,16 +153167,6 @@ export namespace Prisma {
     not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
   }
 
-  export type NestedEnumUserRoleWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumUserRoleWithAggregatesFilter<$PrismaModel> | $Enums.UserRole
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumUserRoleFilter<$PrismaModel>
-    _max?: NestedEnumUserRoleFilter<$PrismaModel>
-  }
-
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -153128,6 +153176,16 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedEnumUserRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserRoleWithAggregatesFilter<$PrismaModel> | $Enums.UserRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumUserRoleFilter<$PrismaModel>
+    _max?: NestedEnumUserRoleFilter<$PrismaModel>
   }
 
   export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -155209,6 +155267,8 @@ export namespace Prisma {
     role: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
     issuedCertificates?: CertificateCreateNestedManyWithoutIssuedByInput
@@ -155235,6 +155295,8 @@ export namespace Prisma {
     role: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
     issuedCertificates?: CertificateUncheckedCreateNestedManyWithoutIssuedByInput
@@ -157162,6 +157224,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     branchId?: StringNullableFilter<"User"> | string | null
+    resetTokenHash?: StringNullableFilter<"User"> | string | null
+    resetTokenExpires?: DateTimeNullableFilter<"User"> | Date | string | null
   }
 
   export type VehicleUpsertWithWhereUniqueWithoutBranchInput = {
@@ -160159,6 +160223,8 @@ export namespace Prisma {
     role: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
     issuedCertificates?: CertificateCreateNestedManyWithoutIssuedByInput
@@ -160186,6 +160252,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
     issuedCertificates?: CertificateUncheckedCreateNestedManyWithoutIssuedByInput
@@ -160644,6 +160712,8 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
     issuedCertificates?: CertificateUpdateManyWithoutIssuedByNestedInput
@@ -160671,6 +160741,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
     issuedCertificates?: CertificateUncheckedUpdateManyWithoutIssuedByNestedInput
@@ -161471,6 +161543,8 @@ export namespace Prisma {
     role: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
     issuedCertificates?: CertificateCreateNestedManyWithoutIssuedByInput
@@ -161498,6 +161572,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
     issuedCertificates?: CertificateUncheckedCreateNestedManyWithoutIssuedByInput
@@ -161565,6 +161641,8 @@ export namespace Prisma {
     role: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
     issuedCertificates?: CertificateCreateNestedManyWithoutIssuedByInput
@@ -161592,6 +161670,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
     issuedCertificates?: CertificateUncheckedCreateNestedManyWithoutIssuedByInput
@@ -162207,6 +162287,8 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
     issuedCertificates?: CertificateUpdateManyWithoutIssuedByNestedInput
@@ -162234,6 +162316,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
     issuedCertificates?: CertificateUncheckedUpdateManyWithoutIssuedByNestedInput
@@ -162313,6 +162397,8 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
     issuedCertificates?: CertificateUpdateManyWithoutIssuedByNestedInput
@@ -162340,6 +162426,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
     issuedCertificates?: CertificateUncheckedUpdateManyWithoutIssuedByNestedInput
@@ -162556,6 +162644,8 @@ export namespace Prisma {
     role: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
     conversationParticipations?: ConversationParticipantCreateNestedManyWithoutUserInput
@@ -162583,6 +162673,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
     conversationParticipations?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
@@ -162919,6 +163011,8 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
     conversationParticipations?: ConversationParticipantUpdateManyWithoutUserNestedInput
@@ -162946,6 +163040,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
     conversationParticipations?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
@@ -176972,6 +177068,8 @@ export namespace Prisma {
     role: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
     issuedCertificates?: CertificateCreateNestedManyWithoutIssuedByInput
     conversationParticipations?: ConversationParticipantCreateNestedManyWithoutUserInput
@@ -176999,6 +177097,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
     issuedCertificates?: CertificateUncheckedCreateNestedManyWithoutIssuedByInput
     conversationParticipations?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
@@ -177040,6 +177140,8 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
     issuedCertificates?: CertificateUpdateManyWithoutIssuedByNestedInput
     conversationParticipations?: ConversationParticipantUpdateManyWithoutUserNestedInput
@@ -177067,6 +177169,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
     issuedCertificates?: CertificateUncheckedUpdateManyWithoutIssuedByNestedInput
     conversationParticipations?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
@@ -177418,6 +177522,8 @@ export namespace Prisma {
     role: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
     issuedCertificates?: CertificateCreateNestedManyWithoutIssuedByInput
@@ -177445,6 +177551,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
     issuedCertificates?: CertificateUncheckedCreateNestedManyWithoutIssuedByInput
@@ -177642,6 +177750,8 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
     issuedCertificates?: CertificateUpdateManyWithoutIssuedByNestedInput
@@ -177669,6 +177779,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
     issuedCertificates?: CertificateUncheckedUpdateManyWithoutIssuedByNestedInput
@@ -180902,6 +181014,8 @@ export namespace Prisma {
     role: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
     issuedCertificates?: CertificateCreateNestedManyWithoutIssuedByInput
@@ -180929,6 +181043,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
     issuedCertificates?: CertificateUncheckedCreateNestedManyWithoutIssuedByInput
@@ -181039,6 +181155,8 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
     issuedCertificates?: CertificateUpdateManyWithoutIssuedByNestedInput
@@ -181066,6 +181184,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
     issuedCertificates?: CertificateUncheckedUpdateManyWithoutIssuedByNestedInput
@@ -182321,6 +182441,8 @@ export namespace Prisma {
     role: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
     issuedCertificates?: CertificateCreateNestedManyWithoutIssuedByInput
@@ -182348,6 +182470,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
     issuedCertificates?: CertificateUncheckedCreateNestedManyWithoutIssuedByInput
@@ -182714,6 +182838,8 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
     issuedCertificates?: CertificateUpdateManyWithoutIssuedByNestedInput
@@ -182741,6 +182867,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
     issuedCertificates?: CertificateUncheckedUpdateManyWithoutIssuedByNestedInput
@@ -189036,6 +189164,8 @@ export namespace Prisma {
     role: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
     issuedCertificates?: CertificateCreateNestedManyWithoutIssuedByInput
@@ -189063,6 +189193,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
     issuedCertificates?: CertificateUncheckedCreateNestedManyWithoutIssuedByInput
@@ -189135,6 +189267,8 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
     issuedCertificates?: CertificateUpdateManyWithoutIssuedByNestedInput
@@ -189162,6 +189296,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
     issuedCertificates?: CertificateUncheckedUpdateManyWithoutIssuedByNestedInput
@@ -189212,6 +189348,8 @@ export namespace Prisma {
     role: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
     issuedCertificates?: CertificateCreateNestedManyWithoutIssuedByInput
@@ -189239,6 +189377,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
     issuedCertificates?: CertificateUncheckedCreateNestedManyWithoutIssuedByInput
@@ -189311,6 +189451,8 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
     issuedCertificates?: CertificateUpdateManyWithoutIssuedByNestedInput
@@ -189338,6 +189480,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
     issuedCertificates?: CertificateUncheckedUpdateManyWithoutIssuedByNestedInput
@@ -189712,6 +189856,8 @@ export namespace Prisma {
     role: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
     issuedCertificates?: CertificateCreateNestedManyWithoutIssuedByInput
@@ -189739,6 +189885,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
     issuedCertificates?: CertificateUncheckedCreateNestedManyWithoutIssuedByInput
@@ -189821,6 +189969,8 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
     issuedCertificates?: CertificateUpdateManyWithoutIssuedByNestedInput
@@ -189848,6 +189998,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
     issuedCertificates?: CertificateUncheckedUpdateManyWithoutIssuedByNestedInput
@@ -190006,6 +190158,8 @@ export namespace Prisma {
     role: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     issuedCertificates?: CertificateCreateNestedManyWithoutIssuedByInput
     conversationParticipations?: ConversationParticipantCreateNestedManyWithoutUserInput
@@ -190033,6 +190187,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     issuedCertificates?: CertificateUncheckedCreateNestedManyWithoutIssuedByInput
     conversationParticipations?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
@@ -190213,6 +190369,8 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     issuedCertificates?: CertificateUpdateManyWithoutIssuedByNestedInput
     conversationParticipations?: ConversationParticipantUpdateManyWithoutUserNestedInput
@@ -190240,6 +190398,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     issuedCertificates?: CertificateUncheckedUpdateManyWithoutIssuedByNestedInput
     conversationParticipations?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
@@ -192180,6 +192340,8 @@ export namespace Prisma {
     role: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
     issuedCertificates?: CertificateCreateNestedManyWithoutIssuedByInput
@@ -192207,6 +192369,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
     issuedCertificates?: CertificateUncheckedCreateNestedManyWithoutIssuedByInput
@@ -192297,6 +192461,8 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
     issuedCertificates?: CertificateUpdateManyWithoutIssuedByNestedInput
@@ -192324,6 +192490,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
     issuedCertificates?: CertificateUncheckedUpdateManyWithoutIssuedByNestedInput
@@ -192917,6 +193085,8 @@ export namespace Prisma {
     role: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
   }
 
   export type VehicleCreateManyBranchInput = {
@@ -194922,6 +195092,8 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
     issuedCertificates?: CertificateUpdateManyWithoutIssuedByNestedInput
@@ -194948,6 +195120,8 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
     issuedCertificates?: CertificateUncheckedUpdateManyWithoutIssuedByNestedInput
@@ -194974,6 +195148,8 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type VehicleUpdateWithoutBranchInput = {

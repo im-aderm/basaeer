@@ -3,6 +3,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import * as crypto from 'crypto';
 
 @Injectable()
 export class AuthService {
@@ -36,7 +37,12 @@ export class AuthService {
     }
 
     async getFullProfile(userId: string) {
-        return this.usersService.findById(userId);
+        const user = await this.usersService.findById(userId);
+        if (user) {
+            const { password, resetTokenHash, resetTokenExpires, ...result } = user;
+            return result;
+        }
+        return null;
     }
 
     async createSuperAdmin() {
@@ -54,11 +60,15 @@ export class AuthService {
             return { message: 'If that email address is in our database, we will send you an email to reset your password.' };
         }
 
-        // Create a unique secret based on password so the link expires once used
-        const secret = (process.env.JWT_SECRET || 'fallback_secret') + user.password;
-        const token = this.jwtService.sign({ sub: user.id }, { secret, expiresIn: '15m' });
+        // Generate a random 32-character token
+        const resetToken = crypto.randomBytes(32).toString('hex');
+        // Hash the token using sha256 before storage
+        const hash = crypto.createHash('sha256').update(resetToken).digest('hex');
+        const expires = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes from now
 
-        const resetLink = `${process.env.FRONTEND_URL || 'http://localhost:3000'}/reset-password?token=${token}&id=${user.id}`;
+        await this.usersService.setPasswordResetToken(user.id, hash, expires);
+
+        const resetLink = `${process.env.FRONTEND_URL || 'http://localhost:3000'}/reset-password?token=${resetToken}&id=${user.id}`;
         
         // TODO: Replace with real email transport (e.g. Resend, Sendgrid)
         console.log(`\n================= PASSWORD RESET LINK =================`);
@@ -70,21 +80,17 @@ export class AuthService {
     }
 
     async resetPassword(userId: string, token: string, newPasswordPlain: string) {
-        const user = await this.usersService.findById(userId);
-        if (!user) {
-            throw new UnauthorizedException('Invalid or expired password reset token');
-        }
-
-        const secret = (process.env.JWT_SECRET || 'fallback_secret') + user.password;
+        // Hash the input token to match the stored hash
+        const hash = crypto.createHash('sha256').update(token).digest('hex');
         
-        try {
-            this.jwtService.verify(token, { secret });
-        } catch (error) {
+        const user = await this.usersService.findByResetToken(hash);
+        if (!user || user.id !== userId) {
             throw new UnauthorizedException('Invalid or expired password reset token');
         }
 
         const newHashedPassword = await bcrypt.hash(newPasswordPlain, 10);
         await this.usersService.updatePassword(user.id, newHashedPassword);
+        await this.usersService.clearResetToken(user.id);
         
         return { message: 'Password has been successfully reset' };
     }

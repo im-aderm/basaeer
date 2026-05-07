@@ -19,34 +19,31 @@ export class ClassesController {
         if (!createClassDto.branch && req.user.branchId) {
             createClassDto.branch = { connect: { id: req.user.branchId } };
         }
-        return this.classesService.create(createClassDto);
+        return this.classesService.create(createClassDto, req.tenantCtx);
     }
 
     @Get()
     @Public()
     @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN, UserRole.TEACHER)
     findAll(@Request() req) {
-        // If Super Admin and branchId query param is missing, they might want all (but service currently requires it)
-        // For Phase 2, we stick to branch-based filtering.
-        const branchId = req.query.branchId || req.user?.branchId;
-        return this.classesService.findAll(branchId);
+        return this.classesService.findAll(req.tenantCtx);
     }
 
     @Get(':id')
     @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN, UserRole.TEACHER)
-    findOne(@Param('id') id: string) {
-        return this.classesService.findOne(id);
+    findOne(@Request() req, @Param('id') id: string) {
+        return this.classesService.findOne(id, req.tenantCtx);
     }
 
     @Post(':id/sections')
     @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
-    addSection(@Param('id') id: string, @Body('name') name: string) {
-        return this.classesService.addSection(id, name);
+    addSection(@Request() req, @Param('id') id: string, @Body('name') name: string) {
+        return this.classesService.addSection(id, name, req.tenantCtx);
     }
 
     @Post(':id/assign-teacher')
     @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
-    assignTeacher(@Param('id') id: string, @Body('teacherId') teacherId: string) {
-        return this.classesService.assignTeacher(id, teacherId);
+    assignTeacher(@Request() req, @Param('id') id: string, @Body('teacherId') teacherId: string) {
+        return this.classesService.assignTeacher(id, teacherId, req.tenantCtx);
     }
 }

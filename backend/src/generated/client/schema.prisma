@@ -109,6 +109,8 @@ model User {
   createdAt                  DateTime                  @default(now())
   updatedAt                  DateTime                  @updatedAt
   branchId                   String?
+  resetTokenHash             String?
+  resetTokenExpires          DateTime?
   auditLogs                  AuditLog[]
   accessLogs                 CampusAccessLog[]
   issuedCertificates         Certificate[]             @relation("IssuedCertificates")
