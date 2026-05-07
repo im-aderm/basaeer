@@ -1,11 +1,12 @@
 "use client";
 import React, { useState } from 'react';
-import { Send, Users, Mail, MessageSquare, History, FileText } from 'lucide-react';
+import { Send, Mail, MessageSquare, History, FileText } from 'lucide-react';
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from 'sonner';
+import api from '@/lib/api';
 
 export default function BulkCommsPage() {
     const [mode, setMode] = useState<'SMS' | 'EMAIL'>('EMAIL');
@@ -14,19 +15,35 @@ export default function BulkCommsPage() {
     const [message, setMessage] = useState('');
     const [isSending, setIsSending] = useState(false);
 
-    const handleSend = () => {
+    const handleSend = async () => {
         if (!message) {
             toast.error("Message content cannot be empty.");
             return;
         }
+
+        if (mode === 'EMAIL' && !subject) {
+            toast.error("Subject is required for emails.");
+            return;
+        }
+
         setIsSending(true);
-        // Mock send delay
-        setTimeout(() => {
-            setIsSending(false);
-            toast.success(`Bulk ${mode} scheduled successfully for ${recipientGroup}`);
+        try {
+            const endpoint = mode === 'EMAIL' ? '/comms/bulk-email' : '/comms/bulk-sms';
+            const payload = mode === 'EMAIL' 
+                ? { subject, message, recipientGroup }
+                : { message, recipientGroup };
+
+            const response = await api.post(endpoint, payload);
+            
+            toast.success(response.data.message || `Bulk ${mode} scheduled successfully.`);
             setSubject('');
             setMessage('');
-        }, 1500);
+        } catch (error: any) {
+            console.error("Bulk comms failed:", error);
+            toast.error(error.response?.data?.message || "Failed to schedule bulk communication.");
+        } finally {
+            setIsSending(false);
+        }
     };
 
     return (

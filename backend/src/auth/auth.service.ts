@@ -2,6 +2,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
+import { MailService } from '../mail/mail.service';
 import * as bcrypt from 'bcrypt';
 import * as crypto from 'crypto';
 
@@ -10,6 +11,7 @@ export class AuthService {
     constructor(
         private usersService: UsersService,
         private jwtService: JwtService,
+        private mailService: MailService,
     ) { }
 
     async validateUser(email: string, pass: string): Promise<any> {
@@ -70,11 +72,7 @@ export class AuthService {
 
         const resetLink = `${process.env.FRONTEND_URL || 'http://localhost:3000'}/reset-password?token=${resetToken}&id=${user.id}`;
         
-        // TODO: Replace with real email transport (e.g. Resend, Sendgrid)
-        console.log(`\n================= PASSWORD RESET LINK =================`);
-        console.log(`To reset password for ${user.email}, please click:`);
-        console.log(resetLink);
-        console.log(`=======================================================\n`);
+        await this.mailService.sendPasswordReset(user.email, resetLink);
 
         return { message: 'If that email address is in our database, we will send you an email to reset your password.' };
     }

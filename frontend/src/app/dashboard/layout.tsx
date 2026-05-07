@@ -1,5 +1,3 @@
-"use client";
-
 import ProtectedRoute from "@/components/ProtectedRoute";
 import { Sidebar } from "@/components/Sidebar";
 import { Header } from "@/components/Header";

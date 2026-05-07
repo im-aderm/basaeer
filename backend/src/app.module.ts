@@ -43,6 +43,8 @@ import { UploadModule } from './upload/upload.module';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 
+import { CommsModule } from './comms/comms.module';
+
 @Module({
   imports: [
     ThrottlerModule.forRoot([{ ttl: 60000, limit: 10 }]), // 10 requests per minute globally; auth routes use stricter limits
@@ -82,6 +84,7 @@ import { APP_GUARD } from '@nestjs/core';
     CardsModule,
     MailModule,
     UploadModule,
+    CommsModule,
   ],
   controllers: [AppController],
   providers: [

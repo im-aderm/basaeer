@@ -178,6 +178,33 @@ export class MailService implements OnModuleInit {
     return this.sendMail(to, `Update on Admission Application: ${studentName}`, html);
   }
 
+  async sendPasswordReset(to: string, resetLink: string) {
+    if (!this.validateEmail(to)) {
+      this.logger.warn(`Invalid email address: ${to}`);
+      return;
+    }
+
+    const template: EmailTemplate = {
+      headerColor: '#2563EB',
+      headerTitle: 'Basaeer Portal',
+      headerSubtitle: 'Raising Leaders through Quran & Science',
+      greeting: 'Assalamu Alaikum,',
+      bodyContent: `
+        <p>We received a request to reset the password for your Basaeer account.</p>
+        <p>Please click the button below to reset your password. This link is valid for 15 minutes.</p>
+        <p style="text-align: center; margin: 30px 0;">
+          <a href="${resetLink}" style="background-color: #2563EB; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block;">Reset Password</a>
+        </p>
+        <p>If you did not request a password reset, please ignore this email or contact support if you have concerns.</p>
+      `,
+      footerText: 'If the button above does not work, copy and paste this URL into your browser:\n' + resetLink,
+    };
+
+    const html = this.buildEmailTemplate(template);
+    return this.sendMail(to, 'Reset Your Password - Basaeer', html);
+  }
+
+
   /**
    * Build a consistent email HTML template
    */
