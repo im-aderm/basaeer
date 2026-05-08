@@ -9,8 +9,8 @@ COPY package.json package-lock.json ./
 COPY backend/package.json ./backend/
 COPY packages/shared-types/package.json ./packages/shared-types/
 
-# Install all dependencies using workspaces
-RUN npm ci
+# Install all dependencies using workspaces (ignore postinstall scripts since they are run explicitly later)
+RUN npm ci --ignore-scripts
 
 # Copy the rest of the application
 COPY backend/ ./backend/
