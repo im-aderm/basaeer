@@ -12,7 +12,8 @@ import {
     MoveDown,
     Settings,
     FileText,
-    Loader2
+    Loader2,
+    Layout
 } from 'lucide-react';
 import { toast } from 'sonner';
 

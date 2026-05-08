@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
-import { BarChart3, CheckCircle2, FileText, GraduationCap, Loader2, ShieldCheck, Table2 } from 'lucide-react';
+import { BarChart3, CheckCircle2, FileText, GraduationCap, Loader2, ShieldCheck, Table2, Settings } from 'lucide-react';
 import { toast } from 'sonner';
 
 type Mode = 'exams' | 'components' | 'approvals' | 'publication' | 'transcripts' | 'tahfeez' | 'analytics' | 'portal' | 'reportCards' | 'broadsheets';

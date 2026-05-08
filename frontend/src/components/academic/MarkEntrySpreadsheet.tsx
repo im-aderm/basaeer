@@ -11,7 +11,7 @@ import dynamic from 'next/dynamic';
 import { Save, AlertTriangle, CheckCircle, Loader2, ArrowLeft } from 'lucide-react';
 import { toast } from 'sonner';
 
-const FixedSizeList = dynamic(() => import('react-window').then(mod => mod.FixedSizeList as any), { ssr: false });
+const FixedSizeList = dynamic(() => import('react-window').then(mod => (mod as any).FixedSizeList), { ssr: false }) as any;
 
 interface StudentMark {
     studentId: string;

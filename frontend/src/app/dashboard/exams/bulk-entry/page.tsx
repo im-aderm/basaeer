@@ -141,7 +141,7 @@ export default function BulkMarkEntryPage() {
 }
 
 // Simple Input component for the selection form
-function Input(props: any) {
+function Input(props: React.InputHTMLAttributes<HTMLInputElement>) {
     return (
         <input
             {...props}
