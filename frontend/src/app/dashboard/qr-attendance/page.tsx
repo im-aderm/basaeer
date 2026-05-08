@@ -148,18 +148,12 @@ export default function QRAttendanceScanner() {
         
         const loadingToast = toast.loading(`Syncing ${offlineQueue.length} scans...`);
         try {
-            // Process one by one or implement a bulk sync endpoint
-            for (const scan of offlineQueue) {
-                await api.post('/attendance/scan', {
-                    payload: scan.payload,
-                    sessionId: scan.sessionId
-                });
-            }
+            await api.post('/attendance/scan/bulk', { scans: offlineQueue });
             setOfflineQueue([]);
             localStorage.removeItem('attendance_offline_queue');
             toast.success("Sync complete!", { id: loadingToast });
         } catch (error) {
-            toast.error("Sync failed partially", { id: loadingToast });
+            toast.error("Sync failed", { id: loadingToast });
         }
     };
 

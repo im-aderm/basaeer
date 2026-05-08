@@ -698,11 +698,237 @@ exports.Prisma.ResultSummaryScalarFieldEnum = {
 exports.Prisma.GradingScaleScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  scaleType: 'scaleType',
   minScore: 'minScore',
   maxScore: 'maxScore',
   grade: 'grade',
+  gradePoint: 'gradePoint',
   remark: 'remark',
+  classOfResult: 'classOfResult',
+  isActive: 'isActive',
   branchId: 'branchId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ExamScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  code: 'code',
+  description: 'description',
+  status: 'status',
+  branchId: 'branchId',
+  classId: 'classId',
+  sectionId: 'sectionId',
+  sessionId: 'sessionId',
+  term: 'term',
+  startsAt: 'startsAt',
+  endsAt: 'endsAt',
+  gradingStartsAt: 'gradingStartsAt',
+  gradingEndsAt: 'gradingEndsAt',
+  isArchived: 'isArchived',
+  lockedAt: 'lockedAt',
+  createdByUserId: 'createdByUserId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ExamTypeScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  weight: 'weight',
+  branchId: 'branchId',
+  classId: 'classId',
+  level: 'level',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AssessmentComponentScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  component: 'component',
+  weight: 'weight',
+  maxScore: 'maxScore',
+  branchId: 'branchId',
+  classId: 'classId',
+  subjectId: 'subjectId',
+  curriculum: 'curriculum',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ResultApprovalScalarFieldEnum = {
+  id: 'id',
+  branchId: 'branchId',
+  sessionId: 'sessionId',
+  term: 'term',
+  classId: 'classId',
+  sectionId: 'sectionId',
+  subjectId: 'subjectId',
+  status: 'status',
+  currentStep: 'currentStep',
+  requestedById: 'requestedById',
+  reviewedById: 'reviewedById',
+  rejectionNote: 'rejectionNote',
+  revisionNote: 'revisionNote',
+  approvedAt: 'approvedAt',
+  publishedAt: 'publishedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ResultPublicationScalarFieldEnum = {
+  id: 'id',
+  branchId: 'branchId',
+  sessionId: 'sessionId',
+  term: 'term',
+  classId: 'classId',
+  sectionId: 'sectionId',
+  publishedById: 'publishedById',
+  isPublished: 'isPublished',
+  publishedAt: 'publishedAt',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.GPARecordScalarFieldEnum = {
+  id: 'id',
+  branchId: 'branchId',
+  studentId: 'studentId',
+  sessionId: 'sessionId',
+  term: 'term',
+  totalGradePoint: 'totalGradePoint',
+  creditUnits: 'creditUnits',
+  gpa: 'gpa',
+  cgpa: 'cgpa',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.StudentRankingScalarFieldEnum = {
+  id: 'id',
+  branchId: 'branchId',
+  studentId: 'studentId',
+  sessionId: 'sessionId',
+  term: 'term',
+  scope: 'scope',
+  scopeId: 'scopeId',
+  score: 'score',
+  rank: 'rank',
+  outOf: 'outOf',
+  tieGroup: 'tieGroup',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.BroadsheetScalarFieldEnum = {
+  id: 'id',
+  branchId: 'branchId',
+  sessionId: 'sessionId',
+  term: 'term',
+  classId: 'classId',
+  sectionId: 'sectionId',
+  generatedById: 'generatedById',
+  checksum: 'checksum',
+  data: 'data',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TranscriptScalarFieldEnum = {
+  id: 'id',
+  branchId: 'branchId',
+  studentId: 'studentId',
+  transcriptNo: 'transcriptNo',
+  status: 'status',
+  cumulativeGpa: 'cumulativeGpa',
+  checksum: 'checksum',
+  data: 'data',
+  approvedById: 'approvedById',
+  approvedAt: 'approvedAt',
+  lockedAt: 'lockedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TranscriptVerificationScalarFieldEnum = {
+  id: 'id',
+  transcriptId: 'transcriptId',
+  verificationCode: 'verificationCode',
+  qrPayload: 'qrPayload',
+  checkedAt: 'checkedAt',
+  revokedAt: 'revokedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AcademicRemarkScalarFieldEnum = {
+  id: 'id',
+  branchId: 'branchId',
+  studentId: 'studentId',
+  sessionId: 'sessionId',
+  term: 'term',
+  authorId: 'authorId',
+  category: 'category',
+  remark: 'remark',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SubjectPositionScalarFieldEnum = {
+  id: 'id',
+  branchId: 'branchId',
+  studentId: 'studentId',
+  subjectId: 'subjectId',
+  sectionId: 'sectionId',
+  sessionId: 'sessionId',
+  term: 'term',
+  score: 'score',
+  position: 'position',
+  outOf: 'outOf',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TahfeezAssessmentScalarFieldEnum = {
+  id: 'id',
+  branchId: 'branchId',
+  studentId: 'studentId',
+  teacherId: 'teacherId',
+  sessionId: 'sessionId',
+  term: 'term',
+  surah: 'surah',
+  juz: 'juz',
+  fromAyah: 'fromAyah',
+  toAyah: 'toAyah',
+  memorizationScore: 'memorizationScore',
+  tajweedScore: 'tajweedScore',
+  fluencyScore: 'fluencyScore',
+  revisionScore: 'revisionScore',
+  totalScore: 'totalScore',
+  grade: 'grade',
+  remark: 'remark',
+  assessedAt: 'assessedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TahfeezMemorizationProgressScalarFieldEnum = {
+  id: 'id',
+  branchId: 'branchId',
+  studentId: 'studentId',
+  currentSurah: 'currentSurah',
+  currentJuz: 'currentJuz',
+  completedAyahs: 'completedAyahs',
+  totalAyahs: 'totalAyahs',
+  completionRate: 'completionRate',
+  lastReviewedAt: 'lastReviewedAt',
+  teacherRemark: 'teacherRemark',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -1601,6 +1827,37 @@ exports.Prisma.NotificationDeliveryEventScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.AcademicExportScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  status: 'status',
+  progress: 'progress',
+  fileUrl: 'fileUrl',
+  fileName: 'fileName',
+  fileSize: 'fileSize',
+  error: 'error',
+  parameters: 'parameters',
+  userId: 'userId',
+  branchId: 'branchId',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ReportTemplateScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  type: 'type',
+  layout: 'layout',
+  config: 'config',
+  isDefault: 'isDefault',
+  isActive: 'isActive',
+  branchId: 'branchId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1634,6 +1891,10 @@ exports.UserRole = exports.$Enums.UserRole = {
   SUPER_ADMIN: 'SUPER_ADMIN',
   BRANCH_ADMIN: 'BRANCH_ADMIN',
   TEACHER: 'TEACHER',
+  HOD: 'HOD',
+  PRINCIPAL: 'PRINCIPAL',
+  EXAM_OFFICER: 'EXAM_OFFICER',
+  ACADEMIC_OFFICER: 'ACADEMIC_OFFICER',
   ACCOUNTANT: 'ACCOUNTANT',
   HR: 'HR',
   LIBRARIAN: 'LIBRARIAN',
@@ -1719,6 +1980,46 @@ exports.ExamTerm = exports.$Enums.ExamTerm = {
   ANNUAL_CUMULATIVE: 'ANNUAL_CUMULATIVE'
 };
 
+exports.AcademicExamStatus = exports.$Enums.AcademicExamStatus = {
+  DRAFT: 'DRAFT',
+  SCHEDULED: 'SCHEDULED',
+  ACTIVE: 'ACTIVE',
+  MARK_ENTRY: 'MARK_ENTRY',
+  UNDER_REVIEW: 'UNDER_REVIEW',
+  APPROVED: 'APPROVED',
+  OPEN: 'OPEN',
+  LOCKED: 'LOCKED',
+  PUBLISHED: 'PUBLISHED',
+  ARCHIVED: 'ARCHIVED'
+};
+
+exports.ResultApprovalStatus = exports.$Enums.ResultApprovalStatus = {
+  DRAFT: 'DRAFT',
+  SUBMITTED: 'SUBMITTED',
+  EXAMINER_REVIEW: 'EXAMINER_REVIEW',
+  HOD_REVIEW: 'HOD_REVIEW',
+  PRINCIPAL_REVIEW: 'PRINCIPAL_REVIEW',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  REVISION_REQUESTED: 'REVISION_REQUESTED',
+  PUBLISHED: 'PUBLISHED'
+};
+
+exports.RankingScope = exports.$Enums.RankingScope = {
+  CLASS: 'CLASS',
+  SECTION: 'SECTION',
+  BRANCH: 'BRANCH',
+  SUBJECT: 'SUBJECT',
+  OVERALL: 'OVERALL'
+};
+
+exports.TranscriptStatus = exports.$Enums.TranscriptStatus = {
+  DRAFT: 'DRAFT',
+  APPROVED: 'APPROVED',
+  LOCKED: 'LOCKED',
+  REVOKED: 'REVOKED'
+};
+
 exports.VoucherStatus = exports.$Enums.VoucherStatus = {
   PENDING: 'PENDING',
   APPROVED: 'APPROVED',
@@ -1771,6 +2072,20 @@ exports.Prisma.ModelName = {
   BehaviouralRating: 'BehaviouralRating',
   ResultSummary: 'ResultSummary',
   GradingScale: 'GradingScale',
+  Exam: 'Exam',
+  ExamType: 'ExamType',
+  AssessmentComponent: 'AssessmentComponent',
+  ResultApproval: 'ResultApproval',
+  ResultPublication: 'ResultPublication',
+  GPARecord: 'GPARecord',
+  StudentRanking: 'StudentRanking',
+  Broadsheet: 'Broadsheet',
+  Transcript: 'Transcript',
+  TranscriptVerification: 'TranscriptVerification',
+  AcademicRemark: 'AcademicRemark',
+  SubjectPosition: 'SubjectPosition',
+  TahfeezAssessment: 'TahfeezAssessment',
+  TahfeezMemorizationProgress: 'TahfeezMemorizationProgress',
   GlobalSetting: 'GlobalSetting',
   RolePermission: 'RolePermission',
   AuditLog: 'AuditLog',
@@ -1838,7 +2153,9 @@ exports.Prisma.ModelName = {
   ProviderFailoverEvent: 'ProviderFailoverEvent',
   MessageRetryEvent: 'MessageRetryEvent',
   ProviderBalanceSnapshot: 'ProviderBalanceSnapshot',
-  NotificationDeliveryEvent: 'NotificationDeliveryEvent'
+  NotificationDeliveryEvent: 'NotificationDeliveryEvent',
+  AcademicExport: 'AcademicExport',
+  ReportTemplate: 'ReportTemplate'
 };
 
 /**

@@ -13,6 +13,36 @@ export class CommsService {
     @InjectQueue('sms') private readonly smsQueue: Queue,
   ) {}
 
+  async sendSms(dto: {
+    phone: string;
+    message: string;
+    userId?: string;
+    branchId: string | null;
+  }) {
+    await this.smsQueue.add('send-sms', {
+      phone: dto.phone,
+      message: dto.message,
+      userId: dto.userId,
+      branchId: dto.branchId,
+    });
+  }
+
+  async sendEmail(dto: {
+    email: string;
+    subject: string;
+    message: string;
+    userId?: string;
+    branchId: string | null;
+  }) {
+    await this.emailQueue.add('send-email', {
+      email: dto.email,
+      subject: dto.subject,
+      message: dto.message,
+      userId: dto.userId,
+      branchId: dto.branchId,
+    });
+  }
+
   async createBulkEmailCampaign(dto: {
     subject: string;
     message: string;

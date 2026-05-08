@@ -67,6 +67,33 @@ export class AttendanceService {
         return { success: true, attendance };
     }
 
+    async bulkSyncScans(dto: { scans: { payload: string, sessionId: string, timestamp?: string }[] }, context: TenantContext) {
+        const branchId = context.branchId;
+        const results: Array<{ studentId?: string; payload?: string; success: boolean; error?: string }> = [];
+
+        for (const scan of dto.scans) {
+            try {
+                const { studentId, branchId: scanBranchId } = this.qrService.verifyQRPayload(scan.payload);
+                if (scanBranchId !== branchId) continue;
+
+                // Mark attendance with the timestamp from the scan if provided
+                await this.markAttendance({
+                    studentId,
+                    sessionId: scan.sessionId,
+                    date: scan.timestamp || new Date().toISOString(),
+                    status: 'PRESENT',
+                    remarks: 'Offline QR Sync'
+                }, context);
+
+                results.push({ studentId, success: true });
+            } catch (error: any) {
+                results.push({ payload: scan.payload, success: false, error: error.message });
+            }
+        }
+
+        return { success: true, processed: results.length, results };
+    }
+
     async markAttendance(dto: CreateAttendanceDto, context: TenantContext) {
         const { studentId, date, status, remarks, sectionId, sessionId } = dto;
         const branchId = context.branchId;
@@ -75,6 +102,14 @@ export class AttendanceService {
         const attendanceDate = new Date(date);
         attendanceDate.setHours(0, 0, 0, 0);
 
+        // Session Lock Check
+        if (sessionId) {
+            const session = await this.prisma.attendanceSession.findFirst({
+                where: TenantHelper.applyIsolation({ id: sessionId }, context)
+            });
+            if (session?.isLocked) throw new ForbiddenException('Cannot modify attendance for a locked session');
+        }
+
         // Ownership check for student
         const student = await this.prisma.student.findFirst({
             where: TenantHelper.applyIsolation({ id: studentId }, context),
@@ -82,12 +117,21 @@ export class AttendanceService {
         });
         if (!student) throw new ForbiddenException('Student not found in your branch');
 
+        // Get existing record to check for status change
+        const existing = await this.prisma.attendance.findFirst({
+            where: {
+                studentId,
+                date: attendanceDate,
+                sessionId: sessionId || '',
+            }
+        });
+
         const result = await this.prisma.attendance.upsert({
             where: {
                 studentId_date_sessionId: {
                     studentId,
                     date: attendanceDate,
-                    sessionId: sessionId || '', // Use empty string for global daily attendance if null
+                    sessionId: sessionId || '',
                 },
             },
             update: {
@@ -101,7 +145,7 @@ export class AttendanceService {
                 status,
                 remarks,
                 sectionId: sectionId || student.sectionId,
-                sessionId,
+                sessionId: sessionId || '',
                 branchId,
             },
             include: {
@@ -109,13 +153,15 @@ export class AttendanceService {
             }
         });
 
-        // Trigger Parent Notification for Absence
-        if (status === 'ABSENT' && student.parent?.phone) {
-            this.commsService.createBulkSmsCampaign({
-                message: `Dear Parent, ${student.firstName} was marked ABSENT today, ${attendanceDate.toLocaleDateString()}.`,
-                recipientGroup: 'PARENT',
-                branchId
-            });
+        // Trigger Parent Notification for Absence/Lateness (only if status changed)
+        if (student.parent?.phone && existing?.status !== status) {
+            if (status === 'ABSENT' || status === 'LATE') {
+                this.commsService.sendSms({
+                    phone: student.parent.phone,
+                    message: `Dear Parent, ${student.firstName} was marked ${status} today, ${attendanceDate.toLocaleDateString()}.`,
+                    branchId
+                });
+            }
         }
 
         // Emit realtime update if it's for a session
@@ -134,6 +180,17 @@ export class AttendanceService {
     async markBulkAttendance(dto: { records: CreateAttendanceDto[] }, context: TenantContext) {
         const branchId = context.branchId;
         if (!branchId) throw new ForbiddenException('Branch context required');
+
+        if (dto.records.length === 0) return [];
+
+        // Session Lock Check (assuming all records in a bulk are for the same session)
+        const sessionId = dto.records[0].sessionId;
+        if (sessionId) {
+            const session = await this.prisma.attendanceSession.findFirst({
+                where: TenantHelper.applyIsolation({ id: sessionId }, context)
+            });
+            if (session?.isLocked) throw new ForbiddenException('Cannot modify attendance for a locked session');
+        }
 
         // Note: For large bulks, we should validate students efficiently
         const studentIds = dto.records.map(r => r.studentId);
@@ -167,7 +224,7 @@ export class AttendanceService {
                         status: record.status,
                         remarks: record.remarks,
                         sectionId: record.sectionId,
-                        sessionId: record.sessionId,
+                        sessionId: record.sessionId || '',
                         branchId,
                     },
                 });
@@ -215,6 +272,35 @@ export class AttendanceService {
         });
     }
 
+    async getStudentQR(studentId: string, context: TenantContext) {
+        const branchId = context.branchId;
+        if (!branchId) throw new ForbiddenException('Branch context required');
+        const student = await this.prisma.student.findFirst({
+            where: TenantHelper.applyIsolation({ id: studentId }, context)
+        });
+        if (!student) throw new NotFoundException('Student not found');
+
+        return {
+            studentId: student.id,
+            qrPayload: this.qrService.generateQRPayload(student.id, branchId),
+        };
+    }
+
+    async bulkGenerateQR(studentIds: string[], context: TenantContext) {
+        const branchId = context.branchId;
+        if (!branchId) throw new ForbiddenException('Branch context required');
+        const students = await this.prisma.student.findMany({
+            where: TenantHelper.applyIsolation({ id: { in: studentIds } }, context)
+        });
+
+        return students.map(s => ({
+            studentId: s.id,
+            firstName: s.firstName,
+            lastName: s.lastName,
+            qrPayload: this.qrService.generateQRPayload(s.id, branchId)
+        }));
+    }
+
     async getStats(context: TenantContext) {
         const branchId = context.branchId;
         if (!branchId) throw new ForbiddenException('Branch context required');
@@ -252,5 +338,85 @@ export class AttendanceService {
             totalStaff,
             staffPresent
         };
+    }
+
+    async getTrends(days: number = 30, context: TenantContext) {
+        const branchId = context.branchId;
+        if (!branchId) throw new ForbiddenException('Branch context required');
+        const startDate = new Date();
+        startDate.setDate(startDate.getDate() - days);
+        startDate.setHours(0, 0, 0, 0);
+
+        const attendance = await this.prisma.attendance.groupBy({
+            by: ['date', 'status'],
+            where: {
+                branchId,
+                date: { gte: startDate }
+            },
+            _count: {
+                _all: true
+            }
+        });
+
+        // Format data for frontend charts
+        const trends: Record<string, any> = {};
+        attendance.forEach(item => {
+            const dateStr = item.date.toISOString().split('T')[0];
+            if (!trends[dateStr]) trends[dateStr] = { date: dateStr };
+            trends[dateStr][item.status] = (item._count as any)._all;
+        });
+
+        return Object.values(trends).sort((a: any, b: any) => a.date.localeCompare(b.date));
+    }
+
+    async getChronicAbsentees(threshold: number = 20, context: TenantContext) {
+        const branchId = context.branchId;
+        if (!branchId) throw new ForbiddenException('Branch context required');
+        
+        // This is a more complex query, usually done with raw SQL or aggregation
+        // We'll approximate by counting total records vs absences per student
+        const stats = await this.prisma.attendance.groupBy({
+            by: ['studentId'],
+            where: { branchId },
+            _count: { _all: true },
+        });
+
+        const absences = await this.prisma.attendance.groupBy({
+            by: ['studentId'],
+            where: { 
+                branchId,
+                status: 'ABSENT'
+            },
+            _count: { _all: true },
+        });
+
+        const absenceMap = new Map(absences.map(a => [a.studentId, (a._count as any)._all]));
+
+        const chronic = stats.map(s => {
+            const total = (s._count as any)._all;
+            const absentCount = absenceMap.get(s.studentId) || 0;
+            const percentage = (absentCount / total) * 100;
+
+            return {
+                studentId: s.studentId,
+                total,
+                absentCount,
+                percentage
+            };
+        }).filter(c => c.percentage >= threshold);
+
+        // Include student names
+        const studentIds = chronic.map(c => c.studentId);
+        const students = await this.prisma.student.findMany({
+            where: { id: { in: studentIds } },
+            select: { id: true, firstName: true, lastName: true, class: { select: { name: true } } }
+        });
+
+        const studentMap = new Map(students.map(s => [s.id, s]));
+
+        return chronic.map(c => ({
+            ...c,
+            student: studentMap.get(c.studentId)
+        })).sort((a, b) => b.percentage - a.percentage);
     }
 }

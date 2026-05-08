@@ -1,43 +1,73 @@
 import api from "@/lib/api";
 
-export interface PromotionDto {
-    studentIds: string[];
-    targetClassId: string;
-    targetSectionId: string;
-}
-
-export interface ClassScheduleDto {
-    id?: string;
-    dayOfWeek: number;
-    startTime: string;
-    endTime: string;
-    room?: string;
-    classId: string;
-    sectionId: string;
-    subjectId: string;
-    teacherId: string;
-    subject?: { name: string };
-    teacher?: { user: { firstName: string, lastName: string } };
-}
-
 export const AcademicService = {
-    promoteStudents: async (data: PromotionDto): Promise<any> => {
-        const response = await api.post("/academics/promote", data);
+    // Exams
+    listExams: () => api.get('/exams').then((res) => res.data),
+    createExam: (data: any) => api.post('/exams', data).then((res) => res.data),
+    examById: (id: string) => api.get(`/exams/${id}`).then((res) => res.data),
+
+    // Components
+    listComponents: () => api.get('/exams/components').then((res) => res.data),
+    createComponent: (data: any) => api.post('/exams/components', data).then((res) => res.data),
+
+    // Approvals
+    approvals: () => api.get('/exams/approvals').then((res) => res.data),
+    submitApproval: (data: any) => api.post('/exams/approvals', data).then((res) => res.data),
+
+    // Publication
+    publish: (data: any) => api.post('/exams/publication', data).then((res) => res.data),
+
+    // Transcripts
+    transcripts: () => api.get('/exams/transcripts').then((res) => res.data),
+    generateTranscript: (studentId: string) => api.post(`/exams/transcripts/${studentId}`).then((res) => res.data),
+
+    // Tahfeez
+    assessTahfeez: (data: any) => api.post('/exams/tahfeez/assessments', data).then((res) => res.data),
+    updateTahfeezProgress: (data: any) => api.post('/exams/tahfeez/progress', data).then((res) => res.data),
+    tahfeezReport: (studentId: string) => api.get(`/exams/tahfeez/reports/${studentId}`).then((res) => res.data),
+
+    // Portal
+    portalResult: (studentId: string, sessionId: string, term: string) => api.get(`/exams/portal/results/${studentId}/${sessionId}/${term}`).then((res) => res.data),
+    portalPerformance: (studentId: string) => api.get(`/exams/portal/performance/${studentId}`).then((res) => res.data),
+
+    // Computations
+    computeSection: async (data: { sectionId: string; sessionId: string; term: string }): Promise<{ jobId: string }> => {
+        const response = await api.post('/academics/compute-section', data);
         return response.data;
     },
 
-    createSchedule: async (data: ClassScheduleDto): Promise<ClassScheduleDto> => {
-        const response = await api.post("/academics/schedules", data);
+    getComputeStatus: async (jobId: string): Promise<any> => {
+        const response = await api.get(`/academics/compute-status/${jobId}`);
         return response.data;
     },
 
-    getSchedules: async (filters: { classId?: string; sectionId?: string; teacherId?: string }): Promise<ClassScheduleDto[]> => {
-        const response = await api.get("/academics/schedules", { params: filters });
+    promoteStudents: async (data: { studentIds: string[]; targetClassId: string; targetSectionId: string }): Promise<any> => {
+        const response = await api.post('/academics/promote', data);
+        return response.data;
+    },
+
+    getSchedules: async (params: { classId?: string; sectionId?: string; teacherId?: string }): Promise<any> => {
+        const response = await api.get('/academics/schedules', { params });
+        return response.data;
+    },
+
+    createSchedule: async (data: any): Promise<any> => {
+        const response = await api.post('/academics/schedules', data);
         return response.data;
     },
 
     deleteSchedule: async (id: string): Promise<any> => {
         const response = await api.delete(`/academics/schedules/${id}`);
         return response.data;
-    }
+    },
+
+    analytics: async (params: { sessionId: string; term: string }): Promise<any> => {
+        const response = await api.get('/exams/analytics', { params });
+        return response.data;
+    },
+
+    verifyTranscript: async (code: string): Promise<any> => {
+        const response = await api.get(`/exams/verify/transcript/${code}`);
+        return response.data;
+    },
 };

@@ -40,6 +40,15 @@ export class AttendanceController {
         return this.attendanceService.processQRScan(dto.payload, dto.sessionId, context);
     }
 
+    @Post('scan/bulk')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
+    async bulkSyncScans(
+        @Body() dto: { scans: { payload: string, sessionId: string, timestamp?: string }[] },
+        @GetTenantContext() context: TenantContext,
+    ) {
+        return this.attendanceService.bulkSyncScans(dto, context);
+    }
+
     // Sessions
     @Post('sessions')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
@@ -56,6 +65,22 @@ export class AttendanceController {
         return this.sessionService.getActiveSessions(context);
     }
 
+    @Patch('sessions/:id')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
+    async updateSession(
+        @Param('id') id: string,
+        @Body() dto: any,
+        @GetTenantContext() context: TenantContext,
+    ) {
+        return this.sessionService.updateSession(id, dto, context);
+    }
+
+    @Post('sessions/:id/lock')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
+    async lockSession(@Param('id') id: string, @GetTenantContext() context: TenantContext) {
+        return this.sessionService.lockSession(id, context);
+    }
+
     @Patch('sessions/:id/close')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
     async closeSession(@Param('id') id: string, @GetTenantContext() context: TenantContext) {
@@ -66,6 +91,18 @@ export class AttendanceController {
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
     async getSession(@Param('id') id: string, @GetTenantContext() context: TenantContext) {
         return this.sessionService.getSessionDetails(id, context);
+    }
+
+    @Get('qr/:studentId')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+    async getStudentQR(@Param('studentId') studentId: string, @GetTenantContext() context: TenantContext) {
+        return this.attendanceService.getStudentQR(studentId, context);
+    }
+
+    @Post('qr/bulk')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+    async bulkGenerateQR(@Body() dto: { studentIds: string[] }, @GetTenantContext() context: TenantContext) {
+        return this.attendanceService.bulkGenerateQR(dto.studentIds, context);
     }
 
     @Get('section')
@@ -92,5 +129,17 @@ export class AttendanceController {
     @Roles(UserRole.TEACHER, UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
     getStats(@GetTenantContext() context: TenantContext) {
         return this.attendanceService.getStats(context);
+    }
+
+    @Get('analytics/trends')
+    @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
+    getTrends(@Query('days') days: string, @GetTenantContext() context: TenantContext) {
+        return this.attendanceService.getTrends(days ? parseInt(days, 10) : 30, context);
+    }
+
+    @Get('analytics/chronic')
+    @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
+    getChronicAbsentees(@Query('threshold') threshold: string, @GetTenantContext() context: TenantContext) {
+        return this.attendanceService.getChronicAbsentees(threshold ? parseFloat(threshold) : 20, context);
     }
 }

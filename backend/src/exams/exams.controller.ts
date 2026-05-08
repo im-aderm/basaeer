@@ -1,5 +1,11 @@
-import { Controller, Get, Post, Body, Param, UseGuards, Request, Res, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Post, Put, Patch, Body, Param, Query, UseGuards, Request, Res, NotFoundException } from '@nestjs/common';
 import { ExamsService } from './exams.service';
+import { ExamManagementService } from './exam-management.service';
+import { ResultComputationService } from './result-computation.service';
+import { ResultApprovalService } from './result-approval.service';
+import { TranscriptService } from './transcript.service';
+import { TahfeezService } from './tahfeez.service';
+import { AcademicPortalService } from './academic-portal.service';
 import { CreateAcademicSessionDto, BulkSubmitScoresDto, RecordBehaviouralDto } from './dto/exam-ops.dto';
 import { ReportingService } from '../reporting/reporting.service';
 import { END_OF_TERM_TEMPLATE } from '../reporting/templates/end-of-term.template';
@@ -10,14 +16,191 @@ import { RolesGuard } from '../auth/roles.guard';
 import { BranchGuard } from '../auth/branch.guard';
 import { Roles } from '../auth/roles.decorator';
 import { UserRole, Term, ExamTerm } from '../generated/client/client';
+import { Public } from '../auth/public.decorator';
 
 @UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
 @Controller('exams')
 export class ExamsController {
     constructor(
         private readonly examsService: ExamsService,
-        private readonly reportingService: ReportingService
+        private readonly reportingService: ReportingService,
+        private readonly examManagementService: ExamManagementService,
+        private readonly resultComputationService: ResultComputationService,
+        private readonly resultApprovalService: ResultApprovalService,
+        private readonly transcriptService: TranscriptService,
+        private readonly tahfeezService: TahfeezService,
+        private readonly academicPortalService: AcademicPortalService,
     ) { }
+
+    @Get()
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
+    listExams(@Query() query: any, @Request() req: any) {
+        return this.examManagementService.listExams(query, req.tenantContext);
+    }
+
+    @Post()
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
+    createExam(@Body() dto: any, @Request() req: any) {
+        return this.examManagementService.createExam(dto, req.tenantContext);
+    }
+
+    @Get('management/:id')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
+    getExam(@Param('id') id: string, @Request() req: any) {
+        return this.examManagementService.getExam(id, req.tenantContext);
+    }
+
+    @Put('management/:id')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
+    updateExam(@Param('id') id: string, @Body() dto: any, @Request() req: any) {
+        return this.examManagementService.updateExam(id, dto, req.tenantContext);
+    }
+
+    @Patch('management/:id/status')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
+    transitionExam(@Param('id') id: string, @Body('status') status: string, @Request() req: any) {
+        return this.examManagementService.transitionExam(id, status, req.tenantContext);
+    }
+
+    @Post('management/:id/clone')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
+    cloneExam(@Param('id') id: string, @Body() dto: any, @Request() req: any) {
+        return this.examManagementService.cloneExam(id, dto, req.tenantContext);
+    }
+
+    @Get('types-v2')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
+    listExamTypes(@Request() req: any) {
+        return this.examManagementService.listExamTypes(req.tenantContext);
+    }
+
+    @Post('types-v2')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
+    upsertExamType(@Body() dto: any, @Request() req: any) {
+        return this.examManagementService.upsertExamType(dto, req.tenantContext);
+    }
+
+    @Get('components')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
+    listComponents(@Query() query: any, @Request() req: any) {
+        return this.examManagementService.listAssessmentComponents(query, req.tenantContext);
+    }
+
+    @Post('components')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
+    createComponent(@Body() dto: any, @Request() req: any) {
+        return this.examManagementService.createAssessmentComponent(dto, req.tenantContext);
+    }
+
+    @Get('components/validate')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
+    validateComponents(@Query() query: any, @Request() req: any) {
+        return this.examManagementService.validateComponentWeights(query, req.tenantContext);
+    }
+
+    @Post('compute/section/:sectionId')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
+    computeSection(@Param('sectionId') sectionId: string, @Body('sessionId') sessionId: string, @Body('term') term: Term, @Request() req: any) {
+        return this.resultComputationService.computeSection(sectionId, sessionId, term, req.tenantContext);
+    }
+
+    @Get('analytics')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
+    analytics(@Query('sessionId') sessionId: string, @Query('term') term: Term, @Request() req: any) {
+        return this.resultComputationService.analytics(sessionId, term, req.tenantContext);
+    }
+
+    @Get('approvals')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
+    listApprovals(@Query() query: any, @Request() req: any) {
+        return this.resultApprovalService.list(query, req.tenantContext);
+    }
+
+    @Post('approvals')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER, UserRole.HOD, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
+    submitApproval(@Body() dto: any, @Request() req: any) {
+        return this.resultApprovalService.submit(dto, req.tenantContext);
+    }
+
+    @Patch('approvals/:id/review')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
+    reviewApproval(@Param('id') id: string, @Body() dto: any, @Request() req: any) {
+        return this.resultApprovalService.review(id, dto, req.tenantContext);
+    }
+
+    @Post('publication')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER)
+    publishApprovedResults(@Body() dto: any, @Request() req: any) {
+        return this.resultApprovalService.publish(dto, req.tenantContext);
+    }
+
+    @Patch('publication/:id/revoke')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER)
+    revokePublication(@Param('id') id: string, @Request() req: any) {
+        return this.resultApprovalService.revokePublication(id, req.tenantContext);
+    }
+
+    @Get('transcripts')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
+    listTranscripts(@Query() query: any, @Request() req: any) {
+        return this.transcriptService.list(query, req.tenantContext);
+    }
+
+    @Post('transcripts/:studentId')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
+    generateTranscript(@Param('studentId') studentId: string, @Request() req: any) {
+        return this.transcriptService.generate(studentId, req.tenantContext);
+    }
+
+    @Patch('transcripts/:id/approve')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER)
+    approveTranscript(@Param('id') id: string, @Request() req: any) {
+        return this.transcriptService.approve(id, req.tenantContext);
+    }
+
+    @Get('transcripts/:id/pdf')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.STUDENT, UserRole.PARENT)
+    async transcriptPdf(@Param('id') id: string, @Request() req: any, @Res() res: Response) {
+        const pdf = await this.transcriptService.pdf(id, req.tenantContext);
+        res.set({ 'Content-Type': 'application/pdf', 'Content-Disposition': `attachment; filename=Transcript_${id}.pdf`, 'Content-Length': pdf.length });
+        res.end(pdf);
+    }
+
+    @Public()
+    @Get('verify/transcript/:code')
+    verifyTranscript(@Param('code') code: string) {
+        return this.transcriptService.verify(code);
+    }
+
+    @Post('tahfeez/assessments')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
+    assessTahfeez(@Body() dto: any, @Request() req: any) {
+        return this.tahfeezService.assess(dto, req.tenantContext);
+    }
+
+    @Post('tahfeez/progress')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
+    updateTahfeezProgress(@Body() dto: any, @Request() req: any) {
+        return this.tahfeezService.updateProgress(dto, req.tenantContext);
+    }
+
+    @Get('tahfeez/reports/:studentId')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER, UserRole.STUDENT, UserRole.PARENT)
+    tahfeezReport(@Param('studentId') studentId: string, @Request() req: any) {
+        return this.tahfeezService.report(studentId, req.tenantContext);
+    }
+
+    @Get('portal/results/:studentId/:sessionId/:term')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER, UserRole.STUDENT, UserRole.PARENT)
+    portalResult(@Param('studentId') studentId: string, @Param('sessionId') sessionId: string, @Param('term') term: Term, @Request() req: any) {
+        return this.academicPortalService.result(studentId, sessionId, term, req.tenantContext);
+    }
+
+    @Get('portal/performance/:studentId')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER, UserRole.STUDENT, UserRole.PARENT)
+    portalPerformance(@Param('studentId') studentId: string, @Request() req: any) {
+        return this.academicPortalService.performance(studentId, req.tenantContext);
+    }
 
     @Get('sessions')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)

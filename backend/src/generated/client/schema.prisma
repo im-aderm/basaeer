@@ -93,6 +93,8 @@ model Branch {
   messageRetryEvents         MessageRetryEvent[]
   providerBalanceSnapshots   ProviderBalanceSnapshot[]
   notificationDeliveryEvents NotificationDeliveryEvent[]
+  academicExports            AcademicExport[]
+  reportTemplates            ReportTemplate[]
 }
 
 model DeactivationReason {
@@ -156,6 +158,7 @@ model User {
   notifications              Notification[]
   notificationPreference     NotificationPreference?
   campaignRecipients         CampaignRecipient[]
+  academicExports            AcademicExport[]
 
   @@index([branchId])
 }
@@ -466,6 +469,8 @@ model Attendance {
   @@index([branchId, sectionId, date])
   @@index([sectionId, date])
   @@index([sessionId])
+  @@index([studentId, date])
+  @@index([branchId, date])
 }
 
 model StaffAttendance {
@@ -482,6 +487,8 @@ model StaffAttendance {
 
   @@unique([staffId, date])
   @@index([branchId])
+  @@index([branchId, date])
+  @@index([staffId, date])
 }
 
 model Hostel {
@@ -941,18 +948,287 @@ model ResultSummary {
 }
 
 model GradingScale {
-  id        String   @id @default(uuid())
-  name      String
-  minScore  Float
-  maxScore  Float
-  grade     String
-  remark    String?
-  branchId  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  branch    Branch   @relation(fields: [branchId], references: [id])
+  id            String   @id @default(uuid())
+  name          String
+  scaleType     String   @default("PERCENTAGE")
+  minScore      Float
+  maxScore      Float
+  grade         String
+  gradePoint    Float?
+  remark        String?
+  classOfResult String?
+  isActive      Boolean  @default(true)
+  branchId      String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  branch        Branch   @relation(fields: [branchId], references: [id])
 
   @@index([branchId])
+  @@index([branchId, scaleType, isActive])
+}
+
+model Exam {
+  id              String             @id @default(uuid())
+  title           String
+  code            String?
+  description     String?
+  status          AcademicExamStatus @default(DRAFT)
+  branchId        String
+  classId         String?
+  sectionId       String?
+  sessionId       String
+  term            Term
+  startsAt        DateTime?
+  endsAt          DateTime?
+  gradingStartsAt DateTime?
+  gradingEndsAt   DateTime?
+  isArchived      Boolean            @default(false)
+  lockedAt        DateTime?
+  createdByUserId String?
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+
+  @@index([branchId, sessionId, term])
+  @@index([branchId, classId, sectionId])
+  @@index([status, isArchived])
+}
+
+model ExamType {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  weight      Float
+  branchId    String
+  classId     String?
+  level       String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([branchId, name, classId])
+  @@index([branchId, isActive])
+}
+
+model AssessmentComponent {
+  id         String   @id @default(uuid())
+  name       String
+  component  String
+  weight     Float
+  maxScore   Float    @default(100)
+  branchId   String
+  classId    String?
+  subjectId  String?
+  curriculum String?
+  isActive   Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([branchId, name, classId, subjectId])
+  @@index([branchId, classId, subjectId])
+}
+
+model ResultApproval {
+  id            String               @id @default(uuid())
+  branchId      String
+  sessionId     String
+  term          Term
+  classId       String?
+  sectionId     String?
+  subjectId     String?
+  status        ResultApprovalStatus @default(DRAFT)
+  currentStep   String               @default("TEACHER")
+  requestedById String?
+  reviewedById  String?
+  rejectionNote String?
+  revisionNote  String?
+  approvedAt    DateTime?
+  publishedAt   DateTime?
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+
+  @@index([branchId, sessionId, term])
+  @@index([branchId, status])
+}
+
+model ResultPublication {
+  id            String    @id @default(uuid())
+  branchId      String
+  sessionId     String
+  term          Term
+  classId       String?
+  sectionId     String?
+  publishedById String
+  isPublished   Boolean   @default(false)
+  publishedAt   DateTime?
+  expiresAt     DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@unique([branchId, sessionId, term, classId, sectionId])
+  @@index([branchId, isPublished])
+}
+
+model GPARecord {
+  id              String   @id @default(uuid())
+  branchId        String
+  studentId       String
+  sessionId       String
+  term            Term
+  totalGradePoint Float
+  creditUnits     Float    @default(0)
+  gpa             Float
+  cgpa            Float?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@unique([studentId, sessionId, term])
+  @@index([branchId, sessionId, term])
+}
+
+model StudentRanking {
+  id        String       @id @default(uuid())
+  branchId  String
+  studentId String
+  sessionId String
+  term      Term
+  scope     RankingScope
+  scopeId   String
+  score     Float
+  rank      Int
+  outOf     Int
+  tieGroup  String?
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  @@unique([studentId, sessionId, term, scope, scopeId])
+  @@index([branchId, sessionId, term, scope])
+}
+
+model Broadsheet {
+  id            String   @id @default(uuid())
+  branchId      String
+  sessionId     String
+  term          Term
+  classId       String
+  sectionId     String?
+  generatedById String?
+  checksum      String
+  data          Json
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([branchId, sessionId, term])
+  @@index([classId, sectionId])
+}
+
+model Transcript {
+  id            String           @id @default(uuid())
+  branchId      String
+  studentId     String
+  transcriptNo  String           @unique
+  status        TranscriptStatus @default(DRAFT)
+  cumulativeGpa Float?
+  checksum      String
+  data          Json
+  approvedById  String?
+  approvedAt    DateTime?
+  lockedAt      DateTime?
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+
+  @@index([branchId, studentId])
+  @@index([status])
+}
+
+model TranscriptVerification {
+  id               String    @id @default(uuid())
+  transcriptId     String
+  verificationCode String    @unique
+  qrPayload        String
+  checkedAt        DateTime?
+  revokedAt        DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  @@index([transcriptId])
+}
+
+model AcademicRemark {
+  id        String   @id @default(uuid())
+  branchId  String
+  studentId String
+  sessionId String
+  term      Term
+  authorId  String?
+  category  String
+  remark    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([branchId, sessionId, term])
+  @@index([studentId, sessionId, term])
+}
+
+model SubjectPosition {
+  id        String   @id @default(uuid())
+  branchId  String
+  studentId String
+  subjectId String
+  sectionId String
+  sessionId String
+  term      Term
+  score     Float
+  position  Int
+  outOf     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([studentId, subjectId, sessionId, term])
+  @@index([branchId, sectionId, subjectId])
+}
+
+model TahfeezAssessment {
+  id                String   @id @default(uuid())
+  branchId          String
+  studentId         String
+  teacherId         String?
+  sessionId         String
+  term              Term
+  surah             String
+  juz               String?
+  fromAyah          Int?
+  toAyah            Int?
+  memorizationScore Float
+  tajweedScore      Float
+  fluencyScore      Float
+  revisionScore     Float?
+  totalScore        Float
+  grade             String?
+  remark            String?
+  assessedAt        DateTime @default(now())
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@index([branchId, sessionId, term])
+  @@index([studentId, sessionId, term])
+}
+
+model TahfeezMemorizationProgress {
+  id             String    @id @default(uuid())
+  branchId       String
+  studentId      String
+  currentSurah   String
+  currentJuz     String?
+  completedAyahs Int       @default(0)
+  totalAyahs     Int       @default(0)
+  completionRate Float     @default(0)
+  lastReviewedAt DateTime?
+  teacherRemark  String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@unique([studentId, currentSurah])
+  @@index([branchId, studentId])
 }
 
 model GlobalSetting {
@@ -1822,6 +2098,10 @@ enum UserRole {
   SUPER_ADMIN
   BRANCH_ADMIN
   TEACHER
+  HOD
+  PRINCIPAL
+  EXAM_OFFICER
+  ACADEMIC_OFFICER
   ACCOUNTANT
   HR
   LIBRARIAN
@@ -1854,6 +2134,46 @@ enum ExamTerm {
   THIRD_TERM
   END_OF_SESSION
   ANNUAL_CUMULATIVE
+}
+
+enum AcademicExamStatus {
+  DRAFT
+  SCHEDULED
+  ACTIVE
+  MARK_ENTRY
+  UNDER_REVIEW
+  APPROVED
+  OPEN
+  LOCKED
+  PUBLISHED
+  ARCHIVED
+}
+
+enum ResultApprovalStatus {
+  DRAFT
+  SUBMITTED
+  EXAMINER_REVIEW
+  HOD_REVIEW
+  PRINCIPAL_REVIEW
+  APPROVED
+  REJECTED
+  REVISION_REQUESTED
+  PUBLISHED
+}
+
+enum RankingScope {
+  CLASS
+  SECTION
+  BRANCH
+  SUBJECT
+  OVERALL
+}
+
+enum TranscriptStatus {
+  DRAFT
+  APPROVED
+  LOCKED
+  REVOKED
 }
 
 enum HostelType {
@@ -2032,6 +2352,9 @@ model AttendanceSession {
 
   @@index([branchId, date])
   @@index([sectionId, date])
+  @@index([teacherId, date])
+  @@index([classId, date])
+  @@index([subjectId, date])
 }
 
 model AttendanceScan {
@@ -2050,6 +2373,7 @@ model AttendanceScan {
   @@index([branchId])
   @@index([sessionId])
   @@index([studentId])
+  @@index([studentId, scanTime])
 }
 
 model QueueJobLog {
@@ -2232,4 +2556,46 @@ model NotificationDeliveryEvent {
 
   @@index([branchId])
   @@index([notificationId])
+}
+
+model AcademicExport {
+  id         String    @id @default(uuid())
+  type       String // REPORT_CARD, TRANSCRIPT, BROADSHEET, ANALYTICS, CSV, EXCEL
+  status     String    @default("QUEUED") // QUEUED, PROCESSING, COMPLETED, FAILED, EXPIRED, CANCELLED
+  progress   Int       @default(0)
+  fileUrl    String?
+  fileName   String?
+  fileSize   Int?
+  error      String?
+  parameters Json?
+  userId     String
+  branchId   String
+  expiresAt  DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  branch Branch @relation(fields: [branchId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@index([branchId])
+  @@index([userId])
+  @@index([status])
+}
+
+model ReportTemplate {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  type        String   @default("STUDENT_REPORT") // STUDENT_REPORT, TAHFEEZ_REPORT, etc.
+  layout      Json // Dynamic sections, fields, positions
+  config      Json // Colors, fonts, margins, branding
+  isDefault   Boolean  @default(false)
+  isActive    Boolean  @default(true)
+  branchId    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  branch Branch @relation(fields: [branchId], references: [id])
+
+  @@index([branchId])
 }

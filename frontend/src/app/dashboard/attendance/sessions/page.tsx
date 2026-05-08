@@ -101,6 +101,17 @@ export default function AttendanceSessionsPage() {
         }
     };
 
+    const handleLockSession = async (id: string) => {
+        if (!confirm("Are you sure? Locking will prevent any further attendance changes for this session.")) return;
+        try {
+            await api.post(`/attendance/sessions/${id}/lock`);
+            toast.success("Session locked permanently");
+            fetchSessions();
+        } catch (error) {
+            toast.error("Failed to lock session");
+        }
+    };
+
     return (
         <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in duration-700 pb-20">
             <div>
@@ -231,13 +242,22 @@ export default function AttendanceSessionsPage() {
                                             >
                                                 Scan QR
                                             </Button>
-                                            <Button 
-                                                className="rounded-2xl h-12 font-bold bg-slate-900 text-white hover:bg-red-500 transition-colors gap-2"
-                                                onClick={() => handleCloseSession(session.id)}
-                                            >
-                                                <Lock className="w-4 h-4" />
-                                                End
-                                            </Button>
+                                            <div className="flex gap-2">
+                                                <Button 
+                                                    className="flex-1 rounded-2xl h-12 font-bold bg-slate-100 text-slate-600 hover:bg-slate-200"
+                                                    onClick={() => handleCloseSession(session.id)}
+                                                    title="Close Session (Still Editable)"
+                                                >
+                                                    End
+                                                </Button>
+                                                <Button 
+                                                    className="flex-1 rounded-2xl h-12 font-bold bg-slate-900 text-white hover:bg-red-500 transition-colors gap-2"
+                                                    onClick={() => handleLockSession(session.id)}
+                                                    title="Lock Session (Permanent)"
+                                                >
+                                                    <Lock className="w-4 h-4" />
+                                                </Button>
+                                            </div>
                                         </div>
                                     </CardContent>
                                 </Card>

@@ -20,12 +20,17 @@ export default function AttendanceReportsPage() {
     const { user } = useAuth();
     const [data, setData] = useState<AnalyticsData | null>(null);
     const [loading, setLoading] = useState(true);
+    const [chronicAbsentees, setChronicAbsentees] = useState<any[]>([]);
 
     const fetchAnalytics = async () => {
         try {
             setLoading(true);
-            const response = await api.get<AnalyticsData>("/reporting/attendance");
-            setData(response.data);
+            const [reportRes, chronicRes] = await Promise.all([
+                api.get<AnalyticsData>("/reporting/attendance"),
+                api.get("/attendance/analytics/chronic?threshold=15")
+            ]);
+            setData(reportRes.data);
+            setChronicAbsentees(chronicRes.data);
         } catch (error) {
             console.error("Failed to fetch attendance analytics:", error);
             toast.error("Failed to load attendance analytics");
@@ -92,6 +97,52 @@ export default function AttendanceReportsPage() {
                 height={400}
                 loading={loading}
             />
+
+            {/* Chronic Absentees */}
+            <div className="space-y-6">
+                <div className="flex items-center justify-between">
+                    <div>
+                        <h2 className="text-h3 font-semibold uppercase tracking-tight text-slate-400">Chronic Absentees</h2>
+                        <p className="text-muted-foreground font-medium">Students with {'>'}15% absence rate.</p>
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {chronicAbsentees.length > 0 ? (
+                        chronicAbsentees.map((item) => (
+                            <div 
+                                key={item.studentId}
+                                className="bg-white border border-border/50 rounded-[2rem] p-6 flex items-center justify-between group hover:border-red-200 transition-all hover:shadow-lg"
+                            >
+                                <div className="flex items-center gap-4">
+                                    <div className="w-14 h-14 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center text-xl font-bold group-hover:bg-red-600 group-hover:text-white transition-all">
+                                        {item.student?.firstName[0]}
+                                    </div>
+                                    <div>
+                                        <h4 className="font-bold text-slate-800 leading-tight">
+                                            {item.student?.firstName} {item.student?.lastName}
+                                        </h4>
+                                        <p className="text-xs font-bold text-muted-foreground uppercase mt-1">
+                                            {item.student?.class?.name}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="text-right">
+                                    <div className="text-2xl font-black text-red-600 leading-none">
+                                        {Math.round(item.percentage)}%
+                                    </div>
+                                    <div className="text-[10px] font-bold text-slate-400 uppercase">Absent</div>
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                        <div className="col-span-full py-12 text-center bg-muted/5 rounded-[2.5rem] border-2 border-dashed border-border/50">
+                            <CheckCircle className="w-12 h-12 mx-auto text-emerald-200 mb-2" />
+                            <p className="font-bold text-slate-400">Excellent! No chronic absentees found.</p>
+                        </div>
+                    )}
+                </div>
+            </div>
         </div>
     );
 }

@@ -56,6 +56,33 @@ async function main() {
     );
     console.log(`Branch ensured: ${branch.name}`);
 
+    const waecScale = [
+        { grade: 'A1', minScore: 75, maxScore: 100, gradePoint: 5.0, remark: 'Excellent', classOfResult: 'DISTINCTION' },
+        { grade: 'B2', minScore: 70, maxScore: 74.99, gradePoint: 4.5, remark: 'Very Good', classOfResult: 'CREDIT' },
+        { grade: 'B3', minScore: 65, maxScore: 69.99, gradePoint: 4.0, remark: 'Good', classOfResult: 'CREDIT' },
+        { grade: 'C4', minScore: 60, maxScore: 64.99, gradePoint: 3.5, remark: 'Credit', classOfResult: 'CREDIT' },
+        { grade: 'C5', minScore: 55, maxScore: 59.99, gradePoint: 3.0, remark: 'Credit', classOfResult: 'CREDIT' },
+        { grade: 'C6', minScore: 50, maxScore: 54.99, gradePoint: 2.5, remark: 'Credit', classOfResult: 'CREDIT' },
+        { grade: 'D7', minScore: 45, maxScore: 49.99, gradePoint: 2.0, remark: 'Pass', classOfResult: 'PASS' },
+        { grade: 'E8', minScore: 40, maxScore: 44.99, gradePoint: 1.0, remark: 'Weak Pass', classOfResult: 'PASS' },
+        { grade: 'F9', minScore: 0, maxScore: 39.99, gradePoint: 0, remark: 'Fail', classOfResult: 'FAIL' },
+    ];
+
+    for (const scale of waecScale) {
+        await findOrCreate(
+            () => prisma.gradingScale.findFirst({ where: { branchId: branch.id, name: 'WAEC Standard', grade: scale.grade } }),
+            () => prisma.gradingScale.create({
+                data: {
+                    name: 'WAEC Standard',
+                    scaleType: 'WAEC',
+                    branchId: branch.id,
+                    ...scale,
+                },
+            })
+        );
+    }
+    console.log('WAEC grading scale ensured');
+
     // 2. Academic Session
     const sessionName = '2024/2025';
     const session = await findOrCreate(

@@ -1,17 +1,25 @@
-import { Controller, Get, Post, Body, Param, Patch, UseGuards, Request, Query, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Patch, UseGuards, Request, Query, Delete, Req } from '@nestjs/common';
+import { Throttle } from '@nestjs/throttler';
 import { AcademicsService } from './academics.service';
+import { ExportQueueService } from './export-queue.service';
+import { ComputationQueueService } from './computation-queue.service';
 import { CreateAssignmentDto, SubmitAssignmentDto } from './dto/academics-ops.dto';
 import { PromoteStudentsDto } from './dto/promote-students.dto';
 import { CreateClassScheduleDto } from './dto/class-schedule.dto';
+import { StartExportDto } from './dto/export.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
-import { UserRole } from '../generated/client/client';
+import { UserRole, Term } from '../generated/client/client';
 
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('academics')
 export class AcademicsController {
-    constructor(private readonly academicsService: AcademicsService) { }
+    constructor(
+        private readonly academicsService: AcademicsService,
+        private readonly exportQueueService: ExportQueueService,
+        private readonly computationQueueService: ComputationQueueService,
+    ) { }
 
     // Assignments
     @Post('assignments')
@@ -90,5 +98,55 @@ export class AcademicsController {
     @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
     deleteSchedule(@Param('id') id: string) {
         return this.academicsService.deleteSchedule(id);
+    }
+
+    // Exports
+    @Post('exports')
+    @Throttle({ default: { limit: 5, ttl: 60000 } })
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
+    async startExport(
+        @Body() dto: StartExportDto,
+        @Req() req: any
+    ) {
+        return this.exportQueueService.startExport(dto, req.user.id, req.user.branchId);
+    }
+
+    @Get('exports')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
+    async getExports(@Req() req: any) {
+        return this.exportQueueService.getBranchExports(req.user.branchId);
+    }
+
+    @Get('exports/:id')
+    async getExportStatus(@Param('id') id: string) {
+        return this.exportQueueService.getExportStatus(id);
+    }
+
+    @Delete('exports/:id')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+    async deleteExport(@Param('id') id: string) {
+        return this.exportQueueService.deleteExport(id);
+    }
+
+    // Computations
+    @Post('compute-section')
+    @Throttle({ default: { limit: 2, ttl: 60000 } })
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.EXAM_OFFICER)
+    async computeSection(
+        @Body() dto: { sectionId: string; sessionId: string; term: Term },
+        @Req() req: any
+    ) {
+        return this.computationQueueService.queueSectionComputation(
+            dto.sectionId,
+            dto.sessionId,
+            dto.term,
+            req.user.id,
+            req.user.branchId
+        );
+    }
+
+    @Get('compute-status/:jobId')
+    async getComputeStatus(@Param('jobId') jobId: string) {
+        return this.computationQueueService.getJobStatus(jobId);
     }
 }

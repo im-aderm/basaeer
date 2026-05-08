@@ -63,5 +63,64 @@ export const AttendanceService = {
     }> => {
         const response = await api.get("/attendance/stats");
         return response.data;
+    },
+
+    // Session Management
+    getActiveSessions: async () => {
+        const response = await api.get("/attendance/sessions/active");
+        return response.data;
+    },
+
+    createSession: async (data: any) => {
+        const response = await api.post("/attendance/sessions", data);
+        return response.data;
+    },
+
+    getSessionDetails: async (id: string) => {
+        const response = await api.get(`/attendance/sessions/${id}`);
+        return response.data;
+    },
+
+    closeSession: async (id: string) => {
+        const response = await api.patch(`/attendance/sessions/${id}/close`);
+        return response.data;
+    },
+
+    lockSession: async (id: string) => {
+        const response = await api.post(`/attendance/sessions/${id}/lock`);
+        return response.data;
+    },
+
+    // QR Scanning
+    processQR: async (payload: string, sessionId: string) => {
+        const response = await api.post("/attendance/scan", { payload, sessionId });
+        return response.data;
+    },
+
+    bulkSyncScans: async (scans: any[]) => {
+        const response = await api.post("/attendance/scan/bulk", { scans });
+        return response.data;
+    },
+
+    // Analytics
+    getTrends: async (days: number = 30) => {
+        const response = await api.get("/attendance/analytics/trends", { params: { days } });
+        return response.data;
+    },
+
+    getChronicAbsentees: async (threshold: number = 20) => {
+        const response = await api.get("/attendance/analytics/chronic", { params: { threshold } });
+        return response.data;
+    },
+
+    // Student QR Generation
+    getStudentQR: async (studentId: string) => {
+        const response = await api.get(`/attendance/qr/${studentId}`);
+        return response.data;
+    },
+
+    bulkGenerateQR: async (studentIds: string[]) => {
+        const response = await api.post("/attendance/qr/bulk", { studentIds });
+        return response.data;
     }
 };

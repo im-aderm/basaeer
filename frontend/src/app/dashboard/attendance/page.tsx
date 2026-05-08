@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Users, Briefcase, Calendar, CheckCircle2, Clock, AlertCircle } from "lucide-react";
+import { Users, Briefcase, Calendar, CheckCircle2, Clock, AlertCircle, QrCode } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
@@ -108,6 +108,40 @@ export default function AttendanceDashboard() {
                             <h3 className="text-h3 font-semibold text-slate-900">Staff Attendance</h3>
                             <p className="text-muted-foreground mt-2">Track daily attendance for teachers and staff members.</p>
                             <Button className="mt-4 rounded-xl font-bold bg-purple-600 hover:bg-purple-700">Go to Staff &rarr;</Button>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    onClick={() => router.push('/dashboard/attendance/qr-cards')}
+                    className="group relative cursor-pointer overflow-hidden rounded-[2.5rem] bg-white border border-border/50 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                >
+                    <div className="absolute inset-0 bg-orange-500/5 group-hover:bg-orange-500/10 transition-colors" />
+                    <div className="p-8 flex items-center gap-6">
+                        <div className="w-20 h-20 rounded-2xl bg-orange-100 text-orange-600 flex items-center justify-center shrink-0">
+                            <QrCode size={40} />
+                        </div>
+                        <div>
+                            <h3 className="text-h3 font-semibold text-slate-900">QR ID Cards</h3>
+                            <p className="text-muted-foreground mt-2">Generate and print QR ID cards for students.</p>
+                            <Button className="mt-4 rounded-xl font-bold bg-orange-600 hover:bg-orange-700">Go to QR Cards &rarr;</Button>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    onClick={() => router.push('/dashboard/reports/attendance')}
+                    className="group relative cursor-pointer overflow-hidden rounded-[2.5rem] bg-white border border-border/50 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                >
+                    <div className="absolute inset-0 bg-emerald-500/5 group-hover:bg-emerald-500/10 transition-colors" />
+                    <div className="p-8 flex items-center gap-6">
+                        <div className="w-20 h-20 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
+                            <Calendar size={40} />
+                        </div>
+                        <div>
+                            <h3 className="text-h3 font-semibold text-slate-900">Attendance Analytics</h3>
+                            <p className="text-muted-foreground mt-2">View trends and chronic absentee reports.</p>
+                            <Button className="mt-4 rounded-xl font-bold bg-emerald-600 hover:bg-emerald-700">View Analytics &rarr;</Button>
                         </div>
                     </div>
                 </div>

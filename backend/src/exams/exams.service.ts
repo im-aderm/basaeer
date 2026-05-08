@@ -62,11 +62,11 @@ export class ExamsService {
         return this.prisma.$transaction(async (tx) => {
             const records: any[] = [];
 
-            // Fetch grading scale for this branch if it exists, otherwise get global (branchId null)
             const gradingScale = await tx.gradingScale.findMany({
                 where: { branchId },
                 orderBy: { minScore: 'desc' },
             });
+            this.assertCompleteGradingScale(gradingScale, branchId);
 
             for (const score of scores) {
                 let sBranchId = branchId;
@@ -83,7 +83,7 @@ export class ExamsService {
 
                 const total = (score.asgn1 || 0) + (score.asgn2 || 0) + (score.test1 || 0) + (score.test2 || 0) + (score.examScore || 0);
 
-                const gradeInfo = this.calculateGradeDynamic(total, gradingScale);
+                const gradeInfo = this.calculateGradeFromScale(total, gradingScale);
                 const grade = gradeInfo.grade;
                 const remark = gradeInfo.remark;
 
@@ -136,23 +136,36 @@ export class ExamsService {
         });
     }
 
-    private calculateGrade(total: number): string {
-        if (total >= 75) return 'A';
-        if (total >= 65) return 'B';
-        if (total >= 50) return 'C';
-        if (total >= 45) return 'D';
-        if (total >= 40) return 'E';
-        return 'F';
+    private assertCompleteGradingScale(scale: any[], branchId?: string) {
+        if (!scale?.length) {
+            throw new BadRequestException(`No grading scale configured for branch ${branchId || 'unknown'}. Configure grading before entering marks.`);
+        }
     }
 
-    private calculateGradeDynamic(total: number, scale: any[]): { grade: string, remark: string } {
-        if (scale && scale.length > 0) {
-            const match = scale.find(s => total >= s.minScore && total <= s.maxScore);
-            if (match) {
-                return { grade: match.grade, remark: match.remark || '' };
-            }
+    private calculateGradeFromScale(total: number, scale: any[]): { grade: string, remark: string, gradePoint: number | null, classOfResult: string | null } {
+        this.assertCompleteGradingScale(scale);
+        const match = scale.find(s => total >= s.minScore && total <= s.maxScore);
+        if (!match) {
+            throw new BadRequestException(`Score ${total} is outside the configured grading ranges.`);
         }
-        return { grade: this.calculateGrade(total), remark: this.getAutoRemark(total) };
+
+        return {
+            grade: match.grade,
+            remark: match.remark || '',
+            gradePoint: typeof match.gradePoint === 'number' ? match.gradePoint : null,
+            classOfResult: match.classOfResult || null,
+        };
+    }
+
+    private calculateAverageGradePoint(records: any[], gradingScale: any[]): number | null {
+        const eligible = records.filter(r => r.isEligible);
+        if (eligible.length === 0) return null;
+        const points = eligible
+            .map(r => this.calculateGradeFromScale(r.total || 0, gradingScale).gradePoint)
+            .filter((point): point is number => point !== null);
+
+        if (points.length !== eligible.length || points.length === 0) return null;
+        return points.reduce((acc, point) => acc + point, 0) / points.length;
     }
 
     async lockResults(studentId: string, sessionId: string, term: Term, isLocked: boolean) {
@@ -274,6 +287,12 @@ export class ExamsService {
 
             const totalScore = studentRecords.reduce((acc, r) => acc + (r.total || 0), 0);
             const average = totalScore / studentRecords.length;
+            const gradingScale = await tx.gradingScale.findMany({
+                where: { branchId },
+                orderBy: { minScore: 'desc' },
+            });
+            const finalGrade = this.calculateGradeFromScale(average, gradingScale);
+            const cgpa = this.calculateAverageGradePoint(studentRecords, gradingScale);
 
             // Calculate Attendance Stats
             // We'll fetch all attendance records for this student in this session
@@ -305,6 +324,11 @@ export class ExamsService {
                     totalScore,
                     average,
                     examTerm,
+                    finalGrade: finalGrade.grade,
+                    finalRemark: finalGrade.remark,
+                    cgpa,
+                    classOfResult: finalGrade.classOfResult,
+                    promotionStatus: average >= 50 ? 'PROMOTED' : 'REQUIRES_REVIEW',
                     attendancePresent,
                     attendanceAbsent,
                     attendanceOpen,
@@ -317,6 +341,11 @@ export class ExamsService {
                     totalScore,
                     average,
                     examTerm,
+                    finalGrade: finalGrade.grade,
+                    finalRemark: finalGrade.remark,
+                    cgpa,
+                    classOfResult: finalGrade.classOfResult,
+                    promotionStatus: average >= 50 ? 'PROMOTED' : 'REQUIRES_REVIEW',
                     attendancePresent,
                     attendanceAbsent,
                     attendanceOpen,
@@ -378,18 +407,17 @@ export class ExamsService {
         const summary = student.resultSummaries[0] || {};
         const rating = student.behaviouralRatings[0] || {};
 
-        // Fetch School Logo and Watermark from GlobalSettings (mocking base64 for now)
-        const schoolLogoSetting = await this.prisma.globalSetting.findFirst({ where: { key: 'SCHOOL_LOGO' } });
-        const schoolWatermarkSetting = await this.prisma.globalSetting.findFirst({ where: { key: 'SCHOOL_WATERMARK' } });
+        const schoolLogoSetting = await this.prisma.globalSetting.findFirst({ where: { key: 'SCHOOL_LOGO', branchId: student.branchId } });
+        const schoolWatermarkSetting = await this.prisma.globalSetting.findFirst({ where: { key: 'SCHOOL_WATERMARK', branchId: student.branchId } });
 
         return {
-            schoolName: student.branch?.name || 'Basaeer Modern School',
-            schoolAddress: student.branch?.address || 'School Address Placeholder',
+            schoolName: student.branch?.name || '',
+            schoolAddress: student.branch?.address || '',
             schoolLogo: schoolLogoSetting?.value || '',
             schoolWatermark: schoolWatermarkSetting?.value || '',
-            studentPhoto: '', // Base64 placeholder
+            studentPhoto: student.passportPhoto || '',
             reportType: currentTerm === Term.THIRD ? 'END OF SESSION REPORT SHEET' : 'END OF TERM REPORT SHEET',
-            sessionName: student.resultSummaries[0]?.session?.name || '2024/2025',
+            sessionName: student.resultSummaries[0]?.session?.name || '',
             nextTermBegins: student.resultSummaries[0]?.session?.nextTermBegins ? new Date(student.resultSummaries[0].session.nextTermBegins).toLocaleDateString() : 'N/A',
             termEnds: student.resultSummaries[0]?.session?.termEnds ? new Date(student.resultSummaries[0].session.termEnds).toLocaleDateString() : 'N/A',
             timesOpen: summary.attendanceOpen || 0,
@@ -409,9 +437,9 @@ export class ExamsService {
             highestAvg: (summary.highestAvg || 0).toFixed(1),
             lowestAvg: (summary.lowestAvg || 0).toFixed(1),
             finalGrade: summary.finalGrade || 'N/A',
-            finalRemark: this.getAutoRemark(summary.average || 0),
-            cgpa: this.calculateCGPA(summary.average || 0),
-            classOfResult: this.getClassOfResult(summary.average || 0),
+            finalRemark: summary.finalRemark || '',
+            cgpa: summary.cgpa != null ? summary.cgpa.toFixed(2) : '',
+            classOfResult: summary.classOfResult || '',
 
             // Assessment Records (only eligible ones)
             subjects: student.assessmentRecords
@@ -430,7 +458,7 @@ export class ExamsService {
                     low: (r.lowScore || 0).toFixed(1),
                     high: (r.highScore || 0).toFixed(1),
                     classAvg: (r.classAvg || 0).toFixed(1),
-                    remark: r.remark || this.getAutoRemark(r.total || 0),
+                    remark: r.remark || '',
                 })),
 
             // Behavioural
@@ -454,25 +482,6 @@ export class ExamsService {
         if (n === 0) return '-';
         const s = ["th", "st", "nd", "rd"], v = n % 100;
         return n + (s[(v - 20) % 10] || s[v] || s[0]);
-    }
-
-    private getAutoRemark(avg: number): string {
-        if (avg >= 75) return 'Excellent result, keep it up!';
-        if (avg >= 65) return 'Very good performance.';
-        if (avg >= 50) return 'A good performance, but there is room for improvement.';
-        return 'Weak result. Needs more effort.';
-    }
-
-    private calculateCGPA(avg: number): string {
-        return (avg / 20).toFixed(2);
-    }
-
-    private getClassOfResult(avg: number): string {
-        if (avg >= 85) return 'FIRST CLASS';
-        if (avg >= 70) return 'SECOND CLASS UPPER';
-        if (avg >= 55) return 'SECOND CLASS LOWER';
-        if (avg >= 45) return 'THIRD CLASS';
-        return 'PASS';
     }
 
     async getFullReportData(studentId: string, sessionId: string, term: Term) {
@@ -515,6 +524,10 @@ export class ExamsService {
                 where: { studentId, sessionId },
                 include: { subject: true },
             });
+            const gradingScale = await tx.gradingScale.findMany({
+                where: { branchId },
+                orderBy: { minScore: 'desc' },
+            });
 
             // Group by subject
             const subjectAverages = {};
@@ -533,11 +546,13 @@ export class ExamsService {
                     subjectId,
                     subjectName: data.subject.name,
                     annualAvg,
-                    grade: this.calculateGrade(annualAvg),
+                    grade: this.calculateGradeFromScale(annualAvg, gradingScale).grade,
                 };
             });
 
             const overallAvg = results.reduce((acc, r) => acc + r.annualAvg, 0) / results.length;
+            const finalGrade = this.calculateGradeFromScale(overallAvg, gradingScale);
+            const cgpa = this.calculateAverageGradePoint(allTermsRecords, gradingScale);
 
             return tx.resultSummary.upsert({
                 where: {
@@ -545,7 +560,10 @@ export class ExamsService {
                 },
                 update: {
                     average: overallAvg, // This could be the session average
-                    cgpa: overallAvg / 20, // Simplified Nigerian 5.0 CGPA conversion if needed, or keeping it 100-based
+                    finalGrade: finalGrade.grade,
+                    finalRemark: finalGrade.remark,
+                    cgpa,
+                    classOfResult: finalGrade.classOfResult,
                     examTerm: ExamTerm.ANNUAL_CUMULATIVE,
                     branchId,
                 },
@@ -555,6 +573,10 @@ export class ExamsService {
                     term: Term.THIRD,
                     average: overallAvg,
                     examTerm: ExamTerm.ANNUAL_CUMULATIVE,
+                    finalGrade: finalGrade.grade,
+                    finalRemark: finalGrade.remark,
+                    cgpa,
+                    classOfResult: finalGrade.classOfResult,
                     branchId,
                 },
             });
@@ -585,9 +607,12 @@ export class ExamsService {
 
         const summary = student.resultSummaries[0] || {};
 
-        // Fetch School Logo and Watermark from GlobalSettings (mocking base64 for now)
-        const schoolLogoSetting = await this.prisma.globalSetting.findFirst({ where: { key: 'SCHOOL_LOGO' } });
-        const schoolWatermarkSetting = await this.prisma.globalSetting.findFirst({ where: { key: 'SCHOOL_WATERMARK' } });
+        const schoolLogoSetting = await this.prisma.globalSetting.findFirst({ where: { key: 'SCHOOL_LOGO', branchId: student.branchId } });
+        const schoolWatermarkSetting = await this.prisma.globalSetting.findFirst({ where: { key: 'SCHOOL_WATERMARK', branchId: student.branchId } });
+        const gradingScale = await this.prisma.gradingScale.findMany({
+            where: { branchId: student.branchId },
+            orderBy: { minScore: 'desc' },
+        });
 
         // Group records by subject
         const subjectsMap = {};
@@ -618,25 +643,25 @@ export class ExamsService {
                 term3Grade: s.t3?.grade || '-',
                 annualAvg: annualAvg.toFixed(1),
                 classAvg: s.t3?.classAvg?.toFixed(1) || '-',
-                annualGrade: this.calculateGrade(annualAvg),
-                annualRemark: this.getAutoRemark(annualAvg),
+                annualGrade: this.calculateGradeFromScale(annualAvg, gradingScale).grade,
+                annualRemark: this.calculateGradeFromScale(annualAvg, gradingScale).remark,
             };
         });
 
         return {
-            schoolName: student.branch?.name || 'Basaeer Modern School',
+            schoolName: student.branch?.name || '',
             schoolLogo: schoolLogoSetting?.value || '',
             schoolWatermark: schoolWatermarkSetting?.value || '',
-            sessionName: student.assessmentRecords[0]?.session?.name || '2024/2025',
+            sessionName: student.assessmentRecords[0]?.session?.name || '',
             studentName: `${student.user?.firstName} ${student.user?.lastName}`,
             className: student.class?.name || 'N/A',
             classPosition: this.ordinal(summary.classPosition || 0),
             totalAnnualScore: subjects.reduce((acc, s) => acc + parseFloat(s.annualAvg), 0).toFixed(1),
             overallAnnualAvg: (summary.average || 0).toFixed(1),
-            cgpa: this.calculateCGPA(summary.average || 0),
-            classOfResult: this.getClassOfResult(summary.average || 0),
-            promotionStatus: (summary.average || 0) >= 50 ? 'PROMOTED TO NEXT CLASS' : 'HELD BACK',
-            finalRemark: this.getAutoRemark(summary.average || 0),
+            cgpa: summary.cgpa != null ? summary.cgpa.toFixed(2) : '',
+            classOfResult: summary.classOfResult || '',
+            promotionStatus: summary.promotionStatus || '',
+            finalRemark: summary.finalRemark || '',
             subjects,
         };
     }
@@ -649,7 +674,11 @@ export class ExamsService {
                 assessmentRecords: {
                     where: { sessionId, term },
                     include: { subject: true },
-                }
+                },
+                resultSummaries: {
+                    where: { sessionId, term },
+                    select: { classPosition: true },
+                },
             },
             orderBy: { user: { lastName: 'asc' } }
         });
@@ -680,8 +709,7 @@ export class ExamsService {
             studentRow.push(studentTotal.toFixed(1));
             studentRow.push(avg.toFixed(1));
 
-            // Note: Position would need summary lookup or calculation
-            studentRow.push(''); // Placeholder for position
+            studentRow.push(student.resultSummaries[0]?.classPosition || '');
 
             return studentRow;
         });

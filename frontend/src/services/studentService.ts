@@ -82,6 +82,11 @@ export const StudentService = {
         return response.data;
     },
 
+    getStudentsBySection: async (sectionId: string): Promise<Student[]> => {
+        const response = await api.get("/students", { params: { sectionId } });
+        return response.data;
+    },
+
     getById: async (id: string): Promise<Student> => {
         const response = await api.get(`/students/${id}`);
         return response.data;
