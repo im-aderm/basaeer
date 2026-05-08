@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1045.0",
+    "@aws-sdk/s3-request-presigner": "^3.1045.0",
     "@basaeer/shared-types": "file:../packages/shared-types",
     "@nestjs/bullmq": "^11.0.4",
     "@nestjs/common": "^11.0.1",
@@ -48,6 +49,7 @@
     "class-validator": "^0.14.3",
     "cookie-parser": "^1.4.7",
     "cron-parser": "^4.9.0",
+    "date-fns": "^4.1.0",
     "dotenv": "^17.2.4",
     "exceljs": "^4.4.0",
     "googleapis": "^170.1.0",
