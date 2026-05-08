@@ -51,4 +51,25 @@ export class SettingsService {
             }
         });
     }
+
+    async upsertSettings(dtos: UpdateSettingDto[], branchId?: string) {
+        const bId = branchId || null;
+
+        return this.prisma.$transaction(
+            dtos.map(dto => this.prisma.globalSetting.upsert({
+                where: {
+                    key_branchId: {
+                        key: dto.key,
+                        branchId: bId as string
+                    }
+                },
+                update: { value: dto.value },
+                create: {
+                    key: dto.key,
+                    value: dto.value,
+                    branchId: bId
+                }
+            }))
+        );
+    }
 }

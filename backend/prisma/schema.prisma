@@ -9,68 +9,90 @@ datasource db {
 }
 
 model Branch {
-  id                   String                @id @default(uuid())
-  name                 String
-  code                 String                @unique
-  address              String?
-  phone                String?
-  email                String?
-  isActive             Boolean               @default(true)
-  createdAt            DateTime              @default(now())
-  updatedAt            DateTime              @updatedAt
-  enquiries            AdmissionEnquiry[]
-  alumni               Alumni[]
-  alumniEvents         AlumniEvent[]
-  assignments          Assignment[]
-  automationConfigs    AutomationConfig[]
-  books                Book[]
-  callLogs             CallLog[]
-  accessLogs           CampusAccessLog[]
-  campusEvents         CampusEvent[]
-  certificates         Certificate[]
-  certificateTemplates CertificateTemplate[]
-  classes              Class[]
-  complaints           Complaint[]
-  conversations        Conversation[]
-  deactivationReasons  DeactivationReason[]
-  departments          Department[]
-  designations         Designation[]
-  digitalResources     DigitalResource[]
-  expenseCategories    ExpenseCategory[]
-  feeCategories        FeeCategory[]
-  googleMeetConfig     GoogleMeetConfig?
-  hostels              Hostel[]
-  idCardTemplates      IdCardTemplate[]
-  inventoryCategories  InventoryCategory[]
-  inventoryIssues      InventoryIssue[]
-  inventoryProducts    InventoryProduct[]
-  inventoryPurchases   InventoryPurchase[]
-  inventorySales       InventorySale[]
-  inventoryStores      InventoryStore[]
-  inventorySuppliers   InventorySupplier[]
-  inventoryUnits       InventoryUnit[]
-  liveClassSessions    LiveClassSession[]
-  loginDeactivations   LoginDeactivation[]
-  onlineAdmissions     OnlineAdmission[]
-  onlineExams          OnlineExam[]
-  postalRecords        PostalRecord[]
-  questionGroups       QuestionGroup[]
-  students             Student[]
-  studentCategories    StudentCategory[]
-  subjects             Subject[]
-  routes               TransportRoute[]
-  users                User[]
-  vehicles             Vehicle[]
-  visitorLogs          VisitorLog[]
-  vouchers             Voucher[]
-  academicSessions     AcademicSession[]
-  attendance           Attendance[]
-  staffAttendance      StaffAttendance[]
-  assessmentRecords    AssessmentRecord[]
-  behaviouralRatings   BehaviouralRating[]
-  resultSummaries      ResultSummary[]
-  gradingScales        GradingScale[]
-  globalSettings       GlobalSetting[]
+  id                         String                      @id @default(uuid())
+  name                       String
+  code                       String                      @unique
+  address                    String?
+  phone                      String?
+  email                      String?
+  isActive                   Boolean                     @default(true)
+  createdAt                  DateTime                    @default(now())
+  updatedAt                  DateTime                    @updatedAt
+  enquiries                  AdmissionEnquiry[]
+  alumni                     Alumni[]
+  alumniEvents               AlumniEvent[]
+  assignments                Assignment[]
+  automationConfigs          AutomationConfig[]
+  books                      Book[]
+  callLogs                   CallLog[]
+  accessLogs                 CampusAccessLog[]
+  campusEvents               CampusEvent[]
+  certificates               Certificate[]
+  certificateTemplates       CertificateTemplate[]
+  classes                    Class[]
+  complaints                 Complaint[]
+  conversations              Conversation[]
+  deactivationReasons        DeactivationReason[]
+  departments                Department[]
+  designations               Designation[]
+  digitalResources           DigitalResource[]
+  expenseCategories          ExpenseCategory[]
+  feeCategories              FeeCategory[]
+  googleMeetConfig           GoogleMeetConfig?
+  hostels                    Hostel[]
+  idCardTemplates            IdCardTemplate[]
+  inventoryCategories        InventoryCategory[]
+  inventoryIssues            InventoryIssue[]
+  inventoryProducts          InventoryProduct[]
+  inventoryPurchases         InventoryPurchase[]
+  inventorySales             InventorySale[]
+  inventoryStores            InventoryStore[]
+  inventorySuppliers         InventorySupplier[]
+  inventoryUnits             InventoryUnit[]
+  liveClassSessions          LiveClassSession[]
+  loginDeactivations         LoginDeactivation[]
+  onlineAdmissions           OnlineAdmission[]
+  onlineExams                OnlineExam[]
+  postalRecords              PostalRecord[]
+  questionGroups             QuestionGroup[]
+  students                   Student[]
+  studentCategories          StudentCategory[]
+  subjects                   Subject[]
+  routes                     TransportRoute[]
+  users                      User[]
+  vehicles                   Vehicle[]
+  visitorLogs                VisitorLog[]
+  vouchers                   Voucher[]
+  academicSessions           AcademicSession[]
+  attendance                 Attendance[]
+  staffAttendance            StaffAttendance[]
+  attendanceSessions         AttendanceSession[]
+  attendanceScans            AttendanceScan[]
+  assessmentRecords          AssessmentRecord[]
+  behaviouralRatings         BehaviouralRating[]
+  resultSummaries            ResultSummary[]
+  gradingScales              GradingScale[]
+  globalSettings             GlobalSetting[]
+  moduleConfigurations       ModuleConfiguration[]
+  scheduledJobs              ScheduledJob[]
+  emailTemplates             EmailTemplate[]
+  smsTemplates               SmsTemplate[]
+  notifications              Notification[]
+  notificationPreferences    NotificationPreference[]
+  campaigns                  Campaign[]
+  campaignRecipients         CampaignRecipient[]
+  queueJobLogs               QueueJobLog[]
+  automationExecutions       AutomationExecution[]
+  messageDeliveryLogs        MessageDeliveryLog[]
+  providerHealthLogs         ProviderHealthLog[]
+  webhookEvents              WebhookEvent[]
+  deliveryWebhookLogs        DeliveryWebhookLog[]
+  realtimeConnections        RealtimeConnection[]
+  queueMetrics               QueueMetric[]
+  providerFailoverEvents     ProviderFailoverEvent[]
+  messageRetryEvents         MessageRetryEvent[]
+  providerBalanceSnapshots   ProviderBalanceSnapshot[]
+  notificationDeliveryEvents NotificationDeliveryEvent[]
 }
 
 model DeactivationReason {
@@ -82,6 +104,8 @@ model DeactivationReason {
   updatedAt     DateTime            @updatedAt
   branch        Branch              @relation(fields: [branchId], references: [id])
   deactivations LoginDeactivation[]
+
+  @@index([branchId])
 }
 
 model LoginDeactivation {
@@ -95,6 +119,8 @@ model LoginDeactivation {
   updatedAt DateTime            @updatedAt
   branch    Branch              @relation(fields: [branchId], references: [id])
   reasonRef DeactivationReason? @relation(fields: [reasonId], references: [id])
+
+  @@index([branchId])
 }
 
 model User {
@@ -113,6 +139,7 @@ model User {
   resetTokenExpires          DateTime?
   auditLogs                  AuditLog[]
   accessLogs                 CampusAccessLog[]
+  realtimeConnections        RealtimeConnection[]
   issuedCertificates         Certificate[]             @relation("IssuedCertificates")
   conversationParticipations ConversationParticipant[]
   digitalResourceLogs        DigitalResourceLog[]
@@ -125,36 +152,98 @@ model User {
   student                    Student?
   branch                     Branch?                   @relation(fields: [branchId], references: [id])
   approvedVouchers           Voucher[]                 @relation("VoucherApprover")
+  preferences                UserPreference?
+  notifications              Notification[]
+  notificationPreference     NotificationPreference?
+  campaignRecipients         CampaignRecipient[]
+
+  @@index([branchId])
+}
+
+model UserPreference {
+  id               String   @id @default(uuid())
+  userId           String   @unique
+  theme            String   @default("light")
+  language         String   @default("en")
+  sidebarCollapsed Boolean  @default(false)
+  dashboardWidgets Json?
+  notifications    Json?
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  updatedAt        DateTime @updatedAt
+}
+
+model ModuleConfiguration {
+  id        String   @id @default(uuid())
+  moduleKey String
+  isEnabled Boolean  @default(true)
+  config    Json?
+  branchId  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  branch    Branch?  @relation(fields: [branchId], references: [id])
+
+  @@unique([moduleKey, branchId])
+  @@index([branchId])
+}
+
+model Translation {
+  id        String   @id @default(uuid())
+  locale    String
+  group     String   @default("general")
+  key       String
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([locale, group, key])
+  @@index([locale, group])
+}
+
+model ScheduledJob {
+  id         String    @id @default(uuid())
+  name       String    @unique
+  cron       String
+  lastRun    DateTime?
+  nextRun    DateTime?
+  status     String    @default("IDLE")
+  lastResult String?
+  errorCount Int       @default(0)
+  isEnabled  Boolean   @default(true)
+  branchId   String?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  branch     Branch?   @relation(fields: [branchId], references: [id])
 
   @@index([branchId])
 }
 
 model Staff {
-  id               String             @id @default(uuid())
-  userId           String             @unique
-  designation      String?
-  departmentId     String?
-  designationId    String?
-  status           String             @default("ACTIVE")
-  createdAt        DateTime           @default(now())
-  updatedAt        DateTime           @updatedAt
-  salaryAdvances   AdvanceSalary[]
-  assignments      Assignment[]
-  classes          Class[]
-  classSchedules   ClassSchedule[]
-  digitalResources DigitalResource[]
-  idCards          IdCard[]
-  inventoryIssues  InventoryIssue[]
-  leaveRequests    LeaveRequest[]
-  hostedSessions   LiveClassSession[]
-  payrolls         Payroll[]
-  salaryTemplate   SalaryTemplate?
-  department       Department?        @relation(fields: [departmentId], references: [id])
-  designationRef   Designation?       @relation(fields: [designationId], references: [id])
-  user             User               @relation(fields: [userId], references: [id])
-  attendance       StaffAttendance[]
-  awards           StaffAward[]
-  subjects         Subject[]          @relation("StaffToSubject")
+  id                 String              @id @default(uuid())
+  userId             String              @unique
+  designation        String?
+  departmentId       String?
+  designationId      String?
+  status             String              @default("ACTIVE")
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  salaryAdvances     AdvanceSalary[]
+  assignments        Assignment[]
+  classes            Class[]
+  classSchedules     ClassSchedule[]
+  digitalResources   DigitalResource[]
+  idCards            IdCard[]
+  inventoryIssues    InventoryIssue[]
+  leaveRequests      LeaveRequest[]
+  hostedSessions     LiveClassSession[]
+  payrolls           Payroll[]
+  salaryTemplate     SalaryTemplate?
+  department         Department?         @relation(fields: [departmentId], references: [id])
+  designationRef     Designation?        @relation(fields: [designationId], references: [id])
+  user               User                @relation(fields: [userId], references: [id])
+  attendance         StaffAttendance[]
+  awards             StaffAward[]
+  subjects           Subject[]           @relation("StaffToSubject")
+  attendanceSessions AttendanceSession[]
 }
 
 model Student {
@@ -224,6 +313,7 @@ model Student {
   user                      User?                @relation(fields: [userId], references: [id])
   submissions               Submission[]
   transportAssignment       TransportAssignment?
+  attendanceScans           AttendanceScan[]
 
   @@index([branchId])
   @@index([branchId, classId, sectionId])
@@ -248,6 +338,8 @@ model Certificate {
   issuedBy          User                 @relation("IssuedCertificates", fields: [issuedByUserId], references: [id])
   student           Student              @relation(fields: [studentId], references: [id])
   template          CertificateTemplate? @relation(fields: [templateId], references: [id])
+
+  @@index([branchId])
 }
 
 model CertificateTemplate {
@@ -261,65 +353,74 @@ model CertificateTemplate {
   updatedAt       DateTime      @updatedAt
   certificates    Certificate[]
   branch          Branch        @relation(fields: [branchId], references: [id])
+
+  @@index([branchId])
 }
 
 model Class {
-  id                String             @id @default(uuid())
-  name              String
-  gradeLevel        Int?
-  branchId          String
-  classTeacherId    String?
-  createdAt         DateTime           @default(now())
-  updatedAt         DateTime           @updatedAt
-  branch            Branch             @relation(fields: [branchId], references: [id])
-  classTeacher      Staff?             @relation(fields: [classTeacherId], references: [id])
-  classSchedules    ClassSchedule[]
-  digitalResources  DigitalResource[]
-  feeStructures     FeeStructure[]
-  liveClassSessions LiveClassSession[]
-  onlineAdmissions  OnlineAdmission[]
-  onlineExams       OnlineExam[]
-  sections          Section[]
-  students          Student[]
+  id                 String              @id @default(uuid())
+  name               String
+  gradeLevel         Int?
+  branchId           String
+  classTeacherId     String?
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  branch             Branch              @relation(fields: [branchId], references: [id])
+  classTeacher       Staff?              @relation(fields: [classTeacherId], references: [id])
+  classSchedules     ClassSchedule[]
+  digitalResources   DigitalResource[]
+  feeStructures      FeeStructure[]
+  liveClassSessions  LiveClassSession[]
+  onlineAdmissions   OnlineAdmission[]
+  onlineExams        OnlineExam[]
+  sections           Section[]
+  students           Student[]
+  attendanceSessions AttendanceSession[]
 
   @@unique([branchId, name])
+  @@index([branchId])
 }
 
 model Section {
-  id                String             @id @default(uuid())
-  name              String
-  classId           String
-  createdAt         DateTime           @default(now())
-  updatedAt         DateTime           @updatedAt
-  assessmentRecords AssessmentRecord[]
-  assignments       Assignment[]
-  attendance        Attendance[]
-  classSchedules    ClassSchedule[]
-  digitalResources  DigitalResource[]
-  liveClassSessions LiveClassSession[]
-  onlineAdmissions  OnlineAdmission[]
-  onlineExams       OnlineExam[]
-  class             Class              @relation(fields: [classId], references: [id])
-  students          Student[]
+  id                 String              @id @default(uuid())
+  name               String
+  classId            String
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  assessmentRecords  AssessmentRecord[]
+  assignments        Assignment[]
+  attendance         Attendance[]
+  classSchedules     ClassSchedule[]
+  digitalResources   DigitalResource[]
+  liveClassSessions  LiveClassSession[]
+  onlineAdmissions   OnlineAdmission[]
+  onlineExams        OnlineExam[]
+  class              Class               @relation(fields: [classId], references: [id])
+  students           Student[]
+  attendanceSessions AttendanceSession[]
 
   @@unique([classId, name])
+  @@index([classId])
 }
 
 model Subject {
-  id                String             @id @default(uuid())
-  name              String
-  code              String?
-  branchId          String
-  createdAt         DateTime           @default(now())
-  updatedAt         DateTime           @updatedAt
-  assessmentRecords AssessmentRecord[]
-  assignments       Assignment[]
-  classSchedules    ClassSchedule[]
-  digitalResources  DigitalResource[]
-  liveClassSessions LiveClassSession[]
-  onlineExams       OnlineExam[]
-  branch            Branch             @relation(fields: [branchId], references: [id])
-  teachers          Staff[]            @relation("StaffToSubject")
+  id                 String              @id @default(uuid())
+  name               String
+  code               String?
+  branchId           String
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  assessmentRecords  AssessmentRecord[]
+  assignments        Assignment[]
+  classSchedules     ClassSchedule[]
+  digitalResources   DigitalResource[]
+  liveClassSessions  LiveClassSession[]
+  onlineExams        OnlineExam[]
+  branch             Branch              @relation(fields: [branchId], references: [id])
+  teachers           Staff[]             @relation("StaffToSubject")
+  attendanceSessions AttendanceSession[]
+
+  @@index([branchId])
 }
 
 model ClassSchedule {
@@ -341,26 +442,30 @@ model ClassSchedule {
 
   @@unique([teacherId, dayOfWeek, startTime])
   @@unique([classId, sectionId, dayOfWeek, startTime])
+  @@index([classId, sectionId])
 }
 
 model Attendance {
-  id        String           @id @default(uuid())
+  id        String             @id @default(uuid())
   date      DateTime
   status    AttendanceStatus
   remarks   String?
   studentId String
   sectionId String?
+  sessionId String?
   branchId  String
-  createdAt DateTime         @default(now())
-  updatedAt DateTime         @updatedAt
-  branch    Branch           @relation(fields: [branchId], references: [id])
-  section   Section?         @relation(fields: [sectionId], references: [id])
-  student   Student          @relation(fields: [studentId], references: [id])
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+  branch    Branch             @relation(fields: [branchId], references: [id])
+  section   Section?           @relation(fields: [sectionId], references: [id])
+  student   Student            @relation(fields: [studentId], references: [id])
+  session   AttendanceSession? @relation(fields: [sessionId], references: [id])
 
-  @@unique([studentId, date])
+  @@unique([studentId, date, sessionId])
   @@index([branchId])
   @@index([branchId, sectionId, date])
   @@index([sectionId, date])
+  @@index([sessionId])
 }
 
 model StaffAttendance {
@@ -389,6 +494,8 @@ model Hostel {
   updatedAt DateTime   @updatedAt
   branch    Branch     @relation(fields: [branchId], references: [id])
   rooms     Room[]
+
+  @@index([branchId])
 }
 
 model Room {
@@ -430,6 +537,8 @@ model HostelAllocation {
   updatedAt    DateTime  @updatedAt
   bed          Bed       @relation(fields: [bedId], references: [id])
   student      Student   @relation(fields: [studentId], references: [id])
+
+  @@index([studentId])
 }
 
 model HostelLeave {
@@ -442,6 +551,8 @@ model HostelLeave {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   student   Student  @relation(fields: [studentId], references: [id])
+
+  @@index([studentId])
 }
 
 model MaintenanceRequest {
@@ -467,6 +578,8 @@ model FeeCategory {
   branch        Branch         @relation(fields: [branchId], references: [id])
   feeStructures FeeStructure[]
   invoiceItems  InvoiceItem[]
+
+  @@index([branchId])
 }
 
 model FeeStructure {
@@ -479,6 +592,8 @@ model FeeStructure {
   updatedAt  DateTime    @updatedAt
   category   FeeCategory @relation(fields: [categoryId], references: [id])
   class      Class?      @relation(fields: [classId], references: [id])
+
+  @@index([branchId])
 }
 
 model Invoice {
@@ -509,6 +624,8 @@ model QuestionGroup {
   exams     OnlineExam[]
   questions Question[]
   branch    Branch       @relation(fields: [branchId], references: [id])
+
+  @@index([branchId])
 }
 
 model Question {
@@ -522,6 +639,8 @@ model Question {
   group     QuestionGroup    @relation(fields: [groupId], references: [id])
   answers   QuestionAnswer[]
   options   QuestionOption[]
+
+  @@index([groupId])
 }
 
 model QuestionOption {
@@ -530,6 +649,8 @@ model QuestionOption {
   isCorrect  Boolean  @default(false)
   questionId String
   question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@index([questionId])
 }
 
 model OnlineExam {
@@ -553,6 +674,8 @@ model OnlineExam {
   section         Section?            @relation(fields: [sectionId], references: [id])
   subject         Subject             @relation(fields: [subjectId], references: [id])
   attempts        OnlineExamAttempt[]
+
+  @@index([branchId])
 }
 
 model OnlineExamAttempt {
@@ -571,6 +694,7 @@ model OnlineExamAttempt {
   answers   QuestionAnswer[]
 
   @@unique([examId, studentId])
+  @@index([studentId])
 }
 
 model QuestionAnswer {
@@ -598,6 +722,8 @@ model InvoiceItem {
   updatedAt  DateTime    @updatedAt
   category   FeeCategory @relation(fields: [categoryId], references: [id])
   invoice    Invoice     @relation(fields: [invoiceId], references: [id])
+
+  @@index([invoiceId])
 }
 
 model Payment {
@@ -612,6 +738,8 @@ model Payment {
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
   invoice       Invoice       @relation(fields: [invoiceId], references: [id])
+
+  @@index([invoiceId])
 }
 
 model Vehicle {
@@ -626,6 +754,8 @@ model Vehicle {
   updatedAt          DateTime              @updatedAt
   assignments        TransportAssignment[]
   branch             Branch                @relation(fields: [branchId], references: [id])
+
+  @@index([branchId])
 }
 
 model TransportRoute {
@@ -639,6 +769,8 @@ model TransportRoute {
   updatedAt   DateTime              @updatedAt
   assignments TransportAssignment[]
   branch      Branch                @relation(fields: [branchId], references: [id])
+
+  @@index([branchId])
 }
 
 model TransportAssignment {
@@ -670,6 +802,8 @@ model Assignment {
   subject       Subject      @relation(fields: [subjectId], references: [id])
   teacher       Staff?       @relation(fields: [teacherId], references: [id])
   submissions   Submission[]
+
+  @@index([branchId])
 }
 
 model Submission {
@@ -686,6 +820,7 @@ model Submission {
   student      Student    @relation(fields: [studentId], references: [id])
 
   @@unique([assignmentId, studentId])
+  @@index([assignmentId])
 }
 
 model AcademicSession {
@@ -852,6 +987,8 @@ model AuditLog {
   userId    String
   createdAt DateTime @default(now())
   user      User     @relation(fields: [userId], references: [id])
+
+  @@index([userId])
 }
 
 model ExpenseCategory {
@@ -863,6 +1000,8 @@ model ExpenseCategory {
   updatedAt   DateTime  @updatedAt
   branch      Branch    @relation(fields: [branchId], references: [id])
   vouchers    Voucher[]
+
+  @@index([branchId])
 }
 
 model Voucher {
@@ -907,6 +1046,8 @@ model Designation {
   updatedAt   DateTime @updatedAt
   branch      Branch   @relation(fields: [branchId], references: [id])
   staff       Staff[]
+
+  @@index([branchId])
 }
 
 model Book {
@@ -924,6 +1065,8 @@ model Book {
   updatedAt     DateTime       @updatedAt
   branch        Branch         @relation(fields: [branchId], references: [id])
   borrowRecords BorrowRecord[]
+
+  @@index([branchId])
 }
 
 model BorrowRecord {
@@ -939,6 +1082,8 @@ model BorrowRecord {
   book       Book          @relation(fields: [bookId], references: [id])
   student    Student       @relation(fields: [studentId], references: [id])
   fines      LibraryFine[]
+
+  @@index([studentId])
 }
 
 model LibraryFine {
@@ -975,6 +1120,8 @@ model Payroll {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   staff       Staff    @relation(fields: [staffId], references: [id])
+
+  @@index([staffId])
 }
 
 model LeaveRequest {
@@ -988,6 +1135,8 @@ model LeaveRequest {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   staff     Staff    @relation(fields: [staffId], references: [id])
+
+  @@index([staffId])
 }
 
 model StaffAward {
@@ -999,6 +1148,8 @@ model StaffAward {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   staff       Staff    @relation(fields: [staffId], references: [id])
+
+  @@index([staffId])
 }
 
 model AdvanceSalary {
@@ -1010,6 +1161,8 @@ model AdvanceSalary {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   staff     Staff    @relation(fields: [staffId], references: [id])
+
+  @@index([staffId])
 }
 
 model GoogleMeetConfig {
@@ -1067,6 +1220,8 @@ model LiveClassSession {
   section         Section?             @relation(fields: [sectionId], references: [id])
   subject         Subject?             @relation(fields: [subjectId], references: [id])
   participants    MeetingParticipant[]
+
+  @@index([branchId])
 }
 
 model MeetingParticipant {
@@ -1096,6 +1251,7 @@ model StudentCategory {
   branch           Branch            @relation(fields: [branchId], references: [id])
 
   @@unique([branchId, name])
+  @@index([branchId])
 }
 
 model PreviousSchool {
@@ -1201,6 +1357,8 @@ model OnlineAdmission {
   parent                    User?            @relation("ParentAdmission", fields: [parentId], references: [id])
   studentCategory           StudentCategory? @relation(fields: [studentCategoryId], references: [id])
   previousSchools           PreviousSchool[]
+
+  @@index([branchId])
 }
 
 model AdmissionEnquiry {
@@ -1218,6 +1376,8 @@ model AdmissionEnquiry {
   createdAt        DateTime  @default(now())
   updatedAt        DateTime  @updatedAt
   branch           Branch    @relation(fields: [branchId], references: [id])
+
+  @@index([branchId])
 }
 
 model CallLog {
@@ -1232,6 +1392,8 @@ model CallLog {
   createdAt        DateTime  @default(now())
   updatedAt        DateTime  @updatedAt
   branch           Branch    @relation(fields: [branchId], references: [id])
+
+  @@index([branchId])
 }
 
 model VisitorLog {
@@ -1249,6 +1411,8 @@ model VisitorLog {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   branch    Branch   @relation(fields: [branchId], references: [id])
+
+  @@index([branchId])
 }
 
 model Complaint {
@@ -1266,6 +1430,8 @@ model Complaint {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
   branch        Branch   @relation(fields: [branchId], references: [id])
+
+  @@index([branchId])
 }
 
 model PostalRecord {
@@ -1281,6 +1447,8 @@ model PostalRecord {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
   branch          Branch   @relation(fields: [branchId], references: [id])
+
+  @@index([branchId])
 }
 
 model InventoryCategory {
@@ -1291,6 +1459,8 @@ model InventoryCategory {
   updatedAt DateTime           @updatedAt
   branch    Branch             @relation(fields: [branchId], references: [id])
   products  InventoryProduct[]
+
+  @@index([branchId])
 }
 
 model InventoryStore {
@@ -1302,6 +1472,8 @@ model InventoryStore {
   updatedAt DateTime           @updatedAt
   products  InventoryProduct[]
   branch    Branch             @relation(fields: [branchId], references: [id])
+
+  @@index([branchId])
 }
 
 model InventorySupplier {
@@ -1316,6 +1488,8 @@ model InventorySupplier {
   updatedAt     DateTime            @updatedAt
   purchases     InventoryPurchase[]
   branch        Branch              @relation(fields: [branchId], references: [id])
+
+  @@index([branchId])
 }
 
 model InventoryUnit {
@@ -1326,6 +1500,8 @@ model InventoryUnit {
   updatedAt DateTime           @updatedAt
   products  InventoryProduct[]
   branch    Branch             @relation(fields: [branchId], references: [id])
+
+  @@index([branchId])
 }
 
 model InventoryProduct {
@@ -1349,6 +1525,8 @@ model InventoryProduct {
   unit         InventoryUnit       @relation(fields: [unitId], references: [id])
   purchases    InventoryPurchase[]
   sales        InventorySale[]
+
+  @@index([branchId])
 }
 
 model InventoryPurchase {
@@ -1366,6 +1544,8 @@ model InventoryPurchase {
   branch     Branch            @relation(fields: [branchId], references: [id])
   product    InventoryProduct  @relation(fields: [productId], references: [id])
   supplier   InventorySupplier @relation(fields: [supplierId], references: [id])
+
+  @@index([branchId])
 }
 
 model InventorySale {
@@ -1382,6 +1562,8 @@ model InventorySale {
   updatedAt    DateTime         @updatedAt
   branch       Branch           @relation(fields: [branchId], references: [id])
   product      InventoryProduct @relation(fields: [productId], references: [id])
+
+  @@index([branchId])
 }
 
 model InventoryIssue {
@@ -1401,6 +1583,8 @@ model InventoryIssue {
   product    InventoryProduct @relation(fields: [productId], references: [id])
   staff      Staff?           @relation(fields: [staffId], references: [id])
   student    Student?         @relation(fields: [studentId], references: [id])
+
+  @@index([branchId])
 }
 
 model Alumni {
@@ -1418,6 +1602,8 @@ model Alumni {
   branch            Branch                   @relation(fields: [branchId], references: [id])
   student           Student                  @relation(fields: [studentId], references: [id])
   events            AlumniEventParticipant[]
+
+  @@index([branchId])
 }
 
 model AlumniEvent {
@@ -1433,6 +1619,8 @@ model AlumniEvent {
   updatedAt    DateTime                 @updatedAt
   branch       Branch                   @relation(fields: [branchId], references: [id])
   participants AlumniEventParticipant[]
+
+  @@index([branchId])
 }
 
 model AlumniEventParticipant {
@@ -1458,6 +1646,8 @@ model Conversation {
   branch        Branch                    @relation(fields: [branchId], references: [id])
   participants  ConversationParticipant[]
   messages      Message[]
+
+  @@index([branchId])
 }
 
 model ConversationParticipant {
@@ -1483,6 +1673,8 @@ model Message {
   updatedAt      DateTime     @updatedAt
   conversation   Conversation @relation(fields: [conversationId], references: [id])
   sender         User         @relation(fields: [senderId], references: [id])
+
+  @@index([conversationId])
 }
 
 model CampusEvent {
@@ -1500,6 +1692,8 @@ model CampusEvent {
   updatedAt   DateTime    @updatedAt
   branch      Branch      @relation(fields: [branchId], references: [id])
   rsvps       EventRSVP[]
+
+  @@index([branchId])
 }
 
 model EventRSVP {
@@ -1526,21 +1720,25 @@ model CampusAccessLog {
   createdAt  DateTime @default(now())
   branch     Branch   @relation(fields: [branchId], references: [id])
   user       User     @relation(fields: [userId], references: [id])
+
+  @@index([branchId])
 }
 
 model AutomationConfig {
-  id          String    @id @default(uuid())
+  id          String                @id @default(uuid())
   type        String
-  isEnabled   Boolean   @default(true)
+  isEnabled   Boolean               @default(true)
   template    String?
   triggerDays Int?
   lastRun     DateTime?
   branchId    String
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  branch      Branch    @relation(fields: [branchId], references: [id])
+  createdAt   DateTime              @default(now())
+  updatedAt   DateTime              @updatedAt
+  branch      Branch                @relation(fields: [branchId], references: [id])
+  executions  AutomationExecution[]
 
   @@unique([branchId, type])
+  @@index([branchId])
 }
 
 model IdCardTemplate {
@@ -1554,6 +1752,8 @@ model IdCardTemplate {
   updatedAt       DateTime @updatedAt
   idCards         IdCard[]
   branch          Branch   @relation(fields: [branchId], references: [id])
+
+  @@index([branchId])
 }
 
 model IdCard {
@@ -1601,6 +1801,7 @@ model DigitalResource {
 
   @@index([branchId, category])
   @@index([classId, subjectId])
+  @@index([branchId])
 }
 
 model DigitalResourceLog {
@@ -1613,6 +1814,8 @@ model DigitalResourceLog {
   createdAt  DateTime        @default(now())
   resource   DigitalResource @relation(fields: [resourceId], references: [id], onDelete: Cascade)
   user       User            @relation(fields: [userId], references: [id])
+
+  @@index([resourceId])
 }
 
 enum UserRole {
@@ -1634,6 +1837,9 @@ enum AttendanceStatus {
   ABSENT
   LATE
   EXCUSED
+  SICK
+  LEAVE
+  HALF_DAY
 }
 
 enum Term {
@@ -1705,4 +1911,325 @@ enum VoucherStatus {
   PENDING
   APPROVED
   REJECTED
+}
+
+model EmailTemplate {
+  id        String   @id @default(uuid())
+  name      String
+  subject   String
+  body      String
+  variables Json?
+  type      String
+  branchId  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  branch    Branch?  @relation(fields: [branchId], references: [id])
+
+  @@index([branchId])
+}
+
+model SmsTemplate {
+  id        String   @id @default(uuid())
+  name      String
+  content   String
+  variables Json?
+  type      String
+  branchId  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  branch    Branch?  @relation(fields: [branchId], references: [id])
+
+  @@index([branchId])
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  title     String
+  message   String
+  type      String
+  isRead    Boolean  @default(false)
+  branchId  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  branch    Branch?  @relation(fields: [branchId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@index([branchId])
+  @@index([userId])
+}
+
+model NotificationPreference {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  email     Boolean  @default(true)
+  sms       Boolean  @default(true)
+  inApp     Boolean  @default(true)
+  branchId  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  branch    Branch?  @relation(fields: [branchId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@index([branchId])
+}
+
+model Campaign {
+  id          String              @id @default(uuid())
+  name        String
+  type        String
+  status      String
+  scheduledAt DateTime?
+  branchId    String?
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+  branch      Branch?             @relation(fields: [branchId], references: [id])
+  recipients  CampaignRecipient[]
+
+  @@index([branchId])
+}
+
+model CampaignRecipient {
+  id          String   @id @default(uuid())
+  campaignId  String
+  userId      String?
+  status      String
+  deliveryLog String?
+  branchId    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  campaign    Campaign @relation(fields: [campaignId], references: [id])
+  user        User?    @relation(fields: [userId], references: [id])
+  branch      Branch?  @relation(fields: [branchId], references: [id])
+
+  @@index([campaignId])
+  @@index([userId])
+  @@index([branchId])
+}
+
+model AttendanceSession {
+  id        String           @id @default(uuid())
+  name      String? // e.g. "Morning Session", "Afternoon Session", "Mathematics Period"
+  date      DateTime
+  startTime DateTime?
+  endTime   DateTime?
+  classId   String?
+  sectionId String?
+  subjectId String?
+  teacherId String?
+  branchId  String
+  isActive  Boolean          @default(true)
+  isLocked  Boolean          @default(false)
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  branch    Branch           @relation(fields: [branchId], references: [id])
+  class     Class?           @relation(fields: [classId], references: [id])
+  section   Section?         @relation(fields: [sectionId], references: [id])
+  subject   Subject?         @relation(fields: [subjectId], references: [id])
+  teacher   Staff?           @relation(fields: [teacherId], references: [id])
+  records   Attendance[]
+  scans     AttendanceScan[]
+
+  @@index([branchId, date])
+  @@index([sectionId, date])
+}
+
+model AttendanceScan {
+  id         String            @id @default(uuid())
+  studentId  String
+  sessionId  String
+  scanTime   DateTime          @default(now())
+  deviceInfo String?
+  ipAddress  String?
+  isOffline  Boolean           @default(false)
+  branchId   String
+  branch     Branch            @relation(fields: [branchId], references: [id])
+  session    AttendanceSession @relation(fields: [sessionId], references: [id])
+  student    Student           @relation(fields: [studentId], references: [id])
+
+  @@index([branchId])
+  @@index([sessionId])
+  @@index([studentId])
+}
+
+model QueueJobLog {
+  id        String   @id @default(uuid())
+  jobId     String
+  queueName String
+  name      String
+  status    String
+  data      Json?
+  result    Json?
+  error     String?
+  branchId  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  branch    Branch?  @relation(fields: [branchId], references: [id])
+
+  @@index([branchId])
+  @@index([jobId])
+}
+
+model AutomationExecution {
+  id         String           @id @default(uuid())
+  configId   String
+  status     String
+  executedAt DateTime         @default(now())
+  result     String?
+  branchId   String?
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @updatedAt
+  config     AutomationConfig @relation(fields: [configId], references: [id])
+  branch     Branch?          @relation(fields: [branchId], references: [id])
+
+  @@index([configId])
+  @@index([branchId])
+}
+
+model MessageDeliveryLog {
+  id               String   @id @default(uuid())
+  type             String
+  recipient        String
+  status           String
+  providerResponse Json?
+  branchId         String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  branch           Branch?  @relation(fields: [branchId], references: [id])
+
+  @@index([branchId])
+}
+
+model ProviderHealthLog {
+  id           String   @id @default(uuid())
+  providerType String // SMS, EMAIL, PUSH
+  providerName String
+  status       String // UP, DOWN, DEGRADED
+  latency      Int? // in ms
+  error        String?
+  branchId     String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  branch       Branch?  @relation(fields: [branchId], references: [id])
+
+  @@index([branchId])
+}
+
+model WebhookEvent {
+  id           String   @id @default(uuid())
+  providerName String
+  payload      Json
+  eventType    String
+  status       String   @default("PENDING") // PENDING, PROCESSED, FAILED
+  error        String?
+  branchId     String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  branch       Branch?  @relation(fields: [branchId], references: [id])
+
+  @@index([branchId])
+}
+
+model DeliveryWebhookLog {
+  id                String   @id @default(uuid())
+  messageId         String
+  providerMessageId String?
+  status            String
+  payload           Json
+  branchId          String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  branch            Branch?  @relation(fields: [branchId], references: [id])
+
+  @@index([branchId])
+  @@index([messageId])
+}
+
+model RealtimeConnection {
+  id         String   @id @default(uuid())
+  userId     String
+  socketId   String   @unique
+  deviceInfo String?
+  branchId   String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  branch     Branch?  @relation(fields: [branchId], references: [id])
+  user       User     @relation(fields: [userId], references: [id])
+
+  @@index([branchId])
+  @@index([userId])
+}
+
+model QueueMetric {
+  id             String   @id @default(uuid())
+  queueName      String
+  waitingCount   Int
+  activeCount    Int
+  completedCount Int
+  failedCount    Int
+  delayedCount   Int
+  branchId       String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  branch         Branch?  @relation(fields: [branchId], references: [id])
+
+  @@index([branchId])
+}
+
+model ProviderFailoverEvent {
+  id             String   @id @default(uuid())
+  failedProvider String
+  targetProvider String
+  reason         String?
+  providerType   String // SMS, EMAIL
+  branchId       String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  branch         Branch?  @relation(fields: [branchId], references: [id])
+
+  @@index([branchId])
+}
+
+model MessageRetryEvent {
+  id          String    @id @default(uuid())
+  messageId   String
+  retryCount  Int
+  error       String?
+  nextRetryAt DateTime?
+  status      String // PENDING, SUCCESS, FAILED
+  branchId    String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  branch      Branch?   @relation(fields: [branchId], references: [id])
+
+  @@index([branchId])
+  @@index([messageId])
+}
+
+model ProviderBalanceSnapshot {
+  id           String   @id @default(uuid())
+  providerName String
+  balance      Float
+  currency     String   @default("NGN")
+  branchId     String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  branch       Branch?  @relation(fields: [branchId], references: [id])
+
+  @@index([branchId])
+}
+
+model NotificationDeliveryEvent {
+  id             String   @id @default(uuid())
+  notificationId String
+  channel        String // SMS, EMAIL, IN_APP
+  status         String // SENT, DELIVERED, FAILED
+  error          String?
+  branchId       String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  branch         Branch?  @relation(fields: [branchId], references: [id])
+
+  @@index([branchId])
+  @@index([notificationId])
 }

@@ -1,4 +1,7 @@
-import { Module } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { BullModule } from '@nestjs/bullmq';
+import { validate } from './config/env.validation';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
@@ -32,11 +35,17 @@ import { StakeholderModule } from './stakeholder/stakeholder.module';
 import { EventsModule } from './events/events.module';
 import { AccessControlModule } from './access-control/access-control.module';
 import { AutomationModule } from './automation/automation.module';
+import { ModulesConfigModule } from './modules-config/modules-config.module';
+import { TranslationsModule } from './translations/translations.module';
+import { UserPreferencesModule } from './users/preferences/preferences.module';
 import { SearchModule } from './search/search.module';
 import { AssignmentsModule } from './assignments/assignments.module';
 import { CardsModule } from './cards/cards.module';
 import { MailModule } from './mail/mail.module';
 import { UploadModule } from './upload/upload.module';
+import { NotificationsModule } from './notifications/notifications.module';
+import { ProvidersModule } from './providers/providers.module';
+import { RealtimeModule } from './realtime/realtime.module';
 
 // NOTE: Run `npm install @nestjs/throttler` to enable rate limiting, then
 // uncomment the ThrottlerModule import and include it in the imports array below.
@@ -44,10 +53,21 @@ import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 
 import { CommsModule } from './comms/comms.module';
+import { SecurityMiddleware } from './common/middleware/security.middleware';
 
 @Module({
   imports: [
-    ThrottlerModule.forRoot([{ ttl: 60000, limit: 10 }]), // 10 requests per minute globally; auth routes use stricter limits
+    ConfigModule.forRoot({
+      isGlobal: true,
+      validate,
+    }),
+    BullModule.forRoot({
+      connection: {
+        host: process.env.REDIS_HOST || 'localhost',
+        port: parseInt(process.env.REDIS_PORT || '6379', 10),
+      },
+    }),
+    ThrottlerModule.forRoot([{ ttl: 60000, limit: 100 }]), // 100 requests per minute globally
     AuthModule,
     AuditModule,
     EmployeesModule,
@@ -79,12 +99,18 @@ import { CommsModule } from './comms/comms.module';
     EventsModule,
     AccessControlModule,
     AutomationModule,
+    ModulesConfigModule,
+    TranslationsModule,
+    UserPreferencesModule,
     SearchModule,
     AssignmentsModule,
     CardsModule,
     MailModule,
     UploadModule,
     CommsModule,
+    NotificationsModule,
+    ProvidersModule,
+    RealtimeModule,
   ],
   controllers: [AppController],
   providers: [
@@ -93,4 +119,10 @@ import { CommsModule } from './comms/comms.module';
     { provide: APP_GUARD, useClass: ThrottlerGuard },
   ],
 })
-export class AppModule { }
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(SecurityMiddleware)
+      .forRoutes('*');
+  }
+}

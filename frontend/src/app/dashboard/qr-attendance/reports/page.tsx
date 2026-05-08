@@ -1,7 +1,13 @@
 "use client";
-import { RestorationPlaceholder } from "@/components/RestorationPlaceholder";
-import { BarChart3 } from "lucide-react";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-export default function QRReportsPage() {
-    return <RestorationPlaceholder title="QR Attendance Reports" icon={BarChart3} />;
+export default function QRReportsRedirect() {
+    const router = useRouter();
+    
+    useEffect(() => {
+        router.replace('/dashboard/reports/attendance');
+    }, [router]);
+
+    return null;
 }

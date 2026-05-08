@@ -5,70 +5,78 @@ import { CreateCertificateTemplateDto } from './dto/create-template.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
-import { UserRole } from '../generated/client';
+import { BranchGuard, TenantContext } from '../auth/branch.guard';
+import { GetTenantContext } from '../auth/tenant-context.decorator';
+import { UserRole } from '../generated/client/client';
+import { Public } from '../auth/public.decorator';
 
 @Controller('certificates')
-@UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
 export class CertificatesController {
     constructor(private readonly certificatesService: CertificatesService) { }
 
     @Post()
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
-    create(@Body() createCertificateDto: CreateCertificateDto, @Request() req) {
-        return this.certificatesService.create(createCertificateDto, req.user.userId);
+    create(
+        @GetTenantContext() context: TenantContext,
+        @Body() createCertificateDto: CreateCertificateDto,
+        @Request() req
+    ) {
+        return this.certificatesService.create(createCertificateDto, req.user.userId, context);
     }
 
     @Get()
-    findAll(@Query('branchId') branchId: string) {
-        return this.certificatesService.findAll(branchId);
+    findAll(@GetTenantContext() context: TenantContext) {
+        return this.certificatesService.findAll(context);
     }
 
     @Get('templates')
-    findAllTemplates(@Query('branchId') branchId: string) {
-        return this.certificatesService.findAllTemplates(branchId);
+    findAllTemplates(@GetTenantContext() context: TenantContext) {
+        return this.certificatesService.findAllTemplates(context);
     }
 
     @Get('verify/:code')
+    @Public()
     async verify(@Param('code') code: string) {
         return this.certificatesService.verify(code);
     }
 
     @Get('my-certificates')
-    findMyCertificates(@Request() req) {
-        return this.certificatesService.findByUser(req.user.userId);
+    findMyCertificates(@GetTenantContext() context: TenantContext, @Request() req) {
+        return this.certificatesService.findByUser(req.user.userId, context);
     }
 
     @Get('student/:studentId')
-    findByStudent(@Param('studentId') studentId: string) {
-        return this.certificatesService.findByStudent(studentId);
+    findByStudent(@GetTenantContext() context: TenantContext, @Param('studentId') studentId: string) {
+        return this.certificatesService.findByStudent(studentId, context);
     }
 
     @Get(':id')
-    findOne(@Param('id') id: string) {
-        return this.certificatesService.findOne(id);
+    findOne(@GetTenantContext() context: TenantContext, @Param('id') id: string) {
+        return this.certificatesService.findOne(id, context);
     }
 
     @Get(':id/pdf')
-    async exportPdf(@Param('id') id: string) {
-        const buffer = await this.certificatesService.generatePDF(id);
+    async exportPdf(@GetTenantContext() context: TenantContext, @Param('id') id: string) {
+        const buffer = await this.certificatesService.generatePDF(id, context);
         return buffer.toString('base64');
     }
 
     @Delete('templates/:id')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-    removeTemplate(@Param('id') id: string) {
-        return this.certificatesService.removeTemplate(id);
+    removeTemplate(@GetTenantContext() context: TenantContext, @Param('id') id: string) {
+        return this.certificatesService.removeTemplate(id, context);
     }
 
     @Delete(':id')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-    remove(@Param('id') id: string) {
-        return this.certificatesService.remove(id);
+    remove(@GetTenantContext() context: TenantContext, @Param('id') id: string) {
+        return this.certificatesService.remove(id, context);
     }
 
     @Post('templates')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-    createTemplate(@Body() dto: CreateCertificateTemplateDto) {
-        return this.certificatesService.createTemplate(dto);
+    createTemplate(@GetTenantContext() context: TenantContext, @Body() dto: CreateCertificateTemplateDto) {
+        return this.certificatesService.createTemplate(dto, context);
     }
 }

@@ -32,8 +32,11 @@ export class AuthController {
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days (matching the typical jwt lifespan)
     });
 
-    // Return the user without the access_token snippet (mitigates localStorage temptation)
-    return { user: authData.user };
+    // Return the user and the access_token for client-side use (e.g. Socket.io)
+    return { 
+      user: authData.user,
+      access_token: authData.access_token 
+    };
   }
 
   @Post('logout')

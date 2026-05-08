@@ -32,6 +32,27 @@ export class PermissionsService {
         });
     }
 
+    async bulkUpdatePermissions(role: UserRole, permissions: Partial<UpdatePermissionDto>[]) {
+        return this.prisma.$transaction(
+            permissions.map(p => this.prisma.rolePermission.upsert({
+                where: {
+                    role_module_action: {
+                        role: role,
+                        module: p.module!,
+                        action: p.action!
+                    }
+                },
+                update: { isAllowed: p.isAllowed },
+                create: {
+                    role: role,
+                    module: p.module!,
+                    action: p.action!,
+                    isAllowed: p.isAllowed || false
+                }
+            }))
+        );
+    }
+
     async checkPermission(role: UserRole, module: string, action: string): Promise<boolean> {
         if (role === UserRole.SUPER_ADMIN) return true;
 

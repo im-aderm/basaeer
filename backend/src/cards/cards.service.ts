@@ -3,10 +3,14 @@ import { PrismaService } from '../prisma/prisma.service';
 import { CreateIdCardTemplateDto } from './dto/create-template.dto';
 import { UpdateIdCardTemplateDto } from './dto/update-template.dto';
 import { GenerateIdCardsDto } from './dto/generate-cards.dto';
+import { QRService } from '../attendance/qr.service';
 
 @Injectable()
 export class CardsService {
-    constructor(private prisma: PrismaService) { }
+    constructor(
+        private prisma: PrismaService,
+        private qrService: QRService
+    ) { }
 
     // Template Operations
     async createTemplate(dto: CreateIdCardTemplateDto) {
@@ -114,7 +118,7 @@ export class CardsService {
     }
 
     async findAllCards(branchId: string, sessionId: string) {
-        return this.prisma.idCard.findMany({
+        const cards = await this.prisma.idCard.findMany({
             where: {
                 student: { branchId },
                 sessionId,
@@ -125,12 +129,18 @@ export class CardsService {
                         user: true,
                         class: true,
                         section: true,
+                        branch: true,
                     },
                 },
                 template: true,
             },
             orderBy: { createdAt: 'desc' },
         });
+
+        return cards.map(card => ({
+            ...card,
+            qrPayload: card.studentId ? this.qrService.generateQRPayload(card.studentId, branchId) : null
+        }));
     }
 
     async findCard(id: string) {
@@ -150,6 +160,10 @@ export class CardsService {
             },
         });
         if (!card) throw new NotFoundException('ID Card not found');
-        return card;
+
+        return {
+            ...card,
+            qrPayload: card.studentId ? this.qrService.generateQRPayload(card.studentId, card.student?.branchId!) : null
+        };
     }
 }

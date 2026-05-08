@@ -1,11 +1,32 @@
 node_modules
 DS_Store
 .env
+.env.local
+.env.*.local
 .next
 dist
 build
 *.log
 .gemini
+.qwen
 
 # Local Netlify folder
 .netlify
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Coverage
+coverage/
+.nyc_output/
+
+# Prisma
+backend/src/generated/
+backend/src/prisma/generated/

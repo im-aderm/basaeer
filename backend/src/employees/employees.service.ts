@@ -55,7 +55,18 @@ export class EmployeesService {
                 })
             },
             include: {
-                user: true,
+                user: {
+                    select: {
+                        id: true,
+                        email: true,
+                        firstName: true,
+                        lastName: true,
+                        phone: true,
+                        isActive: true,
+                        role: true,
+                        branchId: true,
+                    }
+                },
                 department: true,
                 designationRef: true
             }
@@ -78,7 +89,18 @@ export class EmployeesService {
                 })
             },
             include: {
-                user: true,
+                user: {
+                    select: {
+                        id: true,
+                        email: true,
+                        firstName: true,
+                        lastName: true,
+                        phone: true,
+                        isActive: true,
+                        role: true,
+                        branchId: true,
+                    }
+                },
                 department: true,
                 designationRef: true
             }

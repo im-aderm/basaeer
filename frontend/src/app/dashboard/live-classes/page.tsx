@@ -22,6 +22,7 @@ import { LiveClassesService, LiveClassSession, GoogleMeetConfig } from '@/servic
 import { toast } from 'sonner';
 import api from '@/lib/api';
 import { format } from 'date-fns';
+import { Suspense } from 'react';
 
 interface SimpleClass {
     id: string;
@@ -33,7 +34,7 @@ interface SimpleSubject {
     name: string;
 }
 
-export default function LiveClassesPage() {
+function LiveClassesContent() {
     const { user } = useAuth();
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -471,5 +472,18 @@ export default function LiveClassesPage() {
                 </DialogContent>
             </Dialog>
         </div>
+    );
+}
+
+export default function LiveClassesPage() {
+    return (
+        <Suspense fallback={
+            <div className="flex flex-col items-center justify-center p-20 space-y-4">
+                <RefreshCcw className="h-10 w-10 animate-spin text-primary" />
+                <p className="text-muted-foreground font-medium">Synchronizing live classrooms...</p>
+            </div>
+        }>
+            <LiveClassesContent />
+        </Suspense>
     );
 }

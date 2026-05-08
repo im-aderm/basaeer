@@ -1,16 +1,331 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import PDFDocument from 'pdfkit';
 import * as ExcelJS from 'exceljs';
-import { Readable } from 'stream';
+import { StudentReportQueryDto, FinanceReportQueryDto, ReportQueryDto } from './dto/report-query.dto';
+import { AnalyticsData, ChartDataItem } from '@basaeer/shared-types';
+import { format, startOfMonth, subMonths, endOfMonth, eachMonthOfInterval } from 'date-fns';
 
 @Injectable()
 export class ReportingService {
+    private readonly logger = new Logger(ReportingService.name);
+
     constructor(private prisma: PrismaService) { }
 
-    async getFinancialSummary(branchId: string, startDate?: Date, endDate?: Date) {
+    // ── Student Analytics ────────────────────────────────────────────────────
+
+    async getStudentAnalytics(query: StudentReportQueryDto): Promise<AnalyticsData> {
+        const branchId = query.branchId;
+        const where: any = {
+            ...(branchId && { branchId }),
+            ...(query.classId && { classId: query.classId }),
+            ...(query.sectionId && { sectionId: query.sectionId }),
+            ...(query.status && { status: query.status }),
+        };
+
+        const [
+            totalStudents,
+            activeStudents,
+            genderDist,
+            classDist,
+            admissionsTrend
+        ] = await Promise.all([
+            this.prisma.student.count({ where }),
+            this.prisma.student.count({ where: { ...where, status: 'ACTIVE' } }),
+            this.prisma.student.groupBy({
+                by: ['gender'] as any,
+                where,
+                _count: { _all: true }
+            }) as any,
+            this.prisma.student.groupBy({
+                by: ['classId'] as any,
+                where,
+                _count: { _all: true }
+            }) as any,
+            this.getAdmissionsTrend(branchId)
+        ]);
+
+        // Get class names for distribution
+        const classIds = classDist.map(c => c.classId).filter(Boolean) as string[];
+        const classes = await this.prisma.class.findMany({
+            where: { id: { in: classIds } },
+            select: { id: true, name: true }
+        });
+        const classNameMap = new Map(classes.map(c => [c.id, c.name]));
+
+        return {
+            summary: [
+                { label: 'Total Students', value: totalStudents, icon: 'Users', color: 'blue' },
+                { label: 'Active Students', value: activeStudents, icon: 'UserCheck', color: 'green' },
+                { label: 'Classes', value: classes.length, icon: 'School', color: 'purple' },
+            ],
+            charts: {
+                gender: genderDist.map(g => ({ name: g.gender || 'Unknown', value: g._count?._all || 0 })),
+                classes: classDist.map(c => ({
+                    name: classNameMap.get(c.classId!) || 'Unknown',
+                    value: c._count?._all || 0
+                })),
+                admissions: admissionsTrend
+            }
+        };
+    }
+
+    private async getAdmissionsTrend(branchId?: string): Promise<ChartDataItem[]> {
+        const last6Months = eachMonthOfInterval({
+            start: subMonths(new Date(), 5),
+            end: new Date()
+        });
+
+        const trend = await Promise.all(last6Months.map(async (date) => {
+            const count = await this.prisma.student.count({
+                where: {
+                    ...(branchId && { branchId }),
+                    createdAt: {
+                        gte: startOfMonth(date),
+                        lte: endOfMonth(date)
+                    }
+                }
+            });
+            return {
+                name: format(date, 'MMM yy'),
+                count
+            };
+        }));
+
+        return trend;
+    }
+
+    // ── Finance Analytics ────────────────────────────────────────────────────
+
+    async getFinanceAnalytics(query: FinanceReportQueryDto): Promise<AnalyticsData> {
+        const branchId = query.branchId;
+        const startDate = query.startDate ? new Date(query.startDate) : startOfMonth(subMonths(new Date(), 5));
+        const endDate = query.endDate ? new Date(query.endDate) : new Date();
+
+        const where: any = {
+            ...(branchId && { branchId }),
+            createdAt: { gte: startDate, lte: endDate }
+        };
+
+        const [
+            totalPaid,
+            totalExpenses,
+            revenueTrend
+        ] = await Promise.all([
+            this.prisma.payment.aggregate({
+                where: { ...where, status: 'COMPLETED' },
+                _sum: { amount: true }
+            }),
+            this.prisma.voucher.aggregate({
+                where: { ...where, status: 'APPROVED' },
+                _sum: { amount: true }
+            }),
+            this.getRevenueTrend(branchId)
+        ]);
+
+        const paid = totalPaid._sum.amount || 0;
+        const expenses = totalExpenses._sum.amount || 0;
+
+        return {
+            summary: [
+                { label: 'Total Revenue', value: `₦${paid.toLocaleString()}`, icon: 'DollarSign', color: 'green' },
+                { label: 'Total Expenses', value: `₦${expenses.toLocaleString()}`, icon: 'TrendingDown', color: 'red' },
+                { label: 'Net Profit', value: `₦${(paid - expenses).toLocaleString()}`, icon: 'Activity', color: 'blue' },
+            ],
+            charts: {
+                revenue: revenueTrend
+            }
+        };
+    }
+
+    private async getRevenueTrend(branchId?: string): Promise<ChartDataItem[]> {
+        const last6Months = eachMonthOfInterval({
+            start: subMonths(new Date(), 5),
+            end: new Date()
+        });
+
+        const trend = await Promise.all(last6Months.map(async (date) => {
+            const revenue = await this.prisma.payment.aggregate({
+                where: {
+                    ...(branchId && { branchId }),
+                    status: 'COMPLETED',
+                    createdAt: {
+                        gte: startOfMonth(date),
+                        lte: endOfMonth(date)
+                    }
+                },
+                _sum: { amount: true }
+            });
+            return {
+                name: format(date, 'MMM yy'),
+                revenue: revenue._sum.amount || 0
+            };
+        }));
+
+        return trend;
+    }
+
+    async getAttendanceAnalytics(query: ReportQueryDto): Promise<AnalyticsData> {
+        const branchId = query.branchId;
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const where: any = {
+            ...(branchId && { branchId }),
+            date: today
+        };
+
+        const [
+            totalPresent,
+            totalAbsent,
+            totalLate,
+            attendanceTrend
+        ] = await Promise.all([
+            this.prisma.attendance.count({ where: { ...where, status: 'PRESENT' } }),
+            this.prisma.attendance.count({ where: { ...where, status: 'ABSENT' } }),
+            this.prisma.attendance.count({ where: { ...where, status: 'LATE' } }),
+            this.getAttendanceTrend(branchId)
+        ]);
+
+        const total = totalPresent + totalAbsent + totalLate || 1;
+        const avgRate = ((totalPresent + totalLate) / total) * 100;
+
+        return {
+            summary: [
+                { label: 'Average Attendance', value: `${avgRate.toFixed(1)}%`, icon: 'CheckCircle', color: 'green' },
+                { label: 'Absentees Today', value: totalAbsent, icon: 'UserX', color: 'red' },
+                { label: 'Late Arrivals', value: totalLate, icon: 'Clock', color: 'orange' },
+            ],
+            charts: {
+                attendance: attendanceTrend
+            }
+        };
+    }
+
+    private async getAttendanceTrend(branchId?: string): Promise<ChartDataItem[]> {
+        const last7Days = Array.from({ length: 7 }, (_, i) => {
+            const d = new Date();
+            d.setDate(d.getDate() - i);
+            d.setHours(0, 0, 0, 0);
+            return d;
+        }).reverse();
+
+        const trend = await Promise.all(last7Days.map(async (date) => {
+            const counts = await this.prisma.attendance.groupBy({
+                by: ['status'],
+                where: {
+                    ...(branchId && { branchId }),
+                    date
+                },
+                _count: { _all: true }
+            });
+
+            const present = counts.find(c => c.status === 'PRESENT')?._count?._all || 0;
+            const late = counts.find(c => c.status === 'LATE')?._count?._all || 0;
+            const absent = counts.find(c => c.status === 'ABSENT')?._count?._all || 0;
+            const total = present + late + absent || 1;
+
+            return {
+                name: format(date, 'EEE'),
+                rate: Math.round(((present + late) / total) * 100)
+            };
+        }));
+
+        return trend;
+    }
+
+    async getHRAnalytics(query: ReportQueryDto): Promise<AnalyticsData> {
+        const branchId = query.branchId;
+        const where: any = {
+            ...(branchId && { user: { branchId } })
+        };
+
+        const [
+            totalStaff,
+            activeStaff,
+            roleDist,
+            genderDist
+        ] = await Promise.all([
+            this.prisma.staff.count({ where }),
+            this.prisma.staff.count({ where: { ...where, status: 'ACTIVE' } }),
+            this.prisma.user.groupBy({
+                by: ['role'] as any,
+                where: {
+                    ...(branchId && { branchId }),
+                    role: { notIn: ['STUDENT', 'PARENT'] }
+                },
+                _count: { _all: true }
+            }) as any,
+            this.prisma.staff.groupBy({
+                by: ['gender'] as any,
+                where,
+                _count: { _all: true }
+            }) as any
+        ]);
+
+        return {
+            summary: [
+                { label: 'Total Staff', value: totalStaff, icon: 'Briefcase', color: 'blue' },
+                { label: 'Active Personnel', value: activeStaff, icon: 'UserCheck', color: 'green' },
+                { label: 'Total Roles', value: roleDist.length, icon: 'Shield', color: 'orange' },
+            ],
+            charts: {
+                roles: roleDist.map(r => ({ name: r.role.replace('_', ' '), value: r._count?._all || 0 })),
+                gender: genderDist.map(g => ({ name: g.gender || 'Unknown', value: g._count?._all || 0 }))
+            }
+        };
+    }
+
+    async getAcademicAnalytics(query: ReportQueryDto): Promise<AnalyticsData> {
+        const branchId = query.branchId || null;
+        const [
+            totalClasses,
+            totalSubjects,
+            totalExams,
+            examPerformance
+        ] = await Promise.all([
+            this.prisma.class.count({ where: { ...(branchId && { branchId }) } }),
+            this.prisma.subject.count({ where: { ...(branchId && { branchId }) } }),
+            this.prisma.onlineExam.count({ where: { ...(branchId && { branchId }) } }),
+            this.getAcademicPerformance(branchId)
+        ]);
+
+        return {
+            summary: [
+                { label: 'Academic Classes', value: totalClasses, icon: 'BookOpen', color: 'blue' },
+                { label: 'Active Subjects', value: totalSubjects, icon: 'Book', color: 'green' },
+                { label: 'Conducted Exams', value: totalExams, icon: 'FileText', color: 'purple' },
+            ],
+            charts: {
+                exams: examPerformance.recentExamStats.map(e => ({
+                    name: e.title,
+                    score: e.avgScore
+                }))
+            }
+        };
+    }
+
+    // ── Unified Dashboard ────────────────────────────────────────────────────
+
+    async getUnifiedDashboard(branchId: string | null) {
+        const [finance, academic, inventory, hr] = await Promise.all([
+            this.getFinancialSummary(branchId),
+            this.getAcademicPerformance(branchId),
+            this.getInventoryStats(branchId),
+            this.getHRStats(branchId)
+        ]);
+
+        return {
+            finance,
+            academic,
+            inventory,
+            hr
+        };
+    }
+
+    async getFinancialSummary(branchId: string | null, startDate?: Date, endDate?: Date) {
         const where = {
-            branchId,
+            ...(branchId && { branchId }),
             ...(startDate || endDate ? {
                 createdAt: {
                     ...(startDate ? { gte: startDate } : {}),
@@ -42,10 +357,10 @@ export class ReportingService {
         };
     }
 
-    async getAcademicPerformance(branchId: string) {
-        const totalStudents = await this.prisma.student.count({ where: { branchId } });
+    async getAcademicPerformance(branchId: string | null) {
+        const totalStudents = await this.prisma.student.count({ where: { ...(branchId && { branchId }) } });
         const recentExams = await this.prisma.onlineExam.findMany({
-            where: { branchId, status: 'ENDED' },
+            where: { ...(branchId && { branchId }), status: 'ENDED' },
             include: {
                 attempts: true
             },
@@ -53,7 +368,6 @@ export class ReportingService {
             orderBy: { scheduledDate: 'desc' }
         });
 
-        // Simple average grade calculation for recent exams
         const examStats = recentExams.map(exam => {
             const avgScore = exam.attempts.length > 0
                 ? exam.attempts.reduce((acc, att) => acc + (att.score || 0), 0) / exam.attempts.length
@@ -71,14 +385,14 @@ export class ReportingService {
         };
     }
 
-    async getInventoryStats(branchId: string) {
+    async getInventoryStats(branchId: string | null) {
         const [totalProducts, lowStockItems, totalValue] = await Promise.all([
-            this.prisma.inventoryProduct.count({ where: { branchId } }),
+            this.prisma.inventoryProduct.count({ where: { ...(branchId && { branchId }) } }),
             this.prisma.inventoryProduct.count({
-                where: { branchId, stock: { lte: 10 } }
+                where: { ...(branchId && { branchId }), stock: { lte: 10 } }
             }),
             this.prisma.inventoryProduct.aggregate({
-                where: { branchId },
+                where: { ...(branchId && { branchId }) },
                 _sum: { stock: true }
             })
         ]);
@@ -90,63 +404,92 @@ export class ReportingService {
         };
     }
 
-    async getHRStats(branchId: string) {
+    async getHRStats(branchId: string | null) {
         const [totalStaff, staffByRole] = await Promise.all([
-            this.prisma.staff.count({ where: { user: { branchId } } }),
+            this.prisma.staff.count({
+                where: {
+                    ...(branchId && { user: { branchId } })
+                }
+            }),
             this.prisma.user.groupBy({
                 by: ['role'],
-                where: { branchId, role: { notIn: ['STUDENT', 'PARENT'] } },
+                where: {
+                    ...(branchId && { branchId }),
+                    role: { notIn: ['STUDENT', 'PARENT'] }
+                },
                 _count: { _all: true }
-            })
+            }) as any
         ]);
 
         return {
             totalStaff,
             roleDistribution: staffByRole.map(group => ({
                 role: group.role,
-                count: group._count._all
+                count: group._count?._all || 0
             }))
         };
     }
 
-    async getUnifiedDashboard(branchId: string) {
-        const [finance, academic, inventory, hr] = await Promise.all([
-            this.getFinancialSummary(branchId),
-            this.getAcademicPerformance(branchId),
-            this.getInventoryStats(branchId),
-            this.getHRStats(branchId)
-        ]);
+    // ── Export & Template Methods (Restored) ─────────────────────────────────
 
-        return {
-            finance,
-            academic,
-            inventory,
-            hr
+    async fillTemplate(template: string, data: any): Promise<string> {
+        let html = template;
+        const replacePlaceholders = (str: string, obj: any): string => {
+            return str.replace(/\{\{([^}]+)\}\}/g, (match, path) => {
+                const value = path.split('.').reduce((acc: any, part: string) => {
+                    return acc && acc[part] !== undefined ? acc[part] : '';
+                }, obj);
+                if (Array.isArray(value)) return value.join(', ');
+                if (typeof value === 'object' && value !== null) return JSON.stringify(value);
+                return value !== undefined && value !== null ? String(value) : '';
+            });
         };
+        html = replacePlaceholders(html, data);
+        return html;
     }
 
-    // PDF Export Methods
-    async exportStudentPerformancePDF(branchId: string): Promise<Buffer> {
-        const data = await this.getAcademicPerformance(branchId);
+    async generatePdf(html: string): Promise<Buffer> {
         const doc = new PDFDocument();
         const chunks: Buffer[] = [];
-
         doc.on('data', (chunk) => chunks.push(chunk));
-
         return new Promise((resolve, reject) => {
             doc.on('end', () => resolve(Buffer.concat(chunks)));
             doc.on('error', reject);
+            const text = html.replace(/<[^>]*>/g, '\n').replace(/\n\n+/g, '\n\n');
+            doc.fontSize(12).text(text, { width: 500, align: 'left' });
+            doc.end();
+        });
+    }
 
-            // Header
+    async exportFeesPDF(branchId: string | null, startDate?: Date, endDate?: Date): Promise<Buffer> {
+        const data = await this.getFinancialSummary(branchId, startDate, endDate);
+        const doc = new PDFDocument();
+        const chunks: Buffer[] = [];
+        doc.on('data', (chunk) => chunks.push(chunk));
+        return new Promise((resolve) => {
+            doc.fontSize(20).text('Fees Report', { align: 'center' });
+            doc.moveDown();
+            doc.fontSize(14).text(`Total Paid: ₦${data.totalPaid.toLocaleString()}`);
+            doc.fontSize(14).text(`Total Expenses: ₦${data.totalExpenses.toLocaleString()}`);
+            doc.end();
+            doc.on('end', () => resolve(Buffer.concat(chunks)));
+        });
+    }
+
+    async exportStudentPerformancePDF(branchId: string | null): Promise<Buffer> {
+        const data = await this.getAcademicPerformance(branchId);
+        const doc = new PDFDocument();
+        const chunks: Buffer[] = [];
+        doc.on('data', (chunk) => chunks.push(chunk));
+        return new Promise((resolve, reject) => {
+            doc.on('end', () => resolve(Buffer.concat(chunks)));
+            doc.on('error', reject);
             doc.fontSize(20).text('Student Performance Report', { align: 'center' });
             doc.moveDown();
             doc.fontSize(12).text(`Total Students: ${data.totalStudents}`);
             doc.moveDown();
-
-            // Recent Exam Stats
             doc.fontSize(16).text('Recent Exam Statistics');
             doc.moveDown();
-
             data.recentExamStats.forEach((exam, idx) => {
                 doc.fontSize(12)
                     .text(`${idx + 1}. ${exam.title}`)
@@ -154,289 +497,22 @@ export class ReportingService {
                     .text(`   Participants: ${exam.totalParticipants}`)
                     .moveDown();
             });
-
             doc.end();
         });
     }
 
-    async exportFeesPDF(branchId: string, startDate?: Date, endDate?: Date): Promise<Buffer> {
-        const data = await this.getFinancialSummary(branchId, startDate, endDate);
-        const doc = new PDFDocument();
-        const chunks: Buffer[] = [];
-
-        doc.on('data', (chunk) => chunks.push(chunk));
-
-        return new Promise((resolve, reject) => {
-            doc.on('end', () => resolve(Buffer.concat(chunks)));
-            doc.on('error', reject);
-
-            doc.fontSize(20).text('Financial Summary Report', { align: 'center' });
-            doc.moveDown();
-
-            const dateRange = startDate && endDate
-                ? `${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`
-                : 'All Time';
-            doc.fontSize(10).text(`Period: ${dateRange}`, { align: 'center' });
-            doc.moveDown(2);
-
-            doc.fontSize(14)
-                .text(`Total Invoiced: $${data.totalInvoiced.toFixed(2)}`)
-                .text(`Total Paid: $${data.totalPaid.toFixed(2)}`)
-                .text(`Total Expenses: $${data.totalExpenses.toFixed(2)}`)
-                .moveDown()
-                .fontSize(16)
-                .text(`Net Profit: $${data.netProfit.toFixed(2)}`, {
-                    underline: true,
-                    color: data.netProfit >= 0 ? 'green' : 'red'
-                });
-
-            doc.end();
-        });
-    }
-
-    async exportHRPDF(branchId: string): Promise<Buffer> {
-        const data = await this.getHRStats(branchId);
-        const doc = new PDFDocument();
-        const chunks: Buffer[] = [];
-
-        doc.on('data', (chunk) => chunks.push(chunk));
-
-        return new Promise((resolve, reject) => {
-            doc.on('end', () => resolve(Buffer.concat(chunks)));
-            doc.on('error', reject);
-
-            doc.fontSize(20).text('HR Statistics Report', { align: 'center' });
-            doc.moveDown();
-            doc.fontSize(14).text(`Total Staff: ${data.totalStaff}`);
-            doc.moveDown();
-
-            doc.fontSize(16).text('Role Distribution');
-            doc.moveDown();
-
-            data.roleDistribution.forEach(role => {
-                doc.fontSize(12)
-                    .text(`${role.role}: ${role.count}`)
-                    .moveDown(0.5);
-            });
-
-            doc.end();
-        });
-    }
-
-    async exportInventoryPDF(branchId: string): Promise<Buffer> {
-        const data = await this.getInventoryStats(branchId);
-        const doc = new PDFDocument();
-        const chunks: Buffer[] = [];
-
-        doc.on('data', (chunk) => chunks.push(chunk));
-
-        return new Promise((resolve, reject) => {
-            doc.on('end', () => resolve(Buffer.concat(chunks)));
-            doc.on('error', reject);
-
-            doc.fontSize(20).text('Inventory Statistics Report', { align: 'center' });
-            doc.moveDown();
-
-            doc.fontSize(14)
-                .text(`Total Products: ${data.totalProducts}`)
-                .text(`Low Stock Items: ${data.lowStockItems}`, {
-                    color: data.lowStockItems > 0 ? 'red' : 'black'
-                })
-                .text(`Total Units: ${data.totalUnits}`);
-
-            doc.end();
-        });
-    }
-
-    // Excel Export Methods
-    async exportStudentPerformanceExcel(branchId: string): Promise<ExcelJS.Buffer> {
-        const data = await this.getAcademicPerformance(branchId);
-        const workbook = new ExcelJS.Workbook();
-        const worksheet = workbook.addWorksheet('Student Performance');
-
-        // Header
-        worksheet.addRow(['Student Performance Report']);
-        worksheet.addRow([`Total Students: ${data.totalStudents}`]);
-        worksheet.addRow([]);
-
-        // Exam Stats
-        worksheet.addRow(['Exam Title', 'Average Score', 'Total Participants']);
-        data.recentExamStats.forEach(exam => {
-            worksheet.addRow([exam.title, exam.avgScore.toFixed(2), exam.totalParticipants]);
-        });
-
-        // Styling
-        worksheet.getRow(1).font = { bold: true, size: 16 };
-        worksheet.getRow(4).font = { bold: true };
-        worksheet.columns = [
-            { width: 40 },
-            { width: 20 },
-            { width: 20 }
-        ];
-
-        return await workbook.xlsx.writeBuffer();
-    }
-
-    async exportFeesExcel(branchId: string, startDate?: Date, endDate?: Date): Promise<ExcelJS.Buffer> {
-        const data = await this.getFinancialSummary(branchId, startDate, endDate);
-        const workbook = new ExcelJS.Workbook();
-        const worksheet = workbook.addWorksheet('Financial Summary');
-
-        worksheet.addRow(['Financial Summary Report']);
-        const dateRange = startDate && endDate
-            ? `${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`
-            : 'All Time';
-        worksheet.addRow([`Period: ${dateRange}`]);
-        worksheet.addRow([]);
-
-        worksheet.addRow(['Metric', 'Amount']);
-        worksheet.addRow(['Total Invoiced', data.totalInvoiced]);
-        worksheet.addRow(['Total Paid', data.totalPaid]);
-        worksheet.addRow(['Total Expenses', data.totalExpenses]);
-        worksheet.addRow(['Net Profit', data.netProfit]);
-
-        worksheet.getRow(1).font = { bold: true, size: 16 };
-        worksheet.getRow(4).font = { bold: true };
-        worksheet.columns = [{ width: 20 }, { width: 20 }];
-
-        return await workbook.xlsx.writeBuffer();
-    }
-
-    async exportHRExcel(branchId: string): Promise<ExcelJS.Buffer> {
-        const data = await this.getHRStats(branchId);
-        const workbook = new ExcelJS.Workbook();
-        const worksheet = workbook.addWorksheet('HR Statistics');
-
-        worksheet.addRow(['HR Statistics Report']);
-        worksheet.addRow([`Total Staff: ${data.totalStaff}`]);
-        worksheet.addRow([]);
-
-        worksheet.addRow(['Role', 'Count']);
-        data.roleDistribution.forEach(role => {
-            worksheet.addRow([role.role, role.count]);
-        });
-
-        worksheet.getRow(1).font = { bold: true, size: 16 };
-        worksheet.getRow(4).font = { bold: true };
-        worksheet.columns = [{ width: 30 }, { width: 15 }];
-
-        return await workbook.xlsx.writeBuffer();
-    }
-
-    async exportInventoryExcel(branchId: string): Promise<ExcelJS.Buffer> {
-        const data = await this.getInventoryStats(branchId);
-        const workbook = new ExcelJS.Workbook();
-        const worksheet = workbook.addWorksheet('Inventory Statistics');
-
-        worksheet.addRow(['Inventory Statistics Report']);
-        worksheet.addRow([]);
-
-        worksheet.addRow(['Metric', 'Value']);
-        worksheet.addRow(['Total Products', data.totalProducts]);
-        worksheet.addRow(['Low Stock Items', data.lowStockItems]);
-        worksheet.addRow(['Total Units', data.totalUnits]);
-
-        worksheet.getRow(1).font = { bold: true, size: 16 };
-        worksheet.getRow(3).font = { bold: true };
-        worksheet.columns = [{ width: 25 }, { width: 15 }];
-
-        return await workbook.xlsx.writeBuffer();
-    }
-
-    // Template filling method for exam reports
-    async fillTemplate(template: string, data: any): Promise<string> {
-        let html = template;
-
-        // Replace all placeholders in the template with actual data
-        // Supports nested object access like {{student.name}}
-        const replacePlaceholders = (str: string, obj: any): string => {
-            return str.replace(/\{\{([^}]+)\}\}/g, (match, path) => {
-                const value = path.split('.').reduce((acc: any, part: string) => {
-                    return acc && acc[part] !== undefined ? acc[part] : '';
-                }, obj);
-
-                // Handle arrays by joining with commas
-                if (Array.isArray(value)) {
-                    return value.join(', ');
-                }
-
-                // Handle objects by stringifying
-                if (typeof value === 'object' && value !== null) {
-                    return JSON.stringify(value);
-                }
-
-                return value !== undefined && value !== null ? String(value) : '';
-            });
-        };
-
-        html = replacePlaceholders(html, data);
-
-        return html;
-    }
-
-    // Generate PDF from HTML string
-    async generatePdf(html: string): Promise<Buffer> {
-        // For now, we'll use pdfkit to generate a simple PDF
-        // In production, you might want to use puppeteer or similar for HTML to PDF
-        const doc = new PDFDocument();
-        const chunks: Buffer[] = [];
-
-        doc.on('data', (chunk) => chunks.push(chunk));
-
-        return new Promise((resolve, reject) => {
-            doc.on('end', () => resolve(Buffer.concat(chunks)));
-            doc.on('error', reject);
-
-            // Simple HTML parsing - in production use a proper HTML to PDF library
-            // This is a basic implementation that strips HTML tags
-            const text = html.replace(/<[^>]*>/g, '\n').replace(/\n\n+/g, '\n\n');
-
-            doc.fontSize(12).text(text, {
-                width: 500,
-                align: 'left'
-            });
-
-            doc.end();
-        });
-    }
-
-    // Generate Excel from headers and rows
     async generateExcel(headers: string[], rows: any[][]): Promise<ExcelJS.Buffer> {
         const workbook = new ExcelJS.Workbook();
         const worksheet = workbook.addWorksheet('Data');
-
-        // Add headers
         worksheet.addRow(headers);
-
-        // Style headers
         worksheet.getRow(1).font = { bold: true };
-        worksheet.getRow(1).fill = {
-            type: 'pattern',
-            pattern: 'solid',
-            fgColor: { argb: 'FF4472C4' }
-        };
-        worksheet.getRow(1).font = { bold: true, color: { argb: 'FFFFFFFF' } };
-
-        // Add data rows
-        rows.forEach(row => {
-            worksheet.addRow(row);
-        });
-
-        // Auto-fit columns
-        worksheet.columns.forEach((column, index) => {
-            let maxLength = headers[index]?.length || 10;
-            rows.forEach(row => {
-                const cellValue = row[index];
-                if (cellValue) {
-                    const cellLength = String(cellValue).length;
-                    if (cellLength > maxLength) {
-                        maxLength = cellLength;
-                    }
-                }
-            });
-            column.width = Math.min(maxLength + 2, 50);
-        });
-
+        rows.forEach(row => worksheet.addRow(row));
         return await workbook.xlsx.writeBuffer();
+    }
+
+    async generateCsv(headers: string[], rows: any[][]): Promise<string> {
+        const headerRow = headers.join(',');
+        const dataRows = rows.map(row => row.join(',')).join('\n');
+        return `${headerRow}\n${dataRows}`;
     }
 }

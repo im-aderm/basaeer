@@ -24,12 +24,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 7.2.0
- * Query Engine version: 0c8ef2ce45c83248ab3df073180d5eda9e8be7a3
+ * Prisma Client JS version: 7.8.0
+ * Query Engine version: 3c6e192761c0362d496ed980de936e2f3cebcd3a
  */
 Prisma.prismaVersion = {
-  client: "7.2.0",
-  engine: "0c8ef2ce45c83248ab3df073180d5eda9e8be7a3"
+  client: "7.8.0",
+  engine: "3c6e192761c0362d496ed980de936e2f3cebcd3a"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -168,6 +168,52 @@ exports.Prisma.UserScalarFieldEnum = {
   resetTokenExpires: 'resetTokenExpires'
 };
 
+exports.Prisma.UserPreferenceScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  theme: 'theme',
+  language: 'language',
+  sidebarCollapsed: 'sidebarCollapsed',
+  dashboardWidgets: 'dashboardWidgets',
+  notifications: 'notifications',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ModuleConfigurationScalarFieldEnum = {
+  id: 'id',
+  moduleKey: 'moduleKey',
+  isEnabled: 'isEnabled',
+  config: 'config',
+  branchId: 'branchId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TranslationScalarFieldEnum = {
+  id: 'id',
+  locale: 'locale',
+  group: 'group',
+  key: 'key',
+  value: 'value',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ScheduledJobScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  cron: 'cron',
+  lastRun: 'lastRun',
+  nextRun: 'nextRun',
+  status: 'status',
+  lastResult: 'lastResult',
+  errorCount: 'errorCount',
+  isEnabled: 'isEnabled',
+  branchId: 'branchId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.StaffScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -302,6 +348,7 @@ exports.Prisma.AttendanceScalarFieldEnum = {
   remarks: 'remarks',
   studentId: 'studentId',
   sectionId: 'sectionId',
+  sessionId: 'sessionId',
   branchId: 'branchId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -1320,6 +1367,240 @@ exports.Prisma.DigitalResourceLogScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.EmailTemplateScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  subject: 'subject',
+  body: 'body',
+  variables: 'variables',
+  type: 'type',
+  branchId: 'branchId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SmsTemplateScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  content: 'content',
+  variables: 'variables',
+  type: 'type',
+  branchId: 'branchId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.NotificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  title: 'title',
+  message: 'message',
+  type: 'type',
+  isRead: 'isRead',
+  branchId: 'branchId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.NotificationPreferenceScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  email: 'email',
+  sms: 'sms',
+  inApp: 'inApp',
+  branchId: 'branchId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CampaignScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  type: 'type',
+  status: 'status',
+  scheduledAt: 'scheduledAt',
+  branchId: 'branchId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CampaignRecipientScalarFieldEnum = {
+  id: 'id',
+  campaignId: 'campaignId',
+  userId: 'userId',
+  status: 'status',
+  deliveryLog: 'deliveryLog',
+  branchId: 'branchId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AttendanceSessionScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  date: 'date',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  classId: 'classId',
+  sectionId: 'sectionId',
+  subjectId: 'subjectId',
+  teacherId: 'teacherId',
+  branchId: 'branchId',
+  isActive: 'isActive',
+  isLocked: 'isLocked',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AttendanceScanScalarFieldEnum = {
+  id: 'id',
+  studentId: 'studentId',
+  sessionId: 'sessionId',
+  scanTime: 'scanTime',
+  deviceInfo: 'deviceInfo',
+  ipAddress: 'ipAddress',
+  isOffline: 'isOffline',
+  branchId: 'branchId'
+};
+
+exports.Prisma.QueueJobLogScalarFieldEnum = {
+  id: 'id',
+  jobId: 'jobId',
+  queueName: 'queueName',
+  name: 'name',
+  status: 'status',
+  data: 'data',
+  result: 'result',
+  error: 'error',
+  branchId: 'branchId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AutomationExecutionScalarFieldEnum = {
+  id: 'id',
+  configId: 'configId',
+  status: 'status',
+  executedAt: 'executedAt',
+  result: 'result',
+  branchId: 'branchId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MessageDeliveryLogScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  recipient: 'recipient',
+  status: 'status',
+  providerResponse: 'providerResponse',
+  branchId: 'branchId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ProviderHealthLogScalarFieldEnum = {
+  id: 'id',
+  providerType: 'providerType',
+  providerName: 'providerName',
+  status: 'status',
+  latency: 'latency',
+  error: 'error',
+  branchId: 'branchId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.WebhookEventScalarFieldEnum = {
+  id: 'id',
+  providerName: 'providerName',
+  payload: 'payload',
+  eventType: 'eventType',
+  status: 'status',
+  error: 'error',
+  branchId: 'branchId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.DeliveryWebhookLogScalarFieldEnum = {
+  id: 'id',
+  messageId: 'messageId',
+  providerMessageId: 'providerMessageId',
+  status: 'status',
+  payload: 'payload',
+  branchId: 'branchId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.RealtimeConnectionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  socketId: 'socketId',
+  deviceInfo: 'deviceInfo',
+  branchId: 'branchId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.QueueMetricScalarFieldEnum = {
+  id: 'id',
+  queueName: 'queueName',
+  waitingCount: 'waitingCount',
+  activeCount: 'activeCount',
+  completedCount: 'completedCount',
+  failedCount: 'failedCount',
+  delayedCount: 'delayedCount',
+  branchId: 'branchId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ProviderFailoverEventScalarFieldEnum = {
+  id: 'id',
+  failedProvider: 'failedProvider',
+  targetProvider: 'targetProvider',
+  reason: 'reason',
+  providerType: 'providerType',
+  branchId: 'branchId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MessageRetryEventScalarFieldEnum = {
+  id: 'id',
+  messageId: 'messageId',
+  retryCount: 'retryCount',
+  error: 'error',
+  nextRetryAt: 'nextRetryAt',
+  status: 'status',
+  branchId: 'branchId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ProviderBalanceSnapshotScalarFieldEnum = {
+  id: 'id',
+  providerName: 'providerName',
+  balance: 'balance',
+  currency: 'currency',
+  branchId: 'branchId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.NotificationDeliveryEventScalarFieldEnum = {
+  id: 'id',
+  notificationId: 'notificationId',
+  channel: 'channel',
+  status: 'status',
+  error: 'error',
+  branchId: 'branchId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1367,7 +1648,10 @@ exports.AttendanceStatus = exports.$Enums.AttendanceStatus = {
   PRESENT: 'PRESENT',
   ABSENT: 'ABSENT',
   LATE: 'LATE',
-  EXCUSED: 'EXCUSED'
+  EXCUSED: 'EXCUSED',
+  SICK: 'SICK',
+  LEAVE: 'LEAVE',
+  HALF_DAY: 'HALF_DAY'
 };
 
 exports.HostelType = exports.$Enums.HostelType = {
@@ -1446,6 +1730,10 @@ exports.Prisma.ModelName = {
   DeactivationReason: 'DeactivationReason',
   LoginDeactivation: 'LoginDeactivation',
   User: 'User',
+  UserPreference: 'UserPreference',
+  ModuleConfiguration: 'ModuleConfiguration',
+  Translation: 'Translation',
+  ScheduledJob: 'ScheduledJob',
   Staff: 'Staff',
   Student: 'Student',
   Certificate: 'Certificate',
@@ -1530,7 +1818,27 @@ exports.Prisma.ModelName = {
   IdCardTemplate: 'IdCardTemplate',
   IdCard: 'IdCard',
   DigitalResource: 'DigitalResource',
-  DigitalResourceLog: 'DigitalResourceLog'
+  DigitalResourceLog: 'DigitalResourceLog',
+  EmailTemplate: 'EmailTemplate',
+  SmsTemplate: 'SmsTemplate',
+  Notification: 'Notification',
+  NotificationPreference: 'NotificationPreference',
+  Campaign: 'Campaign',
+  CampaignRecipient: 'CampaignRecipient',
+  AttendanceSession: 'AttendanceSession',
+  AttendanceScan: 'AttendanceScan',
+  QueueJobLog: 'QueueJobLog',
+  AutomationExecution: 'AutomationExecution',
+  MessageDeliveryLog: 'MessageDeliveryLog',
+  ProviderHealthLog: 'ProviderHealthLog',
+  WebhookEvent: 'WebhookEvent',
+  DeliveryWebhookLog: 'DeliveryWebhookLog',
+  RealtimeConnection: 'RealtimeConnection',
+  QueueMetric: 'QueueMetric',
+  ProviderFailoverEvent: 'ProviderFailoverEvent',
+  MessageRetryEvent: 'MessageRetryEvent',
+  ProviderBalanceSnapshot: 'ProviderBalanceSnapshot',
+  NotificationDeliveryEvent: 'NotificationDeliveryEvent'
 };
 
 /**

@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { OnlineAdmissionService } from "@/services/onlineAdmissionService";
 import { ClassService, Class, Section } from "@/services/classService";
 import { SessionService, AcademicSession } from "@/services/sessionService";
 import { StudentService, StudentCategory } from "@/services/studentService";
 import { StakeholderService } from "@/services/stakeholderService";
+import { UploadService } from "@/services/uploadService";
 import {
     UserPlus,
     Loader2,
@@ -21,6 +22,8 @@ import {
 import { toast } from "sonner";
 
 export default function AdmissionPage() {
+    const fileInputRef = useRef<HTMLInputElement>(null);
+    const [currentUploadField, setCurrentUploadField] = useState<string | null>(null);
     const [classes, setClasses] = useState<Class[]>([]);
     const [sections, setSections] = useState<Section[]>([]);
     const [sessions, setSessions] = useState<AcademicSession[]>([]);
@@ -101,10 +104,28 @@ export default function AdmissionPage() {
         setSections(selectedClass?.sections || []);
     };
 
-    const handleFileUpload = (field: string) => {
-        const mockUrl = `https://storage.bmsms.edu/uploads/${field}_${Date.now()}.jpg`;
-        setFormData({ ...formData, [field]: mockUrl });
-        toast.success(`${field.replace(/([A-Z])/g, ' $1')} uploaded`);
+    const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file || !currentUploadField) return;
+
+        setSubmitting(true);
+        try {
+            const response = await UploadService.uploadAdmissionDocument(file, currentUploadField);
+            setFormData((prev: any) => ({ ...prev, [currentUploadField]: response.url }));
+            toast.success(`${currentUploadField.replace(/([A-Z])/g, ' $1')} uploaded`);
+        } catch (error) {
+            console.error("Upload failed:", error);
+            toast.error(`Failed to upload file`);
+        } finally {
+            setSubmitting(false);
+            setCurrentUploadField(null);
+            if (fileInputRef.current) fileInputRef.current.value = "";
+        }
+    };
+
+    const triggerUpload = (field: string) => {
+        setCurrentUploadField(field);
+        fileInputRef.current?.click();
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -152,6 +173,13 @@ export default function AdmissionPage() {
 
     return (
         <div className="max-w-5xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-6 duration-700 pb-20 px-4 md:px-0">
+            <input
+                type="file"
+                ref={fileInputRef}
+                className="hidden"
+                onChange={handleFileChange}
+                accept="image/*,.pdf"
+            />
             <div className="space-y-4">
                 <h1 className="text-6xl font-semibold tracking-tight leading-tight">Student Admission</h1>
                 <p className="text-muted-foreground text-xl font-medium">Simplified Enrollment & Data Harmonization.</p>
@@ -193,7 +221,7 @@ export default function AdmissionPage() {
                     <div className="space-y-3">
                         <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Passport Photo</label>
                         <div className="flex items-center gap-4">
-                            <button type="button" onClick={() => handleFileUpload('passportPhoto')} className="px-6 py-3 bg-muted rounded-xl font-bold flex items-center gap-2 hover:bg-muted/80">
+                            <button type="button" onClick={() => triggerUpload('passportPhoto')} className="px-6 py-3 bg-muted rounded-xl font-bold flex items-center gap-2 hover:bg-muted/80">
                                 <Upload size={16} /> Upload Photo
                             </button>
                             {formData.passportPhoto && <span className="text-green-500 font-bold text-xs flex items-center gap-1"><CheckCircle2 size={12} /> OK</span>}
@@ -383,7 +411,7 @@ export default function AdmissionPage() {
                             <div key={doc.id} className="p-8 bg-muted/20 border-2 border-dashed border-border rounded-3xl flex flex-col items-center gap-4 text-center group hover:border-primary/50 transition-colors">
                                 <FileText size={32} className="text-muted-foreground group-hover:text-primary transition-colors" />
                                 <h4 className="font-semibold text-sm">{doc.name}</h4>
-                                <button type="button" onClick={() => handleFileUpload(doc.id)} className="w-full py-3 bg-muted rounded-xl font-semibold text-xs hover:bg-muted/80 transition-all">
+                                <button type="button" onClick={() => triggerUpload(doc.id)} className="w-full py-3 bg-muted rounded-xl font-semibold text-xs hover:bg-muted/80 transition-all">
                                     {formData[doc.id] ? "Change File" : "Choose File"}
                                 </button>
                                 {formData[doc.id] && <span className="text-green-500 font-bold text-xs flex items-center gap-1"><CheckCircle2 size={12} /> Ready</span>}

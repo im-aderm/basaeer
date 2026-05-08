@@ -18,14 +18,12 @@ export default function DashboardPage() {
     useEffect(() => {
         const fetchStats = async () => {
             try {
-                const [stdRes, staffRes] = await Promise.all([
-                    api.get("/students"),
-                    api.get("/employees")
-                ]);
+                const response = await api.get("/reporting/dashboard");
+                const data = response.data;
                 setStats({
-                    students: stdRes.data.length,
-                    staff: staffRes.data.length,
-                    revenue: "₦0.0"
+                    students: data.academic.totalStudents || 0,
+                    staff: data.hr.totalStaff || 0,
+                    revenue: `₦${data.finance.totalPaid?.toLocaleString() || '0.0'}`
                 });
             } catch (error) {
                 console.error("Failed to fetch dashboard stats:", error);

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, UseGuards, Request } from '@nestjs/common';
+import { Controller, Get, Post, Body, UseGuards, Request, Param } from '@nestjs/common';
 import { SettingsService } from './settings.service';
 import { UpdateSettingDto } from './dto/update-setting.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -14,15 +14,24 @@ export class SettingsController {
     @Get()
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
     getSettings(@Request() req) {
-        // If super admin, they can see all. If branch admin, only their branch + global.
         const branchId = req.user.role === UserRole.SUPER_ADMIN ? undefined : req.user.branchId;
         return this.settingsService.getSettings(branchId);
     }
 
+    @Get(':key')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+    getSettingByKey(@Param('key') key: string, @Request() req) {
+        const branchId = req.user.role === UserRole.SUPER_ADMIN ? undefined : req.user.branchId;
+        return this.settingsService.getSettingByKey(key, branchId);
+    }
+
     @Post()
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-    updateSetting(@Body() dto: UpdateSettingDto, @Request() req) {
+    updateSettings(@Body() dto: UpdateSettingDto | UpdateSettingDto[], @Request() req) {
         const branchId = req.user.role === UserRole.SUPER_ADMIN ? undefined : req.user.branchId;
+        if (Array.isArray(dto)) {
+            return this.settingsService.upsertSettings(dto, branchId);
+        }
         return this.settingsService.updateSetting(dto, branchId);
     }
 }

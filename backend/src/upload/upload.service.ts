@@ -1,6 +1,7 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import * as fs from 'fs';
 import * as path from 'path';
+import * as crypto from 'crypto';
 
 @Injectable()
 export class UploadService {
@@ -18,40 +19,40 @@ export class UploadService {
       throw new BadRequestException('No file provided');
     }
 
-    // Validate file size (5MB max)
-    const maxSize = 5 * 1024 * 1024; // 5MB
-    if (file.size > maxSize) {
-      throw new BadRequestException(`File size exceeds 5MB limit (${(file.size / 1024 / 1024).toFixed(2)}MB)`);
-    }
-
-    // Validate file type
+    // Strict MIME type check
     const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/webp', 'application/pdf'];
     if (!allowedMimeTypes.includes(file.mimetype)) {
       throw new BadRequestException('Only JPEG, PNG, WebP images and PDF files are allowed');
     }
 
-    // Create subfolder if provided
-    const targetDir = subFolder
-      ? path.join(this.uploadDir, subFolder)
+    // Validate file size (5MB max)
+    const maxSize = 5 * 1024 * 1024;
+    if (file.size > maxSize) {
+      throw new BadRequestException(`File size exceeds 5MB limit`);
+    }
+
+    // Sanitize subFolder to prevent directory traversal
+    const safeSubFolder = subFolder ? subFolder.replace(/[^a-zA-Z0-9_-]/g, '') : '';
+    const targetDir = safeSubFolder
+      ? path.join(this.uploadDir, safeSubFolder)
       : this.uploadDir;
 
     if (!fs.existsSync(targetDir)) {
       fs.mkdirSync(targetDir, { recursive: true });
     }
 
-    // Generate unique filename
+    // Generate secure unique filename
     const ext = this.getFileExtension(file.mimetype);
-    const timestamp = Date.now();
-    const randomStr = Math.random().toString(36).substring(2, 8);
-    const filename = `${timestamp}_${randomStr}${ext}`;
+    const randomStr = crypto.randomBytes(8).toString('hex');
+    const filename = `${Date.now()}_${randomStr}${ext}`;
     const filepath = path.join(targetDir, filename);
 
     // Write file to disk
     fs.writeFileSync(filepath, file.buffer);
 
     // Return the public URL
-    const publicPath = subFolder
-      ? `/public/uploads/admissions/${subFolder}/${filename}`
+    const publicPath = safeSubFolder
+      ? `/public/uploads/admissions/${safeSubFolder}/${filename}`
       : `/public/uploads/admissions/${filename}`;
 
     return publicPath;

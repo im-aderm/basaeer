@@ -5,6 +5,7 @@ import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 import { UserRole } from '../generated/client/client';
 import { Response } from 'express';
+import { StudentReportQueryDto, FinanceReportQueryDto, ReportQueryDto } from './dto/report-query.dto';
 
 @Controller('reporting')
 @UseGuards(JwtAuthGuard, RolesGuard)
@@ -17,49 +18,66 @@ export class ReportingController {
         return this.reportingService.getUnifiedDashboard(req.user.branchId);
     }
 
+    @Get('students')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+    getStudentAnalytics(@Request() req, @Query() query: StudentReportQueryDto) {
+        return this.reportingService.getStudentAnalytics({
+            ...query,
+            branchId: req.user.role === UserRole.SUPER_ADMIN ? query.branchId : req.user.branchId
+        });
+    }
+
     @Get('finance')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.ACCOUNTANT)
-    getFinance(@Request() req, @Query('start') start?: string, @Query('end') end?: string) {
-        return this.reportingService.getFinancialSummary(
-            req.user.branchId,
-            start ? new Date(start) : undefined,
-            end ? new Date(end) : undefined
-        );
-    }
-
-    @Get('academic')
-    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
-    getAcademic(@Request() req) {
-        return this.reportingService.getAcademicPerformance(req.user.branchId);
-    }
-
-    @Get('inventory')
-    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-    getInventory(@Request() req) {
-        return this.reportingService.getInventoryStats(req.user.branchId);
+    getFinanceAnalytics(@Request() req, @Query() query: FinanceReportQueryDto) {
+        return this.reportingService.getFinanceAnalytics({
+            ...query,
+            branchId: req.user.role === UserRole.SUPER_ADMIN ? query.branchId : req.user.branchId
+        });
     }
 
     @Get('hr')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
-    getHR(@Request() req) {
-        return this.reportingService.getHRStats(req.user.branchId);
+    getHRAnalytics(@Request() req, @Query() query: ReportQueryDto) {
+        return this.reportingService.getHRAnalytics({
+            ...query,
+            branchId: req.user.role === UserRole.SUPER_ADMIN ? query.branchId : req.user.branchId
+        });
     }
 
-    // PDF Export Endpoints
-    @Get('export/student-performance/pdf')
+    @Get('academic')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
-    async exportStudentPerformancePDF(@Request() req, @Res() res: Response) {
+    getAcademicAnalytics(@Request() req, @Query() query: ReportQueryDto) {
+        return this.reportingService.getAcademicAnalytics({
+            ...query,
+            branchId: req.user.role === UserRole.SUPER_ADMIN ? query.branchId : req.user.branchId
+        });
+    }
+
+    @Get('attendance')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
+    getAttendanceAnalytics(@Request() req, @Query() query: ReportQueryDto) {
+        return this.reportingService.getAttendanceAnalytics({
+            ...query,
+            branchId: req.user.role === UserRole.SUPER_ADMIN ? query.branchId : req.user.branchId
+        });
+    }
+
+    @Get('export/performance')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+    async exportPerformance(@Request() req, @Res() res: Response) {
         const buffer = await this.reportingService.exportStudentPerformancePDF(req.user.branchId);
         res.set({
             'Content-Type': 'application/pdf',
-            'Content-Disposition': 'attachment; filename=student-performance.pdf',
+            'Content-Disposition': 'attachment; filename=performance_report.pdf',
+            'Content-Length': buffer.length,
         });
-        res.send(buffer);
+        res.end(buffer);
     }
 
-    @Get('export/fees/pdf')
+    @Get('export/finance')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.ACCOUNTANT)
-    async exportFeesPDF(@Request() req, @Res() res: Response, @Query('start') start?: string, @Query('end') end?: string) {
+    async exportFinance(@Request() req, @Query('start') start: string, @Query('end') end: string, @Res() res: Response) {
         const buffer = await this.reportingService.exportFeesPDF(
             req.user.branchId,
             start ? new Date(start) : undefined,
@@ -67,79 +85,9 @@ export class ReportingController {
         );
         res.set({
             'Content-Type': 'application/pdf',
-            'Content-Disposition': 'attachment; filename=fees-report.pdf',
+            'Content-Disposition': 'attachment; filename=finance_report.pdf',
+            'Content-Length': buffer.length,
         });
-        res.send(buffer);
-    }
-
-    @Get('export/hr/pdf')
-    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
-    async exportHRPDF(@Request() req, @Res() res: Response) {
-        const buffer = await this.reportingService.exportHRPDF(req.user.branchId);
-        res.set({
-            'Content-Type': 'application/pdf',
-            'Content-Disposition': 'attachment; filename=hr-report.pdf',
-        });
-        res.send(buffer);
-    }
-
-    @Get('export/inventory/pdf')
-    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-    async exportInventoryPDF(@Request() req, @Res() res: Response) {
-        const buffer = await this.reportingService.exportInventoryPDF(req.user.branchId);
-        res.set({
-            'Content-Type': 'application/pdf',
-            'Content-Disposition': 'attachment; filename=inventory-report.pdf',
-        });
-        res.send(buffer);
-    }
-
-    // Excel Export Endpoints
-    @Get('export/student-performance/excel')
-    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
-    async exportStudentPerformanceExcel(@Request() req, @Res() res: Response) {
-        const buffer = await this.reportingService.exportStudentPerformanceExcel(req.user.branchId);
-        res.set({
-            'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-            'Content-Disposition': 'attachment; filename=student-performance.xlsx',
-        });
-        res.send(buffer);
-    }
-
-    @Get('export/fees/excel')
-    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.ACCOUNTANT)
-    async exportFeesExcel(@Request() req, @Res() res: Response, @Query('start') start?: string, @Query('end') end?: string) {
-        const buffer = await this.reportingService.exportFeesExcel(
-            req.user.branchId,
-            start ? new Date(start) : undefined,
-            end ? new Date(end) : undefined
-        );
-        res.set({
-            'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-            'Content-Disposition': 'attachment; filename=fees-report.xlsx',
-        });
-        res.send(buffer);
-    }
-
-    @Get('export/hr/excel')
-    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
-    async exportHRExcel(@Request() req, @Res() res: Response) {
-        const buffer = await this.reportingService.exportHRExcel(req.user.branchId);
-        res.set({
-            'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-            'Content-Disposition': 'attachment; filename=hr-report.xlsx',
-        });
-        res.send(buffer);
-    }
-
-    @Get('export/inventory/excel')
-    @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-    async exportInventoryExcel(@Request() req, @Res() res: Response) {
-        const buffer = await this.reportingService.exportInventoryExcel(req.user.branchId);
-        res.set({
-            'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-            'Content-Disposition': 'attachment; filename=inventory-report.xlsx',
-        });
-        res.send(buffer);
+        res.end(buffer);
     }
 }

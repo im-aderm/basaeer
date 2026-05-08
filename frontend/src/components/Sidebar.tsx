@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
+import { isFeatureEnabled } from "@/lib/feature-flags";
 import {
     LayoutDashboard,
     Box,
@@ -105,7 +106,6 @@ const navigation: NavItem[] = [
             { title: "Create Admission", href: "/dashboard/students/admission" },
             { title: "Admission Management", href: "/dashboard/students/admission/manage" },
             { title: "Online Admission", href: "/dashboard/students/online" },
-            { title: "Multi Class", href: "/dashboard/students/multi-class" },
             { title: "Multiple Import", href: "/dashboard/students/import" },
             { title: "Category", href: "/dashboard/students/category" },
         ],
@@ -250,7 +250,8 @@ const navigation: NavItem[] = [
         title: "Attendance",
         icon: Clock,
         children: [
-            { title: "Student", href: "/dashboard/attendance/student" },
+            { title: "Manage Sessions", href: "/dashboard/attendance/sessions" },
+            { title: "Student Attendance", href: "/dashboard/attendance/student" },
             { title: "Subject Wise", href: "/dashboard/attendance/subject" },
             { title: "Employee", href: "/dashboard/attendance/employee" },
             { title: "Exam", href: "/dashboard/attendance/exam" },
@@ -315,12 +316,12 @@ const navigation: NavItem[] = [
         title: "Reports",
         icon: FileBarChart,
         children: [
-            { title: "Student Reports", href: "/dashboard/reports/students", isBeta: true },
-            { title: "Fees Reports", href: "/dashboard/reports/fees", isBeta: true },
-            { title: "Financial Reports", href: "/dashboard/reports/financial", isBeta: true },
-            { title: "Attendance Reports", href: "/dashboard/reports/attendance", isBeta: true },
-            { title: "Human Resource Reports", href: "/dashboard/reports/hr", isBeta: true },
-            { title: "Examination Reports", href: "/dashboard/reports/exams", isBeta: true },
+            { title: "Student Reports", href: "/dashboard/reports/students" },
+            { title: "Fees Reports", href: "/dashboard/reports/fees" },
+            { title: "Financial Reports", href: "/dashboard/reports/financial" },
+            { title: "Attendance Reports", href: "/dashboard/reports/attendance" },
+            { title: "Human Resource Reports", href: "/dashboard/reports/hr" },
+            { title: "Examination Reports", href: "/dashboard/reports/exams" },
             { title: "Inventory Reports", href: "/dashboard/reports/inventory" },
         ],
     },
@@ -509,7 +510,7 @@ export function Sidebar() {
     }, [isCollapsed]);
 
     const canSee = useCallback((item: NavItem | NavChild): boolean => {
-        if (item.isBeta) return false;
+        if (item.isBeta && !isFeatureEnabled('SHOW_BETA_FEATURES')) return false;
         if (!('roles' in item) || !item.roles) return true;
         if (!user) return false;
         return item.roles.includes(user.role);

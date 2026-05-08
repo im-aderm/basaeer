@@ -79,11 +79,29 @@ export class StudentsService {
       skip: skip ? Number(skip) : undefined,
       take: take ? Number(take) : 100,
       include: {
-        user: true,
-        class: true,
-        section: true,
-        transportAssignment: true,
-        assessmentRecords: true,
+        user: {
+          select: {
+            id: true,
+            email: true,
+            firstName: true,
+            lastName: true,
+            phone: true,
+            isActive: true,
+            role: true,
+          }
+        },
+        class: {
+          select: {
+            id: true,
+            name: true,
+          }
+        },
+        section: {
+          select: {
+            id: true,
+            name: true,
+          }
+        },
       }
     });
   }
@@ -92,10 +110,28 @@ export class StudentsService {
     const student = await this.prisma.student.findFirst({
       where: TenantHelper.applyIsolation({ id }, context),
       include: {
-        user: true,
+        user: {
+          select: {
+            id: true,
+            email: true,
+            firstName: true,
+            lastName: true,
+            phone: true,
+            isActive: true,
+            role: true,
+          }
+        },
         class: true,
         section: true,
-        parent: { include: { student: true } },
+        parent: {
+          select: {
+            id: true,
+            email: true,
+            firstName: true,
+            lastName: true,
+            phone: true,
+          }
+        },
         attendance: { take: 30, orderBy: { date: 'desc' } },
         transportAssignment: { include: { route: true, vehicle: true } },
         certificates: true

@@ -6,4 +6,5 @@ export class CreateAttendanceDto {
     remarks?: string;
     studentId: string;
     sectionId?: string;
+    sessionId?: string;
 }

@@ -1,6 +1,15 @@
 {
+  "name": "basaeer-monorepo",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend",
+    "packages/*"
+  ],
   "scripts": {
-    "build": "npm install --prefix frontend && npm run build --prefix frontend"
+    "build": "npm run build --workspaces",
+    "lint": "npm run lint --workspaces",
+    "test": "npm run test --workspaces"
   },
   "dependencies": {
     "ts-node": "^10.9.2"

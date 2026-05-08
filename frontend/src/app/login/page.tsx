@@ -22,7 +22,8 @@ export default function LoginPage() {
         try {
             const res = await api.post("/auth/login", { email, password });
             // login() is now async — await it to ensure profile is fetched before navigation
-            await login(res.data.user);
+            // pass both user and access_token
+            await login(res.data.user, res.data.access_token);
         } catch (err: unknown) {
             const axiosError = err as { response?: { status?: number; data?: { message?: string } } };
             if (axiosError.response?.status === 401) {

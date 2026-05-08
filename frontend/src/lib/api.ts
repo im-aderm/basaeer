@@ -3,6 +3,9 @@ import axios from 'axios';
 const api = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001',
     withCredentials: true, // Crucial for sending/receiving httpOnly auth cookies across domains
+    headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+    }
 });
 
 // ── Response Interceptor: handle expired/invalid sessions ────────────────────

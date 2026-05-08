@@ -1,6 +1,7 @@
 import api from "@/lib/api";
+import { UserRole } from "@basaeer/shared-types";
 
-export interface UserBasicInfo { id?: string; firstName?: string; lastName?: string; email?: string; phone?: string; role?: string; }
+export interface UserBasicInfo { id?: string; firstName?: string; lastName?: string; email?: string; phone?: string; role?: UserRole; }
 export interface ParentBasicInfo { id?: string; userId?: string; user?: UserBasicInfo; }
 export interface ClassBasicInfo { id?: string; name: string; gradeLevel?: number; }
 export interface SectionBasicInfo { id?: string; name: string; classId?: string; }

@@ -24,6 +24,14 @@ import { SessionService, AcademicSession } from "@/services/sessionService";
 import { CardService, IdCardTemplate, IdCard } from "@/services/cardService";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
+import { QRCodeSVG } from "qrcode.react";
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog";
 
 export default function StudentIdCardsPage() {
     const { user } = useAuth();
@@ -44,6 +52,7 @@ export default function StudentIdCardsPage() {
     });
 
     const [selectedStudents, setSelectedStudents] = useState<string[]>([]);
+    const [previewCard, setPreviewCard] = useState<any>(null);
 
     const fetchData = async () => {
         setLoading(true);
@@ -282,7 +291,12 @@ export default function StudentIdCardsPage() {
                                                 <div className="flex items-center justify-end gap-2">
                                                     {card && (
                                                         <>
-                                                            <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl hover:bg-primary/10 text-primary">
+                                                            <Button 
+                                                                variant="ghost" 
+                                                                size="icon" 
+                                                                className="h-10 w-10 rounded-xl hover:bg-primary/10 text-primary"
+                                                                onClick={() => setPreviewCard(card)}
+                                                            >
                                                                 <Printer size={18} />
                                                             </Button>
                                                             <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl hover:bg-primary/10 text-primary">
@@ -303,6 +317,65 @@ export default function StudentIdCardsPage() {
                     </div>
                 </CardContent>
             </Card>
+
+            {/* ID Card Preview Dialog */}
+            <Dialog open={!!previewCard} onOpenChange={(open) => !open && setPreviewCard(null)}>
+                <DialogContent className="max-w-md rounded-[3rem] p-0 overflow-hidden border-none shadow-2xl">
+                    {previewCard && (
+                        <div className="bg-white p-10 space-y-8 flex flex-col items-center text-center">
+                            <div className="w-32 h-32 rounded-3xl overflow-hidden border-4 border-primary/10 bg-muted mb-4 shadow-xl">
+                                {previewCard.student?.passportPhoto ? (
+                                    <img src={previewCard.student.passportPhoto} className="w-full h-full object-cover" />
+                                ) : (
+                                    <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                                        <Users size={40} />
+                                    </div>
+                                )}
+                            </div>
+
+                            <div className="space-y-1">
+                                <h2 className="text-3xl font-black text-slate-800 uppercase tracking-tight leading-none">
+                                    {previewCard.student?.firstName} {previewCard.student?.lastName}
+                                </h2>
+                                <p className="text-xl font-bold text-primary uppercase tracking-widest">Student ID</p>
+                                <div className="text-sm font-black text-slate-400 mt-2">
+                                    REG: {previewCard.student?.id.split('-')[0].toUpperCase()}
+                                </div>
+                            </div>
+
+                            <div className="p-6 bg-slate-50 rounded-[2.5rem] border-2 border-dashed border-slate-200">
+                                <QRCodeSVG 
+                                    value={previewCard.qrPayload || ''} 
+                                    size={160}
+                                    level="H"
+                                    includeMargin={false}
+                                    className="rounded-xl"
+                                />
+                            </div>
+
+                            <div className="w-full grid grid-cols-2 gap-4 text-left pt-4 border-t border-slate-100">
+                                <div>
+                                    <span className="text-[10px] font-black text-slate-400 uppercase block">Class</span>
+                                    <span className="font-bold text-slate-700">{previewCard.student?.class?.name}</span>
+                                </div>
+                                <div>
+                                    <span className="text-[10px] font-black text-slate-400 uppercase block">Section</span>
+                                    <span className="font-bold text-slate-700">{previewCard.student?.section?.name || 'N/A'}</span>
+                                </div>
+                                <div className="col-span-2">
+                                    <span className="text-[10px] font-black text-slate-400 uppercase block">Institution</span>
+                                    <span className="font-bold text-slate-700">{previewCard.student?.branch?.name || 'Basaeer Academy'}</span>
+                                </div>
+                            </div>
+
+                            <Button className="w-full h-14 rounded-2xl font-black uppercase tracking-widest gap-2" onClick={() => window.print()}>
+                                <Printer size={20} />
+                                Print ID Card
+                            </Button>
+                        </div>
+                    )}
+                </DialogContent>
+            </Dialog>
         </div>
     );
 }

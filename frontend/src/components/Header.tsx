@@ -2,20 +2,33 @@
 
 import { useAuth } from "@/context/AuthContext";
 import { LogOut, Bell, Search, User, Sun, Moon } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useTheme } from "next-themes";
 import GlobalSearch from "@/components/GlobalSearch";
+import { useRealtimeEvent } from "@/hooks/useRealtime";
+import { toast } from "sonner";
 
 export function Header() {
     const { user, logout } = useAuth();
     const [searchOpen, setSearchOpen] = useState(false);
     const { theme, setTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
+    const [unreadCount, setUnreadCount] = useState(0);
 
     // Prevent hydration mismatch by only rendering the toggle after mounting
     useEffect(() => {
         setMounted(true);
     }, []);
+
+    const handleNotification = useCallback((data: any) => {
+        console.log("New notification:", data);
+        setUnreadCount((prev) => prev + 1);
+        toast.info(data.title || "New Notification", {
+            description: data.message || "You have a new update.",
+        });
+    }, []);
+
+    useRealtimeEvent("notification", handleNotification);
 
     return (
         <>
@@ -43,14 +56,19 @@ export function Header() {
                 <div className="flex items-center gap-2">
                     {/* Notifications Bell */}
                     <button
+                        onClick={() => setUnreadCount(0)}
                         className="p-2.5 text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-xl transition-all relative"
                         aria-label="Notifications"
                     >
                         <Bell size={20} aria-hidden="true" />
-                        <span
-                            className="absolute top-2.5 right-2.5 w-2 h-2 bg-primary rounded-full border-2 border-background"
-                            aria-label="New notifications available"
-                        />
+                        {unreadCount > 0 && (
+                            <span
+                                className="absolute top-2 right-2 flex items-center justify-center min-w-[18px] h-[18px] px-1 bg-primary text-[10px] font-bold text-white rounded-full border-2 border-background animate-in zoom-in duration-300"
+                                aria-label={`${unreadCount} new notifications`}
+                            >
+                                {unreadCount > 99 ? '99+' : unreadCount}
+                            </span>
+                        )}
                     </button>
 
                     {/* Theme Toggle */}

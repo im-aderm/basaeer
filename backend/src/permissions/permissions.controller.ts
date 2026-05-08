@@ -22,10 +22,25 @@ export class PermissionsController {
         return this.permissionsService.getPermissions(req.user.role);
     }
 
+    @Get(':role')
+    @Roles(UserRole.SUPER_ADMIN)
+    getRolePermissions(@Param('role') role: UserRole) {
+        return this.permissionsService.getPermissions(role);
+    }
+
     @Post()
     @Roles(UserRole.SUPER_ADMIN)
     updatePermission(@Body() dto: UpdatePermissionDto) {
         return this.permissionsService.updatePermission(dto);
+    }
+
+    @Post(':role')
+    @Roles(UserRole.SUPER_ADMIN)
+    bulkUpdatePermissions(
+        @Param('role') role: UserRole,
+        @Body() permissions: UpdatePermissionDto[]
+    ) {
+        return this.permissionsService.bulkUpdatePermissions(role, permissions);
     }
 
     @Post('seed')

@@ -33,9 +33,10 @@ export interface User {
 
 interface AuthContextType {
     user: User | null;
+    token: string | null;
     isAuthenticated: boolean;
     loading: boolean;
-    login: (userData: User) => Promise<void>;
+    login: (userData: User, token: string) => Promise<void>;
     logout: () => void;
 }
 
@@ -43,6 +44,7 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType>({
     user: null,
+    token: null,
     isAuthenticated: false,
     loading: true,
     login: async () => { },
@@ -53,6 +55,7 @@ const AuthContext = createContext<AuthContextType>({
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = useState<User | null>(null);
+    const [token, setToken] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
     const router = useRouter();
 
@@ -60,11 +63,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     useEffect(() => {
         const checkAuth = async () => {
             try {
+                const storedToken = localStorage.getItem("access_token");
+                setToken(storedToken);
+
                 const res = await api.get<User>("/auth/profile");
                 setUser(res.data);
             } catch (error) {
                 // If it fails, there is no valid cookie session
                 setUser(null);
+                setToken(null);
+                localStorage.removeItem("access_token");
             } finally {
                 setLoading(false);
             }
@@ -75,11 +83,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     /**
      * Called after a successful login API response.
-     * With cookies, the backend already sent the hidden access_token cookie in the response header.
      */
-    const login = async (userData: User): Promise<void> => {
+    const login = async (userData: User, accessToken: string): Promise<void> => {
         // Set initial data immediately for fast UI response
         setUser(userData);
+        setToken(accessToken);
+        localStorage.setItem("access_token", accessToken);
 
         try {
             // Await the full profile to get complete user data (roles, relations, etc.)
@@ -100,12 +109,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             console.warn("Backend logout failed softly");
         } finally {
             setUser(null);
+            setToken(null);
+            localStorage.removeItem("access_token");
             router.push("/login");
         }
     };
 
     return (
-        <AuthContext.Provider value={{ user, isAuthenticated: !!user, loading, login, logout }}>
+        <AuthContext.Provider value={{ user, token, isAuthenticated: !!user, loading, login, logout }}>
             {children}
         </AuthContext.Provider>
     );

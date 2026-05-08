@@ -3,6 +3,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { AutomationService } from './automation.service';
 import { AutomationController } from './automation.controller';
 import { AutomationWorker } from './workers/automation.worker';
+import { AutomationRunnerService } from './automation-runner.service';
 import { PrismaModule } from '../prisma/prisma.module';
 
 @Module({
@@ -11,7 +12,7 @@ import { PrismaModule } from '../prisma/prisma.module';
         ScheduleModule.forRoot()
     ],
     controllers: [AutomationController],
-    providers: [AutomationService, AutomationWorker],
+    providers: [AutomationService, AutomationWorker, AutomationRunnerService],
     exports: [AutomationService]
 })
 export class AutomationModule { }

@@ -13,3 +13,19 @@ export class UpdateAutomationConfigDto {
     @IsInt()
     triggerDays?: number;
 }
+
+export class UpsertAutomationConfigDto extends UpdateAutomationConfigDto {
+    @IsString()
+    @IsNotEmpty()
+    type: string;
+
+    @IsOptional()
+    @IsString()
+    branchId?: string;
+}
+
+export class ToggleScheduledJobDto {
+    @IsBoolean()
+    @IsNotEmpty()
+    isEnabled: boolean;
+}

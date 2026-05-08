@@ -1,14 +1,27 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { UpdateAutomationConfigDto } from './dto/automation.dto';
+import { UpdateAutomationConfigDto, UpsertAutomationConfigDto } from './dto/automation.dto';
 
 @Injectable()
 export class AutomationService {
     constructor(private prisma: PrismaService) { }
 
-    async getConfigs(branchId: string) {
+    async getConfigs(branchId?: string) {
         return this.prisma.automationConfig.findMany({
-            where: { branchId }
+            where: { branchId: branchId || undefined }
+        });
+    }
+
+    async upsertConfig(dto: UpsertAutomationConfigDto) {
+        const { branchId, type, ...rest } = dto;
+        return this.prisma.automationConfig.upsert({
+            where: { branchId_type: { branchId: branchId || '', type } },
+            update: { ...rest },
+            create: {
+                branchId: branchId || '',
+                type,
+                ...rest
+            }
         });
     }
 
@@ -21,6 +34,21 @@ export class AutomationService {
                 type,
                 ...dto
             }
+        });
+    }
+
+    async listJobs(branchId?: string) {
+        return this.prisma.scheduledJob.findMany({
+            where: {
+                branchId: branchId || null
+            }
+        });
+    }
+
+    async toggleJob(id: string, isEnabled: boolean) {
+        return this.prisma.scheduledJob.update({
+            where: { id },
+            data: { isEnabled }
         });
     }
 

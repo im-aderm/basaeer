@@ -24,28 +24,24 @@ export class MailService implements OnModuleInit {
     const user = process.env.SMTP_USER;
     const pass = process.env.SMTP_PASS;
 
-    this.isConfigured = !!(host && user && pass &&
-      host !== 'smtp.ethereal.email' &&
-      user !== 'demo@basaeer.edu' &&
-      pass !== 'password'
-    );
+    if (!host || !user || !pass) {
+      this.logger.warn('SMTP not fully configured. Emails will NOT be sent.');
+      this.isConfigured = false;
+      return;
+    }
 
+    this.isConfigured = true;
     this.transporter = nodemailer.createTransport({
-      host: host || 'smtp.ethereal.email',
+      host,
       port: parseInt(process.env.SMTP_PORT || '587'),
       secure: process.env.SMTP_SECURE === 'true',
       auth: {
-        user: user || 'demo@basaeer.edu',
-        pass: pass || 'password',
+        user,
+        pass,
       },
     });
 
-    if (this.isConfigured) {
-      this.verifyConnection();
-    } else {
-      this.logger.warn('SMTP not configured with real credentials. Using fallback (ethereal.email). Emails will not be delivered.');
-    }
-
+    this.verifyConnection();
     this.startQueueProcessor();
   }
 
@@ -296,6 +292,10 @@ export class MailService implements OnModuleInit {
   }
 
   private async sendMailDirect(to: string, subject: string, html: string) {
+    if (!this.isConfigured || !this.transporter) {
+      this.logger.error(`Cannot send email to ${to}. SMTP not configured.`);
+      return;
+    }
     const from = `"Basaeer Admissions" <${process.env.SMTP_FROM || 'admissions@basaeer.edu'}>`;
     const info = await this.transporter.sendMail({
       from,
