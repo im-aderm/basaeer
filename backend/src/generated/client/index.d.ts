@@ -3,7 +3,7 @@
  * Client
 **/
 
-import * as runtime from './runtime/client.js';
+import * as runtime from './runtime/library.js';
 import $Types = runtime.Types // general types
 import $Public = runtime.Types.Public
 import $Utils = runtime.Types.Utils
@@ -928,15 +928,13 @@ export const VoucherStatus: typeof $Enums.VoucherStatus
  * Type-safe database client for TypeScript & Node.js
  * @example
  * ```
- * const prisma = new PrismaClient({
- *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
- * })
+ * const prisma = new PrismaClient()
  * // Fetch zero or more Branches
  * const branches = await prisma.branch.findMany()
  * ```
  *
  *
- * Read more in our [docs](https://pris.ly/d/client).
+ * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
  */
 export class PrismaClient<
   ClientOptions extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
@@ -951,15 +949,13 @@ export class PrismaClient<
    * Type-safe database client for TypeScript & Node.js
    * @example
    * ```
-   * const prisma = new PrismaClient({
-   *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
-   * })
+   * const prisma = new PrismaClient()
    * // Fetch zero or more Branches
    * const branches = await prisma.branch.findMany()
    * ```
    *
    *
-   * Read more in our [docs](https://pris.ly/d/client).
+   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
    */
 
   constructor(optionsArg ?: Prisma.Subset<ClientOptions, Prisma.PrismaClientOptions>);
@@ -982,7 +978,7 @@ export class PrismaClient<
    * const result = await prisma.$executeRaw`UPDATE User SET cool = ${true} WHERE email = ${'user@email.com'};`
    * ```
    *
-   * Read more in our [docs](https://pris.ly/d/raw-queries).
+   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
    */
   $executeRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): Prisma.PrismaPromise<number>;
 
@@ -994,7 +990,7 @@ export class PrismaClient<
    * const result = await prisma.$executeRawUnsafe('UPDATE User SET cool = $1 WHERE email = $2 ;', true, 'user@email.com')
    * ```
    *
-   * Read more in our [docs](https://pris.ly/d/raw-queries).
+   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
    */
   $executeRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<number>;
 
@@ -1005,7 +1001,7 @@ export class PrismaClient<
    * const result = await prisma.$queryRaw`SELECT * FROM User WHERE id = ${1} OR email = ${'user@email.com'};`
    * ```
    *
-   * Read more in our [docs](https://pris.ly/d/raw-queries).
+   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
    */
   $queryRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): Prisma.PrismaPromise<T>;
 
@@ -1017,7 +1013,7 @@ export class PrismaClient<
    * const result = await prisma.$queryRawUnsafe('SELECT * FROM User WHERE id = $1 OR email = $2;', 1, 'user@email.com')
    * ```
    *
-   * Read more in our [docs](https://pris.ly/d/raw-queries).
+   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
    */
   $queryRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<T>;
 
@@ -1033,11 +1029,12 @@ export class PrismaClient<
    * ])
    * ```
    * 
-   * Read more in our [docs](https://www.prisma.io/docs/orm/prisma-client/queries/transactions).
+   * Read more in our [docs](https://www.prisma.io/docs/concepts/components/prisma-client/transactions).
    */
-  $transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P], options?: { maxWait?: number, timeout?: number, isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>
+  $transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P], options?: { isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>
 
   $transaction<R>(fn: (prisma: Omit<PrismaClient, runtime.ITXClientDenyList>) => $Utils.JsPromise<R>, options?: { maxWait?: number, timeout?: number, isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<R>
+
 
   $extends: $Extensions.ExtendsHook<"extends", Prisma.TypeMapCb<ClientOptions>, ExtArgs, $Utils.Call<Prisma.TypeMapCb<ClientOptions>, {
     extArgs: ExtArgs
@@ -2372,6 +2369,14 @@ export namespace Prisma {
   export type DecimalJsLike = runtime.DecimalJsLike
 
   /**
+   * Metrics
+   */
+  export type Metrics = runtime.Metrics
+  export type Metric<T> = runtime.Metric<T>
+  export type MetricHistogram = runtime.MetricHistogram
+  export type MetricHistogramBucket = runtime.MetricHistogramBucket
+
+  /**
   * Extensions
   */
   export import Extension = $Extensions.UserArgs
@@ -2382,12 +2387,11 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 7.8.0
-   * Query Engine version: 3c6e192761c0362d496ed980de936e2f3cebcd3a
+   * Prisma Client JS version: 6.19.3
+   * Query Engine version: c2990dca591cba766e3b7ef5d9e8a84796e47ab7
    */
   export type PrismaVersion = {
     client: string
-    engine: string
   }
 
   export const prismaVersion: PrismaVersion
@@ -2900,6 +2904,9 @@ export namespace Prisma {
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
 
 
+  export type Datasources = {
+    db?: Datasource
+  }
 
   interface TypeMapCb<ClientOptions = {}> extends $Utils.Fn<{extArgs: $Extensions.InternalArgs }, $Utils.Record<string, any>> {
     returns: Prisma.TypeMap<this['params']['extArgs'], ClientOptions extends { omit: infer OmitOptions } ? OmitOptions : {}>
@@ -12489,6 +12496,14 @@ export namespace Prisma {
   export type ErrorFormat = 'pretty' | 'colorless' | 'minimal'
   export interface PrismaClientOptions {
     /**
+     * Overwrites the datasource url from your schema.prisma file
+     */
+    datasources?: Datasources
+    /**
+     * Overwrites the datasource url from your schema.prisma file
+     */
+    datasourceUrl?: string
+    /**
      * @default "colorless"
      */
     errorFormat?: ErrorFormat
@@ -12514,7 +12529,7 @@ export namespace Prisma {
      *  { emit: 'stdout', level: 'error' }
      * 
      * ```
-     * Read more in our [docs](https://pris.ly/d/logging).
+     * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/logging#the-log-option).
      */
     log?: (LogLevel | LogDefinition)[]
     /**
@@ -12530,11 +12545,7 @@ export namespace Prisma {
     /**
      * Instance of a Driver Adapter, e.g., like one provided by `@prisma/adapter-planetscale`
      */
-    adapter?: runtime.SqlDriverAdapterFactory
-    /**
-     * Prisma Accelerate URL allowing the client to connect through Accelerate instead of a direct database.
-     */
-    accelerateUrl?: string
+    adapter?: runtime.SqlDriverAdapterFactory | null
     /**
      * Global configuration for omitting model fields by default.
      * 
@@ -12550,22 +12561,6 @@ export namespace Prisma {
      * ```
      */
     omit?: Prisma.GlobalOmitConfig
-    /**
-     * SQL commenter plugins that add metadata to SQL queries as comments.
-     * Comments follow the sqlcommenter format: https://google.github.io/sqlcommenter/
-     * 
-     * @example
-     * ```
-     * const prisma = new PrismaClient({
-     *   adapter,
-     *   comments: [
-     *     traceContext(),
-     *     queryInsights(),
-     *   ],
-     * })
-     * ```
-     */
-    comments?: runtime.SqlCommenterPlugin[]
   }
   export type GlobalOmitConfig = {
     branch?: BranchOmit
@@ -16718,11 +16713,6 @@ export namespace Prisma {
      * Skip the first `n` Branches.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Branches.
-     */
     distinct?: BranchScalarFieldEnum | BranchScalarFieldEnum[]
   }
 
@@ -19635,11 +19625,6 @@ export namespace Prisma {
      * Skip the first `n` DeactivationReasons.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of DeactivationReasons.
-     */
     distinct?: DeactivationReasonScalarFieldEnum | DeactivationReasonScalarFieldEnum[]
   }
 
@@ -20769,11 +20754,6 @@ export namespace Prisma {
      * Skip the first `n` LoginDeactivations.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of LoginDeactivations.
-     */
     distinct?: LoginDeactivationScalarFieldEnum | LoginDeactivationScalarFieldEnum[]
   }
 
@@ -22033,11 +22013,6 @@ export namespace Prisma {
      * Skip the first `n` Users.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Users.
-     */
     distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
   }
 
@@ -23582,11 +23557,6 @@ export namespace Prisma {
      * Skip the first `n` UserPreferences.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of UserPreferences.
-     */
     distinct?: UserPreferenceScalarFieldEnum | UserPreferenceScalarFieldEnum[]
   }
 
@@ -24667,11 +24637,6 @@ export namespace Prisma {
      * Skip the first `n` ModuleConfigurations.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of ModuleConfigurations.
-     */
     distinct?: ModuleConfigurationScalarFieldEnum | ModuleConfigurationScalarFieldEnum[]
   }
 
@@ -25740,11 +25705,6 @@ export namespace Prisma {
      * Skip the first `n` Translations.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Translations.
-     */
     distinct?: TranslationScalarFieldEnum | TranslationScalarFieldEnum[]
   }
 
@@ -26900,11 +26860,6 @@ export namespace Prisma {
      * Skip the first `n` ScheduledJobs.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of ScheduledJobs.
-     */
     distinct?: ScheduledJobScalarFieldEnum | ScheduledJobScalarFieldEnum[]
   }
 
@@ -28099,11 +28054,6 @@ export namespace Prisma {
      * Skip the first `n` Staff.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Staff.
-     */
     distinct?: StaffScalarFieldEnum | StaffScalarFieldEnum[]
   }
 
@@ -30181,11 +30131,6 @@ export namespace Prisma {
      * Skip the first `n` Students.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Students.
-     */
     distinct?: StudentScalarFieldEnum | StudentScalarFieldEnum[]
   }
 
@@ -31837,11 +31782,6 @@ export namespace Prisma {
      * Skip the first `n` Certificates.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Certificates.
-     */
     distinct?: CertificateScalarFieldEnum | CertificateScalarFieldEnum[]
   }
 
@@ -32960,11 +32900,6 @@ export namespace Prisma {
      * Skip the first `n` CertificateTemplates.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of CertificateTemplates.
-     */
     distinct?: CertificateTemplateScalarFieldEnum | CertificateTemplateScalarFieldEnum[]
   }
 
@@ -34153,11 +34088,6 @@ export namespace Prisma {
      * Skip the first `n` Classes.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Classes.
-     */
     distinct?: ClassScalarFieldEnum | ClassScalarFieldEnum[]
   }
 
@@ -35493,11 +35423,6 @@ export namespace Prisma {
      * Skip the first `n` Sections.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Sections.
-     */
     distinct?: SectionScalarFieldEnum | SectionScalarFieldEnum[]
   }
 
@@ -36843,11 +36768,6 @@ export namespace Prisma {
      * Skip the first `n` Subjects.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Subjects.
-     */
     distinct?: SubjectScalarFieldEnum | SubjectScalarFieldEnum[]
   }
 
@@ -38234,11 +38154,6 @@ export namespace Prisma {
      * Skip the first `n` ClassSchedules.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of ClassSchedules.
-     */
     distinct?: ClassScheduleScalarFieldEnum | ClassScheduleScalarFieldEnum[]
   }
 
@@ -39386,11 +39301,6 @@ export namespace Prisma {
      * Skip the first `n` Attendances.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Attendances.
-     */
     distinct?: AttendanceScalarFieldEnum | AttendanceScalarFieldEnum[]
   }
 
@@ -40534,11 +40444,6 @@ export namespace Prisma {
      * Skip the first `n` StaffAttendances.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of StaffAttendances.
-     */
     distinct?: StaffAttendanceScalarFieldEnum | StaffAttendanceScalarFieldEnum[]
   }
 
@@ -41629,11 +41534,6 @@ export namespace Prisma {
      * Skip the first `n` Hostels.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Hostels.
-     */
     distinct?: HostelScalarFieldEnum | HostelScalarFieldEnum[]
   }
 
@@ -42786,11 +42686,6 @@ export namespace Prisma {
      * Skip the first `n` Rooms.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Rooms.
-     */
     distinct?: RoomScalarFieldEnum | RoomScalarFieldEnum[]
   }
 
@@ -43896,11 +43791,6 @@ export namespace Prisma {
      * Skip the first `n` Beds.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Beds.
-     */
     distinct?: BedScalarFieldEnum | BedScalarFieldEnum[]
   }
 
@@ -45054,11 +44944,6 @@ export namespace Prisma {
      * Skip the first `n` HostelAllocations.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of HostelAllocations.
-     */
     distinct?: HostelAllocationScalarFieldEnum | HostelAllocationScalarFieldEnum[]
   }
 
@@ -46156,11 +46041,6 @@ export namespace Prisma {
      * Skip the first `n` HostelLeaves.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of HostelLeaves.
-     */
     distinct?: HostelLeaveScalarFieldEnum | HostelLeaveScalarFieldEnum[]
   }
 
@@ -47271,11 +47151,6 @@ export namespace Prisma {
      * Skip the first `n` MaintenanceRequests.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of MaintenanceRequests.
-     */
     distinct?: MaintenanceRequestScalarFieldEnum | MaintenanceRequestScalarFieldEnum[]
   }
 
@@ -48376,11 +48251,6 @@ export namespace Prisma {
      * Skip the first `n` FeeCategories.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of FeeCategories.
-     */
     distinct?: FeeCategoryScalarFieldEnum | FeeCategoryScalarFieldEnum[]
   }
 
@@ -49555,11 +49425,6 @@ export namespace Prisma {
      * Skip the first `n` FeeStructures.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of FeeStructures.
-     */
     distinct?: FeeStructureScalarFieldEnum | FeeStructureScalarFieldEnum[]
   }
 
@@ -50750,11 +50615,6 @@ export namespace Prisma {
      * Skip the first `n` Invoices.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Invoices.
-     */
     distinct?: InvoiceScalarFieldEnum | InvoiceScalarFieldEnum[]
   }
 
@@ -51871,11 +51731,6 @@ export namespace Prisma {
      * Skip the first `n` QuestionGroups.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of QuestionGroups.
-     */
     distinct?: QuestionGroupScalarFieldEnum | QuestionGroupScalarFieldEnum[]
   }
 
@@ -53052,11 +52907,6 @@ export namespace Prisma {
      * Skip the first `n` Questions.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Questions.
-     */
     distinct?: QuestionScalarFieldEnum | QuestionScalarFieldEnum[]
   }
 
@@ -54150,11 +54000,6 @@ export namespace Prisma {
      * Skip the first `n` QuestionOptions.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of QuestionOptions.
-     */
     distinct?: QuestionOptionScalarFieldEnum | QuestionOptionScalarFieldEnum[]
   }
 
@@ -55406,11 +55251,6 @@ export namespace Prisma {
      * Skip the first `n` OnlineExams.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of OnlineExams.
-     */
     distinct?: OnlineExamScalarFieldEnum | OnlineExamScalarFieldEnum[]
   }
 
@@ -56629,11 +56469,6 @@ export namespace Prisma {
      * Skip the first `n` OnlineExamAttempts.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of OnlineExamAttempts.
-     */
     distinct?: OnlineExamAttemptScalarFieldEnum | OnlineExamAttemptScalarFieldEnum[]
   }
 
@@ -57810,11 +57645,6 @@ export namespace Prisma {
      * Skip the first `n` QuestionAnswers.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of QuestionAnswers.
-     */
     distinct?: QuestionAnswerScalarFieldEnum | QuestionAnswerScalarFieldEnum[]
   }
 
@@ -58928,11 +58758,6 @@ export namespace Prisma {
      * Skip the first `n` InvoiceItems.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of InvoiceItems.
-     */
     distinct?: InvoiceItemScalarFieldEnum | InvoiceItemScalarFieldEnum[]
   }
 
@@ -60090,11 +59915,6 @@ export namespace Prisma {
      * Skip the first `n` Payments.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Payments.
-     */
     distinct?: PaymentScalarFieldEnum | PaymentScalarFieldEnum[]
   }
 
@@ -61245,11 +61065,6 @@ export namespace Prisma {
      * Skip the first `n` Vehicles.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Vehicles.
-     */
     distinct?: VehicleScalarFieldEnum | VehicleScalarFieldEnum[]
   }
 
@@ -62373,11 +62188,6 @@ export namespace Prisma {
      * Skip the first `n` TransportRoutes.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of TransportRoutes.
-     */
     distinct?: TransportRouteScalarFieldEnum | TransportRouteScalarFieldEnum[]
   }
 
@@ -63489,11 +63299,6 @@ export namespace Prisma {
      * Skip the first `n` TransportAssignments.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of TransportAssignments.
-     */
     distinct?: TransportAssignmentScalarFieldEnum | TransportAssignmentScalarFieldEnum[]
   }
 
@@ -64660,11 +64465,6 @@ export namespace Prisma {
      * Skip the first `n` Assignments.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Assignments.
-     */
     distinct?: AssignmentScalarFieldEnum | AssignmentScalarFieldEnum[]
   }
 
@@ -65860,11 +65660,6 @@ export namespace Prisma {
      * Skip the first `n` Submissions.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Submissions.
-     */
     distinct?: SubmissionScalarFieldEnum | SubmissionScalarFieldEnum[]
   }
 
@@ -67014,11 +66809,6 @@ export namespace Prisma {
      * Skip the first `n` AcademicSessions.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of AcademicSessions.
-     */
     distinct?: AcademicSessionScalarFieldEnum | AcademicSessionScalarFieldEnum[]
   }
 
@@ -68574,11 +68364,6 @@ export namespace Prisma {
      * Skip the first `n` AssessmentRecords.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of AssessmentRecords.
-     */
     distinct?: AssessmentRecordScalarFieldEnum | AssessmentRecordScalarFieldEnum[]
   }
 
@@ -69822,11 +69607,6 @@ export namespace Prisma {
      * Skip the first `n` BehaviouralRatings.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of BehaviouralRatings.
-     */
     distinct?: BehaviouralRatingScalarFieldEnum | BehaviouralRatingScalarFieldEnum[]
   }
 
@@ -71218,11 +70998,6 @@ export namespace Prisma {
      * Skip the first `n` ResultSummaries.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of ResultSummaries.
-     */
     distinct?: ResultSummaryScalarFieldEnum | ResultSummaryScalarFieldEnum[]
   }
 
@@ -72427,11 +72202,6 @@ export namespace Prisma {
      * Skip the first `n` GradingScales.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of GradingScales.
-     */
     distinct?: GradingScaleScalarFieldEnum | GradingScaleScalarFieldEnum[]
   }
 
@@ -73637,11 +73407,6 @@ export namespace Prisma {
      * Skip the first `n` Exams.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Exams.
-     */
     distinct?: ExamScalarFieldEnum | ExamScalarFieldEnum[]
   }
 
@@ -74736,11 +74501,6 @@ export namespace Prisma {
      * Skip the first `n` ExamTypes.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of ExamTypes.
-     */
     distinct?: ExamTypeScalarFieldEnum | ExamTypeScalarFieldEnum[]
   }
 
@@ -75865,11 +75625,6 @@ export namespace Prisma {
      * Skip the first `n` AssessmentComponents.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of AssessmentComponents.
-     */
     distinct?: AssessmentComponentScalarFieldEnum | AssessmentComponentScalarFieldEnum[]
   }
 
@@ -77021,11 +76776,6 @@ export namespace Prisma {
      * Skip the first `n` ResultApprovals.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of ResultApprovals.
-     */
     distinct?: ResultApprovalScalarFieldEnum | ResultApprovalScalarFieldEnum[]
   }
 
@@ -78112,11 +77862,6 @@ export namespace Prisma {
      * Skip the first `n` ResultPublications.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of ResultPublications.
-     */
     distinct?: ResultPublicationScalarFieldEnum | ResultPublicationScalarFieldEnum[]
   }
 
@@ -79236,11 +78981,6 @@ export namespace Prisma {
      * Skip the first `n` GPARecords.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of GPARecords.
-     */
     distinct?: GPARecordScalarFieldEnum | GPARecordScalarFieldEnum[]
   }
 
@@ -80382,11 +80122,6 @@ export namespace Prisma {
      * Skip the first `n` StudentRankings.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of StudentRankings.
-     */
     distinct?: StudentRankingScalarFieldEnum | StudentRankingScalarFieldEnum[]
   }
 
@@ -81456,11 +81191,6 @@ export namespace Prisma {
      * Skip the first `n` Broadsheets.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Broadsheets.
-     */
     distinct?: BroadsheetScalarFieldEnum | BroadsheetScalarFieldEnum[]
   }
 
@@ -82590,11 +82320,6 @@ export namespace Prisma {
      * Skip the first `n` Transcripts.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Transcripts.
-     */
     distinct?: TranscriptScalarFieldEnum | TranscriptScalarFieldEnum[]
   }
 
@@ -83629,11 +83354,6 @@ export namespace Prisma {
      * Skip the first `n` TranscriptVerifications.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of TranscriptVerifications.
-     */
     distinct?: TranscriptVerificationScalarFieldEnum | TranscriptVerificationScalarFieldEnum[]
   }
 
@@ -84694,11 +84414,6 @@ export namespace Prisma {
      * Skip the first `n` AcademicRemarks.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of AcademicRemarks.
-     */
     distinct?: AcademicRemarkScalarFieldEnum | AcademicRemarkScalarFieldEnum[]
   }
 
@@ -85827,11 +85542,6 @@ export namespace Prisma {
      * Skip the first `n` SubjectPositions.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of SubjectPositions.
-     */
     distinct?: SubjectPositionScalarFieldEnum | SubjectPositionScalarFieldEnum[]
   }
 
@@ -87080,11 +86790,6 @@ export namespace Prisma {
      * Skip the first `n` TahfeezAssessments.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of TahfeezAssessments.
-     */
     distinct?: TahfeezAssessmentScalarFieldEnum | TahfeezAssessmentScalarFieldEnum[]
   }
 
@@ -88213,11 +87918,6 @@ export namespace Prisma {
      * Skip the first `n` TahfeezMemorizationProgresses.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of TahfeezMemorizationProgresses.
-     */
     distinct?: TahfeezMemorizationProgressScalarFieldEnum | TahfeezMemorizationProgressScalarFieldEnum[]
   }
 
@@ -89261,11 +88961,6 @@ export namespace Prisma {
      * Skip the first `n` GlobalSettings.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of GlobalSettings.
-     */
     distinct?: GlobalSettingScalarFieldEnum | GlobalSettingScalarFieldEnum[]
   }
 
@@ -90308,11 +90003,6 @@ export namespace Prisma {
      * Skip the first `n` RolePermissions.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of RolePermissions.
-     */
     distinct?: RolePermissionScalarFieldEnum | RolePermissionScalarFieldEnum[]
   }
 
@@ -91369,11 +91059,6 @@ export namespace Prisma {
      * Skip the first `n` AuditLogs.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of AuditLogs.
-     */
     distinct?: AuditLogScalarFieldEnum | AuditLogScalarFieldEnum[]
   }
 
@@ -92451,11 +92136,6 @@ export namespace Prisma {
      * Skip the first `n` ExpenseCategories.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of ExpenseCategories.
-     */
     distinct?: ExpenseCategoryScalarFieldEnum | ExpenseCategoryScalarFieldEnum[]
   }
 
@@ -93679,11 +93359,6 @@ export namespace Prisma {
      * Skip the first `n` Vouchers.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Vouchers.
-     */
     distinct?: VoucherScalarFieldEnum | VoucherScalarFieldEnum[]
   }
 
@@ -94780,11 +94455,6 @@ export namespace Prisma {
      * Skip the first `n` Departments.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Departments.
-     */
     distinct?: DepartmentScalarFieldEnum | DepartmentScalarFieldEnum[]
   }
 
@@ -95886,11 +95556,6 @@ export namespace Prisma {
      * Skip the first `n` Designations.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Designations.
-     */
     distinct?: DesignationScalarFieldEnum | DesignationScalarFieldEnum[]
   }
 
@@ -97108,11 +96773,6 @@ export namespace Prisma {
      * Skip the first `n` Books.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Books.
-     */
     distinct?: BookScalarFieldEnum | BookScalarFieldEnum[]
   }
 
@@ -98261,11 +97921,6 @@ export namespace Prisma {
      * Skip the first `n` BorrowRecords.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of BorrowRecords.
-     */
     distinct?: BorrowRecordScalarFieldEnum | BorrowRecordScalarFieldEnum[]
   }
 
@@ -99408,11 +99063,6 @@ export namespace Prisma {
      * Skip the first `n` LibraryFines.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of LibraryFines.
-     */
     distinct?: LibraryFineScalarFieldEnum | LibraryFineScalarFieldEnum[]
   }
 
@@ -100540,11 +100190,6 @@ export namespace Prisma {
      * Skip the first `n` SalaryTemplates.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of SalaryTemplates.
-     */
     distinct?: SalaryTemplateScalarFieldEnum | SalaryTemplateScalarFieldEnum[]
   }
 
@@ -101697,11 +101342,6 @@ export namespace Prisma {
      * Skip the first `n` Payrolls.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Payrolls.
-     */
     distinct?: PayrollScalarFieldEnum | PayrollScalarFieldEnum[]
   }
 
@@ -102812,11 +102452,6 @@ export namespace Prisma {
      * Skip the first `n` LeaveRequests.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of LeaveRequests.
-     */
     distinct?: LeaveRequestScalarFieldEnum | LeaveRequestScalarFieldEnum[]
   }
 
@@ -103901,11 +103536,6 @@ export namespace Prisma {
      * Skip the first `n` StaffAwards.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of StaffAwards.
-     */
     distinct?: StaffAwardScalarFieldEnum | StaffAwardScalarFieldEnum[]
   }
 
@@ -105024,11 +104654,6 @@ export namespace Prisma {
      * Skip the first `n` AdvanceSalaries.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of AdvanceSalaries.
-     */
     distinct?: AdvanceSalaryScalarFieldEnum | AdvanceSalaryScalarFieldEnum[]
   }
 
@@ -106290,11 +105915,6 @@ export namespace Prisma {
      * Skip the first `n` GoogleMeetConfigs.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of GoogleMeetConfigs.
-     */
     distinct?: GoogleMeetConfigScalarFieldEnum | GoogleMeetConfigScalarFieldEnum[]
   }
 
@@ -107664,11 +107284,6 @@ export namespace Prisma {
      * Skip the first `n` LiveClassSessions.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of LiveClassSessions.
-     */
     distinct?: LiveClassSessionScalarFieldEnum | LiveClassSessionScalarFieldEnum[]
   }
 
@@ -108889,11 +108504,6 @@ export namespace Prisma {
      * Skip the first `n` MeetingParticipants.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of MeetingParticipants.
-     */
     distinct?: MeetingParticipantScalarFieldEnum | MeetingParticipantScalarFieldEnum[]
   }
 
@@ -109975,11 +109585,6 @@ export namespace Prisma {
      * Skip the first `n` StudentCategories.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of StudentCategories.
-     */
     distinct?: StudentCategoryScalarFieldEnum | StudentCategoryScalarFieldEnum[]
   }
 
@@ -111099,11 +110704,6 @@ export namespace Prisma {
      * Skip the first `n` PreviousSchools.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of PreviousSchools.
-     */
     distinct?: PreviousSchoolScalarFieldEnum | PreviousSchoolScalarFieldEnum[]
   }
 
@@ -113256,11 +112856,6 @@ export namespace Prisma {
      * Skip the first `n` OnlineAdmissions.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of OnlineAdmissions.
-     */
     distinct?: OnlineAdmissionScalarFieldEnum | OnlineAdmissionScalarFieldEnum[]
   }
 
@@ -114523,11 +114118,6 @@ export namespace Prisma {
      * Skip the first `n` AdmissionEnquiries.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of AdmissionEnquiries.
-     */
     distinct?: AdmissionEnquiryScalarFieldEnum | AdmissionEnquiryScalarFieldEnum[]
   }
 
@@ -115651,11 +115241,6 @@ export namespace Prisma {
      * Skip the first `n` CallLogs.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of CallLogs.
-     */
     distinct?: CallLogScalarFieldEnum | CallLogScalarFieldEnum[]
   }
 
@@ -116852,11 +116437,6 @@ export namespace Prisma {
      * Skip the first `n` VisitorLogs.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of VisitorLogs.
-     */
     distinct?: VisitorLogScalarFieldEnum | VisitorLogScalarFieldEnum[]
   }
 
@@ -118019,11 +117599,6 @@ export namespace Prisma {
      * Skip the first `n` Complaints.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Complaints.
-     */
     distinct?: ComplaintScalarFieldEnum | ComplaintScalarFieldEnum[]
   }
 
@@ -119160,11 +118735,6 @@ export namespace Prisma {
      * Skip the first `n` PostalRecords.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of PostalRecords.
-     */
     distinct?: PostalRecordScalarFieldEnum | PostalRecordScalarFieldEnum[]
   }
 
@@ -120229,11 +119799,6 @@ export namespace Prisma {
      * Skip the first `n` InventoryCategories.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of InventoryCategories.
-     */
     distinct?: InventoryCategoryScalarFieldEnum | InventoryCategoryScalarFieldEnum[]
   }
 
@@ -121335,11 +120900,6 @@ export namespace Prisma {
      * Skip the first `n` InventoryStores.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of InventoryStores.
-     */
     distinct?: InventoryStoreScalarFieldEnum | InventoryStoreScalarFieldEnum[]
   }
 
@@ -122480,11 +122040,6 @@ export namespace Prisma {
      * Skip the first `n` InventorySuppliers.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of InventorySuppliers.
-     */
     distinct?: InventorySupplierScalarFieldEnum | InventorySupplierScalarFieldEnum[]
   }
 
@@ -123573,11 +123128,6 @@ export namespace Prisma {
      * Skip the first `n` InventoryUnits.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of InventoryUnits.
-     */
     distinct?: InventoryUnitScalarFieldEnum | InventoryUnitScalarFieldEnum[]
   }
 
@@ -124844,11 +124394,6 @@ export namespace Prisma {
      * Skip the first `n` InventoryProducts.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of InventoryProducts.
-     */
     distinct?: InventoryProductScalarFieldEnum | InventoryProductScalarFieldEnum[]
   }
 
@@ -126134,11 +125679,6 @@ export namespace Prisma {
      * Skip the first `n` InventoryPurchases.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of InventoryPurchases.
-     */
     distinct?: InventoryPurchaseScalarFieldEnum | InventoryPurchaseScalarFieldEnum[]
   }
 
@@ -127325,11 +126865,6 @@ export namespace Prisma {
      * Skip the first `n` InventorySales.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of InventorySales.
-     */
     distinct?: InventorySaleScalarFieldEnum | InventorySaleScalarFieldEnum[]
   }
 
@@ -128537,11 +128072,6 @@ export namespace Prisma {
      * Skip the first `n` InventoryIssues.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of InventoryIssues.
-     */
     distinct?: InventoryIssueScalarFieldEnum | InventoryIssueScalarFieldEnum[]
   }
 
@@ -129730,11 +129260,6 @@ export namespace Prisma {
      * Skip the first `n` Alumni.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Alumni.
-     */
     distinct?: AlumniScalarFieldEnum | AlumniScalarFieldEnum[]
   }
 
@@ -130888,11 +130413,6 @@ export namespace Prisma {
      * Skip the first `n` AlumniEvents.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of AlumniEvents.
-     */
     distinct?: AlumniEventScalarFieldEnum | AlumniEventScalarFieldEnum[]
   }
 
@@ -131996,11 +131516,6 @@ export namespace Prisma {
      * Skip the first `n` AlumniEventParticipants.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of AlumniEventParticipants.
-     */
     distinct?: AlumniEventParticipantScalarFieldEnum | AlumniEventParticipantScalarFieldEnum[]
   }
 
@@ -133082,11 +132597,6 @@ export namespace Prisma {
      * Skip the first `n` Conversations.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Conversations.
-     */
     distinct?: ConversationScalarFieldEnum | ConversationScalarFieldEnum[]
   }
 
@@ -134248,11 +133758,6 @@ export namespace Prisma {
      * Skip the first `n` ConversationParticipants.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of ConversationParticipants.
-     */
     distinct?: ConversationParticipantScalarFieldEnum | ConversationParticipantScalarFieldEnum[]
   }
 
@@ -135345,11 +134850,6 @@ export namespace Prisma {
      * Skip the first `n` Messages.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Messages.
-     */
     distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
   }
 
@@ -136505,11 +136005,6 @@ export namespace Prisma {
      * Skip the first `n` CampusEvents.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of CampusEvents.
-     */
     distinct?: CampusEventScalarFieldEnum | CampusEventScalarFieldEnum[]
   }
 
@@ -137613,11 +137108,6 @@ export namespace Prisma {
      * Skip the first `n` EventRSVPS.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of EventRSVPS.
-     */
     distinct?: EventRSVPScalarFieldEnum | EventRSVPScalarFieldEnum[]
   }
 
@@ -138723,11 +138213,6 @@ export namespace Prisma {
      * Skip the first `n` CampusAccessLogs.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of CampusAccessLogs.
-     */
     distinct?: CampusAccessLogScalarFieldEnum | CampusAccessLogScalarFieldEnum[]
   }
 
@@ -139878,11 +139363,6 @@ export namespace Prisma {
      * Skip the first `n` AutomationConfigs.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of AutomationConfigs.
-     */
     distinct?: AutomationConfigScalarFieldEnum | AutomationConfigScalarFieldEnum[]
   }
 
@@ -141006,11 +140486,6 @@ export namespace Prisma {
      * Skip the first `n` IdCardTemplates.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of IdCardTemplates.
-     */
     distinct?: IdCardTemplateScalarFieldEnum | IdCardTemplateScalarFieldEnum[]
   }
 
@@ -142169,11 +141644,6 @@ export namespace Prisma {
      * Skip the first `n` IdCards.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of IdCards.
-     */
     distinct?: IdCardScalarFieldEnum | IdCardScalarFieldEnum[]
   }
 
@@ -143493,11 +142963,6 @@ export namespace Prisma {
      * Skip the first `n` DigitalResources.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of DigitalResources.
-     */
     distinct?: DigitalResourceScalarFieldEnum | DigitalResourceScalarFieldEnum[]
   }
 
@@ -144671,11 +144136,6 @@ export namespace Prisma {
      * Skip the first `n` DigitalResourceLogs.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of DigitalResourceLogs.
-     */
     distinct?: DigitalResourceLogScalarFieldEnum | DigitalResourceLogScalarFieldEnum[]
   }
 
@@ -145782,11 +145242,6 @@ export namespace Prisma {
      * Skip the first `n` EmailTemplates.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of EmailTemplates.
-     */
     distinct?: EmailTemplateScalarFieldEnum | EmailTemplateScalarFieldEnum[]
   }
 
@@ -146899,11 +146354,6 @@ export namespace Prisma {
      * Skip the first `n` SmsTemplates.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of SmsTemplates.
-     */
     distinct?: SmsTemplateScalarFieldEnum | SmsTemplateScalarFieldEnum[]
   }
 
@@ -148041,11 +147491,6 @@ export namespace Prisma {
      * Skip the first `n` Notifications.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Notifications.
-     */
     distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
   }
 
@@ -149170,11 +148615,6 @@ export namespace Prisma {
      * Skip the first `n` NotificationPreferences.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of NotificationPreferences.
-     */
     distinct?: NotificationPreferenceScalarFieldEnum | NotificationPreferenceScalarFieldEnum[]
   }
 
@@ -150297,11 +149737,6 @@ export namespace Prisma {
      * Skip the first `n` Campaigns.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Campaigns.
-     */
     distinct?: CampaignScalarFieldEnum | CampaignScalarFieldEnum[]
   }
 
@@ -151458,11 +150893,6 @@ export namespace Prisma {
      * Skip the first `n` CampaignRecipients.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of CampaignRecipients.
-     */
     distinct?: CampaignRecipientScalarFieldEnum | CampaignRecipientScalarFieldEnum[]
   }
 
@@ -152718,11 +152148,6 @@ export namespace Prisma {
      * Skip the first `n` AttendanceSessions.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of AttendanceSessions.
-     */
     distinct?: AttendanceSessionScalarFieldEnum | AttendanceSessionScalarFieldEnum[]
   }
 
@@ -153960,11 +153385,6 @@ export namespace Prisma {
      * Skip the first `n` AttendanceScans.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of AttendanceScans.
-     */
     distinct?: AttendanceScanScalarFieldEnum | AttendanceScanScalarFieldEnum[]
   }
 
@@ -155093,11 +154513,6 @@ export namespace Prisma {
      * Skip the first `n` QueueJobLogs.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of QueueJobLogs.
-     */
     distinct?: QueueJobLogScalarFieldEnum | QueueJobLogScalarFieldEnum[]
   }
 
@@ -156222,11 +155637,6 @@ export namespace Prisma {
      * Skip the first `n` AutomationExecutions.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of AutomationExecutions.
-     */
     distinct?: AutomationExecutionScalarFieldEnum | AutomationExecutionScalarFieldEnum[]
   }
 
@@ -157339,11 +156749,6 @@ export namespace Prisma {
      * Skip the first `n` MessageDeliveryLogs.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of MessageDeliveryLogs.
-     */
     distinct?: MessageDeliveryLogScalarFieldEnum | MessageDeliveryLogScalarFieldEnum[]
   }
 
@@ -158507,11 +157912,6 @@ export namespace Prisma {
      * Skip the first `n` ProviderHealthLogs.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of ProviderHealthLogs.
-     */
     distinct?: ProviderHealthLogScalarFieldEnum | ProviderHealthLogScalarFieldEnum[]
   }
 
@@ -159637,11 +159037,6 @@ export namespace Prisma {
      * Skip the first `n` WebhookEvents.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of WebhookEvents.
-     */
     distinct?: WebhookEventScalarFieldEnum | WebhookEventScalarFieldEnum[]
   }
 
@@ -160754,11 +160149,6 @@ export namespace Prisma {
      * Skip the first `n` DeliveryWebhookLogs.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of DeliveryWebhookLogs.
-     */
     distinct?: DeliveryWebhookLogScalarFieldEnum | DeliveryWebhookLogScalarFieldEnum[]
   }
 
@@ -161870,11 +161260,6 @@ export namespace Prisma {
      * Skip the first `n` RealtimeConnections.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of RealtimeConnections.
-     */
     distinct?: RealtimeConnectionScalarFieldEnum | RealtimeConnectionScalarFieldEnum[]
   }
 
@@ -163067,11 +162452,6 @@ export namespace Prisma {
      * Skip the first `n` QueueMetrics.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of QueueMetrics.
-     */
     distinct?: QueueMetricScalarFieldEnum | QueueMetricScalarFieldEnum[]
   }
 
@@ -164188,11 +163568,6 @@ export namespace Prisma {
      * Skip the first `n` ProviderFailoverEvents.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of ProviderFailoverEvents.
-     */
     distinct?: ProviderFailoverEventScalarFieldEnum | ProviderFailoverEventScalarFieldEnum[]
   }
 
@@ -165356,11 +164731,6 @@ export namespace Prisma {
      * Skip the first `n` MessageRetryEvents.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of MessageRetryEvents.
-     */
     distinct?: MessageRetryEventScalarFieldEnum | MessageRetryEventScalarFieldEnum[]
   }
 
@@ -166498,11 +165868,6 @@ export namespace Prisma {
      * Skip the first `n` ProviderBalanceSnapshots.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of ProviderBalanceSnapshots.
-     */
     distinct?: ProviderBalanceSnapshotScalarFieldEnum | ProviderBalanceSnapshotScalarFieldEnum[]
   }
 
@@ -167619,11 +166984,6 @@ export namespace Prisma {
      * Skip the first `n` NotificationDeliveryEvents.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of NotificationDeliveryEvents.
-     */
     distinct?: NotificationDeliveryEventScalarFieldEnum | NotificationDeliveryEventScalarFieldEnum[]
   }
 
@@ -168860,11 +168220,6 @@ export namespace Prisma {
      * Skip the first `n` AcademicExports.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of AcademicExports.
-     */
     distinct?: AcademicExportScalarFieldEnum | AcademicExportScalarFieldEnum[]
   }
 
@@ -169993,11 +169348,6 @@ export namespace Prisma {
      * Skip the first `n` ReportTemplates.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of ReportTemplates.
-     */
     distinct?: ReportTemplateScalarFieldEnum | ReportTemplateScalarFieldEnum[]
   }
 

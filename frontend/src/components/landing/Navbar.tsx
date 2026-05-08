@@ -3,155 +3,202 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { School, Menu, X, ChevronDown } from "lucide-react";
+import { useTheme } from "next-themes";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, ChevronDown, Moon, Sun } from "lucide-react";
+import { cn } from "@/lib/utils";
 
-const sections = [
-    { name: "About Us", href: "/#about" },
-    { name: "Programs", href: "/#programs" },
-    { name: "Apply Now", href: "/admission" },
-    { name: "Contact Us", href: "/#contact" },
-];
-
-const campusLinks = [
-    { name: "Main Campus", href: "/#contact" },
+const links = [
+  { name: "About Us", href: "/#about" },
+  { name: "Programs", href: "/#programs" },
+  { name: "Apply Now", href: "/admission" },
+  { name: "Contact Us", href: "/#contact" },
 ];
 
 export function Navbar() {
-    const [scrolled, setScrolled] = useState(false);
-    const [isMobileOpen, setIsMobileOpen] = useState(false);
-    const [campusOpen, setCampusOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [campusOpen, setCampusOpen] = useState(false);
+  const { theme, setTheme } = useTheme();
+  const [activeLink, setActiveLink] = useState("");
 
-    useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > 20);
-        window.addEventListener("scroll", onScroll, { passive: true });
-        return () => window.removeEventListener("scroll", onScroll);
-    }, []);
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-    return (
-        <nav
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
-                ? "bg-brand-navy/95 backdrop-blur-md shadow-[0_4px_24px_rgba(0,0,0,0.15)]"
-                : "bg-transparent"
-                }`}
-            aria-label="Main navigation"
-        >
-            <div className="container mx-auto px-6">
-                <div className="flex h-20 items-center justify-between gap-8">
-                    {/* Left nav links */}
-                    <div className="hidden lg:flex items-center gap-6">
-                        {sections.slice(0, 2).map((link) => (
-                            <Link
-                                key={link.name}
-                                href={link.href}
-                                className="text-brand-cream/80 hover:text-brand-cream text-sm font-medium tracking-wide transition-colors"
-                            >
-                                {link.name}
-                            </Link>
-                        ))}
-                        {/* Campus dropdown */}
-                        <div className="relative">
-                            <button
-                                onClick={() => setCampusOpen(!campusOpen)}
-                                className="flex items-center gap-1.5 text-brand-cream/80 hover:text-brand-cream text-sm font-medium tracking-wide transition-colors"
-                                aria-expanded={campusOpen}
-                                aria-haspopup="true"
-                            >
-                                Campus
-                                <ChevronDown size={14} className={`transition-transform ${campusOpen ? "rotate-180" : ""}`} aria-hidden="true" />
-                            </button>
-                            {campusOpen && (
-                                <div className="absolute top-full left-0 mt-2 bg-brand-navy border border-white/10 rounded-xl overflow-hidden shadow-lg min-w-[160px]">
-                                    {campusLinks.map((c) => (
-                                        <Link
-                                            key={c.name}
-                                            href={c.href}
-                                            onClick={() => setCampusOpen(false)}
-                                            className="block px-4 py-2.5 text-sm text-brand-cream/80 hover:text-brand-cream hover:bg-white/5 transition-colors"
-                                        >
-                                            {c.name}
-                                        </Link>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-                    </div>
+  return (
+    <nav
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-500 h-20 flex items-center",
+        scrolled
+          ? "bg-background/80 backdrop-blur-md border-b border-border shadow-lg"
+          : "bg-transparent border-b border-transparent"
+      )}
+    >
+      <div className="max-w-7xl mx-auto w-full px-6 lg:px-8 flex items-center justify-between">
+        {/* Left Links */}
+        <div className="hidden lg:flex items-center gap-8">
+          {links.slice(0, 2).map((link) => (
+            <Link
+              key={link.name}
+              href={link.href}
+              className="relative py-2 text-sm font-semibold text-text-secondary hover:text-text-primary transition-colors"
+              onMouseEnter={() => setActiveLink(link.name)}
+              onMouseLeave={() => setActiveLink("")}
+            >
+              {link.name}
+              {(activeLink === link.name) && (
+                <motion.span
+                  layoutId="nav-underline"
+                  className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary shadow-[0_0_8px_var(--primary)]"
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  exit={{ scaleX: 0 }}
+                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                />
+              )}
+            </Link>
+          ))}
 
-                    {/* Center Logo */}
-                    <Link
-                        href="/"
-                        className="flex items-center gap-3 font-bold text-2xl text-brand-cream shrink-0"
-                        aria-label="Basaeer International School — Home"
-                    >
-                        <Image src="/logo.png" alt="Basaeer Logo" width={40} height={40} className="w-10 h-10 object-contain rounded-full bg-brand-navy border border-brand-gold/30" />
-                        <span className="hidden sm:block">Basaeer</span>
-                    </Link>
-
-                    {/* Right nav links */}
-                    <div className="hidden lg:flex items-center gap-6">
-                        {sections.slice(2).map((link) => (
-                            <Link
-                                key={link.name}
-                                href={link.href}
-                                className={`text-sm font-medium tracking-wide transition-colors ${link.name === "Apply Now"
-                                    ? "px-4 py-2 bg-brand-gold text-brand-navy rounded-full hover:bg-brand-gold/90"
-                                    : "text-brand-cream/80 hover:text-brand-cream"
-                                    }`}
-                            >
-                                {link.name}
-                            </Link>
-                        ))}
-                        <Link
-                            href="/login"
-                            className="px-4 py-2 border border-brand-cream/30 text-brand-cream rounded-full text-sm font-medium hover:border-brand-cream hover:bg-brand-cream/10 transition-all"
-                        >
-                            Staff Portal
-                        </Link>
-                    </div>
-
-                    {/* Mobile Menu Toggle */}
-                    <button
-                        className="lg:hidden text-brand-cream"
-                        onClick={() => setIsMobileOpen(!isMobileOpen)}
-                        aria-label={isMobileOpen ? "Close mobile menu" : "Open mobile menu"}
-                        aria-expanded={isMobileOpen}
-                    >
-                        {isMobileOpen ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
-                    </button>
-                </div>
-            </div>
-
-            {/* Mobile Dropdown */}
-            {isMobileOpen && (
-                <div
-                    className="lg:hidden bg-brand-navy/95 backdrop-blur-md border-t border-white/10 animate-in fade-in slide-in-from-top-4 duration-200"
-                    role="menu"
+          {/* Campus dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setCampusOpen(!campusOpen)}
+              className="flex items-center gap-1.5 text-sm font-semibold text-text-secondary hover:text-text-primary transition-colors"
+            >
+              Campus
+              <ChevronDown
+                size={14}
+                className={cn("transition-transform duration-300", campusOpen && "rotate-180")}
+              />
+            </button>
+            <AnimatePresence>
+              {campusOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  className="absolute top-full left-0 mt-3 p-2 w-48 rounded-xl glass-card border border-border shadow-2xl z-50"
                 >
-                    <div className="container mx-auto px-6 py-6 flex flex-col gap-4">
-                        {sections.map((link) => (
-                            <Link
-                                key={link.name}
-                                href={link.href}
-                                onClick={() => setIsMobileOpen(false)}
-                                className={`text-base font-medium transition-colors ${link.name === "Apply Now"
-                                    ? "text-brand-gold"
-                                    : "text-brand-cream/80 hover:text-brand-cream"
-                                    }`}
-                                role="menuitem"
-                            >
-                                {link.name}
-                            </Link>
-                        ))}
-                        <Link
-                            href="/login"
-                            onClick={() => setIsMobileOpen(false)}
-                            className="text-base font-medium text-brand-cream/60 hover:text-brand-cream transition-colors"
-                            role="menuitem"
-                        >
-                            Staff Portal
-                        </Link>
-                    </div>
-                </div>
-            )}
-        </nav>
-    );
+                  <Link
+                    href="/#contact"
+                    onClick={() => setCampusOpen(false)}
+                    className="block px-4 py-2.5 text-sm font-medium text-text-secondary hover:text-text-primary hover:bg-primary/10 rounded-lg transition-colors"
+                  >
+                    Main Campus
+                  </Link>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </div>
+
+        {/* Center Logo */}
+        <Link href="/" className="flex items-center gap-3 shrink-0">
+          <div className="relative w-10 h-10 rounded-full bg-surface-container border border-border shadow-inner overflow-hidden flex items-center justify-center">
+            <Image
+              src="/logo.png"
+              alt="Basaeer Logo"
+              width={40}
+              height={40}
+              className="w-10 h-10 object-contain rounded-full"
+            />
+          </div>
+          <span className="font-heading font-extrabold text-2xl tracking-tight text-gradient-primary">
+            Basaeer
+          </span>
+        </Link>
+
+        {/* Right Links & Theme Toggle */}
+        <div className="flex items-center gap-6">
+          <div className="hidden lg:flex items-center gap-8">
+            {links.slice(2).map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className={cn(
+                  "relative py-2 text-sm font-semibold transition-all duration-300",
+                  link.name === "Apply Now"
+                    ? "btn-premium-primary px-6 py-2.5 text-white"
+                    : "text-text-secondary hover:text-text-primary"
+                )}
+              >
+                {link.name}
+              </Link>
+            ))}
+            <Link href="/login" className="btn-premium-secondary px-6 py-2.5 text-sm font-semibold">
+              Staff Portal
+            </Link>
+          </div>
+
+          {/* Theme Switcher with spring animation */}
+          <button
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            className="relative w-10 h-10 flex items-center justify-center rounded-full bg-surface-container border border-border hover:bg-surface-bright transition-colors cursor-pointer"
+            aria-label="Toggle theme"
+          >
+            <motion.div
+              initial={false}
+              animate={{ rotate: theme === "dark" ? 0 : 180 }}
+              transition={{ type: "spring", stiffness: 200, damping: 15 }}
+            >
+              {theme === "dark" ? (
+                <Moon className="w-5 h-5 text-accent-gold" />
+              ) : (
+                <Sun className="w-5 h-5 text-accent-gold" />
+              )}
+            </motion.div>
+          </button>
+
+          {/* Mobile Menu Toggle */}
+          <button
+            className="lg:hidden text-text-primary hover:text-primary transition-colors"
+            onClick={() => setIsMobileOpen(!isMobileOpen)}
+            aria-label="Toggle mobile menu"
+          >
+            {isMobileOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Drawer */}
+      <AnimatePresence>
+        {isMobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="absolute top-full left-0 right-0 lg:hidden bg-background/95 backdrop-blur-md border-b border-border overflow-hidden shadow-2xl"
+          >
+            <div className="px-6 py-8 flex flex-col gap-6">
+              {links.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setIsMobileOpen(false)}
+                  className={cn(
+                    "text-lg font-semibold transition-colors",
+                    link.name === "Apply Now" ? "text-primary" : "text-text-secondary hover:text-text-primary"
+                  )}
+                >
+                  {link.name}
+                </Link>
+              ))}
+              <Link
+                href="/login"
+                onClick={() => setIsMobileOpen(false)}
+                className="text-lg font-semibold text-text-secondary hover:text-text-primary transition-colors"
+              >
+                Staff Portal
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </nav>
+  );
 }
