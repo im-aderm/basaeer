@@ -9,6 +9,7 @@ import { Navbar } from "@/components/landing/Navbar";
 import { Footer } from "@/components/landing/Footer";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { GradientBackground } from "@/components/ui/GradientBackground";
+import { cn } from "@/lib/utils";
 
 export default function TahfeezPage() {
   const pathStages = [
