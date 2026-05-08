@@ -46,6 +46,7 @@ RUN npm ci --omit=dev --ignore-scripts
 COPY --from=builder /app/packages/shared-types ./packages/shared-types
 COPY --from=builder /app/backend/dist ./backend/dist
 COPY --from=builder /app/backend/prisma ./backend/prisma
+COPY --from=builder /app/backend/prisma.config.ts ./backend/prisma.config.ts
 COPY --from=builder /app/backend/src/generated ./backend/dist/generated
 
 # Set proper ownership
