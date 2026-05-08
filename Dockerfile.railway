@@ -41,9 +41,6 @@ COPY packages/shared-types/package.json ./packages/shared-types/
 # Install only production dependencies (ignore postinstall scripts since assets are copied from builder)
 RUN npm ci --omit=dev --ignore-scripts
 
-# Copy generated Prisma client
-COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
-COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
 
 # Copy built assets
 COPY --from=builder /app/packages/shared-types ./packages/shared-types
