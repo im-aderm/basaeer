@@ -30,7 +30,6 @@ import {
     MessageSquare,
     Coins,
     FileBarChart,
-    Award,
     Settings,
     ChevronDown,
     ChevronRight,
@@ -478,6 +477,40 @@ function NavList({ pathname, openMenus, isCollapsed = false, canSee, toggleMenu,
     );
 }
 
+interface UserFooterProps {
+    user: {
+        firstName?: string;
+        lastName?: string;
+        role?: string;
+    } | null;
+    compact?: boolean;
+}
+
+function UserFooter({ user, compact = false }: UserFooterProps) {
+    return (
+        <div className={cn(
+            "p-4 border-t border-[#E5E7EB] shrink-0 bg-white",
+            compact ? "flex justify-center" : ""
+        )}>
+            <div className={cn("flex items-center gap-3", compact && "justify-center")}>
+                <div className="w-10 h-10 rounded-xl bg-[#2563EB]/10 flex items-center justify-center text-[#2563EB] font-bold shrink-0" aria-hidden="true">
+                    {user?.firstName?.[0]}{user?.lastName?.[0]}
+                </div>
+                {!compact && (
+                    <div className="flex-1 min-w-0">
+                        <p className="text-sm font-semibold text-[#111827] truncate">
+                            {user?.firstName} {user?.lastName}
+                        </p>
+                        <p className="text-xs text-[#6B7280] truncate">
+                            {user?.role?.replace(/_/g, ' ')}
+                        </p>
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Main Sidebar Component
 // ─────────────────────────────────────────────────────────────────────────────
@@ -515,29 +548,6 @@ export function Sidebar() {
         if (!user) return false;
         return item.roles.includes(user.role);
     }, [user]);
-
-    const UserFooter = ({ compact = false }: { compact?: boolean }) => (
-        <div className={cn(
-            "p-4 border-t border-[#E5E7EB] shrink-0 bg-white",
-            compact ? "flex justify-center" : ""
-        )}>
-            <div className={cn("flex items-center gap-3", compact && "justify-center")}>
-                <div className="w-10 h-10 rounded-xl bg-[#2563EB]/10 flex items-center justify-center text-[#2563EB] font-bold shrink-0" aria-hidden="true">
-                    {user?.firstName?.[0]}{user?.lastName?.[0]}
-                </div>
-                {!compact && (
-                    <div className="flex-1 min-w-0">
-                        <p className="text-sm font-semibold text-[#111827] truncate">
-                            {user?.firstName} {user?.lastName}
-                        </p>
-                        <p className="text-xs text-[#6B7280] truncate">
-                            {user?.role?.replace(/_/g, ' ')}
-                        </p>
-                    </div>
-                )}
-            </div>
-        </div>
-    );
 
     return (
         <>
@@ -578,7 +588,7 @@ export function Sidebar() {
                     />
 
                     {/* User Footer */}
-                    <UserFooter compact={isCollapsed} />
+                    <UserFooter user={user} compact={isCollapsed} />
                 </div>
             </aside>
 
@@ -633,7 +643,7 @@ export function Sidebar() {
                         />
 
                         {/* User Footer */}
-                        <UserFooter />
+                        <UserFooter user={user} />
                     </div>
                 </div>
             )}
