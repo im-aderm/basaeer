@@ -2,18 +2,19 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { MapPin, Phone, Mail, Facebook, Twitter, Instagram, Linkedin, Send } from "lucide-react";
+import { Send, Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
 
 export function Footer() {
   return (
     <footer id="contact" className="relative border-t border-border bg-surface-container-low text-text-secondary pt-20 pb-10 overflow-hidden">
-      {/* Background aurora blur glow */}
-      <div className="absolute bottom-0 left-0 w-80 h-80 bg-aurora-purple rounded-full filter blur-[100px] opacity-20 -z-10" />
-      <div className="absolute top-0 right-0 w-80 h-80 bg-aurora-blue rounded-full filter blur-[100px] opacity-15 -z-10" />
+      {/* Background aurora blurs */}
+      <div className="absolute bottom-0 left-0 w-80 h-80 bg-aurora-purple rounded-full filter blur-[100px] opacity-15 -z-10" />
+      <div className="absolute top-0 right-0 w-80 h-80 bg-aurora-blue rounded-full filter blur-[100px] opacity-10 -z-10" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-          {/* Column 1: About */}
+          
+          {/* Column 1: Brand details */}
           <div className="space-y-6">
             <Link href="/" className="flex items-center gap-3">
               <div className="relative w-10 h-10 rounded-full bg-surface-container border border-border shadow-inner overflow-hidden flex items-center justify-center">
@@ -29,15 +30,15 @@ export function Footer() {
                 Basaeer
               </span>
             </Link>
-            <p className="text-text-secondary leading-relaxed text-sm">
-              Fostering excellence in both worldly knowledge and spiritual growth. Join us in shaping the leaders of tomorrow.
+            <p className="text-text-secondary leading-relaxed text-sm font-medium">
+              Basaeer Model School — bridging the gap between world-class academic excellence and profound spiritual growth.
             </p>
             <div className="flex gap-4">
               {[
-                { Icon: Facebook, label: "Follow Basaeer on Facebook" },
-                { Icon: Twitter, label: "Follow Basaeer on Twitter" },
-                { Icon: Instagram, label: "Follow Basaeer on Instagram" },
-                { Icon: Linkedin, label: "Follow Basaeer on LinkedIn" },
+                { Icon: Facebook, label: "Facebook" },
+                { Icon: Twitter, label: "Twitter" },
+                { Icon: Instagram, label: "Instagram" },
+                { Icon: Linkedin, label: "LinkedIn" },
               ].map(({ Icon, label }, idx) => (
                 <a
                   key={idx}
@@ -51,16 +52,15 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Column 2: Quick Links */}
+          {/* Column 2: Quick Links from Stitch */}
           <div>
             <h3 className="font-heading font-semibold text-text-primary text-base mb-6">Quick Links</h3>
-            <ul className="space-y-4 text-sm">
+            <ul className="space-y-4 text-sm font-medium">
               {[
-                { name: "About Us", href: "/#about" },
-                { name: "Admissions", href: "/admission" },
-                { name: "Our Programs", href: "/#programs" },
-                { name: "Contact Us", href: "/#contact" },
-                { name: "Staff Portal", href: "/login" },
+                { name: "Curriculum", href: "/#programs" },
+                { name: "Admissions", href: "/admission/apply/1" },
+                { name: "Student Portal", href: "/login" },
+                { name: "Careers", href: "/#contact" },
               ].map(({ name, href }) => (
                 <li key={name}>
                   <Link href={href} className="hover:text-primary transition-colors flex items-center gap-2 group">
@@ -72,64 +72,40 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: Contact Info */}
+          {/* Column 3: Academics from Stitch */}
           <div>
-            <h3 className="font-heading font-semibold text-text-primary text-base mb-6">Contact Us</h3>
-            <ul className="space-y-6 text-sm">
-              <li className="flex items-start gap-4">
-                <MapPin className="text-primary mt-1 shrink-0" size={18} aria-hidden="true" />
-                <span>
-                  123 Education Street, City Center,<br />
-                  Basaeer City, Nigeria
-                </span>
-              </li>
-              <li className="flex items-center gap-4">
-                <Phone className="text-primary shrink-0" size={18} aria-hidden="true" />
-                <a href="tel:+2348001234567" className="hover:text-primary transition-colors">+234 800 123 4567</a>
-              </li>
-              <li className="flex items-center gap-4">
-                <Mail className="text-primary shrink-0" size={18} aria-hidden="true" />
-                <a href="mailto:admissions@basaeer.edu.ng" className="hover:text-primary transition-colors">admissions@basaeer.edu.ng</a>
-              </li>
+            <h3 className="font-heading font-semibold text-text-primary text-base mb-6">Academics</h3>
+            <ul className="space-y-4 text-sm font-medium">
+              {[
+                { name: "Tahfeez Program", href: "/#tahfeez" },
+                { name: "Science & Tech", href: "/#about" },
+                { name: "Islamic Studies", href: "/#tahfeez" },
+                { name: "Extra-Curricular", href: "/#programs" },
+              ].map(({ name, href }) => (
+                <li key={name}>
+                  <Link href={href} className="hover:text-primary transition-colors flex items-center gap-2 group">
+                    <span className="w-1.5 h-1.5 bg-primary rounded-full opacity-50 group-hover:opacity-100 transition-all group-hover:scale-125" aria-hidden="true" />
+                    {name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Column 4: Newsletter */}
           <div>
             <h3 className="font-heading font-semibold text-text-primary text-base mb-6">Newsletter</h3>
-            <p className="text-sm leading-relaxed mb-6">
-              Subscribe to get the latest news and updates from Basaeer.
+            <p className="text-sm leading-relaxed mb-6 font-medium">
+              Stay updated with our latest news and events.
             </p>
             <form
               className="relative"
-              onSubmit={async (e) => {
+              onSubmit={(e) => {
                 e.preventDefault();
-                const form = e.currentTarget;
-                const emailInput = form.querySelector<HTMLInputElement>('input[type="email"]');
-                const button = form.querySelector('button');
-                if (emailInput?.value && button) {
-                  button.disabled = true;
-                  try {
-                    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/newsletter/subscribe`, {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify({ email: emailInput.value })
-                    });
-                    if (response.ok) {
-                      alert(`Thank you! You have been subscribed.`);
-                      form.reset();
-                    } else {
-                      alert(`Something went wrong. Please try again!`);
-                    }
-                  } catch (err) {
-                    alert(`Unable to subscribe at this moment.`);
-                  } finally {
-                    button.disabled = false;
-                  }
-                }
+                alert("Thank you for subscribing!");
               }}
             >
-              <label htmlFor="newsletter-email" className="sr-only">Email address for newsletter</label>
+              <label htmlFor="newsletter-email" className="sr-only">Email address</label>
               <input
                 id="newsletter-email"
                 type="email"
@@ -139,8 +115,8 @@ export function Footer() {
               />
               <button
                 type="submit"
-                className="absolute right-1 top-1 w-8 h-8 bg-primary rounded-full flex items-center justify-center hover:scale-105 active:scale-95 transition-all disabled:opacity-50 cursor-pointer"
-                aria-label="Subscribe to newsletter"
+                className="absolute right-1 top-1 w-8 h-8 bg-primary rounded-full flex items-center justify-center hover:scale-105 active:scale-95 transition-all cursor-pointer"
+                aria-label="Subscribe"
               >
                 <Send size={14} className="text-white ml-0.5" aria-hidden="true" />
               </button>
@@ -149,7 +125,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-border pt-8 text-center text-xs opacity-60">
-          <p>&copy; {new Date().getFullYear()} Basaeer School System. All Rights Reserved.</p>
+          <p>© 2024 Basaeer Model School. Seeking Knowledge, Illuminating Souls. All Rights Reserved.</p>
         </div>
       </div>
     </footer>

@@ -1,71 +1,77 @@
 "use client";
 
-import { BookOpen, GraduationCap, Gamepad2, Sparkles } from "lucide-react";
+import React from "react";
+import Link from "next/link";
+import { Baby, BookOpen, GraduationCap, Sparkles, ArrowRight } from "lucide-react";
+import { SectionWrapper } from "@/components/ui/SectionWrapper";
+import { GlassCard } from "@/components/ui/GlassCard";
 
 export function ProgramSection() {
-    const programs = [
-        {
-            title: "Kindergarten",
-            description: "A nurturing environment where curiosity meets foundational learning.",
-            icon: <Gamepad2 size={32} />,
-            age: "3-5 Years"
-        },
-        {
-            title: "Primary School",
-            description: "Building strong academic skills alongside character development.",
-            icon: <BookOpen size={32} />,
-            age: "6-11 Years"
-        },
-        {
-            title: "Secondary & Boarding",
-            description: "Preparation for higher education with disciplined boarding facilities.",
-            icon: <GraduationCap size={32} />,
-            age: "12-18 Years"
-        },
-        {
-            title: "Tahfeez Program",
-            description: "Dedicated Quran memorization track with tajweed mastery.",
-            icon: <Sparkles size={32} />,
-            age: "All Ages"
-        }
-    ];
+  const programs = [
+    {
+      title: "Nursery",
+      description: "Early childhood development rooted in play, exploration, and foundational values.",
+      icon: <Baby className="w-6 h-6 text-primary" />,
+      href: "/admission/apply/1",
+    },
+    {
+      title: "Primary",
+      description: "Building critical thinkers through a robust dual curriculum of science and spirit.",
+      icon: <BookOpen className="w-6 h-6 text-primary" />,
+      href: "/admission/apply/1",
+    },
+    {
+      title: "Secondary",
+      description: "Empowering future leaders with advanced sciences and Islamic jurisprudence.",
+      icon: <GraduationCap className="w-6 h-6 text-primary" />,
+      href: "/admission/apply/1",
+    },
+    {
+      title: "Tahfeez",
+      description: "A specialized track for the memorization and mastery of the Holy Qur'an.",
+      icon: <Sparkles className="w-6 h-6 text-primary" />,
+      href: "/admission/apply/1",
+    },
+  ];
 
-    return (
-        <section id="programs" className="py-20 lg:py-32 bg-background">
-            <div className="container mx-auto px-6">
-                <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
-                    <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-brand-navy">
-                        Our Educational Programs
-                    </h2>
-                    <p className="text-lg text-slate-gray">
-                        Comprehensive learning pathways designed for every stage of your child's growth.
-                    </p>
-                </div>
+  return (
+    <SectionWrapper id="programs" className="bg-surface-container-low">
+      <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface-container border border-border text-primary text-xs font-semibold uppercase tracking-wider">
+          Our Curriculum
+        </div>
+        <h2 className="text-4xl lg:text-5xl font-heading font-extrabold text-text-primary">
+          Our <span className="text-gradient-primary">Educational Pathways</span>
+        </h2>
+        <p className="text-base text-text-secondary font-medium">
+          Tailored educational journeys that respect individual growth and communal values.
+        </p>
+      </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {programs.map((program, idx) => (
-                        <div
-                            key={idx}
-                            className="group p-8 rounded-xl bg-white border border-brand-sand/30 hover:border-brand-gold/50 transition-all duration-300 hover:shadow-lg"
-                        >
-                            <div className="w-12 h-12 rounded-lg bg-brand-gold/10 text-brand-gold flex items-center justify-center mb-6 group-hover:bg-brand-gold group-hover:text-brand-navy transition-colors">
-                                {program.icon}
-                            </div>
-
-                            <h3 className="text-xl font-bold text-brand-navy mb-3">{program.title}</h3>
-                            <p className="text-slate-gray text-sm leading-relaxed mb-6">
-                                {program.description}
-                            </p>
-
-                            <div className="pt-4 border-t border-border mt-auto">
-                                <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                                    {program.age}
-                                </span>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {programs.map((program, idx) => (
+          <GlassCard
+            key={idx}
+            className="p-8 flex flex-col h-full rounded-2xl border border-border bg-background/40 group relative overflow-hidden"
+            hoverEffect="glow"
+          >
+            <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-6">
+              {program.icon}
             </div>
-        </section>
-    );
+
+            <h3 className="text-xl font-heading font-bold text-text-primary mb-3">{program.title}</h3>
+            <p className="text-text-secondary text-sm leading-relaxed mb-6 font-medium">
+              {program.description}
+            </p>
+
+            <div className="pt-4 border-t border-border mt-auto w-full flex items-center justify-between">
+              <Link href={program.href} className="text-xs font-bold uppercase tracking-wider text-primary inline-flex items-center gap-1 hover:text-primary-hover">
+                Learn More <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+          </GlassCard>
+        ))}
+      </div>
+    </SectionWrapper>
+  );
 }

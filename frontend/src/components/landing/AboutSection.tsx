@@ -1,99 +1,118 @@
 "use client";
 
-import { CheckCircle2 } from "lucide-react";
+import React from "react";
 import Image from "next/image";
+import { Sparkles, Users, Shield, Cpu } from "lucide-react";
+import { SectionWrapper } from "@/components/ui/SectionWrapper";
+import { GlassCard } from "@/components/ui/GlassCard";
 
 export function AboutSection() {
-    const features = [
-        "Integrated Islamic & Western Curriculum",
-        "Dedicated Tahfeez & Quran Programs",
-        "Modern Science & Computer Labs",
-        "Secure Boarding Facilities (Boys & Girls)",
-    ];
+  return (
+    <SectionWrapper id="about">
+      <div className="text-center mb-16 space-y-4">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface-container border border-border text-primary text-xs font-semibold uppercase tracking-wider">
+          Beyond Education
+        </div>
+        <h2 className="text-4xl lg:text-5xl font-heading font-extrabold text-text-primary tracking-tight">
+          What Makes <span className="text-gradient-primary">Basaeer Unique</span>
+        </h2>
+      </div>
 
-    return (
-        <section id="about" className="py-20 lg:py-32 overflow-hidden">
-            <div className="container mx-auto px-6">
-                <div className="flex flex-col lg:flex-row items-center gap-16">
-
-                    {/* Image Grid */}
-                    <div className="flex-1 relative">
-                        <div className="relative z-10 grid grid-cols-2 gap-4">
-                            <div className="space-y-4 pt-12">
-                                {/* Placeholders - Replace with actual school images */}
-                                <div className="bg-gray-100 rounded-2xl overflow-hidden shadow-sm h-48 lg:h-64 relative">
-                                    <Image
-                                        src="https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=2070&auto=format&fit=crop"
-                                        alt="Library"
-                                        fill
-                                        className="object-cover hover:scale-105 transition-transform duration-500"
-                                    />
-                                </div>
-                                <div className="bg-gray-100 rounded-2xl overflow-hidden shadow-sm h-40 lg:h-56 relative">
-                                    <Image
-                                        src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2064&auto=format&fit=crop"
-                                        alt="Classroom"
-                                        fill
-                                        className="object-cover hover:scale-105 transition-transform duration-500"
-                                    />
-                                </div>
-                            </div>
-                            <div className="space-y-4">
-                                <div className="bg-gray-100 rounded-2xl overflow-hidden shadow-sm h-40 lg:h-56 relative">
-                                    <Image
-                                        src="https://images.unsplash.com/photo-1628286950266-3d7195f2694b?e=1740927600&v=beta&t=H-8rY8z5z5z5z5z5z5z5z5z5z5z5z5z5z5z5z5z5"
-                                        alt="Playground"
-                                        fill
-                                        className="object-cover hover:scale-105 transition-transform duration-500"
-                                    />
-                                </div>
-                                <div className="bg-gray-100 rounded-2xl overflow-hidden shadow-sm h-48 lg:h-64 relative">
-                                    <Image
-                                        src="https://images.unsplash.com/photo-1544531586-fde5298cdd40?q=80&w=2070&auto=format&fit=crop"
-                                        alt="Quran Study"
-                                        fill
-                                        className="object-cover hover:scale-105 transition-transform duration-500"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Decor Elements - Removed for minimal style */}
-                    </div>
-
-                    {/* Content */}
-                    <div className="flex-1 space-y-8">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-cream text-brand-navy text-sm font-medium">
-                            About Basaeer School
-                        </div>
-
-                        <h2 className="text-4xl lg:text-5xl font-bold text-brand-navy">
-                            Empowering Students Through <br />
-                            <span className="text-brand-gold">Knowledge & Faith</span>
-                        </h2>
-
-                        <p className="text-lg text-muted-foreground leading-relaxed">
-                            At Basaeer, we believe in nurturing the whole child. Our unique approach combines academic excellence with deep spiritual growth. We provide a supportive environment where students excel in modern sciences while internalizing the timeless values of the Quran.
-                        </p>
-
-                        <ul className="grid grid-cols-1 gap-4">
-                            {features.map((feature, idx) => (
-                                <li key={idx} className="flex items-center gap-3">
-                                    <div className="w-6 h-6 rounded-full bg-brand-emerald/10 text-brand-emerald flex items-center justify-center">
-                                        <CheckCircle2 size={14} strokeWidth={3} />
-                                    </div>
-                                    <span className="font-medium text-foreground">{feature}</span>
-                                </li>
-                            ))}
-                        </ul>
-
-                        <button className="btn-primary">
-                            Discover More
-                        </button>
-                    </div>
-
-                </div>
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+        
+        {/* Bento Cell 1: Global Standards (Col Span 8) */}
+        <GlassCard
+          className="md:col-span-8 min-h-[380px] flex flex-col justify-end p-8 relative overflow-hidden rounded-[2.5rem] border border-border bg-background/20"
+          hoverEffect="glow"
+        >
+          <div className="absolute inset-0 -z-10 opacity-30 group-hover:scale-105 transition-transform duration-700">
+            <Image
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmFuNRQne3ALy1T594gzk4FLp_rkJFMgokQiqiPcjIXb_6InVyIGyk_pAT1Lwdmc7Wf8I9ywjkeSgLCEhKyrmgP4EkK0om8qWjmUbRoniQqj3QdI-joIji9G5ra1pYS2lfy3gf4qxDDC2MDggMrJOHLagxLJ6idmmRwfrqxSplA_KNROXVj2tyQwqH1ro85YDE9jgtLFM1-RMUDgfoj_UrKESVcvTAbSQe8x1-6DapderRod1UdCTiq48WUp-ZXDuNk7Q3RfyKixY"
+              alt="Global Standards Laboratory"
+              fill
+              className="object-cover"
+              unoptimized
+            />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent -z-10" />
+          
+          <div className="space-y-4 relative z-10">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold uppercase tracking-wider">
+              <Shield className="w-3.5 h-3.5" /> Academic Excellence
             </div>
-        </section>
-    );
+            <h3 className="text-2xl lg:text-3xl font-heading font-extrabold text-text-primary">
+              Global Standards, Local Context
+            </h3>
+            <p className="text-text-secondary text-sm max-w-xl font-medium leading-relaxed">
+              Our curriculum is designed to exceed international standards while remaining deeply rooted in our community&apos;s unique cultural landscape.
+            </p>
+          </div>
+        </GlassCard>
+
+        {/* Bento Cell 2: Islamic Values (Col Span 4) */}
+        <GlassCard
+          className="md:col-span-4 min-h-[380px] flex flex-col items-center justify-center text-center p-8 rounded-[2.5rem] border-2 border-primary/25 bg-primary/5 shadow-2xl relative overflow-hidden"
+          hoverEffect="glow"
+        >
+          <div className="w-24 h-24 bg-primary/20 rounded-full flex items-center justify-center mb-6 shadow-[0_0_40px_rgba(124,58,237,0.3)] border border-primary/30">
+            <Sparkles className="w-12 h-12 text-primary" />
+          </div>
+          <h3 className="text-2xl font-heading font-extrabold text-text-primary mb-3">
+            Islamic Values
+          </h3>
+          <p className="text-text-secondary text-sm font-medium leading-relaxed">
+            Character building is at the heart of everything we do, instilling Taqwa and excellence in every student.
+          </p>
+        </GlassCard>
+
+        {/* Bento Cell 3: Leadership (Col Span 4) */}
+        <GlassCard
+          className="md:col-span-4 min-h-[380px] flex flex-col justify-between p-8 rounded-[2.5rem] border border-border bg-background/20"
+          hoverEffect="glow"
+        >
+          <div className="w-14 h-14 bg-surface-container rounded-2xl border border-border flex items-center justify-center text-primary">
+            <Users className="w-8 h-8" />
+          </div>
+          <div className="space-y-2 mt-8">
+            <h3 className="text-2xl font-heading font-extrabold text-text-primary">
+              Leadership
+            </h3>
+            <p className="text-text-secondary text-sm font-medium leading-relaxed">
+              Fostering the next generation of pioneers, thinkers, and highly ethical leaders.
+            </p>
+          </div>
+        </GlassCard>
+
+        {/* Bento Cell 4: Digital Innovation (Col Span 8) */}
+        <GlassCard
+          className="md:col-span-8 min-h-[380px] flex flex-col justify-end p-8 relative overflow-hidden rounded-[2.5rem] border border-border bg-background/20"
+          hoverEffect="glow"
+        >
+          <div className="absolute inset-0 -z-10 opacity-30 group-hover:scale-105 transition-transform duration-700">
+            <Image
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyj0bKqbUn3jRJnAGeMUJssO1eZmMi79O58EYLgaolpnGNnVqH68wcAhAAtXB2mEnToyG3nLOCYf9XQH2lmdHdZ1UB6bciG65R_Tywht8OEXLuYpJHjsO1oEX5qeS5eOiSs8kOaDfFhOKpnp7SYMDhwYVbuk0AlzDUchV6sbwGpB2kkZSYevk5G-7B-fcLUtZurqDuJ44VRLZDaESQlfp-PRaDAIaPRbQGOnLEsWO-AERMQ9jEVZqo10YI2GqNv7sPquYFV0yfliM"
+              alt="Robotics Workshop"
+              fill
+              className="object-cover"
+              unoptimized
+            />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent -z-10" />
+          
+          <div className="space-y-4 relative z-10">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold uppercase tracking-wider">
+              <Cpu className="w-3.5 h-3.5" /> High-Tech Focus
+            </div>
+            <h3 className="text-2xl lg:text-3xl font-heading font-extrabold text-text-primary">
+              Digital Innovation
+            </h3>
+            <p className="text-text-secondary text-sm max-w-xl font-medium leading-relaxed">
+              From AI labs to digital libraries, we equip our students with the tools of the future.
+            </p>
+          </div>
+        </GlassCard>
+
+      </div>
+    </SectionWrapper>
+  );
 }
