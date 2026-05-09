@@ -19,6 +19,7 @@ const links = [
 
 const sections = [
   { name: "Tahfeez Academy", href: "/academics/tahfeez" },
+  { name: "Islamic Studies", href: "/academics/islamic-studies" },
   { name: "Primary School", href: "/academics/primary" },
   { name: "Nursery School", href: "/academics/nursery" },
   { name: "Secondary School", href: "/academics/secondary" },
