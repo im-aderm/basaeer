@@ -4,10 +4,10 @@ import React from "react";
 
 export function StatsSection() {
   const stats = [
-    { value: "1.2k+", label: "Global Students", border: "border-b-primary-light/50", color: "text-primary-light" },
-    { value: "85+", label: "PhD Faculty", border: "border-b-secondary/50", color: "text-secondary" },
-    { value: "99%", label: "Graduation Rate", border: "border-b-text-secondary/50", color: "text-text-secondary" },
-    { value: "40+", label: "Research Labs", border: "border-b-primary/50", color: "text-primary" },
+    { value: "1.2k+", label: "National Presence", border: "border-b-primary-light/50", color: "text-primary-light" },
+    { value: "85+", label: "Huffaz", border: "border-b-secondary/50", color: "text-secondary" },
+    { value: "99%", label: "Graduation Rate", border: "border-b-primary-light/50", color: "text-transparent bg-clip-text bg-gradient-to-r from-primary-light to-secondary" },
+    { value: "40+", label: "Certified Educators", border: "border-b-primary/50", color: "text-primary" },
   ];
 
   return (
