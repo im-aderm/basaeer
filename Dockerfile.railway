@@ -30,6 +30,9 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 
+# Install system dependencies for Prisma
+RUN apk add --no-cache openssl libc6-compat
+
 # Create non-root user for security
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
