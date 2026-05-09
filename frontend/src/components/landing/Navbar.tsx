@@ -18,6 +18,7 @@ const links = [
   { name: "Alumni", href: "/alumni" },
   { name: "Gallery", href: "/gallery" },
   { name: "News & Events", href: "/news" },
+  { name: "Careers", href: "/careers" },
 ];
 
 const sections = [
