@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Basser School | Architects of Tomorrow</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#d2bbff",
+                        "on-tertiary": "#002e6a",
+                        "on-primary-fixed-variant": "#5a00c6",
+                        "on-secondary-container": "#b3b7d1",
+                        "tertiary-fixed-dim": "#adc6ff",
+                        "on-surface": "#e8dfee",
+                        "surface-container-lowest": "#100d16",
+                        "secondary-container": "#43485e",
+                        "surface-tint": "#d2bbff",
+                        "surface-container-low": "#1d1a24",
+                        "inverse-surface": "#e8dfee",
+                        "secondary": "#c1c5df",
+                        "on-tertiary-container": "#dce5ff",
+                        "on-secondary-fixed": "#161b2e",
+                        "secondary-fixed-dim": "#c1c5df",
+                        "background": "#15121b",
+                        "primary-container": "#7c3aed",
+                        "error-container": "#93000a",
+                        "tertiary-container": "#0062d2",
+                        "on-secondary-fixed-variant": "#41465b",
+                        "on-surface-variant": "#ccc3d8",
+                        "on-primary": "#3f008e",
+                        "surface-bright": "#3c3742",
+                        "tertiary-fixed": "#d8e2ff",
+                        "on-error": "#690005",
+                        "primary-fixed-dim": "#d2bbff",
+                        "on-tertiary-fixed": "#001a42",
+                        "surface-container": "#221e28",
+                        "secondary-fixed": "#dde1fc",
+                        "surface-dim": "#15121b",
+                        "tertiary": "#adc6ff",
+                        "surface-container-highest": "#37333e",
+                        "on-primary-container": "#ede0ff",
+                        "outline-variant": "#4a4455",
+                        "on-secondary": "#2b2f44",
+                        "outline": "#958da1",
+                        "surface-variant": "#37333e",
+                        "inverse-primary": "#732ee4",
+                        "on-background": "#e8dfee",
+                        "error": "#ffb4ab",
+                        "surface-container-high": "#2c2833",
+                        "surface": "#15121b",
+                        "on-primary-fixed": "#25005a",
+                        "on-tertiary-fixed-variant": "#004395",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed": "#eaddff",
+                        "inverse-on-surface": "#332f39"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "80px",
+                        "sm": "12px",
+                        "base": "8px",
+                        "lg": "48px",
+                        "gutter": "32px",
+                        "xs": "4px",
+                        "md": "24px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "h3": ["Space Grotesk"],
+                        "h2": ["Space Grotesk"],
+                        "body-md": ["Inter"],
+                        "h1": ["Space Grotesk"],
+                        "label-caps": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "h3": ["32px", {"lineHeight": "1.3", "letterSpacing": "0em", "fontWeight": "600"}],
+                        "h2": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "h1": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .aurora-glow {
+            background: radial-gradient(circle at 50% 50%, rgba(124, 58, 237, 0.15) 0%, transparent 70%);
+        }
+        .text-glow {
+            text-shadow: 0 0 20px rgba(210, 187, 255, 0.3);
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -10px rgba(124, 58, 237, 0.2);
+            border-color: rgba(210, 187, 255, 0.4);
+        }
+        body {
+            background-color: #15121b;
+            color: #e8dfee;
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+<body class="font-body-md antialiased">
+<!-- Navigation -->
+<nav class="fixed top-0 w-full z-50 bg-surface/10 backdrop-blur-xl border-b border-white/10 shadow-primary/5">
+<div class="flex justify-between items-center px-gutter py-sm max-w-container-max mx-auto">
+<div class="font-h3 text-h3 font-bold text-on-surface tracking-tight">Basser School</div>
+<div class="hidden md:flex space-x-lg items-center">
+<a class="text-primary border-b-2 border-primary pb-1 font-body-md text-body-md transition-colors" href="#">Academics</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors font-body-md text-body-md" href="#">Admissions</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors font-body-md text-body-md" href="#">Campus Life</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors font-body-md text-body-md" href="#">About Us</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors font-body-md text-body-md" href="#">Innovation</a>
+<button class="bg-primary-container text-on-primary-container px-md py-xs rounded-full font-bold hover:scale-105 active:scale-95 transition-all">Apply Now</button>
+</div>
+<button class="md:hidden material-symbols-outlined text-primary">menu</button>
+</div>
+</nav>
+<!-- Hero Section -->
+<header class="relative min-h-screen flex items-center pt-xl overflow-hidden">
+<div class="absolute inset-0 z-0">
+<div class="absolute top-[-10%] right-[-10%] w-[60%] h-[60%] aurora-glow opacity-50 blur-[100px]"></div>
+<div class="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-tertiary-container/10 blur-[100px]"></div>
+</div>
+<div class="relative z-10 max-w-container-max mx-auto px-gutter grid grid-cols-1 lg:grid-cols-2 gap-lg items-center">
+<div class="text-left">
+<span class="font-label-caps text-label-caps text-primary tracking-widest uppercase mb-sm inline-block">ESTABLISHED 2024</span>
+<h1 class="font-h1 text-h1 text-on-surface mb-md leading-tight">Shaping the <span class="text-primary text-glow">Architects</span> of Tomorrow's Innovation.</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-lg max-w-xl">Experience a digital-first elite education where tradition meets futuristic excellence. Our curriculum is designed to empower the next generation of global visionaries.</p>
+<div class="flex flex-wrap gap-md">
+<button class="px-lg py-md rounded-full bg-primary-container text-on-primary-container font-bold text-body-md hover:shadow-[0_0_30px_rgba(124,58,237,0.4)] transition-all">Login Portal</button>
+<button class="px-lg py-md rounded-full glass-panel border border-primary/20 text-primary font-bold text-body-md hover:bg-white/5 transition-all">Explore Programs</button>
+</div>
+</div>
+<div class="relative hidden lg:block">
+<div class="glass-panel p-base rounded-xl transform rotate-3 hover:rotate-0 transition-transform duration-700 shadow-2xl overflow-hidden">
+<img alt="Digital Dashboard" class="rounded-lg opacity-90 grayscale-[20%] hover:grayscale-0 transition-all duration-500" data-alt="A futuristic digital classroom dashboard displayed on a high-tech glass screen. The interface features glowing data visualizations, 3D architectural models, and vibrant violet and blue accent colors. The environment is sleek and minimalist with soft ambient lighting, reflecting a high-end academic innovation center. The overall mood is sophisticated and forward-thinking." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNugBhMRw5ARDaZi_5jci57ZB_n1jVGdEOoDwmwMDFhGAvrSP9FASf0GmZ88PVrVkOxiIE2ghlNsoNf_GdMnmZvamPN6vyyvVi9gGSFZAY8V_nCqgpOnHwpTzKTRIYYXQsvoOk-PpF5isWqGc_brQRk5irp88c0MEQ4vTbDnbE6EgBx7vxLOzR_C3LLlOOsPi6imW3BSD-LJ2T0r7WJ1Dgxjh1c2Fx89FBX5AykW8TvzcDRG4nLcqS7KCcM5aDrAxJ4HFCdMyNx8c"/>
+<div class="absolute top-4 left-4 glass-panel px-sm py-xs rounded-full border border-primary/30">
+<span class="text-primary flex items-center gap-xs font-label-caps"><span class="material-symbols-outlined text-[16px]">bolt</span> ACTIVE SESSIONS</span>
+</div>
+</div>
+<div class="absolute -bottom-10 -left-10 glass-panel p-md rounded-xl border border-white/20 shadow-2xl max-w-[200px] transform -rotate-6">
+<p class="font-h3 text-h3 text-primary mb-xs">98%</p>
+<p class="font-label-caps text-on-surface-variant">SUCCESS RATE</p>
+</div>
+</div>
+</div>
+</header>
+<!-- About Section -->
+<section class="py-xl relative">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<div class="glass-panel p-lg rounded-xl border-l-4 border-primary">
+<h2 class="font-h2 text-h2 text-on-surface mb-md">Our Mission</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">To cultivate an environment where intellectual curiosity is fueled by cutting-edge technology, fostering leaders who are grounded in wisdom and ready for the challenges of a digital future.</p>
+</div>
+<div class="glass-panel p-lg rounded-xl border-l-4 border-tertiary">
+<h2 class="font-h2 text-h2 text-on-surface mb-md">Our Vision</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">To become the global gold standard for hybrid education, seamlessly integrating traditional humanistic values with the boundless possibilities of artificial intelligence and innovation.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Why Choose Section -->
+<section class="py-xl bg-surface-container-low/50">
+<div class="max-w-container-max mx-auto px-gutter text-center mb-xl">
+<span class="font-label-caps text-primary tracking-widest uppercase mb-sm inline-block">THE BASSER EDGE</span>
+<h2 class="font-h2 text-h2 text-on-surface">Why the Future Starts Here</h2>
+</div>
+<div class="max-w-container-max mx-auto px-gutter grid grid-cols-1 md:grid-cols-3 gap-md">
+<!-- Modern Learning -->
+<div class="glass-panel p-lg rounded-xl card-hover transition-all duration-300">
+<div class="w-16 h-16 rounded-lg bg-primary-container/20 flex items-center justify-center mb-md">
+<span class="material-symbols-outlined text-primary text-[32px]">science</span>
+</div>
+<h3 class="font-h3 text-h3 text-on-surface mb-sm">Modern Learning</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Adaptive curricula that evolve in real-time with global industry standards and technological shifts.</p>
+</div>
+<!-- Experienced Teachers -->
+<div class="glass-panel p-lg rounded-xl card-hover transition-all duration-300">
+<div class="w-16 h-16 rounded-lg bg-tertiary-container/20 flex items-center justify-center mb-md">
+<span class="material-symbols-outlined text-tertiary text-[32px]">psychology</span>
+</div>
+<h3 class="font-h3 text-h3 text-on-surface mb-sm">Expert Faculty</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Guided by industry veterans and PhD-level educators dedicated to personalized mentorship.</p>
+</div>
+<!-- Digital-first -->
+<div class="glass-panel p-lg rounded-xl card-hover transition-all duration-300">
+<div class="w-16 h-16 rounded-lg bg-secondary-container/20 flex items-center justify-center mb-md">
+<span class="material-symbols-outlined text-secondary text-[32px]">cloud</span>
+</div>
+<h3 class="font-h3 text-h3 text-on-surface mb-sm">Digital Ecosystem</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">A fully integrated cloud campus providing seamless access to resources from anywhere in the world.</p>
+</div>
+</div>
+</section>
+<!-- Academics Section -->
+<section class="py-xl">
+<div class="max-w-container-max mx-auto px-gutter mb-xl">
+<h2 class="font-h2 text-h2 text-on-surface">Academic Excellence</h2>
+<div class="h-1 w-24 bg-primary-container mt-sm"></div>
+</div>
+<div class="max-w-container-max mx-auto px-gutter grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-md">
+<div class="relative group rounded-xl overflow-hidden glass-panel border border-white/5 p-base">
+<div class="aspect-[4/5] rounded-lg overflow-hidden mb-md">
+<img alt="Early Years" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="A vibrant and playful early childhood learning space featuring futuristic ergonomic furniture and soft lighting. The color palette includes soothing pastels with warm violet accents. In the background, interactive digital learning walls display gentle animations for children. The mood is nurturing, imaginative, and safe for early development." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtqvyz113YmeZwGA8K9J2y2B1bQFrMuqztZx0k9cjZR9jH6k_gOhSDpdIyCsZeZDzWiBHF1rR904IBLpqQ4X4_V6cY3Bt3F8ksaBv-_If6yB8hu_IAIgGQK_fubRiXBACypnhsv872kUFLjfMd8wGSsrpKErUjDw2PFGqoebfxM-Zro5iPAKEhR3UryWQBfsS9OWWF2Rg0zebze6QV8iV0fscBLHqj9KkFURhWVqO4LQAZnHPufBjlrctZyHsC-PP_LUko8VPpjnM"/>
+</div>
+<h4 class="font-h3 text-[24px] text-on-surface px-sm">Early Years</h4>
+<p class="font-body-md text-on-surface-variant px-sm pb-sm">Laying foundations of wonder.</p>
+</div>
+<div class="relative group rounded-xl overflow-hidden glass-panel border border-white/5 p-base">
+<div class="aspect-[4/5] rounded-lg overflow-hidden mb-md">
+<img alt="Primary" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="A modern elementary school classroom designed for collaborative learning. Students are using sleek tablets and interactive touch-tables in a bright, airy space. The architecture features clean lines and glass surfaces with subtle purple glows. The atmosphere is energetic, collaborative, and focused on discovery." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMJnv9cdv-h3OQLXAPKHCrUkwVOAgrA-orTkqDJfEEelhU1V98fNi1X2FVFGq9JSuXQeWRdMrJiSwY-2vr_XbOLJxV4_0dZWUEbW_h1U7uPHtvaXL_Aj_IfCGbDhpwoFgat4epZBv_PvKTJXDBrGHdFGzjjhfpailoLYKSxF2qsK94fpaN2soHZVZEUh-e5n0_Oone3yLrk0HQqOtfZjp_PFMmNGiMutbSBSOtxtV5wXbaw-OgguTqMM7laqNGEhdKCPtMtr9BVF8"/>
+</div>
+<h4 class="font-h3 text-[24px] text-on-surface px-sm">Primary</h4>
+<p class="font-body-md text-on-surface-variant px-sm pb-sm">Igniting critical exploration.</p>
+</div>
+<div class="relative group rounded-xl overflow-hidden glass-panel border border-white/5 p-base">
+<div class="aspect-[4/5] rounded-lg overflow-hidden mb-md">
+<img alt="Secondary" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="A sophisticated high school learning lab where students are working on complex digital projects. The space features deep indigo and violet ambient lighting, professional-grade technology, and minimalist workstation design. The setting conveys high intellectual focus, maturity, and a bridge to professional excellence." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTsjDJcnieDuVEw80-lqp5B0sRAmWlo0YP634IlP9WSfE2dHEcTzPjknxZJlx7RZQFn_Kz3Ewa-_RQ-6oeKrrQSUlZXCgH1szBTr_pvJkT3xGNPvVAEhaQgh17LHc9M8PI6S8mfkf_oLE-3tgCFNc7kJuqsePwixgxtWAeM_35nr5Pvj1yl1dpxKe1OX5FcsLNZQtfeDF3oZzWrdwiJAtNycpeZxPgJ4-m0R2kuHLysevREY6cq6o-8cQ2q4WgMePjfvRaATe5rmI"/>
+</div>
+<h4 class="font-h3 text-[24px] text-on-surface px-sm">Secondary</h4>
+<p class="font-body-md text-on-surface-variant px-sm pb-sm">Mastering complex horizons.</p>
+</div>
+<div class="relative group rounded-xl overflow-hidden glass-panel border border-white/5 p-base">
+<div class="aspect-[4/5] rounded-lg overflow-hidden mb-md">
+<img alt="STEM" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="A high-tech STEM laboratory equipped with robotics, 3D printers, and holographic displays. The room is dark with brilliant neon violet and blue highlights from the equipment. The style is advanced and industrial-futuristic, capturing the essence of pioneering scientific research and engineering innovation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxc5O_zaElvQB_K87YFWFjzAeG9I8iZbFNu1CLbyWG5aNK9HBlOBQF-2XJZyJXKG06h_rNTpNNbNr9fxJBPmC6eueyCpcQYWY6r2nloHprQCGTkwxEY9fGTYK-2F2n-DcB_B6nNynE-ywjMdrNMHKuhEdJonjS_RR_BJni0nMpzfNTW7CMcQGIu7Qgz3xKpi_YCeJO6ttHdS-EWCTQE_woDqd2DhizereZP0xAmj5EvLQKyZDm8TyHen0Kzt0LioyYRYh_SDBQxmA"/>
+</div>
+<h4 class="font-h3 text-[24px] text-on-surface px-sm">STEM Excellence</h4>
+<p class="font-body-md text-on-surface-variant px-sm pb-sm">Engineering future realities.</p>
+</div>
+</div>
+</section>
+<!-- Stats Section -->
+<section class="py-xl">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-md">
+<div class="glass-panel p-lg rounded-xl text-center border-b-2 border-primary/30">
+<div class="font-h1 text-h1 text-primary mb-xs">1.2k+</div>
+<div class="font-label-caps text-on-surface-variant">Global Students</div>
+</div>
+<div class="glass-panel p-lg rounded-xl text-center border-b-2 border-tertiary/30">
+<div class="font-h1 text-h1 text-tertiary mb-xs">85+</div>
+<div class="font-label-caps text-on-surface-variant">PhD Faculty</div>
+</div>
+<div class="glass-panel p-lg rounded-xl text-center border-b-2 border-secondary/30">
+<div class="font-h1 text-h1 text-secondary mb-xs">99%</div>
+<div class="font-label-caps text-on-surface-variant">Graduation Rate</div>
+</div>
+<div class="glass-panel p-lg rounded-xl text-center border-b-2 border-primary-container/30">
+<div class="font-h1 text-h1 text-primary-container mb-xs">40+</div>
+<div class="font-label-caps text-on-surface-variant">Research Labs</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Testimonials -->
+<section class="py-xl bg-surface-container-low/30 overflow-hidden">
+<div class="max-w-container-max mx-auto px-gutter mb-xl">
+<h2 class="font-h2 text-h2 text-on-surface text-center">Voices of the Community</h2>
+</div>
+<div class="flex gap-md px-gutter animate-marquee lg:justify-center">
+<div class="min-w-[400px] glass-panel p-lg rounded-xl">
+<div class="flex items-center gap-md mb-md">
+<img alt="Parent" class="w-12 h-12 rounded-full border-2 border-primary" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBik4wtOuA5reBFti-GQhHVM6KtxcJI9pOFwuLun0faHVGqphtttFlRS2BjuiErB9amyP9DdOsmdllE1i3mIicrrhohtjJ7dyPLSFcRUr9JYrCWyaOZSmzTxaWf4HvXdjO9eJu3HkAJFRMu7e1xQb0Y4L3RzfZAgixFKfRHjke-d4DN7_IbZnbubYbezGPD4jkd-c5odem8CPgjviojhHxGzYHkxPa_ipTI_T0QB2nA3Dh6kGmV0tb6LXRE5kENSchYlAqjlQGkOYU"/>
+<div>
+<h4 class="font-body-lg font-bold text-on-surface">Sarah Al-Mansour</h4>
+<p class="text-label-caps text-primary">Senior Architect &amp; Parent</p>
+</div>
+</div>
+<div class="flex gap-xs text-primary mb-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-md text-on-surface-variant">"The transition to Basser's digital-first approach has transformed my son's perspective on learning. He's no longer just consuming information; he's creating solutions."</p>
+</div>
+<!-- Duplicate for carousel effect -->
+<div class="min-w-[400px] glass-panel p-lg rounded-xl">
+<div class="flex items-center gap-md mb-md">
+<img alt="Parent" class="w-12 h-12 rounded-full border-2 border-tertiary" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjknUMzUuGqyJ8ZHDylqzAID1ZhVICqcWFOzyvIAo1s0FQMGf3JNysgE5Jno7Ktmp_lpdpvQvcrcw2CY2uOYDWUxgi8FNlPLZBAQY4rF6YXyk54S2pZ-PNy6UQUgfEFzfz71vo9O9fDf94CtTKq-Rmn2qNIqmzetw2-T3IW_KIgu9s6V1W_X8FGsNJ536sjpkH4SZsw7L6ifxgJWwJ4E-6Kju88eCScdQIqWCeVGQniTtGQwSWaIPXryU9H9N5G_QW86dLxrMJTsw"/>
+<div>
+<h4 class="font-body-lg font-bold text-on-surface">Dr. James Wilson</h4>
+<p class="text-label-caps text-tertiary">Research Scientist &amp; Parent</p>
+</div>
+</div>
+<div class="flex gap-xs text-tertiary mb-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-md text-on-surface-variant">"Basser School provides an unparalleled academic rigour. The faculty are world-class, and the facilities are straight out of a technology showcase."</p>
+</div>
+</div>
+</section>
+<!-- Mobile App CTA -->
+<section class="py-xl">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="rounded-3xl bg-primary-container/20 p-xl border border-primary/20 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-primary/10 to-transparent"></div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-lg items-center relative z-10">
+<div>
+<h2 class="font-h2 text-h2 text-on-surface mb-md">Your Campus, in Your Pocket.</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-lg">Manage assignments, track real-time progress, and connect with faculty instantly through our custom mobile ecosystem.</p>
+<div class="flex gap-md">
+<div class="flex items-center gap-sm glass-panel px-md py-sm rounded-xl cursor-pointer hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-[32px]">ios</span>
+<div class="text-left">
+<p class="text-[10px] font-label-caps">DOWNLOAD ON</p>
+<p class="font-bold text-body-md">App Store</p>
+</div>
+</div>
+<div class="flex items-center gap-sm glass-panel px-md py-sm rounded-xl cursor-pointer hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-[32px]">play_arrow</span>
+<div class="text-left">
+<p class="text-[10px] font-label-caps">GET IT ON</p>
+<p class="font-bold text-body-md">Google Play</p>
+</div>
+</div>
+</div>
+</div>
+<div class="relative flex justify-center">
+<img alt="Mobile App" class="w-full max-w-sm rounded-[3rem] shadow-[0_0_50px_rgba(124,58,237,0.3)] transform lg:translate-y-10" data-alt="A sleek, high-end 3D mockup of a smartphone floating in a dark, ethereal space. The screen displays the Basser School mobile app with a clean, dark-mode user interface, featuring glowing academic performance charts and a minimalist navigation menu. Ambient violet light reflects off the phone's glass edges, creating a futuristic and premium aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBf4DH2XKsheU222ATkoFThDbUmRn-sbYbJuDc7hSo6K7PVv-CjLnQ33bKVwu3BlxICkXMoQ3eVhGRFSRMYVSK7gBr3-OQ1wQWO_vokYH-AU6dRUkY-mSRafscO1jpxYIpISItnoqH6rbbrw3CNBkIndHhrjTESyeXFFWwZ4ubHDQMSatMmeiPCG2-4PQYRliwy7KCnFhz5hBPt38nABDAzbhePktBC7CUie54vTjqZJ2XK-mfiovzrc50qAtiZKsO1TqZSSPyw6Nk"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- News & Events -->
+<section class="py-xl">
+<div class="max-w-container-max mx-auto px-gutter mb-xl flex justify-between items-end">
+<div>
+<span class="font-label-caps text-primary tracking-widest mb-xs block">LATEST UPDATES</span>
+<h2 class="font-h2 text-h2 text-on-surface">News &amp; Insights</h2>
+</div>
+<a class="text-primary hover:underline font-bold" href="#">View All Archive</a>
+</div>
+<div class="max-w-container-max mx-auto px-gutter grid grid-cols-1 md:grid-cols-3 gap-md">
+<div class="group">
+<div class="rounded-xl overflow-hidden glass-panel mb-md">
+<img alt="News 1" class="w-full aspect-video object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A high-key photograph of a sleek, minimalist art exhibition opening at an elite school. Guests are dressed in modern attire, interacting in a space with high ceilings and integrated LED lighting. The palette is dominated by whites and deep purples, projecting an atmosphere of cultural sophistication and academic prestige." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRWX5_IQiGyPqUw9hT2WRJNrTYB80qzgUbL4HrQhaRCTwx1PkHqm_1F4E8FKC1C783Tpom8kYi6dkQy6kBgPzWvRBWjHzl-bh6L3BNuSOBzUKsd6EuTDdZQwpUmv37JoYNqrmCMMEyUL7ueVADIiz2HxwuA4Y5sGMXe7TDar8bSEvpQWtns_0k-CxFtHEonT4S8aiYIgAnqDM-dwNe_pqIRNKQ6xyTWCcsPfI5NtRpwxc9gS-euDup7jWc4wnvtluFl8T4gp7DCsU"/>
+</div>
+<div class="flex items-center gap-sm mb-xs">
+<span class="text-primary font-label-caps">CAMPUS NEWS</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="text-on-surface-variant font-label-caps">OCT 12, 2024</span>
+</div>
+<h4 class="font-h3 text-[20px] text-on-surface mb-sm group-hover:text-primary transition-colors">Basser Innovation Hub Opens Its Doors for AI Research</h4>
+</div>
+<div class="group">
+<div class="rounded-xl overflow-hidden glass-panel mb-md">
+<img alt="News 2" class="w-full aspect-video object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A professional conference setting with a speaker silhouetted against a large, glowing digital backdrop featuring geometric patterns. The room is filled with attentive participants in a dark, atmospheric environment punctuated by violet stage lighting. The mood is inspirational, professional, and intellectually charged." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkTwEdfldl-PHjdsnpgpvFJDcM-WaJYGOcN7qzuDGb7UARZhsZfPTUmYFKxtBRgNsFe7ADkgpR8mvahJYKJ-D-vmVkivNCztIuogy7dOUElLYpSuqL6MEyXD7QfEoZvmcJgoGcGQ4YkZmrd-6VyYE6mKFCi3MU76ixdF9dlLiPwvl8Nx9wx1L-uWV36W6srMu6AevauIOQ4-vuRctk1hjEZIhSEmNh7efQmWfmYWvBTRUABurDu1aDPmVvrgRcupXmJH4_m3LbKcE"/>
+</div>
+<div class="flex items-center gap-sm mb-xs">
+<span class="text-tertiary font-label-caps">EVENTS</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="text-on-surface-variant font-label-caps">OCT 15, 2024</span>
+</div>
+<h4 class="font-h3 text-[20px] text-on-surface mb-sm group-hover:text-tertiary transition-colors">Annual Future-Tech Summit: Global Leaders Speak</h4>
+</div>
+<div class="group">
+<div class="rounded-xl overflow-hidden glass-panel mb-md">
+<img alt="News 3" class="w-full aspect-video object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A group of diverse university students working together in a high-tech common area. They are focused on shared laptop screens with glowing interfaces. The architectural environment is made of glass and steel with warm, hidden violet lighting. The scene captures the essence of collaborative innovation and youthful intellectual energy." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmJY2gyUTYGctl10AIgi3__KspCjsdDJnWsmaussYlww6-9gbigNJmxwHKbIL2FdMQpBfZDa7fRJniT7Q0W2Gs_7jv8DDRouLi9HEK753GesVa-JKuFi5bYKhNMa5COZgn-qMEAMu6jvxvliEDO26JIOIy3N4VzFsWc1q-xF1pSXF4G00PB775EKcL75jp-QTZFFm4KQaJmSIQSjJhdcHMioAPxJIvTmE0f70NeLzXzJ0Rrp4Z6UMm9k0SiweV4IQpNfi8ec7fMPo"/>
+</div>
+<div class="flex items-center gap-sm mb-xs">
+<span class="text-secondary font-label-caps">ACHIEVEMENTS</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="text-on-surface-variant font-label-caps">OCT 20, 2024</span>
+</div>
+<h4 class="font-h3 text-[20px] text-on-surface mb-sm group-hover:text-secondary transition-colors">Basser Students Win Global Robotics Competition</h4>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest py-xl border-t border-outline-variant">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-lg px-gutter max-w-container-max mx-auto">
+<div class="col-span-1 md:col-span-1">
+<div class="font-h3 text-h3 font-bold text-primary mb-md">Basser School</div>
+<p class="font-body-md text-on-surface-variant mb-md">Pioneering wisdom through innovation. Building the leaders of the next century.</p>
+<div class="flex gap-md">
+<a class="w-10 h-10 rounded-full glass-panel flex items-center justify-center hover:text-primary transition-all" href="#"><span class="material-symbols-outlined">public</span></a>
+<a class="w-10 h-10 rounded-full glass-panel flex items-center justify-center hover:text-primary transition-all" href="#"><span class="material-symbols-outlined">groups</span></a>
+<a class="w-10 h-10 rounded-full glass-panel flex items-center justify-center hover:text-primary transition-all" href="#"><span class="material-symbols-outlined">campaign</span></a>
+</div>
+</div>
+<div>
+<h4 class="font-label-caps text-on-surface mb-md">ACADEMICS</h4>
+<ul class="space-y-sm">
+<li><a class="text-on-surface-variant hover:text-primary hover:translate-x-1 transition-all inline-block" href="#">Curriculum</a></li>
+<li><a class="text-on-surface-variant hover:text-primary hover:translate-x-1 transition-all inline-block" href="#">Faculty</a></li>
+<li><a class="text-on-surface-variant hover:text-primary hover:translate-x-1 transition-all inline-block" href="#">Research</a></li>
+<li><a class="text-on-surface-variant hover:text-primary hover:translate-x-1 transition-all inline-block" href="#">Innovation Lab</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-caps text-on-surface mb-md">INFORMATION</h4>
+<ul class="space-y-sm">
+<li><a class="text-on-surface-variant hover:text-primary hover:translate-x-1 transition-all inline-block" href="#">Admissions</a></li>
+<li><a class="text-on-surface-variant hover:text-primary hover:translate-x-1 transition-all inline-block" href="#">Campus Life</a></li>
+<li><a class="text-on-surface-variant hover:text-primary hover:translate-x-1 transition-all inline-block" href="#">Privacy Policy</a></li>
+<li><a class="text-on-surface-variant hover:text-primary hover:translate-x-1 transition-all inline-block" href="#">Terms of Service</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-caps text-on-surface mb-md">CONTACT</h4>
+<ul class="space-y-sm">
+<li class="flex items-center gap-xs text-on-surface-variant"><span class="material-symbols-outlined text-[18px]">location_on</span> Silicon District, Tech City</li>
+<li class="flex items-center gap-xs text-on-surface-variant"><span class="material-symbols-outlined text-[18px]">mail</span> contact@basserschool.edu</li>
+<li class="flex items-center gap-xs text-on-surface-variant"><span class="material-symbols-outlined text-[18px]">phone</span> +1 (555) INNOVATE</li>
+</ul>
+</div>
+</div>
+<div class="max-w-container-max mx-auto px-gutter mt-xl pt-lg border-t border-white/5 text-center">
+<p class="font-body-md text-on-surface-variant">© 2024 Basser School. Pioneering Wisdom through Innovation. All Rights Reserved.</p>
+</div>
+</footer>
+</body></html>

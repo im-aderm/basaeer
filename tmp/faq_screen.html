@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Basaeer Model School | FAQ</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error": "#ffb4ab",
+                        "inverse-on-surface": "#332f39",
+                        "on-primary-container": "#ede0ff",
+                        "surface-container-highest": "#37333e",
+                        "surface-dim": "#15121b",
+                        "on-primary-fixed": "#25005a",
+                        "secondary-container": "#43485e",
+                        "on-secondary": "#2b2f44",
+                        "secondary-fixed": "#dde1fc",
+                        "surface": "#15121b",
+                        "primary-container": "#7c3aed",
+                        "primary-fixed-dim": "#d2bbff",
+                        "surface-container": "#221e28",
+                        "on-surface-variant": "#ccc3d8",
+                        "primary-fixed": "#eaddff",
+                        "outline-variant": "#4a4455",
+                        "on-tertiary-fixed": "#001a42",
+                        "on-primary-fixed-variant": "#5a00c6",
+                        "surface-container-high": "#2c2833",
+                        "error-container": "#93000a",
+                        "on-secondary-container": "#b3b7d1",
+                        "on-secondary-fixed": "#161b2e",
+                        "tertiary-fixed": "#d8e2ff",
+                        "inverse-surface": "#e8dfee",
+                        "on-primary": "#3f008e",
+                        "secondary-fixed-dim": "#c1c5df",
+                        "inverse-primary": "#732ee4",
+                        "on-error": "#690005",
+                        "on-secondary-fixed-variant": "#41465b",
+                        "surface-variant": "#37333e",
+                        "on-tertiary-container": "#dce5ff",
+                        "tertiary-fixed-dim": "#adc6ff",
+                        "surface-bright": "#3c3742",
+                        "background": "#15121b",
+                        "secondary": "#c1c5df",
+                        "surface-container-low": "#1d1a24",
+                        "tertiary": "#adc6ff",
+                        "on-background": "#e8dfee",
+                        "primary": "#d2bbff",
+                        "on-tertiary": "#002e6a",
+                        "surface-tint": "#d2bbff",
+                        "on-tertiary-fixed-variant": "#004395",
+                        "tertiary-container": "#0062d2",
+                        "on-surface": "#e8dfee",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-lowest": "#100d16",
+                        "outline": "#958da1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "32px",
+                        "container-max": "1280px",
+                        "xl": "80px",
+                        "md": "24px",
+                        "sm": "12px",
+                        "base": "8px",
+                        "xs": "4px",
+                        "lg": "48px"
+                    },
+                    "fontFamily": {
+                        "h3": ["Space Grotesk"],
+                        "label-caps": ["Space Grotesk"],
+                        "body-lg": ["Inter"],
+                        "h1": ["Space Grotesk"],
+                        "h2": ["Space Grotesk"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "h3": ["32px", {"lineHeight": "1.3", "letterSpacing": "0em", "fontWeight": "600"}],
+                        "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "h1": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "h2": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glow-border:hover {
+            border-color: rgba(210, 187, 255, 0.4);
+            box-shadow: 0 0 20px rgba(124, 58, 237, 0.2);
+        }
+        .aurora-bg {
+            background: radial-gradient(circle at 20% 30%, rgba(124, 58, 237, 0.15) 0%, transparent 40%),
+                        radial-gradient(circle at 80% 70%, rgba(79, 70, 229, 0.1) 0%, transparent 40%);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/10 backdrop-blur-xl dark:bg-surface/10 border-b border-white/10 shadow-[0_0_15px_rgba(124,58,237,0.15)]">
+<div class="flex justify-between items-center px-gutter py-sm max-w-container-max mx-auto">
+<div class="font-h2 text-h3 text-primary tracking-tight">Basaeer Model School</div>
+<div class="hidden md:flex items-center gap-lg">
+<a class="font-h3 text-body-md font-body-md text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Home</a>
+<a class="font-h3 text-body-md font-body-md text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">About</a>
+<a class="font-h3 text-body-md font-body-md text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Academics</a>
+<a class="font-h3 text-body-md font-body-md text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Admissions</a>
+<a class="font-h3 text-body-md font-body-md text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Campuses</a>
+<a class="font-h3 text-body-md font-body-md text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Tahfeez</a>
+</div>
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">dark_mode</button>
+<button class="bg-primary-container text-on-primary-container px-md py-sm rounded-full font-label-caps hover:scale-105 hover:shadow-glow transition-all duration-300 active:scale-95">APPLY NOW</button>
+</div>
+</div>
+</nav>
+<main class="aurora-bg min-h-screen pt-xl">
+<!-- Hero Section & Search -->
+<section class="max-w-container-max mx-auto px-gutter pt-xl pb-lg text-center">
+<h1 class="font-h1 text-h1 text-on-surface mb-md">Your Questions, Answered.</h1>
+<p class="text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-lg">
+                Find comprehensive information about our curriculum, admissions process, and the spiritual journey at Basaeer Model School.
+            </p>
+<!-- Search Bar -->
+<div class="relative max-w-xl mx-auto">
+<div class="glass-panel rounded-full flex items-center px-md py-sm focus-within:ring-2 focus-within:ring-primary/50 transition-all">
+<span class="material-symbols-outlined text-primary mr-sm" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 w-full text-body-md text-on-surface placeholder:text-on-surface-variant/50" placeholder="Search for 'Admissions' or 'Scholarships'..." type="text"/>
+<button class="bg-primary-container text-on-primary-container px-md py-xs rounded-full font-label-caps text-xs">FIND</button>
+</div>
+</div>
+</section>
+<!-- Categorized Accordions -->
+<section class="max-w-4xl mx-auto px-gutter pb-xl">
+<!-- Category: Admissions -->
+<div class="mb-lg">
+<div class="flex items-center gap-sm mb-md">
+<span class="material-symbols-outlined text-primary" data-icon="assignment_ind">assignment_ind</span>
+<h2 class="font-h3 text-h3">Admissions</h2>
+</div>
+<div class="space-y-sm">
+<!-- Accordion Item 1 -->
+<details class="group glass-panel rounded-xl overflow-hidden glow-border transition-all duration-300">
+<summary class="flex justify-between items-center p-md cursor-pointer list-none">
+<span class="font-medium text-body-md">What are the age requirements for enrollment?</span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180" data-icon="expand_more">expand_more</span>
+</summary>
+<div class="p-md pt-0 text-on-surface-variant border-t border-white/5">
+                            For Kindergarten, children must be 4 years old by September 1st. For Grade 1, the requirement is 6 years of age. We follow a strict age-appropriate placement policy to ensure social and emotional readiness.
+                        </div>
+</details>
+<!-- Accordion Item 2 -->
+<details class="group glass-panel rounded-xl overflow-hidden glow-border transition-all duration-300">
+<summary class="flex justify-between items-center p-md cursor-pointer list-none">
+<span class="font-medium text-body-md">Are there scholarships available for talented students?</span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180" data-icon="expand_more">expand_more</span>
+</summary>
+<div class="p-md pt-0 text-on-surface-variant border-t border-white/5">
+                            Yes, Basaeer Model School offers Merit-Based Scholarships for students excelling in academics and the Tahfeez program. Financial aid is also available through our Zakat-funded scholarship pool for eligible families.
+                        </div>
+</details>
+</div>
+</div>
+<!-- Category: Academics -->
+<div class="mb-lg">
+<div class="flex items-center gap-sm mb-md">
+<span class="material-symbols-outlined text-primary" data-icon="school">school</span>
+<h2 class="font-h3 text-h3">Academics</h2>
+</div>
+<div class="space-y-sm">
+<details class="group glass-panel rounded-xl overflow-hidden glow-border transition-all duration-300">
+<summary class="flex justify-between items-center p-md cursor-pointer list-none">
+<span class="font-medium text-body-md">What curriculum does Basaeer follow?</span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180" data-icon="expand_more">expand_more</span>
+</summary>
+<div class="p-md pt-0 text-on-surface-variant border-t border-white/5">
+                            We integrate the rigorous British International Curriculum (Cambridge) with our proprietary Islamic Integrated Science program, ensuring students are competitive globally while remaining spiritually grounded.
+                        </div>
+</details>
+</div>
+</div>
+<!-- Category: Tahfeez Academy -->
+<div class="mb-lg">
+<div class="flex items-center gap-sm mb-md">
+<span class="material-symbols-outlined text-primary" data-icon="menu_book">menu_book</span>
+<h2 class="font-h3 text-h3">Tahfeez Academy</h2>
+</div>
+<div class="space-y-sm">
+<details class="group glass-panel rounded-xl overflow-hidden glow-border transition-all duration-300">
+<summary class="flex justify-between items-center p-md cursor-pointer list-none">
+<span class="font-medium text-body-md">Is the Tahfeez program integrated into the daily schedule?</span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180" data-icon="expand_more">expand_more</span>
+</summary>
+<div class="p-md pt-0 text-on-surface-variant border-t border-white/5">
+                            Yes, we offer two paths: Full-time Tahfeez (with core academics) and Integrated Tahfeez (morning sessions). Both options are led by certified Qaris with a focus on Tajweed and memorization retention.
+                        </div>
+</details>
+</div>
+</div>
+<!-- Category: General Information -->
+<div class="mb-lg">
+<div class="flex items-center gap-sm mb-md">
+<span class="material-symbols-outlined text-primary" data-icon="info">info</span>
+<h2 class="font-h3 text-h3">General</h2>
+</div>
+<div class="space-y-sm">
+<details class="group glass-panel rounded-xl overflow-hidden glow-border transition-all duration-300">
+<summary class="flex justify-between items-center p-md cursor-pointer list-none">
+<span class="font-medium text-body-md">Does the school provide transportation?</span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180" data-icon="expand_more">expand_more</span>
+</summary>
+<div class="p-md pt-0 text-on-surface-variant border-t border-white/5">
+                            Basaeer provides air-conditioned transportation services covering a 20km radius around all campuses. All buses are equipped with real-time GPS tracking and trained supervisors.
+                        </div>
+</details>
+</div>
+</div>
+</section>
+<!-- Final Support CTA -->
+<section class="max-w-container-max mx-auto px-gutter pb-xl">
+<div class="glass-panel rounded-3xl p-lg text-center relative overflow-hidden group">
+<!-- Background decoration -->
+<div class="absolute -top-24 -right-24 w-64 h-64 bg-primary/20 rounded-full blur-[80px] group-hover:bg-primary/30 transition-all duration-700"></div>
+<div class="absolute -bottom-24 -left-24 w-64 h-64 bg-tertiary/10 rounded-full blur-[80px] group-hover:bg-tertiary/20 transition-all duration-700"></div>
+<div class="relative z-10">
+<h2 class="font-h2 text-h2 mb-md">Still have questions?</h2>
+<p class="text-body-lg text-on-surface-variant mb-lg max-w-xl mx-auto">
+                        Our admissions team is available Sunday through Thursday to assist you with any inquiries regarding the enrollment process.
+                    </p>
+<div class="flex flex-col md:flex-row justify-center gap-md">
+<button class="bg-primary-container text-on-primary-container px-lg py-md rounded-full font-label-caps hover:shadow-[0_0_20px_rgba(124,58,237,0.4)] transition-all flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+                            Contact our team
+                        </button>
+<button class="glass-panel px-lg py-md rounded-full font-label-caps hover:bg-white/5 transition-all flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined" data-icon="call">call</span>
+                            Request a Call
+                        </button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="relative w-full pt-xl pb-md bg-surface-container-lowest dark:bg-surface-container-lowest border-t border-outline-variant/30">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-lg px-gutter max-w-container-max mx-auto">
+<div class="col-span-1 md:col-span-1">
+<div class="font-h3 text-h3 text-primary mb-4">Basaeer</div>
+<p class="text-on-surface-variant text-body-md opacity-80 leading-relaxed">
+                    Developing visionaries through holistic Islamic and modern education excellence.
+                </p>
+</div>
+<div>
+<h3 class="font-h3 text-h3 text-primary mb-md text-base">Quick Links</h3>
+<ul class="space-y-sm">
+<li><a class="text-on-surface-variant hover:text-on-surface hover:translate-x-1 transition-transform inline-block" href="#">Curriculum</a></li>
+<li><a class="text-on-surface-variant hover:text-on-surface hover:translate-x-1 transition-transform inline-block" href="#">Campus Tour</a></li>
+<li><a class="text-on-surface-variant hover:text-on-surface hover:translate-x-1 transition-transform inline-block" href="#">News &amp; Events</a></li>
+</ul>
+</div>
+<div>
+<h3 class="font-h3 text-h3 text-primary mb-md text-base">Admissions</h3>
+<ul class="space-y-sm">
+<li><a class="text-on-surface-variant hover:text-on-surface hover:translate-x-1 transition-transform inline-block" href="#">Fee Structure</a></li>
+<li><a class="text-on-surface-variant hover:text-on-surface hover:translate-x-1 transition-transform inline-block" href="#">Scholarships</a></li>
+<li><a class="text-on-surface-variant hover:text-on-surface hover:translate-x-1 transition-transform inline-block" href="#">Portal Login</a></li>
+</ul>
+</div>
+<div>
+<h3 class="font-h3 text-h3 text-primary mb-md text-base">Legal</h3>
+<ul class="space-y-sm">
+<li><a class="text-on-surface-variant hover:text-on-surface hover:translate-x-1 transition-transform inline-block" href="#">Privacy Policy</a></li>
+<li><a class="text-on-surface-variant hover:text-on-surface hover:translate-x-1 transition-transform inline-block" href="#">Terms of Service</a></li>
+<li><a class="text-on-surface-variant hover:text-on-surface hover:translate-x-1 transition-transform inline-block" href="#">Contact Support</a></li>
+</ul>
+</div>
+</div>
+<div class="max-w-container-max mx-auto px-gutter mt-xl pt-md border-t border-white/5 text-center">
+<p class="text-on-surface-variant text-sm opacity-60">
+                © 2024 Basaeer Model School. Seeking Knowledge, Illuminating Souls.
+            </p>
+</div>
+</footer>
+</body></html>

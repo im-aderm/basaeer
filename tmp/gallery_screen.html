@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gallery | Basaeer Model School</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .aurora-bg {
+            background: radial-gradient(circle at 20% 30%, rgba(124, 58, 237, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(79, 70, 229, 0.1) 0%, transparent 50%);
+        }
+        .magnetic-hover:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 0 20px rgba(124, 58, 237, 0.2);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error": "#ffb4ab",
+                        "inverse-on-surface": "#332f39",
+                        "on-primary-container": "#ede0ff",
+                        "surface-container-highest": "#37333e",
+                        "surface-dim": "#15121b",
+                        "on-primary-fixed": "#25005a",
+                        "secondary-container": "#43485e",
+                        "on-secondary": "#2b2f44",
+                        "secondary-fixed": "#dde1fc",
+                        "surface": "#15121b",
+                        "primary-container": "#7c3aed",
+                        "primary-fixed-dim": "#d2bbff",
+                        "surface-container": "#221e28",
+                        "on-surface-variant": "#ccc3d8",
+                        "primary-fixed": "#eaddff",
+                        "outline-variant": "#4a4455",
+                        "on-tertiary-fixed": "#001a42",
+                        "on-primary-fixed-variant": "#5a00c6",
+                        "surface-container-high": "#2c2833",
+                        "error-container": "#93000a",
+                        "on-secondary-container": "#b3b7d1",
+                        "on-secondary-fixed": "#161b2e",
+                        "tertiary-fixed": "#d8e2ff",
+                        "inverse-surface": "#e8dfee",
+                        "on-primary": "#3f008e",
+                        "secondary-fixed-dim": "#c1c5df",
+                        "inverse-primary": "#732ee4",
+                        "on-error": "#690005",
+                        "on-secondary-fixed-variant": "#41465b",
+                        "surface-variant": "#37333e",
+                        "on-tertiary-container": "#dce5ff",
+                        "tertiary-fixed-dim": "#adc6ff",
+                        "surface-bright": "#3c3742",
+                        "background": "#15121b",
+                        "secondary": "#c1c5df",
+                        "surface-container-low": "#1d1a24",
+                        "tertiary": "#adc6ff",
+                        "on-background": "#e8dfee",
+                        "primary": "#d2bbff",
+                        "on-tertiary": "#002e6a",
+                        "surface-tint": "#d2bbff",
+                        "on-tertiary-fixed-variant": "#004395",
+                        "tertiary-container": "#0062d2",
+                        "on-surface": "#e8dfee",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-lowest": "#100d16",
+                        "outline": "#958da1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "32px",
+                        "container-max": "1280px",
+                        "xl": "80px",
+                        "md": "24px",
+                        "sm": "12px",
+                        "base": "8px",
+                        "xs": "4px",
+                        "lg": "48px"
+                    },
+                    "fontFamily": {
+                        "h3": ["Space Grotesk"],
+                        "label-caps": ["Space Grotesk"],
+                        "body-lg": ["Inter"],
+                        "h1": ["Space Grotesk"],
+                        "h2": ["Space Grotesk"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "h3": ["32px", {"lineHeight": "1.3", "letterSpacing": "0em", "fontWeight": "600"}],
+                        "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "h1": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "h2": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface selection:bg-primary/30 selection:text-primary">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/10 backdrop-blur-xl border-b border-white/10 shadow-[0_0_15px_rgba(124,58,237,0.15)]">
+<div class="flex justify-between items-center px-gutter py-sm max-w-container-max mx-auto">
+<div class="font-h2 text-h3 text-primary tracking-tight">Basaeer Model School</div>
+<nav class="hidden md:flex items-center gap-lg">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Home</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">About</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Academics</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Admissions</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Campuses</a>
+<a class="font-body-md text-body-md text-primary border-b-2 border-primary pb-1" href="#">Tahfeez</a>
+</nav>
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors">dark_mode</span>
+<button class="bg-primary-container text-on-primary-container px-md py-xs rounded-full font-label-caps text-label-caps tracking-widest hover:scale-105 transition-all duration-300 shadow-[0_0_10px_rgba(124,58,237,0.4)]">
+                    APPLY NOW
+                </button>
+</div>
+</div>
+</header>
+<main class="aurora-bg">
+<!-- Hero Section -->
+<section class="relative h-[819px] flex items-center justify-center overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover opacity-40 scale-110" data-alt="An expansive aerial view of a modern school campus at golden hour, featuring sleek glass architecture and lush green courtyards. The lighting is warm and ethereal, with long soft shadows and a sense of peaceful morning light. The cinematic composition uses a shallow depth of field to emphasize the scale and futuristic design of the educational facility." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6vSiHLvFFNlLHTetHlo9YmafxgkxudKSrpvMKskby773D7Dz2B4pIego7KjZLwYqW9XvHmYb1UZDUcy9zDNjLNnHouuFdx_T378xUiUw1OyS6T5F1iBlENSemDj2pwywWzV4fEJHoVMxHMAfry-wrXNeyfSy3Q05K2uaKZmu1xbSLRkWhF22Ft6oF_eZOTlZoBhSd6L1T73M1FVyNdFFGEh9dK3C4McigdXP3n9HQA1lXEs-3Y4X9D3J51q_2kG85ShnKMOsoY4Q"/>
+<div class="absolute inset-0 bg-gradient-to-b from-background/0 via-background/40 to-background"></div>
+</div>
+<div class="relative z-10 text-center px-gutter max-w-4xl">
+<span class="font-label-caps text-label-caps text-primary tracking-[0.3em] mb-sm block">VIRTUAL CHRONICLE</span>
+<h1 class="font-h1 text-h1 text-on-surface mb-md">Windows into our World: Campus Life in Focus.</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Witness the fusion of tradition and technological progress through our immersive visual journey.</p>
+</div>
+</section>
+<!-- Visual Categories Filter -->
+<section class="px-gutter pb-xl relative z-20">
+<div class="max-w-container-max mx-auto">
+<div class="flex flex-wrap justify-center gap-md py-md border-b border-outline-variant/30">
+<button class="px-lg py-sm rounded-full glass-card text-primary font-label-caps text-label-caps tracking-widest transition-all duration-300 border-primary shadow-[0_0_15px_rgba(124,58,237,0.2)]">ALL REELS</button>
+<button class="px-lg py-sm rounded-full glass-card text-on-surface-variant font-label-caps text-label-caps tracking-widest hover:text-primary transition-all duration-300">FACILITIES</button>
+<button class="px-lg py-sm rounded-full glass-card text-on-surface-variant font-label-caps text-label-caps tracking-widest hover:text-primary transition-all duration-300">ACADEMICS</button>
+<button class="px-lg py-sm rounded-full glass-card text-on-surface-variant font-label-caps text-label-caps tracking-widest hover:text-primary transition-all duration-300">STUDENT LIFE</button>
+<button class="px-lg py-sm rounded-full glass-card text-on-surface-variant font-label-caps text-label-caps tracking-widest hover:text-primary transition-all duration-300">GRADUATIONS</button>
+</div>
+</div>
+</section>
+<!-- Masonry Gallery -->
+<section class="px-gutter pb-xl">
+<div class="max-w-container-max mx-auto">
+<div class="columns-1 md:columns-2 lg:columns-3 gap-md space-y-md">
+<!-- Gallery Item 1 -->
+<div class="relative group overflow-hidden rounded-xl glass-card transition-all duration-500 hover:shadow-[0_0_30px_rgba(124,58,237,0.3)]">
+<img class="w-full grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" data-alt="Students engaged in a collaborative high-tech laboratory environment, surrounded by glowing screens and holographic projections. The room is styled with dark surfaces and purple neon accent lighting, creating a futuristic academic atmosphere. Soft focus on the background highlighting the state-of-the-art equipment and focused expressions of young scholars." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvSgMfZsdWLFUQDbA4Jw93m0LltG0QYK0pno8Mmmq2GszLCIEPaqobUE26PoQs3nSuD4wntHHvlPiVyWdU18--Sk5vb71rbdHZ-7A7FjcfGPC55tbiZ38xUYrAERWmuH6cdKlG5uLLEqQX21SQkbJrjuhKEKAoLsHvEnAy7bZjDsSgb_6pmu7wOI_VHADcQBfR8AHc2JOcZ9nzJe4PT0vbRAP-JHUVXmotWDptsvtBMg7xGy95THj50hq-rFGHsxYHv-2tGXGYHfg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-lg">
+<span class="font-label-caps text-label-caps text-primary mb-xs">ACADEMICS</span>
+<h3 class="font-h3 text-body-md text-on-surface font-bold">Innovation Lab Sessions</h3>
+</div>
+</div>
+<!-- Gallery Item 2 -->
+<div class="relative group overflow-hidden rounded-xl glass-card transition-all duration-500 hover:shadow-[0_0_30px_rgba(124,58,237,0.3)]">
+<img class="w-full grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" data-alt="A grand school library with towering bookshelves and modern glass study pods. The space is illuminated by a celestial-themed ceiling mural with soft glowing stars and nebulae. Deep purples and indigo hues dominate the palette, creating a serene and intellectual sanctuary. The lighting is diffused and calm, perfect for deep study and reflection." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBw5JoppYtrjFtyKEEZTj-MHtiFunIs_td0YfJ7vwwnwbRGuOp7jsMLQ3g9fI9MTRkZRcs9pNqUx1qlItRYB9UjukMlP2cl7nLCxMuyg2vRih3ACCeoz_MS_8QHc3haErUyW7ZPZQFfToY38puq6fgt4Wyx-TJ3KkKiWumBM1nbBNpRnpoD3Ny69PYUIXhkZamoHTLBE2CVRyLpYmasHMF2_4aHWClEf5VR2WKUFBRgceS1H1imr7KASjIgiq1Fo8u6jaQyBKH2Wdo"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-lg">
+<span class="font-label-caps text-label-caps text-primary mb-xs">FACILITIES</span>
+<h3 class="font-h3 text-body-md text-on-surface font-bold">The Great Wisdom Hall</h3>
+</div>
+</div>
+<!-- Gallery Item 3 -->
+<div class="relative group overflow-hidden rounded-xl glass-card transition-all duration-500 hover:shadow-[0_0_30px_rgba(124,58,237,0.3)]">
+<img class="w-full grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" data-alt="An energetic capture of students celebrating graduation, with traditional robes integrated with modern technological accessories. The scene is set against a backdrop of a futuristic city skyline during twilight, with vibrant purples and blues filling the sky. Golden particles like stardust float in the air, symbolizing hope and achievement in a high-tech future." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWBOc5IwTpb7zw_cyEhtx2aDZRbeEuzu7Jv67FUrre-JtUcH-sGf6D4jl6bWi6Ium5p8RKiKso5aBCD1EnK7Vdx14mZvm6fCXHatFbchGEA6SPXTGNv955w4vy1UQ_g8y9F-6sh5pc0-_IePemkXk-ALD2GdW3AUjo-wJeFG6oh8aHGDf--WO7vOWYOylN9MN4vNpcR9dGgq0y1L45p5U95vT4AYU791yNUH7R-huY8LXMHXwePXuInU36n6xBDzgWQ2K4118S1h4"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-lg">
+<span class="font-label-caps text-label-caps text-primary mb-xs">GRADUATIONS</span>
+<h3 class="font-h3 text-body-md text-on-surface font-bold">Class of 2024 Ceremony</h3>
+</div>
+</div>
+<!-- Gallery Item 4 -->
+<div class="relative group overflow-hidden rounded-xl glass-card transition-all duration-500 hover:shadow-[0_0_30px_rgba(124,58,237,0.3)]">
+<img class="w-full grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" data-alt="A serene outdoor school prayer space with modern Islamic geometric patterns integrated into glass walls. The lighting is a blend of natural sunset and soft blue ambient floor lights. Students are seen in a peaceful moment of reflection. The aesthetic is clean and minimal, emphasizing spiritual growth within a modern architectural context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAs1EYviRUQXuqOeTVKvLdit0aVxTJAzhGxM60kic8t2ViVrtrWysvDLOa0Mc6PYMQF-SIq9cIGDayVduv9xFn3tNJoWXOd-wzqvgsIW-ETuurpOpXD7CS7E2YClGsQwfo51p0bT-Rmxt9iYtoiCVIsZlfYGCRLgx5TJIsPiHdC31LHgcyPpDGPiD3B1uKnd0hiY5-FOzK2zEEOcr1VEWcFL3Pk_aWrDAYJBei2e0giJomz9qYJ4m47q8x8Y7vmSx9pVT0ruUvbYO8"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-lg">
+<span class="font-label-caps text-label-caps text-primary mb-xs">TAHFEEZ</span>
+<h3 class="font-h3 text-body-md text-on-surface font-bold">Spiritual Sanctuaries</h3>
+</div>
+</div>
+<!-- Gallery Item 5 -->
+<div class="relative group overflow-hidden rounded-xl glass-card transition-all duration-500 hover:shadow-[0_0_30px_rgba(124,58,237,0.3)]">
+<img class="w-full grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" data-alt="A dynamic student lounge featuring modular neon-lit furniture and interactive touch-screen walls. Students are seen relaxing and interacting in a high-energy social space. The palette includes electric violet, cool grays, and black. The atmosphere is vibrant and tech-forward, reflecting the school's commitment to modern student life." src="https://lh3.googleusercontent.com/aida-public/AB6AXuATMf2_olmEI0IE7mgi1BpFYDlpkU1FdXrNS4y1q9dFVdndhCC6y15fBNpD6OlZHE4Z-S0wav7vSIgok9ztZwfEZpyzjNa4wZQe-1_lJOlLFRXwMx5fJGKO8gfJtBJYpSXQQ9Nf9E8hKh6CkhhMBD9vlBRXo3dhMxLv2CidDRFV1zQjZu8QIju-mxThoXFoNYEVtl5aS3YphJKWCOjGfuosdrcd-hya5Uahznlj6IlelmRHX6tsawlh4JWxxwnFGam16-wW13HUF1c"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-lg">
+<span class="font-label-caps text-label-caps text-primary mb-xs">STUDENT LIFE</span>
+<h3 class="font-h3 text-body-md text-on-surface font-bold">Interactive Social Hubs</h3>
+</div>
+</div>
+<!-- Gallery Item 6 -->
+<div class="relative group overflow-hidden rounded-xl glass-card transition-all duration-500 hover:shadow-[0_0_30px_rgba(124,58,237,0.3)]">
+<img class="w-full grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" data-alt="A futuristic school auditorium with sleek, curved seating and an immersive projection system displaying cosmic imagery. The lighting is low and atmospheric, with violet and blue light sweeps across the floor. This high-end educational space feels like a command center for learning, focusing on the intersection of technology and vision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdworstILxdRYw8-Oi4s58ctT4FFkZIjLMHw-ZeymM4gqy9qIal-lkekY90D4ACiJts2pfdlwwAESlyWTccQoi1OIdZnP7tNvo9nhEUgOBO4TtPWXf7phG14we0plmJzqXQ0aLEX2CwEB1P7vZoYXiuqH3R19yysjaJRdZnD0w5EfI5O4emvx434tmU8OWqwC-xR5ohhYQe6XTjSNJUKpk3cdZlzbPxAKv54eGJZ5M6Jc-YobbhluKdjcP5R7z0vjYJRjMESK2e_Q"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-lg">
+<span class="font-label-caps text-label-caps text-primary mb-xs">FACILITIES</span>
+<h3 class="font-h3 text-body-md text-on-surface font-bold">The Visionary Theater</h3>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Video Highlights -->
+<section class="px-gutter py-xl bg-surface-container-lowest/50 backdrop-blur-md relative overflow-hidden">
+<!-- Decorative Pattern -->
+<div class="absolute top-0 right-0 opacity-5 pointer-events-none">
+<svg class="text-primary fill-current" height="400" viewbox="0 0 100 100" width="400">
+<path d="M50 0 L60 40 L100 50 L60 60 L50 100 L40 60 L0 50 L40 40 Z"></path>
+</svg>
+</div>
+<div class="max-w-container-max mx-auto relative z-10">
+<div class="flex flex-col md:flex-row justify-between items-end mb-lg gap-md">
+<div class="max-w-xl">
+<span class="font-label-caps text-label-caps text-primary tracking-[0.2em] mb-sm block">CINEMATIC REELS</span>
+<h2 class="font-h2 text-h2 text-on-surface">Experience the Basaeer Journey in Motion.</h2>
+</div>
+<button class="text-primary font-label-caps text-label-caps flex items-center gap-xs hover:gap-md transition-all">
+                        VIEW CHANNEL <span class="material-symbols-outlined">trending_flat</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<!-- Featured Video Card -->
+<div class="group relative aspect-video rounded-2xl overflow-hidden glass-card cursor-pointer border-primary/20">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-70" data-alt="A cinematic frame of a school robotics competition, with students intensely focusing on a glowing robotic arm. The lighting is high-contrast with dark blues and bright cyan highlights. The mood is energetic and triumphant, capturing the excitement of modern STEM education. Shallow depth of field blurs the cheering audience in the background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAguupNy3snl6-ExRNOBsI6aC3NvUR5V_SfEqMcYcRRb6Y1XuhTm-2C1vIyWjlni4Y5vkafQsLxERqLGuz7YC8DmMdELPoiE4_ydnIs4ikVzJRxppMJNM2qAxbyUS0HRPkZVnSAg0R-7xIXJp-t21PI_R1pNtP2o3naGnyX1fp2f5-zKUSDKyZkKiRyrJSuXq1yvCEaqwtV9zS6kFafaQvKjpttdCGTO1Zke7XO12bs-8exaDaByXvmbQiR9M1imv-eszN3G1YUy9o"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="w-20 h-20 rounded-full bg-primary/20 backdrop-blur-md border border-primary/40 flex items-center justify-center group-hover:scale-125 transition-transform duration-500 shadow-[0_0_30px_rgba(124,58,237,0.4)]">
+<span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 p-lg w-full bg-gradient-to-t from-black/80 to-transparent">
+<p class="font-label-caps text-label-caps text-primary mb-xs">FEATURED FILM</p>
+<h4 class="font-h3 text-h3 text-white">Innovation &amp; Spirit: The 2024 Showcase</h4>
+</div>
+</div>
+<!-- Secondary Videos Grid -->
+<div class="flex flex-col gap-md">
+<div class="flex gap-md glass-card p-md rounded-xl group cursor-pointer hover:bg-white/5 transition-colors">
+<div class="relative w-40 h-24 flex-shrink-0 rounded-lg overflow-hidden">
+<img class="w-full h-full object-cover opacity-60 group-hover:scale-110 transition-transform" data-alt="A soft-focus thumbnail of a school choir performing in a modern hall with glowing geometric light fixtures. The palette is warm with ambers and purples. A sense of harmony and tradition is conveyed through the students' attire and the elegant architectural surroundings." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2dsKRXWUvGii2eEv-yFrzPvIu6UbYn8taSZzThQ8hLDcT0ZWt6hljtbrOtEZQMPs6eb1xGzxa2nqaMH3vVP5Z_pVs1vhqO2FgbwEt5BWrXorrDD1Ac7KaGtQK2mhgHxvAsF1vHNdrw7JWFfG5UX_4lcEYQyc2kh13IiQdmByDhEhuREl9GjupadnGrfd7HH2DLEtHyLSh4osG5V-49Th3s6NSdhn5bdvPuA_zSfVtUNDsO1IhLzLyPgxgE73q6_RGnMjwOoe2pOI"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-xl">play_circle</span>
+</div>
+</div>
+<div>
+<h5 class="font-h3 text-body-md text-on-surface group-hover:text-primary transition-colors">Cultural Heritage Festival</h5>
+<p class="font-body-md text-sm text-on-surface-variant mt-xs line-clamp-2">A celebration of global diversity and shared values through art and performance.</p>
+</div>
+</div>
+<div class="flex gap-md glass-card p-md rounded-xl group cursor-pointer hover:bg-white/5 transition-colors">
+<div class="relative w-40 h-24 flex-shrink-0 rounded-lg overflow-hidden">
+<img class="w-full h-full object-cover opacity-60 group-hover:scale-110 transition-transform" data-alt="A wide-angle shot of a futuristic school sports arena with blue running tracks and neon-lit borders. The atmosphere is crisp and modern, emphasizing athletic excellence and technological integration in physical education. Evening sky with a hint of purple adds to the dramatic lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuARqxa0S53RjmDnnwUENO29wGoQN6SNZyXZVzCXDm4cE3xNN4hIyRUTNXDhaQWXrqgDyyhMj8USVS5El9tV4wb8BWQSYRFcUZsvddGcwsBjPfruY5xZTOFxkOTuxes7zHCr11JUJZhCoccva_BYRKybhl9U82AlkLKxb_0ShB9axVV4ASjgcxQdg0_tgqVAPLG9Qik6qM811kNXfNnOCjx4k0qDai1UQhmnEgFKKY0sskNltC01mfSI4hLY5FValhYbhUIoU2qqLyA"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-xl">play_circle</span>
+</div>
+</div>
+<div>
+<h5 class="font-h3 text-body-md text-on-surface group-hover:text-primary transition-colors">Athletic Excellence Highlight</h5>
+<p class="font-body-md text-sm text-on-surface-variant mt-xs line-clamp-2">Pushing boundaries and building resilience in our state-of-the-art sports complex.</p>
+</div>
+</div>
+<div class="flex gap-md glass-card p-md rounded-xl group cursor-pointer hover:bg-white/5 transition-colors">
+<div class="relative w-40 h-24 flex-shrink-0 rounded-lg overflow-hidden">
+<img class="w-full h-full object-cover opacity-60 group-hover:scale-110 transition-transform" data-alt="A peaceful close-up of a student reading a modern manuscript in a light-filled prayer hall. Golden sunlight filters through geometric screen walls, creating intricate patterns on the floor. A blend of spiritual serenity and modern intellectual pursuit." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxZNn3QLOEcjwEUtPNoO1Ktf0xeTnOzsN_6wTtD60KvxLKutEJivSlzldY9DAvmtkQTTKR3qqi9Lm0AU2DERZ0B79eNLZtGffTkeaHld8OEV5coy4dOGawd4m7XoHVSjerjxKkk08Lo7M42i-n-Blks8da8M-KBNrEJM4CZadKfNjbr0ExcpSv4Ia5oFN7vufaoRaGf-MRy27Bv8fSLKNUSA6dJ4vHVTd9X7SvrEj83S8_3JhLzBXFBCsFNHwn47PA1K1DJjzJE0Q"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-xl">play_circle</span>
+</div>
+</div>
+<div>
+<h5 class="font-h3 text-body-md text-on-surface group-hover:text-primary transition-colors">Tahfeez Program Journey</h5>
+<p class="font-body-md text-sm text-on-surface-variant mt-xs line-clamp-2">Exploring the spiritual path of our Quranic memorization students.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="px-gutter py-xl">
+<div class="max-w-container-max mx-auto">
+<div class="glass-card rounded-[32px] p-xl text-center relative overflow-hidden">
+<div class="absolute inset-0 bg-primary/5 -z-10"></div>
+<div class="relative z-10 max-w-2xl mx-auto">
+<h2 class="font-h2 text-h2 text-on-surface mb-md">Want to see it in person?</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-lg">Schedule a personalized campus tour and experience the future of education firsthand.</p>
+<div class="flex flex-col sm:flex-row justify-center gap-md">
+<button class="bg-primary-container text-on-primary-container px-lg py-sm rounded-full font-label-caps text-label-caps tracking-widest hover:scale-105 transition-all shadow-[0_0_20px_rgba(124,58,237,0.4)]">BOOK A TOUR</button>
+<button class="border border-outline-variant text-on-surface px-lg py-sm rounded-full font-label-caps text-label-caps tracking-widest hover:bg-white/5 transition-all">VIRTUAL OPEN DAY</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="relative w-full pt-xl pb-md bg-surface-container-lowest border-t border-outline-variant/30">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-lg px-gutter max-w-container-max mx-auto">
+<div>
+<div class="font-h3 text-h3 text-primary mb-4">Basaeer Model School</div>
+<p class="text-on-surface-variant text-body-md">Empowering minds, illuminating souls with the light of knowledge and the power of technology.</p>
+</div>
+<div>
+<h3 class="font-h3 text-h3 text-on-surface mb-md text-body-md">Quick Links</h3>
+<ul class="space-y-sm">
+<li><a class="text-on-surface-variant hover:text-primary transition-transform hover:translate-x-1 inline-block" href="#">Our Story</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-transform hover:translate-x-1 inline-block" href="#">Curriculum</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-transform hover:translate-x-1 inline-block" href="#">Parent Portal</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-transform hover:translate-x-1 inline-block" href="#">Contact Us</a></li>
+</ul>
+</div>
+<div>
+<h3 class="font-h3 text-h3 text-on-surface mb-md text-body-md">Academics</h3>
+<ul class="space-y-sm">
+<li><a class="text-on-surface-variant hover:text-primary transition-transform hover:translate-x-1 inline-block" href="#">STEM Program</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-transform hover:translate-x-1 inline-block" href="#">Tahfeez Academy</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-transform hover:translate-x-1 inline-block" href="#">Arts &amp; Culture</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-transform hover:translate-x-1 inline-block" href="#">Sports Science</a></li>
+</ul>
+</div>
+<div>
+<h3 class="font-h3 text-h3 text-on-surface mb-md text-body-md">Connect</h3>
+<div class="flex gap-md mb-lg">
+<span class="material-symbols-outlined text-primary cursor-pointer hover:scale-125 transition-transform">public</span>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:scale-125 transition-transform">camera</span>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:scale-125 transition-transform">videocam</span>
+</div>
+<p class="text-xs text-on-surface-variant">Stay updated with our latest reels and student achievements.</p>
+</div>
+</div>
+<div class="max-w-container-max mx-auto px-gutter mt-xl pt-md border-t border-outline-variant/10 text-center">
+<p class="text-on-surface-variant font-body-md text-sm">© 2024 Basaeer Model School. Seeking Knowledge, Illuminating Souls.</p>
+</div>
+</footer>
+</body></html>

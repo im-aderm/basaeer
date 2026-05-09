@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error": "#ffb4ab",
+                    "inverse-on-surface": "#332f39",
+                    "on-primary-container": "#ede0ff",
+                    "surface-container-highest": "#37333e",
+                    "surface-dim": "#15121b",
+                    "on-primary-fixed": "#25005a",
+                    "secondary-container": "#43485e",
+                    "on-secondary": "#2b2f44",
+                    "secondary-fixed": "#dde1fc",
+                    "surface": "#15121b",
+                    "primary-container": "#7c3aed",
+                    "primary-fixed-dim": "#d2bbff",
+                    "surface-container": "#221e28",
+                    "on-surface-variant": "#ccc3d8",
+                    "primary-fixed": "#eaddff",
+                    "outline-variant": "#4a4455",
+                    "on-tertiary-fixed": "#001a42",
+                    "on-primary-fixed-variant": "#5a00c6",
+                    "surface-container-high": "#2c2833",
+                    "error-container": "#93000a",
+                    "on-secondary-container": "#b3b7d1",
+                    "on-secondary-fixed": "#161b2e",
+                    "tertiary-fixed": "#d8e2ff",
+                    "inverse-surface": "#e8dfee",
+                    "on-primary": "#3f008e",
+                    "secondary-fixed-dim": "#c1c5df",
+                    "inverse-primary": "#732ee4",
+                    "on-error": "#690005",
+                    "on-secondary-fixed-variant": "#41465b",
+                    "surface-variant": "#37333e",
+                    "on-tertiary-container": "#dce5ff",
+                    "tertiary-fixed-dim": "#adc6ff",
+                    "surface-bright": "#3c3742",
+                    "background": "#15121b",
+                    "secondary": "#c1c5df",
+                    "surface-container-low": "#1d1a24",
+                    "tertiary": "#adc6ff",
+                    "on-background": "#e8dfee",
+                    "primary": "#d2bbff",
+                    "on-tertiary": "#002e6a",
+                    "surface-tint": "#d2bbff",
+                    "on-tertiary-fixed-variant": "#004395",
+                    "tertiary-container": "#0062d2",
+                    "on-surface": "#e8dfee",
+                    "on-error-container": "#ffdad6",
+                    "surface-container-lowest": "#100d16",
+                    "outline": "#958da1"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "32px",
+                    "container-max": "1280px",
+                    "xl": "80px",
+                    "md": "24px",
+                    "sm": "12px",
+                    "base": "8px",
+                    "xs": "4px",
+                    "lg": "48px"
+            },
+            "fontFamily": {
+                    "h3": ["Space Grotesk"],
+                    "label-caps": ["Space Grotesk"],
+                    "body-lg": ["Inter"],
+                    "h1": ["Space Grotesk"],
+                    "h2": ["Space Grotesk"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "h3": ["32px", {"lineHeight": "1.3", "letterSpacing": "0em", "fontWeight": "600"}],
+                    "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                    "h1": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "h2": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .aurora-bg {
+            background: radial-gradient(circle at 20% 30%, rgba(124, 58, 237, 0.15) 0%, transparent 40%),
+                        radial-gradient(circle at 80% 70%, rgba(79, 70, 229, 0.1) 0%, transparent 40%);
+        }
+        .hover-sweep:hover {
+            box-shadow: 0 0 20px rgba(210, 187, 255, 0.2);
+            border-color: rgba(210, 187, 255, 0.4);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md aurora-bg min-h-screen">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/10 backdrop-blur-xl border-b border-white/10 shadow-[0_0_15px_rgba(124,58,237,0.15)]">
+<nav class="flex justify-between items-center px-gutter py-sm max-w-container-max mx-auto">
+<div class="font-h2 text-h3 text-primary tracking-tight">Basaeer Model School</div>
+<div class="hidden md:flex gap-lg items-center font-h3 text-body-md font-body-md">
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Home</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">About</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Academics</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Admissions</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Campuses</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Tahfeez</a>
+</div>
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">dark_mode</button>
+<button class="bg-primary-container text-on-primary-container px-md py-xs rounded-full font-label-caps hover:scale-105 transition-all duration-300 shadow-glow active:scale-95">APPLY NOW</button>
+</div>
+</nav>
+</header>
+<main class="pt-xl">
+<!-- Hero Section: Bento Style -->
+<section class="max-w-container-max mx-auto px-gutter py-xl">
+<div class="mb-lg">
+<h1 class="font-h1 text-h1 text-primary mb-sm">Stay Connected: The Basaeer Pulse.</h1>
+<p class="text-body-lg text-on-surface-variant max-w-2xl">Discover the latest achievements, spiritual milestones, and community highlights from the heart of Basaeer Model School.</p>
+</div>
+<div class="bento-grid h-[600px]">
+<!-- Main Headline Story -->
+<div class="col-span-12 md:col-span-8 relative rounded-xl overflow-hidden glass group">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A futuristic library interior with students engaged in collaborative study, bathed in soft purple ambient light and cool blue architectural highlights. The scene captures a high-end educational environment with glass-walled study pods and digital knowledge interfaces, embodying the Basaeer Model School aesthetic of wisdom and progress." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkR2o5a1Z3i1VWHmdep01blU8niaXy2buEjOHTyqEovHNSRvJ0vssWrHWRJJ9SkIh-kTE4FFQUSLI20TU4Q-H7afcir2o6m1m3u4VSSFBv59cyJ4he_qoOyJV6MTMVDFOH4FTVUYPpqVzStzOR9ImVFqzmgbEJ_ab5ih5UFmqHg1Jv4Gzf8M5kDvU4K418rc9SIUKSojhWGkdlyo7huDzWr3VhYxjGqZzuNwEGilE6SjiezZ4xTNahsqlU1fT24wln0kHaLD0mL7g"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dim via-transparent to-transparent"></div>
+<div class="absolute bottom-0 p-lg w-full">
+<span class="bg-primary-container/80 backdrop-blur-md text-on-primary-container px-sm py-xs rounded-full font-label-caps mb-sm inline-block">ACADEMICS</span>
+<h2 class="font-h2 text-h2 text-white mb-md">Basaeer Leads National Innovation in Digital Humanities</h2>
+<button class="flex items-center gap-xs text-primary font-bold hover:gap-md transition-all">
+                            Read Full Story <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Secondary Story 1 -->
+<div class="hidden md:flex md:col-span-4 flex-col gap-md">
+<div class="h-1/2 rounded-xl overflow-hidden glass group relative">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="A close-up shot of an intricate Islamic geometric pattern carved in modern translucent material, backlit with a soft electric violet glow. This represents the fusion of traditional spiritual geometry with futuristic design, a core brand anchor for Basaeer Model School's visual identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBN6oZXB0Hme6TfhGWljvKBanN1JaFegkeYtjypRZ5fgMP3_6TrBf7VXj1rX1zeFmYh402NQQzjwXwOgewTSCowXiDqfJ8299gs1yTsj5RTdV3dIDLaFv6tqBf_MWUBsUu-9pgsQ9tbZf15oCLe7G7GrbqDtxzll5vDVJCxyDbwnivbG8RBmTNxLI445hCCg4pARE0CiGYWwmGFw7tqIx3QlfVCyCT-rsc17qh4dDAXNxcbt6WQB4Y7pqGCKRIzkqjRbs49gcN6vqA"/>
+<div class="absolute inset-0 bg-surface-dim/40 group-hover:bg-surface-dim/20 transition-colors"></div>
+<div class="absolute bottom-0 p-md">
+<span class="text-primary font-label-caps mb-xs block">SPIRITUAL</span>
+<h3 class="font-h3 text-body-lg text-white">Annual Tahfeez Ceremony Dates Announced</h3>
+</div>
+</div>
+<div class="h-1/2 rounded-xl overflow-hidden glass group relative">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="A high-speed action photograph of student-athletes on a modern blue running track at dusk. The scene is illuminated by tall, sleek LED stadium lights that cast sharp purple shadows, emphasizing movement, vitality, and the school's commitment to excellence in sports." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbeERKeCzE6WINBl2hIi09K4wByx1Ng3XSWqLLqGSEhbHdmwafuIjYmaZ8psnOdBNlJUpelmxgu5CxwH3BPz317RLDa3i97RyrWqJRiQ6LByG79vymwgkdUvppP4af-jIEpEwzsW5oYXrhZ8E2Fqy0RpndvP8JWBEKkPoFCnHPCjAXZxtly8Ma3SjK-fYGJoj5CKAyFf_z7K8ti8Bq43zCM7aMl0DHCOfrB46ohKeyNa2tJ5L332PLn8yQ6TrBOBXDyVW74Y-LFVg"/>
+<div class="absolute inset-0 bg-surface-dim/40 group-hover:bg-surface-dim/20 transition-colors"></div>
+<div class="absolute bottom-0 p-md">
+<span class="text-primary font-label-caps mb-xs block">SPORTS</span>
+<h3 class="font-h3 text-body-lg text-white">Basaeer Falcons Clinch Inter-School Championship</h3>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- News Feed Section -->
+<section class="max-w-container-max mx-auto px-gutter py-xl">
+<div class="flex flex-col md:flex-row justify-between items-end mb-lg gap-md">
+<div>
+<h2 class="font-h2 text-h3 text-primary mb-xs">Latest News</h2>
+<p class="text-on-surface-variant">Stay updated with our diverse community activities.</p>
+</div>
+<div class="flex flex-wrap gap-sm">
+<button class="bg-primary text-on-primary px-md py-base rounded-full font-label-caps transition-all">ALL</button>
+<button class="glass text-on-surface-variant hover:text-primary px-md py-base rounded-full font-label-caps transition-all">ACADEMICS</button>
+<button class="glass text-on-surface-variant hover:text-primary px-md py-base rounded-full font-label-caps transition-all">SPORTS</button>
+<button class="glass text-on-surface-variant hover:text-primary px-md py-base rounded-full font-label-caps transition-all">SPIRITUAL</button>
+<button class="glass text-on-surface-variant hover:text-primary px-md py-base rounded-full font-label-caps transition-all">COMMUNITY</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+<!-- News Card 1 -->
+<div class="glass rounded-xl overflow-hidden hover-sweep transition-all group flex flex-col">
+<div class="h-48 relative overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A modern classroom environment where students are collaborating using tablet devices under soft, futuristic lighting. The room is designed with clean lines and glass surfaces, reflecting the school's high-tech approach to modern education." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEeqBxWXJ7hKyOpv_yOpgRJdcNNj7IwW9DBC71mope30pE4W40G2SNufCfSF0aSqextFK3hs2F5r2vUjxvD9yVTWgHqWb0D3opyvYfOiMLCF2oTIQ6NFv9u6UmU6pPSOc7TyxMQZPsRHOf9LBoe6Fs72C3uL1UopatVvnhdaHnoZFzB3moH7VrZ3kYLkNT1cpBQg0sJ9ClqFJbEoO00d7xpORLjBBQB8XmkcDgqDHIv5zhDgBE4PoFY5z9dE34nsKWt3Bzh5ZUA5Y"/>
+</div>
+<div class="p-md flex-grow flex flex-col">
+<div class="flex justify-between items-center mb-sm text-label-caps text-outline">
+<span>OCT 24, 2024</span>
+<span class="text-primary">ACADEMICS</span>
+</div>
+<h4 class="font-h3 text-body-lg text-on-surface mb-md">Integrating AI in Curriculum: A New Chapter</h4>
+<p class="text-on-surface-variant text-body-md line-clamp-3 mb-md">Our educators are pioneering new ways to blend ethical AI foundations into the core curriculum, preparing students for tomorrow's challenges.</p>
+<a class="mt-auto text-primary font-bold inline-flex items-center gap-xs" href="#">Read More <span class="material-symbols-outlined text-[18px]">open_in_new</span></a>
+</div>
+</div>
+<!-- News Card 2 -->
+<div class="glass rounded-xl overflow-hidden hover-sweep transition-all group flex flex-col">
+<div class="h-48 relative overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A group of diverse volunteers in school branded apparel working together in a community garden at sunrise. The soft morning light is enhanced by a subtle ethereal purple filter, highlighting the spirit of service and communal harmony." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaaNOtqLtzioCC1NiGQYhCA7cM-sIdSflHITuo6LVF01-TxPvv7u9veg2H6KUTcbF1GA87Q9nIRGhPKs4uzyT69QD0dpM3i57Tabg_pGJKCnj-B4ANWKCLQD7tz7Z5Lp4q5rDAhP8utId1-Uv4Ehgpq2quDuleCJOpKamZYh53Ed7rVu6Nts0YUhMS2T2eUf_cFDlPnSi7RSXyxbkgOVCNA9AG-cGWCrnAJdBxG7oZzQ2o-k1KR1loqih6f0XDdXRGjZT69wAMMSQ"/>
+</div>
+<div class="p-md flex-grow flex flex-col">
+<div class="flex justify-between items-center mb-sm text-label-caps text-outline">
+<span>OCT 18, 2024</span>
+<span class="text-primary">COMMUNITY</span>
+</div>
+<h4 class="font-h3 text-body-lg text-on-surface mb-md">Giving Back: The Annual Community Drive Results</h4>
+<p class="text-on-surface-variant text-body-md line-clamp-3 mb-md">Thanks to our dedicated families, this year's drive has reached record-breaking support for local initiatives.</p>
+<a class="mt-auto text-primary font-bold inline-flex items-center gap-xs" href="#">Read More <span class="material-symbols-outlined text-[18px]">open_in_new</span></a>
+</div>
+</div>
+<!-- News Card 3 -->
+<div class="glass rounded-xl overflow-hidden hover-sweep transition-all group flex flex-col">
+<div class="h-48 relative overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="An artistic shot of a student reciting in a serene, modern prayer hall. The architecture uses light refraction and glass panels to create a tranquil, spiritual atmosphere, with soft violet and deep indigo tones dominating the color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAK6D3TvbRVOHM1z2VOS71JcMeWB9oCSiWKmsnI2K7vKFixDuuMtBgDWoZbFgsBhXBC7zUn4JGHoph-cJEdfrwzqTwn-aAdFwJDmutsLmgFGctZgYlO9vUGyFLL32Y5OvBaK7CVGat0Ky0Zq2G2codpE9rq2Ofd82_LNiBmI6K6TEiHgwT2hMhTyOmhuUiyiKlGARk6X-8Dz44Owlrxrw6zoZTBVhMm3DFKgWCJEbS0_6lbzPKgi3i339guU1ObCReSfUlneb4xMb4"/>
+</div>
+<div class="p-md flex-grow flex flex-col">
+<div class="flex justify-between items-center mb-sm text-label-caps text-outline">
+<span>OCT 12, 2024</span>
+<span class="text-primary">SPIRITUAL</span>
+</div>
+<h4 class="font-h3 text-body-lg text-on-surface mb-md">Spiritual Reflections: Monthly Night Vigil Series</h4>
+<p class="text-on-surface-variant text-body-md line-clamp-3 mb-md">Join us as we explore deep spiritual insights through our popular monthly vigil and reflection sessions led by scholars.</p>
+<a class="mt-auto text-primary font-bold inline-flex items-center gap-xs" href="#">Read More <span class="material-symbols-outlined text-[18px]">open_in_new</span></a>
+</div>
+</div>
+</div>
+</section>
+<!-- Upcoming Events Section -->
+<section class="bg-surface-container-low/50 py-xl mt-xl relative overflow-hidden">
+<div class="max-w-container-max mx-auto px-gutter flex flex-col lg:flex-row gap-lg">
+<div class="lg:w-1/3">
+<h2 class="font-h2 text-h2 text-primary mb-md">Upcoming Events</h2>
+<p class="text-body-lg text-on-surface-variant mb-lg">Mark your calendars and join our vibrant events. From academic seminars to spiritual gatherings, there's always something happening at Basaeer.</p>
+<div class="glass p-md rounded-xl border-primary/20">
+<div class="flex items-center gap-sm mb-sm text-primary">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-label-caps">OCTOBER 2024</span>
+</div>
+<p class="text-body-md text-on-surface">Registration for Fall Semester competitions is now open.</p>
+</div>
+</div>
+<div class="lg:w-2/3 grid grid-cols-1 gap-md">
+<!-- Event Row 1 -->
+<div class="glass p-md rounded-xl flex flex-col md:flex-row items-center gap-md hover:bg-white/5 transition-colors group">
+<div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container p-sm rounded-lg min-w-[80px]">
+<span class="text-h3 font-h3 leading-none">12</span>
+<span class="font-label-caps">NOV</span>
+</div>
+<div class="flex-grow">
+<h4 class="font-h3 text-body-lg text-on-surface">Digital Arts &amp; Ethics Symposium</h4>
+<p class="text-on-surface-variant">09:00 AM - 02:00 PM | Grand Auditorium</p>
+</div>
+<button class="bg-primary text-on-primary px-lg py-base rounded-full font-label-caps hover:scale-105 transition-transform">Register</button>
+</div>
+<!-- Event Row 2 -->
+<div class="glass p-md rounded-xl flex flex-col md:flex-row items-center gap-md hover:bg-white/5 transition-colors group">
+<div class="flex flex-col items-center justify-center bg-surface-variant text-primary p-sm rounded-lg min-w-[80px]">
+<span class="text-h3 font-h3 leading-none">18</span>
+<span class="font-label-caps">NOV</span>
+</div>
+<div class="flex-grow">
+<h4 class="font-h3 text-body-lg text-on-surface">Parent-Teacher Illuminating Souls Summit</h4>
+<p class="text-on-surface-variant">04:30 PM - 07:00 PM | Virtual Portal</p>
+</div>
+<button class="glass border-primary/30 text-primary px-lg py-base rounded-full font-label-caps hover:bg-primary/10 transition-transform">Register</button>
+</div>
+<!-- Event Row 3 -->
+<div class="glass p-md rounded-xl flex flex-col md:flex-row items-center gap-md hover:bg-white/5 transition-colors group">
+<div class="flex flex-col items-center justify-center bg-surface-variant text-primary p-sm rounded-lg min-w-[80px]">
+<span class="text-h3 font-h3 leading-none">02</span>
+<span class="font-label-caps">DEC</span>
+</div>
+<div class="flex-grow">
+<h4 class="font-h3 text-body-lg text-on-surface">Global Alumni Networking Night</h4>
+<p class="text-on-surface-variant">06:00 PM - 09:00 PM | Skyline Lounge</p>
+</div>
+<button class="glass border-primary/30 text-primary px-lg py-base rounded-full font-label-caps hover:bg-primary/10 transition-transform">Register</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Social Media Integration -->
+<section class="max-w-container-max mx-auto px-gutter py-xl">
+<div class="text-center mb-lg">
+<h2 class="font-h2 text-h3 text-primary mb-xs">Basaeer Social Hub</h2>
+<p class="text-on-surface-variant">Follow our journey across digital platforms.</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-md">
+<div class="aspect-square relative rounded-xl overflow-hidden glass group">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A stylized group photo of students celebrating a science fair victory, captured in a square format with high-contrast, modern purple and neon blue lighting typical of a premium social media feed." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBe1LCAgZxLH1r28A9Cfd3anwQd3lPSWE9qfkwKwKHtDyNbyyoTnZ2BRH9lvmColDW0oGu62Zw3q_zwBNsNgOktk_TigYMrywiJrLbu2bYJGax9lrYM2bEAFUaPlwizvq-Xjxo7yNj8CbvxeSkNHF5D0Cg7EsJOKeNkgbY6aoHSeXV8maDMPDdvqvlTTSnLQ6E2UwVidgDH4lGjlG4LxzLXpI5sQixvdDQ1nKoT5Ai6KF8dLkLFmgSMn4btD8e-I7ASU8traZ3_vgY"/>
+<div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-h3">share</span>
+</div>
+</div>
+<div class="aspect-square relative rounded-xl overflow-hidden glass group">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A professional workspace setup with students in discussion around a modern conference table, with sleek glass boards featuring hand-drawn geometric designs. The lighting is bright and ethereal with violet accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpnTW_WI9FFbzmXG_CaOWcU4bnjNzx5SkpT3M0Daf2typt5pt5g-n4BAur-9xAIBPsughZ39r80JmwWPwt_zOoDmlEH38TnCDzWAM36628zUHxdoRM1K0LJkMI9yhJw4o23aBnRtgU_cMVQ_BIBkpOcupqoQfWI5rKYVp6U4OX_dDjfi651aZtDxsHV--9gEEHHMh_NH2DF8wkIYpy7_1n5Nh38Yjdj0h-oeLOujUEmotdoLxKB9w_2WTsDtABW0gPBF0osSYFbRs"/>
+<div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-h3">favorite</span>
+</div>
+</div>
+<div class="aspect-square relative rounded-xl overflow-hidden glass group">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A group of students walking through a futuristic school corridor with glowing LED lines on the floor and walls. The architecture is ultra-modern, incorporating glass and metal with a dominant purple color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrY8SNlA7thdJie2LWLDKWkh3thqSo3g-bY_7F3ikuAfgl2zcPLz_qD1anLqflwWAueabHxswYfrQtG49SuHWXqjrLIethnLH2M6bZVUtFOCPgPvnx8bY9lXJoVX5AyNyE9143WERCCo4yNMDiWIuD2PBWmA3W48QobwXRvgg8qIWeXnPTJLy_prMaXb1q_W_0SK_Z-CQasR_0XB2hnAI4T_bWkWtsnWhMC_8AO6SKWYhTf2PuGLme3Y2UTIGMpeE1gY-9P2-1uWQ"/>
+<div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-h3">chat_bubble</span>
+</div>
+</div>
+<div class="aspect-square relative rounded-xl overflow-hidden glass group">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A candid shot of laughter and friendship between students of different backgrounds in a brightly lit, modern school cafeteria. The aesthetic is clean and inclusive, with soft light and a sophisticated color scheme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfLMUVMyEIvKu4PzDV_2Ya3DWEzZxoFD6VXlZTLDWVROUC3ti96iX0Tz9TQX_I9MMkfyFtBpA9AzQAK-ohilj7Eme4Pde2AbTWTiaV9DYKRnomzKC1HPUIAT1-bIOxspRA54mXbDxoQNJmm8_CGhM1for-x3RJDwc9FqKYtSty7uK5Mfm5867THSJ8CrTkMiUln8ZSCxH_PSaLy2TxYVXo--k1bOC-QBEZ6rN5h6-H1_ca-E9q5jMGnWYG-inGbeTVDet5dPNnFMc"/>
+<div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-h3">add</span>
+</div>
+</div>
+</div>
+<div class="mt-lg text-center">
+<a class="inline-flex items-center gap-sm text-primary hover:gap-md transition-all font-bold" href="#">
+                    View More Updates <span class="material-symbols-outlined">trending_flat</span>
+</a>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="relative w-full pt-xl pb-md bg-surface-container-lowest border-t border-outline-variant/30">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-lg px-gutter max-w-container-max mx-auto font-body-md text-body-md h3:font-h3 h3:text-h3">
+<div class="col-span-1 md:col-span-1">
+<div class="font-h3 text-h3 text-primary mb-4">Basaeer Model School</div>
+<p class="text-on-surface-variant">Leading the future of education with spiritual wisdom and technological excellence.</p>
+</div>
+<div>
+<h3 class="font-h3 text-h3 text-primary mb-4">Quick Links</h3>
+<ul class="flex flex-col gap-sm">
+<li><a class="text-on-surface-variant hover:text-on-surface transition-transform hover:translate-x-1 inline-block" href="#">Curriculum</a></li>
+<li><a class="text-on-surface-variant hover:text-on-surface transition-transform hover:translate-x-1 inline-block" href="#">Our History</a></li>
+<li><a class="text-on-surface-variant hover:text-on-surface transition-transform hover:translate-x-1 inline-block" href="#">Events Calendar</a></li>
+<li><a class="text-on-surface-variant hover:text-on-surface transition-transform hover:translate-x-1 inline-block" href="#">News Archive</a></li>
+</ul>
+</div>
+<div>
+<h3 class="font-h3 text-h3 text-primary mb-4">Academics</h3>
+<ul class="flex flex-col gap-sm">
+<li><a class="text-on-surface-variant hover:text-on-surface transition-transform hover:translate-x-1 inline-block" href="#">Tahfeez Program</a></li>
+<li><a class="text-on-surface-variant hover:text-on-surface transition-transform hover:translate-x-1 inline-block" href="#">STEM Department</a></li>
+<li><a class="text-on-surface-variant hover:text-on-surface transition-transform hover:translate-x-1 inline-block" href="#">Arts &amp; Culture</a></li>
+<li><a class="text-on-surface-variant hover:text-on-surface transition-transform hover:translate-x-1 inline-block" href="#">Student Portal</a></li>
+</ul>
+</div>
+<div>
+<h3 class="font-h3 text-h3 text-primary mb-4">Newsletter</h3>
+<p class="text-on-surface-variant mb-md">Subscribe for the latest news and updates.</p>
+<div class="flex gap-xs">
+<input class="bg-surface/5 border border-outline-variant/30 rounded-lg px-md py-xs text-on-surface w-full focus:ring-primary focus:border-primary" placeholder="Email Address" type="email"/>
+<button class="bg-primary text-on-primary px-md py-xs rounded-lg font-bold">JOIN</button>
+</div>
+</div>
+</div>
+<div class="max-w-container-max mx-auto px-gutter mt-xl pt-md border-t border-outline-variant/10 text-center">
+<p class="text-on-surface-variant">© 2024 Basaeer Model School. Seeking Knowledge, Illuminating Souls.</p>
+</div>
+</footer>
+</body></html>

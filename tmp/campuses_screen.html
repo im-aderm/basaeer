@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error": "#ffb4ab",
+                    "inverse-on-surface": "#332f39",
+                    "on-primary-container": "#ede0ff",
+                    "surface-container-highest": "#37333e",
+                    "surface-dim": "#15121b",
+                    "on-primary-fixed": "#25005a",
+                    "secondary-container": "#43485e",
+                    "on-secondary": "#2b2f44",
+                    "secondary-fixed": "#dde1fc",
+                    "surface": "#15121b",
+                    "primary-container": "#7c3aed",
+                    "primary-fixed-dim": "#d2bbff",
+                    "surface-container": "#221e28",
+                    "on-surface-variant": "#ccc3d8",
+                    "primary-fixed": "#eaddff",
+                    "outline-variant": "#4a4455",
+                    "on-tertiary-fixed": "#001a42",
+                    "on-primary-fixed-variant": "#5a00c6",
+                    "surface-container-high": "#2c2833",
+                    "error-container": "#93000a",
+                    "on-secondary-container": "#b3b7d1",
+                    "on-secondary-fixed": "#161b2e",
+                    "tertiary-fixed": "#d8e2ff",
+                    "inverse-surface": "#e8dfee",
+                    "on-primary": "#3f008e",
+                    "secondary-fixed-dim": "#c1c5df",
+                    "inverse-primary": "#732ee4",
+                    "on-error": "#690005",
+                    "on-secondary-fixed-variant": "#41465b",
+                    "surface-variant": "#37333e",
+                    "on-tertiary-container": "#dce5ff",
+                    "tertiary-fixed-dim": "#adc6ff",
+                    "surface-bright": "#3c3742",
+                    "background": "#15121b",
+                    "secondary": "#c1c5df",
+                    "surface-container-low": "#1d1a24",
+                    "tertiary": "#adc6ff",
+                    "on-background": "#e8dfee",
+                    "primary": "#d2bbff",
+                    "on-tertiary": "#002e6a",
+                    "surface-tint": "#d2bbff",
+                    "on-tertiary-fixed-variant": "#004395",
+                    "tertiary-container": "#0062d2",
+                    "on-surface": "#e8dfee",
+                    "on-error-container": "#ffdad6",
+                    "surface-container-lowest": "#100d16",
+                    "outline": "#958da1"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "32px",
+                    "container-max": "1280px",
+                    "xl": "80px",
+                    "md": "24px",
+                    "sm": "12px",
+                    "base": "8px",
+                    "xs": "4px",
+                    "lg": "48px"
+            },
+            "fontFamily": {
+                    "h3": ["Space Grotesk"],
+                    "label-caps": ["Space Grotesk"],
+                    "body-lg": ["Inter"],
+                    "h1": ["Space Grotesk"],
+                    "h2": ["Space Grotesk"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "h3": ["32px", {"lineHeight": "1.3", "letterSpacing": "0em", "fontWeight": "600"}],
+                    "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                    "h1": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "h2": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .aurora-bg {
+            background: radial-gradient(circle at 20% 30%, rgba(124, 58, 237, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
+        }
+        .magnetic-hover:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 0 30px rgba(124, 58, 237, 0.2);
+        }
+        .shimmer-border:hover {
+            border-color: #7c3aed;
+            box-shadow: inset 0 0 15px rgba(124, 58, 237, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary/30 selection:text-primary min-h-screen aurora-bg">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/10 backdrop-blur-xl border-b border-white/10 shadow-[0_0_15px_rgba(124,58,237,0.15)]">
+<div class="flex justify-between items-center px-gutter py-sm max-w-container-max mx-auto">
+<div class="font-h2 text-h3 text-primary tracking-tight">Basaeer Model School</div>
+<div class="hidden md:flex items-center space-x-lg">
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-300 font-h3 text-body-md" href="#">Home</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-300 font-h3 text-body-md" href="#">About</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-300 font-h3 text-body-md" href="#">Academics</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-300 font-h3 text-body-md" href="#">Admissions</a>
+<a class="text-primary border-b-2 border-primary pb-1 font-h3 text-body-md" href="#">Campuses</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-300 font-h3 text-body-md" href="#">Tahfeez</a>
+</div>
+<div class="flex items-center space-x-md">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors" data-icon="dark_mode">dark_mode</button>
+<button class="bg-primary-container text-on-primary-container px-md py-xs rounded-full font-label-caps hover:scale-105 hover:shadow-[0_0_15px_rgba(124,58,237,0.4)] transition-all duration-300 active:scale-95">APPLY NOW</button>
+</div>
+</div>
+</nav>
+<main class="pt-32">
+<!-- Hero Section -->
+<section class="max-w-container-max mx-auto px-gutter mb-xl">
+<div class="flex flex-col items-center text-center max-w-3xl mx-auto space-y-md">
+<span class="text-tertiary font-label-caps tracking-[0.2em] mb-xs uppercase">Visionary Education</span>
+<h1 class="font-h1 text-h1 text-on-surface bg-clip-text text-transparent bg-gradient-to-r from-on-surface via-primary to-tertiary">A Network of Excellence: Our Campuses</h1>
+<p class="text-body-lg text-on-surface-variant leading-relaxed">Discover our strategically located campuses designed to provide a serene, technologically advanced environment for spiritual and academic growth.</p>
+</div>
+</section>
+<!-- Campus Statistics -->
+<section class="max-w-container-max mx-auto px-gutter mb-xl">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg glass-panel rounded-2xl p-lg text-center">
+<div class="space-y-xs">
+<div class="text-h2 font-h2 text-primary">2,500+</div>
+<div class="text-label-caps text-on-surface-variant uppercase tracking-widest">Enrolled Students</div>
+</div>
+<div class="space-y-xs border-x border-outline-variant/30">
+<div class="text-h2 font-h2 text-tertiary">450+</div>
+<div class="text-label-caps text-on-surface-variant uppercase tracking-widest">Graduate Huffaz</div>
+</div>
+<div class="space-y-xs">
+<div class="text-h2 font-h2 text-primary">12</div>
+<div class="text-label-caps text-on-surface-variant uppercase tracking-widest">Modern Laboratories</div>
+</div>
+</div>
+</section>
+<!-- Interactive Campus Cards -->
+<section class="max-w-container-max mx-auto px-gutter mb-xl">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+<!-- Ikeja City Campus -->
+<div class="glass-panel rounded-3xl overflow-hidden group magnetic-hover transition-all duration-300 shimmer-border">
+<div class="h-64 overflow-hidden">
+<img alt="Ikeja City Campus" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="A modern architectural school building with glass facades and clean geometric lines at sunset. The lighting is warm and golden, reflecting off the glass windows. The building is surrounded by lush green landscaping and neatly paved walkways, embodying a high-end futuristic Islamic educational aesthetic with deep purple and indigo sky tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuALRTCxyrEcI9CptBASdnjR5uGzd9dDwIrEBJaNETk4_cJtSm2vG50WwNHjUmCRYs9YSO86wv8MH-Y-apVkySYq3uuZq8tqQ7DH_R1c2KlPV8Ut0iM-1jltvVZEEQh1y8wk0qRhlTgNkkJYJHig9QYfw6SexkpDnZK3rkRDhHSoVSjX7KTWl9KL2siAw3OSnsvmN8OEu9Z-itEnMKy8vpYdPcRDHwHRV0Ty_BEFIOojgGmHKJYr51hrr_26_kR5nPj8OvTcrXok-3o"/>
+</div>
+<div class="p-lg space-y-md">
+<div class="flex justify-between items-start">
+<h3 class="font-h3 text-h3 text-on-surface">Ikeja City Campus</h3>
+<span class="material-symbols-outlined text-tertiary" data-icon="location_on">location_on</span>
+</div>
+<p class="text-on-surface-variant">Our flagship urban center featuring high-tech robotics labs and a central auditorium for spiritual gatherings.</p>
+<div class="grid grid-cols-2 gap-md pt-md border-t border-outline-variant/20">
+<div>
+<div class="text-primary font-bold">1,200</div>
+<div class="text-xs text-on-surface-variant uppercase">Students</div>
+</div>
+<div>
+<div class="text-primary font-bold">Smart Classrooms</div>
+<div class="text-xs text-on-surface-variant uppercase">Tech Core</div>
+</div>
+</div>
+<button class="w-full mt-lg bg-surface-container-high hover:bg-primary-container text-on-surface hover:text-on-primary-container py-md rounded-xl transition-all duration-300 flex justify-center items-center gap-base font-bold">
+                            Explore Campus <span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Victoria Island Branch -->
+<div class="glass-panel rounded-3xl overflow-hidden group magnetic-hover transition-all duration-300 shimmer-border">
+<div class="h-64 overflow-hidden">
+<img alt="Victoria Island Branch" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="A sophisticated coastal educational facility with minimalist white walls and integrated digital displays. Large windows overlook a serene garden area with a small pool, creating a tranquil and academic atmosphere. The overall mood is luxurious and serene, using a palette of royal purples and soft emerald greens in the evening light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1XcmuowekSzkJWXNd7HL5yRXKonl8ZI7TU4ORztfKtGsAE0wGehdBkwxD8l1rAsue4FsFESbNk5LON0KYo-xyvNhdphgszoYGH3OEPDRDufvIYG-ONHvP57AiTvOAY5DYkeIX-1aaJHkrNFzc2-Fl83dgE3jFSd81e0WAxniFu8I3Pb-LVXkzcvOuIZNJZ7mj8G6AnMuCpKeJiD-WxTisAWj_mB9QxV-8TP8ySuAY7pHg1qSpC9tAzgoUV5X7YKbAKexaNYueynk"/>
+</div>
+<div class="p-lg space-y-md">
+<div class="flex justify-between items-start">
+<h3 class="font-h3 text-h3 text-on-surface">Victoria Island</h3>
+<span class="material-symbols-outlined text-tertiary" data-icon="location_on">location_on</span>
+</div>
+<p class="text-on-surface-variant">A coastal sanctuary designed for advanced science research and personalized Quranic memorization programs.</p>
+<div class="grid grid-cols-2 gap-md pt-md border-t border-outline-variant/20">
+<div>
+<div class="text-primary font-bold">850</div>
+<div class="text-xs text-on-surface-variant uppercase">Students</div>
+</div>
+<div>
+<div class="text-primary font-bold">Bio-Labs</div>
+<div class="text-xs text-on-surface-variant uppercase">Focus</div>
+</div>
+</div>
+<button class="w-full mt-lg bg-surface-container-high hover:bg-primary-container text-on-surface hover:text-on-primary-container py-md rounded-xl transition-all duration-300 flex justify-center items-center gap-base font-bold">
+                            Explore Campus <span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Abuja Heights -->
+<div class="glass-panel rounded-3xl overflow-hidden group magnetic-hover transition-all duration-300 shimmer-border">
+<div class="h-64 overflow-hidden">
+<img alt="Abuja Heights" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="A high-altitude school campus in Abuja featuring tiered terrace architecture and hanging gardens. The building is made of polished dark stone and glass, glowing with soft internal lights against a twilight mountain backdrop. The design incorporates subtle Islamic geometric motifs in the metal screens, illuminated by electric violet highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8xxuqHU0_3RACnICqto2dKhEq2ms99kvELje-BvgolohGc4FdX3nzcr-IeaIs-28R9n-hx3vTPzKenXxnh3Tk6w2R6ZPQNsRj5mLAo0jlGz-QylKIRVAlIiuRE4VXQYnsn5cirMkqCZ5XH8Ov-RhfPHEZwZlYIavHwswx1XHRToc5UjA6A6xKQTe3j8Q9mkGZLvx2KaQAOCvW3zltwGzx4bWpAe-bUObD0xkjFioB4s9QPYALme8ItosGvzD0WW-nqQjhBN9blEg"/>
+</div>
+<div class="p-lg space-y-md">
+<div class="flex justify-between items-start">
+<h3 class="font-h3 text-h3 text-on-surface">Abuja Heights</h3>
+<span class="material-symbols-outlined text-tertiary" data-icon="location_on">location_on</span>
+</div>
+<p class="text-on-surface-variant">Our premier residential campus nestled in the hills, offering an immersive spiritual and academic retreat.</p>
+<div class="grid grid-cols-2 gap-md pt-md border-t border-outline-variant/20">
+<div>
+<div class="text-primary font-bold">450</div>
+<div class="text-xs text-on-surface-variant uppercase">Students</div>
+</div>
+<div>
+<div class="text-primary font-bold">Hostels</div>
+<div class="text-xs text-on-surface-variant uppercase">Type</div>
+</div>
+</div>
+<button class="w-full mt-lg bg-surface-container-high hover:bg-primary-container text-on-surface hover:text-on-primary-container py-md rounded-xl transition-all duration-300 flex justify-center items-center gap-base font-bold">
+                            Explore Campus <span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Integrated Map View -->
+<section class="max-w-container-max mx-auto px-gutter mb-xl">
+<div class="relative h-[500px] w-full rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
+<img class="w-full h-full object-cover grayscale brightness-50" data-alt="A stylized dark-mode digital map of Lagos and Abuja, Nigeria. The map uses deep charcoal and navy tones with glowing cyan and violet lines for roads. Three bright emerald pins pulsate at specific campus locations, each emitting a soft outer glow. The interface is clean, professional, and high-tech, fitting for a futuristic educational institution." data-location="Lagos, Nigeria" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCz2PVipmfEzDcAyjvoMp08FDMpy1nmugVLvXWFPOOiBTE990Fq8qITEvTr8AHF6Zdk35CJApDG84SOsE5gW0_MgC9uTdc3_Cad_xOv-CM9tRWSOUY6tkYKWEgE2E0jnVUOjwKUA9iDgbdPH1aicltF8yalOk7dBUYh1E3GgXbuh--qm4U4Te_2761ubYidyjSinSIHClTPJuNWvt6EQWlq8ecabn8X1EdfhasDVBH38serze2CmkRCOUlebqgWyJiOUUyEchNKCgU"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+<!-- Floating Info Overlay -->
+<div class="absolute top-md left-md p-lg glass-panel rounded-2xl max-w-sm">
+<h4 class="font-h3 text-body-lg text-primary mb-sm">Campus Network</h4>
+<p class="text-on-surface-variant text-sm mb-md">Our centers are strategically positioned to serve major hubs, ensuring proximity and accessibility for our growing community.</p>
+<div class="space-y-sm">
+<div class="flex items-center gap-sm">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="text-on-surface text-sm">Lagos Central Hub</span>
+</div>
+<div class="flex items-center gap-sm">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span class="text-on-surface text-sm">Abuja Regional Center</span>
+</div>
+</div>
+</div>
+<!-- Glow Pin Overlays (Abstract Positions) -->
+<div class="absolute top-1/2 left-1/3 w-8 h-8 -ml-4 -mt-4">
+<span class="absolute inline-flex h-full w-full rounded-full bg-primary opacity-75 animate-ping"></span>
+<span class="relative inline-flex rounded-full h-8 w-8 bg-primary border-4 border-white/20"></span>
+</div>
+</div>
+</section>
+<!-- Facilities Showcase -->
+<section class="mb-xl">
+<div class="max-w-container-max mx-auto px-gutter mb-lg">
+<div class="flex justify-between items-end">
+<div>
+<span class="text-tertiary font-label-caps uppercase tracking-widest">World Class</span>
+<h2 class="font-h2 text-h2 text-on-surface">Premium Facilities</h2>
+</div>
+<div class="flex gap-md">
+<button class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-on-surface hover:bg-primary transition-colors"><span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span></button>
+<button class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-on-surface hover:bg-primary transition-colors"><span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span></button>
+</div>
+</div>
+</div>
+<div class="flex gap-lg overflow-x-auto px-gutter pb-lg scrollbar-hide no-scrollbar">
+<!-- Facility 1 -->
+<div class="min-w-[400px] glass-panel rounded-3xl p-sm group cursor-pointer hover:border-primary/50 transition-all duration-300">
+<div class="h-64 rounded-2xl overflow-hidden mb-md">
+<img alt="Science Lab" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A high-tech science laboratory inside a school. The lab features sleek white workstations, modern microscopes, and glass walls with faint blue holographic projections. The lighting is bright and sterile with a hint of purple accent lighting along the ceiling. Students in lab coats are subtly visible in the background, focused on their work." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBhzaub5iCa_HPhBEWNleI5PEnd-z6uyfCNFFgPKK-1r98t4KDrAVFOwkdMn7tbs0lkOth283tVgWPzHFRV0-jzG4WQiFfJpj3JDH5GYzfqoGRFJ1vyN-nIl5VB6NcITDT_97dwye9tocyIVKo9hSN2BoBdZr1LLHAedBT3SFqV7XJOv3nSJGrR2Bb5HNRhFwUhSxLK0tNRqsPjn5W1T3VLm_1bPMCnzVivcqacN94x7BrNB1Qw_2goc2jBzTfIFspa5ydU9V9ykI"/>
+</div>
+<div class="px-md pb-md">
+<h4 class="font-h3 text-body-lg text-on-surface mb-xs">Advanced STEM Labs</h4>
+<p class="text-on-surface-variant text-sm">Equipped with the latest research tools for physics, chemistry, and molecular biology.</p>
+</div>
+</div>
+<!-- Facility 2 -->
+<div class="min-w-[400px] glass-panel rounded-3xl p-sm group cursor-pointer hover:border-primary/50 transition-all duration-300">
+<div class="h-64 rounded-2xl overflow-hidden mb-md">
+<img alt="Library" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A modern library with tall wooden shelves and integrated soft LED lighting. The space features comfortable ergonomic chairs and circular glass reading tables. A large window offers a view of a tranquil Zen garden. The atmosphere is warm, quiet, and intellectually stimulating, utilizing a sophisticated deep purple and gold color scheme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8s2XWcZqMPmAOxpxVPuC9S3G3dSuQEIRBHL_9UEmnRi3x2Qyr5T3aIUlicRJjIsSG_7ALfnb85bNFFt3xq9ORkmrEzO6brCNmKfhm9gFHATGLKW2piXAlKYBgqEpSsq2xTFMqaxSHFLKtoRMusDuf03ZTQFDmiXJiPOLOrKncz9BHmjriS9nLNmYwlUeRm2zWxfOzgQ5wQaitbJIABnUqMgmmJBXMEJErEWl6mF9BQIe2z27GcawNO6p2VyS-F0T470gANPoTklg"/>
+</div>
+<div class="px-md pb-md">
+<h4 class="font-h3 text-body-lg text-on-surface mb-xs">The Wisdom Hall</h4>
+<p class="text-on-surface-variant text-sm">A multi-story library housing over 20,000 titles including rare Islamic manuscripts and digital archives.</p>
+</div>
+</div>
+<!-- Facility 3 -->
+<div class="min-w-[400px] glass-panel rounded-3xl p-sm group cursor-pointer hover:border-primary/50 transition-all duration-300">
+<div class="h-64 rounded-2xl overflow-hidden mb-md">
+<img alt="Prayer Hall" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A beautiful modern prayer hall with high ceilings and a minimalist mihrab. The walls are adorned with backlit geometric Islamic patterns that glow with a soft violet light. The floor is covered with a plush, high-end carpet in a deep emerald green. Large windows allow soft moonlight to enter, creating a serene and spiritual atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaLHcwebgFOyLKOTpoOE0ajbvQDSikQwLfXj9hzKjDnglFB686vYeeHuQwTJASnl2yomoAH256tcT-z3yqLCKn96FYwoEpdTQgmzUeqZPPC6v7qNwN71pX63OFDsA0_1QL2Ljo4fsGa1GrKJ0xc2QiTtY8LaY161LfltuJZOiW4mGEgwsuhDcoz8NVPJCmogSMibfyw4nM7JWpDABEzPR8yNmeUryEzk-qetN3uiowNc63IIrrjzfkYdNwjiY4SP0bHjdrO9DRHOM"/>
+</div>
+<div class="px-md pb-md">
+<h4 class="font-h3 text-body-lg text-on-surface mb-xs">Spiritual Sanctuary</h4>
+<p class="text-on-surface-variant text-sm">A serene space for daily prayers and evening Dhikr, designed with acoustic perfection for Quranic recitation.</p>
+</div>
+</div>
+<!-- Facility 4 -->
+<div class="min-w-[400px] glass-panel rounded-3xl p-sm group cursor-pointer hover:border-primary/50 transition-all duration-300">
+<div class="h-64 rounded-2xl overflow-hidden mb-md">
+<img alt="Sports Complex" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A professional-grade indoor basketball court with polished wooden flooring and bright, even lighting. The walls are accented with the school's colors of purple and gold. Large electronic scoreboards are visible on the walls. The space feels modern, energetic, and clean, perfect for top-tier athletic training." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBj5-NRZC3HKeIf5Zjkxfr5MwE52xIMUKIfzN-IclXPeF_0QK6SV6RoN2geKqIJ-zdY0wNHJXwfuj4vQ838734OnmgrtxPbHW9hnHpioBqRtN9z99N-5MBkN71Ll78Jz1WGvtWunC3dP4rtoiDYTnUJyVKCQuTvfs3a-_x7L_uDsfrh6CXpBjl4Ai9hQNk9AWGUvAz6f8CkC4Sam8VVWCFRJG9Rw1asOJ3CkaIngG5x7EVK5Co_fd-jwaXDAOCOl9L5Q29Pn6lRD5w"/>
+</div>
+<div class="px-md pb-md">
+<h4 class="font-h3 text-body-lg text-on-surface mb-xs">Elite Sports Complex</h4>
+<p class="text-on-surface-variant text-sm">Olympic-standard facilities for basketball, swimming, and indoor track and field events.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="relative w-full pt-xl pb-md bg-surface-container-lowest border-t border-outline-variant/30">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-lg px-gutter max-w-container-max mx-auto">
+<div class="md:col-span-1">
+<div class="font-h3 text-h3 text-primary mb-4">Basaeer Model School</div>
+<p class="text-on-surface-variant text-sm leading-relaxed">Seekers of knowledge, illuminators of souls. Our network of campuses is dedicated to raising the next generation of visionary Muslim leaders.</p>
+</div>
+<div>
+<h3 class="font-h3 text-h3 text-on-surface mb-md">Quick Links</h3>
+<ul class="space-y-sm">
+<li><a class="text-on-surface-variant hover:text-on-surface transition-transform hover:translate-x-1 inline-block" href="#">Our History</a></li>
+<li><a class="text-on-surface-variant hover:text-on-surface transition-transform hover:translate-x-1 inline-block" href="#">Faculty</a></li>
+<li><a class="text-on-surface-variant hover:text-on-surface transition-transform hover:translate-x-1 inline-block" href="#">Events</a></li>
+<li><a class="text-on-surface-variant hover:text-on-surface transition-transform hover:translate-x-1 inline-block" href="#">Portals</a></li>
+</ul>
+</div>
+<div>
+<h3 class="font-h3 text-h3 text-on-surface mb-md">Campuses</h3>
+<ul class="space-y-sm">
+<li><a class="text-on-surface-variant hover:text-on-surface transition-transform hover:translate-x-1 inline-block" href="#">Ikeja City</a></li>
+<li><a class="text-on-surface-variant hover:text-on-surface transition-transform hover:translate-x-1 inline-block" href="#">Victoria Island</a></li>
+<li><a class="text-on-surface-variant hover:text-on-surface transition-transform hover:translate-x-1 inline-block" href="#">Abuja Heights</a></li>
+<li><a class="text-on-surface-variant hover:text-on-surface transition-transform hover:translate-x-1 inline-block" href="#">Lekki Phase II</a></li>
+</ul>
+</div>
+<div>
+<h3 class="font-h3 text-h3 text-on-surface mb-md">Connect</h3>
+<div class="flex gap-md mb-md">
+<span class="material-symbols-outlined text-primary cursor-pointer hover:scale-110 transition-transform" data-icon="facebook">social_leaderboard</span>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:scale-110 transition-transform" data-icon="alternate_email">alternate_email</span>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:scale-110 transition-transform" data-icon="chat">chat</span>
+</div>
+<p class="text-xs text-on-surface-variant">Stay updated with our campus developments and academic calendar.</p>
+</div>
+</div>
+<div class="max-w-container-max mx-auto px-gutter mt-xl pt-md border-t border-outline-variant/10 text-center">
+<p class="text-on-surface-variant text-xs">© 2024 Basaeer Model School. Seeking Knowledge, Illuminating Souls.</p>
+</div>
+</footer>
+</body></html>

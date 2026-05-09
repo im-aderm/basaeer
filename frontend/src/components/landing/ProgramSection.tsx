@@ -27,38 +27,48 @@ export function ProgramSection() {
   ];
 
   return (
-    <section id="programs" className="py-20 max-w-7xl mx-auto px-6 lg:px-8 space-y-12">
-      <div className="space-y-4 text-left border-b border-white/5 pb-4">
-        <h2 className="text-4xl md:text-5xl font-extrabold text-white font-heading">
-          Academic Excellence
-        </h2>
-        <div className="h-1 w-24 bg-[#7c3aed] mt-2"></div>
+    <section id="programs" className="relative w-full overflow-hidden">
+      {/* Top Divider */}
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-primary-light/30 to-transparent"></div>
+
+      <div className="w-full bg-gradient-to-br from-primary/5 via-surface-dim/30 to-secondary/5 dark:from-primary/10 dark:via-surface-container-lowest/40 dark:to-secondary/10">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-20 space-y-12">
+          <div className="space-y-4 text-left border-b border-border/40 pb-4">
+            <h2 className="text-4xl md:text-5xl font-extrabold text-text-primary font-heading">
+              Academic Excellence
+            </h2>
+            <div className="h-1 w-24 bg-primary mt-2"></div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {academics.map((academic, idx) => (
+              <div 
+                key={idx} 
+                className="group rounded-3xl p-3 glass-card hover:border-primary-light/40 transition-all duration-500 hover:shadow-[0_0_30px_rgba(124,58,237,0.15)]"
+              >
+                <div className="aspect-[4/5] rounded-2xl overflow-hidden mb-6 relative">
+                  <img 
+                    alt={academic.title} 
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2s] grayscale group-hover:grayscale-0" 
+                    src={academic.image} 
+                  />
+                </div>
+                <div className="px-3 pb-3 space-y-1">
+                  <h4 className="text-xl font-bold text-text-primary font-heading">
+                    {academic.title}
+                  </h4>
+                  <p className="text-sm text-text-secondary">
+                    {academic.subtitle}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {academics.map((academic, idx) => (
-          <div 
-            key={idx} 
-            className="group rounded-3xl overflow-hidden bg-white/5 border border-white/10 p-3 hover:border-[#7c3aed]/40 transition-all duration-500 hover:shadow-[0_0_30px_rgba(124,58,237,0.15)]"
-          >
-            <div className="aspect-[4/5] rounded-2xl overflow-hidden mb-6 relative">
-              <img 
-                alt={academic.title} 
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2s] grayscale group-hover:grayscale-0" 
-                src={academic.image} 
-              />
-            </div>
-            <div className="px-3 pb-3 space-y-1">
-              <h4 className="text-xl font-bold text-white font-heading">
-                {academic.title}
-              </h4>
-              <p className="text-sm text-[#ccc3d8]">
-                {academic.subtitle}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
+      {/* Bottom Divider */}
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-secondary/30 to-transparent"></div>
     </section>
   );
 }

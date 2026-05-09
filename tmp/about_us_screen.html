@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>About Us | Basaeer Model School</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error": "#ffb4ab",
+                    "inverse-on-surface": "#332f39",
+                    "on-primary-container": "#ede0ff",
+                    "surface-container-highest": "#37333e",
+                    "surface-dim": "#15121b",
+                    "on-primary-fixed": "#25005a",
+                    "secondary-container": "#43485e",
+                    "on-secondary": "#2b2f44",
+                    "secondary-fixed": "#dde1fc",
+                    "surface": "#15121b",
+                    "primary-container": "#7c3aed",
+                    "primary-fixed-dim": "#d2bbff",
+                    "surface-container": "#221e28",
+                    "on-surface-variant": "#ccc3d8",
+                    "primary-fixed": "#eaddff",
+                    "outline-variant": "#4a4455",
+                    "on-tertiary-fixed": "#001a42",
+                    "on-primary-fixed-variant": "#5a00c6",
+                    "surface-container-high": "#2c2833",
+                    "error-container": "#93000a",
+                    "on-secondary-container": "#b3b7d1",
+                    "on-secondary-fixed": "#161b2e",
+                    "tertiary-fixed": "#d8e2ff",
+                    "inverse-surface": "#e8dfee",
+                    "on-primary": "#3f008e",
+                    "secondary-fixed-dim": "#c1c5df",
+                    "inverse-primary": "#732ee4",
+                    "on-error": "#690005",
+                    "on-secondary-fixed-variant": "#41465b",
+                    "surface-variant": "#37333e",
+                    "on-tertiary-container": "#dce5ff",
+                    "tertiary-fixed-dim": "#adc6ff",
+                    "surface-bright": "#3c3742",
+                    "background": "#15121b",
+                    "secondary": "#c1c5df",
+                    "surface-container-low": "#1d1a24",
+                    "tertiary": "#adc6ff",
+                    "on-background": "#e8dfee",
+                    "primary": "#d2bbff",
+                    "on-tertiary": "#002e6a",
+                    "surface-tint": "#d2bbff",
+                    "on-tertiary-fixed-variant": "#004395",
+                    "tertiary-container": "#0062d2",
+                    "on-surface": "#e8dfee",
+                    "on-error-container": "#ffdad6",
+                    "surface-container-lowest": "#100d16",
+                    "outline": "#958da1"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "32px",
+                    "container-max": "1280px",
+                    "xl": "80px",
+                    "md": "24px",
+                    "sm": "12px",
+                    "base": "8px",
+                    "xs": "4px",
+                    "lg": "48px"
+            },
+            "fontFamily": {
+                    "h3": ["Space Grotesk"],
+                    "label-caps": ["Space Grotesk"],
+                    "body-lg": ["Inter"],
+                    "h1": ["Space Grotesk"],
+                    "h2": ["Space Grotesk"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "h3": ["32px", {"lineHeight": "1.3", "letterSpacing": "0em", "fontWeight": "600"}],
+                    "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                    "h1": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "h2": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .aurora-glow {
+            background: radial-gradient(circle at 50% 50%, rgba(124, 58, 237, 0.15) 0%, transparent 70%);
+        }
+        .text-glow {
+            text-shadow: 0 0 15px rgba(210, 187, 255, 0.4);
+        }
+        .magnetic-hover:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #15121b; }
+        ::-webkit-scrollbar-thumb { background: #4a4455; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #7c3aed; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary/30">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/10 backdrop-blur-xl border-b border-white/10 shadow-[0_0_15px_rgba(124,58,237,0.15)]">
+<div class="flex justify-between items-center px-gutter py-sm max-w-container-max mx-auto">
+<div class="font-h2 text-h3 text-primary tracking-tight">Basaeer Model School</div>
+<div class="hidden md:flex gap-lg items-center">
+<a class="font-h3 text-body-md font-body-md text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Home</a>
+<a class="font-h3 text-body-md font-body-md text-primary border-b-2 border-primary pb-1" href="#">About</a>
+<a class="font-h3 text-body-md font-body-md text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Academics</a>
+<a class="font-h3 text-body-md font-body-md text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Admissions</a>
+<a class="font-h3 text-body-md font-body-md text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Campuses</a>
+<a class="font-h3 text-body-md font-body-md text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Tahfeez</a>
+</div>
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">dark_mode</button>
+<button class="bg-primary-container text-on-primary-container font-h3 text-body-md px-md py-xs rounded-full hover:scale-105 transition-all duration-300 shadow-[0_0_15px_rgba(124,58,237,0.3)]">APPLY NOW</button>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<header class="relative min-h-screen flex items-center justify-center overflow-hidden pt-xl">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover opacity-30" data-alt="A grand cinematic view of a modern school library with high ceilings and arched windows. Soft ethereal purple light filters through stained glass geometric patterns, illuminating dust motes in the air. The atmosphere is quiet, scholarly, and futuristic, blending traditional architectural heritage with minimalist high-tech surfaces. Deep royal purple and electric violet accents glow softly against dark stone textures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGsF1RaH7y_Yy8eL_LJjaaBhuxRQMdIHUnhDSUIrcJQlBoX9k4cauYuOBnJTXPxQe5bB2WZJ1Jm6IEeVhIJilPSq_4Phqc2-gcBwSd9MSmY8YYey_e0iMh0YCaBQ8bSm10J4m4xAG6pgAciZ2xzERW_lkokYGt7TgLVZg0V0ysEEEaHlWAArHuZMiZGb7ynRfYbwT72bp5jNGNI7pPhv_Ygp0gqPAdNYKlSQTDHPWPVkZdte0YDcyLcS7FvMOuM4BFmETfsNiE6lA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent"></div>
+<div class="absolute inset-0 aurora-glow"></div>
+</div>
+<div class="relative z-10 text-center px-gutter max-w-4xl">
+<span class="font-label-caps text-primary tracking-[0.2em] mb-md block">ESTABLISHED 1998</span>
+<h1 class="font-h1 text-h1 mb-md leading-tight">Our Vision: <span class="text-primary text-glow">Building Minds, Illuminating Souls.</span></h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-lg">A sanctuary where traditional wisdom meets future innovation. We craft leaders who are anchored in values and soaring in intellect.</p>
+<div class="flex justify-center gap-md">
+<button class="bg-primary-container text-on-primary-container px-lg py-md rounded-full font-h3 hover:scale-105 transition-all duration-300 shadow-xl">Explore Our Legacy</button>
+<button class="glass-card px-lg py-md rounded-full font-h3 hover:bg-white/5 transition-all duration-300">Watch Story</button>
+</div>
+</div>
+</header>
+<!-- Mission & Values Grid -->
+<section class="py-xl relative overflow-hidden">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="flex flex-col md:flex-row justify-between items-end mb-lg gap-md">
+<div class="max-w-xl">
+<h2 class="font-h2 text-h2 mb-sm">The Pillars of Basaeer</h2>
+<p class="text-on-surface-variant">Our mission is to provide an educational experience that transcends textbooks, fostering a generation of thinkers and believers.</p>
+</div>
+<div class="h-px flex-grow bg-outline-variant/30 mx-lg mb-sm hidden md:block"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-md">
+<!-- Excellence -->
+<div class="glass-card p-lg rounded-xl magnetic-hover transition-all">
+<div class="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center mb-md">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<h3 class="font-h3 text-h3 mb-sm">Excellence</h3>
+<p class="text-on-surface-variant">Striving for the highest standards in academic rigor and personal achievement in every endeavor.</p>
+</div>
+<!-- Integrity -->
+<div class="glass-card p-lg rounded-xl magnetic-hover transition-all">
+<div class="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center mb-md">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+</div>
+<h3 class="font-h3 text-h3 mb-sm">Integrity</h3>
+<p class="text-on-surface-variant">Building a foundation of trust, honesty, and ethical leadership that guides every student's path.</p>
+</div>
+<!-- Spirituality -->
+<div class="glass-card p-lg rounded-xl magnetic-hover transition-all border-primary/30 shadow-[0_0_20px_rgba(124,58,237,0.1)]">
+<div class="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center mb-md">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<h3 class="font-h3 text-h3 mb-sm">Spirituality</h3>
+<p class="text-on-surface-variant">Nurturing the soul through Tahfeez and deep spiritual connection, aligning worldly success with eternal purpose.</p>
+</div>
+<!-- Innovation -->
+<div class="glass-card p-lg rounded-xl magnetic-hover transition-all">
+<div class="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center mb-md">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+</div>
+<h3 class="font-h3 text-h3 mb-sm">Innovation</h3>
+<p class="text-on-surface-variant">Embracing the technologies of tomorrow today, ensuring our students are prepared for the digital frontier.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Leadership Section -->
+<section class="py-xl bg-surface-container-lowest">
+<div class="max-w-container-max mx-auto px-gutter">
+<h2 class="font-h2 text-h2 text-center mb-xl">Meet Our Leadership</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+<!-- Principal -->
+<div class="group relative overflow-hidden rounded-xl aspect-[3/4]">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Professional portrait of a distinguished male educator in a modern dark charcoal suit. He stands against a blurred background of a futuristic school atrium. The lighting is dramatic and warm, with a subtle violet backlight that separates him from the background. He has a kind but authoritative expression, conveying wisdom and vision. High-end editorial photography style with deep shadows and vibrant highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_z3BPlAU7Rw9mMXBz1FFOwiIsQnsh8GcO43e_zlCZOmSyWr2gSvVen45wsEMnuv0-KA_VhCVajk07QV0sw9F0b1oqgm6cjEusNG73vYxewGrAkR6e9MurHk21qfknKKcn4fc-6vCjQ9XrkcXaSNazlU4c9Yv8ZKjHDPjtwJafysB8JXWbYWFPO_zYciuboNIvs7EpfkyI1GpDC1jIxiDYl3gkb6sfleLPflb5cDtqzIGZs-tDoGRI-HtjAF6ZPE4x7hrbAHqdePw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dim via-transparent to-transparent"></div>
+<div class="absolute bottom-0 left-0 right-0 p-lg glass-card m-md rounded-xl transform translate-y-2 group-hover:translate-y-0 transition-transform">
+<h4 class="font-h3 text-h3 text-primary">Dr. Yusuf Al-Fayed</h4>
+<p class="text-label-caps text-on-surface-variant mt-xs">Principal &amp; Academic Dean</p>
+</div>
+</div>
+<!-- Head of Tahfeez -->
+<div class="group relative overflow-hidden rounded-xl aspect-[3/4]">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A portrait of a serene man in traditional scholarly attire, including a crisp white robe and a subtle grey vest. He is positioned in a sunlit corner of a modern mosque with geometric glass patterns. The lighting is soft and spiritual, creating a halo-like effect. The overall aesthetic is clean, peaceful, and intellectually sophisticated, blending traditional values with contemporary high-end portraiture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwNpY3-SY61RXNtE042WcRX_OmKP0CADGPFcr4fTAJfVgh-rFM7zda79kGo06iVIm1A_cuMgK4PGXQhZMc932Iai3L82ZtP3okcOhkg9uLmyrHS0a7hqYbEW3-PaMMjmPTPkCCGkMjB5aL4tXQNYUijq9WGkN_yNIUUv9aLC2d3aq2jrpvPWdH-UHLZtIqNuneNj6H1lzSh--qgwnEMtrGFtAr2g53oJU3jnfXJ5xilUscH__I5vsl31EtVEVHeG14OGEX6JfV5A8"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dim via-transparent to-transparent"></div>
+<div class="absolute bottom-0 left-0 right-0 p-lg glass-card m-md rounded-xl transform translate-y-2 group-hover:translate-y-0 transition-transform">
+<h4 class="font-h3 text-h3 text-primary">Sheikh Ibrahim Mansour</h4>
+<p class="text-label-caps text-on-surface-variant mt-xs">Head of Tahfeez Department</p>
+</div>
+</div>
+<!-- Board of Directors -->
+<div class="group relative overflow-hidden rounded-xl aspect-[3/4]">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A powerful portrait of a professional woman in a dark elegant hijab and business attire. She is sitting in a high-tech boardroom with glass walls that show a blurred city skyline at dusk with purple lights. The lighting is sharp and professional, highlighting her determined and visionary gaze. The image carries an aura of strategic leadership and modern excellence, rendered with high-contrast cinematic lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbhvhkub4JdjPI7tGboPqhW6cc7gqmwxBdtewZyLUMkcWD6FvfnKo_WpO5YrlnwO2cJtRyoEkIK03Tp2FXk8aSlkQak4W_jR2NGlXsjtkkZPYr1qAIhftEB-VpzL9PJwtWtXe5d8UGBt7j_Jb44nvvdBPp5Xn-5C5swoBIV_ndvdDWE-uTI7XEBbPcWyrWmLl4rrwbIuAxyWiu71n179tfRGxhYvu9BhRsZQStXnhKoU2VSHEh6nEoKC5YmDv83-RNK4QIsF-AjaY"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dim via-transparent to-transparent"></div>
+<div class="absolute bottom-0 left-0 right-0 p-lg glass-card m-md rounded-xl transform translate-y-2 group-hover:translate-y-0 transition-transform">
+<h4 class="font-h3 text-h3 text-primary">Sarah Bin Khalid</h4>
+<p class="text-label-caps text-on-surface-variant mt-xs">Chair of Board of Directors</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Our History Timeline -->
+<section class="py-xl overflow-hidden relative">
+<div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full opacity-5 pointer-events-none">
+<!-- Simulated Geometric Pattern -->
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 100 100">
+<pattern height="10" id="grid" patternunits="userSpaceOnUse" width="10">
+<path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" stroke-width="0.5"></path>
+</pattern>
+<rect fill="url(#grid)" height="100%" width="100%"></rect>
+</svg>
+</div>
+<div class="max-w-container-max mx-auto px-gutter">
+<h2 class="font-h2 text-h2 mb-xl">Our Journey</h2>
+<div class="relative">
+<!-- Timeline Line -->
+<div class="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-lg relative">
+<!-- 1998 -->
+<div class="relative group">
+<div class="w-4 h-4 bg-primary rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-[0_0_15px_#7c3aed]"></div>
+<div class="pt-lg text-center md:text-left">
+<span class="font-h3 text-primary block mb-xs">1998</span>
+<h5 class="font-h3 text-body-md font-bold mb-xs">The First Seed</h5>
+<p class="text-on-surface-variant text-sm">Founded in a small villa with only 50 students and a vision for holistic Islamic education.</p>
+</div>
+</div>
+<!-- 2005 -->
+<div class="relative group mt-12 md:mt-0">
+<div class="w-4 h-4 bg-primary rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-[0_0_15px_#7c3aed]"></div>
+<div class="pb-lg text-center md:text-left absolute bottom-full w-full">
+<span class="font-h3 text-primary block mb-xs">2005</span>
+<h5 class="font-h3 text-body-md font-bold mb-xs">Academic Milestone</h5>
+<p class="text-on-surface-variant text-sm">Achievement of national accreditation and expansion to our first purpose-built campus.</p>
+</div>
+</div>
+<!-- 2015 -->
+<div class="relative group mt-12 md:mt-0">
+<div class="w-4 h-4 bg-primary rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-[0_0_15px_#7c3aed]"></div>
+<div class="pt-lg text-center md:text-left">
+<span class="font-h3 text-primary block mb-xs">2015</span>
+<h5 class="font-h3 text-body-md font-bold mb-xs">Digital Transformation</h5>
+<p class="text-on-surface-variant text-sm">Integrating STEM and high-tech labs, becoming a model for 21st-century Islamic learning.</p>
+</div>
+</div>
+<!-- Present -->
+<div class="relative group mt-12 md:mt-0">
+<div class="w-4 h-4 bg-primary rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-[0_0_15px_#7c3aed]"></div>
+<div class="pb-lg text-center md:text-left absolute bottom-full w-full">
+<span class="font-h3 text-primary block mb-xs">2024</span>
+<h5 class="font-h3 text-body-md font-bold mb-xs">Global Multi-Branch</h5>
+<p class="text-on-surface-variant text-sm">Now operating four campuses serving 5,000+ students across the region.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- School Philosophy -->
+<section class="py-xl relative">
+<div class="max-w-3xl mx-auto px-gutter text-center">
+<div class="inline-block p-sm glass-card rounded-full mb-lg">
+<span class="material-symbols-outlined text-primary scale-150">auto_stories</span>
+</div>
+<h2 class="font-h2 text-h2 mb-lg">Our Philosophy</h2>
+<div class="space-y-md text-body-lg text-on-surface-variant text-left">
+<p>At Basaeer Model School, we believe that education is not merely the transmission of facts, but the ignition of a divine light within every child. Our philosophy is rooted in the concept of <span class="text-primary italic">Tarbiyah</span>—the holistic development of the individual.</p>
+<p>We reject the false dichotomy between "secular" and "religious" knowledge. Instead, we view all fields of study—from the intricate laws of physics to the profound rhythms of Quranic recitation—as part of a singular, beautiful tapestry of creation.</p>
+<p class="border-l-4 border-primary pl-lg py-sm font-h3 text-on-surface text-2xl italic glass-card bg-primary/5">"The heart of education is the education of the heart."</p>
+<p>Our curriculum is designed to challenge the intellect while grounding the spirit. By merging high-end technology with traditional pedagogical values, we ensure our graduates are not just ready for the world, but ready to lead it with wisdom and compassion.</p>
+</div>
+<!-- Floating Accents -->
+<div class="absolute -left-20 top-1/4 w-40 h-40 bg-primary/10 blur-[80px] rounded-full"></div>
+<div class="absolute -right-20 bottom-1/4 w-60 h-60 bg-tertiary-container/10 blur-[100px] rounded-full"></div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="relative w-full pt-xl pb-md bg-surface-container-lowest border-t border-outline-variant/30">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-lg px-gutter max-w-container-max mx-auto">
+<div class="col-span-1">
+<div class="font-h3 text-h3 text-primary mb-4">Basaeer Model School</div>
+<p class="text-on-surface-variant">Seeking Knowledge, Illuminating Souls.</p>
+<div class="flex gap-md mt-lg">
+<a class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors" href="#">public</a>
+<a class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors" href="#">alternate_email</a>
+<a class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors" href="#">share</a>
+</div>
+</div>
+<div>
+<h3 class="font-h3 text-h3 text-primary mb-md text-lg">Quick Links</h3>
+<ul class="space-y-sm">
+<li><a class="text-on-surface-variant hover:text-on-surface hover:translate-x-1 transition-transform inline-block" href="#">Curriculum</a></li>
+<li><a class="text-on-surface-variant hover:text-on-surface hover:translate-x-1 transition-transform inline-block" href="#">Campus Tour</a></li>
+<li><a class="text-on-surface-variant hover:text-on-surface hover:translate-x-1 transition-transform inline-block" href="#">Scholarships</a></li>
+<li><a class="text-on-surface-variant hover:text-on-surface hover:translate-x-1 transition-transform inline-block" href="#">Careers</a></li>
+</ul>
+</div>
+<div>
+<h3 class="font-h3 text-h3 text-primary mb-md text-lg">Admissions</h3>
+<ul class="space-y-sm">
+<li><a class="text-on-surface-variant hover:text-on-surface hover:translate-x-1 transition-transform inline-block" href="#">How to Apply</a></li>
+<li><a class="text-on-surface-variant hover:text-on-surface hover:translate-x-1 transition-transform inline-block" href="#">Fee Structure</a></li>
+<li><a class="text-on-surface-variant hover:text-on-surface hover:translate-x-1 transition-transform inline-block" href="#">Requirements</a></li>
+<li><a class="text-on-surface-variant hover:text-on-surface hover:translate-x-1 transition-transform inline-block" href="#">FAQ</a></li>
+</ul>
+</div>
+<div>
+<h3 class="font-h3 text-h3 text-primary mb-md text-lg">Legal</h3>
+<ul class="space-y-sm">
+<li><a class="text-on-surface-variant hover:text-on-surface hover:translate-x-1 transition-transform inline-block" href="#">Privacy Policy</a></li>
+<li><a class="text-on-surface-variant hover:text-on-surface hover:translate-x-1 transition-transform inline-block" href="#">Terms of Service</a></li>
+<li><a class="text-on-surface-variant hover:text-on-surface hover:translate-x-1 transition-transform inline-block" href="#">Child Safety</a></li>
+</ul>
+</div>
+</div>
+<div class="mt-xl pt-md border-t border-outline-variant/10 text-center text-on-surface-variant/60 text-sm">
+            © 2024 Basaeer Model School. Seeking Knowledge, Illuminating Souls.
+        </div>
+</footer>
+</body></html>

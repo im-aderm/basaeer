@@ -147,7 +147,7 @@ export function HeroSlider() {
                     className={`absolute ${slide.showPlayIcon ? 'bottom-8 right-8' : 'inset-0 m-auto'} z-10 w-20 h-20 rounded-full border border-border bg-background/50 backdrop-blur-md flex items-center justify-center transition-all duration-300 hover:bg-background/80 hover:border-primary cursor-pointer`}
                     aria-label={`Play ${slide.headline}`}
                   >
-                    <Play className="w-8 h-8 text-primary fill-current ml-1" aria-hidden="true" />
+                    <Play className="w-8 h-8 text-accent-gold fill-current ml-1" aria-hidden="true" />
                   </motion.button>
                 )}
               </div>
@@ -240,7 +240,7 @@ export function HeroSlider() {
 
           {/* Location Tag */}
           <div className="hidden sm:flex items-center gap-3">
-            <MapPin size={16} className="text-primary" />
+            <MapPin size={16} className="text-accent-gold" />
             <span className="text-[10px] font-bold tracking-widest uppercase opacity-70">
               {SLIDES[activeIndex].location}
             </span>

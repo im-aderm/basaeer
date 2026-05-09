@@ -39,10 +39,10 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#15121b] text-[#e8dfee] font-sans selection:bg-[#7c3aed]/20 flex items-center justify-center pt-24 pb-16 overflow-hidden">
+    <div className="relative min-h-screen bg-background text-text-primary font-sans selection:bg-primary/20 flex items-center justify-center pt-24 pb-16 overflow-hidden">
       {/* Background twilight image & aurora glows */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#15121b]/40 via-[#15121b]/80 to-[#15121b] z-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/80 to-background z-10"></div>
         <img 
           className="w-full h-full object-cover" 
           alt="Cinematic school twilight backdrop" 
@@ -54,34 +54,34 @@ export default function LoginPage() {
 
       <div className="relative z-20 max-w-4xl mx-auto px-6 text-center w-full space-y-12">
         <div className="space-y-4">
-          <span className="inline-block py-1.5 px-4 rounded-full bg-[#7c3aed]/10 border border-[#7c3aed]/20 text-[#d2bbff] text-xs font-bold tracking-widest uppercase">
+          <span className="inline-block py-1.5 px-4 rounded-full bg-primary/10 border border-primary/20 text-primary-light text-xs font-bold tracking-widest uppercase">
             Elite Parent Portal
           </span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white font-heading leading-tight">
-            Your Child's Progress, <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#d2bbff] to-[#adc6ff] drop-shadow-[0_0_15px_rgba(210,187,255,0.4)]">Illuminated.</span>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-text-primary font-heading leading-tight">
+            Your Child's Progress, <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-light to-secondary drop-shadow-[0_0_15px_rgba(124,58,237,0.3)]">Illuminated.</span>
           </h1>
-          <p className="text-sm md:text-base text-[#ccc3d8] leading-relaxed max-w-2xl mx-auto">
+          <p className="text-sm md:text-base text-text-secondary leading-relaxed max-w-2xl mx-auto">
             Access real-time academic insights, secure administrative controls, and spiritual growth tracking in a single, unified sanctuary for Basaeer families.
           </p>
         </div>
 
         {/* Secure Login Card */}
-        <div className="max-w-md mx-auto bg-white/5 border border-white/10 p-8 md:p-10 rounded-[32px] shadow-2xl relative backdrop-blur-md">
-          <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 bg-[#7c3aed]/20 rounded-full blur-2xl"></div>
+        <div className="max-w-md mx-auto glass-card p-8 md:p-10 rounded-[32px] shadow-2xl relative border border-border/40 hover:border-primary-light/30 transition-all duration-500">
+          <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 bg-primary/20 rounded-full blur-2xl"></div>
           
           {error && (
-            <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-200 text-xs md:text-sm font-medium" role="alert">
+            <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-600 dark:text-red-200 text-xs md:text-sm font-medium" role="alert">
               {error}
             </div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-6" noValidate>
             <div className="text-left space-y-2">
-              <label htmlFor="email" className="text-[10px] font-bold text-[#ccc3d8] tracking-wider uppercase ml-2 block">
+              <label htmlFor="email" className="text-[10px] font-bold text-text-secondary tracking-wider uppercase ml-2 block">
                 Parent ID / Email Address
               </label>
               <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#d2bbff]/60" aria-hidden="true">
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-primary-light/60" aria-hidden="true">
                   <Mail size={18} />
                 </span>
                 <input
@@ -89,7 +89,7 @@ export default function LoginPage() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-12 pr-4 focus:ring-1 focus:ring-[#7c3aed] focus:border-[#7c3aed] outline-none transition-all duration-300 text-white placeholder-white/20 text-sm"
+                  className="w-full bg-surface-container/30 border border-border rounded-xl py-3 pl-12 pr-4 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all duration-300 text-text-primary placeholder-text-secondary/30 text-sm"
                   placeholder="e.g. PAR-2024-001 or admin@basaeer.com"
                   required
                   autoComplete="email"
@@ -99,15 +99,15 @@ export default function LoginPage() {
 
             <div className="text-left space-y-2">
               <div className="flex justify-between items-center ml-2">
-                <label htmlFor="password" className="text-[10px] font-bold text-[#ccc3d8] tracking-wider uppercase block">
+                <label htmlFor="password" className="text-[10px] font-bold text-text-secondary tracking-wider uppercase block">
                   Secure Passcode
                 </label>
-                <Link href="/forgot-password" className="text-xs font-bold text-[#d2bbff] hover:underline">
+                <Link href="/forgot-password" className="text-xs font-bold text-primary-light hover:underline">
                   Forgot Access?
                 </Link>
               </div>
               <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#d2bbff]/60" aria-hidden="true">
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-primary-light/60" aria-hidden="true">
                   <Lock size={18} />
                 </span>
                 <input
@@ -115,7 +115,7 @@ export default function LoginPage() {
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-12 pr-12 focus:ring-1 focus:ring-[#7c3aed] focus:border-[#7c3aed] outline-none transition-all duration-300 text-white placeholder-white/20 text-sm"
+                  className="w-full bg-surface-container/30 border border-border rounded-xl py-3 pl-12 pr-12 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all duration-300 text-text-primary placeholder-text-secondary/30 text-sm"
                   placeholder="••••••••"
                   required
                   autoComplete="current-password"
@@ -123,7 +123,7 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-4 flex items-center text-[#ccc3d8] hover:text-white transition-colors"
+                  className="absolute inset-y-0 right-0 pr-4 flex items-center text-text-secondary hover:text-text-primary transition-colors"
                   aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -134,7 +134,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-4 rounded-xl bg-gradient-to-r from-[#7c3aed] to-[#4f46e5] text-white font-bold hover:shadow-[0_0_20px_rgba(124,58,237,0.3)] hover:scale-[1.02] active:scale-95 transition-all duration-300 disabled:opacity-70 disabled:pointer-events-none cursor-pointer flex items-center justify-center gap-2"
+              className="w-full py-4 rounded-xl bg-gradient-to-r from-primary to-secondary text-white font-bold hover:shadow-[0_0_20px_rgba(124,58,237,0.3)] hover:scale-[1.02] active:scale-95 transition-all duration-300 disabled:opacity-70 disabled:pointer-events-none cursor-pointer flex items-center justify-center gap-2"
             >
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
@@ -148,9 +148,9 @@ export default function LoginPage() {
               )}
             </button>
 
-            <div className="flex items-center justify-center gap-3 pt-2 text-[#ccc3d8]/40 border-t border-white/5">
-              <Fingerprint size={24} className="text-[#d2bbff]/40" />
-              <p className="text-xs italic text-[#ccc3d8] opacity-60">Biometric Secure Entry Available</p>
+            <div className="flex items-center justify-center gap-3 pt-2 text-text-secondary/40 border-t border-border">
+              <Fingerprint size={24} className="text-primary-light/40" />
+              <p className="text-xs italic text-text-secondary opacity-60">Biometric Secure Entry Available</p>
             </div>
           </form>
         </div>

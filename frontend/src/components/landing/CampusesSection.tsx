@@ -75,7 +75,7 @@ export function CampusesSection() {
                 {campus.name}
               </h3>
               <p className="text-text-secondary text-sm font-semibold flex items-center gap-1.5">
-                <MapPin className="w-4 h-4 text-primary shrink-0" />
+                <MapPin className="w-4 h-4 text-accent-gold shrink-0" />
                 {campus.location}
               </p>
             </div>

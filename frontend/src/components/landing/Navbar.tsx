@@ -53,8 +53,8 @@ export function Navbar() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-500 h-20 flex items-center",
         scrolled
-          ? "bg-background/80 backdrop-blur-md border-b border-border shadow-lg"
-          : "bg-transparent border-b border-transparent"
+          ? "bg-background/45 backdrop-blur-lg border-b border-border/40 shadow-xl"
+          : "bg-transparent border-b border-transparent shadow-none"
       )}
     >
       <div className="max-w-7xl mx-auto w-full px-6 lg:px-8 flex items-center justify-between">
@@ -134,12 +134,6 @@ export function Navbar() {
 
         {/* Right Portal & Theme Toggle */}
         <div className="flex items-center gap-6">
-          <div className="hidden lg:flex items-center gap-6">
-            <Link href="/login" className="btn-premium-secondary px-6 py-2.5 text-sm font-semibold">
-              Staff Portal
-            </Link>
-          </div>
-
           {/* Theme Switcher */}
           <button
             onClick={() => {
@@ -165,6 +159,29 @@ export function Navbar() {
               <div className="w-5 h-5 rounded-full border-2 border-border border-t-primary animate-spin" />
             )}
           </button>
+
+          {/* Redesigned Premium Shimmering Gold Apply Now Button */}
+          <div className="hidden lg:flex items-center gap-6">
+            <motion.div
+              whileHover={{ scale: 1.05, y: -1 }}
+              whileTap={{ scale: 0.98 }}
+              className="relative rounded-full overflow-hidden group inline-block shadow-[0_0_15px_rgba(245,158,11,0.25)] hover:shadow-[0_0_25px_rgba(245,158,11,0.55)] transition-shadow duration-300"
+            >
+              {/* Infinite sweeping white-hot shimmer on hover */}
+              <motion.div 
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent z-20 pointer-events-none"
+                initial={{ x: "-100%" }}
+                whileHover={{ x: "100%" }}
+                transition={{ repeat: Infinity, duration: 1.2, repeatDelay: 0.3, ease: "easeInOut" }}
+              />
+              <Link
+                href="/admission"
+                className="relative px-7 py-2.5 rounded-full bg-gradient-to-r from-accent-gold via-[#fbbf24] to-[#f59e0b] border border-amber-400/40 text-neutral-900 font-heading font-extrabold text-xs tracking-[0.12em] uppercase transition-all duration-300 z-10 block"
+              >
+                Apply Now
+              </Link>
+            </motion.div>
+          </div>
 
           {/* Mobile Menu Toggle */}
           <button
@@ -214,11 +231,11 @@ export function Navbar() {
               </div>
 
               <Link
-                href="/login"
+                href="/admission"
                 onClick={() => setIsMobileOpen(false)}
-                className="text-lg font-semibold text-text-secondary hover:text-text-primary transition-colors"
+                className="w-full text-center py-3.5 rounded-full bg-gradient-to-r from-accent-gold via-[#fbbf24] to-[#f59e0b] border border-amber-400/40 text-neutral-900 font-heading font-extrabold text-xs tracking-[0.12em] uppercase shadow-lg block mt-2"
               >
-                Staff Portal
+                Apply Now
               </Link>
             </div>
           </motion.div>
