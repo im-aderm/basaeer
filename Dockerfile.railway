@@ -14,7 +14,9 @@ COPY packages/shared-types/package.json ./packages/shared-types/
 COPY frontend/package.json ./frontend/
 
 # Install all dependencies (including devDependencies for building)
-RUN npm ci
+# Use --ignore-scripts to prevent postinstall scripts (like prisma generate) from failing
+# because the source code (schema.prisma) isn't copied yet.
+RUN npm ci --ignore-scripts
 
 # Copy the rest of the application source
 COPY . .
@@ -30,7 +32,7 @@ RUN npm run build --workspace=backend
 
 # Prune devDependencies to keep the production image small
 # We do this here so we can copy the clean node_modules to the runner
-RUN npm prune --omit=dev
+RUN npm prune --omit=dev --ignore-scripts
 
 # Production Stage
 FROM node:20-alpine AS runner
