@@ -41,7 +41,7 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 # Ensure node_modules/.bin is in the PATH so 'prisma' and 'npx prisma' work reliably
-ENV PATH /app/node_modules/.bin:$PATH
+ENV PATH /app/backend/node_modules/.bin:/app/node_modules/.bin:$PATH
 
 # Install runtime dependencies for Prisma and Node
 RUN apk add --no-cache openssl libc6-compat
@@ -51,6 +51,7 @@ RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
 # Copy pruned node_modules from builder (crucial to avoid re-installing in production)
 COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/backend/node_modules ./backend/node_modules
 COPY --from=builder /app/package.json ./package.json
 
 # Copy built assets and necessary files
