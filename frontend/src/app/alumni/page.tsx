@@ -4,6 +4,7 @@ import { Navbar } from "@/components/landing/Navbar";
 import { Footer } from "@/components/landing/Footer";
 import { GradientBackground } from "@/components/ui/GradientBackground";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { 
   GraduationCap, 
   MapPin, 
@@ -97,11 +98,14 @@ export default function AlumniPage() {
             </div>
 
             <div className="relative">
-              <div className="aspect-square rounded-[40px] overflow-hidden bg-white/5 p-2 border-2 border-primary/20 rotate-3 hover:rotate-0 transition-transform duration-700">
-                <img 
+              <div className="aspect-square rounded-[40px] overflow-hidden bg-white/5 p-2 border-2 border-primary/20 rotate-3 hover:rotate-0 transition-transform duration-700 relative">
+                <Image 
                   alt="Alumni Professionals portrait collage" 
-                  className="w-full h-full object-cover rounded-[32px]" 
+                  className="object-cover rounded-[32px]" 
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNLDTQgv3-kexg8o-n-HShUe9MbUvrvy6bKghyduYzs6Jsv_w_8uzaY3m-otj0yXsHlNpLx9GenbLya6RbJN8SKDsIaCWIXAH4BS_lpAZH1L2lQbF__87vPJwKATPZXIwnhXWNOZvyyX0GmUNd7xiH3CqvT9VLiCPyxNoPvHsXbjwclSRR0sh244fLuG0ivUVInz_LWmXv-aMxh4P5bW2qslTKOlQ91zWFPX7Qcq6N86QNx7Dpl9433sHnJokd1IDxKDbu-5AlGLk" 
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  priority
                 />
               </div>
               <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#7c3aed]/20 rounded-full blur-3xl pointer-events-none"></div>
@@ -140,10 +144,12 @@ export default function AlumniPage() {
             <div className="md:col-span-2 bg-white/5 backdrop-blur-md rounded-3xl overflow-hidden border border-white/10 group hover:border-[#7c3aed]/30 transition-all duration-300">
               <div className="grid md:grid-cols-2 h-full">
                 <div className="relative h-64 md:h-auto overflow-hidden">
-                  <img 
+                  <Image 
                     alt={successStories[0].name} 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                    className="object-cover group-hover:scale-105 transition-transform duration-700" 
                     src={successStories[0].image} 
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#15121b]/80 to-transparent"></div>
                 </div>
@@ -167,10 +173,12 @@ export default function AlumniPage() {
             {/* Story Card 2 (Omar Khalid) */}
             <div className="bg-white/5 backdrop-blur-md rounded-3xl overflow-hidden border border-white/10 p-6 group hover:border-[#7c3aed]/30 transition-all duration-300 space-y-6">
               <div className="relative aspect-[4/5] rounded-2xl overflow-hidden">
-                <img 
+                <Image 
                   alt={successStories[1].name} 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                  className="object-cover group-hover:scale-105 transition-transform duration-700" 
                   src={successStories[1].image} 
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
                 />
               </div>
               <div className="space-y-2">
@@ -189,10 +197,12 @@ export default function AlumniPage() {
             {/* Story Card 3 (Zainab Yusuf) */}
             <div className="bg-white/5 backdrop-blur-md rounded-3xl overflow-hidden border border-white/10 p-6 group hover:border-[#7c3aed]/30 transition-all duration-300 space-y-6">
               <div className="relative aspect-[4/5] rounded-2xl overflow-hidden">
-                <img 
+                <Image 
                   alt={successStories[2].name} 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                  className="object-cover group-hover:scale-105 transition-transform duration-700" 
                   src={successStories[2].image} 
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
                 />
               </div>
               <div className="space-y-2">
@@ -226,10 +236,12 @@ export default function AlumniPage() {
                   </button>
                 </div>
                 <div className="relative h-64 md:h-auto overflow-hidden order-1 md:order-2">
-                  <img 
+                  <Image 
                     alt={successStories[3].name} 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                    className="object-cover group-hover:scale-105 transition-transform duration-700" 
                     src={successStories[3].image} 
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#15121b]/80 to-transparent"></div>
                 </div>
