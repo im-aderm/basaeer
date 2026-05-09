@@ -20,6 +20,7 @@ const links = [
   { name: "News & Events", href: "/news" },
   { name: "Careers", href: "/careers" },
   { name: "Contact", href: "/contact" },
+  { name: "FAQ", href: "/faq" },
 ];
 
 const sections = [
