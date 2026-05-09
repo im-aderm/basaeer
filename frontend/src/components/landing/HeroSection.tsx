@@ -35,14 +35,15 @@ export function HeroSection() {
           alt="Hero Background" 
           fill
           priority
+          sizes="100vw"
           className="object-cover"
         />
         {/* 85% to 95% gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/90 to-background/95"></div>
-        {/* Subtle Aurora glows atop the background */}
-        <div className="absolute top-[-10%] right-[-10%] w-[60%] h-[60%] bg-[#7c3aed]/10 rounded-full blur-[120px]"></div>
-        <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#0062d2]/10 blur-[120px]"></div>
-        <div className="absolute top-[30%] left-[25%] w-[40%] h-[40%] bg-aurora-gold rounded-full blur-[130px] opacity-70"></div>
+        {/* Subtle Aurora glows atop the background - Use CSS hardware acceleration */}
+        <div className="absolute top-[-10%] right-[-10%] w-[60%] h-[60%] bg-[#7c3aed]/10 rounded-full blur-[120px] will-change-transform transform-gpu"></div>
+        <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#0062d2]/10 blur-[120px] will-change-transform transform-gpu"></div>
+        <div className="absolute top-[30%] left-[25%] w-[40%] h-[40%] bg-aurora-gold rounded-full blur-[130px] opacity-70 will-change-transform transform-gpu"></div>
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full">

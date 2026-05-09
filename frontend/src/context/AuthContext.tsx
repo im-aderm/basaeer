@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import api from "@/lib/api";
 
@@ -115,8 +115,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
     };
 
+    const contextValue = useMemo(() => ({
+        user,
+        token,
+        isAuthenticated: !!user,
+        loading,
+        login,
+        logout
+    }), [user, token, loading]);
+
     return (
-        <AuthContext.Provider value={{ user, token, isAuthenticated: !!user, loading, login, logout }}>
+        <AuthContext.Provider value={contextValue}>
             {children}
         </AuthContext.Provider>
     );

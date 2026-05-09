@@ -138,6 +138,7 @@ export function HeroSlider() {
                       src={slide.type === "video" ? (slide.id === 1 ? "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop" : "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=2070&auto=format&fit=crop") : slide.src}
                       alt={slide.headline}
                       fill
+                      sizes="(max-width: 1024px) 100vw, 50vw"
                       className="object-cover"
                       priority={index === 0}
                     />

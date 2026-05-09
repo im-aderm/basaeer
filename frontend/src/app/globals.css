@@ -95,18 +95,19 @@
 /* Glassmorphism Cards */
 .glass-card {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.82) 0%, rgba(217, 119, 6, 0.03) 100%);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(217, 119, 6, 0.15);
   box-shadow: 0 8px 32px 0 rgba(217, 119, 6, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.6);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateZ(0); /* Hardware acceleration */
 }
 
 .glass-card:hover {
   border-color: rgba(217, 119, 6, 0.28);
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(217, 119, 6, 0.07) 100%);
   box-shadow: 0 16px 40px 0 rgba(217, 119, 6, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  transform: translateY(-4px);
+  transform: translateY(-4px) translateZ(0);
 }
 
 /* Aurora Background Gradients */
@@ -120,6 +121,32 @@
 
 .bg-aurora-gold {
   background: radial-gradient(circle at 50% 50%, rgba(217, 119, 6, 0.09) 0%, transparent 55%);
+}
+
+@keyframes aurora-1 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  25% { transform: translate3d(50px, -80px, 0) scale(1.1); }
+  50% { transform: translate3d(-30px, 50px, 0) scale(0.9); }
+}
+
+@keyframes aurora-2 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  25% { transform: translate3d(-60px, 50px, 0) scale(0.9); }
+  50% { transform: translate3d(40px, -70px, 0) scale(1.1); }
+}
+
+.animate-aurora-1 {
+  animation: aurora-1 20s ease-in-out infinite;
+}
+
+.animate-aurora-2 {
+  animation: aurora-2 25s ease-in-out infinite;
+}
+
+@media (max-width: 768px) {
+  .animate-aurora-1, .animate-aurora-2 {
+    animation: none !important;
+  }
 }
 
 /* Interactive Text Gradients */
