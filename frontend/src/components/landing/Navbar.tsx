@@ -13,7 +13,7 @@ const links = [
   { name: "About", href: "/about" },
   { name: "Academics", href: "/#programs" },
   { name: "Admissions", href: "/admission" },
-  { name: "Campuses", href: "/#campuses" },
+  { name: "Campuses", href: "/campuses" },
 ];
 
 const sections = [
