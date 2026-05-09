@@ -15,12 +15,6 @@ const links = [
   { name: "Admissions", href: "/admission" },
   { name: "Campuses", href: "/campuses" },
   { name: "Student Life", href: "/student-life" },
-  { name: "Alumni", href: "/alumni" },
-  { name: "Gallery", href: "/gallery" },
-  { name: "News & Events", href: "/news" },
-  { name: "Careers", href: "/careers" },
-  { name: "Contact", href: "/contact" },
-  { name: "FAQ", href: "/faq" },
 ];
 
 const sections = [

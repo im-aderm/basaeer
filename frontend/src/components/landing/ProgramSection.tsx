@@ -1,77 +1,64 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
-import { Baby, BookOpen, GraduationCap, Sparkles, ArrowRight } from "lucide-react";
-import { SectionWrapper } from "@/components/ui/SectionWrapper";
-import { GlassCard } from "@/components/ui/GlassCard";
 
 export function ProgramSection() {
-  const programs = [
+  const academics = [
     {
-      title: "Nursery",
-      description: "Early childhood development rooted in play, exploration, and foundational values.",
-      icon: <Baby className="w-6 h-6 text-primary" />,
-      href: "/admission/apply/1",
+      title: "Early Years",
+      subtitle: "Laying foundations of wonder.",
+      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBtqvyz113YmeZwGA8K9J2y2B1bQFrMuqztZx0k9cjZR9jH6k_gOhSDpdIyCsZeZDzWiBHF1rR904IBLpqQ4X4_V6cY3Bt3F8ksaBv-_If6yB8hu_IAIgGQK_fubRiXBACypnhsv872kUFLjfMd8wGSsrpKErUjDw2PFGqoebfxM-Zro5iPAKEhR3UryWQBfsS9OWWF2Rg0zebze6QV8iV0fscBLHqj9KkFURhWVqO4LQAZnHPufBjlrctZyHsC-PP_LUko8VPpjnM",
     },
     {
       title: "Primary",
-      description: "Building critical thinkers through a robust dual curriculum of science and spirit.",
-      icon: <BookOpen className="w-6 h-6 text-primary" />,
-      href: "/admission/apply/1",
+      subtitle: "Igniting critical exploration.",
+      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDMJnv9cdv-h3OQLXAPKHCrUkwVOAgrA-orTkqDJfEEelhU1V98fNi1X2FVFGq9JSuXQeWRdMrJiSwY-2vr_XbOLJxV4_0dZWUEbW_h1U7uPHtvaXL_Aj_IfCGbDhpwoFgat4epZBv_PvKTJXDBrGHdFGzjjhfpailoLYKSxF2qsK94fpaN2soHZVZEUh-e5n0_Oone3yLrk0HQqOtfZjp_PFMmNGiMutbSBSOtxtV5wXbaw-OgguTqMM7laqNGEhdKCPtMtr9BVF8",
     },
     {
       title: "Secondary",
-      description: "Empowering future leaders with advanced sciences and Islamic jurisprudence.",
-      icon: <GraduationCap className="w-6 h-6 text-primary" />,
-      href: "/admission/apply/1",
+      subtitle: "Mastering complex horizons.",
+      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDTsjDJcnieDuVEw80-lqp5B0sRAmWlo0YP634IlP9WSfE2dHEcTzPjknxZJlx7RZQFn_Kz3Ewa-_RQ-6oeKrrQSUlZXCgH1szBTr_pvJkT3xGNPvVAEhaQgh17LHc9M8PI6S8mfkf_oLE-3tgCFNc7kJuqsePwixgxtWAeM_35nr5Pvj1yl1dpxKe1OX5FcsLNZQtfeDF3oZzWrdwiJAtNycpeZxPgJ4-m0R2kuHLysevREY6cq6o-8cQ2q4WgMePjfvRaATe5rmI",
     },
     {
-      title: "Tahfeez",
-      description: "A specialized track for the memorization and mastery of the Holy Qur'an.",
-      icon: <Sparkles className="w-6 h-6 text-primary" />,
-      href: "/admission/apply/1",
+      title: "STEM Excellence",
+      subtitle: "Engineering future realities.",
+      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCxc5O_zaElvQB_K87YFWFjzAeG9I8iZbFNu1CLbyWG5aNK9HBlOBQF-2XJZyJXKG06h_rNTpNNbNr9fxJBPmC6eueyCpcQYWY6r2nloHprQCGTkwxEY9fGTYK-2F2n-DcB_B6nNynE-ywjMdrNMHKuhEdJonjS_RR_BJni0nMpzfNTW7CMcQGIu7Qgz3xKpi_YCeJO6ttHdS-EWCTQE_woDqd2DhizereZP0xAmj5EvLQKyZDm8TyHen0Kzt0LioyYRYh_SDBQxmA",
     },
   ];
 
   return (
-    <SectionWrapper id="programs" className="bg-surface-container-low">
-      <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface-container border border-border text-primary text-xs font-semibold uppercase tracking-wider">
-          Our Curriculum
-        </div>
-        <h2 className="text-4xl lg:text-5xl font-heading font-extrabold text-text-primary">
-          Our <span className="text-gradient-primary">Educational Pathways</span>
+    <section id="programs" className="py-20 max-w-7xl mx-auto px-6 lg:px-8 space-y-12">
+      <div className="space-y-4 text-left border-b border-white/5 pb-4">
+        <h2 className="text-4xl md:text-5xl font-extrabold text-white font-heading">
+          Academic Excellence
         </h2>
-        <p className="text-base text-text-secondary font-medium">
-          Tailored educational journeys that respect individual growth and communal values.
-        </p>
+        <div className="h-1 w-24 bg-[#7c3aed] mt-2"></div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {programs.map((program, idx) => (
-          <GlassCard
-            key={idx}
-            className="p-8 flex flex-col h-full rounded-2xl border border-border bg-background/40 group relative overflow-hidden"
-            hoverEffect="glow"
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {academics.map((academic, idx) => (
+          <div 
+            key={idx} 
+            className="group rounded-3xl overflow-hidden bg-white/5 border border-white/10 p-3 hover:border-[#7c3aed]/40 transition-all duration-500 hover:shadow-[0_0_30px_rgba(124,58,237,0.15)]"
           >
-            <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-6">
-              {program.icon}
+            <div className="aspect-[4/5] rounded-2xl overflow-hidden mb-6 relative">
+              <img 
+                alt={academic.title} 
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2s] grayscale group-hover:grayscale-0" 
+                src={academic.image} 
+              />
             </div>
-
-            <h3 className="text-xl font-heading font-bold text-text-primary mb-3">{program.title}</h3>
-            <p className="text-text-secondary text-sm leading-relaxed mb-6 font-medium">
-              {program.description}
-            </p>
-
-            <div className="pt-4 border-t border-border mt-auto w-full flex items-center justify-between">
-              <Link href={program.href} className="text-xs font-bold uppercase tracking-wider text-primary inline-flex items-center gap-1 hover:text-primary-hover">
-                Learn More <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
+            <div className="px-3 pb-3 space-y-1">
+              <h4 className="text-xl font-bold text-white font-heading">
+                {academic.title}
+              </h4>
+              <p className="text-sm text-[#ccc3d8]">
+                {academic.subtitle}
+              </p>
             </div>
-          </GlassCard>
+          </div>
         ))}
       </div>
-    </SectionWrapper>
+    </section>
   );
 }

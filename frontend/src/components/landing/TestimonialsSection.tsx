@@ -1,86 +1,66 @@
 "use client";
 
-import { Star, MessageSquareQuote } from "lucide-react";
-import Image from "next/image";
-import { SectionWrapper } from "@/components/ui/SectionWrapper";
-import { GlassCard } from "@/components/ui/GlassCard";
+import React from "react";
+import { Star } from "lucide-react";
 
 export function TestimonialsSection() {
   const testimonials = [
     {
-      name: "Fatima Al-Hassan",
-      role: "Parent of Grade 4 Student",
-      content:
-        "Basaeer has transformed my son. The balance between secular education and Quran memorization is exactly what we were looking for. Highly recommended!",
-      avatar: "https://i.pravatar.cc/150?u=fatima",
+      name: "Sarah Al-Mansour",
+      role: "Senior Architect & Parent",
+      content: "The transition to Basser's digital-first approach has transformed my son's perspective on learning. He's no longer just consuming information; he's creating solutions.",
+      avatar: "https://lh3.googleusercontent.com/aida-public/AB6AXuBik4wtOuA5reBFti-GQhHVM6KtxcJI9pOFwuLun0faHVGqphtttFlRS2BjuiErB9amyP9DdOsmdllE1i3mIicrrhohtjJ7dyPLSFcRUr9JYrCWyaOZSmzTxaWf4HvXdjO9eJu3HkAJFRMu7e1xQb0Y4L3RzfZAgixFKfRHjke-d4DN7_IbZnbubYbezGPD4jkd-c5odem8CPgjviojhHxGzYHkxPa_ipTI_T0QB2nA3Dh6kGmV0tb6LXRE5kENSchYlAqjlQGkOYU",
+      color: "text-[#d2bbff]",
+      border: "border-[#d2bbff]",
     },
     {
-      name: "Mr. Ibrahim Musa",
-      role: "Parent of Boarding Student",
-      content:
-        "The boarding facilities are safe and disciplined. My daughter is learning independence and leadership skills alongside her academics.",
-      avatar: "https://i.pravatar.cc/150?u=ibrahim",
-    },
-    {
-      name: "Mrs. Aisha Bello",
-      role: "Parent of Nursery Student",
-      content:
-        "The nursery staff are so caring. They made my daughter's transition to school so smooth. She comes home happy every single day.",
-      avatar: "https://i.pravatar.cc/150?u=aisha",
+      name: "Dr. James Wilson",
+      role: "Research Scientist & Parent",
+      content: "Basser School provides an unparalleled academic rigour. The faculty are world-class, and the facilities are straight out of a technology showcase.",
+      avatar: "https://lh3.googleusercontent.com/aida-public/AB6AXuDjknUMzUuGqyJ8ZHDylqzAID1ZhVICqcWFOzyvIAo1s0FQMGf3JNysgE5Jno7Ktmp_lpdpvQvcrcw2CY2uOYDWUxgi8FNlPLZBAQY4rF6YXyk54S2pZ-PNy6UQUgfEFzfz71vo9O9fDf94CtTKq-Rmn2qNIqmzetw2-T3IW_KIgu9s6V1W_X8FGsNJ536sjpkH4SZsw7L6ifxgJWwJ4E-6Kju88eCScdQIqWCeVGQniTtGQwSWaIPXryU9H9N5G_QW86dLxrMJTsw",
+      color: "text-[#adc6ff]",
+      border: "border-[#adc6ff]",
     },
   ];
 
   return (
-    <SectionWrapper id="testimonials" className="bg-surface-container-low">
-      <div className="text-center mb-16 space-y-4">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface-container border border-border text-primary text-xs font-semibold uppercase tracking-wider">
-          Testimonials
-        </div>
-        <h2 className="text-4xl lg:text-5xl font-heading font-extrabold text-text-primary tracking-tight">
-          What Parents Say <br />
-          <span className="text-gradient-primary">About Basaeer</span>
+    <section className="py-24 bg-white/[0.01]">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 mb-16">
+        <h2 className="text-4xl md:text-5xl font-extrabold text-white text-center font-heading">
+          Voices of the Community
         </h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {testimonials.map((testimonial, idx) => (
-          <GlassCard
-            key={idx}
-            className="p-8 relative flex flex-col justify-between h-full bg-background/40"
-            hoverEffect="glow"
+      <div className="max-w-5xl mx-auto px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+        {testimonials.map((t, idx) => (
+          <div 
+            key={idx} 
+            className="bg-white/5 backdrop-blur-md p-8 rounded-3xl border border-white/10 space-y-6 flex flex-col justify-between"
           >
-            <div className="absolute top-8 right-8 text-primary/15">
-              <MessageSquareQuote size={40} aria-hidden="true" />
+            <div className="flex items-center gap-4">
+              <img 
+                alt={t.name} 
+                className={`w-12 h-12 rounded-full border-2 ${t.border}`} 
+                src={t.avatar} 
+              />
+              <div>
+                <h4 className="text-lg font-bold text-white font-heading">{t.name}</h4>
+                <p className="text-xs text-[#ccc3d8] font-semibold">{t.role}</p>
+              </div>
             </div>
 
-            <div className="flex gap-1 mb-6 text-accent-gold" aria-label="5 stars rating">
+            <div className="flex gap-1 text-[#d2bbff]">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} size={16} fill="currentColor" aria-hidden="true" />
+                <Star key={i} size={16} fill="currentColor" className={t.color} />
               ))}
             </div>
 
-            <p className="text-text-secondary text-base mb-8 leading-relaxed italic font-medium">
-              &quot;{testimonial.content}&quot;
+            <p className="text-[#ccc3d8] text-base leading-relaxed italic font-medium">
+              "{t.content}"
             </p>
-
-            <div className="flex items-center gap-4 pt-4 border-t border-border mt-auto w-full">
-              <div className="relative w-12 h-12 rounded-full overflow-hidden border border-border bg-surface-container">
-                <Image
-                  src={testimonial.avatar}
-                  alt={`Avatar of ${testimonial.name}`}
-                  fill
-                  className="object-cover"
-                  unoptimized
-                />
-              </div>
-              <div>
-                <h4 className="font-heading font-bold text-text-primary text-sm">{testimonial.name}</h4>
-                <p className="text-xs text-primary font-bold tracking-wider uppercase mt-0.5">{testimonial.role}</p>
-              </div>
-            </div>
-          </GlassCard>
+          </div>
         ))}
       </div>
-    </SectionWrapper>
+    </section>
   );
 }

@@ -2,10 +2,12 @@ import { Navbar } from "@/components/landing/Navbar";
 import { HeroSection } from "@/components/landing/HeroSection";
 import { TrustedBySection } from "@/components/landing/TrustedBySection";
 import { AboutSection } from "@/components/landing/AboutSection";
-import { ProgramSection } from "@/components/landing/ProgramSection";
 import { QuranMemorizationSection } from "@/components/landing/QuranMemorizationSection";
-import { CampusesSection } from "@/components/landing/CampusesSection";
+import { ProgramSection } from "@/components/landing/ProgramSection";
+import { StatsSection } from "@/components/landing/StatsSection";
+import { TestimonialsSection } from "@/components/landing/TestimonialsSection";
 import { MobileAppCTA } from "@/components/landing/MobileAppCTA";
+import { NewsSection } from "@/components/landing/NewsSection";
 import { AdmissionCTASection } from "@/components/landing/AdmissionCTASection";
 import { Footer } from "@/components/landing/Footer";
 import { GradientBackground } from "@/components/ui/GradientBackground";
@@ -21,10 +23,12 @@ export default function Home() {
         <HeroSection />
         <TrustedBySection />
         <AboutSection />
-        <ProgramSection />
         <QuranMemorizationSection />
-        <CampusesSection />
+        <ProgramSection />
+        <StatsSection />
+        <TestimonialsSection />
         <MobileAppCTA />
+        <NewsSection />
         <AdmissionCTASection />
       </main>
       <Footer />

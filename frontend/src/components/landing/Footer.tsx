@@ -52,15 +52,16 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Column 2: Quick Links from Stitch */}
+          {/* Column 2: Quick Links */}
           <div>
             <h3 className="font-heading font-semibold text-text-primary text-base mb-6">Quick Links</h3>
             <ul className="space-y-4 text-sm font-medium">
               {[
-                { name: "Curriculum", href: "/#programs" },
-                { name: "Admissions", href: "/admission/apply/1" },
                 { name: "Student Portal", href: "/login" },
-                { name: "Careers", href: "/#contact" },
+                { name: "Admissions", href: "/admission" },
+                { name: "Careers", href: "/careers" },
+                { name: "FAQ", href: "/faq" },
+                { name: "Contact", href: "/contact" },
               ].map(({ name, href }) => (
                 <li key={name}>
                   <Link href={href} className="hover:text-primary transition-colors flex items-center gap-2 group">
@@ -72,15 +73,16 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: Academics from Stitch */}
+          {/* Column 3: Community & Academics */}
           <div>
-            <h3 className="font-heading font-semibold text-text-primary text-base mb-6">Academics</h3>
+            <h3 className="font-heading font-semibold text-text-primary text-base mb-6">Community</h3>
             <ul className="space-y-4 text-sm font-medium">
               {[
-                { name: "Tahfeez Program", href: "/#tahfeez" },
-                { name: "Science & Tech", href: "/#about" },
-                { name: "Islamic Studies", href: "/#tahfeez" },
-                { name: "Extra-Curricular", href: "/#programs" },
+                { name: "Alumni Association", href: "/alumni" },
+                { name: "Media Gallery", href: "/gallery" },
+                { name: "News & Events", href: "/news" },
+                { name: "Tahfeez Academy", href: "/academics/tahfeez" },
+                { name: "Islamic Studies", href: "/academics/islamic-studies" },
               ].map(({ name, href }) => (
                 <li key={name}>
                   <Link href={href} className="hover:text-primary transition-colors flex items-center gap-2 group">

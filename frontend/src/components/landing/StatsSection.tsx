@@ -1,41 +1,32 @@
 "use client";
 
-import { Building2, Users, GraduationCap, BookOpen } from "lucide-react";
-import { SectionWrapper } from "@/components/ui/SectionWrapper";
-import { GlassCard } from "@/components/ui/GlassCard";
+import React from "react";
 
 export function StatsSection() {
   const stats = [
-    { label: "Years Experience", value: "14+", icon: Building2 },
-    { label: "Students Enrolled", value: "2,500+", icon: Users },
-    { label: "Qualified Teachers", value: "150+", icon: GraduationCap },
-    { label: "Huffaz Graduated", value: "500+", icon: BookOpen },
+    { value: "1.2k+", label: "Global Students", border: "border-b-[#d2bbff]/50", color: "text-[#d2bbff]" },
+    { value: "85+", label: "PhD Faculty", border: "border-b-[#adc6ff]/50", color: "text-[#adc6ff]" },
+    { value: "99%", label: "Graduation Rate", border: "border-b-[#c1c5df]/50", color: "text-[#c1c5df]" },
+    { value: "40+", label: "Research Labs", border: "border-b-[#7c3aed]/50", color: "text-[#7c3aed]" },
   ];
 
   return (
-    <SectionWrapper id="stats" className="border-y border-border">
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-        {stats.map((stat, idx) => {
-          const Icon = stat.icon;
-          return (
-            <GlassCard
-              key={idx}
-              className="p-8 rounded-2xl flex flex-col items-center justify-center text-center bg-background/30"
-              hoverEffect="glow"
-            >
-              <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 text-primary flex items-center justify-center mb-6">
-                <Icon size={24} aria-label={stat.label} />
-              </div>
-              <h3 className="text-4xl lg:text-5xl font-heading font-extrabold text-gradient-primary mb-2 tracking-tight">
-                {stat.value}
-              </h3>
-              <p className="text-text-secondary font-semibold text-sm">
-                {stat.label}
-              </p>
-            </GlassCard>
-          );
-        })}
+    <section className="py-20 max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        {stats.map((stat, idx) => (
+          <div 
+            key={idx} 
+            className={`bg-white/5 backdrop-blur-md p-8 rounded-3xl text-center border border-white/10 border-b-4 ${stat.border} hover:scale-[1.03] transition-all duration-300`}
+          >
+            <h3 className={`text-4xl lg:text-5xl font-extrabold font-heading ${stat.color} mb-2 tracking-tight`}>
+              {stat.value}
+            </h3>
+            <p className="text-xs font-bold tracking-wider text-[#ccc3d8] uppercase">
+              {stat.label}
+            </p>
+          </div>
+        ))}
       </div>
-    </SectionWrapper>
+    </section>
   );
 }
