@@ -15,6 +15,7 @@ const links = [
   { name: "Admissions", href: "/admission" },
   { name: "Campuses", href: "/campuses" },
   { name: "Student Life", href: "/student-life" },
+  { name: "Alumni", href: "/alumni" },
 ];
 
 const sections = [
