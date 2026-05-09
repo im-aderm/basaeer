@@ -26,9 +26,8 @@ api.interceptors.response.use(
             typeof window !== 'undefined' &&
             error.response?.status === 401
         ) {
-            // Session is expired or invalid — redirect to login
-            // Avoid redirect loops: only redirect if not already on login page
-            if (!window.location.pathname.startsWith('/login')) {
+            // Session is expired or invalid — redirect to login if inside the dashboard
+            if (window.location.pathname.startsWith('/dashboard')) {
                 window.location.href = '/login';
             }
         }
