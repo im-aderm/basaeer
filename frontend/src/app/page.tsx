@@ -5,6 +5,7 @@ import { AboutSection } from "@/components/landing/AboutSection";
 import { ProgramSection } from "@/components/landing/ProgramSection";
 import { QuranMemorizationSection } from "@/components/landing/QuranMemorizationSection";
 import { CampusesSection } from "@/components/landing/CampusesSection";
+import { MobileAppCTA } from "@/components/landing/MobileAppCTA";
 import { AdmissionCTASection } from "@/components/landing/AdmissionCTASection";
 import { Footer } from "@/components/landing/Footer";
 import { GradientBackground } from "@/components/ui/GradientBackground";
@@ -23,6 +24,7 @@ export default function Home() {
         <ProgramSection />
         <QuranMemorizationSection />
         <CampusesSection />
+        <MobileAppCTA />
         <AdmissionCTASection />
       </main>
       <Footer />
