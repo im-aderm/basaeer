@@ -19,6 +19,7 @@ const links = [
   { name: "Gallery", href: "/gallery" },
   { name: "News & Events", href: "/news" },
   { name: "Careers", href: "/careers" },
+  { name: "Contact", href: "/contact" },
 ];
 
 const sections = [
