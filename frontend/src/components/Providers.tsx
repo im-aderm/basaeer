@@ -7,7 +7,7 @@ import { ReactNode } from "react";
 
 export function Providers({ children }: { children: ReactNode }) {
     return (
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+        <ThemeProvider attribute="class" defaultTheme="light" forcedTheme="light" enableSystem={false} disableTransitionOnChange>
             <AuthProvider>
                 {children}
                 <Toaster />

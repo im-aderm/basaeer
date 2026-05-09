@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import Image from "next/image";
 import { Star } from "lucide-react";
 
 export function TestimonialsSection() {
@@ -38,10 +38,12 @@ export function TestimonialsSection() {
             className="glass-card p-8 rounded-3xl space-y-6 flex flex-col justify-between"
           >
             <div className="flex items-center gap-4">
-              <img 
+              <Image 
                 alt={t.name} 
-                className={`w-12 h-12 rounded-full border-2 ${t.border}`} 
+                className={`rounded-full border-2 ${t.border} object-cover`} 
                 src={t.avatar} 
+                width={48}
+                height={48}
               />
               <div>
                 <h4 className="text-lg font-bold text-text-primary font-heading">{t.name}</h4>

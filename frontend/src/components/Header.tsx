@@ -1,9 +1,8 @@
 "use client";
 
 import { useAuth } from "@/context/AuthContext";
-import { LogOut, Bell, Search, User, Sun, Moon } from "lucide-react";
+import { LogOut, Bell, Search, User } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
-import { useTheme } from "next-themes";
 import GlobalSearch from "@/components/GlobalSearch";
 import { useRealtimeEvent } from "@/hooks/useRealtime";
 import { toast } from "sonner";
@@ -11,14 +10,9 @@ import { toast } from "sonner";
 export function Header() {
     const { user, logout } = useAuth();
     const [searchOpen, setSearchOpen] = useState(false);
-    const { theme, setTheme } = useTheme();
-    const [mounted, setMounted] = useState(false);
     const [unreadCount, setUnreadCount] = useState(0);
 
-    // Prevent hydration mismatch by only rendering the toggle after mounting
-    useEffect(() => {
-        setMounted(true);
-    }, []);
+
 
     const handleNotification = useCallback((data: any) => {
         console.log("New notification:", data);
@@ -71,16 +65,7 @@ export function Header() {
                         )}
                     </button>
 
-                    {/* Theme Toggle */}
-                    {mounted && (
-                        <button
-                            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                            className="p-2.5 text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-xl transition-all"
-                            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-                        >
-                            {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-                        </button>
-                    )}
+
 
                     <div className="h-8 w-[1px] bg-border mx-2" aria-hidden="true" />
 

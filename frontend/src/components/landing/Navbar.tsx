@@ -3,9 +3,8 @@
 import { useState, useEffect, useSyncExternalStore } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Moon, Sun, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const links = [
@@ -28,7 +27,6 @@ const sections = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const { resolvedTheme, setTheme } = useTheme();
   const [activeLink, setActiveLink] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -46,7 +44,7 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const isDark = resolvedTheme === "dark";
+
 
   return (
     <nav
@@ -59,16 +57,7 @@ export function Navbar() {
     >
       <div className="max-w-7xl mx-auto w-full px-6 lg:px-8 flex items-center justify-between">
         {/* Left Logo */}
-        <Link href="/" className="flex items-center gap-3 shrink-0">
-          <div className="relative w-10 h-10 rounded-full bg-surface-container border border-border shadow-inner overflow-hidden flex items-center justify-center">
-            <Image
-              src="/logo.png"
-              alt="Basaeer Logo"
-              width={40}
-              height={40}
-              className="w-10 h-10 object-contain rounded-full"
-            />
-          </div>
+        <Link href="/" className="flex items-center shrink-0">
           <span className="font-heading font-extrabold text-2xl tracking-tight text-gradient-primary">
             Basaeer
           </span>
@@ -134,31 +123,7 @@ export function Navbar() {
 
         {/* Right Portal & Theme Toggle */}
         <div className="flex items-center gap-6">
-          {/* Theme Switcher */}
-          <button
-            onClick={() => {
-              const current = resolvedTheme || "dark";
-              setTheme(current === "dark" ? "light" : "dark");
-            }}
-            className="relative w-10 h-10 flex items-center justify-center rounded-full bg-surface-container border border-border hover:bg-surface-bright transition-colors cursor-pointer"
-            aria-label="Toggle theme"
-          >
-            {mounted ? (
-              <motion.div
-                initial={false}
-                animate={{ rotate: isDark ? 0 : 180 }}
-                transition={{ type: "spring", stiffness: 200, damping: 15 }}
-              >
-                {isDark ? (
-                  <Moon className="w-5 h-5 text-accent-gold" />
-                ) : (
-                  <Sun className="w-5 h-5 text-accent-gold" />
-                )}
-              </motion.div>
-            ) : (
-              <div className="w-5 h-5 rounded-full border-2 border-border border-t-primary animate-spin" />
-            )}
-          </button>
+
 
           {/* Redesigned Premium Shimmering Gold Apply Now Button */}
           <div className="hidden lg:flex items-center gap-6">

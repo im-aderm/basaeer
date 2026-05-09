@@ -1,44 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  /* Celestial Night (Dark Mode - Default) */
-  --background: #15121b;
-  --foreground: #e8dfee;
-  
-  --surface: #15121b;
-  --surface-dim: #15121b;
-  --surface-bright: #3c3742;
-  --surface-container-lowest: #100d16;
-  --surface-container-low: #1d1a24;
-  --surface-container: #221e28;
-  --surface-container-high: #2c2833;
-  --surface-container-highest: #37333e;
-  
-  --primary: #7c3aed; /* Royal Purple */
-  --primary-light: #d2bbff;
-  --primary-container: #7c3aed;
-  --on-primary: #3f008e;
-  
-  --secondary: #c1c5df;
-  --secondary-container: #43485e;
-  
-  --accent-emerald: #10B981;
-  --accent-gold: #F59E0B;
-  --accent-blue: #3B82F6;
-  
-  --text-primary: #e8dfee;
-  --text-secondary: #ccc3d8;
-  --border: rgba(255, 255, 255, 0.08);
-  --border-glow: rgba(255, 255, 255, 0.12);
-  --ring: #7c3aed;
-
-  /* Typography */
-  --font-primary: var(--font-inter, "Inter"), system-ui, -apple-system, sans-serif;
-  --font-heading: var(--font-space-grotesk, "Space Grotesk"), system-ui, -apple-system, sans-serif;
-}
-
-.light, html.light, :root.light {
-  /* Illuminated Dawn (Light Mode) */
+  /* Illuminated Dawn (Light Mode with Warm Golden Theme - ALWAYS Light) */
   --background: #F8FAFC;
   --foreground: #0F172A;
   
@@ -51,23 +14,27 @@
   --surface-container-high: #F1F5F9;
   --surface-container-highest: #E2E8F0;
   
-  --primary: #6D28D9; /* Deep Indigo */
-  --primary-light: #7c3aed;
-  --primary-container: #ede0ff;
+  --primary: #D97706; /* Rich Ochre Gold */
+  --primary-light: #F59E0B; /* Vibrant Gold */
+  --primary-container: #fef3c7; /* Creamy Warm Gold Container */
   --on-primary: #ffffff;
   
-  --secondary: #4F46E5; /* Modern Cobalt */
-  --secondary-container: #e0e7ff;
+  --secondary: #B45309; /* Deep Golden Bronze */
+  --secondary-container: #ffedd5;
   
-  --accent-emerald: #059669; /* Forest Emerald */
+  --accent-emerald: #059669;
   --accent-gold: #D97706;
-  --accent-blue: #2563EB;
+  --accent-blue: #D97706; /* Replaced blue with gold */
   
   --text-primary: #0F172A;
   --text-secondary: #475569;
   --border: rgba(15, 23, 42, 0.08);
   --border-glow: rgba(15, 23, 42, 0.12);
-  --ring: #6D28D9;
+  --ring: #D97706;
+
+  /* Typography */
+  --font-primary: var(--font-inter, "Inter"), system-ui, -apple-system, sans-serif;
+  --font-heading: var(--font-space-grotesk, "Space Grotesk"), system-ui, -apple-system, sans-serif;
 }
 
 @theme {
@@ -127,29 +94,15 @@
 
 /* Glassmorphism Cards */
 .glass-card {
-  background: rgba(21, 18, 27, 0.4);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.glass-card:hover {
-  border-color: rgba(124, 58, 237, 0.2);
-  box-shadow: 0 12px 40px 0 rgba(124, 58, 237, 0.15);
-  transform: translateY(-2px);
-}
-
-.light .glass-card {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.82) 0%, rgba(217, 119, 6, 0.03) 100%);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(217, 119, 6, 0.15);
   box-shadow: 0 8px 32px 0 rgba(217, 119, 6, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.light .glass-card:hover {
+.glass-card:hover {
   border-color: rgba(217, 119, 6, 0.28);
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(217, 119, 6, 0.07) 100%);
   box-shadow: 0 16px 40px 0 rgba(217, 119, 6, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8);
@@ -158,54 +111,44 @@
 
 /* Aurora Background Gradients */
 .bg-aurora-purple {
-  background: radial-gradient(circle at 50% 50%, rgba(124, 58, 237, 0.15) 0%, transparent 50%);
-}
-
-.bg-aurora-blue {
-  background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.12) 0%, transparent 50%);
-}
-
-.bg-aurora-gold {
   background: radial-gradient(circle at 50% 50%, rgba(217, 119, 6, 0.05) 0%, transparent 50%);
 }
 
-.light .bg-aurora-gold {
+.bg-aurora-blue {
+  background: radial-gradient(circle at 50% 50%, rgba(217, 119, 6, 0.03) 0%, transparent 50%);
+}
+
+.bg-aurora-gold {
   background: radial-gradient(circle at 50% 50%, rgba(217, 119, 6, 0.09) 0%, transparent 55%);
 }
 
 /* Interactive Text Gradients */
 .text-gradient-primary {
-  background: linear-gradient(135deg, #d2bbff 0%, #7c3aed 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.light .text-gradient-primary {
-  background: linear-gradient(135deg, #6d28d9 0%, #4f46e5 100%);
+  background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 /* Button Systems */
 .btn-premium-primary {
-  background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
+  background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
   color: #ffffff;
   font-family: var(--font-heading);
-  font-weight: 600;
+  font-weight: 700;
   border-radius: 9999px;
-  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3);
+  box-shadow: 0 4px 20px rgba(217, 119, 6, 0.35);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .btn-premium-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(124, 58, 237, 0.5);
+  box-shadow: 0 8px 30px rgba(217, 119, 6, 0.55);
 }
 
 .btn-premium-secondary {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #e8dfee;
+  background: rgba(15, 23, 42, 0.03);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  color: #0F172A;
   font-family: var(--font-heading);
   font-weight: 600;
   border-radius: 9999px;
@@ -214,20 +157,9 @@
 }
 
 .btn-premium-secondary:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.2);
-  transform: translateY(-2px);
-}
-
-.light .btn-premium-secondary {
-  background: rgba(15, 23, 42, 0.03);
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  color: #0F172A;
-}
-
-.light .btn-premium-secondary:hover {
   background: rgba(15, 23, 42, 0.06);
   border-color: rgba(15, 23, 42, 0.15);
+  transform: translateY(-2px);
 }
 
 /* Scrollbar customization */
@@ -241,19 +173,11 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(15, 23, 42, 0.1);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.light ::-webkit-scrollbar-thumb {
-  background: rgba(15, 23, 42, 0.1);
-}
-
-.light ::-webkit-scrollbar-thumb:hover {
   background: rgba(15, 23, 42, 0.2);
 }
 

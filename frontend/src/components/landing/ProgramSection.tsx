@@ -1,6 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
+import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export function ProgramSection() {
   const academics = [
@@ -8,67 +11,192 @@ export function ProgramSection() {
       title: "Early Years",
       subtitle: "Laying foundations of wonder.",
       image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBtqvyz113YmeZwGA8K9J2y2B1bQFrMuqztZx0k9cjZR9jH6k_gOhSDpdIyCsZeZDzWiBHF1rR904IBLpqQ4X4_V6cY3Bt3F8ksaBv-_If6yB8hu_IAIgGQK_fubRiXBACypnhsv872kUFLjfMd8wGSsrpKErUjDw2PFGqoebfxM-Zro5iPAKEhR3UryWQBfsS9OWWF2Rg0zebze6QV8iV0fscBLHqj9KkFURhWVqO4LQAZnHPufBjlrctZyHsC-PP_LUko8VPpjnM",
+      link: "#about",
     },
     {
       title: "Primary",
       subtitle: "Igniting critical exploration.",
       image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDMJnv9cdv-h3OQLXAPKHCrUkwVOAgrA-orTkqDJfEEelhU1V98fNi1X2FVFGq9JSuXQeWRdMrJiSwY-2vr_XbOLJxV4_0dZWUEbW_h1U7uPHtvaXL_Aj_IfCGbDhpwoFgat4epZBv_PvKTJXDBrGHdFGzjjhfpailoLYKSxF2qsK94fpaN2soHZVZEUh-e5n0_Oone3yLrk0HQqOtfZjp_PFMmNGiMutbSBSOtxtV5wXbaw-OgguTqMM7laqNGEhdKCPtMtr9BVF8",
+      link: "#programs",
     },
     {
       title: "Secondary",
       subtitle: "Mastering complex horizons.",
       image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDTsjDJcnieDuVEw80-lqp5B0sRAmWlo0YP634IlP9WSfE2dHEcTzPjknxZJlx7RZQFn_Kz3Ewa-_RQ-6oeKrrQSUlZXCgH1szBTr_pvJkT3xGNPvVAEhaQgh17LHc9M8PI6S8mfkf_oLE-3tgCFNc7kJuqsePwixgxtWAeM_35nr5Pvj1yl1dpxKe1OX5FcsLNZQtfeDF3oZzWrdwiJAtNycpeZxPgJ4-m0R2kuHLysevREY6cq6o-8cQ2q4WgMePjfvRaATe5rmI",
+      link: "#programs",
     },
     {
       title: "STEM Excellence",
       subtitle: "Engineering future realities.",
       image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCxc5O_zaElvQB_K87YFWFjzAeG9I8iZbFNu1CLbyWG5aNK9HBlOBQF-2XJZyJXKG06h_rNTpNNbNr9fxJBPmC6eueyCpcQYWY6r2nloHprQCGTkwxEY9fGTYK-2F2n-DcB_B6nNynE-ywjMdrNMHKuhEdJonjS_RR_BJni0nMpzfNTW7CMcQGIu7Qgz3xKpi_YCeJO6ttHdS-EWCTQE_woDqd2DhizereZP0xAmj5EvLQKyZDm8TyHen0Kzt0LioyYRYh_SDBQxmA",
+      link: "#about",
+    },
+    {
+      title: "Tahfeez",
+      subtitle: "Preserving divine light.",
+      image: "https://images.unsplash.com/photo-1609599006353-e629aaabfeae?q=80&w=600&auto=format&fit=crop",
+      link: "#programs",
     },
   ];
 
+  const [activeIndex, setActiveIndex] = useState(2);
+
+  const handleNext = () => {
+    setActiveIndex((prev) => (prev + 1) % academics.length);
+  };
+
+  const [touchStartX, setTouchStartX] = useState(0);
+
+  const handlePrev = () => {
+    setActiveIndex((prev) => (prev - 1 + academics.length) % academics.length);
+  };
+
   return (
-    <section id="programs" className="relative w-full overflow-hidden">
+    <section id="programs" className="relative w-full overflow-hidden py-24 bg-surface-dim">
       {/* Top Divider */}
-      <div className="w-full h-px bg-gradient-to-r from-transparent via-primary-light/30 to-transparent"></div>
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent absolute top-0"></div>
 
-      <div className="w-full bg-gradient-to-br from-primary/5 via-surface-dim/30 to-secondary/5 dark:from-primary/10 dark:via-surface-container-lowest/40 dark:to-secondary/10">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-20 space-y-12">
-          <div className="space-y-4 text-left border-b border-border/40 pb-4">
-            <h2 className="text-4xl md:text-5xl font-extrabold text-text-primary font-heading">
-              Academic Excellence
-            </h2>
-            <div className="h-1 w-24 bg-primary mt-2"></div>
-          </div>
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 space-y-16 text-center">
+        
+        {/* Section Header */}
+        <div className="space-y-4 max-w-3xl mx-auto">
+          <span className="text-xs font-extrabold tracking-[0.2em] text-primary uppercase block">
+            OUR SCHOOL SECTIONS
+          </span>
+          <h2 className="text-4xl md:text-5xl font-extrabold text-text-primary font-heading">
+            Academic Pathways
+          </h2>
+          <p className="text-text-secondary text-sm md:text-base font-medium">
+            Explore our specialized educational phases designed to elevate intellect, character, and spirit. Click any card to center it, and click again to visit that section!
+          </p>
+        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {academics.map((academic, idx) => (
-              <div 
-                key={idx} 
-                className="group rounded-3xl p-3 glass-card hover:border-primary-light/40 transition-all duration-500 hover:shadow-[0_0_30px_rgba(124,58,237,0.15)]"
-              >
-                <div className="aspect-[4/5] rounded-2xl overflow-hidden mb-6 relative">
-                  <img 
-                    alt={academic.title} 
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2s] grayscale group-hover:grayscale-0" 
-                    src={academic.image} 
-                  />
-                </div>
-                <div className="px-3 pb-3 space-y-1">
-                  <h4 className="text-xl font-bold text-text-primary font-heading">
-                    {academic.title}
-                  </h4>
-                  <p className="text-sm text-text-secondary">
-                    {academic.subtitle}
-                  </p>
-                </div>
-              </div>
-            ))}
+        {/* Majestic 3D Cover Flow Container */}
+        <div 
+          className="relative w-full flex items-center justify-center min-h-[480px] perspective-[1200px] overflow-visible py-10 select-none"
+          onTouchStart={(e) => setTouchStartX(e.touches[0].clientX)}
+          onTouchEnd={(e) => {
+            const touchEndX = e.changedTouches[0].clientX;
+            const diff = touchStartX - touchEndX;
+            if (diff > 50) handleNext();
+            if (diff < -50) handlePrev();
+          }}
+        >
+          <div className="relative w-full max-w-5xl flex items-center justify-center h-[420px] overflow-visible">
+            {academics.map((academic, idx) => {
+              // Calculate offset from the active center index
+              const offset = idx - activeIndex;
+              const isActive = idx === activeIndex;
+
+              // 3D Math logic for exact overlapping Cover Flow simulation (with narrower desktop spacing for perfect alignment)
+              let translateVal = offset * 210; 
+              let rotateYVal = offset * -18;
+              let scaleVal = isActive ? 1.12 : 0.82;
+              let zIndexVal = 30 - Math.abs(offset) * 10;
+              let opacityVal = Math.abs(offset) > 2 ? 0.2 : isActive ? 1 : 0.65;
+
+              return (
+                <motion.div
+                  key={idx}
+                  onClick={() => {
+                    if (isActive) {
+                      window.location.href = academic.link;
+                    } else {
+                      setActiveIndex(idx);
+                    }
+                  }}
+                  animate={{
+                    x: translateVal,
+                    scale: scaleVal,
+                    rotateY: rotateYVal,
+                    zIndex: zIndexVal,
+                    opacity: opacityVal,
+                  }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 260,
+                    damping: 24,
+                  }}
+                  style={{ transformOrigin: "center center" }}
+                  className={`absolute w-[280px] md:w-[320px] h-[380px] md:h-[420px] rounded-[32px] overflow-hidden cursor-pointer shadow-2xl border transition-shadow duration-300 ${
+                    isActive
+                      ? "border-primary/30 shadow-primary/15 shadow-2xl"
+                      : "border-border/40 shadow-black/10 hover:border-primary-light/20"
+                  } group`}
+                >
+                  {/* Background Image */}
+                  <div className="absolute inset-0 z-0">
+                    <Image
+                      src={academic.image}
+                      alt={academic.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className={`object-cover transition-transform duration-700 ${
+                        isActive ? "scale-100" : "scale-105 saturate-[0.8]"
+                      }`}
+                      priority={idx === 2}
+                    />
+                    {/* Dark Elegant Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10" />
+                  </div>
+
+                  {/* Text Overlay */}
+                  <div className="absolute inset-0 flex flex-col justify-end p-8 z-20 text-left">
+                    <motion.div 
+                      animate={{ y: isActive ? 0 : 5 }}
+                      className="space-y-2 text-white"
+                    >
+                      <h4 className="text-2xl md:text-3xl font-extrabold text-white font-heading tracking-wide">
+                        {academic.title}
+                      </h4>
+                      <p className="text-slate-200 text-xs md:text-sm leading-relaxed font-medium">
+                        {academic.subtitle}
+                      </p>
+                    </motion.div>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
+
+        {/* Shifting Navigation Controls */}
+        <div className="flex items-center justify-center gap-6 mt-8 z-30 relative">
+          <button
+            onClick={handlePrev}
+            className="w-12 h-12 rounded-full bg-background border border-border/60 flex items-center justify-center text-text-primary hover:bg-primary hover:text-white hover:border-primary shadow-sm hover:shadow-md active:scale-95 transition-all duration-300"
+            aria-label="Previous Section"
+          >
+            <ChevronLeft size={20} />
+          </button>
+          
+          {/* Visual dots representing current slide */}
+          <div className="flex items-center gap-2">
+            {academics.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setActiveIndex(idx)}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  idx === activeIndex ? "w-6 bg-primary" : "w-2 bg-border hover:bg-text-secondary"
+                }`}
+                aria-label={`Go to slide ${idx + 1}`}
+              />
+            ))}
+          </div>
+
+          <button
+            onClick={handleNext}
+            className="w-12 h-12 rounded-full bg-background border border-border/60 flex items-center justify-center text-text-primary hover:bg-primary hover:text-white hover:border-primary shadow-sm hover:shadow-md active:scale-95 transition-all duration-300"
+            aria-label="Next Section"
+          >
+            <ChevronRight size={20} />
+          </button>
+        </div>
+
       </div>
 
       {/* Bottom Divider */}
-      <div className="w-full h-px bg-gradient-to-r from-transparent via-secondary/30 to-transparent"></div>
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-secondary/30 to-transparent absolute bottom-0"></div>
     </section>
   );
 }

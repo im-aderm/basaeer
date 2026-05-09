@@ -83,9 +83,9 @@ export function AboutSection() {
                 <motion.div
                   key={idx}
                   variants={itemVariants}
-                  whileHover={{ y: -8, scale: 1.03 }}
+                  whileHover={{ y: -2 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  className="bg-background border border-border/60 hover:border-primary-light/40 dark:hover:border-primary-light/30 shadow-2xl p-8 rounded-[32px] flex flex-col items-center text-center relative min-h-[350px] justify-between group transition-colors duration-300"
+                  className="bg-background border border-border/60 hover:border-primary-light/30 shadow-sm hover:shadow-md p-8 rounded-[32px] flex flex-col items-center text-center relative min-h-[350px] justify-between group transition-all duration-300"
                 >
                   <div className="space-y-6 flex flex-col items-center">
                     {/* Circle Background containing the Icon */}

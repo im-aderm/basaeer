@@ -16,16 +16,7 @@ export function Footer() {
           
           {/* Column 1: Brand details */}
           <div className="space-y-6">
-            <Link href="/" className="flex items-center gap-3">
-              <div className="relative w-10 h-10 rounded-full bg-surface-container border border-border shadow-inner overflow-hidden flex items-center justify-center">
-                <Image
-                  src="/logo.png"
-                  alt="Basaeer Logo"
-                  width={40}
-                  height={40}
-                  className="w-10 h-10 object-contain rounded-full"
-                />
-              </div>
+            <Link href="/" className="flex items-center">
               <span className="font-heading font-extrabold text-2xl tracking-tight text-gradient-primary">
                 Basaeer
               </span>
