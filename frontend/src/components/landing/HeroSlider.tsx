@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
 import { motion, AnimatePresence } from "framer-motion";
@@ -84,6 +84,15 @@ const SLIDES = [
 
 export function HeroSlider() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 768px)");
+    setIsMobile(media.matches);
+    const listener = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    media.addEventListener("change", listener);
+    return () => media.removeEventListener("change", listener);
+  }, []);
 
   return (
     <section className="relative w-full h-[100vh] overflow-hidden bg-background">
@@ -110,11 +119,11 @@ export function HeroSlider() {
               <div className="relative w-full lg:w-1/2 h-[50vh] lg:h-full overflow-hidden bg-surface-container border-r border-border">
                 <motion.div
                   initial={{ scale: 1.05 }}
-                  animate={{ scale: index === activeIndex ? 1 : 1.05 }}
-                  transition={{ duration: 20, ease: "linear" }}
+                  animate={isMobile ? { scale: 1 } : { scale: index === activeIndex ? 1 : 1.05 }}
+                  transition={{ duration: isMobile ? 0.2 : 20, ease: "linear" }}
                   className="absolute inset-0 w-full h-full"
                 >
-                  {slide.type === "video" ? (
+                  {slide.type === "video" && !isMobile ? (
                     <video
                       autoPlay
                       muted
@@ -126,7 +135,7 @@ export function HeroSlider() {
                     </video>
                   ) : (
                     <Image
-                      src={slide.src}
+                      src={slide.type === "video" ? (slide.id === 1 ? "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop" : "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=2070&auto=format&fit=crop") : slide.src}
                       alt={slide.headline}
                       fill
                       className="object-cover"
@@ -134,6 +143,7 @@ export function HeroSlider() {
                     />
                   )}
                 </motion.div>
+
 
                 {/* Glassy Overlay with subtle primary tint */}
                 <div className="absolute inset-0 bg-background/30 mix-blend-multiply" />
