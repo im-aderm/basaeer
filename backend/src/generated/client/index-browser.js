@@ -558,6 +558,9 @@ exports.Prisma.VehicleScalarFieldEnum = {
   driverName: 'driverName',
   driverPhone: 'driverPhone',
   branchId: 'branchId',
+  currentLat: 'currentLat',
+  currentLng: 'currentLng',
+  lastPing: 'lastPing',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -1027,7 +1030,8 @@ exports.Prisma.BorrowRecordScalarFieldEnum = {
   bookId: 'bookId',
   studentId: 'studentId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  bookCopyId: 'bookCopyId'
 };
 
 exports.Prisma.LibraryFineScalarFieldEnum = {
@@ -1859,6 +1863,120 @@ exports.Prisma.ReportTemplateScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ComputationJobScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  status: 'status',
+  progress: 'progress',
+  targetId: 'targetId',
+  targetType: 'targetType',
+  sessionId: 'sessionId',
+  term: 'term',
+  parameters: 'parameters',
+  resultSummary: 'resultSummary',
+  error: 'error',
+  retryCount: 'retryCount',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  userId: 'userId',
+  branchId: 'branchId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.BookCopyScalarFieldEnum = {
+  id: 'id',
+  barcode: 'barcode',
+  accessionNumber: 'accessionNumber',
+  bookId: 'bookId',
+  status: 'status',
+  condition: 'condition',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.BookReservationScalarFieldEnum = {
+  id: 'id',
+  bookId: 'bookId',
+  studentId: 'studentId',
+  status: 'status',
+  reservedAt: 'reservedAt',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.HostelMaintenanceTicketScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  status: 'status',
+  priority: 'priority',
+  hostelId: 'hostelId',
+  roomId: 'roomId',
+  reportedBy: 'reportedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TransportAttendanceScalarFieldEnum = {
+  id: 'id',
+  date: 'date',
+  type: 'type',
+  status: 'status',
+  studentId: 'studentId',
+  assignmentId: 'assignmentId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ApiKeyScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  hashedKey: 'hashedKey',
+  scopes: 'scopes',
+  expiresAt: 'expiresAt',
+  lastUsedAt: 'lastUsedAt',
+  branchId: 'branchId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.WebhookEndpointScalarFieldEnum = {
+  id: 'id',
+  url: 'url',
+  secret: 'secret',
+  events: 'events',
+  isActive: 'isActive',
+  branchId: 'branchId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.WebhookDeliveryLogScalarFieldEnum = {
+  id: 'id',
+  endpointId: 'endpointId',
+  event: 'event',
+  payload: 'payload',
+  response: 'response',
+  statusCode: 'statusCode',
+  status: 'status',
+  attempts: 'attempts',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PaymentWebhookLogScalarFieldEnum = {
+  id: 'id',
+  gateway: 'gateway',
+  event: 'event',
+  payload: 'payload',
+  status: 'status',
+  error: 'error',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -2156,7 +2274,16 @@ exports.Prisma.ModelName = {
   ProviderBalanceSnapshot: 'ProviderBalanceSnapshot',
   NotificationDeliveryEvent: 'NotificationDeliveryEvent',
   AcademicExport: 'AcademicExport',
-  ReportTemplate: 'ReportTemplate'
+  ReportTemplate: 'ReportTemplate',
+  ComputationJob: 'ComputationJob',
+  BookCopy: 'BookCopy',
+  BookReservation: 'BookReservation',
+  HostelMaintenanceTicket: 'HostelMaintenanceTicket',
+  TransportAttendance: 'TransportAttendance',
+  ApiKey: 'ApiKey',
+  WebhookEndpoint: 'WebhookEndpoint',
+  WebhookDeliveryLog: 'WebhookDeliveryLog',
+  PaymentWebhookLog: 'PaymentWebhookLog'
 };
 
 /**

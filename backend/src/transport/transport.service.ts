@@ -149,4 +149,60 @@ export class TransportService {
             }
         });
     }
+
+    async updateVehicleLocation(vehicleId: string, lat: number, lng: number, branchId: string) {
+        await this.findVehicle(vehicleId, branchId);
+        return this.prisma.vehicle.update({
+            where: { id: vehicleId },
+            data: {
+                currentLat: lat,
+                currentLng: lng,
+                lastPing: new Date(),
+            }
+        });
+    }
+
+    async getVehicleLocation(vehicleId: string, branchId: string) {
+        const vehicle = await this.findVehicle(vehicleId, branchId);
+        return {
+            lat: vehicle.currentLat,
+            lng: vehicle.currentLng,
+            lastPing: vehicle.lastPing,
+        };
+    }
+
+    async recordAttendance(studentId: string, assignmentId: string, type: string, status: string, date: Date, branchId: string) {
+        // Validate assignment belongs to student and branch
+        const assignment = await this.prisma.transportAssignment.findFirst({
+            where: {
+                id: assignmentId,
+                studentId,
+                student: { branchId }
+            }
+        });
+
+        if (!assignment) {
+            throw new NotFoundException('Assignment not found or access denied');
+        }
+
+        return this.prisma.transportAttendance.create({
+            data: {
+                studentId,
+                assignmentId,
+                type,
+                status,
+                date: new Date(date)
+            }
+        });
+    }
+
+    async getStudentAttendance(studentId: string, branchId: string) {
+        return this.prisma.transportAttendance.findMany({
+            where: {
+                studentId,
+                student: { branchId }
+            },
+            orderBy: { date: 'desc' }
+        });
+    }
 }

@@ -1,41 +1,73 @@
-import { Processor, WorkerHost } from '@nestjs/bullmq';
+import { Processor, WorkerHost, OnWorkerEvent } from '@nestjs/bullmq';
 import { Job } from 'bullmq';
 import { Logger } from '@nestjs/common';
-import { ResultComputationService } from '../exams/result-computation.service';
+import { PrismaService } from '../prisma/prisma.service';
+import { ExamsService } from '../exams/exams.service';
 
 @Processor('academic-computations')
 export class AcademicComputationProcessor extends WorkerHost {
   private readonly logger = new Logger(AcademicComputationProcessor.name);
 
   constructor(
-    private readonly computationService: ResultComputationService,
+    private readonly prisma: PrismaService,
+    private readonly examsService: ExamsService,
   ) {
     super();
   }
 
   async process(job: Job<any, any, string>): Promise<any> {
-    const { sectionId, sessionId, term, context } = job.data;
+    const { jobRecordId, sectionId, sessionId, term, context } = job.data;
     
-    this.logger.log(`Processing computation for section ${sectionId}, session ${sessionId}, term ${term}`);
+    this.logger.log(`Processing computation job ${jobRecordId} for section ${sectionId}`);
 
     try {
-      // Set initial progress
-      await job.updateProgress(10);
-      
-      const result = await this.computationService.computeSection(
-        sectionId, 
-        sessionId, 
-        term, 
-        context
-      );
+      await this.prisma.computationJob.update({
+        where: { id: jobRecordId },
+        data: { 
+          status: 'PROCESSING', 
+          startedAt: new Date(),
+          retryCount: job.attemptsMade,
+        },
+      });
 
-      await job.updateProgress(100);
-      this.logger.log(`Computation completed for section ${sectionId}`);
-      
-      return result;
+      // Execute computation
+      await this.examsService.computeSectionResults(sectionId, sessionId, term, context);
+
+      await this.prisma.computationJob.update({
+        where: { id: jobRecordId },
+        data: {
+          status: 'COMPLETED',
+          progress: 100,
+          completedAt: new Date(),
+        },
+      });
+
+      return { success: true };
     } catch (error) {
-      this.logger.error(`Computation failed for section ${sectionId}: ${error.message}`, error.stack);
+      this.logger.error(`Computation ${jobRecordId} failed: ${error.message}`, error.stack);
+      
+      const status = job.attemptsMade >= (job.opts.attempts || 1) - 1 ? 'FAILED' : 'QUEUED';
+      
+      await this.prisma.computationJob.update({
+        where: { id: jobRecordId },
+        data: { 
+          status, 
+          error: error.message,
+          retryCount: job.attemptsMade + 1
+        },
+      });
+      
       throw error;
     }
+  }
+
+  @OnWorkerEvent('completed')
+  onCompleted(job: Job) {
+    this.logger.log(`Computation job ${job.id} completed successfully`);
+  }
+
+  @OnWorkerEvent('failed')
+  onFailed(job: Job, error: Error) {
+    this.logger.error(`Computation job ${job.id} failed: ${error.message}`);
   }
 }

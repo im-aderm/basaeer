@@ -2,6 +2,7 @@ import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { BullModule } from '@nestjs/bullmq';
 import { ScheduleModule } from '@nestjs/schedule';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 import { validate } from './config/env.validation';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -46,14 +47,13 @@ import { MailModule } from './mail/mail.module';
 import { UploadModule } from './upload/upload.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { ProvidersModule } from './providers/providers.module';
+import { CommsModule } from './comms/comms.module';
 import { RealtimeModule } from './realtime/realtime.module';
-
-// NOTE: Run `npm install @nestjs/throttler` to enable rate limiting, then
-// uncomment the ThrottlerModule import and include it in the imports array below.
+import { AlumniModule } from './alumni/alumni.module';
+import { IntegrationsModule } from './integrations/integrations.module';
+import { InstitutionalEventsService } from './common/events/institutional-events.service';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
-
-import { CommsModule } from './comms/comms.module';
 import { SecurityMiddleware } from './common/middleware/security.middleware';
 
 @Module({
@@ -66,8 +66,10 @@ import { SecurityMiddleware } from './common/middleware/security.middleware';
       connection: {
         host: process.env.REDIS_HOST || 'localhost',
         port: parseInt(process.env.REDIS_PORT || '6379', 10),
+        password: process.env.REDIS_PASSWORD,
       },
     }),
+    EventEmitterModule.forRoot(),
     ScheduleModule.forRoot(),
     ThrottlerModule.forRoot([{ ttl: 60000, limit: 100 }]), // 100 requests per minute globally
     AuthModule,
@@ -92,8 +94,8 @@ import { SecurityMiddleware } from './common/middleware/security.middleware';
     CertificatesModule,
     LibraryModule,
     LiveClassesModule,
-    StudentCategoryModule,
     OnlineAdmissionModule,
+    StudentCategoryModule,
     OnlineExamsModule,
     ReceptionModule,
     InventoryModule,
@@ -109,15 +111,17 @@ import { SecurityMiddleware } from './common/middleware/security.middleware';
     CardsModule,
     MailModule,
     UploadModule,
-    CommsModule,
     NotificationsModule,
     ProvidersModule,
+    CommsModule,
     RealtimeModule,
+    AlumniModule,
+    IntegrationsModule,
   ],
   controllers: [AppController],
   providers: [
     AppService,
-    // Uncomment after installing @nestjs/throttler:
+    InstitutionalEventsService,
     { provide: APP_GUARD, useClass: ThrottlerGuard },
   ],
 })

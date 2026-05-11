@@ -3,10 +3,24 @@ import { AppService } from './app.service';
 import { Response } from 'express';
 import * as path from 'path';
 import * as fs from 'fs';
+import { PrismaService } from './prisma/prisma.service';
+import Redis from 'ioredis';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  private redis: Redis;
+
+  constructor(
+    private readonly appService: AppService,
+    private readonly prisma: PrismaService,
+  ) {
+    this.redis = new Redis({
+      host: process.env.REDIS_HOST || 'localhost',
+      port: parseInt(process.env.REDIS_PORT || '6379', 10),
+      password: process.env.REDIS_PASSWORD,
+      maxRetriesPerRequest: 1,
+    });
+  }
 
   @Get()
   getHello(): string {
@@ -15,16 +29,34 @@ export class AppController {
 
   @Post('newsletter/subscribe')
   subscribeToNewsletter(@Body() body: { email: string }) {
-    // Mock backend logic for now until DB model is requested
     console.log(`[Newsletter] New subscription: ${body.email}`);
     return { success: true, message: 'Successfully subscribed to newsletter' };
   }
 
   @Get('health')
-  getHealth(): { status: string; timestamp: string } {
+  async getHealth() {
+    let dbStatus = 'ok';
+    let redisStatus = 'ok';
+
+    try {
+      await this.prisma.$queryRaw`SELECT 1`;
+    } catch (e) {
+      dbStatus = 'error';
+    }
+
+    try {
+      await this.redis.ping();
+    } catch (e) {
+      redisStatus = 'error';
+    }
+
     return {
-      status: 'ok',
+      status: dbStatus === 'ok' && redisStatus === 'ok' ? 'ok' : 'degraded',
       timestamp: new Date().toISOString(),
+      services: {
+        database: dbStatus,
+        redis: redisStatus,
+      }
     };
   }
 

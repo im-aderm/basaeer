@@ -96,6 +96,9 @@ model Branch {
   notificationDeliveryEvents NotificationDeliveryEvent[]
   academicExports            AcademicExport[]
   reportTemplates            ReportTemplate[]
+  computationJobs            ComputationJob[]
+  apiKeys                    ApiKey[]
+  webhookEndpoints           WebhookEndpoint[]
 }
 
 model DeactivationReason {
@@ -160,6 +163,7 @@ model User {
   notificationPreference     NotificationPreference?
   campaignRecipients         CampaignRecipient[]
   academicExports            AcademicExport[]
+  computationJobs            ComputationJob[]
 
   @@index([branchId])
 }
@@ -251,8 +255,8 @@ model Staff {
 }
 
 model Student {
-  id                        String               @id @default(uuid())
-  userId                    String?              @unique
+  id                        String                @id @default(uuid())
+  userId                    String?               @unique
   firstName                 String
   lastName                  String
   dob                       DateTime?
@@ -292,10 +296,10 @@ model Student {
   immunizationCardUrl       String?
   preferredLanguage         String?
   religionClassType         String?
-  scholarshipEligible       Boolean              @default(false)
+  scholarshipEligible       Boolean               @default(false)
   referralSource            String?
-  createdAt                 DateTime             @default(now())
-  updatedAt                 DateTime             @updatedAt
+  createdAt                 DateTime              @default(now())
+  updatedAt                 DateTime              @updatedAt
   alumni                    Alumni?
   assessmentRecords         AssessmentRecord[]
   attendance                Attendance[]
@@ -309,15 +313,17 @@ model Student {
   invoices                  Invoice[]
   onlineExamAttempts        OnlineExamAttempt[]
   resultSummaries           ResultSummary[]
-  branch                    Branch               @relation(fields: [branchId], references: [id])
-  category                  StudentCategory?     @relation(fields: [categoryId], references: [id])
-  class                     Class?               @relation(fields: [classId], references: [id])
-  parent                    User?                @relation("ParentToStudent", fields: [parentId], references: [id])
-  section                   Section?             @relation(fields: [sectionId], references: [id])
-  user                      User?                @relation(fields: [userId], references: [id])
+  branch                    Branch                @relation(fields: [branchId], references: [id])
+  category                  StudentCategory?      @relation(fields: [categoryId], references: [id])
+  class                     Class?                @relation(fields: [classId], references: [id])
+  parent                    User?                 @relation("ParentToStudent", fields: [parentId], references: [id])
+  section                   Section?              @relation(fields: [sectionId], references: [id])
+  user                      User?                 @relation(fields: [userId], references: [id])
   submissions               Submission[]
   transportAssignment       TransportAssignment?
   attendanceScans           AttendanceScan[]
+  bookReservations          BookReservation[]
+  transportAttendances      TransportAttendance[]
 
   @@index([branchId])
   @@index([branchId, classId, sectionId])
@@ -493,15 +499,16 @@ model StaffAttendance {
 }
 
 model Hostel {
-  id        String     @id @default(uuid())
-  name      String
-  type      HostelType
-  address   String?
-  branchId  String
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  branch    Branch     @relation(fields: [branchId], references: [id])
-  rooms     Room[]
+  id                       String                    @id @default(uuid())
+  name                     String
+  type                     HostelType
+  address                  String?
+  branchId                 String
+  createdAt                DateTime                  @default(now())
+  updatedAt                DateTime                  @updatedAt
+  branch                   Branch                    @relation(fields: [branchId], references: [id])
+  rooms                    Room[]
+  hostelMaintenanceTickets HostelMaintenanceTicket[]
 
   @@index([branchId])
 }
@@ -758,6 +765,9 @@ model Vehicle {
   driverName         String
   driverPhone        String?
   branchId           String
+  currentLat         Float?
+  currentLng         Float?
+  lastPing           DateTime?
   createdAt          DateTime              @default(now())
   updatedAt          DateTime              @updatedAt
   assignments        TransportAssignment[]
@@ -782,15 +792,16 @@ model TransportRoute {
 }
 
 model TransportAssignment {
-  id        String         @id @default(uuid())
-  studentId String         @unique
-  vehicleId String
-  routeId   String
-  createdAt DateTime       @default(now())
-  updatedAt DateTime       @updatedAt
-  route     TransportRoute @relation(fields: [routeId], references: [id])
-  student   Student        @relation(fields: [studentId], references: [id])
-  vehicle   Vehicle        @relation(fields: [vehicleId], references: [id])
+  id                   String                @id @default(uuid())
+  studentId            String                @unique
+  vehicleId            String
+  routeId              String
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  route                TransportRoute        @relation(fields: [routeId], references: [id])
+  student              Student               @relation(fields: [studentId], references: [id])
+  vehicle              Vehicle               @relation(fields: [vehicleId], references: [id])
+  transportAttendances TransportAttendance[]
 }
 
 model Assignment {
@@ -1328,20 +1339,22 @@ model Designation {
 }
 
 model Book {
-  id            String         @id @default(uuid())
-  title         String
-  author        String
-  isbn          String?        @unique
-  category      String
-  quantity      Int            @default(1)
-  available     Int            @default(1)
-  location      String?
-  description   String?
-  branchId      String
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  branch        Branch         @relation(fields: [branchId], references: [id])
-  borrowRecords BorrowRecord[]
+  id               String            @id @default(uuid())
+  title            String
+  author           String
+  isbn             String?           @unique
+  category         String
+  quantity         Int               @default(1)
+  available        Int               @default(1)
+  location         String?
+  description      String?
+  branchId         String
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  branch           Branch            @relation(fields: [branchId], references: [id])
+  borrowRecords    BorrowRecord[]
+  bookCopies       BookCopy[]
+  bookReservations BookReservation[]
 
   @@index([branchId])
 }
@@ -1359,6 +1372,8 @@ model BorrowRecord {
   book       Book          @relation(fields: [bookId], references: [id])
   student    Student       @relation(fields: [studentId], references: [id])
   fines      LibraryFine[]
+  bookCopy   BookCopy?     @relation(fields: [bookCopyId], references: [id])
+  bookCopyId String?
 
   @@index([studentId])
 }
@@ -2560,23 +2575,23 @@ model NotificationDeliveryEvent {
 }
 
 model AcademicExport {
-  id           String   @id @default(uuid())
-  type         String   // REPORT_CARD, TRANSCRIPT, BROADSHEET, ANALYTICS, CSV, EXCEL
-  status       String   @default("QUEUED") // QUEUED, PROCESSING, COMPLETED, FAILED, EXPIRED, CANCELLED
-  progress     Int      @default(0)
-  fileUrl      String?
-  fileName     String?
-  fileSize     Int?
-  error        String?
-  parameters   Json?
-  userId       String
-  branchId     String
-  expiresAt    DateTime?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id         String    @id @default(uuid())
+  type       String // REPORT_CARD, TRANSCRIPT, BROADSHEET, ANALYTICS, CSV, EXCEL
+  status     String    @default("QUEUED") // QUEUED, PROCESSING, COMPLETED, FAILED, EXPIRED, CANCELLED
+  progress   Int       @default(0)
+  fileUrl    String?
+  fileName   String?
+  fileSize   Int?
+  error      String?
+  parameters Json?
+  userId     String
+  branchId   String
+  expiresAt  DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 
-  branch       Branch   @relation(fields: [branchId], references: [id])
-  user         User     @relation(fields: [userId], references: [id])
+  branch Branch @relation(fields: [branchId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
 
   @@index([branchId])
   @@index([userId])
@@ -2584,19 +2599,170 @@ model AcademicExport {
 }
 
 model ReportTemplate {
-  id           String   @id @default(uuid())
-  name         String
-  description  String?
-  type         String   @default("STUDENT_REPORT") // STUDENT_REPORT, TAHFEEZ_REPORT, etc.
-  layout       Json     // Dynamic sections, fields, positions
-  config       Json     // Colors, fonts, margins, branding
-  isDefault    Boolean  @default(false)
-  isActive     Boolean  @default(true)
-  branchId     String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  type        String   @default("STUDENT_REPORT") // STUDENT_REPORT, TAHFEEZ_REPORT, etc.
+  layout      Json // Dynamic sections, fields, positions
+  config      Json // Colors, fonts, margins, branding
+  isDefault   Boolean  @default(false)
+  isActive    Boolean  @default(true)
+  branchId    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  branch       Branch   @relation(fields: [branchId], references: [id])
+  branch Branch @relation(fields: [branchId], references: [id])
 
   @@index([branchId])
+}
+
+model ComputationJob {
+  id            String    @id @default(uuid())
+  type          String // RESULT_COMPUTATION, GPA_RECALCULATION, CLASS_PROMOTION
+  status        String    @default("QUEUED") // QUEUED, PROCESSING, COMPLETED, FAILED, CANCELLED
+  progress      Int       @default(0)
+  targetId      String // ID of class/section/student being computed
+  targetType    String // CLASS, SECTION, STUDENT
+  sessionId     String
+  term          String
+  parameters    Json?
+  resultSummary Json? // Summary of computation results, diffs
+  error         String?
+  retryCount    Int       @default(0)
+  startedAt     DateTime?
+  completedAt   DateTime?
+  userId        String
+  branchId      String
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  branch Branch @relation(fields: [branchId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@index([branchId])
+  @@index([userId])
+  @@index([status])
+}
+
+model BookCopy {
+  id              String         @id @default(uuid())
+  barcode         String         @unique
+  accessionNumber String         @unique
+  bookId          String
+  status          String         @default("AVAILABLE") // AVAILABLE, BORROWED, LOST, DAMAGED, RESERVED
+  condition       String?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  book            Book           @relation(fields: [bookId], references: [id])
+  borrowRecords   BorrowRecord[]
+
+  @@index([bookId])
+}
+
+model BookReservation {
+  id         String   @id @default(uuid())
+  bookId     String
+  studentId  String
+  status     String   @default("PENDING") // PENDING, FULFILLED, CANCELLED, EXPIRED
+  reservedAt DateTime @default(now())
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  book       Book     @relation(fields: [bookId], references: [id])
+  student    Student  @relation(fields: [studentId], references: [id])
+
+  @@index([bookId])
+  @@index([studentId])
+}
+
+model HostelMaintenanceTicket {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  status      String   @default("OPEN") // OPEN, IN_PROGRESS, RESOLVED, CLOSED
+  priority    String   @default("MEDIUM") // LOW, MEDIUM, HIGH, CRITICAL
+  hostelId    String
+  roomId      String?
+  reportedBy  String // studentId or staffId
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  hostel      Hostel   @relation(fields: [hostelId], references: [id])
+
+  @@index([hostelId])
+}
+
+model TransportAttendance {
+  id           String              @id @default(uuid())
+  date         DateTime            @default(now())
+  type         String // PICKUP, DROPOFF
+  status       String // PRESENT, ABSENT
+  studentId    String
+  assignmentId String
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+  student      Student             @relation(fields: [studentId], references: [id])
+  assignment   TransportAssignment @relation(fields: [assignmentId], references: [id])
+
+  @@index([studentId])
+  @@index([assignmentId])
+}
+
+model ApiKey {
+  id         String    @id @default(uuid())
+  name       String
+  hashedKey  String    @unique
+  scopes     String[]
+  expiresAt  DateTime?
+  lastUsedAt DateTime?
+  branchId   String
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  branch     Branch    @relation(fields: [branchId], references: [id])
+
+  @@index([branchId])
+}
+
+model WebhookEndpoint {
+  id           String               @id @default(uuid())
+  url          String
+  secret       String?
+  events       String[]
+  isActive     Boolean              @default(true)
+  branchId     String
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+  branch       Branch               @relation(fields: [branchId], references: [id])
+  deliveryLogs WebhookDeliveryLog[]
+
+  @@index([branchId])
+}
+
+model WebhookDeliveryLog {
+  id         String          @id @default(uuid())
+  endpointId String
+  event      String
+  payload    Json
+  response   String?
+  statusCode Int?
+  status     String          @default("PENDING") // PENDING, SUCCESS, FAILED
+  attempts   Int             @default(0)
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+  endpoint   WebhookEndpoint @relation(fields: [endpointId], references: [id])
+
+  @@index([endpointId])
+  @@index([status])
+}
+
+model PaymentWebhookLog {
+  id        String   @id @default(uuid())
+  gateway   String
+  event     String
+  payload   Json
+  status    String   @default("PROCESSED") // PROCESSED, FAILED, IGNORED
+  error     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([gateway])
 }

@@ -20,8 +20,15 @@ async function bootstrap() {
 
   logger.log('NestJS application core created.');
 
+  // ── Graceful Shutdown ───────────────────────────────────────────────────────
+  app.enableShutdownHooks();
+
   // ── Logging ─────────────────────────────────────────────────────────────────
   app.useGlobalInterceptors(new LoggingInterceptor());
+
+  // ── Global Route Prefix ─────────────────────────────────────────────────────
+  // Ensures consistency with Nginx path-based routing (/api)
+  app.setGlobalPrefix('api');
 
   // ── Security Headers ────────────────────────────────────────────────────────
   app.use(helmet({
@@ -31,7 +38,7 @@ async function bootstrap() {
         scriptSrc: ["'self'", "'unsafe-inline'"],
         styleSrc: ["'self'", "'unsafe-inline'"],
         imgSrc: ["'self'", "data:", "https:", "blob:"],
-        connectSrc: ["'self'", "https://api.basaeer.com", "http://localhost:3001"],
+        connectSrc: ["'self'", "https:", "http:"],
         fontSrc: ["'self'", "https:", "data:"],
         objectSrc: ["'none'"],
         mediaSrc: ["'self'"],
@@ -45,12 +52,12 @@ async function bootstrap() {
   app.disable('x-powered-by');
 
   // ── CORS ────────────────────────────────────────────────────────────────────
+  const allowedOrigins = process.env.CORS_ALLOWED_ORIGINS 
+    ? process.env.CORS_ALLOWED_ORIGINS.split(',') 
+    : ['http://localhost:3000'];
+
   app.enableCors({
-    origin: [
-      'https://basaeer-frontend.vercel.app',
-      'https://basaaer-frontend.netlify.app',
-      'http://localhost:3000',
-    ],
+    origin: allowedOrigins,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
   });

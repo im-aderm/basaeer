@@ -15,6 +15,17 @@ export class LibraryService {
         });
     }
 
+    async createBookCopy(bookId: string, barcode: string, accessionNumber: string) {
+        return this.prisma.bookCopy.create({
+            data: {
+                bookId,
+                barcode,
+                accessionNumber,
+                status: 'AVAILABLE'
+            }
+        });
+    }
+
     async findAllBooks(
         branchId: string | null,
         page: number = 1,
@@ -41,6 +52,7 @@ export class LibraryService {
                 skip,
                 take: limit,
                 orderBy: { title: 'asc' },
+                include: { copies: true }
             }),
             this.prisma.book.count({ where }),
         ]);
@@ -60,8 +72,9 @@ export class LibraryService {
         const book = await this.prisma.book.findUnique({
             where: { id },
             include: {
+                copies: true,
                 borrowRecords: {
-                    include: { student: { include: { user: true } } },
+                    include: { student: { include: { user: true } }, copy: true },
                     orderBy: { borrowDate: 'desc' },
                 },
             },
@@ -92,6 +105,34 @@ export class LibraryService {
         });
     }
 
+    async borrowBookByBarcode(barcode: string, studentId: string, dueDate: Date) {
+        const copy = await this.prisma.bookCopy.findUnique({ where: { barcode }, include: { book: true } });
+        if (!copy) throw new NotFoundException('Book copy not found');
+        if (copy.status !== 'AVAILABLE') throw new BadRequestException('Copy is not available');
+
+        return this.prisma.$transaction(async (tx) => {
+            await tx.bookCopy.update({
+                where: { id: copy.id },
+                data: { status: 'BORROWED' }
+            });
+
+            await tx.book.update({
+                where: { id: copy.bookId },
+                data: { available: { decrement: 1 } },
+            });
+
+            return tx.borrowRecord.create({
+                data: {
+                    bookId: copy.bookId,
+                    copyId: copy.id,
+                    studentId,
+                    dueDate: new Date(dueDate),
+                    status: 'BORROWED',
+                },
+            });
+        });
+    }
+
     async returnBook(borrowRecordId: string) {
         const record = await this.prisma.borrowRecord.findUnique({
             where: { id: borrowRecordId },
@@ -103,7 +144,6 @@ export class LibraryService {
         const dueDate = new Date(record.dueDate);
         let fineAmount = 0;
 
-        // Simple Fine Calculation: $10 per day overdue
         if (now > dueDate) {
             const diffTime = Math.abs(now.getTime() - dueDate.getTime());
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
@@ -115,6 +155,13 @@ export class LibraryService {
                 where: { id: record.bookId },
                 data: { available: { increment: 1 } },
             });
+
+            if (record.copyId) {
+                await tx.bookCopy.update({
+                    where: { id: record.copyId },
+                    data: { status: 'AVAILABLE' }
+                });
+            }
 
             const updatedRecord = await tx.borrowRecord.update({
                 where: { id: borrowRecordId },
@@ -147,6 +194,7 @@ export class LibraryService {
             },
             include: {
                 book: true,
+                copy: true,
                 student: { include: { user: true } },
             },
         });
@@ -155,7 +203,7 @@ export class LibraryService {
     async getStudentBorrowingHistory(studentId: string) {
         return this.prisma.borrowRecord.findMany({
             where: { studentId },
-            include: { book: true },
+            include: { book: true, copy: true },
             orderBy: { borrowDate: 'desc' },
         });
     }
@@ -167,6 +215,7 @@ export class LibraryService {
             },
             include: {
                 book: true,
+                copy: true,
                 student: { include: { user: true } },
             },
             orderBy: { borrowDate: 'desc' },
@@ -201,3 +250,4 @@ export class LibraryService {
         };
     }
 }
+

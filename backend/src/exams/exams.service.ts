@@ -222,13 +222,15 @@ export class ExamsService {
         let rank = 1;
         let prevTotal = -1;
 
+        const updates: any[] = [];
+
         for (let i = 0; i < records.length; i++) {
             const r = records[i];
             if (r.total < prevTotal) {
                 rank = i + 1;
             }
 
-            await tx.assessmentRecord.update({
+            updates.push(tx.assessmentRecord.update({
                 where: { id: r.id },
                 data: {
                     position: rank,
@@ -237,8 +239,14 @@ export class ExamsService {
                     lowScore: lowscore,
                     classAvg: classAvg,
                 },
-            });
+            }));
             prevTotal = r.total;
+        }
+
+        // Process in chunks to prevent transaction memory overload
+        const chunkSize = 200;
+        for (let i = 0; i < updates.length; i += chunkSize) {
+            await Promise.all(updates.slice(i, i + chunkSize));
         }
     }
 
@@ -266,6 +274,26 @@ export class ExamsService {
             update: { ...dto, branchId },
             create: { ...dto, branchId },
         });
+    }
+
+    async computeSectionResults(sectionId: string, sessionId: string, term: Term, context: any) {
+        const students = await this.prisma.student.findMany({
+            where: { sectionId },
+            select: { id: true, branchId: true }
+        });
+
+        // The term summary computation is lightweight enough to do sequentially or in chunks
+        // It's mostly database reads and aggregates, then one upsert.
+        // Doing them all concurrently could overload Prisma connection pool, so chunk them.
+        const chunkSize = 20;
+        for (let i = 0; i < students.length; i += chunkSize) {
+            const chunk = students.slice(i, i + chunkSize);
+            await Promise.all(chunk.map(student => 
+                this.generateTermSummary(student.id, sessionId, term, ExamTerm.END_OF_SESSION)
+            ));
+        }
+
+        return { success: true, count: students.length };
     }
 
     async generateTermSummary(studentId: string, sessionId: string, term: Term, examTerm: ExamTerm) {
@@ -733,27 +761,60 @@ export class ExamsService {
         });
     }
 
-    async generateBatchZip(sectionId: string, sessionId: string, term: Term) {
+    async generateBatchZip(sectionId: string, sessionId: string, term: Term): Promise<{ fileUrl: string; fileSize: number }> {
         const students = await this.prisma.student.findMany({
             where: { sectionId },
             include: { user: true }
         });
 
-        const zip = new AdmZip();
-
-        for (const student of students) {
-            const data = await this.getFullReportData(student.id, sessionId, term);
-            if (!data) continue;
-
-            const formatted = await this.formatReportData(data, term);
-            const html = await this.reportingService.fillTemplate(END_OF_TERM_TEMPLATE, formatted);
-            const pdf = await this.reportingService.generatePdf(html);
-
-            if (!student.user) continue;
-            const filename = `${student.user.lastName}_${student.user.firstName}_${student.user.email.split('@')[0]}.pdf`.replace(/\s+/g, '_');
-            zip.addFile(filename, pdf);
+        const fs = require('fs');
+        const path = require('path');
+        const archiver = require('archiver');
+        
+        const exportDir = path.join(process.cwd(), 'public', 'uploads', 'exports');
+        if (!fs.existsSync(exportDir)) {
+            fs.mkdirSync(exportDir, { recursive: true });
         }
 
-        return zip.toBuffer();
+        const fileName = `ReportCards_${sectionId}_${sessionId}_${Date.now()}.zip`;
+        const filePath = path.join(exportDir, fileName);
+        const output = fs.createWriteStream(filePath);
+        const archive = archiver('zip', { zlib: { level: 9 } });
+
+        return new Promise((resolve, reject) => {
+            output.on('close', () => {
+                const stats = fs.statSync(filePath);
+                resolve({
+                    fileUrl: `/public/uploads/exports/${fileName}`,
+                    fileSize: stats.size
+                });
+            });
+
+            archive.on('error', (err: any) => reject(err));
+            archive.pipe(output);
+
+            const processStudents = async () => {
+                try {
+                    for (const student of students) {
+                        const data = await this.getFullReportData(student.id, sessionId, term);
+                        if (!data) continue;
+
+                        const formatted = await this.formatReportData(data, term);
+                        const html = await this.reportingService.fillTemplate(END_OF_TERM_TEMPLATE, formatted);
+                        const pdfBuffer = await this.reportingService.generatePdf(html);
+
+                        if (!student.user) continue;
+                        const pdfName = `${student.user.lastName}_${student.user.firstName}_${student.user.email.split('@')[0]}.pdf`.replace(/\s+/g, '_');
+                        
+                        archive.append(pdfBuffer, { name: pdfName });
+                    }
+                    archive.finalize();
+                } catch (e) {
+                    reject(e);
+                }
+            };
+
+            processStudents();
+        });
     }
 }

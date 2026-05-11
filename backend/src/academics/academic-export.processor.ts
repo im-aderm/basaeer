@@ -30,7 +30,7 @@ export class AcademicExportProcessor extends WorkerHost {
         data: { status: 'PROCESSING', progress: 10 },
       });
 
-      let result: { buffer: Buffer; fileName: string };
+      let result: { buffer?: Buffer; filePath?: string; fileUrl?: string; fileSize?: number; fileName: string };
 
       switch (type) {
         case 'REPORT_CARD':
@@ -53,23 +53,31 @@ export class AcademicExportProcessor extends WorkerHost {
           throw new Error(`Unsupported export type: ${type}`);
       }
 
-      const extension = type === 'EXCEL' ? 'xlsx' : type === 'CSV' ? 'csv' : type === 'REPORT_CARD' ? 'zip' : 'pdf';
-      const fileName = `${type.toLowerCase()}_${exportId}.${extension}`;
-      const saved = await this.reportingService.saveExportBuffer(result.buffer, fileName);
+      let fileUrl = result.fileUrl;
+      let fileSize = result.fileSize;
+
+      if (result.buffer) {
+        const extension = type === 'EXCEL' ? 'xlsx' : type === 'CSV' ? 'csv' : type === 'REPORT_CARD' ? 'zip' : 'pdf';
+        const fileName = `${type.toLowerCase()}_${exportId}.${extension}`;
+        const saved = await this.reportingService.saveExportBuffer(result.buffer, fileName);
+        fileUrl = saved.fileUrl;
+        fileSize = saved.fileSize;
+        result.fileName = fileName;
+      }
 
       await this.prisma.academicExport.update({
         where: { id: exportId },
         data: {
           status: 'COMPLETED',
           progress: 100,
-          fileUrl: saved.fileUrl,
+          fileUrl,
           fileName: result.fileName,
-          fileSize: saved.fileSize,
+          fileSize,
           expiresAt: new Date(Date.now() + 48 * 60 * 60 * 1000), // 48 hours
         },
       });
 
-      return saved;
+      return { fileUrl, fileSize, fileName: result.fileName };
     } catch (error) {
       this.logger.error(`Export ${exportId} failed: ${error.message}`, error.stack);
       await this.prisma.academicExport.update({
@@ -83,9 +91,10 @@ export class AcademicExportProcessor extends WorkerHost {
   private async handleReportCardExport(exportId: string, params: any, branchId: string) {
     const { sectionId, sessionId, term } = params;
     await this.updateProgress(exportId, 20);
-    const buffer = await this.examsService.generateBatchZip(sectionId, sessionId, term);
+    const result = await this.examsService.generateBatchZip(sectionId, sessionId, term);
     return { 
-      buffer,
+      fileUrl: result.fileUrl,
+      fileSize: result.fileSize,
       fileName: 'ReportCards.zip', 
     };
   }

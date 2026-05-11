@@ -335,21 +335,25 @@ export class ExamsController {
 
     @Get('batch-report/:sectionId/:sessionId/:term')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
-    async getBatchReport(
+    async downloadBatchReports(
         @Param('sectionId') sectionId: string,
         @Param('sessionId') sessionId: string,
         @Param('term') term: Term,
         @Res() res: Response
     ) {
-        const zipBuffer = await this.examsService.generateBatchZip(sectionId, sessionId, term);
+        const result = await this.examsService.generateBatchZip(sectionId, sessionId, term);
+        const path = require('path');
+        const filePath = path.join(process.cwd(), result.fileUrl);
 
         res.set({
             'Content-Type': 'application/zip',
             'Content-Disposition': `attachment; filename=Reports_${sectionId}_${term}.zip`,
-            'Content-Length': zipBuffer.length,
+            'Content-Length': result.fileSize,
         });
 
-        res.end(zipBuffer);
+        const fs = require('fs');
+        const readStream = fs.createReadStream(filePath);
+        readStream.pipe(res);
     }
 
     @Post('lock/:studentId')

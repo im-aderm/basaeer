@@ -11,12 +11,20 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
   constructor() {
     const connectionString = `${process.env.DATABASE_URL}`;
 
+    // VPS Optimized PostgreSQL Pool
     const pool = new Pool({ 
       connectionString,
-      ssl: connectionString.includes('sslmode=no-verify') ? { rejectUnauthorized: false } : undefined
+      max: parseInt(process.env.DB_POOL_SIZE || '20', 10),
+      idleTimeoutMillis: 30000,
+      connectionTimeoutMillis: 5000,
     });
+    
     const adapter = new PrismaPg(pool);
-    super({ adapter } as any);
+    
+    super({ 
+      adapter,
+      log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error', 'warn'],
+    } as any);
   }
 
   async onModuleInit() {

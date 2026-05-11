@@ -1,57 +1,54 @@
-# Build Stage
+# Stage 1: Workspace Resolution & Compilation
 FROM node:20-alpine AS builder
-
+RUN apk add --no-cache openssl
 WORKDIR /app
 
-# Copy package files
+# Load the NPM Workspace topology to enable native local linking
 COPY package*.json ./
-COPY prisma ./prisma/
+COPY backend/package*.json ./backend/
+COPY packages/shared-types ./packages/shared-types/
 
-# Install dependencies (including devDependencies for build)
+# Install at workspace root. This links packages/shared-types automatically.
 RUN npm ci
 
-# Copy source code
-COPY . .
+# Stage backend artifacts needed for build
+COPY backend ./backend
 
-# Generate Prisma Client (needed for build)
+# Generate ORM and transform TypeScript to vanilla Node
+WORKDIR /app/backend
 RUN npx prisma generate
-
-# Build the application
 RUN npm run build
 
-# Production Stage
+# Stage 2: Lightweight Runner
 FROM node:20-alpine AS runner
-
 WORKDIR /app
 
 ENV NODE_ENV=production
 
-# Create non-root user for security
+# Setup user identity
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
-# Copy package files
+# Load dependency requirements for pure runtime installation
 COPY package*.json ./
-COPY prisma ./prisma/
+COPY backend/package*.json ./backend/
+COPY packages/shared-types ./packages/shared-types/
 
-# Install only production dependencies
+# Install only runtime deps, keeping image lean
 RUN npm ci --only=production
 
-# Copy built assets from builder
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/src/generated ./dist/generated
+# Copy source artifacts generated during phase 1
+COPY --from=builder /app/backend/dist ./backend/dist
+COPY --from=builder /app/backend/prisma ./backend/prisma
+COPY --from=builder /app/backend/src/generated ./backend/src/generated
 
-# Set proper ownership
 RUN chown -R appuser:appgroup /app
-
-# Switch to non-root user
 USER appuser
 
-# Expose port
 EXPOSE 3001
 
-# Health check
+# Align dynamic health check to our internal path routing
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://localhost:3001/health || exit 1
+  CMD wget --no-verbose --tries=1 --spider http://localhost:3001/api/health || exit 1
 
-# Start the application
+WORKDIR /app/backend
 CMD ["npm", "run", "start:prod"]

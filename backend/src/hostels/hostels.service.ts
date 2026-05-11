@@ -329,74 +329,51 @@ export class HostelsService {
     }
 
     async createMaintenanceRequest(dto: any, context: TenantContext) {
+        let reportedBy = context.userId;
         if (context.role === 'STUDENT') {
             const student = await this.prisma.student.findUnique({ where: { userId: context.userId } });
             if (student) {
-                const allocation = await this.prisma.hostelAllocation.findFirst({
-                    where: { studentId: student.id, isActive: true },
-                    include: { bed: true }
-                });
-
-                if (allocation) {
-                    dto.bedId = allocation.bedId;
-                    dto.roomId = allocation.bed.roomId;
-                }
+                reportedBy = student.id;
             }
         }
 
-        return this.prisma.maintenanceRequest.create({
-            data: dto,
+        return this.prisma.hostelMaintenanceTicket.create({
+            data: {
+                title: dto.title,
+                description: dto.description,
+                status: 'OPEN',
+                priority: dto.priority || 'MEDIUM',
+                hostelId: dto.hostelId,
+                roomId: dto.roomId,
+                reportedBy,
+            },
         });
     }
 
     async getMaintenanceRequests(context: TenantContext) {
-        if (context.role === 'STUDENT') {
-            const student = await this.prisma.student.findUnique({ where: { userId: context.userId } });
-            if (!student) return [];
-
-            const allocation = await this.prisma.hostelAllocation.findFirst({
-                where: { studentId: student.id, isActive: true },
-                include: { bed: true }
-            });
-
-            if (!allocation) return [];
-
-            return this.prisma.maintenanceRequest.findMany({
-                where: {
-                    OR: [
-                        { bedId: allocation.bedId },
-                        { roomId: allocation.bed.roomId }
-                    ]
-                },
-                include: { bed: { include: { room: true } } },
-                orderBy: { createdAt: 'desc' }
-            });
-        }
-
-        return this.prisma.maintenanceRequest.findMany({
+        return this.prisma.hostelMaintenanceTicket.findMany({
             where: {
-                OR: [
-                    { bed: { room: { hostel: TenantHelper.applyIsolation({}, context) } } },
-                    { roomId: { in: (await this.prisma.room.findMany({ where: TenantHelper.applyNestedIsolation({}, 'hostel', context), select: { id: true } })).map(r => r.id) } }
-                ]
+                hostel: {
+                    branchId: context.branchId
+                },
+                ...(context.role === 'STUDENT' ? { reportedBy: (await this.prisma.student.findUnique({ where: { userId: context.userId } }))?.id } : {})
             },
-            include: {
-                bed: {
-                    include: { room: true }
-                }
-            },
+            include: { hostel: true },
             orderBy: { createdAt: 'desc' }
         });
     }
 
     async updateMaintenanceStatus(id: string, status: string, context: TenantContext) {
-        const request = await this.prisma.maintenanceRequest.findUnique({
-            where: { id }
+        const request = await this.prisma.hostelMaintenanceTicket.findFirst({
+            where: { 
+                id,
+                hostel: { branchId: context.branchId }
+            }
         });
 
         if (!request) throw new NotFoundException('Maintenance request not found');
 
-        return this.prisma.maintenanceRequest.update({
+        return this.prisma.hostelMaintenanceTicket.update({
             where: { id },
             data: { status }
         });

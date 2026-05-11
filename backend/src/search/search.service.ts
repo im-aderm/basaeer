@@ -6,26 +6,21 @@ export class SearchService {
     constructor(private prisma: PrismaService) { }
 
     async globalSearch(branchId: string, query: string) {
-        if (!query || query.length < 2) return { students: [], staff: [], inventory: [], events: [] };
-
-        const normalizedQuery = query.toLowerCase();
+        if (!query || query.length < 2) return { students: [], staff: [], inventory: [], books: [], invoices: [], hostel: [] };
 
         // Run searches in parallel with optimized field selection
-        const [students, users, inventory, events] = await Promise.all([
+        const [students, users, inventory, books, invoices, hostels] = await Promise.all([
             this.prisma.student.findMany({
                 where: {
                     branchId,
                     OR: [
                         { firstName: { contains: query, mode: 'insensitive' } },
-                        { lastName: { contains: query, mode: 'insensitive' } }
+                        { lastName: { contains: query, mode: 'insensitive' } },
+                        { admissionNo: { contains: query, mode: 'insensitive' } }
                     ]
                 },
-                select: {
-                    id: true,
-                    firstName: true,
-                    lastName: true
-                },
-                take: 5,
+                select: { id: true, firstName: true, lastName: true, admissionNo: true },
+                take: 10,
                 orderBy: { firstName: 'asc' }
             }),
             this.prisma.user.findMany({
@@ -38,14 +33,8 @@ export class SearchService {
                         { email: { contains: query, mode: 'insensitive' } }
                     ]
                 },
-                select: {
-                    id: true,
-                    firstName: true,
-                    lastName: true,
-                    email: true,
-                    role: true
-                },
-                take: 5,
+                select: { id: true, firstName: true, lastName: true, email: true, role: true },
+                take: 10,
                 orderBy: { firstName: 'asc' }
             }),
             this.prisma.inventoryProduct.findMany({
@@ -53,26 +42,39 @@ export class SearchService {
                     branchId,
                     name: { contains: query, mode: 'insensitive' }
                 },
-                select: {
-                    id: true,
-                    name: true,
-                    stock: true
-                },
-                take: 5,
+                select: { id: true, name: true, stock: true },
+                take: 10,
                 orderBy: { name: 'asc' }
             }),
-            this.prisma.campusEvent.findMany({
+            this.prisma.book.findMany({
                 where: {
                     branchId,
-                    title: { contains: query, mode: 'insensitive' }
+                    OR: [
+                        { title: { contains: query, mode: 'insensitive' } },
+                        { author: { contains: query, mode: 'insensitive' } },
+                        { isbn: { contains: query, mode: 'insensitive' } }
+                    ]
                 },
-                select: {
-                    id: true,
-                    title: true,
-                    startDate: true
+                select: { id: true, title: true, author: true, isbn: true, available: true },
+                take: 10,
+                orderBy: { title: 'asc' }
+            }),
+            this.prisma.invoice.findMany({
+                where: {
+                    branchId,
+                    invoiceNumber: { contains: query, mode: 'insensitive' }
                 },
-                take: 5,
-                orderBy: { startDate: 'desc' }
+                select: { id: true, invoiceNumber: true, totalAmount: true, status: true, student: { select: { firstName: true, lastName: true } } },
+                take: 10,
+                orderBy: { createdAt: 'desc' }
+            }),
+            this.prisma.hostel.findMany({
+                where: {
+                    branchId,
+                    name: { contains: query, mode: 'insensitive' }
+                },
+                select: { id: true, name: true, type: true },
+                take: 5
             })
         ]);
 
@@ -80,7 +82,9 @@ export class SearchService {
             students,
             staff: users,
             inventory,
-            events
+            books,
+            invoices,
+            hostel: hostels
         };
     }
 }
