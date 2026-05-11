@@ -2141,7 +2141,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/im-adam/Desktop/basaeer/backend/src/generated/client",
+      "value": "/home/gamp/basaeer/backend/src/generated/client",
       "fromEnvVar": null
     },
     "config": {
@@ -2167,12 +2167,11 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/im-adam/Desktop/basaeer/backend/prisma/schema.prisma",
+    "sourceFilePath": "/home/gamp/basaeer/backend/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../../../prisma",
   "clientVersion": "6.19.3",
