@@ -1,29 +1,35 @@
-import { IsString, IsNotEmpty, IsOptional, IsEnum, IsObject } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  IsOptional,
+  IsEnum,
+  IsObject,
+} from 'class-validator';
 
 export enum IdCardType {
-    STUDENT = 'STUDENT',
-    EMPLOYEE = 'EMPLOYEE',
-    ADMIT = 'ADMIT'
+  STUDENT = 'STUDENT',
+  EMPLOYEE = 'EMPLOYEE',
+  ADMIT = 'ADMIT',
 }
 
 export class CreateIdCardTemplateDto {
-    @IsString()
-    @IsNotEmpty()
-    name: string;
+  @IsString()
+  @IsNotEmpty()
+  name: string;
 
-    @IsEnum(IdCardType)
-    @IsNotEmpty()
-    type: IdCardType;
+  @IsEnum(IdCardType)
+  @IsNotEmpty()
+  type: IdCardType;
 
-    @IsString()
-    @IsOptional()
-    backgroundImage?: string;
+  @IsString()
+  @IsOptional()
+  backgroundImage?: string;
 
-    @IsObject()
-    @IsNotEmpty()
-    config: any;
+  @IsObject()
+  @IsNotEmpty()
+  config: any;
 
-    @IsString()
-    @IsNotEmpty()
-    branchId: string;
+  @IsString()
+  @IsNotEmpty()
+  branchId: string;
 }

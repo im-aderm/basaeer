@@ -10,10 +10,17 @@ export class ComputationQueueService {
 
   constructor(
     private readonly prisma: PrismaService,
-    @InjectQueue('academic-computations') private readonly computationQueue: Queue,
+    @InjectQueue('academic-computations')
+    private readonly computationQueue: Queue,
   ) {}
 
-  async queueSectionComputation(sectionId: string, sessionId: string, term: Term, userId: string, branchId: string) {
+  async queueSectionComputation(
+    sectionId: string,
+    sessionId: string,
+    term: Term,
+    userId: string,
+    branchId: string,
+  ) {
     const jobRecord = await this.prisma.computationJob.create({
       data: {
         type: 'RESULT_COMPUTATION',
@@ -28,21 +35,27 @@ export class ComputationQueueService {
       },
     });
 
-    const job = await this.computationQueue.add('compute-section', {
-      jobRecordId: jobRecord.id,
-      sectionId,
-      sessionId,
-      term,
-      context: { userId, branchId },
-    }, {
-      jobId: jobRecord.id,
-      removeOnComplete: 100,
-      removeOnFail: 500,
-      attempts: 3,
-      backoff: { type: 'exponential', delay: 2000 },
-    });
+    const job = await this.computationQueue.add(
+      'compute-section',
+      {
+        jobRecordId: jobRecord.id,
+        sectionId,
+        sessionId,
+        term,
+        context: { userId, branchId },
+      },
+      {
+        jobId: jobRecord.id,
+        removeOnComplete: 100,
+        removeOnFail: 500,
+        attempts: 3,
+        backoff: { type: 'exponential', delay: 2000 },
+      },
+    );
 
-    this.logger.log(`Queued computation job ${jobRecord.id} for section ${sectionId}`);
+    this.logger.log(
+      `Queued computation job ${jobRecord.id} for section ${sectionId}`,
+    );
     return { jobId: jobRecord.id };
   }
 

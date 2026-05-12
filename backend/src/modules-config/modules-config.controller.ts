@@ -1,6 +1,18 @@
-import { Controller, Get, Post, Patch, Body, Query, Param, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Patch,
+  Body,
+  Query,
+  Param,
+  UseGuards,
+} from '@nestjs/common';
 import { ModulesConfigService } from './modules-config.service';
-import { UpsertModuleConfigDto, ToggleModuleDto } from './dto/module-config.dto';
+import {
+  UpsertModuleConfigDto,
+  ToggleModuleDto,
+} from './dto/module-config.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';

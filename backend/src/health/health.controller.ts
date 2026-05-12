@@ -28,7 +28,9 @@ export class HealthController {
       bullmq: { status: 'unknown' },
     };
 
-    const allUp = Object.values(services).every((s) => s.status === 'ok' || s.status === 'unknown');
+    const allUp = Object.values(services).every(
+      (s) => s.status === 'ok' || s.status === 'unknown',
+    );
     const anyDown = Object.values(services).some((s) => s.status === 'down');
 
     return {
@@ -39,7 +41,10 @@ export class HealthController {
     };
   }
 
-  private async checkPostgres(): Promise<{ status: string; latencyMs?: number }> {
+  private async checkPostgres(): Promise<{
+    status: string;
+    latencyMs?: number;
+  }> {
     const start = Date.now();
     try {
       await this.prisma.$queryRaw`SELECT 1`;

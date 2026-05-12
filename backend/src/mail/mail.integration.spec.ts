@@ -9,7 +9,9 @@ jest.mock('nodemailer', () => ({
       messageId: '<test-message-id@test>',
     }),
   }),
-  getTestMessageUrl: jest.fn().mockReturnValue('https://ethereal.email/test-message'),
+  getTestMessageUrl: jest
+    .fn()
+    .mockReturnValue('https://ethereal.email/test-message'),
 }));
 
 /**
@@ -23,7 +25,7 @@ describe('MailService Integration', () => {
     // Note: Since Jest runs tests in parallel, we can't reliably test env var detection
     // in integration tests. This is covered by unit tests instead.
     // These tests focus on email generation and validation.
-    
+
     beforeAll(async () => {
       process.env.SMTP_HOST = 'smtp-relay.brevo.com';
       process.env.SMTP_PORT = '587';
@@ -155,11 +157,16 @@ describe('MailService Integration', () => {
     });
 
     it('should accept valid email formats', async () => {
-      const sendMailSpy = jest.spyOn<any, any>(service, 'sendMail').mockResolvedValue({
-        messageId: '<test@test>',
-      });
+      const sendMailSpy = jest
+        .spyOn<any, any>(service, 'sendMail')
+        .mockResolvedValue({
+          messageId: '<test@test>',
+        });
 
-      await service.sendAdmissionReceived('valid.email+tag@domain.co.uk', 'Test');
+      await service.sendAdmissionReceived(
+        'valid.email+tag@domain.co.uk',
+        'Test',
+      );
       expect(sendMailSpy).toHaveBeenCalled();
     });
   });
@@ -188,9 +195,11 @@ describe('MailService Integration', () => {
     });
 
     it('should escape script tags in student names', async () => {
-      const sendMailSpy = jest.spyOn<any, any>(service, 'sendMail').mockResolvedValue({
-        messageId: '<test@test>',
-      });
+      const sendMailSpy = jest
+        .spyOn<any, any>(service, 'sendMail')
+        .mockResolvedValue({
+          messageId: '<test@test>',
+        });
 
       await service.sendAdmissionReceived(
         'test@example.com',
@@ -203,9 +212,11 @@ describe('MailService Integration', () => {
     });
 
     it('should escape HTML attributes in rejection reasons', async () => {
-      const sendMailSpy = jest.spyOn<any, any>(service, 'sendMail').mockResolvedValue({
-        messageId: '<test@test>',
-      });
+      const sendMailSpy = jest
+        .spyOn<any, any>(service, 'sendMail')
+        .mockResolvedValue({
+          messageId: '<test@test>',
+        });
 
       await service.sendRejectionEmail(
         'test@example.com',
@@ -220,9 +231,11 @@ describe('MailService Integration', () => {
     });
 
     it('should escape event handlers in student IDs', async () => {
-      const sendMailSpy = jest.spyOn<any, any>(service, 'sendMail').mockResolvedValue({
-        messageId: '<test@test>',
-      });
+      const sendMailSpy = jest
+        .spyOn<any, any>(service, 'sendMail')
+        .mockResolvedValue({
+          messageId: '<test@test>',
+        });
 
       await service.sendApprovalEmail(
         'test@example.com',
@@ -258,13 +271,23 @@ describe('MailService Integration', () => {
     });
 
     it('should generate well-formed HTML for all email types', async () => {
-      const sendMailSpy = jest.spyOn<any, any>(service, 'sendMail').mockResolvedValue({
-        messageId: '<test@test>',
-      });
+      const sendMailSpy = jest
+        .spyOn<any, any>(service, 'sendMail')
+        .mockResolvedValue({
+          messageId: '<test@test>',
+        });
 
       await service.sendAdmissionReceived('test@example.com', 'Student 1');
-      await service.sendApprovalEmail('test@example.com', 'Student 2', 'ID-002');
-      await service.sendRejectionEmail('test@example.com', 'Student 3', 'Test reason');
+      await service.sendApprovalEmail(
+        'test@example.com',
+        'Student 2',
+        'ID-002',
+      );
+      await service.sendRejectionEmail(
+        'test@example.com',
+        'Student 3',
+        'Test reason',
+      );
 
       sendMailSpy.mock.calls.forEach((call) => {
         const html = call[2];

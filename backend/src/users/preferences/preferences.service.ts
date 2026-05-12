@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { UpdateUserPreferenceDto } from './dto/update-user-preference.dto';
 
@@ -26,7 +26,10 @@ export class PreferencesService {
     return preferences;
   }
 
-  async update(userId: string, updateUserPreferenceDto: UpdateUserPreferenceDto) {
+  async update(
+    userId: string,
+    updateUserPreferenceDto: UpdateUserPreferenceDto,
+  ) {
     const preferences = await this.prisma.userPreference.findUnique({
       where: { userId },
     });

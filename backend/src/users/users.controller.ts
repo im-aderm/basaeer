@@ -1,4 +1,13 @@
-import { Controller, Get, Patch, Post, Param, Body, UseGuards, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Patch,
+  Post,
+  Param,
+  Body,
+  UseGuards,
+  Query,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
@@ -8,11 +17,14 @@ import { UserRole } from '../generated/client/client';
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) { }
+  constructor(private readonly usersService: UsersService) {}
 
   @Get()
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  findAll(@Query('branchId') branchId?: string, @Query('role') role?: UserRole) {
+  findAll(
+    @Query('branchId') branchId?: string,
+    @Query('role') role?: UserRole,
+  ) {
     return this.usersService.findAll(branchId, role);
   }
 

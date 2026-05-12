@@ -10,6 +10,7 @@ import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
 import { ResponseTransformInterceptor } from './common/interceptors/response-transform.interceptor';
+import { PrismaService } from './prisma/prisma.service';
 
 async function bootstrap() {
   const logger = new Logger('Bootstrap');
@@ -52,6 +53,11 @@ async function bootstrap() {
       },
       crossOriginEmbedderPolicy: false,
       crossOriginResourcePolicy: { policy: 'cross-origin' },
+      strictTransportSecurity: {
+        maxAge: 31536000,
+        includeSubDomains: true,
+        preload: true,
+      },
     }),
   );
   app.use(cookieParser());
@@ -83,7 +89,7 @@ async function bootstrap() {
   );
 
   // ── Graceful Shutdown ────────────────────────────────────────────────────────
-  const prismaService = app.get('PrismaService');
+  const prismaService = app.get(PrismaService);
   const signals: NodeJS.Signals[] = ['SIGTERM', 'SIGINT', 'SIGQUIT'];
 
   for (const signal of signals) {

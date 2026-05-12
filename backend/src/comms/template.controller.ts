@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Put, Body, Param, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Body,
+  Param,
+  UseGuards,
+} from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { BranchGuard } from '../auth/branch.guard';
@@ -24,7 +32,14 @@ export class TemplateController {
   @Post('email')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   async createEmailTemplate(
-    @Body() dto: { name: string; subject: string; body: string; type: string; variables?: any },
+    @Body()
+    dto: {
+      name: string;
+      subject: string;
+      body: string;
+      type: string;
+      variables?: any;
+    },
     @GetTenantContext() context: TenantContext,
   ) {
     return this.prisma.emailTemplate.create({
@@ -39,7 +54,14 @@ export class TemplateController {
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   async updateEmailTemplate(
     @Param('id') id: string,
-    @Body() dto: { name?: string; subject?: string; body?: string; type?: string; variables?: any },
+    @Body()
+    dto: {
+      name?: string;
+      subject?: string;
+      body?: string;
+      type?: string;
+      variables?: any;
+    },
   ) {
     return this.prisma.emailTemplate.update({
       where: { id },
@@ -58,7 +80,8 @@ export class TemplateController {
   @Post('sms')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   async createSmsTemplate(
-    @Body() dto: { name: string; content: string; type: string; variables?: any },
+    @Body()
+    dto: { name: string; content: string; type: string; variables?: any },
     @GetTenantContext() context: TenantContext,
   ) {
     return this.prisma.smsTemplate.create({
@@ -73,7 +96,8 @@ export class TemplateController {
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   async updateSmsTemplate(
     @Param('id') id: string,
-    @Body() dto: { name?: string; content?: string; type?: string; variables?: any },
+    @Body()
+    dto: { name?: string; content?: string; type?: string; variables?: any },
   ) {
     return this.prisma.smsTemplate.update({
       where: { id },

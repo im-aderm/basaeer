@@ -11,9 +11,25 @@ import { TahfeezService } from './tahfeez.service';
 import { AcademicPortalService } from './academic-portal.service';
 
 @Module({
-    imports: [PrismaModule, ReportingModule],
-    controllers: [ExamsController],
-    providers: [ExamsService, ExamManagementService, ResultComputationService, ResultApprovalService, TranscriptService, TahfeezService, AcademicPortalService],
-    exports: [ExamsService, ExamManagementService, ResultComputationService, ResultApprovalService, TranscriptService, TahfeezService, AcademicPortalService],
+  imports: [PrismaModule, ReportingModule],
+  controllers: [ExamsController],
+  providers: [
+    ExamsService,
+    ExamManagementService,
+    ResultComputationService,
+    ResultApprovalService,
+    TranscriptService,
+    TahfeezService,
+    AcademicPortalService,
+  ],
+  exports: [
+    ExamsService,
+    ExamManagementService,
+    ResultComputationService,
+    ResultApprovalService,
+    TranscriptService,
+    TahfeezService,
+    AcademicPortalService,
+  ],
 })
-export class ExamsModule { }
+export class ExamsModule {}

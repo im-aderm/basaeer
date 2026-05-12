@@ -17,8 +17,14 @@ import { ApiSuccessResponse, apiOk } from '../dto/api-response';
  * have a `success` field.
  */
 @Injectable()
-export class ResponseTransformInterceptor<T> implements NestInterceptor<T, ApiSuccessResponse<T> | T> {
-  intercept(context: ExecutionContext, next: CallHandler): Observable<ApiSuccessResponse<T> | T> {
+export class ResponseTransformInterceptor<T> implements NestInterceptor<
+  T,
+  ApiSuccessResponse<T> | T
+> {
+  intercept(
+    context: ExecutionContext,
+    next: CallHandler,
+  ): Observable<ApiSuccessResponse<T> | T> {
     const request = context.switchToHttp().getRequest();
 
     return next.handle().pipe(

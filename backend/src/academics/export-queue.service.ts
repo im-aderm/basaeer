@@ -24,17 +24,21 @@ export class ExportQueueService {
       },
     });
 
-    await this.exportQueue.add('process-export', {
-      exportId: academicExport.id,
-      type: dto.type,
-      parameters: dto.parameters,
-      userId,
-      branchId,
-    }, {
-      jobId: academicExport.id,
-      removeOnComplete: true,
-      removeOnFail: false,
-    });
+    await this.exportQueue.add(
+      'process-export',
+      {
+        exportId: academicExport.id,
+        type: dto.type,
+        parameters: dto.parameters,
+        userId,
+        branchId,
+      },
+      {
+        jobId: academicExport.id,
+        removeOnComplete: true,
+        removeOnFail: false,
+      },
+    );
 
     return {
       exportId: academicExport.id,

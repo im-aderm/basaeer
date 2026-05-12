@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Param, Query, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { TranslationsService } from './translations.service';
 import { BulkUpsertTranslationsDto } from './dto/translations.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -11,7 +19,10 @@ export class TranslationsController {
   constructor(private readonly translationsService: TranslationsService) {}
 
   @Get(':locale')
-  findByLocale(@Param('locale') locale: string, @Query('group') group?: string) {
+  findByLocale(
+    @Param('locale') locale: string,
+    @Query('group') group?: string,
+  ) {
     return this.translationsService.findByLocale(locale, group);
   }
 

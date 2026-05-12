@@ -4,9 +4,9 @@ import { PermissionsController } from './permissions.controller';
 import { PrismaModule } from '../prisma/prisma.module';
 
 @Module({
-    imports: [PrismaModule],
-    controllers: [PermissionsController],
-    providers: [PermissionsService],
-    exports: [PermissionsService]
+  imports: [PrismaModule],
+  controllers: [PermissionsController],
+  providers: [PermissionsService],
+  exports: [PermissionsService],
 })
-export class PermissionsModule { }
+export class PermissionsModule {}

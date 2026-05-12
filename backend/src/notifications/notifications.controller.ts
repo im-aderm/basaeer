@@ -1,11 +1,4 @@
-import {
-  Controller,
-  Get,
-  Patch,
-  Param,
-  Body,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Get, Patch, Param, Body, UseGuards } from '@nestjs/common';
 import { NotificationsService } from './notifications.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { BranchGuard } from '../auth/branch.guard';
@@ -40,6 +33,9 @@ export class NotificationsController {
     @GetTenantContext() tenantContext: TenantContext,
     @Body() data: { email?: boolean; sms?: boolean; inApp?: boolean },
   ) {
-    return this.notificationsService.updatePreferences(tenantContext.userId, data);
+    return this.notificationsService.updatePreferences(
+      tenantContext.userId,
+      data,
+    );
   }
 }

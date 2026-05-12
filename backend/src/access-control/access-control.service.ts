@@ -6,70 +6,79 @@ import { AttendanceService } from '../attendance/attendance.service';
 import { AutomationService } from '../automation/automation.service';
 @Injectable()
 export class AccessControlService {
-    constructor(
-        private prisma: PrismaService,
-        private attendanceService: AttendanceService,
-        private automationService: AutomationService
-    ) { }
+  constructor(
+    private prisma: PrismaService,
+    private attendanceService: AttendanceService,
+    private automationService: AutomationService,
+  ) {}
 
-    async logAccess(branchId: string, dto: CreateAccessLogDto) {
-        const user = await this.prisma.user.findUnique({ where: { id: dto.userId } });
-        if (!user) throw new NotFoundException('User not found');
+  async logAccess(branchId: string, dto: CreateAccessLogDto) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: dto.userId },
+    });
+    if (!user) throw new NotFoundException('User not found');
 
-        // Check for Automation
-        if (user.role === UserRole.STUDENT && dto.direction === 'ENTRY') {
-            const configs = await this.automationService.getConfigs(branchId);
-            const attendanceConfig = configs.find(c => c.type === 'ATTENDANCE_ON_ENTRY');
+    // Check for Automation
+    if (user.role === UserRole.STUDENT && dto.direction === 'ENTRY') {
+      const configs = await this.automationService.getConfigs(branchId);
+      const attendanceConfig = configs.find(
+        (c) => c.type === 'ATTENDANCE_ON_ENTRY',
+      );
 
-            if (attendanceConfig && attendanceConfig.isEnabled) {
-                const student = await this.prisma.student.findFirst({ where: { userId: user.id } });
-                if (student && student.sectionId) {
-                    await this.attendanceService.markAttendance({
-                        studentId: student.id,
-                        date: new Date().toISOString(), // Use ISO string or Date object depending on DTO
-                        status: 'PRESENT',
-                        remarks: 'Auto-marked via QR Entry',
-                        sectionId: student.sectionId
-                    }, {
-                        branchId,
-                        userId: user.id,
-                        isSuperAdmin: false,
-                        role: user.role
-                    });
-                }
-            }
+      if (attendanceConfig && attendanceConfig.isEnabled) {
+        const student = await this.prisma.student.findFirst({
+          where: { userId: user.id },
+        });
+        if (student && student.sectionId) {
+          await this.attendanceService.markAttendance(
+            {
+              studentId: student.id,
+              date: new Date().toISOString(), // Use ISO string or Date object depending on DTO
+              status: 'PRESENT',
+              remarks: 'Auto-marked via QR Entry',
+              sectionId: student.sectionId,
+            },
+            {
+              branchId,
+              userId: user.id,
+              isSuperAdmin: false,
+              role: user.role,
+            },
+          );
         }
-
-        return this.prisma.campusAccessLog.create({
-            data: {
-                ...dto,
-                branchId
-            },
-            include: {
-                user: {
-                    select: { firstName: true, lastName: true, role: true }
-                }
-            }
-        });
+      }
     }
 
-    async getBranchLogs(branchId: string, limit: number = 50) {
-        return this.prisma.campusAccessLog.findMany({
-            where: { branchId },
-            include: {
-                user: {
-                    select: { firstName: true, lastName: true, role: true }
-                }
-            },
-            orderBy: { scanTime: 'desc' },
-            take: limit
-        });
-    }
+    return this.prisma.campusAccessLog.create({
+      data: {
+        ...dto,
+        branchId,
+      },
+      include: {
+        user: {
+          select: { firstName: true, lastName: true, role: true },
+        },
+      },
+    });
+  }
 
-    async getUserLogs(userId: string) {
-        return this.prisma.campusAccessLog.findMany({
-            where: { userId },
-            orderBy: { scanTime: 'desc' }
-        });
-    }
+  async getBranchLogs(branchId: string, limit: number = 50) {
+    return this.prisma.campusAccessLog.findMany({
+      where: { branchId },
+      include: {
+        user: {
+          select: { firstName: true, lastName: true, role: true },
+        },
+      },
+      orderBy: { scanTime: 'desc' },
+      take: limit,
+    });
+  }
+
+  async getUserLogs(userId: string) {
+    return this.prisma.campusAccessLog.findMany({
+      where: { userId },
+      orderBy: { scanTime: 'desc' },
+    });
+  }
 }

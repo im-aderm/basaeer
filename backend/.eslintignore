@@ -3,3 +3,6 @@ node_modules
 src/generated
 src/prisma/generated
 test/coverage
+test/
+**/*.spec.ts
+**/*.e2e-spec.ts

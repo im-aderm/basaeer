@@ -18,6 +18,6 @@ export function normalizeNigerianPhone(phone: string): string {
   // At this point cleaned should be the number without leading 0 or 234
   // Ensure it's 10 digits (for Nigerian numbers without prefix)
   // Standard Nigerian mobile numbers are 11 digits starting with 0, so 10 digits after removing 0
-  
+
   return `234${cleaned}`;
 }

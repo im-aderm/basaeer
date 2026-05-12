@@ -1,5 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import axios from 'axios';
+import * as crypto from 'crypto';
 
 export interface PaystackInitializeResponse {
   status: boolean;
@@ -40,7 +41,9 @@ export class PaystackService {
   constructor() {
     this.secretKey = process.env.PAYSTACK_SECRET_KEY || '';
     if (!this.secretKey) {
-      this.logger.warn('PAYSTACK_SECRET_KEY not set. Payment gateway is inactive.');
+      this.logger.warn(
+        'PAYSTACK_SECRET_KEY not set. Payment gateway is inactive.',
+      );
     }
   }
 
@@ -104,7 +107,6 @@ export class PaystackService {
 
   verifyWebhookSignature(signature: string, body: string): boolean {
     if (!this.secretKey) return false;
-    const crypto = require('crypto');
     const hash = crypto
       .createHmac('sha512', this.secretKey)
       .update(body)

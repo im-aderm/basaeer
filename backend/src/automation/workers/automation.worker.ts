@@ -67,25 +67,42 @@ export class AutomationWorker {
       }
 
       if (birthdayPeople.length > 0) {
-        await this.logExecution('BIRTHDAY_WISH', birthdayPeople.map(p => p.branchId).filter((v, i, a) => a.indexOf(v) === i), `Dispatched ${birthdayPeople.length} birthday wishes`);
+        await this.logExecution(
+          'BIRTHDAY_WISH',
+          birthdayPeople
+            .map((p) => p.branchId)
+            .filter((v, i, a) => a.indexOf(v) === i),
+          `Dispatched ${birthdayPeople.length} birthday wishes`,
+        );
       }
     } catch (error) {
-      this.logger.error(`Birthday wishes check failed: ${error.message}`, error.stack);
+      this.logger.error(
+        `Birthday wishes check failed: ${error.message}`,
+        error.stack,
+      );
     }
   }
 
   private async dispatchBirthdayWish(person: BirthdayPerson) {
     const config = await this.prisma.automationConfig.findFirst({
-      where: { branchId: person.branchId, type: 'BIRTHDAY_WISH', isEnabled: true },
+      where: {
+        branchId: person.branchId,
+        type: 'BIRTHDAY_WISH',
+        isEnabled: true,
+      },
     });
 
     if (!config) {
-      this.logger.debug(`BIRTHDAY_WISH automation not enabled for branch ${person.branchId}`);
+      this.logger.debug(
+        `BIRTHDAY_WISH automation not enabled for branch ${person.branchId}`,
+      );
       return;
     }
 
     const name = `${person.firstName} ${person.lastName}`;
-    const template = config.template || `Happy Birthday, ${name}! From all of us at Basaeer College.`;
+    const template =
+      config.template ||
+      `Happy Birthday, ${name}! From all of us at Basaeer College.`;
     const personalizedMessage = template.replace(/\{\{name\}\}/g, name);
 
     const dispatchedChannels: string[] = [];
@@ -99,7 +116,9 @@ export class AutomationWorker {
         });
         dispatchedChannels.push('SMS');
       } catch (err) {
-        this.logger.error(`Failed to queue birthday SMS for ${name}: ${err.message}`);
+        this.logger.error(
+          `Failed to queue birthday SMS for ${name}: ${err.message}`,
+        );
       }
     }
 
@@ -113,7 +132,9 @@ export class AutomationWorker {
         });
         dispatchedChannels.push('EMAIL');
       } catch (err) {
-        this.logger.error(`Failed to queue birthday email for ${name}: ${err.message}`);
+        this.logger.error(
+          `Failed to queue birthday email for ${name}: ${err.message}`,
+        );
       }
     }
 
@@ -127,10 +148,14 @@ export class AutomationWorker {
       });
       dispatchedChannels.push('NOTIFICATION');
     } catch (err) {
-      this.logger.error(`Failed to create birthday notification for ${name}: ${err.message}`);
+      this.logger.error(
+        `Failed to create birthday notification for ${name}: ${err.message}`,
+      );
     }
 
-    this.logger.log(`Birthday wish dispatched for ${name} via: ${dispatchedChannels.join(', ') || 'none'}`);
+    this.logger.log(
+      `Birthday wish dispatched for ${name} via: ${dispatchedChannels.join(', ') || 'none'}`,
+    );
   }
 
   @Cron(CronExpression.EVERY_DAY_AT_10AM)
@@ -144,7 +169,9 @@ export class AutomationWorker {
 
       for (const config of configs) {
         const dueDateLimit = new Date();
-        dueDateLimit.setDate(dueDateLimit.getDate() + (config.triggerDays || 0));
+        dueDateLimit.setDate(
+          dueDateLimit.getDate() + (config.triggerDays || 0),
+        );
 
         const pendingInvoices = await this.prisma.invoice.findMany({
           where: {
@@ -166,14 +193,19 @@ export class AutomationWorker {
           },
         });
 
-        this.logger.log(`Found ${pendingInvoices.length} pending invoices for branch ${config.branchId}.`);
+        this.logger.log(
+          `Found ${pendingInvoices.length} pending invoices for branch ${config.branchId}.`,
+        );
 
         for (const invoice of pendingInvoices) {
           await this.dispatchFeeReminder(invoice, config);
         }
       }
     } catch (error) {
-      this.logger.error(`Fee reminders check failed: ${error.message}`, error.stack);
+      this.logger.error(
+        `Fee reminders check failed: ${error.message}`,
+        error.stack,
+      );
     }
   }
 
@@ -189,7 +221,9 @@ export class AutomationWorker {
     }).format(invoice.totalAmount);
     const dueDateFormatted = invoice.dueDate.toLocaleDateString('en-NG');
 
-    const template = config.template || `Dear parent/guardian of ${studentName}, this is a reminder that an invoice of ${amountFormatted} is due on ${dueDateFormatted}. Please make payment at your earliest convenience. - Basaeer College`;
+    const template =
+      config.template ||
+      `Dear parent/guardian of ${studentName}, this is a reminder that an invoice of ${amountFormatted} is due on ${dueDateFormatted}. Please make payment at your earliest convenience. - Basaeer College`;
 
     const message = template
       .replace(/\{\{studentName\}\}/g, studentName)
@@ -210,7 +244,9 @@ export class AutomationWorker {
         });
         this.logger.log(`Fee reminder SMS queued for ${studentName}`);
       } catch (err) {
-        this.logger.error(`Failed to queue fee reminder SMS for ${studentName}: ${err.message}`);
+        this.logger.error(
+          `Failed to queue fee reminder SMS for ${studentName}: ${err.message}`,
+        );
       }
     }
 
@@ -225,7 +261,9 @@ export class AutomationWorker {
         });
         this.logger.log(`Fee reminder email queued for ${studentName}`);
       } catch (err) {
-        this.logger.error(`Failed to queue fee reminder email for ${studentName}: ${err.message}`);
+        this.logger.error(
+          `Failed to queue fee reminder email for ${studentName}: ${err.message}`,
+        );
       }
     }
 
@@ -239,7 +277,9 @@ export class AutomationWorker {
           branchId: config.branchId,
         });
       } catch (err) {
-        this.logger.error(`Failed to create fee reminder notification for ${studentName}: ${err.message}`);
+        this.logger.error(
+          `Failed to create fee reminder notification for ${studentName}: ${err.message}`,
+        );
       }
     }
   }
@@ -279,19 +319,29 @@ export class AutomationWorker {
           distinct: ['studentId'],
         });
 
-        this.logger.log(`Found ${absentStudents.length} absent students for branch ${config.branchId}`);
+        this.logger.log(
+          `Found ${absentStudents.length} absent students for branch ${config.branchId}`,
+        );
 
         for (const record of absentStudents) {
           await this.dispatchAttendanceAlert(record.student, config);
         }
       }
     } catch (error) {
-      this.logger.error(`Attendance alerts check failed: ${error.message}`, error.stack);
+      this.logger.error(
+        `Attendance alerts check failed: ${error.message}`,
+        error.stack,
+      );
     }
   }
 
   private async dispatchAttendanceAlert(
-    student: { id: string; firstName: string; lastName: string; user: { id: string; email: string; phone: string | null } | null },
+    student: {
+      id: string;
+      firstName: string;
+      lastName: string;
+      user: { id: string; email: string; phone: string | null } | null;
+    },
     config: { id: string; template: string | null; branchId: string },
   ) {
     const studentName = `${student.firstName} ${student.lastName}`;
@@ -299,7 +349,9 @@ export class AutomationWorker {
     yesterday.setDate(yesterday.getDate() - 1);
     const dateStr = yesterday.toLocaleDateString('en-NG');
 
-    const template = config.template || `Dear parent/guardian, ${studentName} was marked absent on ${dateStr}. Please contact the school if you have any questions. - Basaeer College`;
+    const template =
+      config.template ||
+      `Dear parent/guardian, ${studentName} was marked absent on ${dateStr}. Please contact the school if you have any questions. - Basaeer College`;
     const message = template
       .replace(/\{\{studentName\}\}/g, studentName)
       .replace(/\{\{date\}\}/g, dateStr);
@@ -316,7 +368,9 @@ export class AutomationWorker {
           branchId: config.branchId,
         });
       } catch (err) {
-        this.logger.error(`Failed to queue attendance alert SMS for ${studentName}: ${err.message}`);
+        this.logger.error(
+          `Failed to queue attendance alert SMS for ${studentName}: ${err.message}`,
+        );
       }
     }
 
@@ -330,7 +384,9 @@ export class AutomationWorker {
           branchId: config.branchId,
         });
       } catch (err) {
-        this.logger.error(`Failed to queue attendance alert email for ${studentName}: ${err.message}`);
+        this.logger.error(
+          `Failed to queue attendance alert email for ${studentName}: ${err.message}`,
+        );
       }
     }
 
@@ -343,11 +399,17 @@ export class AutomationWorker {
         branchId: config.branchId,
       });
     } catch (err) {
-      this.logger.error(`Failed to create attendance alert notification for ${studentName}: ${err.message}`);
+      this.logger.error(
+        `Failed to create attendance alert notification for ${studentName}: ${err.message}`,
+      );
     }
   }
 
-  private async logExecution(type: string, branchIds: string[], result: string) {
+  private async logExecution(
+    type: string,
+    branchIds: string[],
+    result: string,
+  ) {
     for (const branchId of branchIds) {
       const config = await this.prisma.automationConfig.findFirst({
         where: { branchId, type },
@@ -364,7 +426,9 @@ export class AutomationWorker {
           },
         });
       } catch (err) {
-        this.logger.warn(`Failed to log automation execution for ${type}/${branchId}: ${err.message}`);
+        this.logger.warn(
+          `Failed to log automation execution for ${type}/${branchId}: ${err.message}`,
+        );
       }
     }
   }

@@ -10,9 +10,24 @@ import { PrismaModule } from '../prisma/prisma.module';
 import { RealtimeModule } from '../realtime/realtime.module';
 
 @Module({
-  imports: [PrismaModule, RealtimeModule, DepartmentsModule, DesignationsModule],
+  imports: [
+    PrismaModule,
+    RealtimeModule,
+    DepartmentsModule,
+    DesignationsModule,
+  ],
   controllers: [EmployeesController],
-  providers: [EmployeesService, PayrollService, LeaveService, LeaveValidationService],
-  exports: [EmployeesService, PayrollService, LeaveService, LeaveValidationService],
+  providers: [
+    EmployeesService,
+    PayrollService,
+    LeaveService,
+    LeaveValidationService,
+  ],
+  exports: [
+    EmployeesService,
+    PayrollService,
+    LeaveService,
+    LeaveValidationService,
+  ],
 })
-export class EmployeesModule { }
+export class EmployeesModule {}

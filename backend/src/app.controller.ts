@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Res, Param, NotFoundException } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Res,
+  Param,
+  NotFoundException,
+} from '@nestjs/common';
 import { AppService } from './app.service';
 import { Response } from 'express';
 import * as path from 'path';
@@ -56,7 +64,7 @@ export class AppController {
       services: {
         database: dbStatus,
         redis: redisStatus,
-      }
+      },
     };
   }
 
@@ -66,7 +74,12 @@ export class AppController {
     @Param('filename') filename: string,
     @Res() res: Response,
   ) {
-    const basePath = path.join(process.cwd(), 'public', 'uploads', 'admissions');
+    const basePath = path.join(
+      process.cwd(),
+      'public',
+      'uploads',
+      'admissions',
+    );
     const filePath = path.join(basePath, filename);
     return this.serveFile(filePath, basePath, res);
   }
@@ -77,7 +90,12 @@ export class AppController {
     @Param('filename') filename: string,
     @Res() res: Response,
   ) {
-    const basePath = path.join(process.cwd(), 'public', 'uploads', 'admissions');
+    const basePath = path.join(
+      process.cwd(),
+      'public',
+      'uploads',
+      'admissions',
+    );
     const filePath = path.join(basePath, _subfolder, filename);
     return this.serveFile(filePath, basePath, res);
   }

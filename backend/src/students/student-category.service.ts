@@ -5,40 +5,41 @@ import { UpdateStudentCategoryDto } from './dto/update-student-category.dto';
 
 @Injectable()
 export class StudentCategoryService {
-    constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
-    create(createDto: CreateStudentCategoryDto) {
-        return this.prisma.studentCategory.create({
-            data: createDto,
-        });
-    }
+  create(createDto: CreateStudentCategoryDto) {
+    return this.prisma.studentCategory.create({
+      data: createDto,
+    });
+  }
 
-    findAll(branchId: string | null) {
-        return this.prisma.studentCategory.findMany({
-            where: { ...(branchId && { branchId }) },
-            include: { _count: { select: { students: true } } },
-        });
-    }
+  findAll(branchId: string | null) {
+    return this.prisma.studentCategory.findMany({
+      where: { ...(branchId && { branchId }) },
+      include: { _count: { select: { students: true } } },
+    });
+  }
 
-    async findOne(id: string) {
-        const category = await this.prisma.studentCategory.findUnique({
-            where: { id },
-            include: { students: true },
-        });
-        if (!category) throw new NotFoundException(`Student Category with ID ${id} not found`);
-        return category;
-    }
+  async findOne(id: string) {
+    const category = await this.prisma.studentCategory.findUnique({
+      where: { id },
+      include: { students: true },
+    });
+    if (!category)
+      throw new NotFoundException(`Student Category with ID ${id} not found`);
+    return category;
+  }
 
-    update(id: string, updateDto: UpdateStudentCategoryDto) {
-        return this.prisma.studentCategory.update({
-            where: { id },
-            data: updateDto,
-        });
-    }
+  update(id: string, updateDto: UpdateStudentCategoryDto) {
+    return this.prisma.studentCategory.update({
+      where: { id },
+      data: updateDto,
+    });
+  }
 
-    remove(id: string) {
-        return this.prisma.studentCategory.delete({
-            where: { id },
-        });
-    }
+  remove(id: string) {
+    return this.prisma.studentCategory.delete({
+      where: { id },
+    });
+  }
 }

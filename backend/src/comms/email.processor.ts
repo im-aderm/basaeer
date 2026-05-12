@@ -20,11 +20,21 @@ export class EmailProcessor extends WorkerHost {
   }
 
   async process(job: Job<any, any, string>): Promise<any> {
-    const { campaignId, recipientId, email, subject, message, branchId, userId } = job.data;
+    const {
+      campaignId,
+      recipientId,
+      email,
+      subject,
+      message,
+      branchId,
+      userId,
+    } = job.data;
     const idempotencyKey = `email:${recipientId}:${job.name}:${job.timestamp || Date.now()}`;
 
     if (this.processedJobs.has(idempotencyKey)) {
-      this.logger.warn(`Duplicate email job detected: ${idempotencyKey}, skipping`);
+      this.logger.warn(
+        `Duplicate email job detected: ${idempotencyKey}, skipping`,
+      );
       return { skipped: true, reason: 'duplicate' };
     }
     this.processedJobs.add(idempotencyKey);
@@ -45,7 +55,11 @@ export class EmailProcessor extends WorkerHost {
         });
       }
 
-      const success = await this.providersService.sendEmailWithFailover(email, subject, message);
+      const success = await this.providersService.sendEmailWithFailover(
+        email,
+        subject,
+        message,
+      );
 
       if (success) {
         if (recipientId) {
@@ -84,9 +98,13 @@ export class EmailProcessor extends WorkerHost {
           messageId: job.id || '',
           retryCount,
           error: error.message,
-          nextRetryAt: retryCount < MAX_RETRIES
-            ? new Date(Date.now() + RETRY_DELAYS_MS[retryCount - 1] || RETRY_DELAYS_MS[RETRY_DELAYS_MS.length - 1])
-            : null,
+          nextRetryAt:
+            retryCount < MAX_RETRIES
+              ? new Date(
+                  Date.now() + RETRY_DELAYS_MS[retryCount - 1] ||
+                    RETRY_DELAYS_MS[RETRY_DELAYS_MS.length - 1],
+                )
+              : null,
           status: retryCount < MAX_RETRIES ? 'PENDING' : 'FAILED',
           branchId,
         },
@@ -127,9 +145,9 @@ export class EmailProcessor extends WorkerHost {
     });
 
     const allProcessed = recipients.every(
-      r => r.status === 'SENT' || r.status === 'FAILED',
+      (r) => r.status === 'SENT' || r.status === 'FAILED',
     );
-    const anyFailed = recipients.some(r => r.status === 'FAILED');
+    const anyFailed = recipients.some((r) => r.status === 'FAILED');
 
     if (allProcessed) {
       await this.prisma.campaign.update({

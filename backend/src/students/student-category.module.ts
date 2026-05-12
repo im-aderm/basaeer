@@ -4,9 +4,9 @@ import { StudentCategoryController } from './student-category.controller';
 import { PrismaModule } from '../prisma/prisma.module';
 
 @Module({
-    imports: [PrismaModule],
-    controllers: [StudentCategoryController],
-    providers: [StudentCategoryService],
-    exports: [StudentCategoryService],
+  imports: [PrismaModule],
+  controllers: [StudentCategoryController],
+  providers: [StudentCategoryService],
+  exports: [StudentCategoryService],
 })
-export class StudentCategoryModule { }
+export class StudentCategoryModule {}

@@ -43,7 +43,11 @@ describe('Security Phase 1 (e2e)', () => {
     });
 
     // 2. Generate a token
-    const token = jwtService.sign({ sub: user.id, email: user.email, role: user.role });
+    const token = jwtService.sign({
+      sub: user.id,
+      email: user.email,
+      role: user.role,
+    });
 
     // 3. Request profile
     const response = await request(app.getHttpServer())
@@ -71,10 +75,14 @@ describe('Security Phase 1 (e2e)', () => {
       firstName: 'Branch A',
       lastName: 'Admin',
       role: UserRole.BRANCH_ADMIN,
-      branchId: 'branch-A-id',
     });
 
-    const token = jwtService.sign({ sub: branchAdmin.id, email: branchAdmin.email, role: branchAdmin.role, branchId: 'branch-A-id' });
+    const token = jwtService.sign({
+      sub: branchAdmin.id,
+      email: branchAdmin.email,
+      role: branchAdmin.role,
+      branchId: 'branch-A-id',
+    });
 
     const response = await request(app.getHttpServer())
       .get('/students?branchId=branch-B-id')

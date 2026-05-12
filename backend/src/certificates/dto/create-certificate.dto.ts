@@ -1,27 +1,33 @@
-import { IsString, IsNotEmpty, IsOptional, IsObject, IsUUID } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  IsOptional,
+  IsObject,
+  IsUUID,
+} from 'class-validator';
 
 export class CreateCertificateDto {
-    @IsString()
-    @IsNotEmpty()
-    type: string;
+  @IsString()
+  @IsNotEmpty()
+  type: string;
 
-    @IsString()
-    @IsNotEmpty()
-    certificateNumber: string;
+  @IsString()
+  @IsNotEmpty()
+  certificateNumber: string;
 
-    @IsUUID()
-    @IsNotEmpty()
-    studentId: string;
+  @IsUUID()
+  @IsNotEmpty()
+  studentId: string;
 
-    @IsUUID()
-    @IsNotEmpty()
-    branchId: string;
+  @IsUUID()
+  @IsNotEmpty()
+  branchId: string;
 
-    @IsOptional()
-    @IsObject()
-    content?: any;
+  @IsOptional()
+  @IsObject()
+  content?: any;
 
-    @IsOptional()
-    @IsUUID()
-    templateId?: string;
+  @IsOptional()
+  @IsUUID()
+  templateId?: string;
 }

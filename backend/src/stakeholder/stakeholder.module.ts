@@ -4,9 +4,9 @@ import { StakeholderController } from './stakeholder.controller';
 import { PrismaModule } from '../prisma/prisma.module';
 
 @Module({
-    imports: [PrismaModule],
-    controllers: [StakeholderController],
-    providers: [StakeholderService],
-    exports: [StakeholderService]
+  imports: [PrismaModule],
+  controllers: [StakeholderController],
+  providers: [StakeholderService],
+  exports: [StakeholderService],
 })
-export class StakeholderModule { }
+export class StakeholderModule {}

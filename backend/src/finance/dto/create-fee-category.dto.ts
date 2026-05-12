@@ -1,5 +1,5 @@
 export class CreateFeeCategoryDto {
-    name: string;
-    description?: string;
-    branchId: string;
+  name: string;
+  description?: string;
+  branchId: string;
 }

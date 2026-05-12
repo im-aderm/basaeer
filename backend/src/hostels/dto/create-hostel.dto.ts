@@ -2,18 +2,18 @@ import { IsString, IsNotEmpty, IsEnum, IsOptional } from 'class-validator';
 import { HostelType } from '../../generated/client/client';
 
 export class CreateHostelDto {
-    @IsString()
-    @IsNotEmpty()
-    name: string;
+  @IsString()
+  @IsNotEmpty()
+  name: string;
 
-    @IsEnum(HostelType)
-    type: HostelType;
+  @IsEnum(HostelType)
+  type: HostelType;
 
-    @IsString()
-    @IsOptional()
-    address?: string;
+  @IsString()
+  @IsOptional()
+  address?: string;
 
-    @IsString()
-    @IsNotEmpty()
-    branchId: string;
+  @IsString()
+  @IsNotEmpty()
+  branchId: string;
 }

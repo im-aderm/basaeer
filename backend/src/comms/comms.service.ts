@@ -29,14 +29,25 @@ export class CommsService {
     userId?: string;
     branchId: string | null;
   }) {
-    const job = await this.smsQueue.add('send-sms', {
-      phone: dto.phone,
-      message: dto.message,
-      userId: dto.userId,
-      branchId: dto.branchId,
-    }, QUEUE_JOB_OPTS);
+    const job = await this.smsQueue.add(
+      'send-sms',
+      {
+        phone: dto.phone,
+        message: dto.message,
+        userId: dto.userId,
+        branchId: dto.branchId,
+      },
+      QUEUE_JOB_OPTS,
+    );
 
-    await this.logQueueJob('sms', job.id || 'unknown', 'send-sms', 'QUEUED', dto.branchId, { phone: dto.phone });
+    await this.logQueueJob(
+      'sms',
+      job.id || 'unknown',
+      'send-sms',
+      'QUEUED',
+      dto.branchId,
+      { phone: dto.phone },
+    );
     this.logger.debug(`SMS job ${job.id} queued for ${dto.phone}`);
     return { jobId: job.id };
   }
@@ -48,15 +59,26 @@ export class CommsService {
     userId?: string;
     branchId: string | null;
   }) {
-    const job = await this.emailQueue.add('send-email', {
-      email: dto.email,
-      subject: dto.subject,
-      message: dto.message,
-      userId: dto.userId,
-      branchId: dto.branchId,
-    }, QUEUE_JOB_OPTS);
+    const job = await this.emailQueue.add(
+      'send-email',
+      {
+        email: dto.email,
+        subject: dto.subject,
+        message: dto.message,
+        userId: dto.userId,
+        branchId: dto.branchId,
+      },
+      QUEUE_JOB_OPTS,
+    );
 
-    await this.logQueueJob('email', job.id || 'unknown', 'send-email', 'QUEUED', dto.branchId, { email: dto.email });
+    await this.logQueueJob(
+      'email',
+      job.id || 'unknown',
+      'send-email',
+      'QUEUED',
+      dto.branchId,
+      { email: dto.email },
+    );
     this.logger.debug(`Email job ${job.id} queued for ${dto.email}`);
     return { jobId: job.id };
   }
@@ -76,7 +98,10 @@ export class CommsService {
       },
     });
 
-    const recipients = await this.getRecipients(dto.recipientGroup, dto.branchId);
+    const recipients = await this.getRecipients(
+      dto.recipientGroup,
+      dto.branchId,
+    );
 
     for (const recipient of recipients) {
       const campaignRecipient = await this.prisma.campaignRecipient.create({
@@ -88,20 +113,33 @@ export class CommsService {
         },
       });
 
-      const job = await this.emailQueue.add('send-email', {
-        campaignId: campaign.id,
-        recipientId: campaignRecipient.id,
-        userId: recipient.id,
-        email: recipient.email,
-        subject: dto.subject,
-        message: dto.message,
-        branchId: dto.branchId,
-      }, QUEUE_JOB_OPTS);
+      const job = await this.emailQueue.add(
+        'send-email',
+        {
+          campaignId: campaign.id,
+          recipientId: campaignRecipient.id,
+          userId: recipient.id,
+          email: recipient.email,
+          subject: dto.subject,
+          message: dto.message,
+          branchId: dto.branchId,
+        },
+        QUEUE_JOB_OPTS,
+      );
 
-      await this.logQueueJob('email', job.id || 'unknown', 'send-email', 'QUEUED', dto.branchId, { email: recipient.email });
+      await this.logQueueJob(
+        'email',
+        job.id || 'unknown',
+        'send-email',
+        'QUEUED',
+        dto.branchId,
+        { email: recipient.email },
+      );
     }
 
-    this.logger.log(`Bulk email campaign ${campaign.id} created with ${recipients.length} recipients`);
+    this.logger.log(
+      `Bulk email campaign ${campaign.id} created with ${recipients.length} recipients`,
+    );
     return {
       campaignId: campaign.id,
       recipientCount: recipients.length,
@@ -122,7 +160,10 @@ export class CommsService {
       },
     });
 
-    const recipients = await this.getRecipients(dto.recipientGroup, dto.branchId);
+    const recipients = await this.getRecipients(
+      dto.recipientGroup,
+      dto.branchId,
+    );
 
     for (const recipient of recipients) {
       if (!recipient.phone) continue;
@@ -136,19 +177,32 @@ export class CommsService {
         },
       });
 
-      const job = await this.smsQueue.add('send-sms', {
-        campaignId: campaign.id,
-        recipientId: campaignRecipient.id,
-        userId: recipient.id,
-        phone: recipient.phone,
-        message: dto.message,
-        branchId: dto.branchId,
-      }, QUEUE_JOB_OPTS);
+      const job = await this.smsQueue.add(
+        'send-sms',
+        {
+          campaignId: campaign.id,
+          recipientId: campaignRecipient.id,
+          userId: recipient.id,
+          phone: recipient.phone,
+          message: dto.message,
+          branchId: dto.branchId,
+        },
+        QUEUE_JOB_OPTS,
+      );
 
-      await this.logQueueJob('sms', job.id || 'unknown', 'send-sms', 'QUEUED', dto.branchId, { phone: recipient.phone });
+      await this.logQueueJob(
+        'sms',
+        job.id || 'unknown',
+        'send-sms',
+        'QUEUED',
+        dto.branchId,
+        { phone: recipient.phone },
+      );
     }
 
-    this.logger.log(`Bulk SMS campaign ${campaign.id} created with ${recipients.length} recipients`);
+    this.logger.log(
+      `Bulk SMS campaign ${campaign.id} created with ${recipients.length} recipients`,
+    );
     return {
       campaignId: campaign.id,
       recipientCount: recipients.length,
@@ -171,7 +225,14 @@ export class CommsService {
       include: {
         recipients: {
           include: {
-            user: { select: { firstName: true, lastName: true, email: true, phone: true } },
+            user: {
+              select: {
+                firstName: true,
+                lastName: true,
+                email: true,
+                phone: true,
+              },
+            },
           },
         },
       },
@@ -192,7 +253,12 @@ export class CommsService {
         });
       case 'staff':
         return this.prisma.user.findMany({
-          where: { ...where, role: { in: ['TEACHER', 'PRINCIPAL', 'HR', 'ACCOUNTANT', 'LIBRARIAN'] } },
+          where: {
+            ...where,
+            role: {
+              in: ['TEACHER', 'PRINCIPAL', 'HR', 'ACCOUNTANT', 'LIBRARIAN'],
+            },
+          },
           select: { id: true, email: true, phone: true },
         });
       case 'all':

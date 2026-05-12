@@ -1,5 +1,13 @@
-
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { BranchesService } from './branches.service';
 import { Prisma } from '../generated/client/client';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -11,7 +19,7 @@ import { UserRole } from '../generated/client/client';
 @UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
 @Controller('branches')
 export class BranchesController {
-  constructor(private readonly branchesService: BranchesService) { }
+  constructor(private readonly branchesService: BranchesService) {}
 
   @Post()
   @Roles(UserRole.SUPER_ADMIN)
@@ -33,7 +41,10 @@ export class BranchesController {
 
   @Patch(':id')
   @Roles(UserRole.SUPER_ADMIN)
-  update(@Param('id') id: string, @Body() updateBranchDto: Prisma.BranchUpdateInput) {
+  update(
+    @Param('id') id: string,
+    @Body() updateBranchDto: Prisma.BranchUpdateInput,
+  ) {
     return this.branchesService.update(id, updateBranchDto);
   }
 

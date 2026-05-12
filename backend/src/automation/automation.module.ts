@@ -11,17 +11,15 @@ import { CommsModule } from '../comms/comms.module';
 import { NotificationsModule } from '../notifications/notifications.module';
 
 @Module({
-    imports: [
-        PrismaModule,
-        CommsModule,
-        NotificationsModule,
-        ScheduleModule.forRoot(),
-        BullModule.registerQueue(
-            { name: 'automation' },
-        ),
-    ],
-    controllers: [AutomationController, AutomationHealthController],
-    providers: [AutomationService, AutomationWorker, AutomationRunnerService],
-    exports: [AutomationService]
+  imports: [
+    PrismaModule,
+    CommsModule,
+    NotificationsModule,
+    ScheduleModule.forRoot(),
+    BullModule.registerQueue({ name: 'automation' }),
+  ],
+  controllers: [AutomationController, AutomationHealthController],
+  providers: [AutomationService, AutomationWorker, AutomationRunnerService],
+  exports: [AutomationService],
 })
-export class AutomationModule { }
+export class AutomationModule {}

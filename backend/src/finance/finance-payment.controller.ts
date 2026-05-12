@@ -1,4 +1,15 @@
-import { Controller, Post, Body, Get, Param, Query, UseGuards, Req, Headers, RawBodyRequest } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Param,
+  Query,
+  UseGuards,
+  Req,
+  Headers,
+  RawBodyRequest,
+} from '@nestjs/common';
 import { Request } from 'express';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
@@ -60,7 +71,8 @@ export class FinancePaymentController {
       return { error: 'Paystack is not configured' };
     }
 
-    const verification = await this.paystackService.verifyTransaction(reference);
+    const verification =
+      await this.paystackService.verifyTransaction(reference);
 
     if (verification.data.status === 'success') {
       const metadata = verification.data.metadata;
@@ -71,7 +83,7 @@ export class FinancePaymentController {
           {
             invoiceId,
             amount: verification.data.amount / 100,
-            method: 'FLUTTERWAVE' as any,
+            method: 'FLUTTERWAVE',
             transactionId: reference,
             notes: `Paystack: ${verification.data.channel}`,
           },
@@ -100,7 +112,10 @@ export class FinancePaymentController {
     }
 
     const rawBody = (req as any).rawBody || JSON.stringify(req.body);
-    const isValid = this.paystackService.verifyWebhookSignature(signature, rawBody);
+    const isValid = this.paystackService.verifyWebhookSignature(
+      signature,
+      rawBody,
+    );
 
     if (!isValid) {
       return { status: 'error', message: 'Invalid signature' };
@@ -134,7 +149,7 @@ export class FinancePaymentController {
                 {
                   invoiceId,
                   amount: event.data.amount / 100,
-                  method: 'FLUTTERWAVE' as any,
+                  method: 'FLUTTERWAVE',
                   transactionId: reference,
                   notes: 'Webhook: charge.success',
                 },

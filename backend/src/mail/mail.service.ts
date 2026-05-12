@@ -7,7 +7,13 @@ export interface EmailTemplate {
   headerSubtitle: string;
   greeting: string;
   bodyContent: string;
-  extraBlocks?: { backgroundColor: string; borderColor?: string; borderSide?: string; padding: string; content: string }[];
+  extraBlocks?: {
+    backgroundColor: string;
+    borderColor?: string;
+    borderSide?: string;
+    padding: string;
+    content: string;
+  }[];
   footerText?: string;
 }
 
@@ -16,7 +22,12 @@ export class MailService implements OnModuleInit {
   private transporter: nodemailer.Transporter;
   private readonly logger = new Logger(MailService.name);
   private isConfigured = false;
-  private emailQueue: { to: string; subject: string; html: string; retries: number }[] = [];
+  private emailQueue: {
+    to: string;
+    subject: string;
+    html: string;
+    retries: number;
+  }[] = [];
   private isProcessing = false;
 
   onModuleInit() {
@@ -54,7 +65,9 @@ export class MailService implements OnModuleInit {
       this.logger.log('SMTP connection verified successfully');
     } catch (error) {
       this.logger.error('Failed to verify SMTP connection', error.stack);
-      this.logger.error('Email notifications will not work until SMTP is properly configured');
+      this.logger.error(
+        'Email notifications will not work until SMTP is properly configured',
+      );
     }
   }
 
@@ -92,10 +105,11 @@ export class MailService implements OnModuleInit {
         <p>We have successfully received your admission application for <strong>${this.escapeHtml(studentName)}</strong>.</p>
         <p>Our registrar is currently reviewing your documents and payment proof. You will receive an update once the verification is complete.</p>
       `,
-      extraBlocks: [{
-        backgroundColor: '#f9f9f9',
-        padding: '20px',
-        content: `
+      extraBlocks: [
+        {
+          backgroundColor: '#f9f9f9',
+          padding: '20px',
+          content: `
           <p style="margin: 0; font-weight: bold; font-size: 14px; color: #666; text-transform: uppercase;">Next Steps:</p>
           <ul style="margin: 10px 0 0; padding-left: 20px;">
             <li>Payment Verification (1-2 business days)</li>
@@ -103,8 +117,10 @@ export class MailService implements OnModuleInit {
             <li>Entrance Interview/Test Invitation</li>
           </ul>
         `,
-      }],
-      footerText: 'If you have any questions, please reply to this email or call us at +234 800 BASAEER.',
+        },
+      ],
+      footerText:
+        'If you have any questions, please reply to this email or call us at +234 800 BASAEER.',
     };
 
     const html = this.buildEmailTemplate(template);
@@ -125,17 +141,20 @@ export class MailService implements OnModuleInit {
       bodyContent: `
         <p>We are delighted to inform you that the admission application for <strong>${this.escapeHtml(studentName)}</strong> has been <strong>APPROVED</strong>.</p>
       `,
-      extraBlocks: [{
-        backgroundColor: '#f0fdf4',
-        borderColor: '#10b981',
-        borderSide: '2px dashed',
-        padding: '20px',
-        content: `
+      extraBlocks: [
+        {
+          backgroundColor: '#f0fdf4',
+          borderColor: '#10b981',
+          borderSide: '2px dashed',
+          padding: '20px',
+          content: `
           <p style="margin: 0; font-size: 12px; font-weight: bold; color: #059669; text-transform: uppercase;">Student ID / Admission No</p>
           <p style="margin: 5px 0 0; font-size: 32px; font-weight: 900; color: #064e3b; letter-spacing: 2px;">${this.escapeHtml(studentId)}</p>
         `,
-      }],
-      footerText: 'The student has been successfully enrolled in our system. A parent portal account has been created for you using this email address. Please visit the school office to collect the orientation package and uniform.',
+        },
+      ],
+      footerText:
+        'The student has been successfully enrolled in our system. A parent portal account has been created for you using this email address. Please visit the school office to collect the orientation package and uniform.',
     };
 
     const html = this.buildEmailTemplate(template);
@@ -157,21 +176,28 @@ export class MailService implements OnModuleInit {
         <p>Thank you for your interest in Basaeer Quranic and Science College.</p>
         <p>We regret to inform you that we cannot proceed with the admission application for <strong>${this.escapeHtml(studentName)}</strong> at this time.</p>
       `,
-      extraBlocks: [{
-        backgroundColor: '#fef2f2',
-        borderColor: '#ef4444',
-        borderSide: 'left: 4px solid',
-        padding: '20px',
-        content: `
+      extraBlocks: [
+        {
+          backgroundColor: '#fef2f2',
+          borderColor: '#ef4444',
+          borderSide: 'left: 4px solid',
+          padding: '20px',
+          content: `
           <p style="margin: 0; font-weight: bold; font-size: 14px; color: #991b1b;">Reason for this decision:</p>
           <p style="margin: 5px 0 0; color: #b91c1c;">${this.escapeHtml(reason)}</p>
         `,
-      }],
-      footerText: 'If this was due to missing documents, you are welcome to submit a new application once you have all the requirements ready.',
+        },
+      ],
+      footerText:
+        'If this was due to missing documents, you are welcome to submit a new application once you have all the requirements ready.',
     };
 
     const html = this.buildEmailTemplate(template);
-    return this.sendMail(to, `Update on Admission Application: ${studentName}`, html);
+    return this.sendMail(
+      to,
+      `Update on Admission Application: ${studentName}`,
+      html,
+    );
   }
 
   async sendPasswordReset(to: string, resetLink: string) {
@@ -193,29 +219,32 @@ export class MailService implements OnModuleInit {
         </p>
         <p>If you did not request a password reset, please ignore this email or contact support if you have concerns.</p>
       `,
-      footerText: 'If the button above does not work, copy and paste this URL into your browser:\n' + resetLink,
+      footerText:
+        'If the button above does not work, copy and paste this URL into your browser:\n' +
+        resetLink,
     };
 
     const html = this.buildEmailTemplate(template);
     return this.sendMail(to, 'Reset Your Password - Basaeer', html);
   }
 
-
   /**
    * Build a consistent email HTML template
    */
   private buildEmailTemplate(template: EmailTemplate): string {
     const extraBlocksHtml = template.extraBlocks
-      ? template.extraBlocks.map(block => {
-          const borderStyle = block.borderSide
-            ? `border-${block.borderSide}${block.borderColor ? ` ${block.borderColor}` : ''}`
-            : '';
-          return `
+      ? template.extraBlocks
+          .map((block) => {
+            const borderStyle = block.borderSide
+              ? `border-${block.borderSide}${block.borderColor ? ` ${block.borderColor}` : ''}`
+              : '';
+            return `
             <div style="background-color: ${block.backgroundColor}; ${borderStyle ? `border: ${borderStyle};` : ''} padding: ${block.padding}; border-radius: 10px; margin: 20px 0;">
               ${block.content}
             </div>
           `;
-        }).join('')
+          })
+          .join('')
       : '';
 
     return `
@@ -276,9 +305,14 @@ export class MailService implements OnModuleInit {
         this.emailQueue.shift(); // Remove successfully sent email
       } catch (error) {
         email.retries++;
-        this.logger.error(`Failed to send email to ${email.to} in background (attempt ${email.retries})`, error.stack);
+        this.logger.error(
+          `Failed to send email to ${email.to} in background (attempt ${email.retries})`,
+          error.stack,
+        );
         if (email.retries >= 3) {
-          this.logger.error(`Dropping email to ${email.to} after 3 failed attempts.`);
+          this.logger.error(
+            `Dropping email to ${email.to} after 3 failed attempts.`,
+          );
           this.emailQueue.shift(); // Drop after 3 retries
         } else {
           // Move to the back of the queue
@@ -304,7 +338,9 @@ export class MailService implements OnModuleInit {
       html,
     });
 
-    this.logger.log(`✅ Email sent to ${to} | Subject: "${subject}" | MessageId: ${info.messageId}`);
+    this.logger.log(
+      `✅ Email sent to ${to} | Subject: "${subject}" | MessageId: ${info.messageId}`,
+    );
 
     if (info.messageId && process.env.SMTP_HOST === 'smtp.ethereal.email') {
       const previewUrl = nodemailer.getTestMessageUrl(info);

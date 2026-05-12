@@ -1,6 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { CreateReportTemplateDto, UpdateReportTemplateDto } from './dto/template.dto';
+import {
+  CreateReportTemplateDto,
+  UpdateReportTemplateDto,
+} from './dto/template.dto';
 
 @Injectable()
 export class ReportTemplatesService {
@@ -46,7 +49,9 @@ export class ReportTemplatesService {
     await this.findOne(id, branchId);
 
     if (dto.isDefault) {
-      const template = await this.prisma.reportTemplate.findUnique({ where: { id } });
+      const template = await this.prisma.reportTemplate.findUnique({
+        where: { id },
+      });
       await this.prisma.reportTemplate.updateMany({
         where: { branchId, type: template?.type, isDefault: true },
         data: { isDefault: false },

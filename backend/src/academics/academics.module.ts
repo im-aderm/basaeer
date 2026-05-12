@@ -14,25 +14,30 @@ import { AcademicComputationProcessor } from './academic-computation.processor';
 import { ExportCleanupService } from './export-cleanup.service';
 
 @Module({
-    imports: [
-        PrismaModule,
-        ReportingModule,
-        ExamsModule,
-        BullModule.registerQueue(
-            { name: 'academic-exports' },
-            { name: 'academic-computations' },
-        ),
-    ],
-    controllers: [AcademicsController, ReportTemplatesController],
-    providers: [
-        AcademicsService, 
-        ExportQueueService, 
-        AcademicExportProcessor, 
-        ReportTemplatesService,
-        ComputationQueueService,
-        AcademicComputationProcessor,
-        ExportCleanupService
-    ],
-    exports: [AcademicsService, ExportQueueService, ReportTemplatesService, ComputationQueueService],
+  imports: [
+    PrismaModule,
+    ReportingModule,
+    ExamsModule,
+    BullModule.registerQueue(
+      { name: 'academic-exports' },
+      { name: 'academic-computations' },
+    ),
+  ],
+  controllers: [AcademicsController, ReportTemplatesController],
+  providers: [
+    AcademicsService,
+    ExportQueueService,
+    AcademicExportProcessor,
+    ReportTemplatesService,
+    ComputationQueueService,
+    AcademicComputationProcessor,
+    ExportCleanupService,
+  ],
+  exports: [
+    AcademicsService,
+    ExportQueueService,
+    ReportTemplatesService,
+    ComputationQueueService,
+  ],
 })
-export class AcademicsModule { }
+export class AcademicsModule {}

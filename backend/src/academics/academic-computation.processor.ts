@@ -17,21 +17,28 @@ export class AcademicComputationProcessor extends WorkerHost {
 
   async process(job: Job<any, any, string>): Promise<any> {
     const { jobRecordId, sectionId, sessionId, term, context } = job.data;
-    
-    this.logger.log(`Processing computation job ${jobRecordId} for section ${sectionId}`);
+
+    this.logger.log(
+      `Processing computation job ${jobRecordId} for section ${sectionId}`,
+    );
 
     try {
       await this.prisma.computationJob.update({
         where: { id: jobRecordId },
-        data: { 
-          status: 'PROCESSING', 
+        data: {
+          status: 'PROCESSING',
           startedAt: new Date(),
           retryCount: job.attemptsMade,
         },
       });
 
       // Execute computation
-      await this.examsService.computeSectionResults(sectionId, sessionId, term, context);
+      await this.examsService.computeSectionResults(
+        sectionId,
+        sessionId,
+        term,
+        context,
+      );
 
       await this.prisma.computationJob.update({
         where: { id: jobRecordId },
@@ -44,19 +51,23 @@ export class AcademicComputationProcessor extends WorkerHost {
 
       return { success: true };
     } catch (error) {
-      this.logger.error(`Computation ${jobRecordId} failed: ${error.message}`, error.stack);
-      
-      const status = job.attemptsMade >= (job.opts.attempts || 1) - 1 ? 'FAILED' : 'QUEUED';
-      
+      this.logger.error(
+        `Computation ${jobRecordId} failed: ${error.message}`,
+        error.stack,
+      );
+
+      const status =
+        job.attemptsMade >= (job.opts.attempts || 1) - 1 ? 'FAILED' : 'QUEUED';
+
       await this.prisma.computationJob.update({
         where: { id: jobRecordId },
-        data: { 
-          status, 
+        data: {
+          status,
           error: error.message,
-          retryCount: job.attemptsMade + 1
+          retryCount: job.attemptsMade + 1,
         },
       });
-      
+
       throw error;
     }
   }

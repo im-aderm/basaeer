@@ -7,8 +7,12 @@ import { GoogleMeetService } from './google-meet.service';
 import { EncryptionService } from './encryption.service';
 
 @Module({
-    controllers: [LiveClassesController, MeetOAuthController, MeetWebhooksController],
-    providers: [LiveClassesService, GoogleMeetService, EncryptionService],
-    exports: [LiveClassesService, GoogleMeetService, EncryptionService],
+  controllers: [
+    LiveClassesController,
+    MeetOAuthController,
+    MeetWebhooksController,
+  ],
+  providers: [LiveClassesService, GoogleMeetService, EncryptionService],
+  exports: [LiveClassesService, GoogleMeetService, EncryptionService],
 })
-export class LiveClassesModule { }
+export class LiveClassesModule {}

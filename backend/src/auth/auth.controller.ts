@@ -1,4 +1,14 @@
-import { Controller, Request, Post, UseGuards, Body, UnauthorizedException, Get, ForbiddenException, Res } from '@nestjs/common';
+import {
+  Controller,
+  Request,
+  Post,
+  UseGuards,
+  Body,
+  UnauthorizedException,
+  Get,
+  ForbiddenException,
+  Res,
+} from '@nestjs/common';
 import { Response } from 'express';
 import { Throttle } from '@nestjs/throttler';
 import { AuthService } from './auth.service';
@@ -13,21 +23,26 @@ import { ResetPasswordDto } from './dto/reset-password.dto';
 import { GetTenantContext } from './tenant-context.decorator';
 import { TenantContext } from './branch.guard';
 
-
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) {}
 
   @Throttle({ default: { limit: 5, ttl: 60000 } })
   @Post('login')
-  async login(@Body() loginDto: LoginDto, @Res({ passthrough: true }) response: Response) {
-    const user = await this.authService.validateUser(loginDto.email, loginDto.password);
+  async login(
+    @Body() loginDto: LoginDto,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    const user = await this.authService.validateUser(
+      loginDto.email,
+      loginDto.password,
+    );
     if (!user) {
       throw new UnauthorizedException('Invalid email or password');
     }
     const authData = await this.authService.login(user);
-    
-    // Set httpOnly cookie 
+
+    // Set httpOnly cookie
     response.cookie('access_token', authData.access_token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
@@ -36,9 +51,9 @@ export class AuthController {
     });
 
     // Return the user and the access_token for client-side use (e.g. Socket.io)
-    return { 
+    return {
       user: authData.user,
-      access_token: authData.access_token 
+      access_token: authData.access_token,
     };
   }
 
@@ -94,7 +109,7 @@ export class AuthController {
     return this.authService.resetPassword(
       resetPasswordDto.id,
       resetPasswordDto.token,
-      resetPasswordDto.newPassword
+      resetPasswordDto.newPassword,
     );
   }
 }

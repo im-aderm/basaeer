@@ -42,7 +42,10 @@ export class DataRetentionService {
         where: {
           OR: [
             { status: 'EXPIRED' },
-            { createdAt: { lt: cutoff }, status: { in: ['COMPLETED', 'FAILED', 'CANCELLED'] } },
+            {
+              createdAt: { lt: cutoff },
+              status: { in: ['COMPLETED', 'FAILED', 'CANCELLED'] },
+            },
           ],
         },
       });
@@ -146,7 +149,9 @@ export class DataRetentionService {
       });
 
       if (processed.count + oldFailed.count > 0) {
-        this.logger.log(`Cleaned up ${processed.count + oldFailed.count} old webhook events`);
+        this.logger.log(
+          `Cleaned up ${processed.count + oldFailed.count} old webhook events`,
+        );
       }
     } catch (error) {
       this.logger.error(`Failed to cleanup webhooks: ${error.message}`);
@@ -163,7 +168,9 @@ export class DataRetentionService {
       });
 
       if (result.count > 0) {
-        this.logger.log(`Cleaned up ${result.count} audit log entries older than 1 year`);
+        this.logger.log(
+          `Cleaned up ${result.count} audit log entries older than 1 year`,
+        );
       }
     } catch (error) {
       this.logger.error(`Failed to cleanup audit logs: ${error.message}`);
@@ -183,7 +190,9 @@ export class DataRetentionService {
         this.logger.log(`Cleaned up ${result.count} old automation executions`);
       }
     } catch (error) {
-      this.logger.error(`Failed to cleanup automation executions: ${error.message}`);
+      this.logger.error(
+        `Failed to cleanup automation executions: ${error.message}`,
+      );
     }
   }
 
@@ -200,7 +209,9 @@ export class DataRetentionService {
         this.logger.log(`Cleaned up ${result.count} old provider health logs`);
       }
     } catch (error) {
-      this.logger.error(`Failed to cleanup provider health logs: ${error.message}`);
+      this.logger.error(
+        `Failed to cleanup provider health logs: ${error.message}`,
+      );
     }
   }
 }

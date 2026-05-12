@@ -8,10 +8,9 @@ import { RealtimeModule } from '../realtime/realtime.module';
 import { CommsModule } from '../comms/comms.module';
 
 @Module({
-    imports: [PrismaModule, RealtimeModule, CommsModule],
-    controllers: [AttendanceController],
-    providers: [AttendanceService, QRService, AttendanceSessionService],
-    exports: [AttendanceService, QRService, AttendanceSessionService]
+  imports: [PrismaModule, RealtimeModule, CommsModule],
+  controllers: [AttendanceController],
+  providers: [AttendanceService, QRService, AttendanceSessionService],
+  exports: [AttendanceService, QRService, AttendanceSessionService],
 })
-export class AttendanceModule { }
-
+export class AttendanceModule {}

@@ -47,7 +47,7 @@ export class AutomationRunnerService {
         this.logger.debug(`Skipping job ${job.name} - already locked`);
         continue;
       }
-      await this.processJob(job as ScheduledJobRecord);
+      await this.processJob(job);
     }
   }
 
@@ -90,7 +90,10 @@ export class AutomationRunnerService {
       await this.logAutomationExecution(job, jobType, 'SUCCESS', result);
       this.logger.log(`Job ${job.name} completed successfully`);
     } catch (error) {
-      this.logger.error(`Error processing job ${job.name}: ${error.message}`, error.stack);
+      this.logger.error(
+        `Error processing job ${job.name}: ${error.message}`,
+        error.stack,
+      );
 
       await this.prisma.scheduledJob.update({
         where: { id: job.id },
@@ -107,7 +110,10 @@ export class AutomationRunnerService {
     this.activeLocks.delete(job.id);
   }
 
-  private async executeJobAction(job: ScheduledJobRecord, jobType: string): Promise<string> {
+  private async executeJobAction(
+    job: ScheduledJobRecord,
+    jobType: string,
+  ): Promise<string> {
     switch (jobType) {
       case 'BIRTHDAY_WISH':
       case 'SEND_BIRTHDAY_WISHES':
@@ -128,12 +134,16 @@ export class AutomationRunnerService {
         return this.executeBulkEmailJob(job);
 
       default:
-        this.logger.warn(`Unknown job type: ${jobType}, attempting generic SMS/Email dispatch`);
+        this.logger.warn(
+          `Unknown job type: ${jobType}, attempting generic SMS/Email dispatch`,
+        );
         return this.executeGenericJob(job);
     }
   }
 
-  private async executeBirthdayWishJob(job: ScheduledJobRecord): Promise<string> {
+  private async executeBirthdayWishJob(
+    job: ScheduledJobRecord,
+  ): Promise<string> {
     const today = new Date();
     const month = today.getMonth() + 1;
     const day = today.getDate();
@@ -169,9 +179,15 @@ export class AutomationRunnerService {
     return `Dispatched ${sentCount} birthday messages to ${students.length} recipients`;
   }
 
-  private async executeFeeReminderJob(job: ScheduledJobRecord): Promise<string> {
+  private async executeFeeReminderJob(
+    job: ScheduledJobRecord,
+  ): Promise<string> {
     const config = await this.prisma.automationConfig.findFirst({
-      where: { branchId: job.branchId || '', type: 'FEE_REMINDER', isEnabled: true },
+      where: {
+        branchId: job.branchId || '',
+        type: 'FEE_REMINDER',
+        isEnabled: true,
+      },
     });
 
     const dueDateLimit = new Date();
@@ -198,21 +214,28 @@ export class AutomationRunnerService {
     for (const invoice of pendingInvoices) {
       const studentName = `${invoice.student.firstName} ${invoice.student.lastName}`;
       const amountFormatted = new Intl.NumberFormat('en-NG', {
-        style: 'currency', currency: 'NGN',
+        style: 'currency',
+        currency: 'NGN',
       }).format(invoice.totalAmount);
       const msg = `Dear parent/guardian of ${studentName}, fee reminder: ${amountFormatted} due. - Basaeer College`;
 
       const parent = invoice.student.user;
       if (parent?.phone) {
         await this.commsService.sendSms({
-          phone: parent.phone, message: msg, userId: parent.id, branchId: job.branchId,
+          phone: parent.phone,
+          message: msg,
+          userId: parent.id,
+          branchId: job.branchId,
         });
         sentCount++;
       }
       if (parent?.email) {
         await this.commsService.sendEmail({
-          email: parent.email, subject: `Fee Reminder - ${studentName}`,
-          message: `<p>${msg}</p>`, userId: parent.id, branchId: job.branchId,
+          email: parent.email,
+          subject: `Fee Reminder - ${studentName}`,
+          message: `<p>${msg}</p>`,
+          userId: parent.id,
+          branchId: job.branchId,
         });
         sentCount++;
       }
@@ -220,7 +243,9 @@ export class AutomationRunnerService {
     return `Dispatched ${sentCount} fee reminders for ${pendingInvoices.length} invoices`;
   }
 
-  private async executeAttendanceAlertJob(job: ScheduledJobRecord): Promise<string> {
+  private async executeAttendanceAlertJob(
+    job: ScheduledJobRecord,
+  ): Promise<string> {
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
     yesterday.setHours(0, 0, 0, 0);
@@ -251,14 +276,20 @@ export class AutomationRunnerService {
 
       if (student.user?.phone) {
         await this.commsService.sendSms({
-          phone: student.user.phone, message: msg, userId: student.user.id, branchId: job.branchId,
+          phone: student.user.phone,
+          message: msg,
+          userId: student.user.id,
+          branchId: job.branchId,
         });
         sentCount++;
       }
       if (student.user?.email) {
         await this.commsService.sendEmail({
-          email: student.user.email, subject: `Absence Alert - ${name}`,
-          message: `<p>${msg}</p>`, userId: student.user.id, branchId: job.branchId,
+          email: student.user.email,
+          subject: `Absence Alert - ${name}`,
+          message: `<p>${msg}</p>`,
+          userId: student.user.id,
+          branchId: job.branchId,
         });
         sentCount++;
       }
@@ -268,19 +299,30 @@ export class AutomationRunnerService {
 
   private async executeBulkSmsJob(job: ScheduledJobRecord): Promise<string> {
     const config = await this.prisma.automationConfig.findFirst({
-      where: { branchId: job.branchId || '', type: 'BULK_SMS', isEnabled: true },
+      where: {
+        branchId: job.branchId || '',
+        type: 'BULK_SMS',
+        isEnabled: true,
+      },
     });
     if (!config?.template) return 'No template configured';
 
     const users = await this.prisma.user.findMany({
-      where: { branchId: job.branchId || undefined, isActive: true, phone: { not: '' } },
+      where: {
+        branchId: job.branchId || undefined,
+        isActive: true,
+        phone: { not: '' },
+      },
       select: { id: true, phone: true },
     });
 
     for (const user of users) {
       if (user.phone) {
         await this.commsService.sendSms({
-          phone: user.phone, message: config.template, userId: user.id, branchId: job.branchId,
+          phone: user.phone,
+          message: config.template,
+          userId: user.id,
+          branchId: job.branchId,
         });
       }
     }
@@ -289,12 +331,20 @@ export class AutomationRunnerService {
 
   private async executeBulkEmailJob(job: ScheduledJobRecord): Promise<string> {
     const config = await this.prisma.automationConfig.findFirst({
-      where: { branchId: job.branchId || '', type: 'BULK_EMAIL', isEnabled: true },
+      where: {
+        branchId: job.branchId || '',
+        type: 'BULK_EMAIL',
+        isEnabled: true,
+      },
     });
     if (!config?.template) return 'No template configured';
 
     const users = await this.prisma.user.findMany({
-      where: { branchId: job.branchId || undefined, isActive: true, email: { not: '' } },
+      where: {
+        branchId: job.branchId || undefined,
+        isActive: true,
+        email: { not: '' },
+      },
       select: { id: true, email: true },
     });
 
@@ -327,14 +377,20 @@ export class AutomationRunnerService {
       for (const user of users) {
         if (user.phone) {
           await this.commsService.sendSms({
-            phone: user.phone, message: config.template, userId: user.id, branchId: job.branchId,
+            phone: user.phone,
+            message: config.template,
+            userId: user.id,
+            branchId: job.branchId,
           });
           sentCount++;
         }
         if (user.email) {
           await this.commsService.sendEmail({
-            email: user.email, subject: job.name,
-            message: `<p>${config.template}</p>`, userId: user.id, branchId: job.branchId,
+            email: user.email,
+            subject: job.name,
+            message: `<p>${config.template}</p>`,
+            userId: user.id,
+            branchId: job.branchId,
           });
           sentCount++;
         }

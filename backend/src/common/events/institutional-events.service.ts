@@ -5,36 +5,59 @@ import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class InstitutionalEventsService {
-    private readonly logger = new Logger(InstitutionalEventsService.name);
+  private readonly logger = new Logger(InstitutionalEventsService.name);
 
-    constructor(
-        private readonly integrationsService: IntegrationsService,
-        private readonly prisma: PrismaService,
-    ) {}
+  constructor(
+    private readonly integrationsService: IntegrationsService,
+    private readonly prisma: PrismaService,
+  ) {}
 
-    @OnEvent('payment.received')
-    async handlePaymentReceived(payload: { branchId: string; invoiceId: string; amount: number; reference: string }) {
-        this.logger.log(`Event payment.received: invoice ${payload.invoiceId}, amount ${payload.amount}`);
-        
-        // 1. Trigger Webhooks
-        await this.integrationsService.triggerWebhook(payload.branchId, 'payment.received', payload);
+  @OnEvent('payment.received')
+  async handlePaymentReceived(payload: {
+    branchId: string;
+    invoiceId: string;
+    amount: number;
+    reference: string;
+  }) {
+    this.logger.log(
+      `Event payment.received: invoice ${payload.invoiceId}, amount ${payload.amount}`,
+    );
 
-        // 2. Cross-module automation: If it's a hostel invoice, update status
-        // (This logic would be more complex in production, checking item categories)
-    }
+    // 1. Trigger Webhooks
+    await this.integrationsService.triggerWebhook(
+      payload.branchId,
+      'payment.received',
+      payload,
+    );
 
-    @OnEvent('student.absent')
-    async handleStudentAbsent(payload: { branchId: string; studentId: string; date: Date }) {
-        this.logger.log(`Event student.absent: student ${payload.studentId}`);
-        
-        // Trigger Webhooks
-        await this.integrationsService.triggerWebhook(payload.branchId, 'student.absent', payload);
+    // 2. Cross-module automation: If it's a hostel invoice, update status
+    // (This logic would be more complex in production, checking item categories)
+  }
 
-        // Send Notification (handled by NotificationsModule in real setup)
-    }
+  @OnEvent('student.absent')
+  async handleStudentAbsent(payload: {
+    branchId: string;
+    studentId: string;
+    date: Date;
+  }) {
+    this.logger.log(`Event student.absent: student ${payload.studentId}`);
 
-    @OnEvent('book.overdue')
-    async handleBookOverdue(payload: { branchId: string; studentId: string; bookId: string }) {
-        // ...
-    }
+    // Trigger Webhooks
+    await this.integrationsService.triggerWebhook(
+      payload.branchId,
+      'student.absent',
+      payload,
+    );
+
+    // Send Notification (handled by NotificationsModule in real setup)
+  }
+
+  @OnEvent('book.overdue')
+  async handleBookOverdue(payload: {
+    branchId: string;
+    studentId: string;
+    bookId: string;
+  }) {
+    // ...
+  }
 }

@@ -14,10 +14,7 @@ import { ProvidersModule } from '../providers/providers.module';
     PrismaModule,
     MailModule,
     ProvidersModule,
-    BullModule.registerQueue(
-      { name: 'email' },
-      { name: 'sms' },
-    ),
+    BullModule.registerQueue({ name: 'email' }, { name: 'sms' }),
   ],
   controllers: [CommsController, TemplateController],
   providers: [CommsService, EmailProcessor, SmsProcessor],

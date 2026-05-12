@@ -44,9 +44,11 @@ describe('FinanceService', () => {
         { totalAmount: 500, balance: 500 },
       ];
 
-      (mockPrismaService.invoice.findMany as jest.Mock).mockResolvedValue(mockInvoices);
+      mockPrismaService.invoice.findMany.mockResolvedValue(mockInvoices);
 
-      const result = await service.getBranchFinancials({ branchId: 'branch-1' } as any);
+      const result = await service.getBranchFinancials({
+        branchId: 'branch-1',
+      } as any);
 
       expect(prisma.invoice.findMany).toHaveBeenCalledWith({
         where: { branchId: 'branch-1' },
@@ -60,9 +62,11 @@ describe('FinanceService', () => {
     });
 
     it('should handle zero invoices gracefully', async () => {
-      (mockPrismaService.invoice.findMany as jest.Mock).mockResolvedValue([]);
+      mockPrismaService.invoice.findMany.mockResolvedValue([]);
 
-      const result = await service.getBranchFinancials({ branchId: 'branch-2' } as any);
+      const result = await service.getBranchFinancials({
+        branchId: 'branch-2',
+      } as any);
 
       expect(result.totalInvoiced).toBe(0);
       expect(result.totalOutstanding).toBe(0);

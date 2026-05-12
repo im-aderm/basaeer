@@ -10,9 +10,13 @@ import { RealtimeModule } from '../realtime/realtime.module';
 import { AuthModule } from '../auth/auth.module';
 
 @Module({
-    imports: [PrismaModule, RealtimeModule, AuthModule],
-    controllers: [FinanceController, PaymentsController, FinancePaymentController],
-    providers: [FinanceService, PaymentsService, PaystackService],
-    exports: [FinanceService, PaymentsService, PaystackService],
+  imports: [PrismaModule, RealtimeModule, AuthModule],
+  controllers: [
+    FinanceController,
+    PaymentsController,
+    FinancePaymentController,
+  ],
+  providers: [FinanceService, PaymentsService, PaystackService],
+  exports: [FinanceService, PaymentsService, PaystackService],
 })
-export class FinanceModule { }
+export class FinanceModule {}

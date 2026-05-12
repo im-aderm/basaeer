@@ -6,8 +6,8 @@ import { BackupController } from './backup.controller';
 import { PrismaModule } from '../prisma/prisma.module';
 
 @Module({
-    imports: [PrismaModule],
-    controllers: [SettingsController, BackupController],
-    providers: [SettingsService, BackupService],
+  imports: [PrismaModule],
+  controllers: [SettingsController, BackupController],
+  providers: [SettingsService, BackupService],
 })
-export class SettingsModule { }
+export class SettingsModule {}

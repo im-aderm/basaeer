@@ -15,7 +15,9 @@ import { Logger } from '@nestjs/common';
   cors: true,
   namespace: 'realtime',
 })
-export class RealtimeGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
+export class RealtimeGateway
+  implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
+{
   @WebSocketServer()
   server: Server;
 
@@ -34,11 +36,11 @@ export class RealtimeGateway implements OnGatewayInit, OnGatewayConnection, OnGa
 
   async handleConnection(client: Socket) {
     try {
-      const token = 
-        client.handshake.auth?.token || 
-        client.handshake.headers?.authorization?.split(' ')[1] || 
+      const token =
+        client.handshake.auth?.token ||
+        client.handshake.headers?.authorization?.split(' ')[1] ||
         client.handshake.query?.token;
-      
+
       if (!token) {
         this.logger.warn(`Connection attempt without token: ${client.id}`);
         client.disconnect();

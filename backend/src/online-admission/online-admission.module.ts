@@ -6,8 +6,8 @@ import { MailModule } from '../mail/mail.module';
 import { UploadModule } from '../upload/upload.module';
 
 @Module({
-    imports: [PrismaModule, MailModule, UploadModule],
-    controllers: [OnlineAdmissionController],
-    providers: [OnlineAdmissionService],
+  imports: [PrismaModule, MailModule, UploadModule],
+  controllers: [OnlineAdmissionController],
+  providers: [OnlineAdmissionService],
 })
-export class OnlineAdmissionModule { }
+export class OnlineAdmissionModule {}

@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Delete, Param, UseGuards, Res } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Delete,
+  Param,
+  UseGuards,
+  Res,
+} from '@nestjs/common';
 import { BackupService } from './backup.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
@@ -9,30 +17,33 @@ import { Response } from 'express';
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('backups')
 export class BackupController {
-    constructor(private readonly backupService: BackupService) { }
+  constructor(private readonly backupService: BackupService) {}
 
-    @Post()
-    @Roles(UserRole.SUPER_ADMIN)
-    createBackup() {
-        return this.backupService.createBackup();
-    }
+  @Post()
+  @Roles(UserRole.SUPER_ADMIN)
+  createBackup() {
+    return this.backupService.createBackup();
+  }
 
-    @Get()
-    @Roles(UserRole.SUPER_ADMIN)
-    getBackups() {
-        return this.backupService.getBackups();
-    }
+  @Get()
+  @Roles(UserRole.SUPER_ADMIN)
+  getBackups() {
+    return this.backupService.getBackups();
+  }
 
-    @Delete(':filename')
-    @Roles(UserRole.SUPER_ADMIN)
-    deleteBackup(@Param('filename') filename: string) {
-        return this.backupService.deleteBackup(filename);
-    }
+  @Delete(':filename')
+  @Roles(UserRole.SUPER_ADMIN)
+  deleteBackup(@Param('filename') filename: string) {
+    return this.backupService.deleteBackup(filename);
+  }
 
-    @Get('download/:filename')
-    @Roles(UserRole.SUPER_ADMIN)
-    async downloadBackup(@Param('filename') filename: string, @Res() res: Response) {
-        const filepath = await this.backupService.downloadBackup(filename);
-        res.download(filepath);
-    }
+  @Get('download/:filename')
+  @Roles(UserRole.SUPER_ADMIN)
+  async downloadBackup(
+    @Param('filename') filename: string,
+    @Res() res: Response,
+  ) {
+    const filepath = await this.backupService.downloadBackup(filename);
+    res.download(filepath);
+  }
 }

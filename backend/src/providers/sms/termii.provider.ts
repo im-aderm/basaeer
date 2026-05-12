@@ -26,7 +26,9 @@ export class TermiiProvider implements SmsProviderInterface {
       this.logger.warn(`Termii send failed: ${JSON.stringify(response.data)}`);
       return false;
     } catch (error) {
-      this.logger.error(`Failed to send SMS to ${normalizedTo}: ${error.message}`);
+      this.logger.error(
+        `Failed to send SMS to ${normalizedTo}: ${error.message}`,
+      );
       return false;
     }
   }

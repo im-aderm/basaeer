@@ -4,9 +4,9 @@ import { ReceptionController } from './reception.controller';
 import { PrismaModule } from '../prisma/prisma.module';
 
 @Module({
-    imports: [PrismaModule],
-    controllers: [ReceptionController],
-    providers: [ReceptionService],
-    exports: [ReceptionService],
+  imports: [PrismaModule],
+  controllers: [ReceptionController],
+  providers: [ReceptionService],
+  exports: [ReceptionService],
 })
-export class ReceptionModule { }
+export class ReceptionModule {}

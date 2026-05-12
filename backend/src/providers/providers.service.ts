@@ -20,7 +20,11 @@ export class ProvidersService {
     this.smsProviders = [this.termiiProvider];
   }
 
-  async sendEmailWithFailover(to: string, subject: string, html: string): Promise<boolean> {
+  async sendEmailWithFailover(
+    to: string,
+    subject: string,
+    html: string,
+  ): Promise<boolean> {
     const startTime = Date.now();
 
     for (let i = 0; i < this.emailProviders.length; i++) {
@@ -29,11 +33,22 @@ export class ProvidersService {
       const latency = Date.now() - startTime;
 
       if (success) {
-        await this.logProviderHealth('EMAIL', provider.constructor.name, 'UP', latency);
+        await this.logProviderHealth(
+          'EMAIL',
+          provider.constructor.name,
+          'UP',
+          latency,
+        );
         return true;
       }
 
-      await this.logProviderHealth('EMAIL', provider.constructor.name, 'DOWN', latency, 'Send failed');
+      await this.logProviderHealth(
+        'EMAIL',
+        provider.constructor.name,
+        'DOWN',
+        latency,
+        'Send failed',
+      );
 
       const nextProvider = this.emailProviders[i + 1];
       if (nextProvider) {
@@ -57,11 +72,22 @@ export class ProvidersService {
       const latency = Date.now() - startTime;
 
       if (success) {
-        await this.logProviderHealth('SMS', provider.constructor.name, 'UP', latency);
+        await this.logProviderHealth(
+          'SMS',
+          provider.constructor.name,
+          'UP',
+          latency,
+        );
         return true;
       }
 
-      await this.logProviderHealth('SMS', provider.constructor.name, 'DOWN', latency, 'Send failed');
+      await this.logProviderHealth(
+        'SMS',
+        provider.constructor.name,
+        'DOWN',
+        latency,
+        'Send failed',
+      );
 
       const nextProvider = this.smsProviders[i + 1];
       if (nextProvider) {
@@ -132,7 +158,12 @@ export class ProvidersService {
     }
   }
 
-  private async logFailover(failed: string, target: string, type: string, reason: string) {
+  private async logFailover(
+    failed: string,
+    target: string,
+    type: string,
+    reason: string,
+  ) {
     this.logger.warn(`Failover occurred: ${failed} -> ${target} (${type})`);
     try {
       await this.prisma.providerFailoverEvent.create({

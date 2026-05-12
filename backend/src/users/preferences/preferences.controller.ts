@@ -16,7 +16,10 @@ export class PreferencesController {
   }
 
   @Patch()
-  update(@Req() req: Request, @Body() updateUserPreferenceDto: UpdateUserPreferenceDto) {
+  update(
+    @Req() req: Request,
+    @Body() updateUserPreferenceDto: UpdateUserPreferenceDto,
+  ) {
     const userId = (req.user as any).id;
     return this.preferencesService.update(userId, updateUserPreferenceDto);
   }

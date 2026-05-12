@@ -101,7 +101,16 @@ export class AuditService {
     page?: number;
     limit?: number;
   }) {
-    const { userId, module, action, branchId, startDate, endDate, page = 1, limit = 20 } = query;
+    const {
+      userId,
+      module,
+      action,
+      branchId,
+      startDate,
+      endDate,
+      page = 1,
+      limit = 20,
+    } = query;
     const skip = (page - 1) * limit;
 
     const where: any = {};

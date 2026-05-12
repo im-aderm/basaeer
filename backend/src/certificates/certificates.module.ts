@@ -4,9 +4,9 @@ import { CertificatesController } from './certificates.controller';
 import { PrismaModule } from '../prisma/prisma.module';
 
 @Module({
-    imports: [PrismaModule],
-    controllers: [CertificatesController],
-    providers: [CertificatesService],
-    exports: [CertificatesService],
+  imports: [PrismaModule],
+  controllers: [CertificatesController],
+  providers: [CertificatesService],
+  exports: [CertificatesService],
 })
-export class CertificatesModule { }
+export class CertificatesModule {}

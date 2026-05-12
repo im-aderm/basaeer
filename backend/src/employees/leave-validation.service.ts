@@ -42,7 +42,9 @@ export class LeaveValidationService {
       return { valid: false, errors };
     }
 
-    const staff = await this.prisma.staff.findUnique({ where: { id: staffId } });
+    const staff = await this.prisma.staff.findUnique({
+      where: { id: staffId },
+    });
     if (!staff) {
       errors.push('Staff not found');
       return { valid: false, errors };
@@ -57,7 +59,9 @@ export class LeaveValidationService {
     // Check maximum consecutive days
     const maxConsecutive = MAX_CONSECUTIVE_DAYS[type];
     if (maxConsecutive && daysRequested > maxConsecutive) {
-      errors.push(`${type} leave cannot exceed ${maxConsecutive} consecutive days`);
+      errors.push(
+        `${type} leave cannot exceed ${maxConsecutive} consecutive days`,
+      );
     }
 
     // Check overlap with existing approved/pending leaves
@@ -65,10 +69,7 @@ export class LeaveValidationService {
       where: {
         staffId,
         status: { in: ['PENDING', 'APPROVED'] },
-        AND: [
-          { startDate: { lte: endDate } },
-          { endDate: { gte: startDate } },
-        ],
+        AND: [{ startDate: { lte: endDate } }, { endDate: { gte: startDate } }],
       },
     });
 

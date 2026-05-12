@@ -14,7 +14,9 @@ export abstract class TenantScopedService {
    * Resolves the Prisma `where` branch filter from a TenantContext.
    * Super admins receive `undefined` (no filter), others receive their branch ID.
    */
-  protected branchFilter(context: TenantContext): { branchId: string } | Record<string, never> {
+  protected branchFilter(
+    context: TenantContext,
+  ): { branchId: string } | Record<string, never> {
     if (context.isSuperAdmin) {
       return {};
     }
@@ -39,7 +41,10 @@ export abstract class TenantScopedService {
    * Ensures the provided branchId is authorized for the given tenant context.
    * Throws if a non-superadmin tries to access a different branch.
    */
-  protected authorizeBranch(context: TenantContext, targetBranchId: string): void {
+  protected authorizeBranch(
+    context: TenantContext,
+    targetBranchId: string,
+  ): void {
     if (context.isSuperAdmin) return;
     if (context.branchId && context.branchId !== targetBranchId) {
       throw new Error('Branch access denied');
@@ -49,7 +54,9 @@ export abstract class TenantScopedService {
   /**
    * Static helpers for services that don't want to extend this class.
    */
-  static branchFilter(context: TenantContext): { branchId: string } | Record<string, never> {
+  static branchFilter(
+    context: TenantContext,
+  ): { branchId: string } | Record<string, never> {
     if (context.isSuperAdmin) return {};
     if (!context.branchId) return { branchId: '' };
     return { branchId: context.branchId };

@@ -59,9 +59,9 @@ describe('AuthService', () => {
         email: 'test@example.com',
         password: 'hashedpassword',
         role: 'ADMIN',
-        branchId: 'branch-1'
+        branchId: 'branch-1',
       };
-      
+
       mockUsersService.findOne.mockResolvedValue(mockUser);
       (bcrypt.compare as jest.Mock).mockResolvedValue(true);
 
@@ -72,7 +72,7 @@ describe('AuthService', () => {
         id: '1',
         email: 'test@example.com',
         role: 'ADMIN',
-        branchId: 'branch-1'
+        branchId: 'branch-1',
       });
       expect(result).not.toHaveProperty('password');
     });
@@ -91,11 +91,14 @@ describe('AuthService', () => {
         email: 'test@example.com',
         password: 'hashedpassword',
       };
-      
+
       mockUsersService.findOne.mockResolvedValue(mockUser);
       (bcrypt.compare as jest.Mock).mockResolvedValue(false);
 
-      const result = await service.validateUser('test@example.com', 'wrongpassword');
+      const result = await service.validateUser(
+        'test@example.com',
+        'wrongpassword',
+      );
 
       expect(result).toBeNull();
     });
@@ -107,7 +110,7 @@ describe('AuthService', () => {
         id: '1',
         email: 'test@example.com',
         role: 'ADMIN',
-        branchId: 'branch-1'
+        branchId: 'branch-1',
       };
 
       const result = await service.login(user);
@@ -116,7 +119,7 @@ describe('AuthService', () => {
         email: 'test@example.com',
         sub: '1',
         role: 'ADMIN',
-        branchId: 'branch-1'
+        branchId: 'branch-1',
       });
 
       expect(result).toEqual({
@@ -167,7 +170,8 @@ describe('AuthService', () => {
 
       expect(result).toBeDefined();
       expect(mockUsersService.setPasswordResetToken).toHaveBeenCalled();
-      const [userId, hash, expires] = mockUsersService.setPasswordResetToken.mock.calls[0];
+      const [userId, hash, expires] =
+        mockUsersService.setPasswordResetToken.mock.calls[0];
       expect(userId).toBe('user-123');
       expect(hash).toHaveLength(64); // SHA-256 hash length in hex
       expect(expires).toBeInstanceOf(Date);
@@ -181,11 +185,20 @@ describe('AuthService', () => {
       mockUsersService.findByResetToken.mockResolvedValue(mockUser);
       (bcrypt.hash as jest.Mock).mockResolvedValue('newhashedpassword');
 
-      const result = await service.resetPassword('user-123', 'securetoken123', 'newsecurepass123');
+      const result = await service.resetPassword(
+        'user-123',
+        'securetoken123',
+        'newsecurepass123',
+      );
 
-      expect(result).toEqual({ message: 'Password has been successfully reset' });
+      expect(result).toEqual({
+        message: 'Password has been successfully reset',
+      });
       expect(mockUsersService.findByResetToken).toHaveBeenCalled();
-      expect(mockUsersService.updatePassword).toHaveBeenCalledWith('user-123', 'newhashedpassword');
+      expect(mockUsersService.updatePassword).toHaveBeenCalledWith(
+        'user-123',
+        'newhashedpassword',
+      );
       expect(mockUsersService.clearResetToken).toHaveBeenCalledWith('user-123');
     });
   });

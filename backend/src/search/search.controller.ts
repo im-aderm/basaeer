@@ -5,10 +5,10 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 @Controller('search')
 @UseGuards(JwtAuthGuard)
 export class SearchController {
-    constructor(private readonly searchService: SearchService) { }
+  constructor(private readonly searchService: SearchService) {}
 
-    @Get()
-    search(@Request() req, @Query('q') query: string) {
-        return this.searchService.globalSearch(req.user.branchId, query);
-    }
+  @Get()
+  search(@Request() req, @Query('q') query: string) {
+    return this.searchService.globalSearch(req.user.branchId, query);
+  }
 }

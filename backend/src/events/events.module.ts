@@ -4,9 +4,9 @@ import { EventsController } from './events.controller';
 import { PrismaModule } from '../prisma/prisma.module';
 
 @Module({
-    imports: [PrismaModule],
-    controllers: [EventsController],
-    providers: [EventsService],
-    exports: [EventsService]
+  imports: [PrismaModule],
+  controllers: [EventsController],
+  providers: [EventsService],
+  exports: [EventsService],
 })
-export class EventsModule { }
+export class EventsModule {}

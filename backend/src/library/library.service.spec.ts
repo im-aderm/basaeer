@@ -30,11 +30,13 @@ describe('LibraryService', () => {
               create: jest.fn(),
               aggregate: jest.fn(),
             },
-            $transaction: jest.fn((cb) => cb({
-              book: { update: jest.fn() },
-              borrowRecord: { update: jest.fn() },
-              libraryFine: { create: jest.fn() },
-            })),
+            $transaction: jest.fn((cb) =>
+              cb({
+                book: { update: jest.fn() },
+                borrowRecord: { update: jest.fn() },
+                libraryFine: { create: jest.fn() },
+              }),
+            ),
           },
         },
       ],

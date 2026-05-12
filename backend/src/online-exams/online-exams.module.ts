@@ -4,8 +4,8 @@ import { OnlineExamsController } from './online-exams.controller';
 import { PrismaModule } from '../prisma/prisma.module';
 
 @Module({
-    imports: [PrismaModule],
-    controllers: [OnlineExamsController],
-    providers: [OnlineExamsService],
+  imports: [PrismaModule],
+  controllers: [OnlineExamsController],
+  providers: [OnlineExamsService],
 })
-export class OnlineExamsModule { }
+export class OnlineExamsModule {}

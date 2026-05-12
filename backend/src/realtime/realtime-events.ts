@@ -133,7 +133,11 @@ export interface RealtimeEventMap {
   // Finance
   'finance.invoice_created': InvoiceCreatedPayload;
   'finance.payment_recorded': PaymentRecordedPayload;
-  'finance.payment_verified': { paymentId: string; invoiceId: string; approved: boolean };
+  'finance.payment_verified': {
+    paymentId: string;
+    invoiceId: string;
+    approved: boolean;
+  };
   'finance.invoice_overdue': InvoiceOverduePayload;
 
   // Academic

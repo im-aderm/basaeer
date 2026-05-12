@@ -4,9 +4,9 @@ import { AssignmentsController } from './assignments.controller';
 import { PrismaModule } from '../prisma/prisma.module';
 
 @Module({
-    imports: [PrismaModule],
-    controllers: [AssignmentsController],
-    providers: [AssignmentsService],
-    exports: [AssignmentsService],
+  imports: [PrismaModule],
+  controllers: [AssignmentsController],
+  providers: [AssignmentsService],
+  exports: [AssignmentsService],
 })
-export class AssignmentsModule { }
+export class AssignmentsModule {}

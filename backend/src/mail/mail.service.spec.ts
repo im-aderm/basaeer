@@ -11,7 +11,9 @@ jest.mock('nodemailer', () => {
         messageId: '<test-message-id@test>',
       }),
     }),
-    getTestMessageUrl: jest.fn().mockReturnValue('https://ethereal.email/test-message'),
+    getTestMessageUrl: jest
+      .fn()
+      .mockReturnValue('https://ethereal.email/test-message'),
   };
 });
 
@@ -75,9 +77,11 @@ describe('MailService', () => {
 
   describe('sendAdmissionReceived', () => {
     it('should send acknowledgement email successfully', async () => {
-      const sendMailSpy = jest.spyOn<any, any>(service, 'sendMail').mockResolvedValue({
-        messageId: '<test-message-id@test>',
-      });
+      const sendMailSpy = jest
+        .spyOn<any, any>(service, 'sendMail')
+        .mockResolvedValue({
+          messageId: '<test-message-id@test>',
+        });
 
       await service.sendAdmissionReceived('parent@example.com', 'John Doe');
 
@@ -99,9 +103,11 @@ describe('MailService', () => {
     });
 
     it('should not send email to invalid address', async () => {
-      const sendMailSpy = jest.spyOn<any, any>(service, 'sendMail').mockResolvedValue({
-        messageId: '<test-message-id@test>',
-      });
+      const sendMailSpy = jest
+        .spyOn<any, any>(service, 'sendMail')
+        .mockResolvedValue({
+          messageId: '<test-message-id@test>',
+        });
 
       await service.sendAdmissionReceived('invalid-email', 'John Doe');
 
@@ -109,9 +115,11 @@ describe('MailService', () => {
     });
 
     it('should not send email to empty address', async () => {
-      const sendMailSpy = jest.spyOn<any, any>(service, 'sendMail').mockResolvedValue({
-        messageId: '<test-message-id@test>',
-      });
+      const sendMailSpy = jest
+        .spyOn<any, any>(service, 'sendMail')
+        .mockResolvedValue({
+          messageId: '<test-message-id@test>',
+        });
 
       await service.sendAdmissionReceived('', 'John Doe');
 
@@ -119,11 +127,16 @@ describe('MailService', () => {
     });
 
     it('should escape HTML in student name to prevent XSS', async () => {
-      const sendMailSpy = jest.spyOn<any, any>(service, 'sendMail').mockResolvedValue({
-        messageId: '<test-message-id@test>',
-      });
+      const sendMailSpy = jest
+        .spyOn<any, any>(service, 'sendMail')
+        .mockResolvedValue({
+          messageId: '<test-message-id@test>',
+        });
 
-      await service.sendAdmissionReceived('parent@example.com', '<script>alert("xss")</script>');
+      await service.sendAdmissionReceived(
+        'parent@example.com',
+        '<script>alert("xss")</script>',
+      );
 
       expect(sendMailSpy).toHaveBeenCalledWith(
         expect.any(String),
@@ -140,11 +153,17 @@ describe('MailService', () => {
 
   describe('sendApprovalEmail', () => {
     it('should send approval email successfully', async () => {
-      const sendMailSpy = jest.spyOn<any, any>(service, 'sendMail').mockResolvedValue({
-        messageId: '<test-message-id@test>',
-      });
+      const sendMailSpy = jest
+        .spyOn<any, any>(service, 'sendMail')
+        .mockResolvedValue({
+          messageId: '<test-message-id@test>',
+        });
 
-      await service.sendApprovalEmail('parent@example.com', 'Jane Smith', 'BMS-2026-0001');
+      await service.sendApprovalEmail(
+        'parent@example.com',
+        'Jane Smith',
+        'BMS-2026-0001',
+      );
 
       expect(sendMailSpy).toHaveBeenCalledWith(
         'parent@example.com',
@@ -164,21 +183,33 @@ describe('MailService', () => {
     });
 
     it('should not send email to invalid address', async () => {
-      const sendMailSpy = jest.spyOn<any, any>(service, 'sendMail').mockResolvedValue({
-        messageId: '<test-message-id@test>',
-      });
+      const sendMailSpy = jest
+        .spyOn<any, any>(service, 'sendMail')
+        .mockResolvedValue({
+          messageId: '<test-message-id@test>',
+        });
 
-      await service.sendApprovalEmail('not-an-email', 'Jane Smith', 'BMS-2026-0001');
+      await service.sendApprovalEmail(
+        'not-an-email',
+        'Jane Smith',
+        'BMS-2026-0001',
+      );
 
       expect(sendMailSpy).not.toHaveBeenCalled();
     });
 
     it('should escape HTML in student ID', async () => {
-      const sendMailSpy = jest.spyOn<any, any>(service, 'sendMail').mockResolvedValue({
-        messageId: '<test-message-id@test>',
-      });
+      const sendMailSpy = jest
+        .spyOn<any, any>(service, 'sendMail')
+        .mockResolvedValue({
+          messageId: '<test-message-id@test>',
+        });
 
-      await service.sendApprovalEmail('parent@example.com', 'Jane Smith', '<b>BMS-2026-0001</b>');
+      await service.sendApprovalEmail(
+        'parent@example.com',
+        'Jane Smith',
+        '<b>BMS-2026-0001</b>',
+      );
 
       expect(sendMailSpy).toHaveBeenCalledWith(
         expect.any(String),
@@ -190,9 +221,11 @@ describe('MailService', () => {
 
   describe('sendRejectionEmail', () => {
     it('should send rejection email successfully', async () => {
-      const sendMailSpy = jest.spyOn<any, any>(service, 'sendMail').mockResolvedValue({
-        messageId: '<test-message-id@test>',
-      });
+      const sendMailSpy = jest
+        .spyOn<any, any>(service, 'sendMail')
+        .mockResolvedValue({
+          messageId: '<test-message-id@test>',
+        });
 
       await service.sendRejectionEmail(
         'parent@example.com',
@@ -218,9 +251,11 @@ describe('MailService', () => {
     });
 
     it('should not send email to invalid address', async () => {
-      const sendMailSpy = jest.spyOn<any, any>(service, 'sendMail').mockResolvedValue({
-        messageId: '<test-message-id@test>',
-      });
+      const sendMailSpy = jest
+        .spyOn<any, any>(service, 'sendMail')
+        .mockResolvedValue({
+          messageId: '<test-message-id@test>',
+        });
 
       await service.sendRejectionEmail('invalid', 'Ahmed Ali', 'Some reason');
 
@@ -228,9 +263,11 @@ describe('MailService', () => {
     });
 
     it('should escape HTML in rejection reason', async () => {
-      const sendMailSpy = jest.spyOn<any, any>(service, 'sendMail').mockResolvedValue({
-        messageId: '<test-message-id@test>',
-      });
+      const sendMailSpy = jest
+        .spyOn<any, any>(service, 'sendMail')
+        .mockResolvedValue({
+          messageId: '<test-message-id@test>',
+        });
 
       await service.sendRejectionEmail(
         'parent@example.com',
@@ -253,13 +290,23 @@ describe('MailService', () => {
 
   describe('email template consistency', () => {
     it('should include footer with copyright in all emails', async () => {
-      const sendMailSpy = jest.spyOn<any, any>(service, 'sendMail').mockResolvedValue({
-        messageId: '<test-message-id@test>',
-      });
+      const sendMailSpy = jest
+        .spyOn<any, any>(service, 'sendMail')
+        .mockResolvedValue({
+          messageId: '<test-message-id@test>',
+        });
 
       await service.sendAdmissionReceived('parent@example.com', 'Test Student');
-      await service.sendApprovalEmail('parent@example.com', 'Test Student', 'ID-001');
-      await service.sendRejectionEmail('parent@example.com', 'Test Student', 'Test reason');
+      await service.sendApprovalEmail(
+        'parent@example.com',
+        'Test Student',
+        'ID-001',
+      );
+      await service.sendRejectionEmail(
+        'parent@example.com',
+        'Test Student',
+        'Test reason',
+      );
 
       const allCalls = sendMailSpy.mock.calls;
       allCalls.forEach((call) => {
@@ -269,13 +316,23 @@ describe('MailService', () => {
     });
 
     it('should include branded header in all emails', async () => {
-      const sendMailSpy = jest.spyOn<any, any>(service, 'sendMail').mockResolvedValue({
-        messageId: '<test-message-id@test>',
-      });
+      const sendMailSpy = jest
+        .spyOn<any, any>(service, 'sendMail')
+        .mockResolvedValue({
+          messageId: '<test-message-id@test>',
+        });
 
       await service.sendAdmissionReceived('parent@example.com', 'Test Student');
-      await service.sendApprovalEmail('parent@example.com', 'Test Student', 'ID-001');
-      await service.sendRejectionEmail('parent@example.com', 'Test Student', 'Test reason');
+      await service.sendApprovalEmail(
+        'parent@example.com',
+        'Test Student',
+        'ID-001',
+      );
+      await service.sendRejectionEmail(
+        'parent@example.com',
+        'Test Student',
+        'Test reason',
+      );
 
       const allCalls = sendMailSpy.mock.calls;
       allCalls.forEach((call) => {

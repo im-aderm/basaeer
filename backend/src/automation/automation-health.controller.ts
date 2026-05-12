@@ -22,7 +22,10 @@ export class AutomationHealthController {
     @GetTenantContext() tenantContext: TenantContext,
     @Query('limit') limit?: string,
   ) {
-    return this.automationService.getExecutions(tenantContext, parseInt(limit || '50', 10));
+    return this.automationService.getExecutions(
+      tenantContext,
+      parseInt(limit || '50', 10),
+    );
   }
 
   @Get('stats')
@@ -32,7 +35,9 @@ export class AutomationHealthController {
 
   @Get('queue-health')
   async getQueueHealth(@GetTenantContext() tenantContext: TenantContext) {
-    const branchId = tenantContext.isSuperAdmin ? undefined : tenantContext.branchId;
+    const branchId = tenantContext.isSuperAdmin
+      ? undefined
+      : tenantContext.branchId;
     const where = branchId ? { branchId } : {};
 
     const recentMetrics = await this.prisma.queueMetric.findMany({
@@ -62,27 +67,37 @@ export class AutomationHealthController {
 
   @Get('delivery-stats')
   async getDeliveryStats(@GetTenantContext() tenantContext: TenantContext) {
-    const branchId = tenantContext.isSuperAdmin ? undefined : tenantContext.branchId;
+    const branchId = tenantContext.isSuperAdmin
+      ? undefined
+      : tenantContext.branchId;
     const where = branchId ? { branchId } : {};
 
     const last24h = new Date(Date.now() - 24 * 60 * 60 * 1000);
 
-    const [totalDelivered, totalFailed, recentDeliveryLogs] = await Promise.all([
-      this.prisma.messageDeliveryLog.count({ where: { ...where, status: 'DELIVERED' } }),
-      this.prisma.messageDeliveryLog.count({ where: { ...where, status: 'FAILED' } }),
-      this.prisma.messageDeliveryLog.findMany({
-        where: { ...where, createdAt: { gte: last24h } },
-        orderBy: { createdAt: 'desc' },
-        take: 50,
-      }),
-    ]);
+    const [totalDelivered, totalFailed, recentDeliveryLogs] = await Promise.all(
+      [
+        this.prisma.messageDeliveryLog.count({
+          where: { ...where, status: 'DELIVERED' },
+        }),
+        this.prisma.messageDeliveryLog.count({
+          where: { ...where, status: 'FAILED' },
+        }),
+        this.prisma.messageDeliveryLog.findMany({
+          where: { ...where, createdAt: { gte: last24h } },
+          orderBy: { createdAt: 'desc' },
+          take: 50,
+        }),
+      ],
+    );
 
     return { totalDelivered, totalFailed, recentDeliveryLogs };
   }
 
   @Get('retry-stats')
   async getRetryStats(@GetTenantContext() tenantContext: TenantContext) {
-    const branchId = tenantContext.isSuperAdmin ? undefined : tenantContext.branchId;
+    const branchId = tenantContext.isSuperAdmin
+      ? undefined
+      : tenantContext.branchId;
     const where = branchId ? { branchId } : {};
 
     const retries = await this.prisma.messageRetryEvent.findMany({

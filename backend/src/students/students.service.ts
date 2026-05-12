@@ -1,8 +1,14 @@
-import { Injectable, ConflictException, ForbiddenException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  ConflictException,
+  ForbiddenException,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import { UserRole } from '../generated/client/client';
+import ExcelJS from 'exceljs';
 import * as bcrypt from 'bcrypt';
 import { TenantContext } from '../auth/branch.guard';
 import { TenantHelper } from '../prisma/tenant-helper';
@@ -13,10 +19,20 @@ export class StudentsService {
   constructor(
     private prisma: PrismaService,
     private audit: AuditService,
-  ) { }
+  ) {}
 
   async create(createStudentDto: CreateStudentDto, context: TenantContext) {
-    const { email, password, firstName, lastName, classId, sectionId, dob, phone, parentId } = createStudentDto;
+    const {
+      email,
+      password,
+      firstName,
+      lastName,
+      classId,
+      sectionId,
+      dob,
+      phone,
+      parentId,
+    } = createStudentDto;
     const branchId = createStudentDto.branchId || context.branchId;
 
     if (!branchId) {
@@ -29,7 +45,9 @@ export class StudentsService {
     }
 
     // Check if user exists
-    const existingUser = await this.prisma.user.findUnique({ where: { email } });
+    const existingUser = await this.prisma.user.findUnique({
+      where: { email },
+    });
     if (existingUser) {
       throw new ConflictException('User with this email already exists');
     }
@@ -66,16 +84,32 @@ export class StudentsService {
       return { user, student };
     });
 
-    await this.audit.log({ action: 'CREATE_STUDENT', module: 'STUDENTS', context, targetId: result.student.id, targetType: 'Student', afterState: { studentId: result.student.id, email, firstName, lastName } });
+    await this.audit.log({
+      action: 'CREATE_STUDENT',
+      module: 'STUDENTS',
+      context,
+      targetId: result.student.id,
+      targetType: 'Student',
+      afterState: { studentId: result.student.id, email, firstName, lastName },
+    });
     return result;
   }
 
-  findAll(context: TenantContext, classId?: string, sectionId?: string, skip?: number, take: number = 100) {
+  findAll(
+    context: TenantContext,
+    classId?: string,
+    sectionId?: string,
+    skip?: number,
+    take: number = 100,
+  ) {
     return this.prisma.student.findMany({
-      where: TenantHelper.applyIsolation({
-        ...(classId && { classId }),
-        ...(sectionId && { sectionId }),
-      }, context),
+      where: TenantHelper.applyIsolation(
+        {
+          ...(classId && { classId }),
+          ...(sectionId && { sectionId }),
+        },
+        context,
+      ),
       skip: skip ? Number(skip) : undefined,
       take: take ? Number(take) : 100,
       include: {
@@ -88,21 +122,21 @@ export class StudentsService {
             phone: true,
             isActive: true,
             role: true,
-          }
+          },
         },
         class: {
           select: {
             id: true,
             name: true,
-          }
+          },
         },
         section: {
           select: {
             id: true,
             name: true,
-          }
+          },
         },
-      }
+      },
     });
   }
 
@@ -119,7 +153,7 @@ export class StudentsService {
             phone: true,
             isActive: true,
             role: true,
-          }
+          },
         },
         class: true,
         section: true,
@@ -130,12 +164,12 @@ export class StudentsService {
             firstName: true,
             lastName: true,
             phone: true,
-          }
+          },
         },
         attendance: { take: 30, orderBy: { date: 'desc' } },
         transportAssignment: { include: { route: true, vehicle: true } },
-        certificates: true
-      }
+        certificates: true,
+      },
     });
 
     if (!student) {
@@ -147,11 +181,11 @@ export class StudentsService {
 
   async importStudents(fileBuffer: Buffer, context: TenantContext) {
     const branchId = context.branchId;
-    if (!branchId) throw new ForbiddenException('Branch context required for import');
+    if (!branchId)
+      throw new ForbiddenException('Branch context required for import');
 
-    const ExcelJS = require('exceljs');
     const workbook = new ExcelJS.Workbook();
-    await workbook.xlsx.load(fileBuffer);
+    await workbook.xlsx.load(fileBuffer as any);
     const worksheet = workbook.getWorksheet(1);
 
     if (!worksheet) {
@@ -163,7 +197,7 @@ export class StudentsService {
 
     const classes = await this.prisma.class.findMany({ where: { branchId } });
     const sections = await this.prisma.section.findMany({
-      where: { class: { branchId } }
+      where: { class: { branchId } },
     });
 
     worksheet.eachRow((row, rowNumber) => {
@@ -178,19 +212,30 @@ export class StudentsService {
       const sectionName = row.getCell(7).value?.toString();
 
       if (!email || !firstName || !lastName) {
-        errors.push(`Row ${rowNumber}: Missing required fields (email, firstName, lastName)`);
+        errors.push(
+          `Row ${rowNumber}: Missing required fields (email, firstName, lastName)`,
+        );
         return;
       }
 
       let classId: string | null = null;
       if (className) {
-        const classMatch = classes.find(c => c.name.toLowerCase() === className.toLowerCase() || c.id === className);
+        const classMatch = classes.find(
+          (c) =>
+            c.name.toLowerCase() === className.toLowerCase() ||
+            c.id === className,
+        );
         classId = classMatch?.id || null;
       }
 
       let sectionId: string | null = null;
       if (sectionName && classId) {
-        const sectionMatch = sections.find(s => s.classId === classId && (s.name.toLowerCase() === sectionName.toLowerCase() || s.id === sectionName));
+        const sectionMatch = sections.find(
+          (s) =>
+            s.classId === classId &&
+            (s.name.toLowerCase() === sectionName.toLowerCase() ||
+              s.id === sectionName),
+        );
         sectionId = sectionMatch?.id || null;
       }
 
@@ -202,14 +247,14 @@ export class StudentsService {
         dob: dobValue ? new Date(dobValue.toString()) : null,
         classId,
         sectionId,
-        branchId
+        branchId,
       });
     });
 
     const results = {
       success: 0,
       failed: 0,
-      details: [] as string[]
+      details: [] as string[],
     };
 
     const hashedPassword = await bcrypt.hash('student123', 10);
@@ -222,7 +267,9 @@ export class StudentsService {
         chunk.map(async (studentData) => {
           try {
             await this.prisma.$transaction(async (tx) => {
-              const existingUser = await tx.user.findUnique({ where: { email: studentData.email } });
+              const existingUser = await tx.user.findUnique({
+                where: { email: studentData.email },
+              });
               if (existingUser) {
                 throw new Error(`Email ${studentData.email} already exists`);
               }
@@ -254,9 +301,11 @@ export class StudentsService {
             results.success++;
           } catch (error) {
             results.failed++;
-            results.details.push(`Failed to import ${studentData.email}: ${error.message}`);
+            results.details.push(
+              `Failed to import ${studentData.email}: ${error.message}`,
+            );
           }
-        })
+        }),
       );
 
       // Yield execution to the event loop so other requests are processed without latency
@@ -266,11 +315,15 @@ export class StudentsService {
     return {
       message: `Import completed: ${results.success} succeeded, ${results.failed} failed.`,
       ...results,
-      parsingErrors: errors
+      parsingErrors: errors,
     };
   }
 
-  async update(id: string, updateStudentDto: UpdateStudentDto, context: TenantContext) {
+  async update(
+    id: string,
+    updateStudentDto: UpdateStudentDto,
+    context: TenantContext,
+  ) {
     // Ownership check
     await this.findOne(id, context);
 
@@ -295,55 +348,64 @@ export class StudentsService {
       where: TenantHelper.applyIsolation({}, context),
       include: {
         _count: {
-          select: { deactivations: true }
-        }
-      }
+          select: { deactivations: true },
+        },
+      },
     });
   }
 
   async createDeactivationReason(data: any, context: TenantContext) {
     const branchId = data.branchId || context.branchId;
     if (!branchId) throw new ForbiddenException('Branch context required');
-    
+
     return this.prisma.deactivationReason.create({
-      data: { ...data, branchId }
+      data: { ...data, branchId },
     });
   }
 
-  async updateDeactivationReason(id: string, data: any, context: TenantContext) {
+  async updateDeactivationReason(
+    id: string,
+    data: any,
+    context: TenantContext,
+  ) {
     // Ownership check
     const reason = await this.prisma.deactivationReason.findFirst({
-      where: TenantHelper.applyIsolation({ id }, context)
+      where: TenantHelper.applyIsolation({ id }, context),
     });
     if (!reason) throw new NotFoundException('Reason not found');
 
     return this.prisma.deactivationReason.update({
       where: { id },
-      data
+      data,
     });
   }
 
   async deleteDeactivationReason(id: string, context: TenantContext) {
     // Ownership check
     const reason = await this.prisma.deactivationReason.findFirst({
-      where: TenantHelper.applyIsolation({ id }, context)
+      where: TenantHelper.applyIsolation({ id }, context),
     });
     if (!reason) throw new NotFoundException('Reason not found');
 
     return this.prisma.deactivationReason.delete({
-      where: { id }
+      where: { id },
     });
   }
 
   // Login Deactivation
-  async deactivateLogin(studentIds: string[], reason: string, context: TenantContext, reasonId?: string) {
+  async deactivateLogin(
+    studentIds: string[],
+    reason: string,
+    context: TenantContext,
+    reasonId?: string,
+  ) {
     const branchId = context.branchId;
     if (!branchId) throw new ForbiddenException('Branch context required');
 
     return this.prisma.$transaction(async (tx) => {
       const students = await tx.student.findMany({
         where: TenantHelper.applyIsolation({ id: { in: studentIds } }, context),
-        include: { user: true }
+        include: { user: true },
       });
 
       const deactivations: any[] = [];
@@ -351,7 +413,7 @@ export class StudentsService {
         if (student.userId) {
           await tx.user.update({
             where: { id: student.userId },
-            data: { isActive: false }
+            data: { isActive: false },
           });
 
           const deactivation = await tx.loginDeactivation.create({
@@ -360,8 +422,8 @@ export class StudentsService {
               userId: student.userId,
               reason,
               reasonId,
-              branchId
-            }
+              branchId,
+            },
           });
           deactivations.push(deactivation);
         }
@@ -373,7 +435,7 @@ export class StudentsService {
   async reactivateLogin(studentId: string, context: TenantContext) {
     const student = await this.prisma.student.findFirst({
       where: TenantHelper.applyIsolation({ id: studentId }, context),
-      include: { user: true }
+      include: { user: true },
     });
 
     if (!student) throw new NotFoundException('Student not found');
@@ -381,7 +443,7 @@ export class StudentsService {
     if (student?.userId) {
       return this.prisma.user.update({
         where: { id: student.userId },
-        data: { isActive: true }
+        data: { isActive: true },
       });
     }
     return null;
@@ -390,7 +452,7 @@ export class StudentsService {
   async getLoginDeactivations(context: TenantContext) {
     return this.prisma.loginDeactivation.findMany({
       where: TenantHelper.applyIsolation({}, context),
-      orderBy: { createdAt: 'desc' }
+      orderBy: { createdAt: 'desc' },
     });
   }
 
@@ -405,28 +467,30 @@ export class StudentsService {
       this.prisma.student.count({
         where: {
           ...where,
-          createdAt: { gte: firstDayOfMonth }
-        }
+          createdAt: { gte: firstDayOfMonth },
+        },
       }),
       this.prisma.attendance.findMany({
         where: { branchId: context.branchId || undefined },
-        select: { status: true }
-      })
+        select: { status: true },
+      }),
     ]);
 
     const activeClasses = await this.prisma.class.count({ where });
 
-    const attendanceRate = totalAttendance.length > 0
-      ? (totalAttendance.filter(a => ['PRESENT', 'LATE'].includes(a.status)).length / totalAttendance.length) * 100
-      : 0;
+    const attendanceRate =
+      totalAttendance.length > 0
+        ? (totalAttendance.filter((a) => ['PRESENT', 'LATE'].includes(a.status))
+            .length /
+            totalAttendance.length) *
+          100
+        : 0;
 
     return {
       total,
       newThisMonth,
       activeClasses,
-      attendanceRate: `${attendanceRate.toFixed(1)}%`
+      attendanceRate: `${attendanceRate.toFixed(1)}%`,
     };
   }
 }
-
-

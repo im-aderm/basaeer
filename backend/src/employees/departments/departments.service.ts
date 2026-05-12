@@ -4,29 +4,29 @@ import { CreateDepartmentDto } from './dto/create-department.dto';
 
 @Injectable()
 export class DepartmentsService {
-    constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
-    async create(createDepartmentDto: CreateDepartmentDto) {
-        return this.prisma.department.create({
-            data: createDepartmentDto,
-        });
-    }
+  async create(createDepartmentDto: CreateDepartmentDto) {
+    return this.prisma.department.create({
+      data: createDepartmentDto,
+    });
+  }
 
-    async findAll(branchId: string | null) {
-        return this.prisma.department.findMany({
-            where: { ...(branchId && { branchId }) },
-        });
-    }
+  async findAll(branchId: string | null) {
+    return this.prisma.department.findMany({
+      where: { ...(branchId && { branchId }) },
+    });
+  }
 
-    async findOne(id: string) {
-        return this.prisma.department.findUnique({
-            where: { id },
-        });
-    }
+  async findOne(id: string) {
+    return this.prisma.department.findUnique({
+      where: { id },
+    });
+  }
 
-    async remove(id: string) {
-        return this.prisma.department.delete({
-            where: { id },
-        });
-    }
+  async remove(id: string) {
+    return this.prisma.department.delete({
+      where: { id },
+    });
+  }
 }
