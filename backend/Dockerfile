@@ -6,10 +6,12 @@ WORKDIR /app
 # Load the NPM Workspace topology to enable native local linking
 COPY package*.json ./
 COPY backend/package*.json ./backend/
+COPY backend/prisma ./backend/prisma
 COPY packages/shared-types ./packages/shared-types/
 
 # Install at workspace root. This links packages/shared-types automatically.
-RUN npm ci
+# Skip postinstall (prisma generate) — schema is present but TypeScript source isn't copied yet.
+RUN npm ci --ignore-scripts
 
 # Stage backend artifacts needed for build
 COPY backend ./backend
