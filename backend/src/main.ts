@@ -15,7 +15,7 @@ async function bootstrap() {
   const logger = new Logger('Bootstrap');
   logger.log('Starting NestJS application...');
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
-  
+
   // ── Global Exception Filter ────────────────────────────────────────────────
   app.useGlobalFilters(new AllExceptionsFilter(app.get(HttpAdapterHost)));
 
@@ -35,30 +35,34 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
 
   // ── Security Headers ────────────────────────────────────────────────────────
-  app.use(helmet({
-    contentSecurityPolicy: {
-      directives: {
-        defaultSrc: ["'self'"],
-        scriptSrc: ["'self'", "'unsafe-inline'"],
-        styleSrc: ["'self'", "'unsafe-inline'"],
-        imgSrc: ["'self'", "data:", "https:", "blob:"],
-        connectSrc: ["'self'", "https:", "http:"],
-        fontSrc: ["'self'", "https:", "data:"],
-        objectSrc: ["'none'"],
-        mediaSrc: ["'self'"],
-        frameSrc: ["'none'"],
+  app.use(
+    helmet({
+      contentSecurityPolicy: {
+        directives: {
+          defaultSrc: ["'self'"],
+          scriptSrc: ["'self'", "'unsafe-inline'"],
+          styleSrc: ["'self'", "'unsafe-inline'"],
+          imgSrc: ["'self'", 'data:', 'https:', 'blob:'],
+          connectSrc: ["'self'", 'https:', 'http:'],
+          fontSrc: ["'self'", 'https:', 'data:'],
+          objectSrc: ["'none'"],
+          mediaSrc: ["'self'"],
+          frameSrc: ["'none'"],
+        },
       },
-    },
-    crossOriginEmbedderPolicy: false,
-    crossOriginResourcePolicy: { policy: "cross-origin" },
-  }));
+      crossOriginEmbedderPolicy: false,
+      crossOriginResourcePolicy: { policy: 'cross-origin' },
+    }),
+  );
   app.use(cookieParser());
   app.disable('x-powered-by');
 
   // ── CORS ────────────────────────────────────────────────────────────────────
   const allowedOrigins = [
     'http://localhost:3000',
-    ...(process.env.CORS_ALLOWED_ORIGINS ? process.env.CORS_ALLOWED_ORIGINS.split(',') : []),
+    ...(process.env.CORS_ALLOWED_ORIGINS
+      ? process.env.CORS_ALLOWED_ORIGINS.split(',')
+      : []),
     ...(process.env.FRONTEND_URL ? [process.env.FRONTEND_URL] : []),
   ];
 
@@ -83,14 +87,19 @@ async function bootstrap() {
   const signals: NodeJS.Signals[] = ['SIGTERM', 'SIGINT', 'SIGQUIT'];
 
   for (const signal of signals) {
-    process.on(signal, async () => {
-      logger.log(`Received ${signal}. Starting graceful shutdown...`);
-      await app.close();
-      if (prismaService && typeof prismaService.$disconnect === 'function') {
-        await prismaService.$disconnect();
-      }
-      logger.log('Graceful shutdown completed.');
-      process.exit(0);
+    process.on(signal, () => {
+      (async () => {
+        logger.log(`Received ${signal}. Starting graceful shutdown...`);
+        await app.close();
+        if (prismaService && typeof prismaService.$disconnect === 'function') {
+          await prismaService.$disconnect();
+        }
+        logger.log('Graceful shutdown completed.');
+        process.exit(0);
+      })().catch((err) => {
+        logger.error('Error during graceful shutdown:', err);
+        process.exit(1);
+      });
     });
   }
 
