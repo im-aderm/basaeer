@@ -13,30 +13,50 @@ import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 import { UserRole } from '../generated/client/client';
 import { Response } from 'express';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiBody,
+} from '@nestjs/swagger';
 
 @UseGuards(JwtAuthGuard, RolesGuard)
+@ApiTags('Backup')
 @Controller('backups')
 export class BackupController {
   constructor(private readonly backupService: BackupService) {}
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Backup' })
   @Post()
   @Roles(UserRole.SUPER_ADMIN)
   createBackup() {
     return this.backupService.createBackup();
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Backups' })
   @Get()
   @Roles(UserRole.SUPER_ADMIN)
   getBackups() {
     return this.backupService.getBackups();
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Delete Backup' })
   @Delete(':filename')
   @Roles(UserRole.SUPER_ADMIN)
   deleteBackup(@Param('filename') filename: string) {
     return this.backupService.deleteBackup(filename);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Download Backup' })
   @Get('download/:filename')
   @Roles(UserRole.SUPER_ADMIN)
   async downloadBackup(

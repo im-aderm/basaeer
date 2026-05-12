@@ -5,24 +5,28 @@ import { useAuth } from '@/context/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { UserPlus, Search, Mail, Phone, Building2, Briefcase, Loader2 } from 'lucide-react';
+import { UserPlus, Search, Mail, Phone, Building2, Briefcase, Loader2, AlertCircle } from 'lucide-react';
 import { DataTable } from '@/components/DataTable';
 import Link from 'next/link';
 import api from '@/lib/api';
 import { cn } from '@/lib/utils';
+import { toast } from 'sonner';
 
 export default function EmployeesListPage() {
     const { user } = useAuth();
     const [employees, setEmployees] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
     const [searchTerm, setSearchTerm] = useState('');
 
     const fetchEmployees = async () => {
         try {
             const res = await api.get('/employees');
             setEmployees(res.data);
+            setError(null);
         } catch (error) {
-            console.error('Failed to fetch employees', error);
+            setError("Could not load employee data");
+            toast.error('Failed to fetch employees');
         } finally {
             setLoading(false);
         }
@@ -105,7 +109,18 @@ export default function EmployeesListPage() {
         }
     ];
 
-    if (loading) return <div className="p-8 text-center"><Loader2 className="animate-spin mx-auto h-8 w-8 text-primary" /></div>;
+    if (loading) return (
+        <div className="flex h-[60vh] items-center justify-center">
+            <Loader2 className="w-10 h-10 animate-spin text-primary" />
+        </div>
+    );
+
+    if (error) return (
+        <div className="flex h-[60vh] flex-col items-center justify-center gap-4">
+            <AlertCircle className="w-12 h-12 text-destructive" />
+            <p className="text-lg font-semibold text-destructive">{error}</p>
+        </div>
+    );
 
     return (
         <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in duration-500">

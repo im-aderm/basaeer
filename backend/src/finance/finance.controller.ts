@@ -19,12 +19,24 @@ import { Roles } from '../auth/roles.decorator';
 import { UserRole, VoucherStatus } from '../generated/client/client';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiBody,
+} from '@nestjs/swagger';
 
 @UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@ApiTags('Finance')
 @Controller('finance')
 export class FinanceController {
   constructor(private readonly financeService: FinanceService) {}
 
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateFeeCategoryDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Category' })
   @Post('fee-categories')
   @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
   createCategory(
@@ -34,12 +46,19 @@ export class FinanceController {
     return this.financeService.createFeeCategory(dto, context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Categories' })
   @Get('fee-categories')
   @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
   getCategories(@GetTenantContext() context: TenantContext) {
     return this.financeService.getFeeCategories(context);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateFeeStructureDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Structure' })
   @Post('fee-structures')
   @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
   createStructure(
@@ -49,12 +68,19 @@ export class FinanceController {
     return this.financeService.createFeeStructure(dto, context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Structures' })
   @Get('fee-structures')
   @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
   getStructures(@GetTenantContext() context: TenantContext) {
     return this.financeService.getFeeStructures(context);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateInvoiceDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Invoice' })
   @Post('invoices')
   @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
   createInvoice(
@@ -64,6 +90,9 @@ export class FinanceController {
     return this.financeService.createInvoice(dto, context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Payment' })
   @Post('payments')
   @Roles(
     UserRole.STUDENT,
@@ -78,6 +107,9 @@ export class FinanceController {
     return this.financeService.recordPayment(dto, context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Update Verify Payment' })
   @Patch('payments/:id/verify')
   @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
   verifyPayment(
@@ -88,6 +120,9 @@ export class FinanceController {
     return this.financeService.verifyPayment(id, isApproved, context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Student Invoices' })
   @Get('invoices/student/:studentId')
   @Roles(
     UserRole.STUDENT,
@@ -102,6 +137,9 @@ export class FinanceController {
     return this.financeService.getStudentInvoices(studentId, context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Stats' })
   @Get('stats')
   @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
   getStats(@GetTenantContext() context: TenantContext) {
@@ -110,6 +148,9 @@ export class FinanceController {
 
   // Voucher Endpoints
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Expense Category' })
   @Post('expense-categories')
   @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
   createExpenseCategory(
@@ -119,18 +160,27 @@ export class FinanceController {
     return this.financeService.createExpenseCategory(dto, context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Expense Categories' })
   @Get('expense-categories')
   @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
   getExpenseCategories(@GetTenantContext() context: TenantContext) {
     return this.financeService.getExpenseCategories(context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Voucher' })
   @Post('vouchers')
   @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
   createVoucher(@Body() dto: any, @GetTenantContext() context: TenantContext) {
     return this.financeService.createVoucher(dto, context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Update Voucher Status' })
   @Patch('vouchers/:id/status')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   updateVoucherStatus(
@@ -141,6 +191,9 @@ export class FinanceController {
     return this.financeService.updateVoucherStatus(id, status, context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Vouchers' })
   @Get('vouchers')
   @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
   getVouchers(
@@ -153,6 +206,9 @@ export class FinanceController {
     return this.financeService.getVouchers(context, skipNum, takeNum);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Cashflow' })
   @Get('cashflow')
   @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
   getCashflow(

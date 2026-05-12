@@ -24,19 +24,34 @@ import { Roles } from '../auth/roles.decorator';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { UserRole } from '../generated/client/client';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiBody,
+} from '@nestjs/swagger';
 
 @UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@ApiTags('Online Exams')
 @Controller('online-exams')
 export class OnlineExamsController {
   constructor(private readonly examsService: OnlineExamsService) {}
 
   // ==================== Question Groups ====================
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateQuestionGroupDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Group' })
   @Post('groups')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   createGroup(@Body() dto: CreateQuestionGroupDto) {
     return this.examsService.createQuestionGroup(dto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Groups' })
   @Get('groups')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   getGroups(@GetTenantContext() ctx: TenantContext, @Request() req: any) {
@@ -46,24 +61,38 @@ export class OnlineExamsController {
   }
 
   // ==================== Questions ====================
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateQuestionDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Question' })
   @Post('questions')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   createQuestion(@Body() dto: CreateQuestionDto) {
     return this.examsService.createQuestion(dto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Questions' })
   @Get('groups/:groupId/questions')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   getQuestions(@Param('groupId') groupId: string) {
     return this.examsService.getQuestionsByGroup(groupId);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateQuestionDto })
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Update Question' })
   @Patch('questions/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   updateQuestion(@Param('id') id: string, @Body() dto: CreateQuestionDto) {
     return this.examsService.updateQuestion(id, dto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Delete Question' })
   @Delete('questions/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   deleteQuestion(@Param('id') id: string) {
@@ -71,12 +100,19 @@ export class OnlineExamsController {
   }
 
   // ==================== Exams ====================
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateOnlineExamDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Exam' })
   @Post()
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   createExam(@Body() dto: CreateOnlineExamDto) {
     return this.examsService.createExam(dto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Exams' })
   @Get()
   @Roles(
     UserRole.SUPER_ADMIN,
@@ -95,12 +131,19 @@ export class OnlineExamsController {
     return this.examsService.getExams(branchId, { classId, subjectId });
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Start Exam' })
   @Get(':id/start')
   @Roles(UserRole.STUDENT)
   startExam(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     return this.examsService.getExamForStudent(id, ctx.userId);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: SubmitAttemptDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Attempt' })
   @Post('submit')
   @Roles(UserRole.STUDENT)
   submitAttempt(
@@ -110,6 +153,10 @@ export class OnlineExamsController {
     return this.examsService.submitAttempt(ctx.userId, dto);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: SubmitAttemptDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Sync Answers' })
   @Post('sync')
   @Roles(UserRole.STUDENT)
   syncAnswers(
@@ -120,12 +167,19 @@ export class OnlineExamsController {
   }
 
   // ==================== Grading ====================
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Attempts' })
   @Get(':id/attempts')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   getAttempts(@Param('id') id: string) {
     return this.examsService.getAttempts(id);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: GradeDescriptiveAnswerDto })
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Update Grade Answer' })
   @Patch('attempts/:attemptId/questions/:questionId/grade')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   gradeAnswer(
@@ -140,6 +194,9 @@ export class OnlineExamsController {
     );
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Generate Positions' })
   @Post(':id/generate-positions')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   generatePositions(@Param('id') id: string) {

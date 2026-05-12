@@ -1,12 +1,22 @@
 import { Controller, Get, UseGuards, Req, Query } from '@nestjs/common';
 import { ApiKeyGuard } from '../common/guards/api-key.guard';
 import { PrismaService } from '../prisma/prisma.service';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiBody,
+} from '@nestjs/swagger';
 
 @UseGuards(ApiKeyGuard)
+@ApiTags('Public API')
 @Controller('public-api')
 export class PublicApiController {
   constructor(private readonly prisma: PrismaService) {}
 
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Students' })
   @Get('students')
   async getStudents(@Req() req: any, @Query('classId') classId?: string) {
     return this.prisma.student.findMany({
@@ -23,6 +33,8 @@ export class PublicApiController {
     });
   }
 
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Attendance Summary' })
   @Get('attendance/summary')
   async getAttendanceSummary(@Req() req: any, @Query('date') date?: string) {
     const targetDate = date ? new Date(date) : new Date();

@@ -17,18 +17,29 @@ import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { Roles } from '../auth/roles.decorator';
 import { UserRole } from '../generated/client/client';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiBody,
+} from '@nestjs/swagger';
 
 @UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@ApiTags('Assignments')
 @Controller('assignments')
 export class AssignmentsController {
   constructor(private readonly assignmentsService: AssignmentsService) {}
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create resource' })
   @Post()
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   create(
     @GetTenantContext() context: TenantContext,
     @Body() data: any,
-    @Request() req,
+    @Request() req: any,
   ) {
     data.branchId = req.user.branchId;
     if (req.user.role === UserRole.TEACHER) {
@@ -37,12 +48,18 @@ export class AssignmentsController {
     return this.assignmentsService.createAssignment(data, context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve All' })
   @Get()
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   findAll(@GetTenantContext() context: TenantContext, @Query() filters: any) {
     return this.assignmentsService.findAll(context, filters);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve By Student' })
   @Get('student/:studentId')
   @Roles(
     UserRole.SUPER_ADMIN,
@@ -57,11 +74,16 @@ export class AssignmentsController {
     return this.assignmentsService.findByStudent(studentId, context);
   }
 
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve One' })
   @Get(':id')
   findOne(@GetTenantContext() context: TenantContext, @Param('id') id: string) {
     return this.assignmentsService.findOne(id, context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Update resource' })
   @Put(':id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   update(
@@ -72,6 +94,9 @@ export class AssignmentsController {
     return this.assignmentsService.update(id, data, context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Delete resource' })
   @Delete(':id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   remove(@GetTenantContext() context: TenantContext, @Param('id') id: string) {
@@ -79,12 +104,18 @@ export class AssignmentsController {
   }
 
   // --- Submissions ---
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create resource' })
   @Post('submit')
   @Roles(UserRole.STUDENT)
   submit(@GetTenantContext() context: TenantContext, @Body() data: any) {
     return this.assignmentsService.submitAssignment(data, context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Submissions' })
   @Get(':id/submissions')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   getSubmissions(
@@ -94,6 +125,9 @@ export class AssignmentsController {
     return this.assignmentsService.getSubmissions(id, context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Update Grade' })
   @Put('submissions/:id/grade')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   grade(

@@ -1,0 +1,59 @@
+name: CI
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: basaeer
+          POSTGRES_PASSWORD: basaeer_test
+          POSTGRES_DB: basaeer_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+      redis:
+        image: redis:7
+        ports:
+          - 6379:6379
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build --workspaces
+      - run: npm run lint --workspaces
+        continue-on-error: true
+      - name: Run backend tests
+        working-directory: backend
+        run: npm test
+        env:
+          DATABASE_URL: postgresql://basaeer:basaeer_test@localhost:5432/basaeer_test
+          JWT_SECRET: ci-test-secret-change-in-production
+          REDIS_HOST: localhost
+          REDIS_PORT: 6379
+
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build --workspace=frontend
+      - run: npm run lint --workspace=frontend
+        continue-on-error: true

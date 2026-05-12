@@ -16,12 +16,24 @@ import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { Roles } from '../auth/roles.decorator';
 import { UserRole } from '../generated/client/client';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiBody,
+} from '@nestjs/swagger';
 
 @UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@ApiTags('Library')
 @Controller('library')
 export class LibraryController {
   constructor(private readonly libraryService: LibraryService) {}
 
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateBookDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Book' })
   @Post('books')
   @Roles(UserRole.SUPER_ADMIN, UserRole.LIBRARIAN, UserRole.BRANCH_ADMIN)
   createBook(
@@ -32,6 +44,9 @@ export class LibraryController {
     return this.libraryService.createBook(dto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve resource' })
   @Get('books')
   @Roles(
     UserRole.SUPER_ADMIN,
@@ -57,24 +72,37 @@ export class LibraryController {
     );
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve One Book' })
   @Get('books/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.LIBRARIAN, UserRole.BRANCH_ADMIN)
   findOneBook(@Param('id') id: string) {
     return this.libraryService.findOneBook(id);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: BorrowBookDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Borrow Book' })
   @Post('borrow')
   @Roles(UserRole.SUPER_ADMIN, UserRole.LIBRARIAN, UserRole.BRANCH_ADMIN)
   borrowBook(@Body() dto: BorrowBookDto) {
     return this.libraryService.borrowBook(dto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Return Book' })
   @Post('return/:recordId')
   @Roles(UserRole.SUPER_ADMIN, UserRole.LIBRARIAN, UserRole.BRANCH_ADMIN)
   returnBook(@Param('recordId') recordId: string) {
     return this.libraryService.returnBook(recordId);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve All Borrow Records' })
   @Get('borrow-records')
   @Roles(UserRole.SUPER_ADMIN, UserRole.LIBRARIAN, UserRole.BRANCH_ADMIN)
   findAllBorrowRecords(@GetTenantContext() ctx: TenantContext) {
@@ -83,6 +111,9 @@ export class LibraryController {
     );
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Stats' })
   @Get('stats')
   @Roles(UserRole.SUPER_ADMIN, UserRole.LIBRARIAN, UserRole.BRANCH_ADMIN)
   getStats(@GetTenantContext() ctx: TenantContext) {
@@ -91,6 +122,9 @@ export class LibraryController {
     );
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Overdue Books' })
   @Get('overdue')
   @Roles(UserRole.SUPER_ADMIN, UserRole.LIBRARIAN, UserRole.BRANCH_ADMIN)
   getOverdueBooks(@GetTenantContext() ctx: TenantContext) {

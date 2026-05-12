@@ -15,30 +15,51 @@ import { RolesGuard } from '../../auth/roles.guard';
 import { Roles } from '../../auth/roles.decorator';
 import { BranchGuard } from '../../auth/branch.guard';
 import { UserRole } from '../../generated/client/client';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiBody,
+} from '@nestjs/swagger';
 
+@ApiTags('Departments')
 @Controller('departments')
 @UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
 export class DepartmentsController {
   constructor(private readonly departmentsService: DepartmentsService) {}
 
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateDepartmentDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create resource' })
   @Post()
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   create(@Body() createDepartmentDto: CreateDepartmentDto) {
     return this.departmentsService.create(createDepartmentDto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve All' })
   @Get()
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  findAll(@Request() req) {
+  findAll(@Request() req: any) {
     return this.departmentsService.findAll(req.user.branchId);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve One' })
   @Get(':id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   findOne(@Param('id') id: string) {
     return this.departmentsService.findOne(id);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Delete resource' })
   @Delete(':id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   remove(@Param('id') id: string) {

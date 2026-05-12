@@ -7,11 +7,21 @@ import {
 } from '@nestjs/common';
 import { GoogleMeetService } from './google-meet.service';
 import { Response } from 'express';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiBody,
+} from '@nestjs/swagger';
 
+@ApiTags('Google Meet OAuth')
 @Controller('live-classes/auth')
 export class MeetOAuthController {
   constructor(private readonly googleMeet: GoogleMeetService) {}
 
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Google Auth' })
   @Get('google')
   async googleAuth(@Query('branchId') branchId: string, @Res() res: Response) {
     if (!branchId) {
@@ -21,6 +31,8 @@ export class MeetOAuthController {
     res.redirect(url);
   }
 
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Google Auth Callback' })
   @Get('google/callback')
   async googleAuthCallback(
     @Query('code') code: string,

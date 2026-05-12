@@ -259,7 +259,7 @@ export default function StudentIdCardsPage() {
                                                 <div className="flex items-center gap-4">
                                                     <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-muted bg-muted">
                                                         {student.passportPhoto ? (
-                                                            <img src={student.passportPhoto} className="w-full h-full object-cover" />
+                                                            <img src={student.passportPhoto} alt={`${student.firstName || ''} ${student.lastName || ''}`} className="w-full h-full object-cover" />
                                                         ) : (
                                                             <div className="w-full h-full flex items-center justify-center text-muted-foreground">
                                                                 <Users size={20} />
@@ -325,7 +325,7 @@ export default function StudentIdCardsPage() {
                         <div className="bg-white p-10 space-y-8 flex flex-col items-center text-center">
                             <div className="w-32 h-32 rounded-3xl overflow-hidden border-4 border-primary/10 bg-muted mb-4 shadow-xl">
                                 {previewCard.student?.passportPhoto ? (
-                                    <img src={previewCard.student.passportPhoto} className="w-full h-full object-cover" />
+                                    <img src={previewCard.student.passportPhoto} alt={`${previewCard.student?.firstName || ''} ${previewCard.student?.lastName || ''}`} className="w-full h-full object-cover" />
                                 ) : (
                                     <div className="w-full h-full flex items-center justify-center text-muted-foreground">
                                         <Users size={40} />

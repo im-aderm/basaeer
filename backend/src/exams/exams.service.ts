@@ -213,7 +213,7 @@ export class ExamsService {
     records: any[],
     gradingScale: any[],
   ): number | null {
-    const eligible = records.filter((r) => r.isEligible);
+    const eligible = records.filter((r: any) => r.isEligible);
     if (eligible.length === 0) return null;
     const points = eligible
       .map(
@@ -306,10 +306,10 @@ export class ExamsService {
     const outOf = records.length;
     if (outOf === 0) return;
 
-    const totals = records.map((r) => r.total || 0);
+    const totals = records.map((r: any) => r.total || 0);
     const highscore = Math.max(...totals);
     const lowscore = Math.min(...totals);
-    const classAvg = totals.reduce((a, b) => a + b, 0) / outOf;
+    const classAvg = totals.reduce((a: number, b: number) => a + b, 0) / outOf;
 
     let rank = 1;
     let prevTotal = -1;
@@ -620,8 +620,8 @@ export class ExamsService {
 
       // Assessment Records (only eligible ones)
       subjects: student.assessmentRecords
-        .filter((r) => r.isEligible)
-        .map((r) => ({
+        .filter((r: any) => r.isEligible)
+        .map((r: any) => ({
           name: r.subject?.name,
           asgn1: r.asgn1 || 0,
           asgn2: r.asgn2 || 0,
@@ -720,7 +720,7 @@ export class ExamsService {
       });
 
       // Group by subject
-      const subjectAverages = {};
+      const subjectAverages: Record<string, any> = {};
       for (const record of allTermsRecords) {
         if (!subjectAverages[record.subjectId]) {
           subjectAverages[record.subjectId] = {
@@ -817,7 +817,7 @@ export class ExamsService {
     });
 
     // Group records by subject
-    const subjectsMap = {};
+    const subjectsMap: Record<string, any> = {};
     for (const r of student.assessmentRecords) {
       if (!subjectsMap[r.subjectId]) {
         subjectsMap[r.subjectId] = {

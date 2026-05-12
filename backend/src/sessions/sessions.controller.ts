@@ -14,35 +14,55 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 import { Public } from '../auth/public.decorator';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiBody,
+} from '@nestjs/swagger';
 
 @UseGuards(JwtAuthGuard, RolesGuard)
+@ApiTags('Sessions')
 @Controller('sessions')
 export class SessionsController {
   constructor(private readonly sessionsService: SessionsService) {}
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create resource' })
   @Post()
   @Roles(UserRole.SUPER_ADMIN)
   create(@Body() data: Prisma.AcademicSessionCreateInput) {
     return this.sessionsService.create(data);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve All' })
   @Get()
   @Public()
   findAll() {
     return this.sessionsService.findAll();
   }
 
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Active' })
   @Get('active')
   @Public()
   findActive() {
     return this.sessionsService.findActive();
   }
 
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve One' })
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.sessionsService.findOne(id);
   }
 
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Update resource' })
   @Patch(':id')
   @Roles(UserRole.SUPER_ADMIN)
   update(
@@ -52,6 +72,9 @@ export class SessionsController {
     return this.sessionsService.update(id, data);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Delete resource' })
   @Delete(':id')
   @Roles(UserRole.SUPER_ADMIN)
   remove(@Param('id') id: string) {

@@ -1,0 +1,8 @@
+pre-commit:
+  commands:
+    typecheck-backend:
+      root: backend/
+      run: npx tsc --noEmit
+    lint-backend:
+      root: backend/
+      run: npx eslint "{src,apps,libs}/**/*.ts" --fix

@@ -15,12 +15,23 @@ import { UserRole } from '../generated/client/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { TenantContext } from '../auth/branch.guard';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiBody,
+} from '@nestjs/swagger';
 
+@ApiTags('Comms Templates')
 @Controller('comms/templates')
 @UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
 export class TemplateController {
   constructor(private readonly prisma: PrismaService) {}
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Email Templates' })
   @Get('email')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   async getEmailTemplates(@GetTenantContext() context: TenantContext) {
@@ -29,6 +40,9 @@ export class TemplateController {
     });
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Email Template' })
   @Post('email')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   async createEmailTemplate(
@@ -50,6 +64,9 @@ export class TemplateController {
     });
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Update Email Template' })
   @Put('email/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   async updateEmailTemplate(
@@ -69,6 +86,9 @@ export class TemplateController {
     });
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Sms Templates' })
   @Get('sms')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   async getSmsTemplates(@GetTenantContext() context: TenantContext) {
@@ -77,6 +97,9 @@ export class TemplateController {
     });
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Sms Template' })
   @Post('sms')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   async createSmsTemplate(
@@ -92,6 +115,9 @@ export class TemplateController {
     });
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Update Sms Template' })
   @Put('sms/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   async updateSmsTemplate(

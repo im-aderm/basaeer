@@ -13,11 +13,21 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 import { UserRole } from '../generated/client/client';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiBody,
+} from '@nestjs/swagger';
 
+@ApiTags('Translations')
 @Controller('translations')
 export class TranslationsController {
   constructor(private readonly translationsService: TranslationsService) {}
 
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve By Locale' })
   @Get(':locale')
   findByLocale(
     @Param('locale') locale: string,
@@ -26,6 +36,10 @@ export class TranslationsController {
     return this.translationsService.findByLocale(locale, group);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: BulkUpsertTranslationsDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Bulk Upsert' })
   @Post()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.SUPER_ADMIN)

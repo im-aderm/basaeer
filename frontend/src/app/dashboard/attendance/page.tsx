@@ -1,13 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Users, Briefcase, Calendar, CheckCircle2, Clock, AlertCircle, QrCode } from "lucide-react";
+import { Users, Briefcase, Calendar, CheckCircle2, Clock, AlertCircle, QrCode, Loader2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { format } from "date-fns";
 import api from "@/lib/api";
 import { AttendanceService } from "@/services/attendanceService";
+import { toast } from "sonner";
 
 export default function AttendanceDashboard() {
     const router = useRouter();
@@ -18,6 +19,7 @@ export default function AttendanceDashboard() {
         totalStaff: 0
     });
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchStats = async () => {
@@ -25,13 +27,31 @@ export default function AttendanceDashboard() {
                 const data = await AttendanceService.getStats();
                 setStats(data);
             } catch (error) {
-                console.error("Failed to fetch attendance stats", error);
+                setError("Could not load attendance data");
+                toast.error("Failed to fetch attendance statistics");
             } finally {
                 setLoading(false);
             }
         };
         fetchStats();
     }, []);
+
+    if (loading) {
+        return (
+            <div className="flex h-[60vh] items-center justify-center">
+                <Loader2 className="w-10 h-10 animate-spin text-primary" />
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="flex h-[60vh] flex-col items-center justify-center gap-4">
+                <AlertCircle className="w-12 h-12 text-destructive" />
+                <p className="text-lg font-semibold text-destructive">{error}</p>
+            </div>
+        );
+    }
 
     return (
         <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in duration-700 pb-10">

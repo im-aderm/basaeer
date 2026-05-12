@@ -26,7 +26,15 @@ import {
   CreateLeaveRequestDto,
   UpdateLeaveStatusDto,
 } from './dto/hr-ops.dto';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiBody,
+} from '@nestjs/swagger';
 
+@ApiTags('Employees')
 @Controller('employees')
 @UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
 export class EmployeesController {
@@ -36,6 +44,10 @@ export class EmployeesController {
     private readonly leaveService: LeaveService,
   ) {}
 
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateEmployeeDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Employee' })
   @Post()
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   createEmployee(
@@ -48,6 +60,9 @@ export class EmployeesController {
     return this.employeesService.createEmployee(createEmployeeDto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve All Employees' })
   @Get()
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   findAllEmployees(@GetTenantContext() ctx: TenantContext) {
@@ -60,6 +75,9 @@ export class EmployeesController {
     return this.employeesService.findAllTeachers(ctx.branchId);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Update Status' })
   @Patch(':id/status')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   updateStatus(@Param('id') id: string, @Body('status') status: string) {
@@ -67,6 +85,10 @@ export class EmployeesController {
   }
 
   // --- Payroll Endpoints ---
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateSalaryTemplateDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Salary Template' })
   @Post('salary-template')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
   upsertSalaryTemplate(
@@ -79,6 +101,9 @@ export class EmployeesController {
     return this.payrollService.createOrUpdateSalaryTemplate(dto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Generate Payroll' })
   @Post('payroll/generate')
   @Roles(
     UserRole.SUPER_ADMIN,
@@ -96,6 +121,9 @@ export class EmployeesController {
     });
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Update As Paid' })
   @Patch('payroll/:id/paid')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.ACCOUNTANT)
   markAsPaid(@Param('id') id: string) {
@@ -103,6 +131,10 @@ export class EmployeesController {
   }
 
   // --- Leave Endpoints ---
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateLeaveRequestDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Leave' })
   @Post('leave-request')
   async applyLeave(
     @GetTenantContext() ctx: TenantContext,
@@ -112,12 +144,18 @@ export class EmployeesController {
     return this.leaveService.applyLeave(staff.id, dto, ctx.branchId!);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Branch Leaves' })
   @Get('leave-requests/branch')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
   getBranchLeaves(@GetTenantContext() ctx: TenantContext) {
     return this.leaveService.getBranchLeaveRequests(ctx.branchId!);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Leave Balances' })
   @Get('leave-balances/:staffId')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
   getLeaveBalances(
@@ -127,12 +165,19 @@ export class EmployeesController {
     return this.leaveService.getLeaveBalances(staffId, ctx.branchId!);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve My Leave Balances' })
   @Get('my-leave-balances')
   async getMyLeaveBalances(@GetTenantContext() ctx: TenantContext) {
     const staff = await this.employeesService.findByUserId(ctx.userId);
     return this.leaveService.getLeaveBalances(staff.id, ctx.branchId!);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: UpdateLeaveStatusDto })
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Update Leave Status' })
   @Patch('leave-requests/:id/status')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
   updateLeaveStatus(
@@ -143,6 +188,9 @@ export class EmployeesController {
   }
 
   // --- Parameterized Routes (at the end to avoid shadowing) ---
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Payroll History' })
   @Get(':id/payroll-history')
   @Roles(
     UserRole.SUPER_ADMIN,
@@ -154,6 +202,9 @@ export class EmployeesController {
     return this.payrollService.getStaffPayrollHistory(staffId);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve One' })
   @Get(':id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
   findOne(@Param('id') id: string) {
@@ -161,18 +212,27 @@ export class EmployeesController {
   }
 
   // --- Awards Endpoints ---
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Award' })
   @Post('awards')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
   createAward(@Body() data: any) {
     return this.employeesService.createAward(data);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve All Awards' })
   @Get('awards')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
   getAllAwards(@GetTenantContext() ctx: TenantContext) {
     return this.employeesService.findAllAwards(ctx.branchId ?? undefined);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve My Awards' })
   @Get('my-awards')
   async getMyAwards(@GetTenantContext() ctx: TenantContext) {
     const staff = await this.employeesService.findByUserId(ctx.userId);
@@ -180,6 +240,9 @@ export class EmployeesController {
   }
 
   // --- Advance Salary Endpoints ---
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Advance' })
   @Post('advance-salary/request')
   async requestAdvance(
     @GetTenantContext() ctx: TenantContext,
@@ -190,24 +253,36 @@ export class EmployeesController {
     return this.employeesService.requestAdvance(staff.id, amount, reason);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Branch Advances' })
   @Get('advance-salary')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
   getBranchAdvances(@GetTenantContext() ctx: TenantContext) {
     return this.employeesService.findAllAdvances(ctx.branchId ?? undefined);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve My Advances' })
   @Get('my-advance-salary')
   async getMyAdvances(@GetTenantContext() ctx: TenantContext) {
     const staff = await this.employeesService.findByUserId(ctx.userId);
     return this.employeesService.findMyAdvances(staff.id);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Update Approve Advance' })
   @Patch('advance-salary/:id/approve')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
   approveAdvance(@Param('id') id: string) {
     return this.employeesService.updateAdvanceStatus(id, 'APPROVED');
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Update Reject Advance' })
   @Patch('advance-salary/:id/reject')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
   rejectAdvance(@Param('id') id: string) {
@@ -215,6 +290,9 @@ export class EmployeesController {
   }
 
   // --- Attendance Endpoints ---
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Attendance' })
   @Post('attendance')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
   recordAttendance(
@@ -229,6 +307,9 @@ export class EmployeesController {
     return this.employeesService.recordAttendance(data);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Bulk Attendance' })
   @Post('attendance/bulk')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
   recordBulkAttendance(
@@ -248,6 +329,9 @@ export class EmployeesController {
     return Promise.all(promises);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Branch Attendance' })
   @Get('attendance/branch')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
   getBranchAttendance(
@@ -258,6 +342,9 @@ export class EmployeesController {
     return this.employeesService.getBranchAttendance(ctx.branchId!, searchDate);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Staff Attendance' })
   @Get(':id/attendance')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
   getStaffAttendance(@Param('id') id: string) {

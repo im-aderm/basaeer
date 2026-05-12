@@ -22,7 +22,15 @@ import { PaystackService } from './paystack.service';
 import { FinanceService } from './finance.service';
 import { Public } from '../auth/public.decorator';
 import { PrismaService } from '../prisma/prisma.service';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiBody,
+} from '@nestjs/swagger';
 
+@ApiTags('Finance Payments')
 @Controller('finance/payments')
 @UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
 export class FinancePaymentController {
@@ -32,6 +40,9 @@ export class FinancePaymentController {
     private readonly prisma: PrismaService,
   ) {}
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Initialize Paystack' })
   @Post('paystack/initialize')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.ACCOUNTANT)
   async initializePaystack(
@@ -61,6 +72,9 @@ export class FinancePaymentController {
     };
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Verify Paystack Payment' })
   @Post('paystack/verify/:reference')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.ACCOUNTANT)
   async verifyPaystackPayment(
@@ -101,6 +115,9 @@ export class FinancePaymentController {
     };
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Paystack Webhook' })
   @Post('paystack/webhook')
   @Public()
   async paystackWebhook(
@@ -166,6 +183,9 @@ export class FinancePaymentController {
     return { status: 'ok', event: event.event };
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Config' })
   @Get('paystack/config')
   @Roles(UserRole.SUPER_ADMIN)
   async getConfig() {

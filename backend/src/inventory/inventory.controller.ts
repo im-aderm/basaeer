@@ -30,8 +30,16 @@ import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { Roles } from '../auth/roles.decorator';
 import { UserRole } from '../generated/client';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiBody,
+} from '@nestjs/swagger';
 
 @UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@ApiTags('Inventory')
 @Controller('inventory')
 export class InventoryController {
   constructor(private readonly inventoryService: InventoryService) {}
@@ -43,6 +51,10 @@ export class InventoryController {
     return ctx.isSuperAdmin ? queryBranchId || null : ctx.branchId || null;
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateInventoryCategoryDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Category' })
   @Post('categories')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   createCategory(
@@ -53,6 +65,9 @@ export class InventoryController {
     return this.inventoryService.createCategory(dto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Categories' })
   @Get('categories')
   getCategories(
     @GetTenantContext() ctx: TenantContext,
@@ -63,6 +78,10 @@ export class InventoryController {
     );
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: UpdateInventoryCategoryDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Update Category' })
   @Post('categories/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   updateCategory(
@@ -72,12 +91,19 @@ export class InventoryController {
     return this.inventoryService.updateCategory(id, dto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Delete Category' })
   @Delete('categories/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   deleteCategory(@Param('id') id: string) {
     return this.inventoryService.deleteCategory(id);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateInventoryStoreDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Store' })
   @Post('stores')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   createStore(
@@ -88,6 +114,9 @@ export class InventoryController {
     return this.inventoryService.createStore(dto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Stores' })
   @Get('stores')
   getStores(
     @GetTenantContext() ctx: TenantContext,
@@ -96,18 +125,29 @@ export class InventoryController {
     return this.inventoryService.getStores(this.resolveBranch(ctx, branchId));
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: UpdateInventoryStoreDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Update Store' })
   @Post('stores/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   updateStore(@Param('id') id: string, @Body() dto: UpdateInventoryStoreDto) {
     return this.inventoryService.updateStore(id, dto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Delete Store' })
   @Delete('stores/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   deleteStore(@Param('id') id: string) {
     return this.inventoryService.deleteStore(id);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateInventorySupplierDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Supplier' })
   @Post('suppliers')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   createSupplier(
@@ -118,6 +158,9 @@ export class InventoryController {
     return this.inventoryService.createSupplier(dto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Suppliers' })
   @Get('suppliers')
   getSuppliers(
     @GetTenantContext() ctx: TenantContext,
@@ -128,6 +171,10 @@ export class InventoryController {
     );
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: UpdateInventorySupplierDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Update Supplier' })
   @Post('suppliers/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   updateSupplier(
@@ -137,12 +184,19 @@ export class InventoryController {
     return this.inventoryService.updateSupplier(id, dto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Delete Supplier' })
   @Delete('suppliers/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   deleteSupplier(@Param('id') id: string) {
     return this.inventoryService.deleteSupplier(id);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateInventoryUnitDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Unit' })
   @Post('units')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   createUnit(
@@ -153,6 +207,9 @@ export class InventoryController {
     return this.inventoryService.createUnit(dto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Units' })
   @Get('units')
   getUnits(
     @GetTenantContext() ctx: TenantContext,
@@ -161,18 +218,29 @@ export class InventoryController {
     return this.inventoryService.getUnits(this.resolveBranch(ctx, branchId));
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: UpdateInventoryUnitDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Update Unit' })
   @Post('units/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   updateUnit(@Param('id') id: string, @Body() dto: UpdateInventoryUnitDto) {
     return this.inventoryService.updateUnit(id, dto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Delete Unit' })
   @Delete('units/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   deleteUnit(@Param('id') id: string) {
     return this.inventoryService.deleteUnit(id);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateInventoryProductDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Product' })
   @Post('products')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   createProduct(
@@ -183,6 +251,9 @@ export class InventoryController {
     return this.inventoryService.createProduct(dto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Products' })
   @Get('products')
   getProducts(
     @GetTenantContext() ctx: TenantContext,
@@ -191,6 +262,10 @@ export class InventoryController {
     return this.inventoryService.getProducts(this.resolveBranch(ctx, branchId));
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: UpdateInventoryProductDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Update Product' })
   @Post('products/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   updateProduct(
@@ -200,18 +275,28 @@ export class InventoryController {
     return this.inventoryService.updateProduct(id, dto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Delete Product' })
   @Delete('products/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   deleteProduct(@Param('id') id: string) {
     return this.inventoryService.deleteProduct(id);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateInventoryPurchaseDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Purchase' })
   @Post('purchases')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   createPurchase(@Body() dto: CreateInventoryPurchaseDto) {
     return this.inventoryService.createPurchase(dto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Purchases' })
   @Get('purchases')
   getPurchases(
     @GetTenantContext() ctx: TenantContext,
@@ -222,18 +307,29 @@ export class InventoryController {
     );
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: IssueItemDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Issue Item' })
   @Post('issues')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   issueItem(@Body() dto: IssueItemDto) {
     return this.inventoryService.issueItem(dto);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateInventorySaleDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Sale' })
   @Post('sales')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   createSale(@Body() dto: CreateInventorySaleDto) {
     return this.inventoryService.createSale(dto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Sales' })
   @Get('sales')
   getSales(
     @GetTenantContext() ctx: TenantContext,

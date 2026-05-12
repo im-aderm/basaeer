@@ -8,12 +8,15 @@ import {
     TrendingUp,
     Award,
     ClipboardList,
-    ArrowRight
+    ArrowRight,
+    Loader2,
+    AlertCircle
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { StudentService } from "@/services/studentService";
+import { toast } from "sonner";
 
 export default function StudentsDashboard() {
     const [stats, setStats] = useState({
@@ -23,6 +26,7 @@ export default function StudentsDashboard() {
         attendance: "94.2%"
     });
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         StudentService.getStats()
@@ -36,10 +40,28 @@ export default function StudentsDashboard() {
             })
             .catch((err: unknown) => {
                 const errMsg = err instanceof Error ? err.message : String(err);
-                console.warn("Failed to fetch student stats:", errMsg);
+                setError("Could not load student statistics");
+                toast.error("Failed to load student data");
             })
             .finally(() => setLoading(false));
     }, []);
+
+    if (loading) {
+        return (
+            <div className="flex h-[60vh] items-center justify-center">
+                <Loader2 className="w-10 h-10 animate-spin text-primary" />
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="flex h-[60vh] flex-col items-center justify-center gap-4">
+                <AlertCircle className="w-12 h-12 text-destructive" />
+                <p className="text-lg font-semibold text-destructive">{error}</p>
+            </div>
+        );
+    }
 
     const quickActions = [
         {
@@ -110,7 +132,7 @@ export default function StudentsDashboard() {
                             <span className="text-label bg-muted px-2 py-1 rounded-full">{item.trend}</span>
                         </div>
                         <p className="text-label mb-1">{item.label}</p>
-                        <p className="text-h1">{loading ? "..." : item.value}</p>
+                        <p className="text-h1">{item.value}</p>
                     </Card>
                 ))}
             </div>

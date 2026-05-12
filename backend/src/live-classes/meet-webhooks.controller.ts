@@ -6,11 +6,21 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import { LiveClassesService } from './live-classes.service';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiBody,
+} from '@nestjs/swagger';
 
+@ApiTags('Google Meet Webhooks')
 @Controller('live-classes/webhooks')
 export class MeetWebhooksController {
   constructor(private readonly liveClassesService: LiveClassesService) {}
 
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Handle Google Webhook' })
   @Post()
   async handleGoogleWebhook(
     @Headers('x-goog-channel-id') channelId: string,

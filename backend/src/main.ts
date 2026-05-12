@@ -5,6 +5,7 @@ import { NestFactory, HttpAdapterHost } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
 import { ValidationPipe, Logger } from '@nestjs/common';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AllExceptionsFilter } from './common/filters/all-exceptions.filter';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
@@ -107,6 +108,18 @@ async function bootstrap() {
         process.exit(1);
       });
     });
+  }
+
+  const swaggerConfig = new DocumentBuilder()
+    .setTitle('Basaeer API')
+    .setDescription('Basaeer School Management System API')
+    .setVersion('1.0')
+    .addBearerAuth()
+    .addCookieAuth('access_token')
+    .build();
+  const document = SwaggerModule.createDocument(app, swaggerConfig);
+  if (process.env.NODE_ENV !== 'production') {
+    SwaggerModule.setup('api/docs', app, document);
   }
 
   const port = process.env.PORT || 3001;

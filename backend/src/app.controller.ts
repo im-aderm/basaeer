@@ -13,7 +13,15 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { PrismaService } from './prisma/prisma.service';
 import Redis from 'ioredis';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiBody,
+} from '@nestjs/swagger';
 
+@ApiTags('App')
 @Controller()
 export class AppController {
   private redis: Redis;
@@ -30,17 +38,23 @@ export class AppController {
     });
   }
 
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Hello' })
   @Get()
   getHello(): string {
     return this.appService.getHello();
   }
 
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Subscribe To Newsletter' })
   @Post('newsletter/subscribe')
   subscribeToNewsletter(@Body() body: { email: string }) {
     console.log(`[Newsletter] New subscription: ${body.email}`);
     return { success: true, message: 'Successfully subscribed to newsletter' };
   }
 
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Health' })
   @Get('health')
   async getHealth() {
     let dbStatus = 'ok';
@@ -69,6 +83,8 @@ export class AppController {
   }
 
   // Serve uploaded admission documents
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Uploaded File Direct' })
   @Get('public/uploads/admissions/:filename')
   getUploadedFileDirect(
     @Param('filename') filename: string,
@@ -84,6 +100,8 @@ export class AppController {
     return this.serveFile(filePath, basePath, res);
   }
 
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Uploaded File' })
   @Get('public/uploads/admissions/:subfolder/:filename')
   getUploadedFile(
     @Param('subfolder') _subfolder: string,

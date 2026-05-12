@@ -3,8 +3,9 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import api from "@/lib/api";
-import { Users, Briefcase, DollarSign, TrendingUp, GraduationCap, Bus, Calendar } from "lucide-react";
+import { Users, Briefcase, DollarSign, TrendingUp, GraduationCap, Bus, Calendar, Loader2, AlertCircle } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { toast } from "sonner";
 
 export default function DashboardPage() {
     const { user } = useAuth();
@@ -14,9 +15,12 @@ export default function DashboardPage() {
         revenue: "₦0.0"
     });
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchStats = async () => {
+            setLoading(true);
+            setError(null);
             try {
                 const response = await api.get("/reporting/dashboard");
                 const data = response.data;
@@ -26,7 +30,9 @@ export default function DashboardPage() {
                     revenue: `₦${data.finance.totalPaid?.toLocaleString() || '0.0'}`
                 });
             } catch (error) {
-                console.error("Failed to fetch dashboard stats:", error);
+                const msg = error instanceof Error ? error.message : "Failed to load dashboard";
+                setError(msg);
+                toast.error("Could not load dashboard data");
             } finally {
                 setLoading(false);
             }
@@ -34,6 +40,24 @@ export default function DashboardPage() {
 
         if (user) fetchStats();
     }, [user]);
+
+    if (loading) {
+        return (
+            <div className="flex h-[60vh] items-center justify-center">
+                <Loader2 className="w-10 h-10 animate-spin text-primary" />
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="flex h-[60vh] flex-col items-center justify-center gap-4">
+                <AlertCircle className="w-12 h-12 text-destructive" />
+                <p className="text-lg font-semibold text-destructive">Failed to load dashboard</p>
+                <p className="text-muted-foreground">{error}</p>
+            </div>
+        );
+    }
 
     return (
         <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in duration-500 pb-20">
@@ -64,7 +88,7 @@ export default function DashboardPage() {
                                     <stat.icon size={12} className={stat.color} /> {stat.title}
                                 </h3>
                                 <div className="flex items-end gap-3 relative z-10">
-                                    <p className="text-h1 font-semibold tracking-tight">{loading ? "..." : stat.value}</p>
+                                    <p className="text-h1 font-semibold tracking-tight">{stat.value}</p>
                                     <span className="text-primary text-label mb-1">{stat.trend}</span>
                                 </div>
                             </div>

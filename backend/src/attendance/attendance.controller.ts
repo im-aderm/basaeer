@@ -18,8 +18,16 @@ import { AttendanceSessionService } from './attendance-session.service';
 
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiBody,
+} from '@nestjs/swagger';
 
 @UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@ApiTags('Attendance')
 @Controller('attendance')
 export class AttendanceController {
   constructor(
@@ -27,6 +35,10 @@ export class AttendanceController {
     private readonly sessionService: AttendanceSessionService,
   ) {}
 
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateAttendanceDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Mark Attendance' })
   @Post()
   @Roles(UserRole.TEACHER, UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
   markAttendance(
@@ -36,6 +48,9 @@ export class AttendanceController {
     return this.attendanceService.markAttendance(dto, context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Mark Bulk Attendance' })
   @Post('bulk')
   @Roles(UserRole.TEACHER, UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
   markBulkAttendance(
@@ -46,6 +61,9 @@ export class AttendanceController {
   }
 
   // QR Scanning
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Process Q R' })
   @Post('scan')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   async processQR(
@@ -59,6 +77,9 @@ export class AttendanceController {
     );
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Bulk Sync Scans' })
   @Post('scan/bulk')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   async bulkSyncScans(
@@ -72,6 +93,9 @@ export class AttendanceController {
   }
 
   // Sessions
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Session' })
   @Post('sessions')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   async createSession(
@@ -88,12 +112,18 @@ export class AttendanceController {
     return this.sessionService.createSession(dto, context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Active Sessions' })
   @Get('sessions/active')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   async getActiveSessions(@GetTenantContext() context: TenantContext) {
     return this.sessionService.getActiveSessions(context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Update Session' })
   @Patch('sessions/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   async updateSession(
@@ -104,6 +134,9 @@ export class AttendanceController {
     return this.sessionService.updateSession(id, dto, context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Lock Session' })
   @Post('sessions/:id/lock')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   async lockSession(
@@ -113,6 +146,9 @@ export class AttendanceController {
     return this.sessionService.lockSession(id, context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Update Close Session' })
   @Patch('sessions/:id/close')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   async closeSession(
@@ -122,6 +158,9 @@ export class AttendanceController {
     return this.sessionService.closeSession(id, context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Session' })
   @Get('sessions/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   async getSession(
@@ -131,6 +170,9 @@ export class AttendanceController {
     return this.sessionService.getSessionDetails(id, context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Student Q R' })
   @Get('qr/:studentId')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   async getStudentQR(
@@ -140,6 +182,9 @@ export class AttendanceController {
     return this.attendanceService.getStudentQR(studentId, context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Bulk Generate Q R' })
   @Post('qr/bulk')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   async bulkGenerateQR(
@@ -149,6 +194,9 @@ export class AttendanceController {
     return this.attendanceService.bulkGenerateQR(dto.studentIds, context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve By Section' })
   @Get('section')
   @Roles(UserRole.TEACHER, UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
   findBySection(
@@ -169,6 +217,9 @@ export class AttendanceController {
     );
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve resource' })
   @Get('student/:id')
   @Roles(
     UserRole.TEACHER,
@@ -184,12 +235,18 @@ export class AttendanceController {
     return this.attendanceService.getStudentAttendance(studentId, context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Stats' })
   @Get('stats')
   @Roles(UserRole.TEACHER, UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
   getStats(@GetTenantContext() context: TenantContext) {
     return this.attendanceService.getStats(context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Trends' })
   @Get('analytics/trends')
   @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
   getTrends(
@@ -202,6 +259,9 @@ export class AttendanceController {
     );
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Chronic Absentees' })
   @Get('analytics/chronic')
   @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
   getChronicAbsentees(

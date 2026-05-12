@@ -7,7 +7,15 @@ import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { TenantContext } from '../auth/branch.guard';
 import { AutomationService } from './automation.service';
 import { PrismaService } from '../prisma/prisma.service';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiBody,
+} from '@nestjs/swagger';
 
+@ApiTags('Automation Health')
 @Controller('automation/health')
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
@@ -17,6 +25,9 @@ export class AutomationHealthController {
     private readonly prisma: PrismaService,
   ) {}
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Executions' })
   @Get('executions')
   async getExecutions(
     @GetTenantContext() tenantContext: TenantContext,
@@ -28,11 +39,17 @@ export class AutomationHealthController {
     );
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Stats' })
   @Get('stats')
   async getStats(@GetTenantContext() tenantContext: TenantContext) {
     return this.automationService.getExecutionStats(tenantContext);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Queue Health' })
   @Get('queue-health')
   async getQueueHealth(@GetTenantContext() tenantContext: TenantContext) {
     const branchId = tenantContext.isSuperAdmin
@@ -65,6 +82,9 @@ export class AutomationHealthController {
     };
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Delivery Stats' })
   @Get('delivery-stats')
   async getDeliveryStats(@GetTenantContext() tenantContext: TenantContext) {
     const branchId = tenantContext.isSuperAdmin
@@ -93,6 +113,9 @@ export class AutomationHealthController {
     return { totalDelivered, totalFailed, recentDeliveryLogs };
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Retry Stats' })
   @Get('retry-stats')
   async getRetryStats(@GetTenantContext() tenantContext: TenantContext) {
     const branchId = tenantContext.isSuperAdmin

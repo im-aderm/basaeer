@@ -5,7 +5,7 @@ import express from 'express';
 
 const server = express();
 
-const createNestServer = async (expressInstance) => {
+const createNestServer = async (expressInstance: express.Express) => {
     const app = await NestFactory.create(
         AppModule,
         new ExpressAdapter(expressInstance),
@@ -19,7 +19,7 @@ const createNestServer = async (expressInstance) => {
     return app;
 };
 
-export default async function handler(req, res) {
+export default async function handler(req: any, res: any) {
     try {
         if (!(server as any).isNestInitialized) {
             console.log('Initializing NestJS server...');

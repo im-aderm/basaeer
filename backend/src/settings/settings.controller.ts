@@ -15,12 +15,23 @@ import { Roles } from '../auth/roles.decorator';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { UserRole } from '../generated/client/client';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiBody,
+} from '@nestjs/swagger';
 
 @UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@ApiTags('Settings')
 @Controller('settings')
 export class SettingsController {
   constructor(private readonly settingsService: SettingsService) {}
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Settings' })
   @Get()
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   getSettings(@GetTenantContext() ctx: TenantContext) {
@@ -31,6 +42,9 @@ export class SettingsController {
     return this.settingsService.getSettings(branchId);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Setting By Key' })
   @Get(':key')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   getSettingByKey(
@@ -44,6 +58,10 @@ export class SettingsController {
     return this.settingsService.getSettingByKey(key, branchId);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: UpdateSettingDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Update Settings' })
   @Post()
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   updateSettings(

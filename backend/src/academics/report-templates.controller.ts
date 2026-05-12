@@ -20,12 +20,24 @@ import { Roles } from '../auth/roles.decorator';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { UserRole } from '../generated/client/client';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiBody,
+} from '@nestjs/swagger';
 
 @UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@ApiTags('Report Templates')
 @Controller('academics/templates')
 export class ReportTemplatesController {
   constructor(private readonly templatesService: ReportTemplatesService) {}
 
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateReportTemplateDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create resource' })
   @Post()
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   create(
@@ -35,16 +47,25 @@ export class ReportTemplatesController {
     return this.templatesService.create(dto, ctx.branchId!);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve All' })
   @Get()
   findAll(@GetTenantContext() ctx: TenantContext) {
     return this.templatesService.findAll(ctx.branchId!);
   }
 
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve One' })
   @Get(':id')
   findOne(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     return this.templatesService.findOne(id, ctx.branchId!);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: UpdateReportTemplateDto })
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Update resource' })
   @Patch(':id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   update(
@@ -55,6 +76,9 @@ export class ReportTemplatesController {
     return this.templatesService.update(id, dto, ctx.branchId!);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Delete resource' })
   @Delete(':id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   remove(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {

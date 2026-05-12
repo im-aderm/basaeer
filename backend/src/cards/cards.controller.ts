@@ -20,19 +20,34 @@ import { Roles } from '../auth/roles.decorator';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { UserRole } from '../generated/client/client';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiBody,
+} from '@nestjs/swagger';
 
+@ApiTags('ID Cards')
 @Controller('cards')
 @UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
 export class CardsController {
   constructor(private readonly cardsService: CardsService) {}
 
   // Templates
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateIdCardTemplateDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Template' })
   @Post('templates')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   createTemplate(@Body() createDto: CreateIdCardTemplateDto) {
     return this.cardsService.createTemplate(createDto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve All Templates' })
   @Get('templates')
   findAllTemplates(
     @Query('branchId') branchId: string,
@@ -41,11 +56,18 @@ export class CardsController {
     return this.cardsService.findAllTemplates(branchId || ctx.branchId!);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Template' })
   @Get('templates/:id')
   findTemplate(@Param('id') id: string) {
     return this.cardsService.findTemplate(id);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: UpdateIdCardTemplateDto })
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Update Template' })
   @Patch('templates/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   updateTemplate(
@@ -55,6 +77,9 @@ export class CardsController {
     return this.cardsService.updateTemplate(id, updateDto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Delete Template' })
   @Delete('templates/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   removeTemplate(@Param('id') id: string) {
@@ -62,12 +87,19 @@ export class CardsController {
   }
 
   // ID Cards
+  @ApiBearerAuth()
+  @ApiBody({ type: GenerateIdCardsDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Generate' })
   @Post('generate')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
   generate(@Body() generateDto: GenerateIdCardsDto) {
     return this.cardsService.generateCards(generateDto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve All' })
   @Get()
   findAll(
     @Query('branchId') branchId: string,
@@ -77,6 +109,9 @@ export class CardsController {
     return this.cardsService.findAllCards(branchId || ctx.branchId!, sessionId);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve One' })
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.cardsService.findCard(id);

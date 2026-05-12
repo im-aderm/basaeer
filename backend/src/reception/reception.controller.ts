@@ -28,12 +28,24 @@ import { Roles } from '../auth/roles.decorator';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { UserRole } from '../generated/client';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiBody,
+} from '@nestjs/swagger';
 
+@ApiTags('Reception')
 @Controller('reception')
 @UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
 export class ReceptionController {
   constructor(private readonly receptionService: ReceptionService) {}
 
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateEnquiryDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Enquiry' })
   @Post('enquiries')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   createEnquiry(
@@ -46,6 +58,9 @@ export class ReceptionController {
     return this.receptionService.createEnquiry(dto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Enquiries' })
   @Get('enquiries')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   getEnquiries(
@@ -57,18 +72,29 @@ export class ReceptionController {
     return this.receptionService.getEnquiries(effectiveBranchId);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: UpdateEnquiryDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Update Enquiry' })
   @Post('enquiries/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   updateEnquiry(@Param('id') id: string, @Body() dto: UpdateEnquiryDto) {
     return this.receptionService.updateEnquiry(id, dto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Delete Enquiry' })
   @Delete('enquiries/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   deleteEnquiry(@Param('id') id: string) {
     return this.receptionService.deleteEnquiry(id);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateCallLogDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Call Log' })
   @Post('call-logs')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   createCallLog(
@@ -81,6 +107,9 @@ export class ReceptionController {
     return this.receptionService.createCallLog(dto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Call Logs' })
   @Get('call-logs')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   getCallLogs(
@@ -92,18 +121,29 @@ export class ReceptionController {
     return this.receptionService.getCallLogs(effectiveBranchId);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: UpdateCallLogDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Update Call Log' })
   @Post('call-logs/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   updateCallLog(@Param('id') id: string, @Body() dto: UpdateCallLogDto) {
     return this.receptionService.updateCallLog(id, dto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Delete Call Log' })
   @Delete('call-logs/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   deleteCallLog(@Param('id') id: string) {
     return this.receptionService.deleteCallLog(id);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateVisitorLogDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Visitor Log' })
   @Post('visitor-logs')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   createVisitorLog(
@@ -116,6 +156,9 @@ export class ReceptionController {
     return this.receptionService.createVisitorLog(dto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Visitor Logs' })
   @Get('visitor-logs')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   getVisitorLogs(
@@ -127,18 +170,29 @@ export class ReceptionController {
     return this.receptionService.getVisitorLogs(effectiveBranchId);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: UpdateVisitorLogDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Update Visitor Log' })
   @Post('visitor-logs/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   updateVisitorLog(@Param('id') id: string, @Body() dto: UpdateVisitorLogDto) {
     return this.receptionService.updateVisitorLog(id, dto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Delete Visitor Log' })
   @Delete('visitor-logs/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   deleteVisitorLog(@Param('id') id: string) {
     return this.receptionService.deleteVisitorLog(id);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateComplaintDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Complaint' })
   @Post('complaints')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   createComplaint(
@@ -151,6 +205,9 @@ export class ReceptionController {
     return this.receptionService.createComplaint(dto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Complaints' })
   @Get('complaints')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   getComplaints(
@@ -162,18 +219,29 @@ export class ReceptionController {
     return this.receptionService.getComplaints(effectiveBranchId);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: UpdateComplaintDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Update Complaint' })
   @Post('complaints/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   updateComplaint(@Param('id') id: string, @Body() dto: UpdateComplaintDto) {
     return this.receptionService.updateComplaint(id, dto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Delete Complaint' })
   @Delete('complaints/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   deleteComplaint(@Param('id') id: string) {
     return this.receptionService.deleteComplaint(id);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: CreatePostalRecordDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Postal Record' })
   @Post('postal-records')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   createPostalRecord(
@@ -186,6 +254,9 @@ export class ReceptionController {
     return this.receptionService.createPostalRecord(dto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Postal Records' })
   @Get('postal-records')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   getPostalRecords(
@@ -197,6 +268,10 @@ export class ReceptionController {
     return this.receptionService.getPostalRecords(effectiveBranchId);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: UpdatePostalRecordDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Update Postal Record' })
   @Post('postal-records/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   updatePostalRecord(
@@ -206,6 +281,9 @@ export class ReceptionController {
     return this.receptionService.updatePostalRecord(id, dto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Delete Postal Record' })
   @Delete('postal-records/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   deletePostalRecord(@Param('id') id: string) {

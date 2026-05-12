@@ -24,12 +24,24 @@ import { Roles } from '../auth/roles.decorator';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { UserRole } from '../generated/client/client';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiBody,
+} from '@nestjs/swagger';
 
+@ApiTags('Students')
 @Controller('students')
 @UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
 export class StudentsController {
   constructor(private readonly studentsService: StudentsService) {}
 
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateStudentDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create resource' })
   @Post()
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   create(
@@ -39,6 +51,9 @@ export class StudentsController {
     return this.studentsService.create(createStudentDto, context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Import' })
   @Post('import')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   @UseInterceptors(FileInterceptor('file'))
@@ -49,12 +64,18 @@ export class StudentsController {
     return this.studentsService.importStudents(file.buffer, context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Stats' })
   @Get('stats')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   getStats(@GetTenantContext() context: TenantContext) {
     return this.studentsService.getStats(context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve All' })
   @Get()
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   findAll(
@@ -76,12 +97,19 @@ export class StudentsController {
   }
 
   // Deactivation Reasons
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Deactivation Reasons' })
   @Get('deactivation-reasons')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   fetchDeactivationReasons(@GetTenantContext() context: TenantContext) {
     return this.studentsService.fetchDeactivationReasons(context);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateDeactivationReasonDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Deactivation Reason' })
   @Post('deactivation-reasons')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   createDeactivationReason(
@@ -91,6 +119,10 @@ export class StudentsController {
     return this.studentsService.createDeactivationReason(dto, context);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: UpdateDeactivationReasonDto })
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Update Deactivation Reason' })
   @Patch('deactivation-reasons/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   updateDeactivationReason(
@@ -101,6 +133,9 @@ export class StudentsController {
     return this.studentsService.updateDeactivationReason(id, dto, context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Delete Deactivation Reason' })
   @Delete('deactivation-reasons/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   deleteDeactivationReason(
@@ -111,6 +146,10 @@ export class StudentsController {
   }
 
   // Login Deactivation
+  @ApiBearerAuth()
+  @ApiBody({ type: DeactivateLoginDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Deactivate Login' })
   @Post('deactivate-login')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   deactivateLogin(
@@ -125,18 +164,28 @@ export class StudentsController {
     );
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Login Deactivations' })
   @Get('login-deactivations')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   getLoginDeactivations(@GetTenantContext() context: TenantContext) {
     return this.studentsService.getLoginDeactivations(context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve One' })
   @Get(':id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   findOne(@Param('id') id: string, @GetTenantContext() context: TenantContext) {
     return this.studentsService.findOne(id, context);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: UpdateStudentDto })
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Update resource' })
   @Patch(':id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   update(
@@ -147,12 +196,18 @@ export class StudentsController {
     return this.studentsService.update(id, updateStudentDto, context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Delete resource' })
   @Delete(':id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   remove(@Param('id') id: string, @GetTenantContext() context: TenantContext) {
     return this.studentsService.remove(id, context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Reactivate Login' })
   @Post(':id/reactivate-login')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   reactivateLogin(

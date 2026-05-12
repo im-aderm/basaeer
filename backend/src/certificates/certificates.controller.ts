@@ -19,12 +19,24 @@ import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { UserRole } from '../generated/client/client';
 import { Public } from '../auth/public.decorator';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiBody,
+} from '@nestjs/swagger';
 
+@ApiTags('Certificates')
 @Controller('certificates')
 @UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
 export class CertificatesController {
   constructor(private readonly certificatesService: CertificatesService) {}
 
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateCertificateDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create resource' })
   @Post()
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
   create(
@@ -38,27 +50,40 @@ export class CertificatesController {
     );
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve All' })
   @Get()
   findAll(@GetTenantContext() context: TenantContext) {
     return this.certificatesService.findAll(context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve All Templates' })
   @Get('templates')
   findAllTemplates(@GetTenantContext() context: TenantContext) {
     return this.certificatesService.findAllTemplates(context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Verify' })
   @Get('verify/:code')
   @Public()
   async verify(@Param('code') code: string) {
     return this.certificatesService.verify(code);
   }
 
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve My Certificates' })
   @Get('my-certificates')
   findMyCertificates(@GetTenantContext() context: TenantContext) {
     return this.certificatesService.findByUser(context.userId, context);
   }
 
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve By Student' })
   @Get('student/:studentId')
   findByStudent(
     @GetTenantContext() context: TenantContext,
@@ -67,11 +92,17 @@ export class CertificatesController {
     return this.certificatesService.findByStudent(studentId, context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve One' })
   @Get(':id')
   findOne(@GetTenantContext() context: TenantContext, @Param('id') id: string) {
     return this.certificatesService.findOne(id, context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Export Pdf' })
   @Get(':id/pdf')
   async exportPdf(
     @GetTenantContext() context: TenantContext,
@@ -81,6 +112,9 @@ export class CertificatesController {
     return buffer.toString('base64');
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Delete Template' })
   @Delete('templates/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   removeTemplate(
@@ -90,12 +124,19 @@ export class CertificatesController {
     return this.certificatesService.removeTemplate(id, context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Delete resource' })
   @Delete(':id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   remove(@GetTenantContext() context: TenantContext, @Param('id') id: string) {
     return this.certificatesService.remove(id, context);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateCertificateTemplateDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Template' })
   @Post('templates')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   createTemplate(

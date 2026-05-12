@@ -22,12 +22,23 @@ import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { GetTenantContext } from './tenant-context.decorator';
 import { TenantContext } from './branch.guard';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiBody,
+} from '@nestjs/swagger';
 
+@ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Throttle({ default: { limit: 5, ttl: 60000 } })
+  @ApiBody({ type: LoginDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Login' })
   @Post('login')
   async login(
     @Body() loginDto: LoginDto,
@@ -57,6 +68,8 @@ export class AuthController {
     };
   }
 
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Logout' })
   @Post('logout')
   async logout(@Res({ passthrough: true }) response: Response) {
     response.clearCookie('access_token', {
@@ -72,6 +85,8 @@ export class AuthController {
    * SECURED: Requires a secret token from the environment.
    * Only usable once — if a SuperAdmin already exists, it rejects.
    */
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Bootstrap' })
   @Post('bootstrap')
   async bootstrap(@Body() body: { bootstrapToken?: string }) {
     const expectedToken = process.env.BOOTSTRAP_SECRET;
@@ -86,24 +101,37 @@ export class AuthController {
 
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.SUPER_ADMIN)
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create resource' })
   @Post('register')
   async register(@Body() data: any) {
     return this.authService.register(data);
   }
 
   @UseGuards(JwtAuthGuard, BranchGuard)
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Profile' })
   @Get('profile')
   async getProfile(@GetTenantContext() tenantContext: TenantContext) {
     return this.authService.getFullProfile(tenantContext.userId);
   }
 
   @Throttle({ default: { limit: 3, ttl: 60000 } })
+  @ApiBearerAuth()
+  @ApiBody({ type: ForgotPasswordDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Forgot Password' })
   @Post('forgot-password')
   async forgotPassword(@Body() forgotPasswordDto: ForgotPasswordDto) {
     return this.authService.forgotPassword(forgotPasswordDto.email);
   }
 
   @Throttle({ default: { limit: 3, ttl: 60000 } })
+  @ApiBody({ type: ResetPasswordDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Reset Password' })
   @Post('reset-password')
   async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
     return this.authService.resetPassword(

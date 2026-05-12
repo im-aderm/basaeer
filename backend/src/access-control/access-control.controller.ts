@@ -15,18 +15,33 @@ import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { UserRole } from '../generated/client/client';
 import { CreateAccessLogDto } from './dto/access-control.dto';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiBody,
+} from '@nestjs/swagger';
 
+@ApiTags('Access Control')
 @Controller('access-control')
 @UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
 export class AccessControlController {
   constructor(private readonly accessControlService: AccessControlService) {}
 
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateAccessLogDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Log' })
   @Post('log')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   log(@Body() dto: CreateAccessLogDto, @GetTenantContext() ctx: TenantContext) {
     return this.accessControlService.logAccess(ctx.branchId!, dto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Logs' })
   @Get('logs')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   getLogs(
@@ -39,6 +54,9 @@ export class AccessControlController {
     );
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve My Logs' })
   @Get('my-logs')
   getMyLogs(@GetTenantContext() ctx: TenantContext) {
     return this.accessControlService.getUserLogs(ctx.userId);

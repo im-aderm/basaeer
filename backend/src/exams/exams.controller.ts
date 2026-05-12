@@ -38,8 +38,16 @@ import { TenantContext } from '../auth/branch.guard';
 import { Roles } from '../auth/roles.decorator';
 import { UserRole, Term, ExamTerm } from '../generated/client/client';
 import { Public } from '../auth/public.decorator';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiBody,
+} from '@nestjs/swagger';
 
 @UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@ApiTags('Exams')
 @Controller('exams')
 export class ExamsController {
   constructor(
@@ -53,6 +61,9 @@ export class ExamsController {
     private readonly academicPortalService: AcademicPortalService,
   ) {}
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve resource' })
   @Get()
   @Roles(
     UserRole.SUPER_ADMIN,
@@ -67,6 +78,9 @@ export class ExamsController {
     return this.examManagementService.listExams(query, ctx);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create resource' })
   @Post()
   @Roles(
     UserRole.SUPER_ADMIN,
@@ -80,6 +94,9 @@ export class ExamsController {
     return this.examManagementService.createExam(dto, ctx);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve resource' })
   @Get('management/:id')
   @Roles(
     UserRole.SUPER_ADMIN,
@@ -94,6 +111,9 @@ export class ExamsController {
     return this.examManagementService.getExam(id, ctx);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Update resource' })
   @Put('management/:id')
   @Roles(
     UserRole.SUPER_ADMIN,
@@ -111,6 +131,9 @@ export class ExamsController {
     return this.examManagementService.updateExam(id, dto, ctx);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Update resource' })
   @Patch('management/:id/status')
   @Roles(
     UserRole.SUPER_ADMIN,
@@ -128,6 +151,9 @@ export class ExamsController {
     return this.examManagementService.transitionExam(id, status, ctx);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create resource' })
   @Post('management/:id/clone')
   @Roles(
     UserRole.SUPER_ADMIN,
@@ -145,6 +171,9 @@ export class ExamsController {
     return this.examManagementService.cloneExam(id, dto, ctx);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve resource' })
   @Get('types-v2')
   @Roles(
     UserRole.SUPER_ADMIN,
@@ -159,6 +188,9 @@ export class ExamsController {
     return this.examManagementService.listExamTypes(ctx);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create resource' })
   @Post('types-v2')
   @Roles(
     UserRole.SUPER_ADMIN,
@@ -172,6 +204,9 @@ export class ExamsController {
     return this.examManagementService.upsertExamType(dto, ctx);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve resource' })
   @Get('components')
   @Roles(
     UserRole.SUPER_ADMIN,
@@ -186,6 +221,9 @@ export class ExamsController {
     return this.examManagementService.listAssessmentComponents(query, ctx);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create resource' })
   @Post('components')
   @Roles(
     UserRole.SUPER_ADMIN,
@@ -199,6 +237,9 @@ export class ExamsController {
     return this.examManagementService.createAssessmentComponent(dto, ctx);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve resource' })
   @Get('components/validate')
   @Roles(
     UserRole.SUPER_ADMIN,
@@ -216,6 +257,9 @@ export class ExamsController {
     return this.examManagementService.validateComponentWeights(query, ctx);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create resource' })
   @Post('compute/section/:sectionId')
   @Roles(
     UserRole.SUPER_ADMIN,
@@ -239,6 +283,9 @@ export class ExamsController {
     );
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve resource' })
   @Get('analytics')
   @Roles(
     UserRole.SUPER_ADMIN,
@@ -256,6 +303,9 @@ export class ExamsController {
     return this.resultComputationService.analytics(sessionId, term, ctx);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve resource' })
   @Get('approvals')
   @Roles(
     UserRole.SUPER_ADMIN,
@@ -270,6 +320,9 @@ export class ExamsController {
     return this.resultApprovalService.list(query, ctx);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create resource' })
   @Post('approvals')
   @Roles(
     UserRole.SUPER_ADMIN,
@@ -283,6 +336,9 @@ export class ExamsController {
     return this.resultApprovalService.submit(dto, ctx);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Update resource' })
   @Patch('approvals/:id/review')
   @Roles(
     UserRole.SUPER_ADMIN,
@@ -300,6 +356,9 @@ export class ExamsController {
     return this.resultApprovalService.review(id, dto, ctx);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Publish Approved Results' })
   @Post('publication')
   @Roles(
     UserRole.SUPER_ADMIN,
@@ -314,6 +373,9 @@ export class ExamsController {
     return this.resultApprovalService.publish(dto, ctx);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Update Revoke Publication' })
   @Patch('publication/:id/revoke')
   @Roles(
     UserRole.SUPER_ADMIN,
@@ -328,6 +390,9 @@ export class ExamsController {
     return this.resultApprovalService.revokePublication(id, ctx);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve resource' })
   @Get('transcripts')
   @Roles(
     UserRole.SUPER_ADMIN,
@@ -340,6 +405,9 @@ export class ExamsController {
     return this.transcriptService.list(query, ctx);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create resource' })
   @Post('transcripts/:studentId')
   @Roles(
     UserRole.SUPER_ADMIN,
@@ -355,6 +423,9 @@ export class ExamsController {
     return this.transcriptService.generate(studentId, ctx);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Update Approve Transcript' })
   @Patch('transcripts/:id/approve')
   @Roles(
     UserRole.SUPER_ADMIN,
@@ -369,6 +440,9 @@ export class ExamsController {
     return this.transcriptService.approve(id, ctx);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve resource' })
   @Get('transcripts/:id/pdf')
   @Roles(
     UserRole.SUPER_ADMIN,
@@ -393,11 +467,15 @@ export class ExamsController {
   }
 
   @Public()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Verify Transcript' })
   @Get('verify/transcript/:code')
   verifyTranscript(@Param('code') code: string) {
     return this.transcriptService.verify(code);
   }
 
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create resource' })
   @Post('tahfeez/assessments')
   @Roles(
     UserRole.SUPER_ADMIN,
@@ -412,6 +490,9 @@ export class ExamsController {
     return this.tahfeezService.assess(dto, ctx);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create resource' })
   @Post('tahfeez/progress')
   @Roles(
     UserRole.SUPER_ADMIN,
@@ -429,6 +510,9 @@ export class ExamsController {
     return this.tahfeezService.updateProgress(dto, ctx);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve resource' })
   @Get('tahfeez/reports/:studentId')
   @Roles(
     UserRole.SUPER_ADMIN,
@@ -448,6 +532,9 @@ export class ExamsController {
     return this.tahfeezService.report(studentId, ctx);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve resource' })
   @Get('portal/results/:studentId/:sessionId/:term')
   @Roles(
     UserRole.SUPER_ADMIN,
@@ -469,6 +556,9 @@ export class ExamsController {
     return this.academicPortalService.result(studentId, sessionId, term, ctx);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve resource' })
   @Get('portal/performance/:studentId')
   @Roles(
     UserRole.SUPER_ADMIN,
@@ -488,12 +578,19 @@ export class ExamsController {
     return this.academicPortalService.performance(studentId, ctx);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Sessions' })
   @Get('sessions')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   getSessions() {
     return this.examsService.getAllSessions();
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateAcademicSessionDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Session' })
   @Post('sessions')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   createSession(
@@ -506,6 +603,10 @@ export class ExamsController {
     return this.examsService.createSession(dto);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: BulkSubmitScoresDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Scores' })
   @Post('submit-scores')
   @Roles(UserRole.SUPER_ADMIN, UserRole.TEACHER, UserRole.BRANCH_ADMIN)
   submitScores(
@@ -520,6 +621,10 @@ export class ExamsController {
     return this.examsService.submitBulkScores(dto, branchId);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: RecordBehaviouralDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Behavioural' })
   @Post('behavioural')
   @Roles(UserRole.SUPER_ADMIN, UserRole.TEACHER, UserRole.BRANCH_ADMIN)
   recordBehavioural(
@@ -532,6 +637,9 @@ export class ExamsController {
     return this.examsService.recordBehavioural(dto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Summarize Term' })
   @Post('summarize/:studentId')
   @Roles(UserRole.SUPER_ADMIN, UserRole.TEACHER, UserRole.BRANCH_ADMIN)
   summarizeTerm(
@@ -548,6 +656,9 @@ export class ExamsController {
     );
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Toggle Eligibility' })
   @Post('eligibility/:studentId')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   toggleEligibility(
@@ -566,6 +677,9 @@ export class ExamsController {
     );
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Publish Results' })
   @Post('publish')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   publishResults(
@@ -582,6 +696,9 @@ export class ExamsController {
     );
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve resource' })
   @Get('report/:studentId/:sessionId/:term')
   @Roles(
     UserRole.SUPER_ADMIN,
@@ -620,6 +737,9 @@ export class ExamsController {
     res.end(pdf);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve resource' })
   @Get('report-annual/:studentId/:sessionId')
   @Roles(
     UserRole.SUPER_ADMIN,
@@ -654,6 +774,9 @@ export class ExamsController {
     res.end(pdf);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Broadsheet' })
   @Get('broadsheet/:sectionId/:sessionId/:term')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   async getBroadsheet(
@@ -678,6 +801,9 @@ export class ExamsController {
     res.end(excel);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Download Batch Reports' })
   @Get('batch-report/:sectionId/:sessionId/:term')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   async downloadBatchReports(
@@ -703,6 +829,9 @@ export class ExamsController {
     readStream.pipe(res);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Lock Result' })
   @Post('lock/:studentId')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   lockResult(
@@ -714,6 +843,9 @@ export class ExamsController {
     return this.examsService.lockResults(studentId, sessionId, term, isLocked);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Grading Scales' })
   @Get('grading-scales')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   getGradingScales(
@@ -727,6 +859,9 @@ export class ExamsController {
     return this.examsService.getGradingScales(branchId);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Grading Scale' })
   @Post('grading-scales')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   createGradingScale(

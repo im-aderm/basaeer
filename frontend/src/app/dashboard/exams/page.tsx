@@ -17,7 +17,9 @@ import {
     CalendarDays,
     Settings2,
     CheckCircle2,
-    XCircle
+    XCircle,
+    Loader2,
+    AlertCircle
 } from 'lucide-react';
 import { ExamService } from '@/services/examService';
 import { toast } from 'sonner';
@@ -26,6 +28,7 @@ export default function ExamMasterDashboard() {
     const router = useRouter();
     const [sessions, setSessions] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
     // Form state for new session
@@ -44,7 +47,9 @@ export default function ExamMasterDashboard() {
         try {
             const data = await ExamService.getSessions();
             setSessions(data);
+            setError(null);
         } catch (error) {
+            setError("Could not load academic sessions");
             toast.error('Failed to load academic sessions');
         } finally {
             setLoading(false);
@@ -67,7 +72,18 @@ export default function ExamMasterDashboard() {
         }
     };
 
-    if (loading) return <div className="p-8">Loading academic sessions...</div>;
+    if (loading) return (
+        <div className="flex h-[60vh] items-center justify-center">
+            <Loader2 className="w-10 h-10 animate-spin text-primary" />
+        </div>
+    );
+
+    if (error) return (
+        <div className="flex h-[60vh] flex-col items-center justify-center gap-4">
+            <AlertCircle className="w-12 h-12 text-destructive" />
+            <p className="text-lg font-semibold text-destructive">{error}</p>
+        </div>
+    );
 
     return (
         <div className="max-w-7xl mx-auto space-y-12 pb-20">

@@ -19,8 +19,16 @@ import { UserRole } from '../generated/client/client';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { Public } from '../auth/public.decorator';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiBody,
+} from '@nestjs/swagger';
 
 @UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@ApiTags('Online Admission')
 @Controller('online-admissions')
 export class OnlineAdmissionController {
   constructor(
@@ -28,6 +36,9 @@ export class OnlineAdmissionController {
   ) {}
 
   @Public()
+  @ApiBody({ type: CreateOnlineAdmissionDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create resource' })
   @Post()
   create(
     @Body() createDto: CreateOnlineAdmissionDto,
@@ -37,23 +48,34 @@ export class OnlineAdmissionController {
   }
 
   @Public()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Public Init Data' })
   @Get('public/init/:branchId')
   getPublicInitData(@Param('branchId') branchId: string) {
     return this.onlineAdmissionService.getPublicInitData(branchId);
   }
 
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve All' })
   @Get()
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   findAll(@GetTenantContext() context: TenantContext) {
     return this.onlineAdmissionService.findAll(context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve One' })
   @Get(':id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   findOne(@Param('id') id: string, @GetTenantContext() context: TenantContext) {
     return this.onlineAdmissionService.findOne(id, context);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: UpdateOnlineAdmissionDto })
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Update resource' })
   @Patch(':id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   update(
@@ -64,12 +86,18 @@ export class OnlineAdmissionController {
     return this.onlineAdmissionService.update(id, updateDto, context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Delete resource' })
   @Delete(':id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   remove(@Param('id') id: string, @GetTenantContext() context: TenantContext) {
     return this.onlineAdmissionService.remove(id, context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Approve' })
   @Post(':id/approve')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   approve(
@@ -80,6 +108,9 @@ export class OnlineAdmissionController {
     return this.onlineAdmissionService.approve(id, context, approvalData);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Reject' })
   @Post(':id/reject')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   reject(
@@ -90,6 +121,9 @@ export class OnlineAdmissionController {
     return this.onlineAdmissionService.reject(id, reason, context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Verify Payment' })
   @Post(':id/verify-payment')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   verifyPayment(
@@ -99,6 +133,9 @@ export class OnlineAdmissionController {
     return this.onlineAdmissionService.verifyPayment(id, context);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Reject Payment' })
   @Post(':id/reject-payment')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   rejectPayment(

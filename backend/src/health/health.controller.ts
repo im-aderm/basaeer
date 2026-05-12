@@ -1,6 +1,13 @@
 import { Controller, Get } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Public } from '../auth/public.decorator';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiBody,
+} from '@nestjs/swagger';
 
 interface HealthStatus {
   status: 'ok' | 'degraded' | 'down';
@@ -13,12 +20,15 @@ interface HealthStatus {
   };
 }
 
+@ApiTags('Health')
 @Controller('health')
 export class HealthController {
   private readonly startTime = Date.now();
 
   constructor(private readonly prisma: PrismaService) {}
 
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Check' })
   @Get()
   @Public()
   async check(): Promise<HealthStatus> {

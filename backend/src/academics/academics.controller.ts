@@ -28,8 +28,16 @@ import { Roles } from '../auth/roles.decorator';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { UserRole, Term } from '../generated/client/client';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiBody,
+} from '@nestjs/swagger';
 
 @UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@ApiTags('Academics')
 @Controller('academics')
 export class AcademicsController {
   constructor(
@@ -39,18 +47,29 @@ export class AcademicsController {
   ) {}
 
   // Assignments
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateAssignmentDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Assignment' })
   @Post('assignments')
   @Roles(UserRole.TEACHER, UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
   createAssignment(@Body() dto: CreateAssignmentDto) {
     return this.academicsService.createAssignment(dto);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: SubmitAssignmentDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Assignment' })
   @Post('submissions')
   @Roles(UserRole.STUDENT)
   submitAssignment(@Body() dto: SubmitAssignmentDto) {
     return this.academicsService.submitAssignment(dto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Update Grade Submission' })
   @Patch('submissions/:id/grade')
   @Roles(UserRole.TEACHER, UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
   gradeSubmission(
@@ -61,6 +80,9 @@ export class AcademicsController {
     return this.academicsService.gradeSubmission(id, grade, feedback);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Assignments' })
   @Get('assignments')
   @Roles(
     UserRole.TEACHER,
@@ -82,12 +104,18 @@ export class AcademicsController {
     });
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Assignment Submissions' })
   @Get('assignments/:id/submissions')
   @Roles(UserRole.TEACHER, UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
   getAssignmentSubmissions(@Param('id') id: string) {
     return this.academicsService.getAssignmentSubmissions(id);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Student Assignments' })
   @Get('student-assignments/:studentId')
   @Roles(
     UserRole.STUDENT,
@@ -100,6 +128,9 @@ export class AcademicsController {
   }
 
   // Performance
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Performance' })
   @Get('performance/:studentId')
   @Roles(
     UserRole.STUDENT,
@@ -112,6 +143,10 @@ export class AcademicsController {
   }
 
   // Promotion
+  @ApiBearerAuth()
+  @ApiBody({ type: PromoteStudentsDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Promote Students' })
   @Post('promote')
   @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
   promoteStudents(@Body() dto: PromoteStudentsDto) {
@@ -119,12 +154,19 @@ export class AcademicsController {
   }
 
   // Schedules
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateClassScheduleDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Schedule' })
   @Post('schedules')
   @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
   createSchedule(@Body() dto: CreateClassScheduleDto) {
     return this.academicsService.createSchedule(dto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Schedules' })
   @Get('schedules')
   @Roles(
     UserRole.BRANCH_ADMIN,
@@ -144,6 +186,9 @@ export class AcademicsController {
     });
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Delete Schedule' })
   @Delete('schedules/:id')
   @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
   deleteSchedule(@Param('id') id: string) {
@@ -151,6 +196,9 @@ export class AcademicsController {
   }
 
   // Exports
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create resource' })
   @Post('exports')
   @Throttle({ default: { limit: 5, ttl: 60000 } })
   @Roles(
@@ -166,6 +214,9 @@ export class AcademicsController {
     return this.exportQueueService.startExport(dto, ctx.userId, ctx.branchId!);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Exports' })
   @Get('exports')
   @Roles(
     UserRole.SUPER_ADMIN,
@@ -177,11 +228,17 @@ export class AcademicsController {
     return this.exportQueueService.getBranchExports(ctx.branchId!);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Export Status' })
   @Get('exports/:id')
   async getExportStatus(@Param('id') id: string) {
     return this.exportQueueService.getExportStatus(id);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Delete Export' })
   @Delete('exports/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   async deleteExport(@Param('id') id: string) {
@@ -189,6 +246,9 @@ export class AcademicsController {
   }
 
   // Computations
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Compute Section' })
   @Post('compute-section')
   @Throttle({ default: { limit: 2, ttl: 60000 } })
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.EXAM_OFFICER)
@@ -205,6 +265,8 @@ export class AcademicsController {
     );
   }
 
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Compute Status' })
   @Get('compute-status/:jobId')
   async getComputeStatus(@Param('jobId') jobId: string) {
     return this.computationQueueService.getJobStatus(jobId);

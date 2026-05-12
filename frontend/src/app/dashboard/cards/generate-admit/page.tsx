@@ -251,7 +251,7 @@ export default function GenerateAdmitCardPage() {
                                                 <div className="flex items-center gap-4">
                                                     <div className="w-12 h-12 rounded-xl overflow-hidden border-2 border-muted bg-muted flex items-center justify-center text-muted-foreground">
                                                         {student.passportPhoto ? (
-                                                            <img src={student.passportPhoto} className="w-full h-full object-cover" />
+                                                            <img src={student.passportPhoto} alt={`${student.firstName || ''} ${student.lastName || ''}`} className="w-full h-full object-cover" />
                                                         ) : (
                                                             <Users size={20} />
                                                         )}

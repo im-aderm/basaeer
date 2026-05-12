@@ -7,12 +7,23 @@ import { UserRole } from '../generated/client/client';
 import { CommsService } from './comms.service';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { TenantContext } from '../auth/branch.guard';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiBody,
+} from '@nestjs/swagger';
 
+@ApiTags('Communications')
 @Controller('comms')
 @UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
 export class CommsController {
   constructor(private readonly commsService: CommsService) {}
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Bulk Email' })
   @Post('bulk-email')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   async sendBulkEmail(
@@ -25,6 +36,9 @@ export class CommsController {
     });
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Bulk Sms' })
   @Post('bulk-sms')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   async sendBulkSms(
@@ -37,12 +51,18 @@ export class CommsController {
     });
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Campaigns' })
   @Get('campaigns')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   async getCampaigns(@GetTenantContext() context: TenantContext) {
     return this.commsService.getCampaigns(context.branchId);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Campaign Details' })
   @Get('campaigns/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   async getCampaignDetails(@Param('id') id: string) {

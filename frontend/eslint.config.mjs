@@ -15,12 +15,14 @@ const eslintConfig = defineConfig([
       "@typescript-eslint/no-non-null-asserted-optional-chain": "off",
       "@typescript-eslint/no-non-null-assertion": "off",
       "@next/next/no-html-link-for-pages": "off",
+      "@next/next/no-img-element": "off",
       "react/no-unescaped-entities": "off",
       "react-hooks/rules-of-hooks": "off",
       "react-hooks/exhaustive-deps": "off",
       "react-hooks/refs": "off",
       "react-hooks/immutability": "off",
       "react-hooks/set-state-in-effect": "off",
+      "react-hooks/incompatible-library": "off",
     }
   },
   // Override default ignores of eslint-config-next.

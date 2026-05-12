@@ -23,7 +23,15 @@ import {
   CreateAlumniEventDto,
   UpdateAlumniEventParticipationDto,
 } from './dto/stakeholder.dto';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiBody,
+} from '@nestjs/swagger';
 
+@ApiTags('Stakeholder')
 @Controller('stakeholder')
 @UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
 export class StakeholderController {
@@ -31,12 +39,18 @@ export class StakeholderController {
 
   // --- PARENT PORTAL ---
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Children' })
   @Get('parent/children')
   @Roles(UserRole.PARENT)
   getChildren(@GetTenantContext() ctx: TenantContext) {
     return this.stakeholderService.getChildren(ctx.userId);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Child Attendance' })
   @Get('parent/child/:id/attendance')
   @Roles(UserRole.PARENT)
   getChildAttendance(
@@ -46,6 +60,9 @@ export class StakeholderController {
     return this.stakeholderService.getChildAttendance(studentId, ctx.userId);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Child Financials' })
   @Get('parent/child/:id/financials')
   @Roles(UserRole.PARENT)
   getChildFinancials(
@@ -55,6 +72,9 @@ export class StakeholderController {
     return this.stakeholderService.getChildFinancials(studentId, ctx.userId);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Child Homework' })
   @Get('parent/child/:id/homework')
   @Roles(UserRole.PARENT)
   getChildHomework(
@@ -64,6 +84,9 @@ export class StakeholderController {
     return this.stakeholderService.getChildHomework(studentId, ctx.userId);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Child Exams' })
   @Get('parent/child/:id/exams')
   @Roles(UserRole.PARENT)
   getChildExams(
@@ -73,6 +96,9 @@ export class StakeholderController {
     return this.stakeholderService.getChildExams(studentId, ctx.userId);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Parent Events' })
   @Get('parent/events')
   @Roles(UserRole.PARENT)
   getParentEvents(@GetTenantContext() ctx: TenantContext) {
@@ -81,18 +107,27 @@ export class StakeholderController {
 
   // --- ADMIN PARENT MANAGEMENT ---
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve All Parents' })
   @Get('admin/parents')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   getAllParents(@Query('branchId') branchId: string) {
     return this.stakeholderService.getAllParentsAdmin(branchId);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Parent Details' })
   @Get('admin/parents/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   getParentDetails(@Param('id') id: string) {
     return this.stakeholderService.getParentDetailsAdmin(id);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Link Student' })
   @Post('admin/parents/:id/students/:studentId')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   linkStudent(
@@ -102,6 +137,9 @@ export class StakeholderController {
     return this.stakeholderService.linkStudentToParent(parentId, studentId);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Delete Unlink Student' })
   @Delete('admin/parents/students/:studentId')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   unlinkStudent(@Param('studentId') studentId: string) {
@@ -110,6 +148,10 @@ export class StakeholderController {
 
   // --- MESSAGING ---
 
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateConversationDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Conversation' })
   @Post('messaging/conversation')
   createConversation(
     @Body() dto: CreateConversationDto,
@@ -122,6 +164,10 @@ export class StakeholderController {
     );
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: SendMessageDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Message' })
   @Post('messaging/send')
   sendMessage(
     @Body() dto: SendMessageDto,
@@ -130,6 +176,9 @@ export class StakeholderController {
     return this.stakeholderService.sendMessage(ctx.userId, dto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Conversations' })
   @Get('messaging/conversations')
   getConversations(@GetTenantContext() ctx: TenantContext) {
     return this.stakeholderService.getConversations(ctx.userId);
@@ -137,6 +186,10 @@ export class StakeholderController {
 
   // --- ALUMNI ---
 
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateAlumniDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Alumni' })
   @Post('alumni')
   @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
   createAlumni(
@@ -146,11 +199,18 @@ export class StakeholderController {
     return this.stakeholderService.createAlumni(ctx.branchId!, dto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Alumni' })
   @Get('alumni')
   getAlumni(@Query('branchId') branchId: string) {
     return this.stakeholderService.getAlumni(branchId);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateAlumniEventDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Event' })
   @Post('alumni/event')
   @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
   createEvent(
@@ -160,11 +220,18 @@ export class StakeholderController {
     return this.stakeholderService.createAlumniEvent(ctx.branchId!, dto);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Events' })
   @Get('alumni/events')
   getEvents(@Query('branchId') branchId: string) {
     return this.stakeholderService.getAlumniEvents(branchId);
   }
 
+  @ApiBearerAuth()
+  @ApiBody({ type: UpdateAlumniEventParticipationDto })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create Rsvp Event' })
   @Post('alumni/event/:id/rsvp')
   rsvpEvent(
     @Param('id') eventId: string,

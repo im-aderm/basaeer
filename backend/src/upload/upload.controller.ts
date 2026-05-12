@@ -9,11 +9,21 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UploadService } from './upload.service';
 import { Public } from '../auth/public.decorator';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiBody,
+} from '@nestjs/swagger';
 
+@ApiTags('Upload')
 @Controller('upload')
 export class UploadController {
   constructor(private readonly uploadService: UploadService) {}
 
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create resource' })
   @Post('admission-document')
   @Public()
   @UseInterceptors(
@@ -60,6 +70,8 @@ export class UploadController {
     };
   }
 
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Create resource' })
   @Post('payment-proof')
   @Public()
   @UseInterceptors(

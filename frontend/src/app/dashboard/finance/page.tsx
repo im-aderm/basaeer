@@ -11,23 +11,30 @@ import {
     FileText,
     TrendingUp,
     TrendingDown,
-    Activity
+    Activity,
+    Loader2,
+    AlertCircle
 } from 'lucide-react';
 import Link from 'next/link';
 import api from '@/lib/api';
+import { toast } from 'sonner';
 
 export default function FinanceDashboard() {
     const { user } = useAuth();
     const [stats, setStats] = useState<any>(null);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchStats = async () => {
+            setLoading(true);
+            setError(null);
             try {
                 const response = await api.get('/finance/stats');
                 setStats(response.data);
             } catch (error) {
-                console.error('Failed to fetch finance stats', error);
+                setError("Could not load financial data");
+                toast.error("Failed to load finance statistics");
             } finally {
                 setLoading(false);
             }
@@ -39,7 +46,20 @@ export default function FinanceDashboard() {
     }, [user]);
 
     if (loading) {
-        return <div className="p-8">Loading financial data...</div>;
+        return (
+            <div className="flex h-[60vh] items-center justify-center">
+                <Loader2 className="w-10 h-10 animate-spin text-primary" />
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="flex h-[60vh] flex-col items-center justify-center gap-4">
+                <AlertCircle className="w-12 h-12 text-destructive" />
+                <p className="text-lg font-semibold text-destructive">{error}</p>
+            </div>
+        );
     }
 
     return (
@@ -100,7 +120,7 @@ export default function FinanceDashboard() {
                         <TrendingDown className="h-4 w-4 text-red-500" />
                     </div>
                     <div className="text-2xl font-bold">
-                        ₦0
+                        ₦{stats?.totalExpenses?.toLocaleString() || '0'}
                     </div>
                     <p className="text-xs text-muted-foreground">Cash Out</p>
                 </Card>

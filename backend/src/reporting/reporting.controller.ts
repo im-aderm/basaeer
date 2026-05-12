@@ -20,18 +20,32 @@ import {
   FinanceReportQueryDto,
   ReportQueryDto,
 } from './dto/report-query.dto';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiBody,
+} from '@nestjs/swagger';
 
+@ApiTags('Reporting')
 @Controller('reporting')
 @UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
 export class ReportingController {
   constructor(private readonly reportingService: ReportingService) {}
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Dashboard' })
   @Get('dashboard')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   getDashboard(@GetTenantContext() ctx: TenantContext) {
     return this.reportingService.getUnifiedDashboard(ctx.branchId!);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Student Analytics' })
   @Get('students')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   getStudentAnalytics(
@@ -45,6 +59,9 @@ export class ReportingController {
     });
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Finance Analytics' })
   @Get('finance')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.ACCOUNTANT)
   getFinanceAnalytics(
@@ -58,6 +75,9 @@ export class ReportingController {
     });
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve H R Analytics' })
   @Get('hr')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
   getHRAnalytics(
@@ -71,6 +91,9 @@ export class ReportingController {
     });
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Academic Analytics' })
   @Get('academic')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   getAcademicAnalytics(
@@ -84,6 +107,9 @@ export class ReportingController {
     });
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Attendance Analytics' })
   @Get('attendance')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   getAttendanceAnalytics(
@@ -97,6 +123,9 @@ export class ReportingController {
     });
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Export Performance' })
   @Get('export/performance')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   async exportPerformance(
@@ -114,6 +143,9 @@ export class ReportingController {
     res.end(buffer);
   }
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Export Finance' })
   @Get('export/finance')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.ACCOUNTANT)
   async exportFinance(
