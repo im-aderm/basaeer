@@ -46,6 +46,7 @@ RUN npm ci --omit=dev --ignore-scripts
 COPY --from=builder /app/backend/dist ./backend/dist
 COPY --from=builder /app/backend/prisma ./backend/prisma
 COPY --from=builder /app/backend/src/generated ./backend/src/generated
+COPY --from=builder /app/packages/shared-types/dist ./packages/shared-types/dist
 
 RUN chown -R appuser:appgroup /app
 USER appuser
