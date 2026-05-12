@@ -13,6 +13,9 @@ COPY packages/shared-types ./packages/shared-types/
 # Skip postinstall (prisma generate) — schema is present but TypeScript source isn't copied yet.
 RUN npm ci --ignore-scripts
 
+# Build the shared-types workspace package first (backend depends on it)
+RUN npm run build --workspace=@basaeer/shared-types
+
 # Stage backend artifacts needed for build
 COPY backend ./backend
 
