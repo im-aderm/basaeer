@@ -18,11 +18,11 @@ export function Footer() {
           <div className="space-y-6">
             <Link href="/" className="flex items-center">
               <span className="font-heading font-extrabold text-2xl tracking-tight text-gradient-primary">
-                Basaeer
+                Basaer
               </span>
             </Link>
             <p className="text-text-secondary leading-relaxed text-sm font-medium">
-              Basaeer Model School — bridging the gap between world-class academic excellence and profound spiritual growth.
+              Basaer Model School — bridging the gap between world-class academic excellence and profound spiritual growth.
             </p>
             <div className="flex gap-4">
               {[
@@ -118,7 +118,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-border pt-8 text-center text-xs opacity-60">
-          <p>© 2024 Basaeer Model School. Seeking Knowledge, Illuminating Souls. All Rights Reserved.</p>
+          <p>© 2024 Basaer Model School. Seeking Knowledge, Illuminating Souls. All Rights Reserved.</p>
         </div>
       </div>
     </footer>

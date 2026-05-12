@@ -7,7 +7,7 @@ export function IntroStep() {
   return (
     <CardContent className="p-8 space-y-10">
       <div className="text-center space-y-4">
-        <h2 className="text-4xl font-black italic tracking-tight text-primary uppercase">Welcome to Basaeer</h2>
+        <h2 className="text-4xl font-black italic tracking-tight text-primary uppercase">Welcome to Basaer</h2>
         <p className="text-muted-foreground font-medium max-w-2xl mx-auto">
           We are committed to providing a holistic education that blends Quranic values with modern science and technology.
         </p>

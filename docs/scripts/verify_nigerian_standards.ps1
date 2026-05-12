@@ -5,7 +5,7 @@ Write-Host "--- BMSMS Nigerian Standards Verification ---"
 # 1. Authenticate
 Write-Host "Authenticating Super Admin..."
 try {
-    $loginBody = @{ email = "superadmin@basaeer.com"; password = "admin123" } | ConvertTo-Json
+    $loginBody = @{ email = "superadmin@basaer.com"; password = "admin123" } | ConvertTo-Json
     $loginResp = Invoke-RestMethod -Uri "$apiUrl/auth/login" -Method Post -Body $loginBody -ContentType "application/json"
     $token = $loginResp.access_token
 

@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const basePath = '/home/im-adam/Desktop/basaeer';
+const basePath = '/home/im-adam/Desktop/basaer';
 
 function walkSync(dir, filelist = []) {
   if (!fs.existsSync(dir)) return filelist;

@@ -23,7 +23,7 @@ try {
     try { Invoke-RestMethod -Uri "http://localhost:3000/auth/bootstrap" -Method Post | Out-Null } catch {}
 
     Write-Host "`nLogging in as Super Admin..."
-    $loginBody = @{ email="superadmin@basaeer.com"; password="admin123" } | ConvertTo-Json
+    $loginBody = @{ email="superadmin@basaer.com"; password="admin123" } | ConvertTo-Json
     $loginRes = Invoke-RestMethod -Uri "http://localhost:3000/auth/login" -Method Post -Body $loginBody -ContentType "application/json"
     $token = $loginRes.access_token
 
@@ -69,7 +69,7 @@ try {
     # Create Branch Admin for Alpha
     Write-Host "Creating Branch Admin for Alpha..."
     $adminAlphaBody = @{
-        email = "admin.alpha.$TS@basaeer.com"
+        email = "admin.alpha.$TS@basaer.com"
         password = "alpha123"
         firstName = "Alpha"
         lastName = "Admin"
@@ -81,7 +81,7 @@ try {
 
     # Login as Alpha Admin
     Write-Host "Logging in as Alpha Admin..."
-    $alphaLoginBody = @{ email = "admin.alpha.$TS@basaeer.com"; password = "alpha123" } | ConvertTo-Json
+    $alphaLoginBody = @{ email = "admin.alpha.$TS@basaer.com"; password = "alpha123" } | ConvertTo-Json
     $alphaLogin = Invoke-RestMethod -Uri "http://localhost:3000/auth/login" -Method Post -Body $alphaLoginBody -ContentType "application/json"
     $alphaToken = $alphaLogin.access_token
 

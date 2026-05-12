@@ -1,14 +1,14 @@
 # VPS Production Setup Guide
 
-This guide covers the deployment of the Basaeer ERP on a raw Linux VPS (Ubuntu 22.04 or later).
+This guide covers the deployment of the Basaer ERP on a raw Linux VPS (Ubuntu 22.04 or later).
 
 ## Architecture
 
-* **Web Server:** NGINX acting as a reverse proxy for API and Frontend.
-* **Backend:** NestJS container (Node.js 20+).
-* **Frontend:** Next.js container.
-* **Database:** PostgreSQL 16 container.
-* **Queue:** Redis 7 container with AOF persistence.
+- **Web Server:** NGINX acting as a reverse proxy for API and Frontend.
+- **Backend:** NestJS container (Node.js 20+).
+- **Frontend:** Next.js container.
+- **Database:** PostgreSQL 16 container.
+- **Queue:** Redis 7 container with AOF persistence.
 
 ## 1. Initial VPS Hardening
 
@@ -50,8 +50,8 @@ sudo usermod -aG docker deployer
 ```bash
 # Login as deployer
 su - deployer
-git clone https://github.com/im-aderm/basaeer.git
-cd basaeer
+git clone https://github.com/im-aderm/basaer.git
+cd basaer
 
 # Copy environment variables
 cp .env.example .env

@@ -12,12 +12,12 @@ async function runVerification() {
         // 1. Auth - Login as Super Admin
         // Assuming default seed credentials or a known user. 
         // I will try to login with a known super admin email if I can recall from previous logs?
-        // Let's use the one from seed: admin@basaeer.com / password123 (Typical default)
+        // Let's use the one from seed: admin@basaer.com / password123 (Typical default)
         // If this fails, I might need to create a user first via prisma.
         let token;
         try {
             const loginRes = await axios.post(`${BASE_URL}/auth/login`, {
-                email: 'superadmin@basaeer.com',
+                email: 'superadmin@basaer.com',
                 password: 'admin123'
             });
             token = loginRes.data.access_token;

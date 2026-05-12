@@ -77,7 +77,7 @@ export default function TahfeezPage() {
             </h1>
 
             <p className="text-base sm:text-lg lg:text-xl text-text-secondary leading-relaxed max-w-2xl mx-auto">
-              Embark on a transformative spiritual odyssey where ancient wisdom meets modern pedagogical excellence. Basaeer’s Tahfeez Academy nurtures the next generation of Hifz guardians within a sanctuary of light and peace.
+              Embark on a transformative spiritual odyssey where ancient wisdom meets modern pedagogical excellence. Basaer’s Tahfeez Academy nurtures the next generation of Hifz guardians within a sanctuary of light and peace.
             </p>
 
             <div className="pt-4 flex flex-wrap justify-center gap-4">

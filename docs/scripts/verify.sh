@@ -15,7 +15,7 @@ echo ""
 
 # Login
 echo "Logging in..."
-LOGIN_RES=$(curl -s -X POST http://localhost:3000/auth/login -H "Content-Type: application/json" -d '{"email":"superadmin@basaeer.com","password":"admin123"}')
+LOGIN_RES=$(curl -s -X POST http://localhost:3000/auth/login -H "Content-Type: application/json" -d '{"email":"superadmin@basaer.com","password":"admin123"}')
 echo "Login Response: $LOGIN_RES"
 
 TOKEN=$(echo $LOGIN_RES | grep -o '"access_token":"[^"]*"' | cut -d'"' -f4)
@@ -51,7 +51,7 @@ echo "Creating Teacher..."
 curl -s -X POST http://localhost:3000/employees/teachers \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
-  -d "{\"email\":\"teacher$(date +%s)@basaeer.com\", \"password\":\"teach123\", \"firstName\":\"John\", \"lastName\":\"Doe\", \"branchId\":\"$BRANCH_ID\", \"designation\":\"Senior Teacher\"}"
+  -d "{\"email\":\"teacher$(date +%s)@basaer.com\", \"password\":\"teach123\", \"firstName\":\"John\", \"lastName\":\"Doe\", \"branchId\":\"$BRANCH_ID\", \"designation\":\"Senior Teacher\"}"
 echo ""
 
 # Create Student
@@ -59,7 +59,7 @@ echo "Creating Student..."
 curl -s -X POST http://localhost:3000/students \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
-  -d "{\"email\":\"student$(date +%s)@basaeer.com\", \"password\":\"stud123\", \"firstName\":\"Alice\", \"lastName\":\"Smith\", \"branchId\":\"$BRANCH_ID\"}"
+  -d "{\"email\":\"student$(date +%s)@basaer.com\", \"password\":\"stud123\", \"firstName\":\"Alice\", \"lastName\":\"Smith\", \"branchId\":\"$BRANCH_ID\"}"
 echo ""
 
 echo "Verification Complete."

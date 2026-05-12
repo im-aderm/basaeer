@@ -34,6 +34,7 @@ export class PaymentsController {
     if (!signature) {
       return { status: 'ignored' };
     }
-    return this.paymentsService.handlePaystackWebhook(signature, req.body);
+    const rawBody = (req as any).rawBody || JSON.stringify(req.body);
+    return this.paymentsService.handlePaystackWebhook(signature, rawBody, req.body);
   }
 }

@@ -35,7 +35,7 @@ const events = [
     featured: true,
   },
   {
-    title: "Basaeer Olympiad",
+    title: "Basaer Olympiad",
     date: "OCT 2024",
     location: "Central Stadium",
     description: "Our signature annual sports day featuring track, field, and team sports in a festival atmosphere.",
@@ -70,7 +70,7 @@ const voices = [
     color: "border-[#7c3aed]",
   },
   {
-    quote: "Being part of the Leadership Council gave me the confidence to start my own community initiative. Basaeer truly empowers us to lead.",
+    quote: "Being part of the Leadership Council gave me the confidence to start my own community initiative. Basaer truly empowers us to lead.",
     author: "Sara M.",
     meta: "Grade 11, Council President",
     image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCmYk0YWq1pG9KJaE_7dG_v4Td6wsb7x46gIWwYMFYJ6acGBcrkocrWPxTSwqASVy_zJcL2dW0UcxdqKAmVqpclBWwfPJCY6ILCtMORJ6N6EoP0S8MiF5NhN05d5gIdeOXrnllo3yOfxVsHgbZdw3QwAW-iFWAbzkseV4R8aaxrnQP1BiL4AcoTMyuJIqe-ebBK45vdnstM2RE_AgAOLfgBOFHLr-88MFCUbOmgLk2WnUcXTVrOpnSeU1eC9HfhhHdbisAhRyflcsk",
@@ -105,7 +105,7 @@ export default function StudentLifePage() {
                 Beyond the Classroom: Where <span className="text-[#d2bbff] drop-shadow-[0_0_15px_rgba(210,187,255,0.4)]">Character</span> is Built.
               </h1>
               <p className="text-[#ccc3d8] text-lg md:text-xl leading-relaxed max-w-xl">
-                At Basaeer, we cultivate the leaders of tomorrow through a vibrant tapestry of arts, sports, and spiritual growth. Discover your potential in an environment that celebrates every talent.
+                At Basaer, we cultivate the leaders of tomorrow through a vibrant tapestry of arts, sports, and spiritual growth. Discover your potential in an environment that celebrates every talent.
               </p>
               <div className="flex flex-wrap gap-4 pt-4">
                 <button className="px-8 py-4 rounded-full text-white font-bold bg-gradient-to-r from-[#7c3aed] to-[#4f46e5] shadow-[0_0_20px_rgba(124,58,237,0.3)] hover:scale-105 transition-all duration-300">

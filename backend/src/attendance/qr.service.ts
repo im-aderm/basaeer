@@ -7,9 +7,7 @@ export class QRService {
   private readonly secret: string;
 
   constructor(configService: ConfigService) {
-    this.secret =
-      configService.get<string>('QR_SIGNING_SECRET') ||
-      'basaeer-qr-default-secret-2026';
+    this.secret = configService.getOrThrow<string>('QR_SIGNING_SECRET');
   }
 
   generateSignature(studentId: string, branchId: string): string {

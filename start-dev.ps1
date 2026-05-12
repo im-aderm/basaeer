@@ -1,5 +1,5 @@
-# Basaeer Development Environment Check
-Write-Host "🚀 Checking Basaeer Development Environment (Local Mode)..." -ForegroundColor Cyan
+# Basaer Development Environment Check
+Write-Host "🚀 Checking Basaer Development Environment (Local Mode)..." -ForegroundColor Cyan
 
 # Check if local Postgres is running on 5432
 Write-Host "🔍 Checking for local PostgreSQL on port 5432..."
@@ -25,7 +25,7 @@ Write-Host ""
 Write-Host "🎉 Ready to start!" -ForegroundColor Green
 Write-Host ""
 Write-Host "📝 Default admin credentials (if database is seeded):"
-Write-Host "   Email: superadmin@basaeer.com"
+Write-Host "   Email: superadmin@basaer.com"
 Write-Host "   Password: admin123"
 Write-Host ""
 Write-Host "To start the backend:"

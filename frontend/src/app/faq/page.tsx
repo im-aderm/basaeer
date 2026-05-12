@@ -28,7 +28,7 @@ const faqData = [
       },
       {
         q: "Are there scholarships available for talented students?",
-        a: "Yes, Basaeer Model School offers Merit-Based Scholarships for students excelling in academics and the Tahfeez program. Financial aid is also available through our Zakat-funded scholarship pool for eligible families.",
+        a: "Yes, Basaer Model School offers Merit-Based Scholarships for students excelling in academics and the Tahfeez program. Financial aid is also available through our Zakat-funded scholarship pool for eligible families.",
       },
     ],
   },
@@ -37,7 +37,7 @@ const faqData = [
     icon: GraduationCap,
     items: [
       {
-        q: "What curriculum does Basaeer follow?",
+        q: "What curriculum does Basaer follow?",
         a: "We integrate the rigorous British International Curriculum (Cambridge) with our proprietary Islamic Integrated Science program, ensuring students are competitive globally while remaining spiritually grounded.",
       },
     ],
@@ -58,7 +58,7 @@ const faqData = [
     items: [
       {
         q: "Does the school provide transportation?",
-        a: "Basaeer provides air-conditioned transportation services covering a 20km radius around all campuses. All buses are equipped with real-time GPS tracking and trained supervisors.",
+        a: "Basaer provides air-conditioned transportation services covering a 20km radius around all campuses. All buses are equipped with real-time GPS tracking and trained supervisors.",
       },
     ],
   },
@@ -106,7 +106,7 @@ export default function FAQPage() {
             Your Questions, <span className="text-[#d2bbff] drop-shadow-[0_0_15px_rgba(210,187,255,0.4)]">Answered.</span>
           </h1>
           <p className="text-lg md:text-xl text-[#ccc3d8] leading-relaxed max-w-2xl mx-auto">
-            Find comprehensive information about our curriculum, admissions process, and the spiritual journey at Basaeer Model School.
+            Find comprehensive information about our curriculum, admissions process, and the spiritual journey at Basaer Model School.
           </p>
 
           {/* Search Bar */}

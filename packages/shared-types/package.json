@@ -1,5 +1,5 @@
 {
-  "name": "@basaeer/shared-types",
+  "name": "@basaer/shared-types",
   "version": "1.0.0",
   "private": true,
   "main": "./dist/index.js",

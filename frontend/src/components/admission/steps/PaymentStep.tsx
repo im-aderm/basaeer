@@ -171,7 +171,7 @@ export function PaymentStep() {
             <User className="text-primary/40 mb-2" size={24} />
             <span className="text-[10px] font-black uppercase text-muted-foreground mb-1">Name</span>
             <span className="text-sm font-black italic uppercase leading-tight text-center">
-              Basaeer Quranic College
+              Basaer Quranic College
             </span>
           </div>
         </div>

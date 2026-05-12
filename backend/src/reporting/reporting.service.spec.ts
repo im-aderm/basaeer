@@ -114,11 +114,11 @@ describe('ReportingService', () => {
   describe('fillTemplate', () => {
     it('should resolve placeholders in templates', async () => {
       const template = 'Hello {{name}}, welcome to {{school}}';
-      const data = { name: 'John', school: 'Basaeer Academy' };
+      const data = { name: 'John', school: 'Basaer Academy' };
 
       const result = await service.fillTemplate(template, data);
 
-      expect(result).toBe('Hello John, welcome to Basaeer Academy');
+      expect(result).toBe('Hello John, welcome to Basaer Academy');
     });
   });
 });

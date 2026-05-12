@@ -161,7 +161,7 @@ export class AutomationRunnerService {
       if (person.phone) {
         await this.commsService.sendSms({
           phone: person.phone,
-          message: `Happy Birthday, ${name}! From all of us at Basaeer College.`,
+          message: `Happy Birthday, ${name}! From all of us at Basaer College.`,
           branchId: job.branchId,
         });
         sentCount++;
@@ -169,8 +169,8 @@ export class AutomationRunnerService {
       if (person.email) {
         await this.commsService.sendEmail({
           email: person.email,
-          subject: 'Happy Birthday from Basaeer College!',
-          message: `<p>Dear ${name},</p><p>Wishing you a wonderful birthday!</p><p>- Basaeer College</p>`,
+          subject: 'Happy Birthday from Basaer College!',
+          message: `<p>Dear ${name},</p><p>Wishing you a wonderful birthday!</p><p>- Basaer College</p>`,
           branchId: job.branchId,
         });
         sentCount++;
@@ -217,7 +217,7 @@ export class AutomationRunnerService {
         style: 'currency',
         currency: 'NGN',
       }).format(invoice.totalAmount);
-      const msg = `Dear parent/guardian of ${studentName}, fee reminder: ${amountFormatted} due. - Basaeer College`;
+      const msg = `Dear parent/guardian of ${studentName}, fee reminder: ${amountFormatted} due. - Basaer College`;
 
       const parent = invoice.student.user;
       if (parent?.phone) {
@@ -272,7 +272,7 @@ export class AutomationRunnerService {
     for (const record of absentRecords) {
       const student = record.student;
       const name = `${student.firstName} ${student.lastName}`;
-      const msg = `${name} was absent yesterday. Please contact the school. - Basaeer`;
+      const msg = `${name} was absent yesterday. Please contact the school. - Basaer`;
 
       if (student.user?.phone) {
         await this.commsService.sendSms({
@@ -352,7 +352,7 @@ export class AutomationRunnerService {
       if (user.email) {
         await this.commsService.sendEmail({
           email: user.email,
-          subject: 'Bulk Notification - Basaeer College',
+          subject: 'Bulk Notification - Basaer College',
           message: `<p>${config.template}</p>`,
           userId: user.id,
           branchId: job.branchId,

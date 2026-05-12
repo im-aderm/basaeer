@@ -1,5 +1,6 @@
 # Celestial Wisdom: Design System & Philosophy
-## Basaeer Model School
+
+## Basaer Model School
 
 Celestial Wisdom is a premium, futuristic design system that bridges traditional Islamic values with high-end SaaS aesthetics. It is built to communicate trust, academic prestige, and spiritual depth through "Apple-level" polish and "Stripe-level" clarity.
 
@@ -7,7 +8,7 @@ Celestial Wisdom is a premium, futuristic design system that bridges traditional
 
 ## 1. Design Philosophy
 
-The Basaeer brand operates at the intersection of **heritage** and **innovation**. 
+The Basaer brand operates at the intersection of **heritage** and **innovation**.
 
 - **Immersive Narrative:** Every interface element should contribute to a cinematic storytelling experience, reflecting the journey of a student from nursery to the Tahfeez Academy.
 - **Glassmorphism & Depth:** Use of layered glass surfaces, soft blurs (backdrop-filter), and subtle glow effects creates a sense of "enlightened" technology.
@@ -21,7 +22,8 @@ The Basaeer brand operates at the intersection of **heritage** and **innovation*
 The system is designed for a **Dark Mode First** experience, with a sophisticated **Light Mode** counterpart.
 
 ### Dark Mode (Celestial Night)
-*Primary theme for an immersive, futuristic feel.*
+
+_Primary theme for an immersive, futuristic feel._
 
 - **Surface:** `#050816` (Deep Space)
 - **Surface-Dim:** `#0B1023` (Midnight Navy)
@@ -33,7 +35,8 @@ The system is designed for a **Dark Mode First** experience, with a sophisticate
 - **Border-Glow:** `rgba(255, 255, 255, 0.12)`
 
 ### Light Mode (Illuminated Dawn)
-*Optimized for clarity and professional academic reading.*
+
+_Optimized for clarity and professional academic reading._
 
 - **Surface:** `#F8FAFC` (Ghost White)
 - **Surface-Container:** `#FFFFFF` (Pure White)
@@ -51,11 +54,11 @@ The system is designed for a **Dark Mode First** experience, with a sophisticate
 The type system prioritizes **confidence** and **luxury**.
 
 - **Headings:** `Space Grotesk`
-  - *Attributes:* Wide tracking, tight leading, bold weights.
-  - *Use:* Hero headlines, section titles.
+  - _Attributes:_ Wide tracking, tight leading, bold weights.
+  - _Use:_ Hero headlines, section titles.
 - **Body & Interface:** `Inter`
-  - *Attributes:* Highly legible, geometric, modern.
-  - *Use:* UI labels, paragraph text, portal data.
+  - _Attributes:_ Highly legible, geometric, modern.
+  - _Use:_ UI labels, paragraph text, portal data.
 - **Specialty (Calligraphy):** Traditional Arabic script for spiritual quotes.
 
 ---
@@ -64,8 +67,8 @@ The type system prioritizes **confidence** and **luxury**.
 
 - **Cards:** Glassmorphic containers with 1px borders. `backdrop-blur: 12px`.
 - **Buttons:**
-  - *Primary:* Gradient backgrounds with a subtle drop-shadow glow.
-  - *Secondary:* Ghost buttons with animated border reveals.
+  - _Primary:_ Gradient backgrounds with a subtle drop-shadow glow.
+  - _Secondary:_ Ghost buttons with animated border reveals.
 - **Navigation:** Floating, transparent sticky navbar that transitions background opacity on scroll.
 - **Icons:** Thin-stroke (2pt) linear icons with selective color accents.
 
@@ -77,4 +80,3 @@ The type system prioritizes **confidence** and **luxury**.
 - **Magnetic Buttons:** CTA buttons should subtly follow the user's cursor within a 20px radius.
 - **Aurora Gradients:** Backgrounds feature slow-morphing purple and blue blobs to prevent static visuals.
 - **Hover Glow:** Interactive elements should emit a soft radial gradient glow on hover.
-

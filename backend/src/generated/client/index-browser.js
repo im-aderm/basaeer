@@ -2079,6 +2079,7 @@ exports.AttemptStatus = exports.$Enums.AttemptStatus = {
 };
 
 exports.PaymentMethod = exports.$Enums.PaymentMethod = {
+  PAYSTACK: 'PAYSTACK',
   FLUTTERWAVE: 'FLUTTERWAVE',
   BANK_TRANSFER: 'BANK_TRANSFER',
   CASH: 'CASH'

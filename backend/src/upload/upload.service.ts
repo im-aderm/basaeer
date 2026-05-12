@@ -23,7 +23,7 @@ export class UploadService {
     );
 
     this.bucketName =
-      this.configService.get<string>('R2_BUCKET_NAME') || 'basaeer-uploads';
+      this.configService.get<string>('R2_BUCKET_NAME') || 'basaer-uploads';
     this.publicDomain =
       this.configService.get<string>('R2_PUBLIC_DOMAIN') || '';
 

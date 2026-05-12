@@ -97,7 +97,7 @@ export class FinancePaymentController {
           {
             invoiceId,
             amount: verification.data.amount / 100,
-            method: 'FLUTTERWAVE',
+            method: 'PAYSTACK',
             transactionId: reference,
             notes: `Paystack: ${verification.data.channel}`,
           },
@@ -128,7 +128,7 @@ export class FinancePaymentController {
       return { status: 'error', message: 'Paystack not configured' };
     }
 
-    const rawBody = (req as any).rawBody || JSON.stringify(req.body);
+    const rawBody = (req as any).rawBody;
     const isValid = this.paystackService.verifyWebhookSignature(
       signature,
       rawBody,
@@ -166,7 +166,7 @@ export class FinancePaymentController {
                 {
                   invoiceId,
                   amount: event.data.amount / 100,
-                  method: 'FLUTTERWAVE',
+                  method: 'PAYSTACK',
                   transactionId: reference,
                   notes: 'Webhook: charge.success',
                 },

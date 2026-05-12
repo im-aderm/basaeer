@@ -1,10 +1,10 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { exec } from 'child_process';
+import { Injectable, InternalServerErrorException, BadRequestException } from '@nestjs/common';
+import { execFile } from 'child_process';
 import * as path from 'path';
 import * as fs from 'fs';
 import { promisify } from 'util';
 
-const execPromise = promisify(exec);
+const execFilePromise = promisify(execFile);
 
 @Injectable()
 export class BackupService {
@@ -16,19 +16,51 @@ export class BackupService {
     }
   }
 
+  private validatePath(filename: string): string {
+    const resolvedPath = path.resolve(this.backupDir, filename);
+    const resolvedBase = path.resolve(this.backupDir);
+    if (!resolvedPath.startsWith(resolvedBase + path.sep) && resolvedPath !== resolvedBase) {
+      throw new BadRequestException('Invalid file path');
+    }
+    return resolvedPath;
+  }
+
   async createBackup() {
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
     const filename = `backup-${timestamp}.sql`;
     const filepath = path.join(this.backupDir, filename);
 
-    // Get DB config from env
     const dbUrl = process.env.DATABASE_URL;
-    if (!dbUrl)
+    if (!dbUrl) {
       throw new InternalServerErrorException('DATABASE_URL not found');
+    }
 
     try {
-      // Simple pg_dump command using the database URL
-      await execPromise(`pg_dump "${dbUrl}" > "${filepath}"`);
+      let url: URL;
+      try {
+        url = new URL(dbUrl);
+      } catch {
+        throw new InternalServerErrorException('Invalid DATABASE_URL format');
+      }
+
+      const dbName = url.pathname.slice(1);
+      if (!dbName) {
+        throw new InternalServerErrorException('DATABASE_URL must include a database name');
+      }
+
+      await execFilePromise(
+        'pg_dump',
+        [
+          '-h', url.hostname,
+          '-p', url.port || '5432',
+          '-U', url.username,
+          '-d', dbName,
+          '-f', filepath,
+        ],
+        {
+          env: { ...process.env, PGPASSWORD: decodeURIComponent(url.password) },
+        },
+      );
 
       const stats = fs.statSync(filepath);
       return {
@@ -38,7 +70,6 @@ export class BackupService {
         path: filepath,
       };
     } catch (error) {
-      console.error('Backup failed', error);
       throw new InternalServerErrorException(
         'Failed to create database backup',
       );
@@ -63,7 +94,7 @@ export class BackupService {
   }
 
   async deleteBackup(filename: string) {
-    const filepath = path.join(this.backupDir, filename);
+    const filepath = this.validatePath(filename);
     if (fs.existsSync(filepath)) {
       fs.unlinkSync(filepath);
       return { message: 'Backup deleted successfully' };
@@ -72,7 +103,7 @@ export class BackupService {
   }
 
   async downloadBackup(filename: string) {
-    const filepath = path.join(this.backupDir, filename);
+    const filepath = this.validatePath(filename);
     if (fs.existsSync(filepath)) {
       return filepath;
     }

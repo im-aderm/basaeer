@@ -14,7 +14,7 @@ sleep 15
 echo "--- Bootstrapping ---"
 curl -s -X POST http://localhost:3000/auth/bootstrap
 echo -e "\nLogging in as Super Admin..."
-LOGIN_RES=$(curl -s -X POST http://localhost:3000/auth/login -H "Content-Type: application/json" -d '{"email":"superadmin@basaeer.com","password":"admin123"}')
+LOGIN_RES=$(curl -s -X POST http://localhost:3000/auth/login -H "Content-Type: application/json" -d '{"email":"superadmin@basaer.com","password":"admin123"}')
 TOKEN=$(echo $LOGIN_RES | grep -o '"access_token":"[^"]*"' | cut -d'"' -f4)
 
 if [ -z "$TOKEN" ]; then
@@ -72,12 +72,12 @@ echo "Creating Branch Admin for Alpha..."
 ADMIN_ALPHA_RES=$(curl -s -X POST http://localhost:3000/auth/register \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
-  -d "{\"email\":\"admin.alpha.$TS@basaeer.com\", \"password\":\"alpha123\", \"firstName\":\"Alpha\", \"lastName\":\"Admin\", \"role\":\"BRANCH_ADMIN\", \"branchId\":\"$B1_ID\"}")
+  -d "{\"email\":\"admin.alpha.$TS@basaer.com\", \"password\":\"alpha123\", \"firstName\":\"Alpha\", \"lastName\":\"Admin\", \"role\":\"BRANCH_ADMIN\", \"branchId\":\"$B1_ID\"}")
 echo "Admin Alpha Register Response Status: $(echo $ADMIN_ALPHA_RES | grep -o '"id"')"
 
 # Login as Alpha Admin
 echo "Logging in as Alpha Admin..."
-ALPHA_LOGIN=$(curl -s -X POST http://localhost:3000/auth/login -H "Content-Type: application/json" -d "{\"email\":\"admin.alpha.$TS@basaeer.com\",\"password\":\"alpha123\"}")
+ALPHA_LOGIN=$(curl -s -X POST http://localhost:3000/auth/login -H "Content-Type: application/json" -d "{\"email\":\"admin.alpha.$TS@basaer.com\",\"password\":\"alpha123\"}")
 ALPHA_TOKEN=$(echo $ALPHA_LOGIN | grep -o '"access_token":"[^"]*"' | cut -d'"' -f4)
 
 if [ -z "$ALPHA_TOKEN" ]; then

@@ -101,7 +101,7 @@ export default function GalleryPage() {
         <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0 z-0">
             <img 
-              alt="Basaeer Model School Campus Aerial view" 
+              alt="Basaer Model School Campus Aerial view" 
               className="w-full h-full object-cover opacity-40 scale-105" 
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6vSiHLvFFNlLHTetHlo9YmafxgkxudKSrpvMKskby773D7Dz2B4pIego7KjZLwYqW9XvHmYb1UZDUcy9zDNjLNnHouuFdx_T378xUiUw1OyS6T5F1iBlENSemDj2pwywWzV4fEJHoVMxHMAfry-wrXNeyfSy3Q05K2uaKZmu1xbSLRkWhF22Ft6oF_eZOTlZoBhSd6L1T73M1FVyNdFFGEh9dK3C4McigdXP3n9HQA1lXEs-3Y4X9D3J51q_2kG85ShnKMOsoY4Q" 
             />
@@ -187,7 +187,7 @@ export default function GalleryPage() {
                   CINEMATIC REELS
                 </span>
                 <h2 className="text-3xl md:text-5xl font-bold text-white font-heading">
-                  Experience the Basaeer Journey in Motion.
+                  Experience the Basaer Journey in Motion.
                 </h2>
               </div>
               <button className="text-[#d2bbff] font-bold text-xs tracking-widest uppercase flex items-center gap-2 group hover:text-white transition-colors">

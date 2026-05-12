@@ -12,7 +12,7 @@ const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter } as any);
 
 async function main() {
-    const email = 'superadmin@basaeer.com';
+    const email = 'superadmin@basaer.com';
     const user = await prisma.user.findUnique({ where: { email } });
 
     if (!user) {

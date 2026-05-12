@@ -10,6 +10,7 @@ import {
   Res,
 } from '@nestjs/common';
 import { Response } from 'express';
+import * as crypto from 'crypto';
 import { Throttle } from '@nestjs/throttler';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
@@ -20,6 +21,7 @@ import { UserRole } from '../generated/client/client';
 import { LoginDto } from './dto/login.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
+import { RegisterUserDto } from './dto/register-user.dto';
 import { GetTenantContext } from './tenant-context.decorator';
 import { TenantContext } from './branch.guard';
 import {
@@ -93,7 +95,9 @@ export class AuthController {
     if (!expectedToken) {
       throw new ForbiddenException('Bootstrap is disabled on this server.');
     }
-    if (!body.bootstrapToken || body.bootstrapToken !== expectedToken) {
+    const expected = Buffer.from(expectedToken, 'utf8');
+    const provided = Buffer.from(body.bootstrapToken || '', 'utf8');
+    if (expected.length !== provided.length || !crypto.timingSafeEqual(expected, provided)) {
       throw new ForbiddenException('Invalid bootstrap token.');
     }
     return this.authService.createSuperAdmin();
@@ -105,8 +109,8 @@ export class AuthController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create resource' })
   @Post('register')
-  async register(@Body() data: any) {
-    return this.authService.register(data);
+  async register(@Body() dto: RegisterUserDto) {
+    return this.authService.register(dto);
   }
 
   @UseGuards(JwtAuthGuard, BranchGuard)

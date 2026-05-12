@@ -5,40 +5,42 @@ import {
   UseInterceptors,
   BadRequestException,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UploadService } from './upload.service';
-import { Public } from '../auth/public.decorator';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { Throttle } from '@nestjs/throttler';
 import {
   ApiTags,
   ApiOperation,
   ApiBearerAuth,
   ApiResponse,
-  ApiBody,
 } from '@nestjs/swagger';
+
+const ALLOWED_MIME_TYPES = [
+  'image/jpeg',
+  'image/png',
+  'image/webp',
+  'application/pdf',
+];
+
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
 @ApiTags('Upload')
 @Controller('upload')
 export class UploadController {
   constructor(private readonly uploadService: UploadService) {}
 
+  @Throttle({ default: { limit: 5, ttl: 60000 } })
   @ApiResponse({ status: 201, description: 'Operation successful' })
-  @ApiOperation({ summary: 'Create resource' })
+  @ApiOperation({ summary: 'Upload admission document' })
   @Post('admission-document')
-  @Public()
   @UseInterceptors(
     FileInterceptor('file', {
-      limits: {
-        fileSize: 5 * 1024 * 1024, // 5MB
-      },
+      limits: { fileSize: MAX_FILE_SIZE },
       fileFilter: (req, file, cb) => {
-        const allowedMimeTypes = [
-          'image/jpeg',
-          'image/png',
-          'image/webp',
-          'application/pdf',
-        ];
-        if (allowedMimeTypes.includes(file.mimetype)) {
+        if (ALLOWED_MIME_TYPES.includes(file.mimetype)) {
           cb(null, true);
         } else {
           cb(
@@ -70,23 +72,16 @@ export class UploadController {
     };
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @ApiResponse({ status: 201, description: 'Operation successful' })
-  @ApiOperation({ summary: 'Create resource' })
+  @ApiOperation({ summary: 'Upload payment proof' })
   @Post('payment-proof')
-  @Public()
   @UseInterceptors(
     FileInterceptor('file', {
-      limits: {
-        fileSize: 5 * 1024 * 1024, // 5MB
-      },
+      limits: { fileSize: MAX_FILE_SIZE },
       fileFilter: (req, file, cb) => {
-        const allowedMimeTypes = [
-          'image/jpeg',
-          'image/png',
-          'image/webp',
-          'application/pdf',
-        ];
-        if (allowedMimeTypes.includes(file.mimetype)) {
+        if (ALLOWED_MIME_TYPES.includes(file.mimetype)) {
           cb(null, true);
         } else {
           cb(

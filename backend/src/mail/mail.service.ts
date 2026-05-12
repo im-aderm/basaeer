@@ -98,7 +98,7 @@ export class MailService implements OnModuleInit {
 
     const template: EmailTemplate = {
       headerColor: '#2563EB',
-      headerTitle: 'Basaeer College',
+      headerTitle: 'Basaer College',
       headerSubtitle: 'Raising Leaders through Quran & Science',
       greeting: 'Hello,',
       bodyContent: `
@@ -120,7 +120,7 @@ export class MailService implements OnModuleInit {
         },
       ],
       footerText:
-        'If you have any questions, please reply to this email or call us at +234 800 BASAEER.',
+        'If you have any questions, please reply to this email or call us at +234 800 BASAER.',
     };
 
     const html = this.buildEmailTemplate(template);
@@ -136,7 +136,7 @@ export class MailService implements OnModuleInit {
     const template: EmailTemplate = {
       headerColor: '#10b981',
       headerTitle: 'Congratulations!',
-      headerSubtitle: 'Admission Approved for Basaeer College',
+      headerSubtitle: 'Admission Approved for Basaer College',
       greeting: 'Assalamu Alaikum,',
       bodyContent: `
         <p>We are delighted to inform you that the admission application for <strong>${this.escapeHtml(studentName)}</strong> has been <strong>APPROVED</strong>.</p>
@@ -173,7 +173,7 @@ export class MailService implements OnModuleInit {
       headerSubtitle: '',
       greeting: 'Hello,',
       bodyContent: `
-        <p>Thank you for your interest in Basaeer Quranic and Science College.</p>
+        <p>Thank you for your interest in Basaer Quranic and Science College.</p>
         <p>We regret to inform you that we cannot proceed with the admission application for <strong>${this.escapeHtml(studentName)}</strong> at this time.</p>
       `,
       extraBlocks: [
@@ -208,11 +208,11 @@ export class MailService implements OnModuleInit {
 
     const template: EmailTemplate = {
       headerColor: '#2563EB',
-      headerTitle: 'Basaeer Portal',
+      headerTitle: 'Basaer Portal',
       headerSubtitle: 'Raising Leaders through Quran & Science',
       greeting: 'Assalamu Alaikum,',
       bodyContent: `
-        <p>We received a request to reset the password for your Basaeer account.</p>
+        <p>We received a request to reset the password for your Basaer account.</p>
         <p>Please click the button below to reset your password. This link is valid for 15 minutes.</p>
         <p style="text-align: center; margin: 30px 0;">
           <a href="${resetLink}" style="background-color: #2563EB; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block;">Reset Password</a>
@@ -225,7 +225,7 @@ export class MailService implements OnModuleInit {
     };
 
     const html = this.buildEmailTemplate(template);
-    return this.sendMail(to, 'Reset Your Password - Basaeer', html);
+    return this.sendMail(to, 'Reset Your Password - Basaer', html);
   }
 
   /**
@@ -260,7 +260,7 @@ export class MailService implements OnModuleInit {
           ${template.footerText ? `<p style="margin-top: 20px; color: #64748b; font-size: 14px;">${template.footerText}</p>` : ''}
         </div>
         <div style="background-color: #f1f5f9; padding: 20px; text-align: center; color: #64748b; font-size: 12px;">
-          &copy; ${new Date().getFullYear()} Basaeer Quranic and Science College. All rights reserved.
+          &copy; ${new Date().getFullYear()} Basaer Quranic and Science College. All rights reserved.
         </div>
       </div>
     `;
@@ -330,7 +330,7 @@ export class MailService implements OnModuleInit {
       this.logger.error(`Cannot send email to ${to}. SMTP not configured.`);
       return;
     }
-    const from = `"Basaeer Admissions" <${process.env.SMTP_FROM || 'admissions@basaeer.edu'}>`;
+    const from = `"Basaer Admissions" <${process.env.SMTP_FROM || 'admissions@basaer.edu'}>`;
     const info = await this.transporter.sendMail({
       from,
       to,

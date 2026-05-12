@@ -76,3 +76,39 @@ export class UpdateLeaveStatusDto {
   @IsNotEmpty()
   status: string; // APPROVED, REJECTED
 }
+
+export class CreateAwardDto {
+  @IsString()
+  @IsNotEmpty()
+  staffId: string;
+
+  @IsString()
+  @IsNotEmpty()
+  title: string;
+
+  @IsString()
+  @IsOptional()
+  description?: string;
+
+  @IsDateString()
+  @IsNotEmpty()
+  date: string;
+
+  @IsString()
+  @IsOptional()
+  branchId?: string;
+}
+
+export class RequestAdvanceSalaryDto {
+  @IsString()
+  @IsNotEmpty()
+  staffId: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  amount: number;
+
+  @IsString()
+  @IsNotEmpty()
+  reason: string;
+}

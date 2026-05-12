@@ -37,7 +37,7 @@ export default function PublicTranscriptVerificationPage() {
                         )}
                         <div>
                             <CardTitle className="text-xl">Transcript Verification</CardTitle>
-                            <p className="text-sm text-muted-foreground">Official verification of academic records — Basaeer College</p>
+                            <p className="text-sm text-muted-foreground">Official verification of academic records — Basaer College</p>
                         </div>
                     </div>
                     <Badge className="w-fit text-sm px-3 py-1" variant={isValid ? 'default' : 'destructive'}>
@@ -134,7 +134,7 @@ export default function PublicTranscriptVerificationPage() {
                             <div className="rounded-lg bg-muted/50 p-4 text-center">
                                 <p className="text-xs text-muted-foreground">
                                     This transcript was verified on <span className="font-medium">{new Date().toLocaleDateString('en-NG', { year: 'numeric', month: 'long', day: 'numeric' })}</span>.
-                                    For questions, contact <span className="font-medium">Basaeer College Registrar</span>.
+                                    For questions, contact <span className="font-medium">Basaer College Registrar</span>.
                                 </p>
                             </div>
                         </div>

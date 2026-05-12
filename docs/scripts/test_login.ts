@@ -3,7 +3,7 @@ import axios from 'axios';
 async function testLogin() {
     try {
         const response = await axios.post('http://localhost:3001/auth/login', {
-            email: 'superadmin@basaeer.com',
+            email: 'superadmin@basaer.com',
             password: 'admin123'
         });
         console.log('Login successful!');

@@ -48,7 +48,7 @@ export default function PublicAdmissionPage() {
               Begin Your Journey
             </h1>
             <p className="text-base text-text-secondary font-medium max-w-xl mx-auto">
-              Embark on an outstanding academic and spiritual journey with Basaeer Quranic and Science College.
+              Embark on an outstanding academic and spiritual journey with Basaer Quranic and Science College.
             </p>
           </div>
 

@@ -22,7 +22,7 @@ export function NewsSection() {
     {
       category: "ACHIEVEMENTS",
       date: "OCT 20, 2024",
-      title: "Basaeer Students Win Global Robotics Competition",
+      title: "Basaer Students Win Global Robotics Competition",
       image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBmJY2gyUTYGctl10AIgi3__KspCjsdDJnWsmaussYlww6-9gbigNJmxwHKbIL2FdMQpBfZDa7fRJniT7Q0W2Gs_7jv8DDRouLi9HEK753GesVa-JKuFi5bYKhNMa5COZgn-qMEAMu6jvxvliEDO26JIOIy3N4VzFsWc1q-xF1pSXF4G00PB775EKcL75jp-QTZFFm4KQaJmSIQSjJhdcHMioAPxJIvTmE0f70NeLzXzJ0Rrp4Z6UMm9k0SiweV4IQpNfi8ec7fMPo",
       color: "text-text-secondary",
     },

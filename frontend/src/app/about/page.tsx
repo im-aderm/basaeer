@@ -129,7 +129,7 @@ export default function AboutPage() {
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
             <div className="max-w-xl space-y-3">
               <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white font-heading">
-                The Pillars of Basaeer
+                The Pillars of Basaer
               </h2>
               <p className="text-[#ccc3d8] text-base leading-relaxed">
                 Our mission is to provide an educational experience that transcends textbooks, fostering a generation of thinkers and believers.
@@ -239,7 +239,7 @@ export default function AboutPage() {
           </h2>
           <div className="space-y-6 text-lg text-[#ccc3d8] text-left leading-relaxed">
             <p>
-              At Basaeer Model School, we believe that education is not merely the transmission of facts, but the ignition of a divine light within every child. Our philosophy is rooted in the concept of <span className="text-[#d2bbff] italic font-semibold">Tarbiyah</span>—the holistic development of the individual.
+              At Basaer Model School, we believe that education is not merely the transmission of facts, but the ignition of a divine light within every child. Our philosophy is rooted in the concept of <span className="text-[#d2bbff] italic font-semibold">Tarbiyah</span>—the holistic development of the individual.
             </p>
             <p>
               We reject the false dichotomy between &quot;secular&quot; and &quot;religious&quot; knowledge. Instead, we view all fields of study—from the intricate laws of physics to the profound rhythms of Quranic recitation—as part of a singular, beautiful tapestry of creation.

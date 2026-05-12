@@ -68,7 +68,7 @@ export default function ForgotPasswordPage() {
                                             value={email}
                                             onChange={(e) => setEmail(e.target.value)}
                                             className="w-full pl-10 pr-4 py-2.5 bg-white border border-[#E5E7EB] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2563EB]/50 focus:border-[#2563EB] transition-all duration-200 text-[#111827] placeholder:text-[#9CA3AF]"
-                                            placeholder="admin@basaeer.com"
+                                            placeholder="admin@basaer.com"
                                             required
                                             autoComplete="email"
                                         />

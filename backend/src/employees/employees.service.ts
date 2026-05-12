@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
+import { CreateAwardDto } from './dto/hr-ops.dto';
 import { UserRole } from '../generated/client/client';
 import * as bcrypt from 'bcrypt';
 
@@ -157,11 +158,17 @@ export class EmployeesService {
   }
 
   // --- Staff Awards ---
-  async createAward(data: any) {
+  async createAward(data: CreateAwardDto, branchId?: string) {
+    const staff = await this.prisma.staff.findUnique({ where: { id: data.staffId } });
+    if (!staff) {
+      throw new NotFoundException('Staff not found');
+    }
     return this.prisma.staffAward.create({
       data: {
-        ...data,
-        date: new Date(data.awardDate || data.date),
+        title: data.title,
+        description: data.description,
+        date: new Date(data.date),
+        staffId: data.staffId,
       },
     });
   }

@@ -2222,6 +2222,7 @@ enum BedStatus {
 }
 
 enum PaymentMethod {
+  PAYSTACK
   FLUTTERWAVE
   BANK_TRANSFER
   CASH

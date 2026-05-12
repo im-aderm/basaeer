@@ -22,7 +22,7 @@ export const StudentIDCard: React.FC<StudentIDCardProps> = ({ student }) => {
 
                 {/* School Logo/Name */}
                 <div className="relative z-10 p-8 text-center">
-                    <h2 className="text-white font-semibold text-2xl tracking-tighter">BASAEER</h2>
+                    <h2 className="text-white font-semibold text-2xl tracking-tighter">BASAER</h2>
                     <p className="text-white/70 text-[10px] uppercase font-semibold tracking-[0.3em] mt-1">Modern School System</p>
                 </div>
 
@@ -86,7 +86,7 @@ export const StudentIDCard: React.FC<StudentIDCardProps> = ({ student }) => {
                             </div>
                             <div className="flex items-center gap-3">
                                 <Mail size={16} className="text-muted-foreground" />
-                                <p className="text-xs font-bold">support@basaeer.com</p>
+                                <p className="text-xs font-bold">support@basaer.com</p>
                             </div>
                         </div>
                     </div>
@@ -94,7 +94,7 @@ export const StudentIDCard: React.FC<StudentIDCardProps> = ({ student }) => {
                     <div>
                         <h4 className="text-[10px] font-semibold uppercase tracking-widest text-primary mb-4 border-b border-border pb-2">Security Instructions</h4>
                         <ul className="space-y-2 list-disc list-inside text-[10px] font-bold text-muted-foreground leading-relaxed">
-                            <li>This card remains the property of Basaeer School System.</li>
+                            <li>This card remains the property of Basaer School System.</li>
                             <li>Loss of card must be reported immediately to the admin office.</li>
                             <li>This card is non-transferable and must be worn at all times.</li>
                             <li>Misuse of this ID card attracts severe disciplinary action.</li>
@@ -115,7 +115,7 @@ export const StudentIDCard: React.FC<StudentIDCardProps> = ({ student }) => {
                         <p className="text-xs font-semibold text-primary">AUG 2026</p>
                     </div>
                     <div className="text-right">
-                        <h2 className="text-muted-foreground font-semibold text-sm tracking-tighter opacity-30">BASAEER</h2>
+                        <h2 className="text-muted-foreground font-semibold text-sm tracking-tighter opacity-30">BASAER</h2>
                     </div>
                 </div>
             </div>

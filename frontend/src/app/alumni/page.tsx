@@ -30,7 +30,7 @@ const successStories = [
   {
     name: "Dr. Sarah Ahmed",
     classYear: "Class of 2012",
-    quote: "The values of Tahfeez and rigorous science I learned at Basaeer formed the foundation of my career in neurosurgery.",
+    quote: "The values of Tahfeez and rigorous science I learned at Basaer formed the foundation of my career in neurosurgery.",
     image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAhiPrhRHinYWVdJLeGdC3WnB8WKhMt9wFTzoKPgox_K9uyY82Z3ejfYkISAeS8IZpPlJSa_D0Cn5WAd_Axrd3j4ykYzqUjkX5UV7DImiG5hu7TyOIadE5OQXOJbTGyxbldwsyaZzOLuMUPbgSESqm4SAWHCdTYYk13X9mfsiDfcnhXB6E9XR4TYkOddbrrXWvJIBElCl-FHzOOxj6VuIN4u5BkyL0FMFjEINzhBmDqM4qTm-K9c90yqDP4rno8zo3KAKBUs18bFzc",
     type: "medicine",
   },
@@ -85,7 +85,7 @@ export default function AlumniPage() {
                 Our Legacy: A Community of <span className="text-[#d2bbff] drop-shadow-[0_0_15px_rgba(210,187,255,0.4)]">Excellence.</span>
               </h1>
               <p className="text-[#ccc3d8] text-lg md:text-xl leading-relaxed">
-                Basaeer alumni are world-shapers, innovators, and spiritual leaders. From prestigious labs to global corporate offices, our graduates carry the light of knowledge across the globe.
+                Basaer alumni are world-shapers, innovators, and spiritual leaders. From prestigious labs to global corporate offices, our graduates carry the light of knowledge across the globe.
               </p>
               <div className="pt-4 flex flex-wrap gap-4">
                 <button className="px-8 py-4 rounded-full text-white font-bold bg-gradient-to-r from-[#7c3aed] to-[#4f46e5] shadow-[0_0_20px_rgba(124,58,237,0.3)] hover:scale-105 transition-all duration-300">
@@ -284,7 +284,7 @@ export default function AlumniPage() {
                 Join the Global Network
               </h2>
               <p className="text-[#ccc3d8] text-lg leading-relaxed">
-                Reconnect with classmates, mentor current students, and access exclusive professional development opportunities. Your journey with Basaeer doesn't end at graduation.
+                Reconnect with classmates, mentor current students, and access exclusive professional development opportunities. Your journey with Basaer doesn't end at graduation.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
                 <button className="px-8 py-4 rounded-full text-white font-bold bg-[#7c3aed] shadow-[0_0_20px_rgba(124,58,237,0.3)] hover:scale-105 transition-all duration-300">

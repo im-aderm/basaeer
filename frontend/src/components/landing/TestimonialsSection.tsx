@@ -13,7 +13,7 @@ export function TestimonialsSection() {
       id: 0,
       name: "Amina Bello",
       role: "Mother of Yusuf (Grade 4)",
-      content: "Basaeer Model School has provided my child with an elite academic standard while firmly grounding him in Islamic ethics and Quranic memorization. The transformation is truly beautiful.",
+      content: "Basaer Model School has provided my child with an elite academic standard while firmly grounding him in Islamic ethics and Quranic memorization. The transformation is truly beautiful.",
       avatar: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&q=80&w=256&h=256",
       left: "10%",
       top: "40%",
@@ -23,7 +23,7 @@ export function TestimonialsSection() {
       id: 1,
       name: "Kofi Mensah",
       role: "Father of Naa & Kojo",
-      content: "Seeing my children excel in mathematics and robotics while reciting the Quran with perfect Tajweed is a dream come true. Basaeer's teachers are incredibly dedicated and caring.",
+      content: "Seeing my children excel in mathematics and robotics while reciting the Quran with perfect Tajweed is a dream come true. Basaer's teachers are incredibly dedicated and caring.",
       avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=256&h=256",
       left: "26%",
       top: "65%",
@@ -33,7 +33,7 @@ export function TestimonialsSection() {
       id: 2,
       name: "Dr. Tariq Osei",
       role: "Father of Aisha (Secondary School)",
-      content: "The level of scientific curiosity and research-oriented teaching at Basaeer is world-class. It is a unique sanctuary of academic excellence and spiritual depth.",
+      content: "The level of scientific curiosity and research-oriented teaching at Basaer is world-class. It is a unique sanctuary of academic excellence and spiritual depth.",
       avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=256&h=256",
       left: "42%",
       top: "30%",
@@ -53,7 +53,7 @@ export function TestimonialsSection() {
       id: 4,
       name: "Chinedu Okafor",
       role: "Father of Amara (Grade 6)",
-      content: "Basaeer focuses on leadership and critical thinking. My daughter has grown so confident, creative, and responsible. It is the single best investment in her future.",
+      content: "Basaer focuses on leadership and critical thinking. My daughter has grown so confident, creative, and responsible. It is the single best investment in her future.",
       avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=256&h=256",
       left: "74%",
       top: "25%",
@@ -63,7 +63,7 @@ export function TestimonialsSection() {
       id: 5,
       name: "Zahra Diop",
       role: "Mother of Mariam & Bilal",
-      content: "What makes Basaeer special is the warm, loving community. The seamless integration of modern technology, scientific logic, and character building is unmatched.",
+      content: "What makes Basaer special is the warm, loving community. The seamless integration of modern technology, scientific logic, and character building is unmatched.",
       avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=256&h=256",
       left: "90%",
       top: "50%",
@@ -113,7 +113,7 @@ export function TestimonialsSection() {
           What Our Parents Say
         </h2>
         <p className="text-text-secondary text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-          Real stories from Basaeer families! See how our holistic, spiritual, and world-class academic environment has inspired their children.
+          Real stories from Basaer families! See how our holistic, spiritual, and world-class academic environment has inspired their children.
         </p>
       </div>
 

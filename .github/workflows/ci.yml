@@ -12,9 +12,9 @@ jobs:
       postgres:
         image: postgres:16
         env:
-          POSTGRES_USER: basaeer
-          POSTGRES_PASSWORD: basaeer_test
-          POSTGRES_DB: basaeer_test
+          POSTGRES_USER: basaer
+          POSTGRES_PASSWORD: basaer_test
+          POSTGRES_DB: basaer_test
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -31,7 +31,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'npm'
+          cache: "npm"
       - run: npm ci
       - run: npm run build --workspaces
       - run: npm run lint --workspaces
@@ -40,7 +40,7 @@ jobs:
         working-directory: backend
         run: npm test
         env:
-          DATABASE_URL: postgresql://basaeer:basaeer_test@localhost:5432/basaeer_test
+          DATABASE_URL: postgresql://basaer:basaer_test@localhost:5432/basaer_test
           JWT_SECRET: ci-test-secret-change-in-production
           REDIS_HOST: localhost
           REDIS_PORT: 6379
@@ -52,7 +52,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'npm'
+          cache: "npm"
       - run: npm ci
       - run: npm run build --workspace=frontend
       - run: npm run lint --workspace=frontend

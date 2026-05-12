@@ -12,7 +12,14 @@ import { RealtimeService } from './realtime.service';
 import { Logger } from '@nestjs/common';
 
 @WebSocketGateway({
-  cors: true,
+  cors: {
+    origin:
+      process.env.NODE_ENV === 'production'
+        ? (process.env.CORS_ALLOWED_ORIGINS?.split(',') ||
+          [process.env.FRONTEND_URL].filter(Boolean))
+        : ['http://localhost:3000', ...(process.env.CORS_ALLOWED_ORIGINS?.split(',') || []), process.env.FRONTEND_URL].filter(Boolean),
+    credentials: true,
+  },
   namespace: 'realtime',
 })
 export class RealtimeGateway

@@ -32,7 +32,7 @@ describe('MailService Integration', () => {
       process.env.SMTP_SECURE = 'false';
       process.env.SMTP_USER = 'user@brevo.com';
       process.env.SMTP_PASS = 'brevo-password';
-      process.env.SMTP_FROM = 'noreply@basaeer.edu';
+      process.env.SMTP_FROM = 'noreply@basaer.edu';
 
       const module: TestingModule = await Test.createTestingModule({
         providers: [MailService],
@@ -54,7 +54,7 @@ describe('MailService Integration', () => {
       const status = service.getConfigStatus();
       expect(status.host).toBe('smtp-relay.brevo.com');
       expect(status.port).toBe('587');
-      expect(status.from).toBe('noreply@basaeer.edu');
+      expect(status.from).toBe('noreply@basaer.edu');
     });
   });
 
@@ -65,7 +65,7 @@ describe('MailService Integration', () => {
       process.env.SMTP_SECURE = 'false';
       process.env.SMTP_USER = 'test@ethereal.email';
       process.env.SMTP_PASS = 'test-password';
-      process.env.SMTP_FROM = 'test@basaeer.edu';
+      process.env.SMTP_FROM = 'test@basaer.edu';
 
       const module: TestingModule = await Test.createTestingModule({
         providers: [MailService],
@@ -91,7 +91,7 @@ describe('MailService Integration', () => {
       const status = service.getConfigStatus();
       expect(status.host).toBe('smtp.ethereal.email');
       expect(status.port).toBe('587');
-      expect(status.from).toBe('test@basaeer.edu');
+      expect(status.from).toBe('test@basaer.edu');
     });
   });
 

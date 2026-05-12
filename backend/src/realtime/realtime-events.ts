@@ -1,5 +1,5 @@
 /**
- * Typed realtime event map for the Basaeer platform.
+ * Typed realtime event map for the Basaer platform.
  * Every event namespace enforces typed payloads for socket events.
  */
 

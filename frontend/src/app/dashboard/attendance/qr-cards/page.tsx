@@ -186,7 +186,7 @@ export default function QRIDCardsPage() {
 
                                 {/* Footer */}
                                 <div className="border-t border-slate-100 bg-slate-50 p-4 text-center">
-                                    <div className="text-[10px] font-bold text-slate-400 uppercase">Basaeer Education System</div>
+                                    <div className="text-[10px] font-bold text-slate-400 uppercase">Basaer Education System</div>
                                 </div>
                             </CardContent>
                         </Card>

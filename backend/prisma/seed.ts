@@ -48,9 +48,9 @@ async function main() {
             data: {
                 name: 'Main Campus',
                 code: 'MAIN001',
-                address: '12 Basaeer Avenue, Wuse II, Abuja, Nigeria',
+                address: '12 Basaer Avenue, Wuse II, Abuja, Nigeria',
                 phone: '+2348012345678',
-                email: 'admissions@basaeer.edu.ng',
+                email: 'admissions@basaer.edu.ng',
             },
         })
     );
@@ -120,7 +120,7 @@ async function main() {
     );
 
     // 5. Super Admin
-    const superAdminEmail = process.env.SUPER_ADMIN_EMAIL || 'superadmin@basaeer.com';
+    const superAdminEmail = process.env.SUPER_ADMIN_EMAIL || 'superadmin@basaer.com';
     const superAdmin = await findOrCreate(
         () => prisma.user.findUnique({ where: { email: superAdminEmail } }),
         () => prisma.user.create({
@@ -155,7 +155,7 @@ async function main() {
     );
 
     // 7. Staff
-    const teacherEmail = 'teacher@basaeer.com';
+    const teacherEmail = 'teacher@basaer.com';
     const existingTeacher = await prisma.user.findUnique({ where: { email: teacherEmail } });
     if (!existingTeacher) {
         const teacherUser = await prisma.user.create({
@@ -179,7 +179,7 @@ async function main() {
         console.log('Teacher created');
     }
 
-    const accountantEmail = 'accountant@basaeer.com';
+    const accountantEmail = 'accountant@basaer.com';
     const existingAccountant = await prisma.user.findUnique({ where: { email: accountantEmail } });
     if (!existingAccountant) {
         const accountantUser = await prisma.user.create({
@@ -206,7 +206,7 @@ async function main() {
     const existingStudentCount = await prisma.student.count({ where: { branchId: branch.id } });
     if (existingStudentCount === 0) {
         for (let i = 1; i <= 3; i++) {
-            const parentEmail = `parent${i}@basaeer.com`;
+            const parentEmail = `parent${i}@basaer.com`;
             const parentUser = await prisma.user.create({
                 data: {
                     email: parentEmail,
@@ -222,7 +222,7 @@ async function main() {
             for (let j = 1; j <= 2; j++) {
                 const studentUser = await prisma.user.create({
                     data: {
-                        email: `student${i}_${j}@basaeer.com`,
+                        email: `student${i}_${j}@basaer.com`,
                         password: hashedDefaultPassword,
                         firstName: `Student${i}_${j}`,
                         lastName: 'Child',

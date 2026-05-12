@@ -833,6 +833,7 @@ export type BedStatus = (typeof BedStatus)[keyof typeof BedStatus]
 
 
 export const PaymentMethod: {
+  PAYSTACK: 'PAYSTACK',
   FLUTTERWAVE: 'FLUTTERWAVE',
   BANK_TRANSFER: 'BANK_TRANSFER',
   CASH: 'CASH'

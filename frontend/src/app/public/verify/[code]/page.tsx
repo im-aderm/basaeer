@@ -73,7 +73,7 @@ export default function VerifyPage() {
                         <CheckCircle2 size={48} />
                     </div>
                     <CardTitle className="text-4xl font-black italic tracking-tighter text-slate-900">Verified Authentic</CardTitle>
-                    <p className="text-green-600 font-bold uppercase tracking-[0.2em] text-sm mt-2">Basaeer Digital Certification Registry</p>
+                    <p className="text-green-600 font-bold uppercase tracking-[0.2em] text-sm mt-2">Basaer Digital Certification Registry</p>
                 </CardHeader>
                 <CardContent className="p-12 space-y-10">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-10">

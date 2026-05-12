@@ -36,6 +36,6 @@ export default function Home() {
   );
 }
 export const metadata = {
-  title: "Basaeer Model School | Shaping Future Leaders with Science & Spirit",
-  description: "At Basaeer, we bridge the gap between world-class academic excellence and profound spiritual growth, nurturing the minds and souls of the next generation.",
+  title: "Basaer Model School | Shaping Future Leaders with Science & Spirit",
+  description: "At Basaer, we bridge the gap between world-class academic excellence and profound spiritual growth, nurturing the minds and souls of the next generation.",
 };

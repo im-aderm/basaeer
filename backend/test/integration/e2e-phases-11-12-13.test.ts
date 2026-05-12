@@ -22,15 +22,15 @@ let sessionId = '';
 // Test data
 const testData = {
   admin: {
-    email: 'admin@basaeer.test',
+    email: 'admin@basaer.test',
     password: 'Admin@123',
   },
   teacher: {
-    email: 'teacher@basaeer.test',
+    email: 'teacher@basaer.test',
     password: 'Teacher@123',
   },
   student: {
-    email: 'student@basaeer.test',
+    email: 'student@basaer.test',
     password: 'Student@123',
   },
 };

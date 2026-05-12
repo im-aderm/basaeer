@@ -44,7 +44,7 @@ export default function ContactPage() {
         <section className="max-w-7xl mx-auto px-6 lg:px-8 py-8 mb-16">
           <div className="flex flex-col items-center text-center space-y-4">
             <span className="text-xs font-bold text-[#d2bbff] tracking-[0.3em] uppercase block">
-              CONTACT BASAEER
+              CONTACT BASAER
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight text-white font-heading">
               Get in Touch: <span className="text-[#d2bbff] drop-shadow-[0_0_15px_rgba(210,187,255,0.4)]">We're Here to Guide You.</span>
@@ -78,7 +78,7 @@ export default function ContactPage() {
                   </div>
                   <div className="flex items-center gap-3">
                     <Mail className="text-[#d2bbff] shrink-0" size={16} />
-                    <p>main.campus@basaeer.edu</p>
+                    <p>main.campus@basaer.edu</p>
                   </div>
                 </div>
               </div>
@@ -104,7 +104,7 @@ export default function ContactPage() {
                   </div>
                   <div className="flex items-center gap-3">
                     <Mail className="text-[#d2bbff] shrink-0" size={16} />
-                    <p>vi.branch@basaeer.edu</p>
+                    <p>vi.branch@basaer.edu</p>
                   </div>
                 </div>
               </div>
@@ -130,7 +130,7 @@ export default function ContactPage() {
                   </div>
                   <div className="flex items-center gap-3">
                     <Mail className="text-[#d2bbff] shrink-0" size={16} />
-                    <p>abuja@basaeer.edu</p>
+                    <p>abuja@basaer.edu</p>
                   </div>
                 </div>
               </div>

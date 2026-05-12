@@ -109,7 +109,7 @@ export default function GlobalSettingsPage() {
                                         name="school_name"
                                         value={formData.school_name}
                                         onChange={handleChange}
-                                        placeholder="Basaeer International School"
+                                        placeholder="Basaer International School"
                                         className="w-full p-3 bg-background border border-input rounded-xl focus:ring-2 focus:ring-primary/20 outline-none"
                                     />
                                 </div>
@@ -119,7 +119,7 @@ export default function GlobalSettingsPage() {
                                         name="contact_email"
                                         value={formData.contact_email}
                                         onChange={handleChange}
-                                        placeholder="admin@basaeer.com"
+                                        placeholder="admin@basaer.com"
                                         className="w-full p-3 bg-background border border-input rounded-xl focus:ring-2 focus:ring-primary/20 outline-none"
                                     />
                                 </div>

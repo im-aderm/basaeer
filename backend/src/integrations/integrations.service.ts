@@ -124,8 +124,8 @@ export class IntegrationsService {
     try {
       const response = await axios.post(endpoint.url, payload, {
         headers: {
-          'X-Basaeer-Event': log.event,
-          'X-Basaeer-Signature': signature,
+          'X-Basaer-Event': log.event,
+          'X-Basaer-Signature': signature,
           'Content-Type': 'application/json',
         },
         timeout: 5000,

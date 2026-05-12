@@ -2,11 +2,12 @@
 
 ## Reporting a Vulnerability
 
-We take the security of Basaeer School Management System seriously. If you believe you have found a security vulnerability, please report it to us by emailing security@basaeer.com.
+We take the security of Basaer School Management System seriously. If you believe you have found a security vulnerability, please report it to us by emailing security@basaer.com.
 
 Please do not open a public issue for security-related reports.
 
 ### What to include in your report:
+
 - A description of the vulnerability.
 - Steps to reproduce the issue.
 - Potential impact.
@@ -15,6 +16,7 @@ Please do not open a public issue for security-related reports.
 ## Security Practices
 
 This project follows several security best practices, including:
+
 - **No Hardcoded Secrets**: All sensitive configuration is handled via environment variables.
 - **Tenant Isolation**: Data is strictly isolated between branches/tenants.
 - **RBAC**: Role-Based Access Control is enforced on all sensitive endpoints.

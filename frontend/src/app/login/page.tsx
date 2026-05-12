@@ -61,7 +61,7 @@ export default function LoginPage() {
             Your Child's Progress, <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-light to-secondary drop-shadow-[0_0_15px_rgba(124,58,237,0.3)]">Illuminated.</span>
           </h1>
           <p className="text-sm md:text-base text-text-secondary leading-relaxed max-w-2xl mx-auto">
-            Access real-time academic insights, secure administrative controls, and spiritual growth tracking in a single, unified sanctuary for Basaeer families.
+            Access real-time academic insights, secure administrative controls, and spiritual growth tracking in a single, unified sanctuary for Basaer families.
           </p>
         </div>
 
@@ -90,7 +90,7 @@ export default function LoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full bg-surface-container/30 border border-border rounded-xl py-3 pl-12 pr-4 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all duration-300 text-text-primary placeholder-text-secondary/30 text-sm"
-                  placeholder="e.g. PAR-2024-001 or admin@basaeer.com"
+                  placeholder="e.g. PAR-2024-001 or admin@basaer.com"
                   required
                   autoComplete="email"
                 />

@@ -291,7 +291,7 @@ export default function BranchesPage() {
                                         <input
                                             name="email"
                                             type="email"
-                                            placeholder="campus@basaeer.com"
+                                            placeholder="campus@basaer.com"
                                             className="w-full p-3 bg-background border border-input rounded-xl focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                                             value={formData.email}
                                             onChange={handleChange}

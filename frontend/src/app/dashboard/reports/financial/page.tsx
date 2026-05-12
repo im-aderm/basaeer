@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import api from "@/lib/api";
-import { AnalyticsData } from "@basaeer/shared-types";
+import { AnalyticsData } from "@basaer/shared-types";
 import { toast } from "sonner";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 

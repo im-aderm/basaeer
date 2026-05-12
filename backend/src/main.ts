@@ -111,8 +111,8 @@ async function bootstrap() {
   }
 
   const swaggerConfig = new DocumentBuilder()
-    .setTitle('Basaeer API')
-    .setDescription('Basaeer School Management System API')
+    .setTitle('Basaer API')
+    .setDescription('Basaer School Management System API')
     .setVersion('1.0')
     .addBearerAuth()
     .addCookieAuth('access_token')

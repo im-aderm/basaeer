@@ -13,6 +13,7 @@ import { CreateFeeCategoryDto } from './dto/create-fee-category.dto';
 import { CreateFeeStructureDto } from './dto/create-fee-structure.dto';
 import { CreateInvoiceDto } from './dto/create-invoice.dto';
 import { RecordPaymentDto } from './dto/record-payment.dto';
+import { CreateVoucherDto, CreateExpenseCategoryDto } from './dto/voucher.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
@@ -154,7 +155,7 @@ export class FinanceController {
   @Post('expense-categories')
   @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
   createExpenseCategory(
-    @Body() dto: any,
+    @Body() dto: CreateExpenseCategoryDto,
     @GetTenantContext() context: TenantContext,
   ) {
     return this.financeService.createExpenseCategory(dto, context);
@@ -174,7 +175,7 @@ export class FinanceController {
   @ApiOperation({ summary: 'Create Voucher' })
   @Post('vouchers')
   @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
-  createVoucher(@Body() dto: any, @GetTenantContext() context: TenantContext) {
+  createVoucher(@Body() dto: CreateVoucherDto, @GetTenantContext() context: TenantContext) {
     return this.financeService.createVoucher(dto, context);
   }
 

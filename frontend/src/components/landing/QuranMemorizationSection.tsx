@@ -32,7 +32,7 @@ export function QuranMemorizationSection() {
         {/* Section Header */}
         <div className="text-center mb-16 space-y-4">
           <span className="text-xs font-extrabold tracking-[0.2em] text-primary uppercase inline-block">
-            THE BASAEER EDGE
+            THE BASAER EDGE
           </span>
           <h2 className="text-4xl md:text-5xl font-extrabold text-text-primary font-heading">
             Why the Future Starts Here

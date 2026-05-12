@@ -13,7 +13,7 @@ async function runVerification() {
         let token;
         try {
             const loginRes = await axios.post(`${BASE_URL}/auth/login`, {
-                email: 'superadmin@basaeer.com',
+                email: 'superadmin@basaer.com',
                 password: 'admin123'
             });
             token = loginRes.data.access_token;
@@ -40,7 +40,7 @@ async function runVerification() {
 
         // Refresh Token
         const reLoginRes = await axios.post(`${BASE_URL}/auth/login`, {
-            email: 'superadmin@basaeer.com',
+            email: 'superadmin@basaer.com',
             password: 'admin123'
         });
         token = reLoginRes.data.access_token;

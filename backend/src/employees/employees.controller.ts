@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { EmployeesService } from './employees.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
+import { CreateAwardDto, RequestAdvanceSalaryDto } from './dto/hr-ops.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
@@ -217,8 +218,8 @@ export class EmployeesController {
   @ApiOperation({ summary: 'Create Award' })
   @Post('awards')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
-  createAward(@Body() data: any) {
-    return this.employeesService.createAward(data);
+  createAward(@Body() dto: CreateAwardDto, @GetTenantContext() ctx: TenantContext) {
+    return this.employeesService.createAward(dto, ctx.branchId ?? undefined);
   }
 
   @ApiBearerAuth()

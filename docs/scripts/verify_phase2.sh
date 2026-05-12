@@ -1,18 +1,18 @@
 #!/bin/bash
 
-# Basaeer BMSMS Phase 2 Verification Script
+# Basaer BMSMS Phase 2 Verification Script
 # This script tests Academic and Student management features with Branch Isolation.
 
 API_URL="http://localhost:3000"
 LOG_FILE="verify_phase2.log"
 
-echo "=== Basaeer Phase 2 Verification Started ===" | tee $LOG_FILE
+echo "=== Basaer Phase 2 Verification Started ===" | tee $LOG_FILE
 
 # 1. Authenticate as Super Admin to setup test data
 echo "Step 1: Authenticating as Super Admin..." | tee -a $LOG_FILE
 SA_LOGIN=$(curl -s -X POST "$API_URL/auth/login" \
   -H "Content-Type: application/json" \
-  -d '{"email": "superadmin@basaeer.com", "password": "admin123"}')
+  -d '{"email": "superadmin@basaer.com", "password": "admin123"}')
 
 SA_TOKEN=$(echo $SA_LOGIN | jq -r '.access_token')
 

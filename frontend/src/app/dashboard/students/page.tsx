@@ -185,7 +185,7 @@ export default function StudentsDashboard() {
 
                         <div className="mt-8 p-6 rounded-2xl bg-primary/5 border border-primary/10">
                             <h4 className="text-body font-semibold text-primary mb-1 text-center">Need Help?</h4>
-                            <p className="text-secondary text-center">Contact the administrative support team at support@basaeer.com if you encounter any issues.</p>
+                            <p className="text-secondary text-center">Contact the administrative support team at support@basaer.com if you encounter any issues.</p>
                         </div>
                     </div>
                 </Card>

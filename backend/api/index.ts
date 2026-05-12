@@ -11,7 +11,7 @@ const createNestServer = async (expressInstance: express.Express) => {
         new ExpressAdapter(expressInstance),
     );
     app.enableCors({
-        origin: ['https://basaeer-frontend.vercel.app', 'http://localhost:3000'], // Update to Vercel URL
+        origin: ['https://basaer-frontend.vercel.app', 'http://localhost:3000'], // Update to Vercel URL
         credentials: true,
         methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     });
@@ -31,7 +31,7 @@ export default async function handler(req: any, res: any) {
     } catch (error) {
         console.error('Server execution failed:', error);
         // Manually set CORS headers for error response
-        res.setHeader('Access-Control-Allow-Origin', 'https://basaeer-frontend.vercel.app');
+        res.setHeader('Access-Control-Allow-Origin', 'https://basaer-frontend.vercel.app');
         res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS');
         res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
         res.setHeader('Access-Control-Allow-Credentials', 'true');

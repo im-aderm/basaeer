@@ -1,5 +1,5 @@
 {
-  "name": "basaeer-monorepo",
+  "name": "basaer-monorepo",
   "private": true,
   "workspaces": [
     "backend",

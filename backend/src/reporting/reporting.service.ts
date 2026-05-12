@@ -9,7 +9,7 @@ import {
   FinanceReportQueryDto,
   ReportQueryDto,
 } from './dto/report-query.dto';
-import { AnalyticsData, ChartDataItem } from '@basaeer/shared-types';
+import { AnalyticsData, ChartDataItem } from '@basaer/shared-types';
 import {
   format,
   startOfMonth,

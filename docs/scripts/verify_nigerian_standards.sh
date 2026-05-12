@@ -8,7 +8,7 @@ echo "--- BMSMS Nigerian Standards Verification ---"
 echo "Authenticating Super Admin..."
 LOGIN_RESP=$(curl -s -X POST "$API_URL/auth/login" \
   -H "Content-Type: application/json" \
-  -d '{"email": "superadmin@basaeer.com", "password": "admin123"}')
+  -d '{"email": "superadmin@basaer.com", "password": "admin123"}')
 TOKEN=$(echo $LOGIN_RESP | jq -r '.access_token')
 
 if [ "$TOKEN" == "null" ]; then

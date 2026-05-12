@@ -1,12 +1,12 @@
 $apiUrl = "http://localhost:3000"
 $logFile = "verify_phase2.log"
 
-Write-Output "=== Basaeer Phase 2 Verification Started ===" | Tee-Object -FilePath $logFile
+Write-Output "=== Basaer Phase 2 Verification Started ===" | Tee-Object -FilePath $logFile
 
 # 1. Authenticate as Super Admin
 Write-Output "Step 1: Authenticating as Super Admin..." | Tee-Object -FilePath $logFile -Append
 try {
-    $loginBody = @{ email = "superadmin@basaeer.com"; password = "admin123" } | ConvertTo-Json
+    $loginBody = @{ email = "superadmin@basaer.com"; password = "admin123" } | ConvertTo-Json
     $saLogin = Invoke-RestMethod -Uri "$apiUrl/auth/login" -Method Post -Body $loginBody -ContentType "application/json"
     $saToken = $saLogin.access_token
 

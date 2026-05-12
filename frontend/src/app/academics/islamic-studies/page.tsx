@@ -93,7 +93,7 @@ export default function IslamicStudiesPage() {
             Illuminating Hearts: <span className="text-[#d2bbff] drop-shadow-[0_0_20px_rgba(124,58,237,0.3)]">Our Spiritual Curriculum</span>
           </h1>
           <p className="text-lg md:text-xl text-[#ccc3d8] leading-relaxed max-w-2xl mx-auto">
-            At Basaeer, we bridge the gap between contemporary education and timeless Islamic wisdom, nurturing students who are academically brilliant and spiritually anchored.
+            At Basaer, we bridge the gap between contemporary education and timeless Islamic wisdom, nurturing students who are academically brilliant and spiritually anchored.
           </p>
           <div className="flex flex-wrap gap-4 justify-center pt-4">
             <button className="px-8 py-4 rounded-full text-white font-bold bg-gradient-to-r from-[#7c3aed] to-[#4f46e5] shadow-[0_0_20px_rgba(124,58,237,0.3)] hover:scale-105 transition-all duration-300">
@@ -157,7 +157,7 @@ export default function IslamicStudiesPage() {
               The Essence of Tarbiyah
             </h2>
             <p className="text-lg text-[#ccc3d8] leading-relaxed">
-              Education at Basaeer extends beyond the classroom walls. Through our Tarbiyah program, we integrate Islamic values into every facet of daily life—from the way we greet one another to how we solve complex scientific problems.
+              Education at Basaer extends beyond the classroom walls. Through our Tarbiyah program, we integrate Islamic values into every facet of daily life—from the way we greet one another to how we solve complex scientific problems.
             </p>
             <ul className="space-y-6">
               <li className="flex items-start gap-4">

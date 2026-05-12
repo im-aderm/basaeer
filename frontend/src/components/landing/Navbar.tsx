@@ -59,7 +59,7 @@ export function Navbar() {
         {/* Left Logo */}
         <Link href="/" className="flex items-center shrink-0">
           <span className="font-heading font-extrabold text-2xl tracking-tight text-gradient-primary">
-            Basaeer
+            Basaer
           </span>
         </Link>
 

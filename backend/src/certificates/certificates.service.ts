@@ -242,7 +242,7 @@ export class CertificatesService {
         );
 
       doc.text(
-        `Verify at: basaeer-verify.edu/v/${certificate.verificationCode}`,
+        `Verify at: basaer-verify.edu/v/${certificate.verificationCode}`,
         0,
         doc.page.height - 50,
         { align: 'center' },

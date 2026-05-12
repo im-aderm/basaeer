@@ -10,7 +10,7 @@ export function MobileAppCTA() {
         <div className="flex-1 space-y-8 text-left">
           <div className="space-y-4">
             <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-text-primary font-heading leading-tight">
-              Basaeer in your <br />
+              Basaer in your <br />
               <span className="text-primary-light drop-shadow-[0_0_15px_rgba(210,187,255,0.4)]">Pocket.</span>
             </h2>
             <p className="text-text-secondary text-sm md:text-base leading-relaxed max-w-lg">
@@ -67,7 +67,7 @@ export function MobileAppCTA() {
             </div>
             <img 
               className="w-full h-full object-cover z-10" 
-              alt="Basaeer mobile app interface screenshot" 
+              alt="Basaer mobile app interface screenshot" 
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzefjLDtA1Qi18VmwZQo5A2J6vJ_ndAafnVTb5nRw6i3BYphOOv9rMvHkCgLCGZOmM_wQftWIi3dDDMC9puK_MaqN9nGycNZTfMhK-tSNX4lecmy3f82hb521qaZxxDzroWU3bIdyijTly1bKZWEd8AMQCsTLZoK2JxfLqNjOp61f64BHTQ6yQYY1mz72YYVeTisUdAo4ppIsHdDja5UZ1o45G6CrBAD8KVR8pereHSXn1F2cCDbyL0_aF5BWGB56_bEZU-25f1AQ" 
             />
           </div>

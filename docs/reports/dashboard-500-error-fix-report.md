@@ -11,9 +11,11 @@
 ## Root Causes Identified
 
 ### 1. Null Branch ID Handling
+
 **Issue**: Super admin users have `branchId: null`, but backend services required a valid branchId string.
 
 **Affected Services:**
+
 - `StudentsService.findAll(branchId: string)`
 - `EmployeesService.findAllEmployees(branchId: string)`
 - `EmployeesService.findAllTeachers(branchId: string)`
@@ -23,10 +25,11 @@
 ---
 
 ### 2. Database Schema Mismatch
+
 **Issue**: Prisma schema included `categoryId` field on Student model, but the column didn't exist in the database.
 
 **Error Message**: `column Student.categoryId does not exist`  
-**Cause**: Schema was updated but migrations weren't  re-applied after database recreation.
+**Cause**: Schema was updated but migrations weren't re-applied after database recreation.
 
 ---
 
@@ -35,7 +38,9 @@
 ### Fix 1: Updated Service Methods to Handle Null BranchId
 
 #### `students.service.ts` - Line 54
+
 **Before:**
+
 ```typescript
 findAll(branchId: string, classId?: string, sectionId?: string) {
   return this.prisma.student.findMany({
@@ -50,6 +55,7 @@ findAll(branchId: string, classId?: string, sectionId?: string) {
 ```
 
 **After:**
+
 ```typescript
 findAll(branchId: string | null, classId?: string, sectionId?: string) {
   return this.prisma.student.findMany({
@@ -64,13 +70,16 @@ findAll(branchId: string | null, classId?: string, sectionId?: string) {
 ```
 
 **Behavior**:
+
 - Super admin (`branchId: null`): Returns ALL students across all branches
 - Branch admin (`branchId: "xyz"`): Returns only students for their branch
 
 ---
 
 #### `employees.service.ts` - Line 48
+
 **Before:**
+
 ```typescript
 async findAllEmployees(branchId: string) {
   return this.prisma.staff.findMany({
@@ -85,6 +94,7 @@ async findAllEmployees(branchId: string) {
 ```
 
 **After:**
+
 ```typescript
 async findAllEmployees(branchId: string | null) {
   return this.prisma.staff.findMany({
@@ -101,13 +111,16 @@ async findAllEmployees(branchId: string | null) {
 ```
 
 **Behavior**:
+
 - Super admin (`branchId: null`): Returns ALL staff across all branches
 - Branch admin (`branchId: "xyz"`): Returns only staff for their branch
 
 ---
 
 #### `employees.service.ts` - Line 65 (findAllTeachers)
+
 **Before:**
+
 ```typescript
 async findAllTeachers(branchId: string) {
   return this.prisma.staff.findMany({
@@ -123,6 +136,7 @@ async findAllTeachers(branchId: string) {
 ```
 
 **After:**
+
 ```typescript
 async findAllTeachers(branchId: string | null) {
   return this.prisma.staff.findMany({
@@ -149,6 +163,7 @@ async findAllTeachers(branchId: string | null) {
 ### Fix 2: Synchronized Database Schema
 
 **Command Used:**
+
 ```powershell
 npx prisma db push --accept-data-loss
 ```
@@ -156,6 +171,7 @@ npx prisma db push --accept-data-loss
 **Result**: Added missing `categoryId` column to Student table along with foreign key relationship to StudentCategory table.
 
 **Schema Addition:**
+
 ```prisma
 model Student {
   // ... other fields
@@ -170,11 +186,12 @@ model Student {
 ## Testing and Verification
 
 ### Test Commands
+
 ```powershell
 # Get authentication token
 $token = (Invoke-RestMethod -Uri "http://localhost:3001/auth/login" `
   -Method POST `
-  -Body (@{ email = "superadmin@basaeer.com"; password = "admin123" } | ConvertTo-Json) `
+  -Body (@{ email = "superadmin@basaer.com"; password = "admin123" } | ConvertTo-Json) `
   -ContentType "application/json").access_token
 
 # Test students endpoint
@@ -189,6 +206,7 @@ $employees = Invoke-RestMethod -Uri "http://localhost:3001/employees" `
 ```
 
 ### Test Results
+
 ✅ **Students API**: Success - Returns empty array (no students in database yet)  
 ✅ **Employees API**: Success - Returns empty array (no staff in database yet)  
 ✅ **Status Codes**: Both endpoints return 200 OK  
@@ -215,12 +233,14 @@ $employees = Invoke-RestMethod -Uri "http://localhost:3001/employees" `
 ## Impact Analysis
 
 ### Positive Impacts
+
 ✅ Super admin can now view all students and staff across all branches  
 ✅ Branch admins correctly see only their branch data  
 ✅ Dashboard loads successfully without errors  
 ✅ API responses are properly structured
 
 ### Security Considerations
+
 - ✅ BranchGuard still enforces branch-level security
 - ✅ Super admin bypass is intentional (line 15-16 in `branch.guard.ts`)
 - ✅ Role-based permissions remain intact
@@ -242,6 +262,7 @@ The following services also have `findAll(branchId: string)` methods that may ne
 9. `assignments.service.ts` - Line 17
 
 ### Recommendation
+
 Review and update these services with the same pattern if super admin access is required.
 
 ---

@@ -49,7 +49,7 @@ const vacancyList = [
 
 const testimonials = [
   {
-    quote: "Teaching at Basaeer isn't just a job; it's a spiritual calling. The blend of high-tech tools with traditional values allows me to reach students in ways I never thought possible.",
+    quote: "Teaching at Basaer isn't just a job; it's a spiritual calling. The blend of high-tech tools with traditional values allows me to reach students in ways I never thought possible.",
     author: "Dr. Omar Al-Fayed",
     role: "Head of Humanities",
     image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCsOjRTsylVCK56UdKbFlMbXQvDQ-42jht0K6ytcuQkSHQTYluLmDUjcdKdxQTjXf0-gIZVIljana-g3sTCeyIAKce0g87btCPM0oUWPaYq9dCbE0OOFK3y9GWaMuX2Dto297_q4opF4PUK2Cbsh7aryu_IbYFPIzwOV4s0sQ6VPbyU10_HG2KlGqwnw0XObftJBpcABDLHHP-9g7NAH_vqIo0X9ged5i8YAWZgJij2R8ntMiqXg3Aw2B1eodS9DihtWMCL0-fTykw",
@@ -89,7 +89,7 @@ export default function CareersPage() {
           </div>
           <div className="relative z-10 text-center max-w-4xl mx-auto space-y-6">
             <span className="text-xs font-bold text-[#d2bbff] tracking-[0.3em] uppercase block">
-              CAREERS AT BASAEER
+              CAREERS AT BASAER
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight text-white font-heading leading-tight">
               Join the Mission: <span className="text-[#d2bbff] drop-shadow-[0_0_15px_rgba(210,187,255,0.4)] block md:inline">Shape the Future of Leadership.</span>
@@ -108,11 +108,11 @@ export default function CareersPage() {
           </div>
         </section>
 
-        {/* Why Teach at Basaeer */}
+        {/* Why Teach at Basaer */}
         <section className="max-w-7xl mx-auto px-6 lg:px-8 py-24">
           <div className="text-center mb-16 space-y-3">
             <h2 className="text-3xl md:text-5xl font-bold text-white font-heading">
-              Why Teach at Basaeer?
+              Why Teach at Basaer?
             </h2>
             <div className="w-24 h-1 bg-[#7c3aed] mx-auto rounded-full"></div>
           </div>
@@ -292,7 +292,7 @@ export default function CareersPage() {
                 Welcome Onboard
               </h5>
               <p className="text-sm text-[#ccc3d8] leading-relaxed">
-                Receive your offer and begin your orientation with the Basaeer family.
+                Receive your offer and begin your orientation with the Basaer family.
               </p>
             </div>
           </div>

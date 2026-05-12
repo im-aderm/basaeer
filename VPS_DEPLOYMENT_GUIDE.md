@@ -1,6 +1,6 @@
-# Basaeer — VPS Deployment Guide
+# Basaer — VPS Deployment Guide
 
-This guide covers deploying the Basaeer School Management System on a Linux VPS (Ubuntu 22.04/24.04).
+This guide covers deploying the Basaer School Management System on a Linux VPS (Ubuntu 22.04/24.04).
 
 ---
 
@@ -10,13 +10,14 @@ This guide covers deploying the Basaeer School Management System on a Linux VPS 
 Internet → Cloudflare DNS (SSL) → VPS (Nginx) → Frontend (Next.js :3000)
                                                 → /api/*  → Backend (NestJS :3001)
                                                 → /socket.io/ → Backend WebSocket
-                                                
+
                                   Backend connects to:
                                     → PostgreSQL (:5432)
                                     → Redis (:6379)
 ```
 
 Two deployment options:
+
 - **Option A (Docker)** — recommended, one-command start, isolated containers
 - **Option B (Manual)** — no Docker, PM2 process manager, direct installs
 
@@ -26,12 +27,12 @@ Two deployment options:
 
 ### A1. Server Requirements
 
-| Software | Minimum Version | Purpose |
-|----------|----------------|---------|
-| Ubuntu/Debian | 22.04 LTS | Operating system |
-| Docker | 24+ | Container runtime |
-| Docker Compose | v2 | Container orchestration |
-| Git | 2.0+ | Source code |
+| Software       | Minimum Version | Purpose                 |
+| -------------- | --------------- | ----------------------- |
+| Ubuntu/Debian  | 22.04 LTS       | Operating system        |
+| Docker         | 24+             | Container runtime       |
+| Docker Compose | v2              | Container orchestration |
+| Git            | 2.0+            | Source code             |
 
 All four fit comfortably on a **2 GB RAM / 2 vCPU VPS**.
 
@@ -61,8 +62,8 @@ Log out and back in for the group change to take effect.
 ### A3. Clone the Repository
 
 ```bash
-git clone https://github.com/im-aderm/basaeer.git
-cd basaeer
+git clone https://github.com/im-aderm/basaer.git
+cd basaer
 ```
 
 ### A4. Configure Environment
@@ -78,7 +79,7 @@ nano .env
 # Required
 NODE_ENV=production
 PORT=3001
-DATABASE_URL=postgresql://basaeer:YOUR_SECURE_DB_PASSWORD@postgres:5432/basaeer?schema=public
+DATABASE_URL=postgresql://basaer:YOUR_SECURE_DB_PASSWORD@postgres:5432/basaer?schema=public
 JWT_SECRET=                          # openssl rand -hex 64
 BOOTSTRAP_SECRET=                    # openssl rand -hex 32
 SEED_ADMIN_PASSWORD=SuperAdmin123!
@@ -91,7 +92,7 @@ REDIS_PASSWORD=YOUR_SECURE_REDIS_PASSWORD
 
 # Encryption
 ENCRYPTION_SECRET=                   # openssl rand -hex 64
-ENCRYPTION_SALT=basaeer-production-salt-2026
+ENCRYPTION_SALT=basaer-production-salt-2026
 
 # URLs — replace with your actual domain
 FRONTEND_URL=https://example.com
@@ -101,9 +102,9 @@ CORS_ALLOWED_ORIGINS=https://example.com
 NEXT_PUBLIC_API_URL=https://example.com/api
 
 # Docker credentials
-POSTGRES_USER=basaeer
+POSTGRES_USER=basaer
 POSTGRES_PASSWORD=YOUR_SECURE_DB_PASSWORD
-POSTGRES_DB=basaeer
+POSTGRES_DB=basaer
 
 # Optional — email, SMS, payments (add when ready)
 SMTP_HOST=smtp-relay.brevo.com
@@ -126,6 +127,7 @@ nano nginx/conf.d/default.conf
 ```
 
 Change line 3:
+
 ```nginx
 server_name example.com www.example.com;    # Your domain
 ```
@@ -219,9 +221,9 @@ sudo apt install -y git build-essential python3
 sudo -u postgres psql
 
 # In the psql prompt:
-CREATE USER basaeer WITH PASSWORD 'YOUR_SECURE_PASSWORD';
-CREATE DATABASE basaeer OWNER basaeer;
-GRANT ALL PRIVILEGES ON DATABASE basaeer TO basaeer;
+CREATE USER basaer WITH PASSWORD 'YOUR_SECURE_PASSWORD';
+CREATE DATABASE basaer OWNER basaer;
+GRANT ALL PRIVILEGES ON DATABASE basaer TO basaer;
 \q
 
 # Allow password authentication
@@ -248,8 +250,8 @@ sudo systemctl enable redis-server
 ### B4. Clone and Configure
 
 ```bash
-git clone https://github.com/im-aderm/basaeer.git
-cd basaeer
+git clone https://github.com/im-aderm/basaer.git
+cd basaer
 
 # Backend environment
 cp backend/.env.example backend/.env
@@ -257,10 +259,11 @@ nano backend/.env
 ```
 
 **Critical difference from Docker**: use `localhost` not Docker service names:
+
 ```ini
 NODE_ENV=production
 PORT=3001
-DATABASE_URL=postgresql://basaeer:YOUR_DB_PASSWORD@localhost:5432/basaeer?schema=public
+DATABASE_URL=postgresql://basaer:YOUR_DB_PASSWORD@localhost:5432/basaer?schema=public
 
 JWT_SECRET=                          # openssl rand -hex 64
 BOOTSTRAP_SECRET=                    # openssl rand -hex 32
@@ -272,7 +275,7 @@ REDIS_PORT=6379
 REDIS_PASSWORD=YOUR_REDIS_PASSWORD
 
 ENCRYPTION_SECRET=                   # openssl rand -hex 64
-ENCRYPTION_SALT=basaeer-production-salt-2026
+ENCRYPTION_SALT=basaer-production-salt-2026
 
 FRONTEND_URL=https://example.com
 CORS_ALLOWED_ORIGINS=https://example.com
@@ -285,6 +288,7 @@ DB_POOL_SIZE=20
 # Frontend environment
 nano frontend/.env.local
 ```
+
 ```ini
 NEXT_PUBLIC_API_URL=https://example.com/api
 ```
@@ -296,7 +300,7 @@ NEXT_PUBLIC_API_URL=https://example.com/api
 npm install
 
 # Build shared types package
-npm run build --workspace=@basaeer/shared-types
+npm run build --workspace=@basaer/shared-types
 
 # Build backend
 cd backend
@@ -317,12 +321,12 @@ npm run build --workspace=frontend
 ```bash
 # Start backend
 pm2 start backend/dist/main.js \
-  --name basaeer-backend \
+  --name basaer-backend \
   --max-memory-restart 2048M
 
 # Start frontend
 pm2 start node_modules/.bin/next \
-  --name basaeer-frontend \
+  --name basaer-frontend \
   -- start \
   --cwd frontend
 
@@ -339,7 +343,7 @@ pm2 logs
 ### B7. Configure Nginx
 
 ```bash
-sudo nano /etc/nginx/sites-available/basaeer
+sudo nano /etc/nginx/sites-available/basaer
 ```
 
 ```nginx
@@ -358,7 +362,7 @@ server {
 
     # Static uploads
     location /uploads/ {
-        alias /home/YOUR_USER/basaeer/backend/public/uploads/;
+        alias /home/YOUR_USER/basaer/backend/public/uploads/;
         expires 30d;
     }
 
@@ -403,7 +407,7 @@ server {
 
 ```bash
 # Enable the site
-sudo ln -s /etc/nginx/sites-available/basaeer /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/basaer /etc/nginx/sites-enabled/
 sudo rm /etc/nginx/sites-enabled/default  # Remove default if exists
 sudo nginx -t                              # Test config
 sudo systemctl reload nginx
@@ -454,7 +458,7 @@ sudo ufw status
 
 ### Verify Everything
 
-1. Visit `https://example.com` — should see the Basaeer landing page
+1. Visit `https://example.com` — should see the Basaer landing page
 2. Visit `https://example.com/login` — should see the login form
 3. Visit `https://example.com/api/health` — should return JSON with services status
 4. Login with the SuperAdmin credentials from the bootstrap step
@@ -464,26 +468,30 @@ sudo ufw status
 ## Troubleshooting
 
 ### Containers fail to start
+
 ```bash
 docker compose logs postgres    # Check DB started
-docker compose logs redis       # Check Redis started  
+docker compose logs redis       # Check Redis started
 docker compose logs backend     # Check backend errors
 ```
 
 ### Database connection refused
+
 - Docker: `DATABASE_URL` must use `@postgres:5432` not `@localhost:5432`
 - Manual: PostgreSQL must have password auth enabled in `pg_hba.conf`
 
 ### Port already in use
+
 ```bash
 sudo lsof -i :3001            # Check what's on port 3001
 sudo lsof -i :3000            # Check what's on port 3000
 ```
 
 ### PM2 processes dying
+
 ```bash
-pm2 logs basaeer-backend      # Check backend logs
-pm2 logs basaeer-frontend     # Check frontend logs
+pm2 logs basaer-backend      # Check backend logs
+pm2 logs basaer-frontend     # Check frontend logs
 # Increase memory limit:
 pm2 start ... --max-memory-restart 4096M
 ```
@@ -493,7 +501,7 @@ pm2 start ... --max-memory-restart 4096M
 ## Directory Structure After Deployment
 
 ```
-basaeer/
+basaer/
 ├── backend/
 │   ├── dist/           # Compiled NestJS output
 │   ├── prisma/         # Migrations + schema

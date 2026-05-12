@@ -24,7 +24,7 @@ const newsCategories = ["ALL", "ACADEMICS", "SPORTS", "SPIRITUAL", "COMMUNITY"];
 const bentoStories = [
   {
     category: "ACADEMICS",
-    title: "Basaeer Leads National Innovation in Digital Humanities",
+    title: "Basaer Leads National Innovation in Digital Humanities",
     image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAkR2o5a1Z3i1VWHmdep01blU8niaXy2buEjOHTyqEovHNSRvJ0vssWrHWRJJ9SkIh-kTE4FFQUSLI20TU4Q-H7afcir2o6m1m3u4VSSFBv59cyJ4he_qoOyJV6MTMVDFOH4FTVUYPpqVzStzOR9ImVFqzmgbEJ_ab5ih5UFmqHg1Jv4Gzf8M5kDvU4K418rc9SIUKSojhWGkdlyo7huDzWr3VhYxjGqZzuNwEGilE6SjiezZ4xTNahsqlU1fT24wln0kHaLD0mL7g",
   },
   {
@@ -34,7 +34,7 @@ const bentoStories = [
   },
   {
     category: "SPORTS",
-    title: "Basaeer Falcons Clinch Inter-School Championship",
+    title: "Basaer Falcons Clinch Inter-School Championship",
     image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDbeERKeCzE6WINBl2hIi09K4wByx1Ng3XSWqLLqGSEhbHdmwafuIjYmaZ8psnOdBNlJUpelmxgu5CxwH3BPz317RLDa3i97RyrWqJRiQ6LByG79vymwgkdUvppP4af-jIEpEwzsW5oYXrhZ8E2Fqy0RpndvP8JWBEKkPoFCnHPCjAXZxtly8Ma3SjK-fYGJoj5CKAyFf_z7K8ti8Bq43zCM7aMl0DHCOfrB46ohKeyNa2tJ5L332PLn8yQ6TrBOBXDyVW74Y-LFVg",
   },
 ];
@@ -122,10 +122,10 @@ export default function NewsEventsPage() {
               WEEKLY DIARY
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight text-white font-heading">
-              Stay Connected: <span className="text-[#d2bbff] drop-shadow-[0_0_15px_rgba(210,187,255,0.4)]">The Basaeer Pulse.</span>
+              Stay Connected: <span className="text-[#d2bbff] drop-shadow-[0_0_15px_rgba(210,187,255,0.4)]">The Basaer Pulse.</span>
             </h1>
             <p className="text-lg md:text-xl text-[#ccc3d8] leading-relaxed max-w-2xl">
-              Discover the latest achievements, spiritual milestones, and community highlights from the heart of Basaeer Model School.
+              Discover the latest achievements, spiritual milestones, and community highlights from the heart of Basaer Model School.
             </p>
           </div>
 
@@ -273,7 +273,7 @@ export default function NewsEventsPage() {
                 Upcoming Events
               </h2>
               <p className="text-lg text-[#ccc3d8] leading-relaxed">
-                Mark your calendars and join our vibrant events. From academic seminars to spiritual gatherings, there's always something happening at Basaeer.
+                Mark your calendars and join our vibrant events. From academic seminars to spiritual gatherings, there's always something happening at Basaer.
               </p>
               <div className="bg-white/5 p-6 rounded-2xl border border-white/10 flex items-start gap-4">
                 <Calendar className="text-[#7c3aed] shrink-0 mt-1" size={24} />
@@ -330,7 +330,7 @@ export default function NewsEventsPage() {
         <section className="max-w-7xl mx-auto px-6 lg:px-8 py-8 mb-16">
           <div className="text-center mb-12 space-y-3">
             <h2 className="text-3xl md:text-5xl font-bold text-white font-heading">
-              Basaeer Social Hub
+              Basaer Social Hub
             </h2>
             <p className="text-lg text-[#ccc3d8]">
               Follow our journey across digital platforms.
@@ -341,7 +341,7 @@ export default function NewsEventsPage() {
             {socialHubPhotos.map((photo, idx) => (
               <div key={idx} className="aspect-square relative rounded-2xl overflow-hidden bg-white/5 border border-white/10 group">
                 <img 
-                  alt="Basaeer social feed update capture" 
+                  alt="Basaer social feed update capture" 
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
                   src={photo} 
                 />

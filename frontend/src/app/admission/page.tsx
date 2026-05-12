@@ -43,7 +43,7 @@ const steps = [
   {
     id: 4,
     title: "Orientation",
-    description: "Welcome to the Basaeer family! Join our induction program to meet mentors and fellow students.",
+    description: "Welcome to the Basaer family! Join our induction program to meet mentors and fellow students.",
     icon: PartyPopper,
     reverse: true,
   },
@@ -83,7 +83,7 @@ const faqsData = [
   },
   {
     question: "Are there any scholarship opportunities available?",
-    answer: "Yes! Basaeer offers merit-based and need-based scholarships. Inquire during the assessment phase.",
+    answer: "Yes! Basaer offers merit-based and need-based scholarships. Inquire during the assessment phase.",
   },
   {
     question: "Do you offer sibling discounts?",

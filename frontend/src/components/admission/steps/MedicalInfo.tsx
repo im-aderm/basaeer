@@ -101,7 +101,7 @@ export function MedicalInfo() {
           <Users size={20} /> Sibling Information
         </div>
         <div className="flex items-center justify-between p-4 bg-muted/30 rounded-2xl border border-border">
-          <Label className="font-bold">Siblings currently in Basaeer?</Label>
+          <Label className="font-bold">Siblings currently in Basaer?</Label>
           <Switch checked={hasSiblings} onCheckedChange={(v) => setValue("hasSiblingsInSchool", v)} />
         </div>
       </div>

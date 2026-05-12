@@ -566,7 +566,7 @@ export function Sidebar() {
                             <div className="bg-[#2563EB]/10 p-2 rounded-xl" aria-hidden="true">
                                 <GraduationCap className="text-[#2563EB]" size={24} />
                             </div>
-                            <span className="font-bold text-xl tracking-tight text-[#111827]">Basaeer</span>
+                            <span className="font-bold text-xl tracking-tight text-[#111827]">Basaer</span>
                         </div>
                         <button
                             onClick={() => setIsCollapsed(!isCollapsed)}
@@ -596,7 +596,7 @@ export function Sidebar() {
             <div className="md:hidden flex items-center justify-between h-16 px-4 bg-card border-b border-border fixed top-0 w-full z-40">
                 <div className="flex items-center gap-2">
                     <GraduationCap className="text-primary" size={24} aria-hidden="true" />
-                    <span className="font-bold">Basaeer</span>
+                    <span className="font-bold">Basaer</span>
                 </div>
                 <button
                     onClick={() => setIsMobileOpen(true)}
@@ -622,7 +622,7 @@ export function Sidebar() {
                                 <div className="bg-[#2563EB]/10 p-2 rounded-xl" aria-hidden="true">
                                     <GraduationCap className="text-[#2563EB]" size={24} />
                                 </div>
-                                <span className="font-bold text-xl tracking-tight text-[#111827]">Basaeer</span>
+                                <span className="font-bold text-xl tracking-tight text-[#111827]">Basaer</span>
                             </div>
                             <button
                                 onClick={() => setIsMobileOpen(false)}

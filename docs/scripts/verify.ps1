@@ -31,7 +31,7 @@ Write-Host ""
 Write-Host "Logging in..."
 try {
     $loginBody = @{
-        email = "superadmin@basaeer.com"
+        email = "superadmin@basaer.com"
         password = "admin123"
     } | ConvertTo-Json
     
@@ -79,7 +79,7 @@ try {
     # Create Teacher
     Write-Host "Creating Teacher..."
     $teacherBody = @{
-        email = "teacher$($ts)@basaeer.com"
+        email = "teacher$($ts)@basaer.com"
         password = "teach123"
         firstName = "John"
         lastName = "Doe"
@@ -95,7 +95,7 @@ try {
     # Create Student
     Write-Host "Creating Student..."
     $studentBody = @{
-        email = "student$($ts)@basaeer.com"
+        email = "student$($ts)@basaer.com"
         password = "stud123"
         firstName = "Alice"
         lastName = "Smith"

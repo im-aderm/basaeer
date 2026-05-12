@@ -364,7 +364,7 @@ export default function StudentIdCardsPage() {
                                 </div>
                                 <div className="col-span-2">
                                     <span className="text-[10px] font-black text-slate-400 uppercase block">Institution</span>
-                                    <span className="font-bold text-slate-700">{previewCard.student?.branch?.name || 'Basaeer Academy'}</span>
+                                    <span className="font-bold text-slate-700">{previewCard.student?.branch?.name || 'Basaer Academy'}</span>
                                 </div>
                             </div>
 

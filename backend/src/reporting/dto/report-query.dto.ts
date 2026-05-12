@@ -7,7 +7,7 @@ import {
   Min,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { ExportFormat } from '@basaeer/shared-types';
+import { ExportFormat } from '@basaer/shared-types';
 
 export class ReportQueryDto {
   @IsOptional()

@@ -37,35 +37,35 @@ nohup: ignoring input
 [32m[Nest] 8351  - [39m01/13/2026, 5:23:58 PM [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +47ms[39m
 [31m[Nest] 8351  - [39m01/13/2026, 5:24:07 PM [31m  ERROR[39m [38;5;3m[ExceptionsHandler] [39mPrismaClientKnownRequestError: 
 Invalid `this.prisma.user.findUnique()` invocation in
-/home/abu-nabeel/Desktop/basaeer/backend/src/users/users.service.ts:29:49
+/home/abu-nabeel/Desktop/basaer/backend/src/users/users.service.ts:29:49
 
   26 
   27 async createSuperAdmin(): Promise<User> {
-  28     const email = 'superadmin@basaeer.com';
+  28     const email = 'superadmin@basaer.com';
 → 29     const existing = await this.prisma.user.findUnique(
 Can't reach database server at 127.0.0.1:51214
-    at qr.handleRequestError [90m(/home/abu-nabeel/Desktop/basaeer/backend/[39mnode_modules/[4m@prisma/client[24m/src/runtime/RequestHandler.ts:228:13[90m)[39m
-    at qr.handleAndLogRequestError [90m(/home/abu-nabeel/Desktop/basaeer/backend/[39mnode_modules/[4m@prisma/client[24m/src/runtime/RequestHandler.ts:174:12[90m)[39m
-    at qr.request [90m(/home/abu-nabeel/Desktop/basaeer/backend/[39mnode_modules/[4m@prisma/client[24m/src/runtime/RequestHandler.ts:143:12[90m)[39m
+    at qr.handleRequestError [90m(/home/abu-nabeel/Desktop/basaer/backend/[39mnode_modules/[4m@prisma/client[24m/src/runtime/RequestHandler.ts:228:13[90m)[39m
+    at qr.handleAndLogRequestError [90m(/home/abu-nabeel/Desktop/basaer/backend/[39mnode_modules/[4m@prisma/client[24m/src/runtime/RequestHandler.ts:174:12[90m)[39m
+    at qr.request [90m(/home/abu-nabeel/Desktop/basaer/backend/[39mnode_modules/[4m@prisma/client[24m/src/runtime/RequestHandler.ts:143:12[90m)[39m
 [90m    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)[39m
-    at async a [90m(/home/abu-nabeel/Desktop/basaeer/backend/[39mnode_modules/[4m@prisma/client[24m/src/runtime/getPrismaClient.ts:805:24[90m)[39m
-    at async UsersService.createSuperAdmin [90m(/home/abu-nabeel/Desktop/basaeer/backend/[39msrc/users/users.service.ts:29:26[90m)[39m
-    at async [90m/home/abu-nabeel/Desktop/basaeer/backend/[39mnode_modules/[4m@nestjs/core[24m/router/router-execution-context.js:46:28
-    at async [90m/home/abu-nabeel/Desktop/basaeer/backend/[39mnode_modules/[4m@nestjs/core[24m/router/router-proxy.js:9:17 {
+    at async a [90m(/home/abu-nabeel/Desktop/basaer/backend/[39mnode_modules/[4m@prisma/client[24m/src/runtime/getPrismaClient.ts:805:24[90m)[39m
+    at async UsersService.createSuperAdmin [90m(/home/abu-nabeel/Desktop/basaer/backend/[39msrc/users/users.service.ts:29:26[90m)[39m
+    at async [90m/home/abu-nabeel/Desktop/basaer/backend/[39mnode_modules/[4m@nestjs/core[24m/router/router-execution-context.js:46:28
+    at async [90m/home/abu-nabeel/Desktop/basaer/backend/[39mnode_modules/[4m@nestjs/core[24m/router/router-proxy.js:9:17 {
   code: [32m'P1001'[39m,
   meta: {
     modelName: [32m'User'[39m,
     driverAdapterError: DriverAdapterError: DatabaseNotReachable
-        at PrismaPgAdapter.onError [90m(/home/abu-nabeel/Desktop/basaeer/backend/[39mnode_modules/[4m@prisma/adapter-pg[24m/dist/index.js:687:11[90m)[39m
-        at PrismaPgAdapter.performIO [90m(/home/abu-nabeel/Desktop/basaeer/backend/[39mnode_modules/[4m@prisma/adapter-pg[24m/dist/index.js:682:12[90m)[39m
+        at PrismaPgAdapter.onError [90m(/home/abu-nabeel/Desktop/basaer/backend/[39mnode_modules/[4m@prisma/adapter-pg[24m/dist/index.js:687:11[90m)[39m
+        at PrismaPgAdapter.performIO [90m(/home/abu-nabeel/Desktop/basaer/backend/[39mnode_modules/[4m@prisma/adapter-pg[24m/dist/index.js:682:12[90m)[39m
     [90m    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)[39m
-        at async PrismaPgAdapter.queryRaw [90m(/home/abu-nabeel/Desktop/basaeer/backend/[39mnode_modules/[4m@prisma/adapter-pg[24m/dist/index.js:602:30[90m)[39m
-        at async <anonymous> [90m(/home/abu-nabeel/Desktop/basaeer/backend/[39mnode_modules/[4m@prisma/client-engine-runtime[24m/src/tracing.ts:68:22[90m)[39m
-        at async fr [90m(/home/abu-nabeel/Desktop/basaeer/backend/[39mnode_modules/[4m@prisma/client-engine-runtime[24m/src/tracing.ts:56:10[90m)[39m
-        at async e.interpretNode [90m(/home/abu-nabeel/Desktop/basaeer/backend/[39mnode_modules/[4m@prisma/client-engine-runtime[24m/src/interpreter/query-interpreter.ts:190:26[90m)[39m
-        at async e.interpretNode [90m(/home/abu-nabeel/Desktop/basaeer/backend/[39mnode_modules/[4m@prisma/client-engine-runtime[24m/src/interpreter/query-interpreter.ts:217:41[90m)[39m
-        at async e.interpretNode [90m(/home/abu-nabeel/Desktop/basaeer/backend/[39mnode_modules/[4m@prisma/client-engine-runtime[24m/src/interpreter/query-interpreter.ts:276:41[90m)[39m
-        at async e.run [90m(/home/abu-nabeel/Desktop/basaeer/backend/[39mnode_modules/[4m@prisma/client-engine-runtime[24m/src/interpreter/query-interpreter.ts:96:23[90m)[39m {
+        at async PrismaPgAdapter.queryRaw [90m(/home/abu-nabeel/Desktop/basaer/backend/[39mnode_modules/[4m@prisma/adapter-pg[24m/dist/index.js:602:30[90m)[39m
+        at async <anonymous> [90m(/home/abu-nabeel/Desktop/basaer/backend/[39mnode_modules/[4m@prisma/client-engine-runtime[24m/src/tracing.ts:68:22[90m)[39m
+        at async fr [90m(/home/abu-nabeel/Desktop/basaer/backend/[39mnode_modules/[4m@prisma/client-engine-runtime[24m/src/tracing.ts:56:10[90m)[39m
+        at async e.interpretNode [90m(/home/abu-nabeel/Desktop/basaer/backend/[39mnode_modules/[4m@prisma/client-engine-runtime[24m/src/interpreter/query-interpreter.ts:190:26[90m)[39m
+        at async e.interpretNode [90m(/home/abu-nabeel/Desktop/basaer/backend/[39mnode_modules/[4m@prisma/client-engine-runtime[24m/src/interpreter/query-interpreter.ts:217:41[90m)[39m
+        at async e.interpretNode [90m(/home/abu-nabeel/Desktop/basaer/backend/[39mnode_modules/[4m@prisma/client-engine-runtime[24m/src/interpreter/query-interpreter.ts:276:41[90m)[39m
+        at async e.run [90m(/home/abu-nabeel/Desktop/basaer/backend/[39mnode_modules/[4m@prisma/client-engine-runtime[24m/src/interpreter/query-interpreter.ts:96:23[90m)[39m {
       cause: {
         kind: [32m'DatabaseNotReachable'[39m,
         host: [32m'127.0.0.1'[39m,

@@ -69,7 +69,7 @@ export function MultiStepAdmissionForm() {
         <div className="space-y-4">
           <h2 className="text-5xl font-black tracking-tight italic uppercase">Application Received!</h2>
           <p className="text-xl text-muted-foreground font-medium max-w-lg mx-auto italic">
-            Thank you for applying to Basaeer Quranic College. Our registrar will review your documents and payment shortly. You will receive an email update soon.
+            Thank you for applying to Basaer Quranic College. Our registrar will review your documents and payment shortly. You will receive an email update soon.
           </p>
         </div>
         <Button 

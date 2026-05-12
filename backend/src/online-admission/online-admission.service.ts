@@ -252,7 +252,7 @@ export class OnlineAdmissionService {
       if (admission.createPortalAccount) {
         const email =
           admission.studentEmail ||
-          `std.${admission.firstName.toLowerCase()}.${admission.lastName.toLowerCase()}${count + 1}@basaeer.com`;
+          `std.${admission.firstName.toLowerCase()}.${admission.lastName.toLowerCase()}${count + 1}@basaer.com`;
         const hashedPassword = await bcrypt.hash('student123', 10);
 
         const user = await tx.user.create({

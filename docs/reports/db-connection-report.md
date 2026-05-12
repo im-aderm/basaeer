@@ -1,6 +1,6 @@
 # PostgreSQL Local Database Connection Fix - Detailed Technical Report
 
-**Project**: Basaeer School Management System  
+**Project**: Basaer School Management System  
 **Date**: January 19, 2026  
 **Author**: Database Configuration Team  
 **Status**: ✅ Resolved and Tested
@@ -9,9 +9,10 @@
 
 ## Executive Summary
 
-This report documents the complete process of diagnosing and resolving PostgreSQL database connection issues in the Basaeer School Management System, including the implementation of Prisma migrations and comprehensive testing procedures. The root cause was identified as a password mismatch between the application configuration and the local PostgreSQL installation.
+This report documents the complete process of diagnosing and resolving PostgreSQL database connection issues in the Basaer School Management System, including the implementation of Prisma migrations and comprehensive testing procedures. The root cause was identified as a password mismatch between the application configuration and the local PostgreSQL installation.
 
 **Key Results:**
+
 - Successfully connected to PostgreSQL 18 running on localhost:5432
 - Applied 5 Prisma migrations to establish complete database schema
 - Created and verified super admin user authentication
@@ -37,6 +38,7 @@ This report documents the complete process of diagnosing and resolving PostgreSQ
 ### Symptoms
 
 The application was experiencing database connectivity issues preventing:
+
 - Backend server startup with database connection
 - User authentication and login functionality
 - Bootstrap endpoint for creating initial super admin user
@@ -47,7 +49,7 @@ The application was experiencing database connectivity issues preventing:
 **PostgreSQL Version**: PostgreSQL 18 (postgresql-x64-18)  
 **Database Port**: 5432  
 **Application Backend**: NestJS with Prisma ORM  
-**Backend Port**: 3001  
+**Backend Port**: 3001
 
 ---
 
@@ -56,11 +58,13 @@ The application was experiencing database connectivity issues preventing:
 ### Step 1: Check PostgreSQL Service Status
 
 **Command:**
+
 ```powershell
 Get-Service -Name *postgres* -ErrorAction SilentlyContinue | Select-Object Name, Status, DisplayName
 ```
 
 **Output:**
+
 ```
 Name              Status  DisplayName
 ----              ------  -----------
@@ -74,11 +78,13 @@ postgresql-x64-18 Running postgresql-x64-18
 ### Step 2: Verify Port Availability
 
 **Command:**
+
 ```powershell
 netstat -an | findstr :5432
 ```
 
 **Output:**
+
 ```
 TCP    0.0.0.0:5432           0.0.0.0:0              LISTENING
 TCP    [::]:5432              [::]:0                 LISTENING
@@ -90,16 +96,18 @@ TCP    [::]:5432              [::]:0                 LISTENING
 
 ### Step 3: Examine Application Configuration
 
-**File Reviewed**: `c:\Users\im_ad\OneDrive\Desktop\basaeer\backend\.env`
+**File Reviewed**: `c:\Users\im_ad\OneDrive\Desktop\basaer\backend\.env`
 
 **Original Content:**
+
 ```env
 PORT=3001
-DATABASE_URL="postgresql://postgres:postgrespassword@localhost:5432/basaeer?schema=public"
+DATABASE_URL="postgresql://postgres:postgrespassword@localhost:5432/basaer?schema=public"
 JWT_SECRET="super-secret-key"
 ```
 
 **Command to View:**
+
 ```powershell
 Get-Content .\backend\.env
 ```
@@ -110,14 +118,16 @@ Get-Content .\backend\.env
 
 ### Step 4: Review Database Schema Configuration
 
-**File**: `c:\Users\im_ad\OneDrive\Desktop\basaeer\backend\prisma\schema.prisma`
+**File**: `c:\Users\im_ad\OneDrive\Desktop\basaer\backend\prisma\schema.prisma`
 
 **Command to View Schema:**
+
 ```powershell
 Get-Content .\backend\prisma\schema.prisma | Select-Object -First 20
 ```
 
 **Key Configuration Found:**
+
 ```prisma
 datasource db {
   provider = "postgresql"
@@ -136,12 +146,14 @@ generator client {
 ### Step 5: Attempt Initial Backend Startup
 
 **Command:**
+
 ```powershell
 cd backend
 npm run start:dev
 ```
 
 **Result**: Server started but authentication failed with error:
+
 ```
 ERROR [ExceptionsHandler] AuthenticationFailed
 kind: 'AuthenticationFailed'
@@ -160,12 +172,14 @@ originalMessage: 'password authentication failed for user "postgres"'
 #### Test 1: Verify PostgreSQL Authentication with Wrong Password
 
 **Command:**
+
 ```powershell
 $env:PGPASSWORD='postgrespassword'
 & 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -c "SELECT version();"
 ```
 
 **Result:**
+
 ```
 psql.exe: error: password authentication failed for user "postgres"
 ```
@@ -179,6 +193,7 @@ psql.exe: error: password authentication failed for user "postgres"
 **User provided**: Password is `1234`
 
 **Verification Command:**
+
 ```powershell
 $env:PGPASSWORD='1234'
 & 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -c "SELECT version();"
@@ -191,14 +206,16 @@ $env:PGPASSWORD='1234'
 ### Phase 2: Database Existence Check
 
 **Command:**
+
 ```powershell
 $env:PGPASSWORD='1234'
-& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -c "CREATE DATABASE basaeer;"
+& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -c "CREATE DATABASE basaer;"
 ```
 
 **First Attempt Output:**
+
 ```
-ERROR: database "basaeer" already exists
+ERROR: database "basaer" already exists
 ```
 
 **Finding**: Database existed but had conflicting/incomplete schema
@@ -208,12 +225,14 @@ ERROR: database "basaeer" already exists
 ### Phase 3: Database State Analysis
 
 **Command to Connect to Database:**
+
 ```powershell
 $env:PGPASSWORD='1234'
-& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -d basaeer
+& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -d basaer
 ```
 
 **Investigation Results:**
+
 - Database had orphaned tables from previous installations
 - Schema incompatible with current Prisma migrations
 - Tables like `mobilitydb_opcache` and `us_rules` present but not in schema
@@ -226,29 +245,33 @@ $env:PGPASSWORD='1234'
 
 ### Step 1: Update Application Configuration
 
-**File Modified**: `c:\Users\im_ad\OneDrive\Desktop\basaeer\backend\.env`
+**File Modified**: `c:\Users\im_ad\OneDrive\Desktop\basaer\backend\.env`
 
 **Command:**
+
 ```powershell
 # Manual edit or PowerShell replacement
 (Get-Content .\backend\.env) -replace 'postgrespassword', '1234' | Set-Content .\backend\.env
 ```
 
 **Updated Content:**
+
 ```env
 PORT=3001
-DATABASE_URL="postgresql://postgres:1234@localhost:5432/basaeer?schema=public"
+DATABASE_URL="postgresql://postgres:1234@localhost:5432/basaer?schema=public"
 JWT_SECRET="super-secret-key"
 ```
 
 **Verification Command:**
+
 ```powershell
 Get-Content .\backend\.env | Select-String "DATABASE_URL"
 ```
 
 **Output:**
+
 ```
-DATABASE_URL="postgresql://postgres:1234@localhost:5432/basaeer?schema=public"
+DATABASE_URL="postgresql://postgres:1234@localhost:5432/basaer?schema=public"
 ```
 
 ✅ **Configuration Updated Successfully**
@@ -260,12 +283,14 @@ DATABASE_URL="postgresql://postgres:1234@localhost:5432/basaeer?schema=public"
 #### 2.1 Drop Existing Database
 
 **Command:**
+
 ```powershell
 $env:PGPASSWORD='1234'
-& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -c "DROP DATABASE IF EXISTS basaeer;"
+& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -c "DROP DATABASE IF EXISTS basaer;"
 ```
 
 **Output:**
+
 ```
 DROP DATABASE
 ```
@@ -277,12 +302,14 @@ DROP DATABASE
 #### 2.2 Create Fresh Database
 
 **Command:**
+
 ```powershell
 $env:PGPASSWORD='1234'
-& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -c "CREATE DATABASE basaeer;"
+& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -c "CREATE DATABASE basaer;"
 ```
 
 **Output:**
+
 ```
 CREATE DATABASE
 ```
@@ -294,15 +321,17 @@ CREATE DATABASE
 #### 2.3 Verify Database Creation
 
 **Command:**
+
 ```powershell
 $env:PGPASSWORD='1234'
-& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -c "\l basaeer"
+& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -c "\l basaer"
 ```
 
 **Alternative Verification:**
+
 ```powershell
 $env:PGPASSWORD='1234'
-& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -d basaeer -c "SELECT current_database();"
+& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -d basaer -c "SELECT current_database();"
 ```
 
 ✅ **Database accessible and ready**
@@ -314,17 +343,20 @@ $env:PGPASSWORD='1234'
 ### Understanding Prisma Migrations
 
 Prisma migrations are version-controlled database schema changes stored in `backend/prisma/migrations/` directory. Each migration folder contains:
+
 - `migration.sql` - SQL commands to execute
 - Timestamp-based naming for ordering
 
 ### Step 1: Review Available Migrations
 
 **Command:**
+
 ```powershell
 Get-ChildItem .\backend\prisma\migrations\ -Directory | Select-Object Name
 ```
 
 **Output:**
+
 ```
 Name
 ----
@@ -342,6 +374,7 @@ Name
 ### Step 2: Execute Prisma Migration Deployment
 
 **Command:**
+
 ```powershell
 cd .\backend
 npx prisma migrate deploy
@@ -350,11 +383,12 @@ npx prisma migrate deploy
 **Purpose**: `migrate deploy` applies pending migrations in production/development databases without prompting
 
 **Detailed Output:**
+
 ```
 Loaded Prisma config from prisma.config.ts.
 
 Prisma schema loaded from prisma\schema.prisma.
-Datasource "db": PostgreSQL database "basaeer", schema "public" at "localhost:5432"
+Datasource "db": PostgreSQL database "basaer", schema "public" at "localhost:5432"
 
 Applying migration `20260115175603_add_report_fidelity_fields`
     └─ Applied successfully
@@ -377,12 +411,14 @@ All migrations have been successfully applied.
 ### Step 3: Verify Database Schema
 
 **Command to Check Tables Created:**
+
 ```powershell
 $env:PGPASSWORD='1234'
-& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -d basaeer -c "\dt"
+& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -d basaer -c "\dt"
 ```
 
 **Expected Tables** (partial list):
+
 - User
 - Student
 - Staff
@@ -399,9 +435,10 @@ $env:PGPASSWORD='1234'
 - Certificate (from migration)
 
 **Additional Verification - Count Tables:**
+
 ```powershell
 $env:PGPASSWORD='1234'
-& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -d basaeer -c "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'public';"
+& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -d basaer -c "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'public';"
 ```
 
 ---
@@ -409,11 +446,13 @@ $env:PGPASSWORD='1234'
 ### Step 4: Verify Prisma Client Generation
 
 **Command:**
+
 ```powershell
 npx prisma generate
 ```
 
 **Output:**
+
 ```
 Prisma schema loaded from prisma\schema.prisma
 
@@ -421,6 +460,7 @@ Prisma schema loaded from prisma\schema.prisma
 ```
 
 **Verification - Check Generated Files:**
+
 ```powershell
 Test-Path .\src\generated\client\index.js
 ```
@@ -434,12 +474,14 @@ Test-Path .\src\generated\client\index.js
 ### Phase 1: Backend Server Startup Test
 
 **Command:**
+
 ```powershell
-cd c:\Users\im_ad\OneDrive\Desktop\basaeer\backend
+cd c:\Users\im_ad\OneDrive\Desktop\basaer\backend
 npm run start:dev
 ```
 
 **Expected Output Sequence:**
+
 1. TypeScript compilation starts
 2. Prisma Client loads
 3. NestJS application initializes
@@ -448,6 +490,7 @@ npm run start:dev
 6. Server starts on port 3001
 
 **Actual Output (Relevant Excerpts):**
+
 ```
 [1:33:06 AM] Starting compilation in watch mode...
 
@@ -468,14 +511,16 @@ Application is running on: http://localhost:3001
 ### Phase 2: Bootstrap Super Admin User
 
 #### Test Command
+
 ```powershell
 Invoke-RestMethod -Uri "http://localhost:3001/auth/bootstrap" -Method POST -ContentType "application/json"
 ```
 
 #### Response
+
 ```powershell
 id        : 8c228189-df7d-4b46-a604-33e417d08838
-email     : superadmin@basaeer.com
+email     : superadmin@basaer.com
 password  : $2b$10$E2hyJqxnEvvsnmtpXVd/P.sKF61EBCk3vyflLMIIrS6kPkYSzm3gG
 firstName : Super
 lastName  : Admin
@@ -488,16 +533,18 @@ branchId  :
 ```
 
 #### Verification in Database
+
 ```powershell
 $env:PGPASSWORD='1234'
-& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -d basaeer -c "SELECT email, role FROM \"User\" WHERE email = 'superadmin@basaeer.com';"
+& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -d basaer -c "SELECT email, role FROM \"User\" WHERE email = 'superadmin@basaer.com';"
 ```
 
 **Output:**
+
 ```
         email          |    role
 -----------------------+-------------
- superadmin@basaeer.com | SUPER_ADMIN
+ superadmin@basaer.com | SUPER_ADMIN
 ```
 
 ✅ **Super admin user created and persisted in database**
@@ -507,9 +554,10 @@ $env:PGPASSWORD='1234'
 ### Phase 3: Login Authentication Test
 
 #### Test Command
+
 ```powershell
 $loginBody = @{
-    email = "superadmin@basaeer.com"
+    email = "superadmin@basaer.com"
     password = "admin123"
 } | ConvertTo-Json
 
@@ -520,6 +568,7 @@ Invoke-RestMethod -Uri "http://localhost:3001/auth/login" `
 ```
 
 #### Response
+
 ```powershell
 access_token
 ------------
@@ -529,6 +578,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN1cGVyYWRtaW5AYmFzYWVlci5jb20
 #### Token Validation
 
 **Decode JWT Token (for verification):**
+
 ```powershell
 # Store token
 $token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN1cGVyYWRtaW5AYmFzYWVlci5jb20iLCJzdWIiOiI4YzIyODE4OS1kZjdkLTRiNDYtYTYwNC0zM2U0MTdkMDg4MzgiLCJyb2xlIjoiU1VQRVJfQURNSU4iLCJicmFuY2hJZCI6bnVsbCwiaWF0IjoxNzM3MjQ3NjQwLCJleHAiOjE3MzcyNTEyNDB9.k8vZ3YDQ_4XN5wRH8f_PqB4Vc7QmN9LKzR3Wp2Xt1Y0"
@@ -539,9 +589,10 @@ $parts = $token.Split('.')
 ```
 
 **Decoded Payload:**
+
 ```json
 {
-  "email": "superadmin@basaeer.com",
+  "email": "superadmin@basaer.com",
   "sub": "8c228189-df7d-4b46-a604-33e417d08838",
   "role": "SUPER_ADMIN",
   "branchId": null,
@@ -551,6 +602,7 @@ $parts = $token.Split('.')
 ```
 
 **Verification:**
+
 - ✅ User ID matches created user
 - ✅ Role is SUPER_ADMIN
 - ✅ Email correct
@@ -563,11 +615,12 @@ $parts = $token.Split('.')
 ### Phase 4: Authenticated Endpoint Test
 
 #### Test Command
+
 ```powershell
 # Single command to get token and test profile
 $token = (Invoke-RestMethod -Uri "http://localhost:3001/auth/login" `
     -Method POST `
-    -Body (@{ email = "superadmin@basaeer.com"; password = "admin123" } | ConvertTo-Json) `
+    -Body (@{ email = "superadmin@basaer.com"; password = "admin123" } | ConvertTo-Json) `
     -ContentType "application/json").access_token
 
 Invoke-RestMethod -Uri "http://localhost:3001/auth/profile" `
@@ -576,13 +629,15 @@ Invoke-RestMethod -Uri "http://localhost:3001/auth/profile" `
 ```
 
 #### Response
+
 ```powershell
 userId                               email                      role         branchId
 ------                               -----                      ----         --------
-8c228189-df7d-4b46-a604-33e417d08838 superadmin@basaeer.com     SUPER_ADMIN
+8c228189-df7d-4b46-a604-33e417d08838 superadmin@basaer.com     SUPER_ADMIN
 ```
 
 #### Detailed Test with Full Output
+
 ```powershell
 $response = Invoke-RestMethod -Uri "http://localhost:3001/auth/profile" `
     -Method GET `
@@ -592,11 +647,12 @@ $response | Format-List
 ```
 
 **Output:**
+
 ```powershell
 userId   : 8c228189-df7d-4b46-a604-33e417d08838
-email    : superadmin@basaeer.com
+email    : superadmin@basaer.com
 role     : SUPER_ADMIN
-branchId : 
+branchId :
 ```
 
 ✅ **Authenticated endpoints working correctly**
@@ -606,12 +662,14 @@ branchId :
 ### Phase 5: Password Hashing Verification
 
 **Database Query:**
+
 ```powershell
 $env:PGPASSWORD='1234'
-& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -d basaeer -c "SELECT substring(password, 1, 7) as hash_prefix FROM \"User\" WHERE email = 'superadmin@basaeer.com';"
+& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -d basaer -c "SELECT substring(password, 1, 7) as hash_prefix FROM \"User\" WHERE email = 'superadmin@basaer.com';"
 ```
 
 **Output:**
+
 ```
 hash_prefix
 -----------
@@ -619,6 +677,7 @@ $2b$10$
 ```
 
 **Verification:**
+
 - ✅ Password uses bcrypt hashing (indicated by `$2b$`)
 - ✅ Cost factor is 10 (standard security level)
 - ✅ Password stored securely, never in plaintext
@@ -628,14 +687,16 @@ $2b$10$
 ### Phase 6: Database Integrity Tests
 
 #### Test 1: Count Users
+
 ```powershell
 $env:PGPASSWORD='1234'
-& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -d basaeer -c "SELECT COUNT(*) FROM \"User\";"
+& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -d basaer -c "SELECT COUNT(*) FROM \"User\";"
 ```
 
 **Output:**
+
 ```
- count 
+ count
 -------
      1
 ```
@@ -645,14 +706,16 @@ $env:PGPASSWORD='1234'
 ---
 
 #### Test 2: Verify All Critical Tables Exist
+
 ```powershell
 $env:PGPASSWORD='1234'
-& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -d basaeer -c "SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' AND table_name IN ('User', 'Student', 'Staff', 'Branch', 'AuditLog', 'Voucher') ORDER BY table_name;"
+& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -d basaer -c "SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' AND table_name IN ('User', 'Student', 'Staff', 'Branch', 'AuditLog', 'Voucher') ORDER BY table_name;"
 ```
 
 **Output:**
+
 ```
- table_name 
+ table_name
 ------------
  AuditLog
  Branch
@@ -667,9 +730,10 @@ $env:PGPASSWORD='1234'
 ---
 
 #### Test 3: Check Foreign Key Constraints
+
 ```powershell
 $env:PGPASSWORD='1234'
-& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -d basaeer -c "SELECT COUNT(*) FROM information_schema.table_constraints WHERE constraint_type = 'FOREIGN KEY';"
+& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -d basaer -c "SELECT COUNT(*) FROM information_schema.table_constraints WHERE constraint_type = 'FOREIGN KEY';"
 ```
 
 ✅ **Foreign key relationships established correctly**
@@ -677,14 +741,16 @@ $env:PGPASSWORD='1234'
 ---
 
 #### Test 4: Verify Migration History
+
 ```powershell
 $env:PGPASSWORD='1234'
-& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -d basaeer -c "SELECT migration_name, started_at, finished_at FROM \"_prisma_migrations\" ORDER BY finished_at;"
+& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -d basaer -c "SELECT migration_name, started_at, finished_at FROM \"_prisma_migrations\" ORDER BY finished_at;"
 ```
 
 **Output:**
+
 ```
-                 migration_name                  |         started_at          |         finished_at         
+                 migration_name                  |         started_at          |         finished_at
 ------------------------------------------------+-----------------------------+-----------------------------
  20260115175603_add_report_fidelity_fields      | 2026-01-19 00:32:15.123456 | 2026-01-19 00:32:15.234567
  20260115175927_add_audit_log                   | 2026-01-19 00:32:15.345678 | 2026-01-19 00:32:15.456789
@@ -704,16 +770,19 @@ $env:PGPASSWORD='1234'
 #### 1. PostgreSQL Service Management
 
 **Check Service Status:**
+
 ```powershell
 Get-Service -Name postgresql-x64-18
 ```
 
 **Start Service:**
+
 ```powershell
 Start-Service -Name postgresql-x64-18
 ```
 
 **Stop Service:**
+
 ```powershell
 Stop-Service -Name postgresql-x64-18
 ```
@@ -723,33 +792,38 @@ Stop-Service -Name postgresql-x64-18
 #### 2. Database Operations
 
 **Connect to PostgreSQL:**
+
 ```powershell
 $env:PGPASSWORD='1234'
 & 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres
 ```
 
 **Connect to Specific Database:**
+
 ```powershell
 $env:PGPASSWORD='1234'
-& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -d basaeer
+& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -d basaer
 ```
 
 **List All Databases:**
+
 ```powershell
 $env:PGPASSWORD='1234'
 & 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -c "\l"
 ```
 
 **Create Database:**
+
 ```powershell
 $env:PGPASSWORD='1234'
-& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -c "CREATE DATABASE basaeer;"
+& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -c "CREATE DATABASE basaer;"
 ```
 
 **Drop Database:**
+
 ```powershell
 $env:PGPASSWORD='1234'
-& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -c "DROP DATABASE IF EXISTS basaeer;"
+& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -c "DROP DATABASE IF EXISTS basaer;"
 ```
 
 ---
@@ -757,37 +831,44 @@ $env:PGPASSWORD='1234'
 #### 3. Prisma Commands
 
 **Generate Prisma Client:**
+
 ```powershell
 cd backend
 npx prisma generate
 ```
 
 **Deploy Migrations:**
+
 ```powershell
 npx prisma migrate deploy
 ```
 
 **Create New Migration (Development):**
+
 ```powershell
 npx prisma migrate dev --name description_of_changes
 ```
 
 **Reset Database (WARNING: Deletes all data):**
+
 ```powershell
 npx prisma migrate reset
 ```
 
 **View Migration Status:**
+
 ```powershell
 npx prisma migrate status
 ```
 
 **Push Schema Without Migration:**
+
 ```powershell
 npx prisma db push
 ```
 
 **Open Prisma Studio (GUI):**
+
 ```powershell
 npx prisma studio
 ```
@@ -797,17 +878,20 @@ npx prisma studio
 #### 4. Backend Server Commands
 
 **Start Development Server:**
+
 ```powershell
 cd backend
 npm run start:dev
 ```
 
 **Start Production Server:**
+
 ```powershell
 npm run start:prod
 ```
 
 **Build for Production:**
+
 ```powershell
 npm run build
 ```
@@ -817,26 +901,30 @@ npm run build
 #### 5. API Testing Commands
 
 **Bootstrap Super Admin:**
+
 ```powershell
 Invoke-RestMethod -Uri "http://localhost:3001/auth/bootstrap" -Method POST
 ```
 
 **Login:**
+
 ```powershell
-$body = @{ email = "superadmin@basaeer.com"; password = "admin123" } | ConvertTo-Json
+$body = @{ email = "superadmin@basaer.com"; password = "admin123" } | ConvertTo-Json
 Invoke-RestMethod -Uri "http://localhost:3001/auth/login" -Method POST -Body $body -ContentType "application/json"
 ```
 
 **Get Profile (Authenticated):**
+
 ```powershell
 $token = "YOUR_JWT_TOKEN"
 Invoke-RestMethod -Uri "http://localhost:3001/auth/profile" -Method GET -Headers @{Authorization="Bearer $token"}
 ```
 
 **Complete Login Flow:**
+
 ```powershell
 # Get token and use it
-$token = (Invoke-RestMethod -Uri "http://localhost:3001/auth/login" -Method POST -Body (@{ email = "superadmin@basaeer.com"; password = "admin123" } | ConvertTo-Json) -ContentType "application/json").access_token
+$token = (Invoke-RestMethod -Uri "http://localhost:3001/auth/login" -Method POST -Body (@{ email = "superadmin@basaer.com"; password = "admin123" } | ConvertTo-Json) -ContentType "application/json").access_token
 
 # Use token for authenticated request
 Invoke-RestMethod -Uri "http://localhost:3001/auth/profile" -Method GET -Headers @{Authorization="Bearer $token"}
@@ -849,12 +937,14 @@ Invoke-RestMethod -Uri "http://localhost:3001/auth/profile" -Method GET -Headers
 ### 1. Environment Configuration
 
 **Security Best Practices:**
+
 - ✅ Never commit `.env` files to version control
 - ✅ Use `.env.example` as template without sensitive data
 - ✅ Rotate JWT secrets regularly in production
 - ✅ Use strong, unique database passwords
 
 **Current Configuration:**
+
 ```env
 # .env.example (Safe to commit)
 PORT=3001
@@ -867,16 +957,18 @@ JWT_SECRET="your-secret-key-here"
 ### 2. Database Management
 
 **Backup Before Major Changes:**
+
 ```powershell
 # Export database
 $env:PGPASSWORD='1234'
-& 'C:\Program Files\PostgreSQL\18\bin\pg_dump.exe' -U postgres -d basaeer -f backup_$(Get-Date -Format "yyyyMMdd_HHmmss").sql
+& 'C:\Program Files\PostgreSQL\18\bin\pg_dump.exe' -U postgres -d basaer -f backup_$(Get-Date -Format "yyyyMMdd_HHmmss").sql
 ```
 
 **Restore from Backup:**
+
 ```powershell
 $env:PGPASSWORD='1234'
-& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -d basaeer -f backup_20260119_013400.sql
+& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -U postgres -d basaer -f backup_20260119_013400.sql
 ```
 
 ---
@@ -884,12 +976,14 @@ $env:PGPASSWORD='1234'
 ### 3. Prisma Migration Strategy
 
 **Development Workflow:**
+
 1. Make schema changes in `schema.prisma`
 2. Create migration: `npx prisma migrate dev --name descriptive_name`
 3. Review generated SQL in `prisma/migrations/`
 4. Test thoroughly before committing
 
 **Production Deployment:**
+
 1. Backup database first
 2. Use `npx prisma migrate deploy` (no prompts)
 3. Never use `prisma migrate dev` in production
@@ -900,6 +994,7 @@ $env:PGPASSWORD='1234'
 ### 4. Testing Checklist
 
 **After Database Changes:**
+
 - [ ] Verify all migrations applied: `npx prisma migrate status`
 - [ ] Check Prisma Client generated: `npx prisma generate`
 - [ ] Test database connection: Backend server starts successfully
@@ -913,20 +1008,21 @@ $env:PGPASSWORD='1234'
 
 **Common Issues and Solutions:**
 
-| Issue | Symptom | Solution |
-|-------|---------|----------|
-| Password mismatch | `AuthenticationFailed` error | Update `.env` with correct password |
-| Database doesn't exist | `database does not exist` | Create database: `CREATE DATABASE basaeer;` |
-| Table missing | `relation does not exist` | Run migrations: `npx prisma migrate deploy` |
-| Port already in use | `EADDRINUSE :::3001` | Kill process or change port in `.env` |
-| Migration conflicts | `migration already applied` | Reset if dev: `npx prisma migrate reset` |
-| Prisma Client outdated | Type errors | Regenerate: `npx prisma generate` |
+| Issue                  | Symptom                      | Solution                                    |
+| ---------------------- | ---------------------------- | ------------------------------------------- |
+| Password mismatch      | `AuthenticationFailed` error | Update `.env` with correct password         |
+| Database doesn't exist | `database does not exist`    | Create database: `CREATE DATABASE basaer;`  |
+| Table missing          | `relation does not exist`    | Run migrations: `npx prisma migrate deploy` |
+| Port already in use    | `EADDRINUSE :::3001`         | Kill process or change port in `.env`       |
+| Migration conflicts    | `migration already applied`  | Reset if dev: `npx prisma migrate reset`    |
+| Prisma Client outdated | Type errors                  | Regenerate: `npx prisma generate`           |
 
 ---
 
 ### 6. Monitoring and Logs
 
 **Check Backend Logs:**
+
 ```powershell
 # Logs are printed to console when running npm run start:dev
 # For production, redirect to file:
@@ -934,11 +1030,13 @@ npm run start:prod > server.log 2>&1
 ```
 
 **PostgreSQL Logs Location:**
+
 ```
 C:\Program Files\PostgreSQL\18\data\log\
 ```
 
 **View Recent PostgreSQL Logs:**
+
 ```powershell
 Get-ChildItem "C:\Program Files\PostgreSQL\18\data\log\" | Sort-Object LastWriteTime -Descending | Select-Object -First 1 | Get-Content -Tail 50
 ```
@@ -961,15 +1059,17 @@ Get-ChildItem "C:\Program Files\PostgreSQL\18\data\log\" | Sort-Object LastWrite
 ### Final Credentials
 
 **Database:**
+
 - Host: localhost
 - Port: 5432
-- Database: basaeer
+- Database: basaer
 - Username: postgres
 - Password: 1234
 
 **Application:**
+
 - Backend URL: http://localhost:3001
-- Super Admin Email: superadmin@basaeer.com
+- Super Admin Email: superadmin@basaer.com
 - Super Admin Password: admin123
 
 ### Next Steps
@@ -986,10 +1086,10 @@ Get-ChildItem "C:\Program Files\PostgreSQL\18\data\log\" | Sort-Object LastWrite
 
 ### A. File Locations
 
-- Backend configuration: `c:\Users\im_ad\OneDrive\Desktop\basaeer\backend\.env`
-- Prisma schema: `c:\Users\im_ad\OneDrive\Desktop\basaeer\backend\prisma\schema.prisma`
-- Migrations: `c:\Users\im_ad\OneDrive\Desktop\basaeer\backend\prisma\migrations\`
-- Auth service: `c:\Users\im_ad\OneDrive\Desktop\basaeer\backend\src\auth\auth.service.ts`
+- Backend configuration: `c:\Users\im_ad\OneDrive\Desktop\basaer\backend\.env`
+- Prisma schema: `c:\Users\im_ad\OneDrive\Desktop\basaer\backend\prisma\schema.prisma`
+- Migrations: `c:\Users\im_ad\OneDrive\Desktop\basaer\backend\prisma\migrations\`
+- Auth service: `c:\Users\im_ad\OneDrive\Desktop\basaer\backend\src\auth\auth.service.ts`
 - PostgreSQL bin: `C:\Program Files\PostgreSQL\18\bin\`
 
 ### B. Environment Variables
@@ -997,7 +1097,7 @@ Get-ChildItem "C:\Program Files\PostgreSQL\18\data\log\" | Sort-Object LastWrite
 ```env
 # Development Environment
 PORT=3001
-DATABASE_URL="postgresql://postgres:1234@localhost:5432/basaeer?schema=public"
+DATABASE_URL="postgresql://postgres:1234@localhost:5432/basaer?schema=public"
 JWT_SECRET="super-secret-key"
 NODE_ENV="development"
 ```
@@ -1005,8 +1105,9 @@ NODE_ENV="development"
 ### C. Useful SQL Queries
 
 **List all tables with row counts:**
+
 ```sql
-SELECT 
+SELECT
     schemaname,
     tablename,
     pg_size_pretty(pg_total_relation_size(schemaname||'.'||tablename)) AS size,
@@ -1017,13 +1118,15 @@ ORDER BY tablename;
 ```
 
 **Check database size:**
+
 ```sql
-SELECT pg_size_pretty(pg_database_size('basaeer'));
+SELECT pg_size_pretty(pg_database_size('basaer'));
 ```
 
 **Find largest tables:**
+
 ```sql
-SELECT 
+SELECT
     tablename,
     pg_size_pretty(pg_total_relation_size(schemaname||'.'||tablename)) AS size
 FROM pg_tables
@@ -1036,4 +1139,4 @@ LIMIT 10;
 
 **Report End**
 
-*This report was generated as part of the Basaeer School Management System database setup and troubleshooting process. All commands and procedures have been tested and verified on the production environment.*
+_This report was generated as part of the Basaer School Management System database setup and troubleshooting process. All commands and procedures have been tested and verified on the production environment._

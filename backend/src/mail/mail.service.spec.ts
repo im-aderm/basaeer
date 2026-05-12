@@ -55,7 +55,7 @@ describe('MailService', () => {
       // Create a fresh module with specific env vars
       process.env.SMTP_HOST = 'smtp-relay.brevo.com';
       process.env.SMTP_PORT = '587';
-      process.env.SMTP_FROM = 'noreply@basaeer.edu';
+      process.env.SMTP_FROM = 'noreply@basaer.edu';
 
       const module: TestingModule = await Test.createTestingModule({
         providers: [MailService],
@@ -66,7 +66,7 @@ describe('MailService', () => {
 
       expect(status.host).toBe('smtp-relay.brevo.com');
       expect(status.port).toBe('587');
-      expect(status.from).toBe('noreply@basaeer.edu');
+      expect(status.from).toBe('noreply@basaer.edu');
 
       // Clean up
       delete process.env.SMTP_HOST;
@@ -88,7 +88,7 @@ describe('MailService', () => {
       expect(sendMailSpy).toHaveBeenCalledWith(
         'parent@example.com',
         'Application Received: John Doe',
-        expect.stringContaining('Basaeer College'),
+        expect.stringContaining('Basaer College'),
       );
       expect(sendMailSpy).toHaveBeenCalledWith(
         expect.any(String),
@@ -310,7 +310,7 @@ describe('MailService', () => {
 
       const allCalls = sendMailSpy.mock.calls;
       allCalls.forEach((call) => {
-        expect(call[2]).toContain('Basaeer Quranic and Science College');
+        expect(call[2]).toContain('Basaer Quranic and Science College');
         expect(call[2]).toContain('All rights reserved');
       });
     });

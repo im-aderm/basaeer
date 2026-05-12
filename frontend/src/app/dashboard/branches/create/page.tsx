@@ -117,7 +117,7 @@ export default function CreateBranchPage() {
                                     type="email"
                                     value={formData.email}
                                     onChange={handleChange}
-                                    placeholder="branch@basaeer.com"
+                                    placeholder="branch@basaer.com"
                                     className="w-full p-3 bg-background border border-input rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none"
                                 />
                                 <p className="text-[11px] text-muted-foreground">Email for administrative correspondence.</p>

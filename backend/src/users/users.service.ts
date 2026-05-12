@@ -24,7 +24,7 @@ export class UsersService {
   }
 
   async createSuperAdmin(): Promise<User> {
-    const email = process.env.SUPER_ADMIN_EMAIL || 'superadmin@basaeer.com';
+    const email = process.env.SUPER_ADMIN_EMAIL || 'superadmin@basaer.com';
     const existing = await this.prisma.user.findUnique({ where: { email } });
     if (existing) return existing;
 

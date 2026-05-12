@@ -16,11 +16,12 @@ export class EncryptionService {
       throw new Error('ENCRYPTION_SECRET environment variable is not set');
     }
 
-    // Derive a key from the secret using PBKDF2
-    const salt = Buffer.from(
-      process.env.ENCRYPTION_SALT || crypto.randomBytes(32).toString('hex'),
-      'utf8',
-    );
+    const saltStr = process.env.ENCRYPTION_SALT;
+    if (!saltStr) {
+      throw new Error('ENCRYPTION_SALT environment variable is not set');
+    }
+
+    const salt = Buffer.from(saltStr, 'utf8');
     return crypto.pbkdf2Sync(
       secret,
       salt,

@@ -12,7 +12,7 @@ COPY packages/shared-types ./packages/shared-types/
 RUN npm ci
 
 # Build shared types workspace (frontend depends on it)
-RUN npm run build --workspace=@basaeer/shared-types
+RUN npm run build --workspace=@basaer/shared-types
 
 # Critical Step: Next.js requires PUBLIC variables at the time of `next build`
 ARG NEXT_PUBLIC_API_URL

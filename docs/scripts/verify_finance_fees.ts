@@ -18,7 +18,7 @@ async function runVerification() {
         let token;
         try {
             const loginRes = await axios.post(`${BASE_URL}/auth/login`, {
-                email: 'superadmin@basaeer.com',
+                email: 'superadmin@basaer.com',
                 password: 'admin123'
             });
             token = loginRes.data.access_token;
@@ -53,12 +53,12 @@ async function runVerification() {
         // 3. Assign Branch to Super Admin (Direct DB Update) & Re-login
         console.log('🔄 Setup: Assigning branch to Super Admin and refreshing token...');
         await prisma.user.update({
-            where: { email: 'superadmin@basaeer.com' },
+            where: { email: 'superadmin@basaer.com' },
             data: { branchId }
         });
 
         const reLoginRes = await axios.post(`${BASE_URL}/auth/login`, {
-            email: 'superadmin@basaeer.com',
+            email: 'superadmin@basaer.com',
             password: 'admin123'
         });
         token = reLoginRes.data.access_token;

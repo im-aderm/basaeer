@@ -16,7 +16,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Basaeer School System",
+  title: "Basaer School System",
   description: "Modern School Management System",
 };
 

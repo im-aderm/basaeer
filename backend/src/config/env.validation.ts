@@ -31,6 +31,10 @@ class EnvironmentVariables {
   JWT_SECRET: string;
 
   @IsString()
+  @MinLength(32)
+  JWT_REFRESH_SECRET: string;
+
+  @IsString()
   BOOTSTRAP_SECRET: string;
 
   @IsString()
@@ -38,6 +42,16 @@ class EnvironmentVariables {
 
   @IsString()
   SEED_DEFAULT_PASSWORD: string;
+
+  @IsString()
+  @MinLength(32)
+  ENCRYPTION_SECRET: string;
+
+  @IsString()
+  ENCRYPTION_SALT: string;
+
+  @IsString()
+  QR_SIGNING_SECRET: string;
 
   @IsString()
   @IsOptional()
@@ -62,6 +76,22 @@ class EnvironmentVariables {
   @IsString()
   @IsOptional()
   FRONTEND_URL: string;
+
+  @IsString()
+  @IsOptional()
+  CORS_ALLOWED_ORIGINS: string;
+
+  @IsString()
+  @IsOptional()
+  PAYSTACK_SECRET_KEY: string;
+
+  @IsString()
+  @IsOptional()
+  REDIS_HOST: string;
+
+  @IsNumber()
+  @IsOptional()
+  REDIS_PORT: number;
 }
 
 export function validate(config: Record<string, any>) {

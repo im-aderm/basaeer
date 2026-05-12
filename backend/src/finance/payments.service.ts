@@ -12,19 +12,25 @@ import { EventEmitter2 } from '@nestjs/event-emitter';
 @Injectable()
 export class PaymentsService {
   private readonly logger = new Logger(PaymentsService.name);
-  private readonly paystackSecretKey =
-    process.env.PAYSTACK_SECRET_KEY || 'sk_test_placeholder';
+  private readonly paystackSecretKey = process.env.PAYSTACK_SECRET_KEY;
 
   constructor(
     private prisma: PrismaService,
     private eventEmitter: EventEmitter2,
   ) {}
 
+  private ensureKey(): void {
+    if (!this.paystackSecretKey) {
+      throw new BadRequestException('Paystack is not configured. Set PAYSTACK_SECRET_KEY environment variable.');
+    }
+  }
+
   async initializePaystackPayment(
     invoiceId: string,
     email: string,
     amount: number,
   ) {
+    this.ensureKey();
     try {
       const response = await axios.post(
         'https://api.paystack.co/transaction/initialize',
@@ -53,6 +59,7 @@ export class PaymentsService {
   }
 
   async verifyPaystackPayment(reference: string) {
+    this.ensureKey();
     try {
       const response = await axios.get(
         `https://api.paystack.co/transaction/verify/${reference}`,
@@ -72,17 +79,18 @@ export class PaymentsService {
     }
   }
 
-  async handlePaystackWebhook(signature: string, payload: any) {
+  async handlePaystackWebhook(signature: string, rawBody: string, parsedPayload: any) {
+    this.ensureKey();
     const hash = crypto
-      .createHmac('sha512', this.paystackSecretKey)
-      .update(JSON.stringify(payload))
+      .createHmac('sha512', this.paystackSecretKey!)
+      .update(rawBody)
       .digest('hex');
 
     if (hash !== signature) {
       throw new BadRequestException('Invalid signature');
     }
 
-    const { event, data } = payload;
+    const { event, data } = parsedPayload;
 
     await this.prisma.paymentWebhookLog.create({
       data: {

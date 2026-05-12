@@ -102,7 +102,7 @@ export class AutomationWorker {
     const name = `${person.firstName} ${person.lastName}`;
     const template =
       config.template ||
-      `Happy Birthday, ${name}! From all of us at Basaeer College.`;
+      `Happy Birthday, ${name}! From all of us at Basaer College.`;
     const personalizedMessage = template.replace(/\{\{name\}\}/g, name);
 
     const dispatchedChannels: string[] = [];
@@ -126,8 +126,8 @@ export class AutomationWorker {
       try {
         await this.commsService.sendEmail({
           email: person.email,
-          subject: '🎂 Happy Birthday from Basaeer College!',
-          message: `<p>Dear ${name},</p><p>${personalizedMessage}</p><p>Wishing you a wonderful year ahead!</p><p>- Basaeer College</p>`,
+          subject: '🎂 Happy Birthday from Basaer College!',
+          message: `<p>Dear ${name},</p><p>${personalizedMessage}</p><p>Wishing you a wonderful year ahead!</p><p>- Basaer College</p>`,
           branchId: person.branchId,
         });
         dispatchedChannels.push('EMAIL');
@@ -223,7 +223,7 @@ export class AutomationWorker {
 
     const template =
       config.template ||
-      `Dear parent/guardian of ${studentName}, this is a reminder that an invoice of ${amountFormatted} is due on ${dueDateFormatted}. Please make payment at your earliest convenience. - Basaeer College`;
+      `Dear parent/guardian of ${studentName}, this is a reminder that an invoice of ${amountFormatted} is due on ${dueDateFormatted}. Please make payment at your earliest convenience. - Basaer College`;
 
     const message = template
       .replace(/\{\{studentName\}\}/g, studentName)
@@ -255,7 +255,7 @@ export class AutomationWorker {
         await this.commsService.sendEmail({
           email,
           subject: `Fee Reminder - ${studentName}`,
-          message: `<p>Dear parent/guardian,</p><p>${message}</p><p>Please visit the school accounts office or use the portal to make payment.</p><p>- Basaeer College</p>`,
+          message: `<p>Dear parent/guardian,</p><p>${message}</p><p>Please visit the school accounts office or use the portal to make payment.</p><p>- Basaer College</p>`,
           userId,
           branchId: config.branchId,
         });
@@ -351,7 +351,7 @@ export class AutomationWorker {
 
     const template =
       config.template ||
-      `Dear parent/guardian, ${studentName} was marked absent on ${dateStr}. Please contact the school if you have any questions. - Basaeer College`;
+      `Dear parent/guardian, ${studentName} was marked absent on ${dateStr}. Please contact the school if you have any questions. - Basaer College`;
     const message = template
       .replace(/\{\{studentName\}\}/g, studentName)
       .replace(/\{\{date\}\}/g, dateStr);
@@ -379,7 +379,7 @@ export class AutomationWorker {
         await this.commsService.sendEmail({
           email: parent.email,
           subject: `Attendance Alert - ${studentName}`,
-          message: `<p>Dear parent/guardian,</p><p>${message}</p><p>- Basaeer College</p>`,
+          message: `<p>Dear parent/guardian,</p><p>${message}</p><p>- Basaer College</p>`,
           userId: parent.id,
           branchId: config.branchId,
         });

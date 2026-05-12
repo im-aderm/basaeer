@@ -64,8 +64,8 @@ switch ($choice) {
         $envPath = ".\backend\.env"
         if (Test-Path $envPath) {
             $envContent = Get-Content $envPath -Raw
-            $newDbUrl = "DATABASE_URL=`"postgresql://postgres:$plainPassword@localhost:5432/basaeer?schema=public`""
-            $envContent = $envContent -replace 'DATABASE_URL="postgresql://postgres:[^@]+@localhost:5432/basaeer\?schema=public"', $newDbUrl
+            $newDbUrl = "DATABASE_URL=`"postgresql://postgres:$plainPassword@localhost:5432/basaer?schema=public`""
+            $envContent = $envContent -replace 'DATABASE_URL="postgresql://postgres:[^@]+@localhost:5432/basaer\?schema=public"', $newDbUrl
             Set-Content -Path $envPath -Value $envContent
             
             Write-Host "✓ .env file updated successfully" -ForegroundColor Green
