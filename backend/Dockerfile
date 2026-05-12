@@ -19,7 +19,7 @@ COPY backend ./backend
 # Generate ORM and transform TypeScript to vanilla Node
 WORKDIR /app/backend
 RUN npx prisma generate
-RUN npm run build
+RUN NODE_OPTIONS="--max-old-space-size=4096" npm run build
 
 # Stage 2: Lightweight Runner
 FROM node:20-alpine AS runner
