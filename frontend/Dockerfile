@@ -11,6 +11,9 @@ COPY packages/shared-types ./packages/shared-types/
 # Trigger workspace-level npm ci to resolve all local cross-links
 RUN npm ci
 
+# Build shared types workspace (frontend depends on it)
+RUN npm run build --workspace=@basaeer/shared-types
+
 # Critical Step: Next.js requires PUBLIC variables at the time of `next build`
 ARG NEXT_PUBLIC_API_URL
 ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
