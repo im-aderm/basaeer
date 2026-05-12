@@ -961,6 +961,12 @@ exports.Prisma.AuditLogScalarFieldEnum = {
   details: 'details',
   reason: 'reason',
   userId: 'userId',
+  branchId: 'branchId',
+  ipAddress: 'ipAddress',
+  targetId: 'targetId',
+  targetType: 'targetType',
+  beforeState: 'beforeState',
+  afterState: 'afterState',
   createdAt: 'createdAt'
 };
 

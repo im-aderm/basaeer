@@ -75,13 +75,13 @@ export default function StudentLiveClassesPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50/30 to-teal-50/20 dark:from-slate-950 dark:via-emerald-950/20 dark:to-teal-950/10 p-6">
+ <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50/30 to-teal-50/20 p-6">
             {/* Header */}
             <div className="mb-8">
                 <h1 className="text-h1 font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
                     My Live Classes
                 </h1>
-                <p className="text-slate-600 dark:text-slate-400 mt-2">
+ <p className="text-slate-600 mt-2">
                     Join your scheduled online classes
                 </p>
             </div>
@@ -97,7 +97,7 @@ export default function StudentLiveClassesPage() {
                         {activeSessions.map((session) => (
                             <div
                                 key={session.id}
-                                className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 backdrop-blur-xl rounded-2xl p-6 border-2 border-emerald-200 dark:border-emerald-800 animate-pulse-slow"
+ className="bg-gradient-to-r from-emerald-50 to-teal-50 backdrop-blur-xl rounded-2xl p-6 border-2 border-emerald-200 animate-pulse-slow"
                             >
                                 <div className="flex items-start justify-between">
                                     <div className="flex-1">
@@ -107,7 +107,7 @@ export default function StudentLiveClassesPage() {
                                             </span>
                                             <h3 className="font-bold text-lg">{session.title}</h3>
                                         </div>
-                                        <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
+ <p className="text-sm text-slate-600 mb-4">
                                             {session.description}
                                         </p>
                                         <div className="flex items-center gap-4 text-sm">
@@ -143,12 +143,12 @@ export default function StudentLiveClassesPage() {
                     Upcoming Classes
                 </h2>
                 {upcomingSessions.length === 0 ? (
-                    <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-12 border border-slate-200/50 dark:border-slate-800/50 text-center">
-                        <Video className="w-16 h-16 mx-auto text-slate-300 dark:text-slate-700 mb-4" />
-                        <h3 className="text-lg font-semibold text-slate-600 dark:text-slate-400 mb-2">
+ <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-12 border border-slate-200/50 text-center">
+ <Video className="w-16 h-16 mx-auto text-slate-300 mb-4" />
+ <h3 className="text-lg font-semibold text-slate-600 mb-2">
                             No upcoming classes
                         </h3>
-                        <p className="text-slate-500 dark:text-slate-500">
+ <p className="text-slate-500 ">
                             Your teachers haven't scheduled any live classes yet
                         </p>
                     </div>
@@ -161,17 +161,17 @@ export default function StudentLiveClassesPage() {
                             return (
                                 <div
                                     key={session.id}
-                                    className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50 hover:shadow-xl transition-all"
+ className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 hover:shadow-xl transition-all"
                                 >
                                     <div className="flex items-start justify-between mb-3">
                                         <h3 className="font-semibold text-lg flex-1">{session.title}</h3>
                                         {timeUntil === "Starting now" && (
-                                            <span className="px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300">
+ <span className="px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-700 ">
                                                 Soon
                                             </span>
                                         )}
                                     </div>
-                                    <p className="text-sm text-slate-600 dark:text-slate-400 mb-4 line-clamp-2">
+ <p className="text-sm text-slate-600 mb-4 line-clamp-2">
                                         {session.description}
                                     </p>
                                     <div className="space-y-2 text-sm mb-4">
@@ -206,7 +206,7 @@ export default function StudentLiveClassesPage() {
             {pastSessions.length > 0 && (
                 <div>
                     <h2 className="text-xl font-semibold mb-4">Past Classes</h2>
-                    <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50">
+ <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 ">
                         <div className="space-y-3">
                             {pastSessions.slice(0, 5).map((session) => {
                                 const attended = session.participants?.some(
@@ -216,7 +216,7 @@ export default function StudentLiveClassesPage() {
                                 return (
                                     <div
                                         key={session.id}
-                                        className="flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+ className="flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 transition-colors"
                                     >
                                         <div className="flex items-center gap-3">
                                             {attended ? (
@@ -233,8 +233,8 @@ export default function StudentLiveClassesPage() {
                                         </div>
                                         <span
                                             className={`px-3 py-1 rounded-full text-xs ${attended
-                                                ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300"
-                                                : "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300"
+ ? "bg-emerald-100 text-emerald-700 "
+ : "bg-slate-100 text-slate-700 "
                                                 }`}
                                         >
                                             {attended ? "Attended" : "Missed"}
@@ -248,11 +248,11 @@ export default function StudentLiveClassesPage() {
             )}
 
             {/* System Check Info */}
-            <div className="mt-8 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-2xl p-6">
-                <h3 className="font-semibold text-blue-900 dark:text-blue-100 mb-3">
+ <div className="mt-8 bg-blue-50 border border-blue-200 rounded-2xl p-6">
+ <h3 className="font-semibold text-blue-900 mb-3">
                     Before Joining a Class
                 </h3>
-                <ul className="list-disc list-inside space-y-1 text-sm text-blue-700 dark:text-blue-300">
+ <ul className="list-disc list-inside space-y-1 text-sm text-blue-700 ">
                     <li>Ensure you have a stable internet connection</li>
                     <li>Allow camera and microphone permissions when prompted</li>
                     <li>Use headphones to avoid echo</li>

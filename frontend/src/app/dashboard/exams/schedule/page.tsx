@@ -148,7 +148,7 @@ export default function ExamSchedulePage() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/20 dark:from-slate-950 dark:via-indigo-950/20 dark:to-purple-950/10 p-6">
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/20 p-6">
             {/* Header */}
             <div className="mb-8">
                 <div className="flex items-center justify-between">
@@ -156,7 +156,7 @@ export default function ExamSchedulePage() {
                         <h1 className="text-h1 font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
                             Exam Schedule
                         </h1>
-                        <p className="text-slate-600 dark:text-slate-400 mt-2">
+                        <p className="text-slate-600 mt-2">
                             Schedule and manage examinations
                         </p>
                     </div>
@@ -330,16 +330,16 @@ export default function ExamSchedulePage() {
 
             {/* Conflicts Alert */}
             {conflicts.length > 0 && (
-                <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-2xl p-6 mb-8">
+                <div className="bg-red-50 border border-red-200 rounded-2xl p-6 mb-8">
                     <div className="flex items-start gap-3">
                         <AlertTriangle className="w-6 h-6 text-red-600 mt-0.5" />
                         <div>
-                            <h3 className="font-semibold text-red-900 dark:text-red-100 mb-2">
+                            <h3 className="font-semibold text-red-900 mb-2">
                                 Schedule Conflicts Detected ({conflicts.length})
                             </h3>
                             <div className="space-y-1">
                                 {conflicts.map((conflict, index) => (
-                                    <p key={index} className="text-sm text-red-700 dark:text-red-300">
+                                    <p key={index} className="text-sm text-red-700">
                                         {conflict.date} - {conflict.class}: {conflict.exams.join(" & ")} overlap
                                     </p>
                                 ))}
@@ -350,15 +350,15 @@ export default function ExamSchedulePage() {
             )}
 
             {/* Exam Calendar */}
-            <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50">
+            <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50">
                 <h2 className="text-xl font-semibold mb-6">Exam Calendar</h2>
                 {Object.keys(groupedExams).length === 0 ? (
                     <div className="text-center py-12">
-                        <Calendar className="w-16 h-16 mx-auto text-slate-300 dark:text-slate-700 mb-4" />
-                        <h3 className="text-lg font-semibold text-slate-600 dark:text-slate-400 mb-2">
+                        <Calendar className="w-16 h-16 mx-auto text-slate-300 mb-4" />
+                        <h3 className="text-lg font-semibold text-slate-600 mb-2">
                             No exams scheduled
                         </h3>
-                        <p className="text-slate-500 dark:text-slate-500">
+                        <p className="text-slate-500">
                             Schedule your first exam to get started
                         </p>
                     </div>
@@ -381,14 +381,14 @@ export default function ExamSchedulePage() {
                                             .map((exam: any) => (
                                                 <div
                                                     key={exam.id}
-                                                    className="bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 rounded-lg p-4 relative group"
+                                                    className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-lg p-4 relative group"
                                                 >
                                                     <div className="flex items-start justify-between mb-2">
                                                         <div className="flex-1">
                                                             <p className="font-semibold text-sm mb-1">
                                                                 {exam.subject?.name}
                                                             </p>
-                                                            <p className="text-xs text-slate-600 dark:text-slate-400">
+                                                            <p className="text-xs text-slate-600">
                                                                 {exam.examType?.name}
                                                             </p>
                                                         </div>
@@ -406,7 +406,7 @@ export default function ExamSchedulePage() {
                                                             <Clock className="w-3 h-3" />
                                                             {exam.startTime} ({exam.duration} min)
                                                         </p>
-                                                        <p className="text-slate-600 dark:text-slate-400">
+                                                        <p className="text-slate-600">
                                                             {exam.class?.name} - {exam.section?.name}
                                                         </p>
                                                         <p className="font-medium">

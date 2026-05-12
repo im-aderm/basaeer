@@ -66,7 +66,7 @@ export class StudentsService {
       return { user, student };
     });
 
-    await this.audit.log('CREATE_STUDENT', 'STUDENTS', context, { studentId: result.student.id, email });
+    await this.audit.log({ action: 'CREATE_STUDENT', module: 'STUDENTS', context, targetId: result.student.id, targetType: 'Student', afterState: { studentId: result.student.id, email, firstName, lastName } });
     return result;
   }
 

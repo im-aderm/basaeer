@@ -129,10 +129,10 @@ export default function AdvanceSalaryPage() {
             cell: (row: any) => (
                 <span
                     className={`px-3 py-1 rounded-full text-xs font-medium ${row.status === "APPROVED"
-                        ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300"
+ ? "bg-emerald-100 text-emerald-700 "
                         : row.status === "REJECTED"
-                            ? "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300"
-                            : "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300"
+ ? "bg-red-100 text-red-700 "
+ : "bg-yellow-100 text-yellow-700 "
                         }`}
                 >
                     {row.status}
@@ -183,7 +183,7 @@ export default function AdvanceSalaryPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50/30 to-teal-50/20 dark:from-slate-950 dark:via-emerald-950/20 dark:to-teal-950/10 p-6">
+ <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50/30 to-teal-50/20 p-6">
             {/* Header */}
             <div className="mb-8">
                 <div className="flex items-center justify-between">
@@ -191,7 +191,7 @@ export default function AdvanceSalaryPage() {
                         <h1 className="text-h1 font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
                             Advance Salary Management
                         </h1>
-                        <p className="text-slate-600 dark:text-slate-400 mt-2">
+ <p className="text-slate-600 mt-2">
                             {isAdmin
                                 ? "Review and approve salary advance requests"
                                 : "Request and track your salary advances"}
@@ -256,42 +256,42 @@ export default function AdvanceSalaryPage() {
             {/* Stats Cards */}
             {isAdmin && (
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-                    <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50">
+ <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 ">
                         <div className="flex items-center justify-between mb-2">
                             <DollarSign className="w-8 h-8 text-indigo-600" />
                         </div>
-                        <p className="text-sm text-slate-600 dark:text-slate-400">Total Requests</p>
-                        <p className="text-h1 font-bold text-slate-900 dark:text-slate-100">
+ <p className="text-sm text-slate-600 ">Total Requests</p>
+ <p className="text-h1 font-bold text-slate-900 ">
                             {stats.total}
                         </p>
                     </div>
 
-                    <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50">
+ <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 ">
                         <div className="flex items-center justify-between mb-2">
                             <Clock className="w-8 h-8 text-yellow-600" />
                         </div>
-                        <p className="text-sm text-slate-600 dark:text-slate-400">Pending</p>
-                        <p className="text-h1 font-bold text-slate-900 dark:text-slate-100">
+ <p className="text-sm text-slate-600 ">Pending</p>
+ <p className="text-h1 font-bold text-slate-900 ">
                             {stats.pending}
                         </p>
                     </div>
 
-                    <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50">
+ <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 ">
                         <div className="flex items-center justify-between mb-2">
                             <CheckCircle2 className="w-8 h-8 text-emerald-600" />
                         </div>
-                        <p className="text-sm text-slate-600 dark:text-slate-400">Approved</p>
-                        <p className="text-h1 font-bold text-slate-900 dark:text-slate-100">
+ <p className="text-sm text-slate-600 ">Approved</p>
+ <p className="text-h1 font-bold text-slate-900 ">
                             {stats.approved}
                         </p>
                     </div>
 
-                    <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50">
+ <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 ">
                         <div className="flex items-center justify-between mb-2">
                             <TrendingUp className="w-8 h-8 text-teal-600" />
                         </div>
-                        <p className="text-sm text-slate-600 dark:text-slate-400">Total Amount</p>
-                        <p className="text-h1 font-bold text-slate-900 dark:text-slate-100">
+ <p className="text-sm text-slate-600 ">Total Amount</p>
+ <p className="text-h1 font-bold text-slate-900 ">
                             ${stats.totalAmount.toLocaleString()}
                         </p>
                     </div>
@@ -299,7 +299,7 @@ export default function AdvanceSalaryPage() {
             )}
 
             {/* Requests Table */}
-            <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50">
+ <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 ">
                 <h2 className="text-xl font-semibold mb-4">
                     {isAdmin ? "All Requests" : "My Requests"}
                 </h2>

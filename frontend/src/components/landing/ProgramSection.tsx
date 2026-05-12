@@ -89,11 +89,11 @@ export function ProgramSection() {
               const isActive = idx === activeIndex;
 
               // 3D Math logic for exact overlapping Cover Flow simulation (with narrower desktop spacing for perfect alignment)
-              let translateVal = offset * 210; 
-              let rotateYVal = offset * -18;
-              let scaleVal = isActive ? 1.12 : 0.82;
-              let zIndexVal = 30 - Math.abs(offset) * 10;
-              let opacityVal = Math.abs(offset) > 2 ? 0.2 : isActive ? 1 : 0.65;
+              const translateVal = offset * 210; 
+              const rotateYVal = offset * -18;
+              const scaleVal = isActive ? 1.12 : 0.82;
+              const zIndexVal = 30 - Math.abs(offset) * 10;
+              const opacityVal = Math.abs(offset) > 2 ? 0.2 : isActive ? 1 : 0.65;
 
               return (
                 <motion.div

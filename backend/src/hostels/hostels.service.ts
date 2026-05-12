@@ -8,10 +8,14 @@ import { UpdateHostelDto } from './dto/update-hostel.dto';
 import { UpdateRoomDto } from './dto/update-room.dto';
 import { TenantContext } from '../auth/branch.guard';
 import { TenantHelper } from '../prisma/tenant-helper';
+import { AuditService } from '../audit/audit.service';
 
 @Injectable()
 export class HostelsService {
-    constructor(private prisma: PrismaService) { }
+    constructor(
+        private prisma: PrismaService,
+        private audit: AuditService,
+    ) { }
 
     async findHostel(id: string, context: TenantContext) {
         const hostel = await this.prisma.hostel.findFirst({
@@ -33,9 +37,15 @@ export class HostelsService {
         const branchId = dto.branchId || context.branchId;
         if (!branchId) throw new ForbiddenException('Branch context required');
         
-        return this.prisma.hostel.create({
+        const hostel = await this.prisma.hostel.create({
             data: { ...dto, branchId },
         });
+        await this.audit.log({
+            action: 'CREATE_HOSTEL', module: 'HOSTELS', context,
+            targetId: hostel.id, targetType: 'Hostel',
+            afterState: { name: hostel.name, type: hostel.type },
+        });
+        return hostel;
     }
 
     async updateHostel(id: string, dto: UpdateHostelDto, context: TenantContext) {
@@ -47,10 +57,16 @@ export class HostelsService {
     }
 
     async deleteHostel(id: string, context: TenantContext) {
-        await this.findHostel(id, context);
-        return this.prisma.hostel.delete({
+        const hostel = await this.findHostel(id, context);
+        const result = await this.prisma.hostel.delete({
             where: { id }
         });
+        await this.audit.log({
+            action: 'DELETE_HOSTEL', module: 'HOSTELS', context,
+            targetId: id, targetType: 'Hostel',
+            beforeState: { name: hostel.name },
+        });
+        return result;
     }
 
     async findAll(context: TenantContext) {
@@ -184,7 +200,7 @@ export class HostelsService {
     async allocateBed(dto: AllocateBedDto, context: TenantContext) {
         const { studentId, bedId, checkInDate } = dto;
 
-        return this.prisma.$transaction(async (tx) => {
+        const result = await this.prisma.$transaction(async (tx) => {
             const bed = await tx.bed.findFirst({
                 where: TenantHelper.applyNestedIsolation({ id: bedId }, 'room', context),
             });
@@ -212,10 +228,17 @@ export class HostelsService {
                 },
             });
         });
+
+        await this.audit.log({
+            action: 'ALLOCATE_BED', module: 'HOSTELS', context,
+            targetId: result.id, targetType: 'HostelAllocation',
+            afterState: { studentId, bedId, checkInDate },
+        });
+        return result;
     }
 
     async releaseBed(allocationId: string, context: TenantContext) {
-        return this.prisma.$transaction(async (tx) => {
+        const result = await this.prisma.$transaction(async (tx) => {
             const allocation = await tx.hostelAllocation.findFirst({
                 where: TenantHelper.applyNestedIsolation({ id: allocationId }, 'student', context),
             });
@@ -235,8 +258,14 @@ export class HostelsService {
                 data: { status: BedStatus.AVAILABLE },
             });
 
-            return { message: 'Bed released successfully' };
+            return { message: 'Bed released successfully', studentId: allocation.studentId, bedId: allocation.bedId };
         });
+
+        await this.audit.log({
+            action: 'RELEASE_BED', module: 'HOSTELS', context,
+            targetId: allocationId, targetType: 'HostelAllocation',
+        });
+        return result;
     }
 
     async getVacancies(context: TenantContext) {
@@ -407,5 +436,30 @@ export class HostelsService {
             bedName: allocation.bed.name,
             checkInDate: allocation.checkInDate,
         };
+    }
+
+    async getBranchLeaves(context: TenantContext) {
+        const branchFilter = context.isSuperAdmin ? {} : { student: { branchId: context.branchId || '' } };
+        return this.prisma.hostelLeave.findMany({
+            where: branchFilter,
+            include: { student: { select: { firstName: true, lastName: true } } },
+            orderBy: { createdAt: 'desc' },
+        });
+    }
+
+    async getBranchMaintenance(context: TenantContext) {
+        if (context.isSuperAdmin) {
+            return this.prisma.maintenanceRequest.findMany({
+                include: { bed: { include: { room: true } } },
+                orderBy: { createdAt: 'desc' },
+            });
+        }
+        return this.prisma.maintenanceRequest.findMany({
+            where: {
+                bed: { room: { hostel: { branchId: context.branchId || '' } } },
+            },
+            include: { bed: { include: { room: true } } },
+            orderBy: { createdAt: 'desc' },
+        });
     }
 }

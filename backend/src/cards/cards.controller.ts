@@ -6,10 +6,12 @@ import { GenerateIdCardsDto } from './dto/generate-cards.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
+import { BranchGuard, TenantContext } from '../auth/branch.guard';
+import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { UserRole } from '../generated/client';
 
 @Controller('cards')
-@UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
 export class CardsController {
     constructor(private readonly cardsService: CardsService) { }
 
@@ -21,8 +23,8 @@ export class CardsController {
     }
 
     @Get('templates')
-    findAllTemplates(@Query('branchId') branchId: string, @Request() req) {
-        return this.cardsService.findAllTemplates(branchId || req.user.branchId);
+    findAllTemplates(@Query('branchId') branchId: string, @GetTenantContext() ctx: TenantContext) {
+        return this.cardsService.findAllTemplates(branchId || ctx.branchId);
     }
 
     @Get('templates/:id')
@@ -50,8 +52,8 @@ export class CardsController {
     }
 
     @Get()
-    findAll(@Query('branchId') branchId: string, @Query('sessionId') sessionId: string, @Request() req) {
-        return this.cardsService.findAllCards(branchId || req.user.branchId, sessionId);
+    findAll(@Query('branchId') branchId: string, @Query('sessionId') sessionId: string, @GetTenantContext() ctx: TenantContext) {
+        return this.cardsService.findAllCards(branchId || ctx.branchId, sessionId);
     }
 
     @Get(':id')

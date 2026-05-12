@@ -20,9 +20,8 @@ export class CertificatesController {
     create(
         @GetTenantContext() context: TenantContext,
         @Body() createCertificateDto: CreateCertificateDto,
-        @Request() req
     ) {
-        return this.certificatesService.create(createCertificateDto, req.user.userId, context);
+        return this.certificatesService.create(createCertificateDto, context.userId, context);
     }
 
     @Get()
@@ -42,8 +41,8 @@ export class CertificatesController {
     }
 
     @Get('my-certificates')
-    findMyCertificates(@GetTenantContext() context: TenantContext, @Request() req) {
-        return this.certificatesService.findByUser(req.user.userId, context);
+    findMyCertificates(@GetTenantContext() context: TenantContext) {
+        return this.certificatesService.findByUser(context.userId, context);
     }
 
     @Get('student/:studentId')

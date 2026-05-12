@@ -47,7 +47,7 @@ export function AboutSection() {
       {/* Top Divider */}
       <div className="w-full h-px bg-gradient-to-r from-transparent via-primary-light/30 to-transparent"></div>
 
-      <div className="w-full bg-gradient-to-br from-primary/5 via-surface-dim/30 to-secondary/5 dark:from-primary/12 dark:via-surface-container-lowest/40 dark:to-secondary/12 py-24">
+      <div className="w-full bg-gradient-to-br from-primary/5 via-surface-dim/30 to-secondary/5 py-24">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
           
           {/* Left Column (Copy) */}
@@ -89,7 +89,7 @@ export function AboutSection() {
                 >
                   <div className="space-y-6 flex flex-col items-center">
                     {/* Circle Background containing the Icon */}
-                    <div className="w-16 h-16 rounded-full bg-surface-container/60 dark:bg-surface-container-lowest/40 flex items-center justify-center border border-border/40 shadow-inner group-hover:scale-105 transition-transform duration-300">
+                    <div className="w-16 h-16 rounded-full bg-surface-container/60 flex items-center justify-center border border-border/40 shadow-inner group-hover:scale-105 transition-transform duration-300">
                       {card.icon}
                     </div>
 

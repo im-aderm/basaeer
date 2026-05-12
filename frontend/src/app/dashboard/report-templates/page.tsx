@@ -53,8 +53,8 @@ export default function ReportTemplatesPage() {
         <div className="p-6 space-y-6">
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-h1 font-bold text-gray-900 dark:text-white">Report Templates</h1>
-                    <p className="text-gray-600 dark:text-gray-400 mt-1">
+                    <h1 className="text-h1 font-bold text-gray-900">Report Templates</h1>
+                    <p className="text-gray-600 mt-1">
                         Design and manage custom layouts for report cards and transcripts
                     </p>
                 </div>
@@ -72,10 +72,10 @@ export default function ReportTemplatesPage() {
                     <Loader2 className="w-10 h-10 text-blue-500 animate-spin" />
                 </div>
             ) : templates.length === 0 ? (
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-20 text-center border border-dashed border-gray-200 dark:border-gray-700">
+                <div className="bg-white rounded-xl p-20 text-center border border-dashed border-gray-200">
                     <Layout className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white">No templates yet</h3>
-                    <p className="text-gray-500 dark:text-gray-400 max-w-md mx-auto mt-2">
+                    <h3 className="text-xl font-semibold text-gray-900">No templates yet</h3>
+                    <p className="text-gray-500 max-w-md mx-auto mt-2">
                         Create your first custom report card template to start issuing professional academic records.
                     </p>
                     <Link
@@ -89,9 +89,9 @@ export default function ReportTemplatesPage() {
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {templates.map((template) => (
-                        <div key={template.id} className="group bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden shadow-sm hover:shadow-md transition-all">
-                            <div className="aspect-[4/3] bg-gray-100 dark:bg-gray-900 relative flex items-center justify-center border-b border-gray-200 dark:border-gray-700 overflow-hidden">
-                                <FileText className="w-16 h-16 text-gray-300 dark:text-gray-700" />
+                        <div key={template.id} className="group bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-all">
+                            <div className="aspect-[4/3] bg-gray-100 relative flex items-center justify-center border-b border-gray-200 overflow-hidden">
+                                <FileText className="w-16 h-16 text-gray-300" />
                                 {template.isDefault && (
                                     <div className="absolute top-4 left-4 flex items-center gap-1.5 px-3 py-1 bg-green-500 text-white text-xs font-bold rounded-full shadow-sm">
                                         <CheckCircle className="w-3 h-3" />
@@ -118,8 +118,8 @@ export default function ReportTemplatesPage() {
                             <div className="p-5">
                                 <div className="flex items-start justify-between">
                                     <div>
-                                        <h3 className="font-bold text-gray-900 dark:text-white truncate">{template.name}</h3>
-                                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 capitalize">{template.type.toLowerCase().replace('_', ' ')}</p>
+                                        <h3 className="font-bold text-gray-900 truncate">{template.name}</h3>
+                                        <p className="text-xs text-gray-500 mt-0.5 capitalize">{template.type.toLowerCase().replace('_', ' ')}</p>
                                     </div>
                                     <button
                                         onClick={() => handleDelete(template.id)}
@@ -128,9 +128,9 @@ export default function ReportTemplatesPage() {
                                         <Trash2 className="w-4 h-4" />
                                     </button>
                                 </div>
-                                <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700 flex items-center justify-between">
+                                <div className="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
                                     <span className="text-xs text-gray-400 italic">Last updated {new Date(template.updatedAt).toLocaleDateString()}</span>
-                                    <button className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline">Duplicate</button>
+                                    <button className="text-xs font-semibold text-blue-600 hover:underline">Duplicate</button>
                                 </div>
                             </div>
                         </div>

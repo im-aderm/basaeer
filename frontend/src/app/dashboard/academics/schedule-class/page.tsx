@@ -125,7 +125,7 @@ export default function ClassSchedulePage() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/20 dark:from-slate-950 dark:via-indigo-950/20 dark:to-purple-950/10 p-6">
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/20 p-6">
             {/* Header */}
             <div className="mb-8">
                 <div className="flex items-center justify-between">
@@ -133,7 +133,7 @@ export default function ClassSchedulePage() {
                         <h1 className="text-h1 font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
                             Class Timetable
                         </h1>
-                        <p className="text-slate-600 dark:text-slate-400 mt-2">
+                        <p className="text-slate-600 mt-2">
                             Create and manage class schedules and timetables
                         </p>
                     </div>
@@ -281,7 +281,7 @@ export default function ClassSchedulePage() {
             </div>
 
             {/* Class Selection */}
-            <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50 mb-8">
+            <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 mb-8">
                 <h2 className="text-lg font-semibold mb-4">Select Class</h2>
                 <div className="grid grid-cols-2 gap-4">
                     <div>
@@ -321,18 +321,18 @@ export default function ClassSchedulePage() {
 
             {/* Timetable Grid */}
             {selectedClass && selectedSection && (
-                <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50 overflow-x-auto">
+                <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 overflow-x-auto">
                     <h2 className="text-xl font-semibold mb-4">Weekly Timetable</h2>
                     <table className="w-full border-collapse">
                         <thead>
                             <tr>
-                                <th className="border border-slate-200 dark:border-slate-700 p-3 bg-slate-50 dark:bg-slate-800">
+                                <th className="border border-slate-200 p-3 bg-slate-50">
                                     Time
                                 </th>
                                 {DAYS.map((day, index) => (
                                     <th
                                         key={index}
-                                        className="border border-slate-200 dark:border-slate-700 p-3 bg-slate-50 dark:bg-slate-800"
+                                        className="border border-slate-200 p-3 bg-slate-50"
                                     >
                                         {day}
                                     </th>
@@ -342,7 +342,7 @@ export default function ClassSchedulePage() {
                         <tbody>
                             {TIME_SLOTS.map((time) => (
                                 <tr key={time}>
-                                    <td className="border border-slate-200 dark:border-slate-700 p-3 font-medium bg-slate-50 dark:bg-slate-800">
+                                    <td className="border border-slate-200 p-3 font-medium bg-slate-50">
                                         {time}
                                     </td>
                                     {DAYS.map((_, dayIndex) => {
@@ -350,16 +350,16 @@ export default function ClassSchedulePage() {
                                         return (
                                             <td
                                                 key={dayIndex}
-                                                className="border border-slate-200 dark:border-slate-700 p-2"
+                                                className="border border-slate-200 p-2"
                                             >
                                                 {schedule ? (
-                                                    <div className="bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 rounded-lg p-3 relative group">
+                                                    <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-lg p-3 relative group">
                                                         <div className="flex items-start justify-between">
                                                             <div className="flex-1">
                                                                 <p className="font-semibold text-sm mb-1">
                                                                     {schedule.subject?.name}
                                                                 </p>
-                                                                <p className="text-xs text-slate-600 dark:text-slate-400">
+                                                                <p className="text-xs text-slate-600">
                                                                     {schedule.teacher?.user?.firstName}{" "}
                                                                     {schedule.teacher?.user?.lastName}
                                                                 </p>
@@ -393,12 +393,12 @@ export default function ClassSchedulePage() {
             )}
 
             {!selectedClass && (
-                <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-12 border border-slate-200/50 dark:border-slate-800/50 text-center">
-                    <Calendar className="w-16 h-16 mx-auto text-slate-300 dark:text-slate-700 mb-4" />
-                    <h3 className="text-lg font-semibold text-slate-600 dark:text-slate-400 mb-2">
+                <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-12 border border-slate-200/50 text-center">
+                    <Calendar className="w-16 h-16 mx-auto text-slate-300 mb-4" />
+                    <h3 className="text-lg font-semibold text-slate-600 mb-2">
                         Select a class to view timetable
                     </h3>
-                    <p className="text-slate-500 dark:text-slate-500">
+                    <p className="text-slate-500">
                         Choose a class and section from the dropdown above
                     </p>
                 </div>

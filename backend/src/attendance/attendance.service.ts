@@ -6,6 +6,7 @@ import { TenantHelper } from '../prisma/tenant-helper';
 import { QRService } from './qr.service';
 import { RealtimeService } from '../realtime/realtime.service';
 import { CommsService } from '../comms/comms.service';
+import { AuditService } from '../audit/audit.service';
 
 @Injectable()
 export class AttendanceService {
@@ -13,7 +14,8 @@ export class AttendanceService {
         private prisma: PrismaService,
         private qrService: QRService,
         private realtimeService: RealtimeService,
-        private commsService: CommsService
+        private commsService: CommsService,
+        private audit: AuditService,
     ) { }
 
     async processQRScan(payload: string, sessionId: string, context: TenantContext) {
@@ -173,6 +175,13 @@ export class AttendanceService {
                 studentName: `${result.student.firstName} ${result.student.lastName}`
             });
         }
+
+        await this.audit.log({
+            action: status === 'PRESENT' ? 'MARK_PRESENT' : `MARK_${status}`,
+            module: 'ATTENDANCE', context,
+            targetId: result.id, targetType: 'Attendance',
+            afterState: { studentId, date: date, status, remarks },
+        });
 
         return result;
     }

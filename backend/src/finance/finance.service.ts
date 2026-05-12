@@ -8,10 +8,14 @@ import { CreateExpenseCategoryDto, CreateVoucherDto } from './dto/voucher.dto';
 import { PaymentStatus, InvoiceStatus, PaymentMethod, VoucherStatus } from '../generated/client/client';
 import { TenantContext } from '../auth/branch.guard';
 import { TenantHelper } from '../prisma/tenant-helper';
+import { RealtimeService } from '../realtime/realtime.service';
 
 @Injectable()
 export class FinanceService {
-    constructor(private prisma: PrismaService) { }
+    constructor(
+        private prisma: PrismaService,
+        private realtime: RealtimeService,
+    ) { }
 
     async createFeeCategory(dto: CreateFeeCategoryDto, context: TenantContext) {
         const branchId = dto.branchId || context.branchId;
@@ -69,8 +73,17 @@ export class FinanceService {
                         })),
                     },
                 },
-                include: { items: true },
+                include: { items: true, student: { select: { firstName: true, lastName: true } } },
             });
+        }).then(async (invoice) => {
+            this.realtime.sendToBranch(branchId, 'finance.invoice_created', {
+                invoiceId: invoice.id,
+                invoiceNumber: invoice.invoiceNumber,
+                studentId,
+                totalAmount,
+                dueDate: new Date(dueDate).toISOString(),
+            });
+            return invoice;
         });
     }
 
@@ -106,6 +119,15 @@ export class FinanceService {
                 await this.updateInvoiceBalance(tx, invoiceId, amount);
             }
 
+            return payment;
+        }).then(async (payment) => {
+            this.realtime.sendToBranch(context.branchId || '', 'finance.payment_recorded', {
+                paymentId: payment.id,
+                invoiceId,
+                amount,
+                method,
+                status,
+            });
             return payment;
         });
     }
@@ -165,6 +187,13 @@ export class FinanceService {
             }
 
             return { message: isApproved ? 'Payment approved' : 'Payment rejected' };
+        }).then(async (result) => {
+            this.realtime.sendToBranch(context.branchId || '', 'finance.payment_verified', {
+                paymentId,
+                invoiceId: '',
+                approved: isApproved,
+            });
+            return result;
         });
     }
 
@@ -252,5 +281,51 @@ export class FinanceService {
             include: { category: true, approvedBy: true },
             orderBy: { date: 'desc' }
         });
+    }
+
+    async getCashflow(context: TenantContext, months: number = 6) {
+        const branchFilter = context.isSuperAdmin ? {} : { branchId: context.branchId || '' };
+        const since = new Date();
+        since.setMonth(since.getMonth() - months);
+
+        const payments = await this.prisma.payment.findMany({
+            where: {
+                ...branchFilter,
+                status: 'COMPLETED',
+                createdAt: { gte: since },
+            },
+            select: { amount: true, createdAt: true },
+        });
+
+        const vouchers = await this.prisma.voucher.findMany({
+            where: {
+                ...branchFilter,
+                status: { in: ['APPROVED' as any, 'PAID' as any] },
+                date: { gte: since },
+            },
+            select: { amount: true, date: true },
+        });
+
+        const monthsData: Record<string, { income: number; expenses: number }> = {};
+        for (let i = 0; i < months; i++) {
+            const d = new Date();
+            d.setMonth(d.getMonth() - i);
+            const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+            monthsData[key] = { income: 0, expenses: 0 };
+        }
+
+        for (const p of payments) {
+            const key = `${p.createdAt.getFullYear()}-${String(p.createdAt.getMonth() + 1).padStart(2, '0')}`;
+            if (monthsData[key]) monthsData[key].income += p.amount;
+        }
+
+        for (const v of vouchers) {
+            const key = `${v.date.getFullYear()}-${String(v.date.getMonth() + 1).padStart(2, '0')}`;
+            if (monthsData[key]) monthsData[key].expenses += v.amount;
+        }
+
+        return Object.entries(monthsData)
+            .map(([month, data]) => ({ month, income: data.income, expenses: data.expenses }))
+            .reverse();
     }
 }

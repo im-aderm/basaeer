@@ -4,11 +4,14 @@ import { Throttle } from '@nestjs/throttler';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { RolesGuard } from './roles.guard';
+import { BranchGuard } from './branch.guard';
 import { Roles } from './roles.decorator';
 import { UserRole } from '../generated/client/client';
 import { LoginDto } from './dto/login.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
+import { GetTenantContext } from './tenant-context.decorator';
+import { TenantContext } from './branch.guard';
 
 
 @Controller('auth')
@@ -73,11 +76,10 @@ export class AuthController {
     return this.authService.register(data);
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, BranchGuard)
   @Get('profile')
-  async getProfile(@Request() req) {
-    // Return the full user record from the database, not just the JWT payload
-    return this.authService.getFullProfile(req.user.sub);
+  async getProfile(@GetTenantContext() tenantContext: TenantContext) {
+    return this.authService.getFullProfile(tenantContext.userId);
   }
 
   @Throttle({ default: { limit: 3, ttl: 60000 } })

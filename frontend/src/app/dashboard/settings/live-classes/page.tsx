@@ -105,28 +105,28 @@ export default function LiveClassesSettingsPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/20 dark:from-slate-950 dark:via-indigo-950/20 dark:to-purple-950/10 p-6">
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/20 p-6">
             {/* Header */}
             <div className="mb-8">
                 <h1 className="text-h1 font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
                     Google Meet Configuration
                 </h1>
-                <p className="text-slate-600 dark:text-slate-400 mt-2">
+                <p className="text-slate-600 mt-2">
                     Configure Google Meet integration for live classroom sessions
                 </p>
             </div>
 
             {/* Status Card */}
             {config && (
-                <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50 mb-8">
+                <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 mb-8">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
-                            <div className="p-3 bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/30 dark:to-teal-900/30 rounded-xl">
-                                <CheckCircle2 className="w-8 h-8 text-emerald-600 dark:text-emerald-400" />
+                            <div className="p-3 bg-gradient-to-br from-emerald-100 to-teal-100 rounded-xl">
+                                <CheckCircle2 className="w-8 h-8 text-emerald-600" />
                             </div>
                             <div>
                                 <h3 className="font-semibold text-lg">Google Meet Configured</h3>
-                                <p className="text-sm text-slate-600 dark:text-slate-400">
+                                <p className="text-sm text-slate-600">
                                     Project: {config.projectId}
                                 </p>
                             </div>
@@ -143,7 +143,7 @@ export default function LiveClassesSettingsPage() {
             )}
 
             {/* Configuration Form */}
-            <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50 mb-8">
+            <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 mb-8">
                 <h2 className="text-xl font-semibold mb-6 flex items-center gap-2">
                     <Key className="w-5 h-5" />
                     Google Cloud Credentials
@@ -156,11 +156,11 @@ export default function LiveClassesSettingsPage() {
                         <div className="mt-2">
                             <label
                                 htmlFor="serviceAccountFile"
-                                className="flex items-center justify-center w-full p-6 border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-lg cursor-pointer hover:border-indigo-500 transition-colors"
+                                className="flex items-center justify-center w-full p-6 border-2 border-dashed border-slate-300 rounded-lg cursor-pointer hover:border-indigo-500 transition-colors"
                             >
                                 <div className="text-center">
                                     <Upload className="w-8 h-8 mx-auto mb-2 text-slate-400" />
-                                    <p className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                                    <p className="text-sm font-medium text-slate-700">
                                         Click to upload or drag and drop
                                     </p>
                                     <p className="text-xs text-slate-500">JSON file from Google Cloud Console</p>
@@ -222,7 +222,7 @@ export default function LiveClassesSettingsPage() {
             </div>
 
             {/* Meeting Settings */}
-            <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50 mb-8">
+            <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 mb-8">
                 <h2 className="text-xl font-semibold mb-6 flex items-center gap-2">
                     <Settings className="w-5 h-5" />
                     Default Meeting Settings
@@ -278,11 +278,11 @@ export default function LiveClassesSettingsPage() {
             </div>
 
             {/* Setup Instructions */}
-            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-2xl p-6 mb-8">
-                <h3 className="font-semibold text-blue-900 dark:text-blue-100 mb-3">
+            <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6 mb-8">
+                <h3 className="font-semibold text-blue-900 mb-3">
                     Setup Instructions
                 </h3>
-                <ol className="list-decimal list-inside space-y-2 text-sm text-blue-700 dark:text-blue-300">
+                <ol className="list-decimal list-inside space-y-2 text-sm text-blue-700">
                     <li>Go to Google Cloud Console and create a new project</li>
                     <li>Enable the Google Calendar API for your project</li>
                     <li>Create a service account and download the JSON key file</li>

@@ -10,9 +10,11 @@ import {
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
+import { BranchGuard, TenantContext } from '../auth/branch.guard';
+import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { UserRole } from '../generated/client/client';
 
-@UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
 @Controller('online-exams')
 export class OnlineExamsController {
     constructor(private readonly examsService: OnlineExamsService) { }
@@ -26,8 +28,8 @@ export class OnlineExamsController {
 
     @Get('groups')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
-    getGroups(@Request() req) {
-        const branchId = req.user.role === UserRole.SUPER_ADMIN ? req.query.branchId : req.user.branchId;
+    getGroups(@GetTenantContext() ctx: TenantContext) {
+        const branchId = ctx.role === UserRole.SUPER_ADMIN ? req.query.branchId : ctx.branchId;
         return this.examsService.getQuestionGroups(branchId);
     }
 
@@ -65,27 +67,27 @@ export class OnlineExamsController {
 
     @Get()
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER, UserRole.STUDENT)
-    getExams(@Request() req, @Query('classId') classId?: string, @Query('subjectId') subjectId?: string) {
-        const branchId = req.user.role === UserRole.SUPER_ADMIN ? req.query.branchId : req.user.branchId;
+    getExams(@GetTenantContext() ctx: TenantContext, @Query('classId') classId?: string, @Query('subjectId') subjectId?: string) {
+        const branchId = ctx.role === UserRole.SUPER_ADMIN ? req.query.branchId : ctx.branchId;
         return this.examsService.getExams(branchId, { classId, subjectId });
     }
 
     @Get(':id/start')
     @Roles(UserRole.STUDENT)
-    startExam(@Param('id') id: string, @Request() req) {
-        return this.examsService.getExamForStudent(id, req.user.userId);
+    startExam(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+        return this.examsService.getExamForStudent(id, ctx.userId);
     }
 
     @Post('submit')
     @Roles(UserRole.STUDENT)
-    submitAttempt(@Request() req, @Body() dto: SubmitAttemptDto) {
-        return this.examsService.submitAttempt(req.user.userId, dto);
+    submitAttempt(@GetTenantContext() ctx: TenantContext, @Body() dto: SubmitAttemptDto) {
+        return this.examsService.submitAttempt(ctx.userId, dto);
     }
 
     @Post('sync')
     @Roles(UserRole.STUDENT)
-    syncAnswers(@Request() req, @Body() dto: SubmitAttemptDto) {
-        return this.examsService.syncAnswers(req.user.userId, dto);
+    syncAnswers(@GetTenantContext() ctx: TenantContext, @Body() dto: SubmitAttemptDto) {
+        return this.examsService.syncAnswers(ctx.userId, dto);
     }
 
     // ==================== Grading ====================

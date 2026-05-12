@@ -478,6 +478,7 @@ model Attendance {
   @@index([sessionId])
   @@index([studentId, date])
   @@index([branchId, date])
+  @@index([branchId, date, studentId])
 }
 
 model StaffAttendance {
@@ -553,7 +554,9 @@ model HostelAllocation {
   bed          Bed       @relation(fields: [bedId], references: [id])
   student      Student   @relation(fields: [studentId], references: [id])
 
+  @@unique([studentId, isActive])
   @@index([studentId])
+  @@index([bedId])
 }
 
 model HostelLeave {
@@ -1197,6 +1200,8 @@ model SubjectPosition {
 
   @@unique([studentId, subjectId, sessionId, term])
   @@index([branchId, sectionId, subjectId])
+  @@index([subjectId, sectionId, sessionId, term])
+  @@index([studentId, sessionId, term])
 }
 
 model TahfeezAssessment {
@@ -1267,16 +1272,25 @@ model RolePermission {
 }
 
 model AuditLog {
-  id        String   @id @default(uuid())
-  action    String
-  module    String
-  details   String?
-  reason    String?
-  userId    String
-  createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id])
+  id         String   @id @default(uuid())
+  action     String
+  module     String
+  details    String?
+  reason     String?
+  userId     String
+  branchId   String?
+  ipAddress  String?
+  targetId   String?
+  targetType String?
+  beforeState Json?
+  afterState  Json?
+  createdAt  DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id])
 
   @@index([userId])
+  @@index([branchId])
+  @@index([action])
+  @@index([createdAt])
 }
 
 model ExpenseCategory {
@@ -1310,6 +1324,7 @@ model Voucher {
   category          ExpenseCategory @relation(fields: [expenseCategoryId], references: [id])
 
   @@index([branchId])
+  @@index([branchId, date])
 }
 
 model Department {
@@ -1413,7 +1428,9 @@ model Payroll {
   updatedAt   DateTime @updatedAt
   staff       Staff    @relation(fields: [staffId], references: [id])
 
+  @@unique([staffId, month, year])
   @@index([staffId])
+  @@index([month, year])
 }
 
 model LeaveRequest {

@@ -33,7 +33,7 @@ export function NewsSection() {
       {/* Top Divider */}
       <div className="w-full h-px bg-gradient-to-r from-transparent via-secondary/30 to-transparent"></div>
 
-      <div className="w-full bg-gradient-to-br from-secondary/5 via-surface-dim/20 to-primary/5 dark:from-secondary/10 dark:via-surface-container-lowest/30 dark:to-primary/10">
+      <div className="w-full bg-gradient-to-br from-secondary/5 via-surface-dim/20 to-primary/5">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-20 space-y-12">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 border-b border-border/40 pb-4">
             <div>

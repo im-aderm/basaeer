@@ -1,6 +1,7 @@
-import { Controller, Post, Body, UseGuards, Get } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, Get, Param } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
+import { BranchGuard } from '../auth/branch.guard';
 import { Roles } from '../auth/roles.decorator';
 import { UserRole } from '../generated/client/client';
 import { CommsService } from './comms.service';
@@ -8,7 +9,7 @@ import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { TenantContext } from '../auth/branch.guard';
 
 @Controller('comms')
-@UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
 export class CommsController {
   constructor(private readonly commsService: CommsService) {}
 
@@ -40,5 +41,11 @@ export class CommsController {
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   async getCampaigns(@GetTenantContext() context: TenantContext) {
     return this.commsService.getCampaigns(context.branchId);
+  }
+
+  @Get('campaigns/:id')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+  async getCampaignDetails(@Param('id') id: string) {
+    return this.commsService.getCampaignDetails(id);
   }
 }

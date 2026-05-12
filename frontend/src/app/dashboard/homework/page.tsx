@@ -85,7 +85,7 @@ export default function TeacherHomeworkHub() {
     const availableSections = classes.find(c => c.id === formData.classId)?.sections || [];
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/20 dark:from-slate-950 dark:via-indigo-950/20 dark:to-purple-950/10 p-6">
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/20 p-6">
             {/* Header */}
             <div className="mb-8">
                 <div className="flex items-center justify-between">
@@ -93,7 +93,7 @@ export default function TeacherHomeworkHub() {
                         <h1 className="text-h1 font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
                             Homework Hub
                         </h1>
-                        <p className="text-slate-600 dark:text-slate-400 mt-2">
+                        <p className="text-slate-600 mt-2">
                             Create and manage assignments for your classes
                         </p>
                     </div>
@@ -206,7 +206,7 @@ export default function TeacherHomeworkHub() {
                                     />
                                 </div>
                                 <div className="flex justify-end gap-2 text-indigo-100">
-                                    <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)} className="dark:text-white">
+                                    <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)} className="">
                                         Cancel
                                     </Button>
                                     <Button type="submit" className="bg-indigo-600 hover:bg-indigo-700">Create Assignment</Button>
@@ -221,11 +221,11 @@ export default function TeacherHomeworkHub() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {assignments.length === 0 ? (
                     <div className="col-span-full text-center py-12">
-                        <BookOpen className="w-16 h-16 mx-auto text-slate-300 dark:text-slate-700 mb-4" />
-                        <h3 className="text-lg font-semibold text-slate-600 dark:text-slate-400 mb-2">
+                        <BookOpen className="w-16 h-16 mx-auto text-slate-300 mb-4" />
+                        <h3 className="text-lg font-semibold text-slate-600 mb-2">
                             No assignments yet
                         </h3>
-                        <p className="text-slate-500 dark:text-slate-500 mb-4">
+                        <p className="text-slate-500 mb-4">
                             Create your first assignment to get started
                         </p>
                     </div>
@@ -233,21 +233,21 @@ export default function TeacherHomeworkHub() {
                     assignments.map((assignment) => (
                         <div
                             key={assignment.id}
-                            className="group relative bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50 hover:shadow-xl hover:shadow-indigo-500/10 transition-all duration-300 cursor-pointer"
+                            className="group relative bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 hover:shadow-xl hover:shadow-indigo-500/10 transition-all duration-300 cursor-pointer"
                             onClick={() => router.push(`/dashboard/homework/${assignment.id}`)}
                         >
                             <div className="flex items-start justify-between mb-4">
                                 <div className="flex-1">
-                                    <h3 className="font-semibold text-lg text-slate-900 dark:text-slate-100 mb-1">
+                                    <h3 className="font-semibold text-lg text-slate-900 mb-1">
                                         {assignment.title}
                                     </h3>
-                                    <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2">
+                                    <p className="text-sm text-slate-600 line-clamp-2">
                                         {assignment.description}
                                     </p>
                                 </div>
                             </div>
 
-                            <div className="flex items-center gap-4 text-sm text-slate-600 dark:text-slate-400 mb-4">
+                            <div className="flex items-center gap-4 text-sm text-slate-600 mb-4">
                                 <div className="flex items-center gap-1">
                                     <Clock className="w-4 h-4" />
                                     {new Date(assignment.dueDate).toLocaleDateString()}
@@ -259,7 +259,7 @@ export default function TeacherHomeworkHub() {
                             </div>
 
                             <div className="flex items-center justify-between">
-                                <span className="text-xs px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300">
+                                <span className="text-xs px-3 py-1 rounded-full bg-indigo-100 text-indigo-700">
                                     {assignment.subject?.name || "General"}
                                 </span>
                                 <Button

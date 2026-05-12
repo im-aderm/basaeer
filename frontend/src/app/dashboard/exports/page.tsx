@@ -77,14 +77,14 @@ export default function ExportDashboardPage() {
         <div className="p-6 space-y-6">
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-h1 font-bold text-gray-900 dark:text-white">Export Management</h1>
-                    <p className="text-gray-600 dark:text-gray-400 mt-1">
+                    <h1 className="text-h1 font-bold text-gray-900">Export Management</h1>
+                    <p className="text-gray-600 mt-1">
                         Track and manage your academic record exports
                     </p>
                 </div>
                 <button
                     onClick={() => { setRefreshing(true); loadExports(); }}
-                    className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                    className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors"
                 >
                     <RefreshCw className={`w-4 h-4 ${refreshing ? 'animate-spin' : ''}`} />
                     Refresh
@@ -96,16 +96,16 @@ export default function ExportDashboardPage() {
                     <Loader2 className="w-10 h-10 text-blue-500 animate-spin" />
                 </div>
             ) : exports.length === 0 ? (
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-12 text-center border border-dashed border-gray-200 dark:border-gray-700">
+                <div className="bg-white rounded-xl p-12 text-center border border-dashed border-gray-200">
                     <FileText className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium text-gray-900 dark:text-white">No exports found</h3>
-                    <p className="text-gray-500 dark:text-gray-400">Trigger an export from the academic pages to see it here.</p>
+                    <h3 className="text-lg font-medium text-gray-900">No exports found</h3>
+                    <p className="text-gray-500">Trigger an export from the academic pages to see it here.</p>
                 </div>
             ) : (
-                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+                <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
                     <table className="w-full text-left">
                         <thead>
-                            <tr className="bg-gray-50 dark:bg-gray-900/50 border-b border-gray-200 dark:border-gray-700">
+                            <tr className="bg-gray-50 border-b border-gray-200">
                                 <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Type</th>
                                 <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
                                 <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Progress</th>
@@ -113,9 +113,9 @@ export default function ExportDashboardPage() {
                                 <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider text-right">Actions</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                        <tbody className="divide-y divide-gray-200">
                             {exports.map((exp) => (
-                                <tr key={exp.id} className="hover:bg-gray-50 dark:hover:bg-gray-900/20 transition-colors">
+                                <tr key={exp.id} className="hover:bg-gray-50 transition-colors">
                                     <td className="px-6 py-4">
                                         <div className="flex items-center gap-3">
                                             {exp.type.includes('EXCEL') || exp.type.includes('CSV') ? (
@@ -124,9 +124,9 @@ export default function ExportDashboardPage() {
                                                 <FileText className="w-5 h-5 text-red-500" />
                                             )}
                                             <div>
-                                                <p className="font-medium text-gray-900 dark:text-white">{exp.type.replace(/_/g, ' ')}</p>
+                                                <p className="font-medium text-gray-900">{exp.type.replace(/_/g, ' ')}</p>
                                                 {exp.fileName && (
-                                                    <p className="text-xs text-gray-500 dark:text-gray-400">{exp.fileName} ({formatFileSize(exp.fileSize)})</p>
+                                                    <p className="text-xs text-gray-500">{exp.fileName} ({formatFileSize(exp.fileSize)})</p>
                                                 )}
                                             </div>
                                         </div>
@@ -134,14 +134,14 @@ export default function ExportDashboardPage() {
                                     <td className="px-6 py-4">
                                         <div className="flex items-center gap-2">
                                             {getStatusIcon(exp.status)}
-                                            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                                            <span className="text-sm font-medium text-gray-700">
                                                 {exp.status}
                                             </span>
                                         </div>
                                     </td>
                                     <td className="px-6 py-4 w-48">
                                         <div className="space-y-1">
-                                            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                            <div className="w-full bg-gray-200 rounded-full h-2">
                                                 <div
                                                     className={`h-2 rounded-full transition-all duration-500 ${
                                                         exp.status === ExportStatus.FAILED ? 'bg-red-500' : 'bg-blue-500'
@@ -149,10 +149,10 @@ export default function ExportDashboardPage() {
                                                     style={{ width: `${exp.progress}%` }}
                                                 />
                                             </div>
-                                            <span className="text-xs text-gray-500 dark:text-gray-400">{exp.progress}%</span>
+                                            <span className="text-xs text-gray-500">{exp.progress}%</span>
                                         </div>
                                     </td>
-                                    <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">
+                                    <td className="px-6 py-4 text-sm text-gray-500">
                                         {format(new Date(exp.createdAt), 'MMM d, yyyy HH:mm')}
                                     </td>
                                     <td className="px-6 py-4 text-right">
@@ -163,7 +163,7 @@ export default function ExportDashboardPage() {
                                                     download={exp.fileName}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="p-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
+                                                    className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                                                     title="Download File"
                                                 >
                                                     <Download className="w-5 h-5" />
@@ -171,7 +171,7 @@ export default function ExportDashboardPage() {
                                             )}
                                             <button
                                                 onClick={() => handleDelete(exp.id)}
-                                                className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                                                className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
                                                 title="Delete from history"
                                             >
                                                 <Trash2 className="w-5 h-5" />

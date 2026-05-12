@@ -1,10 +1,12 @@
-import { Controller, Get, Put, Post, Patch, Body, Param, UseGuards, Request, Query } from '@nestjs/common';
+import { Controller, Get, Put, Post, Patch, Body, Param, UseGuards, Query } from '@nestjs/common';
 import { AutomationService } from './automation.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 import { UserRole } from '../generated/client/client';
 import { UpdateAutomationConfigDto, UpsertAutomationConfigDto, ToggleScheduledJobDto } from './dto/automation.dto';
+import { GetTenantContext } from '../auth/tenant-context.decorator';
+import { TenantContext } from '../auth/branch.guard';
 
 @Controller('automation')
 @UseGuards(JwtAuthGuard, RolesGuard)
@@ -13,28 +15,33 @@ export class AutomationController {
 
     @Get('configs')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-    getConfigs(@Query('branchId') branchId?: string, @Request() req?: any) {
-        const targetBranchId = branchId || (req.user.role !== UserRole.SUPER_ADMIN ? req.user.branchId : undefined);
-        return this.automationService.getConfigs(targetBranchId);
+    getConfigs(@GetTenantContext() tenantContext: TenantContext) {
+        return this.automationService.getConfigs(tenantContext);
     }
 
     @Post('configs')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-    upsertConfig(@Body() dto: UpsertAutomationConfigDto) {
-        return this.automationService.upsertConfig(dto);
+    upsertConfig(
+        @Body() dto: UpsertAutomationConfigDto,
+        @GetTenantContext() tenantContext: TenantContext,
+    ) {
+        return this.automationService.upsertConfig(dto, tenantContext);
     }
 
     @Put('config/:type')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-    updateConfig(@Param('type') type: string, @Body() dto: UpdateAutomationConfigDto, @Request() req) {
-        return this.automationService.updateConfig(req.user.branchId, type, dto);
+    updateConfig(
+        @Param('type') type: string,
+        @Body() dto: UpdateAutomationConfigDto,
+        @GetTenantContext() tenantContext: TenantContext,
+    ) {
+        return this.automationService.updateConfig(type, dto, tenantContext);
     }
 
     @Get('jobs')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-    listJobs(@Query('branchId') branchId?: string, @Request() req?: any) {
-        const targetBranchId = branchId || (req.user.role !== UserRole.SUPER_ADMIN ? req.user.branchId : undefined);
-        return this.automationService.listJobs(targetBranchId);
+    listJobs(@GetTenantContext() tenantContext: TenantContext) {
+        return this.automationService.listJobs(tenantContext);
     }
 
     @Patch('jobs/:id/toggle')
@@ -45,7 +52,7 @@ export class AutomationController {
 
     @Get('seed')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-    seed(@Request() req) {
-        return this.automationService.seedInitialConfigs(req.user.branchId);
+    seed(@GetTenantContext() tenantContext: TenantContext) {
+        return this.automationService.seedInitialConfigs(tenantContext);
     }
 }

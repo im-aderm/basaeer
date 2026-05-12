@@ -1,126 +1,121 @@
-import { Controller, Get, Post, Body, Param, Patch, Delete, UseGuards, Request } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Patch, Delete, UseGuards } from '@nestjs/common';
 import { HostelsService } from './hostels.service';
 import { CreateHostelDto } from './dto/create-hostel.dto';
 import { CreateRoomDto } from './dto/create-room.dto';
 import { AllocateBedDto } from './dto/allocate-bed.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
+import { BranchGuard, TenantContext } from '../auth/branch.guard';
+import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { Roles } from '../auth/roles.decorator';
 import { UserRole } from '../generated/client/client';
 import { UpdateHostelDto } from './dto/update-hostel.dto';
 import { UpdateRoomDto } from './dto/update-room.dto';
 
-@UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
 @Controller('hostels')
 export class HostelsController {
     constructor(private readonly hostelsService: HostelsService) { }
 
     @Post()
     @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN)
-    create(@Body() dto: CreateHostelDto, @Request() req) {
-        return this.hostelsService.createHostel(dto, req.user.branchId);
+    create(@Body() dto: CreateHostelDto, @GetTenantContext() ctx: TenantContext) {
+        return this.hostelsService.createHostel(dto, ctx);
     }
 
     @Get()
     @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN, UserRole.BRANCH_ADMIN)
-    findAll(@Request() req) {
-        return this.hostelsService.findAll(req.user.branchId);
+    findAll(@GetTenantContext() ctx: TenantContext) {
+        return this.hostelsService.findAll(ctx);
     }
 
     @Get('stats')
     @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN, UserRole.BRANCH_ADMIN)
-    getStats(@Request() req) {
-        return this.hostelsService.getStats(req.user.branchId);
+    getStats(@GetTenantContext() ctx: TenantContext) {
+        return this.hostelsService.getVacancies(ctx);
+    }
+
+    @Get(':id')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN, UserRole.BRANCH_ADMIN)
+    findOne(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+        return this.hostelsService.findHostel(id, ctx);
     }
 
     @Patch(':id')
     @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN)
-    update(@Param('id') id: string, @Body() dto: UpdateHostelDto, @Request() req) {
-        return this.hostelsService.updateHostel(id, dto, req.user.branchId);
+    update(@Param('id') id: string, @Body() dto: UpdateHostelDto, @GetTenantContext() ctx: TenantContext) {
+        return this.hostelsService.updateHostel(id, dto, ctx);
     }
 
     @Delete(':id')
     @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN)
-    deleteHostel(@Param('id') id: string, @Request() req) {
-        return this.hostelsService.deleteHostel(id, req.user.branchId);
+    remove(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+        return this.hostelsService.deleteHostel(id, ctx);
     }
 
     @Post('rooms')
     @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN)
-    createRoom(@Body() dto: CreateRoomDto, @Request() req) {
-        return this.hostelsService.createRoom(dto, req.user.branchId);
+    createRoom(@Body() dto: CreateRoomDto, @GetTenantContext() ctx: TenantContext) {
+        return this.hostelsService.createRoom(dto, ctx);
+    }
+
+    @Get('rooms/:id')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN, UserRole.BRANCH_ADMIN)
+    findRoom(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+        return this.hostelsService.findRoom(id, ctx);
     }
 
     @Patch('rooms/:id')
     @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN)
-    updateRoom(@Param('id') id: string, @Body() dto: UpdateRoomDto, @Request() req) {
-        return this.hostelsService.updateRoom(id, dto, req.user.branchId);
+    updateRoom(@Param('id') id: string, @Body() dto: UpdateRoomDto, @GetTenantContext() ctx: TenantContext) {
+        return this.hostelsService.updateRoom(id, dto, ctx);
     }
 
     @Delete('rooms/:id')
     @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN)
-    deleteRoom(@Param('id') id: string, @Request() req) {
-        return this.hostelsService.deleteRoom(id, req.user.branchId);
+    removeRoom(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+        return this.hostelsService.deleteRoom(id, ctx);
     }
 
     @Post('allocate')
     @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN)
-    allocate(@Body() dto: AllocateBedDto, @Request() req) {
-        return this.hostelsService.allocateBed(dto, req.user.branchId);
+    allocateBed(@Body() dto: AllocateBedDto, @GetTenantContext() ctx: TenantContext) {
+        return this.hostelsService.allocateBed(dto, ctx);
     }
 
-    @Patch('release/:id')
+    @Post('release/:allocationId')
     @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN)
-    release(@Param('id') id: string, @Request() req) {
-        return this.hostelsService.releaseBed(id, req.user.branchId);
-    }
-
-    @Get('vacancies')
-    @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN, UserRole.BRANCH_ADMIN)
-    getVacancies(@Request() req) {
-        return this.hostelsService.getVacancies(req.user.branchId);
+    releaseBed(@Param('allocationId') allocationId: string, @GetTenantContext() ctx: TenantContext) {
+        return this.hostelsService.releaseBed(allocationId, ctx);
     }
 
     @Post('leave')
-    @Roles(UserRole.STUDENT)
-    createLeave(@Body() dto: any, @Request() req) {
-        return this.hostelsService.createLeave(dto, req.user);
-    }
-
-    @Get('leaves')
-    @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN, UserRole.BRANCH_ADMIN, UserRole.STUDENT)
-    getLeaves(@Request() req) {
-        return this.hostelsService.getLeaves(req.user);
-    }
-
-    @Patch('leaves/:id')
     @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN)
-    updateLeaveStatus(@Param('id') id: string, @Body('status') status: string, @Request() req) {
-        return this.hostelsService.updateLeaveStatus(id, status, req.user.branchId);
+    createLeave(@Body() dto: any, @GetTenantContext() ctx: TenantContext) {
+        return this.hostelsService.createLeave(dto, ctx);
+    }
+
+    @Get('leaves/branch')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN, UserRole.BRANCH_ADMIN)
+    getBranchLeaves(@GetTenantContext() ctx: TenantContext) {
+        return this.hostelsService.getBranchLeaves(ctx);
+    }
+
+    @Patch('leaves/:id/status')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN)
+    updateLeaveStatus(@Param('id') id: string, @Body('status') status: string, @GetTenantContext() ctx: TenantContext) {
+        return this.hostelsService.updateLeaveStatus(id, status, ctx);
     }
 
     @Post('maintenance')
-    @Roles(UserRole.STUDENT, UserRole.HOSTEL_ADMIN)
-    createMaintenance(@Body() dto: any, @Request() req) {
-        // Pass user to helper to link student if applicable
-        return this.hostelsService.createMaintenanceRequest(dto, req.user);
-    }
-
-    @Get('maintenance')
-    @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN, UserRole.BRANCH_ADMIN, UserRole.STUDENT)
-    getMaintenanceRequests(@Request() req) {
-        return this.hostelsService.getMaintenanceRequests(req.user);
-    }
-
-    @Get('my-details')
-    @Roles(UserRole.STUDENT)
-    getMyHostelDetails(@Request() req) {
-        return this.hostelsService.getMyHostelDetails(req.user);
-    }
-
-    @Patch('maintenance/:id')
     @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN)
-    updateMaintenanceStatus(@Param('id') id: string, @Body('status') status: string, @Request() req) {
-        return this.hostelsService.updateMaintenanceStatus(id, status, req.user.branchId);
+    createMaintenance(@Body() dto: any, @GetTenantContext() ctx: TenantContext) {
+        return this.hostelsService.createMaintenanceRequest(dto, ctx);
+    }
+
+    @Get('maintenance/branch')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN, UserRole.BRANCH_ADMIN)
+    getBranchMaintenance(@GetTenantContext() ctx: TenantContext) {
+        return this.hostelsService.getBranchMaintenance(ctx);
     }
 }

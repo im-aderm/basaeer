@@ -70,7 +70,7 @@ export default function LoginPage() {
           <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 bg-primary/20 rounded-full blur-2xl"></div>
           
           {error && (
-            <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-600 dark:text-red-200 text-xs md:text-sm font-medium" role="alert">
+            <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-600 text-xs md:text-sm font-medium" role="alert">
               {error}
             </div>
           )}

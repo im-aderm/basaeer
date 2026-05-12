@@ -9,6 +9,7 @@ import { AllExceptionsFilter } from './common/filters/all-exceptions.filter';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
+import { ResponseTransformInterceptor } from './common/interceptors/response-transform.interceptor';
 
 async function bootstrap() {
   const logger = new Logger('Bootstrap');
@@ -24,7 +25,10 @@ async function bootstrap() {
   app.enableShutdownHooks();
 
   // ── Logging ─────────────────────────────────────────────────────────────────
-  app.useGlobalInterceptors(new LoggingInterceptor());
+  app.useGlobalInterceptors(
+    new LoggingInterceptor(),
+    new ResponseTransformInterceptor(),
+  );
 
   // ── Global Route Prefix ─────────────────────────────────────────────────────
   // Ensures consistency with Nginx path-based routing (/api)
@@ -52,9 +56,11 @@ async function bootstrap() {
   app.disable('x-powered-by');
 
   // ── CORS ────────────────────────────────────────────────────────────────────
-  const allowedOrigins = process.env.CORS_ALLOWED_ORIGINS 
-    ? process.env.CORS_ALLOWED_ORIGINS.split(',') 
-    : ['http://localhost:3000'];
+  const allowedOrigins = [
+    'http://localhost:3000',
+    ...(process.env.CORS_ALLOWED_ORIGINS ? process.env.CORS_ALLOWED_ORIGINS.split(',') : []),
+    ...(process.env.FRONTEND_URL ? [process.env.FRONTEND_URL] : []),
+  ];
 
   app.enableCors({
     origin: allowedOrigins,
@@ -63,8 +69,6 @@ async function bootstrap() {
   });
 
   // ── Global Validation ───────────────────────────────────────────────────────
-  // Strips unknown fields (whitelist) and throws on unknown properties
-  // (forbidNonWhitelisted). Activates all class-validator decorators in DTOs.
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -73,6 +77,22 @@ async function bootstrap() {
       transformOptions: { enableImplicitConversion: true },
     }),
   );
+
+  // ── Graceful Shutdown ────────────────────────────────────────────────────────
+  const prismaService = app.get('PrismaService');
+  const signals: NodeJS.Signals[] = ['SIGTERM', 'SIGINT', 'SIGQUIT'];
+
+  for (const signal of signals) {
+    process.on(signal, async () => {
+      logger.log(`Received ${signal}. Starting graceful shutdown...`);
+      await app.close();
+      if (prismaService && typeof prismaService.$disconnect === 'function') {
+        await prismaService.$disconnect();
+      }
+      logger.log('Graceful shutdown completed.');
+      process.exit(0);
+    });
+  }
 
   const port = process.env.PORT || 3001;
   logger.log(`Attempting to bind to port ${port}...`);

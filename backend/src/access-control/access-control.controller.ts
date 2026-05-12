@@ -3,28 +3,30 @@ import { AccessControlService } from './access-control.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
+import { BranchGuard, TenantContext } from '../auth/branch.guard';
+import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { UserRole } from '../generated/client/client';
 import { CreateAccessLogDto } from './dto/access-control.dto';
 
 @Controller('access-control')
-@UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
 export class AccessControlController {
     constructor(private readonly accessControlService: AccessControlService) { }
 
     @Post('log')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
-    log(@Body() dto: CreateAccessLogDto, @Request() req) {
-        return this.accessControlService.logAccess(req.user.branchId, dto);
+    log(@Body() dto: CreateAccessLogDto, @GetTenantContext() ctx: TenantContext) {
+        return this.accessControlService.logAccess(ctx.branchId, dto);
     }
 
     @Get('logs')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
-    getLogs(@Request() req, @Query('limit') limit?: string) {
-        return this.accessControlService.getBranchLogs(req.user.branchId, limit ? parseInt(limit) : 50);
+    getLogs(@GetTenantContext() ctx: TenantContext, @Query('limit') limit?: string) {
+        return this.accessControlService.getBranchLogs(ctx.branchId, limit ? parseInt(limit) : 50);
     }
 
     @Get('my-logs')
-    getMyLogs(@Request() req) {
-        return this.accessControlService.getUserLogs(req.user.id);
+    getMyLogs(@GetTenantContext() ctx: TenantContext) {
+        return this.accessControlService.getUserLogs(ctx.userId);
     }
 }

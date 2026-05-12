@@ -10,9 +10,11 @@ import { StartExportDto } from './dto/export.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
+import { BranchGuard, TenantContext } from '../auth/branch.guard';
+import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { UserRole, Term } from '../generated/client/client';
 
-@UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
 @Controller('academics')
 export class AcademicsController {
     constructor(
@@ -106,15 +108,15 @@ export class AcademicsController {
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
     async startExport(
         @Body() dto: StartExportDto,
-        @Req() req: any
+        @GetTenantContext() ctx: TenantContext
     ) {
-        return this.exportQueueService.startExport(dto, req.user.id, req.user.branchId);
+        return this.exportQueueService.startExport(dto, ctx.userId, ctx.branchId);
     }
 
     @Get('exports')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
-    async getExports(@Req() req: any) {
-        return this.exportQueueService.getBranchExports(req.user.branchId);
+    async getExports(@GetTenantContext() ctx: TenantContext) {
+        return this.exportQueueService.getBranchExports(ctx.branchId);
     }
 
     @Get('exports/:id')
@@ -134,14 +136,14 @@ export class AcademicsController {
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.EXAM_OFFICER)
     async computeSection(
         @Body() dto: { sectionId: string; sessionId: string; term: Term },
-        @Req() req: any
+        @GetTenantContext() ctx: TenantContext
     ) {
         return this.computationQueueService.queueSectionComputation(
             dto.sectionId,
             dto.sessionId,
             dto.term,
-            req.user.id,
-            req.user.branchId
+            ctx.userId,
+            ctx.branchId
         );
     }
 

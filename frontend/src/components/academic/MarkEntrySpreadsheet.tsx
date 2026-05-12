@@ -40,7 +40,7 @@ export function MarkEntrySpreadsheet({ data: initialData, onSave, onBack }: Mark
     const columns = useMemo(() => [
         columnHelper.accessor('name', {
             header: 'Student Name',
-            cell: info => <div className="font-medium text-gray-900 dark:text-white px-2 py-1">{info.getValue()}</div>,
+            cell: info => <div className="font-medium text-gray-900 px-2 py-1">{info.getValue()}</div>,
             size: 250,
         }),
         columnHelper.accessor('asgn1', {
@@ -73,7 +73,7 @@ export function MarkEntrySpreadsheet({ data: initialData, onSave, onBack }: Mark
             cell: info => {
                 const row = info.row.original;
                 const total = (row.asgn1 || 0) + (row.asgn2 || 0) + (row.test1 || 0) + (row.test2 || 0) + (row.examScore || 0);
-                return <div className="font-bold text-blue-600 dark:text-blue-400 px-2 py-1">{total}</div>;
+                return <div className="font-bold text-blue-600 px-2 py-1">{total}</div>;
             },
             size: 100,
         }),
@@ -126,8 +126,8 @@ export function MarkEntrySpreadsheet({ data: initialData, onSave, onBack }: Mark
         return (
             <div 
                 style={style} 
-                className={`flex border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900/40 transition-colors ${
-                    dirtyRows.has(row.original.studentId) ? 'bg-yellow-50/30 dark:bg-yellow-900/10' : ''
+className={`flex border-b border-gray-100 hover:bg-gray-50 transition-colors ${
+                    dirtyRows.has(row.original.studentId) ? 'bg-yellow-50/30' : ''
                 }`}
             >
                 {row.getVisibleCells().map(cell => (
@@ -144,20 +144,20 @@ export function MarkEntrySpreadsheet({ data: initialData, onSave, onBack }: Mark
     };
 
     return (
-        <div className="flex flex-col h-full bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
-            <header className="p-4 bg-gray-50 dark:bg-gray-900/50 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+        <div className="flex flex-col h-full bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+            <header className="p-4 bg-gray-50 border-b border-gray-200 flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                    <button onClick={onBack} className="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors">
+                    <button onClick={onBack} className="p-2 hover:bg-gray-200 rounded-lg transition-colors">
                         <ArrowLeft className="w-5 h-5" />
                     </button>
                     <div>
-                        <h2 className="text-lg font-bold text-gray-900 dark:text-white">Batch Mark Entry</h2>
+                        <h2 className="text-lg font-bold text-gray-900">Batch Mark Entry</h2>
                         <p className="text-xs text-gray-500">Editing marks for {data.length} students</p>
                     </div>
                 </div>
                 <div className="flex items-center gap-3">
                     {dirtyRows.size > 0 && (
-                        <span className="text-xs font-medium text-amber-600 bg-yellow-50 dark:bg-yellow-900/20 px-2 py-1 rounded-full flex items-center gap-1.5">
+                        <span className="text-xs font-medium text-amber-600 bg-yellow-50 px-2 py-1 rounded-full flex items-center gap-1.5">
                             <AlertTriangle className="w-3 h-3" />
                             {dirtyRows.size} unsaved changes
                         </span>
@@ -174,7 +174,7 @@ export function MarkEntrySpreadsheet({ data: initialData, onSave, onBack }: Mark
             </header>
 
             <div className="flex-1 overflow-hidden">
-                <div className="flex bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
+                <div className="flex bg-gray-50 border-b border-gray-200">
                     {table.getHeaderGroups()[0].headers.map(header => (
                         <div 
                             key={header.id} 

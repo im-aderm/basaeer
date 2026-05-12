@@ -118,8 +118,8 @@ export default function AssignmentEvaluation() {
             cell: (row: any) => (
                 <span
                     className={`px-2 py-1 rounded-full text-xs ${row.status === "GRADED"
-                        ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300"
-                        : "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300"
+ ? "bg-green-100 text-green-700 "
+ : "bg-yellow-100 text-yellow-700 "
                         }`}
                 >
                     {row.status}
@@ -137,7 +137,7 @@ export default function AssignmentEvaluation() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/20 dark:from-slate-950 dark:via-indigo-950/20 dark:to-purple-950/10 p-6">
+ <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/20 p-6">
             {/* Header */}
             <div className="mb-8">
                 <Button
@@ -148,14 +148,14 @@ export default function AssignmentEvaluation() {
                     <ArrowLeft className="w-4 h-4 mr-2" />
                     Back to Assignments
                 </Button>
-                <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50">
+ <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 ">
                     <h1 className="text-h1 font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-2">
                         {assignment?.title}
                     </h1>
-                    <p className="text-slate-600 dark:text-slate-400 mb-4">
+ <p className="text-slate-600 mb-4">
                         {assignment?.description}
                     </p>
-                    <div className="flex items-center gap-6 text-sm text-slate-600 dark:text-slate-400">
+ <div className="flex items-center gap-6 text-sm text-slate-600 ">
                         <div>
                             <span className="font-semibold">Due Date:</span>{" "}
                             {new Date(assignment?.dueDate).toLocaleDateString()}
@@ -175,7 +175,7 @@ export default function AssignmentEvaluation() {
                                 href={assignment.attachmentUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 transition-colors text-sm font-medium"
+ className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-50 text-indigo-600 hover:bg-indigo-100 transition-colors text-sm font-medium"
                             >
                                 <FileText className="w-4 h-4" />
                                 View Attached Resources
@@ -186,7 +186,7 @@ export default function AssignmentEvaluation() {
             </div>
 
             {/* Submissions Table */}
-            <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50">
+ <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 ">
                 <h2 className="text-xl font-semibold mb-4">Student Submissions</h2>
                 <DataTable
                     columns={columns}

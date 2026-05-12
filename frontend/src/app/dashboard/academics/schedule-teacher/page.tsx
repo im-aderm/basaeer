@@ -108,19 +108,19 @@ export default function TeacherSchedulePage() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/20 dark:from-slate-950 dark:via-indigo-950/20 dark:to-purple-950/10 p-6">
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/20 p-6">
             {/* Header */}
             <div className="mb-8">
                 <h1 className="text-h1 font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
                     Teacher Schedule
                 </h1>
-                <p className="text-slate-600 dark:text-slate-400 mt-2">
+                <p className="text-slate-600 mt-2">
                     View teacher schedules and workload analysis
                 </p>
             </div>
 
             {/* Teacher Selection */}
-            <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50 mb-8">
+            <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 mb-8">
                 <Label>Select Teacher</Label>
                 <Select value={selectedTeacher} onValueChange={setSelectedTeacher}>
                     <SelectTrigger className="mt-2">
@@ -140,16 +140,16 @@ export default function TeacherSchedulePage() {
                 <>
                     {/* Conflicts Alert */}
                     {conflicts.length > 0 && (
-                        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-2xl p-6 mb-8">
+                        <div className="bg-red-50 border border-red-200 rounded-2xl p-6 mb-8">
                             <div className="flex items-start gap-3">
                                 <AlertTriangle className="w-6 h-6 text-red-600 mt-0.5" />
                                 <div>
-                                    <h3 className="font-semibold text-red-900 dark:text-red-100 mb-2">
+                                    <h3 className="font-semibold text-red-900 mb-2">
                                         Schedule Conflicts Detected ({conflicts.length})
                                     </h3>
                                     <div className="space-y-1">
                                         {conflicts.map((conflict, index) => (
-                                            <p key={index} className="text-sm text-red-700 dark:text-red-300">
+                                            <p key={index} className="text-sm text-red-700">
                                                 {conflict.day} at {conflict.time} - {conflict.count} periods
                                                 scheduled
                                             </p>
@@ -162,59 +162,59 @@ export default function TeacherSchedulePage() {
 
                     {/* Workload Stats */}
                     <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
-                        <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50">
+                        <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50">
                             <div className="flex items-center justify-between mb-2">
                                 <Clock className="w-8 h-8 text-indigo-600" />
                             </div>
-                            <p className="text-sm text-slate-600 dark:text-slate-400">Total Periods</p>
-                            <p className="text-h1 font-bold text-slate-900 dark:text-slate-100">
+                            <p className="text-sm text-slate-600">Total Periods</p>
+                            <p className="text-h1 font-bold text-slate-900">
                                 {workload.totalPeriods}
                             </p>
                         </div>
 
-                        <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50">
+                        <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50">
                             <div className="flex items-center justify-between mb-2">
                                 <TrendingUp className="w-8 h-8 text-purple-600" />
                             </div>
-                            <p className="text-sm text-slate-600 dark:text-slate-400">Avg/Day</p>
-                            <p className="text-h1 font-bold text-slate-900 dark:text-slate-100">
+                            <p className="text-sm text-slate-600">Avg/Day</p>
+                            <p className="text-h1 font-bold text-slate-900">
                                 {workload.avgPeriodsPerDay}
                             </p>
                         </div>
 
-                        <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50">
+                        <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50">
                             <div className="flex items-center justify-between mb-2">
                                 <Calendar className="w-8 h-8 text-teal-600" />
                             </div>
-                            <p className="text-sm text-slate-600 dark:text-slate-400">Max/Day</p>
-                            <p className="text-h1 font-bold text-slate-900 dark:text-slate-100">
+                            <p className="text-sm text-slate-600">Max/Day</p>
+                            <p className="text-h1 font-bold text-slate-900">
                                 {workload.maxPeriodsPerDay}
                             </p>
                         </div>
 
-                        <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50">
+                        <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50">
                             <div className="flex items-center justify-between mb-2">
                                 <BookOpen className="w-8 h-8 text-emerald-600" />
                             </div>
-                            <p className="text-sm text-slate-600 dark:text-slate-400">Classes</p>
-                            <p className="text-h1 font-bold text-slate-900 dark:text-slate-100">
+                            <p className="text-sm text-slate-600">Classes</p>
+                            <p className="text-h1 font-bold text-slate-900">
                                 {workload.uniqueClasses}
                             </p>
                         </div>
 
-                        <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50">
+                        <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50">
                             <div className="flex items-center justify-between mb-2">
                                 <BookOpen className="w-8 h-8 text-orange-600" />
                             </div>
-                            <p className="text-sm text-slate-600 dark:text-slate-400">Subjects</p>
-                            <p className="text-h1 font-bold text-slate-900 dark:text-slate-100">
+                            <p className="text-sm text-slate-600">Subjects</p>
+                            <p className="text-h1 font-bold text-slate-900">
                                 {workload.uniqueSubjects}
                             </p>
                         </div>
                     </div>
 
                     {/* Weekly Schedule */}
-                    <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50">
+                    <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50">
                         <h2 className="text-xl font-semibold mb-6">Weekly Schedule</h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {DAYS.map((day, dayIndex) => {
@@ -234,17 +234,17 @@ export default function TeacherSchedulePage() {
                                                 {daySchedule.map((period) => (
                                                     <div
                                                         key={period.id}
-                                                        className="bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 rounded-lg p-3"
+                                                        className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-lg p-3"
                                                     >
                                                         <div className="flex items-start justify-between mb-2">
                                                             <p className="font-semibold text-sm">
                                                                 {period.subject?.name}
                                                             </p>
-                                                            <span className="text-xs text-slate-600 dark:text-slate-400">
+                                                            <span className="text-xs text-slate-600">
                                                                 {period.startTime} - {period.endTime}
                                                             </span>
                                                         </div>
-                                                        <p className="text-xs text-slate-600 dark:text-slate-400">
+                                                        <p className="text-xs text-slate-600">
                                                             {period.class?.name} - {period.section?.name}
                                                         </p>
                                                         {period.room && (
@@ -265,12 +265,12 @@ export default function TeacherSchedulePage() {
             )}
 
             {!selectedTeacher && (
-                <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-12 border border-slate-200/50 dark:border-slate-800/50 text-center">
-                    <Calendar className="w-16 h-16 mx-auto text-slate-300 dark:text-slate-700 mb-4" />
-                    <h3 className="text-lg font-semibold text-slate-600 dark:text-slate-400 mb-2">
+                <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-12 border border-slate-200/50 text-center">
+                    <Calendar className="w-16 h-16 mx-auto text-slate-300 mb-4" />
+                    <h3 className="text-lg font-semibold text-slate-600 mb-2">
                         Select a teacher to view schedule
                     </h3>
-                    <p className="text-slate-500 dark:text-slate-500">
+                    <p className="text-slate-500">
                         Choose a teacher from the dropdown above
                     </p>
                 </div>

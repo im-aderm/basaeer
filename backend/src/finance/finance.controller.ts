@@ -107,4 +107,13 @@ export class FinanceController {
         const takeNum = take ? parseInt(take, 10) : undefined;
         return this.financeService.getVouchers(context, skipNum, takeNum);
     }
+
+    @Get('cashflow')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
+    getCashflow(
+        @GetTenantContext() context: TenantContext,
+        @Query('months') months?: string,
+    ) {
+        return this.financeService.getCashflow(context, months ? parseInt(months, 10) : 6);
+    }
 }

@@ -16,28 +16,32 @@ export class ProvidersService {
     private smtpProvider: SmtpProvider,
     private termiiProvider: TermiiProvider,
   ) {
-    // Primary and secondary providers can be configured here
     this.emailProviders = [this.smtpProvider];
     this.smsProviders = [this.termiiProvider];
   }
 
   async sendEmailWithFailover(to: string, subject: string, html: string): Promise<boolean> {
+    const startTime = Date.now();
+
     for (let i = 0; i < this.emailProviders.length; i++) {
       const provider = this.emailProviders[i];
       const success = await provider.send(to, subject, html);
-      
+      const latency = Date.now() - startTime;
+
       if (success) {
+        await this.logProviderHealth('EMAIL', provider.constructor.name, 'UP', latency);
         return true;
       }
 
-      // Failover logic
+      await this.logProviderHealth('EMAIL', provider.constructor.name, 'DOWN', latency, 'Send failed');
+
       const nextProvider = this.emailProviders[i + 1];
       if (nextProvider) {
         await this.logFailover(
           provider.constructor.name,
           nextProvider.constructor.name,
           'EMAIL',
-          'Primary provider failed'
+          'Primary provider failed',
         );
       }
     }
@@ -45,26 +49,87 @@ export class ProvidersService {
   }
 
   async sendSmsWithFailover(to: string, message: string): Promise<boolean> {
+    const startTime = Date.now();
+
     for (let i = 0; i < this.smsProviders.length; i++) {
       const provider = this.smsProviders[i];
       const success = await provider.send(to, message);
-      
+      const latency = Date.now() - startTime;
+
       if (success) {
+        await this.logProviderHealth('SMS', provider.constructor.name, 'UP', latency);
         return true;
       }
 
-      // Failover logic
+      await this.logProviderHealth('SMS', provider.constructor.name, 'DOWN', latency, 'Send failed');
+
       const nextProvider = this.smsProviders[i + 1];
       if (nextProvider) {
         await this.logFailover(
           provider.constructor.name,
           nextProvider.constructor.name,
           'SMS',
-          'Primary provider failed'
+          'Primary provider failed',
         );
       }
     }
     return false;
+  }
+
+  async getProviderHealth(): Promise<{ email: boolean; sms: boolean }> {
+    const [emailHealth, smsHealth] = await Promise.all([
+      this.checkEmailHealth(),
+      this.checkSmsHealth(),
+    ]);
+    return { email: emailHealth, sms: smsHealth };
+  }
+
+  async getSmsBalance(): Promise<{ provider: string; balance: number }> {
+    for (const provider of this.smsProviders) {
+      try {
+        const balance = await provider.getBalance();
+        return { provider: provider.constructor.name, balance };
+      } catch {
+        continue;
+      }
+    }
+    return { provider: 'unknown', balance: 0 };
+  }
+
+  private async checkEmailHealth(): Promise<boolean> {
+    for (const provider of this.emailProviders) {
+      if (await provider.healthCheck()) return true;
+    }
+    return false;
+  }
+
+  private async checkSmsHealth(): Promise<boolean> {
+    for (const provider of this.smsProviders) {
+      if (await provider.healthCheck()) return true;
+    }
+    return false;
+  }
+
+  private async logProviderHealth(
+    providerType: string,
+    providerName: string,
+    status: string,
+    latency: number,
+    error?: string,
+  ) {
+    try {
+      await this.prisma.providerHealthLog.create({
+        data: {
+          providerType,
+          providerName,
+          status,
+          latency,
+          error: error || null,
+        },
+      });
+    } catch (err) {
+      this.logger.warn(`Failed to log provider health: ${err.message}`);
+    }
   }
 
   private async logFailover(failed: string, target: string, type: string, reason: string) {
@@ -75,7 +140,7 @@ export class ProvidersService {
           failedProvider: failed,
           targetProvider: target,
           providerType: type,
-          reason: reason,
+          reason,
         },
       });
     } catch (error) {

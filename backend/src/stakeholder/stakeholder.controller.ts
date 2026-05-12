@@ -3,6 +3,8 @@ import { StakeholderService } from './stakeholder.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
+import { BranchGuard, TenantContext } from '../auth/branch.guard';
+import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { UserRole } from '../generated/client/client';
 import {
     SendMessageDto,
@@ -13,7 +15,7 @@ import {
 } from './dto/stakeholder.dto';
 
 @Controller('stakeholder')
-@UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
 export class StakeholderController {
     constructor(private readonly stakeholderService: StakeholderService) { }
 
@@ -21,38 +23,38 @@ export class StakeholderController {
 
     @Get('parent/children')
     @Roles(UserRole.PARENT)
-    getChildren(@Request() req) {
-        return this.stakeholderService.getChildren(req.user.id);
+    getChildren(@GetTenantContext() ctx: TenantContext) {
+        return this.stakeholderService.getChildren(ctx.userId);
     }
 
     @Get('parent/child/:id/attendance')
     @Roles(UserRole.PARENT)
-    getChildAttendance(@Param('id') studentId: string, @Request() req) {
-        return this.stakeholderService.getChildAttendance(studentId, req.user.id);
+    getChildAttendance(@Param('id') studentId: string, @GetTenantContext() ctx: TenantContext) {
+        return this.stakeholderService.getChildAttendance(studentId, ctx.userId);
     }
 
     @Get('parent/child/:id/financials')
     @Roles(UserRole.PARENT)
-    getChildFinancials(@Param('id') studentId: string, @Request() req) {
-        return this.stakeholderService.getChildFinancials(studentId, req.user.id);
+    getChildFinancials(@Param('id') studentId: string, @GetTenantContext() ctx: TenantContext) {
+        return this.stakeholderService.getChildFinancials(studentId, ctx.userId);
     }
 
     @Get('parent/child/:id/homework')
     @Roles(UserRole.PARENT)
-    getChildHomework(@Param('id') studentId: string, @Request() req) {
-        return this.stakeholderService.getChildHomework(studentId, req.user.id);
+    getChildHomework(@Param('id') studentId: string, @GetTenantContext() ctx: TenantContext) {
+        return this.stakeholderService.getChildHomework(studentId, ctx.userId);
     }
 
     @Get('parent/child/:id/exams')
     @Roles(UserRole.PARENT)
-    getChildExams(@Param('id') studentId: string, @Request() req) {
-        return this.stakeholderService.getChildExams(studentId, req.user.id);
+    getChildExams(@Param('id') studentId: string, @GetTenantContext() ctx: TenantContext) {
+        return this.stakeholderService.getChildExams(studentId, ctx.userId);
     }
 
     @Get('parent/events')
     @Roles(UserRole.PARENT)
-    getParentEvents(@Request() req) {
-        return this.stakeholderService.getParentEvents(req.user.id);
+    getParentEvents(@GetTenantContext() ctx: TenantContext) {
+        return this.stakeholderService.getParentEvents(ctx.userId);
     }
 
     // --- ADMIN PARENT MANAGEMENT ---
@@ -84,26 +86,26 @@ export class StakeholderController {
     // --- MESSAGING ---
 
     @Post('messaging/conversation')
-    createConversation(@Body() dto: CreateConversationDto, @Request() req) {
-        return this.stakeholderService.createConversation(req.user.id, req.user.branchId, dto);
+    createConversation(@Body() dto: CreateConversationDto, @GetTenantContext() ctx: TenantContext) {
+        return this.stakeholderService.createConversation(ctx.userId, ctx.branchId, dto);
     }
 
     @Post('messaging/send')
-    sendMessage(@Body() dto: SendMessageDto, @Request() req) {
-        return this.stakeholderService.sendMessage(req.user.id, dto);
+    sendMessage(@Body() dto: SendMessageDto, @GetTenantContext() ctx: TenantContext) {
+        return this.stakeholderService.sendMessage(ctx.userId, dto);
     }
 
     @Get('messaging/conversations')
-    getConversations(@Request() req) {
-        return this.stakeholderService.getConversations(req.user.id);
+    getConversations(@GetTenantContext() ctx: TenantContext) {
+        return this.stakeholderService.getConversations(ctx.userId);
     }
 
     // --- ALUMNI ---
 
     @Post('alumni')
     @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
-    createAlumni(@Body() dto: CreateAlumniDto, @Request() req) {
-        return this.stakeholderService.createAlumni(req.user.branchId, dto);
+    createAlumni(@Body() dto: CreateAlumniDto, @GetTenantContext() ctx: TenantContext) {
+        return this.stakeholderService.createAlumni(ctx.branchId, dto);
     }
 
     @Get('alumni')
@@ -113,8 +115,8 @@ export class StakeholderController {
 
     @Post('alumni/event')
     @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
-    createEvent(@Body() dto: CreateAlumniEventDto, @Request() req) {
-        return this.stakeholderService.createAlumniEvent(req.user.branchId, dto);
+    createEvent(@Body() dto: CreateAlumniEventDto, @GetTenantContext() ctx: TenantContext) {
+        return this.stakeholderService.createAlumniEvent(ctx.branchId, dto);
     }
 
     @Get('alumni/events')
@@ -123,9 +125,9 @@ export class StakeholderController {
     }
 
     @Post('alumni/event/:id/rsvp')
-    rsvpEvent(@Param('id') eventId: string, @Body() dto: UpdateAlumniEventParticipationDto, @Request() req) {
+    rsvpEvent(@Param('id') eventId: string, @Body() dto: UpdateAlumniEventParticipationDto, @GetTenantContext() ctx: TenantContext) {
         // In a real scenario, we'd find the alumni record linked to this user
         // For now, assuming user.id relates to an alumni entry
-        return this.stakeholderService.rsvpEvent(req.user.id, eventId, dto.status);
+        return this.stakeholderService.rsvpEvent(ctx.userId, eventId, dto.status);
     }
 }

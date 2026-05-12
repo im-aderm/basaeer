@@ -14,6 +14,7 @@ import { Response } from 'express';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { BranchGuard } from '../auth/branch.guard';
+import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { Roles } from '../auth/roles.decorator';
 import { UserRole, Term, ExamTerm } from '../generated/client/client';
 import { Public } from '../auth/public.decorator';
@@ -34,134 +35,134 @@ export class ExamsController {
 
     @Get()
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
-    listExams(@Query() query: any, @Request() req: any) {
-        return this.examManagementService.listExams(query, req.tenantContext);
+    listExams(@Query() query: any, @GetTenantContext() tenantContext: TenantContext) {
+        return this.examManagementService.listExams(query, tenantContext);
     }
 
     @Post()
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
-    createExam(@Body() dto: any, @Request() req: any) {
-        return this.examManagementService.createExam(dto, req.tenantContext);
+    createExam(@Body() dto: any, @GetTenantContext() tenantContext: TenantContext) {
+        return this.examManagementService.createExam(dto, tenantContext);
     }
 
     @Get('management/:id')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
-    getExam(@Param('id') id: string, @Request() req: any) {
-        return this.examManagementService.getExam(id, req.tenantContext);
+    getExam(@Param('id') id: string, @GetTenantContext() tenantContext: TenantContext) {
+        return this.examManagementService.getExam(id, tenantContext);
     }
 
     @Put('management/:id')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
-    updateExam(@Param('id') id: string, @Body() dto: any, @Request() req: any) {
-        return this.examManagementService.updateExam(id, dto, req.tenantContext);
+    updateExam(@Param('id') id: string, @Body() dto: any, @GetTenantContext() tenantContext: TenantContext) {
+        return this.examManagementService.updateExam(id, dto, tenantContext);
     }
 
     @Patch('management/:id/status')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
-    transitionExam(@Param('id') id: string, @Body('status') status: string, @Request() req: any) {
-        return this.examManagementService.transitionExam(id, status, req.tenantContext);
+    transitionExam(@Param('id') id: string, @Body('status') status: string, @GetTenantContext() tenantContext: TenantContext) {
+        return this.examManagementService.transitionExam(id, status, tenantContext);
     }
 
     @Post('management/:id/clone')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
-    cloneExam(@Param('id') id: string, @Body() dto: any, @Request() req: any) {
-        return this.examManagementService.cloneExam(id, dto, req.tenantContext);
+    cloneExam(@Param('id') id: string, @Body() dto: any, @GetTenantContext() tenantContext: TenantContext) {
+        return this.examManagementService.cloneExam(id, dto, tenantContext);
     }
 
     @Get('types-v2')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
     listExamTypes(@Request() req: any) {
-        return this.examManagementService.listExamTypes(req.tenantContext);
+        return this.examManagementService.listExamTypes(tenantContext);
     }
 
     @Post('types-v2')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
-    upsertExamType(@Body() dto: any, @Request() req: any) {
-        return this.examManagementService.upsertExamType(dto, req.tenantContext);
+    upsertExamType(@Body() dto: any, @GetTenantContext() tenantContext: TenantContext) {
+        return this.examManagementService.upsertExamType(dto, tenantContext);
     }
 
     @Get('components')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
-    listComponents(@Query() query: any, @Request() req: any) {
-        return this.examManagementService.listAssessmentComponents(query, req.tenantContext);
+    listComponents(@Query() query: any, @GetTenantContext() tenantContext: TenantContext) {
+        return this.examManagementService.listAssessmentComponents(query, tenantContext);
     }
 
     @Post('components')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
-    createComponent(@Body() dto: any, @Request() req: any) {
-        return this.examManagementService.createAssessmentComponent(dto, req.tenantContext);
+    createComponent(@Body() dto: any, @GetTenantContext() tenantContext: TenantContext) {
+        return this.examManagementService.createAssessmentComponent(dto, tenantContext);
     }
 
     @Get('components/validate')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
-    validateComponents(@Query() query: any, @Request() req: any) {
-        return this.examManagementService.validateComponentWeights(query, req.tenantContext);
+    validateComponents(@Query() query: any, @GetTenantContext() tenantContext: TenantContext) {
+        return this.examManagementService.validateComponentWeights(query, tenantContext);
     }
 
     @Post('compute/section/:sectionId')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
-    computeSection(@Param('sectionId') sectionId: string, @Body('sessionId') sessionId: string, @Body('term') term: Term, @Request() req: any) {
-        return this.resultComputationService.computeSection(sectionId, sessionId, term, req.tenantContext);
+    computeSection(@Param('sectionId') sectionId: string, @Body('sessionId') sessionId: string, @Body('term') term: Term, @GetTenantContext() tenantContext: TenantContext) {
+        return this.resultComputationService.computeSection(sectionId, sessionId, term, tenantContext);
     }
 
     @Get('analytics')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
-    analytics(@Query('sessionId') sessionId: string, @Query('term') term: Term, @Request() req: any) {
-        return this.resultComputationService.analytics(sessionId, term, req.tenantContext);
+    analytics(@Query('sessionId') sessionId: string, @Query('term') term: Term, @GetTenantContext() tenantContext: TenantContext) {
+        return this.resultComputationService.analytics(sessionId, term, tenantContext);
     }
 
     @Get('approvals')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
-    listApprovals(@Query() query: any, @Request() req: any) {
-        return this.resultApprovalService.list(query, req.tenantContext);
+    listApprovals(@Query() query: any, @GetTenantContext() tenantContext: TenantContext) {
+        return this.resultApprovalService.list(query, tenantContext);
     }
 
     @Post('approvals')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER, UserRole.HOD, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
-    submitApproval(@Body() dto: any, @Request() req: any) {
-        return this.resultApprovalService.submit(dto, req.tenantContext);
+    submitApproval(@Body() dto: any, @GetTenantContext() tenantContext: TenantContext) {
+        return this.resultApprovalService.submit(dto, tenantContext);
     }
 
     @Patch('approvals/:id/review')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
-    reviewApproval(@Param('id') id: string, @Body() dto: any, @Request() req: any) {
-        return this.resultApprovalService.review(id, dto, req.tenantContext);
+    reviewApproval(@Param('id') id: string, @Body() dto: any, @GetTenantContext() tenantContext: TenantContext) {
+        return this.resultApprovalService.review(id, dto, tenantContext);
     }
 
     @Post('publication')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER)
-    publishApprovedResults(@Body() dto: any, @Request() req: any) {
-        return this.resultApprovalService.publish(dto, req.tenantContext);
+    publishApprovedResults(@Body() dto: any, @GetTenantContext() tenantContext: TenantContext) {
+        return this.resultApprovalService.publish(dto, tenantContext);
     }
 
     @Patch('publication/:id/revoke')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER)
-    revokePublication(@Param('id') id: string, @Request() req: any) {
-        return this.resultApprovalService.revokePublication(id, req.tenantContext);
+    revokePublication(@Param('id') id: string, @GetTenantContext() tenantContext: TenantContext) {
+        return this.resultApprovalService.revokePublication(id, tenantContext);
     }
 
     @Get('transcripts')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
-    listTranscripts(@Query() query: any, @Request() req: any) {
-        return this.transcriptService.list(query, req.tenantContext);
+    listTranscripts(@Query() query: any, @GetTenantContext() tenantContext: TenantContext) {
+        return this.transcriptService.list(query, tenantContext);
     }
 
     @Post('transcripts/:studentId')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
-    generateTranscript(@Param('studentId') studentId: string, @Request() req: any) {
-        return this.transcriptService.generate(studentId, req.tenantContext);
+    generateTranscript(@Param('studentId') studentId: string, @GetTenantContext() tenantContext: TenantContext) {
+        return this.transcriptService.generate(studentId, tenantContext);
     }
 
     @Patch('transcripts/:id/approve')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER)
-    approveTranscript(@Param('id') id: string, @Request() req: any) {
-        return this.transcriptService.approve(id, req.tenantContext);
+    approveTranscript(@Param('id') id: string, @GetTenantContext() tenantContext: TenantContext) {
+        return this.transcriptService.approve(id, tenantContext);
     }
 
     @Get('transcripts/:id/pdf')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.STUDENT, UserRole.PARENT)
-    async transcriptPdf(@Param('id') id: string, @Request() req: any, @Res() res: Response) {
-        const pdf = await this.transcriptService.pdf(id, req.tenantContext);
+    async transcriptPdf(@Param('id') id: string, @GetTenantContext() tenantContext: TenantContext, @Res() res: Response) {
+        const pdf = await this.transcriptService.pdf(id, tenantContext);
         res.set({ 'Content-Type': 'application/pdf', 'Content-Disposition': `attachment; filename=Transcript_${id}.pdf`, 'Content-Length': pdf.length });
         res.end(pdf);
     }
@@ -174,32 +175,32 @@ export class ExamsController {
 
     @Post('tahfeez/assessments')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
-    assessTahfeez(@Body() dto: any, @Request() req: any) {
-        return this.tahfeezService.assess(dto, req.tenantContext);
+    assessTahfeez(@Body() dto: any, @GetTenantContext() tenantContext: TenantContext) {
+        return this.tahfeezService.assess(dto, tenantContext);
     }
 
     @Post('tahfeez/progress')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER)
-    updateTahfeezProgress(@Body() dto: any, @Request() req: any) {
-        return this.tahfeezService.updateProgress(dto, req.tenantContext);
+    updateTahfeezProgress(@Body() dto: any, @GetTenantContext() tenantContext: TenantContext) {
+        return this.tahfeezService.updateProgress(dto, tenantContext);
     }
 
     @Get('tahfeez/reports/:studentId')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER, UserRole.STUDENT, UserRole.PARENT)
-    tahfeezReport(@Param('studentId') studentId: string, @Request() req: any) {
-        return this.tahfeezService.report(studentId, req.tenantContext);
+    tahfeezReport(@Param('studentId') studentId: string, @GetTenantContext() tenantContext: TenantContext) {
+        return this.tahfeezService.report(studentId, tenantContext);
     }
 
     @Get('portal/results/:studentId/:sessionId/:term')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER, UserRole.STUDENT, UserRole.PARENT)
-    portalResult(@Param('studentId') studentId: string, @Param('sessionId') sessionId: string, @Param('term') term: Term, @Request() req: any) {
-        return this.academicPortalService.result(studentId, sessionId, term, req.tenantContext);
+    portalResult(@Param('studentId') studentId: string, @Param('sessionId') sessionId: string, @Param('term') term: Term, @GetTenantContext() tenantContext: TenantContext) {
+        return this.academicPortalService.result(studentId, sessionId, term, tenantContext);
     }
 
     @Get('portal/performance/:studentId')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER, UserRole.HOD, UserRole.PRINCIPAL, UserRole.EXAM_OFFICER, UserRole.ACADEMIC_OFFICER, UserRole.STUDENT, UserRole.PARENT)
-    portalPerformance(@Param('studentId') studentId: string, @Request() req: any) {
-        return this.academicPortalService.performance(studentId, req.tenantContext);
+    portalPerformance(@Param('studentId') studentId: string, @GetTenantContext() tenantContext: TenantContext) {
+        return this.academicPortalService.performance(studentId, tenantContext);
     }
 
     @Get('sessions')
@@ -210,25 +211,25 @@ export class ExamsController {
 
     @Post('sessions')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-    createSession(@Request() req, @Body() dto: CreateAcademicSessionDto) {
-        if (!dto.branchId && req.user.branchId) {
-            dto.branchId = req.user.branchId;
+    createSession(@GetTenantContext() tenantContext: TenantContext, @Body() dto: CreateAcademicSessionDto) {
+        if (!dto.branchId && tenantContext.branchId) {
+            dto.branchId = tenantContext.branchId;
         }
         return this.examsService.createSession(dto);
     }
 
     @Post('submit-scores')
     @Roles(UserRole.SUPER_ADMIN, UserRole.TEACHER, UserRole.BRANCH_ADMIN)
-    submitScores(@Body() dto: BulkSubmitScoresDto, @Request() req: any) {
-        const branchId = req.user.role === UserRole.SUPER_ADMIN ? (req.body.branchId || req.query.branchId || req.user.branchId) : req.user.branchId;
+    submitScores(@Body() dto: BulkSubmitScoresDto, @GetTenantContext() tenantContext: TenantContext) {
+        const branchId = tenantContext.role === UserRole.SUPER_ADMIN ? (req.body.branchId || req.query.branchId || tenantContext.branchId) : tenantContext.branchId;
         return this.examsService.submitBulkScores(dto, branchId);
     }
 
     @Post('behavioural')
     @Roles(UserRole.SUPER_ADMIN, UserRole.TEACHER, UserRole.BRANCH_ADMIN)
-    recordBehavioural(@Request() req, @Body() dto: RecordBehaviouralDto) {
-        if (!dto.branchId && req.user.branchId) {
-            dto.branchId = req.user.branchId;
+    recordBehavioural(@GetTenantContext() tenantContext: TenantContext, @Body() dto: RecordBehaviouralDto) {
+        if (!dto.branchId && tenantContext.branchId) {
+            dto.branchId = tenantContext.branchId;
         }
         return this.examsService.recordBehavioural(dto);
     }
@@ -272,8 +273,7 @@ export class ExamsController {
     async getReport(
         @Param('studentId') studentId: string,
         @Param('sessionId') sessionId: string,
-        @Param('term') term: Term,
-        @Request() req: any,
+        @Param('term') term: Term, @GetTenantContext() tenantContext: TenantContext,
         @Res() res: Response // Using @Res() instead of return to handle stream
     ) {
         const data = await this.examsService.getFullReportData(studentId, sessionId, term);
@@ -370,14 +370,14 @@ export class ExamsController {
     @Get('grading-scales')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
     getGradingScales(@Request() req: any) {
-        const branchId = req.user.role === UserRole.SUPER_ADMIN ? req.query.branchId : req.user.branchId;
+        const branchId = tenantContext.role === UserRole.SUPER_ADMIN ? req.query.branchId : tenantContext.branchId;
         return this.examsService.getGradingScales(branchId);
     }
 
     @Post('grading-scales')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-    createGradingScale(@Body() dto: any, @Request() req: any) {
-        const branchId = req.user.role === UserRole.SUPER_ADMIN ? (req.body.branchId || req.query.branchId) : req.user.branchId;
+    createGradingScale(@Body() dto: any, @GetTenantContext() tenantContext: TenantContext) {
+        const branchId = tenantContext.role === UserRole.SUPER_ADMIN ? (req.body.branchId || req.query.branchId) : tenantContext.branchId;
         return this.examsService.createGradingScale(dto, branchId);
     }
 }

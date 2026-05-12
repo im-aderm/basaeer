@@ -5,10 +5,14 @@ import { CreateRouteDto } from './dto/create-route.dto';
 import { UpdateVehicleDto } from './dto/update-vehicle.dto';
 import { UpdateRouteDto } from './dto/update-route.dto';
 import { AssignTransportDto } from './dto/assign-transport.dto';
+import { RealtimeService } from '../realtime/realtime.service';
 
 @Injectable()
 export class TransportService {
-    constructor(private prisma: PrismaService) { }
+    constructor(
+        private prisma: PrismaService,
+        private realtime: RealtimeService,
+    ) { }
 
     async createVehicle(dto: CreateVehicleDto, branchId: string) {
         return this.prisma.vehicle.create({
@@ -124,6 +128,16 @@ export class TransportService {
                     routeId,
                 },
             });
+        }).then(async (assignment) => {
+            const student = await this.prisma.student.findUnique({ where: { id: studentId }, select: { firstName: true, lastName: true } });
+            const name = student ? `${student.firstName} ${student.lastName}` : studentId;
+            this.realtime.sendToBranch(branchId, 'transport.student_assigned', {
+                studentId,
+                studentName: name,
+                vehicleId,
+                routeId,
+            });
+            return assignment;
         });
     }
 
@@ -139,6 +153,12 @@ export class TransportService {
 
         return this.prisma.transportAssignment.delete({
             where: { studentId },
+        }).then(async (result) => {
+            this.realtime.sendToBranch(branchId, 'transport.student_removed', {
+                studentId,
+                vehicleId: student.transportAssignment?.vehicleId || '',
+            });
+            return result;
         });
     }
 

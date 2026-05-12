@@ -84,8 +84,8 @@ export default function BulkMarkEntryPage() {
     return (
         <div className="p-6 space-y-6">
             <div>
-                <h1 className="text-h1 font-bold text-gray-900 dark:text-white">Bulk Mark Entry</h1>
-                <p className="text-gray-600 dark:text-gray-400 mt-1">High-performance spreadsheet interface for entering student marks</p>
+                <h1 className="text-h1 font-bold text-gray-900">Bulk Mark Entry</h1>
+                <p className="text-gray-600 mt-1">High-performance spreadsheet interface for entering student marks</p>
             </div>
 
             <Card className="max-w-2xl mx-auto">

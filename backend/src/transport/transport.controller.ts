@@ -8,88 +8,90 @@ import { AssignTransportDto } from './dto/assign-transport.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
+import { BranchGuard, TenantContext } from '../auth/branch.guard';
+import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { UserRole } from '../generated/client/client';
 
-@UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
 @Controller('transport')
 export class TransportController {
     constructor(private readonly transportService: TransportService) { }
 
     @Post('vehicles')
     @Roles(UserRole.SUPER_ADMIN, UserRole.TRANSPORT_OFFICER, UserRole.BRANCH_ADMIN)
-    createVehicle(@Request() req, @Body() dto: CreateVehicleDto) {
-        return this.transportService.createVehicle(dto, req.user.branchId);
+    createVehicle(@GetTenantContext() ctx: TenantContext, @Body() dto: CreateVehicleDto) {
+        return this.transportService.createVehicle(dto, (ctx.branchId || ""));
     }
 
     @Get('vehicles')
     @Roles(UserRole.SUPER_ADMIN, UserRole.TRANSPORT_OFFICER, UserRole.BRANCH_ADMIN)
-    findAllVehicles(@Request() req) {
-        return this.transportService.findAllVehicles(req.user.branchId);
+    findAllVehicles(@GetTenantContext() ctx: TenantContext) {
+        return this.transportService.findAllVehicles((ctx.branchId || ""));
     }
 
     @Get('vehicles/:id')
     @Roles(UserRole.SUPER_ADMIN, UserRole.TRANSPORT_OFFICER, UserRole.BRANCH_ADMIN)
-    findOneVehicle(@Request() req, @Param('id') id: string) {
-        return this.transportService.findVehicle(id, req.user.branchId);
+    findOneVehicle(@GetTenantContext() ctx: TenantContext, @Param('id') id: string) {
+        return this.transportService.findVehicle(id, (ctx.branchId || ""));
     }
 
     @Patch('vehicles/:id')
     @Roles(UserRole.SUPER_ADMIN, UserRole.TRANSPORT_OFFICER, UserRole.BRANCH_ADMIN)
-    updateVehicle(@Request() req, @Param('id') id: string, @Body() dto: UpdateVehicleDto) {
-        return this.transportService.updateVehicle(id, dto, req.user.branchId);
+    updateVehicle(@GetTenantContext() ctx: TenantContext, @Param('id') id: string, @Body() dto: UpdateVehicleDto) {
+        return this.transportService.updateVehicle(id, dto, (ctx.branchId || ""));
     }
 
     @Delete('vehicles/:id')
     @Roles(UserRole.SUPER_ADMIN, UserRole.TRANSPORT_OFFICER, UserRole.BRANCH_ADMIN)
-    deleteVehicle(@Request() req, @Param('id') id: string) {
-        return this.transportService.deleteVehicle(id, req.user.branchId);
+    deleteVehicle(@GetTenantContext() ctx: TenantContext, @Param('id') id: string) {
+        return this.transportService.deleteVehicle(id, (ctx.branchId || ""));
     }
 
     @Post('routes')
     @Roles(UserRole.SUPER_ADMIN, UserRole.TRANSPORT_OFFICER, UserRole.BRANCH_ADMIN)
-    createRoute(@Request() req, @Body() dto: CreateRouteDto) {
-        return this.transportService.createRoute(dto, req.user.branchId);
+    createRoute(@GetTenantContext() ctx: TenantContext, @Body() dto: CreateRouteDto) {
+        return this.transportService.createRoute(dto, (ctx.branchId || ""));
     }
 
     @Get('routes')
     @Roles(UserRole.SUPER_ADMIN, UserRole.TRANSPORT_OFFICER, UserRole.BRANCH_ADMIN)
-    findAllRoutes(@Request() req) {
-        return this.transportService.findAllRoutes(req.user.branchId);
+    findAllRoutes(@GetTenantContext() ctx: TenantContext) {
+        return this.transportService.findAllRoutes((ctx.branchId || ""));
     }
 
     @Get('routes/:id')
     @Roles(UserRole.SUPER_ADMIN, UserRole.TRANSPORT_OFFICER, UserRole.BRANCH_ADMIN)
-    findOneRoute(@Request() req, @Param('id') id: string) {
-        return this.transportService.findRoute(id, req.user.branchId);
+    findOneRoute(@GetTenantContext() ctx: TenantContext, @Param('id') id: string) {
+        return this.transportService.findRoute(id, (ctx.branchId || ""));
     }
 
     @Patch('routes/:id')
     @Roles(UserRole.SUPER_ADMIN, UserRole.TRANSPORT_OFFICER, UserRole.BRANCH_ADMIN)
-    updateRoute(@Request() req, @Param('id') id: string, @Body() dto: UpdateRouteDto) {
-        return this.transportService.updateRoute(id, dto, req.user.branchId);
+    updateRoute(@GetTenantContext() ctx: TenantContext, @Param('id') id: string, @Body() dto: UpdateRouteDto) {
+        return this.transportService.updateRoute(id, dto, (ctx.branchId || ""));
     }
 
     @Delete('routes/:id')
     @Roles(UserRole.SUPER_ADMIN, UserRole.TRANSPORT_OFFICER, UserRole.BRANCH_ADMIN)
-    deleteRoute(@Request() req, @Param('id') id: string) {
-        return this.transportService.deleteRoute(id, req.user.branchId);
+    deleteRoute(@GetTenantContext() ctx: TenantContext, @Param('id') id: string) {
+        return this.transportService.deleteRoute(id, (ctx.branchId || ""));
     }
 
     @Post('assign')
     @Roles(UserRole.SUPER_ADMIN, UserRole.TRANSPORT_OFFICER, UserRole.BRANCH_ADMIN)
-    assignStudent(@Request() req, @Body() dto: AssignTransportDto) {
-        return this.transportService.assignStudent(dto, req.user.branchId);
+    assignStudent(@GetTenantContext() ctx: TenantContext, @Body() dto: AssignTransportDto) {
+        return this.transportService.assignStudent(dto, (ctx.branchId || ""));
     }
 
     @Delete('assign/:studentId')
     @Roles(UserRole.SUPER_ADMIN, UserRole.TRANSPORT_OFFICER, UserRole.BRANCH_ADMIN)
-    removeAssignment(@Request() req, @Param('studentId') studentId: string) {
-        return this.transportService.removeAssignment(studentId, req.user.branchId);
+    removeAssignment(@GetTenantContext() ctx: TenantContext, @Param('studentId') studentId: string) {
+        return this.transportService.removeAssignment(studentId, (ctx.branchId || ""));
     }
 
     @Get('stats/assignments')
     @Roles(UserRole.SUPER_ADMIN, UserRole.TRANSPORT_OFFICER, UserRole.BRANCH_ADMIN)
-    getAssignmentsCount(@Request() req) {
-        return this.transportService.getAssignmentsCount(req.user.branchId);
+    getAssignmentsCount(@GetTenantContext() ctx: TenantContext) {
+        return this.transportService.getAssignmentsCount((ctx.branchId || ""));
     }
 }

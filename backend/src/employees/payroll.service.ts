@@ -1,10 +1,14 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateSalaryTemplateDto, GeneratePayrollDto } from './dto/hr-ops.dto';
+import { RealtimeService } from '../realtime/realtime.service';
 
 @Injectable()
 export class PayrollService {
-    constructor(private prisma: PrismaService) { }
+    constructor(
+        private prisma: PrismaService,
+        private realtime: RealtimeService,
+    ) { }
 
     async createOrUpdateSalaryTemplate(dto: CreateSalaryTemplateDto) {
         const staff = await this.prisma.staff.findUnique({ where: { id: dto.staffId } });
@@ -67,6 +71,14 @@ export class PayrollService {
                 payrollEntries.push(payroll);
             }
         }
+
+        const totalAmount = payrollEntries.reduce((sum, e) => sum + (e.amountPaid || 0), 0);
+        this.realtime.sendToBranch(dto.branchId, 'hr.payroll_generated', {
+            month: dto.month,
+            year: dto.year,
+            staffCount: payrollEntries.length,
+            totalAmount,
+        });
 
         return {
             message: `Generated ${payrollEntries.length} new payroll entries`,

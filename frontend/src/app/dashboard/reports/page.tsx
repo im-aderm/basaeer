@@ -78,7 +78,7 @@ export default function ReportsPage() {
     if (!dashboardData) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <p className="text-gray-500 dark:text-gray-400">Failed to load dashboard data</p>
+ <p className="text-gray-500 ">Failed to load dashboard data</p>
             </div>
         );
     }
@@ -88,10 +88,10 @@ export default function ReportsPage() {
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-h1 font-bold text-gray-900 dark:text-white">
+ <h1 className="text-h1 font-bold text-gray-900 ">
                         Enterprise Reports
                     </h1>
-                    <p className="text-gray-600 dark:text-gray-400 mt-1">
+ <p className="text-gray-600 mt-1">
                         Comprehensive insights across all departments
                     </p>
                 </div>
@@ -138,19 +138,19 @@ export default function ReportsPage() {
                 >
                     <div className="space-y-4">
                         <div className="flex items-center justify-between">
-                            <span className="text-gray-600 dark:text-gray-400">Total Students</span>
-                            <span className="text-2xl font-bold text-gray-900 dark:text-white">
+ <span className="text-gray-600 ">Total Students</span>
+ <span className="text-2xl font-bold text-gray-900 ">
                                 {dashboardData.academic.totalStudents}
                             </span>
                         </div>
                         <div className="space-y-2">
-                            <h4 className="font-semibold text-gray-900 dark:text-white">Recent Exams</h4>
+ <h4 className="font-semibold text-gray-900 ">Recent Exams</h4>
                             {dashboardData.academic.recentExamStats.slice(0, 3).map((exam, idx) => (
                                 <div key={idx} className="flex items-center justify-between text-sm">
-                                    <span className="text-gray-600 dark:text-gray-400 truncate flex-1">
+ <span className="text-gray-600 truncate flex-1">
                                         {exam.title}
                                     </span>
-                                    <span className="font-medium text-gray-900 dark:text-white ml-2">
+ <span className="font-medium text-gray-900 ml-2">
                                         {exam.avgScore.toFixed(1)}%
                                     </span>
                                 </div>
@@ -171,23 +171,23 @@ export default function ReportsPage() {
                     <div className="space-y-4">
                         <div className="grid grid-cols-2 gap-4">
                             <div>
-                                <p className="text-sm text-gray-600 dark:text-gray-400">Invoiced</p>
-                                <p className="text-xl font-bold text-gray-900 dark:text-white">
+ <p className="text-sm text-gray-600 ">Invoiced</p>
+ <p className="text-xl font-bold text-gray-900 ">
                                     ${dashboardData.finance.totalInvoiced.toLocaleString()}
                                 </p>
                             </div>
                             <div>
-                                <p className="text-sm text-gray-600 dark:text-gray-400">Collected</p>
-                                <p className="text-xl font-bold text-green-600 dark:text-green-400">
+ <p className="text-sm text-gray-600 ">Collected</p>
+ <p className="text-xl font-bold text-green-600 ">
                                     ${dashboardData.finance.totalPaid.toLocaleString()}
                                 </p>
                             </div>
                         </div>
-                        <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
-                            <p className="text-sm text-gray-600 dark:text-gray-400">Net Profit</p>
+ <div className="pt-4 border-t border-gray-200 ">
+ <p className="text-sm text-gray-600 ">Net Profit</p>
                             <p className={`text-2xl font-bold ${dashboardData.finance.netProfit >= 0
-                                ? 'text-green-600 dark:text-green-400'
-                                : 'text-red-600 dark:text-red-400'
+ ? 'text-green-600 '
+ : 'text-red-600 '
                                 }`}>
                                 ${dashboardData.finance.netProfit.toLocaleString()}
                             </p>
@@ -206,17 +206,17 @@ export default function ReportsPage() {
                 >
                     <div className="space-y-4">
                         <div className="flex items-center justify-between">
-                            <span className="text-gray-600 dark:text-gray-400">Total Staff</span>
-                            <span className="text-2xl font-bold text-gray-900 dark:text-white">
+ <span className="text-gray-600 ">Total Staff</span>
+ <span className="text-2xl font-bold text-gray-900 ">
                                 {dashboardData.hr.totalStaff}
                             </span>
                         </div>
                         <div className="space-y-2">
-                            <h4 className="font-semibold text-gray-900 dark:text-white">By Role</h4>
+ <h4 className="font-semibold text-gray-900 ">By Role</h4>
                             {dashboardData.hr.roleDistribution.map((role, idx) => (
                                 <div key={idx} className="flex items-center justify-between text-sm">
-                                    <span className="text-gray-600 dark:text-gray-400">{role.role}</span>
-                                    <span className="font-medium text-gray-900 dark:text-white">
+ <span className="text-gray-600 ">{role.role}</span>
+ <span className="font-medium text-gray-900 ">
                                         {role.count}
                                     </span>
                                 </div>
@@ -237,26 +237,26 @@ export default function ReportsPage() {
                     <div className="space-y-4">
                         <div className="grid grid-cols-2 gap-4">
                             <div>
-                                <p className="text-sm text-gray-600 dark:text-gray-400">Products</p>
-                                <p className="text-xl font-bold text-gray-900 dark:text-white">
+ <p className="text-sm text-gray-600 ">Products</p>
+ <p className="text-xl font-bold text-gray-900 ">
                                     {dashboardData.inventory.totalProducts}
                                 </p>
                             </div>
                             <div>
-                                <p className="text-sm text-gray-600 dark:text-gray-400">Total Units</p>
-                                <p className="text-xl font-bold text-gray-900 dark:text-white">
+ <p className="text-sm text-gray-600 ">Total Units</p>
+ <p className="text-xl font-bold text-gray-900 ">
                                     {dashboardData.inventory.totalUnits}
                                 </p>
                             </div>
                         </div>
                         {dashboardData.inventory.lowStockItems > 0 && (
-                            <div className="flex items-center gap-2 p-3 bg-red-50 dark:bg-red-900/20 rounded-lg">
-                                <AlertTriangle className="w-5 h-5 text-red-600 dark:text-red-400" />
+ <div className="flex items-center gap-2 p-3 bg-red-50 rounded-lg">
+ <AlertTriangle className="w-5 h-5 text-red-600 " />
                                 <div>
-                                    <p className="text-sm font-medium text-red-900 dark:text-red-100">
+ <p className="text-sm font-medium text-red-900 ">
                                         Low Stock Alert
                                     </p>
-                                    <p className="text-xs text-red-700 dark:text-red-300">
+ <p className="text-xs text-red-700 ">
                                         {dashboardData.inventory.lowStockItems} items need restocking
                                     </p>
                                 </div>
@@ -278,22 +278,22 @@ interface StatCardProps {
 
 function StatCard({ icon, title, value, color }: StatCardProps) {
     const colorClasses = {
-        blue: 'bg-blue-500/10 text-blue-600 dark:text-blue-400',
-        green: 'bg-green-500/10 text-green-600 dark:text-green-400',
-        orange: 'bg-orange-500/10 text-orange-600 dark:text-orange-400',
-        purple: 'bg-purple-500/10 text-purple-600 dark:text-purple-400',
-        red: 'bg-red-500/10 text-red-600 dark:text-red-400',
+ blue: 'bg-blue-500/10 text-blue-600 ',
+ green: 'bg-green-500/10 text-green-600 ',
+ orange: 'bg-orange-500/10 text-orange-600 ',
+ purple: 'bg-purple-500/10 text-purple-600 ',
+ red: 'bg-red-500/10 text-red-600 ',
     };
 
     return (
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+ <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 ">
             <div className="flex items-center gap-4">
                 <div className={`p-3 rounded-lg ${colorClasses[color]}`}>
                     {icon}
                 </div>
                 <div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">{title}</p>
-                    <p className="text-2xl font-bold text-gray-900 dark:text-white">{value}</p>
+ <p className="text-sm text-gray-600 ">{title}</p>
+ <p className="text-2xl font-bold text-gray-900 ">{value}</p>
                 </div>
             </div>
         </div>
@@ -312,37 +312,37 @@ interface ReportCardProps {
 
 function ReportCard({ title, icon, color, children, onExportPDF, onExportExcel, isExporting }: ReportCardProps) {
     const colorClasses = {
-        blue: 'bg-blue-500/10 text-blue-600 dark:text-blue-400',
-        green: 'bg-green-500/10 text-green-600 dark:text-green-400',
-        orange: 'bg-orange-500/10 text-orange-600 dark:text-orange-400',
-        purple: 'bg-purple-500/10 text-purple-600 dark:text-purple-400',
+ blue: 'bg-blue-500/10 text-blue-600 ',
+ green: 'bg-green-500/10 text-green-600 ',
+ orange: 'bg-orange-500/10 text-orange-600 ',
+ purple: 'bg-purple-500/10 text-purple-600 ',
     };
 
     return (
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+ <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 ">
             <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
                     <div className={`p-2 rounded-lg ${colorClasses[color]}`}>
                         {icon}
                     </div>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{title}</h3>
+ <h3 className="text-lg font-semibold text-gray-900 ">{title}</h3>
                 </div>
                 <div className="flex gap-2">
                     <button
                         onClick={onExportPDF}
                         disabled={isExporting}
-                        className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors disabled:opacity-50"
+ className="p-2 hover:bg-gray-100 rounded-lg transition-colors disabled:opacity-50"
                         title="Export as PDF"
                     >
-                        <FileText className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+ <FileText className="w-5 h-5 text-gray-600 " />
                     </button>
                     <button
                         onClick={onExportExcel}
                         disabled={isExporting}
-                        className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors disabled:opacity-50"
+ className="p-2 hover:bg-gray-100 rounded-lg transition-colors disabled:opacity-50"
                         title="Export as Excel"
                     >
-                        <FileSpreadsheet className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+ <FileSpreadsheet className="w-5 h-5 text-gray-600 " />
                     </button>
                 </div>
             </div>

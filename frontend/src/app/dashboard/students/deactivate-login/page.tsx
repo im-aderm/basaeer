@@ -138,7 +138,7 @@ export default function StudentLoginDeactivationPage() {
             header: "Status",
             accessorKey: "user.isActive",
             cell: (row: any) => (
-                <span className="px-3 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300">
+                <span className="px-3 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700">
                     Active
                 </span>
             ),
@@ -185,7 +185,7 @@ export default function StudentLoginDeactivationPage() {
             header: "Status",
             accessorKey: "user.isActive",
             cell: (row: any) => (
-                <span className="px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300">
+                <span className="px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-700">
                     Inactive
                 </span>
             ),
@@ -216,7 +216,7 @@ export default function StudentLoginDeactivationPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-red-50/30 to-orange-50/20 dark:from-slate-950 dark:via-red-950/20 dark:to-orange-950/10 p-6">
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-red-50/30 to-orange-50/20 p-6">
             {/* Header */}
             <div className="mb-8">
                 <div className="flex items-center justify-between">
@@ -224,7 +224,7 @@ export default function StudentLoginDeactivationPage() {
                         <h1 className="text-h1 font-bold bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent">
                             Student Login Management
                         </h1>
-                        <p className="text-slate-600 dark:text-slate-400 mt-2">
+                        <p className="text-slate-600 mt-2">
                             Deactivate and reactivate student login access
                         </p>
                     </div>
@@ -243,14 +243,14 @@ export default function StudentLoginDeactivationPage() {
                                 <DialogTitle>Deactivate Student Login</DialogTitle>
                             </DialogHeader>
                             <div className="space-y-4">
-                                <div className="p-4 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800">
+                                <div className="p-4 bg-red-50 rounded-lg border border-red-200">
                                     <div className="flex items-start gap-3">
                                         <AlertTriangle className="w-5 h-5 text-red-600 mt-0.5" />
                                         <div>
-                                            <p className="font-semibold text-red-900 dark:text-red-100">
+                                            <p className="font-semibold text-red-900">
                                                 Warning
                                             </p>
-                                            <p className="text-sm text-red-700 dark:text-red-300">
+                                            <p className="text-sm text-red-700">
                                                 Deactivating login will prevent {selectedStudents.length}{" "}
                                                 student(s) from accessing the system.
                                             </p>
@@ -291,53 +291,53 @@ export default function StudentLoginDeactivationPage() {
 
             {/* Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-                <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50">
+                <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50">
                     <div className="flex items-center justify-between mb-2">
                         <Shield className="w-8 h-8 text-indigo-600" />
                     </div>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">Total Students</p>
-                    <p className="text-h1 font-bold text-slate-900 dark:text-slate-100">
+                    <p className="text-sm text-slate-600">Total Students</p>
+                    <p className="text-h1 font-bold text-slate-900">
                         {stats.total}
                     </p>
                 </div>
 
-                <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50">
+                <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50">
                     <div className="flex items-center justify-between mb-2">
                         <UserCheck className="w-8 h-8 text-emerald-600" />
                     </div>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">Active Logins</p>
-                    <p className="text-h1 font-bold text-slate-900 dark:text-slate-100">
+                    <p className="text-sm text-slate-600">Active Logins</p>
+                    <p className="text-h1 font-bold text-slate-900">
                         {stats.active}
                     </p>
                 </div>
 
-                <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50">
+                <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50">
                     <div className="flex items-center justify-between mb-2">
                         <UserX className="w-8 h-8 text-red-600" />
                     </div>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">Inactive Logins</p>
-                    <p className="text-h1 font-bold text-slate-900 dark:text-slate-100">
+                    <p className="text-sm text-slate-600">Inactive Logins</p>
+                    <p className="text-h1 font-bold text-slate-900">
                         {stats.inactive}
                     </p>
                 </div>
 
-                <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50">
+                <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50">
                     <div className="flex items-center justify-between mb-2">
                         <History className="w-8 h-8 text-orange-600" />
                     </div>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">Recent (30d)</p>
-                    <p className="text-h1 font-bold text-slate-900 dark:text-slate-100">
+                    <p className="text-sm text-slate-600">Recent (30d)</p>
+                    <p className="text-h1 font-bold text-slate-900">
                         {stats.recentDeactivations}
                     </p>
                 </div>
             </div>
 
             {/* Active Students Table */}
-            <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50 mb-8">
+            <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 mb-8">
                 <div className="flex items-center justify-between mb-4">
                     <h2 className="text-xl font-semibold">Active Student Logins</h2>
                     {selectedStudents.length > 0 && (
-                        <p className="text-sm text-slate-600 dark:text-slate-400">
+                        <p className="text-sm text-slate-600">
                             {selectedStudents.length} selected
                         </p>
                     )}
@@ -346,15 +346,15 @@ export default function StudentLoginDeactivationPage() {
             </div>
 
             {/* Inactive Students Table */}
-            <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50">
+            <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50">
                 <h2 className="text-xl font-semibold mb-4">Deactivated Student Logins</h2>
                 {inactiveStudents.length === 0 ? (
                     <div className="text-center py-12">
-                        <UserCheck className="w-16 h-16 mx-auto text-emerald-300 dark:text-emerald-700 mb-4" />
-                        <h3 className="text-lg font-semibold text-slate-600 dark:text-slate-400 mb-2">
+                        <UserCheck className="w-16 h-16 mx-auto text-emerald-300 mb-4" />
+                        <h3 className="text-lg font-semibold text-slate-600 mb-2">
                             All students have active logins
                         </h3>
-                        <p className="text-slate-500 dark:text-slate-500">
+                        <p className="text-slate-500">
                             No deactivated student accounts
                         </p>
                     </div>

@@ -91476,6 +91476,10 @@ export namespace Prisma {
     details: string | null
     reason: string | null
     userId: string | null
+    branchId: string | null
+    ipAddress: string | null
+    targetId: string | null
+    targetType: string | null
     createdAt: Date | null
   }
 
@@ -91486,6 +91490,10 @@ export namespace Prisma {
     details: string | null
     reason: string | null
     userId: string | null
+    branchId: string | null
+    ipAddress: string | null
+    targetId: string | null
+    targetType: string | null
     createdAt: Date | null
   }
 
@@ -91496,6 +91504,12 @@ export namespace Prisma {
     details: number
     reason: number
     userId: number
+    branchId: number
+    ipAddress: number
+    targetId: number
+    targetType: number
+    beforeState: number
+    afterState: number
     createdAt: number
     _all: number
   }
@@ -91508,6 +91522,10 @@ export namespace Prisma {
     details?: true
     reason?: true
     userId?: true
+    branchId?: true
+    ipAddress?: true
+    targetId?: true
+    targetType?: true
     createdAt?: true
   }
 
@@ -91518,6 +91536,10 @@ export namespace Prisma {
     details?: true
     reason?: true
     userId?: true
+    branchId?: true
+    ipAddress?: true
+    targetId?: true
+    targetType?: true
     createdAt?: true
   }
 
@@ -91528,6 +91550,12 @@ export namespace Prisma {
     details?: true
     reason?: true
     userId?: true
+    branchId?: true
+    ipAddress?: true
+    targetId?: true
+    targetType?: true
+    beforeState?: true
+    afterState?: true
     createdAt?: true
     _all?: true
   }
@@ -91611,6 +91639,12 @@ export namespace Prisma {
     details: string | null
     reason: string | null
     userId: string
+    branchId: string | null
+    ipAddress: string | null
+    targetId: string | null
+    targetType: string | null
+    beforeState: JsonValue | null
+    afterState: JsonValue | null
     createdAt: Date
     _count: AuditLogCountAggregateOutputType | null
     _min: AuditLogMinAggregateOutputType | null
@@ -91638,6 +91672,12 @@ export namespace Prisma {
     details?: boolean
     reason?: boolean
     userId?: boolean
+    branchId?: boolean
+    ipAddress?: boolean
+    targetId?: boolean
+    targetType?: boolean
+    beforeState?: boolean
+    afterState?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["auditLog"]>
@@ -91649,6 +91689,12 @@ export namespace Prisma {
     details?: boolean
     reason?: boolean
     userId?: boolean
+    branchId?: boolean
+    ipAddress?: boolean
+    targetId?: boolean
+    targetType?: boolean
+    beforeState?: boolean
+    afterState?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["auditLog"]>
@@ -91660,6 +91706,12 @@ export namespace Prisma {
     details?: boolean
     reason?: boolean
     userId?: boolean
+    branchId?: boolean
+    ipAddress?: boolean
+    targetId?: boolean
+    targetType?: boolean
+    beforeState?: boolean
+    afterState?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["auditLog"]>
@@ -91671,10 +91723,16 @@ export namespace Prisma {
     details?: boolean
     reason?: boolean
     userId?: boolean
+    branchId?: boolean
+    ipAddress?: boolean
+    targetId?: boolean
+    targetType?: boolean
+    beforeState?: boolean
+    afterState?: boolean
     createdAt?: boolean
   }
 
-  export type AuditLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "action" | "module" | "details" | "reason" | "userId" | "createdAt", ExtArgs["result"]["auditLog"]>
+  export type AuditLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "action" | "module" | "details" | "reason" | "userId" | "branchId" | "ipAddress" | "targetId" | "targetType" | "beforeState" | "afterState" | "createdAt", ExtArgs["result"]["auditLog"]>
   export type AuditLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -91697,6 +91755,12 @@ export namespace Prisma {
       details: string | null
       reason: string | null
       userId: string
+      branchId: string | null
+      ipAddress: string | null
+      targetId: string | null
+      targetType: string | null
+      beforeState: Prisma.JsonValue | null
+      afterState: Prisma.JsonValue | null
       createdAt: Date
     }, ExtArgs["result"]["auditLog"]>
     composites: {}
@@ -92128,6 +92192,12 @@ export namespace Prisma {
     readonly details: FieldRef<"AuditLog", 'String'>
     readonly reason: FieldRef<"AuditLog", 'String'>
     readonly userId: FieldRef<"AuditLog", 'String'>
+    readonly branchId: FieldRef<"AuditLog", 'String'>
+    readonly ipAddress: FieldRef<"AuditLog", 'String'>
+    readonly targetId: FieldRef<"AuditLog", 'String'>
+    readonly targetType: FieldRef<"AuditLog", 'String'>
+    readonly beforeState: FieldRef<"AuditLog", 'Json'>
+    readonly afterState: FieldRef<"AuditLog", 'Json'>
     readonly createdAt: FieldRef<"AuditLog", 'DateTime'>
   }
     
@@ -182106,6 +182176,12 @@ export namespace Prisma {
     details: 'details',
     reason: 'reason',
     userId: 'userId',
+    branchId: 'branchId',
+    ipAddress: 'ipAddress',
+    targetId: 'targetId',
+    targetType: 'targetType',
+    beforeState: 'beforeState',
+    afterState: 'afterState',
     createdAt: 'createdAt'
   };
 
@@ -186010,6 +186086,7 @@ export namespace Prisma {
 
   export type HostelAllocationWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    studentId_isActive?: HostelAllocationStudentIdIsActiveCompoundUniqueInput
     AND?: HostelAllocationWhereInput | HostelAllocationWhereInput[]
     OR?: HostelAllocationWhereInput[]
     NOT?: HostelAllocationWhereInput | HostelAllocationWhereInput[]
@@ -186022,7 +186099,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"HostelAllocation"> | Date | string
     bed?: XOR<BedScalarRelationFilter, BedWhereInput>
     student?: XOR<StudentScalarRelationFilter, StudentWhereInput>
-  }, "id">
+  }, "id" | "studentId_isActive">
 
   export type HostelAllocationOrderByWithAggregationInput = {
     id?: SortOrder
@@ -189525,6 +189602,12 @@ export namespace Prisma {
     details?: StringNullableFilter<"AuditLog"> | string | null
     reason?: StringNullableFilter<"AuditLog"> | string | null
     userId?: StringFilter<"AuditLog"> | string
+    branchId?: StringNullableFilter<"AuditLog"> | string | null
+    ipAddress?: StringNullableFilter<"AuditLog"> | string | null
+    targetId?: StringNullableFilter<"AuditLog"> | string | null
+    targetType?: StringNullableFilter<"AuditLog"> | string | null
+    beforeState?: JsonNullableFilter<"AuditLog">
+    afterState?: JsonNullableFilter<"AuditLog">
     createdAt?: DateTimeFilter<"AuditLog"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
@@ -189536,6 +189619,12 @@ export namespace Prisma {
     details?: SortOrderInput | SortOrder
     reason?: SortOrderInput | SortOrder
     userId?: SortOrder
+    branchId?: SortOrderInput | SortOrder
+    ipAddress?: SortOrderInput | SortOrder
+    targetId?: SortOrderInput | SortOrder
+    targetType?: SortOrderInput | SortOrder
+    beforeState?: SortOrderInput | SortOrder
+    afterState?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     user?: UserOrderByWithRelationInput
   }
@@ -189550,6 +189639,12 @@ export namespace Prisma {
     details?: StringNullableFilter<"AuditLog"> | string | null
     reason?: StringNullableFilter<"AuditLog"> | string | null
     userId?: StringFilter<"AuditLog"> | string
+    branchId?: StringNullableFilter<"AuditLog"> | string | null
+    ipAddress?: StringNullableFilter<"AuditLog"> | string | null
+    targetId?: StringNullableFilter<"AuditLog"> | string | null
+    targetType?: StringNullableFilter<"AuditLog"> | string | null
+    beforeState?: JsonNullableFilter<"AuditLog">
+    afterState?: JsonNullableFilter<"AuditLog">
     createdAt?: DateTimeFilter<"AuditLog"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
@@ -189561,6 +189656,12 @@ export namespace Prisma {
     details?: SortOrderInput | SortOrder
     reason?: SortOrderInput | SortOrder
     userId?: SortOrder
+    branchId?: SortOrderInput | SortOrder
+    ipAddress?: SortOrderInput | SortOrder
+    targetId?: SortOrderInput | SortOrder
+    targetType?: SortOrderInput | SortOrder
+    beforeState?: SortOrderInput | SortOrder
+    afterState?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: AuditLogCountOrderByAggregateInput
     _max?: AuditLogMaxOrderByAggregateInput
@@ -189577,6 +189678,12 @@ export namespace Prisma {
     details?: StringNullableWithAggregatesFilter<"AuditLog"> | string | null
     reason?: StringNullableWithAggregatesFilter<"AuditLog"> | string | null
     userId?: StringWithAggregatesFilter<"AuditLog"> | string
+    branchId?: StringNullableWithAggregatesFilter<"AuditLog"> | string | null
+    ipAddress?: StringNullableWithAggregatesFilter<"AuditLog"> | string | null
+    targetId?: StringNullableWithAggregatesFilter<"AuditLog"> | string | null
+    targetType?: StringNullableWithAggregatesFilter<"AuditLog"> | string | null
+    beforeState?: JsonNullableWithAggregatesFilter<"AuditLog">
+    afterState?: JsonNullableWithAggregatesFilter<"AuditLog">
     createdAt?: DateTimeWithAggregatesFilter<"AuditLog"> | Date | string
   }
 
@@ -190227,6 +190334,7 @@ export namespace Prisma {
 
   export type PayrollWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    staffId_month_year?: PayrollStaffIdMonthYearCompoundUniqueInput
     AND?: PayrollWhereInput | PayrollWhereInput[]
     OR?: PayrollWhereInput[]
     NOT?: PayrollWhereInput | PayrollWhereInput[]
@@ -190239,7 +190347,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Payroll"> | Date | string
     updatedAt?: DateTimeFilter<"Payroll"> | Date | string
     staff?: XOR<StaffScalarRelationFilter, StaffWhereInput>
-  }, "id">
+  }, "id" | "staffId_month_year">
 
   export type PayrollOrderByWithAggregationInput = {
     id?: SortOrder
@@ -202591,6 +202699,12 @@ export namespace Prisma {
     module: string
     details?: string | null
     reason?: string | null
+    branchId?: string | null
+    ipAddress?: string | null
+    targetId?: string | null
+    targetType?: string | null
+    beforeState?: NullableJsonNullValueInput | InputJsonValue
+    afterState?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutAuditLogsInput
   }
@@ -202602,6 +202716,12 @@ export namespace Prisma {
     details?: string | null
     reason?: string | null
     userId: string
+    branchId?: string | null
+    ipAddress?: string | null
+    targetId?: string | null
+    targetType?: string | null
+    beforeState?: NullableJsonNullValueInput | InputJsonValue
+    afterState?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
   }
 
@@ -202611,6 +202731,12 @@ export namespace Prisma {
     module?: StringFieldUpdateOperationsInput | string
     details?: NullableStringFieldUpdateOperationsInput | string | null
     reason?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    targetId?: NullableStringFieldUpdateOperationsInput | string | null
+    targetType?: NullableStringFieldUpdateOperationsInput | string | null
+    beforeState?: NullableJsonNullValueInput | InputJsonValue
+    afterState?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutAuditLogsNestedInput
   }
@@ -202622,6 +202748,12 @@ export namespace Prisma {
     details?: NullableStringFieldUpdateOperationsInput | string | null
     reason?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: StringFieldUpdateOperationsInput | string
+    branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    targetId?: NullableStringFieldUpdateOperationsInput | string | null
+    targetType?: NullableStringFieldUpdateOperationsInput | string | null
+    beforeState?: NullableJsonNullValueInput | InputJsonValue
+    afterState?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -202632,6 +202764,12 @@ export namespace Prisma {
     details?: string | null
     reason?: string | null
     userId: string
+    branchId?: string | null
+    ipAddress?: string | null
+    targetId?: string | null
+    targetType?: string | null
+    beforeState?: NullableJsonNullValueInput | InputJsonValue
+    afterState?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
   }
 
@@ -202641,6 +202779,12 @@ export namespace Prisma {
     module?: StringFieldUpdateOperationsInput | string
     details?: NullableStringFieldUpdateOperationsInput | string | null
     reason?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    targetId?: NullableStringFieldUpdateOperationsInput | string | null
+    targetType?: NullableStringFieldUpdateOperationsInput | string | null
+    beforeState?: NullableJsonNullValueInput | InputJsonValue
+    afterState?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -202651,6 +202795,12 @@ export namespace Prisma {
     details?: NullableStringFieldUpdateOperationsInput | string | null
     reason?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: StringFieldUpdateOperationsInput | string
+    branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    targetId?: NullableStringFieldUpdateOperationsInput | string | null
+    targetType?: NullableStringFieldUpdateOperationsInput | string | null
+    beforeState?: NullableJsonNullValueInput | InputJsonValue
+    afterState?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -212195,6 +212345,11 @@ export namespace Prisma {
     isNot?: BedWhereInput
   }
 
+  export type HostelAllocationStudentIdIsActiveCompoundUniqueInput = {
+    studentId: string
+    isActive: boolean
+  }
+
   export type HostelAllocationCountOrderByAggregateInput = {
     id?: SortOrder
     checkInDate?: SortOrder
@@ -214603,6 +214758,12 @@ export namespace Prisma {
     details?: SortOrder
     reason?: SortOrder
     userId?: SortOrder
+    branchId?: SortOrder
+    ipAddress?: SortOrder
+    targetId?: SortOrder
+    targetType?: SortOrder
+    beforeState?: SortOrder
+    afterState?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -214613,6 +214774,10 @@ export namespace Prisma {
     details?: SortOrder
     reason?: SortOrder
     userId?: SortOrder
+    branchId?: SortOrder
+    ipAddress?: SortOrder
+    targetId?: SortOrder
+    targetType?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -214623,6 +214788,10 @@ export namespace Prisma {
     details?: SortOrder
     reason?: SortOrder
     userId?: SortOrder
+    branchId?: SortOrder
+    ipAddress?: SortOrder
+    targetId?: SortOrder
+    targetType?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -214986,6 +215155,12 @@ export namespace Prisma {
   export type SalaryTemplateSumOrderByAggregateInput = {
     basicSalary?: SortOrder
     netSalary?: SortOrder
+  }
+
+  export type PayrollStaffIdMonthYearCompoundUniqueInput = {
+    staffId: string
+    month: number
+    year: number
   }
 
   export type PayrollCountOrderByAggregateInput = {
@@ -237776,6 +237951,12 @@ export namespace Prisma {
     module: string
     details?: string | null
     reason?: string | null
+    branchId?: string | null
+    ipAddress?: string | null
+    targetId?: string | null
+    targetType?: string | null
+    beforeState?: NullableJsonNullValueInput | InputJsonValue
+    afterState?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
   }
 
@@ -237785,6 +237966,12 @@ export namespace Prisma {
     module: string
     details?: string | null
     reason?: string | null
+    branchId?: string | null
+    ipAddress?: string | null
+    targetId?: string | null
+    targetType?: string | null
+    beforeState?: NullableJsonNullValueInput | InputJsonValue
+    afterState?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
   }
 
@@ -239001,6 +239188,12 @@ export namespace Prisma {
     details?: StringNullableFilter<"AuditLog"> | string | null
     reason?: StringNullableFilter<"AuditLog"> | string | null
     userId?: StringFilter<"AuditLog"> | string
+    branchId?: StringNullableFilter<"AuditLog"> | string | null
+    ipAddress?: StringNullableFilter<"AuditLog"> | string | null
+    targetId?: StringNullableFilter<"AuditLog"> | string | null
+    targetType?: StringNullableFilter<"AuditLog"> | string | null
+    beforeState?: JsonNullableFilter<"AuditLog">
+    afterState?: JsonNullableFilter<"AuditLog">
     createdAt?: DateTimeFilter<"AuditLog"> | Date | string
   }
 
@@ -297375,6 +297568,12 @@ export namespace Prisma {
     module: string
     details?: string | null
     reason?: string | null
+    branchId?: string | null
+    ipAddress?: string | null
+    targetId?: string | null
+    targetType?: string | null
+    beforeState?: NullableJsonNullValueInput | InputJsonValue
+    afterState?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
   }
 
@@ -297665,6 +297864,12 @@ export namespace Prisma {
     module?: StringFieldUpdateOperationsInput | string
     details?: NullableStringFieldUpdateOperationsInput | string | null
     reason?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    targetId?: NullableStringFieldUpdateOperationsInput | string | null
+    targetType?: NullableStringFieldUpdateOperationsInput | string | null
+    beforeState?: NullableJsonNullValueInput | InputJsonValue
+    afterState?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -297674,6 +297879,12 @@ export namespace Prisma {
     module?: StringFieldUpdateOperationsInput | string
     details?: NullableStringFieldUpdateOperationsInput | string | null
     reason?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    targetId?: NullableStringFieldUpdateOperationsInput | string | null
+    targetType?: NullableStringFieldUpdateOperationsInput | string | null
+    beforeState?: NullableJsonNullValueInput | InputJsonValue
+    afterState?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -297683,6 +297894,12 @@ export namespace Prisma {
     module?: StringFieldUpdateOperationsInput | string
     details?: NullableStringFieldUpdateOperationsInput | string | null
     reason?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    targetId?: NullableStringFieldUpdateOperationsInput | string | null
+    targetType?: NullableStringFieldUpdateOperationsInput | string | null
+    beforeState?: NullableJsonNullValueInput | InputJsonValue
+    afterState?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

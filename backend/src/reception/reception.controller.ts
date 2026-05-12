@@ -15,26 +15,28 @@ import {
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
+import { BranchGuard, TenantContext } from '../auth/branch.guard';
+import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { UserRole } from '../generated/client';
 
 @Controller('reception')
-@UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
 export class ReceptionController {
     constructor(private readonly receptionService: ReceptionService) { }
 
     @Post('enquiries')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
-    createEnquiry(@Request() req, @Body() dto: CreateEnquiryDto) {
-        if (!dto.branchId && req.user.branchId) {
-            dto.branchId = req.user.branchId;
+    createEnquiry(@GetTenantContext() ctx: TenantContext, @Body() dto: CreateEnquiryDto) {
+        if (!dto.branchId && ctx.branchId) {
+            dto.branchId = ctx.branchId;
         }
         return this.receptionService.createEnquiry(dto);
     }
 
     @Get('enquiries')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
-    getEnquiries(@Request() req, @Query('branchId') branchId: string) {
-        const effectiveBranchId = req.user.role === UserRole.SUPER_ADMIN ? branchId : req.user.branchId;
+    getEnquiries(@GetTenantContext() ctx: TenantContext, @Query('branchId') branchId: string) {
+        const effectiveBranchId = ctx.role === UserRole.SUPER_ADMIN ? branchId : ctx.branchId;
         return this.receptionService.getEnquiries(effectiveBranchId);
     }
 
@@ -52,17 +54,17 @@ export class ReceptionController {
 
     @Post('call-logs')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
-    createCallLog(@Request() req, @Body() dto: CreateCallLogDto) {
-        if (!dto.branchId && req.user.branchId) {
-            dto.branchId = req.user.branchId;
+    createCallLog(@GetTenantContext() ctx: TenantContext, @Body() dto: CreateCallLogDto) {
+        if (!dto.branchId && ctx.branchId) {
+            dto.branchId = ctx.branchId;
         }
         return this.receptionService.createCallLog(dto);
     }
 
     @Get('call-logs')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
-    getCallLogs(@Request() req, @Query('branchId') branchId: string) {
-        const effectiveBranchId = req.user.role === UserRole.SUPER_ADMIN ? branchId : req.user.branchId;
+    getCallLogs(@GetTenantContext() ctx: TenantContext, @Query('branchId') branchId: string) {
+        const effectiveBranchId = ctx.role === UserRole.SUPER_ADMIN ? branchId : ctx.branchId;
         return this.receptionService.getCallLogs(effectiveBranchId);
     }
 
@@ -80,17 +82,17 @@ export class ReceptionController {
 
     @Post('visitor-logs')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
-    createVisitorLog(@Request() req, @Body() dto: CreateVisitorLogDto) {
-        if (!dto.branchId && req.user.branchId) {
-            dto.branchId = req.user.branchId;
+    createVisitorLog(@GetTenantContext() ctx: TenantContext, @Body() dto: CreateVisitorLogDto) {
+        if (!dto.branchId && ctx.branchId) {
+            dto.branchId = ctx.branchId;
         }
         return this.receptionService.createVisitorLog(dto);
     }
 
     @Get('visitor-logs')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
-    getVisitorLogs(@Request() req, @Query('branchId') branchId: string) {
-        const effectiveBranchId = req.user.role === UserRole.SUPER_ADMIN ? branchId : req.user.branchId;
+    getVisitorLogs(@GetTenantContext() ctx: TenantContext, @Query('branchId') branchId: string) {
+        const effectiveBranchId = ctx.role === UserRole.SUPER_ADMIN ? branchId : ctx.branchId;
         return this.receptionService.getVisitorLogs(effectiveBranchId);
     }
 
@@ -108,17 +110,17 @@ export class ReceptionController {
 
     @Post('complaints')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
-    createComplaint(@Request() req, @Body() dto: CreateComplaintDto) {
-        if (!dto.branchId && req.user.branchId) {
-            dto.branchId = req.user.branchId;
+    createComplaint(@GetTenantContext() ctx: TenantContext, @Body() dto: CreateComplaintDto) {
+        if (!dto.branchId && ctx.branchId) {
+            dto.branchId = ctx.branchId;
         }
         return this.receptionService.createComplaint(dto);
     }
 
     @Get('complaints')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
-    getComplaints(@Request() req, @Query('branchId') branchId: string) {
-        const effectiveBranchId = req.user.role === UserRole.SUPER_ADMIN ? branchId : req.user.branchId;
+    getComplaints(@GetTenantContext() ctx: TenantContext, @Query('branchId') branchId: string) {
+        const effectiveBranchId = ctx.role === UserRole.SUPER_ADMIN ? branchId : ctx.branchId;
         return this.receptionService.getComplaints(effectiveBranchId);
     }
 
@@ -136,17 +138,17 @@ export class ReceptionController {
 
     @Post('postal-records')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
-    createPostalRecord(@Request() req, @Body() dto: CreatePostalRecordDto) {
-        if (!dto.branchId && req.user.branchId) {
-            dto.branchId = req.user.branchId;
+    createPostalRecord(@GetTenantContext() ctx: TenantContext, @Body() dto: CreatePostalRecordDto) {
+        if (!dto.branchId && ctx.branchId) {
+            dto.branchId = ctx.branchId;
         }
         return this.receptionService.createPostalRecord(dto);
     }
 
     @Get('postal-records')
     @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
-    getPostalRecords(@Request() req, @Query('branchId') branchId: string) {
-        const effectiveBranchId = req.user.role === UserRole.SUPER_ADMIN ? branchId : req.user.branchId;
+    getPostalRecords(@GetTenantContext() ctx: TenantContext, @Query('branchId') branchId: string) {
+        const effectiveBranchId = ctx.role === UserRole.SUPER_ADMIN ? branchId : ctx.branchId;
         return this.receptionService.getPostalRecords(effectiveBranchId);
     }
 

@@ -55,6 +55,8 @@ import { InstitutionalEventsService } from './common/events/institutional-events
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { SecurityMiddleware } from './common/middleware/security.middleware';
+import { DataRetentionService } from './common/services/data-retention.service';
+import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [
@@ -117,11 +119,13 @@ import { SecurityMiddleware } from './common/middleware/security.middleware';
     RealtimeModule,
     AlumniModule,
     IntegrationsModule,
+    HealthModule,
   ],
   controllers: [AppController],
   providers: [
     AppService,
     InstitutionalEventsService,
+    DataRetentionService,
     { provide: APP_GUARD, useClass: ThrottlerGuard },
   ],
 })

@@ -69,13 +69,13 @@ export default function StudentHomeworkView() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50/30 to-teal-50/20 dark:from-slate-950 dark:via-emerald-950/20 dark:to-teal-950/10 p-6">
+ <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50/30 to-teal-50/20 p-6">
             {/* Header */}
             <div className="mb-8">
                 <h1 className="text-h1 font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
                     My Homework
                 </h1>
-                <p className="text-slate-600 dark:text-slate-400 mt-2">
+ <p className="text-slate-600 mt-2">
                     View and submit your assignments
                 </p>
             </div>
@@ -84,11 +84,11 @@ export default function StudentHomeworkView() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {assignments.length === 0 ? (
                     <div className="col-span-full text-center py-12">
-                        <BookOpen className="w-16 h-16 mx-auto text-slate-300 dark:text-slate-700 mb-4" />
-                        <h3 className="text-lg font-semibold text-slate-600 dark:text-slate-400 mb-2">
+ <BookOpen className="w-16 h-16 mx-auto text-slate-300 mb-4" />
+ <h3 className="text-lg font-semibold text-slate-600 mb-2">
                             No assignments yet
                         </h3>
-                        <p className="text-slate-500 dark:text-slate-500">
+ <p className="text-slate-500 ">
                             Your teachers haven't assigned any homework yet
                         </p>
                     </div>
@@ -101,20 +101,20 @@ export default function StudentHomeworkView() {
                         return (
                             <div
                                 key={assignment.id}
-                                className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50 hover:shadow-xl hover:shadow-emerald-500/10 transition-all duration-300"
+ className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 hover:shadow-xl hover:shadow-emerald-500/10 transition-all duration-300"
                             >
                                 <div className="flex items-start justify-between mb-4">
                                     <div className="flex-1">
-                                        <h3 className="font-semibold text-lg text-slate-900 dark:text-slate-100 mb-1">
+ <h3 className="font-semibold text-lg text-slate-900 mb-1">
                                             {assignment.title}
                                         </h3>
-                                        <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2">
+ <p className="text-sm text-slate-600 line-clamp-2">
                                             {assignment.description}
                                         </p>
                                     </div>
                                 </div>
 
-                                <div className="flex items-center gap-4 text-sm text-slate-600 dark:text-slate-400 mb-4">
+ <div className="flex items-center gap-4 text-sm text-slate-600 mb-4">
                                     <div className="flex items-center gap-1">
                                         <Clock className="w-4 h-4" />
                                         Due: {new Date(assignment.dueDate).toLocaleDateString()}
@@ -122,10 +122,10 @@ export default function StudentHomeworkView() {
                                 </div>
 
                                 <div className="flex items-center justify-between mb-4">
-                                    <span className="text-xs px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300">
+ <span className="text-xs px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 ">
                                         {assignment.subject?.name || "General"}
                                     </span>
-                                    <div className={`flex items-center gap-1 text-xs px-3 py-1 rounded-full bg-${status.color}-100 dark:bg-${status.color}-900/30 text-${status.color}-700 dark:text-${status.color}-300`}>
+ <div className={`flex items-center gap-1 text-xs px-3 py-1 rounded-full bg-${status.color}-100 text-${status.color}-700 `}>
                                         <StatusIcon className="w-3 h-3" />
                                         {status.text}
                                     </div>
@@ -137,7 +137,7 @@ export default function StudentHomeworkView() {
                                             href={assignment.attachmentUrl}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="text-xs flex items-center gap-2 p-2 rounded-lg bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 transition-colors"
+ className="text-xs flex items-center gap-2 p-2 rounded-lg bg-indigo-50 text-indigo-600 hover:bg-indigo-100 transition-colors"
                                         >
                                             <FileText className="w-4 h-4" />
                                             View Assignment Resources
@@ -146,13 +146,13 @@ export default function StudentHomeworkView() {
                                 )}
 
                                 {submission?.grade && (
-                                    <div className="mb-4 p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+ <div className="mb-4 p-3 bg-slate-50 rounded-lg">
                                         <div className="flex items-center justify-between mb-2">
                                             <span className="text-sm font-semibold">Grade:</span>
                                             <span className="text-lg font-bold text-emerald-600">{submission.grade}/100</span>
                                         </div>
                                         {submission.feedback && (
-                                            <p className="text-sm text-slate-600 dark:text-slate-400">
+ <p className="text-sm text-slate-600 ">
                                                 <span className="font-semibold">Feedback:</span> {submission.feedback}
                                             </p>
                                         )}

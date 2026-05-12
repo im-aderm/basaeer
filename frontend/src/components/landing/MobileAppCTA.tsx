@@ -23,7 +23,7 @@ export function MobileAppCTA() {
             <div className="flex items-center gap-3 bg-surface-container/20 border border-border px-6 py-3 rounded-2xl hover:bg-surface-container/40 transition-all cursor-pointer">
               <img 
                 alt="Apple Store" 
-                className="w-7 h-7 dark:invert shrink-0" 
+                className="w-7 h-7 shrink-0" 
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsds43ihlvmcma9HDUb99689jC128sOuPI8FtbZSvaTV4Nko2xKYsHP4acKVd4CVdyyEpuCxk3fwleDbYE4-tU-Pf4DMQp_JfHBcNIeMCvf_pdBu9ZpNNyqr-TyIrNIfU7oS_gBGoEDRknXsFo1j4SZQFnu_k3OY6mH_cpy0SXGvttqVWK6Pa0yquznWSxQQ_IlvVEELBG05WbRSnEmgG-ZGwnT84r79BLp3rblJnWnwF8chwpcb5JnRilNyugx0tMjVkCOolT210" 
               />
               <div>
@@ -61,7 +61,7 @@ export function MobileAppCTA() {
 
         {/* Smartphone Floating Preview */}
         <div className="flex-1 relative flex justify-center w-full">
-          <div className="relative w-64 md:w-72 h-[480px] md:h-[550px] bg-[#15121b] dark:bg-background rounded-[2.5rem] border-8 border-border shadow-2xl overflow-hidden">
+          <div className="relative w-64 md:w-72 h-[480px] md:h-[550px] bg-[#15121b] rounded-[2.5rem] border-8 border-border shadow-2xl overflow-hidden">
             <div className="absolute top-0 w-full h-8 bg-black/40 flex justify-center items-end pb-1.5 z-20">
               <div className="w-16 h-3.5 bg-black rounded-full"></div>
             </div>

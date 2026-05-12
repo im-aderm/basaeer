@@ -5,6 +5,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 import { BranchGuard } from '../auth/branch.guard';
+import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { UserRole } from '../generated/client/client';
 import { PayrollService } from './payroll.service';
 import { LeaveService } from './leave.service';
@@ -21,23 +22,23 @@ export class EmployeesController {
 
   @Post()
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  createEmployee(@Request() req, @Body() createEmployeeDto: CreateEmployeeDto) {
-    if (!createEmployeeDto.branchId && req.user.branchId) {
-      createEmployeeDto.branchId = req.user.branchId;
+  createEmployee(@GetTenantContext() ctx: TenantContext, @Body() createEmployeeDto: CreateEmployeeDto) {
+    if (!createEmployeeDto.branchId && ctx.branchId) {
+      createEmployeeDto.branchId = ctx.branchId;
     }
     return this.employeesService.createEmployee(createEmployeeDto);
   }
 
   @Get()
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  findAllEmployees(@Request() req) {
-    return this.employeesService.findAllEmployees(req.user.branchId);
+  findAllEmployees(@GetTenantContext() ctx: TenantContext) {
+    return this.employeesService.findAllEmployees(ctx.branchId);
   }
 
   @Get('teachers')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  findAllTeachers(@Request() req) {
-    return this.employeesService.findAllTeachers(req.user.branchId);
+  findAllTeachers(@GetTenantContext() ctx: TenantContext) {
+    return this.employeesService.findAllTeachers(ctx.branchId);
   }
 
   @Patch(':id/status')
@@ -50,17 +51,17 @@ export class EmployeesController {
   // --- Payroll Endpoints ---
   @Post('salary-template')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
-  upsertSalaryTemplate(@Request() req, @Body() dto: CreateSalaryTemplateDto) {
-    if (!dto.branchId && req.user.branchId) {
-      dto.branchId = req.user.branchId;
+  upsertSalaryTemplate(@GetTenantContext() ctx: TenantContext, @Body() dto: CreateSalaryTemplateDto) {
+    if (!dto.branchId && ctx.branchId) {
+      dto.branchId = ctx.branchId;
     }
     return this.payrollService.createOrUpdateSalaryTemplate(dto);
   }
 
   @Post('payroll/generate')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.ACCOUNTANT, UserRole.HR)
-  generatePayroll(@Request() req, @Body() dto: GeneratePayrollDto) {
-    return this.payrollService.generateMonthlyPayroll({ ...dto, branchId: req.user.branchId });
+  generatePayroll(@GetTenantContext() ctx: TenantContext, @Body() dto: GeneratePayrollDto) {
+    return this.payrollService.generateMonthlyPayroll({ ...dto, branchId: ctx.branchId });
   }
 
 
@@ -72,15 +73,27 @@ export class EmployeesController {
 
   // --- Leave Endpoints ---
   @Post('leave-request')
-  async applyLeave(@Request() req, @Body() dto: CreateLeaveRequestDto) {
-    const staff = await this.employeesService.findByUserId(req.user.id);
-    return this.leaveService.applyLeave(staff.id, dto);
+  async applyLeave(@GetTenantContext() ctx: TenantContext, @Body() dto: CreateLeaveRequestDto) {
+    const staff = await this.employeesService.findByUserId(ctx.userId);
+    return this.leaveService.applyLeave(staff.id, dto, ctx.branchId);
   }
 
   @Get('leave-requests/branch')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
-  getBranchLeaves(@Request() req) {
-    return this.leaveService.getBranchLeaveRequests(req.user.branchId);
+  getBranchLeaves(@GetTenantContext() ctx: TenantContext) {
+    return this.leaveService.getBranchLeaveRequests(ctx.branchId);
+  }
+
+  @Get('leave-balances/:staffId')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
+  getLeaveBalances(@Param('staffId') staffId: string, @GetTenantContext() ctx: TenantContext) {
+    return this.leaveService.getLeaveBalances(staffId, ctx.branchId);
+  }
+
+  @Get('my-leave-balances')
+  async getMyLeaveBalances(@GetTenantContext() ctx: TenantContext) {
+    const staff = await this.employeesService.findByUserId(ctx.userId);
+    return this.leaveService.getLeaveBalances(staff.id, ctx.branchId);
   }
 
   @Patch('leave-requests/:id/status')
@@ -111,32 +124,32 @@ export class EmployeesController {
 
   @Get('awards')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
-  getAllAwards(@Request() req) {
-    return this.employeesService.findAllAwards(req.user.branchId);
+  getAllAwards(@GetTenantContext() ctx: TenantContext) {
+    return this.employeesService.findAllAwards(ctx.branchId);
   }
 
   @Get('my-awards')
-  async getMyAwards(@Request() req) {
-    const staff = await this.employeesService.findByUserId(req.user.id);
+  async getMyAwards(@GetTenantContext() ctx: TenantContext) {
+    const staff = await this.employeesService.findByUserId(ctx.userId);
     return this.employeesService.findMyAwards(staff.id);
   }
 
   // --- Advance Salary Endpoints ---
   @Post('advance-salary/request')
-  async requestAdvance(@Request() req, @Body('amount') amount: number, @Body('reason') reason: string) {
-    const staff = await this.employeesService.findByUserId(req.user.id);
+  async requestAdvance(@GetTenantContext() ctx: TenantContext, @Body('amount') amount: number, @Body('reason') reason: string) {
+    const staff = await this.employeesService.findByUserId(ctx.userId);
     return this.employeesService.requestAdvance(staff.id, amount, reason);
   }
 
   @Get('advance-salary')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
-  getBranchAdvances(@Request() req) {
-    return this.employeesService.findAllAdvances(req.user.branchId);
+  getBranchAdvances(@GetTenantContext() ctx: TenantContext) {
+    return this.employeesService.findAllAdvances(ctx.branchId);
   }
 
   @Get('my-advance-salary')
-  async getMyAdvances(@Request() req) {
-    const staff = await this.employeesService.findByUserId(req.user.id);
+  async getMyAdvances(@GetTenantContext() ctx: TenantContext) {
+    const staff = await this.employeesService.findByUserId(ctx.userId);
     return this.employeesService.findMyAdvances(staff.id);
   }
 
@@ -170,9 +183,9 @@ export class EmployeesController {
 
   @Get('attendance/branch')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
-  getBranchAttendance(@Request() req, @Query('date') date: string) {
+  getBranchAttendance(@GetTenantContext() ctx: TenantContext, @Query('date') date: string) {
     const searchDate = date || new Date().toISOString().split('T')[0];
-    return this.employeesService.getBranchAttendance(req.user.branchId, searchDate);
+    return this.employeesService.getBranchAttendance(ctx.branchId, searchDate);
   }
 
   @Get(':id/attendance')
