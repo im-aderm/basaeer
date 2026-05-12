@@ -31,10 +31,11 @@ RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 # Load dependency requirements for pure runtime installation
 COPY package*.json ./
 COPY backend/package*.json ./backend/
+COPY backend/prisma ./backend/prisma
 COPY packages/shared-types ./packages/shared-types/
 
-# Install only runtime deps, keeping image lean
-RUN npm ci --only=production
+# Install only runtime deps, skip postinstall (prisma client already built in stage 1)
+RUN npm ci --omit=dev --ignore-scripts
 
 # Copy source artifacts generated during phase 1
 COPY --from=builder /app/backend/dist ./backend/dist
