@@ -31,6 +31,7 @@ RUN npm prune --omit=dev
 COPY --from=builder /app/backend/dist ./backend/dist
 COPY --from=builder /app/backend/prisma ./backend/prisma
 COPY --from=builder /app/backend/src/generated ./backend/src/generated
+COPY --from=builder /app/packages/shared-types/package.json ./packages/shared-types/package.json
 COPY --from=builder /app/packages/shared-types/dist ./packages/shared-types/dist
 
 EXPOSE 3001

@@ -163,6 +163,7 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - /etc/letsencrypt:/etc/nginx/ssl:ro
       - storage_uploads:/var/www/uploads:ro
       - storage_exports:/var/www/exports:ro
     depends_on:
