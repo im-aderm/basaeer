@@ -1,5 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { TenantContext } from '../auth/branch.guard';
+import { TenantHelper } from '../prisma/tenant-helper';
 import { CreateCampusEventDto, UpdateEventRSVPDto } from './dto/events.dto';
 
 @Injectable()
@@ -32,9 +34,9 @@ export class EventsService {
     });
   }
 
-  async getEventDetails(id: string) {
-    const event = await this.prisma.campusEvent.findUnique({
-      where: { id },
+  async getEventDetails(id: string, context: TenantContext) {
+    const event = await this.prisma.campusEvent.findFirst({
+      where: TenantHelper.applyIsolation({ id }, context),
       include: {
         rsvps: {
           include: {
@@ -59,7 +61,11 @@ export class EventsService {
     });
   }
 
-  async deleteEvent(id: string) {
+  async deleteEvent(id: string, context: TenantContext) {
+    const event = await this.prisma.campusEvent.findFirst({
+      where: TenantHelper.applyIsolation({ id }, context),
+    });
+    if (!event) throw new NotFoundException('Event not found');
     return this.prisma.campusEvent.delete({ where: { id } });
   }
 }

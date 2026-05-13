@@ -4,6 +4,8 @@ import {
   ForbiddenException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { TenantContext } from '../auth/branch.guard';
+import { TenantHelper } from '../prisma/tenant-helper';
 import {
   SendMessageDto,
   CreateConversationDto,
@@ -143,9 +145,9 @@ export class StakeholderService {
     });
   }
 
-  async getParentDetailsAdmin(parentId: string) {
-    const parent = await this.prisma.user.findUnique({
-      where: { id: parentId },
+  async getParentDetailsAdmin(parentId: string, context: TenantContext) {
+    const parent = await this.prisma.user.findFirst({
+      where: TenantHelper.applyIsolation({ id: parentId, role: 'PARENT' }, context),
       include: {
         children: {
           include: {
@@ -166,10 +168,16 @@ export class StakeholderService {
     return parent;
   }
 
-  async linkStudentToParent(parentId: string, studentId: string) {
+  async linkStudentToParent(parentId: string, studentId: string, context: TenantContext) {
+    // Ensure parent exists
+    const parent = await this.prisma.user.findFirst({
+      where: TenantHelper.applyIsolation({ id: parentId, role: 'PARENT' }, context),
+    });
+    if (!parent) throw new NotFoundException('Parent not found');
+
     // Ensure student exists
-    const student = await this.prisma.student.findUnique({
-      where: { id: studentId },
+    const student = await this.prisma.student.findFirst({
+      where: TenantHelper.applyIsolation({ id: studentId }, context),
     });
     if (!student) throw new NotFoundException('Student not found');
 
@@ -179,7 +187,11 @@ export class StakeholderService {
     });
   }
 
-  async unlinkStudentFromParent(studentId: string) {
+  async unlinkStudentFromParent(studentId: string, context: TenantContext) {
+    const student = await this.prisma.student.findFirst({
+      where: TenantHelper.applyIsolation({ id: studentId }, context),
+    });
+    if (!student) throw new NotFoundException('Student not found');
     return this.prisma.student.update({
       where: { id: studentId },
       data: { parentId: null },

@@ -10,6 +10,8 @@ import { CreateAwardDto } from './dto/hr-ops.dto';
 import { UserRole } from '../generated/client/client';
 import * as bcrypt from 'bcrypt';
 import * as crypto from 'crypto';
+import { TenantContext } from '../auth/branch.guard';
+import { TenantHelper } from '../prisma/tenant-helper';
 
 @Injectable()
 export class EmployeesService {
@@ -129,16 +131,20 @@ export class EmployeesService {
     });
   }
 
-  async updateStaffStatus(id: string, status: any) {
+  async updateStaffStatus(id: string, status: any, context: TenantContext) {
+    const staff = await this.prisma.staff.findFirst({
+      where: TenantHelper.applyNestedIsolation({ id }, 'user', context),
+    });
+    if (!staff) throw new NotFoundException('Staff not found');
     return this.prisma.staff.update({
       where: { id },
       data: { status },
     });
   }
 
-  async findOneStaff(id: string) {
-    const staff = await this.prisma.staff.findUnique({
-      where: { id },
+  async findOneStaff(id: string, context: TenantContext) {
+    const staff = await this.prisma.staff.findFirst({
+      where: TenantHelper.applyNestedIsolation({ id }, 'user', context),
       include: {
         user: true,
         department: true,
@@ -152,9 +158,9 @@ export class EmployeesService {
     return staff;
   }
 
-  async findByUserId(userId: string) {
-    const staff = await this.prisma.staff.findUnique({
-      where: { userId },
+  async findByUserId(userId: string, context: TenantContext) {
+    const staff = await this.prisma.staff.findFirst({
+      where: TenantHelper.applyNestedIsolation({ userId }, 'user', context),
     });
     if (!staff)
       throw new NotFoundException('Staff profile not found for this user');
@@ -228,7 +234,11 @@ export class EmployeesService {
     });
   }
 
-  async updateAdvanceStatus(id: string, status: string) {
+  async updateAdvanceStatus(id: string, status: string, context: TenantContext) {
+    const advance = await this.prisma.advanceSalary.findFirst({
+      where: TenantHelper.applyIsolation({ id }, context),
+    });
+    if (!advance) throw new NotFoundException('Advance not found');
     return this.prisma.advanceSalary.update({
       where: { id },
       data: { status: status as any },
@@ -298,7 +308,11 @@ export class EmployeesService {
     });
   }
 
-  async getStaffAttendanceHistory(staffId: string) {
+  async getStaffAttendanceHistory(staffId: string, context: TenantContext) {
+    const staff = await this.prisma.staff.findFirst({
+      where: TenantHelper.applyNestedIsolation({ id: staffId }, 'user', context),
+    });
+    if (!staff) throw new NotFoundException('Staff not found');
     return this.prisma.staffAttendance.findMany({
       where: { staffId },
       orderBy: { date: 'desc' },

@@ -1,5 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { TenantContext } from '../auth/branch.guard';
+import { TenantHelper } from '../prisma/tenant-helper';
 import { Prisma, User, UserRole } from '../generated/client/client';
 import * as bcrypt from 'bcrypt';
 
@@ -44,9 +46,9 @@ export class UsersService {
     });
   }
 
-  async findById(id: string): Promise<User | null> {
-    return this.prisma.user.findUnique({
-      where: { id },
+  async findById(id: string, context: TenantContext): Promise<User | null> {
+    return this.prisma.user.findFirst({
+      where: TenantHelper.applyIsolation({ id }, context),
     });
   }
 
@@ -60,7 +62,11 @@ export class UsersService {
     });
   }
 
-  async updateStatus(id: string, isActive: boolean) {
+  async updateStatus(id: string, isActive: boolean, context: TenantContext) {
+    const user = await this.prisma.user.findFirst({
+      where: TenantHelper.applyIsolation({ id }, context),
+    });
+    if (!user) throw new NotFoundException('User not found');
     return this.prisma.user.update({
       where: { id },
       data: { isActive },

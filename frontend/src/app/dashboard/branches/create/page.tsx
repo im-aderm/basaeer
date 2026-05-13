@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { BranchService } from "@/services/branchService";
-import { ArrowLeft, Save, Building2, MapPin, Phone, Mail, Hash } from "lucide-react";
+import { ArrowLeft, Save, Building2, MapPin, Phone, Mail, Hash, Image, Palette } from "lucide-react";
 import Link from "next/link";
 
 export default function CreateBranchPage() {
@@ -14,7 +14,9 @@ export default function CreateBranchPage() {
         code: "",
         address: "",
         phone: "",
-        email: ""
+        email: "",
+        logoUrl: "",
+        primaryColor: "#2563EB"
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -138,6 +140,50 @@ export default function CreateBranchPage() {
                                 placeholder="Enter the full physical address..."
                                 className="w-full p-3 bg-background border border-input rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none resize-none"
                             />
+                        </div>
+
+                        {/* Branding Section */}
+                        <div className="pt-6 border-t border-border">
+                            <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-4">Branch Branding</h3>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div className="space-y-2">
+                                    <label className="text-sm font-semibold flex items-center gap-2">
+                                        <Image size={16} className="text-primary" />
+                                        Logo URL
+                                    </label>
+                                    <input
+                                        name="logoUrl"
+                                        value={formData.logoUrl}
+                                        onChange={handleChange}
+                                        placeholder="https://example.com/logo.png"
+                                        className="w-full p-3 bg-background border border-input rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none"
+                                    />
+                                    <p className="text-[11px] text-muted-foreground">URL to the branch/school logo image.</p>
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-sm font-semibold flex items-center gap-2">
+                                        <Palette size={16} className="text-primary" />
+                                        Primary Color
+                                    </label>
+                                    <div className="flex gap-3">
+                                        <input
+                                            type="color"
+                                            name="primaryColor"
+                                            value={formData.primaryColor}
+                                            onChange={handleChange}
+                                            className="w-14 h-12 p-1 bg-background border border-input rounded-xl cursor-pointer"
+                                        />
+                                        <input
+                                            name="primaryColor"
+                                            value={formData.primaryColor}
+                                            onChange={handleChange}
+                                            placeholder="#2563EB"
+                                            className="flex-1 p-3 bg-background border border-input rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none"
+                                        />
+                                    </div>
+                                    <p className="text-[11px] text-muted-foreground">Brand color used in emails, reports, and certificates.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

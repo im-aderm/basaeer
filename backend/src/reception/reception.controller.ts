@@ -78,8 +78,8 @@ export class ReceptionController {
   @ApiOperation({ summary: 'Create Update Enquiry' })
   @Post('enquiries/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
-  updateEnquiry(@Param('id') id: string, @Body() dto: UpdateEnquiryDto) {
-    return this.receptionService.updateEnquiry(id, dto);
+  updateEnquiry(@Param('id') id: string, @Body() dto: UpdateEnquiryDto, @GetTenantContext() ctx: TenantContext) {
+    return this.receptionService.updateEnquiry(id, dto, ctx);
   }
 
   @ApiBearerAuth()
@@ -87,8 +87,8 @@ export class ReceptionController {
   @ApiOperation({ summary: 'Delete Enquiry' })
   @Delete('enquiries/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
-  deleteEnquiry(@Param('id') id: string) {
-    return this.receptionService.deleteEnquiry(id);
+  deleteEnquiry(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.receptionService.deleteEnquiry(id, ctx);
   }
 
   @ApiBearerAuth()
@@ -127,8 +127,8 @@ export class ReceptionController {
   @ApiOperation({ summary: 'Create Update Call Log' })
   @Post('call-logs/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
-  updateCallLog(@Param('id') id: string, @Body() dto: UpdateCallLogDto) {
-    return this.receptionService.updateCallLog(id, dto);
+  updateCallLog(@Param('id') id: string, @Body() dto: UpdateCallLogDto, @GetTenantContext() ctx: TenantContext) {
+    return this.receptionService.updateCallLog(id, dto, ctx);
   }
 
   @ApiBearerAuth()
@@ -136,8 +136,8 @@ export class ReceptionController {
   @ApiOperation({ summary: 'Delete Call Log' })
   @Delete('call-logs/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
-  deleteCallLog(@Param('id') id: string) {
-    return this.receptionService.deleteCallLog(id);
+  deleteCallLog(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.receptionService.deleteCallLog(id, ctx);
   }
 
   @ApiBearerAuth()
@@ -176,8 +176,8 @@ export class ReceptionController {
   @ApiOperation({ summary: 'Create Update Visitor Log' })
   @Post('visitor-logs/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
-  updateVisitorLog(@Param('id') id: string, @Body() dto: UpdateVisitorLogDto) {
-    return this.receptionService.updateVisitorLog(id, dto);
+  updateVisitorLog(@Param('id') id: string, @Body() dto: UpdateVisitorLogDto, @GetTenantContext() ctx: TenantContext) {
+    return this.receptionService.updateVisitorLog(id, dto, ctx);
   }
 
   @ApiBearerAuth()
@@ -185,8 +185,8 @@ export class ReceptionController {
   @ApiOperation({ summary: 'Delete Visitor Log' })
   @Delete('visitor-logs/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
-  deleteVisitorLog(@Param('id') id: string) {
-    return this.receptionService.deleteVisitorLog(id);
+  deleteVisitorLog(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.receptionService.deleteVisitorLog(id, ctx);
   }
 
   @ApiBearerAuth()
@@ -225,8 +225,8 @@ export class ReceptionController {
   @ApiOperation({ summary: 'Create Update Complaint' })
   @Post('complaints/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
-  updateComplaint(@Param('id') id: string, @Body() dto: UpdateComplaintDto) {
-    return this.receptionService.updateComplaint(id, dto);
+  updateComplaint(@Param('id') id: string, @Body() dto: UpdateComplaintDto, @GetTenantContext() ctx: TenantContext) {
+    return this.receptionService.updateComplaint(id, dto, ctx);
   }
 
   @ApiBearerAuth()
@@ -234,8 +234,8 @@ export class ReceptionController {
   @ApiOperation({ summary: 'Delete Complaint' })
   @Delete('complaints/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
-  deleteComplaint(@Param('id') id: string) {
-    return this.receptionService.deleteComplaint(id);
+  deleteComplaint(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.receptionService.deleteComplaint(id, ctx);
   }
 
   @ApiBearerAuth()
@@ -277,8 +277,9 @@ export class ReceptionController {
   updatePostalRecord(
     @Param('id') id: string,
     @Body() dto: UpdatePostalRecordDto,
+    @GetTenantContext() ctx: TenantContext,
   ) {
-    return this.receptionService.updatePostalRecord(id, dto);
+    return this.receptionService.updatePostalRecord(id, dto, ctx);
   }
 
   @ApiBearerAuth()
@@ -286,7 +287,7 @@ export class ReceptionController {
   @ApiOperation({ summary: 'Delete Postal Record' })
   @Delete('postal-records/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
-  deletePostalRecord(@Param('id') id: string) {
-    return this.receptionService.deletePostalRecord(id);
+  deletePostalRecord(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.receptionService.deletePostalRecord(id, ctx);
   }
 }

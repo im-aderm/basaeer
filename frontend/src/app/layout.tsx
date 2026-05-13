@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
+import { BrandingProvider } from "@/components/BrandingProvider";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -29,6 +30,10 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${inter.variable} ${spaceGrotesk.variable} antialiased`}
+        style={{
+          '--primary': '#D97706',
+          '--ring': '#D97706',
+        } as React.CSSProperties}
       >
         <a
           href="#main-content"
@@ -38,7 +43,9 @@ export default function RootLayout({
         </a>
         <div id="main-content" className="outline-none">
           <Providers>
-            {children}
+            <BrandingProvider>
+              {children}
+            </BrandingProvider>
           </Providers>
         </div>
       </body>

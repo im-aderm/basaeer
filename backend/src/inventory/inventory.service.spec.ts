@@ -22,6 +22,7 @@ const mockPrismaService = {
   inventoryProduct: {
     create: jest.fn(),
     findMany: jest.fn(),
+    findFirst: jest.fn(),
     update: jest.fn(),
     delete: jest.fn(),
   },
@@ -44,6 +45,13 @@ const mockPrismaService = {
 describe('InventoryService', () => {
   let service: InventoryService;
   let prisma: PrismaService;
+
+  const mockContext = {
+    userId: 'user-1',
+    branchId: 'branch-1',
+    isSuperAdmin: false,
+    role: 'BRANCH_ADMIN' as any,
+  };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -95,12 +103,13 @@ describe('InventoryService', () => {
         sellingPrice: 250,
       };
 
+      (mockPrismaService.inventoryProduct.findFirst as jest.Mock).mockResolvedValue({ id });
       (mockPrismaService.inventoryProduct.update as jest.Mock).mockResolvedValue({
         id,
         ...dto,
       });
 
-      const result = await service.updateProduct(id, dto);
+      const result = await service.updateProduct(id, dto, mockContext);
 
       expect(result).toEqual({ id, ...dto });
       expect(mockPrismaService.inventoryProduct.update).toHaveBeenCalledWith({

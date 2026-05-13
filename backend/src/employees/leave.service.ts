@@ -7,6 +7,8 @@ import { PrismaService } from '../prisma/prisma.service';
 import { CreateLeaveRequestDto, UpdateLeaveStatusDto } from './dto/hr-ops.dto';
 import { LeaveValidationService } from './leave-validation.service';
 import { RealtimeService } from '../realtime/realtime.service';
+import { TenantContext } from '../auth/branch.guard';
+import { TenantHelper } from '../prisma/tenant-helper';
 
 @Injectable()
 export class LeaveService {
@@ -65,9 +67,9 @@ export class LeaveService {
     return leave;
   }
 
-  async updateLeaveStatus(requestId: string, dto: UpdateLeaveStatusDto) {
-    const request = await this.prisma.leaveRequest.findUnique({
-      where: { id: requestId },
+  async updateLeaveStatus(requestId: string, dto: UpdateLeaveStatusDto, context: TenantContext) {
+    const request = await this.prisma.leaveRequest.findFirst({
+      where: TenantHelper.applyIsolation({ id: requestId }, context),
       include: {
         staff: {
           include: {
@@ -101,7 +103,11 @@ export class LeaveService {
     return updated;
   }
 
-  async getStaffLeaves(staffId: string) {
+  async getStaffLeaves(staffId: string, context: TenantContext) {
+    const staff = await this.prisma.staff.findFirst({
+      where: TenantHelper.applyNestedIsolation({ id: staffId }, 'user', context),
+    });
+    if (!staff) throw new NotFoundException('Staff not found');
     return this.prisma.leaveRequest.findMany({
       where: { staffId },
       orderBy: { startDate: 'desc' },

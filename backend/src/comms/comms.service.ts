@@ -1,7 +1,10 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
 import { PrismaService } from '../prisma/prisma.service';
+import { TenantContext } from '../auth/branch.guard';
+import { TenantHelper } from '../prisma/tenant-helper';
+import { BranchBrandingService } from '../branches/branch-branding.service';
 
 const QUEUE_JOB_OPTS = {
   attempts: 3,
@@ -21,6 +24,7 @@ export class CommsService {
     private readonly prisma: PrismaService,
     @InjectQueue('email') private readonly emailQueue: Queue,
     @InjectQueue('sms') private readonly smsQueue: Queue,
+    private readonly brandingService: BranchBrandingService,
   ) {}
 
   async sendSms(dto: {
@@ -29,6 +33,12 @@ export class CommsService {
     userId?: string;
     branchId: string | null;
   }) {
+    let smsSenderId: string | undefined;
+    if (dto.branchId) {
+      const branding = await this.brandingService.getBranding(dto.branchId);
+      smsSenderId = branding.smsSenderId;
+    }
+
     const job = await this.smsQueue.add(
       'send-sms',
       {
@@ -36,6 +46,7 @@ export class CommsService {
         message: dto.message,
         userId: dto.userId,
         branchId: dto.branchId,
+        smsSenderId,
       },
       QUEUE_JOB_OPTS,
     );
@@ -219,9 +230,9 @@ export class CommsService {
     });
   }
 
-  async getCampaignDetails(campaignId: string) {
-    return this.prisma.campaign.findUnique({
-      where: { id: campaignId },
+  async getCampaignDetails(campaignId: string, context: TenantContext) {
+    const campaign = await this.prisma.campaign.findFirst({
+      where: TenantHelper.applyIsolation({ id: campaignId }, context),
       include: {
         recipients: {
           include: {
@@ -237,6 +248,8 @@ export class CommsService {
         },
       },
     });
+    if (!campaign) throw new NotFoundException('Campaign not found');
+    return campaign;
   }
 
   private async getRecipients(group: string, branchId: string | null) {

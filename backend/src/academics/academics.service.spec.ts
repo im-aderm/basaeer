@@ -6,19 +6,29 @@ describe('AcademicsService - Assignments', () => {
   let service: AcademicsService;
   let prisma: PrismaService;
 
+  const mockContext = {
+    userId: 'user-1',
+    branchId: 'branch-1',
+    isSuperAdmin: false,
+    role: 'TEACHER' as any,
+  };
+
   const mockPrismaService = {
     assignment: {
       create: jest.fn(),
       findMany: jest.fn(),
+      findFirst: jest.fn(),
     },
     submission: {
       create: jest.fn(),
       upsert: jest.fn(),
       update: jest.fn(),
       findMany: jest.fn(),
+      findFirst: jest.fn(),
     },
     student: {
       findUnique: jest.fn(),
+      findFirst: jest.fn(),
     },
     staff: {
       findUnique: jest.fn(),
@@ -98,7 +108,7 @@ describe('AcademicsService - Assignments', () => {
 
       mockPrismaService.assignment.findMany.mockResolvedValue(mockAssignments);
 
-      const result = await service.getAssignments(filters);
+      const result = await service.getAssignments(filters, mockContext);
 
       expect(result).toHaveLength(1);
       expect(result[0].title).toBe('Homework 1');
@@ -109,7 +119,7 @@ describe('AcademicsService - Assignments', () => {
 
       mockPrismaService.assignment.findMany.mockResolvedValue([]);
 
-      await service.getAssignments(filters);
+      await service.getAssignments(filters, mockContext);
 
       expect(mockPrismaService.assignment.findMany).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -137,6 +147,7 @@ describe('AcademicsService - Assignments', () => {
         status: 'SUBMITTED',
       };
 
+      mockPrismaService.student.findUnique.mockResolvedValue({ id: dto.studentId });
       mockPrismaService.submission.upsert.mockResolvedValue(mockSubmission);
 
       const result = await service.submitAssignment(dto);
@@ -162,10 +173,13 @@ describe('AcademicsService - Assignments', () => {
 
       mockPrismaService.submission.update.mockResolvedValue(mockGraded);
 
+      mockPrismaService.submission.findFirst.mockResolvedValue(mockGraded);
+
       const result = await service.gradeSubmission(
         submissionId,
         grade,
         feedback,
+        mockContext,
       );
 
       expect(result.grade).toBe(85);
@@ -191,9 +205,10 @@ describe('AcademicsService - Assignments', () => {
         },
       ];
 
+      mockPrismaService.assignment.findFirst.mockResolvedValue({ id: assignmentId });
       mockPrismaService.submission.findMany.mockResolvedValue(mockSubmissions);
 
-      const result = await service.getAssignmentSubmissions(assignmentId);
+      const result = await service.getAssignmentSubmissions(assignmentId, mockContext);
 
       expect(result).toHaveLength(2);
       expect(result[1].grade).toBe(90);
@@ -225,10 +240,10 @@ describe('AcademicsService - Assignments', () => {
         },
       ];
 
-      mockPrismaService.student.findUnique.mockResolvedValue(mockStudent);
+      mockPrismaService.student.findFirst.mockResolvedValue(mockStudent);
       mockPrismaService.assignment.findMany.mockResolvedValue(mockAssignments);
 
-      const result = await service.getStudentAssignments(studentId);
+      const result = await service.getStudentAssignments(studentId, mockContext);
 
       expect(result).toHaveLength(2);
       expect((result[0] as any).submissions).toHaveLength(1);
@@ -236,9 +251,9 @@ describe('AcademicsService - Assignments', () => {
     });
 
     it('should throw NotFoundException if student not found', async () => {
-      mockPrismaService.student.findUnique.mockResolvedValue(null);
+      mockPrismaService.student.findFirst.mockResolvedValue(null);
 
-      await expect(service.getStudentAssignments('invalid-id')).rejects.toThrow(
+      await expect(service.getStudentAssignments('invalid-id', mockContext)).rejects.toThrow(
         'Student not found',
       );
     });

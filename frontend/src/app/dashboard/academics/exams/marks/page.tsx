@@ -22,7 +22,7 @@ import {
 } from "lucide-react";
 import { clsx } from "clsx";
 import { Term } from "@/types/enums";
-import { toast } from "react-hot-toast";
+import { toast } from "sonner";
 
 export default function ScoreEntryPage() {
     // Selection state

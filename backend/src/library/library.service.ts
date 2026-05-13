@@ -5,16 +5,19 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateBookDto, BorrowBookDto } from './dto/library.dto';
+import { TenantContext } from '../auth/branch.guard';
+import { TenantHelper } from '../prisma/tenant-helper';
 
 @Injectable()
 export class LibraryService {
   constructor(private prisma: PrismaService) {}
 
-  async createBook(dto: CreateBookDto) {
+  async createBook(dto: CreateBookDto, context: TenantContext) {
     return this.prisma.book.create({
       data: {
         ...dto,
         available: dto.quantity,
+        branchId: dto.branchId || context.branchId!,
       },
     });
   }
@@ -83,9 +86,9 @@ export class LibraryService {
     };
   }
 
-  async findOneBook(id: string) {
-    const book = await this.prisma.book.findUnique({
-      where: { id },
+  async findOneBook(id: string, context: TenantContext) {
+    const book = await this.prisma.book.findFirst({
+      where: TenantHelper.applyIsolation({ id }, context),
       include: {
         bookCopies: true,
         borrowRecords: {
@@ -98,16 +101,16 @@ export class LibraryService {
     return book;
   }
 
-  async borrowBook(dto: BorrowBookDto) {
-    const book = await this.prisma.book.findUnique({
-      where: { id: dto.bookId },
+  async borrowBook(dto: BorrowBookDto, context: TenantContext) {
+    const book = await this.prisma.book.findFirst({
+      where: TenantHelper.applyIsolation({ id: dto.bookId }, context),
     });
     if (!book) throw new NotFoundException('Book not found');
     if (book.available <= 0)
       throw new BadRequestException('No copies available');
 
-    const student = await this.prisma.student.findUnique({
-      where: { id: dto.studentId },
+    const student = await this.prisma.student.findFirst({
+      where: TenantHelper.applyIsolation({ id: dto.studentId }, context),
       select: { branchId: true },
     });
     if (!student) throw new NotFoundException('Student not found');
@@ -169,9 +172,9 @@ export class LibraryService {
     });
   }
 
-  async returnBook(borrowRecordId: string) {
-    const record = await this.prisma.borrowRecord.findUnique({
-      where: { id: borrowRecordId },
+  async returnBook(borrowRecordId: string, context: TenantContext) {
+    const record = await this.prisma.borrowRecord.findFirst({
+      where: TenantHelper.applyIsolation({ id: borrowRecordId }, context),
       include: { student: { select: { branchId: true } } },
     });
     if (!record) throw new NotFoundException('Borrow record not found');
@@ -239,7 +242,11 @@ export class LibraryService {
     });
   }
 
-  async getStudentBorrowingHistory(studentId: string) {
+  async getStudentBorrowingHistory(studentId: string, context: TenantContext) {
+    const student = await this.prisma.student.findFirst({
+      where: TenantHelper.applyIsolation({ id: studentId }, context),
+    });
+    if (!student) throw new NotFoundException('Student not found');
     return this.prisma.borrowRecord.findMany({
       where: { studentId },
       include: { book: true, bookCopy: true },
@@ -261,7 +268,8 @@ export class LibraryService {
     });
   }
 
-  async getLibraryStats(branchId: string | null) {
+  async getLibraryStats(context: TenantContext) {
+    const branchId = context.isSuperAdmin ? null : context.branchId;
     const [
       totalBooks,
       availableBooks,
@@ -285,7 +293,7 @@ export class LibraryService {
         },
       }),
       this.prisma.libraryFine.aggregate({
-        where: { status: 'PENDING' },
+        where: { status: 'PENDING', ...(branchId && { branchId }) },
         _sum: { amount: true },
       }),
     ]);

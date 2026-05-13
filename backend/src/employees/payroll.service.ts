@@ -6,6 +6,8 @@ import {
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateSalaryTemplateDto, GeneratePayrollDto } from './dto/hr-ops.dto';
 import { RealtimeService } from '../realtime/realtime.service';
+import { TenantContext } from '../auth/branch.guard';
+import { TenantHelper } from '../prisma/tenant-helper';
 
 @Injectable()
 export class PayrollService {
@@ -100,14 +102,22 @@ export class PayrollService {
     };
   }
 
-  async getStaffPayrollHistory(staffId: string) {
+  async getStaffPayrollHistory(staffId: string, context: TenantContext) {
+    const staff = await this.prisma.staff.findFirst({
+      where: TenantHelper.applyNestedIsolation({ id: staffId }, 'user', context),
+    });
+    if (!staff) throw new NotFoundException('Staff not found');
     return this.prisma.payroll.findMany({
       where: { staffId },
       orderBy: [{ year: 'desc' }, { month: 'desc' }],
     });
   }
 
-  async markAsPaid(payrollId: string) {
+  async markAsPaid(payrollId: string, context: TenantContext) {
+    const payroll = await this.prisma.payroll.findFirst({
+      where: TenantHelper.applyIsolation({ id: payrollId }, context),
+    });
+    if (!payroll) throw new NotFoundException('Payroll not found');
     return this.prisma.payroll.update({
       where: { id: payrollId },
       data: { status: 'PAID', paymentDate: new Date() },

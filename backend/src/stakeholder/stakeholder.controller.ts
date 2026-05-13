@@ -121,8 +121,8 @@ export class StakeholderController {
   @ApiOperation({ summary: 'Retrieve Parent Details' })
   @Get('admin/parents/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  getParentDetails(@Param('id') id: string) {
-    return this.stakeholderService.getParentDetailsAdmin(id);
+  getParentDetails(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.stakeholderService.getParentDetailsAdmin(id, ctx);
   }
 
   @ApiBearerAuth()
@@ -133,8 +133,9 @@ export class StakeholderController {
   linkStudent(
     @Param('id') parentId: string,
     @Param('studentId') studentId: string,
+    @GetTenantContext() ctx: TenantContext,
   ) {
-    return this.stakeholderService.linkStudentToParent(parentId, studentId);
+    return this.stakeholderService.linkStudentToParent(parentId, studentId, ctx);
   }
 
   @ApiBearerAuth()
@@ -142,8 +143,8 @@ export class StakeholderController {
   @ApiOperation({ summary: 'Delete Unlink Student' })
   @Delete('admin/parents/students/:studentId')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  unlinkStudent(@Param('studentId') studentId: string) {
-    return this.stakeholderService.unlinkStudentFromParent(studentId);
+  unlinkStudent(@Param('studentId') studentId: string, @GetTenantContext() ctx: TenantContext) {
+    return this.stakeholderService.unlinkStudentFromParent(studentId, ctx);
   }
 
   // --- MESSAGING ---

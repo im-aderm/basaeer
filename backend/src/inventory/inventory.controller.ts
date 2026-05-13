@@ -87,8 +87,9 @@ export class InventoryController {
   updateCategory(
     @Param('id') id: string,
     @Body() dto: UpdateInventoryCategoryDto,
+    @GetTenantContext() ctx: TenantContext,
   ) {
-    return this.inventoryService.updateCategory(id, dto);
+    return this.inventoryService.updateCategory(id, dto, ctx);
   }
 
   @ApiBearerAuth()
@@ -96,8 +97,8 @@ export class InventoryController {
   @ApiOperation({ summary: 'Delete Category' })
   @Delete('categories/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  deleteCategory(@Param('id') id: string) {
-    return this.inventoryService.deleteCategory(id);
+  deleteCategory(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.inventoryService.deleteCategory(id, ctx);
   }
 
   @ApiBearerAuth()
@@ -131,8 +132,8 @@ export class InventoryController {
   @ApiOperation({ summary: 'Create Update Store' })
   @Post('stores/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  updateStore(@Param('id') id: string, @Body() dto: UpdateInventoryStoreDto) {
-    return this.inventoryService.updateStore(id, dto);
+  updateStore(@Param('id') id: string, @Body() dto: UpdateInventoryStoreDto, @GetTenantContext() ctx: TenantContext) {
+    return this.inventoryService.updateStore(id, dto, ctx);
   }
 
   @ApiBearerAuth()
@@ -140,8 +141,8 @@ export class InventoryController {
   @ApiOperation({ summary: 'Delete Store' })
   @Delete('stores/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  deleteStore(@Param('id') id: string) {
-    return this.inventoryService.deleteStore(id);
+  deleteStore(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.inventoryService.deleteStore(id, ctx);
   }
 
   @ApiBearerAuth()
@@ -180,8 +181,9 @@ export class InventoryController {
   updateSupplier(
     @Param('id') id: string,
     @Body() dto: UpdateInventorySupplierDto,
+    @GetTenantContext() ctx: TenantContext,
   ) {
-    return this.inventoryService.updateSupplier(id, dto);
+    return this.inventoryService.updateSupplier(id, dto, ctx);
   }
 
   @ApiBearerAuth()
@@ -189,8 +191,8 @@ export class InventoryController {
   @ApiOperation({ summary: 'Delete Supplier' })
   @Delete('suppliers/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  deleteSupplier(@Param('id') id: string) {
-    return this.inventoryService.deleteSupplier(id);
+  deleteSupplier(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.inventoryService.deleteSupplier(id, ctx);
   }
 
   @ApiBearerAuth()
@@ -224,8 +226,8 @@ export class InventoryController {
   @ApiOperation({ summary: 'Create Update Unit' })
   @Post('units/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  updateUnit(@Param('id') id: string, @Body() dto: UpdateInventoryUnitDto) {
-    return this.inventoryService.updateUnit(id, dto);
+  updateUnit(@Param('id') id: string, @Body() dto: UpdateInventoryUnitDto, @GetTenantContext() ctx: TenantContext) {
+    return this.inventoryService.updateUnit(id, dto, ctx);
   }
 
   @ApiBearerAuth()
@@ -233,8 +235,8 @@ export class InventoryController {
   @ApiOperation({ summary: 'Delete Unit' })
   @Delete('units/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  deleteUnit(@Param('id') id: string) {
-    return this.inventoryService.deleteUnit(id);
+  deleteUnit(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.inventoryService.deleteUnit(id, ctx);
   }
 
   @ApiBearerAuth()
@@ -271,8 +273,9 @@ export class InventoryController {
   updateProduct(
     @Param('id') id: string,
     @Body() dto: UpdateInventoryProductDto,
+    @GetTenantContext() ctx: TenantContext,
   ) {
-    return this.inventoryService.updateProduct(id, dto);
+    return this.inventoryService.updateProduct(id, dto, ctx);
   }
 
   @ApiBearerAuth()
@@ -280,8 +283,8 @@ export class InventoryController {
   @ApiOperation({ summary: 'Delete Product' })
   @Delete('products/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  deleteProduct(@Param('id') id: string) {
-    return this.inventoryService.deleteProduct(id);
+  deleteProduct(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.inventoryService.deleteProduct(id, ctx);
   }
 
   @ApiBearerAuth()
@@ -333,8 +336,8 @@ export class InventoryController {
   @ApiOperation({ summary: 'Return Issued Item' })
   @Post('issues/:id/return')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  returnItem(@Param('id') id: string) {
-    return this.inventoryService.returnItem(id);
+  returnItem(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.inventoryService.returnItem(id, ctx);
   }
 
   @ApiBearerAuth()

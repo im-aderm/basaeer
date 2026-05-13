@@ -8,12 +8,14 @@ import { SmsProcessor } from './sms.processor';
 import { PrismaModule } from '../prisma/prisma.module';
 import { MailModule } from '../mail/mail.module';
 import { ProvidersModule } from '../providers/providers.module';
+import { BranchesModule } from '../branches/branches.module';
 
 @Module({
   imports: [
     PrismaModule,
     MailModule,
     ProvidersModule,
+    BranchesModule,
     BullModule.registerQueue({ name: 'email' }, { name: 'sms' }),
   ],
   controllers: [CommsController, TemplateController],

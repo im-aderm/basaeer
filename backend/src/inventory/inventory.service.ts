@@ -1,5 +1,7 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { TenantContext } from '../auth/branch.guard';
+import { TenantHelper } from '../prisma/tenant-helper';
 import {
   CreateInventoryCategoryDto,
   CreateInventoryStoreDto,
@@ -156,43 +158,83 @@ export class InventoryService {
   }
 
   // UPDATES & DELETES
-  updateCategory(id: string, dto: UpdateInventoryCategoryDto) {
+  async updateCategory(id: string, dto: UpdateInventoryCategoryDto, context: TenantContext) {
+    const existing = await this.prisma.inventoryCategory.findFirst({
+      where: TenantHelper.applyIsolation({ id }, context),
+    });
+    if (!existing) throw new NotFoundException('Category not found');
     return this.prisma.inventoryCategory.update({ where: { id }, data: dto });
   }
 
-  deleteCategory(id: string) {
+  async deleteCategory(id: string, context: TenantContext) {
+    const existing = await this.prisma.inventoryCategory.findFirst({
+      where: TenantHelper.applyIsolation({ id }, context),
+    });
+    if (!existing) throw new NotFoundException('Category not found');
     return this.prisma.inventoryCategory.delete({ where: { id } });
   }
 
-  updateStore(id: string, dto: UpdateInventoryStoreDto) {
+  async updateStore(id: string, dto: UpdateInventoryStoreDto, context: TenantContext) {
+    const existing = await this.prisma.inventoryStore.findFirst({
+      where: TenantHelper.applyIsolation({ id }, context),
+    });
+    if (!existing) throw new NotFoundException('Store not found');
     return this.prisma.inventoryStore.update({ where: { id }, data: dto });
   }
 
-  deleteStore(id: string) {
+  async deleteStore(id: string, context: TenantContext) {
+    const existing = await this.prisma.inventoryStore.findFirst({
+      where: TenantHelper.applyIsolation({ id }, context),
+    });
+    if (!existing) throw new NotFoundException('Store not found');
     return this.prisma.inventoryStore.delete({ where: { id } });
   }
 
-  updateSupplier(id: string, dto: UpdateInventorySupplierDto) {
+  async updateSupplier(id: string, dto: UpdateInventorySupplierDto, context: TenantContext) {
+    const existing = await this.prisma.inventorySupplier.findFirst({
+      where: TenantHelper.applyIsolation({ id }, context),
+    });
+    if (!existing) throw new NotFoundException('Supplier not found');
     return this.prisma.inventorySupplier.update({ where: { id }, data: dto });
   }
 
-  deleteSupplier(id: string) {
+  async deleteSupplier(id: string, context: TenantContext) {
+    const existing = await this.prisma.inventorySupplier.findFirst({
+      where: TenantHelper.applyIsolation({ id }, context),
+    });
+    if (!existing) throw new NotFoundException('Supplier not found');
     return this.prisma.inventorySupplier.delete({ where: { id } });
   }
 
-  updateUnit(id: string, dto: UpdateInventoryUnitDto) {
+  async updateUnit(id: string, dto: UpdateInventoryUnitDto, context: TenantContext) {
+    const existing = await this.prisma.inventoryUnit.findFirst({
+      where: TenantHelper.applyIsolation({ id }, context),
+    });
+    if (!existing) throw new NotFoundException('Unit not found');
     return this.prisma.inventoryUnit.update({ where: { id }, data: dto });
   }
 
-  deleteUnit(id: string) {
+  async deleteUnit(id: string, context: TenantContext) {
+    const existing = await this.prisma.inventoryUnit.findFirst({
+      where: TenantHelper.applyIsolation({ id }, context),
+    });
+    if (!existing) throw new NotFoundException('Unit not found');
     return this.prisma.inventoryUnit.delete({ where: { id } });
   }
 
-  updateProduct(id: string, dto: UpdateInventoryProductDto) {
+  async updateProduct(id: string, dto: UpdateInventoryProductDto, context: TenantContext) {
+    const existing = await this.prisma.inventoryProduct.findFirst({
+      where: TenantHelper.applyIsolation({ id }, context),
+    });
+    if (!existing) throw new NotFoundException('Product not found');
     return this.prisma.inventoryProduct.update({ where: { id }, data: dto });
   }
 
-  deleteProduct(id: string) {
+  async deleteProduct(id: string, context: TenantContext) {
+    const existing = await this.prisma.inventoryProduct.findFirst({
+      where: TenantHelper.applyIsolation({ id }, context),
+    });
+    if (!existing) throw new NotFoundException('Product not found');
     return this.prisma.inventoryProduct.delete({ where: { id } });
   }
 
@@ -232,10 +274,10 @@ export class InventoryService {
   }
 
   // Returns
-  async returnItem(issueId: string) {
+  async returnItem(issueId: string, context: TenantContext) {
     return this.prisma.$transaction(async (tx) => {
-      const issue = await tx.inventoryIssue.findUnique({
-        where: { id: issueId },
+      const issue = await tx.inventoryIssue.findFirst({
+        where: TenantHelper.applyIsolation({ id: issueId }, context),
       });
 
       if (!issue || issue.status === 'RETURNED') {

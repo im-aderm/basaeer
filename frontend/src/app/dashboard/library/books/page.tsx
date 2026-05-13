@@ -1,377 +1,301 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import {
-    Book,
-    Search,
-    Filter,
-    Plus,
-    MoreVertical,
-    Loader2,
-    BookOpen,
-    MapPin,
-    Hash,
-    Layers,
-    Edit3,
-    Trash2
-} from "lucide-react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Plus, Search, Loader2, Trash2, ChevronDown, ChevronRight, BookOpen } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { toast } from "sonner";
-import api from "@/lib/api";
-import { LibraryService, Book as BookType } from "@/services/libraryService";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
+import { toast } from "sonner";
+import { LibraryService, Book as BookType } from "@/services/libraryService";
+import api from "@/lib/api";
 
-export default function BookCatalogPage() {
+export default function LibraryBooksPage() {
     const [books, setBooks] = useState<BookType[]>([]);
     const [loading, setLoading] = useState(true);
-    const [searchTerm, setSearchTerm] = useState("");
-    const [page, setPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
-
-    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-    const [isBorrowModalOpen, setIsBorrowModalOpen] = useState(false);
-    const [selectedBook, setSelectedBook] = useState<BookType | null>(null);
-    const [students, setStudents] = useState<any[]>([]);
-    const [borrowData, setBorrowData] = useState({
-        studentId: "",
-        dueDate: ""
-    });
-    const [newBook, setNewBook] = useState({
+    const [search, setSearch] = useState("");
+    const [isAddOpen, setIsAddOpen] = useState(false);
+    const [expandedId, setExpandedId] = useState<string | null>(null);
+    const [form, setForm] = useState({
         title: "",
         author: "",
         isbn: "",
         category: "",
         quantity: 1,
-        location: "",
-        description: ""
+        description: "",
     });
 
     const fetchBooks = async () => {
         setLoading(true);
         try {
-            const [booksResponse, studentsData] = await Promise.all([
-                LibraryService.getAllBooks({ page, limit: 9, search: searchTerm }),
-                api.get("/students").then(res => res.data)
-            ]);
-
-            // Handle response format change (array vs { data, meta })
-            if (Array.isArray(booksResponse)) {
-                setBooks(booksResponse);
-            } else {
-                setBooks(booksResponse.data);
-                setTotalPages(booksResponse.meta.totalPages);
-            }
-
-            setStudents(studentsData);
-        } catch (error) {
-            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch data:", error);
+            const data = await LibraryService.getAllBooks({ search });
+            setBooks(Array.isArray(data) ? data : data.data);
+        } catch {
+            toast.error("Failed to load books");
         } finally {
             setLoading(false);
         }
     };
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            fetchBooks();
-        }, 500); // Debounce search
+        const timer = setTimeout(fetchBooks, 300);
         return () => clearTimeout(timer);
-    }, [page, searchTerm]);
+    }, [search]);
 
-    const handleQuickBorrow = async (e: React.FormEvent) => {
+    const handleAdd = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!selectedBook) return;
         try {
-            await LibraryService.borrowBook({
-                bookId: selectedBook.id,
-                studentId: borrowData.studentId,
-                dueDate: borrowData.dueDate
+            await LibraryService.createBook({
+                title: form.title,
+                author: form.author,
+                isbn: form.isbn,
+                category: form.category,
+                quantity: form.quantity,
+                description: form.description,
             });
-            setIsBorrowModalOpen(false);
-            setBorrowData({ studentId: "", dueDate: "" });
-            toast.success("Book borrowed successfully");
+            setIsAddOpen(false);
+            setForm({ title: "", author: "", isbn: "", category: "", quantity: 1, description: "" });
+            toast.success("Book added successfully");
             fetchBooks();
-        } catch (error) {
-            if (process.env.NODE_ENV === 'development') console.error("Borrow failed:", error);
-            toast.error("Failed to borrow book");
+        } catch {
+            toast.error("Failed to add book");
         }
     };
 
-    const handleAddBook = async (e: React.FormEvent) => {
-        e.preventDefault();
+    const handleDelete = async (id: string, title: string) => {
+        if (!confirm(`Delete "${title}"? This action cannot be undone.`)) return;
         try {
-            // In a real app we'd get branchId from user context
-            const branchId = books[0]?.branchId || "default-branch";
-            await LibraryService.createBook({ ...newBook, branchId });
-            setIsAddModalOpen(false);
-            setNewBook({ title: "", author: "", isbn: "", category: "", quantity: 1, location: "", description: "" });
+            await api.delete(`/library/books/${id}`);
+            toast.success("Book deleted successfully");
             fetchBooks();
-        } catch (error) {
-            if (process.env.NODE_ENV === 'development') console.error("Failed to add book:", error);
+        } catch {
+            toast.error("Failed to delete book");
         }
     };
 
-    if (loading && books.length === 0) return <div className="p-8 text-center"><Loader2 className="animate-spin mx-auto h-8 w-8 text-primary" /></div>;
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center min-h-[400px]">
+                <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+            </div>
+        );
+    }
 
     return (
-        <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in duration-500 pb-20">
-            {/* Header section with specialized design */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-card border border-border p-10 rounded-[3rem] shadow-sm relative overflow-hidden">
-                <div className="relative z-10">
-                    <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
-                        <BookOpen className="text-blue-500 w-10 h-10" />
-                        Book Catalog
-                    </h1>
-                    <p className="text-muted-foreground mt-2 text-lg font-medium">Explore and manage your school's library collection.</p>
+        <div className="space-y-6">
+            {/* Header */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                    <h1 className="text-h1 font-bold tracking-tight">Library Books</h1>
+                    <p className="text-muted-foreground text-sm mt-1">Manage your school&apos;s book inventory</p>
                 </div>
-                <div className="relative z-10">
-                    <Dialog open={isAddModalOpen} onOpenChange={setIsAddModalOpen}>
-                        <DialogTrigger asChild>
-                            <Button className="h-14 truncate rounded-2xl px-10 font-semibold shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all gap-3 bg-blue-600">
-                                <Plus size={20} /> Register New Book
-                            </Button>
-                        </DialogTrigger>
-                        <DialogContent className="max-w-md rounded-[2.5rem] p-8">
-                            <DialogHeader>
-                                <DialogTitle className="text-h3 font-semibold mb-6">Register New Book</DialogTitle>
-                            </DialogHeader>
-                            <form onSubmit={handleAddBook} className="space-y-4">
-                                <div className="space-y-1.5">
-                                    <Label className="font-bold ml-1">Book Title</Label>
-                                    <Input
-                                        required
-                                        className="rounded-xl h-12"
-                                        placeholder="e.g. Advanced Calculus"
-                                        value={newBook.title}
-                                        onChange={e => setNewBook({ ...newBook, title: e.target.value })}
-                                    />
-                                </div>
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div className="space-y-1.5">
-                                        <Label className="font-bold ml-1">Author</Label>
-                                        <Input
-                                            required
-                                            className="rounded-xl h-12"
-                                            placeholder="Author Name"
-                                            value={newBook.author}
-                                            onChange={e => setNewBook({ ...newBook, author: e.target.value })}
-                                        />
-                                    </div>
-                                    <div className="space-y-1.5">
-                                        <Label className="font-bold ml-1">Category</Label>
-                                        <Input
-                                            required
-                                            className="rounded-xl h-12"
-                                            placeholder="Mathematics"
-                                            value={newBook.category}
-                                            onChange={e => setNewBook({ ...newBook, category: e.target.value })}
-                                        />
-                                    </div>
-                                </div>
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div className="space-y-1.5">
-                                        <Label className="font-bold ml-1">ISBN</Label>
-                                        <Input
-                                            className="rounded-xl h-12"
-                                            placeholder="Optional"
-                                            value={newBook.isbn}
-                                            onChange={e => setNewBook({ ...newBook, isbn: e.target.value })}
-                                        />
-                                    </div>
-                                    <div className="space-y-1.5">
-                                        <Label className="font-bold ml-1">Quantity</Label>
-                                        <Input
-                                            type="number"
-                                            required
-                                            min="1"
-                                            className="rounded-xl h-12"
-                                            value={newBook.quantity}
-                                            onChange={e => setNewBook({ ...newBook, quantity: parseInt(e.target.value) })}
-                                        />
-                                    </div>
-                                </div>
-                                <div className="space-y-1.5">
-                                    <Label className="font-bold ml-1">Storage Location</Label>
-                                    <Input
-                                        className="rounded-xl h-12"
-                                        placeholder="Shelf A-1"
-                                        value={newBook.location}
-                                        onChange={e => setNewBook({ ...newBook, location: e.target.value })}
-                                    />
-                                </div>
-                                <Button type="submit" className="w-full h-14 rounded-xl font-semibold text-lg shadow-lg shadow-blue-500/20 bg-blue-600 mt-4">
-                                    Complete Registration
-                                </Button>
-                            </form>
-                        </DialogContent>
-                    </Dialog>
-                </div>
-                <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
-            </div>
-
-            {/* Filters shelf */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-muted/30 p-4 rounded-[2rem] border border-border/50 items-center">
-                <div className="relative group md:col-span-2">
-                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-blue-500 transition-colors" size={18} />
-                    <input
-                        type="text"
-                        placeholder="Search by title, author, or ISBN..."
-                        className="w-full pl-12 pr-4 py-3 bg-card border border-border/50 rounded-xl focus:border-blue-500 outline-none transition-all font-medium"
-                        value={searchTerm}
-                        onChange={(e) => {
-                            setSearchTerm(e.target.value);
-                            setPage(1); // Reset to first page on search
-                        }}
-                    />
-                </div>
-                <div className="relative">
-                    <Filter className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={18} />
-                    <select className="w-full pl-12 pr-4 py-3 bg-card border border-border/50 rounded-xl focus:border-blue-500 outline-none appearance-none font-bold cursor-pointer">
-                        <option value="">All Categories</option>
-                        <option value="science">Science</option>
-                        <option value="mathematics">Mathematics</option>
-                        <option value="literature">Literature</option>
-                    </select>
-                </div>
-            </div>
-
-            {/* Books Shelf Design */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {books.map((book) => (
-                    <Card key={book.id} className="rounded-[2.5rem] border-border/50 shadow-xl hover:shadow-2xl transition-all duration-300 group overflow-hidden bg-card border-t-8 border-t-blue-500/30 hover:border-t-blue-500">
-                        <CardContent className="p-8 space-y-6">
-                            <div className="flex justify-between items-start">
-                                <div className="w-16 h-16 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500 group-hover:scale-110 transition-transform shadow-inner">
-                                    <Book size={32} />
-                                </div>
-                                <div className="flex flex-col items-end gap-2">
-                                    <Badge className={`${book.available > 0 ? 'bg-green-500/10 text-green-500' : 'bg-red-500/10 text-red-500'} border-none font-semibold px-3 py-1 rounded-lg`}>
-                                        {book.available > 0 ? 'IN STOCK' : 'OUT OF STOCK'}
-                                    </Badge>
-                                    <p className="text-[10px] font-semibold uppercase text-muted-foreground/50 tracking-widest">{book.category}</p>
-                                </div>
-                            </div>
-
-                            <div className="space-y-1">
-                                <h3 className="text-h3 font-semibold truncate leading-tight group-hover:text-blue-600 transition-colors" title={book.title}>
-                                    {book.title}
-                                </h3>
-                                <p className="text-muted-foreground font-bold">by {book.author}</p>
-                            </div>
-
-                            <div className="grid grid-cols-2 gap-3">
-                                <div className="p-3 rounded-xl bg-muted/50 space-y-1">
-                                    <div className="flex items-center gap-1.5 text-label text-muted-foreground">
-                                        <Layers size={12} /> Available
-                                    </div>
-                                    <p className="font-semibold text-lg">{book.available} / {book.quantity}</p>
-                                </div>
-                                <div className="p-3 rounded-xl bg-muted/50 space-y-1">
-                                    <div className="flex items-center gap-1.5 text-label text-muted-foreground">
-                                        <MapPin size={12} /> Location
-                                    </div>
-                                    <p className="font-semibold text-sm truncate">{book.location || 'N/A'}</p>
-                                </div>
-                            </div>
-
-                            <div className="flex items-center gap-2 pt-2 border-t border-border/50">
-                                <Button
-                                    variant="outline"
-                                    className="flex-1 rounded-xl font-semibold hover:bg-blue-500/10 hover:text-blue-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                                    disabled={book.available <= 0}
-                                    onClick={() => {
-                                        setSelectedBook(book);
-                                        setIsBorrowModalOpen(true);
-                                    }}
-                                >
-                                    Quick Borrow
-                                </Button>
-                                <Button size="icon" variant="ghost" className="rounded-xl hover:bg-muted/80">
-                                    <Edit3 size={18} />
-                                </Button>
-                                <Button size="icon" variant="ghost" className="rounded-xl hover:bg-red-500/10 hover:text-red-500">
-                                    <Trash2 size={18} />
-                                </Button>
-                            </div>
-                        </CardContent>
-                    </Card>
-                ))}
-            </div>
-
-            {/* Pagination Controls */}
-            {totalPages > 1 && (
-                <div className="flex justify-center gap-4 mt-8">
-                    <Button
-                        variant="outline"
-                        disabled={page === 1}
-                        onClick={() => setPage(page - 1)}
-                        className="rounded-xl"
-                    >
-                        Previous
-                    </Button>
-                    <span className="flex items-center font-bold">Page {page} of {totalPages}</span>
-                    <Button
-                        variant="outline"
-                        disabled={page === totalPages}
-                        onClick={() => setPage(page + 1)}
-                        className="rounded-xl"
-                    >
-                        Next
-                    </Button>
-                </div>
-            )}
-
-            {/* Quick Borrow Modal */}
-            <Dialog open={isBorrowModalOpen} onOpenChange={setIsBorrowModalOpen}>
-                <DialogContent className="max-w-md rounded-[2.5rem] p-8">
-                    <DialogHeader>
-                        <DialogTitle className="text-h3 font-semibold mb-2">Quick Borrow</DialogTitle>
-                        <p className="text-muted-foreground font-bold text-sm mb-6">Book: {selectedBook?.title}</p>
-                    </DialogHeader>
-                    <form onSubmit={handleQuickBorrow} className="space-y-4">
-                        <div className="space-y-1.5">
-                            <Label className="font-bold ml-1">Select Student</Label>
-                            <select
-                                required
-                                className="w-full rounded-xl h-12 px-4 border bg-card font-bold"
-                                value={borrowData.studentId}
-                                onChange={e => setBorrowData({ ...borrowData, studentId: e.target.value })}
-                            >
-                                <option value="">Choose a student...</option>
-                                {students.map((student: any) => (
-                                    <option key={student.id} value={student.id}>{student.firstName} {student.lastName}</option>
-                                ))}
-                            </select>
-                        </div>
-                        <div className="space-y-1.5">
-                            <Label className="font-bold ml-1">Return Due Date</Label>
-                            <Input
-                                type="date"
-                                required
-                                className="rounded-xl h-12"
-                                value={borrowData.dueDate}
-                                onChange={e => setBorrowData({ ...borrowData, dueDate: e.target.value })}
-                            />
-                        </div>
-                        <Button type="submit" className="w-full h-14 rounded-xl font-semibold text-lg shadow-lg shadow-blue-500/20 bg-blue-600 mt-4">
-                            Confirm Borrow
+                <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>
+                    <DialogTrigger asChild>
+                        <Button className="gap-2">
+                            <Plus className="h-4 w-4" /> Add Book
                         </Button>
-                    </form>
-                </DialogContent>
-            </Dialog>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-md">
+                        <DialogHeader>
+                            <DialogTitle>Add New Book</DialogTitle>
+                        </DialogHeader>
+                        <form onSubmit={handleAdd} className="space-y-4">
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="space-y-2">
+                                    <Label htmlFor="title">Title</Label>
+                                    <Input
+                                        id="title"
+                                        required
+                                        value={form.title}
+                                        onChange={(e) => setForm({ ...form, title: e.target.value })}
+                                        placeholder="Book title"
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="author">Author</Label>
+                                    <Input
+                                        id="author"
+                                        required
+                                        value={form.author}
+                                        onChange={(e) => setForm({ ...form, author: e.target.value })}
+                                        placeholder="Author name"
+                                    />
+                                </div>
+                            </div>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="space-y-2">
+                                    <Label htmlFor="isbn">ISBN</Label>
+                                    <Input
+                                        id="isbn"
+                                        value={form.isbn}
+                                        onChange={(e) => setForm({ ...form, isbn: e.target.value })}
+                                        placeholder="Optional"
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="category">Category</Label>
+                                    <Input
+                                        id="category"
+                                        required
+                                        value={form.category}
+                                        onChange={(e) => setForm({ ...form, category: e.target.value })}
+                                        placeholder="e.g. Fiction, Science"
+                                    />
+                                </div>
+                            </div>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="space-y-2">
+                                    <Label htmlFor="quantity">Quantity</Label>
+                                    <Input
+                                        id="quantity"
+                                        type="number"
+                                        min={1}
+                                        required
+                                        value={form.quantity}
+                                        onChange={(e) => setForm({ ...form, quantity: parseInt(e.target.value) || 1 })}
+                                    />
+                                </div>
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="description">Description</Label>
+                                <Input
+                                    id="description"
+                                    value={form.description}
+                                    onChange={(e) => setForm({ ...form, description: e.target.value })}
+                                    placeholder="Brief description (optional)"
+                                />
+                            </div>
+                            <Button type="submit" className="w-full">Create Book</Button>
+                        </form>
+                    </DialogContent>
+                </Dialog>
+            </div>
 
-            {books.length === 0 && !loading && (
-                <div className="py-24 text-center bg-card border-2 border-dashed border-border/50 rounded-[3rem] animate-in zoom-in-95">
-                    <div className="w-20 h-20 bg-muted/50 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <Search size={32} className="text-muted-foreground/30" />
+            {/* Search */}
+            <div className="relative max-w-sm">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                    placeholder="Search by title..."
+                    className="pl-9"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                />
+            </div>
+
+            {/* Table */}
+            <Card>
+                <CardHeader>
+                    <CardTitle>All Books</CardTitle>
+                </CardHeader>
+                <CardContent className="p-0">
+                    <div className="overflow-x-auto">
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead className="w-10"></TableHead>
+                                    <TableHead>Title</TableHead>
+                                    <TableHead>Author</TableHead>
+                                    <TableHead>ISBN</TableHead>
+                                    <TableHead>Category</TableHead>
+                                    <TableHead>Available / Total</TableHead>
+                                    <TableHead className="text-right">Actions</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {books.length === 0 ? (
+                                    <TableRow>
+                                        <TableCell colSpan={7} className="text-center py-12 text-muted-foreground">
+                                            <div className="flex flex-col items-center gap-2">
+                                                <BookOpen className="h-8 w-8 text-muted-foreground/50" />
+                                                <p>No books found{search ? " matching your search" : ""}.</p>
+                                                {!search && (
+                                                    <Button variant="outline" size="sm" onClick={() => setIsAddOpen(true)}>
+                                                        Add your first book
+                                                    </Button>
+                                                )}
+                                            </div>
+                                        </TableCell>
+                                    </TableRow>
+                                ) : (
+                                    books.map((book) => (
+                                        <>
+                                            <TableRow
+                                                key={book.id}
+                                                className="cursor-pointer"
+                                                onClick={() => setExpandedId(expandedId === book.id ? null : book.id)}
+                                            >
+                                                <TableCell>
+                                                    {expandedId === book.id ? (
+                                                        <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                                                    ) : (
+                                                        <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                                                    )}
+                                                </TableCell>
+                                                <TableCell className="font-medium">{book.title}</TableCell>
+                                                <TableCell>{book.author}</TableCell>
+                                                <TableCell className="font-mono text-xs">{book.isbn || "—"}</TableCell>
+                                                <TableCell>
+                                                    <Badge variant="secondary" className="rounded-md font-normal">
+                                                        {book.category}
+                                                    </Badge>
+                                                </TableCell>
+                                                <TableCell>
+                                                    <span className={book.available > 0 ? "text-green-600 font-semibold" : "text-red-600 font-semibold"}>
+                                                        {book.available}
+                                                    </span>
+                                                    <span className="text-muted-foreground"> / {book.quantity}</span>
+                                                </TableCell>
+                                                <TableCell className="text-right">
+                                                    <Button
+                                                        size="icon"
+                                                        variant="ghost"
+                                                        className="h-8 w-8 text-red-500 hover:text-red-600 hover:bg-red-50"
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            handleDelete(book.id, book.title);
+                                                        }}
+                                                    >
+                                                        <Trash2 className="h-4 w-4" />
+                                                    </Button>
+                                                </TableCell>
+                                            </TableRow>
+                                            {expandedId === book.id && (
+                                                <TableRow key={`${book.id}-detail`}>
+                                                    <TableCell colSpan={7} className="bg-muted/30 px-10 py-6">
+                                                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+                                                            <div>
+                                                                <span className="text-muted-foreground block text-xs uppercase tracking-wide mb-1">Location</span>
+                                                                <span className="font-medium">{book.location || "Not specified"}</span>
+                                                            </div>
+                                                            <div>
+                                                                <span className="text-muted-foreground block text-xs uppercase tracking-wide mb-1">Added</span>
+                                                                <span className="font-medium">{new Date(book.createdAt).toLocaleDateString()}</span>
+                                                            </div>
+                                                            <div>
+                                                                <span className="text-muted-foreground block text-xs uppercase tracking-wide mb-1">Branch ID</span>
+                                                                <span className="font-mono text-xs">{book.branchId}</span>
+                                                            </div>
+                                                            {book.description && (
+                                                                <div className="sm:col-span-3">
+                                                                    <span className="text-muted-foreground block text-xs uppercase tracking-wide mb-1">Description</span>
+                                                                    <span className="font-medium">{book.description}</span>
+                                                                </div>
+                                                            )}
+                                                        </div>
+                                                    </TableCell>
+                                                </TableRow>
+                                            )}
+                                        </>
+                                    ))
+                                )}
+                            </TableBody>
+                        </Table>
                     </div>
-                    <h2 className="text-h3 font-semibold">No books match your search</h2>
-                    <p className="text-muted-foreground mt-2 max-w-xs mx-auto font-medium leading-relaxed">Try adjusting your filters or use different search terms to find what you need.</p>
-                </div>
-            )}
+                </CardContent>
+            </Card>
         </div>
     );
 }

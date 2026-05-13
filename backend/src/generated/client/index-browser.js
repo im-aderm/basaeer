@@ -128,6 +128,10 @@ exports.Prisma.BranchScalarFieldEnum = {
   address: 'address',
   phone: 'phone',
   email: 'email',
+  logoUrl: 'logoUrl',
+  primaryColor: 'primaryColor',
+  emailFooter: 'emailFooter',
+  smsSenderId: 'smsSenderId',
   isActive: 'isActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -1607,6 +1611,16 @@ exports.Prisma.IdCardScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.AttachmentCategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  branchId: 'branchId',
+  isDeleted: 'isDeleted',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.DigitalResourceScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -1615,7 +1629,7 @@ exports.Prisma.DigitalResourceScalarFieldEnum = {
   fileType: 'fileType',
   fileSize: 'fileSize',
   thumbnailUrl: 'thumbnailUrl',
-  category: 'category',
+  categoryId: 'categoryId',
   sessionId: 'sessionId',
   classId: 'classId',
   sectionId: 'sectionId',
@@ -2018,6 +2032,15 @@ exports.Prisma.PaymentWebhookLogScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.CounterScalarFieldEnum = {
+  id: 'id',
+  branchId: 'branchId',
+  model: 'model',
+  lastValue: 'lastValue',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -2397,6 +2420,7 @@ exports.Prisma.ModelName = {
   AutomationConfig: 'AutomationConfig',
   IdCardTemplate: 'IdCardTemplate',
   IdCard: 'IdCard',
+  AttachmentCategory: 'AttachmentCategory',
   DigitalResource: 'DigitalResource',
   DigitalResourceLog: 'DigitalResourceLog',
   EmailTemplate: 'EmailTemplate',
@@ -2429,7 +2453,8 @@ exports.Prisma.ModelName = {
   ApiKey: 'ApiKey',
   WebhookEndpoint: 'WebhookEndpoint',
   WebhookDeliveryLog: 'WebhookDeliveryLog',
-  PaymentWebhookLog: 'PaymentWebhookLog'
+  PaymentWebhookLog: 'PaymentWebhookLog',
+  Counter: 'Counter'
 };
 
 /**

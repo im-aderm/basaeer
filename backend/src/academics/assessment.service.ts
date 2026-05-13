@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException, ForbiddenException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateAssessmentComponentDto, BulkRecordMarksDto } from './dto/assessment.dto';
 import { TenantContext } from '../auth/branch.guard';
@@ -75,8 +75,9 @@ export class AssessmentService {
     const branchId = context.branchId;
     if (!branchId) throw new BadRequestException('Branch context required');
 
-    const component = await this.prisma.assessmentComponent.findUnique({
-      where: { id: dto.componentId },
+    // Verify component belongs to branch (IDOR fix)
+    const component = await this.prisma.assessmentComponent.findFirst({
+      where: TenantHelper.applyIsolation({ id: dto.componentId }, context),
     });
 
     if (!component) throw new NotFoundException('Assessment component not found');
@@ -84,6 +85,12 @@ export class AssessmentService {
     return this.prisma.$transaction(async (tx) => {
       const results = [];
       for (const entry of dto.marks) {
+        // Verify student belongs to branch (IDOR fix)
+        const student = await tx.student.findFirst({
+          where: TenantHelper.applyIsolation({ id: entry.studentId }, context),
+        });
+        if (!student) continue;
+
         // 1. Get or create the AssessmentRecord (Header)
         let record = await tx.assessmentRecord.findUnique({
           where: {
@@ -97,10 +104,6 @@ export class AssessmentService {
         });
 
         if (!record) {
-          // Need sectionId from student
-          const student = await tx.student.findUnique({ where: { id: entry.studentId } });
-          if (!student) continue;
-
           record = await tx.assessmentRecord.create({
             data: {
               studentId: entry.studentId,
@@ -151,7 +154,7 @@ export class AssessmentService {
 
     if (scores.length === 0) return 0;
 
-    const total = scores.reduce<number>((sum, s) => {
+    const total = scores.reduce((sum: number, s: any) => {
       const weight = s.component.weight || 0;
       const maxScore = s.component.maxScore || 100;
       const normalizedScore = maxScore > 0 ? (s.score / maxScore) * 100 : 0;
@@ -171,7 +174,12 @@ export class AssessmentService {
   /**
    * Calculate CA Total (Continuous Assessment) excluding exams for Open Day reports
    */
-  async calculateCATotal(recordId: string): Promise<number> {
+  async calculateCATotal(recordId: string, context: TenantContext): Promise<number> {
+    const record = await this.prisma.assessmentRecord.findFirst({
+      where: TenantHelper.applyIsolation({ id: recordId }, context),
+    });
+    if (!record) throw new NotFoundException('Assessment record not found');
+
     const scores = await this.prisma.assessmentScore.findMany({
       where: { recordId },
       include: { component: true },
@@ -233,14 +241,23 @@ export class AssessmentService {
    * Calculate total score for an AssessmentRecord based on weighted AssessmentScore entries.
    * Each score is multiplied by its component weight / 100 to get the weighted contribution.
    */
-  async calculateTotal(recordId: string): Promise<number> {
+  async calculateTotal(recordId: string, context: TenantContext): Promise<number> {
+    const record = await this.prisma.assessmentRecord.findFirst({
+      where: TenantHelper.applyIsolation({ id: recordId }, context),
+    });
+    if (!record) throw new NotFoundException('Assessment record not found');
     return this.internalCalculateTotal(this.prisma, recordId);
   }
 
   /**
    * Get all scores for a record grouped by component
    */
-  async getScoresByRecord(recordId: string) {
+  async getScoresByRecord(recordId: string, context: TenantContext) {
+    const record = await this.prisma.assessmentRecord.findFirst({
+      where: TenantHelper.applyIsolation({ id: recordId }, context),
+    });
+    if (!record) throw new NotFoundException('Assessment record not found');
+
     const scores = await this.prisma.assessmentScore.findMany({
       where: { recordId },
       include: {
@@ -266,9 +283,17 @@ export class AssessmentService {
   async updateScore(scoreId: string, score: number, context: TenantContext) {
     const existing = await this.prisma.assessmentScore.findUnique({
       where: { id: scoreId },
-      include: { component: true },
+      include: {
+        component: true,
+        record: true,
+      },
     });
     if (!existing) throw new NotFoundException('Score not found');
+
+    // Verify branch ownership (IDOR fix)
+    if (!context.isSuperAdmin && existing.record.branchId !== context.branchId) {
+      throw new ForbiddenException('Access denied: score does not belong to your branch');
+    }
 
     const maxScore = existing.component.maxScore;
     if (score < 0 || score > maxScore) {
@@ -287,8 +312,14 @@ export class AssessmentService {
   async deleteScore(scoreId: string, context: TenantContext) {
     const existing = await this.prisma.assessmentScore.findUnique({
       where: { id: scoreId },
+      include: { record: true },
     });
     if (!existing) throw new NotFoundException('Score not found');
+
+    // Verify branch ownership (IDOR fix)
+    if (!context.isSuperAdmin && existing.record.branchId !== context.branchId) {
+      throw new ForbiddenException('Access denied: score does not belong to your branch');
+    }
 
     await this.prisma.assessmentScore.delete({ where: { id: scoreId } });
     await this.internalCalculateTotal(this.prisma, existing.recordId);

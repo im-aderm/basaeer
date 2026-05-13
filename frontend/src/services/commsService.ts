@@ -64,6 +64,8 @@ export const commsService = {
 
     getCampaignDetails: (id: string) => api.get<CampaignDetail>(`/comms/campaigns/${id}`),
 
+    getCampaignRecipients: (id: string) => api.get<CampaignDetail>(`/comms/campaigns/${id}`).then(res => res.data.recipients),
+
     // Email Templates
     getEmailTemplates: () => api.get<EmailTemplate[]>('/comms/templates/email'),
     createEmailTemplate: (data: Partial<EmailTemplate>) => api.post('/comms/templates/email', data),

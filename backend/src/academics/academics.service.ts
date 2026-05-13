@@ -2,6 +2,7 @@ import {
   Injectable,
   NotFoundException,
   BadRequestException,
+  ForbiddenException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import {
@@ -11,6 +12,8 @@ import {
   RecordGradeDto,
 } from './dto/academics-ops.dto';
 import { PromoteStudentsDto } from './dto/promote-students.dto';
+import { TenantContext } from '../auth/branch.guard';
+import { TenantHelper } from '../prisma/tenant-helper';
 
 @Injectable()
 export class AcademicsService {
@@ -67,8 +70,13 @@ export class AcademicsService {
   async gradeSubmission(
     submissionId: string,
     grade: number,
-    feedback?: string,
+    feedback: string | undefined,
+    context: TenantContext,
   ) {
+    const submission = await this.prisma.submission.findFirst({
+      where: TenantHelper.applyIsolation({ id: submissionId }, context),
+    });
+    if (!submission) throw new NotFoundException('Submission not found');
     return this.prisma.submission.update({
       where: { id: submissionId },
       data: {
@@ -80,19 +88,19 @@ export class AcademicsService {
   }
 
   // Reporting
-  async getStudentPerformance(studentId: string) {
+  async getStudentPerformance(studentId: string, context: TenantContext) {
     const assessmentRecords = await this.prisma.assessmentRecord.findMany({
-      where: { studentId },
+      where: TenantHelper.applyIsolation({ studentId }, context),
       include: { subject: true, session: true },
     });
 
     const summaries = await this.prisma.resultSummary.findMany({
-      where: { studentId },
+      where: TenantHelper.applyIsolation({ studentId }, context),
       include: { session: true },
     });
 
     const submissions = await this.prisma.submission.findMany({
-      where: { studentId },
+      where: TenantHelper.applyIsolation({ studentId }, context),
       include: { assignment: { include: { subject: true } } },
     });
 
@@ -104,14 +112,14 @@ export class AcademicsService {
     sectionId?: string;
     subjectId?: string;
     teacherId?: string;
-  }) {
+  }, context: TenantContext) {
     return this.prisma.assignment.findMany({
-      where: {
+      where: TenantHelper.applyIsolation({
         section: filters.classId ? { classId: filters.classId } : undefined,
         sectionId: filters.sectionId,
         subjectId: filters.subjectId,
         teacherId: filters.teacherId,
-      },
+      }, context),
       include: {
         subject: true,
         section: { include: { class: true } },
@@ -121,7 +129,11 @@ export class AcademicsService {
     });
   }
 
-  async getAssignmentSubmissions(assignmentId: string) {
+  async getAssignmentSubmissions(assignmentId: string, context: TenantContext) {
+    const assignment = await this.prisma.assignment.findFirst({
+      where: TenantHelper.applyIsolation({ id: assignmentId }, context),
+    });
+    if (!assignment) throw new NotFoundException('Assignment not found');
     return this.prisma.submission.findMany({
       where: { assignmentId },
       include: { student: { include: { user: true } } },
@@ -129,9 +141,9 @@ export class AcademicsService {
     });
   }
 
-  async getStudentAssignments(studentId: string) {
-    const student = await this.prisma.student.findUnique({
-      where: { id: studentId },
+  async getStudentAssignments(studentId: string, context: TenantContext) {
+    const student = await this.prisma.student.findFirst({
+      where: TenantHelper.applyIsolation({ id: studentId }, context),
     });
 
     if (!student) throw new NotFoundException('Student not found');
@@ -150,7 +162,13 @@ export class AcademicsService {
     });
   }
 
-  async promoteStudents(dto: PromoteStudentsDto) {
+  async promoteStudents(dto: PromoteStudentsDto, context: TenantContext) {
+    for (const id of dto.studentIds) {
+      const student = await this.prisma.student.findFirst({
+        where: TenantHelper.applyIsolation({ id }, context),
+      });
+      if (!student) throw new NotFoundException(`Student ${id} not found`);
+    }
     return this.prisma.$transaction(
       dto.studentIds.map((id) =>
         this.prisma.student.update({
@@ -200,13 +218,13 @@ export class AcademicsService {
     classId?: string;
     sectionId?: string;
     teacherId?: string;
-  }) {
+  }, context: TenantContext) {
     return this.prisma.classSchedule.findMany({
-      where: {
+      where: TenantHelper.applyIsolation({
         classId: filters.classId,
         sectionId: filters.sectionId,
         teacherId: filters.teacherId,
-      },
+      }, context),
       include: {
         subject: true,
         teacher: { include: { user: true } },
@@ -217,7 +235,12 @@ export class AcademicsService {
     });
   }
 
-  async deleteSchedule(id: string) {
+  async deleteSchedule(id: string, context: TenantContext) {
+    const schedule = await this.prisma.classSchedule.findFirst({
+      where: TenantHelper.applyIsolation({ id }, context),
+    });
+    if (!schedule) throw new NotFoundException('Schedule not found');
+
     return this.prisma.classSchedule.delete({
       where: { id },
     });

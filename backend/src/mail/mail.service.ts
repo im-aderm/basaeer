@@ -1,5 +1,6 @@
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import * as nodemailer from 'nodemailer';
+import { BranchBrandingService } from '../branches/branch-branding.service';
 
 export interface EmailTemplate {
   headerColor: string;
@@ -27,8 +28,11 @@ export class MailService implements OnModuleInit {
     subject: string;
     html: string;
     retries: number;
+    branchId?: string;
   }[] = [];
   private isProcessing = false;
+
+  constructor(private readonly brandingService: BranchBrandingService) {}
 
   onModuleInit() {
     const host = process.env.SMTP_HOST;
@@ -90,7 +94,7 @@ export class MailService implements OnModuleInit {
     };
   }
 
-  async sendAdmissionReceived(to: string, studentName: string) {
+  async sendAdmissionReceived(to: string, studentName: string, branchId?: string) {
     if (!this.validateEmail(to)) {
       this.logger.warn(`Invalid email address: ${to}`);
       return;
@@ -124,10 +128,10 @@ export class MailService implements OnModuleInit {
     };
 
     const html = this.buildEmailTemplate(template);
-    return this.sendMail(to, `Application Received: ${studentName}`, html);
+    return this.sendMail(to, `Application Received: ${studentName}`, html, branchId);
   }
 
-  async sendApprovalEmail(to: string, studentName: string, studentId: string) {
+  async sendApprovalEmail(to: string, studentName: string, studentId: string, branchId?: string) {
     if (!this.validateEmail(to)) {
       this.logger.warn(`Invalid email address: ${to}`);
       return;
@@ -158,10 +162,10 @@ export class MailService implements OnModuleInit {
     };
 
     const html = this.buildEmailTemplate(template);
-    return this.sendMail(to, `Admission Approved: ${studentName}`, html);
+    return this.sendMail(to, `Admission Approved: ${studentName}`, html, branchId);
   }
 
-  async sendRejectionEmail(to: string, studentName: string, reason: string) {
+  async sendRejectionEmail(to: string, studentName: string, reason: string, branchId?: string) {
     if (!this.validateEmail(to)) {
       this.logger.warn(`Invalid email address: ${to}`);
       return;
@@ -197,10 +201,11 @@ export class MailService implements OnModuleInit {
       to,
       `Update on Admission Application: ${studentName}`,
       html,
+      branchId,
     );
   }
 
-  async sendPasswordReset(to: string, resetLink: string) {
+  async sendPasswordReset(to: string, resetLink: string, branchId?: string) {
     if (!this.validateEmail(to)) {
       this.logger.warn(`Invalid email address: ${to}`);
       return;
@@ -225,7 +230,7 @@ export class MailService implements OnModuleInit {
     };
 
     const html = this.buildEmailTemplate(template);
-    return this.sendMail(to, 'Reset Your Password - Basaer', html);
+    return this.sendMail(to, 'Reset Your Password - Basaer', html, branchId);
   }
 
   /**
@@ -350,8 +355,40 @@ export class MailService implements OnModuleInit {
     return info;
   }
 
-  private async sendMail(to: string, subject: string, html: string) {
-    this.emailQueue.push({ to, subject, html, retries: 0 });
+  private wrapWithTemplate(body: string, branding: { name: string; logoUrl?: string | null; primaryColor: string; address?: string; phone?: string; email?: string; emailFooter?: string | null }): string {
+    const logoHtml = branding.logoUrl
+      ? `<img src="${branding.logoUrl}" alt="${this.escapeHtml(branding.name)}" style="max-height:50px;margin-bottom:8px;" />`
+      : '';
+    const header = `
+      <div style="background-color:${branding.primaryColor};padding:25px 40px;text-align:center;">
+        ${logoHtml}
+        <h1 style="margin:0;color:#fff;font-size:22px;font-weight:bold;">${this.escapeHtml(branding.name)}</h1>
+      </div>`;
+    const footer = `
+      <div style="background-color:#f1f5f9;padding:20px;text-align:center;color:#64748b;font-size:12px;">
+        ${this.escapeHtml(branding.name)}<br/>
+        ${branding.address ? this.escapeHtml(branding.address) + '<br/>' : ''}
+        ${branding.phone ? 'Phone: ' + this.escapeHtml(branding.phone) + '<br/>' : ''}
+        ${branding.email ? 'Email: ' + this.escapeHtml(branding.email) + '<br/>' : ''}
+        ${branding.emailFooter ? this.escapeHtml(branding.emailFooter) + '<br/>' : ''}
+        &copy; ${new Date().getFullYear()} ${this.escapeHtml(branding.name)}. All rights reserved.
+      </div>`;
+    return header + body + footer;
+  }
+
+  private async sendMail(to: string, subject: string, html: string, branchId?: string) {
+    let brandedHtml = html;
+
+    if (branchId) {
+      try {
+        const branding = await this.brandingService.getBranding(branchId);
+        brandedHtml = this.wrapWithTemplate(html, branding);
+      } catch (err) {
+        this.logger.warn(`Failed to apply branding for branch ${branchId}: ${err.message}`);
+      }
+    }
+
+    this.emailQueue.push({ to, subject, html: brandedHtml, retries: 0, branchId });
     this.logger.log(`📧 Email queued for ${to} | Subject: "${subject}"`);
     return { queued: true, message: `Email queued for ${to}` };
   }

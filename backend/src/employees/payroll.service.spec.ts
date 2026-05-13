@@ -6,10 +6,18 @@ describe('PayrollService', () => {
   let service: PayrollService;
   let prisma: PrismaService;
 
+  const mockContext = {
+    userId: 'user-1',
+    branchId: 'branch-1',
+    isSuperAdmin: false,
+    role: 'HR' as any,
+  };
+
   const mockPrismaService = {
     staff: {
       findUnique: jest.fn(),
       findMany: jest.fn(),
+      findFirst: jest.fn(),
     },
     salaryTemplate: {
       upsert: jest.fn(),
@@ -160,9 +168,10 @@ describe('PayrollService', () => {
         { id: 'pay-2', month: 11, year: 2025, amountPaid: 50000 },
       ];
 
+      mockPrismaService.staff.findFirst.mockResolvedValue({ id: staffId });
       mockPrismaService.payroll.findMany.mockResolvedValue(mockHistory);
 
-      const result = await service.getStaffPayrollHistory(staffId);
+      const result = await service.getStaffPayrollHistory(staffId, mockContext);
 
       expect(result).toHaveLength(2);
       expect(result[0].month).toBe(12);
@@ -178,9 +187,10 @@ describe('PayrollService', () => {
         paymentDate: expect.any(Date),
       };
 
+      mockPrismaService.payroll.findFirst.mockResolvedValue(mockUpdated);
       mockPrismaService.payroll.update.mockResolvedValue(mockUpdated);
 
-      const result = await service.markAsPaid(payrollId);
+      const result = await service.markAsPaid(payrollId, mockContext);
 
       expect(result.status).toBe('PAID');
       expect(result.paymentDate).toBeDefined();

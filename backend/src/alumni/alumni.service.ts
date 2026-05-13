@@ -4,6 +4,8 @@ import {
   ConflictException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { TenantContext } from '../auth/branch.guard';
+import { TenantHelper } from '../prisma/tenant-helper';
 import {
   CreateAlumniProfileDto,
   UpdateAlumniProfileDto,
@@ -42,7 +44,11 @@ export class AlumniService {
     });
   }
 
-  async updateProfile(id: string, dto: UpdateAlumniProfileDto) {
+  async updateProfile(id: string, dto: UpdateAlumniProfileDto, context: TenantContext) {
+    const existing = await this.prisma.alumni.findFirst({
+      where: TenantHelper.applyIsolation({ id }, context),
+    });
+    if (!existing) throw new NotFoundException('Alumni profile not found');
     return this.prisma.alumni.update({
       where: { id },
       data: {
@@ -77,9 +83,9 @@ export class AlumniService {
     });
   }
 
-  async getProfile(studentId: string) {
-    const profile = await this.prisma.alumni.findUnique({
-      where: { studentId },
+  async getProfile(studentId: string, context: TenantContext) {
+    const profile = await this.prisma.alumni.findFirst({
+      where: TenantHelper.applyIsolation({ studentId }, context),
       include: {
         student: true,
       },

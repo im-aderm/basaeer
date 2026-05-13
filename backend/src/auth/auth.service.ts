@@ -3,6 +3,8 @@ import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { MailService } from '../mail/mail.service';
 import { AuditService } from '../audit/audit.service';
+import { BranchBrandingService } from '../branches/branch-branding.service';
+import { TenantContext } from './branch.guard';
 import * as bcrypt from 'bcrypt';
 import * as crypto from 'crypto';
 
@@ -13,6 +15,7 @@ export class AuthService {
     private jwtService: JwtService,
     private mailService: MailService,
     private auditService: AuditService,
+    private brandingService: BranchBrandingService,
   ) {}
 
   async validateUser(email: string, pass: string): Promise<any> {
@@ -40,6 +43,11 @@ export class AuthService {
       'Successful login',
     ).catch(() => {});
 
+    let branding = null;
+    if (user.branchId) {
+      branding = await this.brandingService.getBranding(user.branchId).catch(() => null);
+    }
+
     return {
       access_token: this.jwtService.sign(payload),
       user: {
@@ -50,12 +58,13 @@ export class AuthService {
         role: user.role,
         branchId: user.branchId,
         mustChangePassword: user.mustChangePassword || false,
+        branding,
       },
     };
   }
 
-  async getFullProfile(userId: string) {
-    const user = await this.usersService.findById(userId);
+  async getFullProfile(userId: string, context: TenantContext) {
+    const user = await this.usersService.findById(userId, context);
     if (user) {
       const { password, resetTokenHash, resetTokenExpires, ...result } = user;
       return result;
@@ -77,8 +86,8 @@ export class AuthService {
     } as any);
   }
 
-  async changePassword(userId: string, currentPassword: string, newPassword: string) {
-    const user = await this.usersService.findById(userId);
+  async changePassword(userId: string, currentPassword: string, newPassword: string, context: TenantContext) {
+    const user = await this.usersService.findById(userId, context);
     if (!user) {
       throw new UnauthorizedException('User not found');
     }

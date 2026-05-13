@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { UsersModule } from '../users/users.module';
@@ -7,12 +7,14 @@ import { JwtModule, JwtModuleOptions } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuditModule } from '../audit/audit.module';
+import { BranchesModule } from '../branches/branches.module';
 
 @Module({
   imports: [
     UsersModule,
     PassportModule,
     AuditModule,
+    forwardRef(() => BranchesModule),
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],

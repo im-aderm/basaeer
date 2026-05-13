@@ -16,6 +16,10 @@ model Branch {
   address                    String?
   phone                      String?
   email                      String?
+  logoUrl                    String?
+  primaryColor               String?                     @default("#2563EB")
+  emailFooter                String?
+  smsSenderId                String?
   isActive                   Boolean                     @default(true)
   createdAt                  DateTime                    @default(now())
   updatedAt                  DateTime                    @updatedAt
@@ -34,6 +38,7 @@ model Branch {
   complaints                 Complaint[]
   conversations              Conversation[]
   deactivationReasons        DeactivationReason[]
+  attachmentCategories       AttachmentCategory[]
   departments                Department[]
   designations               Designation[]
   digitalResources           DigitalResource[]
@@ -93,6 +98,7 @@ model Branch {
   providerFailoverEvents     ProviderFailoverEvent[]
   messageRetryEvents         MessageRetryEvent[]
   providerBalanceSnapshots   ProviderBalanceSnapshot[]
+  counters                   Counter[]
   notificationDeliveryEvents NotificationDeliveryEvent[]
   academicExports            AcademicExport[]
   reportTemplates            ReportTemplate[]
@@ -2210,6 +2216,21 @@ model IdCard {
   @@index([branchId])
 }
 
+model AttachmentCategory {
+  id          String            @id @default(uuid())
+  name        String
+  description String?
+  branchId    String
+  isDeleted   Boolean           @default(false)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  branch      Branch            @relation(fields: [branchId], references: [id])
+  resources   DigitalResource[]
+
+  @@index([branchId])
+  @@index([isDeleted])
+}
+
 model DigitalResource {
   id           String               @id @default(uuid())
   title        String
@@ -2218,7 +2239,7 @@ model DigitalResource {
   fileType     String
   fileSize     Int?
   thumbnailUrl String?
-  category     String
+  categoryId   String
   sessionId    String
   classId      String?
   sectionId    String?
@@ -2227,6 +2248,7 @@ model DigitalResource {
   branchId     String
   createdAt    DateTime             @default(now())
   updatedAt    DateTime             @updatedAt
+  category     AttachmentCategory   @relation(fields: [categoryId], references: [id])
   branch       Branch               @relation(fields: [branchId], references: [id])
   class        Class?               @relation(fields: [classId], references: [id])
   section      Section?             @relation(fields: [sectionId], references: [id])
@@ -2235,7 +2257,7 @@ model DigitalResource {
   uploader     Staff                @relation(fields: [uploaderId], references: [id])
   logs         DigitalResourceLog[]
 
-  @@index([branchId, category])
+  @@index([branchId, categoryId])
   @@index([classId, subjectId])
   @@index([branchId])
 }
@@ -3030,4 +3052,17 @@ model PaymentWebhookLog {
   updatedAt DateTime @updatedAt
 
   @@index([gateway])
+}
+
+model Counter {
+  id        String   @id @default(uuid())
+  branchId  String
+  model     String
+  lastValue Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  branch    Branch   @relation(fields: [branchId], references: [id])
+
+  @@unique([branchId, model])
+  @@index([branchId])
 }

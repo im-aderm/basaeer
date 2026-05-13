@@ -7,7 +7,16 @@ import {
 import { PrismaClient } from '../generated/client/client';
 import { Pool } from 'pg';
 import { PrismaPg } from '@prisma/adapter-pg';
+import { AsyncLocalStorage } from 'async_hooks';
 import 'dotenv/config';
+
+interface TenantStore {
+  branchId: string | null;
+  userId: string;
+  isSuperAdmin?: boolean;
+}
+
+const tenantStorage = new AsyncLocalStorage<TenantStore>();
 
 @Injectable()
 export class PrismaService
@@ -15,11 +24,11 @@ export class PrismaService
   implements OnModuleInit, OnModuleDestroy
 {
   private readonly logger = new Logger(PrismaService.name);
+  readonly xprisma: ReturnType<PrismaClient['$extends']>;
 
   constructor() {
     const connectionString = `${process.env.DATABASE_URL}`;
 
-    // VPS Optimized PostgreSQL Pool
     const pool = new Pool({
       connectionString,
       max: parseInt(process.env.DB_POOL_SIZE || '20', 10),
@@ -37,53 +46,101 @@ export class PrismaService
           : ['error', 'warn'],
     } as any);
 
-    // ── Prisma Middleware: RLS (8.4) + Audit Trail (8.9) ──
-    (this as any).$use(async (params: any, next: any) => {
-      const branchId = (this as any).__branchId;
-      const userId = (this as any).__userId;
+    this.xprisma = this.$extends({
+      query: {
+        $allModels: {
+          async $allOperations({ args, query, operation, model }: any) {
+            const store = tenantStorage.getStore();
+            const branchId = store?.branchId ?? null;
+            const userId = store?.userId ?? '';
+            const isSuperAdmin = store?.isSuperAdmin ?? false;
 
-      // Inject createdByUserId / updatedByUserId for audit trail (8.9)
-      if (userId && (params.action === 'create' || params.action === 'update')) {
-        if (params.action === 'create') {
-          params.args.data = {
-            ...params.args.data,
-            createdByUserId: userId,
-            updatedByUserId: userId,
-          };
-        }
-        if (params.action === 'update') {
-          params.args.data = {
-            ...params.args.data,
-            updatedByUserId: userId,
-          };
-        }
-      }
+            if (userId) {
+              if (operation === 'create') {
+                args.data = {
+                  ...args.data,
+                  createdByUserId: userId,
+                  updatedByUserId: userId,
+                };
+              } else if (
+                operation === 'update' ||
+                operation === 'upsert'
+              ) {
+                args.data = {
+                  ...args.data,
+                  updatedByUserId: userId,
+                };
+              }
+            }
 
-      const result = await next(params);
+            if (branchId && !isSuperAdmin) {
+              if (operation === 'create') {
+                args.data = {
+                  ...args.data,
+                  branchId,
+                };
+              } else if (
+                operation === 'findUnique' ||
+                operation === 'findFirst' ||
+                operation === 'findMany' ||
+                operation === 'update' ||
+                operation === 'updateMany' ||
+                operation === 'delete' ||
+                operation === 'deleteMany' ||
+                operation === 'upsert' ||
+                operation === 'count' ||
+                operation === 'aggregate'
+              ) {
+                args.where = {
+                  ...args.where,
+                  branchId,
+                };
+              }
+            }
 
-      return result;
+            if (branchId) {
+              try {
+                await (PrismaClient.prototype as any).$executeRawUnsafe?.(
+                  `SELECT set_config('app.current_branch_id', $1, true)`,
+                  [branchId],
+                );
+              } catch (_err) {
+                // ignore
+              }
+            }
+
+            return query(args);
+          },
+        },
+      },
     });
+
+    return new Proxy(this, {
+      get: (target, prop) => {
+        if (
+          prop === 'xprisma' ||
+          prop === 'tenantStorage' ||
+          prop === 'logger' ||
+          prop === 'setTenantContext' ||
+          prop === 'onModuleInit' ||
+          prop === 'onModuleDestroy' ||
+          prop === 'constructor' ||
+          typeof prop === 'symbol'
+        ) {
+          return Reflect.get(target, prop);
+        }
+        const val = Reflect.get(target.xprisma, prop);
+        return typeof val === 'function' ? val.bind(target.xprisma) : val;
+      },
+    }) as PrismaService;
   }
 
-  /**
-   * Set the tenant context for RLS and audit trail.
-   * Call this at the start of every request.
-   */
-  async setTenantContext(branchId: string | null, userId: string) {
-    (this as any).__branchId = branchId;
-    (this as any).__userId = userId;
-
-    // Set PostgreSQL session variable for RLS (8.4)
-    if (branchId) {
-      try {
-        await this.$executeRawUnsafe(
-          `SELECT set_config('app.current_branch_id', $1, true)`,
-          [branchId],
-        );
-      } catch (err) {
-        this.logger.warn('Failed to set RLS session variable:', err);
-      }
-    }
+  setTenantContext(
+    branchId: string | null,
+    userId: string,
+    isSuperAdmin?: boolean,
+  ) {
+    tenantStorage.enterWith({ branchId, userId, isSuperAdmin });
   }
 
   async onModuleInit() {

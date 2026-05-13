@@ -8,7 +8,6 @@ import {
   Delete,
   Query,
   UseGuards,
-  Request,
 } from '@nestjs/common';
 import { StudentCategoryService } from './student-category.service';
 import { CreateStudentCategoryDto } from './dto/create-student-category.dto';
@@ -17,6 +16,8 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 import { UserRole } from '../generated/client/client';
+import { BranchGuard, TenantContext } from '../auth/branch.guard';
+import { GetTenantContext } from '../auth/tenant-context.decorator';
 import {
   ApiTags,
   ApiOperation,
@@ -25,7 +26,7 @@ import {
   ApiBody,
 } from '@nestjs/swagger';
 
-@UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
 @ApiTags('Student Categories')
 @Controller('student-categories')
 export class StudentCategoryController {
@@ -39,12 +40,11 @@ export class StudentCategoryController {
   @ApiOperation({ summary: 'Create resource' })
   @Post()
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  create(@Request() req: any, @Body() createDto: CreateStudentCategoryDto) {
-    // Assign branchId from user if not provided in body
-    if (!createDto.branchId && req.user.branchId) {
-      createDto.branchId = req.user.branchId;
+  create(@Body() createDto: CreateStudentCategoryDto, @GetTenantContext() ctx: TenantContext) {
+    if (!createDto.branchId && ctx.branchId) {
+      createDto.branchId = ctx.branchId;
     }
-    return this.studentCategoryService.create(createDto);
+    return this.studentCategoryService.create(createDto, ctx);
   }
 
   @ApiBearerAuth()
@@ -61,8 +61,8 @@ export class StudentCategoryController {
   @ApiOperation({ summary: 'Retrieve One' })
   @Get(':id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  findOne(@Param('id') id: string) {
-    return this.studentCategoryService.findOne(id);
+  findOne(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.studentCategoryService.findOne(id, ctx);
   }
 
   @ApiBearerAuth()
@@ -71,8 +71,8 @@ export class StudentCategoryController {
   @ApiOperation({ summary: 'Update resource' })
   @Patch(':id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  update(@Param('id') id: string, @Body() updateDto: UpdateStudentCategoryDto) {
-    return this.studentCategoryService.update(id, updateDto);
+  update(@Param('id') id: string, @Body() updateDto: UpdateStudentCategoryDto, @GetTenantContext() ctx: TenantContext) {
+    return this.studentCategoryService.update(id, updateDto, ctx);
   }
 
   @ApiBearerAuth()
@@ -80,7 +80,7 @@ export class StudentCategoryController {
   @ApiOperation({ summary: 'Delete resource' })
   @Delete(':id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  remove(@Param('id') id: string) {
-    return this.studentCategoryService.remove(id);
+  remove(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.studentCategoryService.remove(id, ctx);
   }
 }

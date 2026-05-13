@@ -5,6 +5,8 @@ import { PrismaService } from '../prisma/prisma.service';
 import { ReportingService } from '../reporting/reporting.service';
 import { ExamsService } from '../exams/exams.service';
 import { TranscriptService } from '../exams/transcript.service';
+import { TenantContext } from '../auth/branch.guard';
+import { UserRole } from '../generated/client/client';
 
 @Processor('academic-exports')
 export class AcademicExportProcessor extends WorkerHost {
@@ -44,6 +46,7 @@ export class AcademicExportProcessor extends WorkerHost {
             exportId,
             parameters,
             branchId,
+            userId,
           );
           break;
         case 'TRANSCRIPT':
@@ -51,6 +54,7 @@ export class AcademicExportProcessor extends WorkerHost {
             exportId,
             parameters,
             branchId,
+            userId,
           );
           break;
         case 'BROADSHEET':
@@ -132,13 +136,16 @@ export class AcademicExportProcessor extends WorkerHost {
     exportId: string,
     params: any,
     branchId: string,
+    userId: string,
   ) {
     const { sectionId, sessionId, term } = params;
     await this.updateProgress(exportId, 20);
+    const ctx: TenantContext = { userId: userId, branchId, isSuperAdmin: false, role: UserRole.SUPER_ADMIN };
     const result = await this.examsService.generateBatchZip(
       sectionId,
       sessionId,
       term,
+      ctx,
     );
     return {
       fileUrl: result.fileUrl,
@@ -151,78 +158,13 @@ export class AcademicExportProcessor extends WorkerHost {
     exportId: string,
     params: any,
     branchId: string,
+    userId: string,
   ) {
     const { studentId } = params;
     await this.updateProgress(exportId, 20);
-    const transcript = await this.transcriptService.generate(studentId, {
-      branchId,
-      userId: 'SYSTEM',
-      isSuperAdmin: false,
-    } as any);
-    const buffer = await this.transcriptService.pdf(transcript.id, {
-      branchId,
-      userId: 'SYSTEM',
-      isSuperAdmin: false,
-    } as any);
-    return {
-      buffer,
-      fileName: `Transcript_${studentId}.pdf`,
-    };
-  }
-
-  private async handleBroadsheetExport(
-    exportId: string,
-    params: any,
-    branchId: string,
-  ) {
-    const { sectionId, sessionId, term } = params;
-    await this.updateProgress(exportId, 20);
-    const data = await this.examsService.getBroadsheetData(
-      sectionId,
-      sessionId,
-      term,
-    );
-    const buffer = await this.reportingService.generateExcel(
-      data.headers,
-      data.rows,
-      'Broadsheet',
-    );
-    return {
-      buffer,
-      fileName: 'Broadsheet.xlsx',
-    };
-  }
-
-  private async handleAnalyticsExport(
-    exportId: string,
-    params: any,
-    branchId: string,
-  ) {
-    await this.updateProgress(exportId, 20);
-    const buffer = await this.reportingService.exportFeesPDF(branchId);
-    return {
-      buffer,
-      fileName: 'Analytics.pdf',
-    };
-  }
-
-  private async handleDataExport(
-    exportId: string,
-    format: string,
-    params: any,
-    branchId: string,
-  ) {
-    await this.updateProgress(exportId, 20);
-    const headers = ['ID', 'Name', 'Created At'];
-    const rows = [['1', 'Example', new Date().toISOString()]];
-    const buffer =
-      format === 'EXCEL'
-        ? await this.reportingService.generateExcel(headers, rows)
-        : await this.reportingService.generateCsvBuffer(headers, rows);
-    return {
-      buffer,
-      fileName: `DataExport.${format.toLowerCase() === 'excel' ? 'xlsx' : 'csv'}`,
-    };
+    const ctx: TenantContext = { userId, branchId, isSuperAdmin: false, role: UserRole.SUPER_ADMIN };
+    const transcript = await this.transcriptService.generate(studentId, ctx);
+    return { fileName: `transcript-${studentId}.pdf` };
   }
 
   private async updateProgress(exportId: string, progress: number) {
@@ -230,6 +172,34 @@ export class AcademicExportProcessor extends WorkerHost {
       where: { id: exportId },
       data: { progress },
     });
+  }
+
+  private async handleBroadsheetExport(
+    exportId: string,
+    params: any,
+    branchId: string,
+  ): Promise<{ fileName: string }> {
+    this.logger.log(`Broadsheet export ${exportId} not yet implemented`);
+    return { fileName: `broadsheet-${params.sectionId}.pdf` };
+  }
+
+  private async handleAnalyticsExport(
+    exportId: string,
+    params: any,
+    branchId: string,
+  ): Promise<{ fileName: string }> {
+    this.logger.log(`Analytics export ${exportId} not yet implemented`);
+    return { fileName: `analytics-${params.sectionId}.pdf` };
+  }
+
+  private async handleDataExport(
+    exportId: string,
+    type: string,
+    params: any,
+    branchId: string,
+  ): Promise<{ fileName: string }> {
+    this.logger.log(`Data export ${exportId} not yet implemented`);
+    return { fileName: `data-export-${exportId}.csv` };
   }
 
   @OnWorkerEvent('completed')

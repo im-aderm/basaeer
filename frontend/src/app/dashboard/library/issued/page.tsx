@@ -1,7 +1,177 @@
 "use client";
-import { RestorationPlaceholder } from "@/components/RestorationPlaceholder";
-import { Bookmark } from "lucide-react";
+
+import { useState, useEffect } from "react";
+import {
+    Bookmark,
+    Clock,
+    CheckCircle,
+    AlertCircle,
+    Loader2,
+    CalendarDays,
+    BookOpen,
+    User,
+    ArrowLeft,
+    SwitchCamera
+} from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
+import { LibraryService, BorrowRecord } from "@/services/libraryService";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
 
 export default function MyIssuedBookPage() {
-    return <RestorationPlaceholder title="My Issued Books" icon={Bookmark} />;
+    const { user } = useAuth();
+    const [records, setRecords] = useState<BorrowRecord[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchRecords = async () => {
+            if (!user?.student?.id) {
+                setLoading(false);
+                return;
+            }
+            try {
+                const data = await LibraryService.getStudentHistory(user.student.id);
+                setRecords(data);
+            } catch (error) {
+                if (process.env.NODE_ENV === 'development') console.error("Failed to fetch issued books:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchRecords();
+    }, [user]);
+
+    const getStatusBadge = (status: string) => {
+        switch (status) {
+            case 'BORROWED':
+                return <Badge className="bg-blue-500/10 text-blue-600 border-none font-semibold gap-1"><Clock className="w-3 h-3" /> Borrowed</Badge>;
+            case 'OVERDUE':
+                return <Badge className="bg-red-500/10 text-red-600 border-none font-semibold gap-1"><AlertCircle className="w-3 h-3" /> Overdue</Badge>;
+            case 'RETURNED':
+                return <Badge className="bg-green-500/10 text-green-600 border-none font-semibold gap-1"><CheckCircle className="w-3 h-3" /> Returned</Badge>;
+            default:
+                return <Badge variant="outline">{status}</Badge>;
+        }
+    };
+
+    if (loading) return <div className="p-8 text-center"><Loader2 className="animate-spin mx-auto h-8 w-8 text-primary" /></div>;
+
+    if (!user?.student?.id) {
+        return (
+            <div className="max-w-7xl mx-auto space-y-8 pb-20">
+                <div className="bg-card border border-border p-10 rounded-[3rem] shadow-sm">
+                    <div className="flex flex-col items-center text-center py-16 space-y-6">
+                        <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center">
+                            <SwitchCamera className="w-10 h-10 text-primary" />
+                        </div>
+                        <div>
+                            <h1 className="text-h1 font-semibold tracking-tight mb-2">Student Access Only</h1>
+                            <p className="text-muted-foreground font-medium max-w-md">
+                                This page shows books currently issued to you. Log in with a student account or switch your role to student to view your borrowing history.
+                            </p>
+                        </div>
+                        <Link href="/dashboard/library">
+                            <Button variant="outline" className="rounded-xl gap-2">
+                                <ArrowLeft className="w-4 h-4" /> Back to Library
+                            </Button>
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    return (
+        <div className="max-w-7xl mx-auto space-y-8 pb-20">
+            <div className="bg-card border border-border p-10 rounded-[3rem] shadow-sm relative overflow-hidden">
+                <div className="relative z-10">
+                    <div className="flex items-center gap-4 mb-2">
+                        <Link href="/dashboard/library">
+                            <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl">
+                                <ArrowLeft className="w-5 h-5" />
+                            </Button>
+                        </Link>
+                        <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3 text-blue-600">
+                            <Bookmark className="w-10 h-10" />
+                            My Issued Books
+                        </h1>
+                    </div>
+                    <p className="text-muted-foreground mt-2 text-lg font-medium ml-16">Track the books currently in your possession.</p>
+                </div>
+                <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
+            </div>
+
+            <Card className="rounded-[3rem] border-border/50 shadow-xl bg-card/50 backdrop-blur-sm overflow-hidden border-t-8 border-t-blue-500">
+                <div className="overflow-x-auto">
+                    <table className="w-full border-collapse">
+                        <thead>
+                            <tr className="bg-muted/30 text-left border-b border-border">
+                                <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Book</th>
+                                <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Borrow Date</th>
+                                <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Due Date</th>
+                                <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Return Date</th>
+                                <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-border/50">
+                            {records.length > 0 ? records.map((record) => (
+                                <tr key={record.id} className="hover:bg-muted/5 transition-all">
+                                    <td className="px-8 py-6">
+                                        <div className="flex items-center gap-4">
+                                            <div className="w-12 h-16 bg-muted/30 rounded-lg flex items-center justify-center border border-border/50">
+                                                <BookOpen size={20} className="text-muted-foreground/50" />
+                                            </div>
+                                            <div>
+                                                <p className="font-semibold">{record.book?.title || 'Unknown Book'}</p>
+                                                <p className="text-xs font-bold text-muted-foreground">{record.book?.author || ''}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td className="px-8 py-6">
+                                        <div className="flex items-center gap-2 text-sm font-medium">
+                                            <CalendarDays size={14} className="text-blue-500" />
+                                            {new Date(record.borrowDate).toLocaleDateString()}
+                                        </div>
+                                    </td>
+                                    <td className="px-8 py-6">
+                                        <div className="flex items-center gap-2 text-sm font-medium">
+                                            <Clock size={14} className="text-amber-500" />
+                                            {new Date(record.dueDate).toLocaleDateString()}
+                                        </div>
+                                    </td>
+                                    <td className="px-8 py-6">
+                                        <div className="flex items-center gap-2 text-sm font-medium">
+                                            {record.returnDate ? (
+                                                <>
+                                                    <CheckCircle size={14} className="text-green-500" />
+                                                    {new Date(record.returnDate).toLocaleDateString()}
+                                                </>
+                                            ) : (
+                                                <span className="text-muted-foreground">--</span>
+                                            )}
+                                        </div>
+                                    </td>
+                                    <td className="px-8 py-6">
+                                        {getStatusBadge(record.status)}
+                                    </td>
+                                </tr>
+                            )) : (
+                                <tr>
+                                    <td colSpan={5} className="py-20 text-center space-y-4">
+                                        <div className="w-20 h-20 bg-muted/50 rounded-full flex items-center justify-center mx-auto border-2 border-dashed border-border">
+                                            <Bookmark size={32} className="text-muted-foreground/30" />
+                                        </div>
+                                        <h3 className="text-h3 font-semibold">No books issued</h3>
+                                        <p className="text-muted-foreground font-medium">You have not borrowed any books yet.</p>
+                                    </td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
+            </Card>
+        </div>
+    );
 }

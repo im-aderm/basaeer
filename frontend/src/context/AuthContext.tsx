@@ -18,6 +18,15 @@ export interface StaffProfile {
     designationId?: string;
 }
 
+export interface Branding {
+    name: string;
+    logoUrl: string | null;
+    primaryColor: string;
+    address: string;
+    phone: string;
+    email: string;
+}
+
 export interface User {
     id: string;
     email: string;
@@ -28,6 +37,7 @@ export interface User {
     phone?: string;
     isActive?: boolean;
     mustChangePassword?: boolean;
+    branding?: Branding | null;
     student?: StudentProfile;
     staff?: StaffProfile;
 }

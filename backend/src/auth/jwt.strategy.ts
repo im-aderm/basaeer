@@ -31,9 +31,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
   async validate(payload: any) {
     // Set tenant context for RLS (8.4) and audit trail (8.9)
-    this.prisma.setTenantContext(payload.branchId, payload.sub).catch((err) => {
-      this.logger.warn('Failed to set tenant context:', err);
-    });
+    // Uses AsyncLocalStorage — no race condition across requests
+    this.prisma.setTenantContext(payload.branchId, payload.sub);
 
     return {
       id: payload.sub,

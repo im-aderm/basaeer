@@ -75,9 +75,10 @@ export class AcademicsController {
   gradeSubmission(
     @Param('id') id: string,
     @Body('grade') grade: number,
+    @GetTenantContext() ctx: TenantContext,
     @Body('feedback') feedback?: string,
   ) {
-    return this.academicsService.gradeSubmission(id, grade, feedback);
+    return this.academicsService.gradeSubmission(id, grade, feedback, ctx);
   }
 
   @ApiBearerAuth()
@@ -91,6 +92,7 @@ export class AcademicsController {
     UserRole.STUDENT,
   )
   getAssignments(
+    @GetTenantContext() ctx: TenantContext,
     @Query('classId') classId?: string,
     @Query('sectionId') sectionId?: string,
     @Query('subjectId') subjectId?: string,
@@ -101,7 +103,7 @@ export class AcademicsController {
       sectionId,
       subjectId,
       teacherId,
-    });
+    }, ctx);
   }
 
   @ApiBearerAuth()
@@ -109,8 +111,8 @@ export class AcademicsController {
   @ApiOperation({ summary: 'Retrieve Assignment Submissions' })
   @Get('assignments/:id/submissions')
   @Roles(UserRole.TEACHER, UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
-  getAssignmentSubmissions(@Param('id') id: string) {
-    return this.academicsService.getAssignmentSubmissions(id);
+  getAssignmentSubmissions(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.academicsService.getAssignmentSubmissions(id, ctx);
   }
 
   @ApiBearerAuth()
@@ -123,8 +125,8 @@ export class AcademicsController {
     UserRole.BRANCH_ADMIN,
     UserRole.SUPER_ADMIN,
   )
-  getStudentAssignments(@Param('studentId') studentId: string) {
-    return this.academicsService.getStudentAssignments(studentId);
+  getStudentAssignments(@Param('studentId') studentId: string, @GetTenantContext() ctx: TenantContext) {
+    return this.academicsService.getStudentAssignments(studentId, ctx);
   }
 
   // Performance
@@ -138,8 +140,8 @@ export class AcademicsController {
     UserRole.BRANCH_ADMIN,
     UserRole.SUPER_ADMIN,
   )
-  getPerformance(@Param('studentId') studentId: string) {
-    return this.academicsService.getStudentPerformance(studentId);
+  getPerformance(@Param('studentId') studentId: string, @GetTenantContext() ctx: TenantContext) {
+    return this.academicsService.getStudentPerformance(studentId, ctx);
   }
 
   // Promotion
@@ -149,8 +151,8 @@ export class AcademicsController {
   @ApiOperation({ summary: 'Create Promote Students' })
   @Post('promote')
   @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
-  promoteStudents(@Body() dto: PromoteStudentsDto) {
-    return this.academicsService.promoteStudents(dto);
+  promoteStudents(@Body() dto: PromoteStudentsDto, @GetTenantContext() ctx: TenantContext) {
+    return this.academicsService.promoteStudents(dto, ctx);
   }
 
   // Schedules
@@ -175,6 +177,7 @@ export class AcademicsController {
     UserRole.STUDENT,
   )
   getSchedules(
+    @GetTenantContext() ctx: TenantContext,
     @Query('classId') classId?: string,
     @Query('sectionId') sectionId?: string,
     @Query('teacherId') teacherId?: string,
@@ -183,7 +186,7 @@ export class AcademicsController {
       classId,
       sectionId,
       teacherId,
-    });
+    }, ctx);
   }
 
   @ApiBearerAuth()
@@ -191,8 +194,11 @@ export class AcademicsController {
   @ApiOperation({ summary: 'Delete Schedule' })
   @Delete('schedules/:id')
   @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
-  deleteSchedule(@Param('id') id: string) {
-    return this.academicsService.deleteSchedule(id);
+  deleteSchedule(
+    @Param('id') id: string,
+    @GetTenantContext() ctx: TenantContext,
+  ) {
+    return this.academicsService.deleteSchedule(id, ctx);
   }
 
   // Exports

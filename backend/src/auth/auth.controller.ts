@@ -130,7 +130,7 @@ export class AuthController {
   @ApiOperation({ summary: 'Retrieve Profile' })
   @Get('profile')
   async getProfile(@GetTenantContext() tenantContext: TenantContext) {
-    return this.authService.getFullProfile(tenantContext.userId);
+    return this.authService.getFullProfile(tenantContext.userId, tenantContext);
   }
 
   @Throttle({ default: { limit: 3, ttl: 60000 } })
@@ -169,6 +169,7 @@ export class AuthController {
       tenantContext.userId,
       body.currentPassword,
       body.newPassword,
+      tenantContext,
     );
   }
 }

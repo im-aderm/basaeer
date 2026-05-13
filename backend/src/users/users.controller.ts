@@ -13,6 +13,8 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 import { UserRole } from '../generated/client/client';
+import { GetTenantContext } from '../auth/tenant-context.decorator';
+import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import {
   ApiTags,
   ApiOperation,
@@ -53,7 +55,7 @@ export class UsersController {
   @ApiOperation({ summary: 'Update Status' })
   @Patch(':id/status')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  toggleStatus(@Param('id') id: string, @Body('isActive') isActive: boolean) {
-    return this.usersService.updateStatus(id, isActive);
+  toggleStatus(@Param('id') id: string, @Body('isActive') isActive: boolean, @GetTenantContext() ctx: TenantContext) {
+    return this.usersService.updateStatus(id, isActive, ctx);
   }
 }

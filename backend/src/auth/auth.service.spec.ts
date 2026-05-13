@@ -143,7 +143,12 @@ describe('AuthService', () => {
 
       mockUsersService.findById.mockResolvedValue(mockFullUser);
 
-      const result = await service.getFullProfile('1');
+      const result = await service.getFullProfile('1', {
+        userId: '1',
+        branchId: 'branch-1',
+        isSuperAdmin: false,
+        role: 'SUPER_ADMIN' as any,
+      });
 
       expect(result).toBeDefined();
       expect(result).toEqual({

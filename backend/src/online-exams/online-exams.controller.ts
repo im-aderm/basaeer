@@ -88,8 +88,8 @@ export class OnlineExamsController {
   @ApiOperation({ summary: 'Update Question' })
   @Patch('questions/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
-  updateQuestion(@Param('id') id: string, @Body() dto: CreateQuestionDto) {
-    return this.examsService.updateQuestion(id, dto);
+  updateQuestion(@Param('id') id: string, @Body() dto: CreateQuestionDto, @GetTenantContext() ctx: TenantContext) {
+    return this.examsService.updateQuestion(id, dto, ctx);
   }
 
   @ApiBearerAuth()
@@ -97,8 +97,8 @@ export class OnlineExamsController {
   @ApiOperation({ summary: 'Delete Question' })
   @Delete('questions/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
-  deleteQuestion(@Param('id') id: string) {
-    return this.examsService.deleteQuestion(id);
+  deleteQuestion(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.examsService.deleteQuestion(id, ctx);
   }
 
   // ==================== Exams ====================
@@ -184,8 +184,8 @@ export class OnlineExamsController {
   @ApiOperation({ summary: 'Retrieve Attempts' })
   @Get(':id/attempts')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
-  getAttempts(@Param('id') id: string) {
-    return this.examsService.getAttempts(id);
+  getAttempts(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.examsService.getAttempts(id, ctx);
   }
 
   @ApiBearerAuth()

@@ -103,8 +103,8 @@ export class AssessmentController {
   @ApiOperation({ summary: 'Retrieve Scores for a Record' })
   @Get('records/:recordId/scores')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
-  getRecordScores(@Param('recordId') recordId: string) {
-    return this.assessmentService.getScoresByRecord(recordId);
+  getRecordScores(@Param('recordId') recordId: string, @GetTenantContext() ctx: TenantContext) {
+    return this.assessmentService.getScoresByRecord(recordId, ctx);
   }
 
   @ApiBearerAuth()

@@ -60,8 +60,8 @@ export class CardsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Template' })
   @Get('templates/:id')
-  findTemplate(@Param('id') id: string) {
-    return this.cardsService.findTemplate(id);
+  findTemplate(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.cardsService.findTemplate(id, ctx);
   }
 
   @ApiBearerAuth()
@@ -73,8 +73,9 @@ export class CardsController {
   updateTemplate(
     @Param('id') id: string,
     @Body() updateDto: UpdateIdCardTemplateDto,
+    @GetTenantContext() ctx: TenantContext,
   ) {
-    return this.cardsService.updateTemplate(id, updateDto);
+    return this.cardsService.updateTemplate(id, updateDto, ctx);
   }
 
   @ApiBearerAuth()
@@ -82,8 +83,8 @@ export class CardsController {
   @ApiOperation({ summary: 'Delete Template' })
   @Delete('templates/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  removeTemplate(@Param('id') id: string) {
-    return this.cardsService.deleteTemplate(id);
+  removeTemplate(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.cardsService.deleteTemplate(id, ctx);
   }
 
   // ID Cards
@@ -113,7 +114,7 @@ export class CardsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve One' })
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.cardsService.findCard(id);
+  findOne(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.cardsService.findCard(id, ctx);
   }
 }

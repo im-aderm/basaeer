@@ -8,6 +8,8 @@ export interface Branch {
     address?: string | null;
     phone?: string | null;
     email?: string | null;
+    logoUrl?: string | null;
+    primaryColor?: string | null;
     isActive: boolean;
     createdAt: string;
     updatedAt: string;
@@ -19,6 +21,8 @@ export interface CreateBranchDto {
     address?: string;
     phone?: string;
     email?: string;
+    logoUrl?: string;
+    primaryColor?: string;
 }
 
 export interface UpdateBranchDto {
@@ -27,6 +31,8 @@ export interface UpdateBranchDto {
     address?: string;
     phone?: string;
     email?: string;
+    logoUrl?: string;
+    primaryColor?: string;
     isActive?: boolean;
 }
 

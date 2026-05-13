@@ -81,8 +81,8 @@ export class EmployeesController {
   @ApiOperation({ summary: 'Update Status' })
   @Patch(':id/status')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  updateStatus(@Param('id') id: string, @Body('status') status: string) {
-    return this.employeesService.updateStaffStatus(id, status);
+  updateStatus(@Param('id') id: string, @Body('status') status: string, @GetTenantContext() ctx: TenantContext) {
+    return this.employeesService.updateStaffStatus(id, status, ctx);
   }
 
   // --- Payroll Endpoints ---
@@ -127,8 +127,8 @@ export class EmployeesController {
   @ApiOperation({ summary: 'Update As Paid' })
   @Patch('payroll/:id/paid')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.ACCOUNTANT)
-  markAsPaid(@Param('id') id: string) {
-    return this.payrollService.markAsPaid(id);
+  markAsPaid(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.payrollService.markAsPaid(id, ctx);
   }
 
   // --- Leave Endpoints ---
@@ -141,7 +141,7 @@ export class EmployeesController {
     @GetTenantContext() ctx: TenantContext,
     @Body() dto: CreateLeaveRequestDto,
   ) {
-    const staff = await this.employeesService.findByUserId(ctx.userId);
+    const staff = await this.employeesService.findByUserId(ctx.userId, ctx);
     return this.leaveService.applyLeave(staff.id, dto, ctx.branchId!);
   }
 
@@ -171,12 +171,11 @@ export class EmployeesController {
   @ApiOperation({ summary: 'Retrieve My Leave Balances' })
   @Get('my-leave-balances')
   async getMyLeaveBalances(@GetTenantContext() ctx: TenantContext) {
-    const staff = await this.employeesService.findByUserId(ctx.userId);
+    const staff = await this.employeesService.findByUserId(ctx.userId, ctx);
     return this.leaveService.getLeaveBalances(staff.id, ctx.branchId!);
   }
 
   @ApiBearerAuth()
-  @ApiBody({ type: UpdateLeaveStatusDto })
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update Leave Status' })
   @Patch('leave-requests/:id/status')
@@ -184,8 +183,9 @@ export class EmployeesController {
   updateLeaveStatus(
     @Param('id') id: string,
     @Body() dto: UpdateLeaveStatusDto,
+    @GetTenantContext() ctx: TenantContext,
   ) {
-    return this.leaveService.updateLeaveStatus(id, dto);
+    return this.leaveService.updateLeaveStatus(id, dto, ctx);
   }
 
   // --- Parameterized Routes (at the end to avoid shadowing) ---
@@ -199,8 +199,8 @@ export class EmployeesController {
     UserRole.ACCOUNTANT,
     UserRole.HR,
   )
-  getPayrollHistory(@Param('id') staffId: string) {
-    return this.payrollService.getStaffPayrollHistory(staffId);
+  getPayrollHistory(@Param('id') staffId: string, @GetTenantContext() ctx: TenantContext) {
+    return this.payrollService.getStaffPayrollHistory(staffId, ctx);
   }
 
   @ApiBearerAuth()
@@ -208,8 +208,8 @@ export class EmployeesController {
   @ApiOperation({ summary: 'Retrieve One' })
   @Get(':id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
-  findOne(@Param('id') id: string) {
-    return this.employeesService.findOneStaff(id);
+  findOne(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.employeesService.findOneStaff(id, ctx);
   }
 
   // --- Awards Endpoints ---
@@ -236,7 +236,7 @@ export class EmployeesController {
   @ApiOperation({ summary: 'Retrieve My Awards' })
   @Get('my-awards')
   async getMyAwards(@GetTenantContext() ctx: TenantContext) {
-    const staff = await this.employeesService.findByUserId(ctx.userId);
+    const staff = await this.employeesService.findByUserId(ctx.userId, ctx);
     return this.employeesService.findMyAwards(staff.id);
   }
 
@@ -250,7 +250,7 @@ export class EmployeesController {
     @Body('amount') amount: number,
     @Body('reason') reason: string,
   ) {
-    const staff = await this.employeesService.findByUserId(ctx.userId);
+    const staff = await this.employeesService.findByUserId(ctx.userId, ctx);
     return this.employeesService.requestAdvance(staff.id, amount, reason);
   }
 
@@ -268,7 +268,7 @@ export class EmployeesController {
   @ApiOperation({ summary: 'Retrieve My Advances' })
   @Get('my-advance-salary')
   async getMyAdvances(@GetTenantContext() ctx: TenantContext) {
-    const staff = await this.employeesService.findByUserId(ctx.userId);
+    const staff = await this.employeesService.findByUserId(ctx.userId, ctx);
     return this.employeesService.findMyAdvances(staff.id);
   }
 
@@ -277,8 +277,8 @@ export class EmployeesController {
   @ApiOperation({ summary: 'Update Approve Advance' })
   @Patch('advance-salary/:id/approve')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
-  approveAdvance(@Param('id') id: string) {
-    return this.employeesService.updateAdvanceStatus(id, 'APPROVED');
+  approveAdvance(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.employeesService.updateAdvanceStatus(id, 'APPROVED', ctx);
   }
 
   @ApiBearerAuth()
@@ -286,8 +286,8 @@ export class EmployeesController {
   @ApiOperation({ summary: 'Update Reject Advance' })
   @Patch('advance-salary/:id/reject')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
-  rejectAdvance(@Param('id') id: string) {
-    return this.employeesService.updateAdvanceStatus(id, 'REJECTED');
+  rejectAdvance(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.employeesService.updateAdvanceStatus(id, 'REJECTED', ctx);
   }
 
   // --- Attendance Endpoints ---
@@ -348,7 +348,7 @@ export class EmployeesController {
   @ApiOperation({ summary: 'Retrieve Staff Attendance' })
   @Get(':id/attendance')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
-  getStaffAttendance(@Param('id') id: string) {
-    return this.employeesService.getStaffAttendanceHistory(id);
+  getStaffAttendance(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.employeesService.getStaffAttendanceHistory(id, ctx);
   }
 }

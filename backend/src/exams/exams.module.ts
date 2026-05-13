@@ -3,6 +3,7 @@ import { ExamsService } from './exams.service';
 import { ExamsController } from './exams.controller';
 import { PrismaModule } from '../prisma/prisma.module';
 import { ReportingModule } from '../reporting/reporting.module';
+import { BranchesModule } from '../branches/branches.module';
 import { ExamManagementService } from './exam-management.service';
 import { ResultComputationService } from './result-computation.service';
 import { ResultApprovalService } from './result-approval.service';
@@ -11,7 +12,7 @@ import { TahfeezService } from './tahfeez.service';
 import { AcademicPortalService } from './academic-portal.service';
 
 @Module({
-  imports: [PrismaModule, ReportingModule],
+  imports: [PrismaModule, ReportingModule, BranchesModule],
   controllers: [ExamsController],
   providers: [
     ExamsService,

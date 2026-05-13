@@ -4,6 +4,8 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { TenantContext } from '../auth/branch.guard';
+import { TenantHelper } from '../prisma/tenant-helper';
 import {
   CreateAcademicSessionDto,
   BulkSubmitScoresDto,
@@ -11,6 +13,7 @@ import {
 } from './dto/exam-ops.dto';
 import { Term, ExamTerm } from '../generated/client/client';
 import { ReportingService } from '../reporting/reporting.service';
+import { BranchBrandingService } from '../branches/branch-branding.service';
 import { END_OF_TERM_TEMPLATE } from '../reporting/templates/end-of-term.template';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -22,6 +25,7 @@ export class ExamsService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly reportingService: ReportingService,
+    private readonly branchBrandingService: BranchBrandingService,
   ) {}
 
   private async logAction(
@@ -57,8 +61,14 @@ export class ExamsService {
     });
   }
 
-  async getAllSessions() {
+  async getAllSessions(context: TenantContext) {
+    const where: any = {};
+    if (!context.isSuperAdmin) {
+      if (!context.branchId) throw new BadRequestException('User is not assigned to a branch');
+      where.branchId = context.branchId;
+    }
     return this.prisma.academicSession.findMany({
+      where,
       orderBy: { startDate: 'desc' },
     });
   }
@@ -195,9 +205,12 @@ export class ExamsService {
     this.assertCompleteGradingScale(scale);
     const match = scale.find((s) => total >= s.minScore && total <= s.maxScore);
     if (!match) {
-      throw new BadRequestException(
-        `Score ${total} is outside the configured grading ranges.`,
-      );
+      return {
+        grade: 'Ungraded',
+        remark: 'Score falls outside configured grading ranges',
+        gradePoint: null,
+        classOfResult: null,
+      };
     }
 
     return {
@@ -374,10 +387,10 @@ export class ExamsService {
     sectionId: string,
     sessionId: string,
     term: Term,
-    context: any,
+    context: TenantContext,
   ) {
     const students = await this.prisma.student.findMany({
-      where: { sectionId },
+      where: TenantHelper.applyIsolation({ sectionId }, context),
       select: { id: true, branchId: true },
     });
 
@@ -424,12 +437,22 @@ export class ExamsService {
 
       if (studentRecords.length === 0) return null;
 
+      // Batch fetch all scores for all records of this student
+      const recordIds = studentRecords.map((r) => r.id);
+      const allScores = await tx.assessmentScore.findMany({
+        where: { recordId: { in: recordIds } },
+        include: { component: true },
+      });
+
+      const scoresByRecord = allScores.reduce((acc: Record<string, any[]>, s: any) => {
+        if (!acc[s.recordId]) acc[s.recordId] = [];
+        acc[s.recordId].push(s);
+        return acc;
+      }, {});
+
       // Update all record totals dynamically before aggregating
       for (const record of studentRecords) {
-        const scores = await tx.assessmentScore.findMany({
-          where: { recordId: record.id },
-          include: { component: true },
-        });
+        const scores = scoresByRecord[record.id] || [];
 
         if (scores.length > 0) {
           const total = scores.reduce((sum: number, s: any) => {
@@ -710,9 +733,9 @@ export class ExamsService {
     return n + (s[(v - 20) % 10] || s[v] || s[0]);
   }
 
-  async getFullReportData(studentId: string, sessionId: string, term: Term) {
-    return this.prisma.student.findUnique({
-      where: { id: studentId },
+  async getFullReportData(studentId: string, sessionId: string, term: Term, context: TenantContext) {
+    const student = await this.prisma.student.findFirst({
+      where: TenantHelper.applyIsolation({ id: studentId }, context),
       include: {
         user: true,
         class: {
@@ -733,6 +756,11 @@ export class ExamsService {
         },
       },
     });
+
+    if (!student) return null;
+
+    const branding = await this.branchBrandingService.getBranding(student.branchId);
+    return { ...student, branding };
   }
 
   async generateAnnualCumulative(studentId: string, sessionId: string) {
@@ -817,9 +845,9 @@ export class ExamsService {
     });
   }
 
-  async formatAnnualReportData(studentId: string, sessionId: string) {
-    const student = await this.prisma.student.findUnique({
-      where: { id: studentId },
+  async formatAnnualReportData(studentId: string, sessionId: string, context: TenantContext) {
+    const student = await this.prisma.student.findFirst({
+      where: TenantHelper.applyIsolation({ id: studentId }, context),
       include: {
         user: true,
         class: true,
@@ -894,12 +922,20 @@ export class ExamsService {
       };
     });
 
+    let branding = null;
+    if (student.branchId) {
+      branding = await this.branchBrandingService.getBranding(student.branchId);
+    }
+
     return {
       schoolName: student.branch?.name || '',
       schoolLogo: schoolLogoSetting?.value || '',
       schoolWatermark: schoolWatermarkSetting?.value || '',
+      logoUrl: branding?.logoUrl || schoolLogoSetting?.value || null,
+      primaryColor: branding?.primaryColor || '#2563EB',
       sessionName: student.assessmentRecords[0]?.session?.name || '',
       studentName: `${student.user?.firstName} ${student.user?.lastName}`,
+      studentPhoto: student.passportPhoto || null,
       className: student.class?.name || 'N/A',
       classPosition: this.ordinal(summary.classPosition || 0),
       totalAnnualScore: subjects
@@ -914,9 +950,9 @@ export class ExamsService {
     };
   }
 
-  async getBroadsheetData(sectionId: string, sessionId: string, term: Term) {
+  async getBroadsheetData(sectionId: string, sessionId: string, term: Term, context: TenantContext) {
     const students = await this.prisma.student.findMany({
-      where: { sectionId },
+      where: TenantHelper.applyIsolation({ sectionId }, context),
       include: {
         user: true,
         assessmentRecords: {
@@ -975,7 +1011,12 @@ export class ExamsService {
       return studentRow;
     });
 
-    return { headers, rows };
+    let branding = null;
+    if (students.length > 0) {
+      branding = await this.branchBrandingService.getBranding(students[0].branchId);
+    }
+
+    return { headers, rows, branding };
   }
 
   async getGradingScales(branchId: string) {
@@ -998,9 +1039,10 @@ export class ExamsService {
     sectionId: string,
     sessionId: string,
     term: Term,
+    context: TenantContext,
   ): Promise<{ fileUrl: string; fileSize: number }> {
     const students = await this.prisma.student.findMany({
-      where: { sectionId },
+      where: TenantHelper.applyIsolation({ sectionId }, context),
       include: { user: true },
     });
 
@@ -1035,6 +1077,7 @@ export class ExamsService {
               student.id,
               sessionId,
               term,
+              context,
             );
             if (!data) continue;
 

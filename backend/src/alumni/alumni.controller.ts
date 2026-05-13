@@ -60,15 +60,15 @@ export class AlumniController {
   @ApiOperation({ summary: 'Retrieve My Profile' })
   @Get('profile/me')
   getMyProfile(@GetTenantContext() ctx: TenantContext) {
-    return this.alumniService.getProfile(ctx.userId);
+    return this.alumniService.getProfile(ctx.userId, ctx);
   }
 
   @ApiBody({ type: UpdateAlumniProfileDto })
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update Profile' })
   @Patch('profile/:id')
-  updateProfile(@Param('id') id: string, @Body() dto: UpdateAlumniProfileDto) {
-    return this.alumniService.updateProfile(id, dto);
+  updateProfile(@Param('id') id: string, @Body() dto: UpdateAlumniProfileDto, @GetTenantContext() ctx: TenantContext) {
+    return this.alumniService.updateProfile(id, dto, ctx);
   }
 
   @ApiBearerAuth()

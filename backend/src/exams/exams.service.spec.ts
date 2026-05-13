@@ -5,7 +5,7 @@ describe('ExamsService grading engine', () => {
   let service: ExamsService;
 
   beforeEach(() => {
-    service = new ExamsService({} as any, {} as any);
+    service = new ExamsService({} as any, {} as any, {} as any);
   });
 
   it('requires a branch grading scale before result computation', () => {

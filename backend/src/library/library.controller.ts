@@ -41,7 +41,7 @@ export class LibraryController {
     @GetTenantContext() ctx: TenantContext,
   ) {
     if (!dto.branchId && ctx.branchId) dto.branchId = ctx.branchId;
-    return this.libraryService.createBook(dto);
+    return this.libraryService.createBook(dto, ctx);
   }
 
   @ApiBearerAuth()
@@ -77,8 +77,8 @@ export class LibraryController {
   @ApiOperation({ summary: 'Retrieve One Book' })
   @Get('books/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.LIBRARIAN, UserRole.BRANCH_ADMIN)
-  findOneBook(@Param('id') id: string) {
-    return this.libraryService.findOneBook(id);
+  findOneBook(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.libraryService.findOneBook(id, ctx);
   }
 
   @ApiBearerAuth()
@@ -87,8 +87,8 @@ export class LibraryController {
   @ApiOperation({ summary: 'Create Borrow Book' })
   @Post('borrow')
   @Roles(UserRole.SUPER_ADMIN, UserRole.LIBRARIAN, UserRole.BRANCH_ADMIN)
-  borrowBook(@Body() dto: BorrowBookDto) {
-    return this.libraryService.borrowBook(dto);
+  borrowBook(@Body() dto: BorrowBookDto, @GetTenantContext() ctx: TenantContext) {
+    return this.libraryService.borrowBook(dto, ctx);
   }
 
   @ApiBearerAuth()
@@ -96,8 +96,8 @@ export class LibraryController {
   @ApiOperation({ summary: 'Create Return Book' })
   @Post('return/:recordId')
   @Roles(UserRole.SUPER_ADMIN, UserRole.LIBRARIAN, UserRole.BRANCH_ADMIN)
-  returnBook(@Param('recordId') recordId: string) {
-    return this.libraryService.returnBook(recordId);
+  returnBook(@Param('recordId') recordId: string, @GetTenantContext() ctx: TenantContext) {
+    return this.libraryService.returnBook(recordId, ctx);
   }
 
   @ApiBearerAuth()
@@ -117,9 +117,7 @@ export class LibraryController {
   @Get('stats')
   @Roles(UserRole.SUPER_ADMIN, UserRole.LIBRARIAN, UserRole.BRANCH_ADMIN)
   getStats(@GetTenantContext() ctx: TenantContext) {
-    return this.libraryService.getLibraryStats(
-      ctx.isSuperAdmin ? null : ctx.branchId,
-    );
+    return this.libraryService.getLibraryStats(ctx);
   }
 
   @ApiBearerAuth()

@@ -14,35 +14,6 @@ import {
 } from "lucide-react";
 import { commsService, Campaign } from "@/services/commsService";
 import { format } from "date-fns";
-import { toast } from "sonner";
-
-const MOCK_CAMPAIGNS: Campaign[] = [
-    {
-        id: "1",
-        name: "Welcome Newsletter - Jan",
-        type: "EMAIL",
-        status: "COMPLETED",
-        createdAt: new Date(Date.now() - 86400000 * 2).toISOString(),
-        recipientCount: 150
-    },
-    {
-        id: "2",
-        name: "Fee Reminder - Term 1",
-        type: "SMS",
-        status: "COMPLETED",
-        createdAt: new Date(Date.now() - 86400000 * 5).toISOString(),
-        recipientCount: 45
-    },
-    {
-        id: "3",
-        name: "School Sports Day Invitation",
-        type: "EMAIL",
-        status: "PENDING",
-        createdAt: new Date().toISOString(),
-        recipientCount: 200
-    }
-];
-
 export default function CommsReportPage() {
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
     const [loading, setLoading] = useState(true);
@@ -53,15 +24,11 @@ export default function CommsReportPage() {
         try {
             setLoading(true);
             const response = await commsService.getCampaigns();
-            if (response.data && response.data.length > 0) {
+            if (response.data) {
                 setCampaigns(response.data);
-            } else {
-                setCampaigns(MOCK_CAMPAIGNS);
             }
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to fetch campaigns:", error);
-            toast.error("Using mock data as API failed");
-            setCampaigns(MOCK_CAMPAIGNS);
         } finally {
             setLoading(false);
         }

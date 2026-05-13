@@ -19,6 +19,7 @@ import {
     Globe
 } from 'lucide-react';
 import { toast } from 'sonner';
+import api from '@/lib/api';
 
 interface ProviderStatus {
     id: string;
@@ -38,27 +39,48 @@ interface FailoverEvent {
     status: 'resolved' | 'pending';
 }
 
-const MOCK_PROVIDERS: ProviderStatus[] = [
-    { id: '1', name: 'Postmark SMTP', type: 'SMTP', status: 'online', latency: '45ms', lastChecked: 'Just now', failoverCount: 0 },
-    { id: '2', name: 'Termii SMS', type: 'SMS', status: 'online', latency: '120ms', lastChecked: '1 min ago', failoverCount: 2 },
-    { id: '3', name: 'AWS S3', type: 'Storage', status: 'online', latency: '15ms', lastChecked: 'Just now', failoverCount: 0 },
-    { id: '4', name: 'Backup SMTP (Mailgun)', type: 'SMTP', status: 'online', latency: '65ms', lastChecked: '5 mins ago', failoverCount: 0 },
-];
-
-const MOCK_EVENTS: FailoverEvent[] = [
-    { id: 'e1', provider: 'Termii SMS', event: 'Primary API timeout - switched to backup', timestamp: '2024-05-20 10:15:00', status: 'resolved' },
-    { id: 'e2', provider: 'Postmark SMTP', event: 'Rate limit hit - temporary throttle', timestamp: '2024-05-19 14:20:00', status: 'resolved' },
-];
-
 export default function ProvidersPage() {
-    const [providers, setProviders] = useState<ProviderStatus[]>(MOCK_PROVIDERS);
-    const [events, setEvents] = useState<FailoverEvent[]>(MOCK_EVENTS);
+    const [providers, setProviders] = useState<ProviderStatus[]>([]);
+    const [events, setEvents] = useState<FailoverEvent[]>([]);
     const [loading, setLoading] = useState(true);
     const [isChecking, setIsChecking] = useState(false);
 
+    const fetchHealth = async () => {
+        try {
+            const res = await api.get('/automation/health/queue-health');
+            const data = res.data;
+
+            const mappedProviders: ProviderStatus[] = (data?.providerHealth || []).map((h: any, i: number) => ({
+                id: h.id || String(i),
+                name: h.providerName || 'Unknown',
+                type: (h.providerType === 'EMAIL' ? 'SMTP' : h.providerType === 'SMS' ? 'SMS' : 'Storage') as 'SMTP' | 'SMS' | 'Storage',
+                status: (h.status === 'UP' ? 'online' : h.status === 'DEGRADED' ? 'degraded' : 'offline') as 'online' | 'offline' | 'degraded',
+                latency: h.latency ? `${h.latency}ms` : 'N/A',
+                lastChecked: h.createdAt ? new Date(h.createdAt).toLocaleString() : 'N/A',
+                failoverCount: 0,
+            }));
+
+            const mappedEvents: FailoverEvent[] = (data?.recentFailovers || []).map((f: any) => ({
+                id: f.id,
+                provider: f.failedProvider || 'Unknown',
+                event: `${f.failedProvider} → ${f.targetProvider}: ${f.reason || 'No reason'}`,
+                timestamp: f.createdAt ? new Date(f.createdAt).toLocaleString() : 'N/A',
+                status: (f.resolved ? 'resolved' : 'pending') as 'resolved' | 'pending',
+            }));
+
+            setProviders(mappedProviders.length > 0 ? mappedProviders : []);
+            setEvents(mappedEvents);
+        } catch (error) {
+            if (process.env.NODE_ENV === 'development') console.error('Failed to fetch provider health:', error);
+            setProviders([]);
+            setEvents([]);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     useEffect(() => {
-        const timer = setTimeout(() => setLoading(false), 800);
-        return () => clearTimeout(timer);
+        fetchHealth();
     }, []);
 
     const handleCheckStatus = async () => {

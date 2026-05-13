@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { ExamService } from "@/services/examService";
 import { StudentService } from "@/services/studentService";
 import { ClassService } from "@/services/classService";
+import { useAuth } from "@/context/AuthContext";
 import {
     FileText,
     Download,
@@ -19,6 +20,9 @@ import { Term } from "@/types/enums";
 import { clsx } from "clsx";
 
 export default function ReportCardPage() {
+    const { user } = useAuth();
+    const branding = user?.branding;
+
     const [classes, setClasses] = useState<any[]>([]);
     const [sections, setSections] = useState<any[]>([]);
     const [selectedClassId, setSelectedClassId] = useState("");
@@ -142,12 +146,25 @@ export default function ReportCardPage() {
                         {batchDownloading ? <Loader2 size={18} className="animate-spin text-primary" /> : <Download size={18} className="text-primary" />}
                         Download All (ZIP)
                     </button>
-                    <div>
-                        <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
-                            <FileText className="text-primary w-10 h-10" />
-                            Report Card Management
-                        </h1>
-                        <p className="text-muted-foreground mt-2 text-lg font-medium">Generate and distribute academic performance reports.</p>
+                    <div className="flex items-center gap-4">
+                        {branding?.logoUrl && (
+                            <img
+                                src={branding.logoUrl}
+                                alt="School Logo"
+                                className="h-14 w-14 rounded-2xl object-cover border border-border"
+                            />
+                        )}
+                        <div>
+                            <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
+                                <FileText className="w-10 h-10" style={{ color: branding?.primaryColor || 'var(--primary)' }} />
+                                <span style={{ color: branding?.primaryColor || undefined }}>
+                                    Report Card Management
+                                </span>
+                            </h1>
+                            <p className="text-muted-foreground mt-2 text-lg font-medium" style={{ color: branding?.primaryColor || undefined }}>
+                                {branding?.name || 'School'} &mdash; Generate and distribute academic performance reports.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -226,9 +243,17 @@ export default function ReportCardPage() {
                             return (
                                 <div key={student.id} className="p-8 hover:bg-muted/5 transition-all flex flex-col md:flex-row md:items-center justify-between gap-6 group">
                                     <div className="flex items-center gap-6">
-                                        <div className="w-20 h-20 rounded-[2rem] bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/10 flex items-center justify-center text-primary font-semibold text-h3 shadow-inner">
-                                            {student.user?.firstName?.[0]}{student.user?.lastName?.[0]}
-                                        </div>
+                                        {student.passportPhoto ? (
+                                            <img
+                                                src={student.passportPhoto}
+                                                alt={fullName}
+                                                className="w-20 h-20 rounded-[2rem] object-cover border border-primary/10 shadow-inner"
+                                            />
+                                        ) : (
+                                            <div className="w-20 h-20 rounded-[2rem] bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/10 flex items-center justify-center text-primary font-semibold text-h3 shadow-inner">
+                                                {student.user?.firstName?.[0]}{student.user?.lastName?.[0]}
+                                            </div>
+                                        )}
                                         <div>
                                             <h3 className="text-h3 font-semibold tracking-tight">{fullName}</h3>
                                             <div className="flex items-center gap-4 mt-2">

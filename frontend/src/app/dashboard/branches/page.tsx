@@ -14,7 +14,9 @@ import {
     Loader2,
     AlertCircle,
     CheckCircle2,
-    Search
+    Search,
+    Image,
+    Palette
 } from "lucide-react";
 import { clsx } from "clsx";
 
@@ -30,6 +32,8 @@ export default function BranchesPage() {
         address: "",
         phone: "",
         email: "",
+        logoUrl: "",
+        primaryColor: "#2563EB",
         isActive: true
     });
     const [submitting, setSubmitting] = useState(false);
@@ -50,8 +54,8 @@ export default function BranchesPage() {
         fetchBranches();
     }, []);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value, type, checked } = e.target;
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value, type, checked } = e.target as HTMLInputElement;
         setFormData({
             ...formData,
             [name]: type === 'checkbox' ? checked : value
@@ -67,6 +71,8 @@ export default function BranchesPage() {
                 address: branch.address || "",
                 phone: branch.phone || "",
                 email: branch.email || "",
+                logoUrl: branch.logoUrl || "",
+                primaryColor: branch.primaryColor || "#2563EB",
                 isActive: branch.isActive
             });
         } else {
@@ -77,6 +83,8 @@ export default function BranchesPage() {
                 address: "",
                 phone: "",
                 email: "",
+                logoUrl: "",
+                primaryColor: "#2563EB",
                 isActive: true
             });
         }
@@ -296,6 +304,47 @@ export default function BranchesPage() {
                                             value={formData.email}
                                             onChange={handleChange}
                                         />
+                                    </div>
+                                </div>
+
+                                <div className="pt-4 border-t border-border">
+                                    <h4 className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-4">Branding</h4>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div className="space-y-2">
+                                            <label className="text-sm font-semibold flex items-center gap-2">
+                                                <Image size={16} className="text-primary" />
+                                                Logo URL
+                                            </label>
+                                            <input
+                                                name="logoUrl"
+                                                placeholder="https://example.com/logo.png"
+                                                className="w-full p-3 bg-background border border-input rounded-xl focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                                value={formData.logoUrl}
+                                                onChange={handleChange}
+                                            />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <label className="text-sm font-semibold flex items-center gap-2">
+                                                <Palette size={16} className="text-primary" />
+                                                Primary Color
+                                            </label>
+                                            <div className="flex gap-3">
+                                                <input
+                                                    type="color"
+                                                    name="primaryColor"
+                                                    value={formData.primaryColor}
+                                                    onChange={handleChange}
+                                                    className="w-14 h-12 p-1 bg-background border border-input rounded-xl cursor-pointer"
+                                                />
+                                                <input
+                                                    name="primaryColor"
+                                                    placeholder="#2563EB"
+                                                    className="flex-1 p-3 bg-background border border-input rounded-xl focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                                    value={formData.primaryColor}
+                                                    onChange={handleChange}
+                                                />
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 

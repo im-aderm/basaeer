@@ -51,6 +51,7 @@ import { ProvidersModule } from './providers/providers.module';
 import { CommsModule } from './comms/comms.module';
 import { RealtimeModule } from './realtime/realtime.module';
 import { AlumniModule } from './alumni/alumni.module';
+import { AttachmentsModule } from './attachments/attachments.module';
 import { IntegrationsModule } from './integrations/integrations.module';
 import { InstitutionalEventsService } from './common/events/institutional-events.service';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
@@ -134,6 +135,7 @@ import { MustChangePasswordGuard } from './auth/must-change-password.guard';
     CommsModule,
     RealtimeModule,
     AlumniModule,
+    AttachmentsModule,
     IntegrationsModule,
     HealthModule,
   ],

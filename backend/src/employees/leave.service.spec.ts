@@ -6,15 +6,24 @@ describe('LeaveService', () => {
   let service: LeaveService;
   let prisma: PrismaService;
 
+  const mockContext = {
+    userId: 'user-1',
+    branchId: 'branch-1',
+    isSuperAdmin: false,
+    role: 'HR' as any,
+  };
+
   const mockPrismaService = {
     staff: {
       findUnique: jest.fn(),
+      findFirst: jest.fn(),
     },
     leaveRequest: {
       create: jest.fn(),
       update: jest.fn(),
       findMany: jest.fn(),
       findUnique: jest.fn(),
+      findFirst: jest.fn(),
     },
   };
 
@@ -90,10 +99,10 @@ describe('LeaveService', () => {
         status: 'APPROVED',
       };
 
-      mockPrismaService.leaveRequest.findUnique.mockResolvedValue(mockRequest);
+      mockPrismaService.leaveRequest.findFirst.mockResolvedValue(mockRequest);
       mockPrismaService.leaveRequest.update.mockResolvedValue(mockUpdated);
 
-      const result = await service.updateLeaveStatus(requestId, dto);
+      const result = await service.updateLeaveStatus(requestId, dto, mockContext);
 
       expect(result.status).toBe('APPROVED');
       expect(mockPrismaService.leaveRequest.update).toHaveBeenCalledWith({
@@ -116,10 +125,10 @@ describe('LeaveService', () => {
         status: 'REJECTED',
       };
 
-      mockPrismaService.leaveRequest.findUnique.mockResolvedValue(mockRequest);
+      mockPrismaService.leaveRequest.findFirst.mockResolvedValue(mockRequest);
       mockPrismaService.leaveRequest.update.mockResolvedValue(mockUpdated);
 
-      const result = await service.updateLeaveStatus(requestId, dto);
+      const result = await service.updateLeaveStatus(requestId, dto, mockContext);
 
       expect(result.status).toBe('REJECTED');
     });
@@ -150,9 +159,10 @@ describe('LeaveService', () => {
         { id: 'leave-2', type: 'SICK', status: 'PENDING' },
       ];
 
+      mockPrismaService.staff.findFirst.mockResolvedValue({ id: staffId });
       mockPrismaService.leaveRequest.findMany.mockResolvedValue(mockLeaves);
 
-      const result = await service.getStaffLeaves(staffId);
+      const result = await service.getStaffLeaves(staffId, mockContext);
 
       expect(result).toHaveLength(2);
       expect(mockPrismaService.leaveRequest.findMany).toHaveBeenCalledWith({

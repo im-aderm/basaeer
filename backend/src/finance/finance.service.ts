@@ -68,8 +68,14 @@ export class FinanceService {
         if (!student)
           throw new ForbiddenException('Student not found in your branch');
 
-        const count = await tx.invoice.count({ where: { branchId } });
-        const invoiceNumber = `INV-${new Date().getFullYear()}-${(count + 1).toString().padStart(4, '0')}`;
+        // Generate unique invoice number using atomic counter
+        const counter = await tx.counter.upsert({
+          where: { branchId_model: { branchId, model: 'Invoice' } },
+          update: { lastValue: { increment: 1 } },
+          create: { branchId, model: 'Invoice', lastValue: 1 },
+        });
+
+        const invoiceNumber = `INV-${new Date().getFullYear()}-${counter.lastValue.toString().padStart(4, '0')}`;
 
         return tx.invoice.create({
           data: {
@@ -324,16 +330,23 @@ export class FinanceService {
     const branchId = dto.branchId || context.branchId;
     if (!branchId) throw new ForbiddenException('Branch context required');
 
-    const count = await this.prisma.voucher.count({ where: { branchId } });
-    const voucherNumber = `VCH-${new Date().getFullYear()}-${(count + 1).toString().padStart(4, '0')}`;
+    return this.prisma.$transaction(async (tx) => {
+      const counter = await tx.counter.upsert({
+        where: { branchId_model: { branchId, model: 'Voucher' } },
+        update: { lastValue: { increment: 1 } },
+        create: { branchId, model: 'Voucher', lastValue: 1 },
+      });
 
-    return this.prisma.voucher.create({
-      data: {
-        ...dto,
-        branchId,
-        voucherNumber,
-        status: 'PENDING',
-      },
+      const voucherNumber = `VCH-${new Date().getFullYear()}-${counter.lastValue.toString().padStart(4, '0')}`;
+
+      return tx.voucher.create({
+        data: {
+          ...dto,
+          branchId,
+          voucherNumber,
+          status: 'PENDING',
+        },
+      });
     });
   }
 
@@ -367,29 +380,31 @@ export class FinanceService {
   }
 
   async getCashflow(context: TenantContext, months: number = 6) {
-    const branchFilter = context.isSuperAdmin
-      ? {}
-      : { branchId: context.branchId || '' };
+    const branchId = context.branchId || '';
     const since = new Date();
     since.setMonth(since.getMonth() - months);
 
-    const payments = await this.prisma.payment.findMany({
-      where: {
-        ...branchFilter,
-        status: 'COMPLETED',
-        createdAt: { gte: since },
-      },
-      select: { amount: true, createdAt: true },
-    });
+    const incomeData: any[] = await this.prisma.$queryRaw`
+      SELECT 
+        TO_CHAR("createdAt", 'YYYY-MM') as month,
+        SUM(amount)::FLOAT as total
+      FROM "Payment"
+      WHERE status = 'COMPLETED' 
+        AND "branchId" = ${branchId}
+        AND "createdAt" >= ${since}
+      GROUP BY month
+    `;
 
-    const vouchers = await this.prisma.voucher.findMany({
-      where: {
-        ...branchFilter,
-        status: { in: ['APPROVED' as any, 'PAID' as any] },
-        date: { gte: since },
-      },
-      select: { amount: true, date: true },
-    });
+    const expenseData: any[] = await this.prisma.$queryRaw`
+      SELECT 
+        TO_CHAR(date, 'YYYY-MM') as month,
+        SUM(amount)::FLOAT as total
+      FROM "Voucher"
+      WHERE status IN ('APPROVED', 'PAID')
+        AND "branchId" = ${branchId}
+        AND date >= ${since}
+      GROUP BY month
+    `;
 
     const monthsData: Record<string, { income: number; expenses: number }> = {};
     for (let i = 0; i < months; i++) {
@@ -399,14 +414,12 @@ export class FinanceService {
       monthsData[key] = { income: 0, expenses: 0 };
     }
 
-    for (const p of payments) {
-      const key = `${p.createdAt.getFullYear()}-${String(p.createdAt.getMonth() + 1).padStart(2, '0')}`;
-      if (monthsData[key]) monthsData[key].income += Number(p.amount);
+    for (const d of incomeData) {
+      if (monthsData[d.month]) monthsData[d.month].income = d.total;
     }
 
-    for (const v of vouchers) {
-      const key = `${v.date.getFullYear()}-${String(v.date.getMonth() + 1).padStart(2, '0')}`;
-      if (monthsData[key]) monthsData[key].expenses += Number(v.amount);
+    for (const d of expenseData) {
+      if (monthsData[d.month]) monthsData[d.month].expenses = d.total;
     }
 
     return Object.entries(monthsData)

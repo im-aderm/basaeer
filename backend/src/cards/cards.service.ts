@@ -1,5 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { TenantContext } from '../auth/branch.guard';
+import { TenantHelper } from '../prisma/tenant-helper';
 import { CreateIdCardTemplateDto } from './dto/create-template.dto';
 import { UpdateIdCardTemplateDto } from './dto/update-template.dto';
 import { GenerateIdCardsDto } from './dto/generate-cards.dto';
@@ -21,7 +23,11 @@ export class CardsService {
     });
   }
 
-  async updateTemplate(id: string, dto: UpdateIdCardTemplateDto) {
+  async updateTemplate(id: string, dto: UpdateIdCardTemplateDto, context: TenantContext) {
+    const existing = await this.prisma.idCardTemplate.findFirst({
+      where: TenantHelper.applyIsolation({ id }, context),
+    });
+    if (!existing) throw new NotFoundException('Template not found');
     return this.prisma.idCardTemplate.update({
       where: { id },
       data: dto,
@@ -35,15 +41,19 @@ export class CardsService {
     });
   }
 
-  async findTemplate(id: string) {
-    const template = await this.prisma.idCardTemplate.findUnique({
-      where: { id },
+  async findTemplate(id: string, context: TenantContext) {
+    const template = await this.prisma.idCardTemplate.findFirst({
+      where: TenantHelper.applyIsolation({ id }, context),
     });
     if (!template) throw new NotFoundException('Template not found');
     return template;
   }
 
-  async deleteTemplate(id: string) {
+  async deleteTemplate(id: string, context: TenantContext) {
+    const existing = await this.prisma.idCardTemplate.findFirst({
+      where: TenantHelper.applyIsolation({ id }, context),
+    });
+    if (!existing) throw new NotFoundException('Template not found');
     return this.prisma.idCardTemplate.delete({
       where: { id },
     });
@@ -172,9 +182,9 @@ export class CardsService {
     }));
   }
 
-  async findCard(id: string) {
-    const card = await this.prisma.idCard.findUnique({
-      where: { id },
+  async findCard(id: string, context: TenantContext) {
+    const card = await this.prisma.idCard.findFirst({
+      where: TenantHelper.applyIsolation({ id }, context),
       include: {
         student: {
           include: {

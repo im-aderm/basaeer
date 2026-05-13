@@ -18,6 +18,7 @@ import {
     Trash2
 } from 'lucide-react';
 import { toast } from 'sonner';
+import api from '@/lib/api';
 
 interface QueueMetrics {
     name: string;
@@ -29,31 +30,29 @@ interface QueueMetrics {
     paused: boolean;
 }
 
-const MOCK_QUEUES: QueueMetrics[] = [
-    { name: 'mail-queue', active: 2, waiting: 5, completed: 1250, failed: 12, delayed: 0, paused: false },
-    { name: 'sms-queue', active: 0, waiting: 0, completed: 850, failed: 3, delayed: 0, paused: false },
-    { name: 'report-generation', active: 1, waiting: 2, completed: 45, failed: 1, delayed: 0, paused: false },
-    { name: 'backup-queue', active: 0, waiting: 0, completed: 15, failed: 0, delayed: 0, paused: false },
-];
-
 export default function QueuesPage() {
-    const [queues, setQueues] = useState<QueueMetrics[]>(MOCK_QUEUES);
+    const [queues, setQueues] = useState<QueueMetrics[]>([]);
     const [loading, setLoading] = useState(true);
     const [isRefreshing, setIsRefreshing] = useState(false);
 
     const fetchMetrics = async () => {
         setIsRefreshing(true);
         try {
-            // In a real app, this would be api.get('/api/queues/metrics')
-            const response = await fetch('/api/queues/metrics');
-            if (response.ok) {
-                const data = await response.json();
-                setQueues(data || MOCK_QUEUES);
-            }
+            const response = await api.get('/automation/health/queue-health');
+            const raw = response.data?.metrics || [];
+            const mapped: QueueMetrics[] = raw.map((m: any) => ({
+                name: m.queueName || 'unknown',
+                active: m.activeCount || 0,
+                waiting: m.waitingCount || 0,
+                completed: m.completedCount || 0,
+                failed: m.failedCount || 0,
+                delayed: m.delayedCount || 0,
+                paused: false,
+            }));
+            setQueues(mapped.length > 0 ? mapped : []);
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error('Failed to fetch queue metrics:', error);
-            // Fallback to mock data for demo
-            setQueues(MOCK_QUEUES);
+            setQueues([]);
         } finally {
             setLoading(false);
             setIsRefreshing(false);

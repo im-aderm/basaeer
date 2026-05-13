@@ -65,7 +65,7 @@ export class CommsController {
   @ApiOperation({ summary: 'Retrieve Campaign Details' })
   @Get('campaigns/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  async getCampaignDetails(@Param('id') id: string) {
-    return this.commsService.getCampaignDetails(id);
+  async getCampaignDetails(@Param('id') id: string, @GetTenantContext() context: TenantContext) {
+    return this.commsService.getCampaignDetails(id, context);
   }
 }

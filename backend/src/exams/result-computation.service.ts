@@ -86,17 +86,27 @@ export class ResultComputationService {
     }> = [];
 
     await this.prisma.$transaction(async (tx) => {
+      // Batch-load all assessment records for all students at once (fix N+1)
+      const allRecords = await tx.assessmentRecord.findMany({
+        where: {
+          branchId,
+          studentId: { in: students.map((s) => s.id) },
+          sessionId,
+          term,
+          isEligible: true,
+        },
+        orderBy: [{ subjectId: 'asc' }],
+      });
+
+      const recordsByStudent = new Map<string, typeof allRecords>();
+      for (const record of allRecords) {
+        const existing = recordsByStudent.get(record.studentId) || [];
+        existing.push(record);
+        recordsByStudent.set(record.studentId, existing);
+      }
+
       for (const student of students) {
-        const records = await tx.assessmentRecord.findMany({
-          where: {
-            branchId,
-            studentId: student.id,
-            sessionId,
-            term,
-            isEligible: true,
-          },
-          orderBy: [{ subjectId: 'asc' }],
-        });
+        const records = recordsByStudent.get(student.id) || [];
         if (!records.length) continue;
 
         const total = records.reduce(

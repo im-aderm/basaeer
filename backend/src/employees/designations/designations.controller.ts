@@ -13,7 +13,8 @@ import { CreateDesignationDto } from './dto/create-designation.dto';
 import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
 import { RolesGuard } from '../../auth/roles.guard';
 import { Roles } from '../../auth/roles.decorator';
-import { BranchGuard } from '../../auth/branch.guard';
+import { BranchGuard, TenantContext } from '../../auth/branch.guard';
+import { GetTenantContext } from '../../auth/tenant-context.decorator';
 import { UserRole } from '../../generated/client/client';
 import {
   ApiTags,
@@ -53,8 +54,8 @@ export class DesignationsController {
   @ApiOperation({ summary: 'Retrieve One' })
   @Get(':id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  findOne(@Param('id') id: string) {
-    return this.designationsService.findOne(id);
+  findOne(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.designationsService.findOne(id, ctx);
   }
 
   @ApiBearerAuth()
@@ -62,7 +63,7 @@ export class DesignationsController {
   @ApiOperation({ summary: 'Delete resource' })
   @Delete(':id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  remove(@Param('id') id: string) {
-    return this.designationsService.remove(id);
+  remove(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.designationsService.remove(id, ctx);
   }
 }

@@ -583,8 +583,8 @@ export class ExamsController {
   @ApiOperation({ summary: 'Retrieve Sessions' })
   @Get('sessions')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
-  getSessions() {
-    return this.examsService.getAllSessions();
+  getSessions(@GetTenantContext() ctx: TenantContext) {
+    return this.examsService.getAllSessions(ctx);
   }
 
   @ApiBearerAuth()
@@ -718,6 +718,7 @@ export class ExamsController {
       studentId,
       sessionId,
       term,
+      ctx,
     );
     if (!data) throw new NotFoundException('Report data not found');
 
@@ -751,11 +752,13 @@ export class ExamsController {
   async getAnnualReport(
     @Param('studentId') studentId: string,
     @Param('sessionId') sessionId: string,
+    @GetTenantContext() ctx: TenantContext,
     @Res() res: Response,
   ) {
     const formatted = await this.examsService.formatAnnualReportData(
       studentId,
       sessionId,
+      ctx,
     );
     if (!formatted) throw new NotFoundException('Annual report data not found');
 
@@ -783,12 +786,14 @@ export class ExamsController {
     @Param('sectionId') sectionId: string,
     @Param('sessionId') sessionId: string,
     @Param('term') term: Term,
+    @GetTenantContext() ctx: TenantContext,
     @Res() res: Response,
   ) {
     const { headers, rows } = await this.examsService.getBroadsheetData(
       sectionId,
       sessionId,
       term,
+      ctx,
     );
     const excel = await this.reportingService.generateExcel(headers, rows);
 
@@ -810,12 +815,14 @@ export class ExamsController {
     @Param('sectionId') sectionId: string,
     @Param('sessionId') sessionId: string,
     @Param('term') term: Term,
+    @GetTenantContext() ctx: TenantContext,
     @Res() res: Response,
   ) {
     const result = await this.examsService.generateBatchZip(
       sectionId,
       sessionId,
       term,
+      ctx,
     );
     const filePath = path.join(process.cwd(), result.fileUrl);
 

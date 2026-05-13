@@ -60,8 +60,8 @@ export class EventsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve One' })
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.eventsService.getEventDetails(id);
+  findOne(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.eventsService.getEventDetails(id, ctx);
   }
 
   @ApiBody({ type: UpdateEventRSVPDto })
@@ -81,7 +81,7 @@ export class EventsController {
   @ApiOperation({ summary: 'Delete resource' })
   @Delete(':id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  remove(@Param('id') id: string) {
-    return this.eventsService.deleteEvent(id);
+  remove(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.eventsService.deleteEvent(id, ctx);
   }
 }

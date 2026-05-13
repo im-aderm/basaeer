@@ -3,53 +3,33 @@
 import { useState, useEffect } from "react";
 import {
     FileText,
-    Plus,
     Search,
+    Loader2,
+    CheckCircle2,
+    XCircle,
     Download,
     Printer,
     Trash2,
-    Loader2,
-    CheckCircle2,
-    GraduationCap,
-    Clock,
-    UserCircle
 } from "lucide-react";
 import api from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { StudentService, Student } from "@/services/studentService";
 
-export default function CertificatesPage() {
+export default function CertificateVaultPage() {
     const { user } = useAuth();
     const [certificates, setCertificates] = useState<any[]>([]);
-    const [students, setStudents] = useState<Student[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
-    const [isDialogOpen, setIsDialogOpen] = useState(false);
-    const [formData, setFormData] = useState({
-        type: "TRANSFER",
-        certificateNumber: "",
-        studentId: "",
-        content: "",
-        templateId: ""
-    });
-    const [templates, setTemplates] = useState<any[]>([]);
 
     const fetchData = async () => {
+        setLoading(true);
         try {
-            const [certsRes, studentsData, templatesRes] = await Promise.all([
-                api.get(`/certificates?branchId=${user?.branchId}`),
-                StudentService.getAll(),
-                api.get(`/certificates/templates?branchId=${user?.branchId}`)
-            ]);
-            setCertificates(Array.isArray(certsRes.data) ? certsRes.data : []);
-            setStudents(Array.isArray(studentsData) ? studentsData : []);
-            setTemplates(Array.isArray(templatesRes.data) ? templatesRes.data : []);
+            const res = await api.get(`/certificates?branchId=${user?.branchId}`);
+            setCertificates(Array.isArray(res.data) ? res.data : []);
         } catch (error) {
-            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch certificate data:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch certificates:", error);
         } finally {
             setLoading(false);
         }
@@ -58,22 +38,6 @@ export default function CertificatesPage() {
     useEffect(() => {
         if (user) fetchData();
     }, [user]);
-
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        try {
-            await api.post("/certificates", {
-                ...formData,
-                branchId: user?.branchId,
-                content: { note: formData.content }
-            });
-            setIsDialogOpen(false);
-            setFormData({ type: "TRANSFER", certificateNumber: "", studentId: "", content: "", templateId: "" });
-            fetchData();
-        } catch (error) {
-            if (process.env.NODE_ENV === 'development') console.error("Failed to issue certificate:", error);
-        }
-    };
 
     const handleDownload = async (certId: string) => {
         try {
@@ -98,13 +62,22 @@ export default function CertificatesPage() {
         }
     };
 
-    const filteredCerts = certificates.filter(cert =>
-        cert.student.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        cert.student.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        cert.certificateNumber.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const filtered = certificates.filter((cert) => {
+        if (!searchTerm) return true;
+        const q = searchTerm.toLowerCase();
+        const name =
+            `${cert.student?.firstName || ""} ${cert.student?.lastName || ""}`.toLowerCase();
+        const num = (cert.certificateNumber || "").toLowerCase();
+        return name.includes(q) || num.includes(q);
+    });
 
-    if (loading) return <div className="p-8 text-center"><Loader2 className="animate-spin mx-auto h-8 w-8 text-primary" /></div>;
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center min-h-[400px]">
+                <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+            </div>
+        );
+    }
 
     return (
         <div className="space-y-8 animate-in fade-in duration-500 pb-20">
@@ -114,184 +87,107 @@ export default function CertificatesPage() {
                         <FileText className="text-primary w-10 h-10" />
                         Certificate Vault
                     </h1>
-                    <p className="text-muted-foreground font-medium text-lg">Issue and manage academic and character certificates for students.</p>
+                    <p className="text-muted-foreground font-medium text-lg">
+                        Browse and manage all issued certificates.
+                    </p>
                 </div>
-                <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                    <DialogTrigger asChild>
-                        <Button className="gap-3 rounded-[1.5rem] h-14 px-8 font-semibold text-lg shadow-xl shadow-primary/20 hover:scale-105 transition-all">
-                            <Plus size={20} /> Issue New Certificate
-                        </Button>
-                    </DialogTrigger>
-                    <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl bg-background/80 backdrop-blur-xl">
-                        <DialogHeader>
-                            <DialogTitle className="text-h1 font-semibold mb-6 tracking-tight">Issue Student Certificate</DialogTitle>
-                        </DialogHeader>
-                        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="space-y-3">
-                                <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground ml-1">Certificate Type</label>
-                                <select
-                                    className="w-full h-14 rounded-2xl bg-muted/30 border-none font-bold text-lg px-4 appearance-none focus:ring-2 ring-primary/20 cursor-pointer"
-                                    value={formData.type}
-                                    onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                                >
-                                    <option value="TRANSFER">Transfer Certificate</option>
-                                    <option value="CHARACTER">Character Certificate</option>
-                                    <option value="PROVISIONAL">Provisional Certificate</option>
-                                    <option value="ACHIEVEMENT">Achievement Certificate</option>
-                                </select>
-                            </div>
-                            <div className="space-y-3">
-                                <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground ml-1">Reference Number</label>
-                                <Input
-                                    placeholder="e.g. TC/2024/001"
-                                    value={formData.certificateNumber}
-                                    onChange={(e) => setFormData({ ...formData, certificateNumber: e.target.value })}
-                                    className="h-14 rounded-2xl bg-muted/30 border-none font-bold text-lg"
-                                    required
-                                />
-                            </div>
-                            <div className="space-y-3 md:col-span-2">
-                                <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground ml-1">Select Student</label>
-                                <select
-                                    className="w-full h-14 rounded-2xl bg-muted/30 border-none font-bold text-lg px-4 appearance-none focus:ring-2 ring-primary/20 cursor-pointer"
-                                    value={formData.studentId}
-                                    onChange={(e) => setFormData({ ...formData, studentId: e.target.value })}
-                                    required
-                                >
-                                    <option value="">Search and select student...</option>
-                                    {students.map(s => (
-                                        <option key={s.id} value={s.id}>{s.firstName} {s.lastName} (ID: {s.id.split('-')[0]})</option>
-                                    ))}
-                                </select>
-                            </div>
-                            <div className="space-y-3 md:col-span-2">
-                                <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground ml-1">Certificate Template</label>
-                                <select
-                                    className="w-full h-14 rounded-2xl bg-muted/30 border-none font-bold text-lg px-4 appearance-none focus:ring-2 ring-primary/20 cursor-pointer"
-                                    value={formData.templateId}
-                                    onChange={(e) => setFormData({ ...formData, templateId: e.target.value })}
-                                >
-                                    <option value="">Default Classic Template</option>
-                                    {templates.map(t => (
-                                        <option key={t.id} value={t.id}>{t.name}</option>
-                                    ))}
-                                </select>
-                            </div>
-                            <div className="space-y-3 md:col-span-2">
-                                <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground ml-1">Certificate Notes / Remarks</label>
-                                <textarea
-                                    placeholder="Add any specific details or remarks for the certificate..."
-                                    value={formData.content}
-                                    onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                                    className="w-full h-32 rounded-2xl bg-muted/30 border-none font-bold text-lg p-4 focus:ring-2 ring-primary/20 outline-none resize-none"
-                                />
-                            </div>
-                            <Button type="submit" className="md:col-span-2 h-14 rounded-2xl font-semibold text-h3 shadow-xl shadow-primary/20 mt-4 transition-all hover:scale-[1.02]">
-                                Generate & Save Certificate
-                            </Button>
-                        </form>
-                    </DialogContent>
-                </Dialog>
             </div>
 
-            <Card className="rounded-[4rem] border-border/50 shadow-2xl shadow-primary/5 overflow-hidden border-t-8 border-t-primary/20 bg-card/50 backdrop-blur-sm">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-7 p-10">
-                    <CardTitle className="text-h3 font-semibold tracking-tight">Issued Certificates</CardTitle>
-                    <div className="relative w-80">
-                        <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-muted-foreground" size={20} />
-                        <Input
-                            placeholder="Recipient name or number..."
-                            className="pl-14 rounded-2xl bg-muted/30 border-none font-bold h-14 text-lg"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                        />
+            <div className="relative max-w-sm">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={20} />
+                <Input
+                    placeholder="Search by student name or certificate number..."
+                    className="pl-12 rounded-2xl bg-muted/30 border-none h-14 text-lg font-medium"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+            </div>
+
+            {filtered.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-32 text-center">
+                    <div className="w-20 h-20 bg-muted/50 rounded-full flex items-center justify-center mb-6">
+                        <FileText size={40} className="text-muted-foreground/30" />
                     </div>
-                </CardHeader>
-                <CardContent className="p-0">
-                    <div className="overflow-x-auto">
-                        <table className="w-full border-collapse">
-                            <thead>
-                                <tr className="bg-muted/50 text-left">
-                                    <th className="px-10 py-6 text-[10px] uppercase tracking-[0.3em] font-semibold text-muted-foreground">Type & Ref</th>
-                                    <th className="px-10 py-6 text-[10px] uppercase tracking-[0.3em] font-semibold text-muted-foreground">Student Name</th>
-                                    <th className="px-10 py-6 text-[10px] uppercase tracking-[0.3em] font-semibold text-muted-foreground">Issue Date</th>
-                                    <th className="px-10 py-6 text-right text-[10px] uppercase tracking-[0.3em] font-semibold text-muted-foreground">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-border/50">
-                                {filteredCerts.map((cert) => (
-                                    <tr key={cert.id} className="hover:bg-primary/5 transition-all group">
-                                        <td className="px-10 py-8">
-                                            <div className="flex items-center gap-5">
-                                                <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:rotate-12 transition-transform duration-500">
-                                                    <FileText size={24} />
-                                                </div>
-                                                <div>
-                                                    <span className="font-semibold text-lg block uppercase tracking-tight">{cert.type.replace('_', ' ')}</span>
-                                                    <span className="text-xs font-semibold text-muted-foreground bg-muted px-2 py-0.5 rounded-lg border border-border/50">{cert.certificateNumber}</span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td className="px-10 py-8">
-                                            <div className="flex items-center gap-3">
-                                                <div className="w-8 h-8 rounded-xl bg-muted flex items-center justify-center text-muted-foreground">
-                                                    <UserCircle size={20} />
-                                                </div>
-                                                <span className="font-semibold text-h3">{cert.student.firstName} {cert.student.lastName}</span>
-                                            </div>
-                                        </td>
-                                        <td className="px-10 py-8">
-                                            <div className="flex items-center gap-2 text-muted-foreground font-semibold">
-                                                <Clock size={16} className="text-primary/60" />
-                                                {new Date(cert.issueDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
-                                            </div>
-                                        </td>
-                                        <td className="px-10 py-8 text-right">
-                                            <div className="flex items-center justify-end gap-3 opacity-0 group-hover:opacity-100 transition-all transform translate-x-4 group-hover:translate-x-0">
-                                                <Button
-                                                    variant="outline"
-                                                    size="icon"
-                                                    className="h-12 w-12 rounded-2xl border-2 hover:bg-primary hover:text-white hover:border-primary transition-all"
-                                                    onClick={() => handleDownload(cert.id)}
-                                                >
-                                                    <Printer size={20} />
-                                                </Button>
-                                                <Button
-                                                    variant="outline"
-                                                    size="icon"
-                                                    className="h-12 w-12 rounded-2xl border-2 hover:bg-primary hover:text-white hover:border-primary transition-all"
-                                                    onClick={() => handleDownload(cert.id)}
-                                                >
-                                                    <Download size={20} />
-                                                </Button>
-                                                <Button
-                                                    variant="ghost"
-                                                    size="icon"
-                                                    className="h-12 w-12 rounded-2xl text-red-500 hover:bg-red-500/10 transition-all"
-                                                    onClick={() => handleDelete(cert.id)}
-                                                >
-                                                    <Trash2 size={20} />
-                                                </Button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                ))}
-                                {filteredCerts.length === 0 && (
-                                    <tr>
-                                        <td colSpan={4} className="px-10 py-32 text-center">
-                                            <div className="w-20 h-20 bg-muted/50 rounded-full flex items-center justify-center mx-auto mb-6">
-                                                <FileText size={40} className="text-muted-foreground/30" />
-                                            </div>
-                                            <h3 className="text-h3 font-semibold tracking-tight">No Certificates Issued</h3>
-                                            <p className="text-muted-foreground font-medium mt-2">Start by issuing a new certificate to a student.</p>
-                                        </td>
-                                    </tr>
-                                )}
-                            </tbody>
-                        </table>
-                    </div>
-                </CardContent>
-            </Card>
+                    <h3 className="text-h3 font-semibold tracking-tight">
+                        {searchTerm ? "No Matching Certificates" : "No Certificates Issued"}
+                    </h3>
+                    <p className="text-muted-foreground font-medium mt-2 max-w-md">
+                        {searchTerm
+                            ? "Try adjusting your search term."
+                            : "Certificates will appear here once issued to students."}
+                    </p>
+                </div>
+            ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    {filtered.map((cert) => (
+                        <Card
+                            key={cert.id}
+                            className="rounded-[2rem] border-border/50 shadow-xl hover:shadow-2xl transition-all group bg-card/50 backdrop-blur-sm hover:scale-[1.02] overflow-hidden"
+                        >
+                            <CardContent className="p-0">
+                                <div className="p-8 pb-6">
+                                    <div className="flex items-start justify-between mb-6">
+                                        <div className="p-4 rounded-2xl bg-primary/10 text-primary group-hover:scale-110 transition-transform">
+                                            <FileText size={28} />
+                                        </div>
+                                        {cert.isVerified ? (
+                                            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">
+                                                <CheckCircle2 size={12} /> Verified
+                                            </span>
+                                        ) : (
+                                            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-700">
+                                                <XCircle size={12} /> Unverified
+                                            </span>
+                                        )}
+                                    </div>
+                                    <p className="text-xs font-semibold uppercase tracking-[0.15em] text-muted-foreground mb-1">
+                                        {cert.type?.replace(/_/g, " ")}
+                                    </p>
+                                    <p className="text-sm font-mono font-bold text-primary mb-4">
+                                        {cert.certificateNumber}
+                                    </p>
+                                    <p className="font-semibold text-base tracking-tight">
+                                        {cert.student?.firstName} {cert.student?.lastName}
+                                    </p>
+                                    <p className="text-xs text-muted-foreground font-medium mt-1">
+                                        Issued: {new Date(cert.issueDate).toLocaleDateString("en-US", {
+                                            day: "numeric",
+                                            month: "short",
+                                            year: "numeric",
+                                        })}
+                                    </p>
+                                </div>
+                                <div className="flex border-t border-border/50 divide-x divide-border/50">
+                                    <Button
+                                        variant="ghost"
+                                        size="sm"
+                                        className="flex-1 h-12 rounded-none hover:bg-primary/10 hover:text-primary transition-all gap-2"
+                                        onClick={() => handleDownload(cert.id)}
+                                    >
+                                        <Download size={16} /> PDF
+                                    </Button>
+                                    <Button
+                                        variant="ghost"
+                                        size="sm"
+                                        className="flex-1 h-12 rounded-none hover:bg-primary/10 hover:text-primary transition-all gap-2"
+                                        onClick={() => handleDownload(cert.id)}
+                                    >
+                                        <Printer size={16} /> Print
+                                    </Button>
+                                    <Button
+                                        variant="ghost"
+                                        size="sm"
+                                        className="flex-1 h-12 rounded-none text-red-500 hover:bg-red-500/10 transition-all gap-2"
+                                        onClick={() => handleDelete(cert.id)}
+                                    >
+                                        <Trash2 size={16} /> Delete
+                                    </Button>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    ))}
+                </div>
+            )}
         </div>
     );
 }

@@ -4,6 +4,8 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { TenantContext } from '../auth/branch.guard';
+import { TenantHelper } from '../prisma/tenant-helper';
 import {
   CreateQuestionGroupDto,
   CreateQuestionDto,
@@ -64,7 +66,11 @@ export class OnlineExamsService {
     });
   }
 
-  async updateQuestion(id: string, dto: CreateQuestionDto) {
+  async updateQuestion(id: string, dto: CreateQuestionDto, context: TenantContext) {
+    const existing = await this.prisma.question.findFirst({
+      where: TenantHelper.applyNestedIsolation({ id }, 'group', context),
+    });
+    if (!existing) throw new NotFoundException('Question not found');
     return this.prisma.$transaction(async (tx) => {
       // Delete old options if it's an MCQ/True-False
       await tx.questionOption.deleteMany({
@@ -92,7 +98,11 @@ export class OnlineExamsService {
     });
   }
 
-  async deleteQuestion(id: string) {
+  async deleteQuestion(id: string, context: TenantContext) {
+    const existing = await this.prisma.question.findFirst({
+      where: TenantHelper.applyNestedIsolation({ id }, 'group', context),
+    });
+    if (!existing) throw new NotFoundException('Question not found');
     return this.prisma.question.delete({
       where: { id },
     });
@@ -336,9 +346,9 @@ export class OnlineExamsService {
     });
   }
 
-  async getAttempts(examId: string) {
+  async getAttempts(examId: string, context: TenantContext) {
     return this.prisma.onlineExamAttempt.findMany({
-      where: { examId },
+      where: TenantHelper.applyNestedIsolation({ examId }, 'exam', context),
       include: {
         student: { include: { user: true } },
         answers: { include: { question: true } },
