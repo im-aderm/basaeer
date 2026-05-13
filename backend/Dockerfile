@@ -3,12 +3,15 @@ FROM node:20-slim AS builder
 
 WORKDIR /app
 
+# Copy all package.json files for correct workspace resolution
 COPY package*.json ./
 COPY backend/package*.json ./backend/
+COPY frontend/package*.json ./frontend/
 COPY packages/shared-types/package*.json ./packages/shared-types/
 
 RUN --mount=type=cache,target=/root/.npm npm ci --ignore-scripts
 
+# Copy shared-types and build it
 COPY packages/shared-types ./packages/shared-types
 RUN npm run build --workspace=@basaer/shared-types
 
@@ -25,13 +28,18 @@ FROM node:20-slim AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 
+# Copy package.json files again for npm prune context
+COPY package.json ./
+COPY backend/package.json ./backend/
+COPY packages/shared-types/package.json ./packages/shared-types/
+COPY frontend/package.json ./frontend/
+
 COPY --from=builder /app/node_modules ./node_modules
 RUN npm prune --omit=dev
 
 COPY --from=builder /app/backend/dist ./backend/dist
 COPY --from=builder /app/backend/prisma ./backend/prisma
 COPY --from=builder /app/backend/src/generated ./backend/src/generated
-COPY --from=builder /app/packages/shared-types/package.json ./packages/shared-types/package.json
 COPY --from=builder /app/packages/shared-types/dist ./packages/shared-types/dist
 
 EXPOSE 3001
