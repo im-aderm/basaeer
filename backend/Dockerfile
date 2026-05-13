@@ -3,8 +3,6 @@ FROM node:20-slim AS builder
 
 WORKDIR /app
 
-ENV NODE_OPTIONS=--max-old-space-size=4096
-
 COPY package*.json ./
 COPY backend/package*.json ./backend/
 COPY packages/shared-types/package*.json ./packages/shared-types/
@@ -19,7 +17,7 @@ COPY backend ./backend
 
 WORKDIR /app/backend
 RUN npx prisma generate
-RUN npm run build
+RUN NODE_OPTIONS="--max-old-space-size=4096" npm run build
 
 # Stage 2
 FROM node:20-slim AS runner

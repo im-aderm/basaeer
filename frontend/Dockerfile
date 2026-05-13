@@ -7,9 +7,6 @@ RUN apk add --no-cache libc6-compat
 
 WORKDIR /app
 
-# Prevent Next.js / TypeScript heap crashes
-ENV NODE_OPTIONS=--max-old-space-size=4096
-
 # ---------------------------------
 # Copy ONLY dependency manifests first
 # Maximizes Docker layer caching
@@ -53,7 +50,7 @@ WORKDIR /app/frontend
 ENV NEXT_TELEMETRY_DISABLED=1
 
 # Build standalone output
-RUN npm run build
+RUN NODE_OPTIONS="--max-old-space-size=4096" npm run build
 
 # =========================
 # Stage 2: Production Runner
