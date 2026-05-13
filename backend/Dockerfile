@@ -3,6 +3,8 @@ FROM node:20-slim AS builder
 
 WORKDIR /app
 
+ENV NODE_OPTIONS=--max-old-space-size=4096
+
 COPY package*.json ./
 COPY backend/package*.json ./backend/
 COPY packages/shared-types/package*.json ./packages/shared-types/
