@@ -50,7 +50,8 @@ WORKDIR /app/frontend
 ENV NEXT_TELEMETRY_DISABLED=1
 
 # Build standalone output
-RUN NODE_OPTIONS="--max-old-space-size=4096" npm run build
+RUN --mount=type=cache,target=/app/frontend/.next/cache \
+    NODE_OPTIONS="--max-old-space-size=4096" npm run build
 
 # =========================
 # Stage 2: Production Runner
@@ -81,12 +82,12 @@ COPY --from=builder --chown=nextjs:nodejs /app/frontend/.next/static ./frontend/
 # Public folder
 COPY --from=builder --chown=nextjs:nodejs /app/frontend/public ./frontend/public
 
-USER nextjs
-
 EXPOSE 3000
 
 # Alpine does not always include wget
 RUN apk add --no-cache wget
+
+USER nextjs
 
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
   CMD wget --no-verbose --tries=1 --spider http://localhost:3000/ || exit 1
