@@ -103,8 +103,8 @@ services:
     healthcheck:
       test:
         [
-          "CMD-SHELL",
-          "wget --no-verbose --tries=1 --spider http://localhost:3001/health || exit 1",
+          "CMD", "node", "-e",
+          "require('http').get('http://localhost:3001/health', r => { if (r.statusCode !== 200) process.exit(1); r.resume(); }).on('error', () => process.exit(1))"
         ]
       interval: 30s
       timeout: 10s
@@ -141,8 +141,8 @@ services:
     healthcheck:
       test:
         [
-          "CMD-SHELL",
-          "wget --no-verbose --tries=1 --spider http://localhost:3000 || exit 1",
+          "CMD", "node", "-e",
+          "require('http').get('http://localhost:3000/', r => { if (r.statusCode !== 200) process.exit(1); r.resume(); }).on('error', () => process.exit(1))"
         ]
       interval: 30s
       timeout: 10s

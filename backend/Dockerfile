@@ -25,6 +25,9 @@ RUN NODE_OPTIONS="--max-old-space-size=4096" npm run build
 # Stage 2
 FROM node:20-slim AS runner
 
+# Install openssl and ca-certificates for Prisma engine
+RUN apt-get update -y && apt-get install -y openssl ca-certificates && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 ENV NODE_ENV=production
 
