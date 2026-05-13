@@ -35,7 +35,7 @@ COPY packages/shared-types/package.json ./packages/shared-types/
 COPY frontend/package.json ./frontend/
 
 COPY --from=builder /app/node_modules ./node_modules
-RUN npm prune --omit=dev
+RUN npm prune --omit=dev --ignore-scripts
 
 COPY --from=builder /app/backend/dist ./backend/dist
 COPY --from=builder /app/backend/prisma ./backend/prisma
