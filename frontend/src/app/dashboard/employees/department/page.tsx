@@ -26,7 +26,7 @@ export default function DepartmentsPage() {
             const res = await api.get('/departments');
             setDepartments(res.data);
         } catch (error) {
-            console.error('Failed to fetch departments', error);
+            if (process.env.NODE_ENV === 'development') console.error('Failed to fetch departments', error);
         } finally {
             setLoading(false);
         }
@@ -49,7 +49,7 @@ export default function DepartmentsPage() {
             fetchDepartments();
             setFormData({ name: '', description: '' });
         } catch (error) {
-            console.error('Failed to create department', error);
+            if (process.env.NODE_ENV === 'development') console.error('Failed to create department', error);
         }
     };
 
@@ -59,7 +59,7 @@ export default function DepartmentsPage() {
                 await api.delete(`/departments/${id}`);
                 fetchDepartments();
             } catch (error) {
-                console.error('Failed to delete department', error);
+                if (process.env.NODE_ENV === 'development') console.error('Failed to delete department', error);
             }
         }
     };

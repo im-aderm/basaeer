@@ -16,6 +16,13 @@ import { QuestionType, AttemptStatus } from '../generated/client/client';
 export class OnlineExamsService {
   constructor(private prisma: PrismaService) {}
 
+  async findStudentByUserId(userId: string) {
+    return this.prisma.student.findUnique({
+      where: { userId },
+      select: { id: true, branchId: true, classId: true, sectionId: true },
+    });
+  }
+
   // ==================== Question Group Management ====================
   async createQuestionGroup(dto: CreateQuestionGroupDto) {
     return this.prisma.questionGroup.create({
@@ -285,7 +292,7 @@ export class OnlineExamsService {
           correctOption.id === submittedAnswer.selectedOptionId
         ) {
           isCorrect = true;
-          marksAwarded = question.marks;
+          marksAwarded = Number(question.marks);
           totalScore += marksAwarded;
         }
       }
@@ -350,7 +357,7 @@ export class OnlineExamsService {
       });
 
       if (!question) throw new NotFoundException('Question not found');
-      if (marks > question.marks) {
+      if (marks > Number(question.marks)) {
         throw new BadRequestException(
           `Marks awarded (${marks}) cannot exceed maximum allowed marks (${question.marks})`,
         );
@@ -392,8 +399,8 @@ export class OnlineExamsService {
       const updatedAttempts: any[] = [];
       let rank = 1;
       for (let i = 0; i < attempts.length; i++) {
-        const currentScore = attempts[i].score || 0;
-        const prevScore = i > 0 ? attempts[i - 1].score || 0 : null;
+        const currentScore = Number(attempts[i].score || 0);
+        const prevScore = i > 0 ? Number(attempts[i - 1].score || 0) : null;
 
         // Handle ties
         if (prevScore !== null && currentScore < prevScore) {

@@ -23,7 +23,7 @@ export default function VerifyPage() {
                     setError(true);
                 }
             } catch (err) {
-                console.error("Verification failed:", err);
+                if (process.env.NODE_ENV === 'development') console.error("Verification failed:", err);
                 setError(true);
             } finally {
                 setLoading(false);

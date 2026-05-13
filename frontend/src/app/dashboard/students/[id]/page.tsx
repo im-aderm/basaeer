@@ -43,7 +43,7 @@ export default function StudentProfilePage() {
                 const data = await StudentService.getById(id);
                 setStudent(data);
             } catch (error) {
-                console.error("Failed to fetch student:", error);
+                if (process.env.NODE_ENV === 'development') console.error("Failed to fetch student:", error);
             } finally {
                 setLoading(false);
             }

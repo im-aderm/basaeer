@@ -33,7 +33,7 @@ export default function ReceptionConfigPage() {
 
                 setConfig(newConfig);
             } catch (error) {
-                console.error("Failed to fetch reception config:", error);
+                if (process.env.NODE_ENV === 'development') console.error("Failed to fetch reception config:", error);
             } finally {
                 setLoading(false);
             }
@@ -49,7 +49,7 @@ export default function ReceptionConfigPage() {
             await SettingsService.updateSetting("reception_complaint_types", JSON.stringify(config.reception_complaint_types));
             alert("Reception configuration saved successfully!");
         } catch (error) {
-            console.error("Failed to save config:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to save config:", error);
             alert("Failed to save configuration.");
         } finally {
             setSaving(false);

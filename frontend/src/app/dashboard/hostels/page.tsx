@@ -66,7 +66,7 @@ export default function HostelOverviewPage() {
             setStats(statsData);
             setMaintenanceRequests(maintenanceData);
         } catch (error) {
-            console.error("Failed to fetch data:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch data:", error);
             toast.error("Failed to load data");
         } finally {
             setLoading(false);
@@ -86,7 +86,7 @@ export default function HostelOverviewPage() {
             setFormData({ id: "", name: "", type: "COED", address: "" });
             fetchData();
         } catch (error) {
-            console.error("Creation failed:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Creation failed:", error);
             toast.error("Failed to register hostel");
         }
     };
@@ -99,7 +99,7 @@ export default function HostelOverviewPage() {
             setIsEditModalOpen(false);
             fetchData();
         } catch (error) {
-            console.error("Update failed:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Update failed:", error);
             toast.error("Failed to update hostel");
         }
     };
@@ -111,7 +111,7 @@ export default function HostelOverviewPage() {
             setIsDeleteAlertOpen(false);
             fetchData();
         } catch (error) {
-            console.error("Deletion failed:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Deletion failed:", error);
             toast.error("Failed to delete hostel");
         }
     };
@@ -122,7 +122,7 @@ export default function HostelOverviewPage() {
             toast.success(`Maintenance request marked as ${status.toLowerCase()}`);
             fetchData();
         } catch (error) {
-            console.error("Failed to update status:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to update status:", error);
             toast.error("Failed to update status");
         }
     };
@@ -518,7 +518,7 @@ function LeaveManagementTab() {
             const data = await HostelService.getLeaves();
             setLeaves(data);
         } catch (error) {
-            console.error(error);
+            if (process.env.NODE_ENV === 'development') console.error(error);
             toast.error("Failed to fetch leaves");
         } finally {
             setLoading(false);
@@ -535,7 +535,7 @@ function LeaveManagementTab() {
             toast.success(`Leave request ${status.toLowerCase()}`);
             fetchLeaves();
         } catch (error) {
-            console.error(error);
+            if (process.env.NODE_ENV === 'development') console.error(error);
             toast.error("Failed to update status");
         }
     };

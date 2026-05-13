@@ -2,50 +2,54 @@ import { ForbiddenException } from '@nestjs/common';
 import { TenantContext } from '../auth/branch.guard';
 
 export class TenantHelper {
-  /**
-   * Applies branch isolation to a Prisma where clause.
-   * If user is SuperAdmin, no isolation is applied.
-   */
   static applyIsolation<T>(
     where: T,
     context: TenantContext,
-  ): T & { branchId?: string } {
+    options?: { softDelete?: boolean },
+  ): T & { branchId?: string; deletedAt?: null } {
+    const result: any = { ...where };
+
+    if (options?.softDelete) {
+      result.deletedAt = null;
+    }
+
     if (context.isSuperAdmin) {
-      return where as T & { branchId?: string };
+      return result as T & { branchId?: string; deletedAt?: null };
     }
 
     if (!context.branchId) {
       throw new ForbiddenException('User is not assigned to a branch');
     }
 
-    return {
-      ...where,
-      branchId: context.branchId,
-    };
+    result.branchId = context.branchId;
+    return result;
   }
 
-  /**
-   * For resources that are nested under another branch-aware resource.
-   * This is used when the model itself doesn't have branchId but its parent does.
-   */
   static applyNestedIsolation<T>(
     where: T,
     parentField: string,
     context: TenantContext,
+    options?: { softDelete?: boolean },
   ): T {
+    const result: any = { ...where };
+
+    if (options?.softDelete) {
+      result[parentField] = { ...result[parentField], deletedAt: null };
+    }
+
     if (context.isSuperAdmin) {
-      return where;
+      return result;
     }
 
     if (!context.branchId) {
       throw new ForbiddenException('User is not assigned to a branch');
     }
 
-    return {
-      ...where,
-      [parentField]: {
-        branchId: context.branchId,
-      },
+    result[parentField] = {
+      ...result[parentField],
+      branchId: context.branchId,
     };
+
+    return result;
   }
 }

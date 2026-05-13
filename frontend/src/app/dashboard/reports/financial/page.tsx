@@ -31,7 +31,7 @@ export default function FinancialReportsPage() {
             const response = await api.get<AnalyticsData>("/reporting/finance");
             setData(response.data);
         } catch (error) {
-            console.error("Failed to fetch finance analytics:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch finance analytics:", error);
             toast.error("Failed to load financial analytics");
         } finally {
             setLoading(false);

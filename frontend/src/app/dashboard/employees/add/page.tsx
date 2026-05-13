@@ -46,7 +46,7 @@ export default function AddEmployeePage() {
             setDepartments(deptRes.data);
             setDesignations(desigRes.data);
         } catch (error) {
-            console.error('Failed to fetch metadata', error);
+            if (process.env.NODE_ENV === 'development') console.error('Failed to fetch metadata', error);
         } finally {
             setLoading(false);
         }
@@ -62,7 +62,7 @@ export default function AddEmployeePage() {
             });
             setSuccess(true);
         } catch (error) {
-            console.error('Failed to add employee', error);
+            if (process.env.NODE_ENV === 'development') console.error('Failed to add employee', error);
             alert('Failed to add employee. Email might already be in use.');
         } finally {
             setSubmitting(false);

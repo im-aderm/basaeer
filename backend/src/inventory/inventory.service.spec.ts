@@ -38,8 +38,8 @@ const mockPrismaService = {
     create: jest.fn(),
     findMany: jest.fn(),
   },
-  $transaction: jest.fn((callback) => callback(mockPrismaService)),
-};
+  $transaction: jest.fn((callback: any) => callback(mockPrismaService)),
+} as unknown as PrismaService;
 
 describe('InventoryService', () => {
   let service: InventoryService;
@@ -73,7 +73,7 @@ describe('InventoryService', () => {
         sellingPrice: 150,
       };
 
-      mockPrismaService.inventoryProduct.create.mockResolvedValue(dto);
+      (mockPrismaService.inventoryProduct.create as jest.Mock).mockResolvedValue(dto);
 
       const result = await service.createProduct(dto);
 
@@ -95,7 +95,7 @@ describe('InventoryService', () => {
         sellingPrice: 250,
       };
 
-      mockPrismaService.inventoryProduct.update.mockResolvedValue({
+      (mockPrismaService.inventoryProduct.update as jest.Mock).mockResolvedValue({
         id,
         ...dto,
       });

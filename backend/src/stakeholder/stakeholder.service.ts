@@ -285,8 +285,8 @@ export class StakeholderService {
   async rsvpEvent(alumniId: string, eventId: string, status: string) {
     return this.prisma.alumniEventParticipant.upsert({
       where: { alumniId_eventId: { alumniId, eventId } },
-      update: { status },
-      create: { alumniId, eventId, status },
+      update: { status: status as any },
+      create: { alumniId, eventId, status: status as any },
     });
   }
 }

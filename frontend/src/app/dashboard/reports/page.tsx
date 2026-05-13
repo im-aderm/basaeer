@@ -29,7 +29,7 @@ export default function ReportsPage() {
             const data = await reportingService.getDashboard();
             setDashboardData(data);
         } catch (error) {
-            console.error('Failed to load dashboard:', error);
+            if (process.env.NODE_ENV === 'development') console.error('Failed to load dashboard:', error);
         } finally {
             setLoading(false);
         }
@@ -61,7 +61,7 @@ export default function ReportsPage() {
                     break;
             }
         } catch (error) {
-            console.error('Export failed:', error);
+            if (process.env.NODE_ENV === 'development') console.error('Export failed:', error);
         } finally {
             setExporting(null);
         }

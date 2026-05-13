@@ -4,12 +4,14 @@ import { CreateIdCardTemplateDto } from './dto/create-template.dto';
 import { UpdateIdCardTemplateDto } from './dto/update-template.dto';
 import { GenerateIdCardsDto } from './dto/generate-cards.dto';
 import { QRService } from '../attendance/qr.service';
+import { CommsService } from '../comms/comms.service';
 
 @Injectable()
 export class CardsService {
   constructor(
     private prisma: PrismaService,
     private qrService: QRService,
+    private comms: CommsService,
   ) {}
 
   // Template Operations
@@ -57,6 +59,9 @@ export class CardsService {
       // Handle Students
       if (studentIds) {
         for (const studentId of studentIds) {
+          const student = await tx.student.findUnique({ where: { id: studentId }, select: { branchId: true } });
+          if (!student) continue;
+
           const card = await tx.idCard.upsert({
             where: {
               studentId_sessionId: {
@@ -74,6 +79,7 @@ export class CardsService {
               templateId,
               sessionId,
               status: 'CREATED',
+              branchId: student.branchId,
             },
             include: {
               student: {
@@ -90,14 +96,19 @@ export class CardsService {
       // Handle Staff
       if (staffIds) {
         for (const staffId of staffIds) {
-          // Logic for staff cards (could be unique per session too if required)
-          // Currently model only has unique for student/session
+          const staff = await tx.staff.findUnique({
+            where: { id: staffId },
+            include: { user: { select: { branchId: true } } },
+          });
+          if (!staff || !staff.user?.branchId) continue;
+
           const card = await tx.idCard.create({
             data: {
               staffId,
               templateId,
               sessionId,
               status: 'CREATED',
+              branchId: staff.user.branchId,
             },
             include: {
               staff: {
@@ -111,7 +122,23 @@ export class CardsService {
         }
       }
 
-      // TODO: Trigger parent notifications here in Phase 9
+      // Notify parents when ID cards are generated
+      for (const card of results) {
+        if (card.student?.userId) {
+          const student = await tx.student.findUnique({
+            where: { id: card.studentId! },
+            select: { parent: { select: { id: true, email: true, firstName: true } } },
+          });
+          if (student?.parent?.email) {
+            this.comms.sendEmail({
+              email: student.parent.email,
+              subject: 'Student ID Card Ready',
+              message: `Dear ${student.parent.firstName},\n\nThe student ID card for your ward has been generated and is ready for download from the parent portal.\n\nRegards,\nBasaer School Management`,
+              branchId: sessionId,
+            }).catch(() => {});
+          }
+        }
+      }
 
       return results;
     });

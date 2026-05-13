@@ -26,7 +26,7 @@ export default function DesignationsPage() {
             const res = await api.get('/designations');
             setDesignations(res.data);
         } catch (error) {
-            console.error('Failed to fetch designations', error);
+            if (process.env.NODE_ENV === 'development') console.error('Failed to fetch designations', error);
         } finally {
             setLoading(false);
         }
@@ -49,7 +49,7 @@ export default function DesignationsPage() {
             fetchDesignations();
             setFormData({ name: '', description: '' });
         } catch (error) {
-            console.error('Failed to create designation', error);
+            if (process.env.NODE_ENV === 'development') console.error('Failed to create designation', error);
         }
     };
 
@@ -59,7 +59,7 @@ export default function DesignationsPage() {
                 await api.delete(`/designations/${id}`);
                 fetchDesignations();
             } catch (error) {
-                console.error('Failed to delete designation', error);
+                if (process.env.NODE_ENV === 'development') console.error('Failed to delete designation', error);
             }
         }
     };

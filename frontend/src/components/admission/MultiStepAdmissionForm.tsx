@@ -21,7 +21,7 @@ import { OnlineAdmissionService } from "@/services/onlineAdmissionService";
 import { CheckCircle2 } from "lucide-react";
 
 export function MultiStepAdmissionForm() {
-  const { currentStep, nextStep, prevStep, formData, resetForm } = useAdmissionStore();
+  const { currentStep, nextStep, prevStep, formData, resetForm, stepErrors } = useAdmissionStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
@@ -43,7 +43,7 @@ export function MultiStepAdmissionForm() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       toast.success("Application submitted successfully!");
     } catch (error: any) {
-      console.error("Submission error:", error);
+      if (process.env.NODE_ENV === 'development') console.error("Submission error:", error);
       const errorMessage = error.response?.data?.message || 
         (error.response?.data?.errors ? JSON.stringify(error.response.data.errors) : "Failed to submit application. Please try again.");
       
@@ -115,6 +115,12 @@ export function MultiStepAdmissionForm() {
         </AnimatePresence>
 
         <div className="p-8 bg-muted/30 flex justify-between items-center border-t border-border">
+          {stepErrors[currentStep]?.length > 0 && (
+            <div className="text-sm text-destructive font-medium mr-auto pr-4">
+              {stepErrors[currentStep].join('. ')}
+            </div>
+          )}
+
           <Button
             variant="ghost"
             onClick={prevStep}

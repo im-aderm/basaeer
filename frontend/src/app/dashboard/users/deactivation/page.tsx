@@ -27,7 +27,7 @@ export default function LoginDeactivationPage() {
             });
             setUsers(data);
         } catch (error) {
-            console.error('Failed to fetch users:', error);
+            if (process.env.NODE_ENV === 'development') console.error('Failed to fetch users:', error);
             toast.error('Failed to fetch users');
         } finally {
             setLoading(false);

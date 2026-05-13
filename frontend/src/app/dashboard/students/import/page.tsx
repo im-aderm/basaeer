@@ -36,7 +36,7 @@ export default function BulkImportPage() {
                 toast.error(`Failed to import ${data.failed} students`);
             }
         } catch (error: any) {
-            console.error('Import failed', error);
+            if (process.env.NODE_ENV === 'development') console.error('Import failed', error);
             toast.error(error.response?.data?.message || 'Import failed');
         } finally {
             setIsUploading(false);

@@ -31,7 +31,7 @@ export default function StudentCategoryPage() {
             const data = await StudentService.getCategories(user.branchId);
             setCategories(data);
         } catch (error) {
-            console.error('Failed to fetch categories', error);
+            if (process.env.NODE_ENV === 'development') console.error('Failed to fetch categories', error);
             toast.error('Failed to load student categories');
         } finally {
             setLoading(false);
@@ -60,7 +60,7 @@ export default function StudentCategoryPage() {
             setFormData({ name: '', description: '' });
             toast.success('Category created successfully');
         } catch (error) {
-            console.error('Failed to create category', error);
+            if (process.env.NODE_ENV === 'development') console.error('Failed to create category', error);
             toast.error('Failed to create student category');
         }
     };
@@ -72,7 +72,7 @@ export default function StudentCategoryPage() {
                 fetchCategories();
                 toast.success('Category deleted successfully');
             } catch (error) {
-                console.error('Failed to delete category', error);
+                if (process.env.NODE_ENV === 'development') console.error('Failed to delete category', error);
                 toast.error('Failed to delete student category');
             }
         }

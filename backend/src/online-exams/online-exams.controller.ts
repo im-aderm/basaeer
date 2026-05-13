@@ -2,13 +2,13 @@ import {
   Controller,
   Get,
   Post,
+  Patch,
+  Delete,
   Body,
   Param,
   UseGuards,
-  Request,
   Query,
-  Patch,
-  Delete,
+  NotFoundException,
 } from '@nestjs/common';
 import { OnlineExamsService } from './online-exams.service';
 import {
@@ -54,9 +54,11 @@ export class OnlineExamsController {
   @ApiOperation({ summary: 'Retrieve Groups' })
   @Get('groups')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
-  getGroups(@GetTenantContext() ctx: TenantContext, @Request() req: any) {
-    const branchId =
-      ctx.role === UserRole.SUPER_ADMIN ? req.query.branchId : ctx.branchId;
+  getGroups(@GetTenantContext() ctx: TenantContext, @Query('branchId') branchIdQuery?: string) {
+    const branchId: string =
+      ctx.role === UserRole.SUPER_ADMIN
+        ? (branchIdQuery ?? ctx.branchId ?? '')
+        : (ctx.branchId ?? '');
     return this.examsService.getQuestionGroups(branchId);
   }
 
@@ -122,48 +124,58 @@ export class OnlineExamsController {
   )
   getExams(
     @GetTenantContext() ctx: TenantContext,
-    @Request() req: any,
     @Query('classId') classId?: string,
     @Query('subjectId') subjectId?: string,
   ) {
-    const branchId =
-      ctx.role === UserRole.SUPER_ADMIN ? req.query.branchId : ctx.branchId;
+    const branchId = ctx.branchId ?? '';
     return this.examsService.getExams(branchId, { classId, subjectId });
   }
 
   @ApiBearerAuth()
   @ApiResponse({ status: 200, description: 'Operation successful' })
-  @ApiOperation({ summary: 'Retrieve Start Exam' })
+  @ApiOperation({ summary: 'Start Exam' })
   @Get(':id/start')
   @Roles(UserRole.STUDENT)
-  startExam(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
-    return this.examsService.getExamForStudent(id, ctx.userId);
+  async startExam(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    const student = await this.examsService.findStudentByUserId(ctx.userId);
+    if (!student) {
+      throw new NotFoundException('Student profile not found for this user');
+    }
+    return this.examsService.getExamForStudent(id, student.id);
   }
 
   @ApiBearerAuth()
   @ApiBody({ type: SubmitAttemptDto })
   @ApiResponse({ status: 201, description: 'Operation successful' })
-  @ApiOperation({ summary: 'Create Attempt' })
+  @ApiOperation({ summary: 'Submit Attempt' })
   @Post('submit')
   @Roles(UserRole.STUDENT)
-  submitAttempt(
+  async submitAttempt(
     @GetTenantContext() ctx: TenantContext,
     @Body() dto: SubmitAttemptDto,
   ) {
-    return this.examsService.submitAttempt(ctx.userId, dto);
+    const student = await this.examsService.findStudentByUserId(ctx.userId);
+    if (!student) {
+      throw new NotFoundException('Student profile not found for this user');
+    }
+    return this.examsService.submitAttempt(student.id, dto);
   }
 
   @ApiBearerAuth()
   @ApiBody({ type: SubmitAttemptDto })
   @ApiResponse({ status: 201, description: 'Operation successful' })
-  @ApiOperation({ summary: 'Create Sync Answers' })
+  @ApiOperation({ summary: 'Sync Answers' })
   @Post('sync')
   @Roles(UserRole.STUDENT)
-  syncAnswers(
+  async syncAnswers(
     @GetTenantContext() ctx: TenantContext,
     @Body() dto: SubmitAttemptDto,
   ) {
-    return this.examsService.syncAnswers(ctx.userId, dto);
+    const student = await this.examsService.findStudentByUserId(ctx.userId);
+    if (!student) {
+      throw new NotFoundException('Student profile not found for this user');
+    }
+    return this.examsService.syncAnswers(student.id, dto);
   }
 
   // ==================== Grading ====================

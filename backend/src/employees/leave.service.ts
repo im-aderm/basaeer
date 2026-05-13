@@ -47,6 +47,7 @@ export class LeaveService {
         endDate: new Date(dto.endDate),
         reason: dto.reason,
         status: 'PENDING',
+        branchId,
       },
     });
 
@@ -81,7 +82,7 @@ export class LeaveService {
 
     const updated = await this.prisma.leaveRequest.update({
       where: { id: requestId },
-      data: { status: dto.status },
+      data: { status: dto.status as any },
     });
 
     if (dto.status === 'APPROVED' || dto.status === 'REJECTED') {

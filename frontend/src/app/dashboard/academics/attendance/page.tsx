@@ -46,7 +46,7 @@ export default function AttendancePage() {
             const data = await ClassService.getAll();
             setClasses(data);
         } catch (error) {
-            console.error("Failed to fetch classes:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch classes:", error);
         } finally {
             setLoading(false);
         }
@@ -81,7 +81,7 @@ export default function AttendancePage() {
             });
             setAttendanceData(initialData);
         } catch (error) {
-            console.error("Failed to load students:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to load students:", error);
         } finally {
             setLoadingStudents(false);
         }
@@ -123,7 +123,7 @@ export default function AttendancePage() {
             await AttendanceService.markBulk(records);
             toast.success("Attendance saved successfully!");
         } catch (error) {
-            console.error("Failed to save attendance:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to save attendance:", error);
             toast.error("Failed to save attendance.");
         } finally {
             setSubmitting(false);

@@ -64,7 +64,7 @@ export default function BulkMarkEntryPage() {
             });
             toast.success('Batch marks saved successfully');
         } catch (error) {
-            console.error('Save failed:', error);
+            if (process.env.NODE_ENV === 'development') console.error('Save failed:', error);
             throw error;
         }
     };

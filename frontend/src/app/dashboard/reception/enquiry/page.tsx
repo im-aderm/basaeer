@@ -47,7 +47,7 @@ export default function AdmissionEnquiryPage() {
             const sourceSetting = settings.find(s => s.key === "reception_enquiry_sources");
             if (sourceSetting) setSources(JSON.parse(sourceSetting.value));
         } catch (error) {
-            console.error("Failed to fetch sources:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch sources:", error);
         }
     };
 

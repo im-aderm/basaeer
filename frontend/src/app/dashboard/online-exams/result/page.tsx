@@ -51,7 +51,7 @@ export default function OnlineExamResultsPage() {
             const res = await api.get(`/sections?classId=${classId}`);
             setSections(res.data);
         } catch (error) {
-            console.error('Failed to fetch sections');
+            if (process.env.NODE_ENV === 'development') console.error('Failed to fetch sections');
         }
     };
 

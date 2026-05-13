@@ -35,10 +35,11 @@ jobs:
       - run: npm ci
       - run: npm run build --workspaces
       - run: npm run lint --workspaces
-        continue-on-error: true
+      - name: Run audit
+        run: npm audit --audit-level=high
       - name: Run backend tests
         working-directory: backend
-        run: npm test
+        run: npm test -- --coverage --coverageThreshold='{"global":{"branches":50,"functions":50,"lines":50,"statements":50}}'
         env:
           DATABASE_URL: postgresql://basaer:basaer_test@localhost:5432/basaer_test
           JWT_SECRET: ci-test-secret-change-in-production
@@ -56,4 +57,8 @@ jobs:
       - run: npm ci
       - run: npm run build --workspace=frontend
       - run: npm run lint --workspace=frontend
-        continue-on-error: true
+      - name: Run frontend tests
+        working-directory: frontend
+        run: npm test -- --passWithNoTests
+        env:
+          CI: true

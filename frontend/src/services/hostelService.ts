@@ -65,10 +65,8 @@ export const HostelService = {
     },
 
     getById: async (id: string): Promise<Hostel> => {
-        const hostels = await HostelService.getAll();
-        const hostel = hostels.find((h: Hostel) => h.id === id);
-        if (!hostel) throw new Error("Hostel not found");
-        return hostel;
+        const response = await api.get(`/hostels/${id}`);
+        return response.data;
     },
 
     getStats: async (): Promise<any> => {
@@ -111,13 +109,13 @@ export const HostelService = {
         return response.data;
     },
 
-    releaseBed: async (id: string): Promise<any> => {
-        const response = await api.patch(`/hostels/release/${id}`);
+    releaseBed: async (allocationId: string): Promise<any> => {
+        const response = await api.post(`/hostels/release/${allocationId}`);
         return response.data;
     },
 
     getVacancies: async (): Promise<any[]> => {
-        const response = await api.get("/hostels/vacancies");
+        const response = await api.get("/hostels/stats");
         return response.data;
     },
 
@@ -128,12 +126,12 @@ export const HostelService = {
     },
 
     getLeaves: async (): Promise<HostelLeave[]> => {
-        const response = await api.get("/hostels/leaves");
+        const response = await api.get("/hostels/leaves/branch");
         return response.data;
     },
 
     updateLeaveStatus: async (id: string, status: string): Promise<HostelLeave> => {
-        const response = await api.patch(`/hostels/leaves/${id}`, { status });
+        const response = await api.patch(`/hostels/leaves/${id}/status`, { status });
         return response.data;
     },
 
@@ -144,17 +142,17 @@ export const HostelService = {
     },
 
     getMaintenanceRequests: async (): Promise<MaintenanceRequest[]> => {
-        const response = await api.get("/hostels/maintenance");
+        const response = await api.get("/hostels/maintenance/branch");
         return response.data;
     },
 
     updateMaintenanceStatus: async (id: string, status: string): Promise<MaintenanceRequest> => {
-        const response = await api.patch(`/hostels/maintenance/${id}`, { status });
+        const response = await api.patch(`/hostels/maintenance/${id}/status`, { status });
         return response.data;
     },
 
     getMyHostelDetails: async (): Promise<any> => {
-        const response = await api.get("/hostels/my-details");
+        const response = await api.get("/hostels/stats");
         return response.data;
     }
 };

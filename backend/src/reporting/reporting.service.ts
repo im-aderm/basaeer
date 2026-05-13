@@ -225,25 +225,42 @@ export class ReportingService {
   private renderTable(doc: any, section: any, data: any) {
     if (section.dataType === 'ACADEMIC_RESULTS') {
       const subjects = data.subjects || [];
+      const headers = data.assessmentHeaders || [];
       doc
         .fontSize(12)
         .text(section.title || 'Academic Results', { underline: true });
       doc.moveDown(0.5);
 
       const startY = doc.y;
-      doc.fontSize(9).font('Helvetica-Bold');
+      doc.fontSize(8).font('Helvetica-Bold');
       doc.text('Subject', 50, startY);
-      doc.text('Total', 250, startY);
-      doc.text('Grade', 350, startY);
-      doc.text('Position', 450, startY);
+
+      let currentX = 150;
+      headers.forEach((h: string) => {
+        doc.text(h, currentX, startY, { width: 40, align: 'center' });
+        currentX += 45;
+      });
+
+      doc.text('Total', currentX, startY, { width: 40, align: 'center' });
+      doc.text('Grade', currentX + 45, startY, { width: 40, align: 'center' });
+      doc.text('Pos', currentX + 90, startY, { width: 40, align: 'center' });
       doc.moveDown(0.5);
       doc.font('Helvetica');
 
       subjects.forEach((s: any) => {
-        doc.text(s.name, 50, doc.y);
-        doc.text(s.total, 250, doc.y - 11);
-        doc.text(s.grade, 350, doc.y - 11);
-        doc.text(s.position, 450, doc.y - 11);
+        const rowY = doc.y;
+        doc.text(s.name, 50, rowY, { width: 95 });
+
+        let scoreX = 150;
+        headers.forEach((h: string) => {
+          const score = s.dynamicScores?.[h] ?? '-';
+          doc.text(score.toString(), scoreX, rowY, { width: 40, align: 'center' });
+          scoreX += 45;
+        });
+
+        doc.text(s.total, scoreX, rowY, { width: 40, align: 'center' });
+        doc.text(s.grade, scoreX + 45, rowY, { width: 40, align: 'center' });
+        doc.text(s.position, scoreX + 90, rowY, { width: 40, align: 'center' });
         doc.moveDown(0.3);
       });
     }

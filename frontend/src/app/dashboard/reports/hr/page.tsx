@@ -28,7 +28,7 @@ export default function HRReportsPage() {
             const response = await api.get<AnalyticsData>("/reporting/hr");
             setData(response.data);
         } catch (error) {
-            console.error("Failed to fetch HR analytics:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch HR analytics:", error);
             toast.error("Failed to load HR analytics");
         } finally {
             setLoading(false);

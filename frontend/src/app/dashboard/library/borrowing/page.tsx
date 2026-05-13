@@ -49,7 +49,7 @@ export default function LibraryBorrowingPage() {
             setStudents(studentsData);
             setBooks(booksData);
         } catch (error) {
-            console.error("Failed to fetch data:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch data:", error);
             toast.error("Failed to load records");
         } finally {
             setLoading(false);
@@ -70,7 +70,7 @@ export default function LibraryBorrowingPage() {
             }
             fetchData();
         } catch (error) {
-            console.error("Return failed:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Return failed:", error);
             toast.error("Failed to process return");
         }
     };
@@ -84,7 +84,7 @@ export default function LibraryBorrowingPage() {
             setIssueData({ bookId: "", studentId: "", dueDate: "" });
             fetchData();
         } catch (error) {
-            console.error("Issue failed:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Issue failed:", error);
             toast.error("Failed to issue book. Check availability.");
         }
     };

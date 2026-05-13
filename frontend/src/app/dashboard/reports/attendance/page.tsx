@@ -32,7 +32,7 @@ export default function AttendanceReportsPage() {
             setData(reportRes.data);
             setChronicAbsentees(chronicRes.data);
         } catch (error) {
-            console.error("Failed to fetch attendance analytics:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch attendance analytics:", error);
             toast.error("Failed to load attendance analytics");
         } finally {
             setLoading(false);

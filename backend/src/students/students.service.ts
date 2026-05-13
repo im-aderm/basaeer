@@ -10,15 +10,21 @@ import { PrismaService } from '../prisma/prisma.service';
 import { UserRole } from '../generated/client/client';
 import ExcelJS from 'exceljs';
 import * as bcrypt from 'bcrypt';
+import * as crypto from 'crypto';
 import { TenantContext } from '../auth/branch.guard';
 import { TenantHelper } from '../prisma/tenant-helper';
 import { AuditService } from '../audit/audit.service';
+import { CommsService } from '../comms/comms.service';
+import { InjectQueue } from '@nestjs/bullmq';
+import { Queue } from 'bullmq';
 
 @Injectable()
 export class StudentsService {
   constructor(
     private prisma: PrismaService,
     private audit: AuditService,
+    private comms: CommsService,
+    @InjectQueue('student-import') private importQueue: Queue,
   ) {}
 
   async create(createStudentDto: CreateStudentDto, context: TenantContext) {
@@ -52,7 +58,8 @@ export class StudentsService {
       throw new ConflictException('User with this email already exists');
     }
 
-    const hashedPassword = await bcrypt.hash(password || 'student123', 10);
+    const tempPassword = crypto.randomBytes(8).toString('hex');
+    const hashedPassword = await bcrypt.hash(password || tempPassword, 10);
 
     // Transaction: Create User + Student
     const result = await this.prisma.$transaction(async (tx) => {
@@ -60,6 +67,7 @@ export class StudentsService {
         data: {
           email,
           password: hashedPassword,
+          mustChangePassword: !password,
           firstName,
           lastName,
           phone,
@@ -81,7 +89,7 @@ export class StudentsService {
         },
       });
 
-      return { user, student };
+      return { user, student, tempPassword: password ? undefined : tempPassword };
     });
 
     await this.audit.log({
@@ -92,6 +100,16 @@ export class StudentsService {
       targetType: 'Student',
       afterState: { studentId: result.student.id, email, firstName, lastName },
     });
+
+    if (!password && result.tempPassword) {
+      this.comms.sendEmail({
+        email,
+        subject: 'Welcome to Basaer — Your Login Credentials',
+        message: `Hi ${firstName},\n\nYour student account has been created.\n\nEmail: ${email}\nTemporary Password: ${result.tempPassword}\n\nPlease log in and change your password immediately.\n\nRegards,\nBasaer School Management`,
+        branchId: branchId || null,
+      }).catch(() => {});
+    }
+
     return result;
   }
 
@@ -109,6 +127,7 @@ export class StudentsService {
           ...(sectionId && { sectionId }),
         },
         context,
+        { softDelete: true },
       ),
       skip: skip ? Number(skip) : undefined,
       take: take ? Number(take) : 100,
@@ -142,7 +161,7 @@ export class StudentsService {
 
   async findOne(id: string, context: TenantContext) {
     const student = await this.prisma.student.findFirst({
-      where: TenantHelper.applyIsolation({ id }, context),
+      where: TenantHelper.applyIsolation({ id }, context, { softDelete: true }),
       include: {
         user: {
           select: {
@@ -180,143 +199,12 @@ export class StudentsService {
   }
 
   async importStudents(fileBuffer: Buffer, context: TenantContext) {
-    const branchId = context.branchId;
-    if (!branchId)
-      throw new ForbiddenException('Branch context required for import');
-
-    const workbook = new ExcelJS.Workbook();
-    await workbook.xlsx.load(fileBuffer as any);
-    const worksheet = workbook.getWorksheet(1);
-
-    if (!worksheet) {
-      throw new Error('Invalid Excel file: No worksheet found');
-    }
-
-    const studentsToCreate: any[] = [];
-    const errors: string[] = [];
-
-    const classes = await this.prisma.class.findMany({ where: { branchId } });
-    const sections = await this.prisma.section.findMany({
-      where: { class: { branchId } },
+    const job = await this.importQueue.add('process', {
+      fileBuffer,
+      context: { userId: context.userId, branchId: context.branchId!, role: context.role },
     });
 
-    worksheet.eachRow((row, rowNumber) => {
-      if (rowNumber === 1) return;
-
-      const email = row.getCell(1).value?.toString();
-      const firstName = row.getCell(2).value?.toString();
-      const lastName = row.getCell(3).value?.toString();
-      const phone = row.getCell(4).value?.toString() || null;
-      const dobValue = row.getCell(5).value;
-      const className = row.getCell(6).value?.toString();
-      const sectionName = row.getCell(7).value?.toString();
-
-      if (!email || !firstName || !lastName) {
-        errors.push(
-          `Row ${rowNumber}: Missing required fields (email, firstName, lastName)`,
-        );
-        return;
-      }
-
-      let classId: string | null = null;
-      if (className) {
-        const classMatch = classes.find(
-          (c) =>
-            c.name.toLowerCase() === className.toLowerCase() ||
-            c.id === className,
-        );
-        classId = classMatch?.id || null;
-      }
-
-      let sectionId: string | null = null;
-      if (sectionName && classId) {
-        const sectionMatch = sections.find(
-          (s) =>
-            s.classId === classId &&
-            (s.name.toLowerCase() === sectionName.toLowerCase() ||
-              s.id === sectionName),
-        );
-        sectionId = sectionMatch?.id || null;
-      }
-
-      studentsToCreate.push({
-        email,
-        firstName,
-        lastName,
-        phone,
-        dob: dobValue ? new Date(dobValue.toString()) : null,
-        classId,
-        sectionId,
-        branchId,
-      });
-    });
-
-    const results = {
-      success: 0,
-      failed: 0,
-      details: [] as string[],
-    };
-
-    const hashedPassword = await bcrypt.hash('student123', 10);
-
-    const chunkSize = 50;
-    for (let i = 0; i < studentsToCreate.length; i += chunkSize) {
-      const chunk = studentsToCreate.slice(i, i + chunkSize);
-
-      await Promise.all(
-        chunk.map(async (studentData) => {
-          try {
-            await this.prisma.$transaction(async (tx) => {
-              const existingUser = await tx.user.findUnique({
-                where: { email: studentData.email },
-              });
-              if (existingUser) {
-                throw new Error(`Email ${studentData.email} already exists`);
-              }
-
-              const user = await tx.user.create({
-                data: {
-                  email: studentData.email,
-                  password: hashedPassword,
-                  firstName: studentData.firstName,
-                  lastName: studentData.lastName,
-                  phone: studentData.phone,
-                  role: UserRole.STUDENT,
-                  branchId: studentData.branchId,
-                },
-              });
-
-              await tx.student.create({
-                data: {
-                  userId: user.id,
-                  firstName: studentData.firstName,
-                  lastName: studentData.lastName,
-                  branchId: studentData.branchId,
-                  classId: studentData.classId,
-                  sectionId: studentData.sectionId,
-                  dob: studentData.dob,
-                },
-              });
-            });
-            results.success++;
-          } catch (error) {
-            results.failed++;
-            results.details.push(
-              `Failed to import ${studentData.email}: ${error.message}`,
-            );
-          }
-        }),
-      );
-
-      // Yield execution to the event loop so other requests are processed without latency
-      await new Promise((resolve) => setImmediate(resolve));
-    }
-
-    return {
-      message: `Import completed: ${results.success} succeeded, ${results.failed} failed.`,
-      ...results,
-      parsingErrors: errors,
-    };
+    return { jobId: job.id, message: 'Import started. Track progress via the status endpoint.' };
   }
 
   async update(
@@ -337,8 +225,9 @@ export class StudentsService {
     // Ownership check
     await this.findOne(id, context);
 
-    return this.prisma.student.delete({
+    return this.prisma.student.update({
       where: { id },
+      data: { deletedAt: new Date() },
     });
   }
 

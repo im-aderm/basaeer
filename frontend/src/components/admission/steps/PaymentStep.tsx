@@ -45,7 +45,7 @@ export function PaymentStep() {
             updateFormData({ academicSessionId: data.currentSession.id });
           }
         } catch (error) {
-          console.error("Failed to load init data", error);
+          if (process.env.NODE_ENV === 'development') console.error("Failed to load init data", error);
         }
       }
     };
@@ -92,7 +92,7 @@ export function PaymentStep() {
         toast.success("Payment proof uploaded successfully");
       }
     } catch (error: any) {
-      console.error("Upload error:", error);
+      if (process.env.NODE_ENV === 'development') console.error("Upload error:", error);
       const message = error.response?.data?.message || "Upload failed. Please try again.";
       toast.error(message);
     } finally {
@@ -153,25 +153,25 @@ export function PaymentStep() {
           <p className="font-black text-primary italic uppercase tracking-[0.3em] text-xs">
             Bank Transfer Details
           </p>
-          <p className="text-3xl font-black italic uppercase">₦5,000 Admission Fee</p>
+          <p className="text-3xl font-black italic uppercase">{initData?.admissionFee ? `₦${Number(initData.admissionFee).toLocaleString()} Admission Fee` : 'Admission Fee'}</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-white p-6 rounded-3xl border border-primary/5 flex flex-col items-center">
             <Building2 className="text-primary/40 mb-2" size={24} />
             <span className="text-[10px] font-black uppercase text-muted-foreground mb-1">Bank</span>
-            <span className="text-lg font-black italic uppercase">Zenith Bank</span>
+            <span className="text-lg font-black italic uppercase">{initData?.bankDetails?.bankName || '—'}</span>
           </div>
           <div className="bg-white p-6 rounded-3xl border border-primary/5 flex flex-col items-center">
             <Hash className="text-primary/40 mb-2" size={24} />
             <span className="text-[10px] font-black uppercase text-muted-foreground mb-1">Account</span>
-            <span className="text-lg font-black italic tracking-wider">1234567890</span>
+            <span className="text-lg font-black italic tracking-wider">{initData?.bankDetails?.accountNumber || '—'}</span>
           </div>
           <div className="bg-white p-6 rounded-3xl border border-primary/5 flex flex-col items-center">
             <User className="text-primary/40 mb-2" size={24} />
             <span className="text-[10px] font-black uppercase text-muted-foreground mb-1">Name</span>
             <span className="text-sm font-black italic uppercase leading-tight text-center">
-              Basaer Quranic College
+              {initData?.bankDetails?.accountName || initData?.branchName || '—'}
             </span>
           </div>
         </div>

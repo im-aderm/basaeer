@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -16,8 +15,8 @@ import {
     AlertCircle
 } from 'lucide-react';
 import Link from 'next/link';
-import api from '@/lib/api';
 import { toast } from 'sonner';
+import { financeService } from '@/services/financeService';
 
 export default function FinanceDashboard() {
     const { user } = useAuth();
@@ -30,8 +29,8 @@ export default function FinanceDashboard() {
             setLoading(true);
             setError(null);
             try {
-                const response = await api.get('/finance/stats');
-                setStats(response.data);
+                const data = await financeService.getStats();
+                setStats(data);
             } catch (error) {
                 setError("Could not load financial data");
                 toast.error("Failed to load finance statistics");

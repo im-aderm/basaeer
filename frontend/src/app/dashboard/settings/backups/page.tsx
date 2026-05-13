@@ -161,7 +161,7 @@ export default function BackupManagementPage() {
                                                 variant="outline"
                                                 size="icon"
                                                 className="h-12 w-12 rounded-2xl border-emerald-500/20 text-emerald-600 hover:bg-emerald-500/10"
-                                                onClick={() => SettingsService.downloadBackup(b.filename)}
+                                                onClick={() => { SettingsService.downloadBackup(b.filename); }}
                                             >
                                                 <Download className="h-5 w-5" />
                                             </Button>

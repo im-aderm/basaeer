@@ -9,6 +9,7 @@ import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { CreateAwardDto } from './dto/hr-ops.dto';
 import { UserRole } from '../generated/client/client';
 import * as bcrypt from 'bcrypt';
+import * as crypto from 'crypto';
 
 @Injectable()
 export class EmployeesService {
@@ -35,7 +36,8 @@ export class EmployeesService {
       throw new ConflictException('User with this email already exists');
     }
 
-    const hashedPassword = await bcrypt.hash(password || 'staff123', 10);
+    const tempPassword = crypto.randomBytes(8).toString('hex');
+    const hashedPassword = await bcrypt.hash(password || tempPassword, 10);
 
     // Transaction: Create User + Staff
     return this.prisma.$transaction(async (tx) => {
@@ -43,10 +45,11 @@ export class EmployeesService {
         data: {
           email,
           password: hashedPassword,
+          mustChangePassword: !password,
           firstName,
           lastName,
           phone,
-          role: role || UserRole.TEACHER,
+          role: UserRole.HR,
           branchId,
         },
       });
@@ -54,12 +57,13 @@ export class EmployeesService {
       const staff = await tx.staff.create({
         data: {
           userId: user.id,
-          departmentId,
-          designationId,
+          designation: designationId,
+          departmentId: departmentId || null,
+          designationId: designationId || null,
         },
       });
 
-      return { user, staff };
+      return { user, staff, tempPassword: password ? undefined : tempPassword };
     });
   }
 
@@ -158,7 +162,7 @@ export class EmployeesService {
   }
 
   // --- Staff Awards ---
-  async createAward(data: CreateAwardDto, branchId?: string) {
+  async createAward(data: CreateAwardDto, branchId: string) {
     const staff = await this.prisma.staff.findUnique({ where: { id: data.staffId } });
     if (!staff) {
       throw new NotFoundException('Staff not found');
@@ -169,6 +173,7 @@ export class EmployeesService {
         description: data.description,
         date: new Date(data.date),
         staffId: data.staffId,
+        branchId,
       },
     });
   }
@@ -191,11 +196,18 @@ export class EmployeesService {
 
   // --- Salary Advances ---
   async requestAdvance(staffId: string, amount: number, reason: string) {
+    const staff = await this.prisma.staff.findUnique({
+      where: { id: staffId },
+      include: { user: { select: { branchId: true } } },
+    });
+    if (!staff) throw new NotFoundException('Staff not found');
+
     return this.prisma.advanceSalary.create({
       data: {
         staffId,
         amount,
         reason,
+        branchId: staff.user?.branchId ?? '',
       },
     });
   }
@@ -219,7 +231,7 @@ export class EmployeesService {
   async updateAdvanceStatus(id: string, status: string) {
     return this.prisma.advanceSalary.update({
       where: { id },
-      data: { status },
+      data: { status: status as any },
     });
   }
 

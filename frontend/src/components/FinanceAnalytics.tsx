@@ -16,6 +16,7 @@ interface FinanceStats {
   totalCollected: number;
   totalOutstanding: number;
   collectionEfficiency: number;
+  paymentMethods?: { method: string; total: number }[];
 }
 
 interface CashflowData {
@@ -37,13 +38,19 @@ export function FinanceAnalytics() {
         api.get("/finance/stats"),
         api.get("/finance/cashflow"),
       ]);
-      setStats(statsRes.data?.data || statsRes.data);
+      const statsData = statsRes.data?.data || statsRes.data;
+      setStats(statsData);
       setCashflow(cashflowRes.data?.data || cashflowRes.data || []);
-      setPaymentMethods([
-        { name: "Cash", value: statsRes.data?.totalCollected * 0.4 || 0 },
-        { name: "Bank Transfer", value: statsRes.data?.totalCollected * 0.35 || 0 },
-        { name: "Flutterwave", value: statsRes.data?.totalCollected * 0.25 || 0 },
-      ]);
+      if (statsData?.paymentMethods?.length) {
+        setPaymentMethods(
+          statsData.paymentMethods.map((pm: { method: string; total: number }) => ({
+            name: pm.method.replace(/_/g, ' ').toLowerCase().replace(/\b\w/g, (c: string) => c.toUpperCase()),
+            value: pm.total,
+          }))
+        );
+      } else {
+        setPaymentMethods([]);
+      }
     } catch {
       toast.error("Unable to load finance data");
     } finally {
@@ -133,6 +140,16 @@ export function FinanceAnalytics() {
                 <Legend />
               </PieChart>
             </ResponsiveContainer>
+          </CardContent>
+        </Card>
+      )}
+
+      {stats && paymentMethods.length === 0 && (
+        <Card className="rounded-lg">
+          <CardHeader><CardTitle className="text-lg">Payment Methods</CardTitle></CardHeader>
+          <CardContent className="flex flex-col items-center justify-center py-8 text-muted-foreground">
+            <DollarSign className="mb-2 h-8 w-8" />
+            <p className="text-sm">No completed payment data available yet</p>
           </CardContent>
         </Card>
       )}

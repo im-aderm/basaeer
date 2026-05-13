@@ -100,13 +100,13 @@ export class ResultComputationService {
         if (!records.length) continue;
 
         const total = records.reduce(
-          (sum, record) => sum + (record.total || 0),
+          (sum, record) => sum + Number(record.total || 0),
           0,
         );
         const average = total / records.length;
         const grade = this.gradeFor(average, scale);
         const points = records.map(
-          (record) => this.gradeFor(record.total || 0, scale).gradePoint,
+          (record) => this.gradeFor(Number(record.total || 0), scale).gradePoint,
         );
         const validPoints = points.filter(
           (point): point is number => typeof point === 'number',
@@ -288,7 +288,7 @@ export class ResultComputationService {
     for (const [subjectId, subjectRecords] of bySubject.entries()) {
       const ranked = subjectRecords.sort(
         (a, b) =>
-          (b.total || 0) - (a.total || 0) ||
+          Number(b.total || 0) - Number(a.total || 0) ||
           `${a.student.lastName} ${a.student.firstName}`.localeCompare(
             `${b.student.lastName} ${b.student.firstName}`,
           ) ||
@@ -296,9 +296,9 @@ export class ResultComputationService {
       );
       let rank = 0;
       let previousScore: number | null = null;
-      const totals = ranked.map((record) => record.total || 0);
+      const totals = ranked.map((record) => Number(record.total || 0));
       for (const record of ranked) {
-        const score = record.total || 0;
+        const score = Number(record.total || 0);
         if (previousScore === null || score < previousScore) rank += 1;
         previousScore = score;
         await tx.assessmentRecord.update({

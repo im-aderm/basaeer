@@ -2,91 +2,28 @@ import {
   Injectable,
   BadRequestException,
   Logger,
-  NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import axios from 'axios';
-import * as crypto from 'crypto';
+import { PaystackService } from './paystack.service';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 
 @Injectable()
 export class PaymentsService {
   private readonly logger = new Logger(PaymentsService.name);
-  private readonly paystackSecretKey = process.env.PAYSTACK_SECRET_KEY;
 
   constructor(
     private prisma: PrismaService,
+    private paystackService: PaystackService,
     private eventEmitter: EventEmitter2,
   ) {}
 
-  private ensureKey(): void {
-    if (!this.paystackSecretKey) {
-      throw new BadRequestException('Paystack is not configured. Set PAYSTACK_SECRET_KEY environment variable.');
-    }
-  }
-
-  async initializePaystackPayment(
-    invoiceId: string,
-    email: string,
-    amount: number,
-  ) {
-    this.ensureKey();
-    try {
-      const response = await axios.post(
-        'https://api.paystack.co/transaction/initialize',
-        {
-          email,
-          amount: amount * 100, // Paystack works in kobo
-          metadata: {
-            invoiceId,
-          },
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${this.paystackSecretKey}`,
-            'Content-Type': 'application/json',
-          },
-        },
-      );
-      return response.data;
-    } catch (error) {
-      this.logger.error(
-        'Failed to initialize Paystack payment',
-        error.response?.data || error.message,
-      );
-      throw new BadRequestException('Payment gateway initialization failed');
-    }
-  }
-
-  async verifyPaystackPayment(reference: string) {
-    this.ensureKey();
-    try {
-      const response = await axios.get(
-        `https://api.paystack.co/transaction/verify/${reference}`,
-        {
-          headers: {
-            Authorization: `Bearer ${this.paystackSecretKey}`,
-          },
-        },
-      );
-      return response.data;
-    } catch (error) {
-      this.logger.error(
-        'Failed to verify Paystack payment',
-        error.response?.data || error.message,
-      );
-      throw new BadRequestException('Payment verification failed');
-    }
-  }
-
   async handlePaystackWebhook(signature: string, rawBody: string, parsedPayload: any) {
-    this.ensureKey();
-    const hash = crypto
-      .createHmac('sha512', this.paystackSecretKey!)
-      .update(rawBody)
-      .digest('hex');
+    if (!this.paystackService.isConfigured()) {
+      throw new BadRequestException('Paystack is not configured');
+    }
 
-    if (hash !== signature) {
+    const isValid = this.paystackService.verifyWebhookSignature(signature, rawBody);
+    if (!isValid) {
       throw new BadRequestException('Invalid signature');
     }
 
@@ -121,7 +58,6 @@ export class PaymentsService {
         return { status: 'failed', reason: 'Invoice not found' };
       }
 
-      // Ensure idempotency
       const existingPayment = await this.prisma.payment.findUnique({
         where: { transactionId: data.reference },
       });
@@ -140,16 +76,16 @@ export class PaymentsService {
           data: {
             invoiceId,
             amount: amountPaid,
-            method: 'BANK_TRANSFER',
+            method: 'PAYSTACK',
             status: 'COMPLETED',
             transactionId: data.reference,
           },
         });
 
-        const newBalance = Math.max(0, invoice.balance - amountPaid);
+        const newBalance = Math.max(0, Number(invoice.balance) - amountPaid);
         let newStatus = 'PARTIALLY_PAID';
         if (newBalance === 0) newStatus = 'PAID';
-        if (newBalance === invoice.totalAmount) newStatus = 'UNPAID';
+        if (newBalance === Number(invoice.totalAmount)) newStatus = 'UNPAID';
 
         await tx.invoice.update({
           where: { id: invoiceId },

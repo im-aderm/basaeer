@@ -29,7 +29,7 @@ export default function StudentCertificatesPage() {
             const res = await api.get("/certificates/my-certificates");
             setCertificates(Array.isArray(res.data) ? res.data : []);
         } catch (error) {
-            console.error("Failed to fetch student certificates:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch student certificates:", error);
         } finally {
             setLoading(false);
         }
@@ -55,7 +55,7 @@ export default function StudentCertificatesPage() {
             link.download = `Certificate_${name.replace(/\s+/g, '_')}.pdf`;
             link.click();
         } catch (error) {
-            console.error("Download failed:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Download failed:", error);
         }
     };
 

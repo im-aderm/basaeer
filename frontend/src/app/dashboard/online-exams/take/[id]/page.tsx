@@ -73,7 +73,7 @@ export default function StudentExamTakePage() {
                 });
                 await OnlineExamService.syncAnswers(examId, formattedAnswers);
             } catch (error) {
-                console.error('Failed to sync progress');
+                if (process.env.NODE_ENV === 'development') console.error('Failed to sync progress');
             }
         }, 3000); // Sync after 3 seconds of inactivity
 

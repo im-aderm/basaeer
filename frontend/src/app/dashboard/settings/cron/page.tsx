@@ -84,7 +84,7 @@ export default function CronJobsPage() {
                     setJobs(data.jobs || DEFAULT_JOBS);
                 }
             } catch (error) {
-                console.error('Failed to fetch cron jobs:', error);
+                if (process.env.NODE_ENV === 'development') console.error('Failed to fetch cron jobs:', error);
             } finally {
                 setLoading(false);
             }

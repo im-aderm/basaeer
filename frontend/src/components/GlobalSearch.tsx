@@ -52,7 +52,7 @@ export default function GlobalSearch({ isOpen, onClose }: GlobalSearchProps) {
                     const data = await searchService.globalSearch(query);
                     setResults(data);
                 } catch (error) {
-                    console.error('Search failed:', error);
+                    if (process.env.NODE_ENV === 'development') console.error('Search failed:', error);
                 } finally {
                     setLoading(false);
                 }

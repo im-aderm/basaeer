@@ -42,7 +42,7 @@ export default function CertificateTemplatesPage() {
             const res = await api.get(`/certificates/templates?branchId=${user?.branchId}`);
             setTemplates(Array.isArray(res.data) ? res.data : []);
         } catch (error) {
-            console.error("Failed to fetch templates:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch templates:", error);
         } finally {
             setLoading(false);
         }
@@ -63,7 +63,7 @@ export default function CertificateTemplatesPage() {
             setFormData({ name: "", type: "ACHIEVEMENT", config: { primaryColor: "#1a365d", secondaryColor: "#4a5568", borderStyle: "double", fontFamily: "Helvetica" } });
             fetchData();
         } catch (error) {
-            console.error("Failed to create template:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to create template:", error);
         }
     };
 
@@ -73,7 +73,7 @@ export default function CertificateTemplatesPage() {
             await api.delete(`/certificates/templates/${id}`);
             fetchData();
         } catch (error) {
-            console.error("Delete failed:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Delete failed:", error);
         }
     };
 

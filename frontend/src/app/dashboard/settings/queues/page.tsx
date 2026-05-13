@@ -51,7 +51,7 @@ export default function QueuesPage() {
                 setQueues(data || MOCK_QUEUES);
             }
         } catch (error) {
-            console.error('Failed to fetch queue metrics:', error);
+            if (process.env.NODE_ENV === 'development') console.error('Failed to fetch queue metrics:', error);
             // Fallback to mock data for demo
             setQueues(MOCK_QUEUES);
         } finally {

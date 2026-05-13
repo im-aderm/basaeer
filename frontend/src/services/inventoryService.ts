@@ -174,11 +174,11 @@ export const InventoryService = {
         return response.data;
     },
     issueItem: async (data: any) => {
-        const response = await api.post('/inventory/issue', data);
+        const response = await api.post('/inventory/issues', data);
         return response.data;
     },
     returnItem: async (id: string) => {
-        const response = await api.post(`/inventory/issue/return/${id}`);
+        const response = await api.post(`/inventory/issues/${id}/return`);
         return response.data;
     },
 

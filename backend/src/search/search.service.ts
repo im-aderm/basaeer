@@ -16,25 +16,18 @@ export class SearchService {
         hostel: [],
       };
 
-    // Run searches in parallel with optimized field selection
+    // Use pg_trgm fuzzy search for students (8.8)
+    const studentsPromise = this.prisma.$queryRaw<Array<{ id: string; firstName: string; lastName: string }>>`
+      SELECT id, "firstName", "lastName"
+      FROM "Student"
+      WHERE "branchId" = ${branchId}::text
+      AND ("firstName" || ' ' || "lastName") % ${query}
+      LIMIT 10;
+    `;
+
     const [students, users, inventory, books, invoices, hostels] =
       await Promise.all([
-        this.prisma.student.findMany({
-          where: {
-            branchId,
-            OR: [
-              { firstName: { contains: query, mode: 'insensitive' } },
-              { lastName: { contains: query, mode: 'insensitive' } },
-            ],
-          },
-          select: {
-            id: true,
-            firstName: true,
-            lastName: true,
-          },
-          take: 10,
-          orderBy: { firstName: 'asc' },
-        }),
+        studentsPromise,
         this.prisma.user.findMany({
           where: {
             branchId,

@@ -62,7 +62,7 @@ export default function EmployeeIdCardsPage() {
                 setFilters(prev => ({ ...prev, sessionId: activeSession.id }));
             }
         } catch (error) {
-            console.error("Failed to fetch data:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch data:", error);
             toast.error("Failed to load employee data");
         } finally {
             setLoading(false);
@@ -75,7 +75,7 @@ export default function EmployeeIdCardsPage() {
             const cardData = await CardService.getAllCards(user.branchId, filters.sessionId);
             setCards(cardData.filter(c => c.template?.type === 'EMPLOYEE'));
         } catch (error) {
-            console.error("Failed to fetch cards:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch cards:", error);
         }
     };
 
@@ -104,7 +104,7 @@ export default function EmployeeIdCardsPage() {
             setSelectedStaff([]);
             fetchCards();
         } catch (error) {
-            console.error("Generation failed:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Generation failed:", error);
             toast.error("Failed to generate employee ID cards");
         } finally {
             setGenerating(false);

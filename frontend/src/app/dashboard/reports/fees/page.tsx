@@ -29,7 +29,7 @@ export default function FeesReportsPage() {
             });
             setData(response.data);
         } catch (error) {
-            console.error("Failed to fetch fees analytics:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch fees analytics:", error);
             toast.error("Failed to load fees analytics");
         } finally {
             setLoading(false);

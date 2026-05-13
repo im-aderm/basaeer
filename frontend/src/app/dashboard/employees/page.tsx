@@ -38,7 +38,7 @@ export default function EmployeesListPage() {
             await api.patch(`/employees/${emp.id}/status`, { status: nextStatus });
             fetchEmployees();
         } catch (error) {
-            console.error('Failed to update status', error);
+            if (process.env.NODE_ENV === 'development') console.error('Failed to update status', error);
         }
     };
 

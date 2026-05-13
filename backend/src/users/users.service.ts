@@ -104,4 +104,11 @@ export class UsersService {
       },
     });
   }
+
+  async clearMustChangePassword(id: string) {
+    return this.prisma.user.update({
+      where: { id },
+      data: { mustChangePassword: false },
+    });
+  }
 }

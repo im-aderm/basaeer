@@ -216,7 +216,7 @@ export class AutomationRunnerService {
       const amountFormatted = new Intl.NumberFormat('en-NG', {
         style: 'currency',
         currency: 'NGN',
-      }).format(invoice.totalAmount);
+      }).format(Number(invoice.totalAmount));
       const msg = `Dear parent/guardian of ${studentName}, fee reminder: ${amountFormatted} due. - Basaer College`;
 
       const parent = invoice.student.user;

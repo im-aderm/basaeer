@@ -1,64 +1,30 @@
 import {
   Controller,
   Get,
-  Post,
-  Body,
-  Res,
   Param,
   NotFoundException,
+  Res,
 } from '@nestjs/common';
-import { AppService } from './app.service';
 import { Response } from 'express';
 import * as path from 'path';
 import * as fs from 'fs';
 import { PrismaService } from './prisma/prisma.service';
-import Redis from 'ioredis';
 import {
   ApiTags,
   ApiOperation,
-  ApiBearerAuth,
   ApiResponse,
-  ApiBody,
 } from '@nestjs/swagger';
 
 @ApiTags('App')
 @Controller()
 export class AppController {
-  private redis: Redis;
-
-  constructor(
-    private readonly appService: AppService,
-    private readonly prisma: PrismaService,
-  ) {
-    this.redis = new Redis({
-      host: process.env.REDIS_HOST || 'localhost',
-      port: parseInt(process.env.REDIS_PORT || '6379', 10),
-      password: process.env.REDIS_PASSWORD,
-      maxRetriesPerRequest: 1,
-    });
-  }
-
-  @ApiResponse({ status: 200, description: 'Operation successful' })
-  @ApiOperation({ summary: 'Retrieve Hello' })
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
-  }
-
-  @ApiResponse({ status: 201, description: 'Operation successful' })
-  @ApiOperation({ summary: 'Create Subscribe To Newsletter' })
-  @Post('newsletter/subscribe')
-  subscribeToNewsletter(@Body() body: { email: string }) {
-    console.log(`[Newsletter] New subscription: ${body.email}`);
-    return { success: true, message: 'Successfully subscribed to newsletter' };
-  }
+  constructor(private readonly prisma: PrismaService) {}
 
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Health' })
   @Get('health')
   async getHealth() {
     let dbStatus = 'ok';
-    let redisStatus = 'ok';
 
     try {
       await this.prisma.$queryRaw`SELECT 1`;
@@ -66,18 +32,11 @@ export class AppController {
       dbStatus = 'error';
     }
 
-    try {
-      await this.redis.ping();
-    } catch (e) {
-      redisStatus = 'error';
-    }
-
     return {
-      status: dbStatus === 'ok' && redisStatus === 'ok' ? 'ok' : 'degraded',
+      status: dbStatus === 'ok' ? 'ok' : 'degraded',
       timestamp: new Date().toISOString(),
       services: {
         database: dbStatus,
-        redis: redisStatus,
       },
     };
   }

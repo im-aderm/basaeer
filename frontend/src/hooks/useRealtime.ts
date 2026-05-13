@@ -6,42 +6,61 @@ import { useAuth } from "@/context/AuthContext";
 
 const SOCKET_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
 
+class SocketManager {
+  private static instance: SocketManager;
+  private socket: Socket | null = null;
+  private refCount = 0;
+
+  static getInstance(): SocketManager {
+    if (!SocketManager.instance) {
+      SocketManager.instance = new SocketManager();
+    }
+    return SocketManager.instance;
+  }
+
+  connect(): Socket | null {
+    this.refCount++;
+    if (!this.socket) {
+      this.socket = io(`${SOCKET_URL}/realtime`, {
+        withCredentials: true,
+        transports: ["websocket"],
+      });
+    }
+    return this.socket;
+  }
+
+  disconnect(): void {
+    this.refCount--;
+    if (this.refCount <= 0) {
+      this.socket?.disconnect();
+      this.socket = null;
+    }
+  }
+
+  getSocket(): Socket | null {
+    return this.socket;
+  }
+}
+
 export const useRealtime = () => {
-    const { token, isAuthenticated } = useAuth();
+    const { isAuthenticated } = useAuth();
     const socketRef = useRef<Socket | null>(null);
+    const manager = SocketManager.getInstance();
 
     useEffect(() => {
-        if (!isAuthenticated || !token) {
-            if (socketRef.current) {
-                socketRef.current.disconnect();
-                socketRef.current = null;
-            }
+        if (!isAuthenticated) {
+            manager.disconnect();
+            socketRef.current = null;
             return;
         }
 
-        if (!socketRef.current) {
-            socketRef.current = io(`${SOCKET_URL}/realtime`, {
-                auth: {
-                    token: token,
-                },
-                transports: ["websocket"],
-            });
-
-            socketRef.current.on("connect", () => {
-                console.log("Realtime socket connected");
-            });
-
-            socketRef.current.on("connect_error", (err) => {
-                console.error("Realtime socket connection error:", err.message);
-            });
-        }
+        socketRef.current = manager.connect();
 
         return () => {
-            // We don't necessarily want to disconnect on every re-render
-            // but if the component unmounts we might.
-            // However, usually we want a single global socket.
+            manager.disconnect();
+            socketRef.current = null;
         };
-    }, [isAuthenticated, token]);
+    }, [isAuthenticated]);
 
     const emit = (event: string, data: any) => {
         socketRef.current?.emit(event, data);

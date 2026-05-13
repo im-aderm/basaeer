@@ -65,7 +65,7 @@ export default function GenerateAdmitCardPage() {
                 setFilters(prev => ({ ...prev, sessionId: activeSession.id }));
             }
         } catch (error) {
-            console.error("Failed to fetch data:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch data:", error);
             toast.error("Failed to load page data");
         } finally {
             setLoading(false);
@@ -78,7 +78,7 @@ export default function GenerateAdmitCardPage() {
             const cardData = await CardService.getAllCards(user.branchId, filters.sessionId);
             setCards(cardData);
         } catch (error) {
-            console.error("Failed to fetch cards:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch cards:", error);
         }
     };
 
@@ -107,7 +107,7 @@ export default function GenerateAdmitCardPage() {
             setSelectedStudents([]);
             fetchCards();
         } catch (error) {
-            console.error("Generation failed:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Generation failed:", error);
             toast.error("Failed to generate admit cards");
         } finally {
             setGenerating(false);

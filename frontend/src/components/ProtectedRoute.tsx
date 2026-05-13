@@ -16,14 +16,16 @@ export default function ProtectedRoute({ children, allowedRoles }: ProtectedRout
     useEffect(() => {
         if (loading) return;
 
-        // Middleware handles basic authentication redirect to /login.
-        // We only handle role-based authorization here.
-        if (isAuthenticated && allowedRoles && user && !allowedRoles.includes(user.role)) {
+        if (!isAuthenticated) {
+            router.push("/login");
+            return;
+        }
+
+        if (allowedRoles && user && !allowedRoles.includes(user.role)) {
             router.push("/dashboard");
         }
     }, [isAuthenticated, loading, router, user, allowedRoles]);
 
-    // If still loading profile data, show a subtle loading state
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[60vh]">
@@ -32,7 +34,10 @@ export default function ProtectedRoute({ children, allowedRoles }: ProtectedRout
         );
     }
 
-    // Role mismatch — render access denied message while redirect is in flight
+    if (!isAuthenticated) {
+        return null;
+    }
+
     if (allowedRoles && user && !allowedRoles.includes(user.role)) {
         return (
             <div className="flex items-center justify-center min-h-[60vh]">

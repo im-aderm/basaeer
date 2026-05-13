@@ -4,6 +4,7 @@ import {
   Body,
   Headers,
   BadRequestException,
+  Logger,
 } from '@nestjs/common';
 import { LiveClassesService } from './live-classes.service';
 import {
@@ -17,6 +18,8 @@ import {
 @ApiTags('Google Meet Webhooks')
 @Controller('live-classes/webhooks')
 export class MeetWebhooksController {
+  private readonly logger = new Logger(MeetWebhooksController.name);
+
   constructor(private readonly liveClassesService: LiveClassesService) {}
 
   @ApiResponse({ status: 201, description: 'Operation successful' })
@@ -36,7 +39,7 @@ export class MeetWebhooksController {
 
     // Handle event changes
     // This is where we'd trigger a sync of recording links or attendance
-    console.log(
+    this.logger.debug(
       `Received Google Webhook: Channel=${channelId}, State=${state}`,
     );
 

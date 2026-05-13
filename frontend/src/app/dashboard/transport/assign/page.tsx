@@ -48,7 +48,7 @@ export default function TransportAssignmentPage() {
             setRoutes(rtData.data);
             setVehicles(vhData.data);
         } catch (error) {
-            console.error("Failed to fetch data:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch data:", error);
             toast.error("Failed to load transport data");
         } finally {
             setLoading(false);
@@ -74,7 +74,7 @@ export default function TransportAssignmentPage() {
             setSelectedVehicle("");
             fetchData();
         } catch (error) {
-            console.error("Failed to assign transport:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to assign transport:", error);
             toast.error("Failed to assign transport");
         }
     };
@@ -86,7 +86,7 @@ export default function TransportAssignmentPage() {
             toast.success("Assignment removed successfully");
             fetchData();
         } catch (error) {
-            console.error("Failed to remove assignment:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to remove assignment:", error);
             toast.error("Failed to remove assignment");
         }
     };

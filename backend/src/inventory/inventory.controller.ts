@@ -318,6 +318,26 @@ export class InventoryController {
   }
 
   @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Issues' })
+  @Get('issues')
+  getIssues(
+    @GetTenantContext() ctx: TenantContext,
+    @Query('branchId') branchId?: string,
+  ) {
+    return this.inventoryService.getIssues(this.resolveBranch(ctx, branchId));
+  }
+
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Issue returned successfully' })
+  @ApiOperation({ summary: 'Return Issued Item' })
+  @Post('issues/:id/return')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+  returnItem(@Param('id') id: string) {
+    return this.inventoryService.returnItem(id);
+  }
+
+  @ApiBearerAuth()
   @ApiBody({ type: CreateInventorySaleDto })
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Sale' })

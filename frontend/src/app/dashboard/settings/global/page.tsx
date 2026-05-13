@@ -28,7 +28,7 @@ export default function GlobalSettingsPage() {
                 });
                 setFormData(mapped);
             } catch (error) {
-                console.error("Failed to fetch settings:", error);
+                if (process.env.NODE_ENV === 'development') console.error("Failed to fetch settings:", error);
             } finally {
                 setLoading(false);
             }
@@ -45,7 +45,7 @@ export default function GlobalSettingsPage() {
         try {
             await SettingsService.updateSetting(key, formData[key]);
         } catch (error) {
-            console.error(`Failed to save ${key}:`, error);
+            if (process.env.NODE_ENV === 'development') console.error(`Failed to save ${key}:`, error);
         } finally {
             setSaving(false);
         }
@@ -59,7 +59,7 @@ export default function GlobalSettingsPage() {
             }
             alert("Settings saved successfully!");
         } catch (error) {
-            console.error("Failed to save all settings:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to save all settings:", error);
         } finally {
             setSaving(false);
         }

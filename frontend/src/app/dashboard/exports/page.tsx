@@ -33,7 +33,7 @@ export default function ExportDashboardPage() {
             const data = await academicExportService.getExports();
             setExports(data);
         } catch (error) {
-            console.error('Failed to load exports:', error);
+            if (process.env.NODE_ENV === 'development') console.error('Failed to load exports:', error);
         } finally {
             setLoading(false);
             setRefreshing(false);
@@ -46,7 +46,7 @@ export default function ExportDashboardPage() {
             await academicExportService.deleteExport(id);
             setExports(exports.filter(e => e.id !== id));
         } catch (error) {
-            console.error('Failed to delete export:', error);
+            if (process.env.NODE_ENV === 'development') console.error('Failed to delete export:', error);
         }
     };
 

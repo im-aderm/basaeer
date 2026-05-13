@@ -37,7 +37,7 @@ export default function SessionsPage() {
             const data = await SessionService.getAll();
             setSessions(data);
         } catch (error) {
-            console.error("Failed to fetch sessions:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch sessions:", error);
         } finally {
             setLoading(false);
         }
@@ -75,7 +75,7 @@ export default function SessionsPage() {
             setIsModalOpen(false);
             fetchSessions();
         } catch (error) {
-            console.error("Failed to save session:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to save session:", error);
         }
     };
 
@@ -85,7 +85,7 @@ export default function SessionsPage() {
                 await SessionService.delete(id);
                 fetchSessions();
             } catch (error) {
-                console.error("Failed to delete session:", error);
+                if (process.env.NODE_ENV === 'development') console.error("Failed to delete session:", error);
             }
         }
     };
@@ -96,7 +96,7 @@ export default function SessionsPage() {
             await SessionService.update(session.id, { isActive: true });
             fetchSessions();
         } catch (error) {
-            console.error("Failed to activate session:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to activate session:", error);
         }
     };
 

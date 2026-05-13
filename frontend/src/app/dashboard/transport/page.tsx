@@ -14,7 +14,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import api from "@/lib/api";
+import { transportService } from "@/services/transportService";
 
 export default function TransportDashboard() {
     const [stats, setStats] = useState({
@@ -27,14 +27,14 @@ export default function TransportDashboard() {
 
     useEffect(() => {
         Promise.all([
-            api.get("/transport/vehicles"),
-            api.get("/transport/routes"),
-            api.get("/transport/stats/assignments")
-        ]).then(([vData, rData, aData]) => {
+            transportService.getVehicles(),
+            transportService.getRoutes(),
+            transportService.getAssignmentsCount()
+        ]).then(([vehicles, routes, countData]) => {
             setStats({
-                totalVehicles: vData.data.length,
-                totalRoutes: rData.data.length,
-                assignedStudents: aData.data,
+                totalVehicles: vehicles.length,
+                totalRoutes: routes.length,
+                assignedStudents: countData.count,
                 activeStatus: "Operational"
             });
             setLoading(false);

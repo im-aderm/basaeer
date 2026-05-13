@@ -33,7 +33,7 @@ export default function LeaveManagementPage() {
             const data = await HRService.getBranchLeaves();
             setRequests(data);
         } catch (error) {
-            console.error("Failed to fetch leaves:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch leaves:", error);
         } finally {
             setLoading(false);
         }

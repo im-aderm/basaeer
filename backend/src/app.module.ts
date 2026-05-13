@@ -3,9 +3,10 @@ import { ConfigModule } from '@nestjs/config';
 import { BullModule } from '@nestjs/bullmq';
 import { ScheduleModule } from '@nestjs/schedule';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { CacheModule } from '@nestjs/cache-manager';
+import { redisStore } from 'cache-manager-redis-yet';
 import { validate } from './config/env.validation';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { AuditModule } from './audit/audit.module';
 import { EmployeesModule } from './employees/employees.module';
@@ -57,6 +58,8 @@ import { APP_GUARD } from '@nestjs/core';
 import { SecurityMiddleware } from './common/middleware/security.middleware';
 import { DataRetentionService } from './common/services/data-retention.service';
 import { HealthModule } from './health/health.module';
+import { PermissionsGuard } from './auth/permissions.guard';
+import { MustChangePasswordGuard } from './auth/must-change-password.guard';
 
 @Module({
   imports: [
@@ -74,6 +77,19 @@ import { HealthModule } from './health/health.module';
     EventEmitterModule.forRoot(),
     ScheduleModule.forRoot(),
     ThrottlerModule.forRoot([{ ttl: 60000, limit: 100 }]), // 100 requests per minute globally
+    CacheModule.registerAsync({
+      isGlobal: true,
+      useFactory: async () => ({
+        store: await redisStore({
+          socket: {
+            host: process.env.REDIS_HOST || 'localhost',
+            port: parseInt(process.env.REDIS_PORT || '6379', 10),
+          },
+          password: process.env.REDIS_PASSWORD,
+          ttl: 60000, // 60 seconds default
+        }),
+      }),
+    }),
     AuthModule,
     AuditModule,
     EmployeesModule,
@@ -123,10 +139,11 @@ import { HealthModule } from './health/health.module';
   ],
   controllers: [AppController],
   providers: [
-    AppService,
     InstitutionalEventsService,
     DataRetentionService,
     { provide: APP_GUARD, useClass: ThrottlerGuard },
+    PermissionsGuard,
+    MustChangePasswordGuard,
   ],
 })
 export class AppModule implements NestModule {

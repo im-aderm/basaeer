@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -8,8 +7,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Plus, Loader2 } from 'lucide-react';
-import api from '@/lib/api';
 import { toast } from 'sonner';
+import { financeService } from '@/services/financeService';
 
 export default function FeeSetupPage() {
     const { user } = useAuth();
@@ -20,10 +19,10 @@ export default function FeeSetupPage() {
 
     const fetchCategories = async () => {
         try {
-            const res = await api.get('/finance/fee-categories');
-            setCategories(res.data);
+            const data = await financeService.getFeeCategories();
+            setCategories(data);
         } catch (error) {
-            console.error('Failed to fetch fee categories', error);
+            if (process.env.NODE_ENV === 'development') console.error('Failed to fetch fee categories', error);
             toast.error('Failed to load fee categories');
         } finally {
             setLoading(false);
@@ -36,12 +35,12 @@ export default function FeeSetupPage() {
         if (!newCategory.name) return;
         setSubmitting(true);
         try {
-            await api.post('/finance/fee-categories', { ...newCategory, branchId: user?.branchId });
+            await financeService.createFeeCategory({ ...newCategory, branchId: user?.branchId || '' });
             setNewCategory({ name: '', description: '' });
             fetchCategories();
             toast.success('Fee category added');
         } catch (error) {
-            console.error('Failed to add category', error);
+            if (process.env.NODE_ENV === 'development') console.error('Failed to add category', error);
             toast.error('Failed to add fee category');
         } finally {
             setSubmitting(false);

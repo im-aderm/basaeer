@@ -219,7 +219,7 @@ export class EmployeesController {
   @Post('awards')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
   createAward(@Body() dto: CreateAwardDto, @GetTenantContext() ctx: TenantContext) {
-    return this.employeesService.createAward(dto, ctx.branchId ?? undefined);
+    return this.employeesService.createAward(dto, ctx.branchId!);
   }
 
   @ApiBearerAuth()

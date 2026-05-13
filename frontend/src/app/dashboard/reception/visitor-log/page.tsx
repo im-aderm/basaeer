@@ -41,7 +41,7 @@ export default function VisitorLogPage() {
             const purposeSetting = settings.find(s => s.key === "reception_visitor_purposes");
             if (purposeSetting) setPurposes(JSON.parse(purposeSetting.value));
         } catch (error) {
-            console.error("Failed to fetch purposes:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch purposes:", error);
         }
     };
 

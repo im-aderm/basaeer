@@ -1,8 +1,9 @@
-import { Controller, Get, Patch, Body, UseGuards, Req } from '@nestjs/common';
+import { Controller, Get, Patch, Body, UseGuards } from '@nestjs/common';
 import { PreferencesService } from './preferences.service';
 import { UpdateUserPreferenceDto } from './dto/update-user-preference.dto';
 import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
-import { Request } from 'express';
+import { GetTenantContext } from '../../auth/tenant-context.decorator';
+import { TenantContext } from '../../auth/branch.guard';
 import {
   ApiTags,
   ApiOperation,
@@ -21,9 +22,8 @@ export class PreferencesController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve One' })
   @Get()
-  findOne(@Req() req: Request) {
-    const userId = (req.user as any).id;
-    return this.preferencesService.findOne(userId);
+  findOne(@GetTenantContext() ctx: TenantContext) {
+    return this.preferencesService.findOne(ctx.userId);
   }
 
   @ApiBearerAuth()
@@ -32,10 +32,9 @@ export class PreferencesController {
   @ApiOperation({ summary: 'Update resource' })
   @Patch()
   update(
-    @Req() req: Request,
+    @GetTenantContext() ctx: TenantContext,
     @Body() updateUserPreferenceDto: UpdateUserPreferenceDto,
   ) {
-    const userId = (req.user as any).id;
-    return this.preferencesService.update(userId, updateUserPreferenceDto);
+    return this.preferencesService.update(ctx.userId, updateUserPreferenceDto);
   }
 }

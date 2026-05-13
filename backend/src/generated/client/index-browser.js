@@ -161,6 +161,7 @@ exports.Prisma.UserScalarFieldEnum = {
   lastName: 'lastName',
   phone: 'phone',
   isActive: 'isActive',
+  mustChangePassword: 'mustChangePassword',
   role: 'role',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -223,7 +224,8 @@ exports.Prisma.StaffScalarFieldEnum = {
   designationId: 'designationId',
   status: 'status',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
 };
 
 exports.Prisma.StudentScalarFieldEnum = {
@@ -271,7 +273,8 @@ exports.Prisma.StudentScalarFieldEnum = {
   scholarshipEligible: 'scholarshipEligible',
   referralSource: 'referralSource',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
 };
 
 exports.Prisma.CertificateScalarFieldEnum = {
@@ -308,7 +311,8 @@ exports.Prisma.ClassScalarFieldEnum = {
   branchId: 'branchId',
   classTeacherId: 'classTeacherId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
 };
 
 exports.Prisma.SectionScalarFieldEnum = {
@@ -316,7 +320,8 @@ exports.Prisma.SectionScalarFieldEnum = {
   name: 'name',
   classId: 'classId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
 };
 
 exports.Prisma.SubjectScalarFieldEnum = {
@@ -325,7 +330,8 @@ exports.Prisma.SubjectScalarFieldEnum = {
   code: 'code',
   branchId: 'branchId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
 };
 
 exports.Prisma.ClassScheduleScalarFieldEnum = {
@@ -338,6 +344,7 @@ exports.Prisma.ClassScheduleScalarFieldEnum = {
   sectionId: 'sectionId',
   subjectId: 'subjectId',
   teacherId: 'teacherId',
+  branchId: 'branchId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -402,6 +409,7 @@ exports.Prisma.HostelAllocationScalarFieldEnum = {
   isActive: 'isActive',
   studentId: 'studentId',
   bedId: 'bedId',
+  branchId: 'branchId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -413,6 +421,7 @@ exports.Prisma.HostelLeaveScalarFieldEnum = {
   reason: 'reason',
   status: 'status',
   studentId: 'studentId',
+  branchId: 'branchId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -425,6 +434,7 @@ exports.Prisma.MaintenanceRequestScalarFieldEnum = {
   priority: 'priority',
   bedId: 'bedId',
   roomId: 'roomId',
+  branchId: 'branchId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -607,6 +617,7 @@ exports.Prisma.SubmissionScalarFieldEnum = {
   status: 'status',
   assignmentId: 'assignmentId',
   studentId: 'studentId',
+  branchId: 'branchId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -756,11 +767,22 @@ exports.Prisma.AssessmentComponentScalarFieldEnum = {
   component: 'component',
   weight: 'weight',
   maxScore: 'maxScore',
+  isExam: 'isExam',
   branchId: 'branchId',
   classId: 'classId',
   subjectId: 'subjectId',
   curriculum: 'curriculum',
   isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AssessmentScoreScalarFieldEnum = {
+  id: 'id',
+  score: 'score',
+  studentId: 'studentId',
+  componentId: 'componentId',
+  recordId: 'recordId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -1000,7 +1022,8 @@ exports.Prisma.DepartmentScalarFieldEnum = {
   description: 'description',
   branchId: 'branchId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
 };
 
 exports.Prisma.DesignationScalarFieldEnum = {
@@ -1024,7 +1047,8 @@ exports.Prisma.BookScalarFieldEnum = {
   description: 'description',
   branchId: 'branchId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
 };
 
 exports.Prisma.BorrowRecordScalarFieldEnum = {
@@ -1035,6 +1059,7 @@ exports.Prisma.BorrowRecordScalarFieldEnum = {
   status: 'status',
   bookId: 'bookId',
   studentId: 'studentId',
+  branchId: 'branchId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   bookCopyId: 'bookCopyId'
@@ -1046,6 +1071,7 @@ exports.Prisma.LibraryFineScalarFieldEnum = {
   status: 'status',
   paidDate: 'paidDate',
   borrowRecordId: 'borrowRecordId',
+  branchId: 'branchId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -1057,6 +1083,7 @@ exports.Prisma.SalaryTemplateScalarFieldEnum = {
   deductions: 'deductions',
   netSalary: 'netSalary',
   staffId: 'staffId',
+  branchId: 'branchId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -1069,6 +1096,7 @@ exports.Prisma.PayrollScalarFieldEnum = {
   paymentDate: 'paymentDate',
   status: 'status',
   staffId: 'staffId',
+  branchId: 'branchId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -1081,6 +1109,7 @@ exports.Prisma.LeaveRequestScalarFieldEnum = {
   reason: 'reason',
   status: 'status',
   staffId: 'staffId',
+  branchId: 'branchId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -1091,6 +1120,7 @@ exports.Prisma.StaffAwardScalarFieldEnum = {
   description: 'description',
   date: 'date',
   staffId: 'staffId',
+  branchId: 'branchId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -1101,6 +1131,7 @@ exports.Prisma.AdvanceSalaryScalarFieldEnum = {
   reason: 'reason',
   status: 'status',
   staffId: 'staffId',
+  branchId: 'branchId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -1571,6 +1602,7 @@ exports.Prisma.IdCardScalarFieldEnum = {
   sessionId: 'sessionId',
   status: 'status',
   issueDate: 'issueDate',
+  branchId: 'branchId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -1897,6 +1929,7 @@ exports.Prisma.BookCopyScalarFieldEnum = {
   bookId: 'bookId',
   status: 'status',
   condition: 'condition',
+  branchId: 'branchId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -1908,6 +1941,7 @@ exports.Prisma.BookReservationScalarFieldEnum = {
   status: 'status',
   reservedAt: 'reservedAt',
   expiresAt: 'expiresAt',
+  branchId: 'branchId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -1921,6 +1955,7 @@ exports.Prisma.HostelMaintenanceTicketScalarFieldEnum = {
   hostelId: 'hostelId',
   roomId: 'roomId',
   reportedBy: 'reportedBy',
+  branchId: 'branchId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -2030,6 +2065,15 @@ exports.UserRole = exports.$Enums.UserRole = {
   RECEPTIONIST: 'RECEPTIONIST'
 };
 
+exports.StaffStatus = exports.$Enums.StaffStatus = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+  ON_LEAVE: 'ON_LEAVE',
+  SUSPENDED: 'SUSPENDED',
+  RESIGNED: 'RESIGNED',
+  RETIRED: 'RETIRED'
+};
+
 exports.AttendanceStatus = exports.$Enums.AttendanceStatus = {
   PRESENT: 'PRESENT',
   ABSENT: 'ABSENT',
@@ -2050,6 +2094,27 @@ exports.BedStatus = exports.$Enums.BedStatus = {
   AVAILABLE: 'AVAILABLE',
   OCCUPIED: 'OCCUPIED',
   MAINTENANCE: 'MAINTENANCE'
+};
+
+exports.HostelLeaveStatus = exports.$Enums.HostelLeaveStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  CANCELLED: 'CANCELLED'
+};
+
+exports.MaintenanceStatus = exports.$Enums.MaintenanceStatus = {
+  OPEN: 'OPEN',
+  IN_PROGRESS: 'IN_PROGRESS',
+  RESOLVED: 'RESOLVED',
+  CLOSED: 'CLOSED'
+};
+
+exports.MaintenancePriority = exports.$Enums.MaintenancePriority = {
+  LOW: 'LOW',
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH',
+  CRITICAL: 'CRITICAL'
 };
 
 exports.InvoiceStatus = exports.$Enums.InvoiceStatus = {
@@ -2089,7 +2154,15 @@ exports.PaymentStatus = exports.$Enums.PaymentStatus = {
   PENDING: 'PENDING',
   COMPLETED: 'COMPLETED',
   FAILED: 'FAILED',
-  REJECTED: 'REJECTED'
+  REJECTED: 'REJECTED',
+  VERIFIED: 'VERIFIED'
+};
+
+exports.SubmissionStatus = exports.$Enums.SubmissionStatus = {
+  SUBMITTED: 'SUBMITTED',
+  GRADED: 'GRADED',
+  LATE: 'LATE',
+  MISSING: 'MISSING'
 };
 
 exports.Term = exports.$Enums.Term = {
@@ -2152,6 +2225,71 @@ exports.VoucherStatus = exports.$Enums.VoucherStatus = {
   REJECTED: 'REJECTED'
 };
 
+exports.BorrowStatus = exports.$Enums.BorrowStatus = {
+  BORROWED: 'BORROWED',
+  RETURNED: 'RETURNED',
+  OVERDUE: 'OVERDUE',
+  LOST: 'LOST'
+};
+
+exports.PayrollStatus = exports.$Enums.PayrollStatus = {
+  UNPAID: 'UNPAID',
+  PAID: 'PAID',
+  PROCESSING: 'PROCESSING'
+};
+
+exports.LeaveStatus = exports.$Enums.LeaveStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  CANCELLED: 'CANCELLED'
+};
+
+exports.AdvanceSalaryStatus = exports.$Enums.AdvanceSalaryStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  PAID: 'PAID'
+};
+
+exports.AdmissionStatus = exports.$Enums.AdmissionStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  ENROLLED: 'ENROLLED',
+  CANCELLED: 'CANCELLED'
+};
+
+exports.IssueStatus = exports.$Enums.IssueStatus = {
+  ISSUED: 'ISSUED',
+  RETURNED: 'RETURNED',
+  LOST: 'LOST',
+  DAMAGED: 'DAMAGED'
+};
+
+exports.EventParticipationStatus = exports.$Enums.EventParticipationStatus = {
+  INTERESTED: 'INTERESTED',
+  GOING: 'GOING',
+  NOT_GOING: 'NOT_GOING',
+  REGISTERED: 'REGISTERED',
+  DECLINED: 'DECLINED'
+};
+
+exports.IdCardStatusEnum = exports.$Enums.IdCardStatusEnum = {
+  CREATED: 'CREATED',
+  PRINTED: 'PRINTED',
+  ISSUED: 'ISSUED',
+  EXPIRED: 'EXPIRED'
+};
+
+exports.BookCopyStatus = exports.$Enums.BookCopyStatus = {
+  AVAILABLE: 'AVAILABLE',
+  BORROWED: 'BORROWED',
+  LOST: 'LOST',
+  DAMAGED: 'DAMAGED',
+  RESERVED: 'RESERVED'
+};
+
 exports.Prisma.ModelName = {
   Branch: 'Branch',
   DeactivationReason: 'DeactivationReason',
@@ -2201,6 +2339,7 @@ exports.Prisma.ModelName = {
   Exam: 'Exam',
   ExamType: 'ExamType',
   AssessmentComponent: 'AssessmentComponent',
+  AssessmentScore: 'AssessmentScore',
   ResultApproval: 'ResultApproval',
   ResultPublication: 'ResultPublication',
   GPARecord: 'GPARecord',

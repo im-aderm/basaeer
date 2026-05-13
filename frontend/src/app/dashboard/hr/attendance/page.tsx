@@ -53,7 +53,7 @@ export default function StaffAttendancePage() {
             });
             setAttendanceData(attendanceMap);
         } catch (error) {
-            console.error('Failed to fetch attendance data', error);
+            if (process.env.NODE_ENV === 'development') console.error('Failed to fetch attendance data', error);
             toast.error('Failed to load records');
         } finally {
             setLoading(false);

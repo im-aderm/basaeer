@@ -28,7 +28,7 @@ export default function CreateBranchPage() {
             await BranchService.create(formData);
             router.push("/dashboard/branches");
         } catch (error: any) {
-            console.error("Failed to create branch:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to create branch:", error);
             alert("Failed to create branch. " + (error.response?.data?.message || "Check for duplicate code."));
         } finally {
             setSubmitting(false);

@@ -27,7 +27,7 @@ export default function AcademicReportsPage() {
             const response = await api.get<AnalyticsData>("/reporting/academic");
             setData(response.data);
         } catch (error) {
-            console.error("Failed to fetch academic analytics:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch academic analytics:", error);
             toast.error("Failed to load academic analytics");
         } finally {
             setLoading(false);

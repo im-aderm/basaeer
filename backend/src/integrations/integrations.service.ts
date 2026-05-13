@@ -12,6 +12,36 @@ import axios from 'axios';
 export class IntegrationsService {
   constructor(private prisma: PrismaService) {}
 
+  private validateWebhookUrl(url: string): void {
+    let parsed: URL;
+    try {
+      parsed = new URL(url);
+    } catch {
+      throw new BadRequestException('Invalid webhook URL');
+    }
+
+    if (!['https:', 'http:'].includes(parsed.protocol)) {
+      throw new BadRequestException('Webhook URL must use HTTP or HTTPS');
+    }
+
+    const blockedHosts = [
+      'localhost',
+      '127.0.0.1',
+      '0.0.0.0',
+      '::1',
+      '169.254.169.254',
+    ];
+    const hostname = parsed.hostname.toLowerCase();
+    if (blockedHosts.includes(hostname) || hostname.endsWith('.internal') || hostname.endsWith('.local')) {
+      throw new BadRequestException('Webhook URL cannot point to internal addresses');
+    }
+
+    const port = parsed.port ? parseInt(parsed.port, 10) : (parsed.protocol === 'https:' ? 443 : 80);
+    if (port >= 1 && port <= 1023) {
+      throw new BadRequestException('Webhook URL cannot use privileged ports');
+    }
+  }
+
   // API Key Management
   async createApiKey(branchId: string, name: string, scopes: string[]) {
     const rawKey = `bs_${crypto.randomBytes(32).toString('hex')}`;
@@ -71,6 +101,7 @@ export class IntegrationsService {
 
   // Webhook Management
   async registerWebhook(branchId: string, url: string, events: string[]) {
+    this.validateWebhookUrl(url);
     const secret = crypto.randomBytes(32).toString('hex');
     return this.prisma.webhookEndpoint.create({
       data: {
@@ -116,6 +147,7 @@ export class IntegrationsService {
   }
 
   private async deliverWebhook(endpoint: any, log: any, payload: any) {
+    this.validateWebhookUrl(endpoint.url);
     const signature = crypto
       .createHmac('sha256', endpoint.secret || '')
       .update(JSON.stringify(payload))

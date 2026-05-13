@@ -28,7 +28,7 @@ export default function StudentReportsPage() {
             const response = await api.get<AnalyticsData>("/reporting/students");
             setData(response.data);
         } catch (error) {
-            console.error("Failed to fetch student analytics:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch student analytics:", error);
             toast.error("Failed to load student analytics");
         } finally {
             setLoading(false);

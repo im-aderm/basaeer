@@ -3,6 +3,7 @@ import { Cron, CronExpression } from '@nestjs/schedule';
 import { PrismaService } from '../../prisma/prisma.service';
 import { CommsService } from '../../comms/comms.service';
 import { NotificationsService } from '../../notifications/notifications.service';
+import { Prisma } from '../../generated/client/client';
 
 interface BirthdayPerson {
   id: string;
@@ -15,14 +16,16 @@ interface BirthdayPerson {
 
 interface PendingInvoice {
   id: string;
-  totalAmount: number;
+  invoiceNumber: string;
+  totalAmount: number | Prisma.Decimal;
   dueDate: Date;
-  branchId: string;
+  balance: number | Prisma.Decimal;
+  status: string;
   student: {
     id: string;
     firstName: string;
     lastName: string;
-    user?: { id: string; email: string; phone: string | null } | null;
+    user: { id: string; email: string; phone: string | null } | null;
   };
 }
 
@@ -218,7 +221,7 @@ export class AutomationWorker {
     const amountFormatted = new Intl.NumberFormat('en-NG', {
       style: 'currency',
       currency: 'NGN',
-    }).format(invoice.totalAmount);
+      }).format(Number(invoice.totalAmount));
     const dueDateFormatted = invoice.dueDate.toLocaleDateString('en-NG');
 
     const template =

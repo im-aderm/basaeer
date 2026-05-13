@@ -2,6 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { MailService } from '../mail/mail.service';
+import { AuditService } from '../audit/audit.service';
 import * as bcrypt from 'bcrypt';
 import * as crypto from 'crypto';
 
@@ -11,6 +12,7 @@ export class AuthService {
     private usersService: UsersService,
     private jwtService: JwtService,
     private mailService: MailService,
+    private auditService: AuditService,
   ) {}
 
   async validateUser(email: string, pass: string): Promise<any> {
@@ -29,6 +31,15 @@ export class AuthService {
       role: user.role,
       branchId: user.branchId,
     };
+
+    this.auditService.logAction(
+      user.id,
+      'LOGIN',
+      'auth',
+      user.branchId,
+      'Successful login',
+    ).catch(() => {});
+
     return {
       access_token: this.jwtService.sign(payload),
       user: {
@@ -38,6 +49,7 @@ export class AuthService {
         lastName: user.lastName,
         role: user.role,
         branchId: user.branchId,
+        mustChangePassword: user.mustChangePassword || false,
       },
     };
   }
@@ -56,7 +68,31 @@ export class AuthService {
   }
 
   async register(data: any) {
-    return this.usersService.createUser(data);
+    const hashedPassword = await bcrypt.hash(data.password, 10);
+    const { password, ...rest } = data;
+    return this.usersService.createUser({
+      ...rest,
+      password: hashedPassword,
+      mustChangePassword: true,
+    } as any);
+  }
+
+  async changePassword(userId: string, currentPassword: string, newPassword: string) {
+    const user = await this.usersService.findById(userId);
+    if (!user) {
+      throw new UnauthorizedException('User not found');
+    }
+
+    const isCurrentPasswordValid = await bcrypt.compare(currentPassword, user.password);
+    if (!isCurrentPasswordValid) {
+      throw new UnauthorizedException('Current password is incorrect');
+    }
+
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+    await this.usersService.updatePassword(userId, hashedNewPassword);
+    await this.usersService.clearMustChangePassword(userId);
+
+    return { message: 'Password changed successfully' };
   }
 
   async forgotPassword(email: string) {

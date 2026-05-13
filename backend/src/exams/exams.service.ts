@@ -318,7 +318,7 @@ export class ExamsService {
 
     for (let i = 0; i < records.length; i++) {
       const r = records[i];
-      if (r.total < prevTotal) {
+      if (Number(r.total || 0) < prevTotal) {
         rank = i + 1;
       }
 
@@ -334,7 +334,7 @@ export class ExamsService {
           },
         }),
       );
-      prevTotal = r.total;
+      prevTotal = Number(r.total || 0);
     }
 
     // Process in chunks to prevent transaction memory overload
@@ -424,8 +424,32 @@ export class ExamsService {
 
       if (studentRecords.length === 0) return null;
 
+      // Update all record totals dynamically before aggregating
+      for (const record of studentRecords) {
+        const scores = await tx.assessmentScore.findMany({
+          where: { recordId: record.id },
+          include: { component: true },
+        });
+
+        if (scores.length > 0) {
+          const total = scores.reduce((sum: number, s: any) => {
+            const weight = s.component.weight || 0;
+            const maxScore = s.component.maxScore || 100;
+            const normalizedScore = maxScore > 0 ? (s.score / maxScore) * 100 : 0;
+            return sum + (normalizedScore * (weight / 100));
+          }, 0);
+          
+          const roundedTotal = Math.round(total * 100) / 100;
+          await tx.assessmentRecord.update({
+            where: { id: record.id },
+            data: { total: roundedTotal },
+          });
+          (record as any).total = roundedTotal; // Update local object for aggregation below
+        }
+      }
+
       const totalScore = studentRecords.reduce(
-        (acc, r) => acc + (r.total || 0),
+        (acc, r) => acc + Number(r.total || 0),
         0,
       );
       const average = totalScore / studentRecords.length;
@@ -621,22 +645,34 @@ export class ExamsService {
       // Assessment Records (only eligible ones)
       subjects: student.assessmentRecords
         .filter((r: any) => r.isEligible)
-        .map((r: any) => ({
-          name: r.subject?.name,
-          asgn1: r.asgn1 || 0,
-          asgn2: r.asgn2 || 0,
-          test1: r.test1 || 0,
-          test2: r.test2 || 0,
-          examScore: r.examScore || 0,
-          total: (r.total || 0).toFixed(1),
-          grade: r.grade || '-',
-          position: this.ordinal(r.position || 0),
-          outOf: r.outOf || 0,
-          low: (r.lowScore || 0).toFixed(1),
-          high: (r.highScore || 0).toFixed(1),
-          classAvg: (r.classAvg || 0).toFixed(1),
-          remark: r.remark || '',
-        })),
+        .map((r: any) => {
+          // Dynamic Scores Map
+          const scoresMap: Record<string, number> = {};
+          if (r.scores) {
+            r.scores.forEach((s: any) => {
+              scoresMap[s.component.component] = s.score;
+            });
+          }
+
+          return {
+            name: r.subject?.name,
+            dynamicScores: scoresMap,
+            total: (r.total || 0).toFixed(1),
+            grade: r.grade || '-',
+            position: this.ordinal(r.position || 0),
+            outOf: r.outOf || 0,
+            low: (r.lowScore || 0).toFixed(1),
+            high: (r.highScore || 0).toFixed(1),
+            classAvg: (r.classAvg || 0).toFixed(1),
+            remark: r.remark || '',
+          };
+        }),
+      
+      // Headers for Dynamic Table
+      assessmentHeaders: Array.from(new Set(
+        student.assessmentRecords
+          .flatMap((r: any) => r.scores?.map((s: any) => s.component.component) || [])
+      )),
 
       // Behavioural
       behavioural: [
@@ -729,7 +765,7 @@ export class ExamsService {
             subject: record.subject,
           };
         }
-        subjectAverages[record.subjectId].total += record.total || 0;
+        subjectAverages[record.subjectId].total += Number(record.total || 0);
         subjectAverages[record.subjectId].count += 1;
       }
 
@@ -922,7 +958,7 @@ export class ExamsService {
         const record = student.assessmentRecords.find(
           (r) => r.subjectId === subject.id,
         );
-        const score = record?.total || 0;
+        const score = Number(record?.total || 0);
         studentRow.push(score);
         studentTotal += score;
       });

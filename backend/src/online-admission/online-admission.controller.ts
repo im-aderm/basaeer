@@ -8,6 +8,7 @@ import {
   Delete,
   Query,
   UseGuards,
+  BadRequestException,
 } from '@nestjs/common';
 import { OnlineAdmissionService } from './online-admission.service';
 import { CreateOnlineAdmissionDto } from './dto/create-online-admission.dto';
@@ -40,11 +41,11 @@ export class OnlineAdmissionController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create resource' })
   @Post()
-  create(
-    @Body() createDto: CreateOnlineAdmissionDto,
-    @GetTenantContext() context: TenantContext,
-  ) {
-    return this.onlineAdmissionService.create(createDto, context);
+  create(@Body() createDto: CreateOnlineAdmissionDto) {
+    if (!createDto.branchId) {
+      throw new BadRequestException('branchId is required');
+    }
+    return this.onlineAdmissionService.create(createDto, undefined as any);
   }
 
   @Public()

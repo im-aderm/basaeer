@@ -88,7 +88,7 @@ function LiveClassesContent() {
             setClasses(classesData.data || []);
             setSubjects(subjectsData.data || []);
         } catch (error) {
-            console.error('Fetch error:', error);
+            if (process.env.NODE_ENV === 'development') console.error('Fetch error:', error);
         } finally {
             setLoading(false);
         }

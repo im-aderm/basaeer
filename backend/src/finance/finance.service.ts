@@ -112,12 +112,12 @@ export class FinanceService {
       .$transaction(async (tx) => {
         // Verify invoice ownership
         const invoice = await tx.invoice.findFirst({
-          where: TenantHelper.applyIsolation({ id: invoiceId }, context),
+          where: TenantHelper.applyIsolation({ id: invoiceId }, context, { softDelete: true }),
         });
 
         if (!invoice)
           throw new NotFoundException('Invoice not found or access denied');
-        if (invoice.balance <= 0)
+        if (Number(invoice.balance) <= 0)
           throw new BadRequestException('Invoice is already fully paid');
 
         const status =
@@ -167,12 +167,14 @@ export class FinanceService {
     const invoice = await tx.invoice.findUnique({ where: { id: invoiceId } });
     if (!invoice) return;
 
-    const newBalance = Math.max(0, invoice.balance - amountPaid);
+    const paid = Number(amountPaid);
+    const balance = Number(invoice.balance);
+    const newBalance = Math.max(0, balance - paid);
 
     let newStatus: InvoiceStatus = InvoiceStatus.PARTIALLY_PAID;
     if (newBalance === 0) {
       newStatus = InvoiceStatus.PAID;
-    } else if (newBalance === invoice.totalAmount) {
+    } else if (newBalance === Number(invoice.totalAmount)) {
       newStatus = InvoiceStatus.UNPAID;
     }
 
@@ -222,7 +224,7 @@ export class FinanceService {
           await this.updateInvoiceBalance(
             tx,
             payment.invoiceId,
-            payment.amount,
+            Number(payment.amount),
           );
         } else {
           await tx.payment.update({
@@ -270,14 +272,28 @@ export class FinanceService {
     });
 
     const totalInvoiced = invoices.reduce(
-      (acc, inv) => acc + inv.totalAmount,
+      (acc, inv) => acc + Number(inv.totalAmount),
       0,
     );
     const totalOutstanding = invoices.reduce(
-      (acc, inv) => acc + inv.balance,
+      (acc, inv) => acc + Number(inv.balance),
       0,
     );
     const totalCollected = totalInvoiced - totalOutstanding;
+
+    const paymentMethodBreakdown = await this.prisma.payment.groupBy({
+      by: ['method'],
+      where: {
+        status: 'COMPLETED',
+        invoice: TenantHelper.applyIsolation({}, context),
+      },
+      _sum: { amount: true },
+    });
+
+    const paymentMethods = paymentMethodBreakdown.map((row) => ({
+      method: row.method,
+      total: row._sum.amount || 0,
+    }));
 
     return {
       totalInvoiced,
@@ -285,6 +301,7 @@ export class FinanceService {
       totalOutstanding,
       collectionEfficiency:
         totalInvoiced > 0 ? (totalCollected / totalInvoiced) * 100 : 0,
+      paymentMethods,
     };
   }
 
@@ -341,7 +358,7 @@ export class FinanceService {
 
   async getVouchers(context: TenantContext, skip?: number, take: number = 100) {
     return this.prisma.voucher.findMany({
-      where: TenantHelper.applyIsolation({}, context),
+      where: TenantHelper.applyIsolation({}, context) as any,
       skip: skip ? Number(skip) : undefined,
       take: take ? Number(take) : 100,
       include: { category: true, approvedBy: true },
@@ -384,12 +401,12 @@ export class FinanceService {
 
     for (const p of payments) {
       const key = `${p.createdAt.getFullYear()}-${String(p.createdAt.getMonth() + 1).padStart(2, '0')}`;
-      if (monthsData[key]) monthsData[key].income += p.amount;
+      if (monthsData[key]) monthsData[key].income += Number(p.amount);
     }
 
     for (const v of vouchers) {
       const key = `${v.date.getFullYear()}-${String(v.date.getMonth() + 1).padStart(2, '0')}`;
-      if (monthsData[key]) monthsData[key].expenses += v.amount;
+      if (monthsData[key]) monthsData[key].expenses += Number(v.amount);
     }
 
     return Object.entries(monthsData)

@@ -1,14 +1,15 @@
 "use client";
 
-import { useState } from "react";
-import { ListTodo, Save, Eye, EyeOff, Asterisk, Info, Search } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { useState, useEffect } from "react";
+import { ListTodo, Save, Eye, EyeOff, Asterisk, Info, Search, Loader2 } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
+import { SettingsService } from "@/services/settingsService";
 
 interface StudentFieldConfig {
     id: string;
@@ -18,7 +19,7 @@ interface StudentFieldConfig {
     isRequired: boolean;
 }
 
-const initialFields: StudentFieldConfig[] = [
+const defaultFields: StudentFieldConfig[] = [
     { id: 'blood_group', label: 'Blood Group', category: 'Medical', isVisible: true, isRequired: false },
     { id: 'genotype', label: 'Genotype', category: 'Medical', isVisible: true, isRequired: false },
     { id: 'religion', label: 'Religion', category: 'Personal', isVisible: true, isRequired: false },
@@ -30,25 +31,51 @@ const initialFields: StudentFieldConfig[] = [
 ];
 
 export default function StudentFieldsPage() {
-    const [fields, setFields] = useState<StudentFieldConfig[]>(initialFields);
+    const [fields, setFields] = useState<StudentFieldConfig[]>(defaultFields);
     const [searchTerm, setSearchTerm] = useState("");
     const [isSaving, setIsSaving] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const loadConfig = async () => {
+            try {
+                const settings = await SettingsService.getSettings();
+                const configSetting = settings.find(s => s.key === 'student_fields_config');
+                if (configSetting?.value) {
+                    const saved = JSON.parse(configSetting.value) as StudentFieldConfig[];
+                    const merged = defaultFields.map(df => {
+                        const savedField = saved.find(s => s.id === df.id);
+                        return savedField ? { ...df, ...savedField } : df;
+                    });
+                    setFields(merged);
+                }
+            } catch {
+                toast.error("Failed to load field configuration");
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        loadConfig();
+    }, []);
 
     const toggleVisible = (id: string) => {
-        setFields(prev => prev.map(f => f.id === id ? { ...f, isVisible: !f.isVisible } : f));
+        setFields(prev => prev.map(f => f.id === id ? { ...f, isVisible: !f.isVisible, isRequired: !f.isVisible ? false : f.isRequired } : f));
     };
 
     const toggleRequired = (id: string) => {
         setFields(prev => prev.map(f => f.id === id ? { ...f, isRequired: !f.isRequired } : f));
     };
 
-    const handleSave = () => {
+    const handleSave = async () => {
         setIsSaving(true);
-        // Simulate API call
-        setTimeout(() => {
-            setIsSaving(false);
+        try {
+            await SettingsService.updateSetting('student_fields_config', JSON.stringify(fields));
             toast.success("Student field configurations saved successfully");
-        }, 1000);
+        } catch {
+            toast.error("Failed to save configuration");
+        } finally {
+            setIsSaving(false);
+        }
     };
 
     const filteredFields = fields.filter(f => 
@@ -67,10 +94,10 @@ export default function StudentFieldsPage() {
                 </div>
                 <Button 
                     onClick={handleSave} 
-                    disabled={isSaving}
+                    disabled={isSaving || isLoading}
                     className="h-14 px-8 rounded-2xl font-semibold text-lg gap-2 shadow-xl shadow-primary/20 hover:scale-[1.02] transition-all"
                 >
-                    <Save className="h-5 w-5" />
+                    {isSaving ? <Loader2 className="h-5 w-5 animate-spin" /> : <Save className="h-5 w-5" />}
                     {isSaving ? 'Saving...' : 'Save Configuration'}
                 </Button>
             </div>

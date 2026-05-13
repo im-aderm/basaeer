@@ -68,7 +68,7 @@ export default function TranslationsPage() {
                     setTranslations(DEFAULT_TRANSLATIONS[locale] || []);
                 }
             } catch (error) {
-                console.error('Failed to fetch translations:', error);
+                if (process.env.NODE_ENV === 'development') console.error('Failed to fetch translations:', error);
                 setTranslations(DEFAULT_TRANSLATIONS[locale] || []);
             } finally {
                 setLoading(false);

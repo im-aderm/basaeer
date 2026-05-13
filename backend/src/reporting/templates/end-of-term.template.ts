@@ -134,9 +134,9 @@ export const END_OF_TERM_TEMPLATE = `
             <thead>
                 <tr>
                     <th rowspan="2">Subjects</th>
-                    <th colspan="2">ASGN</th>
-                    <th colspan="2">TEST</th>
-                    <th rowspan="2">Exams<br>(40)</th>
+                    {{#each assessmentHeaders}}
+                    <th rowspan="2">{{this}}</th>
+                    {{/each}}
                     <th rowspan="2">Total<br>(100)</th>
                     <th rowspan="2">Grade</th>
                     <th rowspan="2">POS</th>
@@ -146,20 +146,14 @@ export const END_OF_TERM_TEMPLATE = `
                     <th rowspan="2">Class Avg</th>
                     <th rowspan="2">Remark</th>
                 </tr>
-                <tr>
-                    <th>(10)</th><th>(10)</th>
-                    <th>(20)</th><th>(20)</th>
-                </tr>
             </thead>
             <tbody>
                 {{#each subjects}}
                 <tr>
                     <td style="text-align: left; font-weight: bold;">{{name}}</td>
-                    <td>{{asgn1}}</td>
-                    <td>{{asgn2}}</td>
-                    <td>{{test1}}</td>
-                    <td>{{test2}}</td>
-                    <td>{{examScore}}</td>
+                    {{#each ../assessmentHeaders}}
+                    <td>{{lookup ../dynamicScores this}}</td>
+                    {{/each}}
                     <td style="background: #f9f9f9; font-weight: black;">{{total}}</td>
                     <td style="font-weight: bold;">{{grade}}</td>
                     <td>{{position}}</td>

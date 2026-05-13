@@ -26,7 +26,7 @@ export default function InventoryReportsPage() {
             const response = await api.get("/reporting/dashboard");
             setData(response.data.inventory);
         } catch (error) {
-            console.error("Failed to fetch inventory analytics:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch inventory analytics:", error);
             toast.error("Failed to load inventory analytics");
         } finally {
             setLoading(false);

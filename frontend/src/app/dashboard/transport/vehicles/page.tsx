@@ -43,7 +43,7 @@ export default function TransportVehiclesPage() {
             const res = await api.get("/transport/vehicles");
             setVehicles(res.data);
         } catch (error) {
-            console.error("Failed to fetch vehicles:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch vehicles:", error);
             toast.error("Failed to fetch vehicles");
         } finally {
             setLoading(false);
@@ -76,7 +76,7 @@ export default function TransportVehiclesPage() {
             setFormData({ registrationNumber: "", model: "", capacity: "", driverName: "", driverPhone: "" });
             fetchVehicles();
         } catch (error) {
-            console.error("Failed to save vehicle:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to save vehicle:", error);
             toast.error("Failed to save vehicle");
         }
     };
@@ -88,7 +88,7 @@ export default function TransportVehiclesPage() {
             toast.success("Vehicle deleted successfully");
             fetchVehicles();
         } catch (error) {
-            console.error("Failed to delete vehicle:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to delete vehicle:", error);
             toast.error("Failed to delete vehicle");
         }
     };

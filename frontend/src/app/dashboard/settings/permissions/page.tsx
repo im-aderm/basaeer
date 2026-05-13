@@ -46,7 +46,7 @@ export default function PermissionsPage() {
             const data = await PermissionService.getAll(selectedRole);
             setPermissions(data);
         } catch (error) {
-            console.error("Failed to fetch permissions:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch permissions:", error);
         } finally {
             setLoading(false);
         }
@@ -67,7 +67,7 @@ export default function PermissionsPage() {
                     : p
             ));
         } catch (error) {
-            console.error("Failed to update permission:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to update permission:", error);
         }
     };
 

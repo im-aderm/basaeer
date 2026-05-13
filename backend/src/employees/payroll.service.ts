@@ -17,6 +17,7 @@ export class PayrollService {
   async createOrUpdateSalaryTemplate(dto: CreateSalaryTemplateDto) {
     const staff = await this.prisma.staff.findUnique({
       where: { id: dto.staffId },
+      include: { user: { select: { branchId: true } } },
     });
     if (!staff) throw new NotFoundException('Staff not found');
 
@@ -34,6 +35,7 @@ export class PayrollService {
         allowances: dto.allowances,
         deductions: dto.deductions,
         netSalary: dto.netSalary,
+        branchId: staff.user?.branchId ?? '',
       },
     });
   }
@@ -42,7 +44,7 @@ export class PayrollService {
     const staffWithTemplates = await this.prisma.staff.findMany({
       where: {
         user: { branchId: dto.branchId },
-        status: 'ACTIVE',
+        status: 'ACTIVE' as any,
         salaryTemplate: { isNot: null },
       },
       include: { salaryTemplate: true },
@@ -74,6 +76,7 @@ export class PayrollService {
             year: dto.year,
             amountPaid: staff.salaryTemplate?.netSalary || 0,
             status: 'UNPAID',
+            branchId: dto.branchId,
           },
         });
         payrollEntries.push(payroll);

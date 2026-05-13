@@ -41,7 +41,7 @@ export default function AdmitTemplatesPage() {
             // Filter only ADMIT templates for this page
             setTemplates(data.filter(t => t.type === IdCardType.ADMIT));
         } catch (error) {
-            console.error("Failed to fetch templates:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch templates:", error);
         } finally {
             setLoading(false);
         }
@@ -72,7 +72,7 @@ export default function AdmitTemplatesPage() {
             setSelectedTemplate(newTemplate);
             setIsDesignerOpen(true);
         } catch (error) {
-            console.error("Failed to create template:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to create template:", error);
         }
     };
 
@@ -82,7 +82,7 @@ export default function AdmitTemplatesPage() {
             await CardService.deleteTemplate(id);
             fetchData();
         } catch (error) {
-            console.error("Failed to delete template:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to delete template:", error);
         }
     };
 

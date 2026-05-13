@@ -39,7 +39,7 @@ export default function BulkCommsPage() {
             setSubject('');
             setMessage('');
         } catch (error: any) {
-            console.error("Bulk comms failed:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Bulk comms failed:", error);
             toast.error(error.response?.data?.message || "Failed to schedule bulk communication.");
         } finally {
             setIsSending(false);

@@ -123,7 +123,7 @@ export default function TemplateDesigner({
             await CardService.updateTemplate(template.id, { config });
             onClose();
         } catch (error) {
-            console.error("Failed to save template:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to save template:", error);
         } finally {
             setSaving(false);
         }

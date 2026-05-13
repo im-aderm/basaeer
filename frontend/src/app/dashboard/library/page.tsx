@@ -33,7 +33,7 @@ export default function LibraryOverviewPage() {
                 setStatsData(libraryStats);
                 setOverdue(overdueData);
             } catch (error) {
-                console.error("Failed to fetch library data:", error);
+                if (process.env.NODE_ENV === 'development') console.error("Failed to fetch library data:", error);
             } finally {
                 setLoading(false);
             }

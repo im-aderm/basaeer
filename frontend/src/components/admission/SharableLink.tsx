@@ -42,7 +42,7 @@ export default function SharableLink({ branchId, label = "Online Admission Link"
                 setCopied(true);
                 toast.success("Link copied to clipboard!");
             } catch (fallbackErr) {
-                console.error("Copy failed:", fallbackErr);
+                if (process.env.NODE_ENV === 'development') console.error("Copy failed:", fallbackErr);
                 toast.error("Could not copy link. Please copy it manually.");
             }
         }

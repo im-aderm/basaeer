@@ -57,7 +57,7 @@ export default function StudentListPage() {
             setStudents(studentsData);
             setClasses(classesData);
         } catch (error) {
-            console.error("Failed to fetch students:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch students:", error);
         } finally {
             setLoading(false);
         }

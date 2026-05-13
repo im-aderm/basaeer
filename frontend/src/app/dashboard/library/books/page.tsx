@@ -68,7 +68,7 @@ export default function BookCatalogPage() {
 
             setStudents(studentsData);
         } catch (error) {
-            console.error("Failed to fetch data:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch data:", error);
         } finally {
             setLoading(false);
         }
@@ -95,7 +95,7 @@ export default function BookCatalogPage() {
             toast.success("Book borrowed successfully");
             fetchBooks();
         } catch (error) {
-            console.error("Borrow failed:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Borrow failed:", error);
             toast.error("Failed to borrow book");
         }
     };
@@ -110,7 +110,7 @@ export default function BookCatalogPage() {
             setNewBook({ title: "", author: "", isbn: "", category: "", quantity: 1, location: "", description: "" });
             fetchBooks();
         } catch (error) {
-            console.error("Failed to add book:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to add book:", error);
         }
     };
 

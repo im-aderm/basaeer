@@ -10,6 +10,7 @@ import { CreateOnlineAdmissionDto } from './dto/create-online-admission.dto';
 import { UpdateOnlineAdmissionDto } from './dto/update-online-admission.dto';
 import { UserRole } from '../generated/client/client';
 import * as bcrypt from 'bcrypt';
+import * as crypto from 'crypto';
 import { MailService } from '../mail/mail.service';
 import { TenantContext } from '../auth/branch.guard';
 import { TenantHelper } from '../prisma/tenant-helper';
@@ -38,7 +39,7 @@ export class OnlineAdmissionService {
 
     const admission = await this.prisma.onlineAdmission.create({
       data: {
-        ...rest,
+        ...(rest as any),
         branchId,
         dateOfBirth: new Date(dateOfBirth),
         ...(admissionDate && { admissionDate: new Date(admissionDate) }),
@@ -126,7 +127,7 @@ export class OnlineAdmissionService {
     return this.prisma.onlineAdmission.update({
       where: { id },
       data: {
-        ...rest,
+        ...(rest as any),
         ...(dateOfBirth && { dateOfBirth: new Date(dateOfBirth) }),
         ...(admissionDate && { admissionDate: new Date(admissionDate) }),
         ...(approvalDate && { approvalDate: new Date(approvalDate) }),
@@ -155,7 +156,7 @@ export class OnlineAdmissionService {
     return this.prisma.onlineAdmission.update({
       where: { id },
       data: {
-        paymentStatus: 'VERIFIED',
+        paymentStatus: 'VERIFIED' as any,
       },
     });
   }
@@ -229,7 +230,7 @@ export class OnlineAdmissionService {
         }
 
         if (!parentId) {
-          const parentPassword = await bcrypt.hash('parent123', 10);
+          const parentPassword = await bcrypt.hash(crypto.randomBytes(8).toString('hex'), 10);
           const newParent = await tx.user.create({
             data: {
               email: admission.guardianEmail,
@@ -241,6 +242,7 @@ export class OnlineAdmissionService {
               phone: admission.guardianPhone,
               role: UserRole.PARENT,
               branchId,
+              mustChangePassword: true,
             },
           });
           parentId = newParent.id;
@@ -253,7 +255,7 @@ export class OnlineAdmissionService {
         const email =
           admission.studentEmail ||
           `std.${admission.firstName.toLowerCase()}.${admission.lastName.toLowerCase()}${count + 1}@basaer.com`;
-        const hashedPassword = await bcrypt.hash('student123', 10);
+        const hashedPassword = await bcrypt.hash(crypto.randomBytes(8).toString('hex'), 10);
 
         const user = await tx.user.create({
           data: {
@@ -264,6 +266,7 @@ export class OnlineAdmissionService {
             phone: admission.guardianPhone,
             role: UserRole.STUDENT,
             branchId,
+            mustChangePassword: true,
           },
         });
         userId = user.id;
@@ -347,7 +350,7 @@ export class OnlineAdmissionService {
 
     if (!branch) throw new NotFoundException('Branch not found');
 
-    const [classes, currentSession] = await Promise.all([
+    const [classes, currentSession, settings] = await Promise.all([
       this.prisma.class.findMany({
         where: { branchId },
         select: { id: true, name: true },
@@ -357,12 +360,40 @@ export class OnlineAdmissionService {
         where: { isActive: true, branchId },
         select: { id: true, name: true },
       }),
+      this.prisma.globalSetting.findMany({
+        where: {
+          OR: [
+            { branchId },
+            { branchId: null },
+          ],
+          key: {
+            in: [
+              'admission_bank_name',
+              'admission_account_number',
+              'admission_account_name',
+              'admission_fee',
+            ],
+          },
+        },
+        select: { key: true, value: true },
+      }),
     ]);
+
+    const settingsMap: Record<string, string> = {};
+    for (const s of settings) {
+      settingsMap[s.key] = s.value;
+    }
 
     return {
       branchName: branch.name,
       classes,
       currentSession,
+      bankDetails: {
+        bankName: settingsMap.admission_bank_name || '',
+        accountNumber: settingsMap.admission_account_number || '',
+        accountName: settingsMap.admission_account_name || '',
+      },
+      admissionFee: settingsMap.admission_fee || '',
     };
   }
 }

@@ -169,18 +169,8 @@ export default function StudentsDashboard() {
                         <h3 className="text-h3 mb-1">Recent Activity</h3>
                         <p className="text-secondary mb-6">Stay updated with the latest changes.</p>
 
-                        <div className="space-y-4">
-                            {[
-                                "New student enrolled in Grade 10A",
-                                "Attendance report generated for Branch A",
-                                "15 Certificates issued to Grade 12",
-                                "ID Cards sent for printing"
-                            ].map((activity, i) => (
-                                <div key={i} className="flex gap-3 items-start">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                                    <p className="text-body text-muted-foreground">{activity}</p>
-                                </div>
-                            ))}
+                        <div className="text-center py-8 text-muted-foreground">
+                            <p className="text-sm">No recent activity to display</p>
                         </div>
 
                         <div className="mt-8 p-6 rounded-2xl bg-primary/5 border border-primary/10">

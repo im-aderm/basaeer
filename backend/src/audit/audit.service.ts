@@ -100,6 +100,7 @@ export class AuditService {
     endDate?: string;
     page?: number;
     limit?: number;
+    cursor?: string;
   }) {
     const {
       userId,
@@ -110,6 +111,7 @@ export class AuditService {
       endDate,
       page = 1,
       limit = 20,
+      cursor,
     } = query;
     const skip = (page - 1) * limit;
 
@@ -124,6 +126,40 @@ export class AuditService {
       if (endDate) where.createdAt.lte = new Date(endDate);
     }
 
+    // Cursor-based pagination (8.6)
+    if (cursor) {
+      const items = await this.prisma.auditLog.findMany({
+        where,
+        take: Number(limit),
+        skip: 1,
+        cursor: { id: cursor },
+        orderBy: { id: 'asc' },
+        include: {
+          user: {
+            select: {
+              id: true,
+              email: true,
+              firstName: true,
+              lastName: true,
+            },
+          },
+        },
+      });
+
+      const lastItem = items[items.length - 1];
+
+      return {
+        items,
+        total: null,
+        page: null,
+        limit: Number(limit),
+        totalPages: null,
+        nextCursor: lastItem?.id || null,
+        hasMore: items.length === Number(limit),
+      };
+    }
+
+    // Fallback to offset-based pagination
     const [items, total] = await Promise.all([
       this.prisma.auditLog.findMany({
         where,

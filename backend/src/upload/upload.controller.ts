@@ -11,6 +11,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { UploadService } from './upload.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Throttle } from '@nestjs/throttler';
+import { Public } from '../auth/public.decorator';
 import {
   ApiTags,
   ApiOperation,
@@ -32,6 +33,7 @@ const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 export class UploadController {
   constructor(private readonly uploadService: UploadService) {}
 
+  @Public()
   @Throttle({ default: { limit: 5, ttl: 60000 } })
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Upload admission document' })

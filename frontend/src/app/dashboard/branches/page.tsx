@@ -40,7 +40,7 @@ export default function BranchesPage() {
             const data = await BranchService.getAll();
             setBranches(data);
         } catch (error) {
-            console.error("Failed to fetch branches:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch branches:", error);
         } finally {
             setLoading(false);
         }
@@ -95,7 +95,7 @@ export default function BranchesPage() {
             await fetchBranches();
             setIsModalOpen(false);
         } catch (error) {
-            console.error("Failed to save branch:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to save branch:", error);
             alert("An error occurred while saving the branch.");
         } finally {
             setSubmitting(false);
@@ -108,7 +108,7 @@ export default function BranchesPage() {
                 await BranchService.delete(id);
                 fetchBranches();
             } catch (error) {
-                console.error("Failed to delete branch:", error);
+                if (process.env.NODE_ENV === 'development') console.error("Failed to delete branch:", error);
             }
         }
     };

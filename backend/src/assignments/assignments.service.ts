@@ -116,15 +116,16 @@ export class AssignmentsService {
         assignmentId_studentId: { assignmentId, studentId },
       },
       update: {
-        contentUrl,
+        contentUrl: contentUrl ?? undefined,
         status: 'SUBMITTED',
         updatedAt: new Date(),
       },
       create: {
         assignmentId,
         studentId,
-        contentUrl,
+        contentUrl: contentUrl ?? undefined,
         status: 'SUBMITTED',
+        branchId: context.branchId!,
       },
     });
   }

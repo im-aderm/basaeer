@@ -31,7 +31,7 @@ export default function ReportTemplatesPage() {
             const data = await reportTemplateService.getTemplates();
             setTemplates(data);
         } catch (error) {
-            console.error('Failed to load templates:', error);
+            if (process.env.NODE_ENV === 'development') console.error('Failed to load templates:', error);
             toast.error('Failed to load report templates');
         } finally {
             setLoading(false);

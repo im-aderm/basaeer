@@ -36,7 +36,7 @@ export default function ExpensesPage() {
             setVouchers(vouchersRes.data);
             setCategories(categoriesRes.data);
         } catch (error) {
-            console.error('Failed to fetch expense data', error);
+            if (process.env.NODE_ENV === 'development') console.error('Failed to fetch expense data', error);
         } finally {
             setLoading(false);
         }
@@ -66,7 +66,7 @@ export default function ExpensesPage() {
                 date: new Date().toISOString().split('T')[0]
             });
         } catch (error) {
-            console.error('Failed to create voucher', error);
+            if (process.env.NODE_ENV === 'development') console.error('Failed to create voucher', error);
         }
     };
 
@@ -75,7 +75,7 @@ export default function ExpensesPage() {
             await api.patch(`/finance/vouchers/${id}/status`, { status });
             fetchData();
         } catch (error) {
-            console.error('Failed to update status', error);
+            if (process.env.NODE_ENV === 'development') console.error('Failed to update status', error);
         }
     };
 

@@ -245,6 +245,7 @@ export class HostelsService {
           studentId,
           bedId,
           checkInDate: new Date(checkInDate),
+          branchId: context.branchId!,
         },
       });
     });
@@ -397,7 +398,7 @@ export class HostelsService {
 
     return this.prisma.hostelLeave.update({
       where: { id },
-      data: { status },
+      data: { status: status as any },
     });
   }
 
@@ -421,6 +422,7 @@ export class HostelsService {
         hostelId: dto.hostelId,
         roomId: dto.roomId,
         reportedBy,
+        branchId: context.branchId!,
       },
     });
   }
@@ -462,7 +464,7 @@ export class HostelsService {
 
     return this.prisma.hostelMaintenanceTicket.update({
       where: { id },
-      data: { status },
+      data: { status: status as any },
     });
   }
 

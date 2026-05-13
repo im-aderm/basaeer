@@ -1,8 +1,9 @@
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Request } from 'express';
 import { ConfigService } from '@nestjs/config';
+import { PrismaService } from '../prisma/prisma.service';
 
 const cookieExtractor = (req: Request) => {
   let token = null;
@@ -15,7 +16,12 @@ const cookieExtractor = (req: Request) => {
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor(private configService: ConfigService) {
+  private readonly logger = new Logger(JwtStrategy.name);
+
+  constructor(
+    private configService: ConfigService,
+    private prisma: PrismaService,
+  ) {
     super({
       jwtFromRequest: cookieExtractor,
       ignoreExpiration: false,
@@ -24,6 +30,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any) {
+    // Set tenant context for RLS (8.4) and audit trail (8.9)
+    this.prisma.setTenantContext(payload.branchId, payload.sub).catch((err) => {
+      this.logger.warn('Failed to set tenant context:', err);
+    });
+
     return {
       id: payload.sub,
       email: payload.email,

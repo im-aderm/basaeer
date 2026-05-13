@@ -53,14 +53,14 @@ export default function AccessControlPage() {
             });
         } else {
             if (scannerRef.current) {
-                scannerRef.current.clear().catch((error: unknown) => console.error("Failed to clear scanner", error));
+                scannerRef.current.clear().catch((error: unknown) => { if (process.env.NODE_ENV === 'development') if (process.env.NODE_ENV === 'development') console.error("Failed to clear scanner", error); });
                 scannerRef.current = null;
             }
         }
 
         return () => {
             if (scannerRef.current) {
-                scannerRef.current.clear().catch((error: unknown) => console.error("Failed to cleanup scanner", error));
+                scannerRef.current.clear().catch((error: unknown) => { if (process.env.NODE_ENV === 'development') if (process.env.NODE_ENV === 'development') console.error("Failed to cleanup scanner", error); });
             }
         };
     }, [scanning]);

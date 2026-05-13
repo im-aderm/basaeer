@@ -59,7 +59,7 @@ export default function CommsReportPage() {
                 setCampaigns(MOCK_CAMPAIGNS);
             }
         } catch (error) {
-            console.error("Failed to fetch campaigns:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch campaigns:", error);
             toast.error("Using mock data as API failed");
             setCampaigns(MOCK_CAMPAIGNS);
         } finally {

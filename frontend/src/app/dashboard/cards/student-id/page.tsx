@@ -75,7 +75,7 @@ export default function StudentIdCardsPage() {
                 setFilters(prev => ({ ...prev, sessionId: activeSession.id }));
             }
         } catch (error) {
-            console.error("Failed to fetch data:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch data:", error);
             toast.error("Failed to load dashboard data");
         } finally {
             setLoading(false);
@@ -88,7 +88,7 @@ export default function StudentIdCardsPage() {
             const cardData = await CardService.getAllCards(user.branchId, filters.sessionId);
             setCards(cardData);
         } catch (error) {
-            console.error("Failed to fetch cards:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch cards:", error);
         }
     };
 
@@ -117,7 +117,7 @@ export default function StudentIdCardsPage() {
             setSelectedStudents([]);
             fetchCards();
         } catch (error) {
-            console.error("Generation failed:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Generation failed:", error);
             toast.error("Failed to generate ID cards");
         } finally {
             setGenerating(false);

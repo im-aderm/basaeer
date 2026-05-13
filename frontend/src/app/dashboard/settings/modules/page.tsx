@@ -62,7 +62,7 @@ export default function ModulesSettingsPage() {
                     setModules(merged);
                 }
             } catch (error) {
-                console.error('Failed to fetch modules:', error);
+                if (process.env.NODE_ENV === 'development') console.error('Failed to fetch modules:', error);
                 // We keep the default modules on error
             } finally {
                 setLoading(false);

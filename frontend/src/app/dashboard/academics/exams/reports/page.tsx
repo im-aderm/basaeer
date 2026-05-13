@@ -48,7 +48,7 @@ export default function ReportCardPage() {
                 setSelectedSessionId(sessionsData[0].id);
             }
         } catch (error) {
-            console.error("Failed to load initial data:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to load initial data:", error);
         }
     };
 
@@ -68,7 +68,7 @@ export default function ReportCardPage() {
             const data = await StudentService.getAll({ sectionId: selectedSectionId });
             setStudents(data);
         } catch (error) {
-            console.error("Failed to fetch students:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch students:", error);
         } finally {
             setLoading(false);
         }
@@ -86,7 +86,7 @@ export default function ReportCardPage() {
             a.click();
             window.URL.revokeObjectURL(url);
         } catch (error) {
-            console.error("Download failed:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Download failed:", error);
         } finally {
             setDownloading(null);
         }
@@ -104,7 +104,7 @@ export default function ReportCardPage() {
             a.click();
             window.URL.revokeObjectURL(url);
         } catch (error) {
-            console.error("Download failed:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Download failed:", error);
         } finally {
             setDownloading(null);
         }
@@ -123,7 +123,7 @@ export default function ReportCardPage() {
             a.click();
             window.URL.revokeObjectURL(url);
         } catch (error) {
-            console.error("Batch download failed:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Batch download failed:", error);
         } finally {
             setBatchDownloading(false);
         }

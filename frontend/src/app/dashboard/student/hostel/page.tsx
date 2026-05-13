@@ -59,7 +59,7 @@ export default function StudentHostelPage() {
             setLeaves(leavesData);
             setMaintenance(maintenanceData);
         } catch (error) {
-            console.error("Failed to fetch hostel data:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch hostel data:", error);
             // Don't toast error for details if just not allocated
         } finally {
             setLoading(false);

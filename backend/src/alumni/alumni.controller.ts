@@ -6,7 +6,6 @@ import {
   Patch,
   Param,
   UseGuards,
-  Req,
   Query,
 } from '@nestjs/common';
 import { AlumniService } from './alumni.service';
@@ -19,6 +18,8 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 import { UserRole } from '../generated/client/client';
+import { GetTenantContext } from '../auth/tenant-context.decorator';
+import { TenantContext } from '../auth/branch.guard';
 import {
   ApiTags,
   ApiOperation,
@@ -47,9 +48,9 @@ export class AlumniController {
   @ApiOperation({ summary: 'Retrieve All Profiles' })
   @Get('profiles')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  findAllProfiles(@Req() req: any, @Query('year') year?: string) {
+  findAllProfiles(@GetTenantContext() ctx: TenantContext, @Query('year') year?: string) {
     return this.alumniService.findAllProfiles(
-      req.user.branchId,
+      ctx.branchId!,
       year ? parseInt(year) : undefined,
     );
   }
@@ -58,8 +59,8 @@ export class AlumniController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve My Profile' })
   @Get('profile/me')
-  getMyProfile(@Req() req: any) {
-    return this.alumniService.getProfile(req.user.id);
+  getMyProfile(@GetTenantContext() ctx: TenantContext) {
+    return this.alumniService.getProfile(ctx.userId);
   }
 
   @ApiBody({ type: UpdateAlumniProfileDto })
@@ -76,24 +77,24 @@ export class AlumniController {
   @ApiOperation({ summary: 'Create Event' })
   @Post('events')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  createEvent(@Body() dto: CreateAlumniEventDto, @Req() req: any) {
-    return this.alumniService.createEvent(dto, req.user.branchId);
+  createEvent(@Body() dto: CreateAlumniEventDto, @GetTenantContext() ctx: TenantContext) {
+    return this.alumniService.createEvent(dto, ctx.branchId!);
   }
 
   @ApiBearerAuth()
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve All Events' })
   @Get('events')
-  findAllEvents(@Req() req: any) {
-    return this.alumniService.findAllEvents(req.user.branchId);
+  findAllEvents(@GetTenantContext() ctx: TenantContext) {
+    return this.alumniService.findAllEvents(ctx.branchId!);
   }
 
   @ApiBearerAuth()
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create For Event' })
   @Post('events/:id/register')
-  registerForEvent(@Param('id') id: string, @Req() req: any) {
-    return this.alumniService.registerForEvent(id, req.user.id);
+  registerForEvent(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.alumniService.registerForEvent(id, ctx.userId);
   }
 
   @ApiBearerAuth()

@@ -24,6 +24,7 @@ import { ResetPasswordDto } from './dto/reset-password.dto';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { GetTenantContext } from './tenant-context.decorator';
 import { TenantContext } from './branch.guard';
+import { AuditService } from '../audit/audit.service';
 import {
   ApiTags,
   ApiOperation,
@@ -35,7 +36,10 @@ import {
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private auditService: AuditService,
+  ) {}
 
   @Throttle({ default: { limit: 5, ttl: 60000 } })
   @ApiBody({ type: LoginDto })
@@ -51,6 +55,13 @@ export class AuthController {
       loginDto.password,
     );
     if (!user) {
+      this.auditService.logAction(
+        'unknown',
+        'LOGIN_FAILED',
+        'auth',
+        undefined,
+        `Failed login attempt for email: ${loginDto.email}`,
+      ).catch(() => {});
       throw new UnauthorizedException('Invalid email or password');
     }
     const authData = await this.authService.login(user);
@@ -142,6 +153,22 @@ export class AuthController {
       resetPasswordDto.id,
       resetPasswordDto.token,
       resetPasswordDto.newPassword,
+    );
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Password changed successfully' })
+  @ApiOperation({ summary: 'Change Password' })
+  @Post('change-password')
+  async changePassword(
+    @GetTenantContext() tenantContext: TenantContext,
+    @Body() body: { currentPassword: string; newPassword: string },
+  ) {
+    return this.authService.changePassword(
+      tenantContext.userId,
+      body.currentPassword,
+      body.newPassword,
     );
   }
 }

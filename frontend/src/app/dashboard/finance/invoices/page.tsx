@@ -40,7 +40,7 @@ export default function InvoicesPage() {
                 setInvoices([]);
             }
         } catch (error) {
-            console.error('Failed to fetch invoices', error);
+            if (process.env.NODE_ENV === 'development') console.error('Failed to fetch invoices', error);
         } finally {
             setLoading(false);
         }
@@ -52,7 +52,7 @@ export default function InvoicesPage() {
                 const res = await api.get('/finance/fee-categories');
                 setFeeCategories(res.data);
             } catch (e) {
-                console.error('Failed to fetch fee categories', e);
+                if (process.env.NODE_ENV === 'development') console.error('Failed to fetch fee categories', e);
             }
         };
         fetchCategories();
@@ -67,7 +67,7 @@ export default function InvoicesPage() {
             setIsCreateOpen(false);
             if (createData.studentId === studentId) fetchInvoices();
         } catch (error) {
-            console.error('Failed to create invoice', error);
+            if (process.env.NODE_ENV === 'development') console.error('Failed to create invoice', error);
         }
     };
 

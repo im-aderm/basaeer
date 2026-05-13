@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001',
+    baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api/v1',
     withCredentials: true, // Crucial for sending/receiving httpOnly auth cookies across domains
     headers: {
         'X-Requested-With': 'XMLHttpRequest',
@@ -14,7 +14,7 @@ api.interceptors.response.use(
     (error) => {
         // Log detailed error info for debugging
         if (error.response) {
-            console.error('API Error Response:', {
+            if (process.env.NODE_ENV === 'development') console.error('API Error Response:', {
                 status: error.response.status,
                 data: error.response.data,
                 url: error.config?.url,

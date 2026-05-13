@@ -55,7 +55,7 @@ export default function ReceptionDashboard() {
 
                 setRecentLogs(combined.slice(0, 10));
             } catch (error) {
-                console.error("Failed to fetch reception stats:", error);
+                if (process.env.NODE_ENV === 'development') console.error("Failed to fetch reception stats:", error);
             } finally {
                 setLoading(false);
             }

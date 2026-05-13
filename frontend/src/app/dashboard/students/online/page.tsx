@@ -42,7 +42,7 @@ export default function OnlineAdmissionsDashboard() {
             const data = await OnlineAdmissionService.getAll(branchId);
             setAdmissions(data);
         } catch (error) {
-            console.error('Failed to fetch admissions:', error);
+            if (process.env.NODE_ENV === 'development') console.error('Failed to fetch admissions:', error);
             toast.error('Failed to load admission applications');
         } finally {
             setLoading(false);
@@ -120,7 +120,7 @@ export default function OnlineAdmissionsDashboard() {
                 toast.success('Application deleted');
                 if (resolvedBranchId) fetchAdmissions(resolvedBranchId);
             } catch (error) {
-                console.error('Delete failed', error);
+                if (process.env.NODE_ENV === 'development') console.error('Delete failed', error);
                 toast.error('Failed to delete application');
             }
         }

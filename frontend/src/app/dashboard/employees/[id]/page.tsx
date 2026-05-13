@@ -60,7 +60,7 @@ export default function EmployeeProfileHub() {
             const history = await HRService.getStaffPayrollHistory(id as string);
             setPayrollHistory(history);
         } catch (error) {
-            console.error("Failed to fetch staff data:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch staff data:", error);
         } finally {
             setLoading(false);
         }
@@ -72,7 +72,7 @@ export default function EmployeeProfileHub() {
             await HRService.upsertSalaryTemplate({ ...template, staffId: id as string });
             fetchStaffData();
         } catch (error) {
-            console.error("Failed to save template:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to save template:", error);
         } finally {
             setSaving(false);
         }

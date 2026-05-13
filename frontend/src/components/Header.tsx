@@ -15,7 +15,6 @@ export function Header() {
 
 
     const handleNotification = useCallback((data: any) => {
-        console.log("New notification:", data);
         setUnreadCount((prev) => prev + 1);
         toast.info(data.title || "New Notification", {
             description: data.message || "You have a new update.",

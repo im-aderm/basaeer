@@ -44,7 +44,7 @@ export default function BroadsheetPage() {
                 setSelectedSessionId(sessionsData[0].id);
             }
         } catch (error) {
-            console.error("Failed to load initial data:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to load initial data:", error);
         }
     };
 
@@ -70,7 +70,7 @@ export default function BroadsheetPage() {
             a.click();
             window.URL.revokeObjectURL(url);
         } catch (error) {
-            console.error("Export failed:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Export failed:", error);
         } finally {
             setExporting(false);
         }

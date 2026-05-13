@@ -4,7 +4,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
-import { isFeatureEnabled } from "@/lib/feature-flags";
+import { isFeatureEnabled, FEATURE_FLAGS } from "@/lib/feature-flags";
 import {
     LayoutDashboard,
     Box,
@@ -47,6 +47,7 @@ interface NavChild {
     href: string;
     roles?: string[];
     isBeta?: boolean;
+    featureFlag?: keyof typeof FEATURE_FLAGS;
 }
 
 interface NavItem {
@@ -55,6 +56,7 @@ interface NavItem {
     href?: string;
     roles?: string[];
     isBeta?: boolean;
+    featureFlag?: keyof typeof FEATURE_FLAGS;
     children?: NavChild[];
 }
 
@@ -259,6 +261,7 @@ const navigation: NavItem[] = [
     {
         title: "QR Attendance",
         icon: QrCode,
+        featureFlag: 'MODULE_QR_ATTENDANCE',
         children: [
             { title: "Attendance", href: "/dashboard/qr-attendance" },
             { title: "Settings", href: "/dashboard/qr-attendance/settings" },
@@ -270,6 +273,7 @@ const navigation: NavItem[] = [
         // Single consolidated Library group — BUG FIX: removed the duplicate "Library Management" entry
         title: "Library",
         icon: Library,
+        featureFlag: 'MODULE_LIBRARY',
         children: [
             { title: "Library Overview", href: "/dashboard/library" },
             { title: "Books", href: "/dashboard/library/books" },
@@ -291,6 +295,7 @@ const navigation: NavItem[] = [
         title: "Bulk SMS & Email",
         icon: MessageSquare,
         isBeta: true,
+        featureFlag: 'MODULE_BULK_COMMS',
         children: [
             { title: "Send SMS / Email", href: "/dashboard/bulk-comms/send" },
             { title: "SMS / Email Report", href: "/dashboard/bulk-comms/report" },
@@ -308,12 +313,13 @@ const navigation: NavItem[] = [
             { title: "Fees Structure", href: "/dashboard/finance/fees" },
             { title: "Invoices & Billing", href: "/dashboard/finance/invoices" },
             { title: "Expense Tracking", href: "/dashboard/finance/expenses" },
-            // { title: "Voucher Management", href: "/dashboard/finance/vouchers" },
+            { title: "Voucher Management", href: "/dashboard/finance/vouchers" },
         ],
     },
     {
         title: "Reports",
         icon: FileBarChart,
+        featureFlag: 'MODULE_REPORTS',
         children: [
             { title: "Student Reports", href: "/dashboard/reports/students" },
             { title: "Fees Reports", href: "/dashboard/reports/fees" },
@@ -327,6 +333,7 @@ const navigation: NavItem[] = [
     {
         title: "Alumni",
         icon: GraduationCap,
+        featureFlag: 'MODULE_ALUMNI',
         children: [
             { title: "Manage Alumni", href: "/dashboard/alumni" },
             { title: "Alumni Events", href: "/dashboard/alumni/events", isBeta: true },
@@ -544,6 +551,7 @@ export function Sidebar() {
 
     const canSee = useCallback((item: NavItem | NavChild): boolean => {
         if (item.isBeta && !isFeatureEnabled('SHOW_BETA_FEATURES')) return false;
+        if (item.featureFlag && !isFeatureEnabled(item.featureFlag)) return false;
         if (!('roles' in item) || !item.roles) return true;
         if (!user) return false;
         return item.roles.includes(user.role);

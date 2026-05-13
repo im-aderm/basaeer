@@ -73,7 +73,7 @@ function ManageRoomsContent() {
             setHostel(hostelData);
             setStudents(studentsData);
         } catch (error) {
-            console.error("Fetch failed:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Fetch failed:", error);
             toast.error("Failed to load building data");
         } finally {
             setLoading(false);
@@ -98,7 +98,7 @@ function ManageRoomsContent() {
             setRoomForm({ id: "", number: "", floor: 1, capacity: 4 });
             fetchData();
         } catch (error) {
-            console.error("Room operation failed:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Room operation failed:", error);
             toast.error("Failed to perform room operation");
         }
     };
@@ -111,7 +111,7 @@ function ManageRoomsContent() {
             setIsDeleteRoomOpen(false);
             fetchData();
         } catch (error) {
-            console.error("Delete room failed:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Delete room failed:", error);
             toast.error("Failed to delete room");
         }
     };
@@ -129,7 +129,7 @@ function ManageRoomsContent() {
             setCheckInData({ studentId: "", checkInDate: new Date().toISOString().split('T')[0] });
             fetchData();
         } catch (error) {
-            console.error("Check-in failed:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Check-in failed:", error);
             toast.error("Failed to allocate bed");
         }
     };
@@ -142,7 +142,7 @@ function ManageRoomsContent() {
             setIsCheckOutOpen(false);
             fetchData();
         } catch (error) {
-            console.error("Check-out failed:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Check-out failed:", error);
             toast.error("Failed to process check-out");
         }
     };

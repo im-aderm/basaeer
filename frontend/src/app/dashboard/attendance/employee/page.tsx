@@ -47,7 +47,7 @@ export default function StaffAttendancePage() {
             setStaff(staffList);
             setAttendanceData(initialData);
         } catch (error) {
-            console.error("Failed to fetch data", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch data", error);
             toast.error("Failed to load staff list");
         } finally {
             setFetching(false);
@@ -81,7 +81,7 @@ export default function StaffAttendancePage() {
             await AttendanceService.markStaffBulk(records);
             toast.success("Staff attendance saved successfully");
         } catch (error) {
-            console.error("Failed to save", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to save", error);
             toast.error("Failed to save attendance");
         } finally {
             setLoading(false);

@@ -45,7 +45,7 @@ export default function SubjectsPage() {
             setSubjects(subjectsData);
             setTeachers(teachersData);
         } catch (error) {
-            console.error("Failed to fetch data:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch data:", error);
         } finally {
             setLoading(false);
         }
@@ -65,7 +65,7 @@ export default function SubjectsPage() {
             setSelectedSubject(null);
             fetchData();
         } catch (error) {
-            console.error("Failed to save subject:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to save subject:", error);
         } finally {
             setSubmitting(false);
         }
@@ -77,7 +77,7 @@ export default function SubjectsPage() {
                 await SubjectService.delete(id);
                 fetchData();
             } catch (error) {
-                console.error("Failed to delete subject:", error);
+                if (process.env.NODE_ENV === 'development') console.error("Failed to delete subject:", error);
             }
         }
     };
@@ -92,7 +92,7 @@ export default function SubjectsPage() {
             setIsAssignModalOpen(false);
             fetchData();
         } catch (error) {
-            console.error("Failed to assign teacher:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to assign teacher:", error);
         } finally {
             setSubmitting(false);
         }

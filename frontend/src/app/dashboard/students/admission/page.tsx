@@ -90,7 +90,7 @@ export default function AdmissionPage() {
                     setFormData((prev: any) => ({ ...prev, academicSessionId: sessionAttribute.find(s => s.isActive)?.id || sessionAttribute[0].id }));
                 }
             } catch (error) {
-                console.error("Failed to load initial data:", error);
+                if (process.env.NODE_ENV === 'development') console.error("Failed to load initial data:", error);
             } finally {
                 setLoading(false);
             }
@@ -114,7 +114,7 @@ export default function AdmissionPage() {
             setFormData((prev: any) => ({ ...prev, [currentUploadField]: response.url }));
             toast.success(`${currentUploadField.replace(/([A-Z])/g, ' $1')} uploaded`);
         } catch (error) {
-            console.error("Upload failed:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Upload failed:", error);
             toast.error(`Failed to upload file`);
         } finally {
             setSubmitting(false);
@@ -139,7 +139,7 @@ export default function AdmissionPage() {
             await OnlineAdmissionService.create(formData);
             setSuccess(true);
         } catch (error) {
-            console.error("Admission submission failed:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Admission submission failed:", error);
             toast.error("Failed to submit admission application.");
         } finally {
             setSubmitting(false);

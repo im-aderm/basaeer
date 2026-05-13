@@ -42,7 +42,7 @@ export default function TransportRoutesPage() {
             const res = await api.get("/transport/routes");
             setRoutes(res.data);
         } catch (error) {
-            console.error("Failed to fetch routes:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch routes:", error);
             toast.error("Failed to fetch routes");
         } finally {
             setLoading(false);
@@ -88,7 +88,7 @@ export default function TransportRoutesPage() {
             setFormData({ name: "", startPoint: "", endPoint: "", stops: "" });
             fetchRoutes();
         } catch (error) {
-            console.error("Failed to save route:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to save route:", error);
             toast.error("Failed to save route");
         }
     };
@@ -100,7 +100,7 @@ export default function TransportRoutesPage() {
             toast.success("Route deleted successfully");
             fetchRoutes();
         } catch (error) {
-            console.error("Failed to delete route:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to delete route:", error);
             toast.error("Failed to delete route");
         }
     };

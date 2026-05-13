@@ -49,7 +49,7 @@ export default function CertificatesPage() {
             setStudents(Array.isArray(studentsData) ? studentsData : []);
             setTemplates(Array.isArray(templatesRes.data) ? templatesRes.data : []);
         } catch (error) {
-            console.error("Failed to fetch certificate data:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch certificate data:", error);
         } finally {
             setLoading(false);
         }
@@ -71,7 +71,7 @@ export default function CertificatesPage() {
             setFormData({ type: "TRANSFER", certificateNumber: "", studentId: "", content: "", templateId: "" });
             fetchData();
         } catch (error) {
-            console.error("Failed to issue certificate:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to issue certificate:", error);
         }
     };
 
@@ -84,7 +84,7 @@ export default function CertificatesPage() {
             link.download = `certificate-${certId}.pdf`;
             link.click();
         } catch (error) {
-            console.error("Download failed:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Download failed:", error);
         }
     };
 
@@ -94,7 +94,7 @@ export default function CertificatesPage() {
             await api.delete(`/certificates/${id}`);
             fetchData();
         } catch (error) {
-            console.error("Delete failed:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Delete failed:", error);
         }
     };
 

@@ -36,6 +36,54 @@ export class PrismaService
           ? ['query', 'error', 'warn']
           : ['error', 'warn'],
     } as any);
+
+    // ── Prisma Middleware: RLS (8.4) + Audit Trail (8.9) ──
+    (this as any).$use(async (params: any, next: any) => {
+      const branchId = (this as any).__branchId;
+      const userId = (this as any).__userId;
+
+      // Inject createdByUserId / updatedByUserId for audit trail (8.9)
+      if (userId && (params.action === 'create' || params.action === 'update')) {
+        if (params.action === 'create') {
+          params.args.data = {
+            ...params.args.data,
+            createdByUserId: userId,
+            updatedByUserId: userId,
+          };
+        }
+        if (params.action === 'update') {
+          params.args.data = {
+            ...params.args.data,
+            updatedByUserId: userId,
+          };
+        }
+      }
+
+      const result = await next(params);
+
+      return result;
+    });
+  }
+
+  /**
+   * Set the tenant context for RLS and audit trail.
+   * Call this at the start of every request.
+   */
+  async setTenantContext(branchId: string | null, userId: string) {
+    (this as any).__branchId = branchId;
+    (this as any).__userId = userId;
+
+    // Set PostgreSQL session variable for RLS (8.4)
+    if (branchId) {
+      try {
+        await this.$executeRawUnsafe(
+          `SELECT set_config('app.current_branch_id', $1, true)`,
+          [branchId],
+        );
+      } catch (err) {
+        this.logger.warn('Failed to set RLS session variable:', err);
+      }
+    }
   }
 
   async onModuleInit() {

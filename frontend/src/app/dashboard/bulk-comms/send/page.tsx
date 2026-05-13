@@ -22,7 +22,7 @@ export default function SendCommsPage() {
                 ]);
                 setTemplates({ email: emailRes.data, sms: smsRes.data });
             } catch (error) {
-                console.error("Failed to fetch templates", error);
+                if (process.env.NODE_ENV === 'development') console.error("Failed to fetch templates", error);
             }
         };
         fetchTemplates();

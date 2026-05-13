@@ -66,7 +66,7 @@ export default function AdmissionsManagementPage() {
             const data = await OnlineAdmissionService.getAll(idToUse);
             setAdmissions(data);
         } catch (error) {
-            console.error("Failed to fetch admissions:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch admissions:", error);
         } finally {
             setLoading(false);
         }
@@ -80,7 +80,7 @@ export default function AdmissionsManagementPage() {
             alert("Application approved and student record created successfully!");
             fetchAdmissions();
         } catch (error) {
-            console.error("Approval failed:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Approval failed:", error);
             alert("Approval failed. Please ensure the student doesn't already exist.");
         } finally {
             setProcessingId(null);
@@ -94,7 +94,7 @@ export default function AdmissionsManagementPage() {
             await OnlineAdmissionService.update(id, { status: 'REJECTED' });
             fetchAdmissions();
         } catch (error) {
-            console.error("Rejection failed:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Rejection failed:", error);
         } finally {
             setProcessingId(null);
         }

@@ -24,12 +24,19 @@ export class LibraryService {
     barcode: string,
     accessionNumber: string,
   ) {
+    const book = await this.prisma.book.findUnique({
+      where: { id: bookId },
+      select: { branchId: true },
+    });
+    if (!book) throw new NotFoundException('Book not found');
+
     return this.prisma.bookCopy.create({
       data: {
         bookId,
         barcode,
         accessionNumber,
         status: 'AVAILABLE',
+        branchId: book.branchId,
       },
     });
   }
@@ -99,6 +106,12 @@ export class LibraryService {
     if (book.available <= 0)
       throw new BadRequestException('No copies available');
 
+    const student = await this.prisma.student.findUnique({
+      where: { id: dto.studentId },
+      select: { branchId: true },
+    });
+    if (!student) throw new NotFoundException('Student not found');
+
     return this.prisma.$transaction(async (tx) => {
       await tx.book.update({
         where: { id: dto.bookId },
@@ -111,6 +124,7 @@ export class LibraryService {
           studentId: dto.studentId,
           dueDate: new Date(dto.dueDate),
           status: 'BORROWED',
+          branchId: student.branchId,
         },
       });
     });
@@ -124,6 +138,12 @@ export class LibraryService {
     if (!copy) throw new NotFoundException('Book copy not found');
     if (copy.status !== 'AVAILABLE')
       throw new BadRequestException('Copy is not available');
+
+    const student = await this.prisma.student.findUnique({
+      where: { id: studentId },
+      select: { branchId: true },
+    });
+    if (!student) throw new NotFoundException('Student not found');
 
     return this.prisma.$transaction(async (tx) => {
       await tx.bookCopy.update({
@@ -143,6 +163,7 @@ export class LibraryService {
           studentId,
           dueDate: new Date(dueDate),
           status: 'BORROWED',
+          branchId: student.branchId,
         },
       });
     });
@@ -151,6 +172,7 @@ export class LibraryService {
   async returnBook(borrowRecordId: string) {
     const record = await this.prisma.borrowRecord.findUnique({
       where: { id: borrowRecordId },
+      include: { student: { select: { branchId: true } } },
     });
     if (!record) throw new NotFoundException('Borrow record not found');
     if (record.status === 'RETURNED')
@@ -193,6 +215,7 @@ export class LibraryService {
             amount: fineAmount,
             status: 'PENDING',
             borrowRecordId: borrowRecordId,
+            branchId: record.student.branchId,
           },
         });
       }

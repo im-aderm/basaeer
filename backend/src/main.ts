@@ -12,11 +12,43 @@ import cookieParser from 'cookie-parser';
 import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
 import { ResponseTransformInterceptor } from './common/interceptors/response-transform.interceptor';
 import { PrismaService } from './prisma/prisma.service';
+import { WINSTON_MODULE_NEST_PROVIDER, WinstonModule, utilities as nestWinstonModuleUtilities } from 'nest-winston';
+import * as winston from 'winston';
 
 async function bootstrap() {
   const logger = new Logger('Bootstrap');
   logger.log('Starting NestJS application...');
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    logger: WinstonModule.createLogger({
+      transports: [
+        new winston.transports.Console({
+          format: winston.format.combine(
+            winston.format.timestamp(),
+            winston.format.ms(),
+            nestWinstonModuleUtilities.format.nestLike('Basaer', {
+              colors: true,
+              prettyPrint: process.env.NODE_ENV !== 'production',
+            }),
+          ),
+        }),
+        new winston.transports.File({
+          filename: 'logs/error.log',
+          level: 'error',
+          format: winston.format.combine(
+            winston.format.timestamp(),
+            winston.format.json(),
+          ),
+        }),
+        new winston.transports.File({
+          filename: 'logs/combined.log',
+          format: winston.format.combine(
+            winston.format.timestamp(),
+            winston.format.json(),
+          ),
+        }),
+      ],
+    }),
+  });
 
   // ── Global Exception Filter ────────────────────────────────────────────────
   app.useGlobalFilters(new AllExceptionsFilter(app.get(HttpAdapterHost)));
@@ -33,8 +65,7 @@ async function bootstrap() {
   );
 
   // ── Global Route Prefix ─────────────────────────────────────────────────────
-  // Ensures consistency with Nginx path-based routing (/api)
-  app.setGlobalPrefix('api');
+  app.setGlobalPrefix('api/v1', { exclude: ['health'] });
 
   // ── Security Headers ────────────────────────────────────────────────────────
   app.use(
@@ -42,10 +73,10 @@ async function bootstrap() {
       contentSecurityPolicy: {
         directives: {
           defaultSrc: ["'self'"],
-          scriptSrc: ["'self'", "'unsafe-inline'"],
+          scriptSrc: ["'self'"],
           styleSrc: ["'self'", "'unsafe-inline'"],
           imgSrc: ["'self'", 'data:', 'https:', 'blob:'],
-          connectSrc: ["'self'", 'https:', 'http:'],
+          connectSrc: ["'self'", process.env.FRONTEND_URL || 'http://localhost:3000'],
           fontSrc: ["'self'", 'https:', 'data:'],
           objectSrc: ["'none'"],
           mediaSrc: ["'self'"],
@@ -66,7 +97,7 @@ async function bootstrap() {
 
   // ── CORS ────────────────────────────────────────────────────────────────────
   const allowedOrigins = [
-    'http://localhost:3000',
+    ...(process.env.NODE_ENV === 'development' ? ['http://localhost:3000'] : []),
     ...(process.env.CORS_ALLOWED_ORIGINS
       ? process.env.CORS_ALLOWED_ORIGINS.split(',')
       : []),
@@ -129,6 +160,6 @@ async function bootstrap() {
   logger.log(`Application is running on: http://localhost:${port}`);
 }
 bootstrap().catch((err) => {
-  console.error('Application failed to start:', err);
+  new Logger('Bootstrap').error('Application failed to start:', err);
   process.exit(1);
 });

@@ -3,6 +3,7 @@ import {
   NotFoundException,
   BadRequestException,
   ForbiddenException,
+  Logger,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { EncryptionService } from './encryption.service';
@@ -17,6 +18,8 @@ import {
 
 @Injectable()
 export class LiveClassesService {
+  private readonly logger = new Logger(LiveClassesService.name);
+
   constructor(
     private prisma: PrismaService,
     private encryption: EncryptionService,
@@ -260,7 +263,7 @@ export class LiveClassesService {
     try {
       await this.googleMeet.deleteMeeting(branchId, session.meetingId);
     } catch (error) {
-      console.error('Failed to delete Google Meet:', error);
+      this.logger.error('Failed to delete Google Meet:', error);
     }
 
     return this.prisma.liveClassSession.update({

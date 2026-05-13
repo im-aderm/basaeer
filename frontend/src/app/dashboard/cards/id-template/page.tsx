@@ -40,7 +40,7 @@ export default function IdTemplatesPage() {
             const data = await CardService.getAllTemplates(user?.branchId);
             setTemplates(data);
         } catch (error) {
-            console.error("Failed to fetch templates:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch templates:", error);
         } finally {
             setLoading(false);
         }
@@ -71,7 +71,7 @@ export default function IdTemplatesPage() {
             setSelectedTemplate(newTemplate);
             setIsDesignerOpen(true);
         } catch (error) {
-            console.error("Failed to create template:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to create template:", error);
         }
     };
 
@@ -81,7 +81,7 @@ export default function IdTemplatesPage() {
             await CardService.deleteTemplate(id);
             fetchData();
         } catch (error) {
-            console.error("Failed to delete template:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to delete template:", error);
         }
     };
 

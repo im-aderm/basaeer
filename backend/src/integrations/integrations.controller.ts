@@ -6,13 +6,14 @@ import {
   Delete,
   Param,
   UseGuards,
-  Req,
 } from '@nestjs/common';
 import { IntegrationsService } from './integrations.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 import { UserRole } from '../generated/client/client';
+import { GetTenantContext } from '../auth/tenant-context.decorator';
+import { TenantContext } from '../auth/branch.guard';
 import {
   ApiTags,
   ApiOperation,
@@ -33,11 +34,11 @@ export class IntegrationsController {
   @Post('api-keys')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   createApiKey(
-    @Req() req: any,
+    @GetTenantContext() ctx: TenantContext,
     @Body() body: { name: string; scopes: string[] },
   ) {
     return this.integrationsService.createApiKey(
-      req.user.branchId,
+      ctx.branchId!,
       body.name,
       body.scopes,
     );
@@ -48,8 +49,8 @@ export class IntegrationsController {
   @ApiOperation({ summary: 'Retrieve Api Keys' })
   @Get('api-keys')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  listApiKeys(@Req() req: any) {
-    return this.integrationsService.listApiKeys(req.user.branchId);
+  listApiKeys(@GetTenantContext() ctx: TenantContext) {
+    return this.integrationsService.listApiKeys(ctx.branchId!);
   }
 
   @ApiBearerAuth()
@@ -57,8 +58,8 @@ export class IntegrationsController {
   @ApiOperation({ summary: 'Delete Api Key' })
   @Delete('api-keys/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  deleteApiKey(@Req() req: any, @Param('id') id: string) {
-    return this.integrationsService.deleteApiKey(id, req.user.branchId);
+  deleteApiKey(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.integrationsService.deleteApiKey(id, ctx.branchId!);
   }
 
   @ApiBearerAuth()
@@ -67,11 +68,11 @@ export class IntegrationsController {
   @Post('webhooks')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   registerWebhook(
-    @Req() req: any,
+    @GetTenantContext() ctx: TenantContext,
     @Body() body: { url: string; events: string[] },
   ) {
     return this.integrationsService.registerWebhook(
-      req.user.branchId,
+      ctx.branchId!,
       body.url,
       body.events,
     );
@@ -82,8 +83,8 @@ export class IntegrationsController {
   @ApiOperation({ summary: 'Retrieve Webhooks' })
   @Get('webhooks')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  listWebhooks(@Req() req: any) {
-    return this.integrationsService.listWebhooks(req.user.branchId);
+  listWebhooks(@GetTenantContext() ctx: TenantContext) {
+    return this.integrationsService.listWebhooks(ctx.branchId!);
   }
 
   @ApiBearerAuth()
@@ -91,7 +92,7 @@ export class IntegrationsController {
   @ApiOperation({ summary: 'Delete Webhook' })
   @Delete('webhooks/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  deleteWebhook(@Req() req: any, @Param('id') id: string) {
-    return this.integrationsService.deleteWebhook(id, req.user.branchId);
+  deleteWebhook(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.integrationsService.deleteWebhook(id, ctx.branchId!);
   }
 }

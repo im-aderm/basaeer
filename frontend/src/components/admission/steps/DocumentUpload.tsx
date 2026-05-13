@@ -74,7 +74,7 @@ function UploadField({ label, field, value, required, category }: UploadFieldPro
         toast.success(`${label} uploaded successfully`);
       }
     } catch (error: any) {
-      console.error("Upload error:", error);
+      if (process.env.NODE_ENV === 'development') console.error("Upload error:", error);
       const message = error.response?.data?.message || "Upload failed. Please try again.";
       toast.error(`${label}: ${message}`);
     } finally {

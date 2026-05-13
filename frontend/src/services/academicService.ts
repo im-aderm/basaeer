@@ -4,7 +4,7 @@ export const AcademicService = {
     // Exams
     listExams: () => api.get('/exams').then((res) => res.data),
     createExam: (data: any) => api.post('/exams', data).then((res) => res.data),
-    examById: (id: string) => api.get(`/exams/${id}`).then((res) => res.data),
+    examById: (id: string) => api.get(`/exams/management/${id}`).then((res) => res.data),
 
     // Components
     listComponents: () => api.get('/exams/components').then((res) => res.data),
@@ -29,6 +29,34 @@ export const AcademicService = {
     // Portal
     portalResult: (studentId: string, sessionId: string, term: string) => api.get(`/exams/portal/results/${studentId}/${sessionId}/${term}`).then((res) => res.data),
     portalPerformance: (studentId: string) => api.get(`/exams/portal/performance/${studentId}`).then((res) => res.data),
+
+    // Assessments (Dynamic)
+    listAssessmentComponents: (params?: { classId?: string; subjectId?: string }) => 
+        api.get('/academics/assessments/components', { params }).then((res) => res.data),
+    
+    createAssessmentComponent: (data: any) => 
+        api.post('/academics/assessments/components', data).then((res) => res.data),
+
+    updateAssessmentComponent: (id: string, data: any) =>
+        api.patch(`/academics/assessments/components/${id}`, data).then((res) => res.data),
+
+    deleteAssessmentComponent: (id: string) =>
+        api.delete(`/academics/assessments/components/${id}`).then((res) => res.data),
+    
+    recordBulkMarks: (data: any) => 
+        api.post('/academics/assessments/bulk-marks', data).then((res) => res.data),
+    
+    getRecordScores: (recordId: string) =>
+        api.get(`/academics/assessments/records/${recordId}/scores`).then((res) => res.data),
+
+    updateScore: (scoreId: string, score: number) =>
+        api.patch(`/academics/assessments/scores/${scoreId}`, { score }).then((res) => res.data),
+
+    deleteScore: (scoreId: string) =>
+        api.delete(`/academics/assessments/scores/${scoreId}`).then((res) => res.data),
+
+    getOpenDayPerformance: (studentId: string, sessionId: string, term: string) => 
+        api.get(`/academics/assessments/open-day/${studentId}`, { params: { sessionId, term } }).then((res) => res.data),
 
     // Computations
     computeSection: async (data: { sectionId: string; sessionId: string; term: string }): Promise<{ jobId: string }> => {

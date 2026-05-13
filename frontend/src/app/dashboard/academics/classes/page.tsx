@@ -39,7 +39,7 @@ export default function ClassesPage() {
             setClasses(classesData);
             setTeachers(teachersData);
         } catch (error) {
-            console.error("Failed to fetch data:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch data:", error);
         } finally {
             setLoading(false);
         }
@@ -54,7 +54,7 @@ export default function ClassesPage() {
             setIsCreateModalOpen(false);
             fetchData();
         } catch (error) {
-            console.error("Failed to create class:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to create class:", error);
         } finally {
             setSubmitting(false);
         }
@@ -70,7 +70,7 @@ export default function ClassesPage() {
             setIsSectionModalOpen(false);
             fetchData();
         } catch (error) {
-            console.error("Failed to add section:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to add section:", error);
         } finally {
             setSubmitting(false);
         }
@@ -86,7 +86,7 @@ export default function ClassesPage() {
             setIsAssignModalOpen(false);
             fetchData();
         } catch (error) {
-            console.error("Failed to assign teacher:", error);
+            if (process.env.NODE_ENV === 'development') console.error("Failed to assign teacher:", error);
         } finally {
             setSubmitting(false);
         }

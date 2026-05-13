@@ -15,7 +15,6 @@ export interface Backup {
 }
 
 export const SettingsService = {
-    // Global Settings
     getSettings: async (): Promise<GlobalSetting[]> => {
         const response = await api.get("/settings");
         return response.data;
@@ -26,7 +25,6 @@ export const SettingsService = {
         return response.data;
     },
 
-    // Backups
     getBackups: async (): Promise<Backup[]> => {
         const response = await api.get("/backups");
         return response.data;
@@ -41,8 +39,17 @@ export const SettingsService = {
         await api.delete(`/backups/${filename}`);
     },
 
-    downloadBackup: (filename: string) => {
-        // Use window.location to trigger a browser download
-        window.open(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api'}/backups/download/${filename}`, '_blank');
+    downloadBackup: async (filename: string) => {
+        const response = await api.get(`/backups/download/${filename}`, {
+            responseType: 'blob',
+        });
+        const url = window.URL.createObjectURL(response.data);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
     }
 };

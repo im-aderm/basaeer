@@ -2,6 +2,8 @@ import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { AuditService } from './audit.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
+import { BranchGuard, TenantContext } from '../auth/branch.guard';
+import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { Roles } from '../auth/roles.decorator';
 import { UserRole } from '../generated/client/client';
 import {
@@ -9,10 +11,9 @@ import {
   ApiOperation,
   ApiBearerAuth,
   ApiResponse,
-  ApiBody,
 } from '@nestjs/swagger';
 
-@UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
 @ApiTags('Audit')
 @Controller('audit')
 export class AuditController {
@@ -22,8 +23,9 @@ export class AuditController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Logs' })
   @Get()
-  @Roles(UserRole.SUPER_ADMIN)
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   getLogs(
+    @GetTenantContext() ctx: TenantContext,
     @Query('userId') userId?: string,
     @Query('module') module?: string,
     @Query('action') action?: string,
@@ -32,10 +34,12 @@ export class AuditController {
     @Query('page') page?: number,
     @Query('limit') limit?: number,
   ) {
+    const branchId = ctx.role === UserRole.SUPER_ADMIN ? undefined : (ctx.branchId ?? undefined);
     return this.auditService.getLogs({
       userId,
       module,
       action,
+      branchId,
       startDate,
       endDate,
       page,

@@ -56,7 +56,7 @@ export const LibraryService = {
     },
 
     returnBook: async (id: string): Promise<{ status: string; returnDate: string; fineAmount: number }> => {
-        const response = await api.patch(`/library/return/${id}`);
+        const response = await api.post(`/library/return/${id}`);
         return response.data;
     },
 
@@ -66,7 +66,7 @@ export const LibraryService = {
     },
 
     getStudentHistory: async (studentId: string): Promise<BorrowRecord[]> => {
-        const response = await api.get(`/library/history/student/${studentId}`);
+        const response = await api.get("/library/borrow-records", { params: { studentId } });
         return response.data;
     },
 

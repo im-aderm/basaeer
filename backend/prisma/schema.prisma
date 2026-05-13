@@ -99,6 +99,36 @@ model Branch {
   computationJobs            ComputationJob[]
   apiKeys                    ApiKey[]
   webhookEndpoints           WebhookEndpoint[]
+  exams                      Exam[]
+  examTypes                  ExamType[]
+  assessmentComponents      AssessmentComponent[]
+  resultApprovals           ResultApproval[]
+  resultPublications         ResultPublication[]
+  gpaRecords                 GPARecord[]
+  studentRankings            StudentRanking[]
+  broadsheets                Broadsheet[]
+  transcripts                Transcript[]
+  academicRemarks            AcademicRemark[]
+  subjectPositions           SubjectPosition[]
+  tahfeezAssessments         TahfeezAssessment[]
+  tahfeezMemorizationProgresses TahfeezMemorizationProgress[]
+  invoices                   Invoice[]
+  borrowRecords              BorrowRecord[]
+  libraryFines               LibraryFine[]
+  salaryTemplates            SalaryTemplate[]
+  payrolls                   Payroll[]
+  leaveRequests              LeaveRequest[]
+  staffAwards                StaffAward[]
+  advanceSalaries            AdvanceSalary[]
+  hostelAllocations          HostelAllocation[]
+  hostelLeaves               HostelLeave[]
+  maintenanceRequests        MaintenanceRequest[]
+  submissions                Submission[]
+  classSchedules             ClassSchedule[]
+  idCards                    IdCard[]
+  bookCopies                 BookCopy[]
+  bookReservations           BookReservation[]
+  hostelMaintenanceTickets    HostelMaintenanceTicket[]
 }
 
 model DeactivationReason {
@@ -137,6 +167,7 @@ model User {
   lastName                   String
   phone                      String?
   isActive                   Boolean                   @default(true)
+  mustChangePassword         Boolean                   @default(false)
   role                       UserRole
   createdAt                  DateTime                  @default(now())
   updatedAt                  DateTime                  @updatedAt
@@ -166,6 +197,8 @@ model User {
   computationJobs            ComputationJob[]
 
   @@index([branchId])
+  @@index([role, isActive])
+  @@index([email, isActive])
 }
 
 model UserPreference {
@@ -231,7 +264,7 @@ model Staff {
   designation        String?
   departmentId       String?
   designationId      String?
-  status             String              @default("ACTIVE")
+  status             StaffStatus      @default(ACTIVE)
   createdAt          DateTime            @default(now())
   updatedAt          DateTime            @updatedAt
   salaryAdvances     AdvanceSalary[]
@@ -248,6 +281,7 @@ model Staff {
   department         Department?         @relation(fields: [departmentId], references: [id])
   designationRef     Designation?        @relation(fields: [designationId], references: [id])
   user               User                @relation(fields: [userId], references: [id])
+  deletedAt          DateTime?
   attendance         StaffAttendance[]
   awards             StaffAward[]
   subjects           Subject[]           @relation("StaffToSubject")
@@ -299,7 +333,8 @@ model Student {
   scholarshipEligible       Boolean               @default(false)
   referralSource            String?
   createdAt                 DateTime              @default(now())
-  updatedAt                 DateTime              @updatedAt
+  updatedAt  DateTime @updatedAt
+  deletedAt  DateTime?
   alumni                    Alumni?
   assessmentRecords         AssessmentRecord[]
   attendance                Attendance[]
@@ -324,10 +359,13 @@ model Student {
   attendanceScans           AttendanceScan[]
   bookReservations          BookReservation[]
   transportAttendances      TransportAttendance[]
+  assessmentScores          AssessmentScore[]
 
   @@index([branchId])
   @@index([branchId, classId, sectionId])
   @@index([classId, sectionId])
+  @@index([parentId])
+  @@index([branchId, classId])
 }
 
 model Certificate {
@@ -375,6 +413,7 @@ model Class {
   classTeacherId     String?
   createdAt          DateTime            @default(now())
   updatedAt          DateTime            @updatedAt
+  deletedAt          DateTime?
   branch             Branch              @relation(fields: [branchId], references: [id])
   classTeacher       Staff?              @relation(fields: [classTeacherId], references: [id])
   classSchedules     ClassSchedule[]
@@ -396,7 +435,8 @@ model Section {
   name               String
   classId            String
   createdAt          DateTime            @default(now())
-  updatedAt          DateTime            @updatedAt
+  updatedAt        DateTime        @updatedAt
+  deletedAt        DateTime?
   assessmentRecords  AssessmentRecord[]
   assignments        Assignment[]
   attendance         Attendance[]
@@ -405,7 +445,7 @@ model Section {
   liveClassSessions  LiveClassSession[]
   onlineAdmissions   OnlineAdmission[]
   onlineExams        OnlineExam[]
-  class              Class               @relation(fields: [classId], references: [id])
+  class              Class           @relation(fields: [classId], references: [id])
   students           Student[]
   attendanceSessions AttendanceSession[]
 
@@ -419,14 +459,15 @@ model Subject {
   code               String?
   branchId           String
   createdAt          DateTime            @default(now())
-  updatedAt          DateTime            @updatedAt
+  updatedAt          DateTime        @updatedAt
+  deletedAt          DateTime?
   assessmentRecords  AssessmentRecord[]
   assignments        Assignment[]
   classSchedules     ClassSchedule[]
   digitalResources   DigitalResource[]
   liveClassSessions  LiveClassSession[]
   onlineExams        OnlineExam[]
-  branch             Branch              @relation(fields: [branchId], references: [id])
+  branch             Branch          @relation(fields: [branchId], references: [id])
   teachers           Staff[]             @relation("StaffToSubject")
   attendanceSessions AttendanceSession[]
 
@@ -443,16 +484,19 @@ model ClassSchedule {
   sectionId String
   subjectId String
   teacherId String
+  branchId  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   class     Class    @relation(fields: [classId], references: [id])
   section   Section  @relation(fields: [sectionId], references: [id])
   subject   Subject  @relation(fields: [subjectId], references: [id])
   teacher   Staff    @relation(fields: [teacherId], references: [id])
+  branch    Branch   @relation(fields: [branchId], references: [id])
 
   @@unique([teacherId, dayOfWeek, startTime])
   @@unique([classId, sectionId, dayOfWeek, startTime])
   @@index([classId, sectionId])
+  @@index([branchId])
 }
 
 model Attendance {
@@ -549,41 +593,51 @@ model HostelAllocation {
   isActive     Boolean   @default(true)
   studentId    String
   bedId        String
+  branchId     String
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
   bed          Bed       @relation(fields: [bedId], references: [id])
   student      Student   @relation(fields: [studentId], references: [id])
+  branch       Branch    @relation(fields: [branchId], references: [id])
 
   @@unique([studentId, isActive])
   @@index([studentId])
   @@index([bedId])
+  @@index([branchId])
 }
 
 model HostelLeave {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   startDate DateTime
   endDate   DateTime
   reason    String
-  status    String   @default("PENDING")
+  status    HostelLeaveStatus @default(PENDING)
   studentId String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  student   Student  @relation(fields: [studentId], references: [id])
+  branchId  String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  student   Student   @relation(fields: [studentId], references: [id])
+  branch    Branch    @relation(fields: [branchId], references: [id])
 
   @@index([studentId])
+  @@index([branchId])
 }
 
 model MaintenanceRequest {
-  id          String   @id @default(uuid())
+  id          String              @id @default(uuid())
   title       String
   description String
-  status      String   @default("OPEN")
-  priority    String   @default("MEDIUM")
+  status      MaintenanceStatus   @default(OPEN)
+  priority    MaintenancePriority  @default(MEDIUM)
   bedId       String?
   roomId      String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  bed         Bed?     @relation(fields: [bedId], references: [id])
+  branchId    String
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+  bed         Bed?                @relation(fields: [bedId], references: [id])
+  branch      Branch              @relation(fields: [branchId], references: [id])
+
+  @@index([branchId])
 }
 
 model FeeCategory {
@@ -602,7 +656,7 @@ model FeeCategory {
 
 model FeeStructure {
   id         String      @id @default(uuid())
-  amount     Float
+  amount     Decimal     @db.Decimal(12, 2)
   categoryId String
   classId    String?
   branchId   String
@@ -618,19 +672,22 @@ model Invoice {
   id            String        @id @default(uuid())
   invoiceNumber String        @unique
   dueDate       DateTime
-  totalAmount   Float
-  balance       Float
+  totalAmount   Decimal       @db.Decimal(12, 2)
+  balance       Decimal       @db.Decimal(12, 2)
   status        InvoiceStatus @default(UNPAID)
   studentId     String
   branchId      String
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
   student       Student       @relation(fields: [studentId], references: [id])
+  branch        Branch        @relation(fields: [branchId], references: [id])
   items         InvoiceItem[]
   payments      Payment[]
 
-  @@index([branchId])
+@@index([branchId])
   @@index([studentId])
+  @@index([branchId, status])
+  @@index([branchId, dueDate])
 }
 
 model QuestionGroup {
@@ -650,7 +707,7 @@ model Question {
   id        String           @id @default(uuid())
   type      QuestionType
   content   String
-  marks     Float            @default(1.0)
+  marks     Decimal          @db.Decimal(5, 2) @default(1.0)
   groupId   String
   createdAt DateTime         @default(now())
   updatedAt DateTime         @updatedAt
@@ -702,7 +759,7 @@ model OnlineExamAttempt {
   studentId String
   startTime DateTime         @default(now())
   endTime   DateTime?
-  score     Float?
+  score     Decimal?         @db.Decimal(5, 2)
   position  Int?
   status    AttemptStatus    @default(IN_PROGRESS)
   createdAt DateTime         @default(now())
@@ -733,7 +790,7 @@ model QuestionAnswer {
 
 model InvoiceItem {
   id         String      @id @default(uuid())
-  amount     Float
+  amount     Decimal     @db.Decimal(12, 2)
   invoiceId  String
   categoryId String
   createdAt  DateTime    @default(now())
@@ -746,7 +803,7 @@ model InvoiceItem {
 
 model Payment {
   id            String        @id @default(uuid())
-  amount        Float
+  amount        Decimal       @db.Decimal(12, 2)
   method        PaymentMethod
   status        PaymentStatus @default(PENDING)
   transactionId String?       @unique
@@ -758,6 +815,7 @@ model Payment {
   invoice       Invoice       @relation(fields: [invoiceId], references: [id])
 
   @@index([invoiceId])
+  @@index([status])
 }
 
 model Vehicle {
@@ -833,16 +891,19 @@ model Submission {
   contentUrl   String?
   grade        Float?
   feedback     String?
-  status       String     @default("SUBMITTED")
+  status       SubmissionStatus @default(SUBMITTED)
   assignmentId String
   studentId    String
+  branchId     String
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
   assignment   Assignment @relation(fields: [assignmentId], references: [id])
   student      Student    @relation(fields: [studentId], references: [id])
+  branch       Branch     @relation(fields: [branchId], references: [id])
 
   @@unique([assignmentId, studentId])
   @@index([assignmentId])
+  @@index([branchId])
 }
 
 model AcademicSession {
@@ -869,12 +930,12 @@ model AcademicSession {
 
 model AssessmentRecord {
   id         String          @id @default(uuid())
-  asgn1      Float?          @default(0)
-  asgn2      Float?          @default(0)
-  test1      Float?          @default(0)
-  test2      Float?          @default(0)
-  examScore  Float?          @default(0)
-  total      Float?          @default(0)
+  asgn1      Decimal?        @db.Decimal(5, 2) @default(0)
+  asgn2      Decimal?        @db.Decimal(5, 2) @default(0)
+  test1      Decimal?        @db.Decimal(5, 2) @default(0)
+  test2      Decimal?        @db.Decimal(5, 2) @default(0)
+  examScore  Decimal?        @db.Decimal(5, 2) @default(0)
+  total      Decimal?        @db.Decimal(5, 2) @default(0)
   grade      String?
   position   Int?
   outOf      Int?
@@ -897,6 +958,7 @@ model AssessmentRecord {
   session    AcademicSession @relation(fields: [sessionId], references: [id])
   student    Student         @relation(fields: [studentId], references: [id])
   subject    Subject         @relation(fields: [subjectId], references: [id])
+  scores     AssessmentScore[]
 
   @@unique([studentId, subjectId, sessionId, term])
   @@index([branchId])
@@ -1002,10 +1064,12 @@ model Exam {
   createdByUserId String?
   createdAt       DateTime           @default(now())
   updatedAt       DateTime           @updatedAt
+  branch          Branch             @relation(fields: [branchId], references: [id])
 
   @@index([branchId, sessionId, term])
   @@index([branchId, classId, sectionId])
   @@index([status, isArchived])
+  @@index([sessionId, status])
 }
 
 model ExamType {
@@ -1019,6 +1083,7 @@ model ExamType {
   isActive    Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  branch      Branch   @relation(fields: [branchId], references: [id])
 
   @@unique([branchId, name, classId])
   @@index([branchId, isActive])
@@ -1030,6 +1095,7 @@ model AssessmentComponent {
   component  String
   weight     Float
   maxScore   Float    @default(100)
+  isExam     Boolean  @default(false)
   branchId   String
   classId    String?
   subjectId  String?
@@ -1037,9 +1103,29 @@ model AssessmentComponent {
   isActive   Boolean  @default(true)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+  branch     Branch   @relation(fields: [branchId], references: [id])
+  scores     AssessmentScore[]
 
   @@unique([branchId, name, classId, subjectId])
   @@index([branchId, classId, subjectId])
+}
+
+model AssessmentScore {
+  id          String              @id @default(uuid())
+  score       Float               @default(0)
+  studentId   String
+  componentId String
+  recordId    String
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+  component   AssessmentComponent @relation(fields: [componentId], references: [id], onDelete: Cascade)
+  record      AssessmentRecord    @relation(fields: [recordId], references: [id], onDelete: Cascade)
+  student     Student             @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([recordId, componentId])
+  @@index([recordId])
+  @@index([componentId])
+  @@index([studentId])
 }
 
 model ResultApproval {
@@ -1060,6 +1146,7 @@ model ResultApproval {
   publishedAt   DateTime?
   createdAt     DateTime             @default(now())
   updatedAt     DateTime             @updatedAt
+  branch        Branch               @relation(fields: [branchId], references: [id])
 
   @@index([branchId, sessionId, term])
   @@index([branchId, status])
@@ -1078,6 +1165,7 @@ model ResultPublication {
   expiresAt     DateTime?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
+  branch        Branch    @relation(fields: [branchId], references: [id])
 
   @@unique([branchId, sessionId, term, classId, sectionId])
   @@index([branchId, isPublished])
@@ -1095,6 +1183,7 @@ model GPARecord {
   cgpa            Float?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+  branch          Branch   @relation(fields: [branchId], references: [id])
 
   @@unique([studentId, sessionId, term])
   @@index([branchId, sessionId, term])
@@ -1114,6 +1203,7 @@ model StudentRanking {
   tieGroup  String?
   createdAt DateTime     @default(now())
   updatedAt DateTime     @updatedAt
+  branch    Branch       @relation(fields: [branchId], references: [id])
 
   @@unique([studentId, sessionId, term, scope, scopeId])
   @@index([branchId, sessionId, term, scope])
@@ -1131,6 +1221,7 @@ model Broadsheet {
   data          Json
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
+  branch        Branch   @relation(fields: [branchId], references: [id])
 
   @@index([branchId, sessionId, term])
   @@index([classId, sectionId])
@@ -1150,6 +1241,7 @@ model Transcript {
   lockedAt      DateTime?
   createdAt     DateTime         @default(now())
   updatedAt     DateTime         @updatedAt
+  branch        Branch           @relation(fields: [branchId], references: [id])
 
   @@index([branchId, studentId])
   @@index([status])
@@ -1179,6 +1271,7 @@ model AcademicRemark {
   remark    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  branch    Branch   @relation(fields: [branchId], references: [id])
 
   @@index([branchId, sessionId, term])
   @@index([studentId, sessionId, term])
@@ -1197,6 +1290,7 @@ model SubjectPosition {
   outOf     Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  branch    Branch   @relation(fields: [branchId], references: [id])
 
   @@unique([studentId, subjectId, sessionId, term])
   @@index([branchId, sectionId, subjectId])
@@ -1217,7 +1311,7 @@ model TahfeezAssessment {
   toAyah            Int?
   memorizationScore Float
   tajweedScore      Float
-  fluencyScore      Float
+  fluencyScore     Float
   revisionScore     Float?
   totalScore        Float
   grade             String?
@@ -1225,6 +1319,7 @@ model TahfeezAssessment {
   assessedAt        DateTime @default(now())
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
+  branch            Branch   @relation(fields: [branchId], references: [id])
 
   @@index([branchId, sessionId, term])
   @@index([studentId, sessionId, term])
@@ -1243,6 +1338,7 @@ model TahfeezMemorizationProgress {
   teacherRemark  String?
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
+  branch         Branch    @relation(fields: [branchId], references: [id])
 
   @@unique([studentId, currentSurah])
   @@index([branchId, studentId])
@@ -1291,6 +1387,8 @@ model AuditLog {
   @@index([branchId])
   @@index([action])
   @@index([createdAt])
+  @@index([module])
+  @@index([targetType, targetId])
 }
 
 model ExpenseCategory {
@@ -1310,7 +1408,7 @@ model Voucher {
   id                String          @id @default(uuid())
   voucherNumber     String          @unique
   date              DateTime
-  amount            Float
+  amount            Decimal         @db.Decimal(12, 2)
   description       String
   expenseCategoryId String
   paidTo            String
@@ -1334,6 +1432,7 @@ model Department {
   branchId    String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  deletedAt   DateTime?
   branch      Branch   @relation(fields: [branchId], references: [id])
   staff       Staff[]
 
@@ -1366,6 +1465,7 @@ model Book {
   branchId         String
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
+  deletedAt        DateTime?
   branch           Branch            @relation(fields: [branchId], references: [id])
   borrowRecords    BorrowRecord[]
   bookCopies       BookCopy[]
@@ -1379,9 +1479,10 @@ model BorrowRecord {
   borrowDate DateTime      @default(now())
   dueDate    DateTime
   returnDate DateTime?
-  status     String        @default("BORROWED")
+  status     BorrowStatus        @default(BORROWED)
   bookId     String
   studentId  String
+  branchId   String
   createdAt  DateTime      @default(now())
   updatedAt  DateTime      @updatedAt
   book       Book          @relation(fields: [bookId], references: [id])
@@ -1389,63 +1490,79 @@ model BorrowRecord {
   fines      LibraryFine[]
   bookCopy   BookCopy?     @relation(fields: [bookCopyId], references: [id])
   bookCopyId String?
+  branch     Branch        @relation(fields: [branchId], references: [id])
 
   @@index([studentId])
+  @@index([branchId])
 }
 
 model LibraryFine {
   id             String        @id @default(uuid())
-  amount         Float
+  amount         Decimal       @db.Decimal(12, 2)
   status         PaymentStatus @default(PENDING)
   paidDate       DateTime?
   borrowRecordId String
+  branchId       String
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
   borrowRecord   BorrowRecord  @relation(fields: [borrowRecordId], references: [id])
+  branch         Branch        @relation(fields: [branchId], references: [id])
+
+  @@index([branchId])
 }
 
 model SalaryTemplate {
   id          String   @id @default(uuid())
-  basicSalary Float
+  basicSalary Decimal  @db.Decimal(12, 2)
   allowances  Json?
   deductions  Json?
-  netSalary   Float
+  netSalary   Decimal  @db.Decimal(12, 2)
   staffId     String   @unique
+  branchId    String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   staff       Staff    @relation(fields: [staffId], references: [id])
+  branch      Branch   @relation(fields: [branchId], references: [id])
+
+  @@index([branchId])
 }
 
 model Payroll {
   id          String   @id @default(uuid())
   month       Int
   year        Int
-  amountPaid  Float
+  amountPaid  Decimal  @db.Decimal(12, 2)
   paymentDate DateTime @default(now())
-  status      String   @default("UNPAID")
+  status      PayrollStatus @default(UNPAID)
   staffId     String
+  branchId    String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   staff       Staff    @relation(fields: [staffId], references: [id])
+  branch      Branch   @relation(fields: [branchId], references: [id])
 
   @@unique([staffId, month, year])
   @@index([staffId])
   @@index([month, year])
+  @@index([branchId])
 }
 
 model LeaveRequest {
-  id        String   @id @default(uuid())
+  id        String       @id @default(uuid())
   type      String
   startDate DateTime
   endDate   DateTime
   reason    String
-  status    String   @default("PENDING")
+  status    LeaveStatus  @default(PENDING)
   staffId   String
+  branchId  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   staff     Staff    @relation(fields: [staffId], references: [id])
+  branch    Branch   @relation(fields: [branchId], references: [id])
 
   @@index([staffId])
+  @@index([branchId])
 }
 
 model StaffAward {
@@ -1454,24 +1571,30 @@ model StaffAward {
   description String?
   date        DateTime @default(now())
   staffId     String
+  branchId    String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   staff       Staff    @relation(fields: [staffId], references: [id])
+  branch      Branch   @relation(fields: [branchId], references: [id])
 
   @@index([staffId])
+  @@index([branchId])
 }
 
 model AdvanceSalary {
-  id        String   @id @default(uuid())
-  amount    Float
+  id        String              @id @default(uuid())
+  amount    Decimal             @db.Decimal(12, 2)
   reason    String?
-  status    String   @default("PENDING")
+  status    AdvanceSalaryStatus @default(PENDING)
   staffId   String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  staff     Staff    @relation(fields: [staffId], references: [id])
+  branchId  String
+  createdAt DateTime            @default(now())
+  updatedAt DateTime            @updatedAt
+  staff     Staff               @relation(fields: [staffId], references: [id])
+  branch    Branch              @relation(fields: [branchId], references: [id])
 
   @@index([staffId])
+  @@index([branchId])
 }
 
 model GoogleMeetConfig {
@@ -1596,7 +1719,7 @@ model OnlineAdmission {
   admissionType             String?
   transferReason            String?
   assessmentScore           Float?
-  status                    String           @default("PENDING")
+  status                    AdmissionStatus  @default(PENDING)
   rejectionReason           String?
   guardianName              String
   guardianRelation          String?
@@ -1655,8 +1778,8 @@ model OnlineAdmission {
   studentCategoryId         String?
   parentId                  String?
   paymentReceiptUrl         String?
-  paymentStatus             String           @default("PENDING")
-  paymentMethod             String           @default("BANK_TRANSFER")
+  paymentStatus             PaymentStatus    @default(PENDING)
+  paymentMethod             PaymentMethod    @default(BANK_TRANSFER)
   createdAt                 DateTime         @default(now())
   updatedAt                 DateTime         @updatedAt
   academicSession           AcademicSession? @relation(fields: [academicSessionId], references: [id])
@@ -1822,8 +1945,8 @@ model InventoryProduct {
   unitId       String
   storeId      String?
   stock        Int                 @default(0)
-  costPrice    Float               @default(0)
-  sellingPrice Float               @default(0)
+  costPrice    Decimal              @db.Decimal(12, 2) @default(0)
+  sellingPrice Decimal              @db.Decimal(12, 2) @default(0)
   branchId     String
   createdAt    DateTime            @default(now())
   updatedAt    DateTime            @updatedAt
@@ -1843,8 +1966,8 @@ model InventoryPurchase {
   voucherNo  String?           @unique
   date       DateTime          @default(now())
   quantity   Int
-  unitPrice  Float
-  totalPrice Float
+  unitPrice  Decimal           @db.Decimal(12, 2)
+  totalPrice Decimal           @db.Decimal(12, 2)
   productId  String
   supplierId String
   branchId   String
@@ -1862,8 +1985,8 @@ model InventorySale {
   invoiceNo    String?          @unique
   date         DateTime         @default(now())
   quantity     Int
-  unitPrice    Float
-  totalPrice   Float
+  unitPrice    Decimal          @db.Decimal(12, 2)
+  totalPrice   Decimal          @db.Decimal(12, 2)
   productId    String
   customerName String?
   branchId     String
@@ -1880,7 +2003,7 @@ model InventoryIssue {
   date       DateTime         @default(now())
   returnDate DateTime?
   quantity   Int
-  status     String           @default("ISSUED")
+  status     IssueStatus            @default(ISSUED)
   productId  String
   issuedTo   String?
   staffId    String?
@@ -1936,9 +2059,9 @@ model AlumniEventParticipant {
   id        String      @id @default(uuid())
   alumniId  String
   eventId   String
-  status    String      @default("INTERESTED")
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
+  status    EventParticipationStatus @default(INTERESTED)
+  createdAt DateTime                  @default(now())
+  updatedAt DateTime                  @updatedAt
   alumni    Alumni      @relation(fields: [alumniId], references: [id])
   event     AlumniEvent @relation(fields: [eventId], references: [id])
 
@@ -1984,6 +2107,7 @@ model Message {
   sender         User         @relation(fields: [senderId], references: [id])
 
   @@index([conversationId])
+  @@index([conversationId, createdAt])
 }
 
 model CampusEvent {
@@ -2009,9 +2133,9 @@ model EventRSVP {
   id        String      @id @default(uuid())
   eventId   String
   userId    String
-  status    String      @default("INTERESTED")
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
+  status    EventParticipationStatus @default(INTERESTED)
+  createdAt DateTime                @default(now())
+  updatedAt DateTime                @updatedAt
   event     CampusEvent @relation(fields: [eventId], references: [id])
   user      User        @relation(fields: [userId], references: [id])
 
@@ -2071,16 +2195,19 @@ model IdCard {
   staffId    String?
   templateId String
   sessionId  String
-  status     String          @default("CREATED")
+  status     IdCardStatusEnum @default(CREATED)
   issueDate  DateTime        @default(now())
+  branchId   String
   createdAt  DateTime        @default(now())
   updatedAt  DateTime        @updatedAt
   session    AcademicSession @relation(fields: [sessionId], references: [id])
   staff      Staff?          @relation(fields: [staffId], references: [id])
   student    Student?        @relation(fields: [studentId], references: [id])
   template   IdCardTemplate  @relation(fields: [templateId], references: [id])
+  branch     Branch          @relation(fields: [branchId], references: [id])
 
   @@unique([studentId, sessionId])
+  @@index([branchId])
 }
 
 model DigitalResource {
@@ -2233,6 +2360,7 @@ enum PaymentStatus {
   COMPLETED
   FAILED
   REJECTED
+  VERIFIED
 }
 
 enum InvoiceStatus {
@@ -2265,6 +2393,115 @@ enum VoucherStatus {
   PENDING
   APPROVED
   REJECTED
+}
+
+enum StaffStatus {
+  ACTIVE
+  INACTIVE
+  ON_LEAVE
+  SUSPENDED
+  RESIGNED
+  RETIRED
+}
+
+enum BorrowStatus {
+  BORROWED
+  RETURNED
+  OVERDUE
+  LOST
+}
+
+enum PayrollStatus {
+  UNPAID
+  PAID
+  PROCESSING
+}
+
+enum LeaveStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CANCELLED
+}
+
+enum AdvanceSalaryStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  PAID
+}
+
+enum AdmissionStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  ENROLLED
+  CANCELLED
+}
+
+enum IssueStatus {
+  ISSUED
+  RETURNED
+  LOST
+  DAMAGED
+}
+
+enum SubmissionStatus {
+  SUBMITTED
+  GRADED
+  LATE
+  MISSING
+}
+
+enum IdCardStatusEnum {
+  CREATED
+  PRINTED
+  ISSUED
+  EXPIRED
+}
+
+enum MaintenanceStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+enum MaintenancePriority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum BookCopyStatus {
+  AVAILABLE
+  BORROWED
+  LOST
+  DAMAGED
+  RESERVED
+}
+
+enum ReservationStatus {
+  PENDING
+  FULFILLED
+  CANCELLED
+  EXPIRED
+}
+
+enum HostelLeaveStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CANCELLED
+}
+
+enum EventParticipationStatus {
+  INTERESTED
+  GOING
+  NOT_GOING
+  REGISTERED
+  DECLINED
 }
 
 model EmailTemplate {
@@ -2311,6 +2548,7 @@ model Notification {
 
   @@index([branchId])
   @@index([userId])
+  @@index([userId, isRead, createdAt])
 }
 
 model NotificationPreference {
@@ -2567,7 +2805,7 @@ model MessageRetryEvent {
 model ProviderBalanceSnapshot {
   id           String   @id @default(uuid())
   providerName String
-  balance      Float
+  balance      Decimal  @db.Decimal(12, 2)
   currency     String   @default("NGN")
   branchId     String?
   createdAt    DateTime @default(now())
@@ -2667,46 +2905,55 @@ model BookCopy {
   barcode         String         @unique
   accessionNumber String         @unique
   bookId          String
-  status          String         @default("AVAILABLE") // AVAILABLE, BORROWED, LOST, DAMAGED, RESERVED
+  status          BookCopyStatus   @default(AVAILABLE)
   condition       String?
+  branchId        String
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
   book            Book           @relation(fields: [bookId], references: [id])
   borrowRecords   BorrowRecord[]
+  branch          Branch         @relation(fields: [branchId], references: [id])
 
   @@index([bookId])
+  @@index([branchId])
 }
 
 model BookReservation {
   id         String   @id @default(uuid())
   bookId     String
   studentId  String
-  status     String   @default("PENDING") // PENDING, FULFILLED, CANCELLED, EXPIRED
+  status     String   @default("PENDING")
   reservedAt DateTime @default(now())
   expiresAt  DateTime
+  branchId   String
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   book       Book     @relation(fields: [bookId], references: [id])
   student    Student  @relation(fields: [studentId], references: [id])
+  branch     Branch   @relation(fields: [branchId], references: [id])
 
   @@index([bookId])
   @@index([studentId])
+  @@index([branchId])
 }
 
 model HostelMaintenanceTicket {
-  id          String   @id @default(uuid())
+  id          String              @id @default(uuid())
   title       String
   description String
-  status      String   @default("OPEN") // OPEN, IN_PROGRESS, RESOLVED, CLOSED
-  priority    String   @default("MEDIUM") // LOW, MEDIUM, HIGH, CRITICAL
+  status      MaintenanceStatus   @default(OPEN)
+  priority    MaintenancePriority @default(MEDIUM)
   hostelId    String
   roomId      String?
-  reportedBy  String // studentId or staffId
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  hostel      Hostel   @relation(fields: [hostelId], references: [id])
+  reportedBy  String
+  branchId    String
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+  hostel      Hostel              @relation(fields: [hostelId], references: [id])
+  branch      Branch              @relation(fields: [branchId], references: [id])
 
   @@index([hostelId])
+  @@index([branchId])
 }
 
 model TransportAttendance {

@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Camera, MapPin, Phone, User, Mail, GraduationCap } from 'lucide-react';
+import { SettingsService } from '@/services/settingsService';
 
 interface StudentIDCardProps {
     student: {
@@ -10,9 +11,31 @@ interface StudentIDCardProps {
         section?: { name: string };
         user?: { email?: string; phone?: string };
     };
+    schoolName?: string;
+    schoolAddress?: string;
+    schoolPhone?: string;
+    schoolEmail?: string;
 }
 
-export const StudentIDCard: React.FC<StudentIDCardProps> = ({ student }) => {
+export const StudentIDCard: React.FC<StudentIDCardProps> = ({ student, schoolName, schoolAddress, schoolPhone, schoolEmail }) => {
+    const [settings, setSettings] = useState<Record<string, string>>({});
+
+    useEffect(() => {
+        SettingsService.getSettings().then((s) => {
+            const map: Record<string, string> = {};
+            for (const item of s) {
+                map[item.key] = item.value;
+            }
+            setSettings(map);
+        }).catch(() => {});
+    }, []);
+
+    const name = schoolName || settings.school_name || 'BASAER';
+    const address = schoolAddress || settings.school_address || '';
+    const phone = schoolPhone || settings.school_phone || '';
+    const email = schoolEmail || settings.school_email ||('');
+    const validUntil = settings.academic_session_end || '';
+
     return (
         <div className="flex flex-col md:flex-row gap-8 p-8 justify-center items-center bg-muted/50 rounded-[3rem]">
             {/* Front Side */}
@@ -22,17 +45,23 @@ export const StudentIDCard: React.FC<StudentIDCardProps> = ({ student }) => {
 
                 {/* School Logo/Name */}
                 <div className="relative z-10 p-8 text-center">
-                    <h2 className="text-white font-semibold text-2xl tracking-tighter">BASAER</h2>
-                    <p className="text-white/70 text-[10px] uppercase font-semibold tracking-[0.3em] mt-1">Modern School System</p>
+                    <h2 className="text-white font-semibold text-2xl tracking-tighter">{name}</h2>
+                    {settings.school_subtitle && <p className="text-white/70 text-[10px] uppercase font-semibold tracking-[0.3em] mt-1">{settings.school_subtitle}</p>}
                 </div>
 
                 {/* Profile Section */}
                 <div className="relative z-10 flex flex-col items-center mt-4">
+                    {student.user?.phone ? (
+                        <div className="w-32 h-32 rounded-[2.5rem] bg-muted flex items-center justify-center overflow-hidden">
+                            <User size={48} className="text-primary/40" />
+                        </div>
+                    ) : (
                     <div className="w-32 h-32 rounded-[2.5rem] bg-white p-1.5 shadow-xl shadow-primary/20">
                         <div className="w-full h-full rounded-[2.1rem] bg-muted flex items-center justify-center text-primary/40">
                             <User size={48} />
                         </div>
                     </div>
+                    )}
                     <div className="text-center mt-6 px-6">
                         <h3 className="text-3xl font-semibold tracking-tight text-foreground">{student.firstName} {student.lastName}</h3>
                         <p className="text-primary font-semibold uppercase tracking-widest text-xs mt-2 border-b-2 border-primary/20 pb-2 inline-block">Student</p>
@@ -47,7 +76,7 @@ export const StudentIDCard: React.FC<StudentIDCardProps> = ({ student }) => {
                         </div>
                         <div>
                             <p className="text-[10px] uppercase font-semibold text-muted-foreground tracking-widest">Grade / Level</p>
-                            <p className="font-bold text-foreground">{student.class?.name || 'Class A'} • {student.section?.name || 'Alpha'}</p>
+                            <p className="font-bold text-foreground">{student.class?.name || '—'} • {student.section?.name || '—'}</p>
                         </div>
                     </div>
                     <div className="flex items-center gap-4">
@@ -76,25 +105,34 @@ export const StudentIDCard: React.FC<StudentIDCardProps> = ({ student }) => {
                     <div>
                         <h4 className="text-[10px] font-semibold uppercase tracking-widest text-primary mb-4 border-b border-border pb-2">Institutional Info</h4>
                         <div className="space-y-4">
+                            {address && (
                             <div className="flex items-start gap-3">
                                 <MapPin size={16} className="text-muted-foreground mt-0.5" />
-                                <p className="text-xs font-bold leading-relaxed">Main Campus, Digital Valley, Floor 4, Suite 402, Abuja, Nigeria</p>
+                                <p className="text-xs font-bold leading-relaxed">{address}</p>
                             </div>
+                            )}
+                            {phone && (
                             <div className="flex items-center gap-3">
                                 <Phone size={16} className="text-muted-foreground" />
-                                <p className="text-xs font-bold">+234 800 227 2337</p>
+                                <p className="text-xs font-bold">{phone}</p>
                             </div>
+                            )}
+                            {email && (
                             <div className="flex items-center gap-3">
                                 <Mail size={16} className="text-muted-foreground" />
-                                <p className="text-xs font-bold">support@basaer.com</p>
+                                <p className="text-xs font-bold">{email}</p>
                             </div>
+                            )}
+                            {(!address && !phone && !email) && (
+                            <p className="text-xs text-muted-foreground">No institutional info configured.</p>
+                            )}
                         </div>
                     </div>
 
                     <div>
                         <h4 className="text-[10px] font-semibold uppercase tracking-widest text-primary mb-4 border-b border-border pb-2">Security Instructions</h4>
                         <ul className="space-y-2 list-disc list-inside text-[10px] font-bold text-muted-foreground leading-relaxed">
-                            <li>This card remains the property of Basaer School System.</li>
+                            <li>This card remains the property of {name}.</li>
                             <li>Loss of card must be reported immediately to the admin office.</li>
                             <li>This card is non-transferable and must be worn at all times.</li>
                             <li>Misuse of this ID card attracts severe disciplinary action.</li>
@@ -112,10 +150,10 @@ export const StudentIDCard: React.FC<StudentIDCardProps> = ({ student }) => {
                 <div className="mt-auto p-8 bg-muted/30 flex justify-between items-center">
                     <div className="text-left">
                         <p className="text-[8px] font-semibold text-muted-foreground uppercase opacity-50">Valid Until</p>
-                        <p className="text-xs font-semibold text-primary">AUG 2026</p>
+                        <p className="text-xs font-semibold text-primary">{validUntil || '—'}</p>
                     </div>
                     <div className="text-right">
-                        <h2 className="text-muted-foreground font-semibold text-sm tracking-tighter opacity-30">BASAER</h2>
+                        <h2 className="text-muted-foreground font-semibold text-sm tracking-tighter opacity-30">{name}</h2>
                     </div>
                 </div>
             </div>

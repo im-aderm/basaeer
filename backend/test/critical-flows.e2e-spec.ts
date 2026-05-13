@@ -331,11 +331,10 @@ describe('Critical Flows (e2e)', () => {
 
       expect(leaveRequest.status).toBe('PENDING');
 
-      const updated = await leaveService.updateLeaveStatus(
-        leaveRequest.id,
-        { status: 'APPROVED' } as any,
-        { userId: superAdminUserId, branchId: branchAId, isSuperAdmin: true, role: UserRole.SUPER_ADMIN },
-      );
+const updated = await leaveService.updateLeaveStatus(
+         leaveRequest.id,
+         { status: 'APPROVED' } as any,
+       );
 
       expect(updated.status).toBe('APPROVED');
     });

@@ -39,6 +39,11 @@ export class AcademicsService {
   }
 
   async submitAssignment(dto: SubmitAssignmentDto) {
+    const student = await this.prisma.student.findUnique({
+      where: { id: dto.studentId },
+    });
+    if (!student) throw new NotFoundException('Student not found');
+
     return this.prisma.submission.upsert({
       where: {
         assignmentId_studentId: {
@@ -54,6 +59,7 @@ export class AcademicsService {
         assignmentId: dto.assignmentId,
         studentId: dto.studentId,
         contentUrl: dto.contentUrl,
+        branchId: student.branchId,
       },
     });
   }

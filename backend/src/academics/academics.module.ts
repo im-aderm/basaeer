@@ -13,6 +13,9 @@ import { ComputationQueueService } from './computation-queue.service';
 import { AcademicComputationProcessor } from './academic-computation.processor';
 import { ExportCleanupService } from './export-cleanup.service';
 
+import { AssessmentService } from './assessment.service';
+import { AssessmentController } from './assessment.controller';
+
 @Module({
   imports: [
     PrismaModule,
@@ -23,9 +26,14 @@ import { ExportCleanupService } from './export-cleanup.service';
       { name: 'academic-computations' },
     ),
   ],
-  controllers: [AcademicsController, ReportTemplatesController],
+  controllers: [
+    AcademicsController,
+    ReportTemplatesController,
+    AssessmentController,
+  ],
   providers: [
     AcademicsService,
+    AssessmentService,
     ExportQueueService,
     AcademicExportProcessor,
     ReportTemplatesService,
@@ -35,6 +43,7 @@ import { ExportCleanupService } from './export-cleanup.service';
   ],
   exports: [
     AcademicsService,
+    AssessmentService,
     ExportQueueService,
     ReportTemplatesService,
     ComputationQueueService,
