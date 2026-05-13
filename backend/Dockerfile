@@ -12,12 +12,11 @@ RUN --mount=type=cache,target=/root/.npm npm ci --ignore-scripts
 COPY packages/shared-types ./packages/shared-types
 RUN npm run build --workspace=@basaer/shared-types
 
-COPY backend/prisma ./backend/prisma
-WORKDIR /app/backend
-RUN npx prisma generate
-
+# Copy backend source
 COPY backend ./backend
 
+WORKDIR /app/backend
+RUN npx prisma generate
 RUN npm run build
 
 # Stage 2
