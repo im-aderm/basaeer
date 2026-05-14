@@ -123,7 +123,7 @@ export default function StaffAwardsPage() {
 
     const calculateStats = () => {
         const total = awards.length;
-        const thisMonth = awards.filter((a) => {
+        const thisMonth = (awards ?? []).filter((a) => {
             const awardDate = new Date(a.awardDate);
             const now = new Date();
             return (
@@ -131,7 +131,7 @@ export default function StaffAwardsPage() {
                 awardDate.getFullYear() === now.getFullYear()
             );
         }).length;
-        const thisYear = awards.filter((a) => {
+        const thisYear = (awards ?? []).filter((a) => {
             const awardDate = new Date(a.awardDate);
             const now = new Date();
             return awardDate.getFullYear() === now.getFullYear();

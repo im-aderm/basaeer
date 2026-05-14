@@ -112,7 +112,7 @@ export default function LeaveManagementPage() {
                     <div className="flex gap-4">
                         <Card className="bg-white/10 backdrop-blur-md border-none p-6 rounded-[2rem] text-center min-w-[120px]">
                             <p className="text-indigo-200 text-label mb-1">Pending</p>
-                            <p className="text-h1 font-semibold">{requests.filter(r => r.status === 'PENDING').length}</p>
+                            <p className="text-h1 font-semibold">{(requests ?? []).filter(r => r.status === 'PENDING').length}</p>
                         </Card>
                     </div>
                 </div>

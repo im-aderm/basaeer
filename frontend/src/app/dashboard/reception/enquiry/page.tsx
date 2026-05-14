@@ -167,7 +167,7 @@ export default function AdmissionEnquiryPage() {
         }
     };
 
-    const filtered = enquiries.filter(e =>
+    const filtered = (enquiries ?? []).filter(e =>
         e.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         e.phone.includes(searchTerm)
     );
@@ -224,9 +224,9 @@ export default function AdmissionEnquiryPage() {
             {/* Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                 <StatCard title="Total Enquiries" value={enquiries.length} icon={Users} color="primary" />
-                <StatCard title="Pending Follow-ups" value={enquiries.filter(e => e.status === 'PENDING' || e.status === 'FOLLOW_UP').length} icon={Clock} color="amber" />
-                <StatCard title="Converted (Won)" value={enquiries.filter(e => e.status === 'WON').length} icon={CheckCircle2} color="emerald" />
-                <StatCard title="Dropped (Lost)" value={enquiries.filter(e => e.status === 'LOST').length} icon={AlertCircle} color="red" />
+                <StatCard title="Pending Follow-ups" value={(enquiries ?? []).filter(e => e.status === 'PENDING' || e.status === 'FOLLOW_UP').length} icon={Clock} color="amber" />
+                <StatCard title="Converted (Won)" value={(enquiries ?? []).filter(e => e.status === 'WON').length} icon={CheckCircle2} color="emerald" />
+                <StatCard title="Dropped (Lost)" value={(enquiries ?? []).filter(e => e.status === 'LOST').length} icon={AlertCircle} color="red" />
             </div>
 
             {/* Sharable Link */}

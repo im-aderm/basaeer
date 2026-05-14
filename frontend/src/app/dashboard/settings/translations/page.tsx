@@ -114,7 +114,7 @@ export default function TranslationsPage() {
         }
     };
 
-    const filteredTranslations = translations.filter(t => 
+    const filteredTranslations = (translations ?? []).filter(t => 
         t.key.toLowerCase().includes(searchQuery.toLowerCase()) ||
         t.value.toLowerCase().includes(searchQuery.toLowerCase())
     );

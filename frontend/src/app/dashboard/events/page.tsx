@@ -160,7 +160,7 @@ export default function EventsPage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {events.filter(e => e.title.toLowerCase().includes(searchTerm.toLowerCase())).map((event) => (
+                {(events ?? []).filter(e => e.title.toLowerCase().includes(searchTerm.toLowerCase())).map((event) => (
                     <Card key={event.id} className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background group hover:border-primary/50 transition-all duration-500">
                         <div className="p-8 border-b border-border/50 bg-primary/5 relative">
                             <Badge className={`rounded-xl px-4 py-1.5 font-semibold uppercase tracking-tighter text-[10px] border-2 shadow-sm ${getCategoryColor(event.category)}`}>

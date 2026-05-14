@@ -77,10 +77,10 @@ export default function AdvanceSalaryPage() {
     };
 
     const calculateStats = () => {
-        const total = advances.length;
-        const pending = advances.filter((a) => a.status === "PENDING").length;
-        const approved = advances.filter((a) => a.status === "APPROVED").length;
-        const totalAmount = advances
+        const total = (advances ?? []).length;
+        const pending = (advances ?? []).filter((a) => a.status === "PENDING").length;
+        const approved = (advances ?? []).filter((a) => a.status === "APPROVED").length;
+        const totalAmount = (advances ?? [])
             .filter((a) => a.status === "APPROVED")
             .reduce((sum, a) => sum + a.amount, 0);
 

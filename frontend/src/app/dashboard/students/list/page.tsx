@@ -63,7 +63,7 @@ export default function StudentListPage() {
         }
     };
 
-    const filteredStudents = students.filter(student => {
+    const filteredStudents = (students ?? []).filter(student => {
         const matchesSearch =
             student.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
             student.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||

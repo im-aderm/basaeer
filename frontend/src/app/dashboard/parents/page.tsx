@@ -54,7 +54,7 @@ export default function ParentsListPage() {
         }
     };
 
-    const filteredParents = parents.filter(p =>
+    const filteredParents = (parents ?? []).filter(p =>
         p.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
         p.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
         p.email.toLowerCase().includes(searchTerm.toLowerCase())

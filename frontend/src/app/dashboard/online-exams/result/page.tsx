@@ -209,7 +209,7 @@ export default function OnlineExamResultsPage() {
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {attempts
+                            {(attempts ?? [])
                                 .filter(a => (filters.classId === '' || filters.classId === 'all' || a.student?.classId === filters.classId))
                                 .filter(a => (filters.sectionId === '' || filters.sectionId === 'all' || a.student?.sectionId === filters.sectionId))
                                 .map((attempt) => (

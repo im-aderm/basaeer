@@ -78,7 +78,7 @@ export default function StudentFieldsPage() {
         }
     };
 
-    const filteredFields = fields.filter(f => 
+    const filteredFields = (fields ?? []).filter(f => 
         f.label.toLowerCase().includes(searchTerm.toLowerCase()) ||
         f.category.toLowerCase().includes(searchTerm.toLowerCase())
     );

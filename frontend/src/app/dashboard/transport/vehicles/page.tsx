@@ -105,7 +105,7 @@ export default function TransportVehiclesPage() {
         setIsDialogOpen(true);
     };
 
-    const filteredVehicles = vehicles.filter(v =>
+    const filteredVehicles = (vehicles ?? []).filter(v =>
         v.registrationNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
         v.model.toLowerCase().includes(searchTerm.toLowerCase()) ||
         v.driverName.toLowerCase().includes(searchTerm.toLowerCase())

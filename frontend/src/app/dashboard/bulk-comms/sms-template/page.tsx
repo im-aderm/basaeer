@@ -55,7 +55,7 @@ export default function SmsTemplatesPage() {
         setIsEditing(true);
     };
 
-    const filteredTemplates = templates.filter(t => 
+    const filteredTemplates = (templates ?? []).filter(t => 
         t.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         t.content.toLowerCase().includes(searchQuery.toLowerCase())
     );

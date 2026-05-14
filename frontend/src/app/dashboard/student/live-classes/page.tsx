@@ -62,9 +62,9 @@ export default function StudentLiveClassesPage() {
         return diff <= 5 * 60 * 1000; // Can join 5 minutes before
     };
 
-    const upcomingSessions = sessions.filter((s) => s.status === "SCHEDULED");
-    const activeSessions = sessions.filter((s) => s.status === "ACTIVE");
-    const pastSessions = sessions.filter((s) => ["ENDED", "CANCELLED"].includes(s.status));
+    const upcomingSessions = (sessions ?? []).filter((s) => s.status === "SCHEDULED");
+    const activeSessions = (sessions ?? []).filter((s) => s.status === "ACTIVE");
+    const pastSessions = (sessions ?? []).filter((s) => ["ENDED", "CANCELLED"].includes(s.status));
 
     if (loading) {
         return (

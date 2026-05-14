@@ -120,7 +120,7 @@ export default function GenerateAdmitCardPage() {
         );
     };
 
-    const filteredStudents = students.filter(s => {
+    const filteredStudents = (students ?? []).filter(s => {
         const matchesSearch = `${s.firstName} ${s.lastName}`.toLowerCase().includes(searchTerm.toLowerCase());
         const matchesClass = filters.classId ? s.classId === filters.classId : true;
         return matchesSearch && matchesClass;

@@ -50,7 +50,7 @@ export default function LoginDeactivationPage() {
         }
     };
 
-    const filteredUsers = users.filter(u =>
+    const filteredUsers = (users ?? []).filter(u =>
         u.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
         u.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
         u.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||

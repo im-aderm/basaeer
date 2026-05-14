@@ -208,21 +208,21 @@ export default function OnlineExamsPage() {
                 <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-emerald-500/5 border-l-4 border-l-emerald-500">
                     <CardHeader className="pb-2"><CardTitle className="text-xs font-semibold uppercase tracking-widest opacity-50">Active Now</CardTitle></CardHeader>
                     <CardContent className="flex items-center gap-4">
-                        <span className="text-h1 font-semibold">{exams.filter(e => e.status === ExamStatus.LIVE).length}</span>
+                        <span className="text-h1 font-semibold">{(exams ?? []).filter(e => e.status === ExamStatus.LIVE).length}</span>
                         <div className="h-3 w-3 rounded-full bg-emerald-500 animate-pulse" />
                     </CardContent>
                 </Card>
                 <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-amber-500/5 border-l-4 border-l-amber-500">
                     <CardHeader className="pb-2"><CardTitle className="text-xs font-semibold uppercase tracking-widest opacity-50">Upcoming</CardTitle></CardHeader>
                     <CardContent className="flex items-center gap-4">
-                        <span className="text-h1 font-semibold">{exams.filter(e => e.status === ExamStatus.PUBLISHED || e.status === ExamStatus.UPCOMING).length}</span>
+                        <span className="text-h1 font-semibold">{(exams ?? []).filter(e => e.status === ExamStatus.PUBLISHED || e.status === ExamStatus.UPCOMING).length}</span>
                         <Calendar className="h-8 w-8 text-amber-500/40" />
                     </CardContent>
                 </Card>
                 <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-muted/30 border-l-4 border-l-muted-foreground">
                     <CardHeader className="pb-2"><CardTitle className="text-xs font-semibold uppercase tracking-widest opacity-50">Completed</CardTitle></CardHeader>
                     <CardContent className="flex items-center gap-4">
-                        <span className="text-h1 font-semibold">{exams.filter(e => e.status === ExamStatus.ENDED).length}</span>
+                        <span className="text-h1 font-semibold">{(exams ?? []).filter(e => e.status === ExamStatus.ENDED).length}</span>
                         <BarChart3 className="h-8 w-8 text-muted-foreground/40" />
                     </CardContent>
                 </Card>
@@ -247,7 +247,7 @@ export default function OnlineExamsPage() {
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {exams.map((exam) => (
+                            {(exams ?? []).map((exam) => (
                                 <TableRow key={exam.id} className="border-border/50 h-24 transition-all hover:bg-muted/20">
                                     <TableCell className="px-8">
                                         <div className="space-y-1">

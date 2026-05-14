@@ -37,9 +37,9 @@ export default function ChildAttendancePage() {
     }, [id]);
 
     const stats = {
-        present: attendance.filter(a => a.status === 'PRESENT').length,
-        absent: attendance.filter(a => a.status === 'ABSENT').length,
-        late: attendance.filter(a => a.status === 'LATE').length,
+        present: (attendance ?? []).filter(a => a.status === 'PRESENT').length,
+        absent: (attendance ?? []).filter(a => a.status === 'ABSENT').length,
+        late: (attendance ?? []).filter(a => a.status === 'LATE').length,
         total: attendance.length
     };
 

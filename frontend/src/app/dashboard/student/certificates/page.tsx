@@ -59,7 +59,7 @@ export default function StudentCertificatesPage() {
         }
     };
 
-    const filteredCertificates = certificates.filter(c =>
+    const filteredCertificates = (certificates ?? []).filter(c =>
         c.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
         c.certificateNumber.toLowerCase().includes(searchTerm.toLowerCase())
     );

@@ -153,7 +153,7 @@ export default function ComplaintPage() {
         }
     };
 
-    const filtered = complaints.filter(c =>
+    const filtered = (complaints ?? []).filter(c =>
         c.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         c.phone.includes(searchTerm) ||
         c.complaintType?.toLowerCase().includes(searchTerm.toLowerCase())

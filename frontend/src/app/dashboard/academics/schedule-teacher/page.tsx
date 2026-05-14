@@ -48,15 +48,15 @@ export default function TeacherSchedulePage() {
 
     const calculateWorkload = () => {
         const periodsPerDay = DAYS.map((_, dayIndex) => {
-            return schedule.filter((s) => s.dayOfWeek === dayIndex).length;
+            return (schedule ?? []).filter((s) => s.dayOfWeek === dayIndex).length;
         });
 
         const totalPeriods = periodsPerDay.reduce((sum, count) => sum + count, 0);
         const avgPeriodsPerDay = totalPeriods / DAYS.length;
         const maxPeriodsPerDay = Math.max(...periodsPerDay);
 
-        const uniqueClasses = new Set(schedule.map((s) => s.classId)).size;
-        const uniqueSubjects = new Set(schedule.map((s) => s.subjectId)).size;
+        const uniqueClasses = new Set((schedule ?? []).map((s) => s.classId)).size;
+        const uniqueSubjects = new Set((schedule ?? []).map((s) => s.subjectId)).size;
 
         return {
             totalPeriods,
@@ -69,7 +69,7 @@ export default function TeacherSchedulePage() {
     };
 
     const getScheduleForDay = (dayIndex: number) => {
-        return schedule
+        return (schedule ?? [])
             .filter((s) => s.dayOfWeek === dayIndex)
             .sort((a, b) => a.startTime.localeCompare(b.startTime));
     };

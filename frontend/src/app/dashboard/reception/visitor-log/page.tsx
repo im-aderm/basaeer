@@ -141,7 +141,7 @@ export default function VisitorLogPage() {
         });
     };
 
-    const filtered = logs.filter(l =>
+    const filtered = (logs ?? []).filter(l =>
         l.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         l.purpose.toLowerCase().includes(searchTerm.toLowerCase())
     );

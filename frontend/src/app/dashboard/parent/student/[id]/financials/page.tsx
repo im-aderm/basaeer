@@ -38,7 +38,7 @@ export default function ChildFinancialsPage() {
     }, [id]);
 
     const totalBalance = invoices.reduce((acc, inv) => acc + inv.balance, 0);
-    const paidInvoices = invoices.filter(inv => inv.status === 'PAID').length;
+    const paidInvoices = (invoices ?? []).filter(inv => inv.status === 'PAID').length;
 
     if (loading) return <div className="flex h-96 items-center justify-center font-semibold animate-pulse uppercase">Loading Financials...</div>;
 
@@ -110,7 +110,7 @@ export default function ChildFinancialsPage() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {invoices.length > 0 ? invoices.map((inv) => (
+                                {invoices.length > 0 ? (invoices ?? []).map((inv) => (
                                     <tr key={inv.id} className="border-b border-border/50 hover:bg-primary/5 transition-colors">
                                         <td className="p-6 font-semibold uppercase text-sm">#{inv.invoiceNumber}</td>
                                         <td className="p-6 font-bold text-sm">${inv.totalAmount.toLocaleString()}</td>

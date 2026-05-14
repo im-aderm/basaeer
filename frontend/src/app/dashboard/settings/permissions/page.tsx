@@ -83,7 +83,7 @@ export default function PermissionsPage() {
         }
     };
 
-    const uniqueModules = Array.from(new Set(permissions.map(p => p.module))).sort();
+    const uniqueModules = Array.from(new Set((permissions ?? []).map(p => p.module))).sort();
     const filteredModules = uniqueModules.filter(m => m.toLowerCase().includes(searchTerm.toLowerCase()));
 
     const getPermissionStatus = (module: string, action: string) => {

@@ -98,7 +98,7 @@ export default function ParentDashboardPage() {
         </div>
       </div>
 
-      {children.map((child) => {
+      {(children ?? []).map((child) => {
         const attendancePercent = calculateAttendance(child.attendance) || 98;
         const feeStatus = getFeeStatus(child.invoices);
         const performance = getPerformance(child.resultSummaries);

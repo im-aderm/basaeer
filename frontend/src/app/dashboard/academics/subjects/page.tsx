@@ -98,7 +98,7 @@ export default function SubjectsPage() {
         }
     };
 
-    const filteredSubjects = subjects.filter(s =>
+    const filteredSubjects = (subjects ?? []).filter(s =>
         s.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         s.code?.toLowerCase().includes(searchTerm.toLowerCase())
     );

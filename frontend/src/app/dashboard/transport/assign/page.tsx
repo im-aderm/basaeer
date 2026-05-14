@@ -91,12 +91,12 @@ export default function TransportAssignmentPage() {
         }
     };
 
-    const unassignedStudents = students.filter(s =>
+    const unassignedStudents = (students ?? []).filter(s =>
         !s.transportAssignment &&
         (`${s.firstName} ${s.lastName}`).toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    const assignedStudents = students.filter(s =>
+    const assignedStudents = (students ?? []).filter(s =>
         s.transportAssignment &&
         (`${s.firstName} ${s.lastName}`).toLowerCase().includes(searchTerm.toLowerCase())
     );

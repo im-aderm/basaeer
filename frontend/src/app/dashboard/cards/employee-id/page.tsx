@@ -117,7 +117,7 @@ export default function EmployeeIdCardsPage() {
         );
     };
 
-    const filteredStaff = staff.filter(s => {
+    const filteredStaff = (staff ?? []).filter(s => {
         const matchesSearch = `${s.user.firstName} ${s.user.lastName}`.toLowerCase().includes(searchTerm.toLowerCase());
         return matchesSearch;
     });

@@ -162,7 +162,7 @@ function ManageRoomsContent() {
         setIsDeleteRoomOpen(true);
     };
 
-    const filteredStudents = students.filter(s =>
+    const filteredStudents = (students ?? []).filter(s =>
         `${s.firstName} ${s.lastName}`.toLowerCase().includes(studentSearch.toLowerCase()) ||
         s.studentId?.toLowerCase().includes(studentSearch.toLowerCase())
     );

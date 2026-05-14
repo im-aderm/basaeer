@@ -96,7 +96,7 @@ export default function IdTemplatesPage() {
         }
     };
 
-    const filteredTemplates = templates.filter(t =>
+    const filteredTemplates = (templates ?? []).filter(t =>
         t.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 

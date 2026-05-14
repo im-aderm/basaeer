@@ -242,7 +242,7 @@ export default function AdmissionPage() {
                         <div className="space-y-3">
                             <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Academic Session *</label>
                             <select required className="input-premium appearance-none" value={formData.academicSessionId} onChange={e => setFormData({ ...formData, academicSessionId: e.target.value })}>
-                                {sessions.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
+                                {(sessions ?? []).map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
                             </select>
                         </div>
                         <div className="space-y-3">
@@ -257,7 +257,7 @@ export default function AdmissionPage() {
                             <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Class Applying For *</label>
                             <select required className="input-premium appearance-none" value={formData.desiredClassId} onChange={e => handleClassChange(e.target.value)}>
                                 <option value="">Select Class...</option>
-                                {classes.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
+                                {(classes ?? []).map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
                             </select>
                         </div>
                         <div className="space-y-3">
@@ -318,7 +318,7 @@ export default function AdmissionPage() {
                                     }}
                                 >
                                     <option value="">Select Parent...</option>
-                                    {parents.map(p => (
+                                    {(parents ?? []).map(p => (
                                         <option key={p.id} value={p.id}>{p.firstName} {p.lastName} ({p.email})</option>
                                     ))}
                                 </select>

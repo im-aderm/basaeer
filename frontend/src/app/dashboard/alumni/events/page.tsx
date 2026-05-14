@@ -79,8 +79,8 @@ export default function AlumniEventsPage() {
     };
 
     const now = new Date();
-    const upcomingEvents = events.filter(e => new Date(e.eventDate) >= now).sort((a, b) => new Date(a.eventDate).getTime() - new Date(b.eventDate).getTime());
-    const pastEvents = events.filter(e => new Date(e.eventDate) < now).sort((a, b) => new Date(b.eventDate).getTime() - new Date(a.eventDate).getTime());
+    const upcomingEvents = (events ?? []).filter(e => new Date(e.eventDate) >= now).sort((a, b) => new Date(a.eventDate).getTime() - new Date(b.eventDate).getTime());
+    const pastEvents = (events ?? []).filter(e => new Date(e.eventDate) < now).sort((a, b) => new Date(b.eventDate).getTime() - new Date(a.eventDate).getTime());
 
     if (loading) return <div className="p-8 text-center"><Loader2 className="animate-spin mx-auto h-8 w-8 text-primary" /></div>;
 

@@ -73,15 +73,15 @@ export default function StudentLoginDeactivationPage() {
         }
     };
 
-    const activeStudents = students.filter((s) => s.user?.isActive);
-    const inactiveStudents = students.filter((s) => !s.user?.isActive);
+    const activeStudents = (students ?? []).filter((s) => s.user?.isActive);
+    const inactiveStudents = (students ?? []).filter((s) => !s.user?.isActive);
 
     const calculateStats = () => {
         return {
             total: students.length,
             active: activeStudents.length,
             inactive: inactiveStudents.length,
-            recentDeactivations: deactivations.filter((d) => {
+            recentDeactivations: (deactivations ?? []).filter((d) => {
                 const deactivatedDate = new Date(d.createdAt);
                 const thirtyDaysAgo = new Date();
                 thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);

@@ -62,7 +62,7 @@ export default function CertificateVaultPage() {
         }
     };
 
-    const filtered = certificates.filter((cert) => {
+    const filtered = (certificates ?? []).filter((cert) => {
         if (!searchTerm) return true;
         const q = searchTerm.toLowerCase();
         const name =

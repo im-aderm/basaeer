@@ -56,7 +56,7 @@ export default function EmailTemplatesPage() {
         setIsEditing(true);
     };
 
-    const filteredTemplates = templates.filter(t => 
+    const filteredTemplates = (templates ?? []).filter(t => 
         t.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         t.subject.toLowerCase().includes(searchQuery.toLowerCase())
     );

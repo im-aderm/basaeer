@@ -161,9 +161,9 @@ function LiveClassesContent() {
         }
     };
 
-    const upcomingSessions = sessions.filter(s => s.status === 'SCHEDULED');
-    const liveSessions = sessions.filter(s => s.status === 'LIVE');
-    const pastSessions = sessions.filter(s => s.status === 'ENDED' || s.status === 'CANCELLED');
+    const upcomingSessions = (sessions ?? []).filter(s => s.status === 'SCHEDULED');
+    const liveSessions = (sessions ?? []).filter(s => s.status === 'LIVE');
+    const pastSessions = (sessions ?? []).filter(s => s.status === 'ENDED' || s.status === 'CANCELLED');
 
     if (loading) return (
         <div className="flex flex-col items-center justify-center p-20 space-y-4">

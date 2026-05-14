@@ -110,7 +110,7 @@ export default function GenerateStudentCertificatePage() {
         setGenerating(false);
     };
 
-    const filteredStudents = students.filter(s =>
+    const filteredStudents = (students ?? []).filter(s =>
         `${s.firstName} ${s.lastName}`.toLowerCase().includes(searchTerm.toLowerCase())
     );
 

@@ -111,7 +111,7 @@ export default function LoginLogPage() {
         }
     ];
 
-    const filteredLogs = logs.filter(log => {
+    const filteredLogs = (logs ?? []).filter(log => {
         if (!searchTerm) return true;
         const term = searchTerm.toLowerCase();
         const userName = log.user ? `${log.user.firstName} ${log.user.lastName}`.toLowerCase() : '';

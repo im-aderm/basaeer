@@ -105,7 +105,7 @@ export default function StaffAttendancePage() {
         }
     };
 
-    const filteredStaff = staffList.filter(s =>
+    const filteredStaff = (staffList ?? []).filter(s =>
         (s.user.firstName + ' ' + s.user.lastName).toLowerCase().includes(searchTerm.toLowerCase()) ||
         s.department?.name?.toLowerCase().includes(searchTerm.toLowerCase())
     );

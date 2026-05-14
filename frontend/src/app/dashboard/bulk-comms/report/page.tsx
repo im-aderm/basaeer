@@ -38,7 +38,7 @@ export default function CommsReportPage() {
         fetchCampaigns();
     }, []);
 
-    const filteredCampaigns = campaigns.filter(c => {
+    const filteredCampaigns = (campaigns ?? []).filter(c => {
         const matchesSearch = c.name.toLowerCase().includes(searchTerm.toLowerCase());
         const matchesFilter = filterType === "ALL" || c.type === filterType;
         return matchesSearch && matchesFilter;

@@ -111,7 +111,7 @@ export default function AdmissionsManagementPage() {
         }
     };
 
-    const filteredAdmissions = admissions.filter(adm => {
+    const filteredAdmissions = (admissions ?? []).filter(adm => {
         const matchesSearch = `${adm.firstName} ${adm.lastName}`.toLowerCase().includes(searchTerm.toLowerCase());
         const matchesStatus = statusFilter === "ALL" || adm.status === statusFilter;
         return matchesSearch && matchesStatus;
@@ -159,10 +159,10 @@ export default function AdmissionsManagementPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
                 {[
                     { label: "Total Applications", value: admissions.length, color: "bg-primary", status: "ALL" },
-                    { label: "Pending Review", value: admissions.filter(a => a.status === 'PENDING').length, color: "bg-yellow-500", status: "PENDING" },
-                    { label: "Approved (Not Enrolled)", value: admissions.filter(a => a.status === 'APPROVED').length, color: "bg-blue-500", status: "APPROVED" },
-                    { label: "Enrolled", value: admissions.filter(a => a.status === 'ENROLLED').length, color: "bg-green-500", status: "ENROLLED" },
-                    { label: "Rejected", value: admissions.filter(a => a.status === 'REJECTED').length, color: "bg-red-500", status: "REJECTED" },
+                    { label: "Pending Review", value: (admissions ?? []).filter(a => a.status === 'PENDING').length, color: "bg-yellow-500", status: "PENDING" },
+                    { label: "Approved (Not Enrolled)", value: (admissions ?? []).filter(a => a.status === 'APPROVED').length, color: "bg-blue-500", status: "APPROVED" },
+                    { label: "Enrolled", value: (admissions ?? []).filter(a => a.status === 'ENROLLED').length, color: "bg-green-500", status: "ENROLLED" },
+                    { label: "Rejected", value: (admissions ?? []).filter(a => a.status === 'REJECTED').length, color: "bg-red-500", status: "REJECTED" },
                 ].map(stat => (
                     <button
                         key={stat.status}

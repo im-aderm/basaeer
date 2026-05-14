@@ -121,7 +121,7 @@ export default function TransportRoutesPage() {
         setIsDialogOpen(true);
     };
 
-    const filteredRoutes = routes.filter(route =>
+    const filteredRoutes = (routes ?? []).filter(route =>
         route.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         route.startPoint.toLowerCase().includes(searchTerm.toLowerCase()) ||
         route.endPoint.toLowerCase().includes(searchTerm.toLowerCase())

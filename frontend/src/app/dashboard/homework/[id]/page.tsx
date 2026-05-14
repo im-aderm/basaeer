@@ -166,7 +166,7 @@ export default function AssignmentEvaluation() {
                         </div>
                         <div>
                             <span className="font-semibold">Graded:</span>{" "}
-                            {submissions.filter((s) => s.status === "GRADED").length}
+                            {(submissions ?? []).filter((s) => s.status === "GRADED").length}
                         </div>
                     </div>
                     {assignment?.attachmentUrl && (

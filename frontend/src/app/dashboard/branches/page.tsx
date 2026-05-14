@@ -121,7 +121,7 @@ export default function BranchesPage() {
         }
     };
 
-    const filteredBranches = branches.filter(b =>
+    const filteredBranches = (branches ?? []).filter(b =>
         b.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         b.code.toLowerCase().includes(searchTerm.toLowerCase())
     );

@@ -132,7 +132,7 @@ export default function LibraryBorrowingPage() {
                                         onChange={e => setIssueData({ ...issueData, bookId: e.target.value })}
                                     >
                                         <option value="">Choose a book...</option>
-                                        {books.filter(b => b.available > 0).map(book => (
+                                        {(books ?? []).filter(b => b.available > 0).map(book => (
                                             <option key={book.id} value={book.id}>{book.title} ({book.available} left)</option>
                                         ))}
                                     </select>

@@ -46,7 +46,7 @@ export default function EmployeesListPage() {
         if (user) fetchEmployees();
     }, [user]);
 
-    const filteredEmployees = employees.filter(emp =>
+    const filteredEmployees = (employees ?? []).filter(emp =>
         (emp.user.firstName + ' ' + emp.user.lastName).toLowerCase().includes(searchTerm.toLowerCase()) ||
         emp.user.email.toLowerCase().includes(searchTerm.toLowerCase())
     );

@@ -97,7 +97,7 @@ export default function AdmitTemplatesPage() {
         }
     };
 
-    const filteredTemplates = templates.filter(t =>
+    const filteredTemplates = (templates ?? []).filter(t =>
         t.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 

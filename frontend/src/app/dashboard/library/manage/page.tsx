@@ -109,7 +109,7 @@ export default function BookIssueReturnPage() {
         }
     };
 
-    const activeRecords = records.filter((r) => r.status === "BORROWED" || r.status === "OVERDUE");
+    const activeRecords = (records ?? []).filter((r) => r.status === "BORROWED" || r.status === "OVERDUE");
     const filteredActive = activeRecords.filter((r) => {
         if (!search) return true;
         const q = search.toLowerCase();
@@ -119,7 +119,7 @@ export default function BookIssueReturnPage() {
         return bookTitle.includes(q) || studentName.includes(q);
     });
 
-    const availableBooks = books.filter((b) => b.available > 0);
+    const availableBooks = (books ?? []).filter((b) => b.available > 0);
 
     const tabs: { key: Tab; label: string; icon: any }[] = [
         { key: "active", label: "Active Borrowings", icon: Bookmark },
