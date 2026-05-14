@@ -1,7 +1,9 @@
 import api from '@/lib/api';
 import { devLog } from '@/lib/dev-log';
+import type { DashboardData } from '@/types/dashboard';
 
-export interface DashboardData {
+// Legacy type for the reports page (uses old data shape)
+export interface LegacyDashboardData {
     finance: {
         totalInvoiced: number;
         totalPaid: number;
@@ -52,6 +54,31 @@ export const reportingService = {
         if (startDate) params.append('start', startDate);
         if (endDate) params.append('end', endDate);
         const response = await api.get(`/reporting/finance?${params.toString()}`);
+        return response.data;
+    },
+
+    getStudentAnalytics: async (params?: { branchId?: string; classId?: string; sectionId?: string }): Promise<import('@/types/dashboard').StudentAnalyticsData> => {
+        const response = await api.get('/reporting/students', { params });
+        return response.data;
+    },
+
+    getFinanceAnalytics: async (params?: { branchId?: string; startDate?: string; endDate?: string; type?: string }): Promise<import('@/types/dashboard').FinanceAnalyticsData> => {
+        const response = await api.get('/reporting/finance', { params });
+        return response.data;
+    },
+
+    getHRAnalytics: async (params?: { branchId?: string }): Promise<import('@/types/dashboard').HRAnalyticsData> => {
+        const response = await api.get('/reporting/hr', { params });
+        return response.data;
+    },
+
+    getAcademicAnalytics: async (params?: { branchId?: string }): Promise<import('@/types/dashboard').AcademicAnalyticsData> => {
+        const response = await api.get('/reporting/academic', { params });
+        return response.data;
+    },
+
+    getAttendanceAnalytics: async (params?: { branchId?: string }): Promise<import('@/types/dashboard').AttendanceAnalyticsData> => {
+        const response = await api.get('/reporting/attendance', { params });
         return response.data;
     },
 

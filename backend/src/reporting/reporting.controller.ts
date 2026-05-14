@@ -40,7 +40,7 @@ export class ReportingController {
   @Get('dashboard')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   getDashboard(@GetTenantContext() ctx: TenantContext) {
-    return this.reportingService.getUnifiedDashboard(ctx.branchId!);
+    return this.reportingService.getUnifiedDashboard(ctx.branchId);
   }
 
   @ApiBearerAuth()

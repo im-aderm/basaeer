@@ -25,6 +25,14 @@ export class BranchesService {
     });
   }
 
+  findActive(): Promise<Pick<Branch, 'id' | 'name' | 'code'>[]> {
+    return this.prisma.branch.findMany({
+      where: { isActive: true },
+      select: { id: true, name: true, code: true },
+      orderBy: { name: 'asc' },
+    });
+  }
+
   remove(id: string): Promise<Branch> {
     return this.prisma.branch.delete({ where: { id } });
   }

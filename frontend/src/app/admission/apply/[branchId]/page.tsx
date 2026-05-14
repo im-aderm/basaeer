@@ -27,13 +27,12 @@ export default function PublicAdmissionPage() {
 
   useEffect(() => {
     if (branchId) {
-      updateFormData({ branchId });
+      updateFormData({ desiredBranchId: branchId, branchId });
     }
   }, [branchId, updateFormData]);
 
   return (
     <div className="relative min-h-screen bg-background text-text-primary selection:bg-primary/20 overflow-hidden">
-      {/* Moving Aurora Backdrop */}
       <GradientBackground />
 
       <Navbar />

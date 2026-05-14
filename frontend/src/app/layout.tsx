@@ -19,6 +19,11 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   title: "Basaer School System",
   description: "Modern School Management System",
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/icon-192.png",
+  },
 };
 
 export default function RootLayout({

@@ -60,8 +60,8 @@ export function QuranMemorizationSection() {
             {/* Background Image with Zoom on Hover */}
             <div className="absolute inset-0 z-0">
               <Image
-                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop"
-                alt="Students collaborating"
+                src="/future-starts/female-child-landscape.png"
+                alt="Student learning"
                 className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                 fill
                 sizes="(max-width: 768px) 100vw, 66vw"
@@ -159,8 +159,8 @@ export function QuranMemorizationSection() {
               {/* Right Image */}
               <div className="md:col-span-5 h-[220px] md:h-full relative overflow-hidden">
                 <Image
-                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop"
-                  alt="Smiling student"
+                  src="/future-starts/male-child-portrait.png"
+                  alt="Student portrait"
                   className="object-cover object-top hover:scale-105 duration-700 ease-out transition-transform"
                   fill
                   sizes="(max-width: 768px) 100vw, 33vw"

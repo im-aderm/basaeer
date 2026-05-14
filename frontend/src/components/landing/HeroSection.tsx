@@ -28,20 +28,21 @@ export function HeroSection() {
 
   return (
     <header className="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden">
-      {/* Background Image with Gradient Overlay */}
+      {/* Background Video with Gradient Overlay */}
       <div className="absolute inset-0 z-0">
-        <Image 
-          src="/hero-bg.png" 
-          alt="Hero Background" 
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/BGs/hero-bg.mp4" type="video/mp4" />
+        </video>
         {/* 85% to 95% gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/90 to-background/95"></div>
-        {/* Subtle Aurora glows atop the background - Use CSS hardware acceleration */}
-        <div className="absolute top-[-10%] right-[-10%] w-[60%] h-[60%] bg-[#7c3aed]/10 rounded-full blur-[120px] will-change-transform transform-gpu"></div>
+        {/* Subtle Aurora glows atop the background */}
+        <div className="absolute top-[-10%] right-[-10%] w-[60%] h-[60%] bg-primary/10 rounded-full blur-[120px] will-change-transform transform-gpu"></div>
         <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#0062d2]/10 blur-[120px] will-change-transform transform-gpu"></div>
         <div className="absolute top-[30%] left-[25%] w-[40%] h-[40%] bg-aurora-gold rounded-full blur-[130px] opacity-70 will-change-transform transform-gpu"></div>
       </div>
@@ -65,7 +66,7 @@ export function HeroSection() {
             className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-text-primary font-heading leading-tight"
             variants={itemVariants}
           >
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-light to-secondary drop-shadow-[0_0_15px_rgba(124,58,237,0.3)]">Raising Bright Minds</span> with Faith and Purpose.
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-light to-secondary drop-shadow-[0_0_15px_rgba(0,160,225,0.3)]">Raising Bright Minds</span> with Faith and Purpose.
           </motion.h1>
           
           <motion.p 

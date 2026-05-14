@@ -68,20 +68,20 @@ export function PreviousSchool() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">Institution Name *</Label>
-                <Input {...register(`previousSchools.${index}.institutionName` as any)} className="h-12 rounded-2xl border-2 font-bold bg-white" placeholder="Name of previous school" />
+                <Input {...register(`previousSchools.${index}.institutionName` as any)} className="h-12 rounded-2xl border-2 border-primary/30 font-bold bg-white" placeholder="Name of previous school" />
               </div>
               <div className="space-y-2">
                 <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">Address</Label>
-                <Input {...register(`previousSchools.${index}.address` as any)} className="h-12 rounded-2xl border-2 font-bold bg-white" placeholder="School location" />
+                <Input {...register(`previousSchools.${index}.address` as any)} className="h-12 rounded-2xl border-2 border-primary/30 font-bold bg-white" placeholder="School location" />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">From (Year)</Label>
-                  <Input {...register(`previousSchools.${index}.fromYear` as any)} className="h-12 rounded-2xl border-2 font-bold bg-white" placeholder="2020" />
+                  <Input {...register(`previousSchools.${index}.fromYear` as any)} className="h-12 rounded-2xl border-2 border-primary/30 font-bold bg-white" placeholder="2020" />
                 </div>
                 <div className="space-y-2">
                   <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">To (Year)</Label>
-                  <Input {...register(`previousSchools.${index}.toYear` as any)} className="h-12 rounded-2xl border-2 font-bold bg-white" placeholder="2023" />
+                  <Input {...register(`previousSchools.${index}.toYear` as any)} className="h-12 rounded-2xl border-2 border-primary/30 font-bold bg-white" placeholder="2023" />
                 </div>
               </div>
             </div>

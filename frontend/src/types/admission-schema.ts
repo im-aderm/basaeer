@@ -1,10 +1,14 @@
 import { z } from "zod";
 
 export const AdmissionSchema = z.object({
+  // Step: Admission Type
+  admissionType: z.enum(["NEW", "TRANSFER"]).default("NEW"),
+  desiredBranchId: z.string().min(1, "Please select a campus"),
+
   // Step 2: Candidate Info
   firstName: z.string().min(1, "First name is required"),
+  middleName: z.string().optional(),
   surname: z.string().min(1, "Surname is required"),
-  lastName: z.string().min(1, "Last name is required"),
   address: z.string().min(5, "Full home address is required"),
   gender: z.enum(["MALE", "FEMALE"]),
   dateOfBirth: z.string().min(1, "Date of birth is required"),
@@ -17,7 +21,7 @@ export const AdmissionSchema = z.object({
   nationality: z.string().optional(),
   languagesSpoken: z.string().optional(),
   email: z.string().email().optional().or(z.literal("")),
-  phoneNumber: z.string().min(1, "Phone number is required"),
+  phoneNumber: z.string().optional(),
   whatsappNumber: z.string().optional(),
 
   // Step 3: Parent/Guardian Info
@@ -32,7 +36,7 @@ export const AdmissionSchema = z.object({
   guardianRelation: z.string().optional(),
   guardianContact1: z.string().min(1, "Primary contact is required"),
   guardianContact2: z.string().optional(),
-  guardianEmail: z.string().email("Invalid email address"),
+  guardianEmail: z.string().email().optional().or(z.literal("")),
 
   // Step 4: Previous School Info
   previousSchools: z.array(z.object({
@@ -41,6 +45,7 @@ export const AdmissionSchema = z.object({
     fromYear: z.string().optional(),
     toYear: z.string().optional(),
   })).optional(),
+  transferReason: z.string().optional(),
 
   // Step 5: Medical & Additional Info
   hasAppliedBefore: z.boolean().default(false),
@@ -54,8 +59,8 @@ export const AdmissionSchema = z.object({
   seekingFinancialAid: z.boolean().default(false),
   hasSiblingsInSchool: z.boolean().default(false),
   siblings: z.array(z.object({
-    name: z.string(),
-    level: z.string(),
+    name: z.string().min(1, "Sibling name is required"),
+    level: z.string().min(1, "Sibling class/level is required"),
   })).optional(),
 
   // Step 6: Documents
@@ -66,15 +71,23 @@ export const AdmissionSchema = z.object({
   medicalReportUrl: z.string().optional(),
   recommendationLetterUrl: z.string().optional(),
   transferLetterUrl: z.string().optional(),
+  transferCertificateUrl: z.string().optional(),
+
+  // Step 7: Class & Section
+  desiredClassId: z.string().min(1, "Please select a class"),
+  desiredSectionId: z.string().optional(),
+
+  // Step 8: Payment
   paymentProofUrl: z.string().optional(),
 
-  // Step 7: Consent
+  // Step 9: Consent
   schoolRulesAgreement: z.boolean().refine(v => v === true, "You must accept the rules"),
-  
-  // Admission Details (Contextual)
-  branchId: z.string(),
-  desiredClassId: z.string().min(1, "Please select a class"),
+
+  // Session
   academicSessionId: z.string().min(1, "Please select a session"),
+
+  // Legacy / Backend mapping
+  branchId: z.string().optional(),
 });
 
 export type AdmissionFormData = z.infer<typeof AdmissionSchema>;

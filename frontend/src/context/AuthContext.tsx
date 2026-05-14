@@ -46,7 +46,7 @@ interface AuthContextType {
     user: User | null;
     isAuthenticated: boolean;
     loading: boolean;
-    login: (userData: User, accessToken: string) => Promise<void>;
+    login: (userData: User) => Promise<void>;
     logout: () => void;
 }
 
@@ -86,23 +86,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         checkAuth();
     }, []);
 
-    /**
-     * Called after a successful login API response.
-     */
-    const login = async (userData: User, accessToken: string): Promise<void> => {
+    const login = async (userData: User): Promise<void> => {
         setUser(userData);
 
-        try {
-            const profileRes = await api.get<User>("/auth/profile");
-            setUser(profileRes.data);
-        } catch (error) {
-            console.warn("Profile enrichment failed, using login response data");
-        }
-
-        if (userData.mustChangePassword || user?.mustChangePassword) {
-            router.push("/dashboard/change-password");
+        if (userData.mustChangePassword) {
+            window.location.href = "/dashboard/change-password";
         } else {
-            router.push("/dashboard");
+            window.location.href = "/dashboard";
         }
     };
 

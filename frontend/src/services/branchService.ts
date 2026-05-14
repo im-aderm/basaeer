@@ -59,5 +59,10 @@ export const BranchService = {
 
     delete: async (id: string): Promise<void> => {
         await api.delete(`/branches/${id}`);
-    }
+    },
+
+    getActive: async (): Promise<Pick<Branch, 'id' | 'name' | 'code'>[]> => {
+        const response = await api.get("/branches/public/active");
+        return response.data;
+    },
 };

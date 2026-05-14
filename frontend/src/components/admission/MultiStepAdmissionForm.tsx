@@ -97,6 +97,8 @@ export function MultiStepAdmissionForm() {
     }
   };
 
+  const totalSteps = 8;
+
   return (
     <div className="max-w-4xl mx-auto space-y-8 pb-20">
       <AdmissionStepper currentStep={currentStep} />
@@ -130,7 +132,7 @@ export function MultiStepAdmissionForm() {
             <ArrowLeft className="mr-2 h-4 w-4" /> Back
           </Button>
 
-          {currentStep < 8 ? (
+          {currentStep < totalSteps ? (
             <Button
               onClick={nextStep}
               className="rounded-2xl px-8 h-12 font-black italic shadow-lg shadow-primary/30"

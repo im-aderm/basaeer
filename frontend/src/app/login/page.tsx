@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { Lock, Mail, Eye, EyeOff, Fingerprint } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import api from "@/lib/api";
 import { GradientBackground } from "@/components/ui/GradientBackground";
@@ -22,9 +23,7 @@ export default function LoginPage() {
 
     try {
       const res = await api.post("/auth/login", { email, password });
-      // login() is now async — await it to ensure profile is fetched before navigation
-      // pass both user and access_token
-      await login(res.data.user, res.data.access_token);
+      await login(res.data.user);
     } catch (err: unknown) {
       const axiosError = err as { response?: { status?: number; data?: { message?: string } } };
       if (axiosError.response?.status === 401) {
@@ -52,22 +51,23 @@ export default function LoginPage() {
 
       <GradientBackground />
 
-      <div className="relative z-20 max-w-4xl mx-auto px-6 text-center w-full space-y-12">
-        <div className="space-y-4">
-          <span className="inline-block py-1.5 px-4 rounded-full bg-primary/10 border border-primary/20 text-primary-light text-xs font-bold tracking-widest uppercase">
-            Elite Parent Portal
+      <div className="relative z-20 max-w-md mx-auto px-6 text-center w-full space-y-8">
+        {/* Logo outside the form, bigger */}
+        <Link href="/" className="flex justify-center">
+          <Image src="/logo.png" alt="Basaer Model School" width={100} height={100} className="object-contain" priority />
+        </Link>
+
+        <div className="space-y-2">
+          <span className="inline-block py-1.5 px-4 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold tracking-widest uppercase">
+            Staff & Student Portal
           </span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-text-primary font-heading leading-tight">
-            Your Child's Progress, <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-light to-secondary drop-shadow-[0_0_15px_rgba(124,58,237,0.3)]">Illuminated.</span>
-          </h1>
-          <p className="text-sm md:text-base text-text-secondary leading-relaxed max-w-2xl mx-auto">
-            Access real-time academic insights, secure administrative controls, and spiritual growth tracking in a single, unified sanctuary for Basaer families.
+          <p className="text-sm text-text-secondary leading-relaxed">
+            Sign in to access your dashboard, academic records, and administrative tools.
           </p>
         </div>
 
         {/* Secure Login Card */}
-        <div className="max-w-md mx-auto glass-card p-8 md:p-10 rounded-[32px] shadow-2xl relative border border-border/40 hover:border-primary-light/30 transition-all duration-500">
-          <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 bg-primary/20 rounded-full blur-2xl"></div>
+        <div className="glass-card p-8 md:p-10 rounded-[32px] shadow-2xl relative border border-border/40 hover:border-primary-light/30 transition-all duration-500">
           
           {error && (
             <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-600 text-xs md:text-sm font-medium" role="alert">
@@ -78,7 +78,7 @@ export default function LoginPage() {
           <form onSubmit={handleSubmit} className="space-y-6" noValidate>
             <div className="text-left space-y-2">
               <label htmlFor="email" className="text-[10px] font-bold text-text-secondary tracking-wider uppercase ml-2 block">
-                Parent ID / Email Address
+                Email Address
               </label>
               <div className="relative">
                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-primary-light/60" aria-hidden="true">
@@ -90,7 +90,7 @@ export default function LoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full bg-surface-container/30 border border-border rounded-xl py-3 pl-12 pr-4 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all duration-300 text-text-primary placeholder-text-secondary/30 text-sm"
-                  placeholder="e.g. PAR-2024-001 or admin@basaer.com"
+                  placeholder="you@example.com"
                   required
                   autoComplete="email"
                 />

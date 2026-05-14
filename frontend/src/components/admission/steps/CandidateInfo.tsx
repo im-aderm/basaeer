@@ -18,11 +18,9 @@ export function CandidateInfo() {
     resolver: zodResolver(AdmissionSchema.pick({
       firstName: true,
       surname: true,
-      lastName: true,
       address: true,
       gender: true,
       dateOfBirth: true,
-      phoneNumber: true,
     }).partial()),
     defaultValues: formData,
   });
@@ -43,7 +41,7 @@ export function CandidateInfo() {
           <Input 
             {...register("firstName")} 
             placeholder="John" 
-            className="h-12 rounded-2xl border-2 focus:border-primary transition-all font-bold"
+            className="h-12 rounded-2xl border-2 border-primary/30 font-bold"
           />
           {errors.firstName && <p className="text-red-500 text-[10px] font-bold uppercase ml-1">{errors.firstName.message}</p>}
         </div>
@@ -53,19 +51,18 @@ export function CandidateInfo() {
           <Input 
             {...register("surname")} 
             placeholder="Smith" 
-            className="h-12 rounded-2xl border-2 focus:border-primary transition-all font-bold"
+            className="h-12 rounded-2xl border-2 border-primary/30 font-bold"
           />
           {errors.surname && <p className="text-red-500 text-[10px] font-bold uppercase ml-1">{errors.surname.message}</p>}
         </div>
 
         <div className="space-y-2">
-          <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">Last Name *</Label>
+          <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">Middle Name (optional)</Label>
           <Input 
-            {...register("lastName")} 
+            {...register("middleName")} 
             placeholder="Doe" 
-            className="h-12 rounded-2xl border-2 focus:border-primary transition-all font-bold"
+            className="h-12 rounded-2xl border-2 border-primary/30 font-bold"
           />
-          {errors.lastName && <p className="text-red-500 text-[10px] font-bold uppercase ml-1">{errors.lastName.message}</p>}
         </div>
       </div>
 
@@ -76,7 +73,7 @@ export function CandidateInfo() {
             value={watch("gender")} 
             onValueChange={(v) => setValue("gender", v as any)}
           >
-            <SelectTrigger className="h-12 rounded-2xl border-2 font-bold">
+            <SelectTrigger className="h-12 rounded-2xl border-2 border-primary/30 font-bold">
               <SelectValue placeholder="Select Gender" />
             </SelectTrigger>
             <SelectContent>
@@ -91,7 +88,7 @@ export function CandidateInfo() {
           <Input 
             type="date" 
             {...register("dateOfBirth")} 
-            className="h-12 rounded-2xl border-2 focus:border-primary transition-all font-bold"
+            className="h-12 rounded-2xl border-2 border-primary/30 font-bold"
           />
         </div>
       </div>
@@ -101,7 +98,7 @@ export function CandidateInfo() {
         <Input 
           {...register("address")} 
           placeholder="Enter full residential address" 
-          className="h-12 rounded-2xl border-2 focus:border-primary transition-all font-bold"
+          className="h-12 rounded-2xl border-2 border-primary/30 font-bold"
         />
       </div>
 
@@ -111,16 +108,16 @@ export function CandidateInfo() {
           <Input 
             {...register("ninNumber")} 
             placeholder="National ID Number" 
-            className="h-12 rounded-2xl border-2 focus:border-primary transition-all font-bold"
+            className="h-12 rounded-2xl border-2 border-primary/30 font-bold"
           />
         </div>
 
         <div className="space-y-2">
-          <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">Phone Number *</Label>
+          <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">Phone Number</Label>
           <Input 
             {...register("phoneNumber")} 
             placeholder="+234..." 
-            className="h-12 rounded-2xl border-2 focus:border-primary transition-all font-bold"
+            className="h-12 rounded-2xl border-2 border-primary/30 font-bold"
           />
         </div>
       </div>
@@ -128,15 +125,15 @@ export function CandidateInfo() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="space-y-2">
           <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">Genotype</Label>
-          <Input {...register("genotype")} placeholder="e.g. AA" className="h-12 rounded-2xl border-2 font-bold" />
+          <Input {...register("genotype")} placeholder="e.g. AA" className="h-12 rounded-2xl border-2 border-primary/30 font-bold" />
         </div>
         <div className="space-y-2">
           <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">Blood Group</Label>
-          <Input {...register("bloodGroup")} placeholder="e.g. O+" className="h-12 rounded-2xl border-2 font-bold" />
+          <Input {...register("bloodGroup")} placeholder="e.g. O+" className="h-12 rounded-2xl border-2 border-primary/30 font-bold" />
         </div>
         <div className="space-y-2">
           <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">Nationality</Label>
-          <Input {...register("nationality")} placeholder="Nigerian" className="h-12 rounded-2xl border-2 font-bold" />
+          <Input {...register("nationality")} placeholder="Nigerian" className="h-12 rounded-2xl border-2 border-primary/30 font-bold" />
         </div>
       </div>
     </CardContent>

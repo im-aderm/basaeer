@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
 import { IntegrationsService } from '../../integrations/integrations.service';
 import { PrismaService } from '../../prisma/prisma.service';
+import { RealtimeService } from '../../realtime/realtime.service';
 
 @Injectable()
 export class InstitutionalEventsService {
@@ -10,6 +11,7 @@ export class InstitutionalEventsService {
   constructor(
     private readonly integrationsService: IntegrationsService,
     private readonly prisma: PrismaService,
+    private readonly realtime: RealtimeService,
   ) {}
 
   @OnEvent('payment.received')
@@ -23,15 +25,16 @@ export class InstitutionalEventsService {
       `Event payment.received: invoice ${payload.invoiceId}, amount ${payload.amount}`,
     );
 
-    // 1. Trigger Webhooks
     await this.integrationsService.triggerWebhook(
       payload.branchId,
       'payment.received',
       payload,
     );
 
-    // 2. Cross-module automation: If it's a hostel invoice, update status
-    // (This logic would be more complex in production, checking item categories)
+    this.realtime.sendToBranch(payload.branchId, 'dashboard.refresh', {
+      reason: 'payment.received',
+      payload,
+    });
   }
 
   @OnEvent('student.absent')
@@ -42,14 +45,41 @@ export class InstitutionalEventsService {
   }) {
     this.logger.log(`Event student.absent: student ${payload.studentId}`);
 
-    // Trigger Webhooks
     await this.integrationsService.triggerWebhook(
       payload.branchId,
       'student.absent',
       payload,
     );
 
-    // Send Notification (handled by NotificationsModule in real setup)
+    this.realtime.sendToBranch(payload.branchId, 'dashboard.refresh', {
+      reason: 'attendance.updated',
+    });
+  }
+
+  @OnEvent('student.created')
+  async handleStudentCreated(payload: {
+    branchId: string;
+    studentId: string;
+    firstName: string;
+  }) {
+    this.logger.log(`Event student.created: ${payload.firstName}`);
+    this.realtime.sendToBranch(payload.branchId, 'dashboard.refresh', {
+      reason: 'student.created',
+    });
+  }
+
+  @OnEvent('staff.created')
+  async handleStaffCreated(payload: { branchId: string; staffId: string }) {
+    this.realtime.sendToBranch(payload.branchId, 'dashboard.refresh', {
+      reason: 'staff.created',
+    });
+  }
+
+  @OnEvent('attendance.marked')
+  async handleAttendanceMarked(payload: { branchId: string }) {
+    this.realtime.sendToBranch(payload.branchId, 'dashboard.refresh', {
+      reason: 'attendance.marked',
+    });
   }
 
   @OnEvent('book.overdue')

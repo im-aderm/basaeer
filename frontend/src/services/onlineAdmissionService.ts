@@ -148,13 +148,15 @@ export const OnlineAdmissionService = {
     },
 
     create: async (data: any): Promise<OnlineAdmission> => {
-        const { guardianType, siblings, phoneNumber, paymentProofUrl, ...cleanData } = data;
+        const { guardianType, siblings, phoneNumber, paymentProofUrl, admissionType, desiredBranchId, ...cleanData } = data;
 
         const payload = {
             ...cleanData,
+            branchId: data.desiredBranchId || data.branchId,
+            desiredSectionId: data.desiredSectionId || undefined,
             paymentReceiptUrl: data.paymentProofUrl || data.paymentReceiptUrl,
             surname: data.surname || data.lastName,
-            otherNames: data.otherNames || data.lastName || "",
+            otherNames: data.middleName || data.otherNames || "",
             guardianPhone: data.guardianContact1 || data.guardianPhone || data.phoneNumber || data.phone,
             phone: data.phoneNumber || data.phone,
             dateOfBirth: data.dateOfBirth ? new Date(data.dateOfBirth).toISOString().split('T')[0] : data.dateOfBirth,

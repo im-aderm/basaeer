@@ -1,97 +1,99 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "@/context/AuthContext";
-import { AnalyticsCard } from "@/components/reporting/AnalyticsCard";
-import { AnalyticsChart } from "@/components/reporting/AnalyticsChart";
-import { 
-    BookOpen, 
-    Book, 
-    FileText, 
-    Download, 
-    Filter
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
-import api from "@/lib/api";
-import { AnalyticsData } from "@basaer/shared-types";
-import { toast } from "sonner";
+import { reportingService } from "@/services/reportingService";
+import { StatCardWidget } from "@/components/dashboard/widgets/StatCardWidget";
+import { DashboardGrid } from "@/components/dashboard/DashboardGrid";
+import { Card } from "@/components/ui/card";
+import { BookOpen, GraduationCap, Book, AlertCircle, Loader2 } from "lucide-react";
+import type { AcademicAnalyticsData } from "@/types/dashboard";
 
 export default function AcademicReportsPage() {
-    const { user } = useAuth();
-    const [data, setData] = useState<AnalyticsData | null>(null);
-    const [loading, setLoading] = useState(true);
+  const { user } = useAuth();
+  const [data, setData] = useState<AcademicAnalyticsData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-    const fetchAnalytics = async () => {
-        try {
-            setLoading(true);
-            const response = await api.get<AnalyticsData>("/reporting/academic");
-            setData(response.data);
-        } catch (error) {
-            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch academic analytics:", error);
-            toast.error("Failed to load academic analytics");
-        } finally {
-            setLoading(false);
-        }
-    };
+  const fetchData = useCallback(async () => {
+    if (!user) return;
+    try {
+      setLoading(true);
+      setError(null);
+      const result = await reportingService.getAcademicAnalytics();
+      setData(result);
+    } catch {
+      setError("Failed to load academic analytics");
+    } finally {
+      setLoading(false);
+    }
+  }, [user]);
 
-    useEffect(() => {
-        if (user) fetchAnalytics();
-    }, [user]);
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
+  if (loading) {
     return (
-        <div className="max-w-7xl mx-auto space-y-8 pb-20 animate-in fade-in duration-700">
-            <div className="flex justify-between items-end">
-                <div>
-                    <h1 className="text-h1 font-semibold tracking-tight uppercase text-primary">Academic Excellence</h1>
-                    <p className="text-muted-foreground font-medium mt-1">Curriculum progress, examination results, and subject performance.</p>
-                </div>
-                <div className="flex gap-4">
-                    <Button variant="outline" className="h-12 px-6 rounded-2xl font-semibold gap-2 border-primary/20 hover:bg-primary/5">
-                        <Download size={18} />
-                        Export Rankings
-                    </Button>
-                    <Button className="h-12 px-6 rounded-2xl font-semibold gap-2 shadow-lg shadow-primary/20">
-                        <Filter size={18} />
-                        Filter Exams
-                    </Button>
-                </div>
-            </div>
-
-            {/* Summary Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <AnalyticsCard
-                    title="Academic Classes"
-                    value={data?.summary.find(s => s.label === 'Academic Classes')?.value || 0}
-                    icon={BookOpen}
-                    color="blue"
-                    loading={loading}
-                />
-                <AnalyticsCard
-                    title="Active Subjects"
-                    value={data?.summary.find(s => s.label === 'Active Subjects')?.value || 0}
-                    icon={Book}
-                    color="green"
-                    loading={loading}
-                />
-                <AnalyticsCard
-                    title="Conducted Exams"
-                    value={data?.summary.find(s => s.label === 'Conducted Exams')?.value || 0}
-                    icon={FileText}
-                    color="purple"
-                    loading={loading}
-                />
-            </div>
-
-            <AnalyticsChart
-                title="Examination Performance"
-                description="Average scores across recent assessments"
-                data={data?.charts.exams || []}
-                type="line"
-                dataKey="score"
-                color="#8b5cf6"
-                height={400}
-                loading={loading}
-            />
-        </div>
+      <div className="flex items-center justify-center min-h-[400px]">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
     );
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[400px] text-destructive">
+        <AlertCircle className="w-12 h-12 mb-4" />
+        <p className="text-lg font-semibold">{error}</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="max-w-7xl mx-auto space-y-8 pb-20">
+      <div>
+        <h1 className="text-h1 font-semibold tracking-tight uppercase text-primary">Academic Excellence</h1>
+        <p className="text-muted-foreground font-medium mt-1">Curriculum progress, results, and subject performance</p>
+      </div>
+
+      <DashboardGrid cols={3}>
+        <StatCardWidget
+          title="Total Classes"
+          value={data?.totalClasses}
+          icon={BookOpen}
+          color="blue"
+        />
+        <StatCardWidget
+          title="Total Sections"
+          value={data?.totalSections}
+          icon={GraduationCap}
+          color="green"
+        />
+        <StatCardWidget
+          title="Subjects"
+          value={data?.subjectCount}
+          icon={Book}
+          color="purple"
+        />
+      </DashboardGrid>
+
+      <DashboardGrid cols={2}>
+        <Card className="rounded-[2.5rem] border-border/50 shadow-xl p-8">
+          <p className="text-label text-muted-foreground mb-2">Students Per Class</p>
+          <p className="text-h1 font-semibold tracking-tight">
+            {data?.studentsPerClass ?? "—"}
+          </p>
+          <p className="text-xs text-muted-foreground mt-1">Average number of students per class</p>
+        </Card>
+        <Card className="rounded-[2.5rem] border-border/50 shadow-xl p-8">
+          <p className="text-label text-muted-foreground mb-2">Average Class Size</p>
+          <p className="text-h1 font-semibold tracking-tight">
+            {data?.averageClassSize ?? "—"}
+          </p>
+          <p className="text-xs text-muted-foreground mt-1">Average class size across all sections</p>
+        </Card>
+      </DashboardGrid>
+    </div>
+  );
 }

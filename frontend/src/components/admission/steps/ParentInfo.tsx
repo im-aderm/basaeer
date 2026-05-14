@@ -115,7 +115,7 @@ export function ParentInfo() {
               <Input {...register("guardianName")} className="h-12 rounded-2xl border-2 font-bold bg-white" />
             </div>
             <div className="space-y-2">
-              <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">Email Address *</Label>
+              <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">Email Address (optional)</Label>
               <Input {...register("guardianEmail")} type="email" placeholder="example@email.com" className="h-12 rounded-2xl border-2 font-bold bg-white" />
             </div>
             <div className="space-y-2">

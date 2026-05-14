@@ -13,14 +13,16 @@ import {
   AlertCircle,
   Upload,
   X,
+  School,
 } from "lucide-react";
 import { toast } from "sonner";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useEffect, useState, useRef } from "react";
 import { OnlineAdmissionService } from "@/services/onlineAdmissionService";
+import { BranchService } from "@/services/branchService";
 import api from "@/lib/api";
 
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+const MAX_FILE_SIZE = 5 * 1024 * 1024;
 const ALLOWED_TYPES = [
   "image/jpeg",
   "image/png",
@@ -31,9 +33,22 @@ const ALLOWED_TYPES = [
 export function PaymentStep() {
   const { formData, updateFormData } = useAdmissionStore();
   const [initData, setInitData] = useState<any>(null);
+  const [branches, setBranches] = useState<any[]>([]);
   const [uploading, setUploading] = useState(false);
   const [preview, setPreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const loadBranches = async () => {
+      try {
+        const data = await BranchService.getActive();
+        setBranches(data);
+      } catch (error) {
+        if (process.env.NODE_ENV === 'development') console.error("Failed to load branches", error);
+      }
+    };
+    loadBranches();
+  }, []);
 
   useEffect(() => {
     const loadData = async () => {
@@ -56,13 +71,11 @@ export function PaymentStep() {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    // Validate file type
     if (!ALLOWED_TYPES.includes(file.type)) {
       toast.error("Only JPEG, PNG, WebP images and PDF files are allowed");
       return;
     }
 
-    // Validate file size
     if (file.size > MAX_FILE_SIZE) {
       toast.error(`File size must be under 5MB (${(file.size / 1024 / 1024).toFixed(2)}MB)`);
       return;
@@ -82,7 +95,6 @@ export function PaymentStep() {
         const fileUrl = response.data.url;
         updateFormData({ paymentProofUrl: fileUrl });
 
-        // Create preview for images
         if (file.type.startsWith("image/")) {
           const reader = new FileReader();
           reader.onload = (ev) => setPreview(ev.target?.result as string);
@@ -107,6 +119,9 @@ export function PaymentStep() {
     toast.info("Payment proof removed");
   };
 
+  const selectedClassId = formData.desiredClassId;
+  const sections = selectedClassId && initData?.sections ? initData.sections[selectedClassId] : null;
+
   return (
     <CardContent className="p-8 space-y-10">
       <div className="flex items-center gap-3 text-primary">
@@ -116,7 +131,38 @@ export function PaymentStep() {
         <h2 className="text-3xl font-black italic uppercase">Payment & Class Selection</h2>
       </div>
 
+      <div className="flex items-center gap-3">
+        <School size={20} className="text-primary" />
+        <span className="text-xs font-black uppercase tracking-widest text-muted-foreground">
+          Admission Type:
+        </span>
+        <span className="px-4 py-1 rounded-full bg-primary/10 border-2 border-primary/30 text-primary font-black italic text-sm">
+          {formData.admissionType === "NEW" ? "New Admission" : "Transfer"}
+        </span>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="space-y-2">
+          <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">
+            Campus / Branch *
+          </Label>
+          <Select
+            value={formData.desiredBranchId}
+            onValueChange={(v) => updateFormData({ desiredBranchId: v })}
+          >
+            <SelectTrigger className="h-14 rounded-[1.5rem] border-2 border-primary/30 font-black italic shadow-sm">
+              <SelectValue placeholder="Select your campus" />
+            </SelectTrigger>
+            <SelectContent className="rounded-2xl">
+              {branches.map((b: any) => (
+                <SelectItem key={b.id} value={b.id} className="font-bold">
+                  {b.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
         <div className="space-y-2">
           <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">
             Applying for Class *
@@ -125,7 +171,7 @@ export function PaymentStep() {
             value={formData.desiredClassId}
             onValueChange={(v) => updateFormData({ desiredClassId: v })}
           >
-            <SelectTrigger className="h-14 rounded-[1.5rem] border-2 font-black italic shadow-sm">
+            <SelectTrigger className="h-14 rounded-[1.5rem] border-2 border-primary/30 font-black italic shadow-sm">
               <SelectValue placeholder="Which class/grade?" />
             </SelectTrigger>
             <SelectContent className="rounded-2xl">
@@ -140,9 +186,35 @@ export function PaymentStep() {
 
         <div className="space-y-2">
           <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">
+            Section
+          </Label>
+          <Select
+            value={formData.desiredSectionId}
+            onValueChange={(v) => updateFormData({ desiredSectionId: v })}
+            disabled={!sections}
+          >
+            <SelectTrigger className="h-14 rounded-[1.5rem] border-2 border-primary/30 font-black italic shadow-sm">
+              <SelectValue placeholder={sections && sections.length > 0 ? "Select section" : "No sections available"} />
+            </SelectTrigger>
+            <SelectContent className="rounded-2xl">
+              {sections?.length > 0 ? sections.map((s: any) => (
+                <SelectItem key={s.id} value={s.id} className="font-bold">
+                  {s.name}
+                </SelectItem>
+              )) : (
+                <SelectItem value="none" disabled className="font-bold text-muted-foreground">
+                  No sections available
+                </SelectItem>
+              )}
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="space-y-2">
+          <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">
             Academic Session *
           </Label>
-          <div className="h-14 rounded-[1.5rem] bg-muted/30 border-2 border-border flex items-center px-6 font-black italic text-primary">
+          <div className="h-14 rounded-[1.5rem] bg-muted/30 border-2 border-primary/30 flex items-center px-6 font-black italic text-primary">
             {initData?.currentSession?.name || "Loading..."}
           </div>
         </div>
@@ -176,73 +248,75 @@ export function PaymentStep() {
           </div>
         </div>
 
-        <div className="flex justify-center flex-col items-center gap-6 pt-4">
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept=".jpg,.jpeg,.png,.webp,.pdf"
-            onChange={handleFileChange}
-            disabled={uploading}
-            className="hidden"
-          />
-
-          <div
-            role="button"
-            tabIndex={0}
-            onClick={() => !uploading && fileInputRef.current?.click()}
-            onKeyDown={(e) => {
-              if (!uploading && (e.key === 'Enter' || e.key === ' ')) {
-                e.preventDefault();
-                fileInputRef.current?.click();
-              }
-            }}
-            className={`group relative flex flex-col items-center justify-center gap-3 w-full md:w-80 h-40 bg-white border-4 border-dashed border-primary/20 rounded-[2.5rem] hover:border-primary hover:bg-primary/5 transition-all text-muted-foreground hover:text-primary ${uploading ? 'opacity-50 cursor-not-allowed' : ''}`}
-          >
-            {uploading ? (
-              <>
-                <Upload size={40} className="animate-spin" />
-                <span className="font-black italic uppercase tracking-tight">Uploading...</span>
-              </>
-            ) : (
-              <>
-                <FileUp size={40} className="group-hover:-translate-y-2 transition-transform duration-300" />
-                <span className="font-black italic uppercase tracking-tight">
-                  {formData.paymentProofUrl ? "Change Payment Proof" : "Upload Proof of Payment"}
-                </span>
-              </>
-            )}
-
-            {formData.paymentProofUrl && !uploading && (
-              <div className="absolute inset-0 bg-white/90 rounded-[2.5rem] flex flex-col items-center justify-center gap-2 animate-in fade-in zoom-in duration-300">
-                <CheckCircle2 size={48} className="text-green-500" />
-                <span className="text-green-600 font-black italic uppercase text-xs">Proof Uploaded</span>
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleRemove();
-                  }}
-                  className="absolute top-3 right-3 p-1 rounded-full hover:bg-red-100 text-muted-foreground hover:text-red-500 transition-colors"
-                  title="Remove file"
-                >
-                  <X size={18} />
-                </button>
-              </div>
-            )}
-          </div>
-
-          {preview && (
-            <img
-              src={preview}
-              alt="Payment proof preview"
-              className="w-48 h-32 object-cover rounded-xl border-2 border-primary/20 shadow-lg"
+        {formData.desiredClassId && (
+          <div className="flex justify-center flex-col items-center gap-6 pt-4">
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept=".jpg,.jpeg,.png,.webp,.pdf"
+              onChange={handleFileChange}
+              disabled={uploading}
+              className="hidden"
             />
-          )}
 
-          <div className="flex items-center gap-2 text-primary font-bold italic text-xs uppercase opacity-70">
-            <AlertCircle size={16} /> Screenshot or PDF of transfer (max 5MB)
+            <div
+              role="button"
+              tabIndex={0}
+              onClick={() => !uploading && fileInputRef.current?.click()}
+              onKeyDown={(e) => {
+                if (!uploading && (e.key === 'Enter' || e.key === ' ')) {
+                  e.preventDefault();
+                  fileInputRef.current?.click();
+                }
+              }}
+              className={`group relative flex flex-col items-center justify-center gap-3 w-full md:w-80 h-40 bg-white border-4 border-dashed border-primary/20 rounded-[2.5rem] hover:border-primary hover:bg-primary/5 transition-all text-muted-foreground hover:text-primary ${uploading ? 'opacity-50 cursor-not-allowed' : ''}`}
+            >
+              {uploading ? (
+                <>
+                  <Upload size={40} className="animate-spin" />
+                  <span className="font-black italic uppercase tracking-tight">Uploading...</span>
+                </>
+              ) : (
+                <>
+                  <FileUp size={40} className="group-hover:-translate-y-2 transition-transform duration-300" />
+                  <span className="font-black italic uppercase tracking-tight">
+                    {formData.paymentProofUrl ? "Change Payment Proof" : "Upload Proof of Payment"}
+                  </span>
+                </>
+              )}
+
+              {formData.paymentProofUrl && !uploading && (
+                <div className="absolute inset-0 bg-white/90 rounded-[2.5rem] flex flex-col items-center justify-center gap-2 animate-in fade-in zoom-in duration-300">
+                  <CheckCircle2 size={48} className="text-green-500" />
+                  <span className="text-green-600 font-black italic uppercase text-xs">Proof Uploaded</span>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleRemove();
+                    }}
+                    className="absolute top-3 right-3 p-1 rounded-full hover:bg-red-100 text-muted-foreground hover:text-red-500 transition-colors"
+                    title="Remove file"
+                  >
+                    <X size={18} />
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {preview && (
+              <img
+                src={preview}
+                alt="Payment proof preview"
+                className="w-48 h-32 object-cover rounded-xl border-2 border-primary/20 shadow-lg"
+              />
+            )}
+
+            <div className="flex items-center gap-2 text-primary font-bold italic text-xs uppercase opacity-70">
+              <AlertCircle size={16} /> Screenshot or PDF of transfer (max 5MB)
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </CardContent>
   );

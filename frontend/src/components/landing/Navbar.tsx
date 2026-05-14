@@ -6,29 +6,21 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { campuses, sections } from "@/lib/school-data";
 
 const links = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
-  { name: "Academics", href: "/#programs" },
   { name: "Admissions", href: "/admission" },
-  { name: "Campuses", href: "/campuses" },
   { name: "Student Life", href: "/student-life" },
-];
-
-const sections = [
-  { name: "Tahfeez Academy", href: "/academics/tahfeez" },
-  { name: "Islamic Studies", href: "/academics/islamic-studies" },
-  { name: "Primary School", href: "/academics/primary" },
-  { name: "Nursery School", href: "/academics/nursery" },
-  { name: "Secondary School", href: "/academics/secondary" },
 ];
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("");
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isCampusOpen, setIsCampusOpen] = useState(false);
+  const [activeCampus, setActiveCampus] = useState<string | null>(null);
 
   const mounted = useSyncExternalStore(
     () => () => {},
@@ -43,8 +35,6 @@ export function Navbar() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-
 
   return (
     <nav
@@ -92,33 +82,62 @@ export function Navbar() {
             </Link>
           ))}
 
-          {/* Sections Dropdown Link */}
+          {/* Campuses Dropdown with Nested Sections */}
           <div
             className="relative"
-            onMouseEnter={() => setIsDropdownOpen(true)}
-            onMouseLeave={() => setIsDropdownOpen(false)}
+            onMouseEnter={() => setIsCampusOpen(true)}
+            onMouseLeave={() => { setIsCampusOpen(false); setActiveCampus(null); }}
           >
             <button className="flex items-center gap-1.5 py-2 text-sm font-semibold text-text-secondary hover:text-text-primary transition-colors cursor-pointer">
-              Sections <ChevronDown className={cn("w-4 h-4 transition-transform duration-300", isDropdownOpen && "rotate-180")} />
+              Campuses <ChevronDown className={cn("w-4 h-4 transition-transform duration-300", isCampusOpen && "rotate-180")} />
             </button>
 
             <AnimatePresence>
-              {isDropdownOpen && (
+              {isCampusOpen && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 10 }}
                   transition={{ duration: 0.2 }}
-                  className="absolute left-1/2 -translate-x-1/2 top-full w-56 bg-background/95 backdrop-blur-md border border-border rounded-2xl p-2 shadow-xl z-50 overflow-hidden"
+                  className="absolute left-1/2 -translate-x-1/2 top-full bg-background/95 backdrop-blur-md border border-border rounded-2xl p-2 shadow-xl z-50 overflow-visible"
                 >
-                  {sections.map((section) => (
-                    <Link
-                      key={section.name}
-                      href={section.href}
-                      className="block px-4 py-2.5 rounded-xl text-sm font-semibold text-text-secondary hover:bg-surface-container hover:text-text-primary transition-colors"
+                  {campuses.map((campus) => (
+                    <div
+                      key={campus.slug}
+                      className="relative group"
+                      onMouseEnter={() => setActiveCampus(campus.slug)}
+                      onMouseLeave={() => setActiveCampus(null)}
                     >
-                      {section.name}
-                    </Link>
+                      <Link
+                        href={`/campuses/${campus.slug}`}
+                        className="flex items-center justify-between gap-6 px-4 py-2.5 rounded-xl text-sm font-semibold text-text-secondary hover:bg-surface-container hover:text-text-primary transition-colors whitespace-nowrap"
+                      >
+                        <span>{campus.name}</span>
+                        <ChevronDown className="w-3.5 h-3.5 -rotate-90 opacity-50" />
+                      </Link>
+
+                      <AnimatePresence>
+                        {activeCampus === campus.slug && (
+                          <motion.div
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -10 }}
+                            transition={{ duration: 0.15 }}
+                            className="absolute left-full top-0 ml-2 w-56 bg-background/95 backdrop-blur-md border border-border rounded-2xl p-2 shadow-xl z-50"
+                          >
+                            {sections.map((section) => (
+                              <Link
+                                key={section.slug}
+                                href={`/campuses/${campus.slug}/${section.slug}`}
+                                className="block px-4 py-2.5 rounded-xl text-sm font-semibold text-text-secondary hover:bg-surface-container hover:text-text-primary transition-colors"
+                              >
+                                {section.name}
+                              </Link>
+                            ))}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
                   ))}
                 </motion.div>
               )}
@@ -128,16 +147,12 @@ export function Navbar() {
 
         {/* Right Portal & Theme Toggle */}
         <div className="flex items-center gap-6">
-
-
-          {/* Redesigned Premium Shimmering Gold Apply Now Button */}
           <div className="hidden lg:flex items-center gap-6">
             <motion.div
               whileHover={{ scale: 1.05, y: -1 }}
               whileTap={{ scale: 0.98 }}
               className="relative rounded-full overflow-hidden group inline-block shadow-[0_0_15px_rgba(0,160,225,0.25)] hover:shadow-[0_0_25px_rgba(0,160,225,0.55)] transition-shadow duration-300"
             >
-              {/* Infinite sweeping white-hot shimmer on hover */}
               <motion.div 
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent z-20 pointer-events-none"
                 initial={{ x: "-100%" }}
@@ -146,7 +161,7 @@ export function Navbar() {
               />
               <Link
                 href="/admission"
-                className="relative px-7 py-2.5 rounded-full bg-gradient-to-r from-primary via-primary-light to-secondary border border-amber-400/40 text-neutral-900 font-heading font-extrabold text-xs tracking-[0.12em] uppercase transition-all duration-300 z-10 block"
+                className="relative px-7 py-2.5 rounded-full bg-gradient-to-r from-primary to-primary-light border border-primary/30 text-white font-heading font-extrabold text-xs tracking-[0.12em] uppercase transition-all duration-300 z-10 block"
               >
                 Apply Now
               </Link>
@@ -185,25 +200,15 @@ export function Navbar() {
                 </Link>
               ))}
 
-              {/* Mobile Dropdown Sections */}
-              <div className="space-y-3">
-                <p className="text-xs font-bold uppercase tracking-wider text-text-secondary">School Sections</p>
-                {sections.map((section) => (
-                  <Link
-                    key={section.name}
-                    href={section.href}
-                    onClick={() => setIsMobileOpen(false)}
-                    className="block text-lg font-semibold text-text-secondary hover:text-text-primary transition-colors pl-4"
-                  >
-                    {section.name}
-                  </Link>
-                ))}
-              </div>
+              {/* Mobile Campuses & Sections */}
+              {campuses.map((campus) => (
+                <MobileCampusBlock key={campus.slug} campus={campus} onClose={() => setIsMobileOpen(false)} />
+              ))}
 
               <Link
                 href="/admission"
                 onClick={() => setIsMobileOpen(false)}
-                className="w-full text-center py-3.5 rounded-full bg-gradient-to-r from-primary via-primary-light to-secondary border border-amber-400/40 text-neutral-900 font-heading font-extrabold text-xs tracking-[0.12em] uppercase shadow-lg block mt-2"
+                className="w-full text-center py-3.5 rounded-full bg-gradient-to-r from-primary to-primary-light border border-primary/30 text-white font-heading font-extrabold text-xs tracking-[0.12em] uppercase shadow-lg block mt-2"
               >
                 Apply Now
               </Link>
@@ -212,5 +217,41 @@ export function Navbar() {
         )}
       </AnimatePresence>
     </nav>
+  );
+}
+
+function MobileCampusBlock({ campus, onClose }: { campus: typeof campuses[0]; onClose: () => void }) {
+  const [expanded, setExpanded] = useState(false);
+  return (
+    <div className="space-y-2">
+      <button
+        onClick={() => setExpanded(!expanded)}
+        className="flex items-center justify-between w-full text-lg font-semibold text-text-secondary hover:text-text-primary transition-colors cursor-pointer"
+      >
+        <span>{campus.name}</span>
+        <ChevronDown className={cn("w-4 h-4 transition-transform", expanded && "rotate-180")} />
+      </button>
+      <AnimatePresence>
+        {expanded && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="overflow-hidden pl-4 space-y-2"
+          >
+            {sections.map((section) => (
+              <Link
+                key={section.slug}
+                href={`/campuses/${campus.slug}/${section.slug}`}
+                onClick={onClose}
+                className="block text-base font-medium text-text-secondary hover:text-text-primary transition-colors"
+              >
+                {section.name}
+              </Link>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }

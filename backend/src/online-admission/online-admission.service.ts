@@ -350,7 +350,7 @@ export class OnlineAdmissionService {
 
     if (!branch) throw new NotFoundException('Branch not found');
 
-    const [classes, currentSession, settings] = await Promise.all([
+    const [classes, currentSession, settings, sections] = await Promise.all([
       this.prisma.class.findMany({
         where: { branchId },
         select: { id: true, name: true },
@@ -377,6 +377,11 @@ export class OnlineAdmissionService {
         },
         select: { key: true, value: true },
       }),
+      this.prisma.section.findMany({
+        where: { class: { branchId } },
+        select: { id: true, name: true, classId: true },
+        orderBy: { name: 'asc' },
+      }),
     ]);
 
     const settingsMap: Record<string, string> = {};
@@ -384,9 +389,19 @@ export class OnlineAdmissionService {
       settingsMap[s.key] = s.value;
     }
 
+    // Group sections by classId
+    const sectionsByClass: Record<string, { id: string; name: string }[]> = {};
+    for (const section of sections) {
+      if (!sectionsByClass[section.classId]) {
+        sectionsByClass[section.classId] = [];
+      }
+      sectionsByClass[section.classId].push({ id: section.id, name: section.name });
+    }
+
     return {
       branchName: branch.name,
       classes,
+      sections: sectionsByClass,
       currentSession,
       bankDetails: {
         bankName: settingsMap.admission_bank_name || '',

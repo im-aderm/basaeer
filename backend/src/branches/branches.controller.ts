@@ -15,6 +15,7 @@ import { RolesGuard } from '../auth/roles.guard';
 import { BranchGuard } from '../auth/branch.guard';
 import { Roles } from '../auth/roles.decorator';
 import { UserRole } from '../generated/client/client';
+import { Public } from '../auth/public.decorator';
 import {
   ApiTags,
   ApiOperation,
@@ -28,6 +29,14 @@ import {
 @Controller('branches')
 export class BranchesController {
   constructor(private readonly branchesService: BranchesService) {}
+
+  @Public()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Active Branches' })
+  @Get('public/active')
+  findActive() {
+    return this.branchesService.findActive();
+  }
 
   @ApiBearerAuth()
   @ApiResponse({ status: 201, description: 'Operation successful' })

@@ -1,162 +1,118 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "@/context/AuthContext";
-import { AnalyticsCard } from "@/components/reporting/AnalyticsCard";
-import { AnalyticsChart } from "@/components/reporting/AnalyticsChart";
-import { 
-    DollarSign, 
-    TrendingDown, 
-    Activity, 
-    Download, 
-    Filter,
-    Calendar,
-    ArrowUpRight,
-    ArrowDownRight
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
-import api from "@/lib/api";
-import { AnalyticsData } from "@basaer/shared-types";
-import { toast } from "sonner";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { reportingService } from "@/services/reportingService";
+import { StatCardWidget } from "@/components/dashboard/widgets/StatCardWidget";
+import { ChartWidget } from "@/components/dashboard/widgets/ChartWidget";
+import { DashboardGrid, DashboardSplit } from "@/components/dashboard/DashboardGrid";
+import { DollarSign, AlertCircle, TrendingUp, Loader2 } from "lucide-react";
+import type { FinanceAnalyticsData } from "@/types/dashboard";
+
+const formatNaira = (value: string | number) => {
+  const num = typeof value === "string" ? parseFloat(value) : value;
+  return `₦${num.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+};
+
+const formatPercent = (value: string | number) => {
+  const num = typeof value === "string" ? parseFloat(value) : value;
+  return `${num.toFixed(1)}%`;
+};
 
 export default function FinancialReportsPage() {
-    const { user } = useAuth();
-    const [data, setData] = useState<AnalyticsData | null>(null);
-    const [loading, setLoading] = useState(true);
+  const { user } = useAuth();
+  const [data, setData] = useState<FinanceAnalyticsData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-    const fetchAnalytics = async () => {
-        try {
-            setLoading(true);
-            const response = await api.get<AnalyticsData>("/reporting/finance");
-            setData(response.data);
-        } catch (error) {
-            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch finance analytics:", error);
-            toast.error("Failed to load financial analytics");
-        } finally {
-            setLoading(false);
-        }
-    };
+  const fetchData = useCallback(async () => {
+    if (!user) return;
+    try {
+      setLoading(true);
+      setError(null);
+      const result = await reportingService.getFinanceAnalytics();
+      setData(result);
+    } catch {
+      setError("Failed to load financial analytics");
+    } finally {
+      setLoading(false);
+    }
+  }, [user]);
 
-    useEffect(() => {
-        if (user) fetchAnalytics();
-    }, [user]);
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
+  if (loading) {
     return (
-        <div className="max-w-7xl mx-auto space-y-8 pb-20 animate-in fade-in duration-700">
-            <div className="flex justify-between items-end">
-                <div>
-                    <h1 className="text-h1 font-semibold tracking-tight uppercase text-primary">Financial Intelligence</h1>
-                    <p className="text-muted-foreground font-medium mt-1">Revenue tracking, expense management, and profit analysis.</p>
-                </div>
-                <div className="flex gap-4">
-                    <Button variant="outline" className="h-12 px-6 rounded-2xl font-semibold gap-2 border-primary/20 hover:bg-primary/5">
-                        <Download size={18} />
-                        Export Statements
-                    </Button>
-                    <Button className="h-12 px-6 rounded-2xl font-semibold gap-2 shadow-lg shadow-primary/20">
-                        <Filter size={18} />
-                        Select Period
-                    </Button>
-                </div>
-            </div>
-
-            {/* Summary Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <AnalyticsCard
-                    title="Total Revenue"
-                    value={data?.summary.find(s => s.label === 'Total Revenue')?.value || "₦0.0"}
-                    icon={DollarSign}
-                    color="green"
-                    loading={loading}
-                />
-                <AnalyticsCard
-                    title="Total Expenses"
-                    value={data?.summary.find(s => s.label === 'Total Expenses')?.value || "₦0.0"}
-                    icon={TrendingDown}
-                    color="red"
-                    loading={loading}
-                />
-                <AnalyticsCard
-                    title="Net Profit"
-                    value={data?.summary.find(s => s.label === 'Net Profit')?.value || "₦0.0"}
-                    icon={Activity}
-                    color="blue"
-                    loading={loading}
-                />
-            </div>
-
-            {/* Main Chart */}
-            <AnalyticsChart
-                title="Revenue Stream"
-                description="Monthly collection trends across the institution"
-                data={data?.charts.revenue || []}
-                type="line"
-                dataKey="revenue"
-                color="#10b981"
-                height={400}
-                loading={loading}
-            />
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background">
-                    <CardHeader className="p-8 border-b border-border/50 bg-muted/5">
-                        <CardTitle className="text-h3 font-semibold flex items-center gap-3">
-                            <ArrowUpRight className="text-green-500" /> Recent Incomes
-                        </CardTitle>
-                    </CardHeader>
-                    <CardContent className="p-8">
-                        <div className="space-y-6">
-                            {[1, 2, 3].map(i => (
-                                <div key={i} className="flex items-center justify-between group">
-                                    <div className="flex items-center gap-4">
-                                        <div className="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center text-green-500">
-                                            <Calendar size={18} />
-                                        </div>
-                                        <div>
-                                            <p className="font-bold text-sm">Tuition Fee - Grade {10+i}</p>
-                                            <p className="text-[10px] uppercase font-bold text-muted-foreground opacity-50">Transaction #INV-00{i}</p>
-                                        </div>
-                                    </div>
-                                    <div className="text-right">
-                                        <p className="font-black text-green-600">+₦45,000</p>
-                                        <p className="text-[10px] font-bold text-muted-foreground">Today, 10:24 AM</p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </CardContent>
-                </Card>
-
-                <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background">
-                    <CardHeader className="p-8 border-b border-border/50 bg-muted/5">
-                        <CardTitle className="text-h3 font-semibold flex items-center gap-3">
-                            <ArrowDownRight className="text-red-500" /> Major Expenses
-                        </CardTitle>
-                    </CardHeader>
-                    <CardContent className="p-8">
-                        <div className="space-y-6">
-                            {[1, 2, 3].map(i => (
-                                <div key={i} className="flex items-center justify-between group">
-                                    <div className="flex items-center gap-4">
-                                        <div className="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center text-red-500">
-                                            <TrendingDown size={18} />
-                                        </div>
-                                        <div>
-                                            <p className="font-bold text-sm">Utility Bill - May 2026</p>
-                                            <p className="text-[10px] uppercase font-bold text-muted-foreground opacity-50">Voucher #VOU-98{i}</p>
-                                        </div>
-                                    </div>
-                                    <div className="text-right">
-                                        <p className="font-black text-red-600">-₦12,500</p>
-                                        <p className="text-[10px] font-bold text-muted-foreground">Yesterday</p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </CardContent>
-                </Card>
-            </div>
-        </div>
+      <div className="flex items-center justify-center min-h-[400px]">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
     );
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[400px] text-destructive">
+        <AlertCircle className="w-12 h-12 mb-4" />
+        <p className="text-lg font-semibold">{error}</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="max-w-7xl mx-auto space-y-8 pb-20">
+      <div>
+        <h1 className="text-h1 font-semibold tracking-tight uppercase text-primary">Financial Intelligence</h1>
+        <p className="text-muted-foreground font-medium mt-1">Revenue, expenses, and profit analysis</p>
+      </div>
+
+      <DashboardGrid cols={3}>
+        <StatCardWidget
+          title="Total Revenue"
+          value={data?.totalRevenue}
+          icon={DollarSign}
+          color="green"
+          formatter={formatNaira}
+        />
+        <StatCardWidget
+          title="Total Outstanding"
+          value={data?.totalOutstanding}
+          icon={AlertCircle}
+          color="red"
+          formatter={formatNaira}
+        />
+        <StatCardWidget
+          title="Collection Rate"
+          value={data?.collectionRate}
+          icon={TrendingUp}
+          color="blue"
+          formatter={formatPercent}
+        />
+      </DashboardGrid>
+
+      <DashboardSplit>
+        <ChartWidget
+          title="Income Trend"
+          description="Monthly income over time"
+          data={data?.monthlyCashflow}
+          type="line"
+          dataKey="income"
+          nameKey="month"
+          color="#10b981"
+          height={350}
+        />
+        <ChartWidget
+          title="Expenses Trend"
+          description="Monthly expenses over time"
+          data={data?.monthlyCashflow}
+          type="line"
+          dataKey="expenses"
+          nameKey="month"
+          color="#ef4444"
+          height={350}
+        />
+      </DashboardSplit>
+    </div>
+  );
 }

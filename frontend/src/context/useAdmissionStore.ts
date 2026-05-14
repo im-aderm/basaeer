@@ -5,13 +5,15 @@ import { AdmissionSchema, AdmissionFormData } from "@/types/admission-schema";
 type FieldKey = keyof AdmissionFormData;
 
 const stepFields: Record<number, FieldKey[]> = {
-  2: ["firstName", "surname", "lastName", "address", "gender", "dateOfBirth", "phoneNumber"],
-  3: ["guardianName", "guardianContact1", "guardianEmail"],
+  1: ["desiredBranchId", "admissionType"],
+  2: ["firstName", "surname", "address", "gender", "dateOfBirth"],
+  3: ["guardianName", "guardianContact1"],
   4: [],
   5: [],
   6: [],
-  7: ["schoolRulesAgreement"],
-  8: ["desiredClassId"],
+  7: ["desiredClassId"],
+  8: [],
+  9: ["schoolRulesAgreement"],
 };
 
 interface AdmissionState {
@@ -31,10 +33,11 @@ export const useAdmissionStore = create<AdmissionState>()(
     (set, get) => ({
       formData: {
         branchId: "",
+        desiredBranchId: "",
+        admissionType: "NEW",
         gender: "MALE",
         guardianType: "FATHER",
         admissionTerm: "FIRST",
-        admissionType: "NEW",
         hasAppliedBefore: false,
         hasMedicalCondition: false,
         hasLearningDifficulty: false,

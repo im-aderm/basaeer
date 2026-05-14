@@ -1,148 +1,119 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "@/context/AuthContext";
-import { AnalyticsCard } from "@/components/reporting/AnalyticsCard";
-import { AnalyticsChart } from "@/components/reporting/AnalyticsChart";
-import { 
-    Clock, 
-    UserX, 
-    CheckCircle, 
-    Download, 
-    Filter
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
-import api from "@/lib/api";
-import { AnalyticsData } from "@basaer/shared-types";
-import { toast } from "sonner";
+import { reportingService } from "@/services/reportingService";
+import { StatCardWidget } from "@/components/dashboard/widgets/StatCardWidget";
+import { ChartWidget } from "@/components/dashboard/widgets/ChartWidget";
+import { DashboardGrid, DashboardSplit } from "@/components/dashboard/DashboardGrid";
+import { CheckCircle, Users, Calendar, AlertCircle, Loader2 } from "lucide-react";
+import type { AttendanceAnalyticsData } from "@/types/dashboard";
+
+const formatPercent = (value: string | number) => {
+  const num = typeof value === "string" ? parseFloat(value) : value;
+  return `${num.toFixed(1)}%`;
+};
 
 export default function AttendanceReportsPage() {
-    const { user } = useAuth();
-    const [data, setData] = useState<AnalyticsData | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [chronicAbsentees, setChronicAbsentees] = useState<any[]>([]);
+  const { user } = useAuth();
+  const [data, setData] = useState<AttendanceAnalyticsData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-    const fetchAnalytics = async () => {
-        try {
-            setLoading(true);
-            const [reportRes, chronicRes] = await Promise.all([
-                api.get<AnalyticsData>("/reporting/attendance"),
-                api.get("/attendance/analytics/chronic?threshold=15")
-            ]);
-            setData(reportRes.data);
-            setChronicAbsentees(chronicRes.data);
-        } catch (error) {
-            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch attendance analytics:", error);
-            toast.error("Failed to load attendance analytics");
-        } finally {
-            setLoading(false);
-        }
-    };
+  const fetchData = useCallback(async () => {
+    if (!user) return;
+    try {
+      setLoading(true);
+      setError(null);
+      const result = await reportingService.getAttendanceAnalytics();
+      setData(result);
+    } catch {
+      setError("Failed to load attendance analytics");
+    } finally {
+      setLoading(false);
+    }
+  }, [user]);
 
-    useEffect(() => {
-        if (user) fetchAnalytics();
-    }, [user]);
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
+  const weeklyAverage = !data?.weeklyTrend?.length
+    ? 0 : data.weeklyTrend.reduce((acc, w) => acc + w.rate, 0) / data.weeklyTrend.length;
+
+  const monthlyAverage = !data?.monthlySummary?.length
+    ? 0 : data.monthlySummary.reduce((acc, m) => acc + m.rate, 0) / data.monthlySummary.length;
+
+  if (loading) {
     return (
-        <div className="max-w-7xl mx-auto space-y-8 pb-20 animate-in fade-in duration-700">
-            <div className="flex justify-between items-end">
-                <div>
-                    <h1 className="text-h1 font-semibold tracking-tight uppercase text-primary">Attendance Intelligence</h1>
-                    <p className="text-muted-foreground font-medium mt-1">Real-time tracking of student and staff presence.</p>
-                </div>
-                <div className="flex gap-4">
-                    <Button variant="outline" className="h-12 px-6 rounded-2xl font-semibold gap-2 border-primary/20 hover:bg-primary/5">
-                        <Download size={18} />
-                        Export Attendance
-                    </Button>
-                    <Button className="h-12 px-6 rounded-2xl font-semibold gap-2 shadow-lg shadow-primary/20">
-                        <Filter size={18} />
-                        Filter Class
-                    </Button>
-                </div>
-            </div>
-
-            {/* Summary Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <AnalyticsCard
-                    title="Average Attendance"
-                    value={data?.summary.find(s => s.label === 'Average Attendance')?.value || "0%"}
-                    icon={CheckCircle}
-                    color="green"
-                    loading={loading}
-                />
-                <AnalyticsCard
-                    title="Absentees Today"
-                    value={data?.summary.find(s => s.label === 'Absentees Today')?.value || "0"}
-                    icon={UserX}
-                    color="red"
-                    loading={loading}
-                />
-                <AnalyticsCard
-                    title="Late Arrivals"
-                    value={data?.summary.find(s => s.label === 'Late Arrivals')?.value || "0"}
-                    icon={Clock}
-                    color="orange"
-                    loading={loading}
-                />
-            </div>
-
-            <AnalyticsChart
-                title="Weekly Attendance Trend"
-                description="Institution-wide attendance rate per day"
-                data={data?.charts.attendance || []}
-                type="line"
-                dataKey="rate"
-                color="#3b82f6"
-                height={400}
-                loading={loading}
-            />
-
-            {/* Chronic Absentees */}
-            <div className="space-y-6">
-                <div className="flex items-center justify-between">
-                    <div>
-                        <h2 className="text-h3 font-semibold uppercase tracking-tight text-slate-400">Chronic Absentees</h2>
-                        <p className="text-muted-foreground font-medium">Students with {'>'}15% absence rate.</p>
-                    </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {chronicAbsentees.length > 0 ? (
-                        chronicAbsentees.map((item) => (
-                            <div 
-                                key={item.studentId}
-                                className="bg-white border border-border/50 rounded-[2rem] p-6 flex items-center justify-between group hover:border-red-200 transition-all hover:shadow-lg"
-                            >
-                                <div className="flex items-center gap-4">
-                                    <div className="w-14 h-14 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center text-xl font-bold group-hover:bg-red-600 group-hover:text-white transition-all">
-                                        {item.student?.firstName[0]}
-                                    </div>
-                                    <div>
-                                        <h4 className="font-bold text-slate-800 leading-tight">
-                                            {item.student?.firstName} {item.student?.lastName}
-                                        </h4>
-                                        <p className="text-xs font-bold text-muted-foreground uppercase mt-1">
-                                            {item.student?.class?.name}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="text-right">
-                                    <div className="text-2xl font-black text-red-600 leading-none">
-                                        {Math.round(item.percentage)}%
-                                    </div>
-                                    <div className="text-[10px] font-bold text-slate-400 uppercase">Absent</div>
-                                </div>
-                            </div>
-                        ))
-                    ) : (
-                        <div className="col-span-full py-12 text-center bg-muted/5 rounded-[2.5rem] border-2 border-dashed border-border/50">
-                            <CheckCircle className="w-12 h-12 mx-auto text-emerald-200 mb-2" />
-                            <p className="font-bold text-slate-400">Excellent! No chronic absentees found.</p>
-                        </div>
-                    )}
-                </div>
-            </div>
-        </div>
+      <div className="flex items-center justify-center min-h-[400px]">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
     );
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[400px] text-destructive">
+        <AlertCircle className="w-12 h-12 mb-4" />
+        <p className="text-lg font-semibold">{error}</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="max-w-7xl mx-auto space-y-8 pb-20">
+      <div>
+        <h1 className="text-h1 font-semibold tracking-tight uppercase text-primary">Attendance Intelligence</h1>
+        <p className="text-muted-foreground font-medium mt-1">Real-time attendance tracking and trends</p>
+      </div>
+
+      <DashboardGrid cols={3}>
+        <StatCardWidget
+          title="Today's Rate"
+          value={data?.todayRate}
+          icon={CheckCircle}
+          color="green"
+          formatter={formatPercent}
+        />
+        <StatCardWidget
+          title="Weekly Average"
+          value={weeklyAverage}
+          icon={Users}
+          color="blue"
+          formatter={formatPercent}
+        />
+        <StatCardWidget
+          title="Monthly Average"
+          value={monthlyAverage}
+          icon={Calendar}
+          color="purple"
+          formatter={formatPercent}
+        />
+      </DashboardGrid>
+
+      <DashboardSplit>
+        <ChartWidget
+          title="Weekly Trend"
+          description="Daily attendance rate for the current week"
+          data={data?.weeklyTrend}
+          type="bar"
+          dataKey="rate"
+          nameKey="date"
+          color="#3b82f6"
+          height={350}
+        />
+        <ChartWidget
+          title="Monthly Summary"
+          description="Monthly attendance rate trend"
+          data={data?.monthlySummary}
+          type="line"
+          dataKey="rate"
+          nameKey="month"
+          color="#8b5cf6"
+          height={350}
+        />
+      </DashboardSplit>
+    </div>
+  );
 }

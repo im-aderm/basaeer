@@ -7,8 +7,6 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import Link from "next/link";
 
-// Let's check Navbar and MultiStepAdmissionForm: they use Lucide-react! E.g., Mail, CheckCircle2, ChevronDown, ChevronUp etc.
-// Let's use Lucide icons for maximum consistency and safety!
 import { 
   Mail as MailIcon, 
   ClipboardCheck, 
@@ -69,7 +67,7 @@ const tiers = [
 ];
 
 const documents = [
-  "Passport Size Photographs (4x)",
+  "Passport Photograph",
   "Certified Birth Certificate",
   "Previous School Records (Last 2 Years)",
   "Medical Immunization Records",
@@ -122,14 +120,14 @@ export default function AdmissionsPage() {
             </p>
             <div className="flex flex-wrap justify-center gap-4 pt-4">
               <Link
-                href="/admission/apply/1"
+                href="/admission/apply"
                 className="px-8 py-4 rounded-full text-text-primary font-bold bg-gradient-to-r from-primary to-secondary shadow-[0_0_30px_rgba(0,160,225,0.4)] hover:shadow-[0_0_40px_rgba(0,160,225,0.6)] hover:scale-105 transition-all duration-300"
               >
                 Apply Now
               </Link>
               <Link
-                href="/#campuses"
-                className="px-8 py-4 rounded-full text-text-primary font-bold bg-surface-container backdrop-blur-md border border-border hover:bg-white/10 hover:scale-105 transition-all duration-300"
+                href="/campuses"
+                className="px-8 py-4 rounded-full text-text-primary font-bold bg-surface-container backdrop-blur-md border border-border hover:bg-surface-container-high hover:scale-105 transition-all duration-300"
               >
                 Explore Campus
               </Link>
@@ -150,11 +148,15 @@ export default function AdmissionsPage() {
 
             {/* Steps */}
             <div className="space-y-12">
-              {steps.map((step) => {
+              {steps.map((step, i) => {
                 const Icon = step.icon;
                 return (
-                  <div
+                  <motion.div
                     key={step.id}
+                    initial={{ opacity: 0, y: 60 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-80px" }}
+                    transition={{ delay: i * 0.15, duration: 0.6 }}
                     className={`flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-8 ${
                       step.reverse ? "md:flex-row-reverse" : ""
                     }`}
@@ -173,10 +175,10 @@ export default function AdmissionsPage() {
                         {step.description}
                       </p>
                     </div>
-                  </div>
-                );
-              })}
-            </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
           </div>
         </section>
 
@@ -223,7 +225,7 @@ export default function AdmissionsPage() {
                   ))}
                 </ul>
                 <Link
-                  href="/admission/apply/1"
+                  href="/admission/apply"
                   className={`w-full py-3.5 rounded-2xl font-bold text-center transition-all duration-300 ${
                     tier.featured
                       ? "bg-gradient-to-r from-primary to-secondary text-text-primary shadow-[0_0_20px_rgba(0,160,225,0.3)] hover:shadow-[0_0_30px_rgba(0,160,225,0.5)] hover:scale-105"
@@ -326,7 +328,7 @@ export default function AdmissionsPage() {
               Our admissions team is ready to guide you through every step of the enrollment process. Begin your legacy today.
             </p>
             <Link
-              href="/admission/apply/1"
+              href="/admission/apply"
               className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-text-primary font-bold bg-gradient-to-r from-primary to-secondary shadow-[0_0_30px_rgba(0,160,225,0.4)] hover:shadow-[0_0_40px_rgba(0,160,225,0.6)] hover:scale-105 transition-all duration-300"
             >
               Start Your Application

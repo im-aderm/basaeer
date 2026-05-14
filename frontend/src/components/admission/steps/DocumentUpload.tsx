@@ -110,7 +110,7 @@ function UploadField({ label, field, value, required, category }: UploadFieldPro
           type="button"
           onClick={() => fileInputRef.current?.click()}
           disabled={uploading}
-          className="flex items-center gap-2 px-6 py-3 bg-white border-2 border-dashed border-muted-foreground/30 rounded-xl hover:border-primary hover:text-primary transition-all font-bold text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+          className="flex items-center gap-2 px-6 py-3 bg-white border-2 border-dashed border-primary/30 rounded-xl hover:border-primary hover:text-primary transition-all font-bold text-sm disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {uploading ? (
             <>
@@ -188,10 +188,15 @@ export function DocumentUpload() {
         <UploadField label="Last School Report" field="schoolReportUrl" value={formData.schoolReportUrl} required category="school-report" />
         <UploadField label="Medical Report" field="medicalReportUrl" value={formData.medicalReportUrl} category="medical" />
         <UploadField label="Recommendation Letter" field="recommendationLetterUrl" value={formData.recommendationLetterUrl} category="recommendation" />
-        <UploadField label="Transfer Letter" field="transferLetterUrl" value={formData.transferLetterUrl} category="transfer" />
+        {formData.admissionType === "TRANSFER" && (
+          <>
+            <UploadField label="Transfer Letter" field="transferLetterUrl" value={formData.transferLetterUrl} category="transfer" />
+            <UploadField label="Transfer Certificate" field="transferCertificateUrl" value={formData.transferCertificateUrl} category="transfer" />
+          </>
+        )}
       </div>
 
-      <div className="p-6 bg-amber-500/5 rounded-[2rem] border border-amber-500/20 text-xs font-medium text-amber-600 italic flex gap-3 items-center">
+      <div className="p-6 bg-primary/5 rounded-[2rem] border border-primary/20 text-xs font-medium text-primary italic flex gap-3 items-center">
         <AlertCircle size={20} className="shrink-0" />
         Ensure all documents are clear and readable. Maximum file size: 5MB per file.
       </div>

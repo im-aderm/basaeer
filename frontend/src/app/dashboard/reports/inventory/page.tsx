@@ -1,103 +1,101 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "@/context/AuthContext";
-import { AnalyticsCard } from "@/components/reporting/AnalyticsCard";
-import { AnalyticsChart } from "@/components/reporting/AnalyticsChart";
-import { 
-    Box, 
-    AlertTriangle, 
-    Package, 
-    Download, 
-    Filter
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { StatCardWidget } from "@/components/dashboard/widgets/StatCardWidget";
+import { ChartWidget } from "@/components/dashboard/widgets/ChartWidget";
+import { DashboardGrid } from "@/components/dashboard/DashboardGrid";
+import { Package, AlertTriangle, Box, AlertCircle, Loader2 } from "lucide-react";
 import api from "@/lib/api";
-import { toast } from "sonner";
 
 export default function InventoryReportsPage() {
-    const { user } = useAuth();
-    const [data, setData] = useState<any>(null);
-    const [loading, setLoading] = useState(true);
+  const { user } = useAuth();
+  const [data, setData] = useState<{
+    totalProducts?: number;
+    lowStockItems?: number;
+    totalUnits?: number;
+  } | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-    const fetchAnalytics = async () => {
-        try {
-            setLoading(true);
-            const response = await api.get("/reporting/dashboard");
-            setData(response.data.inventory);
-        } catch (error) {
-            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch inventory analytics:", error);
-            toast.error("Failed to load inventory analytics");
-        } finally {
-            setLoading(false);
-        }
-    };
+  const fetchData = useCallback(async () => {
+    if (!user) return;
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await api.get("/reporting/dashboard");
+      setData(response.data?.inventory ?? null);
+    } catch {
+      setData(null);
+    } finally {
+      setLoading(false);
+    }
+  }, [user]);
 
-    useEffect(() => {
-        if (user) fetchAnalytics();
-    }, [user]);
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
-    const inventoryData = [
-        { name: 'Stationery', value: 450 },
-        { name: 'Furniture', value: 120 },
-        { name: 'Electronics', value: 85 },
-        { name: 'Uniforms', value: 320 },
-    ];
-
+  if (loading) {
     return (
-        <div className="max-w-7xl mx-auto space-y-8 pb-20 animate-in fade-in duration-700">
-            <div className="flex justify-between items-end">
-                <div>
-                    <h1 className="text-h1 font-semibold tracking-tight uppercase text-primary">Inventory Logistics</h1>
-                    <p className="text-muted-foreground font-medium mt-1">Stock levels, asset management, and procurement tracking.</p>
-                </div>
-                <div className="flex gap-4">
-                    <Button variant="outline" className="h-12 px-6 rounded-2xl font-semibold gap-2 border-primary/20 hover:bg-primary/5">
-                        <Download size={18} />
-                        Export Inventory
-                    </Button>
-                    <Button className="h-12 px-6 rounded-2xl font-semibold gap-2 shadow-lg shadow-primary/20">
-                        <Filter size={18} />
-                        Filter Category
-                    </Button>
-                </div>
-            </div>
-
-            {/* Summary Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <AnalyticsCard
-                    title="Total Products"
-                    value={data?.totalProducts || 0}
-                    icon={Box}
-                    color="blue"
-                    loading={loading}
-                />
-                <AnalyticsCard
-                    title="Low Stock Warning"
-                    value={data?.lowStockItems || 0}
-                    icon={AlertTriangle}
-                    color="red"
-                    loading={loading}
-                />
-                <AnalyticsCard
-                    title="Total Units"
-                    value={data?.totalUnits || 0}
-                    icon={Package}
-                    color="green"
-                    loading={loading}
-                />
-            </div>
-
-            <AnalyticsChart
-                title="Stock by Category"
-                description="Distribution of assets across departments"
-                data={inventoryData}
-                type="bar"
-                dataKey="value"
-                color="#f59e0b"
-                height={400}
-                loading={loading}
-            />
-        </div>
+      <div className="flex items-center justify-center min-h-[400px]">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
     );
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[400px] text-destructive">
+        <AlertCircle className="w-12 h-12 mb-4" />
+        <p className="text-lg font-semibold">{error}</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="max-w-7xl mx-auto space-y-8 pb-20">
+      <div>
+        <h1 className="text-h1 font-semibold tracking-tight uppercase text-primary">Inventory Logistics</h1>
+        <p className="text-muted-foreground font-medium mt-1">Stock levels, asset management, and procurement</p>
+      </div>
+
+      {/*
+        Placeholder until a dedicated inventory analytics endpoint is built.
+        Data is fetched from the legacy /reporting/dashboard route.
+      */}
+
+      <DashboardGrid cols={3}>
+        <StatCardWidget
+          title="Products"
+          value={data?.totalProducts ?? 0}
+          icon={Box}
+          color="blue"
+        />
+        <StatCardWidget
+          title="Low Stock Items"
+          value={data?.lowStockItems ?? 0}
+          icon={AlertTriangle}
+          color="red"
+        />
+        <StatCardWidget
+          title="Total Units"
+          value={data?.totalUnits ?? 0}
+          icon={Package}
+          color="green"
+        />
+      </DashboardGrid>
+
+      <ChartWidget
+        title="Stock by Category"
+        description="Distribution of assets across departments"
+        data={[]}
+        type="bar"
+        dataKey="value"
+        nameKey="name"
+        color="#f59e0b"
+        height={350}
+      />
+    </div>
+  );
 }
