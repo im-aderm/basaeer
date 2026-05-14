@@ -35,6 +35,8 @@ export function HeroSection() {
           loop
           muted
           playsInline
+          preload="none"
+          poster="/hero-bg.jpg"
           className="absolute inset-0 w-full h-full object-cover"
         >
           <source src="/BGs/hero-bg.mp4" type="video/mp4" />
@@ -124,7 +126,7 @@ export function HeroSection() {
             }}
           >
             <Image 
-              src="/hero-section.png"
+              src="/hero-section.jpg"
               alt="Digital Dashboard" 
               width={500}
               height={350}
