@@ -12,19 +12,19 @@ export function CampusesSection() {
       name: "Ikeja City Campus",
       location: "Lagos, Nigeria",
       tag: "MAIN CAMPUS",
-      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBmf6VVfSVZxp7SgJQsKWL_dthrKffpAMKkW4WtED75sreTgtm9LiEyaMFtUunVeU90nDOqO1gVOVhQjrTepiHG6VY5aRM2O7qr6ExJ3aTXlkLdXGAvcUDV-XmKBEUbUn_FLbB-svSGUzcqLmhQqDhlmjZCdhVTNFk8cRa5ebOIqHEjvQ5BCPEC2I1Cn7GVhlDlqZfw5LktB4_6GuWq_J4-7BrMRNyVWS5bJxws3eNh9VCboAShCnUvQ9FEeds7YS72kEYGQgU4mis",
+      image: "/placeholder.svg",
     },
     {
       name: "Victoria Island Branch",
       location: "Lagos, Nigeria",
       tag: "ESTATE WING",
-      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuABi_1ONsKLzDzm1XXCLZqZdnEOxX-proZq1Y8CmKSHdaBWo711SlrnT4eWabsvAyFbdKKjxMhpnf8a0kNgCNYMLxkMmqhIELz-7iXBw4Gz5gcJgIOpmpsOR4LGVwF70awmXdCYaV2buDG0Yexw1DUIyPSluOxhfYpV92GAek2jgLC5XqKLvO-tuZg00yeWh9uxzFQvws4qw96IQw9lQIbOMPpJX-b3nmweG-Sx2d88trKrnkIDhSl_xtCwGECTiYd-oHoi1Vw5x6A",
+      image: "/placeholder.svg",
     },
     {
       name: "Abuja Heights Campus",
       location: "Abuja, Nigeria",
       tag: "NORTHERN HUB",
-      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCrQnsxGCpe1Vfqe6TCYQCkiSiq1dO5lC7i3ehL54B-_r045PSNwGIkCLZ6ZzHiMzXBQaAC7ttioCgKu3GizPFgPX6syga_mAckyU00l3Kv5DrfQhPXJwxX8l9WfDPAwT_U_h7OmQRDsADorpJbaP-hVb14Rv8Sj8xgUCgsP0jlefuewRLJOyGANUk7pDn1CR6FmanOC0OGatp36zASyBuVvXXGJPiDYxw45d6RCiHZ6BfF8G3oerLyRwQG5t9-5tnBcgvj6zv3h_0",
+      image: "/placeholder.svg",
     },
   ];
 

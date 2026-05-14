@@ -25,14 +25,14 @@ const events = [
     date: "MARCH 2024",
     location: "Main Campus Auditorium",
     description: "Showcasing innovative research projects from students across the region in our state-of-the-art facilities.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAMLxxmqKDs8__ig5bxFLzuvMpuuHt-Du4pS6lWq-83Qn3pgvtrbslqoaCupRidu93oEUWApI82EH36JJOO8yPfkdpD0RflYZuaIFV5ZQ6zAWIoSNfDb8EOoP64nDKQ2jCzECKfeBzeZt768ASuQxdObGiHGEA5YSaxsGndV30862v0rIXzPcaGuv3aq23eXTTTL0D1HOnQEN092tQz4-epDcljOk3p_kNVwe4hTkQfnrcIgdSsdhBgqEqt6q-ssQghJx6nwVj23c8",
+    image: "/placeholder.svg",
   },
   {
     title: "International Quran Competition",
     date: "MAY 2024",
     location: "Tahfeez Center",
     description: "A spiritual gathering of beautiful voices reciting with Tajweed, judged by world-renowned Qaris.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBx_v6i-fv1kM-Dobs4XO-aN5HbJ4VFxNn8PsZ695KcR-SRNArj4aTHqmi5c3LFrbpMOYwrrHzWqma6Ijs73ySS8-70E1Rz84ebjtXDN5ZkOML7aDa27BRpTc8innSj3UKVSbqxjCyPE1ZK1J7lo3YkrU3M3dY2BIpYS3TQD2t8hXMvOK35W8QyudZL6v-CmQZafu6LwScLDrNFrqwYf_X5Aqffi8tI8LTCgaTSPSUgkS0Dsf4nRiu5zY39i8_IP6WHZpqeIpCgWX0",
+    image: "/placeholder.svg",
     featured: true,
   },
   {
@@ -40,7 +40,7 @@ const events = [
     date: "OCT 2024",
     location: "Central Stadium",
     description: "Our signature annual sports day featuring track, field, and team sports in a festival atmosphere.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCaku0oI-FRRNWPhGIhaULIHHJETCu4_H75H2_-nmW6Z11skPKny11UbtGdMvJJZBNyn73nckZvS61oFItwPVFBkJD1vyg5fnSMZoveKljCwr15pzdaO47mAql2PWHeFAhViIKzQNlXKwOAgKprdwhgT1IhcLEzqU1DpOI3fhcQ9E3yiqwBA57CAp7x59OcUJVMzYirqYc4z0hm7iOiw8DXRc5MSXyVVhcdUuaz6Bjd5eROpHr1SwoJ0l_LfEJqvnKVL486SF0skCI",
+    image: "/placeholder.svg",
   },
 ];
 
@@ -48,17 +48,17 @@ const sideTrips = [
   {
     title: "Silicon Valley Tech Tour",
     subtitle: "Innovation & Entrepreneurship",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuB1h2zR_n3dVie7HZOEjX732reWdYAFXZhZraHioXMbAtl0e8_cIY_ZRHQX_meZPkQOXknaxxzROca-wpKErZWTj1PK4M_lXF0EvEwEMPPsRLqcubDeu-6_T7kVRLN6E15AcFy45xNQLMQfdcaUi0AYQs_xR2eC06W_F2c6utAJww2qSiOcAV2vzOBqa5bfzcVZVoelsZ3NRxuHWhF1tRT27hFpsoL0593_OrXhV-8bywVxXWmg7gWv41pYJ1-tHuNEhuZsh3g8HcA",
+    image: "/placeholder.svg",
   },
   {
     title: "Amazonian Eco-Research",
     subtitle: "Environmental Sciences",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuD4_nvNuaLXjQE5uzmccMsu81ZPhsS7Hyv9KSW7H7MuHxMSPhN1tVtg7oA5HNiGxX82tUuzbGwAWdxxKRSX-BsRZjJiCESz7AiUhcADC5QXk5YVwbz6Y1U6yZhz_LAk7wym0EFSjHaqP2druBp3uN1I0BdJE7mQxvG84C3pl9y32b1J67OPx2OiYb2nozK0Asn3NhDObBJ2uk3C-XDpiJ20FKY1koh1GRPpKQPIXSGKlwGb9JZ5Htv2iakrKdfgFFUGEDhH67dpJ8I",
+    image: "/placeholder.svg",
   },
   {
     title: "London Leadership Summit",
     subtitle: "Global Governance",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDldw-UbzXKeUgpGRNi69ZNpi-6X3dXw-Uki8RsKZfMPBfq_VO_GPGDUvfKL7uAdlDAUSJ1TYC_3tSCoNYBPVmFE0RKPrTMeDwNWsYgABP9spOpeqNckdlCbQ7Sg1rcP-BJb6fVmz0FxizDi7ODUFrjNtp5sdGXYeeQtoSI9pXHrInxvDJpwsQ_6BKqZvcQCms74kqGVhW24zNl1hjfltTnPb9z-F_hC7lhC4gZch4x_5d6ZoEEbrvnGDQLAze_kq1i1Ol6MlwmHZk",
+    image: "/placeholder.svg",
   },
 ];
 
@@ -67,21 +67,21 @@ const voices = [
     quote: "The Robotics Club didn't just teach me how to build machines; it taught me how to think critically and solve real-world problems with my team.",
     author: "Ahmed Z.",
     meta: "Grade 12, Robotics Lead",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAxTTGtrQOl9DoUclZtte5a4GZjcNBggzCWvRoQTW9PSYXLw06enfR-_rAdw-wfH0XWNABbjdJI3npqqukH8FB03pOT2dVSMA0K8ji_Yw32qWTBDT4K21asg6jqlnaJh76Gq5SUNUnkjlWpAUKVKVPkBgRbIqwltrZ3QMxcmzavhpcDNv3a_NYj4EBgK-ZWi3p537ey-kEtpLUeQL3_eGGY6ytUUBwxGHe3tiEwnW-JcyAFkCb5HhA3XY6MW8DhFVg8V8bl4KXXcbQ",
+    image: "/placeholder.svg",
     color: "border-primary",
   },
   {
     quote: "Being part of the Leadership Council gave me the confidence to start my own community initiative. Basaer truly empowers us to lead.",
     author: "Sara M.",
     meta: "Grade 11, Council President",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCmYk0YWq1pG9KJaE_7dG_v4Td6wsb7x46gIWwYMFYJ6acGBcrkocrWPxTSwqASVy_zJcL2dW0UcxdqKAmVqpclBWwfPJCY6ILCtMORJ6N6EoP0S8MiF5NhN05d5gIdeOXrnllo3yOfxVsHgbZdw3QwAW-iFWAbzkseV4R8aaxrnQP1BiL4AcoTMyuJIqe-ebBK45vdnstM2RE_AgAOLfgBOFHLr-88MFCUbOmgLk2WnUcXTVrOpnSeU1eC9HfhhHdbisAhRyflcsk",
+    image: "/placeholder.svg",
     color: "border-primary",
   },
   {
     quote: "Reciting in the International Quran Competition was a life-changing experience. The mentorship here is unparalleled.",
     author: "Omar K.",
     meta: "Grade 10, Tahfeez Member",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuC2ix303pCKr75EMDJcJ1x-0cVnc49sYssJcVOLgEEwF8adp8G_t2cJsKS_1mmTv-Zf6zlwi92VbXfY1AveHLFL5SM_2cbJlYVSxWntpZincxCqsmYTlHgctqvxYf_vCoXKAuPY9jJXQ4uJjjMQgdcHPSKtKzEcwDITDrR-1ayxcS9RHiPMSGMok5Ayo9aO7icSmWXeoQBC-TamNJWGDy7XnlUjieLeZPAEgPINrJLGP3A2DnkNGlh-isaUPp-wO_uEP07ngsrFVnc",
+    image: "/placeholder.svg",
     color: "border-primary",
   },
 ];
@@ -124,14 +124,14 @@ export default function StudentLifePage() {
                 <Image
                   className="rounded-3xl shadow-2xl aspect-[3/4] object-cover border border-border/50"
                   alt="Students working on collaborative projects"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvh0k6lscNR7bbMVdfAJatzV-DiMP_ZqkfJzrlNHrRmHdjF9ZoExmwUSyRftDyOV6DF6ghLZdRDB9BpxbbQVf1Of_i0ePI5KJ4kDXW3C5QdID0STCsDAZUDInmKuZGTAPGZCSFPLcmJk0xZb8HGu2jhcwFfxQFbpR6c6tzFNu59l2oYZO7aMZBr5Fxn34VXR65szhiMcQ3fLfKSES3mUehUvt-vwTx2XX3-Y0LZWUbtePDd2zPVluVkHLMkKUER9FoP2NC7X0pMKM"
+                  src="/placeholder.svg"
                   width={400}
                   height={533}
                 />
                 <Image
                   className="rounded-3xl shadow-2xl aspect-square object-cover border border-border/50"
                   alt="Student coding on laptop"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEEdPErMXhlORsd-Pp9fVUub4ZOTBVaKHdK_qi4lFnhHmhjedxEhgxd_-gpp5hi2cCDUlMxFm6FovWp62fKDxcjEx1lO6Ry9Asa3JrUw-VMrne10l7FoRNZmLRMsApxnPfVBYQJ62QrOq-BrPQdMMLgHZn7lrRiQ50DN5DXRfnpJnf8SVIkItrGYxlQsfz94JqvxrbrqTwnPbFkf6FWBHnYy8eIRyUKGsu7e_tYVHrCLmOqKEuDmdB6KypZwKzOXSr0JGZ5y5DtWQ"
+                  src="/placeholder.svg"
                   width={400}
                   height={400}
                 />
@@ -140,14 +140,14 @@ export default function StudentLifePage() {
                 <Image
                   className="rounded-3xl shadow-2xl aspect-square object-cover border border-border/50"
                   alt="Student athlete in action"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGxJBmwFo8QPGO6Bb5vj8UHwpV81XOGhAX0lQxPhc90g2iBw7-nQqbk-PPsCsn0FsY0G8xCz8a5_1jjzep9LxF3oqMvgm_YHlbmvVNZw4U0sQpPioZS9R2jEtjofVMWkfRMn80LqLJVC2TtDlx_fE_6YZSuFo8RB1Kc9Tv0ZXsiDt8JoHq86trAhNUrjy8FAtfipWFlpnoZJtuZVrQ64KGS70vb07LwjEeGn52svCoga8PblRY3kY98Pv39Y9u97CZtj25xnAy7As"
+                  src="/placeholder.svg"
                   width={400}
                   height={400}
                 />
                 <Image
                   className="rounded-3xl shadow-2xl aspect-[3/4] object-cover border border-border/50"
                   alt="Students engaged in a leadership seminar"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuB238EPWwo8XCC9Vc7O1oXAKNrFYloNpDBsg7jWbeAbaluyNzRDZ3xblobIU2XlY7g4JUJe2pkN33SFdex0Ts9CMXuNBzLhJK3qidA5HqYsiupPxnHSV6ziFZ03I_0roJWH1kYIPDoIpEuwlEKYAQwuXmniX3_LNZOcyHnnWDeVH_K2sehNyeA0GLjlv9EoUBhnPAF0BUraSsz9kzZ1l8fp3fg4ozgnWG8WHLosYuNcFr_TGB1yc_hMmTnPg0uwhxvWDwVCIp72QCc"
+                  src="/placeholder.svg"
                   width={400}
                   height={533}
                 />
@@ -175,7 +175,7 @@ export default function StudentLifePage() {
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover opacity-20 group-hover:opacity-40 transition-opacity duration-500"
                 alt="Advanced chemistry laboratory"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSti_i7L6BaLwZqxIgQ6Dq3lu4HA1s4dMl0pnOorWsaeBGsfVzwIIt91chLMllpsvvW4h2SrGdX-bdEgTZtYGSA6Pzan-ZvxdF5JEMnD9LyLXkvZ-OexjW63eAhbC86Uz43sk4yLlGzLCGU-EkyktZjlhc8v3BFtt4JlD7ZMFvo9jYX4gScmzNMIPwTXc5pITEIyobb0Blop8Jbbr0gqPV5IkbwdFzFiKlCuayDdVd2L7PP_c20kjeR4f7A0ZdZECvPIv31KZgArQ"
+                src="/placeholder.svg"
               />
               <div className="relative z-10 space-y-4">
                 <Atom className="text-primary w-12 h-12" />
@@ -208,7 +208,7 @@ export default function StudentLifePage() {
                   sizes="(max-width: 768px) 50vw, 33vw"
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                   alt="Traditional Arabic calligraphy"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdOVSNPLkaQuJTZ1X2g_Nr_x88sCJ1l8mMPLd4vrsqjfkHEf-FJfupEwnJM8fnRXd8B_c5zEIVUdKZEFGgu9l6m4TywSbQrlxq1MfEsX-XuOzIJluk1UTQKkrFHNRaTrHeTOvHphlFzmj5_-FD3CzlDTvCdtNPgwQLn9zUTkOVvCS-CGDvOaoe_jJP52VkI8l6HIf0NQq65O7DUCTl82sTNVBY3ZhQUImzmnEAcMcWqF1aSSfKd5m3U3fb_TLGTjDHsNX-kTx1i38"
+                  src="/placeholder.svg"
                 />
               </div>
             </div>
@@ -305,7 +305,7 @@ export default function StudentLifePage() {
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover opacity-20 group-hover:opacity-40 group-hover:scale-105 transition-all duration-700"
                 alt="Students exploring historic Istanbul"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBiNVvavsxKJnXPed5VzVySoKcojTq7NXqKkVxtACHXbvlroNYNhD7EGmXLF_KaCyDAUoXjyLrOXVaZvfCYutVI0Eo8bV55dBKRFH2Ta1dBx_DLQE8ottmds1hnpfrpNrcBM4H7P86TgSkYi7JH-Ina5891YM5zZcfq3EM1X30bDy2qYw4t76--LCIk71yAQdZR6mVR2vHvNIRj6NzN0ZLsTgILP2mxJbKHL0z8dcaXBaFk4VAaYKof_BzhwKP4AkXIEfLoH7mLLY"
+                src="/placeholder.svg"
               />
               <div className="relative z-10 p-6 space-y-3">
                 <div className="text-primary font-bold text-xs tracking-widest uppercase">

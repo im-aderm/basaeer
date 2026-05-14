@@ -218,7 +218,7 @@ export default function ContactPage() {
           {/* Interactive Map Overlay */}
           <div className="space-y-8">
             <div className="bg-surface-container border border-border rounded-3xl overflow-hidden h-[450px] relative shadow-2xl backdrop-blur-md">
-              <Image fill sizes="100vw" className="object-cover opacity-50 grayscale brightness-75 contrast-125" alt="Minimalist dark digital map of Lagos campus locations" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0lDAq9zffLM0Zu2Slg-N5TDtp6JfoB4PWCNFvm_4X8oeC21Ll9gbZM5HJm-pfKGaMsopl2-0lXosuCXGM566skSlHSDfG2Qe51OxoGfMdEEaNJxpJVJPdsFvmfvC9WsEdemDBHFuI8HicE_QpvI_y6FODa_hiFTbeFtBlglB1WslD53ThLNlXYXBhQPpQyunZJkWArM9W4pOU_eJz33Pi0suSVr0whG5G2gBv9LczRY3ouQ257jicbrAPDjHKpCM4GOonguzr29M" />
+              <Image fill sizes="100vw" className="object-cover opacity-50 grayscale brightness-75 contrast-125" alt="Minimalist dark digital map of Lagos campus locations" src="/placeholder.svg" />
               <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
               <div className="absolute bottom-6 left-6 right-6 bg-background/80 backdrop-blur-md border border-border p-5 rounded-2xl flex items-center justify-between">
                 <div>

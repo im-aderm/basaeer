@@ -56,19 +56,19 @@ const scholars = [
     name: "Dr. Ahmed Al-Farsi",
     role: "DEAN OF SHARIA STUDIES",
     quote: "Knowledge is a light that Allah places in the heart.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAbJ7T8_glguTV4r67sQVZaCxsIvkdZCntsI8SSd-sGbD8v8weWlVXNWvyubZXOXG4AUBXnNnEHgwbzvK_jFov1qx3ESw4ySuRFKaOYCasUxJaZ-H4L1FbqZ5TWXsTVZCO3BfAjwvVCKy9QNPhtLdzl4jArXBGp-F28TbdMM88ZhXbCtnCEY1GrV8lV9B3KIyIRTZR2dqp-0om_ns03b8mfOesTV1j8tkL-7tPpw2CdcfR-JoUN_zHoqDlPGYz_Q7fTJ7LTbqjc4ZY",
+    image: "/placeholder.svg",
   },
   {
     name: "Ustadha Fatima Zahra",
     role: "DIRECTOR OF TARBIYAH",
     quote: "Excellence in character is the true fruit of all education.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuB9WYKQbzwcuWJl46xv8eqgWPtv3CB5Mno9AecCn3jyA71QUR5IoiZP8CZST3bzoJLrqCZxveJTgYzmvKvQNHuY2E-pwhL-0wNK3ulUg5fAC_ytOXzZwUXtHfxx4rIRSnd8bRtdgbutSZ-3JZqgtdVcSejdy4WIr3JoD_9M_4HuMyrGrmkOe_wRFGS2D_HXIPiOQsICK3fLoxK4mjj71x3ib32K9IKrPnxXgPT_VcPGgSrkGbk9ydo2dwKxUcSgcitT-bnKbQoY2x4",
+    image: "/placeholder.svg",
   },
   {
     name: "Shaykh Omar Khalil",
     role: "HEAD OF QUR'ANIC LINGUISTICS",
     quote: "Language is the key that unlocks the treasures of revelation.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuC1vn1I9MLasMOmXOjg__RCp6WknnEmr-fCeLrQ1asJ-kMRwvJl5BBZlsOGqOzNuL8LfvTKgQJzVKeC2cOrH0vG8R95WFaFQl3DQCBK2GCTuKQLwEKwX0ewG0Bbd-jtNkiOd3upk_QVfPcVuNAThrJYV9-ytEnz11P_D7nZNb1AHi0dAFz6nu9p8i3PVXir4E2ea5tLdqWUOfbFhduXoefuwMqWNWZqkxJAAm5Lfh-HIyrz2Z_EI8jKEUV2w41JyJLnkyRCcYLXvA4",
+    image: "/placeholder.svg",
   },
 ];
 
@@ -147,7 +147,7 @@ export default function IslamicStudiesPage() {
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover opacity-60"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAI-woGB6cOM5I2bqpAGnuTbghDEjXBdhXOyKYCC2syX1jWXRGpMuTdDGuXBgAjZPhixP-tnU1oI0a5ljeWnioqpa4vRsNhtY7_rICHUa71PXLPS9IbPGGUj030efO7PB-9z9F9cLXJi88AszXfHBjTOhth-cIXE9zM6qiPAjumwJBTDRCSrpv_5T66cONq_xYrtIYn4MOJE1hYphlE2egh1Q-8g-ab_cA-Qfy1qiqkS-5e2yEE3CnU5tYws7ORqXvvS2155T7c898"
+              src="/placeholder.svg"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#15121b] via-transparent to-transparent"></div>
           </div>
@@ -254,7 +254,7 @@ export default function IslamicStudiesPage() {
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPRUM-TWTyimdjW6YLnmWgulfXqiPQHOLPCfxnC8MTaPQqwHWctMaMROdaDdIj8LU_-z0IZnNTbxxUK6Uy_uz3tW6kwnQEaTRLEn3eiMmtOyZAEss2w7JdbW8wZAJpRSk0IOHQUJBNlkPCJBSUtR6dEM1Fyd_mX9cAemcL3oZi7Qs5UhLEpRpfe0DT8B11cPXP4Yg3oqFI-GxnMWqJ5CLrNrVSRl-zZekw6B-dhGCH1bo_wD1bvIhf9TX4n8GO8ZGaeZQJ6KyTxdk"
+                    src="/placeholder.svg"
                   />
                 </div>
                 <div className="h-32 rounded-2xl overflow-hidden bg-white/5 border border-white/10">
@@ -263,7 +263,7 @@ export default function IslamicStudiesPage() {
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXx-WHZpaMdE1RFF9uKvETwrv2JJpzezRsVQAwo7R1Vl-w5BXJY7n6dsUPujsgoXwB_KR55FHeqo7QG0QtR7RoBqYF810bGaJ4onmwZBYxFy_we7f9RYSUVKbBrRe0gJifDOXIaSZgdOi-FYoFhX10H6_XlT3hoYI08E9Ur5XNaRAoNg2psOIjc5ddOYRyS8qBCplfkNtDpCYF5K2zaAH-lAaFL2_nGSaHzVc_mnembiUR0pz8RuBYIIpS2iYDMJU0MAkn3eYR7yE"
+                    src="/placeholder.svg"
                   />
                 </div>
               </div>
@@ -274,7 +274,7 @@ export default function IslamicStudiesPage() {
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxck1GGF7eNMUpF6v5wNTs4R-LtWAQ1Da0LrVlDIEMZy0Ee9qVmFofgObyD9nnAauJ5gqzXx-bFc8HcTaCk9y0-_J8zCaHrBAgI7ySRx2cxBESil15iSEgJUch6Gz3V0mpKCzWKkCHdDXgB8TdcYmoaaM_222e8RraY6euClcIlhJkzGuYwF1hplX3Z45T1ysCUSFxanx6d182kGEgbXMhv9o5Qkwv3RN3B7V96DyaVY48VzZnswIJzImXGdtgfKVW1fQYDJTA32Y"
+                    src="/placeholder.svg"
                   />
                 </div>
                 <div className="h-48 rounded-2xl overflow-hidden bg-white/5 border border-white/10">
@@ -283,7 +283,7 @@ export default function IslamicStudiesPage() {
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuIg-2H8SUOVV0ahjlu62m5QIyFHd3jlrqdrnEzYBWjV14hMSWh1hk88SYyfW2v-zq0byk41LGcJXnF70tR6SrZCkRhRWOnuZ9dUAiZ9DKZLf0HZ6oFWmvV8RHM6trp3ufN8bMJLg5g-XY355hkiWPzJuHLlcpyUa0Dchb5RRYlzvbSWP0OHqcU4sqaPGW56RddLRhWXRokRphKOUAmGlwkSUrMc_1mqWbE8ys3LYD4oyU4YwxAMNnVJ5gCAVxFdKF9fSgVknTAxc"
+                    src="/placeholder.svg"
                   />
                 </div>
               </div>

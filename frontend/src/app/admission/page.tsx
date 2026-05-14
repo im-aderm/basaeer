@@ -273,7 +273,7 @@ export default function AdmissionsPage() {
               </div>
             </div>
             <div className="relative rounded-2xl overflow-hidden aspect-video shadow-2xl border border-border">
-              <Image fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" alt="Admissions Workspace" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOpf3nH2QmUWMx83x-35x2gDH1JORY0jMwK-e27og4lxuW-XZHFyg8oYiSd-1R78f0Mm5FpBzW25mu_f6zDLGQlXpKV1t-gktX5dKdqaSCvxJt4aPNKswbMsN4selSrEMGpcgh4fyIvlJgtmXfvPQBkzMiTX_vP5wVBIy3Lzrp6NVJM-IQkJhRtUYPUqb_H5f8NkUdA-CK4OADRAmrScLI0K9tDO3fwpdPi9pC0D5aLUc_ZkEAwczjonP7l18KQT5f4C2m4jmbQFA" />
+              <Image fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" alt="Admissions Workspace" src="/placeholder.svg" />
             </div>
           </div>
         </section>

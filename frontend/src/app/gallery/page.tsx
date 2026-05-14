@@ -26,42 +26,42 @@ const galleryItems = [
     category: "ACADEMICS",
     title: "Innovation Lab Sessions",
     description: "Students engaged in collaborative high-tech laboratory projects with digital simulations.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBvSgMfZsdWLFUQDbA4Jw93m0LltG0QYK0pno8Mmmq2GszLCIEPaqobUE26PoQs3nSuD4wntHHvlPiVyWdU18--Sk5vb71rbdHZ-7A7FjcfGPC55tbiZ38xUYrAERWmuH6cdKlG5uLLEqQX21SQkbJrjuhKEKAoLsHvEnAy7bZjDsSgb_6pmu7wOI_VHADcQBfR8AHc2JOcZ9nzJe4PT0vbRAP-JHUVXmotWDptsvtBMg7xGy95THj50hq-rFGHsxYHv-2tGXGYHfg",
+    image: "/placeholder.svg",
   },
   {
     id: 2,
     category: "FACILITIES",
     title: "The Great Wisdom Hall",
     description: "Our grand school library with towering bookshelves, digital catalogs, and quiet study pods.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuw5JoppYtrjFtyKEEZTj-MHtiFunIs_td0YfJ7vwwnwbRGuOp7jsMLQ3g9fI9MTRkZRcs9pNqUx1qlItRYB9UjukMlP2cl7nLCxMuyg2vRih3ACCeoz_MS_8QHc3haErUyW7ZPZQFfToY38puq6fgt4Wyx-TJ3KkKiWumBM1nbBNpRnpoD3Ny69PYUIXhkZamoHTLBE2CVRyLpYmasHMF2_4aHWClEf5VR2WKUFBRgceS1H1imr7KASjIgiq1Fo8u6jaQyBKH2Wdo",
+    image: "/placeholder.svg",
   },
   {
     id: 3,
     category: "GRADUATIONS",
     title: "Class of 2024 Ceremony",
     description: "Celebrating academic success and futures illuminated by shared knowledge.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBWBOc5IwTpb7zw_cyEhtx2aDZRbeEuzu7Jv67FUrre-JtUcH-sGf6D4jl6bWi6Ium5p8RKiKso5aBCD1EnK7Vdx14mZvm6fCXHatFbchGEA6SPXTGNv955w4vy1UQ_g8y9F-6sh5pc0-_IePemkXk-ALD2GdW3AUjo-wJeFG6oh8aHGDf--WO7vOWYOylN9MN4vNpcR9dGgq0y1L45p5U95vT4AYU791yNUH7R-huY8LXMHXwePXuInU36n6xBDzgWQ2K4118S1h4",
+    image: "/placeholder.svg",
   },
   {
     id: 4,
     category: "TAHFEEZ",
     title: "Spiritual Sanctuaries",
     description: "Peaceful prayer and memorization spaces detailed with beautiful Islamic architecture.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAs1EYviRUQXuqOeTVKvLdit0aVxTJAzhGxM60kic8t2ViVrtrWysvDLOa0Mc6PYMQF-SIq9cIGDayVduv9xFn3tNJoWXOd-wzqvgsIW-ETuurpOpXD7CS7E2YClGsQwfo51p0bT-Rmxt9iYtoiCVIsZlfYGCRLgx5TJIsPiHdC31LHgcyPpDGPiD3B1uKnd0hiY5-FOzK2zEEOcr1VEWcFL3Pk_aWrDAYJBei2e0giJomz9qYJ4m47q8x8Y7vmSx9pVT0ruUvbYO8",
+    image: "/placeholder.svg",
   },
   {
     id: 5,
     category: "STUDENT LIFE",
     title: "Interactive Social Hubs",
     description: "Modular high-energy lounge areas for student collaborations and clubs.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuATMf2_olmEI0IE7mgi1BpFYDlpkU1FdXrNS4y1q9dFVdndhCC6y15fBNpD6OlZHE4Z-S0wav7vSIgok9ztZwfEZpyzjNa4wZQe-1_lJOlLFRXwMx5fJGKO8gfJtBJYpSXQQ9Nf9E8hKh6CkhhMBD9vlBRXo3dhMxLv2CidDRFV1zQjZu8QIju-mxThoXFoNYEVtl5aS3YphJKWCOjGfuosdrcd-hya5Uahznlj6IlelmRHX6tsawlh4JWxxwnFGam16-wW13HUF1c",
+    image: "/placeholder.svg",
   },
   {
     id: 6,
     category: "FACILITIES",
     title: "The Visionary Theater",
     description: "Fully interactive immersive auditorium equipped for visual presentations and ceremonies.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBdworstILxdRYw8-Oi4s58ctT4FFkZIjLMHw-ZeymM4gqy9qIal-lkekY90D4ACiJts2pfdlwwAESlyWTccQoi1OIdZnP7tNvo9nhEUgOBO4TtPWXf7phG14we0plmJzqXQ0aLEX2CwEB1P7vZoYXiuqH3R19yysjaJRdZnD0w5EfI5O4emvx434tmU8OWqwC-xR5ohhYQe6XTjSNJUKpk3cdZlzbPxAKv54eGJZ5M6Jc-YobbhluKdjcP5R7z0vjYJRjMESK2e_Q",
+    image: "/placeholder.svg",
   },
 ];
 
@@ -69,17 +69,17 @@ const videos = [
   {
     title: "Cultural Heritage Festival",
     desc: "A celebration of global diversity and shared values through art and performance.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuA2dsKRXWUvGii2eEv-yFrzPvIu6UbYn8taSZzThQ8hLDcT0ZWt6hljtbrOtEZQMPs6eb1xGzxa2nqaMH3vVP5Z_pVs1vhqO2FgbwEt5BWrXorrDD1Ac7KaGtQK2mhgHxvAsF1vHNdrw7JWFfG5UX_4lcEYQyc2kh13IiQdmByDhEhuREl9GjupadnGrfd7HH2DLEtHyLSh4osG5V-49Th3s6NSdhn5bdvPuA_zSfVtUNDsO1IhLzLyPgxgE73q6_RGnMjwOoe2pOI",
+    image: "/placeholder.svg",
   },
   {
     title: "Athletic Excellence Highlight",
     desc: "Pushing boundaries and building resilience in our state-of-the-art sports complex.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuARqxa0S53RjmDnnwUENO29wGoQN6SNZyXZVzCXDm4cE3xNN4hIyRUTNXDhaQWXrqgDyyhMj8USVS5El9tV4wb8BWQSYRFcUZsvddGcwsBjPfruY5xZTOFxkOTuxes7zHCr11JUJZhCoccva_BYRKybhl9U82AlkLKxb_0ShB9axVV4ASjgcxQdg0_tgqVAPLG9Qik6qM811kNXfNnOCjx4k0qDai1UQhmnEgFKKY0sskNltC01mfSI4hLY5FValhYbhUIoU2qqLyA",
+    image: "/placeholder.svg",
   },
   {
     title: "Tahfeez Program Journey",
     desc: "Exploring the spiritual path of our Quranic memorization students.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDxZNn3QLOEcjwEUtPNoO1Ktf0xeTnOzsN_6wTtD60KvxLKutEJivSlzldY9DAvmtkQTTKR3qqi9Lm0AU2DERZ0B79eNLZtGffTkeaHld8OEV5coy4dOGawd4m7XoHVSjerjxKkk08Lo7M42i-n-Blks8da8M-KBNrEJM4CZadKfNjbr0ExcpSv4Ia5oFN7vufaoRaGf-MRy27Bv8fSLKNUSA6dJ4vHVTd9X7SvrEj83S8_3JhLzBXFBCsFNHwn47PA1K1DJjzJE0Q",
+    image: "/placeholder.svg",
   },
 ];
 
@@ -107,7 +107,7 @@ export default function GalleryPage() {
               sizes="100vw"
               className="opacity-40 scale-105"
               priority
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6vSiHLvFFNlLHTetHlo9YmafxgkxudKSrpvMKskby773D7Dz2B4pIego7KjZLwYqW9XvHmYb1UZDUcy9zDNjLNnHouuFdx_T378xUiUw1OyS6T5F1iBlENSemDj2pwywWzV4fEJHoVMxHMAfry-wrXNeyfSy3Q05K2uaKZmu1xbSLRkWhF22Ft6oF_eZOTlZoBhSd6L1T73M1FVyNdFFGEh9dK3C4McigdXP3n9HQA1lXEs-3Y4X9D3J51q_2kG85ShnKMOsoY4Q"
+              src="/placeholder.svg"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-background/0 via-background/40 to-background"></div>
           </div>
@@ -209,7 +209,7 @@ export default function GalleryPage() {
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover opacity-70 group-hover:scale-105 transition-transform duration-700"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAguupNy3snl6-ExRNOBsI6aC3NvUR5V_SfEqMcYcRRb6Y1XuhTm-2C1vIyWjlni4Y5vkafQsLxERqLGuz7YC8DmMdELPoiE4_ydnIs4ikVzJRxppMJNM2qAxbyUS0HRPkZVnSAg0R-7xIXJp-t21PI_R1pNtP2o3naGnyX1fp2f5-zKUSDKyZkKiRyrJSuXq1yvCEaqwtV9zS6kFafaQvKjpttdCGTO1Zke7XO12bs-8exaDaByXvmbQiR9M1imv-eszN3G1YUy9o"
+                  src="/placeholder.svg"
                 />
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="w-20 h-20 rounded-full bg-primary/20 backdrop-blur-md border border-primary/40 flex items-center justify-center group-hover:scale-110 transition-transform duration-500 shadow-[0_0_30px_rgba(0,160,225,0.4)]">

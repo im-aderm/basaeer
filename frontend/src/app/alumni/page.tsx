@@ -31,28 +31,28 @@ const successStories = [
     name: "Dr. Sarah Ahmed",
     classYear: "Class of 2012",
     quote: "The values of Tahfeez and rigorous science I learned at Basaer formed the foundation of my career in neurosurgery.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAhiPrhRHinYWVdJLeGdC3WnB8WKhMt9wFTzoKPgox_K9uyY82Z3ejfYkISAeS8IZpPlJSa_D0Cn5WAd_Axrd3j4ykYzqUjkX5UV7DImiG5hu7TyOIadE5OQXOJbTGyxbldwsyaZzOLuMUPbgSESqm4SAWHCdTYYk13X9mfsiDfcnhXB6E9XR4TYkOddbrrXWvJIBElCl-FHzOOxj6VuIN4u5BkyL0FMFjEINzhBmDqM4qTm-K9c90yqDP4rno8zo3KAKBUs18bFzc",
+    image: "/placeholder.svg",
     type: "medicine",
   },
   {
     name: "Omar Khalid",
     classYear: "Class of 2018",
     description: "AI Researcher at Google Brain, pioneering ethical machine learning algorithms.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCLc8v7_RASHqVxFWBLWPX_3dR_y6oBX_TaxrlvmmMlP7KtLxpiVo9a_stkQ0S-LbE4DSy5aIHTgNbRIZVNByzCl7HakpQkSN7Cg01uvbCLYteZh3bBYKosOla3WKdAJIcsWTWjo9afIUuzwZm7NVXWRFIOlGE6gPnJa3QjH9_4XU8yk8h8N6CORCpxrIaKofQHVDv3GckpO3xHlkLCOWlU0qm2dwj57R_iCaO4lkVyAhybJuWuw3s2yHk47bJu5x3Z_2mwS5Zg-4E",
+    image: "/placeholder.svg",
     type: "tech",
   },
   {
     name: "Zainab Yusuf",
     classYear: "Class of 2015",
     description: "Doctorate in Islamic Philosophy from Oxford University, focusing on modern ethics.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBcsQaJBIFGS8FzD647-sjjFzhRln70JJkRxivROpALYmImKuidmnh9Mekn51EfuFkvz-gBfeBA52Zm7iju5xw26bxx6hvXRrfqOr6tqTy5dM5E3gljcNbji1FI7Vcj-haXBuhFFWGrPk-Wrn-NwwMkZKcCx8g1YFTjJ96P7wZW9g4shtCoYazWstYkhxFFO0atQyt6T7LDn5G73-Igo4YD5rbJGh9MoHIcbfYX8Q05-9eQjI3n623nOSwG_DzUpm11bPp2Xj3hssQ",
+    image: "/placeholder.svg",
     type: "philosophy",
   },
   {
     name: "Hassan Al-Farsi",
     classYear: "Class of 2010",
     description: "Founder of Oasis GreenTech, a leading renewable energy startup in the MENA region, providing sustainable solutions to millions.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuA8-ZplAXvSUb1b4zAOVZnBdzryYD_Q5SsQJUIuj4X3OBmyBW-g-iQhDWPcO2RuyCNFOWYRAdHf5sykSXYbT0lZW0FjKTZGlOicjRYYFPyCpal3h-YL6suJH68LDFMpuXc_5v8QdmY0E1-Ii9lJChRdjUu_SYadONBqxt87Ngwm1rrVBOsGS6M2YHipJW-CsQg58s-p1CctpBjJN1oDHqZgNGxRS1nVNAAZrY_YH2R1pXaSJnBmTAVYnUJb_HbgniyQfdPEJTYcgwg",
+    image: "/placeholder.svg",
     type: "tech-founder",
   },
 ];
@@ -102,7 +102,7 @@ export default function AlumniPage() {
                 <Image 
                   alt="Alumni Professionals portrait collage" 
                   className="object-cover rounded-[32px]" 
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNLDTQgv3-kexg8o-n-HShUe9MbUvrvy6bKghyduYzs6Jsv_w_8uzaY3m-otj0yXsHlNpLx9GenbLya6RbJN8SKDsIaCWIXAH4BS_lpAZH1L2lQbF__87vPJwKATPZXIwnhXWNOZvyyX0GmUNd7xiH3CqvT9VLiCPyxNoPvHsXbjwclSRR0sh244fLuG0ivUVInz_LWmXv-aMxh4P5bW2qslTKOlQ91zWFPX7Qcq6N86QNx7Dpl9433sHnJokd1IDxKDbu-5AlGLk" 
+                  src="/placeholder.svg" 
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
                   priority

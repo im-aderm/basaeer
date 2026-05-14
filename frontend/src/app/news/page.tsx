@@ -26,17 +26,17 @@ const bentoStories = [
   {
     category: "ACADEMICS",
     title: "Basaer Leads National Innovation in Digital Humanities",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAkR2o5a1Z3i1VWHmdep01blU8niaXy2buEjOHTyqEovHNSRvJ0vssWrHWRJJ9SkIh-kTE4FFQUSLI20TU4Q-H7afcir2o6m1m3u4VSSFBv59cyJ4he_qoOyJV6MTMVDFOH4FTVUYPpqVzStzOR9ImVFqzmgbEJ_ab5ih5UFmqHg1Jv4Gzf8M5kDvU4K418rc9SIUKSojhWGkdlyo7huDzWr3VhYxjGqZzuNwEGilE6SjiezZ4xTNahsqlU1fT24wln0kHaLD0mL7g",
+    image: "/placeholder.svg",
   },
   {
     category: "SPIRITUAL",
     title: "Annual Tahfeez Ceremony Dates Announced",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBN6oZXB0Hme6TfhGWljvKBanN1JaFegkeYtjypRZ5fgMP3_6TrBf7VXj1rX1zeFmYh402NQQzjwXwOgewTSCowXiDqfJ8299gs1yTsj5RTdV3dIDLaFv6tqBf_MWUBsUu-9pgsQ9tbZf15oCLe7G7GrbqDtxzll5vDVJCxyDbwnivbG8RBmTNxLI445hCCg4pARE0CiGYWwmGFw7tqIx3QlfVCyCT-rsc17qh4dDAXNxcbt6WQB4Y7pqGCKRIzkqjRbs49gcN6vqA",
+    image: "/placeholder.svg",
   },
   {
     category: "SPORTS",
     title: "Basaer Falcons Clinch Inter-School Championship",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDbeERKeCzE6WINBl2hIi09K4wByx1Ng3XSWqLLqGSEhbHdmwafuIjYmaZ8psnOdBNlJUpelmxgu5CxwH3BPz317RLDa3i97RyrWqJRiQ6LByG79vymwgkdUvppP4af-jIEpEwzsW5oYXrhZ8E2Fqy0RpndvP8JWBEKkPoFCnHPCjAXZxtly8Ma3SjK-fYGJoj5CKAyFf_z7K8ti8Bq43zCM7aMl0DHCOfrB46ohKeyNa2tJ5L332PLn8yQ6TrBOBXDyVW74Y-LFVg",
+    image: "/placeholder.svg",
   },
 ];
 
@@ -47,7 +47,7 @@ const feedArticles = [
     category: "ACADEMICS",
     title: "Integrating AI in Curriculum: A New Chapter",
     desc: "Our educators are pioneering new ways to blend ethical AI foundations into the core curriculum, preparing students for tomorrow's challenges.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCEeqBxWXJ7hKyOpv_yOpgRJdcNNj7IwW9DBC71mope30pE4W40G2SNufCfSF0aSqextFK3hs2F5r2vUjxvD9yVTWgHqWb0D3opyvYfOiMLCF2oTIQ6NFv9u6UmU6pPSOc7TyxMQZPsRHOf9LBoe6Fs72C3uL1UopatVvnhdaHnoZFzB3moH7VrZ3kYLkNT1cpBQg0sJ9ClqFJbEoO00d7xpORLjBBQB8XmkcDgqDHIv5zhDgBE4PoFY5z9dE34nsKWt3Bzh5ZUA5Y",
+    image: "/placeholder.svg",
   },
   {
     id: 2,
@@ -55,7 +55,7 @@ const feedArticles = [
     category: "COMMUNITY",
     title: "Giving Back: The Annual Community Drive Results",
     desc: "Thanks to our dedicated families, this year's drive has reached record-breaking support for local initiatives.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCaaNOtqLtzioCC1NiGQYhCA7cM-sIdSflHITuo6LVF01-TxPvv7u9veg2H6KUTcbF1GA87Q9nIRGhPKs4uzyT69QD0dpM3i57Tabg_pGJKCnj-B4ANWKCLQD7tz7Z5Lp4q5rDAhP8utId1-Uv4Ehgpq2quDuleCJOpKamZYh53Ed7rVu6Nts0YUhMS2T2eUf_cFDlPnSi7RSXyxbkgOVCNA9AG-cGWCrnAJdBxG7oZzQ2o-k1KR1loqih6f0XDdXRGjZT69wAMMSQ",
+    image: "/placeholder.svg",
   },
   {
     id: 3,
@@ -63,7 +63,7 @@ const feedArticles = [
     category: "SPIRITUAL",
     title: "Spiritual Reflections: Monthly Night Vigil Series",
     desc: "Join us as we explore deep spiritual insights through our popular monthly vigil and reflection sessions led by scholars.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAK6D3TvbRVOHM1z2VOS71JcMeWB9oCSiWKmsnI2K7vKFixDuuMtBgDWoZbFgsBhXBC7zUn4JGHoph-cJEdfrwzqTwn-aAdFwJDmutsLmgFGctZgYlO9vUGyFLL32Y5OvBaK7CVGat0Ky0Zq2G2codpE9rq2Ofd82_LNiBmI6K6TEiHgwT2hMhTyOmhuUiyiKlGARk6X-8Dz44Owlrxrw6zoZTBVhMm3DFKgWCJEbS0_6lbzPKgi3i339guU1ObCReSfUlneb4xMb4",
+    image: "/placeholder.svg",
   },
 ];
 
@@ -95,10 +95,10 @@ const upcomingEvents = [
 ];
 
 const socialHubPhotos = [
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuBe1LCAgZxLH1r28A9Cfd3anwQd3lPSWE9qfkwKwKHtDyNbyyoTnZ2BRH9lvmColDW0oGu62Zw3q_zwBNsNgOktk_TigYMrywiJrLbu2bYJGax9lrYM2bEAFUaPlwizvq-Xjxo7yNj8CbvxeSkNHF5D0Cg7EsJOKeNkgbY6aoHSeXV8maDMPDdvqvlTTSnLQ6E2UwVidgDH4lGjlG4LxzLXpI5sQixvdDQ1nKoT5Ai6KF8dLkLFmgSMn4btD8e-I7ASU8traZ3_vgY",
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuBpnTW_WI9FFbzmXG_CaOWcU4bnjNzx5SkpT3M0Daf2typt5pt5g-n4BAur-9xAIBPsughZ39r80JmwWPwt_zOoDmlEH38TnCDzWAM36628zUHxdoRM1K0LJkMI9yhJw4o23aBnRtgU_cMVQ_BIBkpOcupqoQfWI5rKYVp6U4OX_dDjfi651aZtDxsHV--9gEEHHMh_NH2DF8wkIYpy7_1n5Nh38Yjdj0h-oeLOujUEmotdoLxKB9w_2WTsDtABW0gPBF0osSYFbRs",
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuBrY8SNlA7thdJie2LWLDKWkh3thqSo3g-bY_7F3ikuAfgl2zcPLz_qD1anLqflwWAueabHxswYfrQtG49SuHWXqjrLIethnLH2M6bZVUtFOCPgPvnx8bY9lXJoVX5AyNyE9143WERCCo4yNMDiWIuD2PBWmA3W48QobwXRvgg8qIWeXnPTJLy_prMaXb1q_W_0SK_Z-CQasR_0XB2hnAI4T_bWkWtsnWhMC_8AO6SKWYhTf2PuGLme3Y2UTIGMpeE1gY-9P2-1uWQ",
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuBfLMUVMyEIvKu4PzDV_2Ya3DWEzZxoFD6VXlZTLDWVROUC3ti96iX0Tz9TQX_I9MMkfyFtBpA9AzQAK-ohilj7Eme4Pde2AbTWTiaV9DYKRnomzKC1HPUIAT1-bIOxspRA54mXbDxoQNJmm8_CGhM1for-x3RJDwc9FqKYtSty7uK5Mfm5867THSJ8CrTkMiUln8ZSCxH_PSaLy2TxYVXo--k1bOC-QBEZ6rN5h6-H1_ca-E9q5jMGnWYG-inGbeTVDet5dPNnFMc",
+  "/placeholder.svg",
+  "/placeholder.svg",
+  "/placeholder.svg",
+  "/placeholder.svg",
 ];
 
 export default function NewsEventsPage() {

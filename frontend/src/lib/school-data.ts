@@ -13,19 +13,21 @@ export const sections = [
   { name: "Adult Education", slug: "adult-education", description: "Lifelong Learning Opportunities" },
 ];
 
+const PLACEHOLDER = "/placeholder.svg";
+
 export const campusImages: Record<string, string> = {
-  kaduna: "https://lh3.googleusercontent.com/aida-public/AB6AXuALRTCxyrEcI9CptBASdnjR5uGzd9dDwIrEBJaNETk4_cJtSm2vG50WwNHjUmCRYs9YSO86wv8MH-Y-apVkySYq3uuZq8tqQ7DH_R1c2KlPV8Ut0iM-1jltvVZEEQh1y8wk0qRhlTgNkkJYJHig9QYfw6SexkpDnZK3rkRDhHSoVSjX7KTWl9KL2siAw3OSnsvmN8OEu9Z-itEnMKy8vpYdPcRDHwHRV0Ty_BEFIOojgGmHKJYr51hrr_26_kR5nPj8OvTcrXok-3o",
-  jos: "https://lh3.googleusercontent.com/aida-public/AB6AXuB1XcmuowekSzkJWXNd7HL5yRXKonl8ZI7TU4ORztfKtGsAE0wGehdBkwxD8l1rAsue4FsFESbNk5LON0KYo-xyvNhdphgszoYGH3OEPDRDufvIYG-ONHvP57AiTvOAY5DYkeIX-1aaJHkrNFzc2-Fl83dgE3jFSd81e0WAxniFu8I3Pb-LVXkzcvOuIZNJZ7mj8G6AnMuCpKeJiD-WxTisAWj_mB9QxV-8TP8ySuAY7pHg1qSpC9tAzgoUV5X7YKbAKexaNYueynk",
-  kano: "https://lh3.googleusercontent.com/aida-public/AB6AXuA8xxuqHU0_3RACnICqto2dKhEq2ms99kvELje-BvgolohGc4FdX3nzcr-IeaIs-28R9n-hx3vTPzKenXxnh3Tk6w2R6ZPQNsRj5mLAo0jlGz-QylKIRVAlIiuRE4VXQYnsn5cirMkqCZ5XH8Ov-RhfPHEZwZlYIavHwswx1XHRToc5UjA6A6xKQTe3j8Q9mkGZLvx2KaQAOCvW3zltwGzx4bWpAe-bUObD0xkjFioB4s9QPYALme8ItosGvzD0WW-nqQjhBN9blEg",
-  bauchi: "https://lh3.googleusercontent.com/aida-public/AB6AXuBBhzaub5iCa_HPhBEWNleI5PEnd-z6uyfCNFFgPKK-1r98t4KDrAVFOwkdMn7tbs0lkOth283tVgWPzHFRV0-jzG4WQiFfJpj3JDH5GYzfqoGRFJ1vyN-nIl5VB6NcITDT_97dwye9tocyIVKo9hSN2BoBdZr1LLHAedBT3SFqV7XJOv3nSJGrR2Bb5HNRhFwUhSxLK0tNRqsPjn5W1T3VLm_1bPMCnzVivcqacN94x7BrNB1Qw_2goc2jBzTfIFspa5ydU9V9ykI",
+  kaduna: PLACEHOLDER,
+  jos: PLACEHOLDER,
+  kano: PLACEHOLDER,
+  bauchi: PLACEHOLDER,
 };
 
 export const sectionImages: Record<string, string> = {
-  tahfeez: "https://lh3.googleusercontent.com/aida-public/AB6AXuAs1EYviRUQXuqOeTVKvLdit0aVxTJAzhGxM60kic8t2ViVrtrWysvDLOa0Mc6PYMQF-SIq9cIGDayVduv9xFn3tNJoWXOd-wzqvgsIW-ETuurpOpXD7CS7E2YClGsQwfo51p0bT-Rmxt9iYtoiCVIsZlfYGCRLgx5TJIsPiHdC31LHgcyPpDGPiD3B1uKnd0hiY5-FOzK2zEEOcr1VEWcFL3Pk_aWrDAYJBei2e0giJomz9qYJ4m47q8x8Y7vmSx9pVT0ruUvbYO8",
-  primary: "https://lh3.googleusercontent.com/aida-public/AB6AXuCGsF1RaH7y_Yy8eL_LJjaaBhuxRQMdIHUnhDSUIrcJQlBoX9k4cauYuOBnJTXPxQe5bB2WZJ1Jm6IEeVhIJilPSq_4Phqc2-gcBwSd9MSmY8YYey_e0iMh0YCaBQ8bSm10J4m4xAG6pgAciZ2xzERW_lkokYGt7TgLVZg0V0ysEEEaHlWAArHuZMiZGb7ynRfYbwT72bp5jNGNI7pPhv_Ygp0gqPAdNYKlSQTDHPWPVkZdte0YDcyLcS7FvMOuM4BFmETfsNiE6lA",
-  secondary: "https://lh3.googleusercontent.com/aida-public/AB6AXuBvSgMfZsdWLFUQDbA4Jw93m0LltG0QYK0pno8Mmmq2GszLCIEPaqobUE26PoQs3nSuD4wntHHvlPiVyWdU18--Sk5vb71rbdHZ-7A7FjcfGPC55tbiZ38xUYrAERWmuH6cdKlG5uLLEqQX21SQkbJrjuhKEKAoLsHvEnAy7bZjDsSgb_6pmu7wOI_VHADcQBfR8AHc2JOcZ9nzJe4PT0vbRAP-JHUVXmotWDptsvtBMg7xGy95THj50hq-rFGHsxYHv-2tGXGYHfg",
-  nursery: "https://lh3.googleusercontent.com/aida-public/AB6AXuBEEdPErMXhlORsd-Pp9fVUub4ZOTBVaKHdK_qi4lFnhHmhjedxEhgxd_-gpp5hi2cCDUlMxFm6FovWp62fKDxcjEx1lO6Ry9Asa3JrUw-VMrne10l7FoRNZmLRMsApxnPfVBYQJ62QrOq-BrPQdMMLgHZn7lrRiQ50DN5DXRfnpJnf8SVIkItrGYxlQsfz94JqvxrbrqTwnPbFkf6FWBHnYy8eIRyUKGsu7e_tYVHrCLmOqKEuDmdB6KypZwKzOXSr0JGZ5y5DtWQ",
-  "adult-education": "https://lh3.googleusercontent.com/aida-public/AB6AXuB238EPWwo8XCC9Vc7O1oXAKNrFYloNpDBsg7jWbeAbaluyNzRDZ3xblobIU2XlY7g4JUJe2pkN33SFdex0Ts9CMXuNBzLhJK3qidA5HqYsiupPxnHSV6ziFZ03I_0roJWH1kYIPDoIpEuwlEKYAQwuXmniX3_LNZOcyHnnWDeVH_K2sehNyeA0GLjlv9EoUBhnPAF0BUraSsz9kzZ1l8fp3fg4ozgnWG8WHLosYuNcFr_TGB1yc_hMmTnPg0uwhxvWDwVCIp72QCc",
+  tahfeez: PLACEHOLDER,
+  primary: PLACEHOLDER,
+  secondary: PLACEHOLDER,
+  nursery: PLACEHOLDER,
+  "adult-education": PLACEHOLDER,
 };
 
 export const campusDescriptions: Record<string, string> = {

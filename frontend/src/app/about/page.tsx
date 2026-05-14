@@ -42,17 +42,17 @@ const leaders = [
   {
     name: "Dr. Yusuf Al-Fayed",
     role: "Principal & Academic Dean",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuA_z3BPlAU7Rw9mMXBz1FFOwiIsQnsh8GcO43e_zlCZOmSyWr2gSvVen45wsEMnuv0-KA_VhCVajk07QV0sw9F0b1oqgm6cjEusNG73vYxewGrAkR6e9MurHk21qfknKKcn4fc-6vCjQ9XrkcXaSNazlU4c9Yv8ZKjHDPjtwJafysB8JXWbYWFPO_zYciuboNIvs7EpfkyI1GpDC1jIxiDYl3gkb6sfleLPflb5cDtqzIGZs-tDoGRI-HtjAF6ZPE4x7hrbAHqdePw",
+    image: "/placeholder.svg",
   },
   {
     name: "Sheikh Ibrahim Mansour",
     role: "Head of Tahfeez Department",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCwNpY3-SY61RXNtE042WcRX_OmKP0CADGPFcr4fTAJfVgh-rFM7zda79kGo06iVIm1A_cuMgK4PGXQhZMc932Iai3L82ZtP3okcOhkg9uLmyrHS0a7hqYbEW3-PaMMjmPTPkCCGkMjB5aL4tXQNYUijq9WGkN_yNIUUv9aLC2d3aq2jrpvPWdH-UHLZtIqNuneNj6H1lzSh--qgwnEMtrGFtAr2g53oJU3jnfXJ5xilUscH__I5vsl31EtVEVHeG14OGEX6JfV5A8",
+    image: "/placeholder.svg",
   },
   {
     name: "Sarah Bin Khalid",
     role: "Chair of Board of Directors",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDbhvhkub4JdjPI7tGboPqhW6cc7gqmwxBdtewZyLUMkcWD6FvfnKo_WpO5YrlnwO2cJtRyoEkIK03Tp2FXk8aSlkQak4W_jR2NGlXsjtkkZPYr1qAIhftEB-VpzL9PJwtWtXe5d8UGBt7j_Jb44nvvdBPp5Xn-5C5swoBIV_ndvdDWE-uTI7XEBbPcWyrWmLl4rrwbIuAxyWiu71n179tfRGxhYvu9BhRsZQStXnhKoU2VSHEh6nEoKC5YmDv83-RNK4QIsF-AjaY",
+    image: "/placeholder.svg",
   },
 ];
 
@@ -101,7 +101,7 @@ export default function AboutPage() {
               className="opacity-30"
               alt="A grand cinematic view of a modern school library with high ceilings"
               priority
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGsF1RaH7y_Yy8eL_LJjaaBhuxRQMdIHUnhDSUIrcJQlBoX9k4cauYuOBnJTXPxQe5bB2WZJ1Jm6IEeVhIJilPSq_4Phqc2-gcBwSd9MSmY8YYey_e0iMh0YCaBQ8bSm10J4m4xAG6pgAciZ2xzERW_lkokYGt7TgLVZg0V0ysEEEaHlWAArHuZMiZGb7ynRfYbwT72bp5jNGNI7pPhv_Ygp0gqPAdNYKlSQTDHPWPVkZdte0YDcyLcS7FvMOuM4BFmETfsNiE6lA"
+              src="/placeholder.svg"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent"></div>
             <div className="absolute inset-0 bg-radial-gradient(circle at 50% 50%, rgba(0, 160, 225, 0.15) 0%, transparent 70%)"></div>

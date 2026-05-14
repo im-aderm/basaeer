@@ -34,7 +34,7 @@ const SLIDES = [
   {
     id: 2,
     type: "image",
-    src: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop",
+    src: "/placeholder.svg",
     headline: "Where rigor meets character.",
     subheadline: "Our Cambridge-accredited curriculum develops critical thinkers who excel academically while embodying Islamic ethics and values.",
     featuredLabel: "Featured Subject",
@@ -67,7 +67,7 @@ const SLIDES = [
   {
     id: 4,
     type: "image",
-    src: "https://images.unsplash.com/photo-1544531586-fde5298cdd40?q=80&w=2070&auto=format&fit=crop",
+    src: "/placeholder.svg",
     headline: "A community united.",
     subheadline: "Partner with us in raising the next generation of Muslim leaders who will excel in this world and prepare for the next.",
     featuredLabel: "Featured Event",
@@ -135,7 +135,7 @@ export function HeroSlider() {
                     </video>
                   ) : (
                     <Image
-                      src={slide.type === "video" ? (slide.id === 1 ? "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop" : "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=2070&auto=format&fit=crop") : slide.src}
+                      src={slide.type === "video" ? (slide.id === 1 ? "/placeholder.svg" : "/placeholder.svg") : slide.src}
                       alt={slide.headline}
                       fill
                       sizes="(max-width: 1024px) 100vw, 50vw"

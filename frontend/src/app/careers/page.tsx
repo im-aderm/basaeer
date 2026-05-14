@@ -53,13 +53,13 @@ const testimonials = [
     quote: "Teaching at Basaer isn't just a job; it's a spiritual calling. The blend of high-tech tools with traditional values allows me to reach students in ways I never thought possible.",
     author: "Dr. Omar Al-Fayed",
     role: "Head of Humanities",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCsOjRTsylVCK56UdKbFlMbXQvDQ-42jht0K6ytcuQkSHQTYluLmDUjcdKdxQTjXf0-gIZVIljana-g3sTCeyIAKce0g87btCPM0oUWPaYq9dCbE0OOFK3y9GWaMuX2Dto297_q4opF4PUK2Cbsh7aryu_IbYFPIzwOV4s0sQ6VPbyU10_HG2KlGqwnw0XObftJBpcABDLHHP-9g7NAH_vqIo0X9ged5i8YAWZgJij2R8ntMiqXg3Aw2B1eodS9DihtWMCL0-fTykw",
+    image: "/placeholder.svg",
   },
   {
     quote: "The school's commitment to our professional growth is unmatched. I’ve attended two international workshops this year alone, and the support from leadership is truly inspiring.",
     author: "Sarah Mansour",
     role: "Senior Mathematics Teacher",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBGNjZbAnv6BB7ldLCvj5RnQTQBsgRxQ4UTLg9aVdSgDIwiq89YIgrZHJ8A-rgjoDdQh3TpEmjLLYl4VRJuh7EaSRk0WZKoMxgPVZAcz202G87fva8OJSUj0u53AoVLBEPgWxv_u1C919T7xPxP19TMlNU4miolU5yPPVEIefTIqClrrd-gzjg7y64uRO16a1NPX43ZfSEZxoMgi9tujLtdtzaEQY5Oj-IJe6Zaicg90Y4seULJRNqvtbEqbwwUVwKa-u3IPX3i63E",
+    image: "/placeholder.svg",
   },
 ];
 
@@ -81,7 +81,7 @@ export default function CareersPage() {
         {/* Hero Section */}
         <section className="relative h-[85vh] flex items-center justify-center overflow-hidden px-6">
           <div className="absolute inset-0 z-0">
-            <Image fill sizes="100vw" className="object-cover opacity-25 scale-105" alt="Futuristic Islamic School majestic corridor" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyRxXBRuCCf1e0zhfXVlae2I8RDkFAo7_FxfmBrWaspVAuojt2PUs8twGMMQUck0N3PTQCqpCp9FWxT31006iP69hq64AcNF0k3nfY92J0ftWTcGQ2olVaTFQczTS4Ci0HDHTF7mN--h9dz7zmnn1UN2IKUxA-w7AFdzreRZY5WLyAcAv4Tf-gHd-WVUcIF4led1j3hf9TvcGthu0mZHgnZ0XolS-qq-N_jxBVc2KjhOqvc9pfrC0igPF9ree8hEdTKxHSEaWhC3k" priority />
+            <Image fill sizes="100vw" className="object-cover opacity-25 scale-105" alt="Futuristic Islamic School majestic corridor" src="/placeholder.svg" priority />
             <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent"></div>
           </div>
           <div className="relative z-10 text-center max-w-4xl mx-auto space-y-6">
