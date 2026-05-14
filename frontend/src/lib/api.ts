@@ -8,11 +8,21 @@ const api = axios.create({
     }
 });
 
-// ── Response Interceptor: handle expired/invalid sessions ────────────────────
+// ── Response Interceptor: unwrap backend envelope + handle errors ────────────
 api.interceptors.response.use(
-    (response) => response,
+    (response) => {
+        // Unwrap the standard backend envelope: { success: true, data: ... }
+        if (
+            response.data &&
+            typeof response.data === 'object' &&
+            response.data.success === true &&
+            'data' in response.data
+        ) {
+            return { ...response, data: response.data.data };
+        }
+        return response;
+    },
     (error) => {
-        // Log detailed error info for debugging
         if (error.response) {
             if (process.env.NODE_ENV === 'development') console.error('API Error Response:', {
                 status: error.response.status,
@@ -26,7 +36,6 @@ api.interceptors.response.use(
             typeof window !== 'undefined' &&
             error.response?.status === 401
         ) {
-            // Session is expired or invalid — redirect to login if inside the dashboard
             if (window.location.pathname.startsWith('/dashboard')) {
                 window.location.href = '/login';
             }
