@@ -58,9 +58,14 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto w-full px-6 lg:px-8 flex items-center justify-between">
         {/* Left Logo */}
         <Link href="/" className="flex items-center shrink-0">
-          <span className="font-heading font-extrabold text-2xl tracking-tight text-gradient-primary">
-            Basaer
-          </span>
+          <Image
+            src="/logo.png"
+            alt="Basaer Model School"
+            width={48}
+            height={48}
+            className="object-contain"
+            priority
+          />
         </Link>
 
         {/* Center Links */}
@@ -130,7 +135,7 @@ export function Navbar() {
             <motion.div
               whileHover={{ scale: 1.05, y: -1 }}
               whileTap={{ scale: 0.98 }}
-              className="relative rounded-full overflow-hidden group inline-block shadow-[0_0_15px_rgba(245,158,11,0.25)] hover:shadow-[0_0_25px_rgba(245,158,11,0.55)] transition-shadow duration-300"
+              className="relative rounded-full overflow-hidden group inline-block shadow-[0_0_15px_rgba(0,160,225,0.25)] hover:shadow-[0_0_25px_rgba(0,160,225,0.55)] transition-shadow duration-300"
             >
               {/* Infinite sweeping white-hot shimmer on hover */}
               <motion.div 
@@ -141,7 +146,7 @@ export function Navbar() {
               />
               <Link
                 href="/admission"
-                className="relative px-7 py-2.5 rounded-full bg-gradient-to-r from-accent-gold via-[#fbbf24] to-[#f59e0b] border border-amber-400/40 text-neutral-900 font-heading font-extrabold text-xs tracking-[0.12em] uppercase transition-all duration-300 z-10 block"
+                className="relative px-7 py-2.5 rounded-full bg-gradient-to-r from-primary via-primary-light to-secondary border border-amber-400/40 text-neutral-900 font-heading font-extrabold text-xs tracking-[0.12em] uppercase transition-all duration-300 z-10 block"
               >
                 Apply Now
               </Link>
@@ -198,7 +203,7 @@ export function Navbar() {
               <Link
                 href="/admission"
                 onClick={() => setIsMobileOpen(false)}
-                className="w-full text-center py-3.5 rounded-full bg-gradient-to-r from-accent-gold via-[#fbbf24] to-[#f59e0b] border border-amber-400/40 text-neutral-900 font-heading font-extrabold text-xs tracking-[0.12em] uppercase shadow-lg block mt-2"
+                className="w-full text-center py-3.5 rounded-full bg-gradient-to-r from-primary via-primary-light to-secondary border border-amber-400/40 text-neutral-900 font-heading font-extrabold text-xs tracking-[0.12em] uppercase shadow-lg block mt-2"
               >
                 Apply Now
               </Link>

@@ -17,9 +17,13 @@ export function Footer() {
           {/* Column 1: Brand details */}
           <div className="space-y-6">
             <Link href="/" className="flex items-center">
-              <span className="font-heading font-extrabold text-2xl tracking-tight text-gradient-primary">
-                Basaer
-              </span>
+              <Image
+                src="/logo.png"
+                alt="Basaer Model School"
+                width={56}
+                height={56}
+                className="object-contain"
+              />
             </Link>
             <p className="text-text-secondary leading-relaxed text-sm font-medium">
               Basaer Model School — bridging the gap between world-class academic excellence and profound spiritual growth.

@@ -104,7 +104,7 @@ export default function AdmissionsPage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#15121b] text-[#e8dfee] font-sans selection:bg-[#7c3aed]/20 overflow-hidden">
+    <div className="relative min-h-screen bg-background text-text-primary font-sans selection:bg-primary/20 overflow-hidden">
       {/* Moving Aurora Backdrop */}
       <GradientBackground />
 
@@ -114,39 +114,39 @@ export default function AdmissionsPage() {
         {/* Hero Section */}
         <section className="max-w-7xl mx-auto px-6 lg:px-8 py-20 text-center relative overflow-hidden">
           <div className="relative z-10 space-y-6">
-            <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight text-white font-heading leading-tight">
-              Embark on a Journey of <span className="text-[#d2bbff] drop-shadow-[0_0_20px_rgba(124,58,237,0.3)]">Excellence</span>.
+            <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight text-text-primary font-heading leading-tight">
+              Embark on a Journey of <span className="text-primary drop-shadow-[0_0_20px_rgba(0,160,225,0.3)]">Excellence</span>.
             </h1>
-            <p className="text-lg md:text-xl text-[#ccc3d8] max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto leading-relaxed">
               Discover a nurturing environment where spiritual wisdom meets modern academic rigor. Join a community dedicated to shaping the visionary leaders of tomorrow.
             </p>
             <div className="flex flex-wrap justify-center gap-4 pt-4">
               <Link
                 href="/admission/apply/1"
-                className="px-8 py-4 rounded-full text-white font-bold bg-gradient-to-r from-[#7c3aed] to-[#4f46e5] shadow-[0_0_30px_rgba(124,58,237,0.4)] hover:shadow-[0_0_40px_rgba(124,58,237,0.6)] hover:scale-105 transition-all duration-300"
+                className="px-8 py-4 rounded-full text-text-primary font-bold bg-gradient-to-r from-primary to-secondary shadow-[0_0_30px_rgba(0,160,225,0.4)] hover:shadow-[0_0_40px_rgba(0,160,225,0.6)] hover:scale-105 transition-all duration-300"
               >
                 Apply Now
               </Link>
               <Link
                 href="/#campuses"
-                className="px-8 py-4 rounded-full text-[#e8dfee] font-bold bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 hover:scale-105 transition-all duration-300"
+                className="px-8 py-4 rounded-full text-text-primary font-bold bg-surface-container backdrop-blur-md border border-border hover:bg-white/10 hover:scale-105 transition-all duration-300"
               >
                 Explore Campus
               </Link>
             </div>
           </div>
           {/* Decorative Blob */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#7c3aed]/10 rounded-full blur-[120px] -z-10"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] -z-10"></div>
         </section>
 
         {/* Admission Process */}
         <section className="max-w-5xl mx-auto px-6 lg:px-8 py-20">
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-center text-white font-heading mb-16">
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-center text-text-primary font-heading mb-16">
             Admission Process
           </h2>
           <div className="relative max-w-4xl mx-auto">
             {/* Vertical Line */}
-            <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-[#7c3aed]/50 to-transparent"></div>
+            <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary/50 to-transparent"></div>
 
             {/* Steps */}
             <div className="space-y-12">
@@ -159,17 +159,17 @@ export default function AdmissionsPage() {
                       step.reverse ? "md:flex-row-reverse" : ""
                     }`}
                   >
-                    <div className="w-16 h-16 rounded-full bg-white/5 backdrop-blur-md border border-[#7c3aed]/30 flex items-center justify-center z-10 shrink-0 relative">
-                      <Icon className="text-[#d2bbff] w-8 h-8" />
+                    <div className="w-16 h-16 rounded-full bg-surface-container backdrop-blur-md border border-primary/30 flex items-center justify-center z-10 shrink-0 relative">
+                      <Icon className="text-primary w-8 h-8" />
                       {step.id === 1 && (
-                        <div className="absolute inset-0 rounded-full animate-pulse bg-[#7c3aed]/20 -z-10"></div>
+                        <div className="absolute inset-0 rounded-full animate-pulse bg-primary/20 -z-10"></div>
                       )}
                     </div>
-                    <div className="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-2xl flex-1 md:max-w-[42%] shadow-xl">
-                      <h3 className="text-2xl font-bold text-white font-heading mb-2">
+                    <div className="bg-surface-container backdrop-blur-md border border-border p-6 rounded-2xl flex-1 md:max-w-[42%] shadow-xl">
+                      <h3 className="text-2xl font-bold text-text-primary font-heading mb-2">
                         {step.title}
                       </h3>
-                      <p className="text-[#ccc3d8] text-base leading-relaxed">
+                      <p className="text-text-secondary text-base leading-relaxed">
                         {step.description}
                       </p>
                     </div>
@@ -183,10 +183,10 @@ export default function AdmissionsPage() {
         {/* Tuition & Value */}
         <section className="max-w-7xl mx-auto px-6 lg:px-8 py-20">
           <div className="text-center mb-16 space-y-4">
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white font-heading">
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-text-primary font-heading">
               Tuition &amp; Value
             </h2>
-            <p className="text-lg text-[#ccc3d8]">
+            <p className="text-lg text-text-secondary">
               Transparent pricing designed to fuel world-class education.
             </p>
           </div>
@@ -194,30 +194,30 @@ export default function AdmissionsPage() {
             {tiers.map((tier) => (
               <div
                 key={tier.name}
-                className={`bg-white/5 backdrop-blur-md p-8 rounded-3xl flex flex-col transition-all duration-300 border ${
+                className={`bg-surface-container backdrop-blur-md p-8 rounded-3xl flex flex-col transition-all duration-300 border ${
                   tier.featured
-                    ? "border-[#7c3aed]/50 relative overflow-hidden md:scale-105 shadow-2xl shadow-[#7c3aed]/10"
-                    : "border-white/10 hover:border-[#7c3aed]/30"
+                    ? "border-primary/50 relative overflow-hidden md:scale-105 shadow-2xl shadow-primary/10"
+                    : "border-border hover:border-primary/30"
                 }`}
               >
                 {tier.featured && (
-                  <div className="absolute top-0 right-0 bg-[#7c3aed] px-4 py-1 rounded-bl-xl font-bold text-[10px] text-white tracking-widest uppercase">
+                  <div className="absolute top-0 right-0 bg-primary px-4 py-1 rounded-bl-xl font-bold text-[10px] text-text-primary tracking-widest uppercase">
                     MOST POPULAR
                   </div>
                 )}
                 <div className="mb-6">
-                  <span className="text-xs font-bold text-[#d2bbff] tracking-widest uppercase font-heading">
+                  <span className="text-xs font-bold text-primary tracking-widest uppercase font-heading">
                     {tier.name}
                   </span>
-                  <div className="text-4xl md:text-5xl font-bold text-white font-heading mt-2 flex items-baseline">
+                  <div className="text-4xl md:text-5xl font-bold text-text-primary font-heading mt-2 flex items-baseline">
                     {tier.price}
-                    <span className="text-sm font-medium text-[#ccc3d8] ml-2">/ yr</span>
+                    <span className="text-sm font-medium text-text-secondary ml-2">/ yr</span>
                   </div>
                 </div>
                 <ul className="space-y-4 mb-8 flex-1">
                   {tier.features.map((feat) => (
-                    <li key={feat} className="flex items-center gap-3 text-base text-[#e8dfee]">
-                      <CheckCircle2 className="text-[#d2bbff] w-5 h-5 shrink-0" />
+                    <li key={feat} className="flex items-center gap-3 text-base text-text-primary">
+                      <CheckCircle2 className="text-primary w-5 h-5 shrink-0" />
                       <span>{feat}</span>
                     </li>
                   ))}
@@ -226,8 +226,8 @@ export default function AdmissionsPage() {
                   href="/admission/apply/1"
                   className={`w-full py-3.5 rounded-2xl font-bold text-center transition-all duration-300 ${
                     tier.featured
-                      ? "bg-gradient-to-r from-[#7c3aed] to-[#4f46e5] text-white shadow-[0_0_20px_rgba(124,58,237,0.3)] hover:shadow-[0_0_30px_rgba(124,58,237,0.5)] hover:scale-105"
-                      : "bg-white/5 border border-white/10 text-white hover:bg-white/10"
+                      ? "bg-gradient-to-r from-primary to-secondary text-text-primary shadow-[0_0_20px_rgba(0,160,225,0.3)] hover:shadow-[0_0_30px_rgba(0,160,225,0.5)] hover:scale-105"
+                      : "bg-surface-container border border-border text-text-primary hover:bg-white/10"
                   }`}
                 >
                   {tier.featured ? "Apply for Elite" : "Select Tier"}
@@ -239,12 +239,12 @@ export default function AdmissionsPage() {
 
         {/* Requirements Checklist */}
         <section className="max-w-7xl mx-auto px-6 lg:px-8 py-20">
-          <div className="bg-white/5 backdrop-blur-md rounded-3xl p-8 lg:p-12 border border-white/10 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div className="bg-surface-container backdrop-blur-md rounded-3xl p-8 lg:p-12 border border-border grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
-              <h2 className="text-3xl md:text-4xl font-bold text-white font-heading">
+              <h2 className="text-3xl md:text-4xl font-bold text-text-primary font-heading">
                 Document Checklist
               </h2>
-              <p className="text-[#ccc3d8] text-base leading-relaxed">
+              <p className="text-text-secondary text-base leading-relaxed">
                 Please ensure you have high-quality digital scans of the following documents ready for your application portal.
               </p>
               <div className="space-y-4">
@@ -258,10 +258,10 @@ export default function AdmissionsPage() {
                       type="checkbox"
                       checked={!!checkedDocs[doc]}
                       onChange={() => {}}
-                      className="w-6 h-6 rounded border-white/20 bg-white/5 text-[#7c3aed] focus:ring-[#7c3aed]/50 transition-all cursor-pointer"
+                      className="w-6 h-6 rounded border-white/20 bg-surface-container text-primary focus:ring-primary/50 transition-all cursor-pointer"
                     />
                     <span className={`text-base font-medium transition-colors ${
-                      checkedDocs[doc] ? "text-[#d2bbff] line-through decoration-[#7c3aed]" : "text-[#e8dfee] group-hover:text-[#d2bbff]"
+                      checkedDocs[doc] ? "text-primary line-through decoration-primary" : "text-text-primary group-hover:text-primary"
                     }`}>
                       {doc}
                     </span>
@@ -269,7 +269,7 @@ export default function AdmissionsPage() {
                 ))}
               </div>
             </div>
-            <div className="relative rounded-2xl overflow-hidden aspect-video shadow-2xl border border-white/10">
+            <div className="relative rounded-2xl overflow-hidden aspect-video shadow-2xl border border-border">
               <img
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOpf3nH2QmUWMx83x-35x2gDH1JORY0jMwK-e27og4lxuW-XZHFyg8oYiSd-1R78f0Mm5FpBzW25mu_f6zDLGQlXpKV1t-gktX5dKdqaSCvxJt4aPNKswbMsN4selSrEMGpcgh4fyIvlJgtmXfvPQBkzMiTX_vP5wVBIy3Lzrp6NVJM-IQkJhRtUYPUqb_H5f8NkUdA-CK4OADRAmrScLI0K9tDO3fwpdPi9pC0D5aLUc_ZkEAwczjonP7l18KQT5f4C2m4jmbQFA"
                 alt="Admissions Workspace"
@@ -281,7 +281,7 @@ export default function AdmissionsPage() {
 
         {/* FAQ Section */}
         <section className="max-w-4xl mx-auto px-6 lg:px-8 py-20">
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-center text-white font-heading mb-16">
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-center text-text-primary font-heading mb-16">
             Frequently Asked Questions
           </h2>
           <div className="space-y-4">
@@ -291,22 +291,22 @@ export default function AdmissionsPage() {
                 <div
                   key={index}
                   onClick={() => setOpenFaq(isOpen ? null : index)}
-                  className={`bg-white/5 backdrop-blur-md p-6 rounded-2xl border cursor-pointer transition-all duration-300 ${
-                    isOpen ? "border-[#7c3aed]/40 shadow-[0_0_20px_rgba(124,58,237,0.1)]" : "border-white/10 hover:border-[#7c3aed]/20"
+                  className={`bg-surface-container backdrop-blur-md p-6 rounded-2xl border cursor-pointer transition-all duration-300 ${
+                    isOpen ? "border-primary/40 shadow-[0_0_20px_rgba(0,160,225,0.1)]" : "border-border hover:border-primary/20"
                   }`}
                 >
                   <div className="flex justify-between items-center">
-                    <h4 className={`text-lg font-bold font-heading ${isOpen ? "text-[#d2bbff]" : "text-white"}`}>
+                    <h4 className={`text-lg font-bold font-heading ${isOpen ? "text-primary" : "text-text-primary"}`}>
                       {faq.question}
                     </h4>
                     {isOpen ? (
-                      <ChevronUp className="text-[#d2bbff] w-5 h-5 shrink-0" />
+                      <ChevronUp className="text-primary w-5 h-5 shrink-0" />
                     ) : (
-                      <ChevronDown className="text-[#ccc3d8] w-5 h-5 shrink-0" />
+                      <ChevronDown className="text-text-secondary w-5 h-5 shrink-0" />
                     )}
                   </div>
                   {isOpen && (
-                    <p className="text-[#ccc3d8] text-base leading-relaxed border-t border-white/5 mt-4 pt-4">
+                    <p className="text-text-secondary text-base leading-relaxed border-t border-border/50 mt-4 pt-4">
                       {faq.answer}
                     </p>
                   )}
@@ -318,24 +318,24 @@ export default function AdmissionsPage() {
 
         {/* CTA Section */}
         <section className="max-w-7xl mx-auto px-6 lg:px-8 py-20">
-          <div className="bg-gradient-to-br from-[#7c3aed]/10 via-transparent to-[#7c3aed]/5 rounded-[40px] p-8 md:p-16 text-center relative overflow-hidden border border-white/10">
-            <h2 className="text-3xl md:text-5xl font-extrabold text-white font-heading mb-6 leading-tight">
+          <div className="bg-gradient-to-br from-primary/10 via-transparent to-secondary/5 rounded-[40px] p-8 md:p-16 text-center relative overflow-hidden border border-border">
+            <h2 className="text-3xl md:text-5xl font-extrabold text-text-primary font-heading mb-6 leading-tight">
               Ready to illuminate your future?
             </h2>
-            <p className="text-lg text-[#ccc3d8] max-w-xl mx-auto mb-8">
+            <p className="text-lg text-text-secondary max-w-xl mx-auto mb-8">
               Our admissions team is ready to guide you through every step of the enrollment process. Begin your legacy today.
             </p>
             <Link
               href="/admission/apply/1"
-              className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-white font-bold bg-gradient-to-r from-[#7c3aed] to-[#4f46e5] shadow-[0_0_30px_rgba(124,58,237,0.4)] hover:shadow-[0_0_40px_rgba(124,58,237,0.6)] hover:scale-105 transition-all duration-300"
+              className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-text-primary font-bold bg-gradient-to-r from-primary to-secondary shadow-[0_0_30px_rgba(0,160,225,0.4)] hover:shadow-[0_0_40px_rgba(0,160,225,0.6)] hover:scale-105 transition-all duration-300"
             >
               Start Your Application
               <ArrowRight className="w-5 h-5" />
             </Link>
 
             {/* Glowing blur effects */}
-            <div className="absolute -top-10 -left-10 w-40 h-40 bg-[#7c3aed]/20 rounded-full blur-3xl"></div>
-            <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-[#4f46e5]/20 rounded-full blur-3xl"></div>
+            <div className="absolute -top-10 -left-10 w-40 h-40 bg-primary/20 rounded-full blur-3xl"></div>
+            <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-secondary/20 rounded-full blur-3xl"></div>
           </div>
         </section>
       </main>

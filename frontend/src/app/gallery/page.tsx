@@ -90,7 +90,7 @@ export default function GalleryPage() {
   );
 
   return (
-    <div className="relative min-h-screen bg-[#15121b] text-[#e8dfee] font-sans selection:bg-[#7c3aed]/20 overflow-hidden">
+    <div className="relative min-h-screen bg-background text-text-primary font-sans selection:bg-primary/20 overflow-hidden">
       {/* Moving Aurora Backdrop */}
       <GradientBackground />
 
@@ -105,16 +105,16 @@ export default function GalleryPage() {
               className="w-full h-full object-cover opacity-40 scale-105" 
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6vSiHLvFFNlLHTetHlo9YmafxgkxudKSrpvMKskby773D7Dz2B4pIego7KjZLwYqW9XvHmYb1UZDUcy9zDNjLNnHouuFdx_T378xUiUw1OyS6T5F1iBlENSemDj2pwywWzV4fEJHoVMxHMAfry-wrXNeyfSy3Q05K2uaKZmu1xbSLRkWhF22Ft6oF_eZOTlZoBhSd6L1T73M1FVyNdFFGEh9dK3C4McigdXP3n9HQA1lXEs-3Y4X9D3J51q_2kG85ShnKMOsoY4Q" 
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-[#15121b]/0 via-[#15121b]/40 to-[#15121b]"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-background/0 via-background/40 to-background"></div>
           </div>
           <div className="relative z-10 text-center px-6 max-w-4xl space-y-6">
-            <span className="text-xs font-bold text-[#d2bbff] tracking-[0.3em] uppercase block">
+            <span className="text-xs font-bold text-primary tracking-[0.3em] uppercase block">
               VIRTUAL CHRONICLE
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight text-white font-heading">
-              Windows into our World: <span className="text-[#d2bbff] drop-shadow-[0_0_15px_rgba(210,187,255,0.4)] block md:inline">Campus Life in Focus.</span>
+              Windows into our World: <span className="text-primary drop-shadow-[0_0_15px_rgba(210,187,255,0.4)] block md:inline">Campus Life in Focus.</span>
             </h1>
-            <p className="text-lg md:text-xl text-[#ccc3d8] leading-relaxed max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl text-text-secondary leading-relaxed max-w-2xl mx-auto">
               Witness the fusion of tradition and technological progress through our immersive visual journey.
             </p>
           </div>
@@ -122,15 +122,15 @@ export default function GalleryPage() {
 
         {/* Visual Categories Filter */}
         <section className="max-w-7xl mx-auto px-6 lg:px-8 pb-12 relative z-20">
-          <div className="flex flex-wrap justify-center gap-3 py-6 border-b border-white/10">
+          <div className="flex flex-wrap justify-center gap-3 py-6 border-b border-border">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveTab(cat)}
                 className={`px-6 py-2.5 rounded-full text-xs font-bold tracking-widest uppercase transition-all duration-300 ${
-                  activeTab === cat
-                    ? "bg-[#7c3aed] text-white shadow-[0_0_15px_rgba(124,58,237,0.4)] border border-[#7c3aed]"
-                    : "bg-white/5 text-[#ccc3d8] border border-white/10 hover:text-white hover:bg-white/10"
+                    activeTab === cat
+                      ? "bg-primary text-text-primary shadow-[0_0_15px_rgba(0,160,225,0.4)] border border-primary"
+                      : "bg-surface-container text-text-secondary border border-border hover:text-text-primary hover:bg-white/10"
                 }`}
               >
                 {cat}
@@ -154,21 +154,21 @@ export default function GalleryPage() {
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.4 }}
                   key={item.id}
-                  className="relative group overflow-hidden rounded-3xl bg-white/5 border border-white/10 hover:border-[#7c3aed]/40 hover:shadow-[0_0_30px_rgba(124,58,237,0.2)] transition-all duration-500 flex flex-col break-inside-avoid"
+                  className="relative group overflow-hidden rounded-3xl bg-surface-container border border-border hover:border-primary/40 hover:shadow-[0_0_30px_rgba(0,160,225,0.2)] transition-all duration-500 flex flex-col break-inside-avoid"
                 >
                   <img 
                     alt={item.title} 
                     className="w-full h-auto rounded-t-3xl grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" 
                     src={item.image} 
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#15121b] via-[#15121b]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6">
-                    <span className="text-[#d2bbff] font-bold text-xs tracking-wider uppercase mb-1">
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6">
+                    <span className="text-primary font-bold text-xs tracking-wider uppercase mb-1">
                       {item.category}
                     </span>
                     <h3 className="text-xl font-bold text-white font-heading">
                       {item.title}
                     </h3>
-                    <p className="text-sm text-[#ccc3d8] mt-1 line-clamp-2">
+                    <p className="text-sm text-text-secondary mt-1 line-clamp-2">
                       {item.description}
                     </p>
                   </div>
@@ -179,37 +179,37 @@ export default function GalleryPage() {
         </section>
 
         {/* Video Highlights */}
-        <section className="py-24 bg-[#100d16]/40 backdrop-blur-md relative overflow-hidden mb-16 border-t border-b border-white/5">
+        <section className="py-24 bg-surface-container-low backdrop-blur-md relative overflow-hidden mb-16 border-t border-b border-border/50">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
             <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
               <div className="max-w-xl space-y-3">
-                <span className="text-[#d2bbff] font-bold text-xs tracking-widest uppercase block">
+                <span className="text-primary font-bold text-xs tracking-widest uppercase block">
                   CINEMATIC REELS
                 </span>
-                <h2 className="text-3xl md:text-5xl font-bold text-white font-heading">
+                <h2 className="text-3xl md:text-5xl font-bold text-text-primary font-heading">
                   Experience the Basaer Journey in Motion.
                 </h2>
               </div>
-              <button className="text-[#d2bbff] font-bold text-xs tracking-widest uppercase flex items-center gap-2 group hover:text-white transition-colors">
+              <button className="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-2 group hover:text-text-primary transition-colors">
                 VIEW CHANNEL <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform" />
               </button>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
               {/* Featured Video Card */}
-              <div className="group relative aspect-video rounded-3xl overflow-hidden bg-white/5 border border-white/10 hover:border-[#7c3aed]/40 transition-all duration-500 cursor-pointer">
+              <div className="group relative aspect-video rounded-3xl overflow-hidden bg-surface-container border border-border hover:border-primary/40 transition-all duration-500 cursor-pointer">
                 <img 
                   alt="Modern STEM Robotics competition film frame" 
                   className="w-full h-full object-cover opacity-70 group-hover:scale-105 transition-transform duration-700" 
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuAguupNy3snl6-ExRNOBsI6aC3NvUR5V_SfEqMcYcRRb6Y1XuhTm-2C1vIyWjlni4Y5vkafQsLxERqLGuz7YC8DmMdELPoiE4_ydnIs4ikVzJRxppMJNM2qAxbyUS0HRPkZVnSAg0R-7xIXJp-t21PI_R1pNtP2o3naGnyX1fp2f5-zKUSDKyZkKiRyrJSuXq1yvCEaqwtV9zS6kFafaQvKjpttdCGTO1Zke7XO12bs-8exaDaByXvmbQiR9M1imv-eszN3G1YUy9o" 
                 />
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-20 h-20 rounded-full bg-[#7c3aed]/20 backdrop-blur-md border border-[#7c3aed]/40 flex items-center justify-center group-hover:scale-110 transition-transform duration-500 shadow-[0_0_30px_rgba(124,58,237,0.4)]">
-                    <PlayCircle size={40} className="text-[#d2bbff]" />
+                  <div className="w-20 h-20 rounded-full bg-primary/20 backdrop-blur-md border border-primary/40 flex items-center justify-center group-hover:scale-110 transition-transform duration-500 shadow-[0_0_30px_rgba(0,160,225,0.4)]">
+                    <PlayCircle size={40} className="text-primary" />
                   </div>
                 </div>
                 <div className="absolute bottom-0 left-0 p-8 w-full bg-gradient-to-t from-black/80 to-transparent">
-                  <span className="text-[#d2bbff] font-bold text-xs tracking-wider uppercase mb-1 block">
+                  <span className="text-primary font-bold text-xs tracking-wider uppercase mb-1 block">
                     FEATURED FILM
                   </span>
                   <h4 className="text-2xl font-bold text-white font-heading">
@@ -223,7 +223,7 @@ export default function GalleryPage() {
                 {videos.map((vid) => (
                   <div 
                     key={vid.title} 
-                    className="flex flex-col sm:flex-row gap-6 bg-white/5 p-4 rounded-3xl border border-white/10 group cursor-pointer hover:bg-white/10 hover:border-[#7c3aed]/30 transition-all duration-300"
+                    className="flex flex-col sm:flex-row gap-6 bg-surface-container p-4 rounded-3xl border border-border group cursor-pointer hover:bg-white/10 hover:border-primary/30 transition-all duration-300"
                   >
                     <div className="relative w-full sm:w-48 h-32 shrink-0 rounded-2xl overflow-hidden">
                       <img 
@@ -236,10 +236,10 @@ export default function GalleryPage() {
                       </div>
                     </div>
                     <div className="space-y-2 flex flex-col justify-center">
-                      <h5 className="text-lg font-bold text-white font-heading group-hover:text-[#d2bbff] transition-colors">
+                      <h5 className="text-lg font-bold text-text-primary font-heading group-hover:text-primary transition-colors">
                         {vid.title}
                       </h5>
-                      <p className="text-sm text-[#ccc3d8] leading-relaxed line-clamp-2">
+                      <p className="text-sm text-text-secondary leading-relaxed line-clamp-2">
                         {vid.desc}
                       </p>
                     </div>
@@ -252,18 +252,18 @@ export default function GalleryPage() {
 
         {/* Tour Booking CTA Section */}
         <section className="max-w-7xl mx-auto px-6 lg:px-8 py-8 mb-16">
-          <div className="bg-white/5 backdrop-blur-md rounded-[40px] p-8 md:p-16 text-center border-2 border-[#7c3aed]/10 relative overflow-hidden space-y-6">
-            <h2 className="text-3xl md:text-5xl font-bold text-white font-heading">
+          <div className="bg-surface-container backdrop-blur-md rounded-[40px] p-8 md:p-16 text-center border-2 border-primary/10 relative overflow-hidden space-y-6">
+            <h2 className="text-3xl md:text-5xl font-bold text-text-primary font-heading">
               Want to see it in person?
             </h2>
-            <p className="text-lg text-[#ccc3d8] leading-relaxed max-w-2xl mx-auto">
+            <p className="text-lg text-text-secondary leading-relaxed max-w-2xl mx-auto">
               Schedule a personalized campus tour and experience the future of education firsthand.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4 pt-4">
-              <button className="px-8 py-4 rounded-full text-white font-bold bg-gradient-to-r from-[#7c3aed] to-[#4f46e5] shadow-[0_0_20px_rgba(124,58,237,0.3)] hover:scale-105 transition-all duration-300">
+              <button className="px-8 py-4 rounded-full text-text-primary font-bold bg-gradient-to-r from-primary to-secondary shadow-[0_0_20px_rgba(0,160,225,0.3)] hover:scale-105 transition-all duration-300">
                 BOOK A TOUR
               </button>
-              <button className="px-8 py-4 rounded-full text-[#e8dfee] font-bold bg-white/5 border border-white/10 hover:bg-white/10 hover:scale-105 transition-all duration-300">
+              <button className="px-8 py-4 rounded-full text-text-primary font-bold bg-surface-container border border-border hover:bg-white/10 hover:scale-105 transition-all duration-300">
                 VIRTUAL OPEN DAY
               </button>
             </div>

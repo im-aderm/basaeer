@@ -31,8 +31,8 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${spaceGrotesk.variable} antialiased`}
         style={{
-          '--primary': '#D97706',
-          '--ring': '#D97706',
+          '--primary': '#00a0e1',
+          '--ring': '#00a0e1',
         } as React.CSSProperties}
       >
         <a

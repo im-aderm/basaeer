@@ -130,9 +130,9 @@ export function TestimonialsSection() {
           />
           <defs>
             <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#fbbf24" />
-              <stop offset="50%" stopColor="#d97706" />
-              <stop offset="100%" stopColor="#b45309" />
+              <stop offset="0%" stopColor="#38bdf8" />
+              <stop offset="50%" stopColor="#00a0e1" />
+              <stop offset="100%" stopColor="#281e37" />
             </linearGradient>
           </defs>
         </svg>
