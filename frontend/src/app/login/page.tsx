@@ -42,11 +42,7 @@ export default function LoginPage() {
       {/* Background twilight image & aurora glows */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/80 to-background z-10"></div>
-        <img 
-          className="w-full h-full object-cover" 
-          alt="Cinematic school twilight backdrop" 
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvoR0tmlz67Z2nvt4-2_Vsl_OwrnaGmo1GYXvK4tARbgO_BwEH_JTU7YBUe8-YAyQtRLb1HQXtGz9cHvTEwKrb0p3g2sRrcs1hR8isBDGR4fH7A_W0DOJUj3oVq-7ojQoq-oV2Mr6PvY2BTEJeY925CDbiV3HneJbbj1BNUC4eqLe9bdGVKKm59_nrMmHCgZ08mhkwflUZztwkAuC47c4ehaUfoGZVsqRy44WjKsf1J3hJR9Cltun2zUOynf67ku26-5Faw2wkjYg" 
-        />
+        <Image fill sizes="100vw" className="object-cover" alt="Cinematic school twilight backdrop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvoR0tmlz67Z2nvt4-2_Vsl_OwrnaGmo1GYXvK4tARbgO_BwEH_JTU7YBUe8-YAyQtRLb1HQXtGz9cHvTEwKrb0p3g2sRrcs1hR8isBDGR4fH7A_W0DOJUj3oVq-7ojQoq-oV2Mr6PvY2BTEJeY925CDbiV3HneJbbj1BNUC4eqLe9bdGVKKm59_nrMmHCgZ08mhkwflUZztwkAuC47c4ehaUfoGZVsqRy44WjKsf1J3hJR9Cltun2zUOynf67ku26-5Faw2wkjYg" priority />
       </div>
 
       <GradientBackground />

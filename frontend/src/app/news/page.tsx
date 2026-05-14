@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Navbar } from "@/components/landing/Navbar";
 import { Footer } from "@/components/landing/Footer";
 import { GradientBackground } from "@/components/ui/GradientBackground";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   ArrowRight, 
@@ -133,10 +134,13 @@ export default function NewsEventsPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 h-auto lg:h-[600px]">
             {/* Main Headline Story (Lg) */}
             <div className="lg:col-span-8 relative rounded-[32px] overflow-hidden bg-surface-container border border-border group flex flex-col justify-end min-h-[400px]">
-              <img 
-                alt="Digital Humanities Lab collaboration study" 
-                className="absolute inset-0 w-full h-full object-cover opacity-60 transition-transform duration-700 group-hover:scale-105" 
-                src={bentoStories[0].image} 
+              <Image
+                alt="Digital Humanities Lab collaboration study"
+                fill
+                sizes="(max-width: 768px) 100vw, 66vw"
+                className="object-cover opacity-60 transition-transform duration-700 group-hover:scale-105"
+                src={bentoStories[0].image}
+                priority
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent"></div>
               <div className="relative z-10 p-8 space-y-4">
@@ -156,10 +160,12 @@ export default function NewsEventsPage() {
             <div className="lg:col-span-4 flex flex-col gap-8 h-full justify-between">
               {/* Secondary Story 1 */}
               <div className="relative rounded-[24px] overflow-hidden bg-surface-container border border-border group flex-1 min-h-[180px] flex flex-col justify-end">
-                <img 
-                  alt="Annual Tahfeez Ceremony spiritual geometric thobe" 
-                  className="absolute inset-0 w-full h-full object-cover opacity-40 transition-transform duration-700 group-hover:scale-105" 
-                  src={bentoStories[1].image} 
+                <Image
+                  alt="Annual Tahfeez Ceremony spiritual geometric thobe"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover opacity-40 transition-transform duration-700 group-hover:scale-105"
+                  src={bentoStories[1].image}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent"></div>
                 <div className="relative z-10 p-6 space-y-2">
@@ -174,10 +180,12 @@ export default function NewsEventsPage() {
 
               {/* Secondary Story 2 */}
               <div className="relative rounded-[24px] overflow-hidden bg-surface-container border border-border group flex-1 min-h-[180px] flex flex-col justify-end">
-                <img 
-                  alt="Falcons Athletic sports champions" 
-                  className="absolute inset-0 w-full h-full object-cover opacity-40 transition-transform duration-700 group-hover:scale-105" 
-                  src={bentoStories[2].image} 
+                <Image
+                  alt="Falcons Athletic sports champions"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover opacity-40 transition-transform duration-700 group-hover:scale-105"
+                  src={bentoStories[2].image}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent"></div>
                 <div className="relative z-10 p-6 space-y-2">
@@ -235,10 +243,12 @@ export default function NewsEventsPage() {
                 >
                   <div className="space-y-4">
                     <div className="h-48 relative overflow-hidden">
-                      <img 
-                        alt={art.title} 
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
-                        src={art.image} 
+                      <Image
+                        alt={art.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        src={art.image}
                       />
                     </div>
                     <div className="px-6 space-y-3">
@@ -340,10 +350,12 @@ export default function NewsEventsPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {socialHubPhotos.map((photo, idx) => (
               <div key={idx} className="aspect-square relative rounded-2xl overflow-hidden bg-surface-container border border-border group">
-                <img 
-                  alt="Basaer social feed update capture" 
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
-                  src={photo} 
+                <Image
+                  alt="Basaer social feed update capture"
+                  fill
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  src={photo}
                 />
                 <div className="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
                   <Share2 className="text-text-primary hover:scale-110 transition-transform cursor-pointer" size={24} />

@@ -5,8 +5,9 @@ import { Navbar } from "@/components/landing/Navbar";
 import { Footer } from "@/components/landing/Footer";
 import { GradientBackground } from "@/components/ui/GradientBackground";
 import { motion, AnimatePresence } from "framer-motion";
-import { 
-  TrendingUp, 
+import Image from "next/image";
+import {
+  TrendingUp,
   Sparkles, 
   Lightbulb, 
   ChevronRight, 
@@ -80,11 +81,7 @@ export default function CareersPage() {
         {/* Hero Section */}
         <section className="relative h-[85vh] flex items-center justify-center overflow-hidden px-6">
           <div className="absolute inset-0 z-0">
-            <img 
-              alt="Futuristic Islamic School majestic corridor" 
-              className="w-full h-full object-cover opacity-25 scale-105" 
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyRxXBRuCCf1e0zhfXVlae2I8RDkFAo7_FxfmBrWaspVAuojt2PUs8twGMMQUck0N3PTQCqpCp9FWxT31006iP69hq64AcNF0k3nfY92J0ftWTcGQ2olVaTFQczTS4Ci0HDHTF7mN--h9dz7zmnn1UN2IKUxA-w7AFdzreRZY5WLyAcAv4Tf-gHd-WVUcIF4led1j3hf9TvcGthu0mZHgnZ0XolS-qq-N_jxBVc2KjhOqvc9pfrC0igPF9ree8hEdTKxHSEaWhC3k" 
-            />
+            <Image fill sizes="100vw" className="object-cover opacity-25 scale-105" alt="Futuristic Islamic School majestic corridor" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyRxXBRuCCf1e0zhfXVlae2I8RDkFAo7_FxfmBrWaspVAuojt2PUs8twGMMQUck0N3PTQCqpCp9FWxT31006iP69hq64AcNF0k3nfY92J0ftWTcGQ2olVaTFQczTS4Ci0HDHTF7mN--h9dz7zmnn1UN2IKUxA-w7AFdzreRZY5WLyAcAv4Tf-gHd-WVUcIF4led1j3hf9TvcGthu0mZHgnZ0XolS-qq-N_jxBVc2KjhOqvc9pfrC0igPF9ree8hEdTKxHSEaWhC3k" priority />
             <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent"></div>
           </div>
           <div className="relative z-10 text-center max-w-4xl mx-auto space-y-6">
@@ -313,11 +310,7 @@ export default function CareersPage() {
                     "{test.quote}"
                   </p>
                   <div className="flex items-center gap-4">
-                    <img 
-                      alt={test.author} 
-                      className="w-14 h-14 rounded-full object-cover border-2 border-primary" 
-                      src={test.image} 
-                    />
+                    <Image width={56} height={56} className="rounded-full object-cover border-2 border-primary" alt={test.author} src={test.image} />
                     <div>
                       <h6 className="font-bold text-text-primary font-heading">
                         {test.author}

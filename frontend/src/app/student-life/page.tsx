@@ -17,6 +17,7 @@ import {
   Sparkles,
   Award
 } from "lucide-react";
+import Image from "next/image";
 
 const events = [
   {
@@ -120,27 +121,35 @@ export default function StudentLifePage() {
             {/* Collage Section */}
             <div className="relative grid grid-cols-2 gap-4">
               <div className="space-y-4">
-                <img 
-                  className="rounded-3xl shadow-2xl w-full aspect-[3/4] object-cover border border-border/50" 
-                  alt="Students working on collaborative projects" 
+                <Image
+                  className="rounded-3xl shadow-2xl aspect-[3/4] object-cover border border-border/50"
+                  alt="Students working on collaborative projects"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvh0k6lscNR7bbMVdfAJatzV-DiMP_ZqkfJzrlNHrRmHdjF9ZoExmwUSyRftDyOV6DF6ghLZdRDB9BpxbbQVf1Of_i0ePI5KJ4kDXW3C5QdID0STCsDAZUDInmKuZGTAPGZCSFPLcmJk0xZb8HGu2jhcwFfxQFbpR6c6tzFNu59l2oYZO7aMZBr5Fxn34VXR65szhiMcQ3fLfKSES3mUehUvt-vwTx2XX3-Y0LZWUbtePDd2zPVluVkHLMkKUER9FoP2NC7X0pMKM"
+                  width={400}
+                  height={533}
                 />
-                <img 
-                  className="rounded-3xl shadow-2xl w-full aspect-square object-cover border border-border/50" 
-                  alt="Student coding on laptop" 
+                <Image
+                  className="rounded-3xl shadow-2xl aspect-square object-cover border border-border/50"
+                  alt="Student coding on laptop"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEEdPErMXhlORsd-Pp9fVUub4ZOTBVaKHdK_qi4lFnhHmhjedxEhgxd_-gpp5hi2cCDUlMxFm6FovWp62fKDxcjEx1lO6Ry9Asa3JrUw-VMrne10l7FoRNZmLRMsApxnPfVBYQJ62QrOq-BrPQdMMLgHZn7lrRiQ50DN5DXRfnpJnf8SVIkItrGYxlQsfz94JqvxrbrqTwnPbFkf6FWBHnYy8eIRyUKGsu7e_tYVHrCLmOqKEuDmdB6KypZwKzOXSr0JGZ5y5DtWQ"
+                  width={400}
+                  height={400}
                 />
               </div>
               <div className="space-y-4 pt-8">
-                <img 
-                  className="rounded-3xl shadow-2xl w-full aspect-square object-cover border border-border/50" 
-                  alt="Student athlete in action" 
+                <Image
+                  className="rounded-3xl shadow-2xl aspect-square object-cover border border-border/50"
+                  alt="Student athlete in action"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGxJBmwFo8QPGO6Bb5vj8UHwpV81XOGhAX0lQxPhc90g2iBw7-nQqbk-PPsCsn0FsY0G8xCz8a5_1jjzep9LxF3oqMvgm_YHlbmvVNZw4U0sQpPioZS9R2jEtjofVMWkfRMn80LqLJVC2TtDlx_fE_6YZSuFo8RB1Kc9Tv0ZXsiDt8JoHq86trAhNUrjy8FAtfipWFlpnoZJtuZVrQ64KGS70vb07LwjEeGn52svCoga8PblRY3kY98Pv39Y9u97CZtj25xnAy7As"
+                  width={400}
+                  height={400}
                 />
-                <img 
-                  className="rounded-3xl shadow-2xl w-full aspect-[3/4] object-cover border border-border/50" 
-                  alt="Students engaged in a leadership seminar" 
+                <Image
+                  className="rounded-3xl shadow-2xl aspect-[3/4] object-cover border border-border/50"
+                  alt="Students engaged in a leadership seminar"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuB238EPWwo8XCC9Vc7O1oXAKNrFYloNpDBsg7jWbeAbaluyNzRDZ3xblobIU2XlY7g4JUJe2pkN33SFdex0Ts9CMXuNBzLhJK3qidA5HqYsiupPxnHSV6ziFZ03I_0roJWH1kYIPDoIpEuwlEKYAQwuXmniX3_LNZOcyHnnWDeVH_K2sehNyeA0GLjlv9EoUBhnPAF0BUraSsz9kzZ1l8fp3fg4ozgnWG8WHLosYuNcFr_TGB1yc_hMmTnPg0uwhxvWDwVCIp72QCc"
+                  width={400}
+                  height={533}
                 />
               </div>
             </div>
@@ -161,9 +170,11 @@ export default function StudentLifePage() {
           <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-8 h-auto md:h-[600px]">
             {/* Science Club */}
             <div className="md:col-span-2 md:row-span-2 bg-surface-container backdrop-blur-md p-8 rounded-3xl border border-border hover:border-primary/50 hover:shadow-2xl transition-all duration-300 flex flex-col justify-end relative overflow-hidden group">
-              <img 
-                className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-40 transition-opacity duration-500" 
-                alt="Advanced chemistry laboratory" 
+              <Image
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover opacity-20 group-hover:opacity-40 transition-opacity duration-500"
+                alt="Advanced chemistry laboratory"
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSti_i7L6BaLwZqxIgQ6Dq3lu4HA1s4dMl0pnOorWsaeBGsfVzwIIt91chLMllpsvvW4h2SrGdX-bdEgTZtYGSA6Pzan-ZvxdF5JEMnD9LyLXkvZ-OexjW63eAhbC86Uz43sk4yLlGzLCGU-EkyktZjlhc8v3BFtt4JlD7ZMFvo9jYX4gScmzNMIPwTXc5pITEIyobb0Blop8Jbbr0gqPV5IkbwdFzFiKlCuayDdVd2L7PP_c20kjeR4f7A0ZdZECvPIv31KZgArQ"
               />
               <div className="relative z-10 space-y-4">
@@ -191,10 +202,12 @@ export default function StudentLifePage() {
                   Blending traditional Islamic arts with digital design and modern fine art techniques.
                 </p>
               </div>
-              <div className="w-1/3 h-full rounded-2xl overflow-hidden border border-border shrink-0">
-                <img 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-                  alt="Traditional Arabic calligraphy" 
+              <div className="w-1/3 h-full rounded-2xl overflow-hidden border border-border shrink-0 relative">
+                <Image
+                  fill
+                  sizes="(max-width: 768px) 50vw, 33vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  alt="Traditional Arabic calligraphy"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdOVSNPLkaQuJTZ1X2g_Nr_x88sCJ1l8mMPLd4vrsqjfkHEf-FJfupEwnJM8fnRXd8B_c5zEIVUdKZEFGgu9l6m4TywSbQrlxq1MfEsX-XuOzIJluk1UTQKkrFHNRaTrHeTOvHphlFzmj5_-FD3CzlDTvCdtNPgwQLn9zUTkOVvCS-CGDvOaoe_jJP52VkI8l6HIf0NQq65O7DUCTl82sTNVBY3ZhQUImzmnEAcMcWqF1aSSfKd5m3U3fb_TLGTjDHsNX-kTx1i38"
                 />
               </div>
@@ -252,9 +265,11 @@ export default function StudentLifePage() {
                   }`}
                 >
                   <div className="h-48 relative overflow-hidden">
-                    <img 
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
-                      alt={evt.title} 
+                    <Image
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="object-cover group-hover:scale-110 transition-transform duration-500"
+                      alt={evt.title}
                       src={evt.image}
                     />
                     <div className="absolute top-4 right-4 bg-primary px-3 py-1 rounded font-bold text-[10px] text-text-primary tracking-widest uppercase">
@@ -285,9 +300,11 @@ export default function StudentLifePage() {
           </h2>
           <div className="flex flex-col md:flex-row gap-8">
             <div className="flex-1 bg-surface-container backdrop-blur-md p-4 rounded-3xl relative group overflow-hidden border border-border flex flex-col justify-end min-h-[400px]">
-              <img 
-                className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-40 group-hover:scale-105 transition-all duration-700" 
-                alt="Students exploring historic Istanbul" 
+              <Image
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover opacity-20 group-hover:opacity-40 group-hover:scale-105 transition-all duration-700"
+                alt="Students exploring historic Istanbul"
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBiNVvavsxKJnXPed5VzVySoKcojTq7NXqKkVxtACHXbvlroNYNhD7EGmXLF_KaCyDAUoXjyLrOXVaZvfCYutVI0Eo8bV55dBKRFH2Ta1dBx_DLQE8ottmds1hnpfrpNrcBM4H7P86TgSkYi7JH-Ina5891YM5zZcfq3EM1X30bDy2qYw4t76--LCIk71yAQdZR6mVR2vHvNIRj6NzN0ZLsTgILP2mxJbKHL0z8dcaXBaFk4VAaYKof_BzhwKP4AkXIEfLoH7mLLY"
               />
               <div className="relative z-10 p-6 space-y-3">
@@ -310,7 +327,7 @@ export default function StudentLifePage() {
                   className="bg-surface-container backdrop-blur-md p-4 rounded-2xl flex gap-4 items-center group cursor-pointer border border-border hover:border-primary/30 hover:bg-white/10 transition-all duration-300"
                 >
                   <div className="w-24 h-24 rounded-xl overflow-hidden shrink-0 border border-border/50">
-                    <img className="w-full h-full object-cover" alt={trip.title} src={trip.image} />
+                    <Image className="object-cover" alt={trip.title} src={trip.image} width={96} height={96} />
                   </div>
                   <div className="space-y-1">
                     <h5 className="text-base font-bold text-text-primary font-heading">
@@ -342,7 +359,7 @@ export default function StudentLifePage() {
                 </p>
                 <div className="flex items-center gap-4 pt-4 border-t border-border/50">
                   <div className="w-12 h-12 rounded-full overflow-hidden border border-primary/50 shrink-0">
-                    <img className="w-full h-full object-cover" alt={v.author} src={v.image} />
+                    <Image className="object-cover" alt={v.author} src={v.image} width={48} height={48} />
                   </div>
                   <div>
                     <div className="text-base font-bold text-text-primary font-heading">{v.author}</div>

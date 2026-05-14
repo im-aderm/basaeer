@@ -3,6 +3,7 @@
 import { Navbar } from "@/components/landing/Navbar";
 import { Footer } from "@/components/landing/Footer";
 import { GradientBackground } from "@/components/ui/GradientBackground";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { 
   Languages, 
@@ -141,9 +142,11 @@ export default function IslamicStudiesPage() {
       <section className="max-w-7xl mx-auto px-6 lg:px-8 py-16 mb-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="relative h-[500px] md:h-[600px] rounded-3xl overflow-hidden bg-white/5 border border-white/10 shadow-2xl">
-            <img 
-              alt="Islamic Education Scholar studying" 
-              className="w-full h-full object-cover opacity-60" 
+            <Image
+              alt="Islamic Education Scholar studying"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover opacity-60"
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuAI-woGB6cOM5I2bqpAGnuTbghDEjXBdhXOyKYCC2syX1jWXRGpMuTdDGuXBgAjZPhixP-tnU1oI0a5ljeWnioqpa4vRsNhtY7_rICHUa71PXLPS9IbPGGUj030efO7PB-9z9F9cLXJi88AszXfHBjTOhth-cIXE9zM6qiPAjumwJBTDRCSrpv_5T66cONq_xYrtIYn4MOJE1hYphlE2egh1Q-8g-ab_cA-Qfy1qiqkS-5e2yEE3CnU5tYws7ORqXvvS2155T7c898"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#15121b] via-transparent to-transparent"></div>
@@ -195,10 +198,12 @@ export default function IslamicStudiesPage() {
             {scholars.map((sch) => (
               <div key={sch.name} className="text-center space-y-4 group">
                 <div className="w-48 h-48 mx-auto mb-6 rounded-full overflow-hidden border-4 border-[#7c3aed]/20 p-2 relative group-hover:border-[#7c3aed]/50 transition-colors duration-300">
-                  <img 
-                    alt={sch.name} 
-                    className="w-full h-full object-cover rounded-full grayscale group-hover:grayscale-0 transition-all duration-500" 
-                    src={sch.image} 
+                  <Image
+                    alt={sch.name}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 25vw"
+                    className="object-cover rounded-full grayscale group-hover:grayscale-0 transition-all duration-500"
+                    src={sch.image}
                   />
                 </div>
                 <h4 className="text-2xl font-bold text-white font-heading">
@@ -244,33 +249,41 @@ export default function IslamicStudiesPage() {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-4">
                 <div className="h-48 rounded-2xl overflow-hidden bg-white/5 border border-white/10">
-                  <img 
-                    alt="Modern Technology Hologram" 
-                    className="w-full h-full object-cover" 
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPRUM-TWTyimdjW6YLnmWgulfXqiPQHOLPCfxnC8MTaPQqwHWctMaMROdaDdIj8LU_-z0IZnNTbxxUK6Uy_uz3tW6kwnQEaTRLEn3eiMmtOyZAEss2w7JdbW8wZAJpRSk0IOHQUJBNlkPCJBSUtR6dEM1Fyd_mX9cAemcL3oZi7Qs5UhLEpRpfe0DT8B11cPXP4Yg3oqFI-GxnMWqJ5CLrNrVSRl-zZekw6B-dhGCH1bo_wD1bvIhf9TX4n8GO8ZGaeZQJ6KyTxdk" 
+                  <Image
+                    alt="Modern Technology Hologram"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPRUM-TWTyimdjW6YLnmWgulfXqiPQHOLPCfxnC8MTaPQqwHWctMaMROdaDdIj8LU_-z0IZnNTbxxUK6Uy_uz3tW6kwnQEaTRLEn3eiMmtOyZAEss2w7JdbW8wZAJpRSk0IOHQUJBNlkPCJBSUtR6dEM1Fyd_mX9cAemcL3oZi7Qs5UhLEpRpfe0DT8B11cPXP4Yg3oqFI-GxnMWqJ5CLrNrVSRl-zZekw6B-dhGCH1bo_wD1bvIhf9TX4n8GO8ZGaeZQJ6KyTxdk"
                   />
                 </div>
                 <div className="h-32 rounded-2xl overflow-hidden bg-white/5 border border-white/10">
-                  <img 
-                    alt="Digital Quranic studies" 
-                    className="w-full h-full object-cover" 
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXx-WHZpaMdE1RFF9uKvETwrv2JJpzezRsVQAwo7R1Vl-w5BXJY7n6dsUPujsgoXwB_KR55FHeqo7QG0QtR7RoBqYF810bGaJ4onmwZBYxFy_we7f9RYSUVKbBrRe0gJifDOXIaSZgdOi-FYoFhX10H6_XlT3hoYI08E9Ur5XNaRAoNg2psOIjc5ddOYRyS8qBCplfkNtDpCYF5K2zaAH-lAaFL2_nGSaHzVc_mnembiUR0pz8RuBYIIpS2iYDMJU0MAkn3eYR7yE" 
+                  <Image
+                    alt="Digital Quranic studies"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXx-WHZpaMdE1RFF9uKvETwrv2JJpzezRsVQAwo7R1Vl-w5BXJY7n6dsUPujsgoXwB_KR55FHeqo7QG0QtR7RoBqYF810bGaJ4onmwZBYxFy_we7f9RYSUVKbBrRe0gJifDOXIaSZgdOi-FYoFhX10H6_XlT3hoYI08E9Ur5XNaRAoNg2psOIjc5ddOYRyS8qBCplfkNtDpCYF5K2zaAH-lAaFL2_nGSaHzVc_mnembiUR0pz8RuBYIIpS2iYDMJU0MAkn3eYR7yE"
                   />
                 </div>
               </div>
               <div className="space-y-4 pt-8">
                 <div className="h-32 rounded-2xl overflow-hidden bg-white/5 border border-white/10">
-                  <img 
-                    alt="Modern science classroom discussion" 
-                    className="w-full h-full object-cover" 
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxck1GGF7eNMUpF6v5wNTs4R-LtWAQ1Da0LrVlDIEMZy0Ee9qVmFofgObyD9nnAauJ5gqzXx-bFc8HcTaCk9y0-_J8zCaHrBAgI7ySRx2cxBESil15iSEgJUch6Gz3V0mpKCzWKkCHdDXgB8TdcYmoaaM_222e8RraY6euClcIlhJkzGuYwF1hplX3Z45T1ysCUSFxanx6d182kGEgbXMhv9o5Qkwv3RN3B7V96DyaVY48VzZnswIJzImXGdtgfKVW1fQYDJTA32Y" 
+                  <Image
+                    alt="Modern science classroom discussion"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxck1GGF7eNMUpF6v5wNTs4R-LtWAQ1Da0LrVlDIEMZy0Ee9qVmFofgObyD9nnAauJ5gqzXx-bFc8HcTaCk9y0-_J8zCaHrBAgI7ySRx2cxBESil15iSEgJUch6Gz3V0mpKCzWKkCHdDXgB8TdcYmoaaM_222e8RraY6euClcIlhJkzGuYwF1hplX3Z45T1ysCUSFxanx6d182kGEgbXMhv9o5Qkwv3RN3B7V96DyaVY48VzZnswIJzImXGdtgfKVW1fQYDJTA32Y"
                   />
                 </div>
                 <div className="h-48 rounded-2xl overflow-hidden bg-white/5 border border-white/10">
-                  <img 
-                    alt="Group of high-achieving students portrait" 
-                    className="w-full h-full object-cover" 
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuIg-2H8SUOVV0ahjlu62m5QIyFHd3jlrqdrnEzYBWjV14hMSWh1hk88SYyfW2v-zq0byk41LGcJXnF70tR6SrZCkRhRWOnuZ9dUAiZ9DKZLf0HZ6oFWmvV8RHM6trp3ufN8bMJLg5g-XY355hkiWPzJuHLlcpyUa0Dchb5RRYlzvbSWP0OHqcU4sqaPGW56RddLRhWXRokRphKOUAmGlwkSUrMc_1mqWbE8ys3LYD4oyU4YwxAMNnVJ5gCAVxFdKF9fSgVknTAxc" 
+                  <Image
+                    alt="Group of high-achieving students portrait"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuIg-2H8SUOVV0ahjlu62m5QIyFHd3jlrqdrnEzYBWjV14hMSWh1hk88SYyfW2v-zq0byk41LGcJXnF70tR6SrZCkRhRWOnuZ9dUAiZ9DKZLf0HZ6oFWmvV8RHM6trp3ufN8bMJLg5g-XY355hkiWPzJuHLlcpyUa0Dchb5RRYlzvbSWP0OHqcU4sqaPGW56RddLRhWXRokRphKOUAmGlwkSUrMc_1mqWbE8ys3LYD4oyU4YwxAMNnVJ5gCAVxFdKF9fSgVknTAxc"
                   />
                 </div>
               </div>

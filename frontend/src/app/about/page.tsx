@@ -3,6 +3,7 @@
 import { Navbar } from "@/components/landing/Navbar";
 import { Footer } from "@/components/landing/Footer";
 import { GradientBackground } from "@/components/ui/GradientBackground";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { 
   Award, 
@@ -94,9 +95,12 @@ export default function AboutPage() {
         {/* Hero Section */}
         <header className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 px-6 lg:px-8">
           <div className="absolute inset-0 z-0">
-            <img 
-              className="w-full h-full object-cover opacity-30" 
-              alt="A grand cinematic view of a modern school library with high ceilings" 
+            <Image
+              fill
+              sizes="100vw"
+              className="opacity-30"
+              alt="A grand cinematic view of a modern school library with high ceilings"
+              priority
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGsF1RaH7y_Yy8eL_LJjaaBhuxRQMdIHUnhDSUIrcJQlBoX9k4cauYuOBnJTXPxQe5bB2WZJ1Jm6IEeVhIJilPSq_4Phqc2-gcBwSd9MSmY8YYey_e0iMh0YCaBQ8bSm10J4m4xAG6pgAciZ2xzERW_lkokYGt7TgLVZg0V0ysEEEaHlWAArHuZMiZGb7ynRfYbwT72bp5jNGNI7pPhv_Ygp0gqPAdNYKlSQTDHPWPVkZdte0YDcyLcS7FvMOuM4BFmETfsNiE6lA"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent"></div>
@@ -177,9 +181,11 @@ export default function AboutPage() {
                   key={leader.name}
                   className="group relative overflow-hidden rounded-3xl aspect-[3/4] border border-border hover:border-primary/30 transition-colors duration-500"
                 >
-                  <img 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-                    alt={leader.name} 
+                  <Image
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    alt={leader.name}
                     src={leader.image}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent"></div>

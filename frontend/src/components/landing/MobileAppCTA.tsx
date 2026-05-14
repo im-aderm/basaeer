@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 export function MobileAppCTA() {
   return (
@@ -21,10 +22,12 @@ export function MobileAppCTA() {
           <div className="flex flex-wrap gap-4">
             {/* App Store badge */}
             <div className="flex items-center gap-3 bg-surface-container/20 border border-border px-6 py-3 rounded-2xl hover:bg-surface-container/40 transition-all cursor-pointer">
-              <img 
-                alt="Apple Store" 
-                className="w-7 h-7 shrink-0" 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsds43ihlvmcma9HDUb99689jC128sOuPI8FtbZSvaTV4Nko2xKYsHP4acKVd4CVdyyEpuCxk3fwleDbYE4-tU-Pf4DMQp_JfHBcNIeMCvf_pdBu9ZpNNyqr-TyIrNIfU7oS_gBGoEDRknXsFo1j4SZQFnu_k3OY6mH_cpy0SXGvttqVWK6Pa0yquznWSxQQ_IlvVEELBG05WbRSnEmgG-ZGwnT84r79BLp3rblJnWnwF8chwpcb5JnRilNyugx0tMjVkCOolT210" 
+              <Image
+                alt="Apple Store"
+                className="shrink-0"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsds43ihlvmcma9HDUb99689jC128sOuPI8FtbZSvaTV4Nko2xKYsHP4acKVd4CVdyyEpuCxk3fwleDbYE4-tU-Pf4DMQp_JfHBcNIeMCvf_pdBu9ZpNNyqr-TyIrNIfU7oS_gBGoEDRknXsFo1j4SZQFnu_k3OY6mH_cpy0SXGvttqVWK6Pa0yquznWSxQQ_IlvVEELBG05WbRSnEmgG-ZGwnT84r79BLp3rblJnWnwF8chwpcb5JnRilNyugx0tMjVkCOolT210"
+                width={28}
+                height={28}
               />
               <div>
                 <p className="text-[9px] uppercase tracking-wider text-text-secondary/60 font-bold leading-none">Download on the</p>
@@ -34,10 +37,12 @@ export function MobileAppCTA() {
 
             {/* Google Play badge */}
             <div className="flex items-center gap-3 bg-surface-container/20 border border-border px-6 py-3 rounded-2xl hover:bg-surface-container/40 transition-all cursor-pointer">
-              <img 
-                alt="Google Play" 
-                className="h-7 shrink-0" 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAN3v_tnoLQbjuoJRkH_tK35K2RDihBEM410-PAbdEGlsI5XyC-cDmAQf-tJAiA1qevxZtOm9FXYhAHG3t_vhlZ_m5bbFpYWPqwbG3osfnfKkItKXhVeABGjOJZBJJfeCvJk0Vhk9gxhMPXiSgPcTTqxJDAzvKp6g08XiK-IGUgGBusKNQG6eHhH4BQm_QEE-Lj5UWIMKpD4q8t0-2VJjruWIWLIgvxmImJA3tHUe97U1g9D7QgwhDxVAkrzqpDZL8VSmij47UVkiE" 
+              <Image
+                alt="Google Play"
+                className="shrink-0"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAN3v_tnoLQbjuoJRkH_tK35K2RDihBEM410-PAbdEGlsI5XyC-cDmAQf-tJAiA1qevxZtOm9FXYhAHG3t_vhlZ_m5bbFpYWPqwbG3osfnfKkItKXhVeABGjOJZBJJfeCvJk0Vhk9gxhMPXiSgPcTTqxJDAzvKp6g08XiK-IGUgGBusKNQG6eHhH4BQm_QEE-Lj5UWIMKpD4q8t0-2VJjruWIWLIgvxmImJA3tHUe97U1g9D7QgwhDxVAkrzqpDZL8VSmij47UVkiE"
+                width={28}
+                height={28}
               />
               <div>
                 <p className="text-[9px] uppercase tracking-wider text-text-secondary/60 font-bold leading-none">GET IT ON</p>
@@ -65,10 +70,12 @@ export function MobileAppCTA() {
             <div className="absolute top-0 w-full h-8 bg-black/40 flex justify-center items-end pb-1.5 z-20">
               <div className="w-16 h-3.5 bg-black rounded-full"></div>
             </div>
-            <img 
-              className="w-full h-full object-cover z-10" 
-              alt="Basaer mobile app interface screenshot" 
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzefjLDtA1Qi18VmwZQo5A2J6vJ_ndAafnVTb5nRw6i3BYphOOv9rMvHkCgLCGZOmM_wQftWIi3dDDMC9puK_MaqN9nGycNZTfMhK-tSNX4lecmy3f82hb521qaZxxDzroWU3bIdyijTly1bKZWEd8AMQCsTLZoK2JxfLqNjOp61f64BHTQ6yQYY1mz72YYVeTisUdAo4ppIsHdDja5UZ1o45G6CrBAD8KVR8pereHSXn1F2cCDbyL0_aF5BWGB56_bEZU-25f1AQ" 
+            <Image
+              fill
+              sizes="(max-width: 768px) 100vw, 300px"
+              className="object-cover z-10"
+              alt="Basaer mobile app interface screenshot"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzefjLDtA1Qi18VmwZQo5A2J6vJ_ndAafnVTb5nRw6i3BYphOOv9rMvHkCgLCGZOmM_wQftWIi3dDDMC9puK_MaqN9nGycNZTfMhK-tSNX4lecmy3f82hb521qaZxxDzroWU3bIdyijTly1bKZWEd8AMQCsTLZoK2JxfLqNjOp61f64BHTQ6yQYY1mz72YYVeTisUdAo4ppIsHdDja5UZ1o45G6CrBAD8KVR8pereHSXn1F2cCDbyL0_aF5BWGB56_bEZU-25f1AQ"
             />
           </div>
           <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-[#7c3aed]/20 blur-3xl rounded-full -z-10"></div>

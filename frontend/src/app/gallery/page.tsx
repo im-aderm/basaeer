@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Navbar } from "@/components/landing/Navbar";
 import { Footer } from "@/components/landing/Footer";
 import { GradientBackground } from "@/components/ui/GradientBackground";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   PlayCircle, 
@@ -100,10 +101,13 @@ export default function GalleryPage() {
         {/* Hero Section with Large Image Overlay */}
         <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0 z-0">
-            <img 
-              alt="Basaer Model School Campus Aerial view" 
-              className="w-full h-full object-cover opacity-40 scale-105" 
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6vSiHLvFFNlLHTetHlo9YmafxgkxudKSrpvMKskby773D7Dz2B4pIego7KjZLwYqW9XvHmYb1UZDUcy9zDNjLNnHouuFdx_T378xUiUw1OyS6T5F1iBlENSemDj2pwywWzV4fEJHoVMxHMAfry-wrXNeyfSy3Q05K2uaKZmu1xbSLRkWhF22Ft6oF_eZOTlZoBhSd6L1T73M1FVyNdFFGEh9dK3C4McigdXP3n9HQA1lXEs-3Y4X9D3J51q_2kG85ShnKMOsoY4Q" 
+            <Image
+              alt="Basaer Model School Campus Aerial view"
+              fill
+              sizes="100vw"
+              className="opacity-40 scale-105"
+              priority
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6vSiHLvFFNlLHTetHlo9YmafxgkxudKSrpvMKskby773D7Dz2B4pIego7KjZLwYqW9XvHmYb1UZDUcy9zDNjLNnHouuFdx_T378xUiUw1OyS6T5F1iBlENSemDj2pwywWzV4fEJHoVMxHMAfry-wrXNeyfSy3Q05K2uaKZmu1xbSLRkWhF22Ft6oF_eZOTlZoBhSd6L1T73M1FVyNdFFGEh9dK3C4McigdXP3n9HQA1lXEs-3Y4X9D3J51q_2kG85ShnKMOsoY4Q"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-background/0 via-background/40 to-background"></div>
           </div>
@@ -156,10 +160,12 @@ export default function GalleryPage() {
                   key={item.id}
                   className="relative group overflow-hidden rounded-3xl bg-surface-container border border-border hover:border-primary/40 hover:shadow-[0_0_30px_rgba(0,160,225,0.2)] transition-all duration-500 flex flex-col break-inside-avoid"
                 >
-                  <img 
-                    alt={item.title} 
-                    className="w-full h-auto rounded-t-3xl grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" 
-                    src={item.image} 
+                  <Image
+                    alt={item.title}
+                    width={800}
+                    height={600}
+                    className="rounded-t-3xl grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                    src={item.image}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6">
                     <span className="text-primary font-bold text-xs tracking-wider uppercase mb-1">
@@ -198,10 +204,12 @@ export default function GalleryPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
               {/* Featured Video Card */}
               <div className="group relative aspect-video rounded-3xl overflow-hidden bg-surface-container border border-border hover:border-primary/40 transition-all duration-500 cursor-pointer">
-                <img 
-                  alt="Modern STEM Robotics competition film frame" 
-                  className="w-full h-full object-cover opacity-70 group-hover:scale-105 transition-transform duration-700" 
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAguupNy3snl6-ExRNOBsI6aC3NvUR5V_SfEqMcYcRRb6Y1XuhTm-2C1vIyWjlni4Y5vkafQsLxERqLGuz7YC8DmMdELPoiE4_ydnIs4ikVzJRxppMJNM2qAxbyUS0HRPkZVnSAg0R-7xIXJp-t21PI_R1pNtP2o3naGnyX1fp2f5-zKUSDKyZkKiRyrJSuXq1yvCEaqwtV9zS6kFafaQvKjpttdCGTO1Zke7XO12bs-8exaDaByXvmbQiR9M1imv-eszN3G1YUy9o" 
+                <Image
+                  alt="Modern STEM Robotics competition film frame"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover opacity-70 group-hover:scale-105 transition-transform duration-700"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAguupNy3snl6-ExRNOBsI6aC3NvUR5V_SfEqMcYcRRb6Y1XuhTm-2C1vIyWjlni4Y5vkafQsLxERqLGuz7YC8DmMdELPoiE4_ydnIs4ikVzJRxppMJNM2qAxbyUS0HRPkZVnSAg0R-7xIXJp-t21PI_R1pNtP2o3naGnyX1fp2f5-zKUSDKyZkKiRyrJSuXq1yvCEaqwtV9zS6kFafaQvKjpttdCGTO1Zke7XO12bs-8exaDaByXvmbQiR9M1imv-eszN3G1YUy9o"
                 />
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="w-20 h-20 rounded-full bg-primary/20 backdrop-blur-md border border-primary/40 flex items-center justify-center group-hover:scale-110 transition-transform duration-500 shadow-[0_0_30px_rgba(0,160,225,0.4)]">
@@ -226,10 +234,12 @@ export default function GalleryPage() {
                     className="flex flex-col sm:flex-row gap-6 bg-surface-container p-4 rounded-3xl border border-border group cursor-pointer hover:bg-white/10 hover:border-primary/30 transition-all duration-300"
                   >
                     <div className="relative w-full sm:w-48 h-32 shrink-0 rounded-2xl overflow-hidden">
-                      <img 
-                        alt={vid.title} 
-                        className="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-500" 
-                        src={vid.image} 
+                      <Image
+                        alt={vid.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        className="object-cover opacity-60 group-hover:scale-105 transition-transform duration-500"
+                        src={vid.image}
                       />
                       <div className="absolute inset-0 flex items-center justify-center bg-black/20">
                         <PlayCircle size={24} className="text-white opacity-80 group-hover:opacity-100" />

@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export function NewsSection() {
   const news = [
@@ -53,10 +54,12 @@ export function NewsSection() {
             {news.map((item, idx) => (
               <div key={idx} className="group cursor-pointer">
                 <div className="rounded-2xl overflow-hidden glass-card mb-4 relative aspect-video">
-                  <img 
-                    alt={item.title} 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 grayscale group-hover:grayscale-0" 
-                    src={item.image} 
+                  <Image
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    alt={item.title}
+                    className="object-cover group-hover:scale-105 transition-transform duration-500 grayscale group-hover:grayscale-0"
+                    src={item.image}
                   />
                 </div>
                 <div className="flex items-center gap-2 mb-2">
