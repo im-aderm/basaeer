@@ -2,13 +2,13 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { ShieldAlert } from 'lucide-react';
+import { ShieldAlert, Lock, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import api from '@/lib/api';
+import MotionWrapper from '@/components/ui/MotionWrapper';
 
 export default function ChangePasswordPage() {
   const router = useRouter();
@@ -41,22 +41,21 @@ export default function ChangePasswordPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <div className="flex justify-center mb-4">
-            <div className="p-3 rounded-full bg-warning/10">
-              <ShieldAlert className="h-8 w-8 text-warning" />
+      <MotionWrapper className="w-full max-w-md">
+        <div className="bg-white/75 border border-border/50 rounded-[2.5rem] p-8 md:p-10 card-hover shadow-xl shadow-primary/5">
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-amber-500/10 mb-4">
+              <ShieldAlert className="h-8 w-8 text-amber-500" />
             </div>
+            <h1 className="text-h1 font-bold tracking-tight text-primary">Change Your Password</h1>
+            <p className="text-sm text-muted-foreground mt-1">
+              Your account was created with a temporary password. Please set a new password to continue.
+            </p>
           </div>
-          <CardTitle className="text-xl">Change Your Password</CardTitle>
-          <CardDescription>
-            This is a required first step. Your account was created with a temporary password and must be changed before you can access the dashboard.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div className="space-y-2">
-              <Label htmlFor="currentPassword">Current Password</Label>
+              <Label htmlFor="currentPassword" className="text-sm font-semibold">Current Password</Label>
               <Input
                 id="currentPassword"
                 type="password"
@@ -65,8 +64,9 @@ export default function ChangePasswordPage() {
                 required
               />
             </div>
+
             <div className="space-y-2">
-              <Label htmlFor="newPassword">New Password</Label>
+              <Label htmlFor="newPassword" className="text-sm font-semibold">New Password</Label>
               <Input
                 id="newPassword"
                 type="password"
@@ -76,22 +76,29 @@ export default function ChangePasswordPage() {
                 minLength={8}
               />
             </div>
+
             <div className="space-y-2">
-              <Label htmlFor="confirmPassword">Confirm New Password</Label>
+              <Label htmlFor="confirmPassword" className="text-sm font-semibold">Confirm New Password</Label>
               <Input
                 id="confirmPassword"
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
+                minLength={8}
               />
             </div>
-            <Button type="submit" className="w-full" disabled={submitting}>
-              {submitting ? 'Changing...' : 'Change Password'}
+
+            <Button type="submit" className="w-full btn-press" disabled={submitting}>
+              {submitting ? (
+                <><Loader2 size={18} className="animate-spin" /> Changing...</>
+              ) : (
+                <><Lock size={18} /> Change Password</>
+              )}
             </Button>
           </form>
-        </CardContent>
-      </Card>
+        </div>
+      </MotionWrapper>
     </div>
   );
 }

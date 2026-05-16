@@ -10,7 +10,7 @@ import { SettingsService, Backup } from '@/services/settingsService';
 import { toast } from 'sonner';
 
 export default function BackupManagementPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [backups, setBackups] = useState<Backup[]>([]);
     const [loading, setLoading] = useState(true);
     const [isCreating, setIsCreating] = useState(false);
@@ -68,7 +68,7 @@ export default function BackupManagementPage() {
         <div className="max-w-5xl mx-auto space-y-8">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight">Database Backups</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Database Backups</h1>
                     <p className="text-muted-foreground font-medium mt-1">Manage and secure your school data with manual snapshots.</p>
                 </div>
                 <Button
@@ -123,7 +123,7 @@ export default function BackupManagementPage() {
 
             <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background">
                 <CardHeader className="p-8 pb-4">
-                    <CardTitle className="text-h3 font-semibold flex items-center gap-3">
+                    <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
                         <Database className="h-8 w-8 text-primary" />
                         Backup History
                     </CardTitle>

@@ -107,7 +107,7 @@ export default function ProvidersPage() {
         <div className="max-w-7xl mx-auto space-y-8 pb-20">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight">Provider Health</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Provider Health</h1>
                     <p className="text-muted-foreground font-medium mt-1">
                         Monitor status and failover history for third-party service providers.
                     </p>

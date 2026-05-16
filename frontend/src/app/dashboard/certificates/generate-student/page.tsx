@@ -23,7 +23,7 @@ import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 
 export default function GenerateStudentCertificatePage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [students, setStudents] = useState<Student[]>([]);
     const [templates, setTemplates] = useState<any[]>([]);
     const [selectedTemplate, setSelectedTemplate] = useState("");
@@ -36,7 +36,7 @@ export default function GenerateStudentCertificatePage() {
     const fetchData = async () => {
         try {
             const [studentsData, templatesData] = await Promise.all([
-                StudentService.getAll({ branchId: user?.branchId }),
+                StudentService.getAll({ branchId: resolvedBranchId }),
                 api.get("/certificates/templates")
             ]);
             setStudents(Array.isArray(studentsData) ? studentsData : []);
@@ -92,7 +92,7 @@ export default function GenerateStudentCertificatePage() {
                     templateId: selectedTemplate,
                     type: templates.find(t => t.id === selectedTemplate)?.type || "ACHIEVEMENT",
                     issueDate: new Date().toISOString(),
-                    branchId: user?.branchId,
+                    branchId: resolvedBranchId,
                     description: "",
                 });
                 success++;
@@ -118,9 +118,9 @@ export default function GenerateStudentCertificatePage() {
 
     return (
         <div className="space-y-8 pb-20">
-            <div className="bg-card border border-border p-10 rounded-[3rem] shadow-sm relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="bg-white/75 border border-border p-10 rounded-[3rem] shadow-sm relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3 text-amber-600">
+                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3 text-amber-600">
                         <Award className="w-10 h-10" />
                         Bulk Certificate Generation
                     </h1>
@@ -130,9 +130,9 @@ export default function GenerateStudentCertificatePage() {
 
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
                 <div className="lg:col-span-3 space-y-6">
-                    <Card className="rounded-[3rem] border-border/50 shadow-xl bg-card/50 backdrop-blur-sm overflow-hidden border-t-8 border-t-amber-500">
+                    <Card className="rounded-[3rem] border-border/50 shadow-xl overflow-hidden border-t-8 border-t-amber-500">
                         <CardHeader className="p-8 border-b border-border/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                            <CardTitle className="text-h3 font-semibold flex items-center gap-3">
+                            <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
                                 <Users className="h-6 w-6 text-amber-500" />
                                 Select Students
                                 <Badge className="ml-2 rounded-full bg-amber-500/10 text-amber-600 border-none font-bold">{selectedStudentIds.size} selected</Badge>
@@ -197,9 +197,9 @@ export default function GenerateStudentCertificatePage() {
                 </div>
 
                 <div className="space-y-6">
-                    <Card className="rounded-[3rem] border-border/50 shadow-xl bg-card/50 backdrop-blur-sm overflow-hidden border-t-8 border-t-primary">
+                    <Card className="rounded-[3rem] border-border/50 shadow-xl overflow-hidden border-t-8 border-t-primary">
                         <CardHeader className="p-8 border-b border-border/50">
-                            <CardTitle className="text-h3 font-semibold flex items-center gap-3">
+                            <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
                                 <FileCheck className="h-6 w-6 text-primary" />
                                 Template & Generate
                             </CardTitle>
@@ -208,7 +208,7 @@ export default function GenerateStudentCertificatePage() {
                             <div className="space-y-2">
                                 <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground ml-1">Certificate Template</label>
                                 <select
-                                    className="w-full h-12 rounded-2xl bg-muted/30 border-none font-bold text-base px-4 appearance-none focus:ring-2 ring-primary/20 cursor-pointer"
+                                    className="w-full h-12 rounded-2xl bg-white border border-primary/90 font-bold text-base px-4 appearance-none focus:ring-2 ring-primary/20 cursor-pointer"
                                     value={selectedTemplate}
                                     onChange={(e) => setSelectedTemplate(e.target.value)}
                                 >

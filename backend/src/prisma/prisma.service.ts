@@ -73,7 +73,18 @@ export class PrismaService
               }
             }
 
-            if (branchId && !isSuperAdmin) {
+            // Block writes when no branch context is set
+            if (!branchId) {
+              const writeOps = ['create', 'update', 'updateMany', 'delete', 'deleteMany', 'upsert'];
+              if (writeOps.includes(operation)) {
+                throw new Error('Branch context is required to modify data. Please select a branch.');
+              }
+              // Read operations without branch — return ALL data (for SA dashboard/reports)
+              return query(args);
+            }
+
+            // Apply branch isolation for ALL users
+            if (branchId) {
               if (operation === 'create') {
                 args.data = {
                   ...args.data,
@@ -135,12 +146,8 @@ export class PrismaService
     }) as PrismaService;
   }
 
-  setTenantContext(
-    branchId: string | null,
-    userId: string,
-    isSuperAdmin?: boolean,
-  ) {
-    tenantStorage.enterWith({ branchId, userId, isSuperAdmin });
+  setTenantContext(branchId: string | null, userId: string) {
+    tenantStorage.enterWith({ branchId, userId });
   }
 
   async onModuleInit() {

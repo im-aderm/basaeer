@@ -29,7 +29,7 @@ import { StakeholderService, Alumni, AlumniEvent } from '@/services/stakeholderS
 import { toast } from 'sonner';
 
 export default function AlumniPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [alumni, setAlumni] = useState<Alumni[]>([]);
     const [events, setEvents] = useState<AlumniEvent[]>([]);
     const [loading, setLoading] = useState(true);
@@ -46,11 +46,11 @@ export default function AlumniPage() {
     });
 
     const fetchData = async () => {
-        if (!user?.branchId) return;
+        if (!resolvedBranchId) return;
         try {
             const [alumniData, eventsData] = await Promise.all([
-                StakeholderService.getAlumni(user.branchId),
-                StakeholderService.getEvents(user.branchId)
+                StakeholderService.getAlumni(resolvedBranchId),
+                StakeholderService.getEvents(resolvedBranchId)
             ]);
             setAlumni(alumniData);
             setEvents(eventsData);
@@ -63,12 +63,12 @@ export default function AlumniPage() {
 
     useEffect(() => {
         fetchData();
-    }, [user?.branchId]);
+    }, [resolvedBranchId]);
 
     const handleAddAlumni = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await StakeholderService.createAlumni({ ...alumniForm, branchId: user?.branchId });
+            await StakeholderService.createAlumni({ ...alumniForm, branchId: resolvedBranchId });
             toast.success('Alumni added successfully');
             setIsAddAlumniOpen(false);
             fetchData();
@@ -78,7 +78,7 @@ export default function AlumniPage() {
     const handleAddEvent = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await StakeholderService.createEvent({ ...eventForm, branchId: user?.branchId });
+            await StakeholderService.createEvent({ ...eventForm, branchId: resolvedBranchId });
             toast.success('Event scheduled successfully');
             setIsAddEventOpen(false);
             fetchData();
@@ -89,7 +89,7 @@ export default function AlumniPage() {
         <div className="max-w-7xl mx-auto space-y-8 pb-20">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight uppercase">Alumni & Graduates</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Alumni & Graduates</h1>
                     <p className="text-muted-foreground font-medium mt-1">Celebrating success and maintaining professional connections.</p>
                 </div>
                 <div className="flex gap-4">
@@ -101,21 +101,21 @@ export default function AlumniPage() {
                         </DialogTrigger>
                         <DialogContent className="rounded-[2.5rem]">
                             <DialogHeader>
-                                <DialogTitle className="text-h3 font-semibold uppercase">Post New Event</DialogTitle>
+                                <DialogTitle className="text-h3 font-semibold">Post New Event</DialogTitle>
                             </DialogHeader>
                             <form onSubmit={handleAddEvent} className="space-y-4 pt-4">
                                 <div className="space-y-2">
                                     <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Event Title</Label>
-                                    <Input required className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={eventForm.title} onChange={(e) => setEventForm({ ...eventForm, title: e.target.value })} />
+                                    <Input required className="h-12 rounded-xl font-bold" value={eventForm.title} onChange={(e) => setEventForm({ ...eventForm, title: e.target.value })} />
                                 </div>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="space-y-2">
                                         <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Date</Label>
-                                        <Input type="date" required className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={eventForm.eventDate} onChange={(e) => setEventForm({ ...eventForm, eventDate: e.target.value })} />
+                                        <Input type="date" required className="h-12 rounded-xl font-bold" value={eventForm.eventDate} onChange={(e) => setEventForm({ ...eventForm, eventDate: e.target.value })} />
                                     </div>
                                     <div className="space-y-2">
                                         <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Location</Label>
-                                        <Input className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={eventForm.location} onChange={(e) => setEventForm({ ...eventForm, location: e.target.value })} />
+                                        <Input className="h-12 rounded-xl font-bold" value={eventForm.location} onChange={(e) => setEventForm({ ...eventForm, location: e.target.value })} />
                                     </div>
                                 </div>
                                 <Button type="submit" className="h-12 w-full rounded-xl font-semibold uppercase tracking-wider">Create Event</Button>
@@ -133,7 +133,7 @@ export default function AlumniPage() {
                 <div className="lg:col-span-2 space-y-6">
                     <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background">
                         <CardHeader className="p-8 border-b border-border/50 flex flex-row items-center justify-between">
-                            <CardTitle className="text-h3 font-semibold flex items-center gap-3">
+                            <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
                                 <Users className="h-8 w-8 text-primary" />
                                 Alumni Directory
                             </CardTitle>
@@ -141,7 +141,7 @@ export default function AlumniPage() {
                                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                                 <Input
                                     placeholder="Search graduates..."
-                                    className="pl-9 h-11 rounded-xl bg-muted/50 border-none font-bold"
+                                    className="pl-9 h-11 rounded-xl font-bold"
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                 />
@@ -161,7 +161,7 @@ export default function AlumniPage() {
                                     {alumni.filter(a => (a.student?.firstName + ' ' + a.student?.lastName).toLowerCase().includes(searchTerm.toLowerCase())).map((a) => (
                                         <TableRow key={a.id} className="border-border/50 h-24 transition-all hover:bg-muted/20">
                                             <TableCell className="px-8 flex flex-col justify-center h-24">
-                                                <span className="font-semibold uppercase">{a.student?.firstName} {a.student?.lastName}</span>
+                                                <span className="font-semibold">{a.student?.firstName} {a.student?.lastName}</span>
                                                 <span className="text-xs font-bold text-muted-foreground opacity-60 tracking-wider flex items-center gap-1">
                                                     <GraduationCap className="h-3 w-3" /> Class of {new Date(a.graduationDate).getFullYear()}
                                                 </span>
@@ -207,7 +207,7 @@ export default function AlumniPage() {
                 <div className="space-y-6">
                     <Card className="rounded-[3rem] border-border/50 shadow-2xl bg-background overflow-hidden border-l-4 border-l-primary">
                         <CardHeader className="p-8 border-b border-border/50">
-                            <CardTitle className="text-h3 font-semibold uppercase">Upcoming Meetups</CardTitle>
+                            <CardTitle className="text-h3 font-semibold">Upcoming Meetups</CardTitle>
                         </CardHeader>
                         <CardContent className="p-8 space-y-4">
                             {events.map((event) => (

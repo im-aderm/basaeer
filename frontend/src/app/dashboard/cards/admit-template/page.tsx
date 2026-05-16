@@ -22,7 +22,7 @@ import { CardService, IdCardTemplate, IdCardType } from "@/services/cardService"
 import TemplateDesigner from "@/components/cards/TemplateDesigner";
 
 export default function AdmitTemplatesPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [templates, setTemplates] = useState<IdCardTemplate[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
@@ -37,7 +37,7 @@ export default function AdmitTemplatesPage() {
 
     const fetchData = async () => {
         try {
-            const data = await CardService.getAllTemplates(user?.branchId);
+            const data = await CardService.getAllTemplates(resolvedBranchId);
             // Filter only ADMIT templates for this page
             setTemplates(data.filter(t => t.type === IdCardType.ADMIT));
         } catch (error) {
@@ -56,7 +56,7 @@ export default function AdmitTemplatesPage() {
         try {
             const newTemplate = await CardService.createTemplate({
                 ...formData,
-                branchId: user?.branchId!,
+                branchId: resolvedBranchId!,
                 config: {
                     fields: {
                         name: { x: 50, y: 150, fontSize: 16, color: "#000", fontWeight: "bold" },
@@ -107,7 +107,7 @@ export default function AdmitTemplatesPage() {
         <div className="space-y-8 animate-in fade-in duration-500 pb-20">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
+                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3">
                         <BookOpen className="text-primary w-10 h-10" />
                         Admit Card Templates
                     </h1>
@@ -119,7 +119,7 @@ export default function AdmitTemplatesPage() {
                             <Plus size={20} /> New Admit Template
                         </Button>
                     </DialogTrigger>
-                    <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl bg-background/80 backdrop-blur-xl">
+                    <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl">
                         <DialogHeader>
                             <DialogTitle className="text-h1 font-semibold mb-6 tracking-tight">New Admit Card Template</DialogTitle>
                         </DialogHeader>
@@ -174,7 +174,7 @@ export default function AdmitTemplatesPage() {
                 </Dialog>
             </div>
 
-            <div className="flex items-center gap-4 bg-card/50 backdrop-blur-sm p-4 rounded-3xl border border-border/50">
+            <div className="flex items-center gap-4 bg-white/75 p-4 rounded-3xl border border-border/50">
                 <Search className="text-muted-foreground ml-2" size={20} />
                 <Input
                     placeholder="Search templates..."
@@ -186,7 +186,7 @@ export default function AdmitTemplatesPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {filteredTemplates.map((template) => (
-                    <Card key={template.id} className="rounded-[3rem] border-border/50 shadow-xl overflow-hidden group hover:shadow-2xl hover:shadow-primary/10 transition-all border-t-4 border-t-primary/20 bg-card/50 backdrop-blur-sm">
+                    <Card key={template.id} className="rounded-[3rem] border-border/50 shadow-xl overflow-hidden group hover:shadow-2xl hover:shadow-primary/10 transition-all border-t-4 border-t-primary/20 bg-white/75">
                         <div className="aspect-[1.6/1] bg-muted relative overflow-hidden">
                             {template.backgroundImage ? (
                                 <img src={template.backgroundImage} alt={template.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
@@ -222,7 +222,7 @@ export default function AdmitTemplatesPage() {
                             </div>
                         </div>
                         <CardHeader className="p-8">
-                            <CardTitle className="text-h3 font-semibold tracking-tight flex items-center justify-between">
+                            <CardTitle className="text-h3 font-semibold tracking-tight text-primary flex items-center justify-between">
                                 {template.name}
                                 <Edit3 size={18} className="opacity-0 group-hover:opacity-50 transition-opacity" />
                             </CardTitle>

@@ -30,15 +30,19 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any) {
-    // Set tenant context for RLS (8.4) and audit trail (8.9)
-    // Uses AsyncLocalStorage — no race condition across requests
-    this.prisma.setTenantContext(payload.branchId, payload.sub);
+    // Super Admin uses selectedBranchId (if set), others use their own branchId
+    const effectiveBranchId = payload.role === 'SUPER_ADMIN'
+      ? (payload.selectedBranchId || null)
+      : payload.branchId;
+
+    this.prisma.setTenantContext(effectiveBranchId, payload.sub);
 
     return {
       id: payload.sub,
       email: payload.email,
       role: payload.role,
       branchId: payload.branchId,
+      selectedBranchId: payload.selectedBranchId || null,
     };
   }
 }

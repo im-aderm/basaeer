@@ -78,7 +78,7 @@ export default function GlobalSettingsPage() {
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight">Global Settings</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Global Settings</h1>
                     <p className="text-muted-foreground mt-1">Configure system-wide parameters and regional preferences.</p>
                 </div>
                 <button
@@ -94,12 +94,12 @@ export default function GlobalSettingsPage() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* School Information */}
                 <div className="lg:col-span-2 space-y-6">
-                    <section className="bg-card border border-border rounded-2xl overflow-hidden shadow-sm">
+                    <section className="bg-white/75 border border-border rounded-2xl overflow-hidden shadow-sm">
                         <div className="p-6 border-b border-border bg-muted/30 flex items-center gap-3">
                             <div className="p-2 bg-primary/10 rounded-lg text-primary">
                                 <School size={20} />
                             </div>
-                            <h2 className="font-bold">Institution Profile</h2>
+                            <h2 className="text-h2 font-bold tracking-tight text-primary">Institution Profile</h2>
                         </div>
                         <div className="p-6 space-y-6">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -110,7 +110,7 @@ export default function GlobalSettingsPage() {
                                         value={formData.school_name}
                                         onChange={handleChange}
                                         placeholder="Basaer International School"
-                                        className="w-full p-3 bg-background border border-input rounded-xl focus:ring-2 focus:ring-primary/20 outline-none"
+                                        className="w-full p-3 bg-white border border-primary/90 rounded-xl focus:ring-2 focus:ring-primary/20 outline-none"
                                     />
                                 </div>
                                 <div className="space-y-2">
@@ -120,7 +120,7 @@ export default function GlobalSettingsPage() {
                                         value={formData.contact_email}
                                         onChange={handleChange}
                                         placeholder="admin@basaer.com"
-                                        className="w-full p-3 bg-background border border-input rounded-xl focus:ring-2 focus:ring-primary/20 outline-none"
+                                        className="w-full p-3 bg-white border border-primary/90 rounded-xl focus:ring-2 focus:ring-primary/20 outline-none"
                                     />
                                 </div>
                             </div>
@@ -128,12 +128,12 @@ export default function GlobalSettingsPage() {
                     </section>
 
                     {/* Regional Settings */}
-                    <section className="bg-card border border-border rounded-2xl overflow-hidden shadow-sm">
+                    <section className="bg-white/75 border border-border rounded-2xl overflow-hidden shadow-sm">
                         <div className="p-6 border-b border-border bg-muted/30 flex items-center gap-3">
                             <div className="p-2 bg-orange-500/10 rounded-lg text-orange-500">
                                 <Globe size={20} />
                             </div>
-                            <h2 className="font-bold">Localization</h2>
+                            <h2 className="text-h2 font-bold tracking-tight text-primary">Localization</h2>
                         </div>
                         <div className="p-6 space-y-6">
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -145,7 +145,7 @@ export default function GlobalSettingsPage() {
                                         name="currency"
                                         value={formData.currency}
                                         onChange={handleChange}
-                                        className="w-full p-3 bg-background border border-input rounded-xl outline-none"
+                                        className="w-full p-3 bg-white border border-primary/90 rounded-xl outline-none"
                                     >
                                         <option value="USD">USD ($)</option>
                                         <option value="NGN">NGN (₦)</option>
@@ -161,7 +161,7 @@ export default function GlobalSettingsPage() {
                                         name="timezone"
                                         value={formData.timezone}
                                         onChange={handleChange}
-                                        className="w-full p-3 bg-background border border-input rounded-xl outline-none"
+                                        className="w-full p-3 bg-white border border-primary/90 rounded-xl outline-none"
                                     >
                                         <option value="UTC">UTC (GMT)</option>
                                         <option value="Africa/Lagos">Africa/Lagos (WAT)</option>
@@ -174,7 +174,7 @@ export default function GlobalSettingsPage() {
                                         name="language"
                                         value={formData.language}
                                         onChange={handleChange}
-                                        className="w-full p-3 bg-background border border-input rounded-xl outline-none"
+                                        className="w-full p-3 bg-white border border-primary/90 rounded-xl outline-none"
                                     >
                                         <option value="English">English</option>
                                         <option value="Arabic">Arabic</option>

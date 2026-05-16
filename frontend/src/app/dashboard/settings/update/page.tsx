@@ -7,7 +7,7 @@ export default function SystemUpdatePage() {
     return (
         <div className="max-w-4xl mx-auto space-y-8 pb-20">
             <div>
-                <h1 className="text-h1 font-semibold tracking-tight">System Update</h1>
+                <h1 className="text-h1 font-bold tracking-tight text-primary">System Update</h1>
                 <p className="text-muted-foreground font-medium mt-1">Manage platform versions and software updates.</p>
             </div>
 
@@ -16,7 +16,7 @@ export default function SystemUpdatePage() {
                     <div className="h-20 w-20 rounded-[2rem] bg-primary/10 flex items-center justify-center text-primary mb-6">
                         <Package className="h-10 w-10" />
                     </div>
-                    <h2 className="text-2xl font-bold text-foreground mb-2">System Updates</h2>
+                    <h2 className="text-h2 font-bold tracking-tight text-primary mb-2">System Updates</h2>
                     <p className="text-sm text-muted-foreground max-w-md text-center mb-4">
                         Automated system updates and version management will be available here. Updates are currently managed through the deployment pipeline.
                     </p>

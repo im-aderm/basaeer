@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, UseGuards, BadRequestException } from '@nestjs/common';
 import { ClassesService } from './classes.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
@@ -25,12 +25,15 @@ export class ClassesController {
   @ApiOperation({ summary: 'Create resource' })
   @Post()
   @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
-  create(
+  async create(
     @Body() createClassDto: any,
     @GetTenantContext() context: TenantContext,
   ) {
     if (!createClassDto.branch && context.branchId) {
       createClassDto.branch = { connect: { id: context.branchId } };
+    }
+    if (!createClassDto.classTeacherId && !createClassDto.classTeacher) {
+      throw new BadRequestException('A class teacher must be assigned to this class');
     }
     return this.classesService.create(createClassDto, context);
   }

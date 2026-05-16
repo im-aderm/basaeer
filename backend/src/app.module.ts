@@ -61,7 +61,7 @@ import { DataRetentionService } from './common/services/data-retention.service';
 import { HealthModule } from './health/health.module';
 import { PermissionsGuard } from './auth/permissions.guard';
 import { MustChangePasswordGuard } from './auth/must-change-password.guard';
-
+import { RolesModule } from './roles/roles.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -138,6 +138,7 @@ import { MustChangePasswordGuard } from './auth/must-change-password.guard';
     AttachmentsModule,
     IntegrationsModule,
     HealthModule,
+    RolesModule,
   ],
   controllers: [AppController],
   providers: [

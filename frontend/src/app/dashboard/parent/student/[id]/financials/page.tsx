@@ -40,7 +40,7 @@ export default function ChildFinancialsPage() {
     const totalBalance = invoices.reduce((acc, inv) => acc + inv.balance, 0);
     const paidInvoices = (invoices ?? []).filter(inv => inv.status === 'PAID').length;
 
-    if (loading) return <div className="flex h-96 items-center justify-center font-semibold animate-pulse uppercase">Loading Financials...</div>;
+    if (loading) return <div className="flex h-96 items-center justify-center font-semibold animate-pulse">Loading Financials...</div>;
 
     return (
         <div className="max-w-7xl mx-auto space-y-8 pb-20">
@@ -54,7 +54,7 @@ export default function ChildFinancialsPage() {
                     <ChevronLeft className="h-6 w-6" />
                 </Button>
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight uppercase">Financial Overview</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Financial Overview</h1>
                     <p className="text-muted-foreground font-medium mt-1">Invoice history and payment tracking.</p>
                 </div>
             </div>
@@ -75,7 +75,7 @@ export default function ChildFinancialsPage() {
                     </div>
                     <div className="relative z-10 h-full flex flex-col justify-between">
                         <div className="space-y-2">
-                            <h3 className="text-h3 font-semibold uppercase">Account Health</h3>
+                            <h3 className="text-h3 font-semibold">Account Health</h3>
                             <p className="text-white/50 font-medium">You have {paidInvoices} paid and {invoices.length - paidInvoices} pending invoices.</p>
                         </div>
                         <div className="flex gap-4 mt-8">

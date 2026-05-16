@@ -201,7 +201,7 @@ export default function CareersPage() {
                     exit={{ opacity: 0, y: 10 }}
                     transition={{ duration: 0.3 }}
                     key={job.id}
-                    className="bg-surface-container backdrop-blur-md rounded-2xl p-6 md:p-8 flex flex-col md:flex-row justify-between items-center gap-6 border border-border hover:border-primary/30 transition-all duration-300"
+                    className="bg-surface-container backdrop-blur-md rounded-2xl p-6 md:p-8 flex flex-col md:flex-row justify-between items-center gap-6 border border-border hover:border-primary/60 transition-all duration-300"
                   >
                     <div className="space-y-2 w-full">
                       <div className="flex flex-wrap items-center gap-3">
@@ -243,7 +243,7 @@ export default function CareersPage() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
             {/* Step 1 */}
             <div className="text-center space-y-4 group">
-              <div className="w-14 h-14 rounded-full bg-primary/20 text-primary border border-primary/30 flex items-center justify-center text-xl font-bold font-heading mx-auto group-hover:bg-primary group-hover:text-white transition-colors duration-300 shadow-[0_0_15px_rgba(0,160,225,0.15)]">
+              <div className="w-14 h-14 rounded-full bg-primary/20 text-primary border border-primary/60 flex items-center justify-center text-xl font-bold font-heading mx-auto group-hover:bg-primary group-hover:text-white transition-colors duration-300 shadow-[0_0_15px_rgba(0,160,225,0.15)]">
                 1
               </div>
               <h5 className="text-lg font-bold text-text-primary font-heading">
@@ -256,7 +256,7 @@ export default function CareersPage() {
 
             {/* Step 2 */}
             <div className="text-center space-y-4 group">
-              <div className="w-14 h-14 rounded-full bg-primary/20 text-primary border border-primary/30 flex items-center justify-center text-xl font-bold font-heading mx-auto group-hover:bg-primary group-hover:text-white transition-colors duration-300 shadow-[0_0_15px_rgba(0,160,225,0.15)]">
+              <div className="w-14 h-14 rounded-full bg-primary/20 text-primary border border-primary/60 flex items-center justify-center text-xl font-bold font-heading mx-auto group-hover:bg-primary group-hover:text-white transition-colors duration-300 shadow-[0_0_15px_rgba(0,160,225,0.15)]">
                 2
               </div>
               <h5 className="text-lg font-bold text-text-primary font-heading">
@@ -269,7 +269,7 @@ export default function CareersPage() {
 
             {/* Step 3 */}
             <div className="text-center space-y-4 group">
-              <div className="w-14 h-14 rounded-full bg-primary/20 text-primary border border-primary/30 flex items-center justify-center text-xl font-bold font-heading mx-auto group-hover:bg-primary group-hover:text-white transition-colors duration-300 shadow-[0_0_15px_rgba(0,160,225,0.15)]">
+              <div className="w-14 h-14 rounded-full bg-primary/20 text-primary border border-primary/60 flex items-center justify-center text-xl font-bold font-heading mx-auto group-hover:bg-primary group-hover:text-white transition-colors duration-300 shadow-[0_0_15px_rgba(0,160,225,0.15)]">
                 3
               </div>
               <h5 className="text-lg font-bold text-text-primary font-heading">
@@ -282,7 +282,7 @@ export default function CareersPage() {
 
             {/* Step 4 */}
             <div className="text-center space-y-4 group">
-              <div className="w-14 h-14 rounded-full bg-primary/20 text-primary border border-primary/30 flex items-center justify-center text-xl font-bold font-heading mx-auto group-hover:bg-primary group-hover:text-white transition-colors duration-300 shadow-[0_0_15px_rgba(0,160,225,0.15)]">
+              <div className="w-14 h-14 rounded-full bg-primary/20 text-primary border border-primary/60 flex items-center justify-center text-xl font-bold font-heading mx-auto group-hover:bg-primary group-hover:text-white transition-colors duration-300 shadow-[0_0_15px_rgba(0,160,225,0.15)]">
                 4
               </div>
               <h5 className="text-lg font-bold text-text-primary font-heading">

@@ -73,9 +73,9 @@ export default function OpenDayReportPage() {
 
                 {/* School Header */}
                 <div className="text-center mb-12 border-b-2 border-primary/10 pb-8">
-                    <h1 className="text-4xl font-black text-primary uppercase tracking-tighter">Basaeer International School</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Basaeer International School</h1>
                     <p className="text-muted-foreground font-bold tracking-[0.3em] mt-2">Open Day Performance Report</p>
-                    <div className="flex justify-center gap-4 mt-4 text-xs font-bold uppercase">
+                    <div className="flex justify-center gap-4 mt-4 text-xs font-bold">
                         <span className="bg-muted px-4 py-1 rounded-full">Session: {sessionId}</span>
                         <span className="bg-muted px-4 py-1 rounded-full">Term: {term}</span>
                     </div>

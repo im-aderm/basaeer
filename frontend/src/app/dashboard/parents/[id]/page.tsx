@@ -112,7 +112,7 @@ export default function ParentDetailsPage() {
                     >
                         <ChevronLeft className="h-4 w-4" /> Back to List
                     </Button>
-                    <h1 className="text-h1 font-semibold tracking-tight uppercase flex items-center gap-4">
+                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-4">
                         <div className="h-14 w-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary font-semibold text-h3 shadow-sm">
                             {parent.firstName[0]}{parent.lastName[0]}
                         </div>
@@ -130,7 +130,7 @@ export default function ParentDetailsPage() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Left: Contact Info & Summary */}
                 <div className="space-y-8">
-                    <Card className="rounded-[2.5rem] border-border/50 shadow-2xl bg-card border-t-8 border-t-primary">
+                    <Card className="rounded-[2.5rem] shadow-2xl border-t-8 border-t-primary">
                         <CardHeader className="p-8 pb-4">
                             <CardTitle className="text-h3 font-semibold uppercase tracking-tight">Parent Credentials</CardTitle>
                         </CardHeader>
@@ -152,7 +152,7 @@ export default function ParentDetailsPage() {
                                 </div>
                                 <div className="p-4 rounded-2xl bg-muted/30 border border-border/50">
                                     <div className="text-[10px] font-semibold uppercase opacity-50 mb-1">Member Since</div>
-                                    <div className="font-bold flex items-center gap-2 text-primary uppercase">
+                                    <div className="font-bold flex items-center gap-2 ">
                                         <Clock className="h-4 w-4" />
                                         {new Date(parent.createdAt).toLocaleDateString(undefined, { month: 'long', year: 'numeric' })}
                                     </div>
@@ -161,7 +161,7 @@ export default function ParentDetailsPage() {
                         </CardContent>
                     </Card>
 
-                    <Card className="rounded-[2.5rem] border-border/50 shadow-2xl bg-background overflow-hidden">
+                    <Card className="rounded-[2.5rem] shadow-2xl overflow-hidden">
                         <div className="p-8 bg-primary/10">
                             <div className="flex justify-between items-center mb-4">
                                 <DollarSign className="text-primary h-8 w-8" />
@@ -175,7 +175,7 @@ export default function ParentDetailsPage() {
 
                 {/* Right: Linked Students & Linking Action */}
                 <div className="lg:col-span-2 space-y-8">
-                    <Card className="rounded-[2.5rem] border-border/50 shadow-2xl bg-card">
+                    <Card className="rounded-[2.5rem] shadow-2xl">
                         <CardHeader className="p-10 pb-4 flex flex-row items-center justify-between">
                             <div>
                                 <CardTitle className="text-h3 font-semibold uppercase tracking-tight">Linked Students</CardTitle>
@@ -186,13 +186,13 @@ export default function ParentDetailsPage() {
                         <CardContent className="p-10 pt-6 space-y-8">
                             <div className="space-y-4">
                                 {parent.parentOf.length > 0 ? parent.parentOf.map((student: any) => (
-                                    <div key={student.id} className="flex items-center justify-between p-6 rounded-[2rem] bg-muted/20 border border-border/50 hover:bg-muted/40 transition-all group">
+                                    <div key={student.id} className="flex items-center justify-between p-6 rounded-[2rem] bg-muted/20 border hover:bg-muted/40 transition-all group">
                                         <div className="flex items-center gap-6">
-                                            <div className="h-14 w-14 rounded-2xl bg-background flex items-center justify-center text-primary font-semibold shadow-sm group-hover:scale-110 transition-transform">
+                                            <div className="h-14 w-14 rounded-2xl flex items-center justify-center text-primary font-semibold shadow-sm group-hover:scale-110 transition-transform">
                                                 <GraduationCap className="h-7 w-7" />
                                             </div>
                                             <div>
-                                                <div className="font-semibold text-h3 uppercase">{student.firstName} {student.lastName}</div>
+                                                <div className="font-semibold text-h3">{student.firstName} {student.lastName}</div>
                                                 <div className="flex gap-2 mt-1">
                                                     <Badge variant="outline" className="text-[10px] font-semibold uppercase border-primary/20 text-primary">
                                                         {student.class?.name || 'No Class'} - {student.section?.name || 'N/A'}
@@ -205,7 +205,7 @@ export default function ParentDetailsPage() {
                                         </div>
                                         <div className="flex items-center gap-3">
                                             <Link href={`/dashboard/students/${student.id}`}>
-                                                <Button variant="outline" size="icon" className="rounded-xl border-border/50 hover:bg-primary hover:text-white transition-all">
+                                                <Button variant="outline" size="icon" className="rounded-xl hover:bg-primary hover:text-white transition-all">
                                                     <ExternalLink className="h-4 w-4" />
                                                 </Button>
                                             </Link>
@@ -220,7 +220,7 @@ export default function ParentDetailsPage() {
                                         </div>
                                     </div>
                                 )) : (
-                                    <div className="text-center p-12 border-2 border-dashed border-border/50 rounded-[2.5rem] bg-muted/5">
+                                    <div className="text-center p-12 border-2 border-dashed rounded-[2.5rem] bg-muted/5">
                                         <Users className="h-12 w-12 text-muted-foreground mx-auto mb-4 opacity-20" />
                                         <p className="font-semibold uppercase text-muted-foreground text-sm">No students currently linked to this account</p>
                                     </div>
@@ -233,7 +233,7 @@ export default function ParentDetailsPage() {
                                 </h4>
                                 <div className="flex gap-4">
                                     <Select value={selectedStudent} onValueChange={setSelectedStudent}>
-                                        <SelectTrigger className="h-14 rounded-2xl border-border/50 bg-background font-bold text-lg">
+                                        <SelectTrigger className="h-14 rounded-2xl font-bold text-lg">
                                             <SelectValue placeholder="Select student to link..." />
                                         </SelectTrigger>
                                         <SelectContent className="rounded-2xl">

@@ -60,7 +60,7 @@ export default function SendCommsPage() {
     return (
         <div className="p-6 max-w-4xl mx-auto">
             <div className="mb-8">
-                <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+                <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-2">
                     <Send className="w-6 h-6 text-primary" />
                     Send Bulk Communication
                 </h1>
@@ -99,7 +99,7 @@ export default function SendCommsPage() {
                             <select
                                 value={recipientGroup}
                                 onChange={(e) => setRecipientGroup(e.target.value)}
-                                className="w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary h-10 px-3"
+                                className="w-full rounded-xl border border-primary/90 bg-white/75 shadow-sm focus:border-primary focus:ring-primary h-10 px-3"
                             >
                                 <option value="ALL_STUDENTS">All Students</option>
                                 <option value="ALL_STAFF">All Staff</option>
@@ -124,7 +124,7 @@ export default function SendCommsPage() {
                                         if (t) applyTemplate(t.content);
                                     }
                                 }}
-                                className="w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary h-10 px-3"
+                                className="w-full rounded-xl border border-primary/90 bg-white/75 shadow-sm focus:border-primary focus:ring-primary h-10 px-3"
                             >
                                 <option value="">Select a template...</option>
                                 {type === "EMAIL" 
@@ -145,7 +145,7 @@ export default function SendCommsPage() {
                                 value={subject}
                                 onChange={(e) => setSubject(e.target.value)}
                                 placeholder="Enter email subject"
-                                className="w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary h-10 px-3"
+                                className="w-full rounded-xl border border-primary/90 bg-white/75 shadow-sm focus:border-primary focus:ring-primary h-10 px-3"
                                 required
                             />
                         </div>
@@ -160,7 +160,7 @@ export default function SendCommsPage() {
                             onChange={(e) => setMessage(e.target.value)}
                             rows={8}
                             placeholder={`Enter your ${type.toLowerCase()} message here...`}
-                            className="w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-3"
+                            className="w-full rounded-lg border border-primary/90 shadow-sm focus:border-primary focus:ring-primary p-3"
                             required
                         />
                         <p className="mt-2 text-xs text-gray-500">

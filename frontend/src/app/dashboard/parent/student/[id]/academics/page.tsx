@@ -44,7 +44,7 @@ export default function ChildAcademicsPage() {
         fetchData();
     }, [id]);
 
-    if (loading) return <div className="flex h-96 items-center justify-center font-semibold animate-pulse uppercase">Loading Academics...</div>;
+    if (loading) return <div className="flex h-96 items-center justify-center font-semibold animate-pulse">Loading Academics...</div>;
 
     return (
         <div className="max-w-7xl mx-auto space-y-8 pb-20">
@@ -58,7 +58,7 @@ export default function ChildAcademicsPage() {
                     <ChevronLeft className="h-6 w-6" />
                 </Button>
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight uppercase">Academic Records</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Academic Records</h1>
                     <p className="text-muted-foreground font-medium mt-1">Homework tracking and examination performance.</p>
                 </div>
             </div>
@@ -106,7 +106,7 @@ export default function ChildAcademicsPage() {
                         }) : (
                             <div className="col-span-full py-20 text-center space-y-4 opacity-30">
                                 <BookOpen className="h-16 w-16 mx-auto" />
-                                <h3 className="text-h3 font-semibold uppercase">No homework assigned yet</h3>
+                                <h3 className="text-h3 font-semibold">No homework assigned yet</h3>
                             </div>
                         )}
                     </div>

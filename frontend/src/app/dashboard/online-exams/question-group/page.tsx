@@ -13,7 +13,7 @@ import { OnlineExamService, QuestionGroup } from '@/services/onlineExamService';
 import { toast } from 'sonner';
 
 export default function QuestionGroupPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [groups, setGroups] = useState<QuestionGroup[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
@@ -38,7 +38,7 @@ export default function QuestionGroupPage() {
     const handleCreateGroup = async () => {
         if (!newGroupName.trim()) return;
         try {
-            await OnlineExamService.createGroup(newGroupName, user?.branchId || '');
+            await OnlineExamService.createGroup(newGroupName, resolvedBranchId || '');
             toast.success('Question group created successfully');
             setNewGroupName('');
             setIsDialogOpen(false);
@@ -58,7 +58,7 @@ export default function QuestionGroupPage() {
         <div className="max-w-6xl mx-auto space-y-8">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight">Question Groups</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Question Groups</h1>
                     <p className="text-muted-foreground font-medium mt-1">Organize your assessment questions by topics, difficulty, or subjects.</p>
                 </div>
 
@@ -95,7 +95,7 @@ export default function QuestionGroupPage() {
             <Card className="rounded-[2.5rem] border-border/50 shadow-2xl overflow-hidden bg-background">
                 <CardHeader className="p-8 pb-4">
                     <div className="flex justify-between items-center">
-                        <CardTitle className="text-h3 font-semibold flex items-center gap-3">
+                        <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
                             <Layers className="h-8 w-8 text-primary" />
                             All Groups
                         </CardTitle>
@@ -122,7 +122,7 @@ export default function QuestionGroupPage() {
                         <TableBody>
                             {filteredGroups.map((group) => (
                                 <TableRow key={group.id} className="border-border/50 h-20 transition-all hover:bg-muted/20">
-                                    <TableCell className="px-8 font-semibold text-lg leading-tight uppercase">{group.name}</TableCell>
+                                    <TableCell className="px-8 font-semibold text-lg leading-tight">{group.name}</TableCell>
                                     <TableCell className="px-8 text-center">
                                         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary font-semibold text-sm">
                                             <HelpCircle className="h-4 w-4" />

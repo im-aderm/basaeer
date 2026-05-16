@@ -25,7 +25,7 @@ import { StakeholderService, Conversation, Message } from '@/services/stakeholde
 import { toast } from 'sonner';
 
 export default function CommunicationPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [conversations, setConversations] = useState<Conversation[]>([]);
     const [selectedId, setSelectedId] = useState<string | null>(null);
     const [messages, setMessages] = useState<Message[]>([]);
@@ -82,14 +82,14 @@ export default function CommunicationPage() {
                 <Card className="w-96 flex flex-col rounded-[2.5rem] border-border/50 shadow-2xl bg-background overflow-hidden">
                     <CardHeader className="p-6 border-b border-border/50 space-y-4">
                         <div className="flex justify-between items-center">
-                            <CardTitle className="text-h3 font-semibold uppercase">Messages</CardTitle>
+                            <CardTitle className="text-h3 font-semibold">Messages</CardTitle>
                             <Button variant="secondary" size="icon" className="rounded-xl h-10 w-10">
                                 <Plus className="h-5 w-5" />
                             </Button>
                         </div>
                         <div className="relative">
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                            <Input placeholder="Search messages..." className="pl-9 h-11 rounded-xl bg-muted/50 border-none font-bold" />
+                            <Input placeholder="Search messages..." className="pl-9 h-11 rounded-xl font-bold" />
                         </div>
                     </CardHeader>
                     <ScrollArea className="flex-1">
@@ -135,7 +135,7 @@ export default function CommunicationPage() {
                                         {otherParticipant?.firstName?.[0] || 'U'}
                                     </div>
                                     <div>
-                                        <CardTitle className="text-h3 font-semibold uppercase">
+                                        <CardTitle className="text-h3 font-semibold">
                                             {otherParticipant?.firstName} {otherParticipant?.lastName}
                                         </CardTitle>
                                         <div className="flex items-center gap-1.5">
@@ -179,7 +179,7 @@ export default function CommunicationPage() {
                                         value={newMessage}
                                         onChange={(e) => setNewMessage(e.target.value)}
                                         placeholder="Type your message here..."
-                                        className="flex-1 h-14 rounded-2xl bg-muted/50 border-none font-bold px-6"
+                                        className="flex-1 h-14 rounded-2xl font-bold px-6"
                                     />
                                     <Button type="submit" className="h-14 w-14 rounded-2xl flex items-center justify-center shadow-lg shadow-primary/20 group">
                                         <Send className="h-6 w-6 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
@@ -193,10 +193,10 @@ export default function CommunicationPage() {
                                 <MessageSquare className="h-12 w-12 text-muted-foreground opacity-20" />
                             </div>
                             <div>
-                                <h3 className="text-h3 font-semibold uppercase">Your Messages</h3>
+                                <h3 className="text-h3 font-semibold">Your Messages</h3>
                                 <p className="text-muted-foreground font-medium max-w-xs mx-auto">Select a conversation or start a new one to bridge the gap between home and school.</p>
                             </div>
-                            <Button className="h-12 px-8 rounded-2xl font-semibold uppercase">New Conversation</Button>
+                            <Button className="h-12 px-8 rounded-2xl font-semibold">New Conversation</Button>
                         </div>
                     )}
                 </Card>

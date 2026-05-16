@@ -136,7 +136,7 @@ export function PaymentStep() {
         <span className="text-xs font-black uppercase tracking-widest text-muted-foreground">
           Admission Type:
         </span>
-        <span className="px-4 py-1 rounded-full bg-primary/10 border-2 border-primary/30 text-primary font-black italic text-sm">
+        <span className="px-4 py-1 rounded-full bg-primary/10 border-2 border-primary/60 text-primary font-black italic text-sm">
           {formData.admissionType === "NEW" ? "New Admission" : "Transfer"}
         </span>
       </div>
@@ -150,7 +150,7 @@ export function PaymentStep() {
             value={formData.desiredBranchId}
             onValueChange={(v) => updateFormData({ desiredBranchId: v })}
           >
-            <SelectTrigger className="h-14 rounded-[1.5rem] border-2 border-primary/30 font-black italic shadow-sm">
+            <SelectTrigger className="h-14 rounded-[1.5rem] border-2 border-primary/60 font-black italic shadow-sm">
               <SelectValue placeholder="Select your campus" />
             </SelectTrigger>
             <SelectContent className="rounded-2xl">
@@ -171,7 +171,7 @@ export function PaymentStep() {
             value={formData.desiredClassId}
             onValueChange={(v) => updateFormData({ desiredClassId: v })}
           >
-            <SelectTrigger className="h-14 rounded-[1.5rem] border-2 border-primary/30 font-black italic shadow-sm">
+            <SelectTrigger className="h-14 rounded-[1.5rem] border-2 border-primary/60 font-black italic shadow-sm">
               <SelectValue placeholder="Which class/grade?" />
             </SelectTrigger>
             <SelectContent className="rounded-2xl">
@@ -193,7 +193,7 @@ export function PaymentStep() {
             onValueChange={(v) => updateFormData({ desiredSectionId: v })}
             disabled={!sections}
           >
-            <SelectTrigger className="h-14 rounded-[1.5rem] border-2 border-primary/30 font-black italic shadow-sm">
+            <SelectTrigger className="h-14 rounded-[1.5rem] border-2 border-primary/60 font-black italic shadow-sm">
               <SelectValue placeholder={sections && sections.length > 0 ? "Select section" : "No sections available"} />
             </SelectTrigger>
             <SelectContent className="rounded-2xl">
@@ -214,7 +214,7 @@ export function PaymentStep() {
           <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">
             Academic Session *
           </Label>
-          <div className="h-14 rounded-[1.5rem] bg-muted/30 border-2 border-primary/30 flex items-center px-6 font-black italic text-primary">
+          <div className="h-14 rounded-[1.5rem] bg-muted/30 border-2 border-primary/60 flex items-center px-6 font-black italic text-primary">
             {initData?.currentSession?.name || "Loading..."}
           </div>
         </div>

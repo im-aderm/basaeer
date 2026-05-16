@@ -11,7 +11,7 @@ import { toast } from 'sonner';
 import { financeService } from '@/services/financeService';
 
 export default function FeeSetupPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [categories, setCategories] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [submitting, setSubmitting] = useState(false);
@@ -35,7 +35,7 @@ export default function FeeSetupPage() {
         if (!newCategory.name) return;
         setSubmitting(true);
         try {
-            await financeService.createFeeCategory({ ...newCategory, branchId: user?.branchId || '' });
+            await financeService.createFeeCategory({ ...newCategory, branchId: resolvedBranchId || '' });
             setNewCategory({ name: '', description: '' });
             fetchCategories();
             toast.success('Fee category added');
@@ -50,7 +50,7 @@ export default function FeeSetupPage() {
     return (
         <div className="space-y-6">
             <div className="flex justify-between items-center">
-                <h1 className="text-h1">Fee Structure Setup</h1>
+                <h1 className="text-h1 font-bold tracking-tight text-primary">Fee Structure Setup</h1>
             </div>
 
             <div className="grid gap-6 md:grid-cols-2">

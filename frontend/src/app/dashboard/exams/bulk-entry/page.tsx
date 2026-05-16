@@ -84,7 +84,7 @@ export default function BulkMarkEntryPage() {
     return (
         <div className="p-6 space-y-6">
             <div>
-                <h1 className="text-h1 font-bold text-gray-900">Bulk Mark Entry</h1>
+                <h1 className="text-h1 font-bold tracking-tight text-primary">Bulk Mark Entry</h1>
                 <p className="text-gray-600 mt-1">High-performance spreadsheet interface for entering student marks</p>
             </div>
 
@@ -104,7 +104,7 @@ export default function BulkMarkEntryPage() {
                         <div className="space-y-2">
                             <Label>Term</Label>
                             <select 
-                                className="w-full h-10 px-3 py-2 bg-background border border-input rounded-md text-sm"
+                                className="w-full h-10 px-3 py-2 bg-white/75 border border-primary/90 rounded-xl text-sm"
                                 value={formData.term}
                                 onChange={e => setFormData({...formData, term: e.target.value})}
                             >
@@ -145,7 +145,7 @@ function Input(props: React.InputHTMLAttributes<HTMLInputElement>) {
     return (
         <input
             {...props}
-            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex h-10 w-full rounded-md border-primary/60 bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
         />
     );
 }

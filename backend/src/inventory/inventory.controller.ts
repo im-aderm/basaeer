@@ -68,6 +68,7 @@ export class InventoryController {
   @ApiBearerAuth()
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Categories' })
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   @Get('categories')
   getCategories(
     @GetTenantContext() ctx: TenantContext,
@@ -118,6 +119,7 @@ export class InventoryController {
   @ApiBearerAuth()
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Stores' })
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   @Get('stores')
   getStores(
     @GetTenantContext() ctx: TenantContext,
@@ -162,6 +164,7 @@ export class InventoryController {
   @ApiBearerAuth()
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Suppliers' })
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   @Get('suppliers')
   getSuppliers(
     @GetTenantContext() ctx: TenantContext,
@@ -212,6 +215,7 @@ export class InventoryController {
   @ApiBearerAuth()
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Units' })
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   @Get('units')
   getUnits(
     @GetTenantContext() ctx: TenantContext,
@@ -256,6 +260,7 @@ export class InventoryController {
   @ApiBearerAuth()
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Products' })
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   @Get('products')
   getProducts(
     @GetTenantContext() ctx: TenantContext,
@@ -300,6 +305,7 @@ export class InventoryController {
   @ApiBearerAuth()
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Purchases' })
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   @Get('purchases')
   getPurchases(
     @GetTenantContext() ctx: TenantContext,
@@ -323,6 +329,7 @@ export class InventoryController {
   @ApiBearerAuth()
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Issues' })
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   @Get('issues')
   getIssues(
     @GetTenantContext() ctx: TenantContext,
@@ -353,6 +360,7 @@ export class InventoryController {
   @ApiBearerAuth()
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Sales' })
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   @Get('sales')
   getSales(
     @GetTenantContext() ctx: TenantContext,

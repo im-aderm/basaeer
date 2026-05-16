@@ -107,7 +107,7 @@ export default function StudentHostelPage() {
             {/* Header / Current Residence */}
             <div className="relative overflow-hidden rounded-[3.5rem] bg-slate-900 p-8 md:p-12 text-white shadow-2xl">
                 <div className="relative z-10">
-                    <h1 className="text-h1 font-semibold tracking-tight mb-2">My Hostel Residence</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary mb-2">My Hostel Residence</h1>
 
                     {myDetails ? (
                         <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -270,7 +270,7 @@ export default function StudentHostelPage() {
                                         <div className="space-y-1.5">
                                             <Label className="font-bold ml-1">Priority</Label>
                                             <select
-                                                className="w-full rounded-xl h-12 px-4 border bg-background font-bold appearance-none"
+                                                className="w-full rounded-xl h-12 px-4 border border-primary/90 bg-white/75 font-bold appearance-none"
                                                 value={maintenanceForm.priority}
                                                 onChange={e => setMaintenanceForm({ ...maintenanceForm, priority: e.target.value })}
                                             >

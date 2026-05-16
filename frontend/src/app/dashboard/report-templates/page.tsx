@@ -53,7 +53,7 @@ export default function ReportTemplatesPage() {
         <div className="p-6 space-y-6">
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-h1 font-bold text-gray-900">Report Templates</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Report Templates</h1>
                     <p className="text-gray-600 mt-1">
                         Design and manage custom layouts for report cards and transcripts
                     </p>
@@ -72,9 +72,9 @@ export default function ReportTemplatesPage() {
                     <Loader2 className="w-10 h-10 text-blue-500 animate-spin" />
                 </div>
             ) : templates.length === 0 ? (
-                <div className="bg-white rounded-xl p-20 text-center border border-dashed border-gray-200">
+                <div className="bg-white rounded-xl p-20 text-center border border-dashed border-primary/60">
                     <Layout className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                    <h3 className="text-xl font-semibold text-gray-900">No templates yet</h3>
+                    <h3 className="text-xl font-semibold text-primary">No templates yet</h3>
                     <p className="text-gray-500 max-w-md mx-auto mt-2">
                         Create your first custom report card template to start issuing professional academic records.
                     </p>
@@ -89,8 +89,8 @@ export default function ReportTemplatesPage() {
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {templates.map((template) => (
-                        <div key={template.id} className="group bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-all">
-                            <div className="aspect-[4/3] bg-gray-100 relative flex items-center justify-center border-b border-gray-200 overflow-hidden">
+                        <div key={template.id} className="group bg-white rounded-xl border border-primary/60 overflow-hidden shadow-sm hover:shadow-md transition-all">
+                            <div className="aspect-[4/3] bg-gray-100 relative flex items-center justify-center border-b border-primary/60 overflow-hidden">
                                 <FileText className="w-16 h-16 text-gray-300" />
                                 {template.isDefault && (
                                     <div className="absolute top-4 left-4 flex items-center gap-1.5 px-3 py-1 bg-green-500 text-white text-xs font-bold rounded-full shadow-sm">
@@ -118,7 +118,7 @@ export default function ReportTemplatesPage() {
                             <div className="p-5">
                                 <div className="flex items-start justify-between">
                                     <div>
-                                        <h3 className="font-bold text-gray-900 truncate">{template.name}</h3>
+                                        <h3 className="font-bold text-primary truncate">{template.name}</h3>
                                         <p className="text-xs text-gray-500 mt-0.5 capitalize">{template.type.toLowerCase().replace('_', ' ')}</p>
                                     </div>
                                     <button

@@ -143,7 +143,7 @@ export default function AttendancePage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
+                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3">
                         <ClipboardCheck className="text-primary w-10 h-10" />
                         Daily Register
                     </h1>
@@ -152,14 +152,14 @@ export default function AttendancePage() {
             </div>
 
             {/* Selection Bar */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 bg-card border border-border p-8 rounded-[2.5rem] shadow-sm items-end">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 bg-white/75 border border-border p-8 rounded-[2.5rem] shadow-sm items-end">
                 <div className="space-y-3">
                     <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground flex items-center gap-2">
                         <Calendar size={14} className="text-primary" /> Date
                     </label>
                     <input
                         type="date"
-                        className="w-full p-4 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none transition-all font-bold"
+                        className="w-full p-4 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none transition-all font-bold"
                         value={selectedDate}
                         onChange={(e) => setSelectedDate(e.target.value)}
                     />
@@ -169,7 +169,7 @@ export default function AttendancePage() {
                         <Users size={14} className="text-primary" /> Class
                     </label>
                     <select
-                        className="w-full p-4 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none appearance-none font-bold cursor-pointer"
+                        className="w-full p-4 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none appearance-none font-bold cursor-pointer"
                         value={selectedClassId}
                         onChange={(e) => handleClassChange(e.target.value)}
                     >
@@ -184,7 +184,7 @@ export default function AttendancePage() {
                         <Users size={14} className="text-primary" /> Section
                     </label>
                     <select
-                        className="w-full p-4 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none appearance-none font-bold cursor-pointer"
+                        className="w-full p-4 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none appearance-none font-bold cursor-pointer"
                         value={selectedSectionId}
                         disabled={!selectedClassId}
                         onChange={(e) => setSelectedSectionId(e.target.value)}
@@ -207,7 +207,7 @@ export default function AttendancePage() {
 
             {/* Attendance Table */}
             {students.length > 0 && (
-                <div className="bg-card border border-border rounded-[3rem] shadow-sm overflow-hidden border-t-8 border-t-primary animate-in zoom-in-95 duration-500">
+                <div className="bg-white/75 border border-border rounded-[3rem] shadow-sm overflow-hidden border-t-8 border-t-primary animate-in zoom-in-95 duration-500">
                     <div className="p-8 border-b border-border flex items-center justify-between bg-muted/10">
                         <div className="flex items-center gap-6">
                             <h2 className="text-h3 font-semibold tracking-tight">Class Register: {classes.find(c => c.id === selectedClassId)?.name} • {sections.find(s => s.id === selectedSectionId)?.name}</h2>
@@ -264,7 +264,7 @@ export default function AttendancePage() {
                                                             "group flex flex-col items-center gap-2 p-3 rounded-2xl border-2 transition-all min-w-[80px]",
                                                             attendanceData[student.id]?.status === opt.id
                                                                 ? `${opt.active} border-transparent shadow-lg scale-105`
-                                                                : `bg-card border-border hover:border-primary/30 ${opt.color}`
+                                                                : `bg-card border-border hover:border-primary/60 ${opt.color}`
                                                         )}
                                                     >
                                                         <opt.icon size={20} />
@@ -290,7 +290,7 @@ export default function AttendancePage() {
             )}
 
             {students.length === 0 && !loadingStudents && (
-                <div className="py-40 text-center bg-card border border-border rounded-[4rem] animate-in zoom-in-95 duration-500">
+                <div className="py-40 text-center bg-white/75 border border-border rounded-[4rem] animate-in zoom-in-95 duration-500">
                     <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-muted mb-6">
                         <ClipboardCheck size={48} className="text-muted-foreground/30" />
                     </div>

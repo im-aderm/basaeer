@@ -54,7 +54,7 @@ export default function OnlineExamPositionPage() {
         <div className="max-w-4xl mx-auto space-y-8 pb-20">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight">Position Generation</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Position Generation</h1>
                     <p className="text-muted-foreground font-medium mt-1">Calculate and rank student performance for online assessments.</p>
                 </div>
                 <div className="h-14 w-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
@@ -71,7 +71,7 @@ export default function OnlineExamPositionPage() {
                     <div className="space-y-4">
                         <label className="text-xs font-semibold uppercase tracking-widest ml-1 text-muted-foreground">Select Examination</label>
                         <Select value={selectedExamId} onValueChange={setSelectedExamId}>
-                            <SelectTrigger className="h-16 rounded-2xl bg-muted/50 font-bold border-none text-lg">
+                            <SelectTrigger className="h-16 rounded-2xl font-bold text-lg">
                                 <SelectValue placeholder="Choose an exam to rank..." />
                             </SelectTrigger>
                             <SelectContent className="rounded-2xl">
@@ -112,7 +112,7 @@ export default function OnlineExamPositionPage() {
                             <Play className="h-8 w-8 text-primary fill-primary" />
                         </div>
                         <div className="space-y-1">
-                            <h3 className="font-semibold text-lg uppercase">Ready to Process?</h3>
+                            <h3 className="font-semibold text-lg">Ready to Process?</h3>
                             <p className="text-sm text-muted-foreground font-medium max-w-sm">
                                 This will analyze all submitted scores and assign a numerical rank to each student based on their performance.
                             </p>

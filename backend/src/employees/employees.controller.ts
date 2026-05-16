@@ -72,6 +72,11 @@ export class EmployeesController {
 
   // ... keep existing code sync
 
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Teachers' })
+  @Get('teachers')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   findAllTeachers(@GetTenantContext() ctx: TenantContext) {
     return this.employeesService.findAllTeachers(ctx.branchId);
   }

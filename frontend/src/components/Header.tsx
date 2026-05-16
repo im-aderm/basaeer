@@ -1,9 +1,11 @@
 "use client";
 
 import { useAuth } from "@/context/AuthContext";
-import { LogOut, Bell, Search, User } from "lucide-react";
+import { LogOut, Bell, Search, User, Settings } from "lucide-react";
+import Link from "next/link";
 import { useState, useEffect, useCallback } from "react";
 import GlobalSearch from "@/components/GlobalSearch";
+import BranchSelector from "@/components/BranchSelector";
 import { useRealtimeEvent } from "@/hooks/useRealtime";
 import { toast } from "sonner";
 
@@ -12,7 +14,17 @@ export function Header() {
     const [searchOpen, setSearchOpen] = useState(false);
     const [unreadCount, setUnreadCount] = useState(0);
 
-
+    // Global keyboard shortcut: Ctrl+K / Cmd+K to open search
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                setSearchOpen((prev) => !prev);
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, []);
 
     const handleNotification = useCallback((data: any) => {
         setUnreadCount((prev) => prev + 1);
@@ -30,7 +42,7 @@ export function Header() {
                     {/* Search trigger — opens GlobalSearch modal */}
                     <button
                         onClick={() => setSearchOpen(true)}
-                        className="relative w-full max-w-2xl group flex items-center gap-3 h-10 px-3 bg-muted/30 border border-border/50 rounded-xl hover:bg-muted/50 hover:border-primary/20 transition-all cursor-pointer text-left"
+                        className="relative w-full max-w-2xl group flex items-center gap-3 h-10 px-3 bg-white/50 border border-border/50 rounded-xl hover:bg-white hover:border-primary/30 transition-all cursor-pointer text-left card-hover"
                         aria-label="Open search (Ctrl+K)"
                         title="Search (Ctrl+K)"
                     >
@@ -46,7 +58,10 @@ export function Header() {
                     </button>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3">
+                    {/* Branch Selector */}
+                    <BranchSelector />
+
                     {/* Notifications Bell */}
                     <button
                         onClick={() => setUnreadCount(0)}
@@ -85,17 +100,25 @@ export function Header() {
                                     )}
                                 </div>
 
-                                {/* Dropdown logout */}
-                                <button
-                                    onClick={logout}
-                                    className="absolute top-12 right-0 w-48 bg-white border border-border shadow-[0_4px_20px_rgba(0,0,0,0.08)] rounded-xl p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 translate-y-2 group-hover:translate-y-0"
-                                    aria-label="Sign out"
-                                >
-                                    <div className="flex items-center gap-3 p-3 text-red-600 hover:bg-red-50 rounded-lg transition-colors font-bold text-sm">
-                                        <LogOut size={18} aria-hidden="true" />
+                                {/* Dropdown */}
+                                <div className="absolute top-12 right-0 w-52 bg-white border border-border shadow-[0_4px_20px_rgba(0,0,0,0.08)] rounded-xl p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 translate-y-2 group-hover:translate-y-0">
+                                    <Link
+                                        href="/dashboard/profile"
+                                        className="flex items-center gap-3 p-3 text-foreground hover:bg-muted rounded-lg transition-colors font-semibold text-sm"
+                                    >
+                                        <User size={16} aria-hidden="true" />
+                                        Edit Profile
+                                    </Link>
+                                    <hr className="my-1 border-border/50" />
+                                    <button
+                                        onClick={logout}
+                                        className="w-full flex items-center gap-3 p-3 text-red-600 hover:bg-red-50 rounded-lg transition-colors font-bold text-sm"
+                                        aria-label="Sign out"
+                                    >
+                                        <LogOut size={16} aria-hidden="true" />
                                         Sign Out
-                                    </div>
-                                </button>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

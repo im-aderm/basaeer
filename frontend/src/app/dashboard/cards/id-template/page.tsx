@@ -22,7 +22,7 @@ import { CardService, IdCardTemplate, IdCardType } from "@/services/cardService"
 import TemplateDesigner from "@/components/cards/TemplateDesigner";
 
 export default function IdTemplatesPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [templates, setTemplates] = useState<IdCardTemplate[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
@@ -37,7 +37,7 @@ export default function IdTemplatesPage() {
 
     const fetchData = async () => {
         try {
-            const data = await CardService.getAllTemplates(user?.branchId);
+            const data = await CardService.getAllTemplates(resolvedBranchId);
             setTemplates(data);
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to fetch templates:", error);
@@ -55,7 +55,7 @@ export default function IdTemplatesPage() {
         try {
             const newTemplate = await CardService.createTemplate({
                 ...formData,
-                branchId: user?.branchId!,
+                branchId: resolvedBranchId!,
                 config: {
                     fields: {
                         name: { x: 50, y: 150, fontSize: 16, color: "#000", fontWeight: "bold" },
@@ -106,7 +106,7 @@ export default function IdTemplatesPage() {
         <div className="space-y-8 animate-in fade-in duration-500 pb-20">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
+                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3">
                         <Layout className="text-primary w-10 h-10" />
                         ID Card Templates
                     </h1>
@@ -118,7 +118,7 @@ export default function IdTemplatesPage() {
                             <Plus size={20} /> Create New Template
                         </Button>
                     </DialogTrigger>
-                    <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl bg-background/80 backdrop-blur-xl">
+                    <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl">
                         <DialogHeader>
                             <DialogTitle className="text-h1 font-semibold mb-6 tracking-tight">New ID Card Template</DialogTitle>
                         </DialogHeader>
@@ -137,7 +137,7 @@ export default function IdTemplatesPage() {
                                 <div className="space-y-3">
                                     <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground ml-1">Card Type</label>
                                     <select
-                                        className="w-full h-14 rounded-2xl bg-muted/30 border-none font-bold text-lg px-4 appearance-none focus:ring-2 ring-primary/20 cursor-pointer"
+                                        className="w-full h-14 rounded-2xl bg-white border border-primary/90 font-bold text-lg px-4 appearance-none focus:ring-2 ring-primary/20 cursor-pointer"
                                         value={formData.type}
                                         onChange={(e) => setFormData({ ...formData, type: e.target.value as IdCardType })}
                                     >
@@ -179,7 +179,7 @@ export default function IdTemplatesPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {filteredTemplates.map((template) => (
-                    <Card key={template.id} className="rounded-[3rem] border-border/50 shadow-xl overflow-hidden group hover:shadow-2xl hover:shadow-primary/10 transition-all border-t-4 border-t-primary/20 bg-card/50 backdrop-blur-sm">
+                    <Card key={template.id} className="rounded-[3rem] border-border/50 shadow-xl overflow-hidden group hover:shadow-2xl hover:shadow-primary/10 transition-all border-t-4 border-t-primary/20">
                         <div className="aspect-[1.6/1] bg-muted relative overflow-hidden">
                             {template.backgroundImage ? (
                                 <img src={template.backgroundImage} alt={template.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
@@ -215,7 +215,7 @@ export default function IdTemplatesPage() {
                             </div>
                         </div>
                         <CardHeader className="p-8">
-                            <CardTitle className="text-h3 font-semibold tracking-tight flex items-center justify-between">
+                            <CardTitle className="text-h3 font-semibold tracking-tight text-primary flex items-center justify-between">
                                 {template.name}
                                 <Edit3 size={18} className="opacity-0 group-hover:opacity-50 transition-opacity" />
                             </CardTitle>

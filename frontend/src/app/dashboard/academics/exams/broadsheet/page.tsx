@@ -81,7 +81,7 @@ export default function BroadsheetPage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
+                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3">
                         <FileSpreadsheet className="text-primary w-10 h-10" />
                         Class Broadsheet
                     </h1>
@@ -90,11 +90,11 @@ export default function BroadsheetPage() {
             </div>
 
             {/* Filter Panel */}
-            <div className="bg-card border border-border rounded-[3rem] p-10 shadow-sm flex flex-wrap items-end gap-8">
+            <div className="bg-white/75 border border-border rounded-[3rem] p-10 shadow-sm flex flex-wrap items-end gap-8">
                 <div className="flex-1 min-w-[220px] space-y-3">
                     <label className="text-label text-muted-foreground ml-3">Select Class</label>
                     <select
-                        className="w-full p-5 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold"
+                        className="w-full p-5 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold"
                         value={selectedClassId}
                         onChange={e => setSelectedClassId(e.target.value)}
                     >
@@ -106,7 +106,7 @@ export default function BroadsheetPage() {
                 <div className="flex-1 min-w-[220px] space-y-3">
                     <label className="text-label text-muted-foreground ml-3">Select Section</label>
                     <select
-                        className="w-full p-5 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold"
+                        className="w-full p-5 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold"
                         value={selectedSectionId}
                         onChange={e => setSelectedSectionId(e.target.value)}
                         disabled={!selectedClassId}
@@ -119,7 +119,7 @@ export default function BroadsheetPage() {
                 <div className="flex-1 min-w-[150px] space-y-3">
                     <label className="text-label text-muted-foreground ml-3">Academic Session</label>
                     <select
-                        className="w-full p-5 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold"
+                        className="w-full p-5 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold"
                         value={selectedSessionId}
                         onChange={e => setSelectedSessionId(e.target.value)}
                     >
@@ -130,7 +130,7 @@ export default function BroadsheetPage() {
                 <div className="flex-1 min-w-[150px] space-y-3">
                     <label className="text-label text-muted-foreground ml-3">Academic Term</label>
                     <select
-                        className="w-full p-5 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold"
+                        className="w-full p-5 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold"
                         value={selectedTerm}
                         onChange={e => setSelectedTerm(e.target.value as Term)}
                     >
@@ -153,7 +153,7 @@ export default function BroadsheetPage() {
             </div>
 
             {/* Empty State / Preview Note */}
-            <div className="bg-card border border-border rounded-[4rem] p-20 text-center space-y-8 border-t-8 border-t-primary shadow-sm bg-gradient-to-b from-card to-muted/10">
+            <div className="bg-white/75 border border-border rounded-[4rem] p-20 text-center space-y-8 border-t-8 border-t-primary shadow-sm bg-gradient-to-b from-card to-muted/10">
                 <div className="w-32 h-32 bg-primary/5 rounded-[3rem] flex items-center justify-center mx-auto border border-primary/10">
                     <Table size={56} className="text-primary" />
                 </div>

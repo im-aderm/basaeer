@@ -26,7 +26,7 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 
 export default function AlumniEventsPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [events, setEvents] = useState<AlumniEvent[]>([]);
     const [loading, setLoading] = useState(true);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -40,9 +40,9 @@ export default function AlumniEventsPage() {
     });
 
     const fetchEvents = async () => {
-        if (!user?.branchId) return;
+        if (!resolvedBranchId) return;
         try {
-            const data = await StakeholderService.getEvents(user.branchId);
+            const data = await StakeholderService.getEvents(resolvedBranchId);
             setEvents(data);
         } catch (error) {
             toast.error("Failed to load events");
@@ -53,12 +53,12 @@ export default function AlumniEventsPage() {
 
     useEffect(() => {
         fetchEvents();
-    }, [user?.branchId]);
+    }, [resolvedBranchId]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await StakeholderService.createEvent({ ...formData, branchId: user?.branchId });
+            await StakeholderService.createEvent({ ...formData, branchId: resolvedBranchId });
             toast.success("Event created successfully");
             setIsDialogOpen(false);
             setFormData({ title: "", description: "", eventDate: "", location: "", isOnline: false, meetingUrl: "" });
@@ -86,9 +86,9 @@ export default function AlumniEventsPage() {
 
     return (
         <div className="max-w-5xl mx-auto space-y-8 pb-20">
-            <div className="bg-card border border-border p-10 rounded-[3rem] shadow-sm relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="bg-white/75 border border-border p-10 rounded-[3rem] shadow-sm relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3 text-emerald-600">
+                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3 text-emerald-600">
                         <CalendarDays className="w-10 h-10" />
                         Alumni Events
                     </h1>
@@ -112,7 +112,7 @@ export default function AlumniEventsPage() {
                             <div className="space-y-1.5">
                                 <Label className="font-bold ml-1">Description</Label>
                                 <textarea
-                                    className="w-full rounded-xl h-24 px-4 py-3 border bg-card font-medium resize-none"
+                                    className="w-full rounded-xl h-24 px-4 py-3 border border-primary/90 bg-white font-medium resize-none"
                                     value={formData.description}
                                     onChange={e => setFormData({ ...formData, description: e.target.value })}
                                 />
@@ -137,7 +137,7 @@ export default function AlumniEventsPage() {
 
             {upcomingEvents.length > 0 && (
                 <div className="space-y-6">
-                    <h2 className="text-h2 font-semibold tracking-tight flex items-center gap-3">
+                    <h2 className="text-h2 font-bold tracking-tight text-primary flex items-center gap-3">
                         <Clock className="w-7 h-7 text-emerald-500" /> Upcoming Events
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -150,7 +150,7 @@ export default function AlumniEventsPage() {
 
             {pastEvents.length > 0 && (
                 <div className="space-y-6">
-                    <h2 className="text-h2 font-semibold tracking-tight flex items-center gap-3">
+                    <h2 className="text-h2 font-bold tracking-tight text-primary flex items-center gap-3">
                         <CalendarDays className="w-7 h-7 text-muted-foreground" /> Past Events
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -194,7 +194,7 @@ function EventCard({ event, onRsvp, past }: { event: AlumniEvent; onRsvp: (id: s
                 </div>
 
                 <div>
-                    <h3 className="text-h3 font-semibold tracking-tight mb-1">{event.title}</h3>
+                    <h3 className="text-h3 font-semibold tracking-tight text-primary mb-1">{event.title}</h3>
                     {event.description && (
                         <p className="text-muted-foreground font-medium text-sm line-clamp-2">{event.description}</p>
                     )}

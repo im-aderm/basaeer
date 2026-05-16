@@ -30,7 +30,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 export default function GradingPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [activeTab, setActiveTab] = useState<"scales" | "components">("scales");
     
     // Grading Scales State
@@ -180,7 +180,7 @@ export default function GradingPage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
+                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3">
                         <Award className="text-primary w-10 h-10" />
                         Grading Configuration
                     </h1>
@@ -213,7 +213,7 @@ export default function GradingPage() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
                     {/* Scale Form */}
                     <div className="lg:col-span-1 space-y-6">
-                        <div className="bg-card border border-border rounded-[2.5rem] p-8 space-y-8 shadow-sm">
+                        <div className="bg-white/75 border border-border rounded-[2.5rem] p-8 space-y-8 shadow-sm">
                             <h2 className="text-h3 font-semibold flex items-center gap-2">
                                 <Plus className="text-primary" size={20} /> Add New Grade
                             </h2>
@@ -222,7 +222,7 @@ export default function GradingPage() {
                                 <div className="space-y-2">
                                     <label className="text-label text-muted-foreground ml-2">Grade Label (e.g. A1)</label>
                                     <input
-                                        className="w-full p-4 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold"
+                                        className="w-full p-4 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold"
                                         value={newScale.grade}
                                         onChange={e => setNewScale({ ...newScale, grade: e.target.value })}
                                         placeholder="A1"
@@ -233,7 +233,7 @@ export default function GradingPage() {
                                         <label className="text-label text-muted-foreground ml-2">Min Score</label>
                                         <input
                                             type="number"
-                                            className="w-full p-4 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold"
+                                            className="w-full p-4 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold"
                                             value={newScale.minScore}
                                             onChange={e => setNewScale({ ...newScale, minScore: Number(e.target.value) })}
                                         />
@@ -242,7 +242,7 @@ export default function GradingPage() {
                                         <label className="text-label text-muted-foreground ml-2">Max Score</label>
                                         <input
                                             type="number"
-                                            className="w-full p-4 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold"
+                                            className="w-full p-4 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold"
                                             value={newScale.maxScore}
                                             onChange={e => setNewScale({ ...newScale, maxScore: Number(e.target.value) })}
                                         />
@@ -251,7 +251,7 @@ export default function GradingPage() {
                                 <div className="space-y-2">
                                     <label className="text-label text-muted-foreground ml-2">Remark</label>
                                     <input
-                                        className="w-full p-4 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold"
+                                        className="w-full p-4 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold"
                                         value={newScale.remark}
                                         onChange={e => setNewScale({ ...newScale, remark: e.target.value })}
                                         placeholder="Excellent"
@@ -271,9 +271,9 @@ export default function GradingPage() {
 
                     {/* Scale List */}
                     <div className="lg:col-span-2">
-                        <div className="bg-card border border-border rounded-[3rem] shadow-sm overflow-hidden border-t-8 border-t-primary">
+                        <div className="bg-white/75 border border-border rounded-[3rem] shadow-sm overflow-hidden border-t-8 border-t-primary">
                             <div className="p-8 border-b border-border bg-muted/10">
-                                <h2 className="text-h3 font-semibold tracking-tight flex items-center gap-3">
+                                <h2 className="text-h3 font-semibold tracking-tight text-primary flex items-center gap-3">
                                     <Sliders className="text-primary" size={24} />
                                     Active Grading Scale
                                 </h2>
@@ -326,7 +326,7 @@ export default function GradingPage() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
                     {/* Component Form */}
                     <div className="lg:col-span-1 space-y-6">
-                        <div className="bg-card border border-border rounded-[2.5rem] p-8 space-y-8 shadow-sm">
+                        <div className="bg-white/75 border border-border rounded-[2.5rem] p-8 space-y-8 shadow-sm">
                             <h2 className="text-h3 font-semibold flex items-center gap-2">
                                 <Layers className="text-primary" size={20} /> Define Component
                             </h2>
@@ -335,7 +335,7 @@ export default function GradingPage() {
                                 <div className="space-y-2">
                                     <label className="text-label text-muted-foreground ml-2">Display Name (e.g. Test 1)</label>
                                     <input
-                                        className="w-full p-4 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold"
+                                        className="w-full p-4 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold"
                                         value={newComponent.name}
                                         onChange={e => setNewComponent({ ...newComponent, name: e.target.value })}
                                         placeholder="First Continuous Assessment"
@@ -344,7 +344,7 @@ export default function GradingPage() {
                                 <div className="space-y-2">
                                     <label className="text-label text-muted-foreground ml-2">Short Code (e.g. CA1)</label>
                                     <input
-                                        className="w-full p-4 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold uppercase"
+                                        className="w-full p-4 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold"
                                         value={newComponent.component}
                                         onChange={e => setNewComponent({ ...newComponent, component: e.target.value })}
                                         placeholder="CA1"
@@ -355,7 +355,7 @@ export default function GradingPage() {
                                         <label className="text-label text-muted-foreground ml-2">Weight (%)</label>
                                         <input
                                             type="number"
-                                            className="w-full p-4 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold"
+                                            className="w-full p-4 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold"
                                             value={newComponent.weight}
                                             onChange={e => setNewComponent({ ...newComponent, weight: Number(e.target.value) })}
                                         />
@@ -364,7 +364,7 @@ export default function GradingPage() {
                                         <label className="text-label text-muted-foreground ml-2">Max Score</label>
                                         <input
                                             type="number"
-                                            className="w-full p-4 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold"
+                                            className="w-full p-4 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold"
                                             value={newComponent.maxScore}
                                             onChange={e => setNewComponent({ ...newComponent, maxScore: Number(e.target.value) })}
                                         />
@@ -403,9 +403,9 @@ export default function GradingPage() {
 
                     {/* Component List */}
                     <div className="lg:col-span-2">
-                        <div className="bg-card border border-border rounded-[3rem] shadow-sm overflow-hidden border-t-8 border-t-primary">
+                        <div className="bg-white/75 border border-border rounded-[3rem] shadow-sm overflow-hidden border-t-8 border-t-primary">
                             <div className="p-8 border-b border-border bg-muted/10">
-                                <h2 className="text-h3 font-semibold tracking-tight flex items-center gap-3">
+                                <h2 className="text-h3 font-semibold tracking-tight text-primary flex items-center gap-3">
                                     <Layout className="text-primary" size={24} />
                                     Active Components
                                 </h2>

@@ -188,7 +188,7 @@ export default function HostelOverviewPage() {
             {/* Header Section */}
             <div className="relative overflow-hidden rounded-[3.5rem] bg-slate-900 p-12 text-white shadow-2xl">
                 <div className="relative z-10">
-                    <h1 className="text-h1 font-semibold tracking-tight mb-4">Hostel Hub</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary mb-4">Hostel Hub</h1>
                     <p className="text-slate-300 text-xl font-medium max-w-2xl leading-relaxed">
                         Streamline your residential management. Track occupancy, manage building wings, and ensure a comfortable stay for every student.
                     </p>
@@ -200,7 +200,7 @@ export default function HostelOverviewPage() {
             {/* Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {statCards.map((stat, i) => (
-                    <Card key={i} className="rounded-[2.5rem] border-border/50 shadow-xl overflow-hidden group hover:scale-[1.02] transition-all bg-card/40 backdrop-blur-md">
+                    <Card key={i} className="rounded-[2.5rem] border-border/50 shadow-xl overflow-hidden group hover:scale-[1.02] transition-all/40 backdrop-blur-md">
                         <CardContent className="p-8 text-center sm:text-left">
                             <div className={`w-14 h-14 rounded-2xl ${stat.bgColor} ${stat.color} flex items-center justify-center mb-6 mx-auto sm:mx-0 group-hover:scale-110 transition-transform`}>
                                 <stat.icon size={28} />
@@ -250,7 +250,7 @@ export default function HostelOverviewPage() {
                                     <div className="space-y-1.5">
                                         <Label className="font-bold ml-1">Type</Label>
                                         <select
-                                            className="w-full rounded-xl h-12 px-4 border bg-background font-bold appearance-none"
+                                            className="w-full rounded-xl h-12 px-4 border border-primary/90 bg-white/75 font-bold appearance-none"
                                             value={formData.type}
                                             onChange={e => setFormData({ ...formData, type: e.target.value as any })}
                                         >
@@ -338,7 +338,7 @@ export default function HostelOverviewPage() {
                         ))}
 
                         {hostels.length === 0 && (
-                            <div className="col-span-full py-32 text-center bg-card/50 border-2 border-dashed border-border/50 rounded-[4rem]">
+                            <div className="col-span-full py-32 text-center bg-white/75 border-2 border-dashed border-border/50 rounded-[4rem]">
                                 <div className="w-24 h-24 bg-muted/50 rounded-full flex items-center justify-center mx-auto mb-6">
                                     <Building2 size={48} className="text-muted-foreground/30" />
                                 </div>
@@ -454,7 +454,7 @@ export default function HostelOverviewPage() {
                         <div className="space-y-1.5">
                             <Label className="font-bold ml-1">Type</Label>
                             <select
-                                className="w-full rounded-xl h-12 px-4 border bg-background font-bold appearance-none"
+                                className="w-full rounded-xl h-12 px-4 border border-primary/90 bg-white/75 font-bold appearance-none"
                                 value={formData.type}
                                 onChange={e => setFormData({ ...formData, type: e.target.value as any })}
                             >

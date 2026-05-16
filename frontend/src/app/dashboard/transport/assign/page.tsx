@@ -25,7 +25,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 
 export default function TransportAssignmentPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [students, setStudents] = useState<Student[]>([]);
     const [routes, setRoutes] = useState<any[]>([]);
     const [vehicles, setVehicles] = useState<any[]>([]);
@@ -107,7 +107,7 @@ export default function TransportAssignmentPage() {
         <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in duration-500 h-full pb-20">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
+                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3">
                         <Users className="text-primary w-10 h-10" />
                         Transport Management
                     </h1>
@@ -151,7 +151,7 @@ export default function TransportAssignmentPage() {
                                     <button
                                         key={student.id}
                                         onClick={() => setSelectedStudent(student)}
-                                        className={`p-6 rounded-[2rem] border-2 transition-all flex items-center gap-4 text-left group ${selectedStudent?.id === student.id ? 'border-primary bg-primary/5 shadow-lg shadow-primary/10' : 'border-border/50 hover:border-primary/30 hover:bg-muted/30'}`}
+                                        className={`p-6 rounded-[2rem] border-2 transition-all flex items-center gap-4 text-left group ${selectedStudent?.id === student.id ? 'border-primary bg-primary/5 shadow-lg shadow-primary/10' : 'border-border/50 hover:border-primary/60 hover:bg-muted/30'}`}
                                     >
                                         <div className={`w-14 h-14 rounded-2xl flex items-center justify-center font-semibold text-lg transition-transform group-hover:scale-110 ${selectedStudent?.id === student.id ? 'bg-primary text-white' : 'bg-muted text-muted-foreground'}`}>
                                             {student.firstName[0]}{student.lastName[0]}
@@ -173,7 +173,7 @@ export default function TransportAssignmentPage() {
                     </Card>
 
                     {/* Assignment Form */}
-                    <Card className="rounded-[3.5rem] border-border/50 shadow-2xl shadow-primary/5 p-10 space-y-8 sticky top-8 bg-card border-t-8 border-t-primary/20">
+                    <Card className="rounded-[3.5rem] border-border/50 shadow-2xl shadow-primary/5 p-10 space-y-8 sticky top-8 border-t-8 border-t-primary/20">
                         <div>
                             <h3 className="text-h3 font-semibold mb-2 tracking-tight">Assignment Details</h3>
                             <p className="text-muted-foreground font-medium text-sm">Complete the selection below.</p>
@@ -190,7 +190,7 @@ export default function TransportAssignmentPage() {
                                     <div className="space-y-3">
                                         <label className="text-label text-primary ml-1">Commute Route</label>
                                         <select
-                                            className="w-full p-4 bg-background border-2 border-border/50 rounded-2xl focus:border-primary outline-none transition-all font-bold appearance-none cursor-pointer"
+                                            className="w-full p-4 bg-white border-2 border-primary/90 rounded-2xl focus:border-primary outline-none transition-all font-bold appearance-none cursor-pointer"
                                             value={selectedRoute}
                                             onChange={(e) => setSelectedRoute(e.target.value)}
                                         >
@@ -201,7 +201,7 @@ export default function TransportAssignmentPage() {
                                     <div className="space-y-3">
                                         <label className="text-label text-primary ml-1">Fleet Vehicle</label>
                                         <select
-                                            className="w-full p-4 bg-background border-2 border-border/50 rounded-2xl focus:border-primary outline-none transition-all font-bold appearance-none cursor-pointer"
+                                            className="w-full p-4 bg-white border-2 border-primary/90 rounded-2xl focus:border-primary outline-none transition-all font-bold appearance-none cursor-pointer"
                                             value={selectedVehicle}
                                             onChange={(e) => setSelectedVehicle(e.target.value)}
                                         >
@@ -268,7 +268,7 @@ export default function TransportAssignmentPage() {
                                                         </div>
                                                         <div>
                                                             <p className="font-semibold text-lg">{student.firstName} {student.lastName}</p>
-                                                            <p className="text-[10px] font-semibold text-muted-foreground uppercase">{student.class?.name}</p>
+                                                            <p className="text-[10px] font-semibold text-muted-foreground">{student.class?.name}</p>
                                                         </div>
                                                     </div>
                                                 </td>

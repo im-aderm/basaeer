@@ -231,7 +231,7 @@ export default function GalleryPage() {
                 {videos.map((vid) => (
                   <div 
                     key={vid.title} 
-                    className="flex flex-col sm:flex-row gap-6 bg-surface-container p-4 rounded-3xl border border-border group cursor-pointer hover:bg-white/10 hover:border-primary/30 transition-all duration-300"
+                    className="flex flex-col sm:flex-row gap-6 bg-surface-container p-4 rounded-3xl border border-border group cursor-pointer hover:bg-white/10 hover:border-primary/60 transition-all duration-300"
                   >
                     <div className="relative w-full sm:w-48 h-32 shrink-0 rounded-2xl overflow-hidden">
                       <Image

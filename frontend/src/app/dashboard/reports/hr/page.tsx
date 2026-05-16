@@ -54,7 +54,7 @@ export default function HRReportsPage() {
   return (
     <div className="max-w-7xl mx-auto space-y-8 pb-20 animate-in fade-in duration-700">
       <div>
-        <h1 className="text-h1 font-semibold tracking-tight uppercase text-primary">Human Resources</h1>
+        <h1 className="text-h1 font-bold tracking-tight text-primary">Human Resources</h1>
         <p className="text-muted-foreground font-medium mt-1">Workforce distribution, payroll, and personnel insights</p>
       </div>
 

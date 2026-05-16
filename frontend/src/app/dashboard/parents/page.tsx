@@ -64,7 +64,7 @@ export default function ParentsListPage() {
         <div className="max-w-7xl mx-auto space-y-8 pb-20">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight uppercase flex items-center gap-4">
+                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-4">
                         <UserCheck className="text-primary w-10 h-10" />
                         Parent Management
                     </h1>
@@ -77,19 +77,19 @@ export default function ParentsListPage() {
                 </Link>
             </div>
 
-            <Card className="rounded-[3rem] border-border/50 shadow-2xl bg-background overflow-hidden border-t-8 border-t-primary">
-                <CardHeader className="p-8 border-b border-border/50 bg-muted/20">
+            <Card className="rounded-[3rem] shadow-2xl overflow-hidden border-t-8 border-t-primary">
+                <CardHeader className="p-8 border-b bg-muted/20">
                     <div className="flex flex-col md:flex-row justify-between gap-4">
                         <div className="relative flex-1">
                             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground w-5 h-5" />
                             <Input
                                 placeholder="Search by name or email..."
-                                className="pl-12 h-14 rounded-2xl border-border/50 shadow-sm font-bold text-lg focus-visible:ring-primary"
+                                className="pl-12 h-14 rounded-2xl shadow-sm font-bold text-lg focus-visible:ring-primary"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                             />
                         </div>
-                        <Button variant="outline" className="h-14 px-6 rounded-2xl font-semibold gap-2 border-border/50 hover:bg-primary/5">
+                        <Button variant="outline" className="h-14 px-6 rounded-2xl font-semibold gap-2 hover:bg-primary/5">
                             <Filter className="w-5 h-5" /> Filter
                         </Button>
                     </div>
@@ -104,7 +104,7 @@ export default function ParentsListPage() {
                         <div className="overflow-x-auto">
                             <table className="w-full text-left border-collapse">
                                 <thead>
-                                    <tr className="border-b border-border/50 bg-muted/10">
+                                    <tr className="border-b bg-muted/10">
                                         <th className="p-6 font-semibold uppercase text-xs opacity-50">Parent Info</th>
                                         <th className="p-6 font-semibold uppercase text-xs opacity-50">Linked Students</th>
                                         <th className="p-6 font-semibold uppercase text-xs opacity-50">Contact</th>
@@ -114,7 +114,7 @@ export default function ParentsListPage() {
                                 </thead>
                                 <tbody>
                                     {filteredParents.length > 0 ? filteredParents.map((parent) => (
-                                        <tr key={parent.id} className="border-b border-border/50 hover:bg-primary/5 transition-all group">
+                                        <tr key={parent.id} className="border-b hover:bg-primary/5 transition-all group">
                                             <td className="p-6">
                                                 <div className="flex items-center gap-4">
                                                     <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary font-semibold text-lg shadow-sm">

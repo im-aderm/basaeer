@@ -25,7 +25,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 
 export default function GenerateAdmitCardPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [students, setStudents] = useState<Student[]>([]);
     const [classes, setClasses] = useState<Class[]>([]);
     const [sessions, setSessions] = useState<AcademicSession[]>([]);
@@ -51,7 +51,7 @@ export default function GenerateAdmitCardPage() {
                 StudentService.getAll(),
                 ClassService.getAll(),
                 SessionService.getAll(),
-                CardService.getAllTemplates(user?.branchId)
+                CardService.getAllTemplates(resolvedBranchId)
             ]);
 
             setStudents(studentsData);
@@ -73,9 +73,9 @@ export default function GenerateAdmitCardPage() {
     };
 
     const fetchCards = async () => {
-        if (!filters.sessionId || !user?.branchId) return;
+        if (!filters.sessionId || !resolvedBranchId) return;
         try {
-            const cardData = await CardService.getAllCards(user.branchId, filters.sessionId);
+            const cardData = await CardService.getAllCards(resolvedBranchId, filters.sessionId);
             setCards(cardData);
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to fetch cards:", error);
@@ -138,7 +138,7 @@ export default function GenerateAdmitCardPage() {
         <div className="space-y-8 animate-in fade-in duration-500 pb-20">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
+                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3">
                         <BookOpen className="text-primary w-10 h-10" />
                         Generate Admit Cards
                     </h1>
@@ -157,12 +157,12 @@ export default function GenerateAdmitCardPage() {
             </div>
 
             {/* Filters */}
-            <Card className="rounded-[3rem] border-border/50 shadow-lg bg-card/50 backdrop-blur-sm p-6">
+            <Card className="rounded-[3rem] border-border/50 shadow-lg p-6">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                     <div className="space-y-2">
                         <label className="text-[10px] font-semibold uppercase text-muted-foreground ml-2">Class</label>
                         <select
-                            className="w-full h-12 rounded-xl bg-muted/50 border-none font-bold px-4 focus:ring-2 ring-primary/20"
+                            className="w-full h-12 rounded-xl bg-white border border-primary/90 font-bold px-4 focus:ring-2 ring-primary/20"
                             value={filters.classId}
                             onChange={(e) => setFilters({ ...filters, classId: e.target.value })}
                         >
@@ -173,7 +173,7 @@ export default function GenerateAdmitCardPage() {
                     <div className="space-y-2">
                         <label className="text-[10px] font-semibold uppercase text-muted-foreground ml-2">Session</label>
                         <select
-                            className="w-full h-12 rounded-xl bg-muted/50 border-none font-bold px-4 focus:ring-2 ring-primary/20"
+                            className="w-full h-12 rounded-xl bg-white border border-primary/90 font-bold px-4 focus:ring-2 ring-primary/20"
                             value={filters.sessionId}
                             onChange={(e) => setFilters({ ...filters, sessionId: e.target.value })}
                         >
@@ -183,7 +183,7 @@ export default function GenerateAdmitCardPage() {
                     <div className="space-y-2">
                         <label className="text-[10px] font-semibold uppercase text-muted-foreground ml-2">Admit Template</label>
                         <select
-                            className="w-full h-12 rounded-xl bg-muted/50 border-none font-bold px-4 focus:ring-2 ring-primary/20"
+                            className="w-full h-12 rounded-xl bg-white border border-primary/90 font-bold px-4 focus:ring-2 ring-primary/20"
                             value={filters.templateId}
                             onChange={(e) => setFilters({ ...filters, templateId: e.target.value })}
                         >
@@ -207,7 +207,7 @@ export default function GenerateAdmitCardPage() {
             </Card>
 
             {/* Student List */}
-            <Card className="rounded-[4rem] border-border/50 shadow-2xl overflow-hidden border-t-8 border-t-primary/10 bg-card/50 backdrop-blur-sm">
+            <Card className="rounded-[4rem] border-border/50 shadow-2xl overflow-hidden border-t-8 border-t-primary/10">
                 <CardHeader className="p-10 pb-0">
                     <div className="flex justify-between items-center">
                         <CardTitle className="text-h3 font-semibold tracking-tight">Student List</CardTitle>

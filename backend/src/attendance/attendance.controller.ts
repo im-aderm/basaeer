@@ -273,4 +273,13 @@ export class AttendanceController {
       context,
     );
   }
+
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Teacher — Get My Class Attendance' })
+  @Get('my-class')
+  @Roles(UserRole.TEACHER)
+  getMyClassAttendance(@GetTenantContext() context: TenantContext) {
+    return this.attendanceService.getMyClassAttendance(context);
+  }
 }

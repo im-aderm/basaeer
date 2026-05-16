@@ -27,12 +27,11 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
 export default function OnlineAdmissionsDashboard() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [selectedAdmission, setSelectedAdmission] = useState<OnlineAdmission | null>(null);
     const [rejectionTargetId, setRejectionTargetId] = useState<string | null>(null);
     const [rejectionReason, setRejectionReason] = useState("");
     const [branches, setBranches] = useState<Branch[]>([]);
-    const [resolvedBranchId, setResolvedBranchId] = useState<string | null>(null);
     const [admissions, setAdmissions] = useState<OnlineAdmission[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -51,14 +50,14 @@ export default function OnlineAdmissionsDashboard() {
 
     useEffect(() => {
         if (user) {
-            if (user.branchId) {
-                setResolvedBranchId(user.branchId);
-                fetchAdmissions(user.branchId);
+            if (resolvedBranchId) {
+                // resolvedBranchId from useAuth()
+                fetchAdmissions(resolvedBranchId);
             } else {
                 BranchService.getAll().then(data => {
                     setBranches(data);
                     if (data.length > 0) {
-                        setResolvedBranchId(data[0].id);
+                        // resolvedBranchId from useAuth();
                         fetchAdmissions(data[0].id);
                     } else {
                         setLoading(false);
@@ -157,7 +156,7 @@ export default function OnlineAdmissionsDashboard() {
         <div className="space-y-6">
             <div className="flex justify-between items-end">
                 <div className="space-y-1">
-                    <h1 className="text-4xl font-black italic tracking-tight text-primary uppercase">Admission Control</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Admission Control</h1>
                     <p className="text-muted-foreground font-medium italic">Review and manage incoming student applications.</p>
                 </div>
             </div>
@@ -194,7 +193,7 @@ export default function OnlineAdmissionsDashboard() {
                                                 {adm.firstName[0]}{adm.lastName[0]}
                                             </div>
                                             <div>
-                                                <p className="font-black italic uppercase text-primary">{adm.firstName} {adm.lastName}</p>
+                                                <p className="font-black italic ">{adm.firstName} {adm.lastName}</p>
                                                 <p className="text-[10px] text-muted-foreground font-bold tracking-tight">{new Date(adm.createdAt).toLocaleDateString()}</p>
                                             </div>
                                         </div>

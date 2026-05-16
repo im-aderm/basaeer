@@ -103,9 +103,9 @@ export default function LibraryBorrowingPage() {
     return (
         <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in duration-500 pb-20">
             {/* Header section */}
-            <div className="bg-card border border-border p-10 rounded-[3rem] shadow-sm relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="bg-white/75 border border-border p-10 rounded-[3rem] shadow-sm relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div className="relative z-10">
-                    <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3 text-purple-600">
+                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3 text-purple-600">
                         <Bookmark className="w-10 h-10" />
                         Borrowing Records
                     </h1>
@@ -127,7 +127,7 @@ export default function LibraryBorrowingPage() {
                                     <Label className="font-bold ml-1">Select Book</Label>
                                     <select
                                         required
-                                        className="w-full rounded-xl h-12 px-4 border bg-card font-bold"
+                                        className="w-full rounded-xl h-12 px-4 border border-primary/90 bg-white/75 font-bold"
                                         value={issueData.bookId}
                                         onChange={e => setIssueData({ ...issueData, bookId: e.target.value })}
                                     >
@@ -141,7 +141,7 @@ export default function LibraryBorrowingPage() {
                                     <Label className="font-bold ml-1">Select Student</Label>
                                     <select
                                         required
-                                        className="w-full rounded-xl h-12 px-4 border bg-card font-bold"
+                                        className="w-full rounded-xl h-12 px-4 border border-primary/90 bg-white/75 font-bold"
                                         value={issueData.studentId}
                                         onChange={e => setIssueData({ ...issueData, studentId: e.target.value })}
                                     >
@@ -172,7 +172,7 @@ export default function LibraryBorrowingPage() {
             </div>
 
             {/* Records Log Design */}
-            <Card className="rounded-[3rem] border-border/50 shadow-2xl bg-card/50 backdrop-blur-sm overflow-hidden border-t-8 border-t-purple-500">
+            <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden border-t-8 border-t-purple-500">
                 <div className="overflow-x-auto">
                     <table className="w-full border-collapse">
                         <thead>

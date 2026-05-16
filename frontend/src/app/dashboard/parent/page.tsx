@@ -25,7 +25,7 @@ import { toast } from "sonner";
 import Link from "next/link";
 
 export default function ParentDashboardPage() {
-  const { user } = useAuth();
+  const { user, resolvedBranchId } = useAuth();
   const [children, setChildren] = useState<any[]>([]);
   const [events, setEvents] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -81,7 +81,7 @@ export default function ParentDashboardPage() {
       {/* Top Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-white/5 pb-6">
         <div>
-          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-white font-heading">
+          <h1 className="text-h1 font-bold tracking-tight text-white">
             Family Portal Ecosystem
           </h1>
           <p className="text-[#ccc3d8] font-medium mt-1">

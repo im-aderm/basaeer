@@ -11,7 +11,7 @@ import { Plus, Trash2 } from 'lucide-react';
 import api from '@/lib/api';
 
 export default function DepartmentsPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [departments, setDepartments] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -43,7 +43,7 @@ export default function DepartmentsPage() {
         try {
             await api.post('/departments', {
                 ...formData,
-                branchId: user?.branchId
+                branchId: resolvedBranchId
             });
             setIsDialogOpen(false);
             fetchDepartments();
@@ -70,7 +70,7 @@ export default function DepartmentsPage() {
         <div className="space-y-6">
             <div className="flex justify-between items-center">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight">Departments</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Departments</h1>
                     <p className="text-muted-foreground font-medium">Manage and organize school departments.</p>
                 </div>
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>

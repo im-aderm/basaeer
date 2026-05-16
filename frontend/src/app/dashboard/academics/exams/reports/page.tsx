@@ -20,7 +20,7 @@ import { Term } from "@/types/enums";
 import { clsx } from "clsx";
 
 export default function ReportCardPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const branding = user?.branding;
 
     const [classes, setClasses] = useState<any[]>([]);
@@ -155,7 +155,7 @@ export default function ReportCardPage() {
                             />
                         )}
                         <div>
-                            <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
+                            <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3">
                                 <FileText className="w-10 h-10" style={{ color: branding?.primaryColor || 'var(--primary)' }} />
                                 <span style={{ color: branding?.primaryColor || undefined }}>
                                     Report Card Management
@@ -170,11 +170,11 @@ export default function ReportCardPage() {
             </div>
 
             {/* Filter Panel */}
-            <div className="bg-card border border-border rounded-[3rem] p-10 shadow-sm flex flex-wrap items-end gap-8">
+            <div className="bg-white/75 border border-border rounded-[3rem] p-10 shadow-sm flex flex-wrap items-end gap-8">
                 <div className="flex-1 min-w-[220px] space-y-3">
                     <label className="text-label text-muted-foreground ml-3">Select Class</label>
                     <select
-                        className="w-full p-5 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold"
+                        className="w-full p-5 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold"
                         value={selectedClassId}
                         onChange={e => setSelectedClassId(e.target.value)}
                     >
@@ -186,7 +186,7 @@ export default function ReportCardPage() {
                 <div className="flex-1 min-w-[220px] space-y-3">
                     <label className="text-label text-muted-foreground ml-3">Select Section</label>
                     <select
-                        className="w-full p-5 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold"
+                        className="w-full p-5 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold"
                         value={selectedSectionId}
                         onChange={e => setSelectedSectionId(e.target.value)}
                         disabled={!selectedClassId}
@@ -199,7 +199,7 @@ export default function ReportCardPage() {
                 <div className="flex-1 min-w-[180px] space-y-3">
                     <label className="text-label text-muted-foreground ml-3">Academic Session</label>
                     <select
-                        className="w-full p-5 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold"
+                        className="w-full p-5 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold"
                         value={selectedSessionId}
                         onChange={e => setSelectedSessionId(e.target.value)}
                     >
@@ -210,7 +210,7 @@ export default function ReportCardPage() {
                 <div className="flex-1 min-w-[150px] space-y-3">
                     <label className="text-label text-muted-foreground ml-3">Academic Term</label>
                     <select
-                        className="w-full p-5 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold"
+                        className="w-full p-5 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold"
                         value={selectedTerm}
                         onChange={e => setSelectedTerm(e.target.value as Term)}
                     >
@@ -230,7 +230,7 @@ export default function ReportCardPage() {
             </div>
 
             {/* Student Grid */}
-            <div className="bg-card border border-border rounded-[3.5rem] shadow-sm overflow-hidden border-t-8 border-t-primary">
+            <div className="bg-white/75 border border-border rounded-[3.5rem] shadow-sm overflow-hidden border-t-8 border-t-primary">
                 {loading ? (
                     <div className="py-32 flex flex-col items-center justify-center space-y-4">
                         <Loader2 className="w-12 h-12 animate-spin text-primary" />

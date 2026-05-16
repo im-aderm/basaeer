@@ -104,7 +104,7 @@ export default function LeaveManagementPage() {
             <div className="relative overflow-hidden rounded-[3.5rem] bg-indigo-900 p-12 text-white shadow-2xl">
                 <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-6">
                     <div>
-                        <h1 className="text-h1 font-semibold tracking-tight mb-4">Leave Management</h1>
+                        <h1 className="text-h1 font-bold tracking-tight text-primary mb-4">Leave Management</h1>
                         <p className="text-indigo-200 text-xl font-medium max-w-2xl leading-relaxed">
                             Review and approve time-off requests. Maintain operational continuity while supporting staff well-being.
                         </p>
@@ -122,7 +122,7 @@ export default function LeaveManagementPage() {
 
             <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden border-t-8 border-t-indigo-500/20">
                 <CardHeader className="p-10 border-b border-border flex flex-row items-center justify-between bg-muted/5">
-                    <CardTitle className="text-h3 font-semibold flex items-center gap-3">
+                    <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
                         <Clock className="text-indigo-600" /> Pending Applications
                     </CardTitle>
                     <div className="flex gap-2">

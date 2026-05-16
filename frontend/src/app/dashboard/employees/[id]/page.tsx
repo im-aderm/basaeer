@@ -98,7 +98,7 @@ export default function EmployeeProfileHub() {
                     <ArrowLeft size={20} />
                 </Button>
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
+                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3">
                         Staff Profile Hub
                     </h1>
                     <p className="text-muted-foreground font-medium">Comprehensive oversight for {staff.user.firstName} {staff.user.lastName}</p>
@@ -121,7 +121,7 @@ export default function EmployeeProfileHub() {
                         <div className="w-full pt-6 border-t border-white/10 space-y-4">
                             <div className="flex items-center justify-between text-sm">
                                 <span className="text-primary-foreground/60 font-medium">Status</span>
-                                <span className="bg-white/20 px-3 py-1 rounded-full text-[10px] font-semibold uppercase">{staff.status}</span>
+                                <span className="bg-white/20 px-3 py-1 rounded-full text-[10px] font-semibold">{staff.status}</span>
                             </div>
                         </div>
                     </CardContent>
@@ -130,21 +130,21 @@ export default function EmployeeProfileHub() {
                 </Card>
 
                 <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <Card className="rounded-[2.5rem] border-border/50 shadow-xl p-8 bg-card/50 backdrop-blur-sm group hover:scale-[1.02] transition-all">
+                    <Card className="rounded-[2.5rem] border-border/50 shadow-xl p-8 group hover:scale-[1.02] transition-all">
                         <div className="p-4 rounded-2xl bg-blue-500/10 text-blue-500 w-fit mb-6">
                             <Mail size={24} />
                         </div>
                         <p className="text-xs font-semibold uppercase text-muted-foreground tracking-widest mb-1">Email Address</p>
                         <p className="font-bold text-sm truncate">{staff.user.email}</p>
                     </Card>
-                    <Card className="rounded-[2.5rem] border-border/50 shadow-xl p-8 bg-card/50 backdrop-blur-sm group hover:scale-[1.02] transition-all">
+                    <Card className="rounded-[2.5rem] border-border/50 shadow-xl p-8 group hover:scale-[1.02] transition-all">
                         <div className="p-4 rounded-2xl bg-purple-500/10 text-purple-500 w-fit mb-6">
                             <Building2 size={24} />
                         </div>
                         <p className="text-xs font-semibold uppercase text-muted-foreground tracking-widest mb-1">Department</p>
                         <p className="font-bold text-sm">{staff.department?.name || "No Dept"}</p>
                     </Card>
-                    <Card className="rounded-[2.5rem] border-border/50 shadow-xl p-8 bg-card/50 backdrop-blur-sm group hover:scale-[1.02] transition-all">
+                    <Card className="rounded-[2.5rem] border-border/50 shadow-xl p-8 group hover:scale-[1.02] transition-all">
                         <div className="p-4 rounded-2xl bg-amber-500/10 text-amber-500 w-fit mb-6">
                             <Calendar size={24} />
                         </div>
@@ -221,7 +221,7 @@ export default function EmployeeProfileHub() {
                 <TabsContent value="salary" className="space-y-8 animate-in slide-in-from-bottom-4 duration-500">
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         {/* Configurer */}
-                        <Card className="lg:col-span-1 rounded-[3rem] border-border/50 shadow-2xl p-10 bg-card/50 border-t-8 border-t-primary">
+                        <Card className="lg:col-span-1 rounded-[3rem] border-border/50 shadow-2xl p-10 border-t-8 border-t-primary">
                             <h3 className="text-h3 font-semibold mb-8 flex items-center gap-3">
                                 <DollarSign className="text-primary" /> Salary Template
                             </h3>
@@ -279,7 +279,7 @@ export default function EmployeeProfileHub() {
                                                     </span>
                                                 </td>
                                                 <td className="px-10 py-6 text-right">
-                                                    <Button variant="ghost" size="sm" className="rounded-xl font-semibold text-[10px] uppercase">
+                                                    <Button variant="ghost" size="sm" className="rounded-xl font-semibold text-[10px]">
                                                         <FileText className="mr-1" size={12} /> Slip
                                                     </Button>
                                                 </td>
@@ -301,7 +301,7 @@ export default function EmployeeProfileHub() {
 
                 {/* Leaves Tab */}
                 <TabsContent value="leaves" className="animate-in slide-in-from-bottom-4 duration-500">
-                    <Card className="rounded-[3rem] border-border/50 shadow-2xl p-10 bg-card/50">
+                    <Card className="rounded-[3rem] border-border/50 shadow-2xl p-10">
                         <div className="flex justify-between items-center mb-10">
                             <h3 className="text-h3 font-semibold flex items-center gap-3">
                                 <Clock className="text-primary" /> Leave Records

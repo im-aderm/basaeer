@@ -157,14 +157,14 @@ export default function StudentAttendancePage() {
                         <ArrowLeft size={22} />
                     </Button>
                     <div>
-                        <h1 className="text-h1 font-semibold tracking-tight leading-none">Manual Roster</h1>
+                        <h1 className="text-h1 font-bold tracking-tight text-primary leading-none">Manual Roster</h1>
                         <p className="text-muted-foreground mt-1">Mark attendance manually for a session.</p>
                     </div>
                 </div>
 
                 <div className="w-full md:w-64">
                     <Select value={selectedSessionId} onValueChange={setSelectedSessionId}>
-                        <SelectTrigger className="h-14 rounded-2xl bg-white shadow-sm border-border/50">
+                        <SelectTrigger className="h-14 rounded-2xl bg-white/75 shadow-sm">
                             <SelectValue placeholder="Select Active Session" />
                         </SelectTrigger>
                         <SelectContent>
@@ -188,7 +188,7 @@ export default function StudentAttendancePage() {
                     <div className="space-y-6">
                         {/* Session Stats & Bulk Actions */}
                         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                            <Card className="rounded-3xl border-border/50 shadow-sm bg-emerald-50/30">
+                            <Card className="rounded-3xl shadow-sm bg-emerald-50/30">
                                 <CardContent className="p-6 flex items-center gap-4">
                                     <div className="p-3 rounded-2xl bg-emerald-500 text-white shadow-lg shadow-emerald-200">
                                         <CheckCircle2 size={24} />
@@ -197,11 +197,11 @@ export default function StudentAttendancePage() {
                                         <div className="text-2xl font-black text-emerald-600 leading-none">
                                             {Object.values(attendanceData).filter(a => a.status === 'PRESENT').length}
                                         </div>
-                                        <div className="text-xs font-bold text-emerald-600/60 uppercase">Present</div>
+                                        <div className="text-xs font-bold text-emerald-600/60">Present</div>
                                     </div>
                                 </CardContent>
                             </Card>
-                            <Card className="rounded-3xl border-border/50 shadow-sm bg-rose-50/30">
+                            <Card className="rounded-3xl shadow-sm bg-rose-50/30">
                                 <CardContent className="p-6 flex items-center gap-4">
                                     <div className="p-3 rounded-2xl bg-rose-500 text-white shadow-lg shadow-rose-200">
                                         <XCircle size={24} />
@@ -210,7 +210,7 @@ export default function StudentAttendancePage() {
                                         <div className="text-2xl font-black text-rose-600 leading-none">
                                             {Object.values(attendanceData).filter(a => a.status === 'ABSENT').length}
                                         </div>
-                                        <div className="text-xs font-bold text-rose-600/60 uppercase">Absent</div>
+                                        <div className="text-xs font-bold text-rose-600/60">Absent</div>
                                     </div>
                                 </CardContent>
                             </Card>
@@ -240,7 +240,7 @@ export default function StudentAttendancePage() {
                                 const option = STATUS_OPTIONS.find(o => o.value === currentStatus);
                                 
                                 return (
-                                    <Card key={student.id} className="rounded-[2rem] border-border/50 shadow-sm overflow-hidden group hover:border-primary/20 transition-all">
+                                    <Card key={student.id} className="rounded-[2rem] shadow-sm overflow-hidden group hover:border-primary/20 transition-all">
                                         <CardContent className="p-6">
                                             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                                                 <div className="flex items-center gap-4">
@@ -252,7 +252,7 @@ export default function StudentAttendancePage() {
                                                             {student.firstName} {student.lastName}
                                                         </div>
                                                         <div className="flex items-center gap-2 mt-1">
-                                                            <Badge variant="outline" className="text-[10px] font-black uppercase border-border/50 text-muted-foreground">
+                                                            <Badge variant="outline" className="text-[10px] font-black uppercase text-muted-foreground">
                                                                 {student.userId}
                                                             </Badge>
                                                             {attendanceData[student.id]?.updatedAt && (

@@ -498,4 +498,46 @@ export class AttendanceService {
       }))
       .sort((a, b) => b.percentage - a.percentage);
   }
+
+  async getMyClassAttendance(context: TenantContext) {
+    const staff = await this.prisma.staff.findUnique({
+      where: { userId: context.userId },
+      include: {
+        classes: {
+          include: {
+            students: { include: { user: { select: { id: true, firstName: true, lastName: true } } } },
+            sections: true,
+          },
+        },
+      },
+    });
+    if (!staff || staff.classes.length === 0) {
+      return { message: 'No class assigned', attendance: [], classes: [] };
+    }
+
+    const sectionIds = staff.classes.flatMap((c) => c.sections.map((s) => s.id));
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const attendance = sectionIds.length > 0
+      ? await this.prisma.attendance.findMany({
+          where: { sectionId: { in: sectionIds }, date: today },
+          include: {
+            student: { include: { user: { select: { id: true, firstName: true, lastName: true } } } },
+            session: true,
+          },
+          orderBy: { createdAt: 'desc' },
+        })
+      : [];
+
+    return {
+      classes: staff.classes.map((c) => ({
+        id: c.id,
+        name: c.name,
+        studentCount: c.students.length,
+        sectionCount: c.sections.length,
+      })),
+      todayAttendance: attendance,
+    };
+  }
 }

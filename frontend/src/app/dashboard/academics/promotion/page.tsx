@@ -15,7 +15,7 @@ import { AcademicService } from '@/services/academicService';
 import { toast } from 'sonner';
 
 export default function StudentPromotionPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
 
     // Source Selection
     const [classes, setClasses] = useState<Class[]>([]);
@@ -114,7 +114,7 @@ export default function StudentPromotionPage() {
         <div className="space-y-8 max-w-7xl mx-auto">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight">Student Promotion</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Student Promotion</h1>
                     <p className="text-muted-foreground font-medium mt-1">Move students to the next academic level.</p>
                 </div>
                 <div className="flex gap-4">
@@ -127,7 +127,7 @@ export default function StudentPromotionPage() {
 
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
                 {/* Source/Target Selection */}
-                <Card className="lg:col-span-1 rounded-[2.5rem] border-border/50 shadow-2xl p-2 h-fit sticky top-8">
+                <Card className="lg:col-span-1 rounded-[2.5rem] shadow-2xl p-2 h-fit sticky top-8">
                     <CardHeader className="bg-primary/5 rounded-[2rem] mb-2">
                         <CardTitle className="text-lg font-semibold flex items-center gap-2">
                             <GraduationCap className="h-5 w-5" /> Selection
@@ -137,11 +137,11 @@ export default function StudentPromotionPage() {
                         {/* Source */}
                         <div className="space-y-4">
                             <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-primary/60 px-2">Source Level</h3>
-                            <div className="space-y-4 p-4 bg-muted/30 rounded-3xl border border-border/50">
+                            <div className="space-y-4 p-4 bg-muted/30 rounded-3xl border">
                                 <div className="space-y-2">
                                     <label className="text-label text-muted-foreground ml-1">Class</label>
                                     <Select value={selectedClass} onValueChange={handleClassChange}>
-                                        <SelectTrigger className="h-12 rounded-2xl border-border/50 bg-background/50 font-bold">
+                                        <SelectTrigger className="h-12 rounded-2xl font-bold">
                                             <SelectValue placeholder="Select class" />
                                         </SelectTrigger>
                                         <SelectContent className="rounded-2xl">
@@ -154,7 +154,7 @@ export default function StudentPromotionPage() {
                                 <div className="space-y-2">
                                     <label className="text-label text-muted-foreground ml-1">Section</label>
                                     <Select value={selectedSection} onValueChange={setSelectedSection}>
-                                        <SelectTrigger className="h-12 rounded-2xl border-border/50 bg-background/50 font-bold">
+                                        <SelectTrigger className="h-12 rounded-2xl font-bold">
                                             <SelectValue placeholder="Select section" />
                                         </SelectTrigger>
                                         <SelectContent className="rounded-2xl">
@@ -177,7 +177,7 @@ export default function StudentPromotionPage() {
                                 <div className="space-y-2">
                                     <label className="text-label text-muted-foreground ml-1">Target Class</label>
                                     <Select value={targetClass} onValueChange={handleTargetClassChange}>
-                                        <SelectTrigger className="h-12 rounded-2xl border-emerald-500/10 bg-background/50 font-bold">
+                                        <SelectTrigger className="h-12 rounded-2xl border-emerald-500/10 font-bold">
                                             <SelectValue placeholder="To class" />
                                         </SelectTrigger>
                                         <SelectContent className="rounded-2xl">
@@ -190,7 +190,7 @@ export default function StudentPromotionPage() {
                                 <div className="space-y-2">
                                     <label className="text-label text-muted-foreground ml-1">Target Section</label>
                                     <Select value={targetSection} onValueChange={setTargetSection}>
-                                        <SelectTrigger className="h-12 rounded-2xl border-emerald-500/10 bg-background/50 font-bold">
+                                        <SelectTrigger className="h-12 rounded-2xl border-emerald-500/10 font-bold">
                                             <SelectValue placeholder="To section" />
                                         </SelectTrigger>
                                         <SelectContent className="rounded-2xl">
@@ -215,10 +215,10 @@ export default function StudentPromotionPage() {
 
                 {/* Students List */}
                 <div className="lg:col-span-3">
-                    <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden min-h-[600px] flex flex-col">
+                    <Card className="rounded-[3rem] shadow-2xl overflow-hidden min-h-[600px] flex flex-col">
                         <CardHeader className="p-8 pb-4">
                             <div className="flex justify-between items-center">
-                                <CardTitle className="text-h3 font-semibold flex items-center gap-3">
+                                <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
                                     <Users className="h-7 w-7 text-primary" />
                                     Student List
                                     {students.length > 0 && <span className="text-sm font-medium text-muted-foreground ml-2 not-italic">({students.length} found)</span>}
@@ -240,7 +240,7 @@ export default function StudentPromotionPage() {
                             <div className="h-full">
                                 <Table>
                                     <TableHeader className="bg-muted/30 h-16">
-                                        <TableRow className="border-border/50 hover:bg-transparent">
+                                        <TableRow className="hover:bg-transparent">
                                             <TableHead className="w-16 px-8"></TableHead>
                                             <TableHead className="font-semibold px-4 uppercase tracking-tighter text-muted-foreground">Admission No</TableHead>
                                             <TableHead className="font-semibold px-4 uppercase tracking-tighter text-muted-foreground">Full Name</TableHead>
@@ -272,7 +272,7 @@ export default function StudentPromotionPage() {
                                                 </TableCell>
                                                 <TableCell className="font-medium text-muted-foreground">{student.parent?.user?.firstName || 'N/A'}</TableCell>
                                                 <TableCell>
-                                                    <Badge variant="secondary" className="font-semibold text-[10px] bg-muted/50 border-border/50">
+                                                    <Badge variant="secondary" className="font-semibold text-[10px] bg-muted/50">
                                                         {student.class?.name} - {student.section?.name}
                                                     </Badge>
                                                 </TableCell>

@@ -167,7 +167,7 @@ export default function StudentExamTakePage() {
                     <CheckCircle2 className="h-24 w-24" />
                 </div>
                 <div className="text-center space-y-2">
-                    <h1 className="text-h1 font-semibold tracking-tighter uppercase">Submission Confirmed</h1>
+                    <h1 className="text-h1 font-bold tracking-tighter text-primary">Submission Confirmed</h1>
                     <p className="text-muted-foreground font-bold text-lg">Your answers have been securely transmitted and recorded.</p>
                 </div>
                 <Button
@@ -230,7 +230,7 @@ export default function StudentExamTakePage() {
                     <div className="bg-amber-500/10 border border-amber-500/20 p-6 rounded-[2rem] flex items-center gap-6 animate-bounce">
                         <ShieldAlert className="h-12 w-12 text-amber-500" />
                         <div>
-                            <p className="font-semibold text-h3 text-amber-600 uppercase">Attention Required!</p>
+                            <p className="font-semibold text-h3 text-amber-600">Attention Required!</p>
                             <p className="text-amber-700/80 font-bold">You have {warnings} warning(s). Maintain focus on the exam window.</p>
                         </div>
                     </div>
@@ -263,7 +263,7 @@ export default function StudentExamTakePage() {
                                         key={opt.id}
                                         className={`flex items-center gap-6 p-8 rounded-[2.5rem] border-2 transition-all cursor-pointer group shadow-sm ${answers[currentQuestion.id] === opt.id
                                             ? 'bg-primary/5 border-primary shadow-xl shadow-primary/10'
-                                            : 'bg-background border-border/50 hover:border-primary/30 hover:bg-primary/[0.02]'
+                                            : 'bg-background border-border/50 hover:border-primary/60 hover:bg-primary/[0.02]'
                                             }`}
                                     >
                                         <div className={`h-10 w-10 flex-shrink-0 rounded-2xl flex items-center justify-center font-semibold transition-all ${answers[currentQuestion.id] === opt.id ? 'bg-primary text-white scale-110 shadow-lg' : 'bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary'
@@ -279,7 +279,7 @@ export default function StudentExamTakePage() {
                             </RadioGroup>
                         ) : (
                             <textarea
-                                className="w-full min-h-[300px] rounded-[3rem] p-12 bg-background border-2 border-border/50 font-bold text-2xl focus:ring-8 ring-primary/5 focus:border-primary/30 outline-none transition-all resize-none shadow-xl"
+                                className="w-full min-h-[300px] rounded-[3rem] p-12 bg-background border-2 border-border/50 font-bold text-2xl focus:ring-8 ring-primary/5 focus:border-primary/60 outline-none transition-all resize-none shadow-xl"
                                 placeholder="Type your detailed answer here..."
                                 value={answers[currentQuestion.id] || ''}
                                 onChange={(e) => handleAnswer(currentQuestion.id, e.target.value)}

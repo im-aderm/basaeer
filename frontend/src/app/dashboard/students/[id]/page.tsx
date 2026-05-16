@@ -72,7 +72,7 @@ export default function StudentProfilePage() {
                         <ArrowLeft size={24} />
                     </Button>
                     <div>
-                        <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
+                        <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3">
                             {student.firstName} {student.lastName}
                         </h1>
                         <div className="flex items-center gap-2 mt-1">
@@ -100,7 +100,7 @@ export default function StudentProfilePage() {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Info Card */}
-                <Card className="lg:col-span-1 rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-card/50 backdrop-blur-sm border-t-8 border-t-primary">
+                <Card className="lg:col-span-1 rounded-[3rem] border-border/50 shadow-2xl overflow-hidden border-t-8 border-t-primary">
                     <CardHeader className="text-center pb-0 pt-10">
                         <div className="w-32 h-32 rounded-[2.5rem] bg-primary/10 flex items-center justify-center mx-auto text-primary mb-4 transform rotate-6 hover:rotate-0 transition-transform duration-500 shadow-xl shadow-primary/10">
                             <User size={64} />
@@ -179,7 +179,7 @@ export default function StudentProfilePage() {
 
                         <TabsContent value="overview" className="mt-8 animate-in slide-in-from-left-4 duration-500">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <Card className="rounded-[2.5rem] border-border/50 shadow-xl p-8 bg-card/50">
+                                <Card className="rounded-[2.5rem] border-border/50 shadow-xl p-8">
                                     <h3 className="text-h3 font-semibold flex items-center gap-3 mb-6">
                                         <ShieldCheck className="text-primary" /> Father Details
                                     </h3>
@@ -189,7 +189,7 @@ export default function StudentProfilePage() {
                                         <p className="font-bold flex justify-between"><span className="text-muted-foreground">Phone:</span> {student.parent?.user?.phone || "N/A"}</p>
                                     </div>
                                 </Card>
-                                <Card className="rounded-[2.5rem] border-border/50 shadow-xl p-8 bg-card/50">
+                                <Card className="rounded-[2.5rem] border-border/50 shadow-xl p-8">
                                     <h3 className="text-h3 font-semibold flex items-center gap-3 mb-6">
                                         <ShieldCheck className="text-primary" /> Mother Details
                                     </h3>
@@ -199,7 +199,7 @@ export default function StudentProfilePage() {
                                         <p className="font-bold flex justify-between"><span className="text-muted-foreground">Phone:</span> {student.parent?.user?.phone || "N/A"}</p>
                                     </div>
                                 </Card>
-                                <Card className="md:col-span-2 rounded-[2.5rem] border-border/50 shadow-xl p-8 bg-card/50">
+                                <Card className="md:col-span-2 rounded-[2.5rem] border-border/50 shadow-xl p-8">
                                     <h3 className="text-h3 font-semibold flex items-center gap-3 mb-6">
                                         <MapPin className="text-primary" /> Residential Address
                                     </h3>
@@ -211,7 +211,7 @@ export default function StudentProfilePage() {
                         </TabsContent>
 
                         <TabsContent value="transport" className="mt-8 animate-in slide-in-from-left-4 duration-500">
-                            <Card className="rounded-[3rem] border-border/50 shadow-xl p-10 bg-card/50 text-center border-t-8 border-t-blue-500">
+                            <Card className="rounded-[3rem] border-border/50 shadow-xl p-10 text-center border-t-8 border-t-blue-500">
                                 <Bus size={48} className="mx-auto text-blue-500 mb-6" />
                                 <h3 className="text-h3 font-semibold mb-2">Transport Details</h3>
                                 {student.transportAssignment ? (
@@ -230,7 +230,7 @@ export default function StudentProfilePage() {
                         </TabsContent>
 
                         <TabsContent value="docs" className="mt-8 animate-in slide-in-from-left-4 duration-500">
-                            <Card className="rounded-[3rem] border-border/50 shadow-xl p-10 bg-card/50 overflow-hidden">
+                            <Card className="rounded-[3rem] border-border/50 shadow-xl p-10 overflow-hidden">
                                 <div className="flex justify-between items-center mb-10">
                                     <h3 className="text-h3 font-semibold">Issued Documents</h3>
                                     <Button variant="outline" className="rounded-xl font-semibold">
@@ -246,7 +246,7 @@ export default function StudentProfilePage() {
                                                         <FileText size={20} />
                                                     </div>
                                                     <div>
-                                                        <p className="font-semibold uppercase">{cert.type}</p>
+                                                        <p className="font-semibold">{cert.type}</p>
                                                         <p className="text-xs font-bold text-muted-foreground">{cert.certificateNumber}</p>
                                                     </div>
                                                 </div>
@@ -270,7 +270,7 @@ export default function StudentProfilePage() {
 
             {/* ID Card Modal */}
             <Dialog open={isIdCardOpen} onOpenChange={setIsIdCardOpen}>
-                <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl bg-background/80 backdrop-blur-xl">
+                <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl">
                     <DialogHeader>
                         <DialogTitle className="text-h1 font-semibold mb-6 tracking-tight">Student ID Card</DialogTitle>
                     </DialogHeader>

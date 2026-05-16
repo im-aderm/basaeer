@@ -18,7 +18,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 export default function StudentCertificatesPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [certificates, setCertificates] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
@@ -73,7 +73,7 @@ export default function StudentCertificatesPage() {
                 <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
                 <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                     <div>
-                        <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
+                        <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3">
                             <Award className="text-primary w-10 h-10" />
                             My Achievements
                         </h1>
@@ -94,7 +94,7 @@ export default function StudentCertificatesPage() {
             {/* Certificates Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {filteredCertificates.map((cert) => (
-                    <Card key={cert.id} className="rounded-[3rem] border-none shadow-xl overflow-hidden group hover:scale-[1.02] transition-all bg-card/40 backdrop-blur-sm">
+                    <Card key={cert.id} className="rounded-[3rem] border-none shadow-xl overflow-hidden group hover:scale-[1.02] transition-all/40 backdrop-blur-sm">
                         <CardContent className="p-0">
                             {/* Visual Preview Area */}
                             <div className="h-48 bg-gradient-to-br from-slate-100 to-slate-200 relative overflow-hidden flex flex-col items-center justify-center p-6 text-center">

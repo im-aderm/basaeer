@@ -11,7 +11,7 @@ export default function SubjectAttendancePlaceholder() {
                 <BookOpen className="w-16 h-16 animate-pulse" />
             </div>
             <div className="text-center space-y-2">
-                <h1 className="text-h1 font-semibold tracking-tight">Subject Attendance</h1>
+                <h1 className="text-h1 font-bold tracking-tight text-primary">Subject Attendance</h1>
                 <p className="text-muted-foreground font-medium text-lg max-w-md">
                     Implementation for subject-wise attendance is in progress.
                 </p>

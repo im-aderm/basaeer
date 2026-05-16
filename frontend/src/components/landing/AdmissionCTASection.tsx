@@ -6,7 +6,7 @@ import { SectionWrapper } from "@/components/ui/SectionWrapper";
 export function AdmissionCTASection() {
   return (
     <SectionWrapper id="admission-cta" className="relative px-6 py-20 border-t border-border overflow-hidden bg-background">
-      <div className="max-w-7xl mx-auto glass-panel rounded-[60px] p-12 lg:p-16 relative overflow-hidden border border-primary/30">
+      <div className="max-w-7xl mx-auto glass-panel rounded-[60px] p-12 lg:p-16 relative overflow-hidden border border-primary/60">
         
         {/* Moving blurred decorative accent blob */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-primary/20 blur-[150px] -translate-y-1/2 translate-x-1/2" />

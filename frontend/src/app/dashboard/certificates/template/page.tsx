@@ -22,7 +22,7 @@ import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 export default function CertificateTemplatesPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [templates, setTemplates] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -39,7 +39,7 @@ export default function CertificateTemplatesPage() {
 
     const fetchData = async () => {
         try {
-            const res = await api.get(`/certificates/templates?branchId=${user?.branchId}`);
+            const res = await api.get(`/certificates/templates?branchId=${resolvedBranchId}`);
             setTemplates(Array.isArray(res.data) ? res.data : []);
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to fetch templates:", error);
@@ -57,7 +57,7 @@ export default function CertificateTemplatesPage() {
         try {
             await api.post("/certificates/templates", {
                 ...formData,
-                branchId: user?.branchId
+                branchId: resolvedBranchId
             });
             setIsDialogOpen(false);
             setFormData({ name: "", type: "ACHIEVEMENT", config: { primaryColor: "#1a365d", secondaryColor: "#4a5568", borderStyle: "double", fontFamily: "Helvetica" } });
@@ -83,7 +83,7 @@ export default function CertificateTemplatesPage() {
         <div className="space-y-8 animate-in fade-in duration-500 pb-20">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
+                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3">
                         <Palette className="text-primary w-10 h-10" />
                         Design Center
                     </h1>
@@ -95,7 +95,7 @@ export default function CertificateTemplatesPage() {
                             <Plus size={20} /> Create New Template
                         </Button>
                     </DialogTrigger>
-                    <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl bg-background/80 backdrop-blur-xl">
+                    <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl">
                         <DialogHeader>
                             <DialogTitle className="text-h1 font-semibold mb-6 tracking-tight">Design New Template</DialogTitle>
                         </DialogHeader>
@@ -113,7 +113,7 @@ export default function CertificateTemplatesPage() {
                             <div className="space-y-3">
                                 <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground ml-1">Certificate Type</label>
                                 <select
-                                    className="w-full h-14 rounded-2xl bg-muted/30 border-none font-bold text-lg px-4 appearance-none focus:ring-2 ring-primary/20 cursor-pointer"
+                                    className="w-full h-14 rounded-2xl bg-white border border-primary/90 font-bold text-lg px-4 appearance-none focus:ring-2 ring-primary/20 cursor-pointer"
                                     value={formData.type}
                                     onChange={(e) => setFormData({ ...formData, type: e.target.value })}
                                 >

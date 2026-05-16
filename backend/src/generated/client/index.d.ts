@@ -29,6 +29,11 @@ export type DeactivationReason = $Result.DefaultSelection<Prisma.$DeactivationRe
  */
 export type LoginDeactivation = $Result.DefaultSelection<Prisma.$LoginDeactivationPayload>
 /**
+ * Model Role
+ * 
+ */
+export type Role = $Result.DefaultSelection<Prisma.$RolePayload>
+/**
  * Model User
  * 
  */
@@ -323,6 +328,11 @@ export type GlobalSetting = $Result.DefaultSelection<Prisma.$GlobalSettingPayloa
  * 
  */
 export type RolePermission = $Result.DefaultSelection<Prisma.$RolePermissionPayload>
+/**
+ * Model CustomRolePermission
+ * 
+ */
+export type CustomRolePermission = $Result.DefaultSelection<Prisma.$CustomRolePermissionPayload>
 /**
  * Model AuditLog
  * 
@@ -1347,6 +1357,16 @@ export class PrismaClient<
   get loginDeactivation(): Prisma.LoginDeactivationDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.role`: Exposes CRUD operations for the **Role** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Roles
+    * const roles = await prisma.role.findMany()
+    * ```
+    */
+  get role(): Prisma.RoleDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.user`: Exposes CRUD operations for the **User** model.
     * Example usage:
     * ```ts
@@ -1935,6 +1955,16 @@ export class PrismaClient<
     * ```
     */
   get rolePermission(): Prisma.RolePermissionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.customRolePermission`: Exposes CRUD operations for the **CustomRolePermission** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CustomRolePermissions
+    * const customRolePermissions = await prisma.customRolePermission.findMany()
+    * ```
+    */
+  get customRolePermission(): Prisma.CustomRolePermissionDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.auditLog`: Exposes CRUD operations for the **AuditLog** model.
@@ -3169,6 +3199,7 @@ export namespace Prisma {
     Branch: 'Branch',
     DeactivationReason: 'DeactivationReason',
     LoginDeactivation: 'LoginDeactivation',
+    Role: 'Role',
     User: 'User',
     UserPreference: 'UserPreference',
     ModuleConfiguration: 'ModuleConfiguration',
@@ -3228,6 +3259,7 @@ export namespace Prisma {
     TahfeezMemorizationProgress: 'TahfeezMemorizationProgress',
     GlobalSetting: 'GlobalSetting',
     RolePermission: 'RolePermission',
+    CustomRolePermission: 'CustomRolePermission',
     AuditLog: 'AuditLog',
     ExpenseCategory: 'ExpenseCategory',
     Voucher: 'Voucher',
@@ -3325,7 +3357,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "branch" | "deactivationReason" | "loginDeactivation" | "user" | "userPreference" | "moduleConfiguration" | "translation" | "scheduledJob" | "staff" | "student" | "certificate" | "certificateTemplate" | "class" | "section" | "subject" | "classSchedule" | "attendance" | "staffAttendance" | "hostel" | "room" | "bed" | "hostelAllocation" | "hostelLeave" | "maintenanceRequest" | "feeCategory" | "feeStructure" | "invoice" | "questionGroup" | "question" | "questionOption" | "onlineExam" | "onlineExamAttempt" | "questionAnswer" | "invoiceItem" | "payment" | "vehicle" | "transportRoute" | "transportAssignment" | "assignment" | "submission" | "academicSession" | "assessmentRecord" | "behaviouralRating" | "resultSummary" | "gradingScale" | "exam" | "examType" | "assessmentComponent" | "assessmentScore" | "resultApproval" | "resultPublication" | "gPARecord" | "studentRanking" | "broadsheet" | "transcript" | "transcriptVerification" | "academicRemark" | "subjectPosition" | "tahfeezAssessment" | "tahfeezMemorizationProgress" | "globalSetting" | "rolePermission" | "auditLog" | "expenseCategory" | "voucher" | "department" | "designation" | "book" | "borrowRecord" | "libraryFine" | "salaryTemplate" | "payroll" | "leaveRequest" | "staffAward" | "advanceSalary" | "googleMeetConfig" | "liveClassSession" | "meetingParticipant" | "studentCategory" | "previousSchool" | "onlineAdmission" | "admissionEnquiry" | "callLog" | "visitorLog" | "complaint" | "postalRecord" | "inventoryCategory" | "inventoryStore" | "inventorySupplier" | "inventoryUnit" | "inventoryProduct" | "inventoryPurchase" | "inventorySale" | "inventoryIssue" | "alumni" | "alumniEvent" | "alumniEventParticipant" | "conversation" | "conversationParticipant" | "message" | "campusEvent" | "eventRSVP" | "campusAccessLog" | "automationConfig" | "idCardTemplate" | "idCard" | "attachmentCategory" | "digitalResource" | "digitalResourceLog" | "emailTemplate" | "smsTemplate" | "notification" | "notificationPreference" | "campaign" | "campaignRecipient" | "attendanceSession" | "attendanceScan" | "queueJobLog" | "automationExecution" | "messageDeliveryLog" | "providerHealthLog" | "webhookEvent" | "deliveryWebhookLog" | "realtimeConnection" | "queueMetric" | "providerFailoverEvent" | "messageRetryEvent" | "providerBalanceSnapshot" | "notificationDeliveryEvent" | "academicExport" | "reportTemplate" | "computationJob" | "bookCopy" | "bookReservation" | "hostelMaintenanceTicket" | "transportAttendance" | "apiKey" | "webhookEndpoint" | "webhookDeliveryLog" | "paymentWebhookLog" | "counter"
+      modelProps: "branch" | "deactivationReason" | "loginDeactivation" | "role" | "user" | "userPreference" | "moduleConfiguration" | "translation" | "scheduledJob" | "staff" | "student" | "certificate" | "certificateTemplate" | "class" | "section" | "subject" | "classSchedule" | "attendance" | "staffAttendance" | "hostel" | "room" | "bed" | "hostelAllocation" | "hostelLeave" | "maintenanceRequest" | "feeCategory" | "feeStructure" | "invoice" | "questionGroup" | "question" | "questionOption" | "onlineExam" | "onlineExamAttempt" | "questionAnswer" | "invoiceItem" | "payment" | "vehicle" | "transportRoute" | "transportAssignment" | "assignment" | "submission" | "academicSession" | "assessmentRecord" | "behaviouralRating" | "resultSummary" | "gradingScale" | "exam" | "examType" | "assessmentComponent" | "assessmentScore" | "resultApproval" | "resultPublication" | "gPARecord" | "studentRanking" | "broadsheet" | "transcript" | "transcriptVerification" | "academicRemark" | "subjectPosition" | "tahfeezAssessment" | "tahfeezMemorizationProgress" | "globalSetting" | "rolePermission" | "customRolePermission" | "auditLog" | "expenseCategory" | "voucher" | "department" | "designation" | "book" | "borrowRecord" | "libraryFine" | "salaryTemplate" | "payroll" | "leaveRequest" | "staffAward" | "advanceSalary" | "googleMeetConfig" | "liveClassSession" | "meetingParticipant" | "studentCategory" | "previousSchool" | "onlineAdmission" | "admissionEnquiry" | "callLog" | "visitorLog" | "complaint" | "postalRecord" | "inventoryCategory" | "inventoryStore" | "inventorySupplier" | "inventoryUnit" | "inventoryProduct" | "inventoryPurchase" | "inventorySale" | "inventoryIssue" | "alumni" | "alumniEvent" | "alumniEventParticipant" | "conversation" | "conversationParticipant" | "message" | "campusEvent" | "eventRSVP" | "campusAccessLog" | "automationConfig" | "idCardTemplate" | "idCard" | "attachmentCategory" | "digitalResource" | "digitalResourceLog" | "emailTemplate" | "smsTemplate" | "notification" | "notificationPreference" | "campaign" | "campaignRecipient" | "attendanceSession" | "attendanceScan" | "queueJobLog" | "automationExecution" | "messageDeliveryLog" | "providerHealthLog" | "webhookEvent" | "deliveryWebhookLog" | "realtimeConnection" | "queueMetric" | "providerFailoverEvent" | "messageRetryEvent" | "providerBalanceSnapshot" | "notificationDeliveryEvent" | "academicExport" | "reportTemplate" | "computationJob" | "bookCopy" | "bookReservation" | "hostelMaintenanceTicket" | "transportAttendance" | "apiKey" | "webhookEndpoint" | "webhookDeliveryLog" | "paymentWebhookLog" | "counter"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3548,6 +3580,80 @@ export namespace Prisma {
           count: {
             args: Prisma.LoginDeactivationCountArgs<ExtArgs>
             result: $Utils.Optional<LoginDeactivationCountAggregateOutputType> | number
+          }
+        }
+      }
+      Role: {
+        payload: Prisma.$RolePayload<ExtArgs>
+        fields: Prisma.RoleFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RoleFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RoleFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePayload>
+          }
+          findFirst: {
+            args: Prisma.RoleFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RoleFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePayload>
+          }
+          findMany: {
+            args: Prisma.RoleFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePayload>[]
+          }
+          create: {
+            args: Prisma.RoleCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePayload>
+          }
+          createMany: {
+            args: Prisma.RoleCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RoleCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePayload>[]
+          }
+          delete: {
+            args: Prisma.RoleDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePayload>
+          }
+          update: {
+            args: Prisma.RoleUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePayload>
+          }
+          deleteMany: {
+            args: Prisma.RoleDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RoleUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.RoleUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePayload>[]
+          }
+          upsert: {
+            args: Prisma.RoleUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePayload>
+          }
+          aggregate: {
+            args: Prisma.RoleAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRole>
+          }
+          groupBy: {
+            args: Prisma.RoleGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RoleGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RoleCountArgs<ExtArgs>
+            result: $Utils.Optional<RoleCountAggregateOutputType> | number
           }
         }
       }
@@ -7914,6 +8020,80 @@ export namespace Prisma {
           count: {
             args: Prisma.RolePermissionCountArgs<ExtArgs>
             result: $Utils.Optional<RolePermissionCountAggregateOutputType> | number
+          }
+        }
+      }
+      CustomRolePermission: {
+        payload: Prisma.$CustomRolePermissionPayload<ExtArgs>
+        fields: Prisma.CustomRolePermissionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CustomRolePermissionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomRolePermissionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CustomRolePermissionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomRolePermissionPayload>
+          }
+          findFirst: {
+            args: Prisma.CustomRolePermissionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomRolePermissionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CustomRolePermissionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomRolePermissionPayload>
+          }
+          findMany: {
+            args: Prisma.CustomRolePermissionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomRolePermissionPayload>[]
+          }
+          create: {
+            args: Prisma.CustomRolePermissionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomRolePermissionPayload>
+          }
+          createMany: {
+            args: Prisma.CustomRolePermissionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CustomRolePermissionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomRolePermissionPayload>[]
+          }
+          delete: {
+            args: Prisma.CustomRolePermissionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomRolePermissionPayload>
+          }
+          update: {
+            args: Prisma.CustomRolePermissionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomRolePermissionPayload>
+          }
+          deleteMany: {
+            args: Prisma.CustomRolePermissionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CustomRolePermissionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CustomRolePermissionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomRolePermissionPayload>[]
+          }
+          upsert: {
+            args: Prisma.CustomRolePermissionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomRolePermissionPayload>
+          }
+          aggregate: {
+            args: Prisma.CustomRolePermissionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCustomRolePermission>
+          }
+          groupBy: {
+            args: Prisma.CustomRolePermissionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CustomRolePermissionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CustomRolePermissionCountArgs<ExtArgs>
+            result: $Utils.Optional<CustomRolePermissionCountAggregateOutputType> | number
           }
         }
       }
@@ -13862,6 +14042,7 @@ export namespace Prisma {
     branch?: BranchOmit
     deactivationReason?: DeactivationReasonOmit
     loginDeactivation?: LoginDeactivationOmit
+    role?: RoleOmit
     user?: UserOmit
     userPreference?: UserPreferenceOmit
     moduleConfiguration?: ModuleConfigurationOmit
@@ -13921,6 +14102,7 @@ export namespace Prisma {
     tahfeezMemorizationProgress?: TahfeezMemorizationProgressOmit
     globalSetting?: GlobalSettingOmit
     rolePermission?: RolePermissionOmit
+    customRolePermission?: CustomRolePermissionOmit
     auditLog?: AuditLogOmit
     expenseCategory?: ExpenseCategoryOmit
     voucher?: VoucherOmit
@@ -14191,6 +14373,7 @@ export namespace Prisma {
     bookCopies: number
     bookReservations: number
     hostelMaintenanceTickets: number
+    roles: number
   }
 
   export type BranchCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -14305,6 +14488,7 @@ export namespace Prisma {
     bookCopies?: boolean | BranchCountOutputTypeCountBookCopiesArgs
     bookReservations?: boolean | BranchCountOutputTypeCountBookReservationsArgs
     hostelMaintenanceTickets?: boolean | BranchCountOutputTypeCountHostelMaintenanceTicketsArgs
+    roles?: boolean | BranchCountOutputTypeCountRolesArgs
   }
 
   // Custom InputTypes
@@ -15095,6 +15279,13 @@ export namespace Prisma {
     where?: HostelMaintenanceTicketWhereInput
   }
 
+  /**
+   * BranchCountOutputType without action
+   */
+  export type BranchCountOutputTypeCountRolesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RoleWhereInput
+  }
+
 
   /**
    * Count Type DeactivationReasonCountOutputType
@@ -15124,6 +15315,46 @@ export namespace Prisma {
    */
   export type DeactivationReasonCountOutputTypeCountDeactivationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LoginDeactivationWhereInput
+  }
+
+
+  /**
+   * Count Type RoleCountOutputType
+   */
+
+  export type RoleCountOutputType = {
+    users: number
+    permissions: number
+  }
+
+  export type RoleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    users?: boolean | RoleCountOutputTypeCountUsersArgs
+    permissions?: boolean | RoleCountOutputTypeCountPermissionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * RoleCountOutputType without action
+   */
+  export type RoleCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RoleCountOutputType
+     */
+    select?: RoleCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * RoleCountOutputType without action
+   */
+  export type RoleCountOutputTypeCountUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserWhereInput
+  }
+
+  /**
+   * RoleCountOutputType without action
+   */
+  export type RoleCountOutputTypeCountPermissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomRolePermissionWhereInput
   }
 
 
@@ -17733,6 +17964,7 @@ export namespace Prisma {
     bookCopies?: boolean | Branch$bookCopiesArgs<ExtArgs>
     bookReservations?: boolean | Branch$bookReservationsArgs<ExtArgs>
     hostelMaintenanceTickets?: boolean | Branch$hostelMaintenanceTicketsArgs<ExtArgs>
+    roles?: boolean | Branch$rolesArgs<ExtArgs>
     _count?: boolean | BranchCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["branch"]>
 
@@ -17898,6 +18130,7 @@ export namespace Prisma {
     bookCopies?: boolean | Branch$bookCopiesArgs<ExtArgs>
     bookReservations?: boolean | Branch$bookReservationsArgs<ExtArgs>
     hostelMaintenanceTickets?: boolean | Branch$hostelMaintenanceTicketsArgs<ExtArgs>
+    roles?: boolean | Branch$rolesArgs<ExtArgs>
     _count?: boolean | BranchCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type BranchIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -18018,6 +18251,7 @@ export namespace Prisma {
       bookCopies: Prisma.$BookCopyPayload<ExtArgs>[]
       bookReservations: Prisma.$BookReservationPayload<ExtArgs>[]
       hostelMaintenanceTickets: Prisma.$HostelMaintenanceTicketPayload<ExtArgs>[]
+      roles: Prisma.$RolePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -18539,6 +18773,7 @@ export namespace Prisma {
     bookCopies<T extends Branch$bookCopiesArgs<ExtArgs> = {}>(args?: Subset<T, Branch$bookCopiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookCopyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     bookReservations<T extends Branch$bookReservationsArgs<ExtArgs> = {}>(args?: Subset<T, Branch$bookReservationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookReservationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     hostelMaintenanceTickets<T extends Branch$hostelMaintenanceTicketsArgs<ExtArgs> = {}>(args?: Subset<T, Branch$hostelMaintenanceTicketsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HostelMaintenanceTicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    roles<T extends Branch$rolesArgs<ExtArgs> = {}>(args?: Subset<T, Branch$rolesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -21652,6 +21887,30 @@ export namespace Prisma {
   }
 
   /**
+   * Branch.roles
+   */
+  export type Branch$rolesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleInclude<ExtArgs> | null
+    where?: RoleWhereInput
+    orderBy?: RoleOrderByWithRelationInput | RoleOrderByWithRelationInput[]
+    cursor?: RoleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RoleScalarFieldEnum | RoleScalarFieldEnum[]
+  }
+
+  /**
    * Branch without action
    */
   export type BranchDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -23896,6 +24155,1227 @@ export namespace Prisma {
 
 
   /**
+   * Model Role
+   */
+
+  export type AggregateRole = {
+    _count: RoleCountAggregateOutputType | null
+    _avg: RoleAvgAggregateOutputType | null
+    _sum: RoleSumAggregateOutputType | null
+    _min: RoleMinAggregateOutputType | null
+    _max: RoleMaxAggregateOutputType | null
+  }
+
+  export type RoleAvgAggregateOutputType = {
+    priority: number | null
+  }
+
+  export type RoleSumAggregateOutputType = {
+    priority: number | null
+  }
+
+  export type RoleMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    slug: string | null
+    description: string | null
+    branchId: string | null
+    isSystem: boolean | null
+    priority: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type RoleMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    slug: string | null
+    description: string | null
+    branchId: string | null
+    isSystem: boolean | null
+    priority: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type RoleCountAggregateOutputType = {
+    id: number
+    name: number
+    slug: number
+    description: number
+    branchId: number
+    isSystem: number
+    priority: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type RoleAvgAggregateInputType = {
+    priority?: true
+  }
+
+  export type RoleSumAggregateInputType = {
+    priority?: true
+  }
+
+  export type RoleMinAggregateInputType = {
+    id?: true
+    name?: true
+    slug?: true
+    description?: true
+    branchId?: true
+    isSystem?: true
+    priority?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type RoleMaxAggregateInputType = {
+    id?: true
+    name?: true
+    slug?: true
+    description?: true
+    branchId?: true
+    isSystem?: true
+    priority?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type RoleCountAggregateInputType = {
+    id?: true
+    name?: true
+    slug?: true
+    description?: true
+    branchId?: true
+    isSystem?: true
+    priority?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type RoleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Role to aggregate.
+     */
+    where?: RoleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Roles to fetch.
+     */
+    orderBy?: RoleOrderByWithRelationInput | RoleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RoleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Roles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Roles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Roles
+    **/
+    _count?: true | RoleCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: RoleAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RoleSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RoleMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RoleMaxAggregateInputType
+  }
+
+  export type GetRoleAggregateType<T extends RoleAggregateArgs> = {
+        [P in keyof T & keyof AggregateRole]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRole[P]>
+      : GetScalarType<T[P], AggregateRole[P]>
+  }
+
+
+
+
+  export type RoleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RoleWhereInput
+    orderBy?: RoleOrderByWithAggregationInput | RoleOrderByWithAggregationInput[]
+    by: RoleScalarFieldEnum[] | RoleScalarFieldEnum
+    having?: RoleScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RoleCountAggregateInputType | true
+    _avg?: RoleAvgAggregateInputType
+    _sum?: RoleSumAggregateInputType
+    _min?: RoleMinAggregateInputType
+    _max?: RoleMaxAggregateInputType
+  }
+
+  export type RoleGroupByOutputType = {
+    id: string
+    name: string
+    slug: string
+    description: string | null
+    branchId: string | null
+    isSystem: boolean
+    priority: number
+    createdAt: Date
+    updatedAt: Date
+    _count: RoleCountAggregateOutputType | null
+    _avg: RoleAvgAggregateOutputType | null
+    _sum: RoleSumAggregateOutputType | null
+    _min: RoleMinAggregateOutputType | null
+    _max: RoleMaxAggregateOutputType | null
+  }
+
+  type GetRoleGroupByPayload<T extends RoleGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RoleGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RoleGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RoleGroupByOutputType[P]>
+            : GetScalarType<T[P], RoleGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RoleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    slug?: boolean
+    description?: boolean
+    branchId?: boolean
+    isSystem?: boolean
+    priority?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    branch?: boolean | Role$branchArgs<ExtArgs>
+    users?: boolean | Role$usersArgs<ExtArgs>
+    permissions?: boolean | Role$permissionsArgs<ExtArgs>
+    _count?: boolean | RoleCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["role"]>
+
+  export type RoleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    slug?: boolean
+    description?: boolean
+    branchId?: boolean
+    isSystem?: boolean
+    priority?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    branch?: boolean | Role$branchArgs<ExtArgs>
+  }, ExtArgs["result"]["role"]>
+
+  export type RoleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    slug?: boolean
+    description?: boolean
+    branchId?: boolean
+    isSystem?: boolean
+    priority?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    branch?: boolean | Role$branchArgs<ExtArgs>
+  }, ExtArgs["result"]["role"]>
+
+  export type RoleSelectScalar = {
+    id?: boolean
+    name?: boolean
+    slug?: boolean
+    description?: boolean
+    branchId?: boolean
+    isSystem?: boolean
+    priority?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type RoleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "description" | "branchId" | "isSystem" | "priority" | "createdAt" | "updatedAt", ExtArgs["result"]["role"]>
+  export type RoleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | Role$branchArgs<ExtArgs>
+    users?: boolean | Role$usersArgs<ExtArgs>
+    permissions?: boolean | Role$permissionsArgs<ExtArgs>
+    _count?: boolean | RoleCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type RoleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | Role$branchArgs<ExtArgs>
+  }
+  export type RoleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | Role$branchArgs<ExtArgs>
+  }
+
+  export type $RolePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Role"
+    objects: {
+      branch: Prisma.$BranchPayload<ExtArgs> | null
+      users: Prisma.$UserPayload<ExtArgs>[]
+      permissions: Prisma.$CustomRolePermissionPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      slug: string
+      description: string | null
+      branchId: string | null
+      isSystem: boolean
+      priority: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["role"]>
+    composites: {}
+  }
+
+  type RoleGetPayload<S extends boolean | null | undefined | RoleDefaultArgs> = $Result.GetResult<Prisma.$RolePayload, S>
+
+  type RoleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RoleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RoleCountAggregateInputType | true
+    }
+
+  export interface RoleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Role'], meta: { name: 'Role' } }
+    /**
+     * Find zero or one Role that matches the filter.
+     * @param {RoleFindUniqueArgs} args - Arguments to find a Role
+     * @example
+     * // Get one Role
+     * const role = await prisma.role.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RoleFindUniqueArgs>(args: SelectSubset<T, RoleFindUniqueArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Role that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RoleFindUniqueOrThrowArgs} args - Arguments to find a Role
+     * @example
+     * // Get one Role
+     * const role = await prisma.role.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RoleFindUniqueOrThrowArgs>(args: SelectSubset<T, RoleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Role that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RoleFindFirstArgs} args - Arguments to find a Role
+     * @example
+     * // Get one Role
+     * const role = await prisma.role.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RoleFindFirstArgs>(args?: SelectSubset<T, RoleFindFirstArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Role that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RoleFindFirstOrThrowArgs} args - Arguments to find a Role
+     * @example
+     * // Get one Role
+     * const role = await prisma.role.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RoleFindFirstOrThrowArgs>(args?: SelectSubset<T, RoleFindFirstOrThrowArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Roles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RoleFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Roles
+     * const roles = await prisma.role.findMany()
+     * 
+     * // Get first 10 Roles
+     * const roles = await prisma.role.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const roleWithIdOnly = await prisma.role.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RoleFindManyArgs>(args?: SelectSubset<T, RoleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Role.
+     * @param {RoleCreateArgs} args - Arguments to create a Role.
+     * @example
+     * // Create one Role
+     * const Role = await prisma.role.create({
+     *   data: {
+     *     // ... data to create a Role
+     *   }
+     * })
+     * 
+     */
+    create<T extends RoleCreateArgs>(args: SelectSubset<T, RoleCreateArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Roles.
+     * @param {RoleCreateManyArgs} args - Arguments to create many Roles.
+     * @example
+     * // Create many Roles
+     * const role = await prisma.role.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RoleCreateManyArgs>(args?: SelectSubset<T, RoleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Roles and returns the data saved in the database.
+     * @param {RoleCreateManyAndReturnArgs} args - Arguments to create many Roles.
+     * @example
+     * // Create many Roles
+     * const role = await prisma.role.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Roles and only return the `id`
+     * const roleWithIdOnly = await prisma.role.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RoleCreateManyAndReturnArgs>(args?: SelectSubset<T, RoleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Role.
+     * @param {RoleDeleteArgs} args - Arguments to delete one Role.
+     * @example
+     * // Delete one Role
+     * const Role = await prisma.role.delete({
+     *   where: {
+     *     // ... filter to delete one Role
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RoleDeleteArgs>(args: SelectSubset<T, RoleDeleteArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Role.
+     * @param {RoleUpdateArgs} args - Arguments to update one Role.
+     * @example
+     * // Update one Role
+     * const role = await prisma.role.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RoleUpdateArgs>(args: SelectSubset<T, RoleUpdateArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Roles.
+     * @param {RoleDeleteManyArgs} args - Arguments to filter Roles to delete.
+     * @example
+     * // Delete a few Roles
+     * const { count } = await prisma.role.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RoleDeleteManyArgs>(args?: SelectSubset<T, RoleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Roles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RoleUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Roles
+     * const role = await prisma.role.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RoleUpdateManyArgs>(args: SelectSubset<T, RoleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Roles and returns the data updated in the database.
+     * @param {RoleUpdateManyAndReturnArgs} args - Arguments to update many Roles.
+     * @example
+     * // Update many Roles
+     * const role = await prisma.role.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Roles and only return the `id`
+     * const roleWithIdOnly = await prisma.role.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends RoleUpdateManyAndReturnArgs>(args: SelectSubset<T, RoleUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Role.
+     * @param {RoleUpsertArgs} args - Arguments to update or create a Role.
+     * @example
+     * // Update or create a Role
+     * const role = await prisma.role.upsert({
+     *   create: {
+     *     // ... data to create a Role
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Role we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RoleUpsertArgs>(args: SelectSubset<T, RoleUpsertArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Roles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RoleCountArgs} args - Arguments to filter Roles to count.
+     * @example
+     * // Count the number of Roles
+     * const count = await prisma.role.count({
+     *   where: {
+     *     // ... the filter for the Roles we want to count
+     *   }
+     * })
+    **/
+    count<T extends RoleCountArgs>(
+      args?: Subset<T, RoleCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RoleCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Role.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RoleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RoleAggregateArgs>(args: Subset<T, RoleAggregateArgs>): Prisma.PrismaPromise<GetRoleAggregateType<T>>
+
+    /**
+     * Group by Role.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RoleGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RoleGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RoleGroupByArgs['orderBy'] }
+        : { orderBy?: RoleGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RoleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRoleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Role model
+   */
+  readonly fields: RoleFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Role.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RoleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    branch<T extends Role$branchArgs<ExtArgs> = {}>(args?: Subset<T, Role$branchArgs<ExtArgs>>): Prisma__BranchClient<$Result.GetResult<Prisma.$BranchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    users<T extends Role$usersArgs<ExtArgs> = {}>(args?: Subset<T, Role$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    permissions<T extends Role$permissionsArgs<ExtArgs> = {}>(args?: Subset<T, Role$permissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomRolePermissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Role model
+   */
+  interface RoleFieldRefs {
+    readonly id: FieldRef<"Role", 'String'>
+    readonly name: FieldRef<"Role", 'String'>
+    readonly slug: FieldRef<"Role", 'String'>
+    readonly description: FieldRef<"Role", 'String'>
+    readonly branchId: FieldRef<"Role", 'String'>
+    readonly isSystem: FieldRef<"Role", 'Boolean'>
+    readonly priority: FieldRef<"Role", 'Int'>
+    readonly createdAt: FieldRef<"Role", 'DateTime'>
+    readonly updatedAt: FieldRef<"Role", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Role findUnique
+   */
+  export type RoleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleInclude<ExtArgs> | null
+    /**
+     * Filter, which Role to fetch.
+     */
+    where: RoleWhereUniqueInput
+  }
+
+  /**
+   * Role findUniqueOrThrow
+   */
+  export type RoleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleInclude<ExtArgs> | null
+    /**
+     * Filter, which Role to fetch.
+     */
+    where: RoleWhereUniqueInput
+  }
+
+  /**
+   * Role findFirst
+   */
+  export type RoleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleInclude<ExtArgs> | null
+    /**
+     * Filter, which Role to fetch.
+     */
+    where?: RoleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Roles to fetch.
+     */
+    orderBy?: RoleOrderByWithRelationInput | RoleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Roles.
+     */
+    cursor?: RoleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Roles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Roles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Roles.
+     */
+    distinct?: RoleScalarFieldEnum | RoleScalarFieldEnum[]
+  }
+
+  /**
+   * Role findFirstOrThrow
+   */
+  export type RoleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleInclude<ExtArgs> | null
+    /**
+     * Filter, which Role to fetch.
+     */
+    where?: RoleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Roles to fetch.
+     */
+    orderBy?: RoleOrderByWithRelationInput | RoleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Roles.
+     */
+    cursor?: RoleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Roles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Roles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Roles.
+     */
+    distinct?: RoleScalarFieldEnum | RoleScalarFieldEnum[]
+  }
+
+  /**
+   * Role findMany
+   */
+  export type RoleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleInclude<ExtArgs> | null
+    /**
+     * Filter, which Roles to fetch.
+     */
+    where?: RoleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Roles to fetch.
+     */
+    orderBy?: RoleOrderByWithRelationInput | RoleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Roles.
+     */
+    cursor?: RoleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Roles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Roles.
+     */
+    skip?: number
+    distinct?: RoleScalarFieldEnum | RoleScalarFieldEnum[]
+  }
+
+  /**
+   * Role create
+   */
+  export type RoleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Role.
+     */
+    data: XOR<RoleCreateInput, RoleUncheckedCreateInput>
+  }
+
+  /**
+   * Role createMany
+   */
+  export type RoleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Roles.
+     */
+    data: RoleCreateManyInput | RoleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Role createManyAndReturn
+   */
+  export type RoleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * The data used to create many Roles.
+     */
+    data: RoleCreateManyInput | RoleCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Role update
+   */
+  export type RoleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Role.
+     */
+    data: XOR<RoleUpdateInput, RoleUncheckedUpdateInput>
+    /**
+     * Choose, which Role to update.
+     */
+    where: RoleWhereUniqueInput
+  }
+
+  /**
+   * Role updateMany
+   */
+  export type RoleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Roles.
+     */
+    data: XOR<RoleUpdateManyMutationInput, RoleUncheckedUpdateManyInput>
+    /**
+     * Filter which Roles to update
+     */
+    where?: RoleWhereInput
+    /**
+     * Limit how many Roles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Role updateManyAndReturn
+   */
+  export type RoleUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * The data used to update Roles.
+     */
+    data: XOR<RoleUpdateManyMutationInput, RoleUncheckedUpdateManyInput>
+    /**
+     * Filter which Roles to update
+     */
+    where?: RoleWhereInput
+    /**
+     * Limit how many Roles to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Role upsert
+   */
+  export type RoleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Role to update in case it exists.
+     */
+    where: RoleWhereUniqueInput
+    /**
+     * In case the Role found by the `where` argument doesn't exist, create a new Role with this data.
+     */
+    create: XOR<RoleCreateInput, RoleUncheckedCreateInput>
+    /**
+     * In case the Role was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RoleUpdateInput, RoleUncheckedUpdateInput>
+  }
+
+  /**
+   * Role delete
+   */
+  export type RoleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleInclude<ExtArgs> | null
+    /**
+     * Filter which Role to delete.
+     */
+    where: RoleWhereUniqueInput
+  }
+
+  /**
+   * Role deleteMany
+   */
+  export type RoleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Roles to delete
+     */
+    where?: RoleWhereInput
+    /**
+     * Limit how many Roles to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Role.branch
+   */
+  export type Role$branchArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Branch
+     */
+    select?: BranchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Branch
+     */
+    omit?: BranchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BranchInclude<ExtArgs> | null
+    where?: BranchWhereInput
+  }
+
+  /**
+   * Role.users
+   */
+  export type Role$usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    cursor?: UserWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * Role.permissions
+   */
+  export type Role$permissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomRolePermission
+     */
+    select?: CustomRolePermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomRolePermission
+     */
+    omit?: CustomRolePermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomRolePermissionInclude<ExtArgs> | null
+    where?: CustomRolePermissionWhereInput
+    orderBy?: CustomRolePermissionOrderByWithRelationInput | CustomRolePermissionOrderByWithRelationInput[]
+    cursor?: CustomRolePermissionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CustomRolePermissionScalarFieldEnum | CustomRolePermissionScalarFieldEnum[]
+  }
+
+  /**
+   * Role without action
+   */
+  export type RoleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model User
    */
 
@@ -23915,6 +25395,7 @@ export namespace Prisma {
     isActive: boolean | null
     mustChangePassword: boolean | null
     role: $Enums.UserRole | null
+    roleId: string | null
     createdAt: Date | null
     updatedAt: Date | null
     branchId: string | null
@@ -23932,6 +25413,7 @@ export namespace Prisma {
     isActive: boolean | null
     mustChangePassword: boolean | null
     role: $Enums.UserRole | null
+    roleId: string | null
     createdAt: Date | null
     updatedAt: Date | null
     branchId: string | null
@@ -23949,6 +25431,7 @@ export namespace Prisma {
     isActive: number
     mustChangePassword: number
     role: number
+    roleId: number
     createdAt: number
     updatedAt: number
     branchId: number
@@ -23968,6 +25451,7 @@ export namespace Prisma {
     isActive?: true
     mustChangePassword?: true
     role?: true
+    roleId?: true
     createdAt?: true
     updatedAt?: true
     branchId?: true
@@ -23985,6 +25469,7 @@ export namespace Prisma {
     isActive?: true
     mustChangePassword?: true
     role?: true
+    roleId?: true
     createdAt?: true
     updatedAt?: true
     branchId?: true
@@ -24002,6 +25487,7 @@ export namespace Prisma {
     isActive?: true
     mustChangePassword?: true
     role?: true
+    roleId?: true
     createdAt?: true
     updatedAt?: true
     branchId?: true
@@ -24092,6 +25578,7 @@ export namespace Prisma {
     isActive: boolean
     mustChangePassword: boolean
     role: $Enums.UserRole
+    roleId: string | null
     createdAt: Date
     updatedAt: Date
     branchId: string | null
@@ -24126,6 +25613,7 @@ export namespace Prisma {
     isActive?: boolean
     mustChangePassword?: boolean
     role?: boolean
+    roleId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     branchId?: boolean
@@ -24145,6 +25633,7 @@ export namespace Prisma {
     children?: boolean | User$childrenArgs<ExtArgs>
     student?: boolean | User$studentArgs<ExtArgs>
     branch?: boolean | User$branchArgs<ExtArgs>
+    customRole?: boolean | User$customRoleArgs<ExtArgs>
     approvedVouchers?: boolean | User$approvedVouchersArgs<ExtArgs>
     preferences?: boolean | User$preferencesArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
@@ -24165,12 +25654,14 @@ export namespace Prisma {
     isActive?: boolean
     mustChangePassword?: boolean
     role?: boolean
+    roleId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     branchId?: boolean
     resetTokenHash?: boolean
     resetTokenExpires?: boolean
     branch?: boolean | User$branchArgs<ExtArgs>
+    customRole?: boolean | User$customRoleArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -24183,12 +25674,14 @@ export namespace Prisma {
     isActive?: boolean
     mustChangePassword?: boolean
     role?: boolean
+    roleId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     branchId?: boolean
     resetTokenHash?: boolean
     resetTokenExpires?: boolean
     branch?: boolean | User$branchArgs<ExtArgs>
+    customRole?: boolean | User$customRoleArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -24201,6 +25694,7 @@ export namespace Prisma {
     isActive?: boolean
     mustChangePassword?: boolean
     role?: boolean
+    roleId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     branchId?: boolean
@@ -24208,7 +25702,7 @@ export namespace Prisma {
     resetTokenExpires?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "firstName" | "lastName" | "phone" | "isActive" | "mustChangePassword" | "role" | "createdAt" | "updatedAt" | "branchId" | "resetTokenHash" | "resetTokenExpires", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "firstName" | "lastName" | "phone" | "isActive" | "mustChangePassword" | "role" | "roleId" | "createdAt" | "updatedAt" | "branchId" | "resetTokenHash" | "resetTokenExpires", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     auditLogs?: boolean | User$auditLogsArgs<ExtArgs>
     accessLogs?: boolean | User$accessLogsArgs<ExtArgs>
@@ -24224,6 +25718,7 @@ export namespace Prisma {
     children?: boolean | User$childrenArgs<ExtArgs>
     student?: boolean | User$studentArgs<ExtArgs>
     branch?: boolean | User$branchArgs<ExtArgs>
+    customRole?: boolean | User$customRoleArgs<ExtArgs>
     approvedVouchers?: boolean | User$approvedVouchersArgs<ExtArgs>
     preferences?: boolean | User$preferencesArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
@@ -24235,9 +25730,11 @@ export namespace Prisma {
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     branch?: boolean | User$branchArgs<ExtArgs>
+    customRole?: boolean | User$customRoleArgs<ExtArgs>
   }
   export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     branch?: boolean | User$branchArgs<ExtArgs>
+    customRole?: boolean | User$customRoleArgs<ExtArgs>
   }
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -24257,6 +25754,7 @@ export namespace Prisma {
       children: Prisma.$StudentPayload<ExtArgs>[]
       student: Prisma.$StudentPayload<ExtArgs> | null
       branch: Prisma.$BranchPayload<ExtArgs> | null
+      customRole: Prisma.$RolePayload<ExtArgs> | null
       approvedVouchers: Prisma.$VoucherPayload<ExtArgs>[]
       preferences: Prisma.$UserPreferencePayload<ExtArgs> | null
       notifications: Prisma.$NotificationPayload<ExtArgs>[]
@@ -24275,6 +25773,7 @@ export namespace Prisma {
       isActive: boolean
       mustChangePassword: boolean
       role: $Enums.UserRole
+      roleId: string | null
       createdAt: Date
       updatedAt: Date
       branchId: string | null
@@ -24688,6 +26187,7 @@ export namespace Prisma {
     children<T extends User$childrenArgs<ExtArgs> = {}>(args?: Subset<T, User$childrenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StudentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     student<T extends User$studentArgs<ExtArgs> = {}>(args?: Subset<T, User$studentArgs<ExtArgs>>): Prisma__StudentClient<$Result.GetResult<Prisma.$StudentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     branch<T extends User$branchArgs<ExtArgs> = {}>(args?: Subset<T, User$branchArgs<ExtArgs>>): Prisma__BranchClient<$Result.GetResult<Prisma.$BranchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    customRole<T extends User$customRoleArgs<ExtArgs> = {}>(args?: Subset<T, User$customRoleArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     approvedVouchers<T extends User$approvedVouchersArgs<ExtArgs> = {}>(args?: Subset<T, User$approvedVouchersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VoucherPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     preferences<T extends User$preferencesArgs<ExtArgs> = {}>(args?: Subset<T, User$preferencesArgs<ExtArgs>>): Prisma__UserPreferenceClient<$Result.GetResult<Prisma.$UserPreferencePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -24733,6 +26233,7 @@ export namespace Prisma {
     readonly isActive: FieldRef<"User", 'Boolean'>
     readonly mustChangePassword: FieldRef<"User", 'Boolean'>
     readonly role: FieldRef<"User", 'UserRole'>
+    readonly roleId: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
     readonly branchId: FieldRef<"User", 'String'>
@@ -25452,6 +26953,25 @@ export namespace Prisma {
      */
     include?: BranchInclude<ExtArgs> | null
     where?: BranchWhereInput
+  }
+
+  /**
+   * User.customRole
+   */
+  export type User$customRoleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleInclude<ExtArgs> | null
+    where?: RoleWhereInput
   }
 
   /**
@@ -95528,6 +97048,1064 @@ export namespace Prisma {
      * Omit specific fields from the RolePermission
      */
     omit?: RolePermissionOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CustomRolePermission
+   */
+
+  export type AggregateCustomRolePermission = {
+    _count: CustomRolePermissionCountAggregateOutputType | null
+    _min: CustomRolePermissionMinAggregateOutputType | null
+    _max: CustomRolePermissionMaxAggregateOutputType | null
+  }
+
+  export type CustomRolePermissionMinAggregateOutputType = {
+    id: string | null
+    roleId: string | null
+    module: string | null
+    action: string | null
+    isAllowed: boolean | null
+  }
+
+  export type CustomRolePermissionMaxAggregateOutputType = {
+    id: string | null
+    roleId: string | null
+    module: string | null
+    action: string | null
+    isAllowed: boolean | null
+  }
+
+  export type CustomRolePermissionCountAggregateOutputType = {
+    id: number
+    roleId: number
+    module: number
+    action: number
+    isAllowed: number
+    _all: number
+  }
+
+
+  export type CustomRolePermissionMinAggregateInputType = {
+    id?: true
+    roleId?: true
+    module?: true
+    action?: true
+    isAllowed?: true
+  }
+
+  export type CustomRolePermissionMaxAggregateInputType = {
+    id?: true
+    roleId?: true
+    module?: true
+    action?: true
+    isAllowed?: true
+  }
+
+  export type CustomRolePermissionCountAggregateInputType = {
+    id?: true
+    roleId?: true
+    module?: true
+    action?: true
+    isAllowed?: true
+    _all?: true
+  }
+
+  export type CustomRolePermissionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CustomRolePermission to aggregate.
+     */
+    where?: CustomRolePermissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomRolePermissions to fetch.
+     */
+    orderBy?: CustomRolePermissionOrderByWithRelationInput | CustomRolePermissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CustomRolePermissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomRolePermissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomRolePermissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CustomRolePermissions
+    **/
+    _count?: true | CustomRolePermissionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CustomRolePermissionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CustomRolePermissionMaxAggregateInputType
+  }
+
+  export type GetCustomRolePermissionAggregateType<T extends CustomRolePermissionAggregateArgs> = {
+        [P in keyof T & keyof AggregateCustomRolePermission]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCustomRolePermission[P]>
+      : GetScalarType<T[P], AggregateCustomRolePermission[P]>
+  }
+
+
+
+
+  export type CustomRolePermissionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomRolePermissionWhereInput
+    orderBy?: CustomRolePermissionOrderByWithAggregationInput | CustomRolePermissionOrderByWithAggregationInput[]
+    by: CustomRolePermissionScalarFieldEnum[] | CustomRolePermissionScalarFieldEnum
+    having?: CustomRolePermissionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CustomRolePermissionCountAggregateInputType | true
+    _min?: CustomRolePermissionMinAggregateInputType
+    _max?: CustomRolePermissionMaxAggregateInputType
+  }
+
+  export type CustomRolePermissionGroupByOutputType = {
+    id: string
+    roleId: string
+    module: string
+    action: string
+    isAllowed: boolean
+    _count: CustomRolePermissionCountAggregateOutputType | null
+    _min: CustomRolePermissionMinAggregateOutputType | null
+    _max: CustomRolePermissionMaxAggregateOutputType | null
+  }
+
+  type GetCustomRolePermissionGroupByPayload<T extends CustomRolePermissionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CustomRolePermissionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CustomRolePermissionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CustomRolePermissionGroupByOutputType[P]>
+            : GetScalarType<T[P], CustomRolePermissionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CustomRolePermissionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    roleId?: boolean
+    module?: boolean
+    action?: boolean
+    isAllowed?: boolean
+    role?: boolean | RoleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["customRolePermission"]>
+
+  export type CustomRolePermissionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    roleId?: boolean
+    module?: boolean
+    action?: boolean
+    isAllowed?: boolean
+    role?: boolean | RoleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["customRolePermission"]>
+
+  export type CustomRolePermissionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    roleId?: boolean
+    module?: boolean
+    action?: boolean
+    isAllowed?: boolean
+    role?: boolean | RoleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["customRolePermission"]>
+
+  export type CustomRolePermissionSelectScalar = {
+    id?: boolean
+    roleId?: boolean
+    module?: boolean
+    action?: boolean
+    isAllowed?: boolean
+  }
+
+  export type CustomRolePermissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "roleId" | "module" | "action" | "isAllowed", ExtArgs["result"]["customRolePermission"]>
+  export type CustomRolePermissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    role?: boolean | RoleDefaultArgs<ExtArgs>
+  }
+  export type CustomRolePermissionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    role?: boolean | RoleDefaultArgs<ExtArgs>
+  }
+  export type CustomRolePermissionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    role?: boolean | RoleDefaultArgs<ExtArgs>
+  }
+
+  export type $CustomRolePermissionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CustomRolePermission"
+    objects: {
+      role: Prisma.$RolePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      roleId: string
+      module: string
+      action: string
+      isAllowed: boolean
+    }, ExtArgs["result"]["customRolePermission"]>
+    composites: {}
+  }
+
+  type CustomRolePermissionGetPayload<S extends boolean | null | undefined | CustomRolePermissionDefaultArgs> = $Result.GetResult<Prisma.$CustomRolePermissionPayload, S>
+
+  type CustomRolePermissionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CustomRolePermissionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CustomRolePermissionCountAggregateInputType | true
+    }
+
+  export interface CustomRolePermissionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CustomRolePermission'], meta: { name: 'CustomRolePermission' } }
+    /**
+     * Find zero or one CustomRolePermission that matches the filter.
+     * @param {CustomRolePermissionFindUniqueArgs} args - Arguments to find a CustomRolePermission
+     * @example
+     * // Get one CustomRolePermission
+     * const customRolePermission = await prisma.customRolePermission.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CustomRolePermissionFindUniqueArgs>(args: SelectSubset<T, CustomRolePermissionFindUniqueArgs<ExtArgs>>): Prisma__CustomRolePermissionClient<$Result.GetResult<Prisma.$CustomRolePermissionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CustomRolePermission that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CustomRolePermissionFindUniqueOrThrowArgs} args - Arguments to find a CustomRolePermission
+     * @example
+     * // Get one CustomRolePermission
+     * const customRolePermission = await prisma.customRolePermission.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CustomRolePermissionFindUniqueOrThrowArgs>(args: SelectSubset<T, CustomRolePermissionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CustomRolePermissionClient<$Result.GetResult<Prisma.$CustomRolePermissionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CustomRolePermission that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomRolePermissionFindFirstArgs} args - Arguments to find a CustomRolePermission
+     * @example
+     * // Get one CustomRolePermission
+     * const customRolePermission = await prisma.customRolePermission.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CustomRolePermissionFindFirstArgs>(args?: SelectSubset<T, CustomRolePermissionFindFirstArgs<ExtArgs>>): Prisma__CustomRolePermissionClient<$Result.GetResult<Prisma.$CustomRolePermissionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CustomRolePermission that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomRolePermissionFindFirstOrThrowArgs} args - Arguments to find a CustomRolePermission
+     * @example
+     * // Get one CustomRolePermission
+     * const customRolePermission = await prisma.customRolePermission.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CustomRolePermissionFindFirstOrThrowArgs>(args?: SelectSubset<T, CustomRolePermissionFindFirstOrThrowArgs<ExtArgs>>): Prisma__CustomRolePermissionClient<$Result.GetResult<Prisma.$CustomRolePermissionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CustomRolePermissions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomRolePermissionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CustomRolePermissions
+     * const customRolePermissions = await prisma.customRolePermission.findMany()
+     * 
+     * // Get first 10 CustomRolePermissions
+     * const customRolePermissions = await prisma.customRolePermission.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const customRolePermissionWithIdOnly = await prisma.customRolePermission.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CustomRolePermissionFindManyArgs>(args?: SelectSubset<T, CustomRolePermissionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomRolePermissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CustomRolePermission.
+     * @param {CustomRolePermissionCreateArgs} args - Arguments to create a CustomRolePermission.
+     * @example
+     * // Create one CustomRolePermission
+     * const CustomRolePermission = await prisma.customRolePermission.create({
+     *   data: {
+     *     // ... data to create a CustomRolePermission
+     *   }
+     * })
+     * 
+     */
+    create<T extends CustomRolePermissionCreateArgs>(args: SelectSubset<T, CustomRolePermissionCreateArgs<ExtArgs>>): Prisma__CustomRolePermissionClient<$Result.GetResult<Prisma.$CustomRolePermissionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CustomRolePermissions.
+     * @param {CustomRolePermissionCreateManyArgs} args - Arguments to create many CustomRolePermissions.
+     * @example
+     * // Create many CustomRolePermissions
+     * const customRolePermission = await prisma.customRolePermission.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CustomRolePermissionCreateManyArgs>(args?: SelectSubset<T, CustomRolePermissionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CustomRolePermissions and returns the data saved in the database.
+     * @param {CustomRolePermissionCreateManyAndReturnArgs} args - Arguments to create many CustomRolePermissions.
+     * @example
+     * // Create many CustomRolePermissions
+     * const customRolePermission = await prisma.customRolePermission.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CustomRolePermissions and only return the `id`
+     * const customRolePermissionWithIdOnly = await prisma.customRolePermission.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CustomRolePermissionCreateManyAndReturnArgs>(args?: SelectSubset<T, CustomRolePermissionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomRolePermissionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CustomRolePermission.
+     * @param {CustomRolePermissionDeleteArgs} args - Arguments to delete one CustomRolePermission.
+     * @example
+     * // Delete one CustomRolePermission
+     * const CustomRolePermission = await prisma.customRolePermission.delete({
+     *   where: {
+     *     // ... filter to delete one CustomRolePermission
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CustomRolePermissionDeleteArgs>(args: SelectSubset<T, CustomRolePermissionDeleteArgs<ExtArgs>>): Prisma__CustomRolePermissionClient<$Result.GetResult<Prisma.$CustomRolePermissionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CustomRolePermission.
+     * @param {CustomRolePermissionUpdateArgs} args - Arguments to update one CustomRolePermission.
+     * @example
+     * // Update one CustomRolePermission
+     * const customRolePermission = await prisma.customRolePermission.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CustomRolePermissionUpdateArgs>(args: SelectSubset<T, CustomRolePermissionUpdateArgs<ExtArgs>>): Prisma__CustomRolePermissionClient<$Result.GetResult<Prisma.$CustomRolePermissionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CustomRolePermissions.
+     * @param {CustomRolePermissionDeleteManyArgs} args - Arguments to filter CustomRolePermissions to delete.
+     * @example
+     * // Delete a few CustomRolePermissions
+     * const { count } = await prisma.customRolePermission.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CustomRolePermissionDeleteManyArgs>(args?: SelectSubset<T, CustomRolePermissionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CustomRolePermissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomRolePermissionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CustomRolePermissions
+     * const customRolePermission = await prisma.customRolePermission.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CustomRolePermissionUpdateManyArgs>(args: SelectSubset<T, CustomRolePermissionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CustomRolePermissions and returns the data updated in the database.
+     * @param {CustomRolePermissionUpdateManyAndReturnArgs} args - Arguments to update many CustomRolePermissions.
+     * @example
+     * // Update many CustomRolePermissions
+     * const customRolePermission = await prisma.customRolePermission.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CustomRolePermissions and only return the `id`
+     * const customRolePermissionWithIdOnly = await prisma.customRolePermission.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CustomRolePermissionUpdateManyAndReturnArgs>(args: SelectSubset<T, CustomRolePermissionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomRolePermissionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CustomRolePermission.
+     * @param {CustomRolePermissionUpsertArgs} args - Arguments to update or create a CustomRolePermission.
+     * @example
+     * // Update or create a CustomRolePermission
+     * const customRolePermission = await prisma.customRolePermission.upsert({
+     *   create: {
+     *     // ... data to create a CustomRolePermission
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CustomRolePermission we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CustomRolePermissionUpsertArgs>(args: SelectSubset<T, CustomRolePermissionUpsertArgs<ExtArgs>>): Prisma__CustomRolePermissionClient<$Result.GetResult<Prisma.$CustomRolePermissionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CustomRolePermissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomRolePermissionCountArgs} args - Arguments to filter CustomRolePermissions to count.
+     * @example
+     * // Count the number of CustomRolePermissions
+     * const count = await prisma.customRolePermission.count({
+     *   where: {
+     *     // ... the filter for the CustomRolePermissions we want to count
+     *   }
+     * })
+    **/
+    count<T extends CustomRolePermissionCountArgs>(
+      args?: Subset<T, CustomRolePermissionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CustomRolePermissionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CustomRolePermission.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomRolePermissionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CustomRolePermissionAggregateArgs>(args: Subset<T, CustomRolePermissionAggregateArgs>): Prisma.PrismaPromise<GetCustomRolePermissionAggregateType<T>>
+
+    /**
+     * Group by CustomRolePermission.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomRolePermissionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CustomRolePermissionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CustomRolePermissionGroupByArgs['orderBy'] }
+        : { orderBy?: CustomRolePermissionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CustomRolePermissionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCustomRolePermissionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CustomRolePermission model
+   */
+  readonly fields: CustomRolePermissionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CustomRolePermission.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CustomRolePermissionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    role<T extends RoleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RoleDefaultArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CustomRolePermission model
+   */
+  interface CustomRolePermissionFieldRefs {
+    readonly id: FieldRef<"CustomRolePermission", 'String'>
+    readonly roleId: FieldRef<"CustomRolePermission", 'String'>
+    readonly module: FieldRef<"CustomRolePermission", 'String'>
+    readonly action: FieldRef<"CustomRolePermission", 'String'>
+    readonly isAllowed: FieldRef<"CustomRolePermission", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CustomRolePermission findUnique
+   */
+  export type CustomRolePermissionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomRolePermission
+     */
+    select?: CustomRolePermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomRolePermission
+     */
+    omit?: CustomRolePermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomRolePermissionInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomRolePermission to fetch.
+     */
+    where: CustomRolePermissionWhereUniqueInput
+  }
+
+  /**
+   * CustomRolePermission findUniqueOrThrow
+   */
+  export type CustomRolePermissionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomRolePermission
+     */
+    select?: CustomRolePermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomRolePermission
+     */
+    omit?: CustomRolePermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomRolePermissionInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomRolePermission to fetch.
+     */
+    where: CustomRolePermissionWhereUniqueInput
+  }
+
+  /**
+   * CustomRolePermission findFirst
+   */
+  export type CustomRolePermissionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomRolePermission
+     */
+    select?: CustomRolePermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomRolePermission
+     */
+    omit?: CustomRolePermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomRolePermissionInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomRolePermission to fetch.
+     */
+    where?: CustomRolePermissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomRolePermissions to fetch.
+     */
+    orderBy?: CustomRolePermissionOrderByWithRelationInput | CustomRolePermissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CustomRolePermissions.
+     */
+    cursor?: CustomRolePermissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomRolePermissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomRolePermissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomRolePermissions.
+     */
+    distinct?: CustomRolePermissionScalarFieldEnum | CustomRolePermissionScalarFieldEnum[]
+  }
+
+  /**
+   * CustomRolePermission findFirstOrThrow
+   */
+  export type CustomRolePermissionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomRolePermission
+     */
+    select?: CustomRolePermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomRolePermission
+     */
+    omit?: CustomRolePermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomRolePermissionInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomRolePermission to fetch.
+     */
+    where?: CustomRolePermissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomRolePermissions to fetch.
+     */
+    orderBy?: CustomRolePermissionOrderByWithRelationInput | CustomRolePermissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CustomRolePermissions.
+     */
+    cursor?: CustomRolePermissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomRolePermissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomRolePermissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomRolePermissions.
+     */
+    distinct?: CustomRolePermissionScalarFieldEnum | CustomRolePermissionScalarFieldEnum[]
+  }
+
+  /**
+   * CustomRolePermission findMany
+   */
+  export type CustomRolePermissionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomRolePermission
+     */
+    select?: CustomRolePermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomRolePermission
+     */
+    omit?: CustomRolePermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomRolePermissionInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomRolePermissions to fetch.
+     */
+    where?: CustomRolePermissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomRolePermissions to fetch.
+     */
+    orderBy?: CustomRolePermissionOrderByWithRelationInput | CustomRolePermissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CustomRolePermissions.
+     */
+    cursor?: CustomRolePermissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomRolePermissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomRolePermissions.
+     */
+    skip?: number
+    distinct?: CustomRolePermissionScalarFieldEnum | CustomRolePermissionScalarFieldEnum[]
+  }
+
+  /**
+   * CustomRolePermission create
+   */
+  export type CustomRolePermissionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomRolePermission
+     */
+    select?: CustomRolePermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomRolePermission
+     */
+    omit?: CustomRolePermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomRolePermissionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CustomRolePermission.
+     */
+    data: XOR<CustomRolePermissionCreateInput, CustomRolePermissionUncheckedCreateInput>
+  }
+
+  /**
+   * CustomRolePermission createMany
+   */
+  export type CustomRolePermissionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CustomRolePermissions.
+     */
+    data: CustomRolePermissionCreateManyInput | CustomRolePermissionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CustomRolePermission createManyAndReturn
+   */
+  export type CustomRolePermissionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomRolePermission
+     */
+    select?: CustomRolePermissionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomRolePermission
+     */
+    omit?: CustomRolePermissionOmit<ExtArgs> | null
+    /**
+     * The data used to create many CustomRolePermissions.
+     */
+    data: CustomRolePermissionCreateManyInput | CustomRolePermissionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomRolePermissionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CustomRolePermission update
+   */
+  export type CustomRolePermissionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomRolePermission
+     */
+    select?: CustomRolePermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomRolePermission
+     */
+    omit?: CustomRolePermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomRolePermissionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CustomRolePermission.
+     */
+    data: XOR<CustomRolePermissionUpdateInput, CustomRolePermissionUncheckedUpdateInput>
+    /**
+     * Choose, which CustomRolePermission to update.
+     */
+    where: CustomRolePermissionWhereUniqueInput
+  }
+
+  /**
+   * CustomRolePermission updateMany
+   */
+  export type CustomRolePermissionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CustomRolePermissions.
+     */
+    data: XOR<CustomRolePermissionUpdateManyMutationInput, CustomRolePermissionUncheckedUpdateManyInput>
+    /**
+     * Filter which CustomRolePermissions to update
+     */
+    where?: CustomRolePermissionWhereInput
+    /**
+     * Limit how many CustomRolePermissions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CustomRolePermission updateManyAndReturn
+   */
+  export type CustomRolePermissionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomRolePermission
+     */
+    select?: CustomRolePermissionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomRolePermission
+     */
+    omit?: CustomRolePermissionOmit<ExtArgs> | null
+    /**
+     * The data used to update CustomRolePermissions.
+     */
+    data: XOR<CustomRolePermissionUpdateManyMutationInput, CustomRolePermissionUncheckedUpdateManyInput>
+    /**
+     * Filter which CustomRolePermissions to update
+     */
+    where?: CustomRolePermissionWhereInput
+    /**
+     * Limit how many CustomRolePermissions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomRolePermissionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CustomRolePermission upsert
+   */
+  export type CustomRolePermissionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomRolePermission
+     */
+    select?: CustomRolePermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomRolePermission
+     */
+    omit?: CustomRolePermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomRolePermissionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CustomRolePermission to update in case it exists.
+     */
+    where: CustomRolePermissionWhereUniqueInput
+    /**
+     * In case the CustomRolePermission found by the `where` argument doesn't exist, create a new CustomRolePermission with this data.
+     */
+    create: XOR<CustomRolePermissionCreateInput, CustomRolePermissionUncheckedCreateInput>
+    /**
+     * In case the CustomRolePermission was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CustomRolePermissionUpdateInput, CustomRolePermissionUncheckedUpdateInput>
+  }
+
+  /**
+   * CustomRolePermission delete
+   */
+  export type CustomRolePermissionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomRolePermission
+     */
+    select?: CustomRolePermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomRolePermission
+     */
+    omit?: CustomRolePermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomRolePermissionInclude<ExtArgs> | null
+    /**
+     * Filter which CustomRolePermission to delete.
+     */
+    where: CustomRolePermissionWhereUniqueInput
+  }
+
+  /**
+   * CustomRolePermission deleteMany
+   */
+  export type CustomRolePermissionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CustomRolePermissions to delete
+     */
+    where?: CustomRolePermissionWhereInput
+    /**
+     * Limit how many CustomRolePermissions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CustomRolePermission without action
+   */
+  export type CustomRolePermissionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomRolePermission
+     */
+    select?: CustomRolePermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomRolePermission
+     */
+    omit?: CustomRolePermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomRolePermissionInclude<ExtArgs> | null
   }
 
 
@@ -187754,6 +190332,21 @@ export namespace Prisma {
   export type LoginDeactivationScalarFieldEnum = (typeof LoginDeactivationScalarFieldEnum)[keyof typeof LoginDeactivationScalarFieldEnum]
 
 
+  export const RoleScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    slug: 'slug',
+    description: 'description',
+    branchId: 'branchId',
+    isSystem: 'isSystem',
+    priority: 'priority',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type RoleScalarFieldEnum = (typeof RoleScalarFieldEnum)[keyof typeof RoleScalarFieldEnum]
+
+
   export const UserScalarFieldEnum: {
     id: 'id',
     email: 'email',
@@ -187764,6 +190357,7 @@ export namespace Prisma {
     isActive: 'isActive',
     mustChangePassword: 'mustChangePassword',
     role: 'role',
+    roleId: 'roleId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     branchId: 'branchId',
@@ -188752,6 +191346,17 @@ export namespace Prisma {
   };
 
   export type RolePermissionScalarFieldEnum = (typeof RolePermissionScalarFieldEnum)[keyof typeof RolePermissionScalarFieldEnum]
+
+
+  export const CustomRolePermissionScalarFieldEnum: {
+    id: 'id',
+    roleId: 'roleId',
+    module: 'module',
+    action: 'action',
+    isAllowed: 'isAllowed'
+  };
+
+  export type CustomRolePermissionScalarFieldEnum = (typeof CustomRolePermissionScalarFieldEnum)[keyof typeof CustomRolePermissionScalarFieldEnum]
 
 
   export const AuditLogScalarFieldEnum: {
@@ -190141,6 +192746,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
    * Reference to a field of type 'UserRole'
    */
   export type EnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserRole'>
@@ -190165,20 +192784,6 @@ export namespace Prisma {
    * Reference to a field of type 'QueryMode'
    */
   export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int'
-   */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int[]'
-   */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
 
 
@@ -190762,6 +193367,7 @@ export namespace Prisma {
     bookCopies?: BookCopyListRelationFilter
     bookReservations?: BookReservationListRelationFilter
     hostelMaintenanceTickets?: HostelMaintenanceTicketListRelationFilter
+    roles?: RoleListRelationFilter
   }
 
   export type BranchOrderByWithRelationInput = {
@@ -190890,6 +193496,7 @@ export namespace Prisma {
     bookCopies?: BookCopyOrderByRelationAggregateInput
     bookReservations?: BookReservationOrderByRelationAggregateInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketOrderByRelationAggregateInput
+    roles?: RoleOrderByRelationAggregateInput
   }
 
   export type BranchWhereUniqueInput = Prisma.AtLeast<{
@@ -191021,6 +193628,7 @@ export namespace Prisma {
     bookCopies?: BookCopyListRelationFilter
     bookReservations?: BookReservationListRelationFilter
     hostelMaintenanceTickets?: HostelMaintenanceTicketListRelationFilter
+    roles?: RoleListRelationFilter
   }, "id" | "code">
 
   export type BranchOrderByWithAggregationInput = {
@@ -191197,6 +193805,89 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"LoginDeactivation"> | Date | string
   }
 
+  export type RoleWhereInput = {
+    AND?: RoleWhereInput | RoleWhereInput[]
+    OR?: RoleWhereInput[]
+    NOT?: RoleWhereInput | RoleWhereInput[]
+    id?: StringFilter<"Role"> | string
+    name?: StringFilter<"Role"> | string
+    slug?: StringFilter<"Role"> | string
+    description?: StringNullableFilter<"Role"> | string | null
+    branchId?: StringNullableFilter<"Role"> | string | null
+    isSystem?: BoolFilter<"Role"> | boolean
+    priority?: IntFilter<"Role"> | number
+    createdAt?: DateTimeFilter<"Role"> | Date | string
+    updatedAt?: DateTimeFilter<"Role"> | Date | string
+    branch?: XOR<BranchNullableScalarRelationFilter, BranchWhereInput> | null
+    users?: UserListRelationFilter
+    permissions?: CustomRolePermissionListRelationFilter
+  }
+
+  export type RoleOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    description?: SortOrderInput | SortOrder
+    branchId?: SortOrderInput | SortOrder
+    isSystem?: SortOrder
+    priority?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    branch?: BranchOrderByWithRelationInput
+    users?: UserOrderByRelationAggregateInput
+    permissions?: CustomRolePermissionOrderByRelationAggregateInput
+  }
+
+  export type RoleWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    slug?: string
+    AND?: RoleWhereInput | RoleWhereInput[]
+    OR?: RoleWhereInput[]
+    NOT?: RoleWhereInput | RoleWhereInput[]
+    name?: StringFilter<"Role"> | string
+    description?: StringNullableFilter<"Role"> | string | null
+    branchId?: StringNullableFilter<"Role"> | string | null
+    isSystem?: BoolFilter<"Role"> | boolean
+    priority?: IntFilter<"Role"> | number
+    createdAt?: DateTimeFilter<"Role"> | Date | string
+    updatedAt?: DateTimeFilter<"Role"> | Date | string
+    branch?: XOR<BranchNullableScalarRelationFilter, BranchWhereInput> | null
+    users?: UserListRelationFilter
+    permissions?: CustomRolePermissionListRelationFilter
+  }, "id" | "slug">
+
+  export type RoleOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    description?: SortOrderInput | SortOrder
+    branchId?: SortOrderInput | SortOrder
+    isSystem?: SortOrder
+    priority?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: RoleCountOrderByAggregateInput
+    _avg?: RoleAvgOrderByAggregateInput
+    _max?: RoleMaxOrderByAggregateInput
+    _min?: RoleMinOrderByAggregateInput
+    _sum?: RoleSumOrderByAggregateInput
+  }
+
+  export type RoleScalarWhereWithAggregatesInput = {
+    AND?: RoleScalarWhereWithAggregatesInput | RoleScalarWhereWithAggregatesInput[]
+    OR?: RoleScalarWhereWithAggregatesInput[]
+    NOT?: RoleScalarWhereWithAggregatesInput | RoleScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Role"> | string
+    name?: StringWithAggregatesFilter<"Role"> | string
+    slug?: StringWithAggregatesFilter<"Role"> | string
+    description?: StringNullableWithAggregatesFilter<"Role"> | string | null
+    branchId?: StringNullableWithAggregatesFilter<"Role"> | string | null
+    isSystem?: BoolWithAggregatesFilter<"Role"> | boolean
+    priority?: IntWithAggregatesFilter<"Role"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"Role"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Role"> | Date | string
+  }
+
   export type UserWhereInput = {
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
@@ -191210,6 +193901,7 @@ export namespace Prisma {
     isActive?: BoolFilter<"User"> | boolean
     mustChangePassword?: BoolFilter<"User"> | boolean
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
+    roleId?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     branchId?: StringNullableFilter<"User"> | string | null
@@ -191229,6 +193921,7 @@ export namespace Prisma {
     children?: StudentListRelationFilter
     student?: XOR<StudentNullableScalarRelationFilter, StudentWhereInput> | null
     branch?: XOR<BranchNullableScalarRelationFilter, BranchWhereInput> | null
+    customRole?: XOR<RoleNullableScalarRelationFilter, RoleWhereInput> | null
     approvedVouchers?: VoucherListRelationFilter
     preferences?: XOR<UserPreferenceNullableScalarRelationFilter, UserPreferenceWhereInput> | null
     notifications?: NotificationListRelationFilter
@@ -191248,6 +193941,7 @@ export namespace Prisma {
     isActive?: SortOrder
     mustChangePassword?: SortOrder
     role?: SortOrder
+    roleId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     branchId?: SortOrderInput | SortOrder
@@ -191267,6 +193961,7 @@ export namespace Prisma {
     children?: StudentOrderByRelationAggregateInput
     student?: StudentOrderByWithRelationInput
     branch?: BranchOrderByWithRelationInput
+    customRole?: RoleOrderByWithRelationInput
     approvedVouchers?: VoucherOrderByRelationAggregateInput
     preferences?: UserPreferenceOrderByWithRelationInput
     notifications?: NotificationOrderByRelationAggregateInput
@@ -191289,6 +193984,7 @@ export namespace Prisma {
     isActive?: BoolFilter<"User"> | boolean
     mustChangePassword?: BoolFilter<"User"> | boolean
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
+    roleId?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     branchId?: StringNullableFilter<"User"> | string | null
@@ -191308,6 +194004,7 @@ export namespace Prisma {
     children?: StudentListRelationFilter
     student?: XOR<StudentNullableScalarRelationFilter, StudentWhereInput> | null
     branch?: XOR<BranchNullableScalarRelationFilter, BranchWhereInput> | null
+    customRole?: XOR<RoleNullableScalarRelationFilter, RoleWhereInput> | null
     approvedVouchers?: VoucherListRelationFilter
     preferences?: XOR<UserPreferenceNullableScalarRelationFilter, UserPreferenceWhereInput> | null
     notifications?: NotificationListRelationFilter
@@ -191327,6 +194024,7 @@ export namespace Prisma {
     isActive?: SortOrder
     mustChangePassword?: SortOrder
     role?: SortOrder
+    roleId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     branchId?: SortOrderInput | SortOrder
@@ -191350,6 +194048,7 @@ export namespace Prisma {
     isActive?: BoolWithAggregatesFilter<"User"> | boolean
     mustChangePassword?: BoolWithAggregatesFilter<"User"> | boolean
     role?: EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
+    roleId?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     branchId?: StringNullableWithAggregatesFilter<"User"> | string | null
@@ -196739,6 +199438,62 @@ export namespace Prisma {
     module?: StringWithAggregatesFilter<"RolePermission"> | string
     action?: StringWithAggregatesFilter<"RolePermission"> | string
     isAllowed?: BoolWithAggregatesFilter<"RolePermission"> | boolean
+  }
+
+  export type CustomRolePermissionWhereInput = {
+    AND?: CustomRolePermissionWhereInput | CustomRolePermissionWhereInput[]
+    OR?: CustomRolePermissionWhereInput[]
+    NOT?: CustomRolePermissionWhereInput | CustomRolePermissionWhereInput[]
+    id?: StringFilter<"CustomRolePermission"> | string
+    roleId?: StringFilter<"CustomRolePermission"> | string
+    module?: StringFilter<"CustomRolePermission"> | string
+    action?: StringFilter<"CustomRolePermission"> | string
+    isAllowed?: BoolFilter<"CustomRolePermission"> | boolean
+    role?: XOR<RoleScalarRelationFilter, RoleWhereInput>
+  }
+
+  export type CustomRolePermissionOrderByWithRelationInput = {
+    id?: SortOrder
+    roleId?: SortOrder
+    module?: SortOrder
+    action?: SortOrder
+    isAllowed?: SortOrder
+    role?: RoleOrderByWithRelationInput
+  }
+
+  export type CustomRolePermissionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    roleId_module_action?: CustomRolePermissionRoleIdModuleActionCompoundUniqueInput
+    AND?: CustomRolePermissionWhereInput | CustomRolePermissionWhereInput[]
+    OR?: CustomRolePermissionWhereInput[]
+    NOT?: CustomRolePermissionWhereInput | CustomRolePermissionWhereInput[]
+    roleId?: StringFilter<"CustomRolePermission"> | string
+    module?: StringFilter<"CustomRolePermission"> | string
+    action?: StringFilter<"CustomRolePermission"> | string
+    isAllowed?: BoolFilter<"CustomRolePermission"> | boolean
+    role?: XOR<RoleScalarRelationFilter, RoleWhereInput>
+  }, "id" | "roleId_module_action">
+
+  export type CustomRolePermissionOrderByWithAggregationInput = {
+    id?: SortOrder
+    roleId?: SortOrder
+    module?: SortOrder
+    action?: SortOrder
+    isAllowed?: SortOrder
+    _count?: CustomRolePermissionCountOrderByAggregateInput
+    _max?: CustomRolePermissionMaxOrderByAggregateInput
+    _min?: CustomRolePermissionMinOrderByAggregateInput
+  }
+
+  export type CustomRolePermissionScalarWhereWithAggregatesInput = {
+    AND?: CustomRolePermissionScalarWhereWithAggregatesInput | CustomRolePermissionScalarWhereWithAggregatesInput[]
+    OR?: CustomRolePermissionScalarWhereWithAggregatesInput[]
+    NOT?: CustomRolePermissionScalarWhereWithAggregatesInput | CustomRolePermissionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CustomRolePermission"> | string
+    roleId?: StringWithAggregatesFilter<"CustomRolePermission"> | string
+    module?: StringWithAggregatesFilter<"CustomRolePermission"> | string
+    action?: StringWithAggregatesFilter<"CustomRolePermission"> | string
+    isAllowed?: BoolWithAggregatesFilter<"CustomRolePermission"> | boolean
   }
 
   export type AuditLogWhereInput = {
@@ -203707,6 +206462,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateInput = {
@@ -203835,6 +206591,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUpdateInput = {
@@ -203963,6 +206720,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateInput = {
@@ -204091,6 +206849,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateManyInput = {
@@ -204282,6 +207041,97 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type RoleCreateInput = {
+    id?: string
+    name: string
+    slug: string
+    description?: string | null
+    isSystem?: boolean
+    priority?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    branch?: BranchCreateNestedOneWithoutRolesInput
+    users?: UserCreateNestedManyWithoutCustomRoleInput
+    permissions?: CustomRolePermissionCreateNestedManyWithoutRoleInput
+  }
+
+  export type RoleUncheckedCreateInput = {
+    id?: string
+    name: string
+    slug: string
+    description?: string | null
+    branchId?: string | null
+    isSystem?: boolean
+    priority?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutCustomRoleInput
+    permissions?: CustomRolePermissionUncheckedCreateNestedManyWithoutRoleInput
+  }
+
+  export type RoleUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isSystem?: BoolFieldUpdateOperationsInput | boolean
+    priority?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneWithoutRolesNestedInput
+    users?: UserUpdateManyWithoutCustomRoleNestedInput
+    permissions?: CustomRolePermissionUpdateManyWithoutRoleNestedInput
+  }
+
+  export type RoleUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    isSystem?: BoolFieldUpdateOperationsInput | boolean
+    priority?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutCustomRoleNestedInput
+    permissions?: CustomRolePermissionUncheckedUpdateManyWithoutRoleNestedInput
+  }
+
+  export type RoleCreateManyInput = {
+    id?: string
+    name: string
+    slug: string
+    description?: string | null
+    branchId?: string | null
+    isSystem?: boolean
+    priority?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RoleUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isSystem?: BoolFieldUpdateOperationsInput | boolean
+    priority?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RoleUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    isSystem?: BoolFieldUpdateOperationsInput | boolean
+    priority?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -204310,6 +207160,7 @@ export namespace Prisma {
     children?: StudentCreateNestedManyWithoutParentInput
     student?: StudentCreateNestedOneWithoutUserInput
     branch?: BranchCreateNestedOneWithoutUsersInput
+    customRole?: RoleCreateNestedOneWithoutUsersInput
     approvedVouchers?: VoucherCreateNestedManyWithoutApprovedByInput
     preferences?: UserPreferenceCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
@@ -204329,6 +207180,7 @@ export namespace Prisma {
     isActive?: boolean
     mustChangePassword?: boolean
     role: $Enums.UserRole
+    roleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
@@ -204384,6 +207236,7 @@ export namespace Prisma {
     children?: StudentUpdateManyWithoutParentNestedInput
     student?: StudentUpdateOneWithoutUserNestedInput
     branch?: BranchUpdateOneWithoutUsersNestedInput
+    customRole?: RoleUpdateOneWithoutUsersNestedInput
     approvedVouchers?: VoucherUpdateManyWithoutApprovedByNestedInput
     preferences?: UserPreferenceUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
@@ -204403,6 +207256,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     mustChangePassword?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    roleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -204440,6 +207294,7 @@ export namespace Prisma {
     isActive?: boolean
     mustChangePassword?: boolean
     role: $Enums.UserRole
+    roleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
@@ -204473,6 +207328,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     mustChangePassword?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    roleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -210369,6 +213225,61 @@ export namespace Prisma {
   export type RolePermissionUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    module?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    isAllowed?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type CustomRolePermissionCreateInput = {
+    id?: string
+    module: string
+    action: string
+    isAllowed?: boolean
+    role: RoleCreateNestedOneWithoutPermissionsInput
+  }
+
+  export type CustomRolePermissionUncheckedCreateInput = {
+    id?: string
+    roleId: string
+    module: string
+    action: string
+    isAllowed?: boolean
+  }
+
+  export type CustomRolePermissionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    module?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    isAllowed?: BoolFieldUpdateOperationsInput | boolean
+    role?: RoleUpdateOneRequiredWithoutPermissionsNestedInput
+  }
+
+  export type CustomRolePermissionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roleId?: StringFieldUpdateOperationsInput | string
+    module?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    isAllowed?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type CustomRolePermissionCreateManyInput = {
+    id?: string
+    roleId: string
+    module: string
+    action: string
+    isAllowed?: boolean
+  }
+
+  export type CustomRolePermissionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    module?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    isAllowed?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type CustomRolePermissionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roleId?: StringFieldUpdateOperationsInput | string
     module?: StringFieldUpdateOperationsInput | string
     action?: StringFieldUpdateOperationsInput | string
     isAllowed?: BoolFieldUpdateOperationsInput | boolean
@@ -218502,6 +221413,12 @@ export namespace Prisma {
     none?: HostelMaintenanceTicketWhereInput
   }
 
+  export type RoleListRelationFilter = {
+    every?: RoleWhereInput
+    some?: RoleWhereInput
+    none?: RoleWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -218951,6 +221868,10 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type RoleOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type BranchCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -219127,6 +222048,92 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type BranchNullableScalarRelationFilter = {
+    is?: BranchWhereInput | null
+    isNot?: BranchWhereInput | null
+  }
+
+  export type CustomRolePermissionListRelationFilter = {
+    every?: CustomRolePermissionWhereInput
+    some?: CustomRolePermissionWhereInput
+    none?: CustomRolePermissionWhereInput
+  }
+
+  export type CustomRolePermissionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type RoleCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    description?: SortOrder
+    branchId?: SortOrder
+    isSystem?: SortOrder
+    priority?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RoleAvgOrderByAggregateInput = {
+    priority?: SortOrder
+  }
+
+  export type RoleMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    description?: SortOrder
+    branchId?: SortOrder
+    isSystem?: SortOrder
+    priority?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RoleMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    description?: SortOrder
+    branchId?: SortOrder
+    isSystem?: SortOrder
+    priority?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RoleSumOrderByAggregateInput = {
+    priority?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
   export type EnumUserRoleFilter<$PrismaModel = never> = {
     equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
     in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
@@ -219191,9 +222198,9 @@ export namespace Prisma {
     isNot?: StudentWhereInput | null
   }
 
-  export type BranchNullableScalarRelationFilter = {
-    is?: BranchWhereInput | null
-    isNot?: BranchWhereInput | null
+  export type RoleNullableScalarRelationFilter = {
+    is?: RoleWhereInput | null
+    isNot?: RoleWhereInput | null
   }
 
   export type UserPreferenceNullableScalarRelationFilter = {
@@ -219240,6 +222247,7 @@ export namespace Prisma {
     isActive?: SortOrder
     mustChangePassword?: SortOrder
     role?: SortOrder
+    roleId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     branchId?: SortOrder
@@ -219257,6 +222265,7 @@ export namespace Prisma {
     isActive?: SortOrder
     mustChangePassword?: SortOrder
     role?: SortOrder
+    roleId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     branchId?: SortOrder
@@ -219274,6 +222283,7 @@ export namespace Prisma {
     isActive?: SortOrder
     mustChangePassword?: SortOrder
     role?: SortOrder
+    roleId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     branchId?: SortOrder
@@ -219457,17 +222467,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type ScheduledJobCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -219519,22 +222518,6 @@ export namespace Prisma {
 
   export type ScheduledJobSumOrderByAggregateInput = {
     errorCount?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type EnumStaffStatusFilter<$PrismaModel = never> = {
@@ -223071,6 +226054,41 @@ export namespace Prisma {
   export type RolePermissionMinOrderByAggregateInput = {
     id?: SortOrder
     role?: SortOrder
+    module?: SortOrder
+    action?: SortOrder
+    isAllowed?: SortOrder
+  }
+
+  export type RoleScalarRelationFilter = {
+    is?: RoleWhereInput
+    isNot?: RoleWhereInput
+  }
+
+  export type CustomRolePermissionRoleIdModuleActionCompoundUniqueInput = {
+    roleId: string
+    module: string
+    action: string
+  }
+
+  export type CustomRolePermissionCountOrderByAggregateInput = {
+    id?: SortOrder
+    roleId?: SortOrder
+    module?: SortOrder
+    action?: SortOrder
+    isAllowed?: SortOrder
+  }
+
+  export type CustomRolePermissionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    roleId?: SortOrder
+    module?: SortOrder
+    action?: SortOrder
+    isAllowed?: SortOrder
+  }
+
+  export type CustomRolePermissionMinOrderByAggregateInput = {
+    id?: SortOrder
+    roleId?: SortOrder
     module?: SortOrder
     action?: SortOrder
     isAllowed?: SortOrder
@@ -227630,6 +230648,13 @@ export namespace Prisma {
     connect?: HostelMaintenanceTicketWhereUniqueInput | HostelMaintenanceTicketWhereUniqueInput[]
   }
 
+  export type RoleCreateNestedManyWithoutBranchInput = {
+    create?: XOR<RoleCreateWithoutBranchInput, RoleUncheckedCreateWithoutBranchInput> | RoleCreateWithoutBranchInput[] | RoleUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: RoleCreateOrConnectWithoutBranchInput | RoleCreateOrConnectWithoutBranchInput[]
+    createMany?: RoleCreateManyBranchInputEnvelope
+    connect?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
+  }
+
   export type AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput = {
     create?: XOR<AdmissionEnquiryCreateWithoutBranchInput, AdmissionEnquiryUncheckedCreateWithoutBranchInput> | AdmissionEnquiryCreateWithoutBranchInput[] | AdmissionEnquiryUncheckedCreateWithoutBranchInput[]
     connectOrCreate?: AdmissionEnquiryCreateOrConnectWithoutBranchInput | AdmissionEnquiryCreateOrConnectWithoutBranchInput[]
@@ -228411,6 +231436,13 @@ export namespace Prisma {
     connectOrCreate?: HostelMaintenanceTicketCreateOrConnectWithoutBranchInput | HostelMaintenanceTicketCreateOrConnectWithoutBranchInput[]
     createMany?: HostelMaintenanceTicketCreateManyBranchInputEnvelope
     connect?: HostelMaintenanceTicketWhereUniqueInput | HostelMaintenanceTicketWhereUniqueInput[]
+  }
+
+  export type RoleUncheckedCreateNestedManyWithoutBranchInput = {
+    create?: XOR<RoleCreateWithoutBranchInput, RoleUncheckedCreateWithoutBranchInput> | RoleCreateWithoutBranchInput[] | RoleUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: RoleCreateOrConnectWithoutBranchInput | RoleCreateOrConnectWithoutBranchInput[]
+    createMany?: RoleCreateManyBranchInputEnvelope
+    connect?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -229993,6 +233025,20 @@ export namespace Prisma {
     deleteMany?: HostelMaintenanceTicketScalarWhereInput | HostelMaintenanceTicketScalarWhereInput[]
   }
 
+  export type RoleUpdateManyWithoutBranchNestedInput = {
+    create?: XOR<RoleCreateWithoutBranchInput, RoleUncheckedCreateWithoutBranchInput> | RoleCreateWithoutBranchInput[] | RoleUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: RoleCreateOrConnectWithoutBranchInput | RoleCreateOrConnectWithoutBranchInput[]
+    upsert?: RoleUpsertWithWhereUniqueWithoutBranchInput | RoleUpsertWithWhereUniqueWithoutBranchInput[]
+    createMany?: RoleCreateManyBranchInputEnvelope
+    set?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
+    disconnect?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
+    delete?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
+    connect?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
+    update?: RoleUpdateWithWhereUniqueWithoutBranchInput | RoleUpdateWithWhereUniqueWithoutBranchInput[]
+    updateMany?: RoleUpdateManyWithWhereWithoutBranchInput | RoleUpdateManyWithWhereWithoutBranchInput[]
+    deleteMany?: RoleScalarWhereInput | RoleScalarWhereInput[]
+  }
+
   export type AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput = {
     create?: XOR<AdmissionEnquiryCreateWithoutBranchInput, AdmissionEnquiryUncheckedCreateWithoutBranchInput> | AdmissionEnquiryCreateWithoutBranchInput[] | AdmissionEnquiryUncheckedCreateWithoutBranchInput[]
     connectOrCreate?: AdmissionEnquiryCreateOrConnectWithoutBranchInput | AdmissionEnquiryCreateOrConnectWithoutBranchInput[]
@@ -231557,6 +234603,20 @@ export namespace Prisma {
     deleteMany?: HostelMaintenanceTicketScalarWhereInput | HostelMaintenanceTicketScalarWhereInput[]
   }
 
+  export type RoleUncheckedUpdateManyWithoutBranchNestedInput = {
+    create?: XOR<RoleCreateWithoutBranchInput, RoleUncheckedCreateWithoutBranchInput> | RoleCreateWithoutBranchInput[] | RoleUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: RoleCreateOrConnectWithoutBranchInput | RoleCreateOrConnectWithoutBranchInput[]
+    upsert?: RoleUpsertWithWhereUniqueWithoutBranchInput | RoleUpsertWithWhereUniqueWithoutBranchInput[]
+    createMany?: RoleCreateManyBranchInputEnvelope
+    set?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
+    disconnect?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
+    delete?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
+    connect?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
+    update?: RoleUpdateWithWhereUniqueWithoutBranchInput | RoleUpdateWithWhereUniqueWithoutBranchInput[]
+    updateMany?: RoleUpdateManyWithWhereWithoutBranchInput | RoleUpdateManyWithWhereWithoutBranchInput[]
+    deleteMany?: RoleScalarWhereInput | RoleScalarWhereInput[]
+  }
+
   export type BranchCreateNestedOneWithoutDeactivationReasonsInput = {
     create?: XOR<BranchCreateWithoutDeactivationReasonsInput, BranchUncheckedCreateWithoutDeactivationReasonsInput>
     connectOrCreate?: BranchCreateOrConnectWithoutDeactivationReasonsInput
@@ -231641,6 +234701,114 @@ export namespace Prisma {
     delete?: DeactivationReasonWhereInput | boolean
     connect?: DeactivationReasonWhereUniqueInput
     update?: XOR<XOR<DeactivationReasonUpdateToOneWithWhereWithoutDeactivationsInput, DeactivationReasonUpdateWithoutDeactivationsInput>, DeactivationReasonUncheckedUpdateWithoutDeactivationsInput>
+  }
+
+  export type BranchCreateNestedOneWithoutRolesInput = {
+    create?: XOR<BranchCreateWithoutRolesInput, BranchUncheckedCreateWithoutRolesInput>
+    connectOrCreate?: BranchCreateOrConnectWithoutRolesInput
+    connect?: BranchWhereUniqueInput
+  }
+
+  export type UserCreateNestedManyWithoutCustomRoleInput = {
+    create?: XOR<UserCreateWithoutCustomRoleInput, UserUncheckedCreateWithoutCustomRoleInput> | UserCreateWithoutCustomRoleInput[] | UserUncheckedCreateWithoutCustomRoleInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutCustomRoleInput | UserCreateOrConnectWithoutCustomRoleInput[]
+    createMany?: UserCreateManyCustomRoleInputEnvelope
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type CustomRolePermissionCreateNestedManyWithoutRoleInput = {
+    create?: XOR<CustomRolePermissionCreateWithoutRoleInput, CustomRolePermissionUncheckedCreateWithoutRoleInput> | CustomRolePermissionCreateWithoutRoleInput[] | CustomRolePermissionUncheckedCreateWithoutRoleInput[]
+    connectOrCreate?: CustomRolePermissionCreateOrConnectWithoutRoleInput | CustomRolePermissionCreateOrConnectWithoutRoleInput[]
+    createMany?: CustomRolePermissionCreateManyRoleInputEnvelope
+    connect?: CustomRolePermissionWhereUniqueInput | CustomRolePermissionWhereUniqueInput[]
+  }
+
+  export type UserUncheckedCreateNestedManyWithoutCustomRoleInput = {
+    create?: XOR<UserCreateWithoutCustomRoleInput, UserUncheckedCreateWithoutCustomRoleInput> | UserCreateWithoutCustomRoleInput[] | UserUncheckedCreateWithoutCustomRoleInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutCustomRoleInput | UserCreateOrConnectWithoutCustomRoleInput[]
+    createMany?: UserCreateManyCustomRoleInputEnvelope
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type CustomRolePermissionUncheckedCreateNestedManyWithoutRoleInput = {
+    create?: XOR<CustomRolePermissionCreateWithoutRoleInput, CustomRolePermissionUncheckedCreateWithoutRoleInput> | CustomRolePermissionCreateWithoutRoleInput[] | CustomRolePermissionUncheckedCreateWithoutRoleInput[]
+    connectOrCreate?: CustomRolePermissionCreateOrConnectWithoutRoleInput | CustomRolePermissionCreateOrConnectWithoutRoleInput[]
+    createMany?: CustomRolePermissionCreateManyRoleInputEnvelope
+    connect?: CustomRolePermissionWhereUniqueInput | CustomRolePermissionWhereUniqueInput[]
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type BranchUpdateOneWithoutRolesNestedInput = {
+    create?: XOR<BranchCreateWithoutRolesInput, BranchUncheckedCreateWithoutRolesInput>
+    connectOrCreate?: BranchCreateOrConnectWithoutRolesInput
+    upsert?: BranchUpsertWithoutRolesInput
+    disconnect?: BranchWhereInput | boolean
+    delete?: BranchWhereInput | boolean
+    connect?: BranchWhereUniqueInput
+    update?: XOR<XOR<BranchUpdateToOneWithWhereWithoutRolesInput, BranchUpdateWithoutRolesInput>, BranchUncheckedUpdateWithoutRolesInput>
+  }
+
+  export type UserUpdateManyWithoutCustomRoleNestedInput = {
+    create?: XOR<UserCreateWithoutCustomRoleInput, UserUncheckedCreateWithoutCustomRoleInput> | UserCreateWithoutCustomRoleInput[] | UserUncheckedCreateWithoutCustomRoleInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutCustomRoleInput | UserCreateOrConnectWithoutCustomRoleInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutCustomRoleInput | UserUpsertWithWhereUniqueWithoutCustomRoleInput[]
+    createMany?: UserCreateManyCustomRoleInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutCustomRoleInput | UserUpdateWithWhereUniqueWithoutCustomRoleInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutCustomRoleInput | UserUpdateManyWithWhereWithoutCustomRoleInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type CustomRolePermissionUpdateManyWithoutRoleNestedInput = {
+    create?: XOR<CustomRolePermissionCreateWithoutRoleInput, CustomRolePermissionUncheckedCreateWithoutRoleInput> | CustomRolePermissionCreateWithoutRoleInput[] | CustomRolePermissionUncheckedCreateWithoutRoleInput[]
+    connectOrCreate?: CustomRolePermissionCreateOrConnectWithoutRoleInput | CustomRolePermissionCreateOrConnectWithoutRoleInput[]
+    upsert?: CustomRolePermissionUpsertWithWhereUniqueWithoutRoleInput | CustomRolePermissionUpsertWithWhereUniqueWithoutRoleInput[]
+    createMany?: CustomRolePermissionCreateManyRoleInputEnvelope
+    set?: CustomRolePermissionWhereUniqueInput | CustomRolePermissionWhereUniqueInput[]
+    disconnect?: CustomRolePermissionWhereUniqueInput | CustomRolePermissionWhereUniqueInput[]
+    delete?: CustomRolePermissionWhereUniqueInput | CustomRolePermissionWhereUniqueInput[]
+    connect?: CustomRolePermissionWhereUniqueInput | CustomRolePermissionWhereUniqueInput[]
+    update?: CustomRolePermissionUpdateWithWhereUniqueWithoutRoleInput | CustomRolePermissionUpdateWithWhereUniqueWithoutRoleInput[]
+    updateMany?: CustomRolePermissionUpdateManyWithWhereWithoutRoleInput | CustomRolePermissionUpdateManyWithWhereWithoutRoleInput[]
+    deleteMany?: CustomRolePermissionScalarWhereInput | CustomRolePermissionScalarWhereInput[]
+  }
+
+  export type UserUncheckedUpdateManyWithoutCustomRoleNestedInput = {
+    create?: XOR<UserCreateWithoutCustomRoleInput, UserUncheckedCreateWithoutCustomRoleInput> | UserCreateWithoutCustomRoleInput[] | UserUncheckedCreateWithoutCustomRoleInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutCustomRoleInput | UserCreateOrConnectWithoutCustomRoleInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutCustomRoleInput | UserUpsertWithWhereUniqueWithoutCustomRoleInput[]
+    createMany?: UserCreateManyCustomRoleInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutCustomRoleInput | UserUpdateWithWhereUniqueWithoutCustomRoleInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutCustomRoleInput | UserUpdateManyWithWhereWithoutCustomRoleInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type CustomRolePermissionUncheckedUpdateManyWithoutRoleNestedInput = {
+    create?: XOR<CustomRolePermissionCreateWithoutRoleInput, CustomRolePermissionUncheckedCreateWithoutRoleInput> | CustomRolePermissionCreateWithoutRoleInput[] | CustomRolePermissionUncheckedCreateWithoutRoleInput[]
+    connectOrCreate?: CustomRolePermissionCreateOrConnectWithoutRoleInput | CustomRolePermissionCreateOrConnectWithoutRoleInput[]
+    upsert?: CustomRolePermissionUpsertWithWhereUniqueWithoutRoleInput | CustomRolePermissionUpsertWithWhereUniqueWithoutRoleInput[]
+    createMany?: CustomRolePermissionCreateManyRoleInputEnvelope
+    set?: CustomRolePermissionWhereUniqueInput | CustomRolePermissionWhereUniqueInput[]
+    disconnect?: CustomRolePermissionWhereUniqueInput | CustomRolePermissionWhereUniqueInput[]
+    delete?: CustomRolePermissionWhereUniqueInput | CustomRolePermissionWhereUniqueInput[]
+    connect?: CustomRolePermissionWhereUniqueInput | CustomRolePermissionWhereUniqueInput[]
+    update?: CustomRolePermissionUpdateWithWhereUniqueWithoutRoleInput | CustomRolePermissionUpdateWithWhereUniqueWithoutRoleInput[]
+    updateMany?: CustomRolePermissionUpdateManyWithWhereWithoutRoleInput | CustomRolePermissionUpdateManyWithWhereWithoutRoleInput[]
+    deleteMany?: CustomRolePermissionScalarWhereInput | CustomRolePermissionScalarWhereInput[]
   }
 
   export type AuditLogCreateNestedManyWithoutUserInput = {
@@ -231736,6 +234904,12 @@ export namespace Prisma {
     create?: XOR<BranchCreateWithoutUsersInput, BranchUncheckedCreateWithoutUsersInput>
     connectOrCreate?: BranchCreateOrConnectWithoutUsersInput
     connect?: BranchWhereUniqueInput
+  }
+
+  export type RoleCreateNestedOneWithoutUsersInput = {
+    create?: XOR<RoleCreateWithoutUsersInput, RoleUncheckedCreateWithoutUsersInput>
+    connectOrCreate?: RoleCreateOrConnectWithoutUsersInput
+    connect?: RoleWhereUniqueInput
   }
 
   export type VoucherCreateNestedManyWithoutApprovedByInput = {
@@ -232111,6 +235285,16 @@ export namespace Prisma {
     delete?: BranchWhereInput | boolean
     connect?: BranchWhereUniqueInput
     update?: XOR<XOR<BranchUpdateToOneWithWhereWithoutUsersInput, BranchUpdateWithoutUsersInput>, BranchUncheckedUpdateWithoutUsersInput>
+  }
+
+  export type RoleUpdateOneWithoutUsersNestedInput = {
+    create?: XOR<RoleCreateWithoutUsersInput, RoleUncheckedCreateWithoutUsersInput>
+    connectOrCreate?: RoleCreateOrConnectWithoutUsersInput
+    upsert?: RoleUpsertWithoutUsersInput
+    disconnect?: RoleWhereInput | boolean
+    delete?: RoleWhereInput | boolean
+    connect?: RoleWhereUniqueInput
+    update?: XOR<XOR<RoleUpdateToOneWithWhereWithoutUsersInput, RoleUpdateWithoutUsersInput>, RoleUncheckedUpdateWithoutUsersInput>
   }
 
   export type VoucherUpdateManyWithoutApprovedByNestedInput = {
@@ -232501,14 +235685,6 @@ export namespace Prisma {
     create?: XOR<BranchCreateWithoutScheduledJobsInput, BranchUncheckedCreateWithoutScheduledJobsInput>
     connectOrCreate?: BranchCreateOrConnectWithoutScheduledJobsInput
     connect?: BranchWhereUniqueInput
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type BranchUpdateOneWithoutScheduledJobsNestedInput = {
@@ -237791,6 +240967,20 @@ export namespace Prisma {
     update?: XOR<XOR<BranchUpdateToOneWithWhereWithoutGlobalSettingsInput, BranchUpdateWithoutGlobalSettingsInput>, BranchUncheckedUpdateWithoutGlobalSettingsInput>
   }
 
+  export type RoleCreateNestedOneWithoutPermissionsInput = {
+    create?: XOR<RoleCreateWithoutPermissionsInput, RoleUncheckedCreateWithoutPermissionsInput>
+    connectOrCreate?: RoleCreateOrConnectWithoutPermissionsInput
+    connect?: RoleWhereUniqueInput
+  }
+
+  export type RoleUpdateOneRequiredWithoutPermissionsNestedInput = {
+    create?: XOR<RoleCreateWithoutPermissionsInput, RoleUncheckedCreateWithoutPermissionsInput>
+    connectOrCreate?: RoleCreateOrConnectWithoutPermissionsInput
+    upsert?: RoleUpsertWithoutPermissionsInput
+    connect?: RoleWhereUniqueInput
+    update?: XOR<XOR<RoleUpdateToOneWithWhereWithoutPermissionsInput, RoleUpdateWithoutPermissionsInput>, RoleUncheckedUpdateWithoutPermissionsInput>
+  }
+
   export type UserCreateNestedOneWithoutAuditLogsInput = {
     create?: XOR<UserCreateWithoutAuditLogsInput, UserUncheckedCreateWithoutAuditLogsInput>
     connectOrCreate?: UserCreateOrConnectWithoutAuditLogsInput
@@ -241415,6 +244605,33 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type NestedEnumUserRoleFilter<$PrismaModel = never> = {
     equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
     in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
@@ -241478,33 +244695,6 @@ export namespace Prisma {
     gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
-
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
   export type NestedEnumStaffStatusFilter<$PrismaModel = never> = {
@@ -243975,6 +247165,7 @@ export namespace Prisma {
     staff?: StaffCreateNestedOneWithoutUserInput
     children?: StudentCreateNestedManyWithoutParentInput
     student?: StudentCreateNestedOneWithoutUserInput
+    customRole?: RoleCreateNestedOneWithoutUsersInput
     approvedVouchers?: VoucherCreateNestedManyWithoutApprovedByInput
     preferences?: UserPreferenceCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
@@ -243994,6 +247185,7 @@ export namespace Prisma {
     isActive?: boolean
     mustChangePassword?: boolean
     role: $Enums.UserRole
+    roleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     resetTokenHash?: string | null
@@ -246520,6 +249712,42 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type RoleCreateWithoutBranchInput = {
+    id?: string
+    name: string
+    slug: string
+    description?: string | null
+    isSystem?: boolean
+    priority?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserCreateNestedManyWithoutCustomRoleInput
+    permissions?: CustomRolePermissionCreateNestedManyWithoutRoleInput
+  }
+
+  export type RoleUncheckedCreateWithoutBranchInput = {
+    id?: string
+    name: string
+    slug: string
+    description?: string | null
+    isSystem?: boolean
+    priority?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutCustomRoleInput
+    permissions?: CustomRolePermissionUncheckedCreateNestedManyWithoutRoleInput
+  }
+
+  export type RoleCreateOrConnectWithoutBranchInput = {
+    where: RoleWhereUniqueInput
+    create: XOR<RoleCreateWithoutBranchInput, RoleUncheckedCreateWithoutBranchInput>
+  }
+
+  export type RoleCreateManyBranchInputEnvelope = {
+    data: RoleCreateManyBranchInput | RoleCreateManyBranchInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AdmissionEnquiryUpsertWithWhereUniqueWithoutBranchInput = {
     where: AdmissionEnquiryWhereUniqueInput
     update: XOR<AdmissionEnquiryUpdateWithoutBranchInput, AdmissionEnquiryUncheckedUpdateWithoutBranchInput>
@@ -248002,6 +251230,7 @@ export namespace Prisma {
     isActive?: BoolFilter<"User"> | boolean
     mustChangePassword?: BoolFilter<"User"> | boolean
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
+    roleId?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     branchId?: StringNullableFilter<"User"> | string | null
@@ -250272,6 +253501,37 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"HostelMaintenanceTicket"> | Date | string
   }
 
+  export type RoleUpsertWithWhereUniqueWithoutBranchInput = {
+    where: RoleWhereUniqueInput
+    update: XOR<RoleUpdateWithoutBranchInput, RoleUncheckedUpdateWithoutBranchInput>
+    create: XOR<RoleCreateWithoutBranchInput, RoleUncheckedCreateWithoutBranchInput>
+  }
+
+  export type RoleUpdateWithWhereUniqueWithoutBranchInput = {
+    where: RoleWhereUniqueInput
+    data: XOR<RoleUpdateWithoutBranchInput, RoleUncheckedUpdateWithoutBranchInput>
+  }
+
+  export type RoleUpdateManyWithWhereWithoutBranchInput = {
+    where: RoleScalarWhereInput
+    data: XOR<RoleUpdateManyMutationInput, RoleUncheckedUpdateManyWithoutBranchInput>
+  }
+
+  export type RoleScalarWhereInput = {
+    AND?: RoleScalarWhereInput | RoleScalarWhereInput[]
+    OR?: RoleScalarWhereInput[]
+    NOT?: RoleScalarWhereInput | RoleScalarWhereInput[]
+    id?: StringFilter<"Role"> | string
+    name?: StringFilter<"Role"> | string
+    slug?: StringFilter<"Role"> | string
+    description?: StringNullableFilter<"Role"> | string | null
+    branchId?: StringNullableFilter<"Role"> | string | null
+    isSystem?: BoolFilter<"Role"> | boolean
+    priority?: IntFilter<"Role"> | number
+    createdAt?: DateTimeFilter<"Role"> | Date | string
+    updatedAt?: DateTimeFilter<"Role"> | Date | string
+  }
+
   export type BranchCreateWithoutDeactivationReasonsInput = {
     id?: string
     name: string
@@ -250397,6 +253657,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutDeactivationReasonsInput = {
@@ -250524,6 +253785,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutDeactivationReasonsInput = {
@@ -250697,6 +253959,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutDeactivationReasonsInput = {
@@ -250824,6 +254087,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type LoginDeactivationUpsertWithWhereUniqueWithoutReasonRefInput = {
@@ -250967,6 +254231,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutLoginDeactivationsInput = {
@@ -251094,6 +254359,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutLoginDeactivationsInput = {
@@ -251260,6 +254526,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutLoginDeactivationsInput = {
@@ -251387,6 +254654,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type DeactivationReasonUpsertWithoutDeactivationsInput = {
@@ -251416,6 +254684,685 @@ export namespace Prisma {
     branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BranchCreateWithoutRolesInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    logoUrl?: string | null
+    primaryColor?: string | null
+    emailFooter?: string | null
+    smsSenderId?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
+    alumni?: AlumniCreateNestedManyWithoutBranchInput
+    alumniEvents?: AlumniEventCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
+    automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    books?: BookCreateNestedManyWithoutBranchInput
+    callLogs?: CallLogCreateNestedManyWithoutBranchInput
+    accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
+    campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
+    certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
+    classes?: ClassCreateNestedManyWithoutBranchInput
+    complaints?: ComplaintCreateNestedManyWithoutBranchInput
+    conversations?: ConversationCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    attachmentCategories?: AttachmentCategoryCreateNestedManyWithoutBranchInput
+    departments?: DepartmentCreateNestedManyWithoutBranchInput
+    designations?: DesignationCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
+    expenseCategories?: ExpenseCategoryCreateNestedManyWithoutBranchInput
+    feeCategories?: FeeCategoryCreateNestedManyWithoutBranchInput
+    googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
+    hostels?: HostelCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    inventoryCategories?: InventoryCategoryCreateNestedManyWithoutBranchInput
+    inventoryIssues?: InventoryIssueCreateNestedManyWithoutBranchInput
+    inventoryProducts?: InventoryProductCreateNestedManyWithoutBranchInput
+    inventoryPurchases?: InventoryPurchaseCreateNestedManyWithoutBranchInput
+    inventorySales?: InventorySaleCreateNestedManyWithoutBranchInput
+    inventoryStores?: InventoryStoreCreateNestedManyWithoutBranchInput
+    inventorySuppliers?: InventorySupplierCreateNestedManyWithoutBranchInput
+    inventoryUnits?: InventoryUnitCreateNestedManyWithoutBranchInput
+    liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutBranchInput
+    onlineExams?: OnlineExamCreateNestedManyWithoutBranchInput
+    postalRecords?: PostalRecordCreateNestedManyWithoutBranchInput
+    questionGroups?: QuestionGroupCreateNestedManyWithoutBranchInput
+    students?: StudentCreateNestedManyWithoutBranchInput
+    studentCategories?: StudentCategoryCreateNestedManyWithoutBranchInput
+    subjects?: SubjectCreateNestedManyWithoutBranchInput
+    routes?: TransportRouteCreateNestedManyWithoutBranchInput
+    users?: UserCreateNestedManyWithoutBranchInput
+    vehicles?: VehicleCreateNestedManyWithoutBranchInput
+    visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
+    vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    attendanceSessions?: AttendanceSessionCreateNestedManyWithoutBranchInput
+    attendanceScans?: AttendanceScanCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
+    moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
+    scheduledJobs?: ScheduledJobCreateNestedManyWithoutBranchInput
+    emailTemplates?: EmailTemplateCreateNestedManyWithoutBranchInput
+    smsTemplates?: SmsTemplateCreateNestedManyWithoutBranchInput
+    notifications?: NotificationCreateNestedManyWithoutBranchInput
+    notificationPreferences?: NotificationPreferenceCreateNestedManyWithoutBranchInput
+    campaigns?: CampaignCreateNestedManyWithoutBranchInput
+    campaignRecipients?: CampaignRecipientCreateNestedManyWithoutBranchInput
+    queueJobLogs?: QueueJobLogCreateNestedManyWithoutBranchInput
+    automationExecutions?: AutomationExecutionCreateNestedManyWithoutBranchInput
+    messageDeliveryLogs?: MessageDeliveryLogCreateNestedManyWithoutBranchInput
+    providerHealthLogs?: ProviderHealthLogCreateNestedManyWithoutBranchInput
+    webhookEvents?: WebhookEventCreateNestedManyWithoutBranchInput
+    deliveryWebhookLogs?: DeliveryWebhookLogCreateNestedManyWithoutBranchInput
+    realtimeConnections?: RealtimeConnectionCreateNestedManyWithoutBranchInput
+    queueMetrics?: QueueMetricCreateNestedManyWithoutBranchInput
+    providerFailoverEvents?: ProviderFailoverEventCreateNestedManyWithoutBranchInput
+    messageRetryEvents?: MessageRetryEventCreateNestedManyWithoutBranchInput
+    providerBalanceSnapshots?: ProviderBalanceSnapshotCreateNestedManyWithoutBranchInput
+    counters?: CounterCreateNestedManyWithoutBranchInput
+    notificationDeliveryEvents?: NotificationDeliveryEventCreateNestedManyWithoutBranchInput
+    academicExports?: AcademicExportCreateNestedManyWithoutBranchInput
+    reportTemplates?: ReportTemplateCreateNestedManyWithoutBranchInput
+    computationJobs?: ComputationJobCreateNestedManyWithoutBranchInput
+    apiKeys?: ApiKeyCreateNestedManyWithoutBranchInput
+    webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutBranchInput
+    exams?: ExamCreateNestedManyWithoutBranchInput
+    examTypes?: ExamTypeCreateNestedManyWithoutBranchInput
+    assessmentComponents?: AssessmentComponentCreateNestedManyWithoutBranchInput
+    resultApprovals?: ResultApprovalCreateNestedManyWithoutBranchInput
+    resultPublications?: ResultPublicationCreateNestedManyWithoutBranchInput
+    gpaRecords?: GPARecordCreateNestedManyWithoutBranchInput
+    studentRankings?: StudentRankingCreateNestedManyWithoutBranchInput
+    broadsheets?: BroadsheetCreateNestedManyWithoutBranchInput
+    transcripts?: TranscriptCreateNestedManyWithoutBranchInput
+    academicRemarks?: AcademicRemarkCreateNestedManyWithoutBranchInput
+    subjectPositions?: SubjectPositionCreateNestedManyWithoutBranchInput
+    tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
+    tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
+    invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
+    libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
+    salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
+    payrolls?: PayrollCreateNestedManyWithoutBranchInput
+    leaveRequests?: LeaveRequestCreateNestedManyWithoutBranchInput
+    staffAwards?: StaffAwardCreateNestedManyWithoutBranchInput
+    advanceSalaries?: AdvanceSalaryCreateNestedManyWithoutBranchInput
+    hostelAllocations?: HostelAllocationCreateNestedManyWithoutBranchInput
+    hostelLeaves?: HostelLeaveCreateNestedManyWithoutBranchInput
+    maintenanceRequests?: MaintenanceRequestCreateNestedManyWithoutBranchInput
+    submissions?: SubmissionCreateNestedManyWithoutBranchInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutBranchInput
+    idCards?: IdCardCreateNestedManyWithoutBranchInput
+    bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
+    bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
+    hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+  }
+
+  export type BranchUncheckedCreateWithoutRolesInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    logoUrl?: string | null
+    primaryColor?: string | null
+    emailFooter?: string | null
+    smsSenderId?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
+    alumni?: AlumniUncheckedCreateNestedManyWithoutBranchInput
+    alumniEvents?: AlumniEventUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
+    automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    books?: BookUncheckedCreateNestedManyWithoutBranchInput
+    callLogs?: CallLogUncheckedCreateNestedManyWithoutBranchInput
+    accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
+    campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
+    certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
+    classes?: ClassUncheckedCreateNestedManyWithoutBranchInput
+    complaints?: ComplaintUncheckedCreateNestedManyWithoutBranchInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    attachmentCategories?: AttachmentCategoryUncheckedCreateNestedManyWithoutBranchInput
+    departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
+    designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
+    expenseCategories?: ExpenseCategoryUncheckedCreateNestedManyWithoutBranchInput
+    feeCategories?: FeeCategoryUncheckedCreateNestedManyWithoutBranchInput
+    googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
+    hostels?: HostelUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    inventoryCategories?: InventoryCategoryUncheckedCreateNestedManyWithoutBranchInput
+    inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutBranchInput
+    inventoryProducts?: InventoryProductUncheckedCreateNestedManyWithoutBranchInput
+    inventoryPurchases?: InventoryPurchaseUncheckedCreateNestedManyWithoutBranchInput
+    inventorySales?: InventorySaleUncheckedCreateNestedManyWithoutBranchInput
+    inventoryStores?: InventoryStoreUncheckedCreateNestedManyWithoutBranchInput
+    inventorySuppliers?: InventorySupplierUncheckedCreateNestedManyWithoutBranchInput
+    inventoryUnits?: InventoryUnitUncheckedCreateNestedManyWithoutBranchInput
+    liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutBranchInput
+    onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutBranchInput
+    postalRecords?: PostalRecordUncheckedCreateNestedManyWithoutBranchInput
+    questionGroups?: QuestionGroupUncheckedCreateNestedManyWithoutBranchInput
+    students?: StudentUncheckedCreateNestedManyWithoutBranchInput
+    studentCategories?: StudentCategoryUncheckedCreateNestedManyWithoutBranchInput
+    subjects?: SubjectUncheckedCreateNestedManyWithoutBranchInput
+    routes?: TransportRouteUncheckedCreateNestedManyWithoutBranchInput
+    users?: UserUncheckedCreateNestedManyWithoutBranchInput
+    vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
+    visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
+    vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    attendanceSessions?: AttendanceSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendanceScans?: AttendanceScanUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
+    moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
+    scheduledJobs?: ScheduledJobUncheckedCreateNestedManyWithoutBranchInput
+    emailTemplates?: EmailTemplateUncheckedCreateNestedManyWithoutBranchInput
+    smsTemplates?: SmsTemplateUncheckedCreateNestedManyWithoutBranchInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutBranchInput
+    notificationPreferences?: NotificationPreferenceUncheckedCreateNestedManyWithoutBranchInput
+    campaigns?: CampaignUncheckedCreateNestedManyWithoutBranchInput
+    campaignRecipients?: CampaignRecipientUncheckedCreateNestedManyWithoutBranchInput
+    queueJobLogs?: QueueJobLogUncheckedCreateNestedManyWithoutBranchInput
+    automationExecutions?: AutomationExecutionUncheckedCreateNestedManyWithoutBranchInput
+    messageDeliveryLogs?: MessageDeliveryLogUncheckedCreateNestedManyWithoutBranchInput
+    providerHealthLogs?: ProviderHealthLogUncheckedCreateNestedManyWithoutBranchInput
+    webhookEvents?: WebhookEventUncheckedCreateNestedManyWithoutBranchInput
+    deliveryWebhookLogs?: DeliveryWebhookLogUncheckedCreateNestedManyWithoutBranchInput
+    realtimeConnections?: RealtimeConnectionUncheckedCreateNestedManyWithoutBranchInput
+    queueMetrics?: QueueMetricUncheckedCreateNestedManyWithoutBranchInput
+    providerFailoverEvents?: ProviderFailoverEventUncheckedCreateNestedManyWithoutBranchInput
+    messageRetryEvents?: MessageRetryEventUncheckedCreateNestedManyWithoutBranchInput
+    providerBalanceSnapshots?: ProviderBalanceSnapshotUncheckedCreateNestedManyWithoutBranchInput
+    counters?: CounterUncheckedCreateNestedManyWithoutBranchInput
+    notificationDeliveryEvents?: NotificationDeliveryEventUncheckedCreateNestedManyWithoutBranchInput
+    academicExports?: AcademicExportUncheckedCreateNestedManyWithoutBranchInput
+    reportTemplates?: ReportTemplateUncheckedCreateNestedManyWithoutBranchInput
+    computationJobs?: ComputationJobUncheckedCreateNestedManyWithoutBranchInput
+    apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutBranchInput
+    webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutBranchInput
+    exams?: ExamUncheckedCreateNestedManyWithoutBranchInput
+    examTypes?: ExamTypeUncheckedCreateNestedManyWithoutBranchInput
+    assessmentComponents?: AssessmentComponentUncheckedCreateNestedManyWithoutBranchInput
+    resultApprovals?: ResultApprovalUncheckedCreateNestedManyWithoutBranchInput
+    resultPublications?: ResultPublicationUncheckedCreateNestedManyWithoutBranchInput
+    gpaRecords?: GPARecordUncheckedCreateNestedManyWithoutBranchInput
+    studentRankings?: StudentRankingUncheckedCreateNestedManyWithoutBranchInput
+    broadsheets?: BroadsheetUncheckedCreateNestedManyWithoutBranchInput
+    transcripts?: TranscriptUncheckedCreateNestedManyWithoutBranchInput
+    academicRemarks?: AcademicRemarkUncheckedCreateNestedManyWithoutBranchInput
+    subjectPositions?: SubjectPositionUncheckedCreateNestedManyWithoutBranchInput
+    tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
+    tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
+    libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
+    salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
+    payrolls?: PayrollUncheckedCreateNestedManyWithoutBranchInput
+    leaveRequests?: LeaveRequestUncheckedCreateNestedManyWithoutBranchInput
+    staffAwards?: StaffAwardUncheckedCreateNestedManyWithoutBranchInput
+    advanceSalaries?: AdvanceSalaryUncheckedCreateNestedManyWithoutBranchInput
+    hostelAllocations?: HostelAllocationUncheckedCreateNestedManyWithoutBranchInput
+    hostelLeaves?: HostelLeaveUncheckedCreateNestedManyWithoutBranchInput
+    maintenanceRequests?: MaintenanceRequestUncheckedCreateNestedManyWithoutBranchInput
+    submissions?: SubmissionUncheckedCreateNestedManyWithoutBranchInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutBranchInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutBranchInput
+    bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
+    bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
+    hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+  }
+
+  export type BranchCreateOrConnectWithoutRolesInput = {
+    where: BranchWhereUniqueInput
+    create: XOR<BranchCreateWithoutRolesInput, BranchUncheckedCreateWithoutRolesInput>
+  }
+
+  export type UserCreateWithoutCustomRoleInput = {
+    id?: string
+    email: string
+    password: string
+    firstName: string
+    lastName: string
+    phone?: string | null
+    isActive?: boolean
+    mustChangePassword?: boolean
+    role: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
+    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
+    accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
+    realtimeConnections?: RealtimeConnectionCreateNestedManyWithoutUserInput
+    issuedCertificates?: CertificateCreateNestedManyWithoutIssuedByInput
+    conversationParticipations?: ConversationParticipantCreateNestedManyWithoutUserInput
+    digitalResourceLogs?: DigitalResourceLogCreateNestedManyWithoutUserInput
+    eventRSVPs?: EventRSVPCreateNestedManyWithoutUserInput
+    meetingParticipations?: MeetingParticipantCreateNestedManyWithoutUserInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutParentInput
+    staff?: StaffCreateNestedOneWithoutUserInput
+    children?: StudentCreateNestedManyWithoutParentInput
+    student?: StudentCreateNestedOneWithoutUserInput
+    branch?: BranchCreateNestedOneWithoutUsersInput
+    approvedVouchers?: VoucherCreateNestedManyWithoutApprovedByInput
+    preferences?: UserPreferenceCreateNestedOneWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    notificationPreference?: NotificationPreferenceCreateNestedOneWithoutUserInput
+    campaignRecipients?: CampaignRecipientCreateNestedManyWithoutUserInput
+    academicExports?: AcademicExportCreateNestedManyWithoutUserInput
+    computationJobs?: ComputationJobCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutCustomRoleInput = {
+    id?: string
+    email: string
+    password: string
+    firstName: string
+    lastName: string
+    phone?: string | null
+    isActive?: boolean
+    mustChangePassword?: boolean
+    role: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    branchId?: string | null
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
+    realtimeConnections?: RealtimeConnectionUncheckedCreateNestedManyWithoutUserInput
+    issuedCertificates?: CertificateUncheckedCreateNestedManyWithoutIssuedByInput
+    conversationParticipations?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+    digitalResourceLogs?: DigitalResourceLogUncheckedCreateNestedManyWithoutUserInput
+    eventRSVPs?: EventRSVPUncheckedCreateNestedManyWithoutUserInput
+    meetingParticipations?: MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutParentInput
+    staff?: StaffUncheckedCreateNestedOneWithoutUserInput
+    children?: StudentUncheckedCreateNestedManyWithoutParentInput
+    student?: StudentUncheckedCreateNestedOneWithoutUserInput
+    approvedVouchers?: VoucherUncheckedCreateNestedManyWithoutApprovedByInput
+    preferences?: UserPreferenceUncheckedCreateNestedOneWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    notificationPreference?: NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+    campaignRecipients?: CampaignRecipientUncheckedCreateNestedManyWithoutUserInput
+    academicExports?: AcademicExportUncheckedCreateNestedManyWithoutUserInput
+    computationJobs?: ComputationJobUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutCustomRoleInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCustomRoleInput, UserUncheckedCreateWithoutCustomRoleInput>
+  }
+
+  export type UserCreateManyCustomRoleInputEnvelope = {
+    data: UserCreateManyCustomRoleInput | UserCreateManyCustomRoleInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CustomRolePermissionCreateWithoutRoleInput = {
+    id?: string
+    module: string
+    action: string
+    isAllowed?: boolean
+  }
+
+  export type CustomRolePermissionUncheckedCreateWithoutRoleInput = {
+    id?: string
+    module: string
+    action: string
+    isAllowed?: boolean
+  }
+
+  export type CustomRolePermissionCreateOrConnectWithoutRoleInput = {
+    where: CustomRolePermissionWhereUniqueInput
+    create: XOR<CustomRolePermissionCreateWithoutRoleInput, CustomRolePermissionUncheckedCreateWithoutRoleInput>
+  }
+
+  export type CustomRolePermissionCreateManyRoleInputEnvelope = {
+    data: CustomRolePermissionCreateManyRoleInput | CustomRolePermissionCreateManyRoleInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BranchUpsertWithoutRolesInput = {
+    update: XOR<BranchUpdateWithoutRolesInput, BranchUncheckedUpdateWithoutRolesInput>
+    create: XOR<BranchCreateWithoutRolesInput, BranchUncheckedCreateWithoutRolesInput>
+    where?: BranchWhereInput
+  }
+
+  export type BranchUpdateToOneWithWhereWithoutRolesInput = {
+    where?: BranchWhereInput
+    data: XOR<BranchUpdateWithoutRolesInput, BranchUncheckedUpdateWithoutRolesInput>
+  }
+
+  export type BranchUpdateWithoutRolesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
+    smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
+    alumni?: AlumniUpdateManyWithoutBranchNestedInput
+    alumniEvents?: AlumniEventUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
+    automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    books?: BookUpdateManyWithoutBranchNestedInput
+    callLogs?: CallLogUpdateManyWithoutBranchNestedInput
+    accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
+    campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
+    certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
+    classes?: ClassUpdateManyWithoutBranchNestedInput
+    complaints?: ComplaintUpdateManyWithoutBranchNestedInput
+    conversations?: ConversationUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    attachmentCategories?: AttachmentCategoryUpdateManyWithoutBranchNestedInput
+    departments?: DepartmentUpdateManyWithoutBranchNestedInput
+    designations?: DesignationUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
+    expenseCategories?: ExpenseCategoryUpdateManyWithoutBranchNestedInput
+    feeCategories?: FeeCategoryUpdateManyWithoutBranchNestedInput
+    googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
+    hostels?: HostelUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    inventoryCategories?: InventoryCategoryUpdateManyWithoutBranchNestedInput
+    inventoryIssues?: InventoryIssueUpdateManyWithoutBranchNestedInput
+    inventoryProducts?: InventoryProductUpdateManyWithoutBranchNestedInput
+    inventoryPurchases?: InventoryPurchaseUpdateManyWithoutBranchNestedInput
+    inventorySales?: InventorySaleUpdateManyWithoutBranchNestedInput
+    inventoryStores?: InventoryStoreUpdateManyWithoutBranchNestedInput
+    inventorySuppliers?: InventorySupplierUpdateManyWithoutBranchNestedInput
+    inventoryUnits?: InventoryUnitUpdateManyWithoutBranchNestedInput
+    liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutBranchNestedInput
+    onlineExams?: OnlineExamUpdateManyWithoutBranchNestedInput
+    postalRecords?: PostalRecordUpdateManyWithoutBranchNestedInput
+    questionGroups?: QuestionGroupUpdateManyWithoutBranchNestedInput
+    students?: StudentUpdateManyWithoutBranchNestedInput
+    studentCategories?: StudentCategoryUpdateManyWithoutBranchNestedInput
+    subjects?: SubjectUpdateManyWithoutBranchNestedInput
+    routes?: TransportRouteUpdateManyWithoutBranchNestedInput
+    users?: UserUpdateManyWithoutBranchNestedInput
+    vehicles?: VehicleUpdateManyWithoutBranchNestedInput
+    visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
+    vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    attendanceSessions?: AttendanceSessionUpdateManyWithoutBranchNestedInput
+    attendanceScans?: AttendanceScanUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
+    moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
+    scheduledJobs?: ScheduledJobUpdateManyWithoutBranchNestedInput
+    emailTemplates?: EmailTemplateUpdateManyWithoutBranchNestedInput
+    smsTemplates?: SmsTemplateUpdateManyWithoutBranchNestedInput
+    notifications?: NotificationUpdateManyWithoutBranchNestedInput
+    notificationPreferences?: NotificationPreferenceUpdateManyWithoutBranchNestedInput
+    campaigns?: CampaignUpdateManyWithoutBranchNestedInput
+    campaignRecipients?: CampaignRecipientUpdateManyWithoutBranchNestedInput
+    queueJobLogs?: QueueJobLogUpdateManyWithoutBranchNestedInput
+    automationExecutions?: AutomationExecutionUpdateManyWithoutBranchNestedInput
+    messageDeliveryLogs?: MessageDeliveryLogUpdateManyWithoutBranchNestedInput
+    providerHealthLogs?: ProviderHealthLogUpdateManyWithoutBranchNestedInput
+    webhookEvents?: WebhookEventUpdateManyWithoutBranchNestedInput
+    deliveryWebhookLogs?: DeliveryWebhookLogUpdateManyWithoutBranchNestedInput
+    realtimeConnections?: RealtimeConnectionUpdateManyWithoutBranchNestedInput
+    queueMetrics?: QueueMetricUpdateManyWithoutBranchNestedInput
+    providerFailoverEvents?: ProviderFailoverEventUpdateManyWithoutBranchNestedInput
+    messageRetryEvents?: MessageRetryEventUpdateManyWithoutBranchNestedInput
+    providerBalanceSnapshots?: ProviderBalanceSnapshotUpdateManyWithoutBranchNestedInput
+    counters?: CounterUpdateManyWithoutBranchNestedInput
+    notificationDeliveryEvents?: NotificationDeliveryEventUpdateManyWithoutBranchNestedInput
+    academicExports?: AcademicExportUpdateManyWithoutBranchNestedInput
+    reportTemplates?: ReportTemplateUpdateManyWithoutBranchNestedInput
+    computationJobs?: ComputationJobUpdateManyWithoutBranchNestedInput
+    apiKeys?: ApiKeyUpdateManyWithoutBranchNestedInput
+    webhookEndpoints?: WebhookEndpointUpdateManyWithoutBranchNestedInput
+    exams?: ExamUpdateManyWithoutBranchNestedInput
+    examTypes?: ExamTypeUpdateManyWithoutBranchNestedInput
+    assessmentComponents?: AssessmentComponentUpdateManyWithoutBranchNestedInput
+    resultApprovals?: ResultApprovalUpdateManyWithoutBranchNestedInput
+    resultPublications?: ResultPublicationUpdateManyWithoutBranchNestedInput
+    gpaRecords?: GPARecordUpdateManyWithoutBranchNestedInput
+    studentRankings?: StudentRankingUpdateManyWithoutBranchNestedInput
+    broadsheets?: BroadsheetUpdateManyWithoutBranchNestedInput
+    transcripts?: TranscriptUpdateManyWithoutBranchNestedInput
+    academicRemarks?: AcademicRemarkUpdateManyWithoutBranchNestedInput
+    subjectPositions?: SubjectPositionUpdateManyWithoutBranchNestedInput
+    tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
+    tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
+    invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
+    libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
+    salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
+    payrolls?: PayrollUpdateManyWithoutBranchNestedInput
+    leaveRequests?: LeaveRequestUpdateManyWithoutBranchNestedInput
+    staffAwards?: StaffAwardUpdateManyWithoutBranchNestedInput
+    advanceSalaries?: AdvanceSalaryUpdateManyWithoutBranchNestedInput
+    hostelAllocations?: HostelAllocationUpdateManyWithoutBranchNestedInput
+    hostelLeaves?: HostelLeaveUpdateManyWithoutBranchNestedInput
+    maintenanceRequests?: MaintenanceRequestUpdateManyWithoutBranchNestedInput
+    submissions?: SubmissionUpdateManyWithoutBranchNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutBranchNestedInput
+    idCards?: IdCardUpdateManyWithoutBranchNestedInput
+    bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
+    bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
+    hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+  }
+
+  export type BranchUncheckedUpdateWithoutRolesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
+    smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
+    alumni?: AlumniUncheckedUpdateManyWithoutBranchNestedInput
+    alumniEvents?: AlumniEventUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
+    automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    books?: BookUncheckedUpdateManyWithoutBranchNestedInput
+    callLogs?: CallLogUncheckedUpdateManyWithoutBranchNestedInput
+    accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
+    campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
+    certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    classes?: ClassUncheckedUpdateManyWithoutBranchNestedInput
+    complaints?: ComplaintUncheckedUpdateManyWithoutBranchNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    attachmentCategories?: AttachmentCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
+    designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
+    expenseCategories?: ExpenseCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    feeCategories?: FeeCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
+    hostels?: HostelUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryCategories?: InventoryCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryProducts?: InventoryProductUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryPurchases?: InventoryPurchaseUncheckedUpdateManyWithoutBranchNestedInput
+    inventorySales?: InventorySaleUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryStores?: InventoryStoreUncheckedUpdateManyWithoutBranchNestedInput
+    inventorySuppliers?: InventorySupplierUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryUnits?: InventoryUnitUncheckedUpdateManyWithoutBranchNestedInput
+    liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutBranchNestedInput
+    onlineExams?: OnlineExamUncheckedUpdateManyWithoutBranchNestedInput
+    postalRecords?: PostalRecordUncheckedUpdateManyWithoutBranchNestedInput
+    questionGroups?: QuestionGroupUncheckedUpdateManyWithoutBranchNestedInput
+    students?: StudentUncheckedUpdateManyWithoutBranchNestedInput
+    studentCategories?: StudentCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    subjects?: SubjectUncheckedUpdateManyWithoutBranchNestedInput
+    routes?: TransportRouteUncheckedUpdateManyWithoutBranchNestedInput
+    users?: UserUncheckedUpdateManyWithoutBranchNestedInput
+    vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
+    visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
+    vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    attendanceSessions?: AttendanceSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendanceScans?: AttendanceScanUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
+    moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
+    scheduledJobs?: ScheduledJobUncheckedUpdateManyWithoutBranchNestedInput
+    emailTemplates?: EmailTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    smsTemplates?: SmsTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutBranchNestedInput
+    notificationPreferences?: NotificationPreferenceUncheckedUpdateManyWithoutBranchNestedInput
+    campaigns?: CampaignUncheckedUpdateManyWithoutBranchNestedInput
+    campaignRecipients?: CampaignRecipientUncheckedUpdateManyWithoutBranchNestedInput
+    queueJobLogs?: QueueJobLogUncheckedUpdateManyWithoutBranchNestedInput
+    automationExecutions?: AutomationExecutionUncheckedUpdateManyWithoutBranchNestedInput
+    messageDeliveryLogs?: MessageDeliveryLogUncheckedUpdateManyWithoutBranchNestedInput
+    providerHealthLogs?: ProviderHealthLogUncheckedUpdateManyWithoutBranchNestedInput
+    webhookEvents?: WebhookEventUncheckedUpdateManyWithoutBranchNestedInput
+    deliveryWebhookLogs?: DeliveryWebhookLogUncheckedUpdateManyWithoutBranchNestedInput
+    realtimeConnections?: RealtimeConnectionUncheckedUpdateManyWithoutBranchNestedInput
+    queueMetrics?: QueueMetricUncheckedUpdateManyWithoutBranchNestedInput
+    providerFailoverEvents?: ProviderFailoverEventUncheckedUpdateManyWithoutBranchNestedInput
+    messageRetryEvents?: MessageRetryEventUncheckedUpdateManyWithoutBranchNestedInput
+    providerBalanceSnapshots?: ProviderBalanceSnapshotUncheckedUpdateManyWithoutBranchNestedInput
+    counters?: CounterUncheckedUpdateManyWithoutBranchNestedInput
+    notificationDeliveryEvents?: NotificationDeliveryEventUncheckedUpdateManyWithoutBranchNestedInput
+    academicExports?: AcademicExportUncheckedUpdateManyWithoutBranchNestedInput
+    reportTemplates?: ReportTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    computationJobs?: ComputationJobUncheckedUpdateManyWithoutBranchNestedInput
+    apiKeys?: ApiKeyUncheckedUpdateManyWithoutBranchNestedInput
+    webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutBranchNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutBranchNestedInput
+    examTypes?: ExamTypeUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentComponents?: AssessmentComponentUncheckedUpdateManyWithoutBranchNestedInput
+    resultApprovals?: ResultApprovalUncheckedUpdateManyWithoutBranchNestedInput
+    resultPublications?: ResultPublicationUncheckedUpdateManyWithoutBranchNestedInput
+    gpaRecords?: GPARecordUncheckedUpdateManyWithoutBranchNestedInput
+    studentRankings?: StudentRankingUncheckedUpdateManyWithoutBranchNestedInput
+    broadsheets?: BroadsheetUncheckedUpdateManyWithoutBranchNestedInput
+    transcripts?: TranscriptUncheckedUpdateManyWithoutBranchNestedInput
+    academicRemarks?: AcademicRemarkUncheckedUpdateManyWithoutBranchNestedInput
+    subjectPositions?: SubjectPositionUncheckedUpdateManyWithoutBranchNestedInput
+    tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
+    tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
+    libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
+    salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    payrolls?: PayrollUncheckedUpdateManyWithoutBranchNestedInput
+    leaveRequests?: LeaveRequestUncheckedUpdateManyWithoutBranchNestedInput
+    staffAwards?: StaffAwardUncheckedUpdateManyWithoutBranchNestedInput
+    advanceSalaries?: AdvanceSalaryUncheckedUpdateManyWithoutBranchNestedInput
+    hostelAllocations?: HostelAllocationUncheckedUpdateManyWithoutBranchNestedInput
+    hostelLeaves?: HostelLeaveUncheckedUpdateManyWithoutBranchNestedInput
+    maintenanceRequests?: MaintenanceRequestUncheckedUpdateManyWithoutBranchNestedInput
+    submissions?: SubmissionUncheckedUpdateManyWithoutBranchNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutBranchNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutBranchNestedInput
+    bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
+    bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
+    hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+  }
+
+  export type UserUpsertWithWhereUniqueWithoutCustomRoleInput = {
+    where: UserWhereUniqueInput
+    update: XOR<UserUpdateWithoutCustomRoleInput, UserUncheckedUpdateWithoutCustomRoleInput>
+    create: XOR<UserCreateWithoutCustomRoleInput, UserUncheckedCreateWithoutCustomRoleInput>
+  }
+
+  export type UserUpdateWithWhereUniqueWithoutCustomRoleInput = {
+    where: UserWhereUniqueInput
+    data: XOR<UserUpdateWithoutCustomRoleInput, UserUncheckedUpdateWithoutCustomRoleInput>
+  }
+
+  export type UserUpdateManyWithWhereWithoutCustomRoleInput = {
+    where: UserScalarWhereInput
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutCustomRoleInput>
+  }
+
+  export type CustomRolePermissionUpsertWithWhereUniqueWithoutRoleInput = {
+    where: CustomRolePermissionWhereUniqueInput
+    update: XOR<CustomRolePermissionUpdateWithoutRoleInput, CustomRolePermissionUncheckedUpdateWithoutRoleInput>
+    create: XOR<CustomRolePermissionCreateWithoutRoleInput, CustomRolePermissionUncheckedCreateWithoutRoleInput>
+  }
+
+  export type CustomRolePermissionUpdateWithWhereUniqueWithoutRoleInput = {
+    where: CustomRolePermissionWhereUniqueInput
+    data: XOR<CustomRolePermissionUpdateWithoutRoleInput, CustomRolePermissionUncheckedUpdateWithoutRoleInput>
+  }
+
+  export type CustomRolePermissionUpdateManyWithWhereWithoutRoleInput = {
+    where: CustomRolePermissionScalarWhereInput
+    data: XOR<CustomRolePermissionUpdateManyMutationInput, CustomRolePermissionUncheckedUpdateManyWithoutRoleInput>
+  }
+
+  export type CustomRolePermissionScalarWhereInput = {
+    AND?: CustomRolePermissionScalarWhereInput | CustomRolePermissionScalarWhereInput[]
+    OR?: CustomRolePermissionScalarWhereInput[]
+    NOT?: CustomRolePermissionScalarWhereInput | CustomRolePermissionScalarWhereInput[]
+    id?: StringFilter<"CustomRolePermission"> | string
+    roleId?: StringFilter<"CustomRolePermission"> | string
+    module?: StringFilter<"CustomRolePermission"> | string
+    action?: StringFilter<"CustomRolePermission"> | string
+    isAllowed?: BoolFilter<"CustomRolePermission"> | boolean
   }
 
   export type AuditLogCreateWithoutUserInput = {
@@ -252341,6 +256288,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutUsersInput = {
@@ -252468,11 +256416,43 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutUsersInput = {
     where: BranchWhereUniqueInput
     create: XOR<BranchCreateWithoutUsersInput, BranchUncheckedCreateWithoutUsersInput>
+  }
+
+  export type RoleCreateWithoutUsersInput = {
+    id?: string
+    name: string
+    slug: string
+    description?: string | null
+    isSystem?: boolean
+    priority?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    branch?: BranchCreateNestedOneWithoutRolesInput
+    permissions?: CustomRolePermissionCreateNestedManyWithoutRoleInput
+  }
+
+  export type RoleUncheckedCreateWithoutUsersInput = {
+    id?: string
+    name: string
+    slug: string
+    description?: string | null
+    branchId?: string | null
+    isSystem?: boolean
+    priority?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    permissions?: CustomRolePermissionUncheckedCreateNestedManyWithoutRoleInput
+  }
+
+  export type RoleCreateOrConnectWithoutUsersInput = {
+    where: RoleWhereUniqueInput
+    create: XOR<RoleCreateWithoutUsersInput, RoleUncheckedCreateWithoutUsersInput>
   }
 
   export type VoucherCreateWithoutApprovedByInput = {
@@ -253320,6 +257300,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutUsersInput = {
@@ -253447,6 +257428,44 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
+  }
+
+  export type RoleUpsertWithoutUsersInput = {
+    update: XOR<RoleUpdateWithoutUsersInput, RoleUncheckedUpdateWithoutUsersInput>
+    create: XOR<RoleCreateWithoutUsersInput, RoleUncheckedCreateWithoutUsersInput>
+    where?: RoleWhereInput
+  }
+
+  export type RoleUpdateToOneWithWhereWithoutUsersInput = {
+    where?: RoleWhereInput
+    data: XOR<RoleUpdateWithoutUsersInput, RoleUncheckedUpdateWithoutUsersInput>
+  }
+
+  export type RoleUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isSystem?: BoolFieldUpdateOperationsInput | boolean
+    priority?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneWithoutRolesNestedInput
+    permissions?: CustomRolePermissionUpdateManyWithoutRoleNestedInput
+  }
+
+  export type RoleUncheckedUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    isSystem?: BoolFieldUpdateOperationsInput | boolean
+    priority?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    permissions?: CustomRolePermissionUncheckedUpdateManyWithoutRoleNestedInput
   }
 
   export type VoucherUpsertWithWhereUniqueWithoutApprovedByInput = {
@@ -253619,6 +257638,7 @@ export namespace Prisma {
     children?: StudentCreateNestedManyWithoutParentInput
     student?: StudentCreateNestedOneWithoutUserInput
     branch?: BranchCreateNestedOneWithoutUsersInput
+    customRole?: RoleCreateNestedOneWithoutUsersInput
     approvedVouchers?: VoucherCreateNestedManyWithoutApprovedByInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     notificationPreference?: NotificationPreferenceCreateNestedOneWithoutUserInput
@@ -253637,6 +257657,7 @@ export namespace Prisma {
     isActive?: boolean
     mustChangePassword?: boolean
     role: $Enums.UserRole
+    roleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
@@ -253707,6 +257728,7 @@ export namespace Prisma {
     children?: StudentUpdateManyWithoutParentNestedInput
     student?: StudentUpdateOneWithoutUserNestedInput
     branch?: BranchUpdateOneWithoutUsersNestedInput
+    customRole?: RoleUpdateOneWithoutUsersNestedInput
     approvedVouchers?: VoucherUpdateManyWithoutApprovedByNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     notificationPreference?: NotificationPreferenceUpdateOneWithoutUserNestedInput
@@ -253725,6 +257747,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     mustChangePassword?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    roleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -253876,6 +257899,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutModuleConfigurationsInput = {
@@ -254003,6 +258027,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutModuleConfigurationsInput = {
@@ -254146,6 +258171,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutModuleConfigurationsInput = {
@@ -254273,6 +258299,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutScheduledJobsInput = {
@@ -254400,6 +258427,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutScheduledJobsInput = {
@@ -254527,6 +258555,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutScheduledJobsInput = {
@@ -254670,6 +258699,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutScheduledJobsInput = {
@@ -254797,6 +258827,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type AdvanceSalaryCreateWithoutStaffInput = {
@@ -255311,6 +259342,7 @@ export namespace Prisma {
     children?: StudentCreateNestedManyWithoutParentInput
     student?: StudentCreateNestedOneWithoutUserInput
     branch?: BranchCreateNestedOneWithoutUsersInput
+    customRole?: RoleCreateNestedOneWithoutUsersInput
     approvedVouchers?: VoucherCreateNestedManyWithoutApprovedByInput
     preferences?: UserPreferenceCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
@@ -255330,6 +259362,7 @@ export namespace Prisma {
     isActive?: boolean
     mustChangePassword?: boolean
     role: $Enums.UserRole
+    roleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
@@ -255797,6 +259830,7 @@ export namespace Prisma {
     children?: StudentUpdateManyWithoutParentNestedInput
     student?: StudentUpdateOneWithoutUserNestedInput
     branch?: BranchUpdateOneWithoutUsersNestedInput
+    customRole?: RoleUpdateOneWithoutUsersNestedInput
     approvedVouchers?: VoucherUpdateManyWithoutApprovedByNestedInput
     preferences?: UserPreferenceUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
@@ -255816,6 +259850,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     mustChangePassword?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    roleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -256562,6 +260597,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutStudentsInput = {
@@ -256689,6 +260725,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutStudentsInput = {
@@ -256791,6 +260828,7 @@ export namespace Prisma {
     staff?: StaffCreateNestedOneWithoutUserInput
     student?: StudentCreateNestedOneWithoutUserInput
     branch?: BranchCreateNestedOneWithoutUsersInput
+    customRole?: RoleCreateNestedOneWithoutUsersInput
     approvedVouchers?: VoucherCreateNestedManyWithoutApprovedByInput
     preferences?: UserPreferenceCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
@@ -256810,6 +260848,7 @@ export namespace Prisma {
     isActive?: boolean
     mustChangePassword?: boolean
     role: $Enums.UserRole
+    roleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
@@ -256909,6 +260948,7 @@ export namespace Prisma {
     staff?: StaffCreateNestedOneWithoutUserInput
     children?: StudentCreateNestedManyWithoutParentInput
     branch?: BranchCreateNestedOneWithoutUsersInput
+    customRole?: RoleCreateNestedOneWithoutUsersInput
     approvedVouchers?: VoucherCreateNestedManyWithoutApprovedByInput
     preferences?: UserPreferenceCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
@@ -256928,6 +260968,7 @@ export namespace Prisma {
     isActive?: boolean
     mustChangePassword?: boolean
     role: $Enums.UserRole
+    roleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
@@ -257519,6 +261560,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutStudentsInput = {
@@ -257646,6 +261688,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StudentCategoryUpsertWithoutStudentsInput = {
@@ -257766,6 +261809,7 @@ export namespace Prisma {
     staff?: StaffUpdateOneWithoutUserNestedInput
     student?: StudentUpdateOneWithoutUserNestedInput
     branch?: BranchUpdateOneWithoutUsersNestedInput
+    customRole?: RoleUpdateOneWithoutUsersNestedInput
     approvedVouchers?: VoucherUpdateManyWithoutApprovedByNestedInput
     preferences?: UserPreferenceUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
@@ -257785,6 +261829,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     mustChangePassword?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    roleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -257896,6 +261941,7 @@ export namespace Prisma {
     staff?: StaffUpdateOneWithoutUserNestedInput
     children?: StudentUpdateManyWithoutParentNestedInput
     branch?: BranchUpdateOneWithoutUsersNestedInput
+    customRole?: RoleUpdateOneWithoutUsersNestedInput
     approvedVouchers?: VoucherUpdateManyWithoutApprovedByNestedInput
     preferences?: UserPreferenceUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
@@ -257915,6 +261961,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     mustChangePassword?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    roleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -258202,6 +262249,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutCertificatesInput = {
@@ -258329,6 +262377,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutCertificatesInput = {
@@ -258363,6 +262412,7 @@ export namespace Prisma {
     children?: StudentCreateNestedManyWithoutParentInput
     student?: StudentCreateNestedOneWithoutUserInput
     branch?: BranchCreateNestedOneWithoutUsersInput
+    customRole?: RoleCreateNestedOneWithoutUsersInput
     approvedVouchers?: VoucherCreateNestedManyWithoutApprovedByInput
     preferences?: UserPreferenceCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
@@ -258382,6 +262432,7 @@ export namespace Prisma {
     isActive?: boolean
     mustChangePassword?: boolean
     role: $Enums.UserRole
+    roleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
@@ -258715,6 +262766,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutCertificatesInput = {
@@ -258842,6 +262894,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type UserUpsertWithoutIssuedCertificatesInput = {
@@ -258882,6 +262935,7 @@ export namespace Prisma {
     children?: StudentUpdateManyWithoutParentNestedInput
     student?: StudentUpdateOneWithoutUserNestedInput
     branch?: BranchUpdateOneWithoutUsersNestedInput
+    customRole?: RoleUpdateOneWithoutUsersNestedInput
     approvedVouchers?: VoucherUpdateManyWithoutApprovedByNestedInput
     preferences?: UserPreferenceUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
@@ -258901,6 +262955,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     mustChangePassword?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    roleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -259270,6 +263325,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutCertificateTemplatesInput = {
@@ -259397,6 +263453,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutCertificateTemplatesInput = {
@@ -259556,6 +263613,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutCertificateTemplatesInput = {
@@ -259683,6 +263741,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutClassesInput = {
@@ -259810,6 +263869,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutClassesInput = {
@@ -259937,6 +263997,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutClassesInput = {
@@ -260781,6 +264842,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutClassesInput = {
@@ -260908,6 +264970,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StaffUpsertWithoutClassesInput = {
@@ -262525,6 +266588,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutSubjectsInput = {
@@ -262652,6 +266716,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutSubjectsInput = {
@@ -262994,6 +267059,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutSubjectsInput = {
@@ -263121,6 +267187,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StaffUpsertWithWhereUniqueWithoutSubjectsInput = {
@@ -263475,6 +267542,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutClassSchedulesInput = {
@@ -263602,6 +267670,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutClassSchedulesInput = {
@@ -263949,6 +268018,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutClassSchedulesInput = {
@@ -264076,6 +268146,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutAttendanceInput = {
@@ -264203,6 +268274,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAttendanceInput = {
@@ -264330,6 +268402,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAttendanceInput = {
@@ -264694,6 +268767,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAttendanceInput = {
@@ -264821,6 +268895,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type SectionUpsertWithoutAttendanceInput = {
@@ -265187,6 +269262,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutStaffAttendanceInput = {
@@ -265314,6 +269390,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutStaffAttendanceInput = {
@@ -265514,6 +269591,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutStaffAttendanceInput = {
@@ -265641,6 +269719,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StaffUpsertWithoutAttendanceInput = {
@@ -265831,6 +269910,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutHostelsInput = {
@@ -265958,6 +270038,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutHostelsInput = {
@@ -266167,6 +270248,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutHostelsInput = {
@@ -266294,6 +270376,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type RoomUpsertWithWhereUniqueWithoutHostelInput = {
@@ -266902,6 +270985,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutHostelAllocationsInput = {
@@ -267029,6 +271113,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutHostelAllocationsInput = {
@@ -267348,6 +271433,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutHostelAllocationsInput = {
@@ -267475,6 +271561,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StudentCreateWithoutHostelLeavesInput = {
@@ -267741,6 +271828,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutHostelLeavesInput = {
@@ -267868,6 +271956,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutHostelLeavesInput = {
@@ -268156,6 +272245,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutHostelLeavesInput = {
@@ -268283,6 +272373,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BedCreateWithoutMaintenanceInput = {
@@ -268435,6 +272526,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutMaintenanceRequestsInput = {
@@ -268562,6 +272654,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutMaintenanceRequestsInput = {
@@ -268736,6 +272829,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutMaintenanceRequestsInput = {
@@ -268863,6 +272957,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutFeeCategoriesInput = {
@@ -268990,6 +273085,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutFeeCategoriesInput = {
@@ -269117,6 +273213,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutFeeCategoriesInput = {
@@ -269314,6 +273411,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutFeeCategoriesInput = {
@@ -269441,6 +273539,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type FeeStructureUpsertWithWhereUniqueWithoutCategoryInput = {
@@ -269899,6 +273998,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInvoicesInput = {
@@ -270026,6 +274126,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInvoicesInput = {
@@ -270374,6 +274475,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInvoicesInput = {
@@ -270501,6 +274603,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InvoiceItemUpsertWithWhereUniqueWithoutInvoiceInput = {
@@ -270752,6 +274855,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutQuestionGroupsInput = {
@@ -270879,6 +274983,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutQuestionGroupsInput = {
@@ -271067,6 +275172,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutQuestionGroupsInput = {
@@ -271194,6 +275300,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type QuestionGroupCreateWithoutQuestionsInput = {
@@ -271544,6 +275651,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutOnlineExamsInput = {
@@ -271671,6 +275779,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutOnlineExamsInput = {
@@ -271996,6 +276105,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutOnlineExamsInput = {
@@ -272123,6 +276233,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type ClassUpsertWithoutOnlineExamsInput = {
@@ -273208,6 +277319,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutVehiclesInput = {
@@ -273335,6 +277447,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutVehiclesInput = {
@@ -273506,6 +277619,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutVehiclesInput = {
@@ -273633,6 +277747,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type TransportAssignmentCreateWithoutRouteInput = {
@@ -273788,6 +277903,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutRoutesInput = {
@@ -273915,6 +278031,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutRoutesInput = {
@@ -274074,6 +278191,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutRoutesInput = {
@@ -274201,6 +278319,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type TransportRouteCreateWithoutAssignmentsInput = {
@@ -274794,6 +278913,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAssignmentsInput = {
@@ -274921,6 +279041,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAssignmentsInput = {
@@ -275235,6 +279356,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAssignmentsInput = {
@@ -275362,6 +279484,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type SectionUpsertWithoutAssignmentsInput = {
@@ -275832,6 +279955,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutSubmissionsInput = {
@@ -275959,6 +280083,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutSubmissionsInput = {
@@ -276286,6 +280411,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutSubmissionsInput = {
@@ -276413,6 +280539,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutAcademicSessionsInput = {
@@ -276540,6 +280667,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAcademicSessionsInput = {
@@ -276667,6 +280795,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAcademicSessionsInput = {
@@ -277250,6 +281379,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAcademicSessionsInput = {
@@ -277377,6 +281507,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type AssessmentRecordUpsertWithWhereUniqueWithoutSessionInput = {
@@ -277600,6 +281731,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAssessmentRecordsInput = {
@@ -277727,6 +281859,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAssessmentRecordsInput = {
@@ -278158,6 +282291,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAssessmentRecordsInput = {
@@ -278285,6 +282419,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type SectionUpsertWithoutAssessmentRecordsInput = {
@@ -278712,6 +282847,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutBehaviouralRatingsInput = {
@@ -278839,6 +282975,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutBehaviouralRatingsInput = {
@@ -279162,6 +283299,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutBehaviouralRatingsInput = {
@@ -279289,6 +283427,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type AcademicSessionUpsertWithoutBehaviouralRatingsInput = {
@@ -279608,6 +283747,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutResultSummariesInput = {
@@ -279735,6 +283875,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutResultSummariesInput = {
@@ -280058,6 +284199,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutResultSummariesInput = {
@@ -280185,6 +284327,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type AcademicSessionUpsertWithoutResultSummariesInput = {
@@ -280504,6 +284647,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutGradingScalesInput = {
@@ -280631,6 +284775,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutGradingScalesInput = {
@@ -280774,6 +284919,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutGradingScalesInput = {
@@ -280901,6 +285047,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutExamsInput = {
@@ -281028,6 +285175,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutExamsInput = {
@@ -281155,6 +285303,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutExamsInput = {
@@ -281298,6 +285447,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutExamsInput = {
@@ -281425,6 +285575,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutExamTypesInput = {
@@ -281552,6 +285703,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutExamTypesInput = {
@@ -281679,6 +285831,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutExamTypesInput = {
@@ -281822,6 +285975,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutExamTypesInput = {
@@ -281949,6 +286103,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutAssessmentComponentsInput = {
@@ -282076,6 +286231,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAssessmentComponentsInput = {
@@ -282203,6 +286359,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAssessmentComponentsInput = {
@@ -282374,6 +286531,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAssessmentComponentsInput = {
@@ -282501,6 +286659,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type AssessmentScoreUpsertWithWhereUniqueWithoutComponentInput = {
@@ -283132,6 +287291,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutResultApprovalsInput = {
@@ -283259,6 +287419,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutResultApprovalsInput = {
@@ -283402,6 +287563,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutResultApprovalsInput = {
@@ -283529,6 +287691,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutResultPublicationsInput = {
@@ -283656,6 +287819,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutResultPublicationsInput = {
@@ -283783,6 +287947,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutResultPublicationsInput = {
@@ -283926,6 +288091,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutResultPublicationsInput = {
@@ -284053,6 +288219,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutGpaRecordsInput = {
@@ -284180,6 +288347,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutGpaRecordsInput = {
@@ -284307,6 +288475,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutGpaRecordsInput = {
@@ -284450,6 +288619,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutGpaRecordsInput = {
@@ -284577,6 +288747,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutStudentRankingsInput = {
@@ -284704,6 +288875,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutStudentRankingsInput = {
@@ -284831,6 +289003,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutStudentRankingsInput = {
@@ -284974,6 +289147,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutStudentRankingsInput = {
@@ -285101,6 +289275,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutBroadsheetsInput = {
@@ -285228,6 +289403,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutBroadsheetsInput = {
@@ -285355,6 +289531,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutBroadsheetsInput = {
@@ -285498,6 +289675,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutBroadsheetsInput = {
@@ -285625,6 +289803,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutTranscriptsInput = {
@@ -285752,6 +289931,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutTranscriptsInput = {
@@ -285879,6 +290059,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutTranscriptsInput = {
@@ -286022,6 +290203,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutTranscriptsInput = {
@@ -286149,6 +290331,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutAcademicRemarksInput = {
@@ -286276,6 +290459,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAcademicRemarksInput = {
@@ -286403,6 +290587,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAcademicRemarksInput = {
@@ -286546,6 +290731,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAcademicRemarksInput = {
@@ -286673,6 +290859,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutSubjectPositionsInput = {
@@ -286800,6 +290987,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutSubjectPositionsInput = {
@@ -286927,6 +291115,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutSubjectPositionsInput = {
@@ -287070,6 +291259,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutSubjectPositionsInput = {
@@ -287197,6 +291387,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutTahfeezAssessmentsInput = {
@@ -287324,6 +291515,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutTahfeezAssessmentsInput = {
@@ -287451,6 +291643,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutTahfeezAssessmentsInput = {
@@ -287594,6 +291787,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutTahfeezAssessmentsInput = {
@@ -287721,6 +291915,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutTahfeezMemorizationProgressesInput = {
@@ -287848,6 +292043,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutTahfeezMemorizationProgressesInput = {
@@ -287975,6 +292171,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutTahfeezMemorizationProgressesInput = {
@@ -288118,6 +292315,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutTahfeezMemorizationProgressesInput = {
@@ -288245,6 +292443,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutGlobalSettingsInput = {
@@ -288372,6 +292571,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutGlobalSettingsInput = {
@@ -288499,6 +292699,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutGlobalSettingsInput = {
@@ -288642,6 +292843,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutGlobalSettingsInput = {
@@ -288769,6 +292971,75 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
+  }
+
+  export type RoleCreateWithoutPermissionsInput = {
+    id?: string
+    name: string
+    slug: string
+    description?: string | null
+    isSystem?: boolean
+    priority?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    branch?: BranchCreateNestedOneWithoutRolesInput
+    users?: UserCreateNestedManyWithoutCustomRoleInput
+  }
+
+  export type RoleUncheckedCreateWithoutPermissionsInput = {
+    id?: string
+    name: string
+    slug: string
+    description?: string | null
+    branchId?: string | null
+    isSystem?: boolean
+    priority?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutCustomRoleInput
+  }
+
+  export type RoleCreateOrConnectWithoutPermissionsInput = {
+    where: RoleWhereUniqueInput
+    create: XOR<RoleCreateWithoutPermissionsInput, RoleUncheckedCreateWithoutPermissionsInput>
+  }
+
+  export type RoleUpsertWithoutPermissionsInput = {
+    update: XOR<RoleUpdateWithoutPermissionsInput, RoleUncheckedUpdateWithoutPermissionsInput>
+    create: XOR<RoleCreateWithoutPermissionsInput, RoleUncheckedCreateWithoutPermissionsInput>
+    where?: RoleWhereInput
+  }
+
+  export type RoleUpdateToOneWithWhereWithoutPermissionsInput = {
+    where?: RoleWhereInput
+    data: XOR<RoleUpdateWithoutPermissionsInput, RoleUncheckedUpdateWithoutPermissionsInput>
+  }
+
+  export type RoleUpdateWithoutPermissionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isSystem?: BoolFieldUpdateOperationsInput | boolean
+    priority?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneWithoutRolesNestedInput
+    users?: UserUpdateManyWithoutCustomRoleNestedInput
+  }
+
+  export type RoleUncheckedUpdateWithoutPermissionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    isSystem?: BoolFieldUpdateOperationsInput | boolean
+    priority?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutCustomRoleNestedInput
   }
 
   export type UserCreateWithoutAuditLogsInput = {
@@ -288798,6 +293069,7 @@ export namespace Prisma {
     children?: StudentCreateNestedManyWithoutParentInput
     student?: StudentCreateNestedOneWithoutUserInput
     branch?: BranchCreateNestedOneWithoutUsersInput
+    customRole?: RoleCreateNestedOneWithoutUsersInput
     approvedVouchers?: VoucherCreateNestedManyWithoutApprovedByInput
     preferences?: UserPreferenceCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
@@ -288817,6 +293089,7 @@ export namespace Prisma {
     isActive?: boolean
     mustChangePassword?: boolean
     role: $Enums.UserRole
+    roleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
@@ -288886,6 +293159,7 @@ export namespace Prisma {
     children?: StudentUpdateManyWithoutParentNestedInput
     student?: StudentUpdateOneWithoutUserNestedInput
     branch?: BranchUpdateOneWithoutUsersNestedInput
+    customRole?: RoleUpdateOneWithoutUsersNestedInput
     approvedVouchers?: VoucherUpdateManyWithoutApprovedByNestedInput
     preferences?: UserPreferenceUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
@@ -288905,6 +293179,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     mustChangePassword?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    roleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -289056,6 +293331,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutExpenseCategoriesInput = {
@@ -289183,6 +293459,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutExpenseCategoriesInput = {
@@ -289364,6 +293641,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutExpenseCategoriesInput = {
@@ -289491,6 +293769,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type VoucherUpsertWithWhereUniqueWithoutCategoryInput = {
@@ -289537,6 +293816,7 @@ export namespace Prisma {
     children?: StudentCreateNestedManyWithoutParentInput
     student?: StudentCreateNestedOneWithoutUserInput
     branch?: BranchCreateNestedOneWithoutUsersInput
+    customRole?: RoleCreateNestedOneWithoutUsersInput
     preferences?: UserPreferenceCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     notificationPreference?: NotificationPreferenceCreateNestedOneWithoutUserInput
@@ -289555,6 +293835,7 @@ export namespace Prisma {
     isActive?: boolean
     mustChangePassword?: boolean
     role: $Enums.UserRole
+    roleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
@@ -289711,6 +293992,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutVouchersInput = {
@@ -289838,6 +294120,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutVouchersInput = {
@@ -289907,6 +294190,7 @@ export namespace Prisma {
     children?: StudentUpdateManyWithoutParentNestedInput
     student?: StudentUpdateOneWithoutUserNestedInput
     branch?: BranchUpdateOneWithoutUsersNestedInput
+    customRole?: RoleUpdateOneWithoutUsersNestedInput
     preferences?: UserPreferenceUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     notificationPreference?: NotificationPreferenceUpdateOneWithoutUserNestedInput
@@ -289925,6 +294209,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     mustChangePassword?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    roleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -290087,6 +294372,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutVouchersInput = {
@@ -290214,6 +294500,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type ExpenseCategoryUpsertWithoutVouchersInput = {
@@ -290370,6 +294657,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutDepartmentsInput = {
@@ -290497,6 +294785,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutDepartmentsInput = {
@@ -290702,6 +294991,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutDepartmentsInput = {
@@ -290829,6 +295119,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StaffUpsertWithWhereUniqueWithoutDepartmentInput = {
@@ -290972,6 +295263,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutDesignationsInput = {
@@ -291099,6 +295391,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutDesignationsInput = {
@@ -291304,6 +295597,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutDesignationsInput = {
@@ -291431,6 +295725,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StaffUpsertWithWhereUniqueWithoutDesignationRefInput = {
@@ -291574,6 +295869,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutBooksInput = {
@@ -291701,6 +295997,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutBooksInput = {
@@ -291948,6 +296245,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutBooksInput = {
@@ -292075,6 +296373,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BorrowRecordUpsertWithWhereUniqueWithoutBookInput = {
@@ -292489,6 +296788,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutBorrowRecordsInput = {
@@ -292616,6 +296916,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutBorrowRecordsInput = {
@@ -293002,6 +297303,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutBorrowRecordsInput = {
@@ -293129,6 +297431,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BorrowRecordCreateWithoutFinesInput = {
@@ -293289,6 +297592,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutLibraryFinesInput = {
@@ -293416,6 +297720,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutLibraryFinesInput = {
@@ -293598,6 +297903,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutLibraryFinesInput = {
@@ -293725,6 +298031,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StaffCreateWithoutSalaryTemplateInput = {
@@ -293909,6 +298216,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutSalaryTemplatesInput = {
@@ -294036,6 +298344,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutSalaryTemplatesInput = {
@@ -294242,6 +298551,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutSalaryTemplatesInput = {
@@ -294369,6 +298679,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StaffCreateWithoutPayrollsInput = {
@@ -294553,6 +298864,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutPayrollsInput = {
@@ -294680,6 +298992,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutPayrollsInput = {
@@ -294886,6 +299199,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutPayrollsInput = {
@@ -295013,6 +299327,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StaffCreateWithoutLeaveRequestsInput = {
@@ -295197,6 +299512,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutLeaveRequestsInput = {
@@ -295324,6 +299640,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutLeaveRequestsInput = {
@@ -295530,6 +299847,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutLeaveRequestsInput = {
@@ -295657,6 +299975,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StaffCreateWithoutAwardsInput = {
@@ -295841,6 +300160,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutStaffAwardsInput = {
@@ -295968,6 +300288,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutStaffAwardsInput = {
@@ -296174,6 +300495,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutStaffAwardsInput = {
@@ -296301,6 +300623,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StaffCreateWithoutSalaryAdvancesInput = {
@@ -296485,6 +300808,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAdvanceSalariesInput = {
@@ -296612,6 +300936,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAdvanceSalariesInput = {
@@ -296818,6 +301143,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAdvanceSalariesInput = {
@@ -296945,6 +301271,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutGoogleMeetConfigInput = {
@@ -297072,6 +301399,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutGoogleMeetConfigInput = {
@@ -297199,6 +301527,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutGoogleMeetConfigInput = {
@@ -297342,6 +301671,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutGoogleMeetConfigInput = {
@@ -297469,6 +301799,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutLiveClassSessionsInput = {
@@ -297596,6 +301927,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutLiveClassSessionsInput = {
@@ -297723,6 +302055,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutLiveClassSessionsInput = {
@@ -298076,6 +302409,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutLiveClassSessionsInput = {
@@ -298203,6 +302537,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type ClassUpsertWithoutLiveClassSessionsInput = {
@@ -298515,6 +302850,7 @@ export namespace Prisma {
     children?: StudentCreateNestedManyWithoutParentInput
     student?: StudentCreateNestedOneWithoutUserInput
     branch?: BranchCreateNestedOneWithoutUsersInput
+    customRole?: RoleCreateNestedOneWithoutUsersInput
     approvedVouchers?: VoucherCreateNestedManyWithoutApprovedByInput
     preferences?: UserPreferenceCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
@@ -298534,6 +302870,7 @@ export namespace Prisma {
     isActive?: boolean
     mustChangePassword?: boolean
     role: $Enums.UserRole
+    roleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
@@ -298672,6 +303009,7 @@ export namespace Prisma {
     children?: StudentUpdateManyWithoutParentNestedInput
     student?: StudentUpdateOneWithoutUserNestedInput
     branch?: BranchUpdateOneWithoutUsersNestedInput
+    customRole?: RoleUpdateOneWithoutUsersNestedInput
     approvedVouchers?: VoucherUpdateManyWithoutApprovedByNestedInput
     preferences?: UserPreferenceUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
@@ -298691,6 +303029,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     mustChangePassword?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    roleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -299168,6 +303507,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutStudentCategoriesInput = {
@@ -299295,6 +303635,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutStudentCategoriesInput = {
@@ -299470,6 +303811,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutStudentCategoriesInput = {
@@ -299597,6 +303939,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type OnlineAdmissionCreateWithoutPreviousSchoolsInput = {
@@ -300125,6 +304468,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutOnlineAdmissionsInput = {
@@ -300252,6 +304596,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutOnlineAdmissionsInput = {
@@ -300370,6 +304715,7 @@ export namespace Prisma {
     children?: StudentCreateNestedManyWithoutParentInput
     student?: StudentCreateNestedOneWithoutUserInput
     branch?: BranchCreateNestedOneWithoutUsersInput
+    customRole?: RoleCreateNestedOneWithoutUsersInput
     approvedVouchers?: VoucherCreateNestedManyWithoutApprovedByInput
     preferences?: UserPreferenceCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
@@ -300389,6 +304735,7 @@ export namespace Prisma {
     isActive?: boolean
     mustChangePassword?: boolean
     role: $Enums.UserRole
+    roleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
@@ -300654,6 +305001,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutOnlineAdmissionsInput = {
@@ -300781,6 +305129,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type ClassUpsertWithoutOnlineAdmissionsInput = {
@@ -300917,6 +305266,7 @@ export namespace Prisma {
     children?: StudentUpdateManyWithoutParentNestedInput
     student?: StudentUpdateOneWithoutUserNestedInput
     branch?: BranchUpdateOneWithoutUsersNestedInput
+    customRole?: RoleUpdateOneWithoutUsersNestedInput
     approvedVouchers?: VoucherUpdateManyWithoutApprovedByNestedInput
     preferences?: UserPreferenceUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
@@ -300936,6 +305286,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     mustChangePassword?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    roleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -301146,6 +305497,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutEnquiriesInput = {
@@ -301273,6 +305625,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutEnquiriesInput = {
@@ -301416,6 +305769,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutEnquiriesInput = {
@@ -301543,6 +305897,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutCallLogsInput = {
@@ -301670,6 +306025,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutCallLogsInput = {
@@ -301797,6 +306153,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutCallLogsInput = {
@@ -301940,6 +306297,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutCallLogsInput = {
@@ -302067,6 +306425,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutVisitorLogsInput = {
@@ -302194,6 +306553,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutVisitorLogsInput = {
@@ -302321,6 +306681,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutVisitorLogsInput = {
@@ -302464,6 +306825,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutVisitorLogsInput = {
@@ -302591,6 +306953,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutComplaintsInput = {
@@ -302718,6 +307081,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutComplaintsInput = {
@@ -302845,6 +307209,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutComplaintsInput = {
@@ -302988,6 +307353,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutComplaintsInput = {
@@ -303115,6 +307481,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutPostalRecordsInput = {
@@ -303242,6 +307609,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutPostalRecordsInput = {
@@ -303369,6 +307737,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutPostalRecordsInput = {
@@ -303512,6 +307881,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutPostalRecordsInput = {
@@ -303639,6 +308009,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutInventoryCategoriesInput = {
@@ -303766,6 +308137,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventoryCategoriesInput = {
@@ -303893,6 +308265,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventoryCategoriesInput = {
@@ -304082,6 +308455,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventoryCategoriesInput = {
@@ -304209,6 +308583,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryProductUpsertWithWhereUniqueWithoutCategoryInput = {
@@ -304398,6 +308773,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventoryStoresInput = {
@@ -304525,6 +308901,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventoryStoresInput = {
@@ -304684,6 +309061,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventoryStoresInput = {
@@ -304811,6 +309189,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryPurchaseCreateWithoutSupplierInput = {
@@ -304974,6 +309353,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventorySuppliersInput = {
@@ -305101,6 +309481,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventorySuppliersInput = {
@@ -305260,6 +309641,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventorySuppliersInput = {
@@ -305387,6 +309769,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryProductCreateWithoutUnitInput = {
@@ -305560,6 +309943,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventoryUnitsInput = {
@@ -305687,6 +310071,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventoryUnitsInput = {
@@ -305846,6 +310231,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventoryUnitsInput = {
@@ -305973,6 +310359,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryIssueCreateWithoutProductInput = {
@@ -306138,6 +310525,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventoryProductsInput = {
@@ -306265,6 +310653,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventoryProductsInput = {
@@ -306561,6 +310950,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventoryProductsInput = {
@@ -306688,6 +311078,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryCategoryUpsertWithoutProductsInput = {
@@ -306930,6 +311321,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventoryPurchasesInput = {
@@ -307057,6 +311449,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventoryPurchasesInput = {
@@ -307270,6 +311663,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventoryPurchasesInput = {
@@ -307397,6 +311791,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryProductUpsertWithoutPurchasesInput = {
@@ -307606,6 +312001,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventorySalesInput = {
@@ -307733,6 +312129,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventorySalesInput = {
@@ -307917,6 +312314,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventorySalesInput = {
@@ -308044,6 +312442,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryProductUpsertWithoutSalesInput = {
@@ -308218,6 +312617,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventoryIssuesInput = {
@@ -308345,6 +312745,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventoryIssuesInput = {
@@ -308725,6 +313126,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventoryIssuesInput = {
@@ -308852,6 +313254,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryProductUpsertWithoutIssuesInput = {
@@ -309234,6 +313637,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAlumniInput = {
@@ -309361,6 +313765,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAlumniInput = {
@@ -309669,6 +314074,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAlumniInput = {
@@ -309796,6 +314202,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StudentUpsertWithoutAlumniInput = {
@@ -310096,6 +314503,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAlumniEventsInput = {
@@ -310223,6 +314631,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAlumniEventsInput = {
@@ -310392,6 +314801,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAlumniEventsInput = {
@@ -310519,6 +314929,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type AlumniEventParticipantUpsertWithWhereUniqueWithoutEventInput = {
@@ -310802,6 +315213,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutConversationsInput = {
@@ -310929,6 +315341,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutConversationsInput = {
@@ -311126,6 +315539,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutConversationsInput = {
@@ -311253,6 +315667,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type ConversationParticipantUpsertWithWhereUniqueWithoutConversationInput = {
@@ -311339,6 +315754,7 @@ export namespace Prisma {
     children?: StudentCreateNestedManyWithoutParentInput
     student?: StudentCreateNestedOneWithoutUserInput
     branch?: BranchCreateNestedOneWithoutUsersInput
+    customRole?: RoleCreateNestedOneWithoutUsersInput
     approvedVouchers?: VoucherCreateNestedManyWithoutApprovedByInput
     preferences?: UserPreferenceCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
@@ -311358,6 +315774,7 @@ export namespace Prisma {
     isActive?: boolean
     mustChangePassword?: boolean
     role: $Enums.UserRole
+    roleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
@@ -311458,6 +315875,7 @@ export namespace Prisma {
     children?: StudentUpdateManyWithoutParentNestedInput
     student?: StudentUpdateOneWithoutUserNestedInput
     branch?: BranchUpdateOneWithoutUsersNestedInput
+    customRole?: RoleUpdateOneWithoutUsersNestedInput
     approvedVouchers?: VoucherUpdateManyWithoutApprovedByNestedInput
     preferences?: UserPreferenceUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
@@ -311477,6 +315895,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     mustChangePassword?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    roleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -311555,6 +315974,7 @@ export namespace Prisma {
     children?: StudentCreateNestedManyWithoutParentInput
     student?: StudentCreateNestedOneWithoutUserInput
     branch?: BranchCreateNestedOneWithoutUsersInput
+    customRole?: RoleCreateNestedOneWithoutUsersInput
     approvedVouchers?: VoucherCreateNestedManyWithoutApprovedByInput
     preferences?: UserPreferenceCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
@@ -311574,6 +315994,7 @@ export namespace Prisma {
     isActive?: boolean
     mustChangePassword?: boolean
     role: $Enums.UserRole
+    roleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
@@ -311674,6 +316095,7 @@ export namespace Prisma {
     children?: StudentUpdateManyWithoutParentNestedInput
     student?: StudentUpdateOneWithoutUserNestedInput
     branch?: BranchUpdateOneWithoutUsersNestedInput
+    customRole?: RoleUpdateOneWithoutUsersNestedInput
     approvedVouchers?: VoucherUpdateManyWithoutApprovedByNestedInput
     preferences?: UserPreferenceUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
@@ -311693,6 +316115,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     mustChangePassword?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    roleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -311844,6 +316267,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutCampusEventsInput = {
@@ -311971,6 +316395,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutCampusEventsInput = {
@@ -312140,6 +316565,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutCampusEventsInput = {
@@ -312267,6 +316693,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type EventRSVPUpsertWithWhereUniqueWithoutEventInput = {
@@ -312347,6 +316774,7 @@ export namespace Prisma {
     children?: StudentCreateNestedManyWithoutParentInput
     student?: StudentCreateNestedOneWithoutUserInput
     branch?: BranchCreateNestedOneWithoutUsersInput
+    customRole?: RoleCreateNestedOneWithoutUsersInput
     approvedVouchers?: VoucherCreateNestedManyWithoutApprovedByInput
     preferences?: UserPreferenceCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
@@ -312366,6 +316794,7 @@ export namespace Prisma {
     isActive?: boolean
     mustChangePassword?: boolean
     role: $Enums.UserRole
+    roleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
@@ -312476,6 +316905,7 @@ export namespace Prisma {
     children?: StudentUpdateManyWithoutParentNestedInput
     student?: StudentUpdateOneWithoutUserNestedInput
     branch?: BranchUpdateOneWithoutUsersNestedInput
+    customRole?: RoleUpdateOneWithoutUsersNestedInput
     approvedVouchers?: VoucherUpdateManyWithoutApprovedByNestedInput
     preferences?: UserPreferenceUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
@@ -312495,6 +316925,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     mustChangePassword?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    roleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -312646,6 +317077,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAccessLogsInput = {
@@ -312773,6 +317205,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAccessLogsInput = {
@@ -312807,6 +317240,7 @@ export namespace Prisma {
     children?: StudentCreateNestedManyWithoutParentInput
     student?: StudentCreateNestedOneWithoutUserInput
     branch?: BranchCreateNestedOneWithoutUsersInput
+    customRole?: RoleCreateNestedOneWithoutUsersInput
     approvedVouchers?: VoucherCreateNestedManyWithoutApprovedByInput
     preferences?: UserPreferenceCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
@@ -312826,6 +317260,7 @@ export namespace Prisma {
     isActive?: boolean
     mustChangePassword?: boolean
     role: $Enums.UserRole
+    roleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
@@ -312993,6 +317428,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAccessLogsInput = {
@@ -313120,6 +317556,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type UserUpsertWithoutAccessLogsInput = {
@@ -313160,6 +317597,7 @@ export namespace Prisma {
     children?: StudentUpdateManyWithoutParentNestedInput
     student?: StudentUpdateOneWithoutUserNestedInput
     branch?: BranchUpdateOneWithoutUsersNestedInput
+    customRole?: RoleUpdateOneWithoutUsersNestedInput
     approvedVouchers?: VoucherUpdateManyWithoutApprovedByNestedInput
     preferences?: UserPreferenceUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
@@ -313179,6 +317617,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     mustChangePassword?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    roleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -313330,6 +317769,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAutomationConfigsInput = {
@@ -313457,6 +317897,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAutomationConfigsInput = {
@@ -313630,6 +318071,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAutomationConfigsInput = {
@@ -313757,6 +318199,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type AutomationExecutionUpsertWithWhereUniqueWithoutConfigInput = {
@@ -313934,6 +318377,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutIdCardTemplatesInput = {
@@ -314061,6 +318505,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutIdCardTemplatesInput = {
@@ -314220,6 +318665,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutIdCardTemplatesInput = {
@@ -314347,6 +318793,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type AcademicSessionCreateWithoutIdCardsInput = {
@@ -314738,6 +319185,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutIdCardsInput = {
@@ -314865,6 +319313,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutIdCardsInput = {
@@ -315296,6 +319745,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutIdCardsInput = {
@@ -315423,6 +319873,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutAttachmentCategoriesInput = {
@@ -315550,6 +320001,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAttachmentCategoriesInput = {
@@ -315677,6 +320129,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAttachmentCategoriesInput = {
@@ -315868,6 +320321,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAttachmentCategoriesInput = {
@@ -315995,6 +320449,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type DigitalResourceUpsertWithWhereUniqueWithoutCategoryInput = {
@@ -316163,6 +320618,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutDigitalResourcesInput = {
@@ -316290,6 +320746,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutDigitalResourcesInput = {
@@ -316713,6 +321170,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutDigitalResourcesInput = {
@@ -316840,6 +321298,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type ClassUpsertWithoutDigitalResourcesInput = {
@@ -317179,6 +321638,7 @@ export namespace Prisma {
     children?: StudentCreateNestedManyWithoutParentInput
     student?: StudentCreateNestedOneWithoutUserInput
     branch?: BranchCreateNestedOneWithoutUsersInput
+    customRole?: RoleCreateNestedOneWithoutUsersInput
     approvedVouchers?: VoucherCreateNestedManyWithoutApprovedByInput
     preferences?: UserPreferenceCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
@@ -317198,6 +321658,7 @@ export namespace Prisma {
     isActive?: boolean
     mustChangePassword?: boolean
     role: $Enums.UserRole
+    roleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
@@ -317316,6 +321777,7 @@ export namespace Prisma {
     children?: StudentUpdateManyWithoutParentNestedInput
     student?: StudentUpdateOneWithoutUserNestedInput
     branch?: BranchUpdateOneWithoutUsersNestedInput
+    customRole?: RoleUpdateOneWithoutUsersNestedInput
     approvedVouchers?: VoucherUpdateManyWithoutApprovedByNestedInput
     preferences?: UserPreferenceUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
@@ -317335,6 +321797,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     mustChangePassword?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    roleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -317486,6 +321949,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutEmailTemplatesInput = {
@@ -317613,6 +322077,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutEmailTemplatesInput = {
@@ -317756,6 +322221,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutEmailTemplatesInput = {
@@ -317883,6 +322349,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutSmsTemplatesInput = {
@@ -318010,6 +322477,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutSmsTemplatesInput = {
@@ -318137,6 +322605,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutSmsTemplatesInput = {
@@ -318280,6 +322749,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutSmsTemplatesInput = {
@@ -318407,6 +322877,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutNotificationsInput = {
@@ -318534,6 +323005,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutNotificationsInput = {
@@ -318661,6 +323133,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutNotificationsInput = {
@@ -318696,6 +323169,7 @@ export namespace Prisma {
     children?: StudentCreateNestedManyWithoutParentInput
     student?: StudentCreateNestedOneWithoutUserInput
     branch?: BranchCreateNestedOneWithoutUsersInput
+    customRole?: RoleCreateNestedOneWithoutUsersInput
     approvedVouchers?: VoucherCreateNestedManyWithoutApprovedByInput
     preferences?: UserPreferenceCreateNestedOneWithoutUserInput
     notificationPreference?: NotificationPreferenceCreateNestedOneWithoutUserInput
@@ -318714,6 +323188,7 @@ export namespace Prisma {
     isActive?: boolean
     mustChangePassword?: boolean
     role: $Enums.UserRole
+    roleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
@@ -318881,6 +323356,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutNotificationsInput = {
@@ -319008,6 +323484,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type UserUpsertWithoutNotificationsInput = {
@@ -319049,6 +323526,7 @@ export namespace Prisma {
     children?: StudentUpdateManyWithoutParentNestedInput
     student?: StudentUpdateOneWithoutUserNestedInput
     branch?: BranchUpdateOneWithoutUsersNestedInput
+    customRole?: RoleUpdateOneWithoutUsersNestedInput
     approvedVouchers?: VoucherUpdateManyWithoutApprovedByNestedInput
     preferences?: UserPreferenceUpdateOneWithoutUserNestedInput
     notificationPreference?: NotificationPreferenceUpdateOneWithoutUserNestedInput
@@ -319067,6 +323545,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     mustChangePassword?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    roleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -319218,6 +323697,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutNotificationPreferencesInput = {
@@ -319345,6 +323825,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutNotificationPreferencesInput = {
@@ -319380,6 +323861,7 @@ export namespace Prisma {
     children?: StudentCreateNestedManyWithoutParentInput
     student?: StudentCreateNestedOneWithoutUserInput
     branch?: BranchCreateNestedOneWithoutUsersInput
+    customRole?: RoleCreateNestedOneWithoutUsersInput
     approvedVouchers?: VoucherCreateNestedManyWithoutApprovedByInput
     preferences?: UserPreferenceCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
@@ -319398,6 +323880,7 @@ export namespace Prisma {
     isActive?: boolean
     mustChangePassword?: boolean
     role: $Enums.UserRole
+    roleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
@@ -319565,6 +324048,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutNotificationPreferencesInput = {
@@ -319692,6 +324176,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type UserUpsertWithoutNotificationPreferenceInput = {
@@ -319733,6 +324218,7 @@ export namespace Prisma {
     children?: StudentUpdateManyWithoutParentNestedInput
     student?: StudentUpdateOneWithoutUserNestedInput
     branch?: BranchUpdateOneWithoutUsersNestedInput
+    customRole?: RoleUpdateOneWithoutUsersNestedInput
     approvedVouchers?: VoucherUpdateManyWithoutApprovedByNestedInput
     preferences?: UserPreferenceUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
@@ -319751,6 +324237,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     mustChangePassword?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    roleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -319902,6 +324389,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutCampaignsInput = {
@@ -320029,6 +324517,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutCampaignsInput = {
@@ -320202,6 +324691,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutCampaignsInput = {
@@ -320329,6 +324819,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type CampaignRecipientUpsertWithWhereUniqueWithoutCampaignInput = {
@@ -320402,6 +324893,7 @@ export namespace Prisma {
     children?: StudentCreateNestedManyWithoutParentInput
     student?: StudentCreateNestedOneWithoutUserInput
     branch?: BranchCreateNestedOneWithoutUsersInput
+    customRole?: RoleCreateNestedOneWithoutUsersInput
     approvedVouchers?: VoucherCreateNestedManyWithoutApprovedByInput
     preferences?: UserPreferenceCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
@@ -320420,6 +324912,7 @@ export namespace Prisma {
     isActive?: boolean
     mustChangePassword?: boolean
     role: $Enums.UserRole
+    roleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
@@ -320576,6 +325069,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutCampaignRecipientsInput = {
@@ -320703,6 +325197,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutCampaignRecipientsInput = {
@@ -320782,6 +325277,7 @@ export namespace Prisma {
     children?: StudentUpdateManyWithoutParentNestedInput
     student?: StudentUpdateOneWithoutUserNestedInput
     branch?: BranchUpdateOneWithoutUsersNestedInput
+    customRole?: RoleUpdateOneWithoutUsersNestedInput
     approvedVouchers?: VoucherUpdateManyWithoutApprovedByNestedInput
     preferences?: UserPreferenceUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
@@ -320800,6 +325296,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     mustChangePassword?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    roleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -320962,6 +325459,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutCampaignRecipientsInput = {
@@ -321089,6 +325587,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutAttendanceSessionsInput = {
@@ -321216,6 +325715,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAttendanceSessionsInput = {
@@ -321343,6 +325843,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAttendanceSessionsInput = {
@@ -321730,6 +326231,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAttendanceSessionsInput = {
@@ -321857,6 +326359,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type ClassUpsertWithoutAttendanceSessionsInput = {
@@ -322220,6 +326723,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAttendanceScansInput = {
@@ -322347,6 +326851,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAttendanceScansInput = {
@@ -322670,6 +327175,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAttendanceScansInput = {
@@ -322797,6 +327303,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type AttendanceSessionUpsertWithoutScansInput = {
@@ -323116,6 +327623,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutQueueJobLogsInput = {
@@ -323243,6 +327751,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutQueueJobLogsInput = {
@@ -323386,6 +327895,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutQueueJobLogsInput = {
@@ -323513,6 +328023,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type AutomationConfigCreateWithoutExecutionsInput = {
@@ -323669,6 +328180,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAutomationExecutionsInput = {
@@ -323796,6 +328308,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAutomationExecutionsInput = {
@@ -323974,6 +328487,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAutomationExecutionsInput = {
@@ -324101,6 +328615,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutMessageDeliveryLogsInput = {
@@ -324228,6 +328743,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutMessageDeliveryLogsInput = {
@@ -324355,6 +328871,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutMessageDeliveryLogsInput = {
@@ -324498,6 +329015,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutMessageDeliveryLogsInput = {
@@ -324625,6 +329143,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutProviderHealthLogsInput = {
@@ -324752,6 +329271,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutProviderHealthLogsInput = {
@@ -324879,6 +329399,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutProviderHealthLogsInput = {
@@ -325022,6 +329543,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutProviderHealthLogsInput = {
@@ -325149,6 +329671,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutWebhookEventsInput = {
@@ -325276,6 +329799,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutWebhookEventsInput = {
@@ -325403,6 +329927,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutWebhookEventsInput = {
@@ -325546,6 +330071,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutWebhookEventsInput = {
@@ -325673,6 +330199,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutDeliveryWebhookLogsInput = {
@@ -325800,6 +330327,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutDeliveryWebhookLogsInput = {
@@ -325927,6 +330455,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutDeliveryWebhookLogsInput = {
@@ -326070,6 +330599,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutDeliveryWebhookLogsInput = {
@@ -326197,6 +330727,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutRealtimeConnectionsInput = {
@@ -326324,6 +330855,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutRealtimeConnectionsInput = {
@@ -326451,6 +330983,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutRealtimeConnectionsInput = {
@@ -326485,6 +331018,7 @@ export namespace Prisma {
     children?: StudentCreateNestedManyWithoutParentInput
     student?: StudentCreateNestedOneWithoutUserInput
     branch?: BranchCreateNestedOneWithoutUsersInput
+    customRole?: RoleCreateNestedOneWithoutUsersInput
     approvedVouchers?: VoucherCreateNestedManyWithoutApprovedByInput
     preferences?: UserPreferenceCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
@@ -326504,6 +331038,7 @@ export namespace Prisma {
     isActive?: boolean
     mustChangePassword?: boolean
     role: $Enums.UserRole
+    roleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
@@ -326671,6 +331206,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutRealtimeConnectionsInput = {
@@ -326798,6 +331334,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type UserUpsertWithoutRealtimeConnectionsInput = {
@@ -326838,6 +331375,7 @@ export namespace Prisma {
     children?: StudentUpdateManyWithoutParentNestedInput
     student?: StudentUpdateOneWithoutUserNestedInput
     branch?: BranchUpdateOneWithoutUsersNestedInput
+    customRole?: RoleUpdateOneWithoutUsersNestedInput
     approvedVouchers?: VoucherUpdateManyWithoutApprovedByNestedInput
     preferences?: UserPreferenceUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
@@ -326857,6 +331395,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     mustChangePassword?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    roleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -327008,6 +331547,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutQueueMetricsInput = {
@@ -327135,6 +331675,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutQueueMetricsInput = {
@@ -327278,6 +331819,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutQueueMetricsInput = {
@@ -327405,6 +331947,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutProviderFailoverEventsInput = {
@@ -327532,6 +332075,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutProviderFailoverEventsInput = {
@@ -327659,6 +332203,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutProviderFailoverEventsInput = {
@@ -327802,6 +332347,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutProviderFailoverEventsInput = {
@@ -327929,6 +332475,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutMessageRetryEventsInput = {
@@ -328056,6 +332603,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutMessageRetryEventsInput = {
@@ -328183,6 +332731,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutMessageRetryEventsInput = {
@@ -328326,6 +332875,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutMessageRetryEventsInput = {
@@ -328453,6 +333003,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutProviderBalanceSnapshotsInput = {
@@ -328580,6 +333131,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutProviderBalanceSnapshotsInput = {
@@ -328707,6 +333259,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutProviderBalanceSnapshotsInput = {
@@ -328850,6 +333403,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutProviderBalanceSnapshotsInput = {
@@ -328977,6 +333531,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutNotificationDeliveryEventsInput = {
@@ -329104,6 +333659,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutNotificationDeliveryEventsInput = {
@@ -329231,6 +333787,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutNotificationDeliveryEventsInput = {
@@ -329374,6 +333931,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutNotificationDeliveryEventsInput = {
@@ -329501,6 +334059,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutAcademicExportsInput = {
@@ -329628,6 +334187,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAcademicExportsInput = {
@@ -329755,6 +334315,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAcademicExportsInput = {
@@ -329790,6 +334351,7 @@ export namespace Prisma {
     children?: StudentCreateNestedManyWithoutParentInput
     student?: StudentCreateNestedOneWithoutUserInput
     branch?: BranchCreateNestedOneWithoutUsersInput
+    customRole?: RoleCreateNestedOneWithoutUsersInput
     approvedVouchers?: VoucherCreateNestedManyWithoutApprovedByInput
     preferences?: UserPreferenceCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
@@ -329808,6 +334370,7 @@ export namespace Prisma {
     isActive?: boolean
     mustChangePassword?: boolean
     role: $Enums.UserRole
+    roleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
@@ -329975,6 +334538,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAcademicExportsInput = {
@@ -330102,6 +334666,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type UserUpsertWithoutAcademicExportsInput = {
@@ -330143,6 +334708,7 @@ export namespace Prisma {
     children?: StudentUpdateManyWithoutParentNestedInput
     student?: StudentUpdateOneWithoutUserNestedInput
     branch?: BranchUpdateOneWithoutUsersNestedInput
+    customRole?: RoleUpdateOneWithoutUsersNestedInput
     approvedVouchers?: VoucherUpdateManyWithoutApprovedByNestedInput
     preferences?: UserPreferenceUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
@@ -330161,6 +334727,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     mustChangePassword?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    roleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -330312,6 +334879,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutReportTemplatesInput = {
@@ -330439,6 +335007,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutReportTemplatesInput = {
@@ -330582,6 +335151,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutReportTemplatesInput = {
@@ -330709,6 +335279,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutComputationJobsInput = {
@@ -330836,6 +335407,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutComputationJobsInput = {
@@ -330963,6 +335535,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutComputationJobsInput = {
@@ -330998,6 +335571,7 @@ export namespace Prisma {
     children?: StudentCreateNestedManyWithoutParentInput
     student?: StudentCreateNestedOneWithoutUserInput
     branch?: BranchCreateNestedOneWithoutUsersInput
+    customRole?: RoleCreateNestedOneWithoutUsersInput
     approvedVouchers?: VoucherCreateNestedManyWithoutApprovedByInput
     preferences?: UserPreferenceCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
@@ -331016,6 +335590,7 @@ export namespace Prisma {
     isActive?: boolean
     mustChangePassword?: boolean
     role: $Enums.UserRole
+    roleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     branchId?: string | null
@@ -331183,6 +335758,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutComputationJobsInput = {
@@ -331310,6 +335886,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type UserUpsertWithoutComputationJobsInput = {
@@ -331351,6 +335928,7 @@ export namespace Prisma {
     children?: StudentUpdateManyWithoutParentNestedInput
     student?: StudentUpdateOneWithoutUserNestedInput
     branch?: BranchUpdateOneWithoutUsersNestedInput
+    customRole?: RoleUpdateOneWithoutUsersNestedInput
     approvedVouchers?: VoucherUpdateManyWithoutApprovedByNestedInput
     preferences?: UserPreferenceUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
@@ -331369,6 +335947,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     mustChangePassword?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    roleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -331599,6 +336178,7 @@ export namespace Prisma {
     idCards?: IdCardCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutBookCopiesInput = {
@@ -331726,6 +336306,7 @@ export namespace Prisma {
     idCards?: IdCardUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutBookCopiesInput = {
@@ -331932,6 +336513,7 @@ export namespace Prisma {
     idCards?: IdCardUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutBookCopiesInput = {
@@ -332059,6 +336641,7 @@ export namespace Prisma {
     idCards?: IdCardUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BookCreateWithoutBookReservationsInput = {
@@ -332366,6 +336949,7 @@ export namespace Prisma {
     idCards?: IdCardCreateNestedManyWithoutBranchInput
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutBookReservationsInput = {
@@ -332493,6 +337077,7 @@ export namespace Prisma {
     idCards?: IdCardUncheckedCreateNestedManyWithoutBranchInput
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutBookReservationsInput = {
@@ -332828,6 +337413,7 @@ export namespace Prisma {
     idCards?: IdCardUpdateManyWithoutBranchNestedInput
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutBookReservationsInput = {
@@ -332955,6 +337541,7 @@ export namespace Prisma {
     idCards?: IdCardUncheckedUpdateManyWithoutBranchNestedInput
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type HostelCreateWithoutHostelMaintenanceTicketsInput = {
@@ -333109,6 +337696,7 @@ export namespace Prisma {
     idCards?: IdCardCreateNestedManyWithoutBranchInput
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutHostelMaintenanceTicketsInput = {
@@ -333236,6 +337824,7 @@ export namespace Prisma {
     idCards?: IdCardUncheckedCreateNestedManyWithoutBranchInput
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutHostelMaintenanceTicketsInput = {
@@ -333412,6 +338001,7 @@ export namespace Prisma {
     idCards?: IdCardUpdateManyWithoutBranchNestedInput
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutHostelMaintenanceTicketsInput = {
@@ -333539,6 +338129,7 @@ export namespace Prisma {
     idCards?: IdCardUncheckedUpdateManyWithoutBranchNestedInput
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StudentCreateWithoutTransportAttendancesInput = {
@@ -334002,6 +338593,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutApiKeysInput = {
@@ -334129,6 +338721,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutApiKeysInput = {
@@ -334272,6 +338865,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutApiKeysInput = {
@@ -334399,6 +338993,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutWebhookEndpointsInput = {
@@ -334526,6 +339121,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutWebhookEndpointsInput = {
@@ -334653,6 +339249,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutWebhookEndpointsInput = {
@@ -334830,6 +339427,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutWebhookEndpointsInput = {
@@ -334957,6 +339555,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type WebhookDeliveryLogUpsertWithWhereUniqueWithoutEndpointInput = {
@@ -335176,6 +339775,7 @@ export namespace Prisma {
     bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutCountersInput = {
@@ -335303,6 +339903,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
     bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutCountersInput = {
@@ -335446,6 +340047,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutCountersInput = {
@@ -335573,6 +340175,7 @@ export namespace Prisma {
     bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
     bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type AdmissionEnquiryCreateManyBranchInput = {
@@ -336167,6 +340770,7 @@ export namespace Prisma {
     isActive?: boolean
     mustChangePassword?: boolean
     role: $Enums.UserRole
+    roleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     resetTokenHash?: string | null
@@ -337052,6 +341656,17 @@ export namespace Prisma {
     hostelId: string
     roomId?: string | null
     reportedBy: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RoleCreateManyBranchInput = {
+    id?: string
+    name: string
+    slug: string
+    description?: string | null
+    isSystem?: boolean
+    priority?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -338975,6 +343590,7 @@ export namespace Prisma {
     staff?: StaffUpdateOneWithoutUserNestedInput
     children?: StudentUpdateManyWithoutParentNestedInput
     student?: StudentUpdateOneWithoutUserNestedInput
+    customRole?: RoleUpdateOneWithoutUsersNestedInput
     approvedVouchers?: VoucherUpdateManyWithoutApprovedByNestedInput
     preferences?: UserPreferenceUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
@@ -338994,6 +343610,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     mustChangePassword?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    roleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
@@ -339030,6 +343647,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     mustChangePassword?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    roleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
@@ -341719,6 +346337,43 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type RoleUpdateWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isSystem?: BoolFieldUpdateOperationsInput | boolean
+    priority?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutCustomRoleNestedInput
+    permissions?: CustomRolePermissionUpdateManyWithoutRoleNestedInput
+  }
+
+  export type RoleUncheckedUpdateWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isSystem?: BoolFieldUpdateOperationsInput | boolean
+    priority?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutCustomRoleNestedInput
+    permissions?: CustomRolePermissionUncheckedUpdateManyWithoutRoleNestedInput
+  }
+
+  export type RoleUncheckedUpdateManyWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isSystem?: BoolFieldUpdateOperationsInput | boolean
+    priority?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type LoginDeactivationCreateManyReasonRefInput = {
     id?: string
     studentId: string
@@ -341757,6 +346412,142 @@ export namespace Prisma {
     branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserCreateManyCustomRoleInput = {
+    id?: string
+    email: string
+    password: string
+    firstName: string
+    lastName: string
+    phone?: string | null
+    isActive?: boolean
+    mustChangePassword?: boolean
+    role: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    branchId?: string | null
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
+  }
+
+  export type CustomRolePermissionCreateManyRoleInput = {
+    id?: string
+    module: string
+    action: string
+    isAllowed?: boolean
+  }
+
+  export type UserUpdateWithoutCustomRoleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    mustChangePassword?: BoolFieldUpdateOperationsInput | boolean
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
+    accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
+    realtimeConnections?: RealtimeConnectionUpdateManyWithoutUserNestedInput
+    issuedCertificates?: CertificateUpdateManyWithoutIssuedByNestedInput
+    conversationParticipations?: ConversationParticipantUpdateManyWithoutUserNestedInput
+    digitalResourceLogs?: DigitalResourceLogUpdateManyWithoutUserNestedInput
+    eventRSVPs?: EventRSVPUpdateManyWithoutUserNestedInput
+    meetingParticipations?: MeetingParticipantUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutParentNestedInput
+    staff?: StaffUpdateOneWithoutUserNestedInput
+    children?: StudentUpdateManyWithoutParentNestedInput
+    student?: StudentUpdateOneWithoutUserNestedInput
+    branch?: BranchUpdateOneWithoutUsersNestedInput
+    approvedVouchers?: VoucherUpdateManyWithoutApprovedByNestedInput
+    preferences?: UserPreferenceUpdateOneWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    notificationPreference?: NotificationPreferenceUpdateOneWithoutUserNestedInput
+    campaignRecipients?: CampaignRecipientUpdateManyWithoutUserNestedInput
+    academicExports?: AcademicExportUpdateManyWithoutUserNestedInput
+    computationJobs?: ComputationJobUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCustomRoleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    mustChangePassword?: BoolFieldUpdateOperationsInput | boolean
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
+    realtimeConnections?: RealtimeConnectionUncheckedUpdateManyWithoutUserNestedInput
+    issuedCertificates?: CertificateUncheckedUpdateManyWithoutIssuedByNestedInput
+    conversationParticipations?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+    digitalResourceLogs?: DigitalResourceLogUncheckedUpdateManyWithoutUserNestedInput
+    eventRSVPs?: EventRSVPUncheckedUpdateManyWithoutUserNestedInput
+    meetingParticipations?: MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutParentNestedInput
+    staff?: StaffUncheckedUpdateOneWithoutUserNestedInput
+    children?: StudentUncheckedUpdateManyWithoutParentNestedInput
+    student?: StudentUncheckedUpdateOneWithoutUserNestedInput
+    approvedVouchers?: VoucherUncheckedUpdateManyWithoutApprovedByNestedInput
+    preferences?: UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    notificationPreference?: NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+    campaignRecipients?: CampaignRecipientUncheckedUpdateManyWithoutUserNestedInput
+    academicExports?: AcademicExportUncheckedUpdateManyWithoutUserNestedInput
+    computationJobs?: ComputationJobUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateManyWithoutCustomRoleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    mustChangePassword?: BoolFieldUpdateOperationsInput | boolean
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type CustomRolePermissionUpdateWithoutRoleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    module?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    isAllowed?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type CustomRolePermissionUncheckedUpdateWithoutRoleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    module?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    isAllowed?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type CustomRolePermissionUncheckedUpdateManyWithoutRoleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    module?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    isAllowed?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AuditLogCreateManyUserInput = {

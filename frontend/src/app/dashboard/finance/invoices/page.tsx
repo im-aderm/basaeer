@@ -13,7 +13,7 @@ import { Plus, Search, FileText } from 'lucide-react';
 import api from '@/lib/api';
 
 export default function InvoicesPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [invoices, setInvoices] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [studentId, setStudentId] = useState('');
@@ -62,7 +62,7 @@ export default function InvoicesPage() {
         try {
             await api.post('/finance/invoices', {
                 ...createData,
-                branchId: user?.branchId
+                branchId: resolvedBranchId
             });
             setIsCreateOpen(false);
             if (createData.studentId === studentId) fetchInvoices();
@@ -74,7 +74,7 @@ export default function InvoicesPage() {
     return (
         <div className="space-y-6">
             <div className="flex justify-between items-center">
-                <h1 className="text-h1 font-bold tracking-tight">Student Invoices</h1>
+                <h1 className="text-h1 font-bold tracking-tight text-primary">Student Invoices</h1>
                 <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
                     <DialogTrigger asChild>
                         <Button className="gap-2">

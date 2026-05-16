@@ -1,300 +1,521 @@
-
-import { PrismaClient, UserRole } from '../src/generated/client/client';
+import { PrismaClient, UserRole, AttendanceStatus, Term, ExamTerm, AcademicExamStatus, ResultApprovalStatus, RankingScope, TranscriptStatus, HostelType, BedStatus, PaymentMethod, PaymentStatus, InvoiceStatus, QuestionType, ExamStatus, AttemptStatus, VoucherStatus, StaffStatus, BorrowStatus, PayrollStatus, LeaveStatus, AdvanceSalaryStatus, AdmissionStatus, IssueStatus, SubmissionStatus, IdCardStatusEnum, MaintenanceStatus, MaintenancePriority, BookCopyStatus, ReservationStatus, HostelLeaveStatus, EventParticipationStatus } from '../src/generated/client';
 import * as bcrypt from 'bcrypt';
-import * as dotenv from 'dotenv';
-dotenv.config();
 
-import { Pool } from 'pg';
-import { PrismaPg } from '@prisma/adapter-pg';
-
-const connectionString = `${process.env.DATABASE_URL}`;
-const pool = new Pool({ connectionString });
-const adapter = new PrismaPg(pool);
-const prisma = new PrismaClient({ adapter } as any);
-
-/** findOrCreate: reusable helper so seed is idempotent on re-runs */
-async function findOrCreate<T>(
-    findFn: () => Promise<T | null>,
-    createFn: () => Promise<T>
-): Promise<T> {
-    const existing = await findFn();
-    if (existing) return existing;
-    return createFn();
-}
+const prisma = new PrismaClient();
 
 async function main() {
-    console.log('Starting seeding...');
+  console.log('Starting seed process...');
 
-    const saltRounds = 10;
+  // 1. Reset Database
+  console.log('Resetting database...');
+  const tablenames = await prisma.$queryRaw<
+    Array<{ tablename: string }>
+  >`SELECT tablename FROM pg_tables WHERE schemaname='public'`;
 
-    // ── Use env vars for passwords — never hard-code credentials ── //
-    const defaultPassword = process.env.SEED_DEFAULT_PASSWORD;
-    const superAdminPassword = process.env.SEED_ADMIN_PASSWORD;
+  const tables = tablenames
+    .map(({ tablename }) => tablename)
+    .filter((name) => name !== '_prisma_migrations')
+    .map((name) => `"public"."${name}"`)
+    .join(', ');
 
-    if (!defaultPassword || !superAdminPassword) {
-        throw new Error(
-            '❌ SEED_DEFAULT_PASSWORD and SEED_ADMIN_PASSWORD must be set in .env before seeding!\n' +
-            '   Check .env.example for the required variables.'
-        );
+  try {
+    await prisma.$executeRawUnsafe(`TRUNCATE TABLE ${tables} CASCADE;`);
+  } catch (error) {
+    console.log('Error during truncate, falling back to manual deletion...');
+    // Fallback if truncate fails (though it shouldn't on Postgres)
+  }
+
+  const passwordHash = await bcrypt.hash('Password123!', 8);
+
+  // 2. Create Main Branch
+  console.log('Seeding Branch...');
+  const branch = await prisma.branch.create({
+    data: {
+      name: 'Basaeer Main Campus',
+      code: 'BMC001',
+      address: '123 Education Way, Abuja',
+      phone: '+2348001234567',
+      email: 'main@basaeer.edu.ng',
+      isActive: true,
+    },
+  });
+
+  // 3. Create Users for all Roles
+  console.log('Seeding Users and Roles...');
+  const roles = Object.values(UserRole);
+  const users: Record<string, any> = {};
+
+  for (const role of roles) {
+    const email = `${role.toLowerCase().replace('_', '.')}@basaeer.com`;
+    users[role] = await prisma.user.create({
+      data: {
+        email,
+        password: passwordHash,
+        firstName: role.charAt(0) + role.slice(1).toLowerCase().replace('_', ' '),
+        lastName: 'Admin',
+        role: role,
+        branchId: branch.id,
+        isActive: true,
+      },
+    });
+  }
+
+  // 4. Academic Foundational Data
+  console.log('Seeding Academic Sessions, Classes, and Subjects...');
+  const session = await prisma.academicSession.create({
+    data: {
+      name: '2025/2026 Academic Session',
+      startDate: new Date('2025-09-01'),
+      endDate: new Date('2026-07-31'),
+      isActive: true,
+      branchId: branch.id,
+    },
+  });
+
+  const department = await prisma.department.create({
+    data: {
+      name: 'Sciences',
+      branchId: branch.id,
+    },
+  });
+
+  const designation = await prisma.designation.create({
+    data: {
+      name: 'Senior Teacher',
+      branchId: branch.id,
+    },
+  });
+
+  // Create Staff entry for the Teacher user
+  const teacherStaff = await prisma.staff.create({
+    data: {
+      userId: users[UserRole.TEACHER].id,
+      departmentId: department.id,
+      designationId: designation.id,
+      status: StaffStatus.ACTIVE,
+    },
+  });
+
+  const classSS1 = await prisma.class.create({
+    data: {
+      name: 'SS1',
+      gradeLevel: 10,
+      branchId: branch.id,
+      classTeacherId: teacherStaff.id,
+    },
+  });
+
+  const sectionA = await prisma.section.create({
+    data: {
+      name: 'A',
+      classId: classSS1.id,
+    },
+  });
+
+  const subjectMath = await prisma.subject.create({
+    data: {
+      name: 'Mathematics',
+      code: 'MATH101',
+      branchId: branch.id,
+    },
+  });
+
+  // 5. Students and Parents
+  console.log('Seeding Students and Parents...');
+  const parent = users[UserRole.PARENT];
+  const studentUser = users[UserRole.STUDENT];
+
+  const student = await prisma.student.create({
+    data: {
+      userId: studentUser.id,
+      firstName: 'John',
+      lastName: 'Doe',
+      dob: new Date('2010-05-15'),
+      branchId: branch.id,
+      classId: classSS1.id,
+      sectionId: sectionA.id,
+      parentId: parent.id,
+      nationality: 'Nigerian',
+      stateOfOrigin: 'Lagos',
+    },
+  });
+
+  // 6. Attendance
+  console.log('Seeding Attendance...');
+  const attendanceSession = await prisma.attendanceSession.create({
+    data: {
+      name: 'Morning Session',
+      date: new Date(),
+      classId: classSS1.id,
+      sectionId: sectionA.id,
+      branchId: branch.id,
+    },
+  });
+
+  await prisma.attendance.create({
+    data: {
+      date: new Date(),
+      status: AttendanceStatus.PRESENT,
+      studentId: student.id,
+      sessionId: attendanceSession.id,
+      branchId: branch.id,
+    },
+  });
+
+  // 7. Exams and Assessments
+  console.log('Seeding Exams and Assessments...');
+  const exam = await prisma.exam.create({
+    data: {
+      title: 'First Term Examination',
+      status: AcademicExamStatus.PUBLISHED,
+      branchId: branch.id,
+      sessionId: session.id,
+      term: Term.FIRST,
+    },
+  });
+
+  const assessmentComponent = await prisma.assessmentComponent.create({
+    data: {
+      name: 'Continuous Assessment 1',
+      component: 'CA1',
+      weight: 20,
+      maxScore: 20,
+      branchId: branch.id,
+    },
+  });
+
+  const record = await prisma.assessmentRecord.create({
+    data: {
+      studentId: student.id,
+      subjectId: subjectMath.id,
+      sectionId: sectionA.id,
+      sessionId: session.id,
+      term: Term.FIRST,
+      examTerm: ExamTerm.FIRST_TERM,
+      branchId: branch.id,
+      total: 75,
+      grade: 'B',
+    },
+  });
+
+  await prisma.assessmentScore.create({
+    data: {
+      score: 15,
+      studentId: student.id,
+      componentId: assessmentComponent.id,
+      recordId: record.id,
+    },
+  });
+
+  // 8. Finance
+  console.log('Seeding Finance data...');
+  const feeCategory = await prisma.feeCategory.create({
+    data: {
+      name: 'Tuition Fee',
+      branchId: branch.id,
+    },
+  });
+
+  const invoice = await prisma.invoice.create({
+    data: {
+      invoiceNumber: 'INV-2025-001',
+      dueDate: new Date('2025-10-01'),
+      totalAmount: 50000,
+      balance: 50000,
+      status: InvoiceStatus.UNPAID,
+      studentId: student.id,
+      branchId: branch.id,
+    },
+  });
+
+  await prisma.invoiceItem.create({
+    data: {
+      amount: 50000,
+      invoiceId: invoice.id,
+      categoryId: feeCategory.id,
+    },
+  });
+
+  const expenseCategory = await prisma.expenseCategory.create({
+    data: {
+      name: 'Office Supplies',
+      branchId: branch.id,
+    },
+  });
+
+  await prisma.voucher.create({
+    data: {
+      voucherNumber: 'VOUCH-001',
+      date: new Date(),
+      amount: 5000,
+      description: 'Buying stationery',
+      expenseCategoryId: expenseCategory.id,
+      paidTo: 'Top Stationery Ltd',
+      branchId: branch.id,
+      status: VoucherStatus.APPROVED,
+      approvedByUserId: users[UserRole.ACCOUNTANT].id,
+    },
+  });
+
+  // 9. Logistics (Hostel and Transport)
+  console.log('Seeding Logistics...');
+  const hostel = await prisma.hostel.create({
+    data: {
+      name: 'Main Boys Hostel',
+      type: HostelType.BOYS,
+      branchId: branch.id,
+    },
+  });
+
+  const room = await prisma.room.create({
+    data: {
+      number: '101',
+      floor: 1,
+      capacity: 4,
+      hostelId: hostel.id,
+    },
+  });
+
+  const bed = await prisma.bed.create({
+    data: {
+      name: 'Bed A',
+      roomId: room.id,
+    },
+  });
+
+  await prisma.hostelAllocation.create({
+    data: {
+      checkInDate: new Date(),
+      studentId: student.id,
+      bedId: bed.id,
+      branchId: branch.id,
+    },
+  });
+
+  const vehicle = await prisma.vehicle.create({
+    data: {
+      registrationNumber: 'ABJ-123-XY',
+      model: 'Toyota Coaster',
+      capacity: 30,
+      driverName: 'Mustapha Driver',
+      branchId: branch.id,
+    },
+  });
+
+  const route = await prisma.transportRoute.create({
+    data: {
+      name: 'Garki Route',
+      startPoint: 'School',
+      endPoint: 'Garki',
+      branchId: branch.id,
+    },
+  });
+
+  await prisma.transportAssignment.create({
+    data: {
+      studentId: student.id,
+      vehicleId: vehicle.id,
+      routeId: route.id,
+    },
+  });
+
+  // 10. Library
+  console.log('Seeding Library...');
+  const book = await prisma.book.create({
+    data: {
+      title: 'Intro to Mathematics',
+      author: 'K.A. Stroud',
+      category: 'Science',
+      branchId: branch.id,
+      quantity: 5,
+      available: 5,
+    },
+  });
+
+  const bookCopy = await prisma.bookCopy.create({
+    data: {
+      barcode: 'BOOK001-A',
+      accessionNumber: 'ACC001',
+      bookId: book.id,
+      branchId: branch.id,
+    },
+  });
+
+  await prisma.borrowRecord.create({
+    data: {
+      dueDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000),
+      bookId: book.id,
+      bookCopyId: bookCopy.id,
+      studentId: student.id,
+      branchId: branch.id,
+    },
+  });
+
+  // 11. Inventory
+  console.log('Seeding Inventory...');
+  const invCategory = await prisma.inventoryCategory.create({
+    data: {
+      name: 'Stationery',
+      branchId: branch.id,
+    },
+  });
+
+  const invUnit = await prisma.inventoryUnit.create({
+    data: {
+      name: 'Pieces',
+      branchId: branch.id,
+    },
+  });
+
+  const store = await prisma.inventoryStore.create({
+    data: {
+      name: 'Main Store',
+      branchId: branch.id,
+    },
+  });
+
+  await prisma.inventoryProduct.create({
+    data: {
+      name: 'Blue Pen',
+      categoryId: invCategory.id,
+      unitId: invUnit.id,
+      storeId: store.id,
+      stock: 100,
+      costPrice: 50,
+      sellingPrice: 100,
+      branchId: branch.id,
+    },
+  });
+
+  // 12. Front Office
+  console.log('Seeding Front Office logs...');
+  await prisma.visitorLog.create({
+    data: {
+      purpose: 'Meeting Principal',
+      name: 'Mr. Visitor',
+      phone: '08011112222',
+      branchId: branch.id,
+    },
+  });
+
+  await prisma.complaint.create({
+    data: {
+      complaintType: 'Academic',
+      name: 'Aggrieved Parent',
+      phone: '08033334444',
+      description: 'My child is not getting enough homework.',
+      branchId: branch.id,
+    },
+  });
+
+  // 13. LMS
+  console.log('Seeding LMS (Assignments, Resources)...');
+  const assignment = await prisma.assignment.create({
+    data: {
+      title: 'Quadratic Equations Homework',
+      dueDate: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
+      subjectId: subjectMath.id,
+      sectionId: sectionA.id,
+      teacherId: teacherStaff.id,
+      branchId: branch.id,
+    },
+  });
+
+  await prisma.submission.create({
+    data: {
+      assignmentId: assignment.id,
+      studentId: student.id,
+      branchId: branch.id,
+      status: SubmissionStatus.SUBMITTED,
+    },
+  });
+
+  const attachmentCategory = await prisma.attachmentCategory.create({
+    data: {
+      name: 'Mathematics Materials',
+      branchId: branch.id,
+    },
+  });
+
+  await prisma.digitalResource.create({
+    data: {
+      title: 'Algebra 101 Notes',
+      fileUrl: 'https://example.com/notes.pdf',
+      fileType: 'pdf',
+      categoryId: attachmentCategory.id,
+      sessionId: session.id,
+      uploaderId: teacherStaff.id,
+      branchId: branch.id,
+    },
+  });
+
+  // ── Seed default custom roles ───────────────────────────────────────────
+  console.log('Seeding default custom roles...');
+  const roleEnumValues = [
+    'SUPER_ADMIN',
+    'BRANCH_ADMIN',
+    'TEACHER',
+    'HOD',
+    'PRINCIPAL',
+    'EXAM_OFFICER',
+    'ACADEMIC_OFFICER',
+    'ACCOUNTANT',
+    'HR',
+    'LIBRARIAN',
+    'HOSTEL_ADMIN',
+    'TRANSPORT_OFFICER',
+    'STUDENT',
+    'PARENT',
+    'RECEPTIONIST',
+  ];
+  for (const rv of roleEnumValues) {
+    await prisma.role.upsert({
+      where: { slug: rv.toLowerCase() },
+      update: {},
+      create: {
+        name: rv.replace(/_/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase()),
+        slug: rv.toLowerCase(),
+        description: `Default ${rv.replace(/_/g, ' ').toLowerCase()} role`,
+        isSystem: true,
+        branchId: null,
+      },
+    });
+  }
+  console.log(`Seeded ${roleEnumValues.length} default roles.`);
+
+  // ── Seed role permissions from existing enum-based permissions ──────────
+  console.log('Copying existing permissions to custom roles...');
+  const existingPerms = await prisma.rolePermission.findMany();
+  for (const perm of existingPerms) {
+    const roleSlug = perm.role.toLowerCase();
+    const role = await prisma.role.findUnique({ where: { slug: roleSlug } });
+    if (role) {
+      await prisma.customRolePermission.upsert({
+        where: { roleId_module_action: { roleId: role.id, module: perm.module, action: perm.action } },
+        update: { isAllowed: perm.isAllowed },
+        create: {
+          roleId: role.id,
+          module: perm.module,
+          action: perm.action,
+          isAllowed: perm.isAllowed,
+        },
+      });
     }
+  }
+  console.log(`Copied ${existingPerms.length} permissions to custom roles.`);
 
-    const hashedDefaultPassword = await bcrypt.hash(defaultPassword, saltRounds);
-    const hashedSuperAdminPassword = await bcrypt.hash(superAdminPassword, saltRounds);
-
-    // 1. Branch
-    const branch = await findOrCreate(
-        () => prisma.branch.findFirst({ where: { code: 'MAIN001' } }),
-        () => prisma.branch.create({
-            data: {
-                name: 'Main Campus',
-                code: 'MAIN001',
-                address: '12 Basaer Avenue, Wuse II, Abuja, Nigeria',
-                phone: '+2348012345678',
-                email: 'admissions@basaer.edu.ng',
-            },
-        })
-    );
-    console.log(`Branch ensured: ${branch.name}`);
-
-    const waecScale = [
-        { grade: 'A1', minScore: 75, maxScore: 100, gradePoint: 5.0, remark: 'Excellent', classOfResult: 'DISTINCTION' },
-        { grade: 'B2', minScore: 70, maxScore: 74.99, gradePoint: 4.5, remark: 'Very Good', classOfResult: 'CREDIT' },
-        { grade: 'B3', minScore: 65, maxScore: 69.99, gradePoint: 4.0, remark: 'Good', classOfResult: 'CREDIT' },
-        { grade: 'C4', minScore: 60, maxScore: 64.99, gradePoint: 3.5, remark: 'Credit', classOfResult: 'CREDIT' },
-        { grade: 'C5', minScore: 55, maxScore: 59.99, gradePoint: 3.0, remark: 'Credit', classOfResult: 'CREDIT' },
-        { grade: 'C6', minScore: 50, maxScore: 54.99, gradePoint: 2.5, remark: 'Credit', classOfResult: 'CREDIT' },
-        { grade: 'D7', minScore: 45, maxScore: 49.99, gradePoint: 2.0, remark: 'Pass', classOfResult: 'PASS' },
-        { grade: 'E8', minScore: 40, maxScore: 44.99, gradePoint: 1.0, remark: 'Weak Pass', classOfResult: 'PASS' },
-        { grade: 'F9', minScore: 0, maxScore: 39.99, gradePoint: 0, remark: 'Fail', classOfResult: 'FAIL' },
-    ];
-
-    for (const scale of waecScale) {
-        await findOrCreate(
-            () => prisma.gradingScale.findFirst({ where: { branchId: branch.id, name: 'WAEC Standard', grade: scale.grade } }),
-            () => prisma.gradingScale.create({
-                data: {
-                    name: 'WAEC Standard',
-                    scaleType: 'WAEC',
-                    branchId: branch.id,
-                    ...scale,
-                },
-            })
-        );
-    }
-    console.log('WAEC grading scale ensured');
-
-    // 2. Academic Session
-    const sessionName = '2024/2025';
-    const session = await findOrCreate(
-        () => prisma.academicSession.findFirst({ where: { name: sessionName, branchId: branch.id } }),
-        () => prisma.academicSession.create({
-            data: {
-                name: sessionName,
-                startDate: new Date('2024-09-01'),
-                endDate: new Date('2025-07-31'),
-                isActive: true,
-                branchId: branch.id,
-            },
-        })
-    );
-    console.log(`Academic Session ensured: ${session.name}`);
-
-    // 3. Departments
-    const academicDept = await findOrCreate(
-        () => prisma.department.findFirst({ where: { name: 'Academic', branchId: branch.id } }),
-        () => prisma.department.create({ data: { name: 'Academic', branchId: branch.id } })
-    );
-    const accountsDept = await findOrCreate(
-        () => prisma.department.findFirst({ where: { name: 'Accounts', branchId: branch.id } }),
-        () => prisma.department.create({ data: { name: 'Accounts', branchId: branch.id } })
-    );
-
-    // 4. Designations
-    const teacherDesignation = await findOrCreate(
-        () => prisma.designation.findFirst({ where: { name: 'Senior Teacher', branchId: branch.id } }),
-        () => prisma.designation.create({ data: { name: 'Senior Teacher', branchId: branch.id } })
-    );
-    const accountantDesignation = await findOrCreate(
-        () => prisma.designation.findFirst({ where: { name: 'Chief Accountant', branchId: branch.id } }),
-        () => prisma.designation.create({ data: { name: 'Chief Accountant', branchId: branch.id } })
-    );
-
-    // 5. Super Admin
-    const superAdminEmail = process.env.SUPER_ADMIN_EMAIL || 'superadmin@basaer.com';
-    const superAdmin = await findOrCreate(
-        () => prisma.user.findUnique({ where: { email: superAdminEmail } }),
-        () => prisma.user.create({
-            data: {
-                email: superAdminEmail,
-                password: hashedSuperAdminPassword,
-                firstName: 'Super',
-                lastName: 'Admin',
-                role: UserRole.SUPER_ADMIN,
-                branchId: branch.id,
-            },
-        })
-    );
-    console.log(`Super Admin ensured: ${superAdmin.email}`);
-
-    // 6. Academic Setup
-    const grade1 = await findOrCreate(
-        () => prisma.class.findFirst({ where: { name: 'Grade 1', branchId: branch.id } }),
-        () => prisma.class.create({ data: { name: 'Grade 1', gradeLevel: 1, branchId: branch.id } })
-    );
-    const sectionA = await findOrCreate(
-        () => prisma.section.findFirst({ where: { name: 'A', classId: grade1.id } }),
-        () => prisma.section.create({ data: { name: 'A', classId: grade1.id } })
-    );
-    const math = await findOrCreate(
-        () => prisma.subject.findFirst({ where: { name: 'Mathematics', branchId: branch.id } }),
-        () => prisma.subject.create({ data: { name: 'Mathematics', code: 'MATH101', branchId: branch.id } })
-    );
-    const english = await findOrCreate(
-        () => prisma.subject.findFirst({ where: { name: 'English', branchId: branch.id } }),
-        () => prisma.subject.create({ data: { name: 'English', code: 'ENG101', branchId: branch.id } })
-    );
-
-    // 7. Staff
-    const teacherEmail = 'teacher@basaer.com';
-    const existingTeacher = await prisma.user.findUnique({ where: { email: teacherEmail } });
-    if (!existingTeacher) {
-        const teacherUser = await prisma.user.create({
-            data: {
-                email: teacherEmail,
-                password: hashedDefaultPassword,
-                firstName: 'Musa',
-                lastName: 'Abdullah',
-                role: UserRole.TEACHER,
-                branchId: branch.id,
-            },
-        });
-        await prisma.staff.create({
-            data: {
-                userId: teacherUser.id,
-                departmentId: academicDept.id,
-                designationId: teacherDesignation.id,
-                subjects: { connect: [{ id: math.id }, { id: english.id }] },
-            },
-        });
-        console.log('Teacher created');
-    }
-
-    const accountantEmail = 'accountant@basaer.com';
-    const existingAccountant = await prisma.user.findUnique({ where: { email: accountantEmail } });
-    if (!existingAccountant) {
-        const accountantUser = await prisma.user.create({
-            data: {
-                email: accountantEmail,
-                password: hashedDefaultPassword,
-                firstName: 'Zainab',
-                lastName: 'Ibrahim',
-                role: UserRole.ACCOUNTANT,
-                branchId: branch.id,
-            },
-        });
-        await prisma.staff.create({
-            data: {
-                userId: accountantUser.id,
-                departmentId: accountsDept.id,
-                designationId: accountantDesignation.id,
-            },
-        });
-        console.log('Accountant created');
-    }
-
-    // 8. Parents & Students (only if none yet)
-    const existingStudentCount = await prisma.student.count({ where: { branchId: branch.id } });
-    if (existingStudentCount === 0) {
-        for (let i = 1; i <= 3; i++) {
-            const parentEmail = `parent${i}@basaer.com`;
-            const parentUser = await prisma.user.create({
-                data: {
-                    email: parentEmail,
-                    password: hashedDefaultPassword,
-                    firstName: `Parent${i}`,
-                    lastName: 'Linked',
-                    role: UserRole.PARENT,
-                    branchId: branch.id,
-                    phone: `080${i}8765432`,
-                },
-            });
-
-            for (let j = 1; j <= 2; j++) {
-                const studentUser = await prisma.user.create({
-                    data: {
-                        email: `student${i}_${j}@basaer.com`,
-                        password: hashedDefaultPassword,
-                        firstName: `Student${i}_${j}`,
-                        lastName: 'Child',
-                        role: UserRole.STUDENT,
-                        branchId: branch.id,
-                    },
-                });
-
-                await prisma.student.create({
-                    data: {
-                        userId: studentUser.id,
-                        firstName: studentUser.firstName,
-                        lastName: studentUser.lastName,
-                        branchId: branch.id,
-                        classId: grade1.id,
-                        sectionId: sectionA.id,
-                        parentId: parentUser.id,
-                        dob: new Date('2015-05-20'),
-                    },
-                });
-            }
-        }
-        console.log('Parents and Students created');
-    } else {
-        console.log(`Skipping student seeding — ${existingStudentCount} students already exist.`);
-    }
-
-    // 9. Finance
-    const existingFees = await prisma.feeCategory.count({ where: { branchId: branch.id } });
-    if (existingFees === 0) {
-        const tuitionCategory = await prisma.feeCategory.create({
-            data: { name: 'Tuition Fee', branchId: branch.id },
-        });
-        await prisma.feeStructure.create({
-            data: { amount: 50000, categoryId: tuitionCategory.id, classId: grade1.id, branchId: branch.id },
-        });
-        console.log('Finance setup created');
-    }
-
-    // 10. Inventory
-    const existingInventory = await prisma.inventoryProduct.count({ where: { branchId: branch.id } });
-    if (existingInventory === 0) {
-        const invCat = await prisma.inventoryCategory.create({
-            data: { name: 'Stationery', branchId: branch.id },
-        });
-        const invUnit = await prisma.inventoryUnit.create({
-            data: { name: 'Box', branchId: branch.id },
-        });
-        const invStore = await prisma.inventoryStore.create({
-            data: { name: 'Main Store', branchId: branch.id },
-        });
-        await prisma.inventoryProduct.create({
-            data: {
-                name: 'Pencils',
-                categoryId: invCat.id,
-                unitId: invUnit.id,
-                storeId: invStore.id,
-                branchId: branch.id,
-                stock: 100,
-            },
-        });
-        console.log('Inventory setup created');
-    }
-
-    console.log('✅ Seeding completed successfully!');
+  console.log('\nSeed process completed successfully!');
+  console.log('--- Login Credentials ---');
+  for (const role of roles) {
+    console.log(`${role.padEnd(20)}: ${role.toLowerCase().replace('_', '.')}@basaeer.com / Password123!`);
+  }
 }
 
 main()
-    .catch((e) => {
-        console.error(e);
-        process.exit(1);
-    })
-    .finally(async () => {
-        await prisma.$disconnect();
-    });
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });

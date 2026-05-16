@@ -2,6 +2,7 @@
 
 import { TrendingUp, TrendingDown, LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 type StatColor = "blue" | "green" | "purple" | "orange" | "red" | "primary";
 
@@ -69,10 +70,16 @@ export function StatCardWidget({
   const showGoal = goal && !isNaN(numericValue);
 
   return (
-    <div className="bg-muted/30 border border-border/50 rounded-[2.5rem] p-8 hover:bg-muted/50 transition-all group relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-500" />
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
+      className="bg-white/75 border border-border/50 rounded-[2.5rem] p-8 card-hover group relative overflow-hidden"
+    >
+      <div className="absolute top-0 right-0 w-48 h-48 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-[2] transition-transform duration-700 blur-3xl opacity-50 group-hover:opacity-100" />
+      <div className="absolute bottom-0 left-0 w-32 h-32 bg-primary/5 rounded-full translate-y-1/2 -translate-x-1/2 group-hover:scale-[2] transition-transform duration-700 blur-3xl opacity-30 group-hover:opacity-80" />
       
-      <div className="flex items-start justify-between mb-4">
+      <div className="flex items-start justify-between mb-4 relative z-10">
         <h3 className="text-label group-hover:text-primary transition-colors">{title}</h3>
         {Icon && (
           <div className={cn("w-10 h-10 rounded-xl flex items-center justify-center shrink-0", colors.bg)}>
@@ -125,6 +132,6 @@ export function StatCardWidget({
           <p className="text-xs text-muted-foreground mt-1">{subtitle}</p>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }

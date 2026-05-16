@@ -12,7 +12,7 @@ import { AttachmentService, AttachmentCategory } from '@/services/attachmentServ
 import { toast } from 'sonner';
 
 export default function AttachmentTypePage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [categories, setCategories] = useState<AttachmentCategory[]>([]);
     const [loading, setLoading] = useState(true);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -23,12 +23,12 @@ export default function AttachmentTypePage() {
     });
 
     const fetchCategories = async () => {
-        if (!user?.branchId) {
+        if (!resolvedBranchId) {
             setLoading(false);
             return;
         }
         try {
-            const data = await AttachmentService.getCategories(user.branchId);
+            const data = await AttachmentService.getCategories(resolvedBranchId);
             setCategories(data);
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error('Failed to fetch categories', error);
@@ -40,7 +40,7 @@ export default function AttachmentTypePage() {
 
     useEffect(() => {
         if (user) {
-            if (user.branchId) {
+            if (resolvedBranchId) {
                 fetchCategories();
             } else {
                 setLoading(false);
@@ -53,7 +53,7 @@ export default function AttachmentTypePage() {
         try {
             await AttachmentService.createCategory({
                 ...formData,
-                branchId: user?.branchId,
+                branchId: resolvedBranchId,
             });
             setIsDialogOpen(false);
             fetchCategories();
@@ -84,7 +84,7 @@ export default function AttachmentTypePage() {
         <div className="space-y-6">
             <div className="flex justify-between items-center">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight">Attachment Categories</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Attachment Categories</h1>
                     <p className="text-muted-foreground font-medium">Organize digital resources by category.</p>
                 </div>
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -127,7 +127,7 @@ export default function AttachmentTypePage() {
 
             <Card className="rounded-[2rem] shadow-2xl shadow-primary/5 border-border/50 overflow-hidden border-t-8 border-t-primary/20">
                 <CardHeader className="pb-4">
-                    <CardTitle className="text-h3 font-semibold flex items-center gap-2">
+                    <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-2">
                         <Tag className="h-5 w-5 text-primary" />
                         Category List
                     </CardTitle>

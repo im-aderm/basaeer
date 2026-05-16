@@ -64,7 +64,7 @@ export default function SmsTemplatesPage() {
         <div className="p-6">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-2">
                         <MessageSquare className="w-6 h-6 text-primary" />
                         SMS Templates
                     </h1>
@@ -99,7 +99,7 @@ export default function SmsTemplatesPage() {
                                 type="text"
                                 value={currentTemplate.name}
                                 onChange={e => setCurrentTemplate({ ...currentTemplate, name: e.target.value })}
-                                className="w-full rounded-lg border-gray-300 focus:ring-primary focus:border-primary px-3 py-2"
+                                className="w-full rounded-xl border border-primary/90 bg-white/75 focus:ring-primary focus:border-primary px-3 py-2"
                                 placeholder="e.g., Birthday SMS"
                                 required
                             />
@@ -109,7 +109,7 @@ export default function SmsTemplatesPage() {
                             <select
                                 value={currentTemplate.type}
                                 onChange={e => setCurrentTemplate({ ...currentTemplate, type: e.target.value })}
-                                className="w-full rounded-lg border-gray-300 focus:ring-primary focus:border-primary px-3 py-2"
+                                className="w-full rounded-xl border border-primary/90 bg-white/75 focus:ring-primary focus:border-primary px-3 py-2"
                             >
                                 <option value="GENERAL">General</option>
                                 <option value="BIRTHDAY">Birthday</option>
@@ -123,7 +123,7 @@ export default function SmsTemplatesPage() {
                             <textarea
                                 value={currentTemplate.content}
                                 onChange={e => setCurrentTemplate({ ...currentTemplate, content: e.target.value })}
-                                className="w-full rounded-lg border-gray-300 focus:ring-primary focus:border-primary px-3 py-2 h-40"
+                                className="w-full rounded-xl border border-primary/90 bg-white/75 focus:ring-primary focus:border-primary px-3 py-2 h-40"
                                 placeholder="Write your SMS content here. Use {firstName}, {lastName} for personalization."
                                 required
                             />
@@ -135,7 +135,7 @@ export default function SmsTemplatesPage() {
                             <button
                                 type="button"
                                 onClick={() => setIsEditing(false)}
-                                className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50"
+                                className="px-4 py-2 border border-primary/90 rounded-lg text-gray-700 hover:bg-gray-50"
                             >
                                 Cancel
                             </button>
@@ -158,13 +158,13 @@ export default function SmsTemplatesPage() {
                             placeholder="Search SMS templates..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full pl-10 pr-4 py-2 rounded-xl border-gray-200 focus:ring-primary focus:border-primary"
+                            className="w-full pl-10 pr-4 py-2 rounded-xl border-primary/90 focus:ring-primary focus:border-primary"
                         />
                     </div>
 
                     {loading ? (
                         <div className="flex flex-col items-center justify-center py-20 text-gray-400">
-                            <div className="w-8 h-8 border-4 border-primary/30 border-t-primary rounded-full animate-spin mb-4" />
+                            <div className="w-8 h-8 border-4 border-primary/90 border-t-primary rounded-full animate-spin mb-4" />
                             <p>Loading SMS templates...</p>
                         </div>
                     ) : filteredTemplates.length > 0 ? (
@@ -187,7 +187,7 @@ export default function SmsTemplatesPage() {
                                             </button>
                                         </div>
                                     </div>
-                                    <h3 className="font-bold text-gray-900 mb-2 truncate">{template.name}</h3>
+                                    <h3 className="font-bold text-primary mb-2 truncate">{template.name}</h3>
                                     <div className="bg-gray-50 p-3 rounded-lg mb-4 h-24 overflow-hidden">
                                         <p className="text-sm text-gray-600 line-clamp-3 italic">"{template.content}"</p>
                                     </div>
@@ -199,9 +199,9 @@ export default function SmsTemplatesPage() {
                             ))}
                         </div>
                     ) : (
-                        <div className="bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200 py-20 text-center">
+                        <div className="bg-gray-50 rounded-2xl border-2 border-dashed border-primary/90 py-20 text-center">
                             <MessageSquare className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                            <h3 className="text-lg font-semibold text-gray-900 mb-1">No SMS templates</h3>
+                            <h3 className="text-lg font-semibold text-primary mb-1">No SMS templates</h3>
                             <p className="text-gray-500 mb-6">Create templates to quickly send SMS notifications.</p>
                             <button
                                 onClick={() => {

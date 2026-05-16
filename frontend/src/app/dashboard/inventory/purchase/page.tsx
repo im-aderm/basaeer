@@ -1,4 +1,5 @@
 'use client';
+import RequireBranch from "@/components/RequireBranch";
 
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
@@ -14,7 +15,7 @@ import { InventoryService, InventoryPurchase, InventoryProduct, InventorySupplie
 import { toast } from 'sonner';
 
 export default function InventoryPurchasePage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [purchases, setPurchases] = useState<InventoryPurchase[]>([]);
     const [products, setProducts] = useState<InventoryProduct[]>([]);
     const [suppliers, setSuppliers] = useState<InventorySupplier[]>([]);
@@ -27,12 +28,12 @@ export default function InventoryPurchasePage() {
     });
 
     const fetchData = async () => {
-        if (!user?.branchId) return;
+        if (!resolvedBranchId) return;
         try {
             const [pur, prod, sup] = await Promise.all([
-                InventoryService.getPurchases(user.branchId),
-                InventoryService.getProducts(user.branchId),
-                InventoryService.getSuppliers(user.branchId)
+                InventoryService.getPurchases(resolvedBranchId),
+                InventoryService.getProducts(resolvedBranchId),
+                InventoryService.getSuppliers(resolvedBranchId)
             ]);
             setPurchases(pur);
             setProducts(prod);
@@ -46,14 +47,14 @@ export default function InventoryPurchasePage() {
 
     useEffect(() => {
         fetchData();
-    }, [user?.branchId]);
+    }, [resolvedBranchId]);
 
     const handleCreate = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
             await InventoryService.createPurchase({
                 ...formData,
-                branchId: user?.branchId,
+                branchId: resolvedBranchId,
                 quantity: Number(formData.quantity),
                 unitPrice: Number(formData.unitPrice)
             });
@@ -65,10 +66,11 @@ export default function InventoryPurchasePage() {
     };
 
     return (
+            <RequireBranch>
         <div className="max-w-7xl mx-auto space-y-8 pb-20">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight uppercase text-emerald-600">Purchase Records</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Purchase Records</h1>
                     <p className="text-muted-foreground font-medium mt-1">Track procurement history and manage incoming stock shipments.</p>
                 </div>
                 <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
@@ -80,42 +82,42 @@ export default function InventoryPurchasePage() {
                     </DialogTrigger>
                     <DialogContent className="rounded-[2.5rem] max-w-xl border-none shadow-2xl">
                         <DialogHeader>
-                            <DialogTitle className="text-h3 font-semibold uppercase">New Stock Purchase</DialogTitle>
+                            <DialogTitle className="text-h3 font-semibold">New Stock Purchase</DialogTitle>
                             <DialogDescription className="font-bold">Enter details of the procurement to update inventory levels.</DialogDescription>
                         </DialogHeader>
                         <form onSubmit={handleCreate} className="space-y-4 pt-4">
                             <div className="space-y-2">
                                 <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Product to Buy</Label>
                                 <Select onValueChange={(v) => setFormData({ ...formData, productId: v })}>
-                                    <SelectTrigger className="h-12 rounded-xl bg-muted/50 border-none font-bold"><SelectValue placeholder="Select Product" /></SelectTrigger>
+                                    <SelectTrigger className="h-12 rounded-xl font-bold"><SelectValue placeholder="Select Product" /></SelectTrigger>
                                     <SelectContent className="rounded-xl">{products.map(p => <SelectItem key={p.id} value={p.id}>{p.name} (Current Stock: {p.stock})</SelectItem>)}</SelectContent>
                                 </Select>
                             </div>
                             <div className="space-y-2">
                                 <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Supplier / Vendor</Label>
                                 <Select onValueChange={(v) => setFormData({ ...formData, supplierId: v })}>
-                                    <SelectTrigger className="h-12 rounded-xl bg-muted/50 border-none font-bold"><SelectValue placeholder="Select Supplier" /></SelectTrigger>
+                                    <SelectTrigger className="h-12 rounded-xl font-bold"><SelectValue placeholder="Select Supplier" /></SelectTrigger>
                                     <SelectContent className="rounded-xl">{suppliers.map(s => <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>)}</SelectContent>
                                 </Select>
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="space-y-2">
                                     <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Quantity</Label>
-                                    <Input type="number" required className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={formData.quantity} onChange={(e) => setFormData({ ...formData, quantity: Number(e.target.value) })} />
+                                    <Input type="number" required className="h-12 rounded-xl font-bold" value={formData.quantity} onChange={(e) => setFormData({ ...formData, quantity: Number(e.target.value) })} />
                                 </div>
                                 <div className="space-y-2">
                                     <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Unit Price ($)</Label>
-                                    <Input type="number" required className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={formData.unitPrice} onChange={(e) => setFormData({ ...formData, unitPrice: Number(e.target.value) })} />
+                                    <Input type="number" required className="h-12 rounded-xl font-bold" value={formData.unitPrice} onChange={(e) => setFormData({ ...formData, unitPrice: Number(e.target.value) })} />
                                 </div>
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="space-y-2">
                                     <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Voucher / Bill No.</Label>
-                                    <Input className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={formData.voucherNo} onChange={(e) => setFormData({ ...formData, voucherNo: e.target.value })} />
+                                    <Input className="h-12 rounded-xl font-bold" value={formData.voucherNo} onChange={(e) => setFormData({ ...formData, voucherNo: e.target.value })} />
                                 </div>
                                 <div className="space-y-2">
                                     <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Date</Label>
-                                    <Input type="date" className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={formData.date} onChange={(e) => setFormData({ ...formData, date: e.target.value })} />
+                                    <Input type="date" className="h-12 rounded-xl font-bold" value={formData.date} onChange={(e) => setFormData({ ...formData, date: e.target.value })} />
                                 </div>
                             </div>
                             <DialogFooter><Button type="submit" className="h-12 w-full rounded-xl font-semibold uppercase tracking-wider shadow-lg shadow-emerald-500/20 bg-emerald-600 hover:bg-emerald-700">Confirm Purchase</Button></DialogFooter>
@@ -134,7 +136,7 @@ export default function InventoryPurchasePage() {
                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                         <Input
                             placeholder="Filter by voucher or product..."
-                            className="pl-11 h-12 rounded-2xl bg-muted/50 border-none font-bold"
+                            className="pl-11 h-12 rounded-2xl font-bold"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
@@ -156,7 +158,7 @@ export default function InventoryPurchasePage() {
                                     <TableCell className="px-8 py-6">
                                         <div className="flex flex-col">
                                             <span className="font-semibold uppercase text-lg group-hover:text-emerald-600 transition-colors">{p.voucherNo || 'V-AUTO-' + p.id.slice(0, 4).toUpperCase()}</span>
-                                            <span className="text-[10px] font-bold text-muted-foreground opacity-50 flex items-center gap-1 mt-0.5 uppercase"><Calendar className="h-3 w-3" /> {new Date(p.createdAt).toLocaleDateString()}</span>
+                                            <span className="text-[10px] font-bold text-muted-foreground opacity-50 flex items-center gap-1 mt-0.5"><Calendar className="h-3 w-3" /> {new Date(p.createdAt).toLocaleDateString()}</span>
                                         </div>
                                     </TableCell>
                                     <TableCell className="px-8">
@@ -172,8 +174,8 @@ export default function InventoryPurchasePage() {
                                     </TableCell>
                                     <TableCell className="px-8 text-center">
                                         <div className="flex flex-col items-center">
-                                            <span className="text-h3 font-semibold text-emerald-600">${(p.quantity * p.unitPrice).toFixed(2)}</span>
-                                            <span className="text-[10px] font-semibold uppercase opacity-30">${p.unitPrice}/unit</span>
+                                            <span className="text-h3 font-semibold text-emerald-600">${(Number(p.quantity) * Number(p.unitPrice)).toFixed(2)}</span>
+                                            <span className="text-[10px] font-semibold uppercase opacity-30">${Number(p.unitPrice)}/unit</span>
                                         </div>
                                     </TableCell>
                                 </TableRow>
@@ -183,5 +185,6 @@ export default function InventoryPurchasePage() {
                 </CardContent>
             </Card>
         </div>
-    );
+          </RequireBranch>
+  );
 }

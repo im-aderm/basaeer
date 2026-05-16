@@ -115,7 +115,7 @@ export default function AttendanceSessionsPage() {
     return (
         <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in duration-700 pb-20">
             <div>
-                <h1 className="text-h1 font-semibold tracking-tight">Attendance Sessions</h1>
+                <h1 className="text-h1 font-bold tracking-tight text-primary">Attendance Sessions</h1>
                 <p className="text-muted-foreground font-medium">Start and manage classroom attendance windows.</p>
             </div>
 

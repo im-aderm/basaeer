@@ -111,7 +111,7 @@ export default function ModulesSettingsPage() {
         <div className="max-w-6xl mx-auto space-y-8 pb-20">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight">System Modules</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">System Modules</h1>
                     <p className="text-muted-foreground font-medium mt-1">
                         Enable or disable core features to customize your system.
                     </p>

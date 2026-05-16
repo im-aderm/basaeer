@@ -1,4 +1,5 @@
 'use client';
+import RequireBranch from "@/components/RequireBranch";
 
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
@@ -13,7 +14,7 @@ import { InventoryService, InventoryUnit } from '@/services/inventoryService';
 import { toast } from 'sonner';
 
 export default function InventoryUnitPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [units, setUnits] = useState<InventoryUnit[]>([]);
     const [loading, setLoading] = useState(true);
     const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
@@ -23,9 +24,9 @@ export default function InventoryUnitPage() {
     const [editName, setEditName] = useState('');
 
     const fetchUnits = async () => {
-        if (!user?.branchId) return;
+        if (!resolvedBranchId) return;
         try {
-            const data = await InventoryService.getUnits(user.branchId);
+            const data = await InventoryService.getUnits(resolvedBranchId);
             setUnits(data);
         } catch (error) {
             toast.error('Failed to load units');
@@ -36,12 +37,12 @@ export default function InventoryUnitPage() {
 
     useEffect(() => {
         fetchUnits();
-    }, [user?.branchId]);
+    }, [resolvedBranchId]);
 
     const handleCreate = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await InventoryService.createUnit({ name: newName, branchId: user?.branchId });
+            await InventoryService.createUnit({ name: newName, branchId: resolvedBranchId });
             toast.success('Unit of measure added');
             setIsAddDialogOpen(false);
             setNewName('');
@@ -76,10 +77,11 @@ export default function InventoryUnitPage() {
     };
 
     return (
+            <RequireBranch>
         <div className="max-w-7xl mx-auto space-y-8 pb-20">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight uppercase">Units of Measure</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Units of Measure</h1>
                     <p className="text-muted-foreground font-medium mt-1">Define quantities like KG, Pcs, Liters, etc.</p>
                 </div>
                 <div className="flex gap-4">
@@ -92,7 +94,7 @@ export default function InventoryUnitPage() {
                         </DialogTrigger>
                         <DialogContent className="rounded-[2.5rem]">
                             <DialogHeader>
-                                <DialogTitle className="text-h3 font-semibold uppercase">New Unit</DialogTitle>
+                                <DialogTitle className="text-h3 font-semibold">New Unit</DialogTitle>
                                 <DialogDescription className="font-bold">Define a new measurement unit for products.</DialogDescription>
                             </DialogHeader>
                             <form onSubmit={handleCreate} className="space-y-6 pt-4">
@@ -117,7 +119,7 @@ export default function InventoryUnitPage() {
 
             <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background">
                 <CardHeader className="p-8 border-b border-border/50 flex flex-row items-center justify-between">
-                    <CardTitle className="text-h3 font-semibold flex items-center gap-3">
+                    <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
                         <Ruler className="h-8 w-8 text-primary" />
                         Measurement Units
                     </CardTitle>
@@ -166,7 +168,7 @@ export default function InventoryUnitPage() {
             <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
                 <DialogContent className="rounded-[2.5rem]">
                     <DialogHeader>
-                        <DialogTitle className="text-h3 font-semibold uppercase">Edit Unit</DialogTitle>
+                        <DialogTitle className="text-h3 font-semibold">Edit Unit</DialogTitle>
                     </DialogHeader>
                     <form onSubmit={handleUpdate} className="space-y-6 pt-4">
                         <div className="space-y-2">
@@ -185,5 +187,6 @@ export default function InventoryUnitPage() {
                 </DialogContent>
             </Dialog>
         </div>
-    );
+          </RequireBranch>
+  );
 }

@@ -14,7 +14,7 @@ import { OnlineExamService, Question, QuestionGroup, QuestionType } from '@/serv
 import { toast } from 'sonner';
 
 export default function QuestionBankPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [groups, setGroups] = useState<QuestionGroup[]>([]);
     const [selectedGroupId, setSelectedGroupId] = useState<string>('');
     const [questions, setQuestions] = useState<Question[]>([]);
@@ -177,7 +177,7 @@ export default function QuestionBankPage() {
             <div className="lg:col-span-3 space-y-6">
                 <div className="flex justify-between items-end">
                     <div>
-                        <h1 className="text-h1 font-semibold tracking-tight">Question Bank</h1>
+                        <h1 className="text-h1 font-bold tracking-tight text-primary">Question Bank</h1>
                         <p className="text-muted-foreground font-medium mt-1">Manage and preview questions for the selected group.</p>
                     </div>
 
@@ -206,7 +206,7 @@ export default function QuestionBankPage() {
                                                 setOptions([{ content: '', isCorrect: false }, { content: '', isCorrect: false }]);
                                             }
                                         }}>
-                                            <SelectTrigger className="h-12 rounded-2xl bg-muted/50 font-bold border-none">
+                                            <SelectTrigger className="h-12 rounded-2xl font-bold">
                                                 <SelectValue />
                                             </SelectTrigger>
                                             <SelectContent className="rounded-2xl">
@@ -230,7 +230,7 @@ export default function QuestionBankPage() {
                                 <div className="space-y-2">
                                     <Label className="text-xs font-semibold uppercase tracking-widest ml-1">Question Content</Label>
                                     <textarea
-                                        className="w-full min-h-[120px] rounded-3xl p-6 bg-muted/50 border-none font-bold text-lg focus:ring-2 ring-primary/20 outline-none"
+                                        className="w-full min-h-[120px] rounded-3xl p-6 bg-white border border-primary/90 font-bold text-lg focus:ring-2 ring-primary/20 outline-none"
                                         placeholder="Type your question here..."
                                         value={qContent}
                                         onChange={(e) => setQContent(e.target.value)}

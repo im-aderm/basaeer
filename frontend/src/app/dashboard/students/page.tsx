@@ -103,7 +103,7 @@ export default function StudentsDashboard() {
             {/* Header */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
-                    <h1 className="text-h1 flex items-center gap-3">
+                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3">
                         <GraduationCap className="text-primary w-7 h-7" />
                         Student Operations
                     </h1>
@@ -139,7 +139,7 @@ export default function StudentsDashboard() {
 
             {/* Quick Actions */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <Card className="rounded-3xl border-border/50 shadow-lg p-8 bg-card/50 backdrop-blur-sm">
+                <Card className="rounded-3xl border-border/50 shadow-lg p-8">
                     <h3 className="text-h3 mb-6 flex items-center gap-3">
                         <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
                             <ArrowRight size={18} />
@@ -164,7 +164,7 @@ export default function StudentsDashboard() {
                     </div>
                 </Card>
 
-                <Card className="rounded-3xl border-border/50 shadow-lg p-8 bg-card/50 overflow-hidden relative border-t-4 border-t-primary">
+                <Card className="rounded-3xl border-border/50 shadow-lg p-8 overflow-hidden relative border-t-4 border-t-primary">
                     <div className="relative z-10">
                         <h3 className="text-h3 mb-1">Recent Activity</h3>
                         <p className="text-secondary mb-6">Stay updated with the latest changes.</p>

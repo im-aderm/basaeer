@@ -84,7 +84,7 @@ export default function VoucherManagementPage() {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-h1 font-bold tracking-tight">Voucher Management</h1>
+        <h1 className="text-h1 font-bold tracking-tight text-primary">Voucher Management</h1>
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
             <Button className="gap-2"><Plus className="h-4 w-4" /> New Voucher</Button>

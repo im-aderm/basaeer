@@ -114,7 +114,7 @@ export default function SectionPage({ params }: { params: Promise<{ campus: stri
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08 }}
-                className="bg-surface-container border border-border rounded-2xl p-6 hover:border-primary/30 hover:shadow-md transition-all duration-300"
+                className="bg-surface-container border border-border rounded-2xl p-6 hover:border-primary/60 hover:shadow-md transition-all duration-300"
               >
                 <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
                   <Sparkles className="w-5 h-5 text-primary" />
@@ -145,7 +145,7 @@ export default function SectionPage({ params }: { params: Promise<{ campus: stri
                 </div>
                 <div className="space-y-4">
                   {details.curriculum.map((item, i) => (
-                    <div key={i} className="flex items-start gap-4 p-4 rounded-2xl bg-surface-container border border-border/50 hover:border-primary/30 transition-colors">
+                    <div key={i} className="flex items-start gap-4 p-4 rounded-2xl bg-surface-container border border-border/50 hover:border-primary/60 transition-colors">
                       <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
                         <BookMarked className="w-5 h-5 text-primary" />
                       </div>
@@ -176,7 +176,7 @@ export default function SectionPage({ params }: { params: Promise<{ campus: stri
                 </div>
                 <div className="space-y-4">
                   {details.outcomes.map((item, i) => (
-                    <div key={i} className="flex items-start gap-4 p-4 rounded-2xl bg-surface-container border border-border/50 hover:border-primary/30 transition-colors">
+                    <div key={i} className="flex items-start gap-4 p-4 rounded-2xl bg-surface-container border border-border/50 hover:border-primary/60 transition-colors">
                       <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
                         <Target className="w-5 h-5 text-primary" />
                       </div>

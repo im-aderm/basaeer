@@ -45,7 +45,7 @@ export default function ChildAttendancePage() {
 
     const attendanceRate = stats.total > 0 ? Math.round((stats.present / stats.total) * 100) : 0;
 
-    if (loading) return <div className="flex h-96 items-center justify-center font-semibold animate-pulse uppercase">Loading Attendance...</div>;
+    if (loading) return <div className="flex h-96 items-center justify-center font-semibold animate-pulse">Loading Attendance...</div>;
 
     return (
         <div className="max-w-7xl mx-auto space-y-8 pb-20">
@@ -59,7 +59,7 @@ export default function ChildAttendancePage() {
                     <ChevronLeft className="h-6 w-6" />
                 </Button>
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight uppercase">Attendance History</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Attendance History</h1>
                     <p className="text-muted-foreground font-medium mt-1">Daily presence logs and patterns.</p>
                 </div>
             </div>

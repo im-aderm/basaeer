@@ -192,7 +192,7 @@ export default function StudentLifePage() {
             </div>
 
             {/* Arts & Calligraphy */}
-            <div className="md:col-span-2 bg-surface-container backdrop-blur-md p-8 rounded-3xl border border-border hover:border-primary/30 hover:shadow-2xl transition-all duration-300 flex items-center gap-8 group overflow-hidden">
+            <div className="md:col-span-2 bg-surface-container backdrop-blur-md p-8 rounded-3xl border border-border hover:border-primary/60 hover:shadow-2xl transition-all duration-300 flex items-center gap-8 group overflow-hidden">
               <div className="flex-1 space-y-3">
                 <Palette className="text-primary w-8 h-8" />
                 <h3 className="text-2xl font-bold text-text-primary font-heading">
@@ -214,7 +214,7 @@ export default function StudentLifePage() {
             </div>
 
             {/* Sports Academy */}
-            <div className="bg-surface-container backdrop-blur-md p-8 rounded-3xl border border-border hover:border-primary/30 hover:shadow-2xl transition-all duration-300 flex flex-col justify-center text-center items-center space-y-3 group">
+            <div className="bg-surface-container backdrop-blur-md p-8 rounded-3xl border border-border hover:border-primary/60 hover:shadow-2xl transition-all duration-300 flex flex-col justify-center text-center items-center space-y-3 group">
               <Trophy className="text-primary w-12 h-12" />
               <h3 className="text-xl font-bold text-text-primary font-heading">
                 Sports Academy
@@ -225,7 +225,7 @@ export default function StudentLifePage() {
             </div>
 
             {/* Leadership Council */}
-            <div className="bg-surface-container backdrop-blur-md p-8 rounded-3xl border border-border hover:border-primary/30 hover:shadow-2xl transition-all duration-300 flex flex-col justify-center text-center items-center space-y-3 group">
+            <div className="bg-surface-container backdrop-blur-md p-8 rounded-3xl border border-border hover:border-primary/60 hover:shadow-2xl transition-all duration-300 flex flex-col justify-center text-center items-center space-y-3 group">
               <Users className="text-primary w-12 h-12" />
               <h3 className="text-xl font-bold text-text-primary font-heading">
                 Leadership Council
@@ -261,7 +261,7 @@ export default function StudentLifePage() {
                   className={`bg-surface-container backdrop-blur-md rounded-3xl overflow-hidden border group transition-all duration-300 ${
                     evt.featured 
                       ? "border-primary/50 shadow-[0_0_20px_rgba(0,160,225,0.15)] md:scale-105" 
-                      : "border-border hover:border-primary/30"
+                      : "border-border hover:border-primary/60"
                   }`}
                 >
                   <div className="h-48 relative overflow-hidden">
@@ -324,7 +324,7 @@ export default function StudentLifePage() {
               {sideTrips.map((trip) => (
                 <div 
                   key={trip.title}
-                  className="bg-surface-container backdrop-blur-md p-4 rounded-2xl flex gap-4 items-center group cursor-pointer border border-border hover:border-primary/30 hover:bg-white/10 transition-all duration-300"
+                  className="bg-surface-container backdrop-blur-md p-4 rounded-2xl flex gap-4 items-center group cursor-pointer border border-border hover:border-primary/60 hover:bg-white/10 transition-all duration-300"
                 >
                   <div className="w-24 h-24 rounded-xl overflow-hidden shrink-0 border border-border/50">
                     <Image className="object-cover" alt={trip.title} src={trip.image} width={96} height={96} />

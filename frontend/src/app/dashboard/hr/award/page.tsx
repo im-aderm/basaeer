@@ -14,7 +14,7 @@ import { useAuth } from "@/context/AuthContext";
 import api from "@/lib/api";
 
 export default function StaffAwardsPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [awards, setAwards] = useState<any[]>([]);
     const [staff, setStaff] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
@@ -156,7 +156,7 @@ export default function StaffAwardsPage() {
             <div className="mb-8">
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-h1 font-bold bg-gradient-to-r from-yellow-600 to-amber-600 bg-clip-text text-transparent">
+                        <h1 className="text-h1 font-bold tracking-tight text-primary">
                             Staff Awards & Recognition
                         </h1>
                         <p className="text-slate-600 mt-2">

@@ -10,7 +10,7 @@ import { StudentService } from '@/services/studentService';
 import { toast } from 'sonner';
 
 export default function BulkImportPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [file, setFile] = useState<File | null>(null);
     const [isUploading, setIsUploading] = useState(false);
     const [results, setResults] = useState<any>(null);
@@ -23,11 +23,11 @@ export default function BulkImportPage() {
     };
 
     const handleUpload = async () => {
-        if (!file || !user?.branchId) return;
+        if (!file || !resolvedBranchId) return;
 
         setIsUploading(true);
         try {
-            const data = await StudentService.importStudents(file, user.branchId);
+            const data = await StudentService.importStudents(file, resolvedBranchId);
             setResults(data);
             if (data.success > 0) {
                 toast.success(`Successfully imported ${data.success} students`);
@@ -64,7 +64,7 @@ export default function BulkImportPage() {
         <div className="max-w-5xl mx-auto space-y-8">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight">Bulk Student Import</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Bulk Student Import</h1>
                     <p className="text-muted-foreground font-medium mt-1">Enroll multiple students at once using an Excel or CSV file.</p>
                 </div>
                 <Button
@@ -80,7 +80,7 @@ export default function BulkImportPage() {
                 {/* Instructions */}
                 <Card className="lg:col-span-1 rounded-[2rem] border-border/50 shadow-xl overflow-hidden self-start">
                     <CardHeader className="bg-primary/5 pb-4">
-                        <CardTitle className="text-h3 font-semibold flex items-center gap-2">
+                        <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-2">
                             <AlertCircle className="h-5 w-5 text-primary" />
                             Instructions
                         </CardTitle>
@@ -111,7 +111,7 @@ export default function BulkImportPage() {
                 <div className="lg:col-span-2 space-y-8">
                     <Card className="rounded-[2rem] border-border/50 shadow-2xl overflow-hidden border-t-8 border-t-primary/20">
                         <CardHeader className="pb-4">
-                            <CardTitle className="text-h3 font-semibold flex items-center gap-2">
+                            <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-2">
                                 <Upload className="h-5 w-5 text-primary" />
                                 Upload File
                             </CardTitle>

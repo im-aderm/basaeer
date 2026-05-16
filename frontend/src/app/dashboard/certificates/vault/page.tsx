@@ -18,7 +18,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 export default function CertificateVaultPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [certificates, setCertificates] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
@@ -26,7 +26,7 @@ export default function CertificateVaultPage() {
     const fetchData = async () => {
         setLoading(true);
         try {
-            const res = await api.get(`/certificates?branchId=${user?.branchId}`);
+            const res = await api.get(`/certificates?branchId=${resolvedBranchId}`);
             setCertificates(Array.isArray(res.data) ? res.data : []);
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to fetch certificates:", error);
@@ -83,7 +83,7 @@ export default function CertificateVaultPage() {
         <div className="space-y-8 animate-in fade-in duration-500 pb-20">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
+                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3">
                         <FileText className="text-primary w-10 h-10" />
                         Certificate Vault
                     </h1>
@@ -122,7 +122,7 @@ export default function CertificateVaultPage() {
                     {filtered.map((cert) => (
                         <Card
                             key={cert.id}
-                            className="rounded-[2rem] border-border/50 shadow-xl hover:shadow-2xl transition-all group bg-card/50 backdrop-blur-sm hover:scale-[1.02] overflow-hidden"
+                            className="rounded-[2rem] border-border/50 shadow-xl hover:shadow-2xl transition-all group hover:scale-[1.02] overflow-hidden"
                         >
                             <CardContent className="p-0">
                                 <div className="p-8 pb-6">

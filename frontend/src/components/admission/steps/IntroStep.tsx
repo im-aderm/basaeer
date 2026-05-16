@@ -49,7 +49,7 @@ export function IntroStep() {
               updateFormData({ branchId: v });
             }}
           >
-            <SelectTrigger className="h-14 rounded-[1.5rem] border-2 border-primary/30 font-black italic shadow-sm">
+            <SelectTrigger className="h-14 rounded-[1.5rem] border-2 border-primary/60 font-black italic shadow-sm">
               <SelectValue placeholder={loading ? "Loading campuses..." : "Which campus are you applying to?"} />
             </SelectTrigger>
             <SelectContent className="rounded-2xl">

@@ -108,7 +108,7 @@ export default function TemplateDesignerPage() {
 
     return (
         <div className="h-full flex flex-col">
-            <header className="p-4 bg-white border-b border-gray-200 flex items-center justify-between shadow-sm">
+            <header className="p-4 bg-white border-b border-primary/60 flex items-center justify-between shadow-sm">
                 <div className="flex items-center gap-4">
                     <button onClick={() => router.back()} className="p-2 hover:bg-gray-100 rounded-lg">
                         <ArrowLeft className="w-5 h-5" />
@@ -137,9 +137,9 @@ export default function TemplateDesignerPage() {
 
             <div className="flex-1 flex overflow-hidden">
                 {/* Elements Sidebar */}
-                <div className="w-64 bg-gray-50 border-r border-gray-200 p-4 space-y-6">
+                <div className="w-64 bg-gray-50 border-r border-primary/60 p-4 space-y-6">
                     <div>
-                        <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-4">Add Elements</h3>
+                        <h3 className="text-xs font-bold text-primary uppercase tracking-wider mb-4">Add Elements</h3>
                         <div className="grid grid-cols-1 gap-2">
                             <ElementButton icon={<FileText className="w-4 h-4" />} label="Header" onClick={() => addSection('HEADER')} />
                             <ElementButton icon={<Layout className="w-4 h-4" />} label="Data Table" onClick={() => addSection('TABLE')} />
@@ -148,13 +148,13 @@ export default function TemplateDesignerPage() {
                         </div>
                     </div>
 
-                    <div className="pt-6 border-t border-gray-200">
-                        <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-4">Page Settings</h3>
+                    <div className="pt-6 border-t border-primary/60">
+                        <h3 className="text-xs font-bold text-primary uppercase tracking-wider mb-4">Page Settings</h3>
                         <div className="space-y-4">
                             <div>
                                 <label className="text-xs text-gray-500 block mb-1">Paper Size</label>
                                 <select 
-                                    className="w-full text-sm bg-white border-gray-200 rounded-lg"
+                                    className="w-full text-sm bg-white border border-primary/90 rounded-lg"
                                     value={template.config.paperSize}
                                     onChange={(e) => setTemplate({...template, config: {...template.config, paperSize: e.target.value}})}
                                 >
@@ -167,7 +167,7 @@ export default function TemplateDesignerPage() {
                                 <label className="text-xs text-gray-500 block mb-1">Margins (px)</label>
                                 <input 
                                     type="number"
-                                    className="w-full text-sm bg-white border-gray-200 rounded-lg"
+                                    className="w-full text-sm bg-white border border-primary/90 rounded-lg"
                                     value={template.config.margins}
                                     onChange={(e) => setTemplate({...template, config: {...template.config, margins: parseInt(e.target.value)}})}
                                 />
@@ -193,7 +193,7 @@ export default function TemplateDesignerPage() {
                                             <Layout className="w-8 h-8 text-gray-300" />
                                         </div>
                                         <h2 className="text-2xl font-black uppercase tracking-tight">Institution Name</h2>
-                                        <p className="text-sm text-gray-500 uppercase">Street Address, City, Country</p>
+                                        <p className="text-sm text-gray-500">Street Address, City, Country</p>
                                     </div>
                                 )}
 
@@ -259,7 +259,7 @@ export default function TemplateDesignerPage() {
                             </div>
                         ))}
 
-                        <div className="flex items-center justify-center p-8 border-2 border-dashed border-gray-200 rounded-2xl group-hover:border-blue-500/50 transition-colors">
+                        <div className="flex items-center justify-center p-8 border-2 border-dashed border-primary/60 rounded-2xl group-hover:border-blue-500/50 transition-colors">
                             <p className="text-sm text-gray-400">End of Report Card</p>
                         </div>
                     </div>
@@ -273,7 +273,7 @@ function ElementButton({ icon, label, onClick }: { icon: React.ReactNode, label:
     return (
         <button
             onClick={onClick}
-            className="flex items-center gap-3 w-full p-3 bg-white border border-gray-200 rounded-xl text-sm font-medium hover:border-blue-500 hover:text-blue-500 transition-all shadow-sm"
+            className="flex items-center gap-3 w-full p-3 bg-white border border-primary/60 rounded-xl text-sm font-medium hover:border-blue-500 hover:text-blue-500 transition-all shadow-sm"
         >
             {icon}
             {label}

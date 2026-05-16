@@ -162,7 +162,7 @@ export default function AdmissionsPage() {
                       step.reverse ? "md:flex-row-reverse" : ""
                     }`}
                   >
-                    <div className="w-16 h-16 rounded-full bg-surface-container backdrop-blur-md border border-primary/30 flex items-center justify-center z-10 shrink-0 relative">
+                    <div className="w-16 h-16 rounded-full bg-surface-container backdrop-blur-md border border-primary/60 flex items-center justify-center z-10 shrink-0 relative">
                       <Icon className="text-primary w-8 h-8" />
                       {step.id === 1 && (
                         <div className="absolute inset-0 rounded-full animate-pulse bg-primary/20 -z-10"></div>
@@ -200,7 +200,7 @@ export default function AdmissionsPage() {
                 className={`bg-surface-container backdrop-blur-md p-8 rounded-3xl flex flex-col transition-all duration-300 border ${
                   tier.featured
                     ? "border-primary/50 relative overflow-hidden md:scale-105 shadow-2xl shadow-primary/10"
-                    : "border-border hover:border-primary/30"
+                    : "border-border hover:border-primary/60"
                 }`}
               >
                 {tier.featured && (

@@ -13,7 +13,7 @@ import { useAuth } from "@/context/AuthContext";
 import api from "@/lib/api";
 
 export default function AdvanceSalaryPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [advances, setAdvances] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -188,7 +188,7 @@ export default function AdvanceSalaryPage() {
             <div className="mb-8">
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-h1 font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+                        <h1 className="text-h1 font-bold tracking-tight text-primary">
                             Advance Salary Management
                         </h1>
  <p className="text-slate-600 mt-2">

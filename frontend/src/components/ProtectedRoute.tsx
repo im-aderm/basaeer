@@ -17,25 +17,21 @@ export default function ProtectedRoute({ children, allowedRoles }: ProtectedRout
         if (loading) return;
 
         if (!isAuthenticated) {
-            router.push("/login");
+            router.replace("/login");
             return;
         }
 
         if (allowedRoles && user && !allowedRoles.includes(user.role)) {
-            router.push("/dashboard");
+            router.replace("/dashboard");
         }
     }, [isAuthenticated, loading, router, user, allowedRoles]);
 
-    if (loading) {
+    if (loading || !isAuthenticated) {
         return (
             <div className="flex items-center justify-center min-h-[60vh]">
                 <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary" />
             </div>
         );
-    }
-
-    if (!isAuthenticated) {
-        return null;
     }
 
     if (allowedRoles && user && !allowedRoles.includes(user.role)) {

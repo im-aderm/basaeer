@@ -1,4 +1,5 @@
 'use client';
+import RequireBranch from "@/components/RequireBranch";
 
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
@@ -13,7 +14,7 @@ import { InventoryService, InventoryCategory } from '@/services/inventoryService
 import { toast } from 'sonner';
 
 export default function InventoryCategoryPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [categories, setCategories] = useState<InventoryCategory[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
@@ -24,9 +25,9 @@ export default function InventoryCategoryPage() {
     const [editName, setEditName] = useState('');
 
     const fetchCategories = async () => {
-        if (!user?.branchId) return;
+        if (!resolvedBranchId) return;
         try {
-            const data = await InventoryService.getCategories(user.branchId);
+            const data = await InventoryService.getCategories(resolvedBranchId);
             setCategories(data);
         } catch (error) {
             toast.error('Failed to load categories');
@@ -37,12 +38,12 @@ export default function InventoryCategoryPage() {
 
     useEffect(() => {
         fetchCategories();
-    }, [user?.branchId]);
+    }, [resolvedBranchId]);
 
     const handleCreate = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await InventoryService.createCategory({ name: newName, branchId: user?.branchId });
+            await InventoryService.createCategory({ name: newName, branchId: resolvedBranchId });
             toast.success('Category created');
             setIsAddDialogOpen(false);
             setNewName('');
@@ -77,10 +78,11 @@ export default function InventoryCategoryPage() {
     };
 
     return (
+            <RequireBranch>
         <div className="max-w-7xl mx-auto space-y-8 pb-20">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight uppercase">Item Categories</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Item Categories</h1>
                     <p className="text-muted-foreground font-medium mt-1">Organize your inventory items by logical groupings.</p>
                 </div>
                 <div className="flex gap-4">
@@ -93,7 +95,7 @@ export default function InventoryCategoryPage() {
                         </DialogTrigger>
                         <DialogContent className="rounded-[2.5rem]">
                             <DialogHeader>
-                                <DialogTitle className="text-h3 font-semibold uppercase">New Category</DialogTitle>
+                                <DialogTitle className="text-h3 font-semibold">New Category</DialogTitle>
                                 <DialogDescription className="font-bold">Enter a name for the new inventory grouping.</DialogDescription>
                             </DialogHeader>
                             <form onSubmit={handleCreate} className="space-y-6 pt-4">
@@ -118,7 +120,7 @@ export default function InventoryCategoryPage() {
 
             <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background">
                 <CardHeader className="p-8 border-b border-border/50 flex flex-row items-center justify-between">
-                    <CardTitle className="text-h3 font-semibold flex items-center gap-3">
+                    <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
                         <Layers className="h-8 w-8 text-primary" />
                         Category List
                     </CardTitle>
@@ -167,7 +169,7 @@ export default function InventoryCategoryPage() {
             <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
                 <DialogContent className="rounded-[2.5rem]">
                     <DialogHeader>
-                        <DialogTitle className="text-h3 font-semibold uppercase">Edit Category</DialogTitle>
+                        <DialogTitle className="text-h3 font-semibold">Edit Category</DialogTitle>
                     </DialogHeader>
                     <form onSubmit={handleUpdate} className="space-y-6 pt-4">
                         <div className="space-y-2">
@@ -186,5 +188,6 @@ export default function InventoryCategoryPage() {
                 </DialogContent>
             </Dialog>
         </div>
-    );
+          </RequireBranch>
+  );
 }

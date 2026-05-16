@@ -16,7 +16,7 @@ import { toast } from 'sonner';
 import api from '@/lib/api';
 
 export default function OnlineExamsPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const router = useRouter();
     const [exams, setExams] = useState<OnlineExam[]>([]);
     const [groups, setGroups] = useState<QuestionGroup[]>([]);
@@ -71,7 +71,7 @@ export default function OnlineExamsPage() {
                 ...formData,
                 durationMinutes: parseInt(formData.durationMinutes),
                 passPercentage: parseFloat(formData.passPercentage),
-                branchId: user?.branchId
+                branchId: resolvedBranchId
             });
             toast.success('Exam scheduled successfully');
             setIsDialogOpen(false);
@@ -97,7 +97,7 @@ export default function OnlineExamsPage() {
         <div className="max-w-7xl mx-auto space-y-8 pb-20">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight">Online Examinations</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Online Examinations</h1>
                     <p className="text-muted-foreground font-medium mt-1">Schedule and monitor digital assessments for students.</p>
                 </div>
 
@@ -126,7 +126,7 @@ export default function OnlineExamsPage() {
                             <div className="space-y-2">
                                 <Label className="text-xs font-semibold uppercase tracking-widest ml-1">Class</Label>
                                 <Select value={formData.classId} onValueChange={(v) => setFormData({ ...formData, classId: v })}>
-                                    <SelectTrigger className="h-12 rounded-2xl bg-muted/50 font-bold border-none">
+                                    <SelectTrigger className="h-12 rounded-2xl font-bold">
                                         <SelectValue placeholder="Select Class" />
                                     </SelectTrigger>
                                     <SelectContent className="rounded-2xl">
@@ -138,7 +138,7 @@ export default function OnlineExamsPage() {
                             <div className="space-y-2">
                                 <Label className="text-xs font-semibold uppercase tracking-widest ml-1">Subject</Label>
                                 <Select value={formData.subjectId} onValueChange={(v) => setFormData({ ...formData, subjectId: v })}>
-                                    <SelectTrigger className="h-12 rounded-2xl bg-muted/50 font-bold border-none">
+                                    <SelectTrigger className="h-12 rounded-2xl font-bold">
                                         <SelectValue placeholder="Select Subject" />
                                     </SelectTrigger>
                                     <SelectContent className="rounded-2xl">
@@ -150,7 +150,7 @@ export default function OnlineExamsPage() {
                             <div className="space-y-2">
                                 <Label className="text-xs font-semibold uppercase tracking-widest ml-1">Question Group</Label>
                                 <Select value={formData.groupId} onValueChange={(v) => setFormData({ ...formData, groupId: v })}>
-                                    <SelectTrigger className="h-12 rounded-2xl bg-muted/50 font-bold border-none">
+                                    <SelectTrigger className="h-12 rounded-2xl font-bold">
                                         <SelectValue placeholder="Link Question Bank" />
                                     </SelectTrigger>
                                     <SelectContent className="rounded-2xl">
@@ -230,7 +230,7 @@ export default function OnlineExamsPage() {
 
             <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background">
                 <CardHeader className="p-8 pb-4">
-                    <CardTitle className="text-h3 font-semibold flex items-center gap-3">
+                    <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
                         <Users className="h-8 w-8 text-primary" />
                         Examination Roster
                     </CardTitle>
@@ -251,7 +251,7 @@ export default function OnlineExamsPage() {
                                 <TableRow key={exam.id} className="border-border/50 h-24 transition-all hover:bg-muted/20">
                                     <TableCell className="px-8">
                                         <div className="space-y-1">
-                                            <div className="font-semibold text-lg leading-tight uppercase">{exam.title}</div>
+                                            <div className="font-semibold text-lg leading-tight">{exam.title}</div>
                                             <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground">
                                                 <Activity className="h-3 w-3" />
                                                 {exam.group?.name} ({exam.group?._count?.questions || 0} Questions)
@@ -260,8 +260,8 @@ export default function OnlineExamsPage() {
                                     </TableCell>
                                     <TableCell className="px-8">
                                         <div className="flex flex-col gap-1">
-                                            <div className="px-3 py-1 rounded-full bg-primary/5 text-primary text-[10px] font-semibold w-fit uppercase">{exam.class?.name}</div>
-                                            <div className="px-3 py-1 rounded-full bg-muted text-[10px] font-semibold w-fit uppercase">{exam.subject?.name}</div>
+                                            <div className="px-3 py-1 rounded-full bg-primary/5 text-primary text-[10px] font-semibold w-fit">{exam.class?.name}</div>
+                                            <div className="px-3 py-1 rounded-full bg-muted text-[10px] font-semibold w-fit">{exam.subject?.name}</div>
                                         </div>
                                     </TableCell>
                                     <TableCell className="px-8">

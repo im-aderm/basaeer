@@ -25,7 +25,7 @@ import { AutomationEventsService, CampusEvent } from '@/services/automationEvent
 import { toast } from 'sonner';
 
 export default function EventsPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [events, setEvents] = useState<CampusEvent[]>([]);
     const [loading, setLoading] = useState(true);
     const [isCreateOpen, setIsCreateOpen] = useState(false);
@@ -84,41 +84,41 @@ export default function EventsPage() {
         <div className="max-w-7xl mx-auto space-y-8 pb-20">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight uppercase">Campus Calendar</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Campus Calendar</h1>
                     <p className="text-muted-foreground font-medium mt-1">Unified view of all school activities, holidays, and events.</p>
                 </div>
                 {(user?.role === 'SUPER_ADMIN' || user?.role === 'BRANCH_ADMIN') && (
                     <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
                         <DialogTrigger asChild>
-                            <Button className="h-12 px-8 rounded-2xl font-semibold gap-2 shadow-lg shadow-primary/20 uppercase">
+                            <Button className="h-12 px-8 rounded-2xl font-semibold gap-2 shadow-lg shadow-primary/20">
                                 <Plus className="h-5 w-5" /> Schedule Event
                             </Button>
                         </DialogTrigger>
                         <DialogContent className="rounded-[2.5rem] max-w-2xl">
                             <DialogHeader>
-                                <CardTitle className="text-h3 font-semibold uppercase">New Campus Event</CardTitle>
+                                <CardTitle className="text-h3 font-semibold">New Campus Event</CardTitle>
                                 <CardDescription className="font-bold">Enter event details to notify the school community.</CardDescription>
                             </DialogHeader>
                             <form onSubmit={handleCreate} className="space-y-4 pt-4">
                                 <div className="space-y-2">
                                     <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Event Title</Label>
-                                    <Input required className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={eventForm.title} onChange={(e) => setEventForm({ ...eventForm, title: e.target.value })} />
+                                    <Input required className="h-12 rounded-xl font-bold" value={eventForm.title} onChange={(e) => setEventForm({ ...eventForm, title: e.target.value })} />
                                 </div>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="space-y-2">
                                         <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Start Date</Label>
-                                        <Input type="datetime-local" required className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={eventForm.startDate} onChange={(e) => setEventForm({ ...eventForm, startDate: e.target.value })} />
+                                        <Input type="datetime-local" required className="h-12 rounded-xl font-bold" value={eventForm.startDate} onChange={(e) => setEventForm({ ...eventForm, startDate: e.target.value })} />
                                     </div>
                                     <div className="space-y-2">
                                         <Label className="font-semibold text-xs uppercase opacity-50 ml-1">End Date</Label>
-                                        <Input type="datetime-local" required className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={eventForm.endDate} onChange={(e) => setEventForm({ ...eventForm, endDate: e.target.value })} />
+                                        <Input type="datetime-local" required className="h-12 rounded-xl font-bold" value={eventForm.endDate} onChange={(e) => setEventForm({ ...eventForm, endDate: e.target.value })} />
                                     </div>
                                 </div>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="space-y-2">
                                         <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Category</Label>
                                         <Select value={eventForm.category} onValueChange={(v) => setEventForm({ ...eventForm, category: v })}>
-                                            <SelectTrigger className="h-12 rounded-xl bg-muted/50 border-none font-bold">
+                                            <SelectTrigger className="h-12 rounded-xl font-bold">
                                                 <SelectValue />
                                             </SelectTrigger>
                                             <SelectContent className="rounded-2xl border-none shadow-2xl">
@@ -128,7 +128,7 @@ export default function EventsPage() {
                                     </div>
                                     <div className="space-y-2">
                                         <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Location</Label>
-                                        <Input className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={eventForm.location} onChange={(e) => setEventForm({ ...eventForm, location: e.target.value })} />
+                                        <Input className="h-12 rounded-xl font-bold" value={eventForm.location} onChange={(e) => setEventForm({ ...eventForm, location: e.target.value })} />
                                     </div>
                                 </div>
                                 <Button type="submit" className="h-14 w-full rounded-2xl font-semibold uppercase tracking-wider shadow-xl shadow-primary/20">Create Event</Button>
@@ -175,21 +175,21 @@ export default function EventsPage() {
                                     <div className="h-10 w-10 rounded-xl bg-muted/50 flex items-center justify-center text-primary"><Clock className="h-5 w-5" /></div>
                                     <div className="flex flex-col">
                                         <span className="text-[10px] uppercase font-semibold opacity-40 leading-none">Date & Time</span>
-                                        <span className="italic uppercase">{new Date(event.startDate).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>
+                                        <span className="italic">{new Date(event.startDate).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-3 text-sm font-bold opacity-60">
                                     <div className="h-10 w-10 rounded-xl bg-muted/50 flex items-center justify-center text-primary"><MapPin className="h-5 w-5" /></div>
                                     <div className="flex flex-col">
                                         <span className="text-[10px] uppercase font-semibold opacity-40 leading-none">Location</span>
-                                        <span className="italic uppercase">{event.location || 'Campus Wide'}</span>
+                                        <span className="italic">{event.location || 'Campus Wide'}</span>
                                     </div>
                                 </div>
                             </div>
 
                             {event.allowRSVP && (
                                 <div className="pt-4 border-t border-border/50 space-y-4">
-                                    <div className="flex justify-between items-center text-sm font-semibold uppercase">
+                                    <div className="flex justify-between items-center text-sm font-semibold">
                                         <span className="flex items-center gap-2"><Users className="h-4 w-4" /> RSVP Status</span>
                                         <span className="text-primary">{event._count?.rsvps || 0} Attending</span>
                                     </div>
@@ -211,7 +211,7 @@ export default function EventsPage() {
             {events.length === 0 && !loading && (
                 <div className="flex flex-col items-center justify-center py-40 text-center space-y-4 opacity-20">
                     <CalendarIcon className="h-24 w-24" strokeWidth={0.5} />
-                    <h3 className="text-h3 font-semibold uppercase">No Events Scheduled</h3>
+                    <h3 className="text-h3 font-semibold">No Events Scheduled</h3>
                     <p className="font-bold">The campus is quiet for now. Check back later!</p>
                 </div>
             )}

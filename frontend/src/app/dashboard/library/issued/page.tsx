@@ -21,7 +21,7 @@ import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 
 export default function MyIssuedBookPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [records, setRecords] = useState<BorrowRecord[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -61,13 +61,13 @@ export default function MyIssuedBookPage() {
     if (!user?.student?.id) {
         return (
             <div className="max-w-7xl mx-auto space-y-8 pb-20">
-                <div className="bg-card border border-border p-10 rounded-[3rem] shadow-sm">
+                <div className="bg-white/75 border border-border p-10 rounded-[3rem] shadow-sm">
                     <div className="flex flex-col items-center text-center py-16 space-y-6">
                         <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center">
                             <SwitchCamera className="w-10 h-10 text-primary" />
                         </div>
                         <div>
-                            <h1 className="text-h1 font-semibold tracking-tight mb-2">Student Access Only</h1>
+                            <h1 className="text-h1 font-bold tracking-tight text-primary mb-2">Student Access Only</h1>
                             <p className="text-muted-foreground font-medium max-w-md">
                                 This page shows books currently issued to you. Log in with a student account or switch your role to student to view your borrowing history.
                             </p>
@@ -85,7 +85,7 @@ export default function MyIssuedBookPage() {
 
     return (
         <div className="max-w-7xl mx-auto space-y-8 pb-20">
-            <div className="bg-card border border-border p-10 rounded-[3rem] shadow-sm relative overflow-hidden">
+            <div className="bg-white/75 border border-border p-10 rounded-[3rem] shadow-sm relative overflow-hidden">
                 <div className="relative z-10">
                     <div className="flex items-center gap-4 mb-2">
                         <Link href="/dashboard/library">
@@ -93,7 +93,7 @@ export default function MyIssuedBookPage() {
                                 <ArrowLeft className="w-5 h-5" />
                             </Button>
                         </Link>
-                        <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3 text-blue-600">
+                        <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3 text-blue-600">
                             <Bookmark className="w-10 h-10" />
                             My Issued Books
                         </h1>
@@ -103,7 +103,7 @@ export default function MyIssuedBookPage() {
                 <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
             </div>
 
-            <Card className="rounded-[3rem] border-border/50 shadow-xl bg-card/50 backdrop-blur-sm overflow-hidden border-t-8 border-t-blue-500">
+            <Card className="rounded-[3rem] border-border/50 shadow-xl overflow-hidden border-t-8 border-t-blue-500">
                 <div className="overflow-x-auto">
                     <table className="w-full border-collapse">
                         <thead>

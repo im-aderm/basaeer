@@ -35,7 +35,7 @@ interface SimpleSubject {
 }
 
 function LiveClassesContent() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const router = useRouter();
     const searchParams = useSearchParams();
 
@@ -79,7 +79,7 @@ function LiveClassesContent() {
             setLoading(true);
             const [sessionsData, configData, classesData, subjectsData] = await Promise.all([
                 LiveClassesService.getSessions(),
-                LiveClassesService.getConfig(user?.branchId!),
+                LiveClassesService.getConfig(resolvedBranchId!),
                 api.get('/classes'),
                 api.get('/subjects')
             ]);
@@ -95,10 +95,10 @@ function LiveClassesContent() {
     };
 
     useEffect(() => {
-        if (user?.branchId) {
+        if (resolvedBranchId) {
             fetchInitialData();
         }
-    }, [user?.branchId]);
+    }, [resolvedBranchId]);
 
     const handleCreateSession = async () => {
         if (!formData.title || !formData.classId || !formData.subjectId || !formData.scheduledStart) {
@@ -107,10 +107,10 @@ function LiveClassesContent() {
         }
 
         try {
-            if (!user?.branchId) throw new Error('No branch context');
+            if (!resolvedBranchId) throw new Error('No branch context');
             await LiveClassesService.createSession({
                 ...formData,
-                branchId: user.branchId
+                branchId: resolvedBranchId
             });
             toast.success('Live class scheduled successfully');
             setIsDialogOpen(false);
@@ -123,7 +123,7 @@ function LiveClassesContent() {
 
     const handleAuthorize = async () => {
         try {
-            const { url } = await LiveClassesService.getAuthUrl(user?.branchId!);
+            const { url } = await LiveClassesService.getAuthUrl(resolvedBranchId!);
             window.location.href = url;
         } catch (error) {
             toast.error('Failed to initiate authorization');
@@ -177,7 +177,7 @@ function LiveClassesContent() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight">Live Classrooms</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Live Classrooms</h1>
                     <p className="text-muted-foreground mt-1">Institutional Google Meet integration for seamless teaching.</p>
                 </div>
                 {(user?.role === 'STAFF' || user?.role === 'SUPER_ADMIN') && (

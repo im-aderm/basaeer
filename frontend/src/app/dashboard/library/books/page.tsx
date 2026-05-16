@@ -89,7 +89,7 @@ export default function LibraryBooksPage() {
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight">Library Books</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Library Books</h1>
                     <p className="text-muted-foreground text-sm mt-1">Manage your school&apos;s book inventory</p>
                 </div>
                 <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>

@@ -230,7 +230,7 @@ export class OnlineAdmissionService {
         }
 
         if (!parentId) {
-          const parentPassword = await bcrypt.hash(crypto.randomBytes(8).toString('hex'), 10);
+          const parentPassword = await bcrypt.hash(crypto.randomBytes(8).toString('hex'), 8);
           const newParent = await tx.user.create({
             data: {
               email: admission.guardianEmail,
@@ -255,7 +255,7 @@ export class OnlineAdmissionService {
         const email =
           admission.studentEmail ||
           `std.${admission.firstName.toLowerCase()}.${admission.lastName.toLowerCase()}${count + 1}@basaer.com`;
-        const hashedPassword = await bcrypt.hash(crypto.randomBytes(8).toString('hex'), 10);
+        const hashedPassword = await bcrypt.hash(crypto.randomBytes(8).toString('hex'), 8);
 
         const user = await tx.user.create({
           data: {

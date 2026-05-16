@@ -13,7 +13,7 @@ import { ClassService, Class } from '@/services/classService';
 import { toast } from 'sonner';
 
 export default function AttachmentUploadPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [categories, setCategories] = useState<AttachmentCategory[]>([]);
     const [classes, setClasses] = useState<Class[]>([]);
     const [loading, setLoading] = useState(true);
@@ -29,11 +29,11 @@ export default function AttachmentUploadPage() {
 
     useEffect(() => {
         const init = async () => {
-            if (!user?.branchId) { setLoading(false); return; }
+            if (!resolvedBranchId) { setLoading(false); return; }
             try {
                 const [cats, cls] = await Promise.all([
-                    AttachmentService.getCategories(user.branchId),
-                    ClassService.getAll(user.branchId),
+                    AttachmentService.getCategories(resolvedBranchId),
+                    ClassService.getAll(resolvedBranchId),
                 ]);
                 setCategories(cats);
                 setClasses(cls);
@@ -44,7 +44,7 @@ export default function AttachmentUploadPage() {
             }
         };
         init();
-    }, [user?.branchId]);
+    }, [resolvedBranchId]);
 
     const toggleClass = (classId: string) => {
         const next = new Set(formData.classIds);
@@ -89,13 +89,13 @@ export default function AttachmentUploadPage() {
     return (
         <div className="max-w-3xl mx-auto space-y-8 pb-20">
             <div>
-                <h1 className="text-h1 font-semibold tracking-tight">Upload Digital Content</h1>
+                <h1 className="text-h1 font-bold tracking-tight text-primary">Upload Digital Content</h1>
                 <p className="text-muted-foreground font-medium mt-1">Share resources with classes and sections.</p>
             </div>
 
             <Card className="rounded-[2rem] shadow-2xl shadow-primary/5 border-border/50 overflow-hidden">
                 <CardHeader className="border-b border-border/50">
-                    <CardTitle className="text-h3 font-semibold flex items-center gap-2">
+                    <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-2">
                         <Upload className="h-5 w-5 text-primary" />
                         New Upload
                     </CardTitle>
@@ -109,7 +109,7 @@ export default function AttachmentUploadPage() {
                                 placeholder="e.g. Algebra Worksheet Week 3"
                                 value={formData.title}
                                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                                className="h-14 rounded-2xl bg-muted/30 border-none font-bold text-lg"
+                                className="h-14 rounded-2xl font-bold text-lg"
                             />
                         </div>
 
@@ -119,7 +119,7 @@ export default function AttachmentUploadPage() {
                                 value={formData.categoryId}
                                 onValueChange={(v) => setFormData({ ...formData, categoryId: v })}
                             >
-                                <SelectTrigger className="h-14 rounded-2xl bg-muted/30 border-none font-bold text-lg px-5">
+                                <SelectTrigger className="h-14 rounded-2xl font-bold text-lg px-5">
                                     <SelectValue placeholder="Select category" />
                                 </SelectTrigger>
                                 <SelectContent className="rounded-2xl">

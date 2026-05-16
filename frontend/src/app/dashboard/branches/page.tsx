@@ -19,6 +19,7 @@ import {
     Palette
 } from "lucide-react";
 import { clsx } from "clsx";
+import { toast } from "sonner";
 
 export default function BranchesPage() {
     const [branches, setBranches] = useState<Branch[]>([]);
@@ -37,6 +38,9 @@ export default function BranchesPage() {
         isActive: true
     });
     const [submitting, setSubmitting] = useState(false);
+    const [deleteTarget, setDeleteTarget] = useState<Branch | null>(null);
+    const [deleting, setDeleting] = useState(false);
+    const [deleteSuccess, setDeleteSuccess] = useState(false);
 
     const fetchBranches = async () => {
         setLoading(true);
@@ -110,14 +114,28 @@ export default function BranchesPage() {
         }
     };
 
-    const handleDelete = async (id: string) => {
-        if (confirm("Are you sure you want to delete this branch? All associated laboratory data, students, and employees will be restricted.")) {
-            try {
-                await BranchService.delete(id);
-                fetchBranches();
-            } catch (error) {
-                if (process.env.NODE_ENV === 'development') console.error("Failed to delete branch:", error);
-            }
+    const handleDeleteClick = (branch: Branch) => {
+        setDeleteTarget(branch);
+        setDeleteSuccess(false);
+    };
+
+    const confirmDelete = async () => {
+        if (!deleteTarget) return;
+        setDeleting(true);
+        try {
+            await BranchService.delete(deleteTarget.id);
+            setDeleteSuccess(true);
+            fetchBranches();
+            setTimeout(() => {
+                setDeleteTarget(null);
+                setDeleting(false);
+                setDeleteSuccess(false);
+                toast.success(`${deleteTarget.name} deleted successfully`);
+            }, 1200);
+        } catch (error) {
+            if (process.env.NODE_ENV === 'development') console.error("Failed to delete branch:", error);
+            toast.error("Failed to delete branch. Please try again.");
+            setDeleting(false);
         }
     };
 
@@ -139,7 +157,7 @@ export default function BranchesPage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight">Branch Management</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Branch Management</h1>
                     <p className="text-muted-foreground mt-1">Manage multiple school campuses and campuses-specific settings.</p>
                 </div>
                 <div className="flex items-center gap-3">
@@ -148,7 +166,7 @@ export default function BranchesPage() {
                         <input
                             type="text"
                             placeholder="Search branches..."
-                            className="pl-10 pr-4 py-2.5 bg-card border border-border rounded-xl focus:ring-2 focus:ring-primary/20 outline-none w-64 transition-all"
+                            className="pl-10 pr-4 py-2.5 bg-white border border-primary/90 rounded-xl focus:ring-2 focus:ring-primary/20 outline-none w-64 transition-all"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
@@ -166,7 +184,7 @@ export default function BranchesPage() {
             {/* Grid of Branches */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredBranches.map((branch) => (
-                    <div key={branch.id} className="group bg-card border border-border rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-primary/5 transition-all duration-300">
+                    <div key={branch.id} className="group bg-white/75 border border-border rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-primary/5 transition-all duration-300">
                         <div className="p-6 border-b border-border bg-muted/30 flex items-center justify-between">
                             <div className="flex items-center gap-3">
                                 <div className="p-2.5 bg-primary/10 rounded-xl text-primary group-hover:scale-110 transition-transform">
@@ -214,7 +232,7 @@ export default function BranchesPage() {
                                     <Edit size={14} /> Edit Details
                                 </button>
                                 <button
-                                    onClick={() => handleDelete(branch.id)}
+                                    onClick={() => handleDeleteClick(branch)}
                                     className="p-2 hover:bg-red-500/10 text-muted-foreground hover:text-red-600 rounded-xl transition-colors"
                                 >
                                     <Trash2 size={18} />
@@ -229,7 +247,7 @@ export default function BranchesPage() {
                         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-muted mb-4">
                             <Building2 size={40} className="text-muted-foreground/30" />
                         </div>
-                        <h2 className="text-xl font-bold">No branches found</h2>
+                        <h2 className="text-h2 font-bold tracking-tight text-primary">No branches found</h2>
                         <p className="text-muted-foreground mt-1 max-w-xs mx-auto">Try adjusting your search or create a new branch to get started.</p>
                     </div>
                 )}
@@ -238,14 +256,14 @@ export default function BranchesPage() {
             {/* Modal */}
             {isModalOpen && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
-                    <div className="bg-card w-full max-w-lg rounded-3xl border border-border shadow-2xl animate-in zoom-in-95 duration-200 overflow-hidden">
-                        <form onSubmit={handleSubmit}>
-                            <div className="p-8 border-b border-border bg-muted/20">
+                    <div className="bg-white/75 w-full max-w-2xl rounded-3xl border border-border shadow-2xl animate-in zoom-in-95 duration-200 flex flex-col max-h-[90vh]">
+                        <form onSubmit={handleSubmit} className="flex flex-col max-h-[90vh]">
+                            <div className="p-8 border-b border-border bg-muted/20 shrink-0">
                                 <h3 className="text-2xl font-bold">{editingBranch ? "Edit Branch" : "Create New Branch"}</h3>
                                 <p className="text-muted-foreground text-sm mt-1">Fill in the details below to {editingBranch ? "update the" : "register a new"} school campus.</p>
                             </div>
 
-                            <div className="p-8 space-y-6">
+                            <div className="p-8 space-y-6 overflow-y-auto flex-1">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
                                         <label className="text-sm font-semibold">Campus Name</label>
@@ -253,7 +271,7 @@ export default function BranchesPage() {
                                             required
                                             name="name"
                                             placeholder="e.g. Main Campus"
-                                            className="w-full p-3 bg-background border border-input rounded-xl focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                            className="w-full p-3 bg-white border border-primary/90 rounded-xl focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                                             value={formData.name}
                                             onChange={handleChange}
                                         />
@@ -264,7 +282,7 @@ export default function BranchesPage() {
                                             required
                                             name="code"
                                             placeholder="e.g. MC-01"
-                                            className="w-full p-3 bg-background border border-input rounded-xl focus:ring-2 focus:ring-primary/20 outline-none transition-all uppercase"
+                                            className="w-full p-3 bg-white border border-primary/90 rounded-xl focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                                             value={formData.code}
                                             onChange={handleChange}
                                             disabled={!!editingBranch}
@@ -277,7 +295,7 @@ export default function BranchesPage() {
                                     <input
                                         name="address"
                                         placeholder="123 Education Way, Lagos"
-                                        className="w-full p-3 bg-background border border-input rounded-xl focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                        className="w-full p-3 bg-white border border-primary/90 rounded-xl focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                                         value={formData.address}
                                         onChange={handleChange}
                                     />
@@ -289,7 +307,7 @@ export default function BranchesPage() {
                                         <input
                                             name="phone"
                                             placeholder="+234 ..."
-                                            className="w-full p-3 bg-background border border-input rounded-xl focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                            className="w-full p-3 bg-white border border-primary/90 rounded-xl focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                                             value={formData.phone}
                                             onChange={handleChange}
                                         />
@@ -300,7 +318,7 @@ export default function BranchesPage() {
                                             name="email"
                                             type="email"
                                             placeholder="campus@basaer.com"
-                                            className="w-full p-3 bg-background border border-input rounded-xl focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                            className="w-full p-3 bg-white border border-primary/90 rounded-xl focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                                             value={formData.email}
                                             onChange={handleChange}
                                         />
@@ -318,7 +336,7 @@ export default function BranchesPage() {
                                             <input
                                                 name="logoUrl"
                                                 placeholder="https://example.com/logo.png"
-                                                className="w-full p-3 bg-background border border-input rounded-xl focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                                className="w-full p-3 bg-white border border-primary/90 rounded-xl focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                                                 value={formData.logoUrl}
                                                 onChange={handleChange}
                                             />
@@ -334,12 +352,12 @@ export default function BranchesPage() {
                                                     name="primaryColor"
                                                     value={formData.primaryColor}
                                                     onChange={handleChange}
-                                                    className="w-14 h-12 p-1 bg-background border border-input rounded-xl cursor-pointer"
+                                                    className="w-14 h-12 p-1 bg-white border border-primary/90 rounded-xl cursor-pointer"
                                                 />
                                                 <input
                                                     name="primaryColor"
                                                     placeholder="#2563EB"
-                                                    className="flex-1 p-3 bg-background border border-input rounded-xl focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                                    className="flex-1 p-3 bg-white border border-primary/90 rounded-xl focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                                                     value={formData.primaryColor}
                                                     onChange={handleChange}
                                                 />
@@ -353,7 +371,7 @@ export default function BranchesPage() {
                                         type="checkbox"
                                         id="branchActive"
                                         name="isActive"
-                                        className="w-5 h-5 rounded border-gray-300 text-primary focus:ring-primary"
+                                        className="w-5 h-5 rounded border-primary/60 text-primary focus:ring-primary"
                                         checked={formData.isActive}
                                         onChange={handleChange}
                                     />
@@ -364,11 +382,11 @@ export default function BranchesPage() {
                                 </div>
                             </div>
 
-                            <div className="p-8 border-t border-border bg-muted/20 flex items-center justify-end gap-4">
+                            <div className="p-8 border-t border-border bg-muted/20 flex items-center justify-end gap-4 shrink-0">
                                 <button
                                     type="button"
                                     onClick={() => setIsModalOpen(false)}
-                                    className="px-6 py-2.5 text-sm font-bold hover:bg-muted bg-card border border-border rounded-xl transition-all"
+                                    className="px-6 py-2.5 text-sm font-bold hover:bg-muted bg-white/75 border border-border rounded-xl transition-all"
                                 >
                                     Cancel
                                 </button>
@@ -382,6 +400,80 @@ export default function BranchesPage() {
                                 </button>
                             </div>
                         </form>
+                    </div>
+                </div>
+            )}
+
+            {/* Delete Confirmation Modal */}
+            {deleteTarget && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
+                    <div className="bg-white/75 w-full max-w-md rounded-3xl border border-border shadow-2xl animate-in zoom-in-95 duration-200 overflow-hidden">
+                        {deleteSuccess ? (
+                            <div className="p-10 text-center space-y-4">
+                                <div className="w-16 h-16 mx-auto rounded-full bg-emerald-500/10 flex items-center justify-center">
+                                    <CheckCircle2 className="w-8 h-8 text-emerald-500" />
+                                </div>
+                                <h3 className="text-xl font-bold">Branch Deleted</h3>
+                                <p className="text-muted-foreground text-sm">
+                                    <span className="font-semibold">{deleteTarget.name}</span> has been permanently removed.
+                                </p>
+                            </div>
+                        ) : (
+                            <>
+                                <div className="p-8 border-b border-border bg-muted/20">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center">
+                                            <AlertCircle className="w-5 h-5 text-red-500" />
+                                        </div>
+                                        <div>
+                                            <h3 className="text-xl font-bold">Delete Branch</h3>
+                                            <p className="text-muted-foreground text-sm">This action cannot be undone</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="p-8 space-y-4">
+                                    <p className="text-sm">
+                                        Are you sure you want to delete <span className="font-bold">{deleteTarget.name}</span> ({deleteTarget.code})?
+                                    </p>
+                                    <div className="p-4 bg-amber-500/5 border border-amber-500/20 rounded-xl space-y-2">
+                                        <p className="text-xs font-semibold text-amber-600 uppercase tracking-wider">Warning</p>
+                                        <p className="text-sm text-muted-foreground">
+                                            All associated data — students, employees, academic records, library records, hostel allocations,
+                                            transport assignments, and financial records — will be restricted and inaccessible.
+                                        </p>
+                                    </div>
+                                    <div className="flex items-center gap-3 p-3 bg-muted/30 rounded-xl">
+                                        <Building2 className="w-5 h-5 text-muted-foreground shrink-0" />
+                                        <div className="text-sm">
+                                            <p className="font-semibold">{deleteTarget.name}</p>
+                                            <p className="text-muted-foreground text-xs">{deleteTarget.code} • {deleteTarget.address || 'No address'}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="p-8 border-t border-border bg-muted/20 flex items-center justify-end gap-4">
+                                    <button
+                                        type="button"
+                                        onClick={() => setDeleteTarget(null)}
+                                        disabled={deleting}
+                                        className="px-6 py-2.5 text-sm font-bold hover:bg-muted bg-white/75 border border-border rounded-xl transition-all disabled:opacity-50"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={confirmDelete}
+                                        disabled={deleting}
+                                        className="px-8 py-2.5 bg-red-500 text-white rounded-xl hover:bg-red-600 transition-all shadow-lg shadow-red-500/20 font-bold disabled:opacity-50 flex items-center gap-2"
+                                    >
+                                        {deleting ? (
+                                            <><Loader2 size={18} className="animate-spin" /> Deleting...</>
+                                        ) : (
+                                            <><Trash2 size={18} /> Delete Branch</>
+                                        )}
+                                    </button>
+                                </div>
+                            </>
+                        )}
                     </div>
                 </div>
             )}

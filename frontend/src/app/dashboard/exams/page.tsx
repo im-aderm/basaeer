@@ -89,7 +89,7 @@ export default function ExamMasterDashboard() {
         <div className="max-w-7xl mx-auto space-y-12 pb-20">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                 <div className="space-y-2">
-                    <h1 className="text-h1 font-semibold tracking-tighter flex items-center gap-4">
+                    <h1 className="text-h1 font-bold tracking-tighter text-primary flex items-center gap-4">
                         <LayoutDashboard className="h-12 w-12 text-primary" />
                         Exam Master
                     </h1>
@@ -186,7 +186,7 @@ export default function ExamMasterDashboard() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {sessions.map((session) => (
-                        <Card key={session.id} className="rounded-[3rem] border-border/50 shadow-lg overflow-hidden group hover:border-primary/30 transition-all">
+                        <Card key={session.id} className="rounded-[3rem] border-border/50 shadow-lg overflow-hidden group hover:border-primary/60 transition-all">
                             <CardHeader className="p-10 pb-6 flex flex-row items-center justify-between">
                                 <div className="space-y-1">
                                     <h3 className="text-h1 font-semibold">{session.name}</h3>
@@ -220,7 +220,7 @@ export default function ExamMasterDashboard() {
                     {sessions.length === 0 && (
                         <div className="col-span-2 h-80 rounded-[3rem] border-4 border-dashed border-muted flex flex-col items-center justify-center space-y-4 opacity-30 grayscale saturate-0">
                             <Calendar className="h-20 w-20 stroke-[1]" />
-                            <p className="text-h3 font-semibold uppercase">No Sessions Configured</p>
+                            <p className="text-h3 font-semibold">No Sessions Configured</p>
                         </div>
                     )}
                 </div>

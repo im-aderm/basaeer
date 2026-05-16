@@ -123,14 +123,14 @@ export default function TranslationsPage() {
         <div className="max-w-5xl mx-auto space-y-8 pb-20">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight">Translations</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Translations</h1>
                     <p className="text-muted-foreground font-medium mt-1">
                         Manage system-wide text and multi-language support.
                     </p>
                 </div>
                 <div className="flex items-center gap-3">
                     <Select value={locale} onValueChange={setLocale}>
-                        <SelectTrigger className="w-[180px] h-12 rounded-2xl border-border/50 bg-background/50 font-bold">
+                        <SelectTrigger className="w-[180px] h-12 rounded-2xl font-bold">
                             <SelectValue placeholder="Select language" />
                         </SelectTrigger>
                         <SelectContent>
@@ -150,7 +150,7 @@ export default function TranslationsPage() {
                 </div>
             </div>
 
-            <Card className="rounded-[2.5rem] border-border/50 shadow-2xl overflow-hidden border-t-8 border-t-blue-500/20">
+            <Card className="rounded-[2.5rem] shadow-2xl overflow-hidden border-t-8 border-t-blue-500/20">
                 <CardHeader className="bg-blue-500/5 pb-6">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div className="flex items-center gap-3">
@@ -166,7 +166,7 @@ export default function TranslationsPage() {
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                             <Input 
                                 placeholder="Search keys or text..."
-                                className="pl-9 h-11 rounded-xl border-border/50 bg-background/50"
+                                className="pl-9 h-11 rounded-xl"
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                             />
@@ -189,7 +189,7 @@ export default function TranslationsPage() {
                             
                             <div className="space-y-3 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
                                 {filteredTranslations.map((t, idx) => (
-                                    <div key={idx} className="grid grid-cols-12 gap-4 items-center bg-muted/30 p-2 rounded-2xl border border-transparent hover:border-border/50 transition-colors">
+                                    <div key={idx} className="grid grid-cols-12 gap-4 items-center bg-muted/30 p-2 rounded-2xl border border-transparent hover:transition-colors">
                                         <div className="col-span-5">
                                             <Input 
                                                 value={t.key} 
@@ -201,7 +201,7 @@ export default function TranslationsPage() {
                                             <Input 
                                                 value={t.value} 
                                                 onChange={(e) => handleUpdate(translations.indexOf(t), e.target.value)}
-                                                className="h-11 rounded-xl border-border/50 bg-background font-medium"
+                                                className="h-11 rounded-xl bg-background font-medium"
                                                 dir={locale === 'ar' ? 'rtl' : 'ltr'}
                                             />
                                         </div>

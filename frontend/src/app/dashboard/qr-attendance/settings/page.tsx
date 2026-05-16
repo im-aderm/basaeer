@@ -46,7 +46,7 @@ export default function QRSettingsPage() {
         <div className="max-w-4xl mx-auto space-y-8 animate-in fade-in duration-500 pb-20">
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight">QR Settings</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">QR Settings</h1>
                     <p className="text-muted-foreground font-medium text-lg">Configure automated actions for QR scans.</p>
                 </div>
             </div>

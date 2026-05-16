@@ -161,7 +161,7 @@ export function Navbar() {
               />
               <Link
                 href="/admission"
-                className="relative px-7 py-2.5 rounded-full bg-gradient-to-r from-primary to-primary-light border border-primary/30 text-white font-heading font-extrabold text-xs tracking-[0.12em] uppercase transition-all duration-300 z-10 block"
+                className="relative px-7 py-2.5 rounded-full bg-gradient-to-r from-primary to-primary-light border border-primary/60 text-white font-heading font-extrabold text-xs tracking-[0.12em] uppercase transition-all duration-300 z-10 block"
               >
                 Apply Now
               </Link>
@@ -208,7 +208,7 @@ export function Navbar() {
               <Link
                 href="/admission"
                 onClick={() => setIsMobileOpen(false)}
-                className="w-full text-center py-3.5 rounded-full bg-gradient-to-r from-primary to-primary-light border border-primary/30 text-white font-heading font-extrabold text-xs tracking-[0.12em] uppercase shadow-lg block mt-2"
+                className="w-full text-center py-3.5 rounded-full bg-gradient-to-r from-primary to-primary-light border border-primary/60 text-white font-heading font-extrabold text-xs tracking-[0.12em] uppercase shadow-lg block mt-2"
               >
                 Apply Now
               </Link>

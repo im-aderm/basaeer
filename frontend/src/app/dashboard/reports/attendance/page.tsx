@@ -15,7 +15,7 @@ const formatPercent = (value: string | number) => {
 };
 
 export default function AttendanceReportsPage() {
-  const { user } = useAuth();
+  const { user, resolvedBranchId } = useAuth();
   const [data, setData] = useState<AttendanceAnalyticsData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -64,7 +64,7 @@ export default function AttendanceReportsPage() {
   return (
     <div className="max-w-7xl mx-auto space-y-8 pb-20">
       <div>
-        <h1 className="text-h1 font-semibold tracking-tight uppercase text-primary">Attendance Intelligence</h1>
+        <h1 className="text-h1 font-bold tracking-tight text-primary">Attendance Intelligence</h1>
         <p className="text-muted-foreground font-medium mt-1">Real-time attendance tracking and trends</p>
       </div>
 

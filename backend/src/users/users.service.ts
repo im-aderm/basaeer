@@ -16,7 +16,7 @@ export class UsersService {
   }
 
   async createUser(data: Prisma.UserCreateInput): Promise<User> {
-    const hashedPassword = await bcrypt.hash(data.password, 10);
+    const hashedPassword = await bcrypt.hash(data.password, 8);
     return this.prisma.user.create({
       data: {
         ...data,
@@ -115,6 +115,13 @@ export class UsersService {
     return this.prisma.user.update({
       where: { id },
       data: { mustChangePassword: false },
+    });
+  }
+
+  async setMustChangePassword(id: string) {
+    return this.prisma.user.update({
+      where: { id },
+      data: { mustChangePassword: true },
     });
   }
 }

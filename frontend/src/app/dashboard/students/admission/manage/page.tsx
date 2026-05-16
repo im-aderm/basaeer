@@ -29,7 +29,7 @@ import { clsx } from "clsx";
 import SharableLink from "@/components/admission/SharableLink";
 
 export default function AdmissionsManagementPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [admissions, setAdmissions] = useState<OnlineAdmission[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
@@ -37,19 +37,18 @@ export default function AdmissionsManagementPage() {
     const [selectedAdmission, setSelectedAdmission] = useState<OnlineAdmission | null>(null);
     const [processingId, setProcessingId] = useState<string | null>(null);
     const [branches, setBranches] = useState<Branch[]>([]);
-    const [resolvedBranchId, setResolvedBranchId] = useState<string | null>(null);
 
     useEffect(() => {
         if (user) {
-            if (user.branchId) {
-                setResolvedBranchId(user.branchId);
-                fetchAdmissions(user.branchId);
+            if (resolvedBranchId) {
+                // resolvedBranchId from useAuth()
+                fetchAdmissions(resolvedBranchId);
             } else {
                 // Super Admin case - fetch all branches to find a fallback
                 BranchService.getAll().then(data => {
                     setBranches(data);
                     if (data.length > 0) {
-                        setResolvedBranchId(data[0].id);
+                        // resolvedBranchId from useAuth();
                         fetchAdmissions(data[0].id);
                     } else {
                         setLoading(false);
@@ -128,12 +127,12 @@ export default function AdmissionsManagementPage() {
     return (
         <div className="max-w-[1600px] mx-auto space-y-10 animate-in fade-in slide-in-from-bottom-6 duration-700 pb-20 px-6">
             {/* Header */}
-            <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-8 bg-card border border-border p-10 rounded-[3rem] shadow-2xl shadow-primary/5 relative overflow-hidden">
+            <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-8 bg-white/75 border border-border p-10 rounded-[3rem] shadow-2xl shadow-primary/5 relative overflow-hidden">
                 <div className="space-y-3 relative z-10">
                     <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 text-primary rounded-full text-xs font-semibold uppercase tracking-widest">
                         <Users size={14} /> Registrar Control
                     </div>
-                    <h1 className="text-h1 font-semibold tracking-tight">Admission Management</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Admission Management</h1>
                     <p className="text-muted-foreground font-medium text-lg">Process, verify and enroll prospective students into the academy.</p>
                 </div>
 
@@ -169,7 +168,7 @@ export default function AdmissionsManagementPage() {
                         onClick={() => setStatusFilter(stat.status)}
                         className={clsx(
                             "p-8 rounded-[2.5rem] border transition-all text-left space-y-2 group shadow-lg",
-                            statusFilter === stat.status ? "bg-card border-primary ring-4 ring-primary/10 scale-105" : "bg-card border-border hover:border-primary/30"
+                            statusFilter === stat.status ? "bg-card border-primary ring-4 ring-primary/10 scale-105" : "bg-card border-border hover:border-primary/60"
                         )}
                     >
                         <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">{stat.label}</p>
@@ -182,7 +181,7 @@ export default function AdmissionsManagementPage() {
             </div>
 
             {/* Table */}
-            <div className="bg-card border border-border rounded-[3.5rem] shadow-2xl shadow-primary/5 overflow-hidden">
+            <div className="bg-white/75 border border-border rounded-[3.5rem] shadow-2xl shadow-primary/5 overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="w-full text-left border-collapse">
                         <thead>

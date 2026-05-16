@@ -354,6 +354,7 @@ const navigation: NavItem[] = [
         children: [
             { title: "General Settings", href: "/dashboard/settings/general" },
             { title: "School Branding", href: "/dashboard/settings/branding" },
+            { title: "Roles", href: "/dashboard/settings/roles" },
             { title: "Role Permission", href: "/dashboard/settings/permissions" },
             { title: "Session Settings", href: "/dashboard/settings/sessions" },
             { title: "Translations", href: "/dashboard/settings/translations", isBeta: true },
@@ -572,13 +573,12 @@ export function Sidebar() {
                     {/* Header */}
                     <div className="h-16 flex items-center justify-between px-4 border-b border-[#E5E7EB] shrink-0 bg-white">
                         <div className={cn("flex items-center gap-3 transition-opacity duration-300", isCollapsed && "opacity-0 invisible w-0")}>
-                            {user?.branding?.logoUrl ? (
-                                <img src={user.branding.logoUrl} alt={user.branding.name || 'Logo'} className="h-9 w-9 rounded-xl object-cover" />
-                            ) : (
-                                <div className="p-2 rounded-xl" style={{ backgroundColor: (user?.branding?.primaryColor || '#2563EB') + '15' }} aria-hidden="true">
-                                    <GraduationCap style={{ color: user?.branding?.primaryColor || '#2563EB' }} size={24} />
-                                </div>
-                            )}
+                            <img
+                                src={user?.branding?.logoUrl || '/logo.png'}
+                                alt={user?.branding?.name || 'Logo'}
+                                className="h-9 w-9 rounded-xl object-cover"
+                                onError={(e) => { (e.target as HTMLImageElement).src = '/logo.png' }}
+                            />
                             <span className="font-bold text-xl tracking-tight text-[#111827]">{user?.branding?.name || 'Basaer'}</span>
                         </div>
                         <button
@@ -608,11 +608,12 @@ export function Sidebar() {
             {/* ── Mobile Header ──────────────────────────────────────────────── */}
             <div className="md:hidden flex items-center justify-between h-16 px-4 bg-card border-b border-border fixed top-0 w-full z-40">
                 <div className="flex items-center gap-2">
-                    {user?.branding?.logoUrl ? (
-                        <img src={user.branding.logoUrl} alt={user.branding.name || 'Logo'} className="h-7 w-7 rounded-lg object-cover" />
-                    ) : (
-                        <GraduationCap className="text-primary" size={24} aria-hidden="true" />
-                    )}
+                    <img
+                        src={user?.branding?.logoUrl || '/logo.png'}
+                        alt={user?.branding?.name || 'Logo'}
+                        className="h-7 w-7 rounded-lg object-cover"
+                        onError={(e) => { (e.target as HTMLImageElement).src = '/logo.png' }}
+                    />
                     <span className="font-bold">{user?.branding?.name || 'Basaer'}</span>
                 </div>
                 <button
@@ -636,13 +637,12 @@ export function Sidebar() {
                         {/* Header */}
                         <div className="h-16 flex items-center justify-between px-4 border-b border-[#E5E7EB] bg-white">
                             <div className="flex items-center gap-3">
-                                {user?.branding?.logoUrl ? (
-                                    <img src={user.branding.logoUrl} alt={user.branding.name || 'Logo'} className="h-9 w-9 rounded-xl object-cover" />
-                                ) : (
-                                    <div className="p-2 rounded-xl" style={{ backgroundColor: (user?.branding?.primaryColor || '#2563EB') + '15' }} aria-hidden="true">
-                                        <GraduationCap style={{ color: user?.branding?.primaryColor || '#2563EB' }} size={24} />
-                                    </div>
-                                )}
+                                <img
+                                    src={user?.branding?.logoUrl || '/logo.png'}
+                                    alt={user?.branding?.name || 'Logo'}
+                                    className="h-9 w-9 rounded-xl object-cover"
+                                    onError={(e) => { (e.target as HTMLImageElement).src = '/logo.png' }}
+                                />
                                 <span className="font-bold text-xl tracking-tight text-[#111827]">{user?.branding?.name || 'Basaer'}</span>
                             </div>
                             <button

@@ -151,7 +151,7 @@ export default function AboutPage() {
                   className={`bg-surface-container backdrop-blur-md p-8 rounded-3xl border transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-2xl ${
                     pillar.featured 
                       ? "border-primary/50 shadow-[0_0_20px_rgba(0,160,225,0.1)]" 
-                      : "border-border hover:border-primary/30"
+                      : "border-border hover:border-primary/60"
                   }`}
                 >
                   <div className="w-12 h-12 rounded-2xl bg-primary/20 flex items-center justify-center mb-6">
@@ -179,7 +179,7 @@ export default function AboutPage() {
               {leaders.map((leader) => (
                 <div 
                   key={leader.name}
-                  className="group relative overflow-hidden rounded-3xl aspect-[3/4] border border-border hover:border-primary/30 transition-colors duration-500"
+                  className="group relative overflow-hidden rounded-3xl aspect-[3/4] border border-border hover:border-primary/60 transition-colors duration-500"
                 >
                   <Image
                     fill

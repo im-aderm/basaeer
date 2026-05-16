@@ -15,7 +15,7 @@ import { OnlineExamService, OnlineExam } from '@/services/onlineExamService';
 import { toast } from 'sonner';
 
 export default function OnlineExamResultsPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [exams, setExams] = useState<OnlineExam[]>([]);
     const [selectedExamId, setSelectedExamId] = useState<string>('');
     const [attempts, setAttempts] = useState<any[]>([]);
@@ -107,13 +107,13 @@ export default function OnlineExamResultsPage() {
         <div className="max-w-7xl mx-auto space-y-8 pb-20">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight uppercase">Assessment Analytics</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Assessment Analytics</h1>
                     <p className="text-muted-foreground font-medium mt-1">Grade descriptive answers and generate class rankings.</p>
                 </div>
 
                 <div className="flex gap-4">
                     <Select value={selectedExamId} onValueChange={handleExamSelect}>
-                        <SelectTrigger className="h-14 w-64 rounded-2xl bg-muted/50 border-none font-bold text-lg">
+                        <SelectTrigger className="h-14 w-64 rounded-2xl font-bold text-lg">
                             <SelectValue placeholder="Select Exam" />
                         </SelectTrigger>
                         <SelectContent className="rounded-2xl">
@@ -122,7 +122,7 @@ export default function OnlineExamResultsPage() {
                     </Select>
 
                     <Select value={filters.classId} onValueChange={(v) => { setFilters({ ...filters, classId: v }); fetchSections(v); }}>
-                        <SelectTrigger className="h-14 w-40 rounded-2xl bg-muted/50 border-none font-bold">
+                        <SelectTrigger className="h-14 w-40 rounded-2xl font-bold">
                             <SelectValue placeholder="All Classes" />
                         </SelectTrigger>
                         <SelectContent className="rounded-2xl">
@@ -132,7 +132,7 @@ export default function OnlineExamResultsPage() {
                     </Select>
 
                     <Select value={filters.sectionId} onValueChange={(v) => setFilters({ ...filters, sectionId: v })}>
-                        <SelectTrigger className="h-14 w-40 rounded-2xl bg-muted/50 border-none font-bold">
+                        <SelectTrigger className="h-14 w-40 rounded-2xl font-bold">
                             <SelectValue placeholder="All Sections" />
                         </SelectTrigger>
                         <SelectContent className="rounded-2xl">
@@ -191,7 +191,7 @@ export default function OnlineExamResultsPage() {
 
             <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background">
                 <CardHeader className="p-8 border-b border-border/50">
-                    <CardTitle className="text-h3 font-semibold flex items-center gap-3">
+                    <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
                         <BarChart3 className="h-8 w-8 text-primary" />
                         Performance Result Sheet
                     </CardTitle>
@@ -261,7 +261,7 @@ export default function OnlineExamResultsPage() {
             <Dialog open={isGradeDialogOpen} onOpenChange={setIsGradeDialogOpen}>
                 <DialogContent className="rounded-[2.5rem] max-w-4xl max-h-[85vh] overflow-y-auto sidebar-scroll">
                     <DialogHeader>
-                        <DialogTitle className="text-h3 font-semibold uppercase">Detailed Grade Review</DialogTitle>
+                        <DialogTitle className="text-h3 font-semibold">Detailed Grade Review</DialogTitle>
                         <DialogDescription className="font-bold -mt-1">
                             Reviewing answers for {selectedAttempt?.student?.user?.firstName} {selectedAttempt?.student?.user?.lastName}
                         </DialogDescription>
@@ -282,7 +282,7 @@ export default function OnlineExamResultsPage() {
                                                 <Label className="font-semibold text-xs uppercase opacity-50">Awarded Marks:</Label>
                                                 <Input
                                                     type="number"
-                                                    className="h-10 w-24 text-center font-semibold text-lg bg-muted/50 border-none rounded-xl"
+                                                    className="h-10 w-24 text-center font-semibold text-lg rounded-xl"
                                                     defaultValue={ans.marksAwarded || 0}
                                                     onBlur={(e) => handleGradeSubmit(selectedAttempt.id, ans.questionId, parseFloat(e.target.value))}
                                                     disabled={ans.question?.type !== 'DESCRIPTIVE' || gradingLoading === `${selectedAttempt.id}-${ans.questionId}`}

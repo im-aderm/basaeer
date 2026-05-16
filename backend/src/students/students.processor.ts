@@ -73,7 +73,7 @@ export class StudentsProcessor extends WorkerHost {
         }
 
         const tempPassword = crypto.randomBytes(8).toString('hex');
-        const hashedPassword = await bcrypt.hash(tempPassword, 10);
+        const hashedPassword = await bcrypt.hash(tempPassword, 8);
 
         await this.prisma.$transaction(async (tx) => {
           const user = await tx.user.create({

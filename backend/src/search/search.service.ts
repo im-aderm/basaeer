@@ -14,20 +14,27 @@ export class SearchService {
         books: [],
         invoices: [],
         hostel: [],
+        classes: [],
+        events: [],
       };
 
-    // Use pg_trgm fuzzy search for students (8.8)
-    const studentsPromise = this.prisma.$queryRaw<Array<{ id: string; firstName: string; lastName: string }>>`
-      SELECT id, "firstName", "lastName"
-      FROM "Student"
-      WHERE "branchId" = ${branchId}::text
-      AND ("firstName" || ' ' || "lastName") % ${query}
-      LIMIT 10;
-    `;
-
-    const [students, users, inventory, books, invoices, hostels] =
+    const [students, users, inventory, books, invoices, hostels, classes, events] =
       await Promise.all([
-        studentsPromise,
+        // Students — search by name using ILIKE
+        this.prisma.student.findMany({
+          where: {
+            branchId,
+            OR: [
+              { firstName: { contains: query, mode: 'insensitive' } },
+              { lastName: { contains: query, mode: 'insensitive' } },
+            ],
+          },
+          select: { id: true, firstName: true, lastName: true },
+          take: 10,
+          orderBy: { firstName: 'asc' },
+        }),
+
+        // Staff (non-student/parent users)
         this.prisma.user.findMany({
           where: {
             branchId,
@@ -38,16 +45,12 @@ export class SearchService {
               { email: { contains: query, mode: 'insensitive' } },
             ],
           },
-          select: {
-            id: true,
-            firstName: true,
-            lastName: true,
-            email: true,
-            role: true,
-          },
+          select: { id: true, firstName: true, lastName: true, email: true, role: true },
           take: 10,
           orderBy: { firstName: 'asc' },
         }),
+
+        // Inventory products
         this.prisma.inventoryProduct.findMany({
           where: {
             branchId,
@@ -57,6 +60,8 @@ export class SearchService {
           take: 10,
           orderBy: { name: 'asc' },
         }),
+
+        // Books
         this.prisma.book.findMany({
           where: {
             branchId,
@@ -66,16 +71,12 @@ export class SearchService {
               { isbn: { contains: query, mode: 'insensitive' } },
             ],
           },
-          select: {
-            id: true,
-            title: true,
-            author: true,
-            isbn: true,
-            available: true,
-          },
+          select: { id: true, title: true, author: true, isbn: true, available: true },
           take: 10,
           orderBy: { title: 'asc' },
         }),
+
+        // Invoices
         this.prisma.invoice.findMany({
           where: {
             branchId,
@@ -91,6 +92,8 @@ export class SearchService {
           take: 10,
           orderBy: { createdAt: 'desc' },
         }),
+
+        // Hostels
         this.prisma.hostel.findMany({
           where: {
             branchId,
@@ -98,6 +101,28 @@ export class SearchService {
           },
           select: { id: true, name: true, type: true },
           take: 5,
+        }),
+
+        // Classes
+        this.prisma.class.findMany({
+          where: {
+            branchId,
+            name: { contains: query, mode: 'insensitive' },
+          },
+          select: { id: true, name: true, gradeLevel: true },
+          take: 10,
+          orderBy: { name: 'asc' },
+        }),
+
+        // Events (AlumniEvent)
+        this.prisma.alumniEvent.findMany({
+          where: {
+            branchId,
+            title: { contains: query, mode: 'insensitive' },
+          },
+          select: { id: true, title: true, eventDate: true },
+          take: 10,
+          orderBy: { eventDate: 'desc' },
         }),
       ]);
 
@@ -108,6 +133,8 @@ export class SearchService {
       books,
       invoices,
       hostel: hostels,
+      classes,
+      events,
     };
   }
 }

@@ -184,12 +184,12 @@ function ManageRoomsContent() {
                         variant="ghost"
                         size="icon"
                         onClick={() => router.back()}
-                        className="rounded-2xl h-14 w-14 border-2 border-border/50 bg-card hover:bg-muted"
+                        className="rounded-2xl h-14 w-14 border-2 border-border/50 hover:bg-muted"
                     >
                         <ChevronLeft size={24} strokeWidth={3} />
                     </Button>
                     <div>
-                        <h1 className="text-h1 font-semibold tracking-tight">{hostel.name}</h1>
+                        <h1 className="text-h1 font-bold tracking-tight text-primary">{hostel.name}</h1>
                         <p className="text-muted-foreground font-bold uppercase tracking-widest text-xs mt-1">Management Portal • {hostel.type}</p>
                     </div>
                 </div>
@@ -279,7 +279,7 @@ function ManageRoomsContent() {
                         <div className="absolute top-6 right-6 z-10">
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
-                                    <Button variant="ghost" size="icon" className="rounded-full h-10 w-10 bg-card/80 backdrop-blur-sm border border-border/50">
+                                    <Button variant="ghost" size="icon" className="rounded-full h-10 w-10/80 backdrop-blur-sm border border-border/50">
                                         <MoreVertical size={18} className="text-muted-foreground" />
                                     </Button>
                                 </DropdownMenuTrigger>
@@ -375,7 +375,7 @@ function ManageRoomsContent() {
                                         <div
                                             key={student.id}
                                             onClick={() => setCheckInData({ ...checkInData, studentId: student.id })}
-                                            className={`p-3 rounded-lg flex items-center justify-between cursor-pointer transition-colors ${checkInData.studentId === student.id ? 'bg-primary text-white shadow-md' : 'hover:bg-muted bg-card'}`}
+                                            className={`p-3 rounded-lg flex items-center justify-between cursor-pointer transition-colors ${checkInData.studentId === student.id ? 'bg-primary text-white shadow-md' : 'hover:bg-muted'}`}
                                         >
                                             <div className="flex items-center gap-3">
                                                 <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs ${checkInData.studentId === student.id ? 'bg-white/20' : 'bg-primary/10 text-primary'}`}>
@@ -450,7 +450,7 @@ function ManageRoomsContent() {
                     {selectedBed?.allocations?.[0] && (
                         <div className="bg-muted/30 p-6 rounded-[2rem] border-2 border-border/50 space-y-4 my-6">
                             <div className="flex items-center gap-4">
-                                <div className="w-14 h-14 rounded-2xl bg-primary shadow-lg flex items-center justify-center text-white font-semibold text-h3 uppercase">
+                                <div className="w-14 h-14 rounded-2xl bg-primary shadow-lg flex items-center justify-center text-white font-semibold text-h3">
                                     {selectedBed.allocations[0].student?.firstName?.[0]}{selectedBed.allocations[0].student?.lastName?.[0]}
                                 </div>
                                 <div>
@@ -476,7 +476,7 @@ function ManageRoomsContent() {
             </Dialog>
 
             {hostel.rooms?.length === 0 && (
-                <div className="py-32 text-center bg-card/50 border-2 border-dashed border-border/50 rounded-[4rem] animate-in zoom-in-95">
+                <div className="py-32 text-center bg-white/75 border-2 border-dashed border-border/50 rounded-[4rem] animate-in zoom-in-95">
                     <div className="w-24 h-24 bg-muted/50 rounded-full flex items-center justify-center mx-auto mb-6">
                         <Home size={48} className="text-muted-foreground/30" />
                     </div>

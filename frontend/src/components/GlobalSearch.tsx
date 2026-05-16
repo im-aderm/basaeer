@@ -1,14 +1,26 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import { Search, X, User, Users, Package, Calendar, Loader2 } from 'lucide-react';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { Search, X, User, Users, Package, Calendar, Loader2, ArrowRight, BookOpen, Receipt, Home, GraduationCap } from 'lucide-react';
 import { searchService, SearchResults } from '@/services/searchService';
 import { useRouter } from 'next/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface GlobalSearchProps {
     isOpen: boolean;
     onClose: () => void;
 }
+
+const iconMap: Record<string, { bg: string; text: string; icon: React.ElementType }> = {
+    students: { bg: 'bg-blue-500/10', text: 'text-blue-600', icon: User },
+    staff: { bg: 'bg-green-500/10', text: 'text-green-600', icon: Users },
+    inventory: { bg: 'bg-orange-500/10', text: 'text-orange-600', icon: Package },
+    books: { bg: 'bg-violet-500/10', text: 'text-violet-600', icon: BookOpen },
+    invoices: { bg: 'bg-emerald-500/10', text: 'text-emerald-600', icon: Receipt },
+    hostel: { bg: 'bg-cyan-500/10', text: 'text-cyan-600', icon: Home },
+    classes: { bg: 'bg-amber-500/10', text: 'text-amber-600', icon: GraduationCap },
+    events: { bg: 'bg-purple-500/10', text: 'text-purple-600', icon: Calendar },
+};
 
 export default function GlobalSearch({ isOpen, onClose }: GlobalSearchProps) {
     const [query, setQuery] = useState('');
@@ -24,24 +36,6 @@ export default function GlobalSearch({ isOpen, onClose }: GlobalSearchProps) {
             setResults(null);
         }
     }, [isOpen]);
-
-    // Keyboard shortcut: Ctrl+K / Cmd+K to open; Escape to close
-    useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-                e.preventDefault();
-                if (isOpen) {
-                    onClose();
-                }
-            }
-            if (e.key === 'Escape' && isOpen) {
-                onClose();
-            }
-        };
-
-        window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [isOpen, onClose]);
 
     // Debounced search
     useEffect(() => {
@@ -60,218 +54,167 @@ export default function GlobalSearch({ isOpen, onClose }: GlobalSearchProps) {
                 setResults(null);
             }
         }, 300);
-
         return () => clearTimeout(delayDebounceFn);
     }, [query]);
 
-    const handleNavigate = (path: string) => {
+    const handleNavigate = useCallback((path: string) => {
         router.push(path);
         onClose();
+    }, [router, onClose]);
+
+    const sections: { key: keyof SearchResults; label: string; getLink: (item: any) => string }[] = [
+        { key: 'students', label: 'Students', getLink: (s) => `/dashboard/students/${s.id}` },
+        { key: 'staff', label: 'Staff', getLink: (s) => `/dashboard/employees/${s.id}` },
+        { key: 'inventory', label: 'Inventory', getLink: () => '/dashboard/inventory' },
+        { key: 'books', label: 'Books', getLink: () => '/dashboard/library/books' },
+        { key: 'invoices', label: 'Invoices', getLink: () => '/dashboard/finance/invoices' },
+        { key: 'hostel', label: 'Hostels', getLink: () => '/dashboard/hostels' },
+        { key: 'classes', label: 'Classes', getLink: (c) => `/dashboard/academics/classes` },
+        { key: 'events', label: 'Events', getLink: () => '/dashboard/events' },
+    ];
+
+    const hasResults = results && sections.some((s) => (results[s.key] as any[]).length > 0);
+
+    const getSub = (key: string, item: any): string => {
+        switch (key) {
+            case 'students': return item.email || '';
+            case 'staff': return `${item.role} · ${item.email}`;
+            case 'inventory': return `Stock: ${item.stock}`;
+            case 'books': return `${item.author}${item.isbn ? ` · ${item.isbn}` : ''}`;
+            case 'invoices': return `${item.invoiceNumber} · ${item.student ? `${item.student.firstName} ${item.student.lastName}` : ''} · ${item.status}`;
+            case 'hostel': return `${item.type}`;
+            case 'classes': return item.gradeLevel ? `Grade ${item.gradeLevel}` : '';
+            case 'events': return new Date(item.eventDate).toLocaleDateString();
+            default: return '';
+        }
     };
 
-    if (!isOpen) return null;
-
-    const hasResults = results && (
-        results.students.length > 0 ||
-        results.staff.length > 0 ||
-        results.inventory.length > 0 ||
-        results.events.length > 0
-    );
-
     return (
-        <div
-            className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Global search"
-        >
-            {/* Backdrop */}
-            <div
-                className="absolute inset-0 bg-foreground/20 backdrop-blur-sm"
-                onClick={onClose}
-                aria-hidden="true"
-            />
-
-            {/* Search Modal */}
-            <div className="relative w-full max-w-2xl bg-card rounded-xl shadow-2xl border border-border overflow-hidden">
-                {/* Search Input */}
-                <div className="flex items-center gap-3 p-4 border-b border-border">
-                    <Search className="w-5 h-5 text-muted-foreground shrink-0" aria-hidden="true" />
-                    <input
-                        ref={inputRef}
-                        type="text"
-                        value={query}
-                        onChange={(e) => setQuery(e.target.value)}
-                        placeholder="Search students, staff, inventory, events..."
-                        className="flex-1 bg-transparent border-none outline-none text-foreground placeholder:text-muted-foreground text-sm"
-                        aria-label="Search query"
-                    />
-                    {loading && <Loader2 className="w-5 h-5 text-muted-foreground animate-spin" aria-label="Searching..." />}
-                    <button
+        <AnimatePresence>
+            {isOpen && (
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.15 }}
+                    className="fixed inset-0 z-50 flex items-start justify-center pt-24 px-4"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label="Global search"
+                >
+                    <div
+                        className="absolute inset-0 bg-black/30 backdrop-blur-sm"
                         onClick={onClose}
-                        className="p-1 hover:bg-muted rounded-md transition-colors"
-                        aria-label="Close search"
+                        aria-hidden="true"
+                    />
+
+                    <motion.div
+                        initial={{ opacity: 0, y: -10, scale: 0.98 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -10, scale: 0.98 }}
+                        transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
+                        className="relative w-full max-w-2xl bg-white/75 border border-border/50 shadow-2xl shadow-primary/5 rounded-2xl overflow-hidden backdrop-blur-xl"
                     >
-                        <X className="w-5 h-5 text-muted-foreground" aria-hidden="true" />
-                    </button>
-                </div>
-
-                {/* Results */}
-                <div className="max-h-96 overflow-y-auto" role="listbox" aria-label="Search results">
-                    {query.length < 2 && (
-                        <div className="p-8 text-center text-muted-foreground">
-                            <Search className="w-12 h-12 mx-auto mb-3 opacity-30" aria-hidden="true" />
-                            <p className="text-sm font-medium">Type at least 2 characters to search</p>
-                            <p className="text-xs mt-2 text-muted-foreground">
-                                Press{' '}
-                                <kbd className="px-2 py-0.5 bg-muted rounded text-xs border border-border font-mono">Ctrl+K</kbd>
-                                {' '}to toggle
-                            </p>
+                        {/* Search Input */}
+                        <div className="flex items-center gap-4 p-5 border-b border-border/50">
+                            <Search className="w-5 h-5 text-muted-foreground/60 shrink-0" aria-hidden="true" />
+                            <input
+                                ref={inputRef}
+                                type="text"
+                                value={query}
+                                onChange={(e) => setQuery(e.target.value)}
+                                placeholder="Search students, staff, classes, inventory, books..."
+                                className="flex-1 bg-transparent border-none outline-none text-foreground text-sm placeholder:text-muted-foreground/40 font-medium"
+                                aria-label="Search query"
+                            />
+                            {loading && <Loader2 className="w-5 h-5 text-primary animate-spin shrink-0" aria-label="Searching..." />}
+                            <kbd className="hidden md:inline-flex items-center gap-1 px-2 py-0.5 text-xs text-muted-foreground bg-muted/50 rounded border border-border/50 font-mono">ESC</kbd>
+                            <button
+                                onClick={onClose}
+                                className="p-1.5 hover:bg-muted/50 rounded-lg transition-colors text-muted-foreground hover:text-foreground"
+                                aria-label="Close search"
+                            >
+                                <X className="w-5 h-5" aria-hidden="true" />
+                            </button>
                         </div>
-                    )}
 
-                    {query.length >= 2 && !loading && !hasResults && (
-                        <div className="p-8 text-center text-muted-foreground">
-                            <Search className="w-12 h-12 mx-auto mb-3 opacity-30" aria-hidden="true" />
-                            <p className="text-sm font-medium">No results found for &quot;{query}&quot;</p>
-                        </div>
-                    )}
-
-                    {results && (
-                        <div className="p-2 space-y-4">
-                            {/* Students */}
-                            {results.students.length > 0 && (
-                                <div>
-                                    <h3 className="px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                                        Students
-                                    </h3>
-                                    <div className="space-y-1">
-                                        {results.students.map((student) => (
-                                            <button
-                                                key={student.id}
-                                                onClick={() => handleNavigate(`/dashboard/students/${student.id}`)}
-                                                className="w-full flex items-center gap-3 px-3 py-2 hover:bg-muted rounded-lg transition-colors text-left"
-                                                role="option"
-                                                aria-selected="false"
-                                            >
-                                                <div className="p-2 bg-blue-500/10 text-blue-600 rounded-lg shrink-0">
-                                                    <User className="w-4 h-4" aria-hidden="true" />
-                                                </div>
-                                                <div className="flex-1 min-w-0">
-                                                    <p className="font-medium text-foreground text-sm truncate">
-                                                        {student.firstName} {student.lastName}
-                                                    </p>
-                                                    {student.email && (
-                                                        <p className="text-xs text-muted-foreground truncate">
-                                                            {student.email}
-                                                        </p>
-                                                    )}
-                                                </div>
-                                            </button>
-                                        ))}
+                        {/* Results */}
+                        <div className="max-h-96 overflow-y-auto p-2" role="listbox" aria-label="Search results">
+                            {query.length < 2 && (
+                                <div className="p-10 text-center">
+                                    <div className="w-14 h-14 mx-auto rounded-2xl bg-primary/5 flex items-center justify-center mb-4">
+                                        <Search className="w-7 h-7 text-primary/40" aria-hidden="true" />
                                     </div>
+                                    <p className="text-sm font-semibold text-muted-foreground">Search the portal</p>
+                                    <p className="text-xs text-muted-foreground/60 mt-1.5">
+                                        Type at least <span className="font-semibold text-foreground/60">2 characters</span> to find students, staff, classes, inventory items, and more
+                                    </p>
                                 </div>
                             )}
 
-                            {/* Staff */}
-                            {results.staff.length > 0 && (
-                                <div>
-                                    <h3 className="px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                                        Staff
-                                    </h3>
-                                    <div className="space-y-1">
-                                        {results.staff.map((staff) => (
-                                            <button
-                                                key={staff.id}
-                                                onClick={() => handleNavigate(`/dashboard/hr/staff/${staff.id}`)}
-                                                className="w-full flex items-center gap-3 px-3 py-2 hover:bg-muted rounded-lg transition-colors text-left"
-                                                role="option"
-                                                aria-selected="false"
-                                            >
-                                                <div className="p-2 bg-green-500/10 text-green-600 rounded-lg shrink-0">
-                                                    <Users className="w-4 h-4" aria-hidden="true" />
-                                                </div>
-                                                <div className="flex-1 min-w-0">
-                                                    <p className="font-medium text-foreground text-sm truncate">
-                                                        {staff.firstName} {staff.lastName}
-                                                    </p>
-                                                    <p className="text-xs text-muted-foreground truncate">
-                                                        {staff.role} • {staff.email}
-                                                    </p>
-                                                </div>
-                                            </button>
-                                        ))}
+                            {query.length >= 2 && !loading && !hasResults && (
+                                <div className="p-10 text-center">
+                                    <div className="w-14 h-14 mx-auto rounded-2xl bg-muted/30 flex items-center justify-center mb-4">
+                                        <Search className="w-7 h-7 text-muted-foreground/30" aria-hidden="true" />
                                     </div>
+                                    <p className="text-sm font-semibold text-muted-foreground">No results found</p>
+                                    <p className="text-xs text-muted-foreground/60 mt-1">
+                                        No matches for &ldquo;<span className="font-medium text-foreground/60">{query}</span>&rdquo;
+                                    </p>
                                 </div>
                             )}
 
-                            {/* Inventory */}
-                            {results.inventory.length > 0 && (
-                                <div>
-                                    <h3 className="px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                                        Inventory
-                                    </h3>
-                                    <div className="space-y-1">
-                                        {results.inventory.map((item) => (
-                                            <button
-                                                key={item.id}
-                                                onClick={() => handleNavigate('/dashboard/inventory')}
-                                                className="w-full flex items-center gap-3 px-3 py-2 hover:bg-muted rounded-lg transition-colors text-left"
-                                                role="option"
-                                                aria-selected="false"
-                                            >
-                                                <div className="p-2 bg-orange-500/10 text-orange-600 rounded-lg shrink-0">
-                                                    <Package className="w-4 h-4" aria-hidden="true" />
-                                                </div>
-                                                <div className="flex-1 min-w-0">
-                                                    <p className="font-medium text-foreground text-sm truncate">
-                                                        {item.name}
-                                                    </p>
-                                                    <p className="text-xs text-muted-foreground">
-                                                        Stock: {item.stock}
-                                                    </p>
-                                                </div>
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
+                            {results && (
+                                <div className="space-y-4">
+                                    {sections.map(({ key, label, getLink }) => {
+                                        const items = results[key] as any[];
+                                        if (items.length === 0) return null;
+                                        const meta = iconMap[key];
 
-                            {/* Events */}
-                            {results.events.length > 0 && (
-                                <div>
-                                    <h3 className="px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                                        Events
-                                    </h3>
-                                    <div className="space-y-1">
-                                        {results.events.map((event) => (
-                                            <button
-                                                key={event.id}
-                                                onClick={() => handleNavigate('/dashboard/events')}
-                                                className="w-full flex items-center gap-3 px-3 py-2 hover:bg-muted rounded-lg transition-colors text-left"
-                                                role="option"
-                                                aria-selected="false"
-                                            >
-                                                <div className="p-2 bg-purple-500/10 text-purple-600 rounded-lg shrink-0">
-                                                    <Calendar className="w-4 h-4" aria-hidden="true" />
+                                        return (
+                                            <div key={key}>
+                                                <h3 className="px-3 py-2 text-[10px] font-bold text-muted-foreground/60 uppercase tracking-[0.15em]">
+                                                    {label}
+                                                </h3>
+                                                <div className="space-y-0.5">
+                                                    {items.map((item: any) => (
+                                                        <button
+                                                            key={item.id}
+                                                            onClick={() => handleNavigate(getLink(item))}
+                                                            className="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-primary/5 rounded-xl transition-all text-left group"
+                                                            role="option"
+                                                        >
+                                                            <div className={`w-9 h-9 rounded-lg ${meta.bg} ${meta.text} flex items-center justify-center shrink-0 group-hover:bg-primary/10 group-hover:text-primary transition-colors`}>
+                                                                <meta.icon className="w-4 h-4" aria-hidden="true" />
+                                                            </div>
+                                                            <div className="flex-1 min-w-0">
+                                                                <p className="font-semibold text-sm text-foreground truncate">
+                                                                    {key === 'students' && `${item.firstName} ${item.lastName}`}
+                                                                    {key === 'staff' && `${item.firstName} ${item.lastName}`}
+                                                                    {key === 'inventory' && item.name}
+                                                                    {key === 'books' && item.title}
+                                                                    {key === 'invoices' && item.invoiceNumber}
+                                                                    {key === 'hostel' && item.name}
+                                                                    {key === 'classes' && item.name}
+                                                                    {key === 'events' && item.title}
+                                                                </p>
+                                                                <p className="text-xs text-muted-foreground/60 truncate">
+                                                                    {getSub(key, item)}
+                                                                </p>
+                                                            </div>
+                                                            <ArrowRight className="w-4 h-4 text-muted-foreground/30 group-hover:text-primary/50 group-hover:translate-x-0.5 transition-all opacity-0 group-hover:opacity-100" />
+                                                        </button>
+                                                    ))}
                                                 </div>
-                                                <div className="flex-1 min-w-0">
-                                                    <p className="font-medium text-foreground text-sm truncate">
-                                                        {event.title}
-                                                    </p>
-                                                    <p className="text-xs text-muted-foreground">
-                                                        {new Date(event.startDate).toLocaleDateString()}
-                                                    </p>
-                                                </div>
-                                            </button>
-                                        ))}
-                                    </div>
+                                            </div>
+                                        );
+                                    })}
                                 </div>
                             )}
                         </div>
-                    )}
-                </div>
-            </div>
-        </div>
+                    </motion.div>
+                </motion.div>
+            )}
+        </AnimatePresence>
     );
 }

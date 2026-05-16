@@ -89,7 +89,7 @@ export default function StudentFieldsPage() {
         <div className="max-w-5xl mx-auto space-y-8 pb-20">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight">Student Profile Fields</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Student Profile Fields</h1>
                     <p className="text-muted-foreground font-medium mt-1">Configure which built-in fields are visible and required on admission forms.</p>
                 </div>
                 <Button 
@@ -102,7 +102,7 @@ export default function StudentFieldsPage() {
                 </Button>
             </div>
 
-            <div className="flex items-center gap-4 bg-card p-2 rounded-2xl border border-border/50 shadow-sm">
+            <div className="flex items-center gap-4 bg-white/75 p-2 rounded-2xl border border-border/50 shadow-sm">
                 <div className="relative flex-1">
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                     <Input 

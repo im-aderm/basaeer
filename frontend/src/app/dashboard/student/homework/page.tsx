@@ -11,7 +11,7 @@ import { AcademicOpsService } from "@/services/academicOpsService";
 import { useAuth } from "@/context/AuthContext";
 
 export default function StudentHomeworkView() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [assignments, setAssignments] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [selectedAssignment, setSelectedAssignment] = useState<any>(null);
@@ -72,7 +72,7 @@ export default function StudentHomeworkView() {
  <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50/30 to-teal-50/20 p-6">
             {/* Header */}
             <div className="mb-8">
-                <h1 className="text-h1 font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+                <h1 className="text-h1 font-bold tracking-tight text-primary">
                     My Homework
                 </h1>
  <p className="text-slate-600 mt-2">

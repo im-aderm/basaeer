@@ -95,7 +95,7 @@ export default function CampusesPage() {
                 <Link
                   key={campus.slug}
                   href={`/campuses/${campus.slug}`}
-                  className="p-6 rounded-2xl border border-border hover:border-primary/30 hover:bg-surface-container-high transition-all duration-300 space-y-3"
+                  className="p-6 rounded-2xl border border-border hover:border-primary/60 hover:bg-surface-container-high transition-all duration-300 space-y-3"
                 >
                   <MapPin className="w-5 h-5 text-primary" />
                   <h4 className="font-bold text-text-primary font-heading">{campus.name}</h4>

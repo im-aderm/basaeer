@@ -65,7 +65,7 @@ export default function ReportsPage() {
           <BarChart3 size={32} />
         </div>
         <div>
-          <h1 className="text-h1 tracking-tight">Enterprise Reports</h1>
+          <h1 className="text-h1 font-bold tracking-tight text-primary">Enterprise Reports</h1>
           <p className="text-body text-muted-foreground">Comprehensive insights across all departments</p>
         </div>
       </div>
@@ -267,7 +267,7 @@ function ReportSection({
     "border-t-primary/30";
 
   return (
-    <Card className={`rounded-[2.5rem] p-8 border-border/50 shadow-xl bg-card/50 border-t-8 ${borderColor}`}>
+    <Card className={`rounded-[2.5rem] p-8 border-border/50 shadow-xl border-t-8 ${borderColor}`}>
       <div className="flex items-center gap-3 mb-6">
         <div className={`w-10 h-10 rounded-xl bg-${color}-500/10 flex items-center justify-center text-${color}-500`}>
           {icon}

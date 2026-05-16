@@ -16,7 +16,7 @@ import { SettingsService, GlobalSetting } from '@/services/settingsService';
 import { toast } from 'sonner';
 
 export default function ComplaintPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [complaints, setComplaints] = useState<Complaint[]>([]);
     const [complaintTypes, setComplaintTypes] = useState<string[]>([]);
     const [loading, setLoading] = useState(true);
@@ -36,13 +36,13 @@ export default function ComplaintPage() {
     });
 
     const fetchData = async () => {
-        if (!user?.branchId) {
+        if (!resolvedBranchId) {
             setLoading(false);
             return;
         }
         try {
             const [complaintsData, configs] = await Promise.all([
-                ReceptionService.getComplaints(user.branchId),
+                ReceptionService.getComplaints(resolvedBranchId),
                 SettingsService.getSettings()
             ]);
             setComplaints(complaintsData);
@@ -68,12 +68,12 @@ export default function ComplaintPage() {
 
     useEffect(() => {
         fetchData();
-    }, [user?.branchId]);
+    }, [resolvedBranchId]);
 
     const handleCreate = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await ReceptionService.createComplaint({ ...form, branchId: user?.branchId });
+            await ReceptionService.createComplaint({ ...form, branchId: resolvedBranchId });
             toast.success('Complaint logged successfully');
             setIsAddDialogOpen(false);
             resetForm();
@@ -171,7 +171,7 @@ export default function ComplaintPage() {
         <div className="max-w-7xl mx-auto space-y-8 pb-20 animate-in fade-in duration-500">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight uppercase">Complaints & Feedback</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Complaints & Feedback</h1>
                     <p className="text-muted-foreground font-medium mt-1">Track and resolve issues raised by parents, students, or staff.</p>
                 </div>
                 <div className="flex gap-4 w-full md:w-auto">
@@ -191,9 +191,9 @@ export default function ComplaintPage() {
                                 Log Complaint
                             </Button>
                         </DialogTrigger>
-                        <DialogContent className="rounded-[2.5rem] max-w-2xl max-h-[90vh] overflow-y-auto bg-card border-border shadow-2xl">
+                        <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl border-border shadow-2xl">
                             <DialogHeader>
-                                <DialogTitle className="text-h3 font-semibold uppercase">New Complaint</DialogTitle>
+                                <DialogTitle className="text-h3 font-semibold">New Complaint</DialogTitle>
                                 <DialogDescription className="font-bold text-muted-foreground">Record details of the complaint for tracking and resolution.</DialogDescription>
                             </DialogHeader>
                             <form onSubmit={handleCreate} className="space-y-6 pt-4">
@@ -207,9 +207,9 @@ export default function ComplaintPage() {
                 </div>
             </div>
 
-            <Card className="rounded-[3rem] border-border shadow-2xl overflow-hidden bg-card">
+            <Card className="rounded-[3rem] border-border shadow-2xl overflow-hidden">
                 <CardHeader className="p-8 border-b border-border bg-muted/20">
-                    <CardTitle className="text-h3 font-semibold flex items-center gap-3">
+                    <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
                         <MessageSquare className="h-8 w-8 text-primary" />
                         Complaint Records
                     </CardTitle>
@@ -232,7 +232,7 @@ export default function ComplaintPage() {
                                         <span className="font-semibold uppercase text-sm leading-tight">{c.name}</span>
                                         <span className="text-[10px] font-bold text-muted-foreground opacity-60 tracking-wider">#{c.phone}</span>
                                     </TableCell>
-                                    <TableCell className="px-8 font-bold text-[10px] uppercase">
+                                    <TableCell className="px-8 font-bold text-[10px]">
                                         <span className="block text-primary">{c.complaintType}</span>
                                         <span className="block text-muted-foreground opacity-50">{c.source}</span>
                                     </TableCell>
@@ -241,13 +241,13 @@ export default function ComplaintPage() {
                                     </TableCell>
                                     <TableCell className="px-8">
                                         <Select value={c.status} onValueChange={(v) => handleStatusUpdate(c.id, v)}>
-                                            <SelectTrigger className="h-9 w-36 rounded-full font-semibold uppercase text-[10px] border-none bg-muted/50">
+                                            <SelectTrigger className="h-9 w-36 rounded-full font-semibold uppercase text-[10px]">
                                                 <div className="flex items-center gap-2">
                                                     {getStatusIcon(c.status)}
                                                     <SelectValue />
                                                 </div>
                                             </SelectTrigger>
-                                            <SelectContent className="rounded-xl border-border bg-card font-semibold uppercase text-[10px]">
+                                            <SelectContent className="rounded-xl border-primary/20 font-semibold uppercase text-[10px]">
                                                 <SelectItem value="PENDING">PENDING</SelectItem>
                                                 <SelectItem value="IN_PROGRESS">IN PROGRESS</SelectItem>
                                                 <SelectItem value="RESOLVED">RESOLVED</SelectItem>
@@ -273,9 +273,9 @@ export default function ComplaintPage() {
 
             {/* Edit Dialog */}
             <Dialog open={!!editingComplaint} onOpenChange={(open) => { if (!open) setEditingComplaint(null); }}>
-                <DialogContent className="rounded-[2.5rem] max-w-2xl max-h-[90vh] overflow-y-auto bg-card border-border shadow-2xl">
+                <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl border-border shadow-2xl">
                     <DialogHeader>
-                        <DialogTitle className="text-h3 font-semibold uppercase">Edit Complaint</DialogTitle>
+                        <DialogTitle className="text-h3 font-semibold">Edit Complaint</DialogTitle>
                         <DialogDescription className="font-semibold opacity-60">Update tracking info for {editingComplaint?.name}</DialogDescription>
                     </DialogHeader>
                     <form onSubmit={handleUpdate} className="space-y-6 pt-4">
@@ -296,21 +296,21 @@ function ComplaintForm({ form, setForm, complaintTypes, isEdit = false }: { form
             <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Complainant Name</Label>
-                    <Input required className="h-12 rounded-xl bg-muted/50 border-none font-bold" placeholder="Full Name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+                    <Input required className="h-12 rounded-xl font-bold" placeholder="Full Name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
                 </div>
                 <div className="space-y-2">
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Phone Number</Label>
-                    <Input required className="h-12 rounded-xl bg-muted/50 border-none font-bold" placeholder="+234..." value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
+                    <Input required className="h-12 rounded-xl font-bold" placeholder="+234..." value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
                 </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Complaint Type</Label>
                     <Select value={form.complaintType} onValueChange={(v) => setForm({ ...form, complaintType: v })}>
-                        <SelectTrigger className="h-12 rounded-xl bg-muted/50 border-none font-bold">
+                        <SelectTrigger className="h-12 rounded-xl font-bold">
                             <SelectValue placeholder="Select type" />
                         </SelectTrigger>
-                        <SelectContent className="rounded-xl border-border bg-card font-bold text-xs uppercase">
+                        <SelectContent className="rounded-xl border-border font-bold text-xs">
                             {complaintTypes.map(t => (
                                 <SelectItem key={t} value={t}>{t}</SelectItem>
                             ))}
@@ -320,27 +320,27 @@ function ComplaintForm({ form, setForm, complaintTypes, isEdit = false }: { form
                 </div>
                 <div className="space-y-2">
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Source</Label>
-                    <Input placeholder="e.g., In-person, Phone, Email" className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={form.source} onChange={(e) => setForm({ ...form, source: e.target.value })} />
+                    <Input placeholder="e.g., In-person, Phone, Email" className="h-12 rounded-xl font-bold" value={form.source} onChange={(e) => setForm({ ...form, source: e.target.value })} />
                 </div>
             </div>
             <div className="space-y-2">
                 <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Issue Description</Label>
-                <Textarea required className="rounded-xl bg-muted/50 border-none font-bold min-h-[100px]" placeholder="Explain the problem in detail..." rows={3} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
+                <Textarea required className="rounded-xl font-bold min-h-[100px]" placeholder="Explain the problem in detail..." rows={3} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
             </div>
             <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Assigned To</Label>
-                    <Input className="h-12 rounded-xl bg-muted/50 border-none font-bold" placeholder="Staff name" value={form.assignedTo} onChange={(e) => setForm({ ...form, assignedTo: e.target.value })} />
+                    <Input className="h-12 rounded-xl font-bold" placeholder="Staff name" value={form.assignedTo} onChange={(e) => setForm({ ...form, assignedTo: e.target.value })} />
                 </div>
                 <div className="space-y-2">
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Date</Label>
-                    <Input type="date" className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} />
+                    <Input type="date" className="h-12 rounded-xl font-bold" value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} />
                 </div>
             </div>
             {isEdit && (
                 <div className="space-y-2 border-t pt-4 border-border/50">
                     <Label className="font-semibold text-[10px] uppercase text-primary ml-1">Resolution / Action Taken</Label>
-                    <Textarea className="rounded-xl bg-primary/5 border-none font-bold min-h-[80px]" placeholder="What was done to resolve this?" value={form.actionTaken} onChange={(e) => setForm({ ...form, actionTaken: e.target.value })} />
+                    <Textarea className="rounded-xl bg-primary/5 font-bold min-h-[80px]" placeholder="What was done to resolve this?" value={form.actionTaken} onChange={(e) => setForm({ ...form, actionTaken: e.target.value })} />
                 </div>
             )}
         </div>

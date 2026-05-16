@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 
 export default function ReceptionDashboard() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [loading, setLoading] = useState(true);
     const [stats, setStats] = useState({
         enquiries: 0,
@@ -23,17 +23,17 @@ export default function ReceptionDashboard() {
 
     useEffect(() => {
         const fetchData = async () => {
-            if (!user?.branchId) {
+            if (!resolvedBranchId) {
                 setLoading(false);
                 return;
             }
             try {
                 const [enquiries, calls, visitors, complaints, postal] = await Promise.all([
-                    ReceptionService.getEnquiries(user.branchId),
-                    ReceptionService.getCallLogs(user.branchId),
-                    ReceptionService.getVisitorLogs(user.branchId),
-                    ReceptionService.getComplaints(user.branchId),
-                    ReceptionService.getPostalRecords(user.branchId)
+                    ReceptionService.getEnquiries(resolvedBranchId),
+                    ReceptionService.getCallLogs(resolvedBranchId),
+                    ReceptionService.getVisitorLogs(resolvedBranchId),
+                    ReceptionService.getComplaints(resolvedBranchId),
+                    ReceptionService.getPostalRecords(resolvedBranchId)
                 ]);
 
                 setStats({
@@ -61,7 +61,7 @@ export default function ReceptionDashboard() {
             }
         };
         fetchData();
-    }, [user?.branchId]);
+    }, [resolvedBranchId]);
 
     if (loading) {
         return (
@@ -83,7 +83,7 @@ export default function ReceptionDashboard() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight">Reception Dashboard</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Reception Dashboard</h1>
                     <p className="text-muted-foreground mt-1">Overview of front-desk operations and communications.</p>
                 </div>
                 <div className="flex items-center gap-3">
@@ -103,7 +103,7 @@ export default function ReceptionDashboard() {
                     <Link
                         key={i}
                         href={stat.href}
-                        className="group bg-card border border-border p-6 rounded-2xl hover:border-primary/50 transition-all shadow-sm flex flex-col gap-4"
+                        className="group bg-white/75 border border-border p-6 rounded-2xl hover:border-primary/50 transition-all shadow-sm flex flex-col gap-4"
                     >
                         <div className={`p-3 rounded-xl bg-${stat.color}-500/10 text-${stat.color}-500 w-fit transition-transform group-hover:scale-110`}>
                             <stat.icon size={24} />
@@ -122,7 +122,7 @@ export default function ReceptionDashboard() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Recent Activity */}
                 <div className="lg:col-span-2 space-y-6">
-                    <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-sm">
+                    <div className="bg-white/75 border border-border rounded-2xl overflow-hidden shadow-sm">
                         <div className="p-6 border-b border-border bg-muted/30 flex items-center justify-between">
                             <h2 className="font-bold flex items-center gap-2">
                                 <Clock size={20} className="text-primary" />
@@ -162,7 +162,7 @@ export default function ReceptionDashboard() {
 
                 {/* Quick Actions & Info */}
                 <div className="space-y-6">
-                    <div className="bg-card border border-border rounded-2xl p-6 space-y-4 shadow-sm">
+                    <div className="bg-white/75 border border-border rounded-2xl p-6 space-y-4 shadow-sm">
                         <h3 className="font-bold flex items-center gap-2">
                             <TrendingUp size={20} className="text-green-500" />
                             Front Desk Insights

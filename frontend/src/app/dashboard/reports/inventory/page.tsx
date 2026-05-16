@@ -9,7 +9,7 @@ import { Package, AlertTriangle, Box, AlertCircle, Loader2 } from "lucide-react"
 import api from "@/lib/api";
 
 export default function InventoryReportsPage() {
-  const { user } = useAuth();
+  const { user, resolvedBranchId } = useAuth();
   const [data, setData] = useState<{
     totalProducts?: number;
     lowStockItems?: number;
@@ -56,7 +56,7 @@ export default function InventoryReportsPage() {
   return (
     <div className="max-w-7xl mx-auto space-y-8 pb-20">
       <div>
-        <h1 className="text-h1 font-semibold tracking-tight uppercase text-primary">Inventory Logistics</h1>
+        <h1 className="text-h1 font-bold tracking-tight text-primary">Inventory Logistics</h1>
         <p className="text-muted-foreground font-medium mt-1">Stock levels, asset management, and procurement</p>
       </div>
 

@@ -57,7 +57,7 @@ export default function AttendanceDashboard() {
         <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in duration-700 pb-10">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight">Attendance Overview</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Attendance Overview</h1>
                     <p className="text-muted-foreground text-lg">Manage and track daily attendance</p>
                 </div>
                 <div className="flex items-center gap-3 bg-muted/50 px-4 py-2 rounded-xl border border-border/50">

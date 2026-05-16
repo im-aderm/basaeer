@@ -24,7 +24,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { toast } from "sonner";
 
 export default function TransportVehiclesPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [vehicles, setVehicles] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
@@ -60,7 +60,7 @@ export default function TransportVehiclesPage() {
             const payload = {
                 ...formData,
                 capacity: parseInt(formData.capacity),
-                branchId: user?.branchId
+                branchId: resolvedBranchId
             };
 
             if (editingVehicle) {
@@ -117,7 +117,7 @@ export default function TransportVehiclesPage() {
         <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in duration-500 pb-20">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
+                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3">
                         <Bus className="text-primary w-10 h-10" />
                         School Fleet
                     </h1>
@@ -204,7 +204,7 @@ export default function TransportVehiclesPage() {
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={20} />
                 <Input
                     placeholder="Search fleet..."
-                    className="pl-12 rounded-[1.5rem] bg-card border-none h-14 font-bold shadow-xl shadow-primary/5"
+                    className="pl-12 rounded-[1.5rem] border-none h-14 font-bold shadow-xl shadow-primary/5"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
@@ -212,7 +212,7 @@ export default function TransportVehiclesPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredVehicles.map((vehicle) => (
-                    <Card key={vehicle.id} className="rounded-[3rem] border-border/50 shadow-2xl shadow-primary/5 hover:shadow-primary/10 transition-all group overflow-hidden border-t-8 border-t-primary/20 bg-card">
+                    <Card key={vehicle.id} className="rounded-[3rem] border-border/50 shadow-2xl shadow-primary/5 hover:shadow-primary/10 transition-all group overflow-hidden border-t-8 border-t-primary/20">
                         <CardHeader className="p-8 pb-0">
                             <div className="flex justify-between items-start">
                                 <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-all duration-500">

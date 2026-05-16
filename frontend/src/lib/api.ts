@@ -1,17 +1,41 @@
 import axios from 'axios';
 
+// Global mutable branch context — set by AuthContext when user changes/selects branch
+let _activeBranchId: string | null = null;
+
+export function setApiBranchContext(branchId: string | null | undefined) {
+    // "__all__" is a sentinel for "All Campuses" — never inject it into API calls
+    _activeBranchId = (branchId && branchId !== "__all__") ? branchId : null;
+}
+
+export function getApiBranchContext(): string | null {
+    return _activeBranchId;
+}
+
 const api = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api/v1',
-    withCredentials: true, // Crucial for sending/receiving httpOnly auth cookies across domains
+    withCredentials: true,
+    timeout: 15000,
     headers: {
         'X-Requested-With': 'XMLHttpRequest',
     }
 });
 
-// ── Response Interceptor: unwrap backend envelope + handle errors ────────────
+// Request interceptor: auto-inject branchId on all requests except global routes
+api.interceptors.request.use((config) => {
+    if (_activeBranchId && config.url) {
+        // Skip routes that should never receive branch context
+        const skip = ['/auth/', '/branches', '/health', '/search'];
+        if (!skip.some((s) => config.url!.includes(s))) {
+            config.params = { ...config.params, branchId: _activeBranchId };
+        }
+    }
+    return config;
+});
+
+// Response interceptor: unwrap standard backend envelope
 api.interceptors.response.use(
     (response) => {
-        // Unwrap the standard backend envelope: { success: true, data: ... }
         if (
             response.data &&
             typeof response.data === 'object' &&
@@ -30,15 +54,6 @@ api.interceptors.response.use(
                 url: error.config?.url,
                 method: error.config?.method,
             });
-        }
-        
-        if (
-            typeof window !== 'undefined' &&
-            error.response?.status === 401
-        ) {
-            if (window.location.pathname.startsWith('/dashboard')) {
-                window.location.href = '/login';
-            }
         }
         return Promise.reject(error);
     }

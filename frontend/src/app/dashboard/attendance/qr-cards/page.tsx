@@ -85,7 +85,7 @@ export default function QRIDCardsPage() {
                         <ArrowLeft size={22} />
                     </Button>
                     <div>
-                        <h1 className="text-h1 font-semibold tracking-tight">QR ID Cards</h1>
+                        <h1 className="text-h1 font-bold tracking-tight text-primary">QR ID Cards</h1>
                         <p className="text-muted-foreground font-medium mt-1">Generate and print student attendance QR codes.</p>
                     </div>
                 </div>
@@ -103,12 +103,12 @@ export default function QRIDCardsPage() {
             </div>
 
             {/* Filters - Hidden on Print */}
-            <Card className="rounded-[2.5rem] border-border/50 shadow-sm print:hidden">
+            <Card className="rounded-[2.5rem] shadow-sm print:hidden">
                 <CardContent className="p-8 flex flex-col md:flex-row gap-6">
                     <div className="flex-1 space-y-2">
                         <label className="text-sm font-bold text-muted-foreground ml-1">Select Class</label>
                         <Select value={selectedClassId} onValueChange={handleClassChange}>
-                            <SelectTrigger className="h-14 rounded-2xl bg-muted/30">
+                            <SelectTrigger className="h-14 rounded-2xl ">
                                 <SelectValue placeholder="Class" />
                             </SelectTrigger>
                             <SelectContent>
@@ -120,7 +120,7 @@ export default function QRIDCardsPage() {
                     <div className="flex-1 space-y-2">
                         <label className="text-sm font-bold text-muted-foreground ml-1">Select Section</label>
                         <Select value={selectedSectionId} onValueChange={setSelectedSectionId} disabled={!selectedClassId}>
-                            <SelectTrigger className="h-14 rounded-2xl bg-muted/30">
+                            <SelectTrigger className="h-14 rounded-2xl ">
                                 <SelectValue placeholder="Section" />
                             </SelectTrigger>
                             <SelectContent>
@@ -151,7 +151,7 @@ export default function QRIDCardsPage() {
                                 {/* Card Header */}
                                 <div className="bg-slate-900 text-white p-6 text-center space-y-1">
                                     <div className="text-xs font-black uppercase tracking-[0.2em] text-primary/80">Student ID Card</div>
-                                    <div className="text-xl font-bold truncate leading-tight uppercase">
+                                    <div className="text-xl font-bold truncate leading-tight">
                                         {student.firstName} {student.lastName}
                                     </div>
                                     <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
@@ -186,7 +186,7 @@ export default function QRIDCardsPage() {
 
                                 {/* Footer */}
                                 <div className="border-t border-slate-100 bg-slate-50 p-4 text-center">
-                                    <div className="text-[10px] font-bold text-slate-400 uppercase">Basaer Education System</div>
+                                    <div className="text-[10px] font-bold text-slate-400">Basaer Education System</div>
                                 </div>
                             </CardContent>
                         </Card>
@@ -194,7 +194,7 @@ export default function QRIDCardsPage() {
                 </div>
             ) : (
                 !fetching && (
-                    <div className="py-40 text-center space-y-6 bg-muted/5 rounded-[3rem] border-2 border-dashed border-border/50">
+                    <div className="py-40 text-center space-y-6 bg-muted/5 rounded-[3rem] border-2 border-dashed">
                         <QrCode className="w-20 h-20 mx-auto text-muted-foreground/20" />
                         <div className="space-y-2">
                             <h3 className="text-2xl font-bold text-slate-400">No Students Loaded</h3>

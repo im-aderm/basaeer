@@ -113,7 +113,7 @@ export default function SessionsPage() {
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight">Academic Sessions</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Academic Sessions</h1>
                     <p className="text-muted-foreground mt-1">Manage school years and set current active term.</p>
                 </div>
                 <button
@@ -126,7 +126,7 @@ export default function SessionsPage() {
             </div>
 
             {/* Sessions List */}
-            <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-sm">
+            <div className="bg-white/75 border border-border rounded-2xl overflow-hidden shadow-sm">
                 <div className="overflow-x-auto">
                     <table className="w-full text-left border-collapse">
                         <thead className="bg-muted/50 border-b border-border">
@@ -204,7 +204,7 @@ export default function SessionsPage() {
             {/* Modal */}
             {isModalOpen && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
-                    <div className="bg-card w-full max-w-md rounded-2xl border border-border shadow-2xl animate-in zoom-in-95 duration-200">
+                    <div className="bg-white/75 w-full max-w-md rounded-2xl border border-border shadow-2xl animate-in zoom-in-95 duration-200">
                         <form onSubmit={handleSubmit}>
                             <div className="p-6 border-b border-border">
                                 <h3 className="text-xl font-bold">{editingSession ? "Edit Session" : "Create New Session"}</h3>
@@ -215,7 +215,7 @@ export default function SessionsPage() {
                                     <input
                                         required
                                         placeholder="e.g. 2024/2025"
-                                        className="w-full p-3 bg-background border border-input rounded-xl focus:ring-2 focus:ring-primary/20 outline-none"
+                                        className="w-full p-3 bg-white border border-primary/90 rounded-xl focus:ring-2 focus:ring-primary/20 outline-none"
                                         value={formData.name}
                                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                     />
@@ -226,7 +226,7 @@ export default function SessionsPage() {
                                         <input
                                             required
                                             type="date"
-                                            className="w-full p-3 bg-background border border-input rounded-xl focus:ring-2 focus:ring-primary/20 outline-none"
+                                            className="w-full p-3 bg-white border border-primary/90 rounded-xl focus:ring-2 focus:ring-primary/20 outline-none"
                                             value={formData.startDate}
                                             onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
                                         />
@@ -236,7 +236,7 @@ export default function SessionsPage() {
                                         <input
                                             required
                                             type="date"
-                                            className="w-full p-3 bg-background border border-input rounded-xl focus:ring-2 focus:ring-primary/20 outline-none"
+                                            className="w-full p-3 bg-white border border-primary/90 rounded-xl focus:ring-2 focus:ring-primary/20 outline-none"
                                             value={formData.endDate}
                                             onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
                                         />
@@ -246,7 +246,7 @@ export default function SessionsPage() {
                                     <input
                                         type="checkbox"
                                         id="isActive"
-                                        className="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary"
+                                        className="w-4 h-4 rounded border-primary/60 text-primary focus:ring-primary"
                                         checked={formData.isActive}
                                         onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
                                     />

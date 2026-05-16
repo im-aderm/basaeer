@@ -11,7 +11,7 @@ import { UserPlus, Mail, Phone, User, ShieldCheck, Briefcase, Building2, Loader2
 import api from '@/lib/api';
 
 export default function AddEmployeePage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const router = useRouter();
     const [loading, setLoading] = useState(true);
     const [submitting, setSubmitting] = useState(false);
@@ -58,7 +58,7 @@ export default function AddEmployeePage() {
         try {
             await api.post('/employees', {
                 ...formData,
-                branchId: user?.branchId
+                branchId: resolvedBranchId
             });
             setSuccess(true);
         } catch (error) {
@@ -78,7 +78,7 @@ export default function AddEmployeePage() {
                     <CheckCircle2 size={64} />
                 </div>
                 <div className="space-y-4">
-                    <h2 className="text-h1 font-semibold tracking-tight">Employee Registered!</h2>
+                    <h2 className="text-h2 font-bold tracking-tight text-primary">Employee Registered!</h2>
                     <p className="text-xl text-muted-foreground font-medium">New staff member has been added and workspace prepared.</p>
                 </div>
                 <div className="flex gap-4 justify-center pt-8">
@@ -106,7 +106,7 @@ export default function AddEmployeePage() {
                 <div className="inline-flex items-center justify-center w-20 h-20 rounded-[2rem] bg-primary/10 text-primary mb-4 transform -rotate-6">
                     <UserPlus size={40} />
                 </div>
-                <h1 className="text-h1 font-semibold tracking-tight">Staff Registration</h1>
+                <h1 className="text-h1 font-bold tracking-tight text-primary">Staff Registration</h1>
                 <p className="text-muted-foreground text-xl font-medium max-w-2xl mx-auto">Onboard a new employee by providing their personal and professional details.</p>
             </div>
 
@@ -126,7 +126,7 @@ export default function AddEmployeePage() {
                             <Input
                                 required
                                 placeholder="Employee's first name"
-                                className="h-14 rounded-2xl bg-muted/30 border-none font-bold text-lg"
+                                className="h-14 rounded-2xl font-bold text-lg"
                                 value={formData.firstName}
                                 onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
                             />
@@ -138,7 +138,7 @@ export default function AddEmployeePage() {
                             <Input
                                 required
                                 placeholder="Employee's last name"
-                                className="h-14 rounded-2xl bg-muted/30 border-none font-bold text-lg"
+                                className="h-14 rounded-2xl font-bold text-lg"
                                 value={formData.lastName}
                                 onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
                             />
@@ -151,7 +151,7 @@ export default function AddEmployeePage() {
                                 required
                                 type="email"
                                 placeholder="staff@school.com"
-                                className="h-14 rounded-2xl bg-muted/30 border-none font-bold text-lg"
+                                className="h-14 rounded-2xl font-bold text-lg"
                                 value={formData.email}
                                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                             />
@@ -164,7 +164,7 @@ export default function AddEmployeePage() {
                                 required
                                 type="password"
                                 placeholder="Initial login password"
-                                className="h-14 rounded-2xl bg-muted/30 border-none font-bold text-lg"
+                                className="h-14 rounded-2xl font-bold text-lg"
                                 value={formData.password}
                                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                             />
@@ -175,7 +175,7 @@ export default function AddEmployeePage() {
                             </label>
                             <Input
                                 placeholder="+234 ..."
-                                className="h-14 rounded-2xl bg-muted/30 border-none font-bold text-lg"
+                                className="h-14 rounded-2xl font-bold text-lg"
                                 value={formData.phone}
                                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                             />
@@ -196,14 +196,14 @@ export default function AddEmployeePage() {
                                 <ShieldCheck size={14} className="text-primary" /> Role
                             </label>
                             <Select onValueChange={(val) => setFormData({ ...formData, role: val })} value={formData.role}>
-                                <SelectTrigger className="h-14 rounded-2xl bg-muted/30 border-none font-bold text-lg">
+                                <SelectTrigger className="h-14 rounded-2xl font-bold text-lg">
                                     <SelectValue placeholder="Select Role" />
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectItem value="TEACHER">Teacher</SelectItem>
                                     <SelectItem value="LIBRARIAN">Librarian</SelectItem>
                                     <SelectItem value="ACCOUNTANT">Accountant</SelectItem>
-                                    <SelectItem value="STAFF">General Staff</SelectItem>
+                                    <SelectItem value="HR">General Staff</SelectItem>
                                 </SelectContent>
                             </Select>
                         </div>
@@ -212,7 +212,7 @@ export default function AddEmployeePage() {
                                 <Building2 size={14} className="text-primary" /> Department
                             </label>
                             <Select onValueChange={(val) => setFormData({ ...formData, departmentId: val })} value={formData.departmentId}>
-                                <SelectTrigger className="h-14 rounded-2xl bg-muted/30 border-none font-bold text-lg">
+                                <SelectTrigger className="h-14 rounded-2xl font-bold text-lg">
                                     <SelectValue placeholder="Select Department" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -227,7 +227,7 @@ export default function AddEmployeePage() {
                                 <Briefcase size={14} className="text-primary" /> Designation
                             </label>
                             <Select onValueChange={(val) => setFormData({ ...formData, designationId: val })} value={formData.designationId}>
-                                <SelectTrigger className="h-14 rounded-2xl bg-muted/30 border-none font-bold text-lg">
+                                <SelectTrigger className="h-14 rounded-2xl font-bold text-lg">
                                     <SelectValue placeholder="Select Designation" />
                                 </SelectTrigger>
                                 <SelectContent>

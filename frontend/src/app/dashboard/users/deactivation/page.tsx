@@ -63,7 +63,7 @@ export default function LoginDeactivationPage() {
         <div className="space-y-8 max-w-6xl mx-auto">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight">Login Management</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Login Management</h1>
                     <p className="text-muted-foreground font-medium mt-1">Deactivate or activate user logins across the system.</p>
                 </div>
                 <div className="relative w-72">

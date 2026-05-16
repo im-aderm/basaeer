@@ -46,6 +46,14 @@ ALTER TABLE "TahfeezMemorizationProgress" ADD CONSTRAINT "TahfeezMemorizationPro
 -- Invoice
 ALTER TABLE "Invoice" ADD CONSTRAINT "Invoice_branchId_fkey" FOREIGN KEY ("branchId") REFERENCES "Branch"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
+-- Add missing columns to AuditLog (added to schema after initial creation)
+ALTER TABLE "AuditLog" ADD COLUMN "branchId" TEXT;
+ALTER TABLE "AuditLog" ADD COLUMN "ipAddress" TEXT;
+ALTER TABLE "AuditLog" ADD COLUMN "targetId" TEXT;
+ALTER TABLE "AuditLog" ADD COLUMN "targetType" TEXT;
+ALTER TABLE "AuditLog" ADD COLUMN "beforeState" JSONB;
+ALTER TABLE "AuditLog" ADD COLUMN "afterState" JSONB;
+
 -- Add missing composite indexes
 
 CREATE INDEX IF NOT EXISTS "Notification_userId_isRead_createdAt_idx" ON "Notification"("userId", "isRead", "createdAt");

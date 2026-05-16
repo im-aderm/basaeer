@@ -124,13 +124,13 @@ export default function LoginLogPage() {
         <div className="space-y-8 pb-20">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight">Login Activity & Audit Logs</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Login Activity & Audit Logs</h1>
                     <p className="text-muted-foreground font-medium mt-1">Monitor user access and security events across the platform.</p>
                 </div>
             </div>
 
-            <Card className="rounded-[2.5rem] border-border/50 shadow-2xl overflow-hidden">
-                <CardHeader className="bg-muted/30 pb-6 border-b border-border/50">
+            <Card className="rounded-[2.5rem] shadow-2xl overflow-hidden">
+                <CardHeader className="bg-muted/30 pb-6 border-b">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div className="flex items-center gap-3">
                             <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
@@ -144,14 +144,14 @@ export default function LoginLogPage() {
                                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                                 <Input
                                     placeholder="Search logs..."
-                                    className="pl-9 w-[200px] md:w-[250px] rounded-xl border-border/50"
+                                    className="pl-9 w-[200px] md:w-[250px] rounded-xl"
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                 />
                             </div>
 
                             <Select value={statusFilter} onValueChange={setStatusFilter}>
-                                <SelectTrigger className="w-[140px] rounded-xl border-border/50">
+                                <SelectTrigger className="w-[140px] rounded-xl">
                                     <div className="flex items-center gap-2">
                                         <Filter className="h-4 w-4" />
                                         <SelectValue placeholder="Status" />
@@ -164,7 +164,7 @@ export default function LoginLogPage() {
                                 </SelectContent>
                             </Select>
 
-                            <div className="flex items-center gap-2 bg-background border border-border/50 rounded-xl px-3 py-1.5 h-10">
+                            <div className="flex items-center gap-2 bg-background border rounded-xl px-3 py-1.5 h-10">
                                 <Calendar className="h-4 w-4 text-muted-foreground" />
                                 <input
                                     type="date"

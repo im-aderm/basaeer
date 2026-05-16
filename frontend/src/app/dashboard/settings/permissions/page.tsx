@@ -103,14 +103,14 @@ export default function PermissionsPage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight">Role Permissions</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Role Permissions</h1>
                     <p className="text-muted-foreground mt-1">Configure access levels for each user role across system modules.</p>
                 </div>
                 <div className="flex items-center gap-3">
                     <button
                         onClick={handleSeed}
                         disabled={seeding}
-                        className="flex items-center gap-2 px-4 py-2.5 border border-border bg-card rounded-xl hover:bg-muted transition-all disabled:opacity-50"
+                        className="flex items-center gap-2 px-4 py-2.5 border border-border rounded-xl hover:bg-muted transition-all disabled:opacity-50"
                     >
                         {seeding ? <Loader2 size={18} className="animate-spin" /> : <RefreshCcw size={18} />}
                         Sync Modules
@@ -121,7 +121,7 @@ export default function PermissionsPage() {
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
                 {/* Sidebar - Roles */}
                 <div className="lg:col-span-1 space-y-4">
-                    <div className="bg-card border border-border rounded-2xl p-4 shadow-sm">
+                    <div className="bg-white/75 border border-border rounded-2xl p-4 shadow-sm">
                         <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-widest px-3 mb-3">Roles</h3>
                         <div className="space-y-1">
                             {ROLES.map((role) => (
@@ -145,14 +145,14 @@ export default function PermissionsPage() {
 
                 {/* Main Content - Permissions Matrix */}
                 <div className="lg:col-span-3 space-y-6">
-                    <div className="bg-card border border-border rounded-2xl shadow-sm overflow-hidden">
+                    <div className="bg-white/75 border border-border rounded-2xl shadow-sm overflow-hidden">
                         <div className="p-4 border-b border-border bg-muted/20 flex flex-col md:flex-row md:items-center justify-between gap-4">
                             <div className="relative flex-1">
                                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={16} />
                                 <input
                                     type="text"
                                     placeholder="Search modules..."
-                                    className="w-full pl-10 pr-4 py-2 bg-background border border-input rounded-xl text-sm focus:ring-2 focus:ring-primary/20 outline-none"
+                                    className="w-full pl-10 pr-4 py-2 bg-white border border-primary/90 rounded-xl text-sm focus:ring-2 focus:ring-primary/20 outline-none"
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                 />

@@ -120,7 +120,7 @@ export function ProgramSection() {
                   style={{ transformOrigin: "center center" }}
                   className={`absolute w-[280px] md:w-[320px] h-[380px] md:h-[420px] rounded-[32px] overflow-hidden cursor-pointer shadow-2xl border transition-shadow duration-300 ${
                     isActive
-                      ? "border-primary/30 shadow-primary/15 shadow-2xl"
+                      ? "border-primary/60 shadow-primary/15 shadow-2xl"
                       : "border-border/40 shadow-black/10 hover:border-primary-light/20"
                   } group`}
                 >

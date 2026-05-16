@@ -21,7 +21,7 @@ import { AutomationEventsService, AccessLog } from '@/services/automationEventsS
 import { toast } from 'sonner';
 
 export default function AccessControlPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [logs, setLogs] = useState<AccessLog[]>([]);
     const [scanning, setScanning] = useState(false);
     const [direction, setDirection] = useState<'ENTRY' | 'EXIT'>('ENTRY');
@@ -89,7 +89,7 @@ export default function AccessControlPage() {
         <div className="max-w-7xl mx-auto space-y-8 pb-20">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight uppercase">Campus Access</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Campus Access</h1>
                     <p className="text-muted-foreground font-medium mt-1">Real-time entry/exit monitoring and security logs.</p>
                 </div>
                 <div className="flex bg-muted/50 p-1 rounded-2xl shadow-sm border border-border/50">
@@ -137,7 +137,7 @@ export default function AccessControlPage() {
                                     <Camera className="h-20 w-20 text-primary/10 group-hover:scale-110 group-hover:text-primary/30 transition-all" />
                                 </div>
                                 <div>
-                                    <h3 className="text-h3 font-semibold uppercase">Scanner Ready</h3>
+                                    <h3 className="text-h3 font-semibold">Scanner Ready</h3>
                                     <p className="text-muted-foreground font-medium max-w-xs mx-auto mt-2">Activate camera to begin logging student and staff movements.</p>
                                 </div>
                                 <Button
@@ -191,7 +191,7 @@ export default function AccessControlPage() {
                                         </div>
                                         <div>
                                             <div className="font-semibold uppercase text-sm">{log.user?.firstName} {log.user?.lastName}</div>
-                                            <div className="text-[10px] font-bold text-muted-foreground opacity-50 uppercase">{log.user?.role} • {log.location || 'Entrance'}</div>
+                                            <div className="text-[10px] font-bold text-muted-foreground opacity-50">{log.user?.role} • {log.location || 'Entrance'}</div>
                                         </div>
                                     </div>
                                     <div className="text-right">

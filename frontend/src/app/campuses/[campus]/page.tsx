@@ -185,7 +185,7 @@ export default function CampusPage({ params }: { params: Promise<{ campus: strin
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.08 }}
-                    className="flex items-start gap-4 p-4 rounded-2xl bg-surface-container border border-border/50 hover:border-primary/30 transition-colors"
+                    className="flex items-start gap-4 p-4 rounded-2xl bg-surface-container border border-border/50 hover:border-primary/60 transition-colors"
                   >
                     <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
                       <Sparkles className="w-5 h-5 text-primary" />

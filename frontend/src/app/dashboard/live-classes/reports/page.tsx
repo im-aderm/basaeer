@@ -11,7 +11,7 @@ import { LiveClassesService, LiveClassSession, ReportItem } from '@/services/liv
 import { toast } from 'sonner';
 
 export default function LiveClassReportsPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [sessions, setSessions] = useState<LiveClassSession[]>([]);
     const [selectedSessionId, setSelectedSessionId] = useState<string | null>(null);
     const [reports, setReports] = useState<ReportItem[]>([]);
@@ -93,7 +93,7 @@ export default function LiveClassReportsPage() {
                     <>
                         <div className="flex justify-between items-end">
                             <div>
-                                <h1 className="text-h1 font-semibold tracking-tight uppercase">{activeSession.title}</h1>
+                                <h1 className="text-h1 font-bold tracking-tight text-primary">{activeSession.title}</h1>
                                 <p className="text-muted-foreground font-medium mt-1">Detailed participation and duration analysis.</p>
                             </div>
                             <Button className="h-12 px-6 rounded-2xl font-semibold gap-2 shadow-lg shadow-primary/20">
@@ -128,7 +128,7 @@ export default function LiveClassReportsPage() {
 
                         <Card className="rounded-[2.5rem] border-border/50 shadow-2xl overflow-hidden bg-background">
                             <CardHeader className="p-8 border-b border-border/50 flex flex-row items-center justify-between">
-                                <CardTitle className="text-h3 font-semibold flex items-center gap-3">
+                                <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
                                     <BarChart3 className="h-6 w-6 text-primary" />
                                     Participant Logs
                                 </CardTitle>
@@ -194,7 +194,7 @@ export default function LiveClassReportsPage() {
                     <div className="h-full flex flex-col items-center justify-center space-y-6 opacity-30 grayscale saturate-0">
                         <Activity className="h-32 w-32 stroke-[1]" />
                         <div className="text-center">
-                            <h2 className="text-h1 font-semibold tracking-tighter uppercase">Select a Session</h2>
+                            <h2 className="text-h1 font-semibold tracking-tighter">Select a Session</h2>
                             <p className="font-medium text-lg">Choose a past class to view its participation analytics.</p>
                         </div>
                     </div>

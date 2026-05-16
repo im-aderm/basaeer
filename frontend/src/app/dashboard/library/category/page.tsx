@@ -54,7 +54,7 @@ export default function LibraryCategoryPage() {
         <div className="space-y-8 animate-in fade-in duration-500 pb-20">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
+                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3">
                         <BookOpen className="text-primary w-10 h-10" />
                         Book Categories
                     </h1>
@@ -78,7 +78,7 @@ export default function LibraryCategoryPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     {categories.map((cat) => (
                         <Link key={cat.name} href={`/dashboard/library/books?category=${encodeURIComponent(cat.name)}`}>
-                            <Card className="rounded-[2rem] border-border/50 shadow-xl hover:shadow-2xl transition-all group bg-card/50 backdrop-blur-sm hover:scale-[1.02] cursor-pointer border-t-8 border-t-primary/20 overflow-hidden">
+                            <Card className="rounded-[2rem] border-border/50 shadow-xl hover:shadow-2xl transition-all group hover:scale-[1.02] cursor-pointer border-t-8 border-t-primary/20 overflow-hidden">
                                 <CardContent className="p-8">
                                     <div className="flex items-start justify-between mb-6">
                                         <div className="p-4 rounded-2xl bg-primary/10 text-primary group-hover:scale-110 transition-transform">
@@ -86,7 +86,7 @@ export default function LibraryCategoryPage() {
                                         </div>
                                         <ChevronRight className="text-muted-foreground group-hover:translate-x-1 transition-transform" size={20} />
                                     </div>
-                                    <h3 className="text-xl font-bold tracking-tight mb-1">{cat.name}</h3>
+                                    <h3 className="text-xl font-bold tracking-tight text-primary mb-1">{cat.name}</h3>
                                     <p className="text-sm text-muted-foreground font-medium">
                                         {cat.count} {cat.count === 1 ? "book" : "books"}
                                     </p>

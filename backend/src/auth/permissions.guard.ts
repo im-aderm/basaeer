@@ -24,18 +24,28 @@ export class PermissionsGuard implements CanActivate {
       throw new ForbiddenException('No user role found');
     }
 
-    const permissions = await this.prisma.rolePermission.findMany({
+    // 1) Check legacy enum-based permissions (from user.role)
+    const rolePerms = await this.prisma.rolePermission.findMany({
       where: { role: user.role, isAllowed: true },
     });
 
-    const hasAll = requiredPermissions.every((required) =>
-      permissions.some((perm) => `${perm.module}:${perm.action}` === required),
+    const hasAllFromRole = requiredPermissions.every((required) =>
+      rolePerms.some((perm) => `${perm.module}:${perm.action}` === required),
     );
+    if (hasAllFromRole) return true;
 
-    if (!hasAll) {
-      throw new ForbiddenException('Insufficient permissions');
+    // 2) Check custom role permissions (from user.roleId)
+    if (user.roleId) {
+      const customPerms = await this.prisma.customRolePermission.findMany({
+        where: { roleId: user.roleId, isAllowed: true },
+      });
+
+      const hasAllFromCustom = requiredPermissions.every((required) =>
+        customPerms.some((perm) => `${perm.module}:${perm.action}` === required),
+      );
+      if (hasAllFromCustom) return true;
     }
 
-    return true;
+    throw new ForbiddenException('Insufficient permissions');
   }
 }

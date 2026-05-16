@@ -116,7 +116,7 @@ export default function SubjectsPage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
+                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3">
                         <BookOpen className="text-primary w-10 h-10" />
                         Subjects Registry
                     </h1>
@@ -128,7 +128,7 @@ export default function SubjectsPage() {
                         <input
                             type="text"
                             placeholder="Search subjects..."
-                            className="pl-12 pr-6 py-3.5 bg-card border-2 border-border rounded-2xl focus:border-primary outline-none w-64 lg:w-80 shadow-sm transition-all text-sm font-medium"
+                            className="pl-12 pr-6 py-3.5 border-2 border-primary/60 rounded-2xl focus:border-primary outline-none w-64 lg:w-80 shadow-sm transition-all text-sm font-medium"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
@@ -148,7 +148,7 @@ export default function SubjectsPage() {
             </div>
 
             {/* Subjects Table */}
-            <div className="bg-card border border-border rounded-[2.5rem] shadow-sm overflow-hidden border-t-4 border-t-primary/20">
+            <div className="bg-white/75 border border-border rounded-[2.5rem] shadow-sm overflow-hidden border-t-4 border-t-primary/20">
                 <div className="overflow-x-auto">
                     <table className="w-full border-collapse">
                         <thead>
@@ -239,7 +239,7 @@ export default function SubjectsPage() {
             {/* Create/Edit Modal */}
             {isModalOpen && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-in fade-in duration-300">
-                    <div className="bg-card w-full max-w-lg rounded-[3rem] border border-border shadow-2xl animate-in zoom-in-95 duration-300 overflow-hidden">
+                    <div className="bg-white/75 w-full max-w-lg rounded-[3rem] border border-border shadow-2xl animate-in zoom-in-95 duration-300 overflow-hidden">
                         <form onSubmit={handleCreateOrUpdate}>
                             <div className="p-12 border-b border-border bg-muted/20">
                                 <h3 className="text-h1 font-semibold">{selectedSubject ? "Edit Subject" : "Create Subject"}</h3>
@@ -251,7 +251,7 @@ export default function SubjectsPage() {
                                     <input
                                         required
                                         placeholder="e.g. Mathematics, English Language"
-                                        className="w-full p-5 bg-background border-2 border-border rounded-2xl focus:border-primary outline-none transition-all font-bold text-xl"
+                                        className="w-full p-5 bg-white border-2 border-primary/90 rounded-2xl focus:border-primary outline-none transition-all font-bold text-xl"
                                         value={formData.name}
                                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                     />
@@ -260,7 +260,7 @@ export default function SubjectsPage() {
                                     <label className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">Subject Code (Optional)</label>
                                     <input
                                         placeholder="e.g. MATH-101"
-                                        className="w-full p-5 bg-background border-2 border-border rounded-2xl focus:border-primary outline-none transition-all font-semibold font-mono uppercase tracking-widest"
+                                        className="w-full p-5 bg-white border-2 border-primary/90 rounded-2xl focus:border-primary outline-none transition-all font-semibold font-mono uppercase tracking-widest"
                                         value={formData.code}
                                         onChange={(e) => setFormData({ ...formData, code: e.target.value })}
                                     />
@@ -280,7 +280,7 @@ export default function SubjectsPage() {
             {/* Assign Teacher Modal */}
             {isAssignModalOpen && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-in fade-in">
-                    <div className="bg-card w-full max-w-lg rounded-[3rem] border border-border shadow-2xl overflow-hidden">
+                    <div className="bg-white/75 w-full max-w-lg rounded-[3rem] border border-border shadow-2xl overflow-hidden">
                         <form onSubmit={handleAssignTeacher}>
                             <div className="p-12 border-b border-border bg-muted/20">
                                 <h3 className="text-h3 font-semibold">Assign Subject Teacher</h3>
@@ -291,7 +291,7 @@ export default function SubjectsPage() {
                                     <label className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">Select Teacher</label>
                                     <select
                                         required
-                                        className="w-full p-5 bg-background border-2 border-border rounded-2xl focus:border-primary outline-none transition-all font-bold appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M5%207L10%2012L15%207%22%20stroke%3D%22%236B7280%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E')] bg-[length:24px] bg-[right_1.25rem_center] bg-no-repeat"
+                                        className="w-full p-5 bg-white border-2 border-primary/90 rounded-2xl focus:border-primary outline-none transition-all font-bold appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M5%207L10%2012L15%207%22%20stroke%3D%22%236B7280%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E')] bg-[length:24px] bg-[right_1.25rem_center] bg-no-repeat"
                                         value={selectedTeacherId}
                                         onChange={(e) => setSelectedTeacherId(e.target.value)}
                                     >

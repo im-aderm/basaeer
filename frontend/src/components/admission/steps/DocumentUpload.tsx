@@ -91,7 +91,7 @@ function UploadField({ label, field, value, required, category }: UploadFieldPro
   };
 
   return (
-    <div className="flex flex-col gap-3 p-6 bg-muted/30 rounded-[2rem] border border-border transition-all hover:border-primary/30">
+    <div className="flex flex-col gap-3 p-6 bg-muted/30 rounded-[2rem] border border-border transition-all hover:border-primary/60">
       <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">
         {label} {required && "*"}
       </Label>
@@ -110,7 +110,7 @@ function UploadField({ label, field, value, required, category }: UploadFieldPro
           type="button"
           onClick={() => fileInputRef.current?.click()}
           disabled={uploading}
-          className="flex items-center gap-2 px-6 py-3 bg-white border-2 border-dashed border-primary/30 rounded-xl hover:border-primary hover:text-primary transition-all font-bold text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+          className="flex items-center gap-2 px-6 py-3 bg-white border-2 border-dashed border-primary/60 rounded-xl hover:border-primary hover:text-primary transition-all font-bold text-sm disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {uploading ? (
             <>

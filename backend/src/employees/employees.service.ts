@@ -39,7 +39,7 @@ export class EmployeesService {
     }
 
     const tempPassword = crypto.randomBytes(8).toString('hex');
-    const hashedPassword = await bcrypt.hash(password || tempPassword, 10);
+    const hashedPassword = await bcrypt.hash(password || tempPassword, 8);
 
     // Transaction: Create User + Staff
     return this.prisma.$transaction(async (tx) => {
@@ -51,7 +51,7 @@ export class EmployeesService {
           firstName,
           lastName,
           phone,
-          role: UserRole.HR,
+          role: role || UserRole.TEACHER,
           branchId,
         },
       });

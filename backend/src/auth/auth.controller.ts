@@ -6,6 +6,8 @@ import {
   Body,
   UnauthorizedException,
   Get,
+  Patch,
+  Param,
   ForbiddenException,
   Res,
 } from '@nestjs/common';
@@ -22,6 +24,8 @@ import { LoginDto } from './dto/login.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { RegisterUserDto } from './dto/register-user.dto';
+import { UpdateProfileDto } from './dto/update-profile.dto';
+import { AdminResetPasswordDto } from './dto/admin-reset-password.dto';
 import { GetTenantContext } from './tenant-context.decorator';
 import { TenantContext } from './branch.guard';
 import { AuditService } from '../audit/audit.service';
@@ -131,6 +135,56 @@ export class AuthController {
   @Get('profile')
   async getProfile(@GetTenantContext() tenantContext: TenantContext) {
     return this.authService.getFullProfile(tenantContext.userId, tenantContext);
+  }
+
+  @UseGuards(JwtAuthGuard, BranchGuard)
+  @ApiBearerAuth()
+  @ApiBody({ type: UpdateProfileDto })
+  @ApiResponse({ status: 200, description: 'Profile updated successfully' })
+  @ApiOperation({ summary: 'Update Profile' })
+  @Patch('profile')
+  async updateProfile(
+    @Body() dto: UpdateProfileDto,
+    @GetTenantContext() tenantContext: TenantContext,
+  ) {
+    return this.authService.updateProfile(tenantContext.userId, dto, tenantContext);
+  }
+
+  @UseGuards(JwtAuthGuard, BranchGuard)
+  @ApiBearerAuth()
+  @ApiBody({ schema: { type: 'object', properties: { branchId: { type: 'string' } } } })
+  @ApiResponse({ status: 200, description: 'Branch context selected' })
+  @ApiOperation({ summary: 'Select Branch Context' })
+  @Post('select-branch')
+  async selectBranch(
+    @Body('branchId') branchId: string,
+    @GetTenantContext() tenantContext: TenantContext,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    const result = await this.authService.updateSelectedBranch(tenantContext.userId, branchId, tenantContext);
+    // Update the httpOnly cookie with the new JWT
+    response.cookie('access_token', result.access_token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+    return result;
+  }
+
+  @UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+  @ApiBearerAuth()
+  @ApiBody({ type: AdminResetPasswordDto })
+  @ApiResponse({ status: 200, description: 'Password reset successfully' })
+  @ApiOperation({ summary: 'Admin Reset User Password' })
+  @Post('admin/reset-password/:userId')
+  async adminResetPassword(
+    @Param('userId') userId: string,
+    @Body() dto: AdminResetPasswordDto,
+    @GetTenantContext() tenantContext: TenantContext,
+  ) {
+    return this.authService.adminResetPassword(tenantContext.userId, userId, dto.newPassword, tenantContext);
   }
 
   @Throttle({ default: { limit: 3, ttl: 60000 } })

@@ -157,6 +157,18 @@ exports.Prisma.LoginDeactivationScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.RoleScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  description: 'description',
+  branchId: 'branchId',
+  isSystem: 'isSystem',
+  priority: 'priority',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
@@ -167,6 +179,7 @@ exports.Prisma.UserScalarFieldEnum = {
   isActive: 'isActive',
   mustChangePassword: 'mustChangePassword',
   role: 'role',
+  roleId: 'roleId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   branchId: 'branchId',
@@ -975,6 +988,14 @@ exports.Prisma.GlobalSettingScalarFieldEnum = {
 exports.Prisma.RolePermissionScalarFieldEnum = {
   id: 'id',
   role: 'role',
+  module: 'module',
+  action: 'action',
+  isAllowed: 'isAllowed'
+};
+
+exports.Prisma.CustomRolePermissionScalarFieldEnum = {
+  id: 'id',
+  roleId: 'roleId',
   module: 'module',
   action: 'action',
   isAllowed: 'isAllowed'
@@ -2317,6 +2338,7 @@ exports.Prisma.ModelName = {
   Branch: 'Branch',
   DeactivationReason: 'DeactivationReason',
   LoginDeactivation: 'LoginDeactivation',
+  Role: 'Role',
   User: 'User',
   UserPreference: 'UserPreference',
   ModuleConfiguration: 'ModuleConfiguration',
@@ -2376,6 +2398,7 @@ exports.Prisma.ModelName = {
   TahfeezMemorizationProgress: 'TahfeezMemorizationProgress',
   GlobalSetting: 'GlobalSetting',
   RolePermission: 'RolePermission',
+  CustomRolePermission: 'CustomRolePermission',
   AuditLog: 'AuditLog',
   ExpenseCategory: 'ExpenseCategory',
   Voucher: 'Voucher',

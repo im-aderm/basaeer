@@ -48,7 +48,7 @@ export default function ChildProfilePage() {
         fetchData();
     }, [id]);
 
-    if (loading) return <div className="flex h-96 items-center justify-center font-semibold animate-pulse uppercase">Loading Profile...</div>;
+    if (loading) return <div className="flex h-96 items-center justify-center font-semibold animate-pulse">Loading Profile...</div>;
     if (!child) return null;
 
     const sections = [
@@ -90,7 +90,7 @@ export default function ChildProfilePage() {
                     <ChevronLeft className="h-6 w-6" />
                 </Button>
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight uppercase">Child Profile</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Child Profile</h1>
                     <p className="text-muted-foreground font-medium mt-1">Detailed overview for {child.firstName}.</p>
                 </div>
             </div>
@@ -107,7 +107,7 @@ export default function ChildProfilePage() {
                     </div>
                     <CardContent className="pt-16 pb-8 text-center space-y-4">
                         <div>
-                            <h2 className="text-h3 font-semibold uppercase">{child.firstName} {child.lastName}</h2>
+                            <h2 className="text-h3 font-semibold">{child.firstName} {child.lastName}</h2>
                             <p className="text-muted-foreground font-bold text-sm">{child.class?.name} • Section {child.section?.name}</p>
                         </div>
                         <div className="flex flex-wrap justify-center gap-2">
@@ -141,7 +141,7 @@ export default function ChildProfilePage() {
                                         <div className="flex-1">
                                             <div className="flex justify-between items-start">
                                                 <div>
-                                                    <h3 className="text-h3 font-semibold uppercase">{section.title}</h3>
+                                                    <h3 className="text-h3 font-semibold">{section.title}</h3>
                                                     <p className="text-xs font-medium text-muted-foreground leading-relaxed">{section.description}</p>
                                                 </div>
                                                 <div className="text-xs font-semibold text-primary uppercase bg-primary/10 px-3 py-1 rounded-full">
@@ -179,7 +179,7 @@ export default function ChildProfilePage() {
                                 <div className="space-y-1">
                                     <div className="text-lg font-semibold">#{child.invoices[0].invoiceNumber}</div>
                                     <div className="text-h3 font-semibold text-rose-500">${child.invoices[0].balance}</div>
-                                    <p className="text-[10px] font-bold opacity-50 uppercase">Due: {new Date(child.invoices[0].dueDate).toLocaleDateString()}</p>
+                                    <p className="text-[10px] font-bold opacity-50">Due: {new Date(child.invoices[0].dueDate).toLocaleDateString()}</p>
                                 </div>
                             ) : (
                                 <p className="text-sm font-bold opacity-40">No pending invoices</p>

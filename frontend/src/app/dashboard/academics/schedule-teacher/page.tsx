@@ -111,7 +111,7 @@ export default function TeacherSchedulePage() {
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/20 p-6">
             {/* Header */}
             <div className="mb-8">
-                <h1 className="text-h1 font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                <h1 className="text-h1 font-bold tracking-tight text-primary">
                     Teacher Schedule
                 </h1>
                 <p className="text-slate-600 mt-2">

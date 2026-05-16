@@ -34,7 +34,7 @@ export default function ClassesPage() {
         try {
             const [classesData, teachersData] = await Promise.all([
                 ClassService.getAll(),
-                StaffService.getAllTeachers()
+                StaffService.getAllTeachers().catch(() => []),
             ]);
             setClasses(classesData);
             setTeachers(teachersData);
@@ -49,8 +49,9 @@ export default function ClassesPage() {
         e.preventDefault();
         setSubmitting(true);
         try {
-            await ClassService.create({ name: newClassName });
+            await ClassService.create({ name: newClassName, classTeacherId: selectedTeacherId || undefined });
             setNewClassName("");
+            setSelectedTeacherId("");
             setIsCreateModalOpen(false);
             fetchData();
         } catch (error) {
@@ -105,7 +106,7 @@ export default function ClassesPage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-h1 flex items-center gap-3">
+                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3">
                         <School className="text-primary w-7 h-7" />
                         Classes &amp; Sections
                     </h1>
@@ -123,7 +124,7 @@ export default function ClassesPage() {
             {/* Classes Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {classes.map((cls) => (
-                    <div key={cls.id} className="group bg-card border border-border rounded-2xl overflow-hidden hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 flex flex-col h-full border-t-4 border-t-primary/20 hover:border-t-primary">
+                    <div key={cls.id} className="group bg-white/75 border border-border rounded-2xl overflow-hidden hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 flex flex-col h-full border-t-4 border-t-primary/20 hover:border-t-primary">
                         <div className="p-6 pb-3">
                             <div className="flex items-start justify-between">
                                 <div className="space-y-1">
@@ -181,7 +182,7 @@ export default function ClassesPage() {
                                 </div>
                                 <div className="flex flex-wrap gap-2">
                                     {cls.sections.map(section => (
-                                        <span key={section.id} className="px-3 py-1.5 bg-card border border-border rounded-lg text-body shadow-sm hover:border-primary/30 transition-colors cursor-default">
+                                        <span key={section.id} className="px-3 py-1.5 bg-white/75 border border-border rounded-lg text-body shadow-sm hover:border-primary/60 transition-colors cursor-default">
                                             {section.name}
                                         </span>
                                     ))}
@@ -198,7 +199,7 @@ export default function ClassesPage() {
             {/* Create Class Modal */}
             {isCreateModalOpen && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-in fade-in duration-300">
-                    <div className="bg-card w-full max-w-md rounded-2xl border border-border shadow-2xl animate-in zoom-in-95 duration-300 overflow-hidden">
+                    <div className="bg-white/75 w-full max-w-md rounded-2xl border border-border shadow-2xl animate-in zoom-in-95 duration-300 overflow-hidden">
                         <form onSubmit={handleCreateClass}>
                             <div className="p-8 border-b border-border bg-muted/20">
                                 <h3 className="text-h3">New Academic Class</h3>
@@ -210,10 +211,26 @@ export default function ClassesPage() {
                                     <input
                                         required
                                         placeholder="e.g. Primary One, JS 1"
-                                        className="w-full p-3 bg-background border border-border rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/10 outline-none transition-all text-body"
+                                        className="w-full p-3 bg-white border border-primary/90 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/10 outline-none transition-all text-body"
                                         value={newClassName}
                                         onChange={(e) => setNewClassName(e.target.value)}
                                     />
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-label">Class Teacher <span className="text-red-500">*</span></label>
+                                    <select
+                                        required
+                                        value={selectedTeacherId}
+                                        onChange={(e) => setSelectedTeacherId(e.target.value)}
+                                        className="w-full p-3 bg-white border border-primary/90 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/10 outline-none transition-all"
+                                    >
+                                        <option value="">-- Select a teacher --</option>
+                                        {teachers.map(t => (
+                                            <option key={t.id} value={t.id}>
+                                                {t.user?.firstName} {t.user?.lastName} {t.designation ? `(${t.designation})` : ""}
+                                            </option>
+                                        ))}
+                                    </select>
                                 </div>
                             </div>
                             <div className="p-8 border-t border-border bg-muted/20 flex gap-3">
@@ -241,7 +258,7 @@ export default function ClassesPage() {
             {/* Add Section Modal */}
             {isSectionModalOpen && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-in fade-in">
-                    <div className="bg-card w-full max-w-md rounded-2xl border border-border shadow-2xl overflow-hidden">
+                    <div className="bg-white/75 w-full max-w-md rounded-2xl border border-border shadow-2xl overflow-hidden">
                         <form onSubmit={handleAddSection}>
                             <div className="p-8 border-b border-border bg-muted/20">
                                 <h3 className="text-h3">Add Section to {selectedClass?.name}</h3>
@@ -252,7 +269,7 @@ export default function ClassesPage() {
                                     <input
                                         required
                                         placeholder="e.g. A, Blue, Diamond"
-                                        className="w-full p-3 bg-background border border-border rounded-xl focus:border-primary outline-none transition-all text-body"
+                                        className="w-full p-3 bg-white border border-primary/90 rounded-xl focus:border-primary outline-none transition-all text-body"
                                         value={newSectionName}
                                         onChange={(e) => setNewSectionName(e.target.value)}
                                     />
@@ -270,7 +287,7 @@ export default function ClassesPage() {
             {/* Assign Teacher Modal */}
             {isAssignModalOpen && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-in fade-in">
-                    <div className="bg-card w-full max-w-md rounded-2xl border border-border shadow-2xl overflow-hidden">
+                    <div className="bg-white/75 w-full max-w-md rounded-2xl border border-border shadow-2xl overflow-hidden">
                         <form onSubmit={handleAssignTeacher}>
                             <div className="p-8 border-b border-border bg-muted/20">
                                 <h3 className="text-h3">Assign Class Teacher</h3>
@@ -281,7 +298,7 @@ export default function ClassesPage() {
                                     <label className="text-label">Select Teacher</label>
                                     <select
                                         required
-                                        className="w-full p-3 bg-background border border-border rounded-xl focus:border-primary outline-none transition-all text-body appearance-none"
+                                        className="w-full p-3 bg-white border border-primary/90 rounded-xl focus:border-primary outline-none transition-all text-body appearance-none"
                                         value={selectedTeacherId}
                                         onChange={(e) => setSelectedTeacherId(e.target.value)}
                                     >

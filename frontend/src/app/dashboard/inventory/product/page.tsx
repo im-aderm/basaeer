@@ -1,4 +1,5 @@
 'use client';
+import RequireBranch from "@/components/RequireBranch";
 
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
@@ -14,7 +15,7 @@ import { InventoryService, InventoryProduct } from '@/services/inventoryService'
 import { toast } from 'sonner';
 
 export default function InventoryProductPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [products, setProducts] = useState<InventoryProduct[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
@@ -33,9 +34,9 @@ export default function InventoryProductPage() {
     });
 
     const fetchProducts = async () => {
-        if (!user?.branchId) return;
+        if (!resolvedBranchId) return;
         try {
-            const data = await InventoryService.getProducts(user.branchId);
+            const data = await InventoryService.getProducts(resolvedBranchId);
             setProducts(data);
         } catch (error) {
             toast.error('Failed to load products');
@@ -45,12 +46,12 @@ export default function InventoryProductPage() {
     };
 
     const fetchDependencies = async () => {
-        if (!user?.branchId) return;
+        if (!resolvedBranchId) return;
         try {
             const [c, s, u] = await Promise.all([
-                InventoryService.getCategories(user.branchId),
-                InventoryService.getStores(user.branchId),
-                InventoryService.getUnits(user.branchId)
+                InventoryService.getCategories(resolvedBranchId),
+                InventoryService.getStores(resolvedBranchId),
+                InventoryService.getUnits(resolvedBranchId)
             ]);
             setCategories(c);
             setStores(s);
@@ -61,12 +62,12 @@ export default function InventoryProductPage() {
     useEffect(() => {
         fetchProducts();
         fetchDependencies();
-    }, [user?.branchId]);
+    }, [resolvedBranchId]);
 
     const handleCreate = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await InventoryService.createProduct({ ...formData, branchId: user?.branchId });
+            await InventoryService.createProduct({ ...formData, branchId: resolvedBranchId });
             toast.success('Product added successfully');
             setIsAddDialogOpen(false);
             setFormData({ name: '', categoryId: '', storeId: '', unitId: '', code: '', description: '', costPrice: 0, sellingPrice: 0 });
@@ -95,10 +96,11 @@ export default function InventoryProductPage() {
     };
 
     return (
+            <RequireBranch>
         <div className="max-w-7xl mx-auto space-y-8 pb-20">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight uppercase text-primary">Product Catalog</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Product Catalog</h1>
                     <p className="text-muted-foreground font-medium mt-1">Manage and organize all inventory items and assets.</p>
                 </div>
                 <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
@@ -110,56 +112,56 @@ export default function InventoryProductPage() {
                     </DialogTrigger>
                     <DialogContent className="rounded-[2.5rem] max-w-2xl border-none shadow-2xl">
                         <DialogHeader>
-                            <DialogTitle className="text-h3 font-semibold uppercase">New Product Registration</DialogTitle>
+                            <DialogTitle className="text-h3 font-semibold">New Product Registration</DialogTitle>
                             <DialogDescription className="font-bold">Enter the product details to add it to your inventory.</DialogDescription>
                         </DialogHeader>
                         <form onSubmit={handleCreate} className="space-y-4 pt-4">
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="space-y-2">
                                     <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Product Name</Label>
-                                    <Input required className="h-12 rounded-xl bg-muted/50 border-none font-bold focus-visible:ring-primary" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} />
+                                    <Input required className="h-12 rounded-xl font-bold focus-visible:ring-primary" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} />
                                 </div>
                                 <div className="space-y-2">
                                     <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Product Code</Label>
-                                    <Input className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={formData.code} onChange={(e) => setFormData({ ...formData, code: e.target.value })} />
+                                    <Input className="h-12 rounded-xl font-bold" value={formData.code} onChange={(e) => setFormData({ ...formData, code: e.target.value })} />
                                 </div>
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="space-y-2">
                                     <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Cost Price</Label>
-                                    <Input type="number" className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={formData.costPrice} onChange={(e) => setFormData({ ...formData, costPrice: parseFloat(e.target.value) || 0 })} />
+                                    <Input type="number" className="h-12 rounded-xl font-bold" value={formData.costPrice} onChange={(e) => setFormData({ ...formData, costPrice: parseFloat(e.target.value) || 0 })} />
                                 </div>
                                 <div className="space-y-2">
                                     <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Selling Price</Label>
-                                    <Input type="number" className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={formData.sellingPrice} onChange={(e) => setFormData({ ...formData, sellingPrice: parseFloat(e.target.value) || 0 })} />
+                                    <Input type="number" className="h-12 rounded-xl font-bold" value={formData.sellingPrice} onChange={(e) => setFormData({ ...formData, sellingPrice: parseFloat(e.target.value) || 0 })} />
                                 </div>
                             </div>
                             <div className="grid grid-cols-3 gap-4">
                                 <div className="space-y-2">
                                     <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Category</Label>
                                     <Select onValueChange={(v) => setFormData({ ...formData, categoryId: v })}>
-                                        <SelectTrigger className="h-12 rounded-xl bg-muted/50 border-none font-bold"><SelectValue placeholder="Select" /></SelectTrigger>
+                                        <SelectTrigger className="h-12 rounded-xl font-bold"><SelectValue placeholder="Select" /></SelectTrigger>
                                         <SelectContent className="rounded-xl">{categories.map(c => <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>)}</SelectContent>
                                     </Select>
                                 </div>
                                 <div className="space-y-2">
                                     <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Store Location</Label>
                                     <Select onValueChange={(v) => setFormData({ ...formData, storeId: v })}>
-                                        <SelectTrigger className="h-12 rounded-xl bg-muted/50 border-none font-bold"><SelectValue placeholder="Select" /></SelectTrigger>
+                                        <SelectTrigger className="h-12 rounded-xl font-bold"><SelectValue placeholder="Select" /></SelectTrigger>
                                         <SelectContent className="rounded-xl">{stores.map(s => <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>)}</SelectContent>
                                     </Select>
                                 </div>
                                 <div className="space-y-2">
                                     <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Unit</Label>
                                     <Select onValueChange={(v) => setFormData({ ...formData, unitId: v })}>
-                                        <SelectTrigger className="h-12 rounded-xl bg-muted/50 border-none font-bold"><SelectValue placeholder="Select" /></SelectTrigger>
+                                        <SelectTrigger className="h-12 rounded-xl font-bold"><SelectValue placeholder="Select" /></SelectTrigger>
                                         <SelectContent className="rounded-xl">{units.map(u => <SelectItem key={u.id} value={u.id}>{u.name}</SelectItem>)}</SelectContent>
                                     </Select>
                                 </div>
                             </div>
                             <div className="space-y-2">
                                 <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Description</Label>
-                                <Input className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} />
+                                <Input className="h-12 rounded-xl font-bold" value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} />
                             </div>
                             <DialogFooter><Button type="submit" className="h-12 w-full rounded-xl font-semibold uppercase tracking-wider shadow-lg shadow-primary/20">Save Product</Button></DialogFooter>
                         </form>
@@ -169,7 +171,7 @@ export default function InventoryProductPage() {
 
             <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background/50 backdrop-blur-xl">
                 <CardHeader className="p-8 border-b border-border/50 flex flex-row items-center justify-between bg-muted/10">
-                    <CardTitle className="text-h3 font-semibold flex items-center gap-3">
+                    <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
                         <Package className="h-8 w-8 text-primary" />
                         Master Product List
                     </CardTitle>
@@ -177,7 +179,7 @@ export default function InventoryProductPage() {
                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                         <Input
                             placeholder="Filter products..."
-                            className="pl-11 h-12 rounded-2xl bg-muted/50 border-none font-bold"
+                            className="pl-11 h-12 rounded-2xl font-bold"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
@@ -262,60 +264,61 @@ export default function InventoryProductPage() {
             <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
                 <DialogContent className="rounded-[2.5rem] max-w-2xl border-none shadow-2xl">
                     <DialogHeader>
-                        <DialogTitle className="text-h3 font-semibold uppercase">Edit Product: {selectedProduct?.name}</DialogTitle>
+                        <DialogTitle className="text-h3 font-semibold">Edit Product: {selectedProduct?.name}</DialogTitle>
                     </DialogHeader>
                     <form onSubmit={handleUpdate} className="space-y-4 pt-4">
                         <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-2">
                                 <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Product Name</Label>
-                                <Input required className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} />
+                                <Input required className="h-12 rounded-xl font-bold" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} />
                             </div>
                             <div className="space-y-2">
                                 <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Product Code</Label>
-                                <Input className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={formData.code} onChange={(e) => setFormData({ ...formData, code: e.target.value })} />
+                                <Input className="h-12 rounded-xl font-bold" value={formData.code} onChange={(e) => setFormData({ ...formData, code: e.target.value })} />
                             </div>
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-2">
                                 <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Cost Price</Label>
-                                <Input type="number" className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={formData.costPrice} onChange={(e) => setFormData({ ...formData, costPrice: parseFloat(e.target.value) || 0 })} />
+                                <Input type="number" className="h-12 rounded-xl font-bold" value={formData.costPrice} onChange={(e) => setFormData({ ...formData, costPrice: parseFloat(e.target.value) || 0 })} />
                             </div>
                             <div className="space-y-2">
                                 <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Selling Price</Label>
-                                <Input type="number" className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={formData.sellingPrice} onChange={(e) => setFormData({ ...formData, sellingPrice: parseFloat(e.target.value) || 0 })} />
+                                <Input type="number" className="h-12 rounded-xl font-bold" value={formData.sellingPrice} onChange={(e) => setFormData({ ...formData, sellingPrice: parseFloat(e.target.value) || 0 })} />
                             </div>
                         </div>
                         <div className="grid grid-cols-3 gap-4">
                             <div className="space-y-2">
                                 <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Category</Label>
                                 <Select value={formData.categoryId} onValueChange={(v) => setFormData({ ...formData, categoryId: v })}>
-                                    <SelectTrigger className="h-12 rounded-xl bg-muted/50 border-none font-bold"><SelectValue placeholder="Select" /></SelectTrigger>
+                                    <SelectTrigger className="h-12 rounded-xl font-bold"><SelectValue placeholder="Select" /></SelectTrigger>
                                     <SelectContent className="rounded-xl">{categories.map(c => <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>)}</SelectContent>
                                 </Select>
                             </div>
                             <div className="space-y-2">
                                 <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Store Location</Label>
                                 <Select value={formData.storeId} onValueChange={(v) => setFormData({ ...formData, storeId: v })}>
-                                    <SelectTrigger className="h-12 rounded-xl bg-muted/50 border-none font-bold"><SelectValue placeholder="Select" /></SelectTrigger>
+                                    <SelectTrigger className="h-12 rounded-xl font-bold"><SelectValue placeholder="Select" /></SelectTrigger>
                                     <SelectContent className="rounded-xl">{stores.map(s => <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>)}</SelectContent>
                                 </Select>
                             </div>
                             <div className="space-y-2">
                                 <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Unit</Label>
                                 <Select value={formData.unitId} onValueChange={(v) => setFormData({ ...formData, unitId: v })}>
-                                    <SelectTrigger className="h-12 rounded-xl bg-muted/50 border-none font-bold"><SelectValue placeholder="Select" /></SelectTrigger>
+                                    <SelectTrigger className="h-12 rounded-xl font-bold"><SelectValue placeholder="Select" /></SelectTrigger>
                                     <SelectContent className="rounded-xl">{units.map(u => <SelectItem key={u.id} value={u.id}>{u.name}</SelectItem>)}</SelectContent>
                                 </Select>
                             </div>
                         </div>
                         <div className="space-y-2">
                             <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Description</Label>
-                            <Input className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} />
+                            <Input className="h-12 rounded-xl font-bold" value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} />
                         </div>
                         <DialogFooter><Button type="submit" className="h-12 w-full rounded-xl font-semibold uppercase tracking-wider shadow-lg shadow-primary/20">Update Product</Button></DialogFooter>
                     </form>
                 </DialogContent>
             </Dialog>
         </div>
-    );
+          </RequireBranch>
+  );
 }

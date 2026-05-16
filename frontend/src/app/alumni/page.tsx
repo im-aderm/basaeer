@@ -118,7 +118,7 @@ export default function AlumniPage() {
         <section className="max-w-7xl mx-auto px-6 lg:px-8 py-8 mb-16">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat) => (
-              <div key={stat.label} className="bg-surface-container backdrop-blur-md p-8 rounded-3xl border border-border text-center space-y-2 group hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/5 transition-all duration-300">
+              <div key={stat.label} className="bg-surface-container backdrop-blur-md p-8 rounded-3xl border border-border text-center space-y-2 group hover:border-primary/60 hover:shadow-2xl hover:shadow-primary/5 transition-all duration-300">
                 <div className="text-4xl md:text-5xl font-extrabold font-heading text-primary drop-shadow-[0_0_10px_rgba(0,160,225,0.3)]">
                   {stat.value}
                 </div>
@@ -141,7 +141,7 @@ export default function AlumniPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Story Card 1 (Sarah Ahmed) - Double Span */}
-            <div className="md:col-span-2 bg-surface-container backdrop-blur-md rounded-3xl overflow-hidden border border-border group hover:border-primary/30 transition-all duration-300">
+            <div className="md:col-span-2 bg-surface-container backdrop-blur-md rounded-3xl overflow-hidden border border-border group hover:border-primary/60 transition-all duration-300">
               <div className="grid md:grid-cols-2 h-full">
                 <div className="relative h-64 md:h-auto overflow-hidden">
                   <Image 
@@ -171,7 +171,7 @@ export default function AlumniPage() {
             </div>
 
             {/* Story Card 2 (Omar Khalid) */}
-            <div className="bg-surface-container backdrop-blur-md rounded-3xl overflow-hidden border border-border p-6 group hover:border-primary/30 transition-all duration-300 space-y-6">
+            <div className="bg-surface-container backdrop-blur-md rounded-3xl overflow-hidden border border-border p-6 group hover:border-primary/60 transition-all duration-300 space-y-6">
               <div className="relative aspect-[4/5] rounded-2xl overflow-hidden">
                 <Image 
                   alt={successStories[1].name} 
@@ -195,7 +195,7 @@ export default function AlumniPage() {
             </div>
 
             {/* Story Card 3 (Zainab Yusuf) */}
-            <div className="bg-surface-container backdrop-blur-md rounded-3xl overflow-hidden border border-border p-6 group hover:border-primary/30 transition-all duration-300 space-y-6">
+            <div className="bg-surface-container backdrop-blur-md rounded-3xl overflow-hidden border border-border p-6 group hover:border-primary/60 transition-all duration-300 space-y-6">
               <div className="relative aspect-[4/5] rounded-2xl overflow-hidden">
                 <Image 
                   alt={successStories[2].name} 
@@ -219,7 +219,7 @@ export default function AlumniPage() {
             </div>
 
             {/* Story Card 4 (Hassan Al-Farsi) - Double Span */}
-            <div className="md:col-span-2 bg-surface-container backdrop-blur-md rounded-3xl overflow-hidden border border-border group hover:border-primary/30 transition-all duration-300">
+            <div className="md:col-span-2 bg-surface-container backdrop-blur-md rounded-3xl overflow-hidden border border-border group hover:border-primary/60 transition-all duration-300">
               <div className="grid md:grid-cols-2 h-full">
                 <div className="p-8 flex flex-col justify-center space-y-4 order-2 md:order-1">
                   <span className="text-primary font-bold text-xs tracking-wider uppercase">

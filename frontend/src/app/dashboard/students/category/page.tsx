@@ -12,7 +12,7 @@ import { StudentService, StudentCategory } from '@/services/studentService';
 import { toast } from 'sonner';
 
 export default function StudentCategoryPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [categories, setCategories] = useState<StudentCategory[]>([]);
     const [loading, setLoading] = useState(true);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -23,12 +23,12 @@ export default function StudentCategoryPage() {
     });
 
     const fetchCategories = async () => {
-        if (!user?.branchId) {
+        if (!resolvedBranchId) {
             setLoading(false);
             return;
         }
         try {
-            const data = await StudentService.getCategories(user.branchId);
+            const data = await StudentService.getCategories(resolvedBranchId);
             setCategories(data);
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error('Failed to fetch categories', error);
@@ -40,7 +40,7 @@ export default function StudentCategoryPage() {
 
     useEffect(() => {
         if (user) {
-            if (user.branchId) {
+            if (resolvedBranchId) {
                 fetchCategories();
             } else {
                 setLoading(false);
@@ -53,7 +53,7 @@ export default function StudentCategoryPage() {
         try {
             await StudentService.createCategory({
                 ...formData,
-                branchId: user?.branchId
+                branchId: resolvedBranchId
             });
             setIsDialogOpen(false);
             fetchCategories();
@@ -84,7 +84,7 @@ export default function StudentCategoryPage() {
         <div className="space-y-6">
             <div className="flex justify-between items-center">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight">Student Categories</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Student Categories</h1>
                     <p className="text-muted-foreground font-medium">Categorize students for better organization and reporting.</p>
                 </div>
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -127,7 +127,7 @@ export default function StudentCategoryPage() {
 
             <Card className="rounded-[2rem] shadow-2xl shadow-primary/5 border-border/50 overflow-hidden border-t-8 border-t-primary/20">
                 <CardHeader className="pb-4">
-                    <CardTitle className="text-h3 font-semibold flex items-center gap-2">
+                    <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-2">
                         <Tag className="h-5 w-5 text-primary" />
                         Category List
                     </CardTitle>

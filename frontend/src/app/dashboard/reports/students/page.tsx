@@ -53,7 +53,7 @@ export default function StudentReportsPage() {
   return (
     <div className="max-w-7xl mx-auto space-y-8 pb-20 animate-in fade-in duration-700">
       <div>
-        <h1 className="text-h1 font-semibold tracking-tight uppercase text-primary">Student Analytics</h1>
+        <h1 className="text-h1 font-bold tracking-tight text-primary">Student Analytics</h1>
         <p className="text-muted-foreground font-medium mt-1">Enrollment, demographics, and performance insights</p>
       </div>
 

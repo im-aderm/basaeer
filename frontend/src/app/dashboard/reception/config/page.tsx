@@ -6,7 +6,7 @@ import { Save, Loader2, Settings2, Users, MessageSquare, Info, Plus, X } from "l
 import { useAuth } from "@/context/AuthContext";
 
 export default function ReceptionConfigPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [activeTab, setActiveTab] = useState<"sources" | "purposes" | "complaints">("sources");
@@ -99,7 +99,7 @@ export default function ReceptionConfigPage() {
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight">Reception Setup</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Reception Setup</h1>
                     <p className="text-muted-foreground mt-1">Configure dropdown values for the Reception module.</p>
                 </div>
                 <button
@@ -140,7 +140,7 @@ export default function ReceptionConfigPage() {
 
                 {/* Main Content */}
                 <div className="md:col-span-3">
-                    <div className="bg-card border border-border rounded-2xl p-6 space-y-6 shadow-sm">
+                    <div className="bg-white/75 border border-border rounded-2xl p-6 space-y-6 shadow-sm">
                         <div className="flex flex-col gap-2">
                             <h2 className="text-xl font-bold capitalize">{activeTab.replace('_', ' ')} Management</h2>
                             <p className="text-sm text-muted-foreground">Add or remove items that will appear in dropdown menus.</p>
@@ -153,7 +153,7 @@ export default function ReceptionConfigPage() {
                                 onChange={(e) => setNewItem(e.target.value)}
                                 onKeyDown={(e) => e.key === "Enter" && addItem()}
                                 placeholder={`New ${activeTab.slice(0, -1)}...`}
-                                className="flex-1 p-3 bg-muted/50 border border-border rounded-xl focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                className="flex-1 p-3 bg-white border border-primary/90 rounded-xl focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                             />
                             <button
                                 onClick={addItem}
@@ -189,7 +189,7 @@ export default function ReceptionConfigPage() {
                         <div className="pt-4 border-t border-border flex items-start gap-3 text-xs text-muted-foreground">
                             <Info size={14} className="mt-0.5 text-primary" />
                             <p>
-                                These values will be available globally for all users in the {user?.branchId ? 'current branch' : 'system'}.
+                                These values will be available globally for all users in the {resolvedBranchId ? 'current branch' : 'system'}.
                                 Make sure to save changes after adding or removing items.
                             </p>
                         </div>

@@ -61,7 +61,7 @@ export default function FeesReportsPage() {
   return (
     <div className="max-w-7xl mx-auto space-y-8 pb-20 animate-in fade-in duration-700">
       <div>
-        <h1 className="text-h1 font-semibold tracking-tight uppercase text-primary">Fees & Collections</h1>
+        <h1 className="text-h1 font-bold tracking-tight text-primary">Fees & Collections</h1>
         <p className="text-muted-foreground font-medium mt-1">Tuition, payment tracking, and outstanding balances</p>
       </div>
 

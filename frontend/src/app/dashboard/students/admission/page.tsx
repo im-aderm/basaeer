@@ -181,18 +181,18 @@ export default function AdmissionPage() {
                 accept="image/*,.pdf"
             />
             <div className="space-y-4">
-                <h1 className="text-6xl font-semibold tracking-tight leading-tight">Student Admission</h1>
+                <h1 className="text-h1 font-bold tracking-tight text-primary">Student Admission</h1>
                 <p className="text-muted-foreground text-xl font-medium">Simplified Enrollment & Data Harmonization.</p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-12">
                 {/* 1. Student Info */}
-                <section className="bg-card border border-border rounded-[3rem] p-8 lg:p-12 shadow-sm space-y-8">
+                <section className="bg-white/75 border border-border rounded-[3rem] p-8 lg:p-12 shadow-sm space-y-8">
                     <div className="flex items-center gap-4">
                         <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
                             <User size={24} />
                         </div>
-                        <h2 className="text-h1 font-semibold">Student Basic Info</h2>
+                        <h2 className="text-h2 font-bold tracking-tight text-primary">Student Basic Info</h2>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -206,7 +206,7 @@ export default function AdmissionPage() {
                         </div>
                         <div className="space-y-3">
                             <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Gender *</label>
-                            <select required className="input-premium appearance-none" value={formData.gender} onChange={e => setFormData({ ...formData, gender: e.target.value })}>
+                            <select required className="w-full p-4 bg-white border border-primary/90 rounded-xl outline-none transition-all text-body" value={formData.gender} onChange={e => setFormData({ ...formData, gender: e.target.value })}>
                                 <option value="MALE">Male</option>
                                 <option value="FEMALE">Female</option>
                                 <option value="OTHER">Other</option>
@@ -230,24 +230,24 @@ export default function AdmissionPage() {
                 </section>
 
                 {/* 2. Admission Details */}
-                <section className="bg-card border border-border rounded-[3rem] p-8 lg:p-12 shadow-sm space-y-8">
+                <section className="bg-white/75 border border-border rounded-[3rem] p-8 lg:p-12 shadow-sm space-y-8">
                     <div className="flex items-center gap-4">
                         <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
                             <School size={24} />
                         </div>
-                        <h2 className="text-h1 font-semibold">Admission Details</h2>
+                        <h2 className="text-h2 font-bold tracking-tight text-primary">Admission Details</h2>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div className="space-y-3">
                             <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Academic Session *</label>
-                            <select required className="input-premium appearance-none" value={formData.academicSessionId} onChange={e => setFormData({ ...formData, academicSessionId: e.target.value })}>
+                            <select required className="w-full p-4 bg-white border border-primary/90 rounded-xl outline-none transition-all text-body" value={formData.academicSessionId} onChange={e => setFormData({ ...formData, academicSessionId: e.target.value })}>
                                 {(sessions ?? []).map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
                             </select>
                         </div>
                         <div className="space-y-3">
                             <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Admission Term *</label>
-                            <select required className="input-premium appearance-none" value={formData.admissionTerm} onChange={e => setFormData({ ...formData, admissionTerm: e.target.value })}>
+                            <select required className="w-full p-4 bg-white border border-primary/90 rounded-xl outline-none transition-all text-body" value={formData.admissionTerm} onChange={e => setFormData({ ...formData, admissionTerm: e.target.value })}>
                                 <option value="FIRST">1st Term</option>
                                 <option value="SECOND">2nd Term</option>
                                 <option value="THIRD">3rd Term</option>
@@ -255,14 +255,14 @@ export default function AdmissionPage() {
                         </div>
                         <div className="space-y-3">
                             <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Class Applying For *</label>
-                            <select required className="input-premium appearance-none" value={formData.desiredClassId} onChange={e => handleClassChange(e.target.value)}>
+                            <select required className="w-full p-4 bg-white border border-primary/90 rounded-xl outline-none transition-all text-body" value={formData.desiredClassId} onChange={e => handleClassChange(e.target.value)}>
                                 <option value="">Select Class...</option>
                                 {(classes ?? []).map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
                             </select>
                         </div>
                         <div className="space-y-3">
                             <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Admission Type</label>
-                            <select className="input-premium appearance-none" value={formData.admissionType} onChange={e => setFormData({ ...formData, admissionType: e.target.value })}>
+                            <select className="w-full p-4 bg-white border border-primary/90 rounded-xl outline-none transition-all text-body" value={formData.admissionType} onChange={e => setFormData({ ...formData, admissionType: e.target.value })}>
                                 <option value="NEW">New Student</option>
                                 <option value="TRANSFER">Transfer Student</option>
                                 <option value="RETURNING">Returning Student</option>
@@ -272,13 +272,13 @@ export default function AdmissionPage() {
                 </section>
 
                 {/* 3. Parent / Guardian */}
-                <section className="bg-card border border-border rounded-[3rem] p-8 lg:p-12 shadow-sm space-y-8">
+                <section className="bg-white/75 border border-border rounded-[3rem] p-8 lg:p-12 shadow-sm space-y-8">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
                             <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
                                 <ShieldCheck size={24} />
                             </div>
-                            <h2 className="text-h1 font-semibold">Parent / Guardian Info</h2>
+                            <h2 className="text-h2 font-bold tracking-tight text-primary">Parent / Guardian Info</h2>
                         </div>
                         <div className="flex items-center gap-4 bg-muted/20 p-2 rounded-2xl border border-border">
                             <button
@@ -304,7 +304,7 @@ export default function AdmissionPage() {
                                 <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Select Existing Parent *</label>
                                 <select
                                     required
-                                    className="input-premium appearance-none"
+                                    className="w-full p-4 bg-white border border-primary/90 rounded-xl outline-none transition-all text-body"
                                     value={formData.parentId}
                                     onChange={e => {
                                         const parent = parents.find(p => p.id === e.target.value);
@@ -359,12 +359,12 @@ export default function AdmissionPage() {
                 </section>
 
                 {/* 4. Contact & Medical */}
-                <section className="bg-card border border-border rounded-[3rem] p-8 lg:p-12 shadow-sm space-y-8">
+                <section className="bg-white/75 border border-border rounded-[3rem] p-8 lg:p-12 shadow-sm space-y-8">
                     <div className="flex items-center gap-4">
                         <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
                             <MapPin size={24} />
                         </div>
-                        <h2 className="text-h1 font-semibold">Contact & Medical</h2>
+                        <h2 className="text-h2 font-bold tracking-tight text-primary">Contact <h2 className="text-h2 font-bold tracking-tight text-primary">Contact & Medical</h2> Medical</h2>
                     </div>
 
                     <div className="space-y-3">
@@ -375,7 +375,7 @@ export default function AdmissionPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div className="space-y-3">
                             <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Blood Group</label>
-                            <select className="input-premium appearance-none" value={formData.bloodGroup} onChange={e => setFormData({ ...formData, bloodGroup: e.target.value })}>
+                            <select className="w-full p-4 bg-white border border-primary/90 rounded-xl outline-none transition-all text-body" value={formData.bloodGroup} onChange={e => setFormData({ ...formData, bloodGroup: e.target.value })}>
                                 <option value="">Select...</option>
                                 <option value="A+">A+</option><option value="A-">A-</option>
                                 <option value="B+">B+</option><option value="B-">B-</option>
@@ -385,7 +385,7 @@ export default function AdmissionPage() {
                         </div>
                         <div className="space-y-3">
                             <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Genotype</label>
-                            <select className="input-premium appearance-none" value={formData.genotype} onChange={e => setFormData({ ...formData, genotype: e.target.value })}>
+                            <select className="w-full p-4 bg-white border border-primary/90 rounded-xl outline-none transition-all text-body" value={formData.genotype} onChange={e => setFormData({ ...formData, genotype: e.target.value })}>
                                 <option value="">Select...</option>
                                 <option value="AA">AA</option><option value="AS">AS</option>
                                 <option value="SS">SS</option><option value="AC">AC</option>
@@ -395,12 +395,12 @@ export default function AdmissionPage() {
                 </section>
 
                 {/* 5. Documents & Consent */}
-                <section className="bg-card border border-border rounded-[3rem] p-8 lg:p-12 shadow-sm space-y-8">
+                <section className="bg-white/75 border border-border rounded-[3rem] p-8 lg:p-12 shadow-sm space-y-8">
                     <div className="flex items-center gap-4">
                         <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
                             <FileText size={24} />
                         </div>
-                        <h2 className="text-h1 font-semibold">Documents & Consent</h2>
+                        <h2 className="text-h2 font-bold tracking-tight text-primary">Documents <h2 className="text-h2 font-bold tracking-tight text-primary">Documents & Consent</h2> Consent</h2>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

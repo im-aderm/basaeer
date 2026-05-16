@@ -35,7 +35,7 @@ export default function QRSubmissionsPage() {
         <div className="max-w-6xl mx-auto space-y-8 animate-in fade-in duration-700 pb-20">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight uppercase">Scan Audit Trail</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Scan Audit Trail</h1>
                     <p className="text-muted-foreground font-medium">Real-time log of all QR scans across the campus.</p>
                 </div>
                 <Button variant="outline" className="h-12 px-6 rounded-2xl font-bold gap-2" onClick={fetchScans}>

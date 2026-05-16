@@ -12,8 +12,9 @@
     "test": "npm run test --workspaces"
   },
   "dependencies": {
-    "ts-node": "^10.9.2",
-    "dotenv": "^17.2.4"
+    "dotenv": "^17.2.4",
+    "framer-motion": "^12.38.0",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@netlify/plugin-nextjs": "^5.15.8"

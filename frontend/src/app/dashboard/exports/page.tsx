@@ -77,14 +77,14 @@ export default function ExportDashboardPage() {
         <div className="p-6 space-y-6">
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-h1 font-bold text-gray-900">Export Management</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Export Management</h1>
                     <p className="text-gray-600 mt-1">
                         Track and manage your academic record exports
                     </p>
                 </div>
                 <button
                     onClick={() => { setRefreshing(true); loadExports(); }}
-                    className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors"
+                    className="flex items-center gap-2 px-4 py-2 bg-white border border-primary/60 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors"
                 >
                     <RefreshCw className={`w-4 h-4 ${refreshing ? 'animate-spin' : ''}`} />
                     Refresh
@@ -96,16 +96,16 @@ export default function ExportDashboardPage() {
                     <Loader2 className="w-10 h-10 text-blue-500 animate-spin" />
                 </div>
             ) : exports.length === 0 ? (
-                <div className="bg-white rounded-xl p-12 text-center border border-dashed border-gray-200">
+                <div className="bg-white rounded-xl p-12 text-center border border-dashed border-primary/60">
                     <FileText className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium text-gray-900">No exports found</h3>
+                    <h3 className="text-h3 font-bold tracking-tight text-primary">No exports found</h3>
                     <p className="text-gray-500">Trigger an export from the academic pages to see it here.</p>
                 </div>
             ) : (
-                <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                <div className="bg-white rounded-xl shadow-sm border border-primary/60 overflow-hidden">
                     <table className="w-full text-left">
                         <thead>
-                            <tr className="bg-gray-50 border-b border-gray-200">
+                            <tr className="bg-gray-50 border-b border-primary/60">
                                 <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Type</th>
                                 <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
                                 <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Progress</th>

@@ -86,7 +86,7 @@ export default function QueuesPage() {
         <div className="max-w-7xl mx-auto space-y-8 pb-20">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight">Queue Monitoring</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Queue Monitoring</h1>
                     <p className="text-muted-foreground font-medium mt-1">
                         Monitor and manage background job processors (BullMQ).
                     </p>
@@ -174,23 +174,23 @@ export default function QueuesPage() {
 
                                     <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                                         <div className="p-4 rounded-2xl bg-muted/30 border border-border/50 text-center">
-                                            <p className="text-xs font-bold text-muted-foreground uppercase">Active</p>
+                                            <p className="text-xs font-bold text-muted-foreground">Active</p>
                                             <p className="text-xl font-black mt-1 text-blue-600">{queue.active}</p>
                                         </div>
                                         <div className="p-4 rounded-2xl bg-muted/30 border border-border/50 text-center">
-                                            <p className="text-xs font-bold text-muted-foreground uppercase">Waiting</p>
+                                            <p className="text-xs font-bold text-muted-foreground">Waiting</p>
                                             <p className="text-xl font-black mt-1 text-amber-600">{queue.waiting}</p>
                                         </div>
                                         <div className="p-4 rounded-2xl bg-muted/30 border border-border/50 text-center">
-                                            <p className="text-xs font-bold text-muted-foreground uppercase">Delayed</p>
+                                            <p className="text-xs font-bold text-muted-foreground">Delayed</p>
                                             <p className="text-xl font-black mt-1 text-purple-600">{queue.delayed}</p>
                                         </div>
                                         <div className="p-4 rounded-2xl bg-muted/30 border border-border/50 text-center">
-                                            <p className="text-xs font-bold text-muted-foreground uppercase">Completed</p>
+                                            <p className="text-xs font-bold text-muted-foreground">Completed</p>
                                             <p className="text-xl font-black mt-1 text-emerald-600">{queue.completed}</p>
                                         </div>
                                         <div className="p-4 rounded-2xl bg-muted/30 border border-border/50 text-center">
-                                            <p className="text-xs font-bold text-muted-foreground uppercase">Failed</p>
+                                            <p className="text-xs font-bold text-muted-foreground">Failed</p>
                                             <p className="text-xl font-black mt-1 text-rose-600">{queue.failed}</p>
                                         </div>
                                     </div>

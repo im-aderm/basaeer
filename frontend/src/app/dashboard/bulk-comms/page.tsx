@@ -49,7 +49,7 @@ export default function BulkCommsPage() {
     return (
         <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in duration-500 pb-20">
             <div>
-                <h1 className="text-h1 font-semibold tracking-tight uppercase">Bulk Communications</h1>
+                <h1 className="text-h1 font-bold tracking-tight text-primary">Bulk Communications</h1>
                 <p className="text-muted-foreground font-medium mt-1">Broadcast important notices to parents, students, and staff via SMS and Email.</p>
             </div>
 
@@ -58,7 +58,7 @@ export default function BulkCommsPage() {
                 <Card className="lg:col-span-2 rounded-[3rem] border-border/50 shadow-xl overflow-hidden bg-background">
                     <CardHeader className="p-8 border-b border-border/50 bg-muted/10">
                         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                            <CardTitle className="text-h3 font-semibold flex items-center gap-3">
+                            <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
                                 {mode === 'EMAIL' ? <Mail className="text-primary w-6 h-6" /> : <MessageSquare className="text-primary w-6 h-6" />}
                                 Composer
                             </CardTitle>
@@ -87,7 +87,7 @@ export default function BulkCommsPage() {
                             <div className="space-y-3">
                                 <label className="text-sm font-semibold tracking-widest uppercase text-muted-foreground">Target Audience</label>
                                 <select 
-                                    className="flex h-14 w-full rounded-2xl border border-input bg-transparent px-4 py-2 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary font-medium"
+                                    className="flex h-14 w-full rounded-2xl border-primary/90 bg-white/75 px-4 py-2 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary font-medium"
                                     value={recipientGroup}
                                     onChange={(e) => setRecipientGroup(e.target.value)}
                                 >
@@ -99,7 +99,7 @@ export default function BulkCommsPage() {
                             </div>
                             <div className="space-y-3">
                                 <label className="text-sm font-semibold tracking-widest uppercase text-muted-foreground">Quick Templates</label>
-                                <select className="flex h-14 w-full rounded-2xl border border-input bg-transparent px-4 py-2 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary font-medium">
+                                <select className="flex h-14 w-full rounded-2xl border-primary/90 bg-white/75 px-4 py-2 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary font-medium">
                                     <option value="">Start from scratch...</option>
                                     <option value="fee_reminder">Tuition Fee Reminder</option>
                                     <option value="holiday_greeting">Holiday/Eid Greeting</option>
@@ -112,7 +112,7 @@ export default function BulkCommsPage() {
                             <div className="space-y-3">
                                 <label className="text-sm font-semibold tracking-widest uppercase text-muted-foreground">Subject Line</label>
                                 <input 
-                                    className="flex h-14 w-full rounded-2xl border border-input bg-transparent px-4 py-2 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary" 
+                                    className="flex h-14 w-full rounded-2xl border-primary/90 bg-transparent px-4 py-2 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary" 
                                     placeholder="e.g. End of Term Arrangements" 
                                     value={subject}
                                     onChange={(e) => setSubject(e.target.value)}
@@ -126,7 +126,7 @@ export default function BulkCommsPage() {
                                 {mode === 'SMS' && <span className="text-xs font-semibold text-muted-foreground bg-muted px-2 py-1 rounded-lg">{message.length}/160 chars</span>}
                             </div>
                             <textarea 
-                                className="flex min-h-[250px] w-full rounded-2xl border border-input bg-transparent px-4 py-4 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary resize-y" 
+                                className="flex min-h-[250px] w-full rounded-2xl border-primary/90 bg-transparent px-4 py-4 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary resize-y" 
                                 placeholder="Type your message here. Use {FirstName} to dynamically inject parent names..." 
                                 value={message}
                                 onChange={(e) => setMessage(e.target.value)}
@@ -187,7 +187,7 @@ export default function BulkCommsPage() {
                     {/* History Feed */}
                     <Card className="rounded-[2.5rem] border-border/50 shadow-lg flex-1 min-h-[400px]">
                         <CardHeader className="pb-4 border-b border-border/50">
-                            <CardTitle className="text-h3 font-semibold flex items-center gap-2">
+                            <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-2">
                                 <History className="w-5 h-5 text-primary" /> Recent Broadcasts
                             </CardTitle>
                         </CardHeader>

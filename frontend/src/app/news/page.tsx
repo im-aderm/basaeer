@@ -302,7 +302,7 @@ export default function NewsEventsPage() {
               {upcomingEvents.map((evt) => (
                 <div 
                   key={evt.title} 
-                  className="bg-surface-container backdrop-blur-md p-6 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 hover:bg-white/10 hover:border-primary/30 border border-border transition-all duration-300"
+                  className="bg-surface-container backdrop-blur-md p-6 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 hover:bg-white/10 hover:border-primary/60 border border-border transition-all duration-300"
                 >
                   <div className="flex items-center gap-6 w-full">
                     <div className="bg-primary/10 text-primary p-4 rounded-xl flex flex-col items-center justify-center shrink-0 min-w-[80px]">

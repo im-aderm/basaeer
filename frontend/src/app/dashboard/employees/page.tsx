@@ -13,7 +13,7 @@ import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 
 export default function EmployeesListPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [employees, setEmployees] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -126,7 +126,7 @@ export default function EmployeesListPage() {
         <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in duration-500">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
-                    <h1 className="text-h1">Employee Management</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Employee Management</h1>
                     <p className="text-body text-muted-foreground mt-1">Manage and monitor all staff members across the branch.</p>
                 </div>
                 <Link href="/dashboard/employees/add">

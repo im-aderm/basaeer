@@ -11,7 +11,7 @@ import { Plus, Trash2 } from 'lucide-react';
 import api from '@/lib/api';
 
 export default function DesignationsPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [designations, setDesignations] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -43,7 +43,7 @@ export default function DesignationsPage() {
         try {
             await api.post('/designations', {
                 ...formData,
-                branchId: user?.branchId
+                branchId: resolvedBranchId
             });
             setIsDialogOpen(false);
             fetchDesignations();
@@ -70,7 +70,7 @@ export default function DesignationsPage() {
         <div className="space-y-6">
             <div className="flex justify-between items-center">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight">Designations</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Designations</h1>
                     <p className="text-muted-foreground font-medium">Manage and organize staff designations.</p>
                 </div>
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>

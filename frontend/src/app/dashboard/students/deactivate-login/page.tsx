@@ -219,7 +219,7 @@ export default function StudentLoginDeactivationPage() {
             <div className="mb-8">
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-h1 font-bold bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent">
+                        <h1 className="text-h1 font-bold tracking-tight text-primary">
                             Student Login Management
                         </h1>
                         <p className="text-slate-600 mt-2">

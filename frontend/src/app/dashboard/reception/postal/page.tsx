@@ -15,7 +15,7 @@ import { ReceptionService, PostalRecord } from '@/services/receptionService';
 import { toast } from 'sonner';
 
 export default function PostalRecordPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [records, setRecords] = useState<PostalRecord[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
@@ -32,12 +32,12 @@ export default function PostalRecordPage() {
     });
 
     const fetchRecords = async () => {
-        if (!user?.branchId) {
+        if (!resolvedBranchId) {
             setLoading(false);
             return;
         }
         try {
-            const data = await ReceptionService.getPostalRecords(user.branchId);
+            const data = await ReceptionService.getPostalRecords(resolvedBranchId);
             setRecords(data);
         } catch (error) {
             toast.error('Failed to load postal records');
@@ -48,12 +48,12 @@ export default function PostalRecordPage() {
 
     useEffect(() => {
         fetchRecords();
-    }, [user?.branchId]);
+    }, [resolvedBranchId]);
 
     const handleCreate = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await ReceptionService.createPostalRecord({ ...formData, branchId: user?.branchId });
+            await ReceptionService.createPostalRecord({ ...formData, branchId: resolvedBranchId });
             toast.success('Postal record saved');
             setIsAddDialogOpen(false);
             fetchRecords();
@@ -129,7 +129,7 @@ export default function PostalRecordPage() {
         <div className="max-w-7xl mx-auto space-y-8 pb-20 animate-in fade-in duration-500">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight uppercase">Postal Records</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Postal Records</h1>
                     <p className="text-muted-foreground font-medium mt-1">Manage dispatch and receipt of physical mail/parcels.</p>
                 </div>
 
@@ -150,9 +150,9 @@ export default function PostalRecordPage() {
                                 New Record
                             </Button>
                         </DialogTrigger>
-                        <DialogContent className="rounded-[2.5rem] max-w-xl bg-card border-border shadow-2xl">
+                        <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl border-border shadow-2xl">
                             <DialogHeader>
-                                <DialogTitle className="text-h3 font-semibold uppercase">Postal Entry</DialogTitle>
+                                <DialogTitle className="text-h3 font-semibold">Postal Entry</DialogTitle>
                                 <DialogDescription className="font-bold">Log details of the physical mail/courier.</DialogDescription>
                             </DialogHeader>
                             <form onSubmit={handleCreate} className="space-y-6 pt-4">
@@ -166,9 +166,9 @@ export default function PostalRecordPage() {
                 </div>
             </div>
 
-            <Card className="rounded-[3rem] border-border shadow-2xl overflow-hidden bg-card">
+            <Card className="rounded-[3rem] border-border shadow-2xl overflow-hidden">
                 <CardHeader className="p-8 border-b border-border bg-muted/20">
-                    <CardTitle className="text-h3 font-semibold flex items-center gap-3">
+                    <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
                         <Package className="h-8 w-8 text-primary" />
                         Logistics History
                     </CardTitle>
@@ -189,14 +189,14 @@ export default function PostalRecordPage() {
                                 <TableRow key={r.id} className="border-border/50 h-24 transition-all hover:bg-primary/5">
                                     <TableCell className="px-8 font-semibold uppercase leading-tight text-sm">
                                         <div className="flex flex-col gap-1">
-                                            <span className="text-[10px] font-bold text-muted-foreground opacity-50 uppercase">From: {r.fromTitle}</span>
+                                            <span className="text-[10px] font-bold text-muted-foreground opacity-50">From: {r.fromTitle}</span>
                                             <span>To: {r.toTitle}</span>
                                         </div>
                                     </TableCell>
                                     <TableCell className="px-8 font-bold text-xs uppercase opacity-60">
                                         #{r.referenceNumber || 'N/A'}
                                     </TableCell>
-                                    <TableCell className="px-8 text-center text-[10px] font-semibold uppercase">
+                                    <TableCell className="px-8 text-center text-[10px] font-semibold">
                                         <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-current font-semibold ${r.type === 'RECEIVE' ? 'bg-emerald-500/10 text-emerald-600' : 'bg-blue-500/10 text-blue-600'}`}>
                                             {r.type === 'RECEIVE' ? <ArrowDownRight className="h-3 w-3" /> : <ArrowUpLeft className="h-3 w-3" />}
                                             {r.type}
@@ -227,9 +227,9 @@ export default function PostalRecordPage() {
 
             {/* Edit Dialog */}
             <Dialog open={!!editingRecord} onOpenChange={(open) => { if (!open) setEditingRecord(null); }}>
-                <DialogContent className="rounded-[2.5rem] max-w-xl bg-card border-border shadow-2xl">
+                <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl border-border shadow-2xl">
                     <DialogHeader>
-                        <DialogTitle className="text-h3 font-semibold uppercase">Edit Postal Record</DialogTitle>
+                        <DialogTitle className="text-h3 font-semibold">Edit Postal Record</DialogTitle>
                         <DialogDescription className="font-semibold opacity-60">Update details for this entry</DialogDescription>
                     </DialogHeader>
                     <form onSubmit={handleUpdate} className="space-y-6 pt-4">
@@ -252,7 +252,7 @@ function PostalForm({ formData, setFormData }: { formData: any, setFormData: any
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">From Title</Label>
                     <Input
                         required
-                        className="h-12 rounded-xl bg-muted/50 border-none font-bold placeholder:opacity-30"
+                        className="h-12 rounded-xl font-bold placeholder:opacity-30"
                         placeholder="Sender Name/Title"
                         value={formData.fromTitle}
                         onChange={(e) => setFormData({ ...formData, fromTitle: e.target.value })}
@@ -262,7 +262,7 @@ function PostalForm({ formData, setFormData }: { formData: any, setFormData: any
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">To Title</Label>
                     <Input
                         required
-                        className="h-12 rounded-xl bg-muted/50 border-none font-bold placeholder:opacity-30"
+                        className="h-12 rounded-xl font-bold placeholder:opacity-30"
                         placeholder="Receiver Name/Title"
                         value={formData.toTitle}
                         onChange={(e) => setFormData({ ...formData, toTitle: e.target.value })}
@@ -273,7 +273,7 @@ function PostalForm({ formData, setFormData }: { formData: any, setFormData: any
                 <div className="space-y-2">
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Reference Number</Label>
                     <Input
-                        className="h-12 rounded-xl bg-muted/50 border-none font-bold placeholder:opacity-30"
+                        className="h-12 rounded-xl font-bold placeholder:opacity-30"
                         placeholder="REF-123456"
                         value={formData.referenceNumber}
                         onChange={(e) => setFormData({ ...formData, referenceNumber: e.target.value })}
@@ -282,10 +282,10 @@ function PostalForm({ formData, setFormData }: { formData: any, setFormData: any
                 <div className="space-y-2">
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Entry Type</Label>
                     <Select value={formData.type} onValueChange={(v) => setFormData({ ...formData, type: v })}>
-                        <SelectTrigger className="h-12 rounded-xl bg-muted/50 border-none font-bold">
+                        <SelectTrigger className="h-12 rounded-xl font-bold">
                             <SelectValue placeholder="Select Type" />
                         </SelectTrigger>
-                        <SelectContent className="rounded-xl border-border bg-card font-bold text-xs uppercase">
+                        <SelectContent className="rounded-xl border-border font-bold text-xs">
                             <SelectItem value="RECEIVE">RECEIVED</SelectItem>
                             <SelectItem value="DISPATCH">DISPATCHED</SelectItem>
                         </SelectContent>
@@ -295,7 +295,7 @@ function PostalForm({ formData, setFormData }: { formData: any, setFormData: any
             <div className="space-y-2">
                 <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Address / Location</Label>
                 <Input
-                    className="h-12 rounded-xl bg-muted/50 border-none font-bold placeholder:opacity-30"
+                    className="h-12 rounded-xl font-bold placeholder:opacity-30"
                     placeholder="Physical address or location detail"
                     value={formData.address}
                     onChange={(e) => setFormData({ ...formData, address: e.target.value })}
@@ -304,7 +304,7 @@ function PostalForm({ formData, setFormData }: { formData: any, setFormData: any
             <div className="space-y-2">
                 <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Description / Content Notes</Label>
                 <Textarea
-                    className="rounded-xl bg-muted/50 border-none font-bold min-h-[100px] placeholder:opacity-30"
+                    className="rounded-xl font-bold min-h-[100px] placeholder:opacity-30"
                     placeholder="What is inside? Any special handling instructions?"
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}

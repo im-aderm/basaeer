@@ -83,7 +83,7 @@ export default function LibraryOverviewPage() {
             {/* Header section with glassmorphism */}
             <div className="relative overflow-hidden rounded-[3.5rem] bg-primary p-12 text-white shadow-2xl shadow-primary/20">
                 <div className="relative z-10">
-                    <h1 className="text-h1 font-semibold tracking-tight mb-4">Library Hub</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary mb-4">Library Hub</h1>
                     <p className="text-primary-foreground/80 text-xl font-medium max-w-2xl leading-relaxed">
                         Manage your school's literary resources, track borrowings, and maintain a seamless reading experience for students.
                     </p>
@@ -96,7 +96,7 @@ export default function LibraryOverviewPage() {
             {/* Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {stats.map((stat, i) => (
-                    <Card key={i} className="rounded-[2.5rem] border-border/50 shadow-xl overflow-hidden group hover:scale-[1.02] transition-all duration-300 bg-card/50 backdrop-blur-sm">
+                    <Card key={i} className="rounded-[2.5rem] border-border/50 shadow-xl overflow-hidden group hover:scale-[1.02] transition-all duration-300">
                         <CardContent className="p-8">
                             <div className="flex items-start justify-between">
                                 <div className={`p-4 rounded-2xl ${stat.bgColor} ${stat.color} group-hover:scale-110 transition-transform`}>
@@ -124,9 +124,9 @@ export default function LibraryOverviewPage() {
                                 </h3>
                                 <p className="text-muted-foreground font-medium mt-2 text-sm">Explore and manage the entire library book collection.</p>
                                 <div className="mt-8 flex gap-2">
-                                    <div className="px-4 py-2 bg-blue-500/10 text-blue-500 rounded-xl text-xs font-semibold uppercase">Search</div>
-                                    <div className="px-4 py-2 bg-blue-500/10 text-blue-500 rounded-xl text-xs font-semibold uppercase">Edit</div>
-                                    <div className="px-4 py-2 bg-blue-500/10 text-blue-500 rounded-xl text-xs font-semibold uppercase">Delete</div>
+                                    <div className="px-4 py-2 bg-blue-500/10 text-blue-500 rounded-xl text-xs font-semibold">Search</div>
+                                    <div className="px-4 py-2 bg-blue-500/10 text-blue-500 rounded-xl text-xs font-semibold">Edit</div>
+                                    <div className="px-4 py-2 bg-blue-500/10 text-blue-500 rounded-xl text-xs font-semibold">Delete</div>
                                 </div>
                             </Card>
                         </Link>
@@ -138,14 +138,14 @@ export default function LibraryOverviewPage() {
                                 </h3>
                                 <p className="text-muted-foreground font-medium mt-2 text-sm">Handle check-outs, returns, and track due dates.</p>
                                 <div className="mt-8 flex gap-2">
-                                    <div className="px-4 py-2 bg-purple-500/10 text-purple-500 rounded-xl text-xs font-semibold uppercase">Issue</div>
-                                    <div className="px-4 py-2 bg-purple-500/10 text-purple-500 rounded-xl text-xs font-semibold uppercase">History</div>
+                                    <div className="px-4 py-2 bg-purple-500/10 text-purple-500 rounded-xl text-xs font-semibold">Issue</div>
+                                    <div className="px-4 py-2 bg-purple-500/10 text-purple-500 rounded-xl text-xs font-semibold">History</div>
                                 </div>
                             </Card>
                         </Link>
                     </div>
 
-                    <Card className="rounded-[3rem] border-border/50 shadow-xl p-10 bg-card/50 overflow-hidden">
+                    <Card className="rounded-[3rem] border-border/50 shadow-xl p-10 overflow-hidden">
                         <div className="flex justify-between items-center mb-8">
                             <h3 className="text-h3 font-semibold flex items-center gap-3">
                                 <AlertCircle className="text-red-500" /> Overdue Alerts
@@ -166,7 +166,7 @@ export default function LibraryOverviewPage() {
                                     </div>
                                     <div className="text-right">
                                         <p className="text-xs font-semibold uppercase text-red-500">Due: {new Date(record.dueDate).toLocaleDateString()}</p>
-                                        <Button size="sm" variant="outline" className="h-8 mt-2 rounded-lg text-[10px] font-semibold uppercase">Notify</Button>
+                                        <Button size="sm" variant="outline" className="h-8 mt-2 rounded-lg text-[10px] font-semibold">Notify</Button>
                                     </div>
                                 </div>
                             )) : (
@@ -196,7 +196,7 @@ export default function LibraryOverviewPage() {
                         </div>
                     </Card>
 
-                    <Card className="rounded-[3rem] border-border/50 shadow-xl p-8 bg-card/50">
+                    <Card className="rounded-[3rem] border-border/50 shadow-xl p-8">
                         <h3 className="text-h3 font-semibold mb-6 flex items-center gap-3">
                             <History className="text-muted-foreground" /> Recent Activity
                         </h3>

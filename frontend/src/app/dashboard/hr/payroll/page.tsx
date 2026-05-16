@@ -52,7 +52,7 @@ export default function PayrollDashboard() {
             <div className="relative overflow-hidden rounded-[3.5rem] bg-slate-900 p-12 text-white shadow-2xl">
                 <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
                     <div>
-                        <h1 className="text-h1 font-semibold tracking-tight mb-4">Payroll Engine</h1>
+                        <h1 className="text-h1 font-bold tracking-tight text-primary mb-4">Payroll Engine</h1>
                         <p className="text-slate-400 text-xl font-medium max-w-xl leading-relaxed">
                             Automate salary generation across the entire branch. Ensure accuracy and timeliness in staff compensation.
                         </p>
@@ -64,20 +64,20 @@ export default function PayrollDashboard() {
                             </div>
                             <div className="flex gap-3">
                                 <Select value={month} onValueChange={setMonth}>
-                                    <SelectTrigger className="h-14 rounded-2xl bg-slate-900/50 border-slate-700 font-semibold">
+                                    <SelectTrigger className="h-14 rounded-2xl font-semibold">
                                         <SelectValue placeholder="Month" />
                                     </SelectTrigger>
-                                    <SelectContent className="rounded-2xl border-slate-700 bg-slate-800 text-slate-200">
+                                    <SelectContent className="rounded-2xl border-primary/20 bg-white/10 text-foreground backdrop-blur-xl">
                                         {months.map((m, i) => (
                                             <SelectItem key={i} value={(i + 1).toString()} className="font-bold">{m}</SelectItem>
                                         ))}
                                     </SelectContent>
                                 </Select>
                                 <Select value={year} onValueChange={setYear}>
-                                    <SelectTrigger className="h-14 rounded-2xl bg-slate-900/50 border-slate-700 font-semibold w-32">
+                                    <SelectTrigger className="h-14 rounded-2xl font-semibold w-32">
                                         <SelectValue placeholder="Year" />
                                     </SelectTrigger>
-                                    <SelectContent className="rounded-2xl border-slate-700 bg-slate-800 text-slate-200">
+                                    <SelectContent className="rounded-2xl border-primary/20 bg-white/10 text-foreground backdrop-blur-xl">
                                         {years.map(y => (
                                             <SelectItem key={y} value={y.toString()} className="font-bold">{y}</SelectItem>
                                         ))}
@@ -102,7 +102,7 @@ export default function PayrollDashboard() {
 
             {/* Stats Dashboard */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <Card className="rounded-[2.5rem] border-border/50 shadow-xl p-8 bg-card group hover:scale-[1.02] transition-all border-t-8 border-t-green-500">
+                <Card className="rounded-[2.5rem] border-border/50 shadow-xl p-8 group hover:scale-[1.02] transition-all border-t-8 border-t-green-500">
                     <div className="flex items-start justify-between">
                         <div className="p-4 rounded-2xl bg-green-500/10 text-green-600"><DollarSign size={24} /></div>
                         <CheckCircle2 className="text-muted-foreground/30" />
@@ -112,7 +112,7 @@ export default function PayrollDashboard() {
                         <p className="text-muted-foreground font-bold mt-1 uppercase text-xs">Total Disbursed (MTD)</p>
                     </div>
                 </Card>
-                <Card className="rounded-[2.5rem] border-border/50 shadow-xl p-8 bg-card group hover:scale-[1.02] transition-all border-t-8 border-t-blue-500">
+                <Card className="rounded-[2.5rem] border-border/50 shadow-xl p-8 group hover:scale-[1.02] transition-all border-t-8 border-t-blue-500">
                     <div className="flex items-start justify-between">
                         <div className="p-4 rounded-2xl bg-blue-500/10 text-blue-600"><FileText size={24} /></div>
                         <div className="bg-blue-500/20 px-3 py-1 rounded-full text-[10px] font-semibold text-blue-700">ACTIVE</div>
@@ -122,7 +122,7 @@ export default function PayrollDashboard() {
                         <p className="text-muted-foreground font-bold mt-1 uppercase text-xs">Generated Slips</p>
                     </div>
                 </Card>
-                <Card className="rounded-[2.5rem] border-border/50 shadow-xl p-8 bg-card group hover:scale-[1.02] transition-all border-t-8 border-t-amber-500">
+                <Card className="rounded-[2.5rem] border-border/50 shadow-xl p-8 group hover:scale-[1.02] transition-all border-t-8 border-t-amber-500">
                     <div className="flex items-start justify-between">
                         <div className="p-4 rounded-2xl bg-amber-500/10 text-amber-600"><AlertCircle size={24} /></div>
                     </div>
@@ -131,7 +131,7 @@ export default function PayrollDashboard() {
                         <p className="text-muted-foreground font-bold mt-1 uppercase text-xs">Missing Templates</p>
                     </div>
                 </Card>
-                <Card className="rounded-[2.5rem] border-border/50 shadow-xl p-8 bg-card group hover:scale-[1.02] transition-all border-t-8 border-t-slate-900/20">
+                <Card className="rounded-[2.5rem] border-border/50 shadow-xl p-8 group hover:scale-[1.02] transition-all border-t-8 border-t-slate-900/20">
                     <div className="flex items-start justify-between">
                         <div className="p-4 rounded-2xl bg-slate-500/10 text-slate-600"><Download size={24} /></div>
                     </div>
@@ -146,7 +146,7 @@ export default function PayrollDashboard() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
                 <Card className="lg:col-span-2 rounded-[3.5rem] border-border/50 shadow-2xl overflow-hidden min-h-[500px]">
                     <CardHeader className="p-10 border-b border-border bg-muted/10 flex flex-row items-center justify-between">
-                        <CardTitle className="text-h3 font-semibold flex items-center gap-3">
+                        <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
                             <History size={24} className="text-primary" /> Recent Batches
                         </CardTitle>
                         <Button variant="ghost" className="font-semibold rounded-xl">View Archive</Button>
@@ -182,7 +182,7 @@ export default function PayrollDashboard() {
                         </div>
                     </Card>
 
-                    <Card className="rounded-[3rem] border-border/50 shadow-2xl p-8 bg-card/50">
+                    <Card className="rounded-[3rem] border-border/50 shadow-2xl p-8">
                         <h3 className="text-h3 font-semibold mb-6">Quick Tools</h3>
                         <div className="space-y-4">
                             <Button variant="outline" className="w-full h-14 rounded-2xl justify-start font-semibold gap-4 hover:bg-slate-900 hover:text-white transition-all border-2">

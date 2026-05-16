@@ -24,7 +24,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { toast } from "sonner";
 
 export default function TransportRoutesPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [routes, setRoutes] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
@@ -72,7 +72,7 @@ export default function TransportRoutesPage() {
                 startPoint: formData.startPoint,
                 endPoint: formData.endPoint,
                 stops: stopsData,
-                branchId: user?.branchId
+                branchId: resolvedBranchId
             };
 
             if (editingRoute) {
@@ -133,7 +133,7 @@ export default function TransportRoutesPage() {
         <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in duration-500 pb-20">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
+                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3">
                         <Map className="text-primary w-10 h-10" />
                         Transport Routes
                     </h1>
@@ -196,7 +196,7 @@ export default function TransportRoutesPage() {
                                     placeholder="e.g. Landmark Mall, City Center, Square Plaza"
                                     value={formData.stops}
                                     onChange={(e) => setFormData({ ...formData, stops: e.target.value })}
-                                    className="w-full min-h-[100px] p-4 rounded-2xl bg-muted/30 border-none font-bold text-lg focus:ring-2 ring-primary/20 transition-all resize-none"
+                                    className="w-full min-h-[100px] p-4 rounded-2xl bg-white border border-primary/90 font-bold text-lg focus:ring-2 ring-primary/20 transition-all resize-none"
                                 />
                             </div>
                             <Button type="submit" className="w-full h-14 rounded-2xl font-semibold text-h3 shadow-xl shadow-primary/20 mt-4 transition-all hover:scale-[1.02]">

@@ -10,7 +10,7 @@ import { BookOpen, GraduationCap, Book, AlertCircle, Loader2 } from "lucide-reac
 import type { AcademicAnalyticsData } from "@/types/dashboard";
 
 export default function AcademicReportsPage() {
-  const { user } = useAuth();
+  const { user, resolvedBranchId } = useAuth();
   const [data, setData] = useState<AcademicAnalyticsData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -53,7 +53,7 @@ export default function AcademicReportsPage() {
   return (
     <div className="max-w-7xl mx-auto space-y-8 pb-20">
       <div>
-        <h1 className="text-h1 font-semibold tracking-tight uppercase text-primary">Academic Excellence</h1>
+        <h1 className="text-h1 font-bold tracking-tight text-primary">Academic Excellence</h1>
         <p className="text-muted-foreground font-medium mt-1">Curriculum progress, results, and subject performance</p>
       </div>
 

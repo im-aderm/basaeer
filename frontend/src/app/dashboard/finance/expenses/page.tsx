@@ -13,7 +13,7 @@ import { Plus, Check, X } from 'lucide-react';
 import api from '@/lib/api';
 
 export default function ExpensesPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [vouchers, setVouchers] = useState<any[]>([]);
     const [categories, setCategories] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
@@ -84,7 +84,7 @@ export default function ExpensesPage() {
     return (
         <div className="space-y-6">
             <div className="flex justify-between items-center">
-                <h1 className="text-h1 font-bold tracking-tight">Office Expenses</h1>
+                <h1 className="text-h1 font-bold tracking-tight text-primary">Office Expenses</h1>
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                     <DialogTrigger asChild>
                         <Button className="gap-2">

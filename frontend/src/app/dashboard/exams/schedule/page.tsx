@@ -153,7 +153,7 @@ export default function ExamSchedulePage() {
             <div className="mb-8">
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-h1 font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                        <h1 className="text-h1 font-bold tracking-tight text-primary">
                             Exam Schedule
                         </h1>
                         <p className="text-slate-600 mt-2">

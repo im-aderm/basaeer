@@ -73,7 +73,7 @@ export default function TransportDashboard() {
             {/* Header */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
+                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3">
                         <Bus className="text-primary w-10 h-10" />
                         Transport Logistics
                     </h1>
@@ -106,7 +106,7 @@ export default function TransportDashboard() {
                             <div className="w-12 h-12 rounded-2xl bg-muted/50 flex items-center justify-center text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-all">
                                 <item.icon size={24} />
                             </div>
-                            <span className="text-xs font-semibold bg-muted px-3 py-1 rounded-full text-muted-foreground uppercase">{item.trend}</span>
+                            <span className="text-xs font-semibold bg-muted px-3 py-1 rounded-full text-muted-foreground">{item.trend}</span>
                         </div>
                         <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-widest">{item.label}</h3>
                         <p className="text-h1 font-semibold mt-1">{loading ? "..." : item.value}</p>
@@ -118,7 +118,7 @@ export default function TransportDashboard() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {transportActions.map((action, i) => (
                     <Link key={i} href={action.href}>
-                        <Card className="rounded-[3rem] border-border/50 shadow-2xl shadow-primary/5 p-10 bg-card/50 backdrop-blur-sm hover:shadow-primary/10 transition-all group relative overflow-hidden border-b-8 border-b-primary/10 hover:border-b-primary">
+                        <Card className="rounded-[3rem] border-border/50 shadow-2xl shadow-primary/5 p-10 hover:shadow-primary/10 transition-all group relative overflow-hidden border-b-8 border-b-primary/10 hover:border-b-primary">
                             <div className={`w-20 h-20 rounded-[2rem] ${action.bg} ${action.color} flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500`}>
                                 <action.icon size={40} />
                             </div>
@@ -133,7 +133,7 @@ export default function TransportDashboard() {
             </div>
 
             {/* Large Activity Card */}
-            <Card className="rounded-[3.5rem] border-border/50 shadow-2xl shadow-primary/5 p-12 bg-card/50 overflow-hidden relative group">
+            <Card className="rounded-[3.5rem] border-border/50 shadow-2xl shadow-primary/5 p-12 overflow-hidden relative group">
                 <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12 relative z-10">
                     <div>

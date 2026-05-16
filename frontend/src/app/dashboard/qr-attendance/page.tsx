@@ -165,7 +165,7 @@ export default function QRAttendanceScanner() {
         return (
             <div className="flex flex-col items-center justify-center py-20 space-y-4">
                 <QrCode className="w-20 h-20 text-muted-foreground/20" />
-                <h2 className="text-2xl font-bold">No Session Selected</h2>
+                <h2 className="text-h2 font-bold tracking-tight text-primary">No Session Selected</h2>
                 <p className="text-muted-foreground">Please select an active session from the sessions page.</p>
                 <Button onClick={() => router.push('/dashboard/attendance/sessions')}>Go to Sessions</Button>
             </div>
@@ -183,7 +183,7 @@ export default function QRAttendanceScanner() {
                     >
                         <ArrowLeft className="mr-2 h-4 w-4" /> Back
                     </Button>
-                    <h1 className="text-h1 font-semibold tracking-tight">QR Scanner</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">QR Scanner</h1>
                     <p className="text-muted-foreground font-medium text-lg">
                         {sessionInfo ? `${sessionInfo.name || 'Session'} | ${sessionInfo.class?.name}-${sessionInfo.section?.name}` : 'Loading session...'}
                     </p>
@@ -210,7 +210,7 @@ export default function QRAttendanceScanner() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
                 <Card className="rounded-[3rem] border-border/50 shadow-2xl bg-background overflow-hidden relative flex flex-col min-h-[500px]">
                     <CardHeader className="p-8 border-b border-border/50">
-                        <CardTitle className="text-h3 font-semibold uppercase flex items-center gap-3 text-primary">
+                        <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
                             <Camera className="h-8 w-8" />
                             Live Camera
                         </CardTitle>
@@ -291,7 +291,7 @@ export default function QRAttendanceScanner() {
                                             {lastScan.student?.firstName[0]}
                                         </div>
                                         <div className="space-y-1">
-                                            <div className="text-3xl font-black text-slate-800 tracking-tight leading-none uppercase">
+                                            <div className="text-3xl font-black text-slate-800 tracking-tight leading-none">
                                                 {lastScan.student?.firstName}
                                             </div>
                                             <div className="text-xl font-bold text-slate-500 uppercase tracking-wide">

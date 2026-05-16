@@ -120,7 +120,7 @@ export default function StaffAttendancePage() {
                     </div>
                     <div>
                         <div className="font-semibold">{staff.user.firstName} {staff.user.lastName}</div>
-                        <div className="text-[10px] text-muted-foreground font-bold uppercase">{staff.designationRef?.name || 'Staff'}</div>
+                        <div className="text-[10px] text-muted-foreground font-bold">{staff.designationRef?.name || 'Staff'}</div>
                     </div>
                 </div>
             )
@@ -179,7 +179,7 @@ export default function StaffAttendancePage() {
                         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 text-emerald-400 font-semibold text-[10px] uppercase tracking-widest backdrop-blur-md">
                             <Clock size={12} /> Workforce pulse
                         </div>
-                        <h1 className="text-h1 font-semibold tracking-tight">Staff Attendance</h1>
+                        <h1 className="text-h1 font-bold tracking-tight text-primary">Staff Attendance</h1>
                         <p className="text-emerald-200/60 text-lg font-medium max-w-xl">
                             Monitor and manage staff punctuality. Real-time logging for precise payroll calculations.
                         </p>
@@ -237,7 +237,7 @@ export default function StaffAttendancePage() {
             {/* Attendance List */}
             <Card className="rounded-[3.5rem] border-border/50 shadow-2xl overflow-hidden border-t-8 border-t-emerald-500/20">
                 <CardHeader className="p-10 border-b border-border/50 flex flex-col md:flex-row items-center justify-between bg-muted/5 gap-6">
-                    <CardTitle className="text-h3 font-semibold flex items-center gap-3">
+                    <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
                         <Clock className="text-emerald-600" /> Attendance Ledger
                     </CardTitle>
                     <div className="flex items-center gap-4 w-full md:w-96">

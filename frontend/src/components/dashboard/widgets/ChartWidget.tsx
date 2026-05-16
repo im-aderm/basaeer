@@ -7,6 +7,7 @@ import {
 } from "recharts";
 import { Card } from "@/components/ui/card";
 import { AlertCircle, BarChart3 } from "lucide-react";
+import { motion } from "framer-motion";
 
 type ChartType = "line" | "bar" | "pie" | "area";
 
@@ -78,7 +79,12 @@ export function ChartWidget({
   const chartData = data;
 
   return (
-    <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-card overflow-hidden">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+      className="bg-white/75 border border-border/50 rounded-[2.5rem] shadow-xl card-hover overflow-hidden"
+    >
       <div className="p-6 pb-2">
         <h3 className="text-h3 font-semibold">{title}</h3>
         {description && <p className="text-sm text-muted-foreground mt-0.5">{description}</p>}
@@ -123,6 +129,6 @@ export function ChartWidget({
           </ResponsiveContainer>
         </div>
       </div>
-    </Card>
+    </motion.div>
   );
 }

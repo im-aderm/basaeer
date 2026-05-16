@@ -24,14 +24,14 @@ import { toast } from 'sonner';
 import Link from 'next/link';
 
 export default function InventoryOverviewPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [products, setProducts] = useState<InventoryProduct[]>([]);
     const [loading, setLoading] = useState(true);
 
     const fetchData = async () => {
-        if (!user?.branchId) return;
+        if (!resolvedBranchId) return;
         try {
-            const data = await InventoryService.getProducts(user.branchId);
+            const data = await InventoryService.getProducts(resolvedBranchId);
             setProducts(data);
         } catch (error) {
             toast.error('Failed to load inventory overview');
@@ -42,7 +42,7 @@ export default function InventoryOverviewPage() {
 
     useEffect(() => {
         fetchData();
-    }, [user?.branchId]);
+    }, [resolvedBranchId]);
 
     const lowStock = products.filter(p => p.stock <= 5);
     const totalStockValue = products.reduce((sum, p) => sum + (p.stock * (p.costPrice || 0)), 0);
@@ -68,7 +68,7 @@ export default function InventoryOverviewPage() {
             {/* Header section with branding */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                 <div className="space-y-2">
-                    <h1 className="text-h1 font-semibold tracking-tighter uppercase bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">
+                    <h1 className="text-h1 font-bold tracking-tighter text-primary uppercase bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">
                         Inventory Command
                     </h1>
                     <p className="text-muted-foreground font-medium text-lg max-w-xl">
@@ -126,7 +126,7 @@ export default function InventoryOverviewPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {navigationLinks.map((link) => (
                     <Link key={link.href} href={link.href} className="group">
-                        <Card className="h-full rounded-[2.5rem] border border-border/50 bg-card/50 backdrop-blur-sm shadow-xl hover:shadow-2xl hover:bg-muted/30 transition-all duration-300">
+                        <Card className="h-full rounded-[2.5rem] border border-border/50 shadow-xl hover:shadow-2xl hover:bg-muted/30 transition-all duration-300">
                             <CardHeader className="flex flex-row items-center gap-4 py-8 px-8">
                                 <div className="p-4 rounded-2xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
                                     <link.icon className="h-6 w-6" />

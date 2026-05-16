@@ -184,7 +184,7 @@ export default function ScoreEntryPage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
+                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3">
                         <Calculator className="text-primary w-10 h-10" />
                         Dynamic Marks Entry
                     </h1>
@@ -204,11 +204,11 @@ export default function ScoreEntryPage() {
             </div>
 
             {/* Filters Bar */}
-            <div className="p-8 bg-card border border-border rounded-[2.5rem] shadow-sm flex flex-wrap items-end gap-6">
+            <div className="p-8 bg-white/75 border border-border rounded-[2.5rem] shadow-sm flex flex-wrap items-end gap-6">
                 <div className="flex-1 min-w-[200px] space-y-2">
                     <label className="text-label text-muted-foreground ml-2">Class</label>
                     <select
-                        className="w-full p-4 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold text-sm"
+                        className="w-full p-4 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold text-sm"
                         value={selectedClassId}
                         onChange={e => setSelectedClassId(e.target.value)}
                     >
@@ -220,7 +220,7 @@ export default function ScoreEntryPage() {
                 <div className="flex-1 min-w-[200px] space-y-2">
                     <label className="text-label text-muted-foreground ml-2">Section</label>
                     <select
-                        className="w-full p-4 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold text-sm"
+                        className="w-full p-4 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold text-sm"
                         value={selectedSectionId}
                         onChange={e => setSelectedSectionId(e.target.value)}
                     >
@@ -232,7 +232,7 @@ export default function ScoreEntryPage() {
                 <div className="flex-1 min-w-[200px] space-y-2">
                     <label className="text-label text-muted-foreground ml-2">Subject</label>
                     <select
-                        className="w-full p-4 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold text-sm"
+                        className="w-full p-4 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold text-sm"
                         value={selectedSubjectId}
                         onChange={e => setSelectedSubjectId(e.target.value)}
                     >
@@ -244,7 +244,7 @@ export default function ScoreEntryPage() {
                 <div className="flex-1 min-w-[150px] space-y-2">
                     <label className="text-label text-muted-foreground ml-2">Session</label>
                     <select
-                        className="w-full p-4 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold text-sm"
+                        className="w-full p-4 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold text-sm"
                         value={selectedSessionId}
                         onChange={e => setSelectedSessionId(e.target.value)}
                     >
@@ -255,7 +255,7 @@ export default function ScoreEntryPage() {
                 <div className="flex-1 min-w-[150px] space-y-2">
                     <label className="text-label text-muted-foreground ml-2">Term</label>
                     <select
-                        className="w-full p-4 bg-muted/30 border border-border/50 rounded-2xl focus:border-primary outline-none font-bold text-sm"
+                        className="w-full p-4 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold text-sm"
                         value={selectedTerm}
                         onChange={e => setSelectedTerm(e.target.value as Term)}
                     >
@@ -282,7 +282,7 @@ export default function ScoreEntryPage() {
             )}
 
             {/* Score Grid */}
-            <div className="bg-card border border-border rounded-[3rem] shadow-sm overflow-hidden border-t-8 border-t-primary">
+            <div className="bg-white/75 border border-border rounded-[3rem] shadow-sm overflow-hidden border-t-8 border-t-primary">
                 {students.length > 0 ? (
                     <div className="overflow-x-auto">
                         <table className="w-full border-collapse">
@@ -314,7 +314,7 @@ export default function ScoreEntryPage() {
                                                         <p className="font-bold text-md tracking-tight">
                                                             {student.user?.firstName} {student.user?.lastName}
                                                         </p>
-                                                        <p className="text-[10px] text-muted-foreground font-medium uppercase">{student.studentId || "N/A"}</p>
+                                                        <p className="text-[10px] text-muted-foreground font-medium">{student.studentId || "N/A"}</p>
                                                     </div>
                                                 </div>
                                             </td>

@@ -135,6 +135,7 @@ model Branch {
   bookCopies                 BookCopy[]
   bookReservations           BookReservation[]
   hostelMaintenanceTickets    HostelMaintenanceTicket[]
+  roles                      Role[]
 }
 
 model DeactivationReason {
@@ -165,6 +166,22 @@ model LoginDeactivation {
   @@index([branchId])
 }
 
+model Role {
+  id          String                 @id @default(uuid())
+  name        String
+  slug        String                 @unique
+  description String?
+  branchId    String?
+  isSystem    Boolean                @default(false)
+  priority    Int                    @default(0)
+  createdAt   DateTime               @default(now())
+  updatedAt   DateTime               @updatedAt
+
+  branch      Branch?                @relation(fields: [branchId], references: [id])
+  users       User[]
+  permissions CustomRolePermission[]
+}
+
 model User {
   id                         String                    @id @default(uuid())
   email                      String                    @unique
@@ -175,6 +192,7 @@ model User {
   isActive                   Boolean                   @default(true)
   mustChangePassword         Boolean                   @default(false)
   role                       UserRole
+  roleId                     String?
   createdAt                  DateTime                  @default(now())
   updatedAt                  DateTime                  @updatedAt
   branchId                   String?
@@ -194,6 +212,7 @@ model User {
   children                   Student[]                 @relation("ParentToStudent")
   student                    Student?
   branch                     Branch?                   @relation(fields: [branchId], references: [id])
+  customRole                 Role?                     @relation(fields: [roleId], references: [id])
   approvedVouchers           Voucher[]                 @relation("VoucherApprover")
   preferences                UserPreference?
   notifications              Notification[]
@@ -1371,6 +1390,18 @@ model RolePermission {
   isAllowed Boolean  @default(false)
 
   @@unique([role, module, action])
+}
+
+model CustomRolePermission {
+  id        String   @id @default(uuid())
+  roleId    String
+  module    String
+  action    String
+  isAllowed Boolean  @default(false)
+
+  role      Role     @relation(fields: [roleId], references: [id], onDelete: Cascade)
+
+  @@unique([roleId, module, action])
 }
 
 model AuditLog {

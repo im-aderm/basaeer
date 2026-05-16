@@ -59,7 +59,7 @@ export default function CommsReportPage() {
         <div className="p-6">
             <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-2">
                         <FileBarChart className="w-6 h-6 text-primary" />
                         Communication Reports
                     </h1>
@@ -67,7 +67,7 @@ export default function CommsReportPage() {
                 </div>
                 <button 
                     onClick={fetchCampaigns}
-                    className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-600 hover:bg-gray-50 transition-colors"
+                    className="flex items-center gap-2 px-4 py-2 bg-white border border-primary/90 rounded-lg text-gray-600 hover:bg-gray-50 transition-colors"
                 >
                     <RefreshCcw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
                     Refresh
@@ -84,7 +84,7 @@ export default function CommsReportPage() {
                             placeholder="Search campaigns..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full pl-10 pr-4 py-2 rounded-lg border-gray-200 focus:ring-primary focus:border-primary"
+                            className="w-full pl-10 pr-4 py-2 rounded-xl border border-primary/90 bg-white/75 focus:ring-primary focus:border-primary"
                         />
                     </div>
                     <div className="flex items-center gap-2">
@@ -92,7 +92,7 @@ export default function CommsReportPage() {
                         <select
                             value={filterType}
                             onChange={(e) => setFilterType(e.target.value)}
-                            className="rounded-lg border-gray-200 focus:ring-primary focus:border-primary"
+                            className="rounded-xl border border-primary/90 bg-white/75 focus:ring-primary focus:border-primary"
                         >
                             <option value="ALL">All Types</option>
                             <option value="EMAIL">Email Only</option>
@@ -173,8 +173,8 @@ export default function CommsReportPage() {
                 <div className="px-6 py-4 border-t border-gray-100 flex items-center justify-between text-sm text-gray-500">
                     <div>Showing {filteredCampaigns.length} campaigns</div>
                     <div className="flex gap-2">
-                        <button disabled className="px-3 py-1 border border-gray-200 rounded disabled:opacity-50">Prev</button>
-                        <button disabled className="px-3 py-1 border border-gray-200 rounded disabled:opacity-50">Next</button>
+                        <button disabled className="px-3 py-1 border border-primary/90 rounded disabled:opacity-50">Prev</button>
+                        <button disabled className="px-3 py-1 border border-primary/90 rounded disabled:opacity-50">Next</button>
                     </div>
                 </div>
             </div>

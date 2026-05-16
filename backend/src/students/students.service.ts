@@ -59,7 +59,7 @@ export class StudentsService {
     }
 
     const tempPassword = crypto.randomBytes(8).toString('hex');
-    const hashedPassword = await bcrypt.hash(password || tempPassword, 10);
+    const hashedPassword = await bcrypt.hash(password || tempPassword, 8);
 
     // Transaction: Create User + Student
     const result = await this.prisma.$transaction(async (tx) => {

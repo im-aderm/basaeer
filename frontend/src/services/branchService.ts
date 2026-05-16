@@ -23,6 +23,14 @@ export interface CreateBranchDto {
     email?: string;
     logoUrl?: string;
     primaryColor?: string;
+    adminUserId?: string;
+    createAdminUser?: {
+        email: string;
+        firstName: string;
+        lastName: string;
+        password?: string;
+        phone?: string;
+    };
 }
 
 export interface UpdateBranchDto {

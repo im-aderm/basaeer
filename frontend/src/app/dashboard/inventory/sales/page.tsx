@@ -1,4 +1,5 @@
 "use client";
+import RequireBranch from "@/components/RequireBranch";
 
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
@@ -15,7 +16,7 @@ import { toast } from 'sonner';
 import Link from 'next/link';
 
 export default function InventorySalesPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [sales, setSales] = useState<any[]>([]);
     const [products, setProducts] = useState<InventoryProduct[]>([]);
     const [loading, setLoading] = useState(true);
@@ -27,11 +28,11 @@ export default function InventorySalesPage() {
     });
 
     const fetchData = async () => {
-        if (!user?.branchId) return;
+        if (!resolvedBranchId) return;
         try {
             const [s, p] = await Promise.all([
-                InventoryService.getSales(user.branchId),
-                InventoryService.getProducts(user.branchId)
+                InventoryService.getSales(resolvedBranchId),
+                InventoryService.getProducts(resolvedBranchId)
             ]);
             setSales(s);
             setProducts(p);
@@ -44,14 +45,14 @@ export default function InventorySalesPage() {
 
     useEffect(() => {
         fetchData();
-    }, [user?.branchId]);
+    }, [resolvedBranchId]);
 
     const handleCreateSale = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
             await InventoryService.createSale({
                 ...saleForm,
-                branchId: user?.branchId,
+                branchId: resolvedBranchId,
                 quantity: Number(saleForm.quantity),
                 unitPrice: Number(saleForm.unitPrice)
             });
@@ -65,13 +66,14 @@ export default function InventorySalesPage() {
     };
 
     return (
+            <RequireBranch>
         <div className="max-w-7xl mx-auto space-y-8 pb-20">
             <div className="flex justify-between items-end">
                 <div>
                     <Link href="/dashboard/inventory" className="flex items-center gap-2 text-muted-foreground hover:text-primary font-bold transition-colors mb-2">
                         <ArrowLeft className="h-4 w-4" /> Back to Inventory
                     </Link>
-                    <h1 className="text-h1 font-semibold tracking-tight uppercase">Sales & Revenue</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Sales & Revenue</h1>
                     <p className="text-muted-foreground font-medium mt-1">Record and track inventory-related sales transactions.</p>
                 </div>
                 <div className="flex gap-4">
@@ -84,7 +86,7 @@ export default function InventorySalesPage() {
                         </DialogTrigger>
                         <DialogContent className="rounded-[2.5rem]">
                             <DialogHeader>
-                                <DialogTitle className="text-h3 font-semibold uppercase">Record New Sale</DialogTitle>
+                                <DialogTitle className="text-h3 font-semibold">Record New Sale</DialogTitle>
                                 <DialogDescription className="font-bold">Enter sale details and update product stock.</DialogDescription>
                             </DialogHeader>
                             <form onSubmit={handleCreateSale} className="space-y-4 pt-4">
@@ -94,23 +96,23 @@ export default function InventorySalesPage() {
                                         const p = products.find(prod => prod.id === v);
                                         setSaleForm({ ...saleForm, productId: v, unitPrice: p?.id ? 0 : 0 }); // Optionally pre-fill price
                                     }}>
-                                        <SelectTrigger className="h-12 rounded-xl bg-muted/50 border-none font-bold"><SelectValue placeholder="Select Product" /></SelectTrigger>
+                                        <SelectTrigger className="h-12 rounded-xl font-bold"><SelectValue placeholder="Select Product" /></SelectTrigger>
                                         <SelectContent className="rounded-xl">{products.map(p => <SelectItem key={p.id} value={p.id}>{p.name} (Stock: {p.stock} {p.unit?.name})</SelectItem>)}</SelectContent>
                                     </Select>
                                 </div>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="space-y-2">
                                         <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Quantity</Label>
-                                        <Input type="number" required className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={saleForm.quantity} onChange={(e) => setSaleForm({ ...saleForm, quantity: Number(e.target.value) })} />
+                                        <Input type="number" required className="h-12 rounded-xl font-bold" value={saleForm.quantity} onChange={(e) => setSaleForm({ ...saleForm, quantity: Number(e.target.value) })} />
                                     </div>
                                     <div className="space-y-2">
                                         <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Unit Price</Label>
-                                        <Input type="number" required className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={saleForm.unitPrice} onChange={(e) => setSaleForm({ ...saleForm, unitPrice: Number(e.target.value) })} />
+                                        <Input type="number" required className="h-12 rounded-xl font-bold" value={saleForm.unitPrice} onChange={(e) => setSaleForm({ ...saleForm, unitPrice: Number(e.target.value) })} />
                                     </div>
                                 </div>
                                 <div className="space-y-2">
                                     <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Customer Name (Optional)</Label>
-                                    <Input className="h-12 rounded-xl bg-muted/50 border-none font-bold" value={saleForm.customerName} onChange={(e) => setSaleForm({ ...saleForm, customerName: e.target.value })} />
+                                    <Input className="h-12 rounded-xl font-bold" value={saleForm.customerName} onChange={(e) => setSaleForm({ ...saleForm, customerName: e.target.value })} />
                                 </div>
                                 <DialogFooter><Button type="submit" className="h-12 w-full rounded-xl font-semibold uppercase tracking-wider">Record Sale</Button></DialogFooter>
                             </form>
@@ -121,7 +123,7 @@ export default function InventorySalesPage() {
 
             <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background">
                 <CardHeader className="p-8 border-b border-border/50 flex flex-row items-center justify-between">
-                    <CardTitle className="text-h3 font-semibold flex items-center gap-3">
+                    <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
                         <ShoppingBag className="h-8 w-8 text-primary" />
                         Sales History
                     </CardTitle>
@@ -143,7 +145,7 @@ export default function InventorySalesPage() {
                                     <TableCell className="px-8 font-semibold leading-tight">
                                         <div className="flex flex-col">
                                             <span>{s.invoiceNo || 'SALE-' + s.id.slice(0, 5).toUpperCase()}</span>
-                                            <span className="text-[10px] font-bold text-muted-foreground uppercase">{new Date(s.createdAt).toLocaleDateString()}</span>
+                                            <span className="text-[10px] font-bold text-muted-foreground">{new Date(s.createdAt).toLocaleDateString()}</span>
                                         </div>
                                     </TableCell>
                                     <TableCell className="px-8 font-semibold uppercase text-xs">
@@ -153,10 +155,10 @@ export default function InventorySalesPage() {
                                         {s.quantity}
                                     </TableCell>
                                     <TableCell className="px-8 font-bold">
-                                        ${s.unitPrice.toFixed(2)}
+                                        ${Number(s.unitPrice).toFixed(2)}
                                     </TableCell>
                                     <TableCell className="text-right px-8 font-semibold text-primary">
-                                        ${s.totalPrice.toFixed(2)}
+                                        ${Number(s.totalPrice).toFixed(2)}
                                     </TableCell>
                                 </TableRow>
                             ))}
@@ -165,5 +167,6 @@ export default function InventorySalesPage() {
                 </CardContent>
             </Card>
         </div>
-    );
+          </RequireBranch>
+  );
 }

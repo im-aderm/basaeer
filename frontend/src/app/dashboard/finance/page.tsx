@@ -19,7 +19,7 @@ import { toast } from 'sonner';
 import { financeService } from '@/services/financeService';
 
 export default function FinanceDashboard() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [stats, setStats] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -64,7 +64,7 @@ export default function FinanceDashboard() {
     return (
         <div className="space-y-6">
             <div className="flex justify-between items-center">
-                <h1 className="text-h1 font-bold tracking-tight">Financial Overview</h1>
+                <h1 className="text-h1 font-bold tracking-tight text-primary">Financial Overview</h1>
                 <div className="flex gap-2">
                     <Link href="/dashboard/finance/fees">
                         <Button variant="outline">Fee Setup</Button>

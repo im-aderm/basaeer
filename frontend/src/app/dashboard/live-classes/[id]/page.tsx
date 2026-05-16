@@ -23,7 +23,7 @@ import { format } from 'date-fns';
 export default function ClassDetailsPage() {
     const { id } = useParams();
     const router = useRouter();
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
 
     const [session, setSession] = useState<LiveClassSession | null>(null);
     const [attendance, setAttendance] = useState<ReportItem[]>([]);
@@ -78,7 +78,7 @@ export default function ClassDetailsPage() {
                     </div>
                     <div className="flex-1 space-y-2">
                         <div className="flex items-center gap-3">
-                            <h1 className="text-h1 font-semibold tracking-tight">{session.title}</h1>
+                            <h1 className="text-h1 font-bold tracking-tight text-primary">{session.title}</h1>
                             <Badge variant={session.status === 'LIVE' ? 'default' : 'outline'} className={session.status === 'LIVE' ? 'bg-emerald-500 animate-pulse' : ''}>
                                 {session.status}
                             </Badge>
@@ -159,7 +159,7 @@ export default function ClassDetailsPage() {
                         <div className="p-20 text-center space-y-4">
                             <Video className="mx-auto h-16 w-16 text-primary/40" />
                             <div className="space-y-1">
-                                <h3 className="text-h3 font-semibold tracking-tighter uppercase">Class Recording</h3>
+                                <h3 className="text-h3 font-semibold tracking-tighter">Class Recording</h3>
                                 <p className="text-muted-foreground font-bold text-sm">
                                     {session.recordingStatus === 'READY' ? 'Recording is available for playback.' : 'Recording will be available 5-10 minutes after session ends.'}
                                 </p>

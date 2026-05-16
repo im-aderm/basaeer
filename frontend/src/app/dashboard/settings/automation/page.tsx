@@ -25,7 +25,7 @@ import { AutomationEventsService, AutomationConfig } from '@/services/automation
 import { toast } from 'sonner';
 
 export default function AutomationPanelPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [configs, setConfigs] = useState<AutomationConfig[]>([]);
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState<string | null>(null);
@@ -76,13 +76,13 @@ export default function AutomationPanelPage() {
         }
     };
 
-    if (loading) return <div className="flex h-96 items-center justify-center font-semibold animate-pulse uppercase">Synchronizing Automation Hub...</div>;
+    if (loading) return <div className="flex h-96 items-center justify-center font-semibold animate-pulse">Synchronizing Automation Hub...</div>;
 
     return (
         <div className="max-w-5xl mx-auto space-y-8 pb-20">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight uppercase">Automation Hub</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Automation Hub</h1>
                     <p className="text-muted-foreground font-medium mt-1">Intelligent triggers and scheduled communication workflows.</p>
                 </div>
                 <Button variant="outline" className="h-12 px-6 rounded-2xl font-semibold gap-2 border-primary/20" onClick={() => fetchData()}>
@@ -139,13 +139,13 @@ export default function AutomationPanelPage() {
                                             defaultValue={config.triggerDays || 0}
                                             onBlur={(e) => handleUpdate(config.type, { triggerDays: parseInt(e.target.value) })}
                                         />
-                                        <span className="text-sm font-bold opacity-60 uppercase">Days before/after event</span>
+                                        <span className="text-sm font-bold opacity-60">Days before/after event</span>
                                     </div>
                                 </div>
                                 <div className="p-4 rounded-2xl bg-primary/5 border border-primary/10 flex items-center justify-between">
                                     <div className="flex items-center gap-3 text-sm font-bold opacity-60">
                                         <Clock className="h-4 w-4" /> Next Run:
-                                        <span className="text-primary font-semibold uppercase">Tomorrow 09:00 AM</span>
+                                        <span className="text-primary font-semibold">Tomorrow 09:00 AM</span>
                                     </div>
                                     {saving === config.type ? (
                                         <div className="h-8 w-8 rounded-full border-2 border-primary border-t-transparent animate-spin" />
@@ -167,7 +167,7 @@ export default function AutomationPanelPage() {
                     <AlertTriangle className="h-10 w-10 text-primary" strokeWidth={1.5} />
                 </div>
                 <div>
-                    <h3 className="text-h3 font-semibold uppercase">Custom Workflows?</h3>
+                    <h3 className="text-h3 font-semibold">Custom Workflows?</h3>
                     <p className="text-muted-foreground font-medium max-w-lg mx-auto mt-2">
                         Advanced AI-driven automation and custom triggers can be configured per branch requirements. Contact system support for specialized logic.
                     </p>

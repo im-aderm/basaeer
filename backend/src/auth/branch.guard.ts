@@ -7,17 +7,22 @@ import {
 import { Reflector } from '@nestjs/core';
 import { UserRole } from '../generated/client/client';
 import { IS_PUBLIC_KEY } from './public.decorator';
+import { PrismaService } from '../prisma/prisma.service';
 
 export interface TenantContext {
   userId: string;
   branchId: string | null;
+  selectedBranchId?: string | null;
   isSuperAdmin: boolean;
   role: UserRole;
 }
 
 @Injectable()
 export class BranchGuard implements CanActivate {
-  constructor(private reflector: Reflector) {}
+  constructor(
+    private reflector: Reflector,
+    private prisma: PrismaService,
+  ) {}
 
   canActivate(context: ExecutionContext): boolean {
     const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
@@ -45,8 +50,8 @@ export class BranchGuard implements CanActivate {
     let effectiveBranchId = user.branchId;
 
     if (user.role === UserRole.SUPER_ADMIN) {
-      // Super Admin can override branch context if requested
-      effectiveBranchId = requestedBranchId || user.branchId;
+      // Super Admin: use selectedBranchId (if set) or let them override via query param
+      effectiveBranchId = requestedBranchId || user.selectedBranchId || user.branchId;
     } else {
       // Non-SuperAdmin must match their own branch
       if (
@@ -62,9 +67,15 @@ export class BranchGuard implements CanActivate {
     request.tenantContext = {
       userId: user.id,
       branchId: effectiveBranchId,
+      selectedBranchId: user.selectedBranchId || null,
       isSuperAdmin: user.role === UserRole.SUPER_ADMIN,
       role: user.role,
     };
+
+    // Sync the resolved branchId back to the Prisma AsyncLocalStorage so the
+    // $extends write guard sees the correct value (the JwtStrategy may have set
+    // it to null for SA with no selectedBranchId in the JWT).
+    this.prisma.setTenantContext(effectiveBranchId, user.id);
 
     return true;
   }

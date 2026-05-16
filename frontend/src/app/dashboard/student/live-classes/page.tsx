@@ -8,7 +8,7 @@ import { useAuth } from "@/context/AuthContext";
 import api from "@/lib/api";
 
 export default function StudentLiveClassesPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [sessions, setSessions] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -78,7 +78,7 @@ export default function StudentLiveClassesPage() {
  <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50/30 to-teal-50/20 p-6">
             {/* Header */}
             <div className="mb-8">
-                <h1 className="text-h1 font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+                <h1 className="text-h1 font-bold tracking-tight text-primary">
                     My Live Classes
                 </h1>
  <p className="text-slate-600 mt-2">

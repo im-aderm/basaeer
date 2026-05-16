@@ -63,7 +63,7 @@ export default function StaffBirthdayPage() {
     return (
         <div className="p-6 max-w-4xl mx-auto">
             <div className="mb-8">
-                <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+                <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-2">
                     <Cake className="w-6 h-6 text-pink-500" />
                     Staff Birthday Automation
                 </h1>
@@ -79,7 +79,7 @@ export default function StaffBirthdayPage() {
                                 <Bell className={`w-6 h-6 ${config.isEnabled ? 'text-green-600' : 'text-gray-400'}`} />
                             </div>
                             <div>
-                                <h3 className="font-bold text-gray-900">Automation Status</h3>
+                                <h3 className="font-bold text-primary">Automation Status</h3>
                                 <p className="text-sm text-gray-500">Enable or disable automatic birthday wishes.</p>
                             </div>
                         </div>
@@ -115,7 +115,7 @@ export default function StaffBirthdayPage() {
                             <select
                                 value={config.template?.startsWith('EMAIL:') ? config.template.split(':')[1] : ''}
                                 onChange={(e) => setConfig({ ...config, template: e.target.value ? `EMAIL:${e.target.value}` : '' })}
-                                className="w-full rounded-lg border-gray-300 focus:ring-primary focus:border-primary"
+                                className="w-full rounded-xl border border-primary/90 bg-white/75 focus:ring-primary focus:border-primary"
                             >
                                 <option value="">None / Disabled</option>
                                 {emailTemplates.map(t => (
@@ -134,7 +134,7 @@ export default function StaffBirthdayPage() {
                             <select
                                 value={config.template?.startsWith('SMS:') ? config.template.split(':')[1] : ''}
                                 onChange={(e) => setConfig({ ...config, template: e.target.value ? `SMS:${e.target.value}` : '' })}
-                                className="w-full rounded-lg border-gray-300 focus:ring-primary focus:border-primary"
+                                className="w-full rounded-xl border border-primary/90 bg-white/75 focus:ring-primary focus:border-primary"
                             >
                                 <option value="">None / Disabled</option>
                                 {smsTemplates.map(t => (

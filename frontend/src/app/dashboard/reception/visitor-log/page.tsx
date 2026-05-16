@@ -16,7 +16,7 @@ import { SettingsService } from '@/services/settingsService';
 import { toast } from 'sonner';
 
 export default function VisitorLogPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [logs, setLogs] = useState<VisitorLog[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
@@ -46,12 +46,12 @@ export default function VisitorLogPage() {
     };
 
     const fetchLogs = async () => {
-        if (!user?.branchId) {
+        if (!resolvedBranchId) {
             setLoading(false);
             return;
         }
         try {
-            const data = await ReceptionService.getVisitorLogs(user.branchId);
+            const data = await ReceptionService.getVisitorLogs(resolvedBranchId);
             setLogs(data);
         } catch (error) {
             toast.error('Failed to load logs');
@@ -63,12 +63,12 @@ export default function VisitorLogPage() {
     useEffect(() => {
         fetchLogs();
         fetchPurposes();
-    }, [user?.branchId]);
+    }, [resolvedBranchId]);
 
     const handleCreate = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await ReceptionService.createVisitorLog({ ...formData, numPerson: Number(formData.numPerson), branchId: user?.branchId });
+            await ReceptionService.createVisitorLog({ ...formData, numPerson: Number(formData.numPerson), branchId: resolvedBranchId });
             toast.success('Visitor entry recorded');
             setIsAddDialogOpen(false);
             fetchLogs();
@@ -158,7 +158,7 @@ export default function VisitorLogPage() {
         <div className="max-w-7xl mx-auto space-y-8 pb-20 animate-in fade-in duration-500">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight uppercase">Visitor Log</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Visitor Log</h1>
                     <p className="text-muted-foreground font-medium mt-1">Manage and monitor school campus visitors.</p>
                 </div>
 
@@ -179,9 +179,9 @@ export default function VisitorLogPage() {
                                 Add Entry
                             </Button>
                         </DialogTrigger>
-                        <DialogContent className="rounded-[2.5rem] max-w-2xl bg-card border-border shadow-2xl">
+                        <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl border-border shadow-2xl">
                             <DialogHeader>
-                                <DialogTitle className="text-h3 font-semibold uppercase">Visitor Entry</DialogTitle>
+                                <DialogTitle className="text-h3 font-semibold">Visitor Entry</DialogTitle>
                                 <DialogDescription className="font-bold">Record new visitor credentials.</DialogDescription>
                             </DialogHeader>
                             <form onSubmit={handleCreate} className="space-y-6 pt-4">
@@ -195,9 +195,9 @@ export default function VisitorLogPage() {
                 </div>
             </div>
 
-            <Card className="rounded-[3rem] border-border shadow-2xl overflow-hidden bg-card">
+            <Card className="rounded-[3rem] border-border shadow-2xl overflow-hidden">
                 <CardHeader className="p-8 border-b border-border bg-muted/20">
-                    <CardTitle className="text-h3 font-semibold flex items-center gap-3">
+                    <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
                         <ShieldCheck className="h-8 w-8 text-primary" />
                         Campus Access Log
                     </CardTitle>
@@ -269,9 +269,9 @@ export default function VisitorLogPage() {
 
             {/* Edit Dialog */}
             <Dialog open={!!editingLog} onOpenChange={(open) => { if (!open) setEditingLog(null); }}>
-                <DialogContent className="rounded-[2.5rem] max-w-2xl bg-card border-border shadow-2xl">
+                <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl border-border shadow-2xl">
                     <DialogHeader>
-                        <DialogTitle className="text-h3 font-semibold uppercase">Edit Visitor Entry</DialogTitle>
+                        <DialogTitle className="text-h3 font-semibold">Edit Visitor Entry</DialogTitle>
                         <DialogDescription className="font-semibold opacity-60">Update details for {editingLog?.name}</DialogDescription>
                     </DialogHeader>
                     <form onSubmit={handleUpdate} className="space-y-6 pt-4">
@@ -294,7 +294,7 @@ function VisitorForm({ formData, setFormData, purposes }: { formData: any, setFo
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Visitor Name</Label>
                     <Input
                         required
-                        className="h-12 rounded-xl bg-muted/50 border-none font-bold placeholder:opacity-30"
+                        className="h-12 rounded-xl font-bold placeholder:opacity-30"
                         placeholder="John Doe"
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -304,7 +304,7 @@ function VisitorForm({ formData, setFormData, purposes }: { formData: any, setFo
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Phone Number</Label>
                     <Input
                         required
-                        className="h-12 rounded-xl bg-muted/50 border-none font-bold placeholder:opacity-30"
+                        className="h-12 rounded-xl font-bold placeholder:opacity-30"
                         placeholder="+234..."
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
@@ -315,10 +315,10 @@ function VisitorForm({ formData, setFormData, purposes }: { formData: any, setFo
                 <div className="space-y-2">
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Purpose of Visit</Label>
                     <Select value={formData.purpose} onValueChange={(v) => setFormData({ ...formData, purpose: v })}>
-                        <SelectTrigger className="h-12 rounded-xl bg-muted/50 border-none font-bold">
+                        <SelectTrigger className="h-12 rounded-xl font-bold">
                             <SelectValue placeholder="Select Purpose" />
                         </SelectTrigger>
-                        <SelectContent className="rounded-xl border-border bg-card font-bold text-xs uppercase">
+                        <SelectContent className="rounded-xl border-border font-bold text-xs">
                             {purposes.map(purpose => (
                                 <SelectItem key={purpose} value={purpose}>{purpose}</SelectItem>
                             ))}
@@ -328,7 +328,7 @@ function VisitorForm({ formData, setFormData, purposes }: { formData: any, setFo
                 <div className="space-y-2">
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">ID Card / Badge No.</Label>
                     <Input
-                        className="h-12 rounded-xl bg-muted/50 border-none font-bold placeholder:opacity-30"
+                        className="h-12 rounded-xl font-bold placeholder:opacity-30"
                         placeholder="ID-12345"
                         value={formData.idCard}
                         onChange={(e) => setFormData({ ...formData, idCard: e.target.value })}
@@ -341,7 +341,7 @@ function VisitorForm({ formData, setFormData, purposes }: { formData: any, setFo
                     <Input
                         type="number"
                         min="1"
-                        className="h-12 rounded-xl bg-muted/50 border-none font-bold"
+                        className="h-12 rounded-xl font-bold"
                         value={formData.numPerson}
                         onChange={(e) => setFormData({ ...formData, numPerson: parseInt(e.target.value) || 1 })}
                     />
@@ -350,7 +350,7 @@ function VisitorForm({ formData, setFormData, purposes }: { formData: any, setFo
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">In Time</Label>
                     <Input
                         type="time"
-                        className="h-12 rounded-xl bg-muted/50 border-none font-bold text-xs"
+                        className="h-12 rounded-xl font-bold text-xs"
                         value={formData.inTime}
                         onChange={(e) => setFormData({ ...formData, inTime: e.target.value })}
                     />
@@ -359,7 +359,7 @@ function VisitorForm({ formData, setFormData, purposes }: { formData: any, setFo
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Out Time</Label>
                     <Input
                         type="time"
-                        className="h-12 rounded-xl bg-muted/50 border-none font-bold text-xs"
+                        className="h-12 rounded-xl font-bold text-xs"
                         value={formData.outTime}
                         onChange={(e) => setFormData({ ...formData, outTime: e.target.value })}
                     />
@@ -368,7 +368,7 @@ function VisitorForm({ formData, setFormData, purposes }: { formData: any, setFo
             <div className="space-y-2">
                 <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Notes / Remarks</Label>
                 <Textarea
-                    className="rounded-xl bg-muted/50 border-none font-bold min-h-[80px] placeholder:opacity-30"
+                    className="rounded-xl font-bold min-h-[80px] placeholder:opacity-30"
                     placeholder="Any specific observations..."
                     value={formData.note}
                     onChange={(e) => setFormData({ ...formData, note: e.target.value })}

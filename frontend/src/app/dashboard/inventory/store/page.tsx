@@ -1,4 +1,5 @@
 'use client';
+import RequireBranch from "@/components/RequireBranch";
 
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
@@ -13,7 +14,7 @@ import { InventoryService, InventoryStore } from '@/services/inventoryService';
 import { toast } from 'sonner';
 
 export default function InventoryStorePage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [stores, setStores] = useState<InventoryStore[]>([]);
     const [loading, setLoading] = useState(true);
     const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
@@ -23,9 +24,9 @@ export default function InventoryStorePage() {
     const [editData, setEditData] = useState({ name: '', code: '' });
 
     const fetchStores = async () => {
-        if (!user?.branchId) return;
+        if (!resolvedBranchId) return;
         try {
-            const data = await InventoryService.getStores(user.branchId);
+            const data = await InventoryService.getStores(resolvedBranchId);
             setStores(data);
         } catch (error) {
             toast.error('Failed to load stores');
@@ -36,12 +37,12 @@ export default function InventoryStorePage() {
 
     useEffect(() => {
         fetchStores();
-    }, [user?.branchId]);
+    }, [resolvedBranchId]);
 
     const handleCreate = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await InventoryService.createStore({ ...formData, branchId: user?.branchId });
+            await InventoryService.createStore({ ...formData, branchId: resolvedBranchId });
             toast.success('Store location added');
             setIsAddDialogOpen(false);
             setFormData({ name: '', code: '' });
@@ -76,10 +77,11 @@ export default function InventoryStorePage() {
     };
 
     return (
+            <RequireBranch>
         <div className="max-w-7xl mx-auto space-y-8 pb-20">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight uppercase">Store Locations</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Store Locations</h1>
                     <p className="text-muted-foreground font-medium mt-1">Manage physical warehouses and storage rooms.</p>
                 </div>
                 <div className="flex gap-4">
@@ -92,7 +94,7 @@ export default function InventoryStorePage() {
                         </DialogTrigger>
                         <DialogContent className="rounded-[2.5rem]">
                             <DialogHeader>
-                                <DialogTitle className="text-h3 font-semibold uppercase">New Store</DialogTitle>
+                                <DialogTitle className="text-h3 font-semibold">New Store</DialogTitle>
                                 <DialogDescription className="font-bold">Define a new physical storage area.</DialogDescription>
                             </DialogHeader>
                             <form onSubmit={handleCreate} className="space-y-6 pt-4">
@@ -126,7 +128,7 @@ export default function InventoryStorePage() {
 
             <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background">
                 <CardHeader className="p-8 border-b border-border/50 flex flex-row items-center justify-between">
-                    <CardTitle className="text-h3 font-semibold flex items-center gap-3">
+                    <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
                         <Store className="h-8 w-8 text-primary" />
                         Active Warehouses
                     </CardTitle>
@@ -182,7 +184,7 @@ export default function InventoryStorePage() {
             <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
                 <DialogContent className="rounded-[2.5rem]">
                     <DialogHeader>
-                        <DialogTitle className="text-h3 font-semibold uppercase">Edit Store</DialogTitle>
+                        <DialogTitle className="text-h3 font-semibold">Edit Store</DialogTitle>
                     </DialogHeader>
                     <form onSubmit={handleUpdate} className="space-y-6 pt-4">
                         <div className="space-y-2">
@@ -209,5 +211,6 @@ export default function InventoryStorePage() {
                 </DialogContent>
             </Dialog>
         </div>
-    );
+          </RequireBranch>
+  );
 }

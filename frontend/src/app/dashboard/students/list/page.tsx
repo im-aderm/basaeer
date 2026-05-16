@@ -87,7 +87,7 @@ export default function StudentListPage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
+                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3">
                         <Users className="text-primary w-10 h-10" />
                         Student Directory
                     </h1>
@@ -118,13 +118,13 @@ export default function StudentListPage() {
             </div>
 
             {/* Filters & Search */}
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 bg-card border border-border p-4 rounded-[2rem] shadow-sm">
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 bg-white/75 border border-border p-4 rounded-[2rem] shadow-sm">
                 <div className="relative group lg:col-span-2">
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-primary transition-colors" size={18} />
                     <input
                         type="text"
                         placeholder="Search by name, email, or ID..."
-                        className="w-full pl-12 pr-4 py-3 bg-muted/30 border border-border/50 rounded-xl focus:border-primary outline-none transition-all font-medium"
+                        className="w-full pl-12 pr-4 py-3 bg-white border border-primary/90 rounded-xl focus:border-primary outline-none transition-all font-medium"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
@@ -132,7 +132,7 @@ export default function StudentListPage() {
                 <div className="relative">
                     <Filter className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={18} />
                     <select
-                        className="w-full pl-12 pr-4 py-3 bg-muted/30 border border-border/50 rounded-xl focus:border-primary outline-none appearance-none font-medium cursor-pointer"
+                        className="w-full pl-12 pr-4 py-3 bg-white border border-primary/90 rounded-xl focus:border-primary outline-none appearance-none font-medium cursor-pointer"
                         value={selectedClassId}
                         onChange={(e) => setSelectedClassId(e.target.value)}
                     >
@@ -149,7 +149,7 @@ export default function StudentListPage() {
 
             {/* Directory View */}
             {viewMode === "table" ? (
-                <div className="bg-card border border-border rounded-[2.5rem] shadow-sm overflow-hidden">
+                <div className="bg-white/75 border border-border rounded-[2.5rem] shadow-sm overflow-hidden">
                     <div className="overflow-x-auto">
                         <table className="w-full border-collapse">
                             <thead>
@@ -245,7 +245,7 @@ export default function StudentListPage() {
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     {filteredStudents.map(student => (
-                        <div key={student.id} className="bg-card border border-border rounded-[2.5rem] p-8 space-y-6 hover:shadow-2xl hover:shadow-primary/5 transition-all text-center group border-t-8 border-t-primary/10 hover:border-t-primary">
+                        <div key={student.id} className="bg-white/75 border border-border rounded-[2.5rem] p-8 space-y-6 hover:shadow-2xl hover:shadow-primary/5 transition-all text-center group border-t-8 border-t-primary/10 hover:border-t-primary">
                             <div className="relative mx-auto w-24 h-24">
                                 <div className="w-24 h-24 rounded-[2rem] bg-muted/50 border-4 border-card group-hover:bg-primary/10 transition-colors flex items-center justify-center text-h1 font-semibold text-muted-foreground group-hover:text-primary transform group-hover:rotate-6 transition-all duration-500">
                                     {student.firstName[0]}{student.lastName[0]}

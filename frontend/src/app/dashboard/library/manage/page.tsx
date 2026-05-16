@@ -138,7 +138,7 @@ export default function BookIssueReturnPage() {
         <div className="space-y-8 animate-in fade-in duration-500 pb-20">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight flex items-center gap-3">
+                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3">
                         <Library className="text-primary w-10 h-10" />
                         Issue & Return
                     </h1>
@@ -166,7 +166,7 @@ export default function BookIssueReturnPage() {
             </div>
 
             {tab === "active" && (
-                <Card className="rounded-[2rem] border-border/50 shadow-xl bg-card/50 backdrop-blur-sm overflow-hidden">
+                <Card className="rounded-[2rem] border-border/50 shadow-xl overflow-hidden">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4 px-8 pt-8">
                         <CardTitle className="text-h3 font-semibold tracking-tight">
                             Active Borrowings
@@ -282,9 +282,9 @@ export default function BookIssueReturnPage() {
 
             {tab === "issue" && (
                 <div className="max-w-2xl mx-auto">
-                    <Card className="rounded-[2rem] border-border/50 shadow-xl bg-card/50 backdrop-blur-sm">
+                    <Card className="rounded-[2rem] border-border/50 shadow-xl">
                         <CardHeader className="px-8 pt-8">
-                            <CardTitle className="text-h3 font-semibold tracking-tight flex items-center gap-3">
+                            <CardTitle className="text-h3 font-semibold tracking-tight text-primary flex items-center gap-3">
                                 <ArrowLeftRight className="text-primary" size={24} />
                                 Issue a Book
                             </CardTitle>
@@ -300,7 +300,7 @@ export default function BookIssueReturnPage() {
                                         required
                                         value={formData.bookId}
                                         onChange={(e) => setFormData({ ...formData, bookId: e.target.value })}
-                                        className="w-full h-12 rounded-xl bg-muted/30 border-border text-base px-4 appearance-none focus:ring-2 ring-primary/20 cursor-pointer"
+                                        className="w-full h-12 rounded-xl bg-white border border-primary/90 text-base px-4 appearance-none focus:ring-2 ring-primary/20 cursor-pointer"
                                     >
                                         <option value="">Choose a book...</option>
                                         {availableBooks.map((book) => (
@@ -325,7 +325,7 @@ export default function BookIssueReturnPage() {
                                         required
                                         value={formData.studentId}
                                         onChange={(e) => setFormData({ ...formData, studentId: e.target.value })}
-                                        className="w-full h-12 rounded-xl bg-muted/30 border-border text-base px-4 appearance-none focus:ring-2 ring-primary/20 cursor-pointer"
+                                        className="w-full h-12 rounded-xl bg-white border border-primary/90 text-base px-4 appearance-none focus:ring-2 ring-primary/20 cursor-pointer"
                                     >
                                         <option value="">Choose a student...</option>
                                         {students.map((s) => (

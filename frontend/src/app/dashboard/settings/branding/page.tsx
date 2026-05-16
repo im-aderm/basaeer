@@ -11,7 +11,7 @@ import api from '@/lib/api';
 import { toast } from 'sonner';
 
 export default function BrandingSettingsPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [loading, setLoading] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
     const [form, setForm] = useState({
@@ -23,13 +23,13 @@ export default function BrandingSettingsPage() {
     });
 
     useEffect(() => {
-        if (!user?.branchId) {
+        if (!resolvedBranchId) {
             setLoading(false);
             return;
         }
         const fetchBranding = async () => {
             try {
-                const res = await api.get(`/branches/${user.branchId}/branding`);
+                const res = await api.get(`/branches/${resolvedBranchId}/branding`);
                 const data = res.data;
                 setForm({
                     name: data.name || '',
@@ -45,17 +45,17 @@ export default function BrandingSettingsPage() {
             }
         };
         fetchBranding();
-    }, [user?.branchId]);
+    }, [resolvedBranchId]);
 
     const handleChange = (key: string, value: string) => {
         setForm(prev => ({ ...prev, [key]: value }));
     };
 
     const handleSave = async () => {
-        if (!user?.branchId) return;
+        if (!resolvedBranchId) return;
         setIsSaving(true);
         try {
-            await api.patch(`/branches/${user.branchId}/branding`, {
+            await api.patch(`/branches/${resolvedBranchId}/branding`, {
                 logoUrl: form.logoUrl || undefined,
                 primaryColor: form.primaryColor,
                 emailFooter: form.emailFooter || undefined,
@@ -75,7 +75,7 @@ export default function BrandingSettingsPage() {
         <div className="max-w-4xl mx-auto space-y-8 pb-20">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight">School Branding</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">School Branding</h1>
                     <p className="text-muted-foreground font-medium mt-1">Customize your school&apos;s visual identity and communication defaults.</p>
                 </div>
                 <Button
@@ -155,7 +155,7 @@ export default function BrandingSettingsPage() {
                                 <div className="relative">
                                     <Mail className="absolute left-4 top-3 h-4 w-4 text-muted-foreground" />
                                     <textarea
-                                        className="pl-11 h-24 w-full rounded-2xl border border-border/50 bg-background/50 font-bold p-4 pt-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-primary/20"
+                                        className="pl-11 h-24 w-full rounded-2xl border border-primary/90 bg-white font-bold p-4 pt-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-primary/20"
                                         value={form.emailFooter}
                                         onChange={(e) => handleChange('emailFooter', e.target.value)}
                                         placeholder="Thank you,&#10;School Administration"
@@ -168,7 +168,7 @@ export default function BrandingSettingsPage() {
                                 <div className="relative">
                                     <MessageSquare className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                                     <Input
-                                        className="pl-11 h-12 rounded-2xl border-border/50 bg-background/50 font-bold uppercase"
+                                        className="pl-11 h-12 rounded-2xl border-border/50 bg-background/50 font-bold"
                                         value={form.smsSenderId}
                                         onChange={(e) => handleChange('smsSenderId', e.target.value)}
                                         placeholder="BASAER"

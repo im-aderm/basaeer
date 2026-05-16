@@ -1,10 +1,12 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, UnauthorizedException, NotFoundException } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { MailService } from '../mail/mail.service';
 import { AuditService } from '../audit/audit.service';
 import { BranchBrandingService } from '../branches/branch-branding.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { TenantContext } from './branch.guard';
+import { UserRole } from '../generated/client/client';
 import * as bcrypt from 'bcrypt';
 import * as crypto from 'crypto';
 
@@ -16,6 +18,7 @@ export class AuthService {
     private mailService: MailService,
     private auditService: AuditService,
     private brandingService: BranchBrandingService,
+    private prisma: PrismaService,
   ) {}
 
   async validateUser(email: string, pass: string): Promise<any> {
@@ -33,6 +36,7 @@ export class AuthService {
       sub: user.id,
       role: user.role,
       branchId: user.branchId,
+      selectedBranchId: user.selectedBranchId || null,
     };
 
     this.auditService.logAction(
@@ -77,13 +81,51 @@ export class AuthService {
   }
 
   async register(data: any) {
-    const hashedPassword = await bcrypt.hash(data.password, 10);
+    const hashedPassword = await bcrypt.hash(data.password, 8);
     const { password, ...rest } = data;
     return this.usersService.createUser({
       ...rest,
       password: hashedPassword,
       mustChangePassword: true,
     } as any);
+  }
+
+  async updateProfile(userId: string, data: { firstName?: string; lastName?: string; phone?: string }, context: TenantContext) {
+    const user = await this.usersService.findById(userId, context);
+    if (!user) throw new UnauthorizedException('User not found');
+    const updated = await this.prisma.user.update({
+      where: { id: userId },
+      data,
+    });
+    const { password, resetTokenHash, resetTokenExpires, ...result } = updated;
+    return result;
+  }
+
+  async updateSelectedBranch(userId: string, selectedBranchId: string, context: TenantContext) {
+    const user = await this.usersService.findById(userId, context);
+    if (!user || user.role !== UserRole.SUPER_ADMIN) {
+      throw new UnauthorizedException('Only Super Admin can select a branch context');
+    }
+    const payload = {
+      email: user.email,
+      sub: user.id,
+      role: user.role,
+      branchId: user.branchId,
+      selectedBranchId,
+    };
+    const access_token = this.jwtService.sign(payload);
+    return { access_token, selectedBranchId };
+  }
+
+  async adminResetPassword(adminId: string, targetUserId: string, newPassword: string, context: TenantContext) {
+    const admin = await this.usersService.findById(adminId, context);
+    if (!admin) throw new UnauthorizedException();
+    const target = await this.usersService.findById(targetUserId, context);
+    if (!target) throw new NotFoundException('User not found');
+    const hashed = await bcrypt.hash(newPassword, 8);
+    await this.usersService.updatePassword(targetUserId, hashed);
+    await this.usersService.setMustChangePassword(targetUserId);
+    return { message: 'Password reset successfully. User must change on next login.' };
   }
 
   async changePassword(userId: string, currentPassword: string, newPassword: string, context: TenantContext) {
@@ -97,7 +139,7 @@ export class AuthService {
       throw new UnauthorizedException('Current password is incorrect');
     }
 
-    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+    const hashedNewPassword = await bcrypt.hash(newPassword, 8);
     await this.usersService.updatePassword(userId, hashedNewPassword);
     await this.usersService.clearMustChangePassword(userId);
 
@@ -143,7 +185,7 @@ export class AuthService {
       );
     }
 
-    const newHashedPassword = await bcrypt.hash(newPasswordPlain, 10);
+    const newHashedPassword = await bcrypt.hash(newPasswordPlain, 8);
     await this.usersService.updatePassword(user.id, newHashedPassword);
     await this.usersService.clearResetToken(user.id);
 

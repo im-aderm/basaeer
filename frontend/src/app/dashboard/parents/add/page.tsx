@@ -54,16 +54,16 @@ export default function AddParentPage() {
                 >
                     <ChevronLeft className="h-4 w-4" /> Back to Parents
                 </Button>
-                <h1 className="text-h1 font-semibold tracking-tight uppercase flex items-center gap-4">
+                <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-4">
                     <UserPlus className="text-primary w-10 h-10" />
                     Register Parent
                 </h1>
                 <p className="text-muted-foreground text-lg font-medium">Create a new family portal account.</p>
             </div>
 
-            <Card className="rounded-[2.5rem] border-border/50 shadow-2xl bg-card overflow-hidden border-t-8 border-t-primary">
+            <Card className="rounded-[2.5rem] shadow-2xl overflow-hidden border-t-8 border-t-primary">
                 <CardHeader className="p-10 pb-0">
-                    <CardTitle className="text-h3 font-semibold uppercase">Account Details</CardTitle>
+                    <CardTitle className="text-h3 font-semibold">Account Details</CardTitle>
                     <CardDescription className="font-bold">Enter the primary contact information for the family.</CardDescription>
                 </CardHeader>
                 <CardContent className="p-10 pt-8">
@@ -76,7 +76,7 @@ export default function AddParentPage() {
                                     <Input
                                         required
                                         placeholder="e.g. John"
-                                        className="h-14 pl-12 rounded-2xl border-border/50 font-bold text-lg focus-visible:ring-primary"
+                                        className="h-14 pl-12 rounded-2xl font-bold text-lg focus-visible:ring-primary"
                                         value={formData.firstName}
                                         onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
                                     />
@@ -89,7 +89,7 @@ export default function AddParentPage() {
                                     <Input
                                         required
                                         placeholder="e.g. Doe"
-                                        className="h-14 pl-12 rounded-2xl border-border/50 font-bold text-lg focus-visible:ring-primary"
+                                        className="h-14 pl-12 rounded-2xl font-bold text-lg focus-visible:ring-primary"
                                         value={formData.lastName}
                                         onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
                                     />
@@ -105,7 +105,7 @@ export default function AddParentPage() {
                                     required
                                     type="email"
                                     placeholder="parent@example.com"
-                                    className="h-14 pl-12 rounded-2xl border-border/50 font-bold text-lg focus-visible:ring-primary"
+                                    className="h-14 pl-12 rounded-2xl font-bold text-lg focus-visible:ring-primary"
                                     value={formData.email}
                                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                 />
@@ -120,7 +120,7 @@ export default function AddParentPage() {
                                     required
                                     type="password"
                                     placeholder="••••••••"
-                                    className="h-14 pl-12 rounded-2xl border-border/50 font-bold text-lg focus-visible:ring-primary"
+                                    className="h-14 pl-12 rounded-2xl font-bold text-lg focus-visible:ring-primary"
                                     value={formData.password}
                                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                                 />
@@ -133,7 +133,7 @@ export default function AddParentPage() {
                                 <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-primary w-5 h-5" />
                                 <Input
                                     placeholder="+1 (555) 000-0000"
-                                    className="h-14 pl-12 rounded-2xl border-border/50 font-bold text-lg focus-visible:ring-primary"
+                                    className="h-14 pl-12 rounded-2xl font-bold text-lg focus-visible:ring-primary"
                                     value={formData.phone}
                                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                                 />

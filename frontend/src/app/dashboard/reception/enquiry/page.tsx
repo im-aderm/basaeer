@@ -19,14 +19,13 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import SharableLink from '@/components/admission/SharableLink';
 
 export default function AdmissionEnquiryPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [enquiries, setEnquiries] = useState<AdmissionEnquiry[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
     const [editingEnquiry, setEditingEnquiry] = useState<AdmissionEnquiry | null>(null);
     const [branches, setBranches] = useState<Branch[]>([]);
-    const [resolvedBranchId, setResolvedBranchId] = useState<string | null>(null);
     const [sources, setSources] = useState<string[]>(["Advertisement", "Walk-in", "Referral", "Social Media", "Newspaper", "Other"]);
 
     // Form State
@@ -64,15 +63,12 @@ export default function AdmissionEnquiryPage() {
 
     useEffect(() => {
         if (user) {
-            if (user.branchId) {
-                setResolvedBranchId(user.branchId);
-                fetchEnquiries(user.branchId);
+            if (resolvedBranchId) {
+                fetchEnquiries(resolvedBranchId);
             } else {
-                // Super Admin case - fetch all branches to find a fallback
                 BranchService.getAll().then(data => {
                     setBranches(data);
                     if (data.length > 0) {
-                        setResolvedBranchId(data[0].id);
                         fetchEnquiries(data[0].id);
                     } else {
                         setLoading(false);
@@ -184,7 +180,7 @@ export default function AdmissionEnquiryPage() {
         <div className="max-w-7xl mx-auto space-y-8 pb-20 animate-in fade-in duration-500">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight uppercase">Admission Enquiries</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">Admission Enquiries</h1>
                     <p className="text-muted-foreground font-medium mt-1">Track prospective student leads and follow-ups.</p>
                 </div>
 
@@ -193,7 +189,7 @@ export default function AdmissionEnquiryPage() {
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                         <Input
                             placeholder="Search leads..."
-                            className="pl-9 h-12 rounded-2xl bg-white/50 border border-border shadow-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none"
+                            className="pl-9 h-12 rounded-2xl bg-white border border-primary/90 shadow-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
@@ -205,9 +201,9 @@ export default function AdmissionEnquiryPage() {
                                 New Enquiry
                             </Button>
                         </DialogTrigger>
-                        <DialogContent className="rounded-[2.5rem] max-w-2xl bg-card border-border shadow-2xl">
+                        <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl border-border shadow-2xl">
                             <DialogHeader>
-                                <DialogTitle className="text-h3 font-semibold uppercase">Record New Enquiry</DialogTitle>
+                                <DialogTitle className="text-h3 font-semibold">Record New Enquiry</DialogTitle>
                                 <DialogDescription className="font-bold">Enter prospective student or guardian details.</DialogDescription>
                             </DialogHeader>
                             <form onSubmit={handleCreate} className="space-y-6 pt-4">
@@ -235,9 +231,9 @@ export default function AdmissionEnquiryPage() {
             )}
 
             {/* Main Table */}
-            <Card className="rounded-[3rem] border-border shadow-2xl overflow-hidden bg-card">
+            <Card className="rounded-[3rem] border-border shadow-2xl overflow-hidden">
                 <CardHeader className="p-8 border-b border-border bg-muted/20">
-                    <CardTitle className="text-h3 font-semibold flex items-center gap-3">
+                    <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
                         <MessageSquare className="h-8 w-8 text-primary" />
                         Lead Roster
                     </CardTitle>
@@ -317,9 +313,9 @@ export default function AdmissionEnquiryPage() {
 
             {/* Edit Dialog */}
             <Dialog open={!!editingEnquiry} onOpenChange={(open) => { if (!open) setEditingEnquiry(null); }}>
-                <DialogContent className="rounded-[2.5rem] max-w-2xl bg-card border-border shadow-2xl">
+                <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl border-border shadow-2xl">
                     <DialogHeader>
-                        <DialogTitle className="text-h3 font-semibold uppercase">Edit Enquiry</DialogTitle>
+                        <DialogTitle className="text-h3 font-semibold">Edit Enquiry</DialogTitle>
                         <DialogDescription className="font-semibold opacity-60">Update details for {editingEnquiry?.name}</DialogDescription>
                     </DialogHeader>
                     <form onSubmit={handleUpdate} className="space-y-6 pt-4">
@@ -363,7 +359,7 @@ function EnquiryForm({ formData, setFormData, sources }: { formData: any, setFor
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Name</Label>
                     <Input
                         required
-                        className="h-12 rounded-xl bg-muted/50 border-none font-bold placeholder:opacity-30"
+                        className="h-12 rounded-xl font-bold placeholder:opacity-30"
                         placeholder="John Doe"
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -373,7 +369,7 @@ function EnquiryForm({ formData, setFormData, sources }: { formData: any, setFor
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Phone</Label>
                     <Input
                         required
-                        className="h-12 rounded-xl bg-muted/50 border-none font-bold placeholder:opacity-30"
+                        className="h-12 rounded-xl font-bold placeholder:opacity-30"
                         placeholder="+234..."
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
@@ -385,7 +381,7 @@ function EnquiryForm({ formData, setFormData, sources }: { formData: any, setFor
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Email</Label>
                     <Input
                         type="email"
-                        className="h-12 rounded-xl bg-muted/50 border-none font-bold placeholder:opacity-30"
+                        className="h-12 rounded-xl font-bold placeholder:opacity-30"
                         placeholder="john@example.com"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -394,10 +390,10 @@ function EnquiryForm({ formData, setFormData, sources }: { formData: any, setFor
                 <div className="space-y-2">
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Source</Label>
                     <Select value={formData.source} onValueChange={(v) => setFormData({ ...formData, source: v })}>
-                        <SelectTrigger className="h-12 rounded-xl bg-muted/50 border-none font-bold">
+                        <SelectTrigger className="h-12 rounded-xl font-bold">
                             <SelectValue placeholder="Select Lead Source" />
                         </SelectTrigger>
-                        <SelectContent className="rounded-xl border-border bg-card font-bold text-xs uppercase">
+                        <SelectContent className="rounded-xl border-border font-bold text-xs">
                             {sources.map(source => (
                                 <SelectItem key={source} value={source}>{source}</SelectItem>
                             ))}
@@ -408,7 +404,7 @@ function EnquiryForm({ formData, setFormData, sources }: { formData: any, setFor
             <div className="space-y-2">
                 <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Description / Notes</Label>
                 <Textarea
-                    className="rounded-xl bg-muted/50 border-none font-bold min-h-[100px] placeholder:opacity-30"
+                    className="rounded-xl font-bold min-h-[100px] placeholder:opacity-30"
                     placeholder="Specific interests, requirements, etc..."
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
@@ -421,7 +417,7 @@ function EnquiryForm({ formData, setFormData, sources }: { formData: any, setFor
                         <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground opacity-50" />
                         <Input
                             type="date"
-                            className="h-12 pl-10 rounded-xl bg-muted/50 border-none font-bold"
+                            className="h-12 pl-10 rounded-xl font-bold"
                             value={formData.nextFollowUpDate}
                             onChange={(e) => setFormData({ ...formData, nextFollowUpDate: e.target.value })}
                         />
@@ -430,10 +426,10 @@ function EnquiryForm({ formData, setFormData, sources }: { formData: any, setFor
                 <div className="space-y-2 text-xs">
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Status</Label>
                     <Select value={formData.status} onValueChange={(v) => setFormData({ ...formData, status: v })}>
-                        <SelectTrigger className="h-12 rounded-xl bg-muted/50 border-none font-bold">
+                        <SelectTrigger className="h-12 rounded-xl font-bold">
                             <SelectValue placeholder="Status" />
                         </SelectTrigger>
-                        <SelectContent className="rounded-xl border-border bg-card font-bold text-[10px] uppercase">
+                        <SelectContent className="rounded-xl border-border font-bold text-[10px]">
                             <SelectItem value="PENDING">PENDING</SelectItem>
                             <SelectItem value="FOLLOW_UP">FOLLOW_UP</SelectItem>
                             <SelectItem value="WON">WON</SelectItem>

@@ -11,7 +11,7 @@ import { SettingsService, GlobalSetting } from '@/services/settingsService';
 import { toast } from 'sonner';
 
 export default function GeneralSettingsPage() {
-    const { user } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
     const [settings, setSettings] = useState<Record<string, string>>({
         school_name: '',
         school_address: '',
@@ -67,7 +67,7 @@ export default function GeneralSettingsPage() {
         <div className="max-w-4xl mx-auto space-y-8 pb-20">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-h1 font-semibold tracking-tight">System Settings</h1>
+                    <h1 className="text-h1 font-bold tracking-tight text-primary">System Settings</h1>
                     <p className="text-muted-foreground font-medium mt-1">Configure global parameters and school information.</p>
                 </div>
                 <Button
