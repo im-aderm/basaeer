@@ -136,8 +136,9 @@ model Branch {
   bookReservations           BookReservation[]
   hostelMaintenanceTickets    HostelMaintenanceTicket[]
   roles                      Role[]
-  admissionInterviews        AdmissionInterview[]
-  admissionExams             AdmissionExam[]
+   admissionInterviews        AdmissionInterview[]
+   admissionExams             AdmissionExam[]
+   transportAssignments       TransportAssignment[]
 }
 
 model DeactivationReason {
@@ -226,8 +227,9 @@ model User {
   notifications              Notification[]
   notificationPreference     NotificationPreference?
   campaignRecipients         CampaignRecipient[]
-  academicExports            AcademicExport[]
-  computationJobs            ComputationJob[]
+   academicExports            AcademicExport[]
+   computationJobs            ComputationJob[]
+   createdExams               Exam[]                    @relation("ExamCreator")
 
   @@index([branchId])
   @@index([role, isActive])
@@ -468,7 +470,8 @@ model Class {
   sections           Section[]
   students           Student[]
   attendanceSessions AttendanceSession[]
-  offeredAdmissions  OnlineAdmission[] @relation("OfferedClassAdmission")
+   offeredAdmissions  OnlineAdmission[] @relation("OfferedClassAdmission")
+   exams              Exam[]
 
   @@unique([branchId, name])
   @@index([branchId])
@@ -492,7 +495,8 @@ model Section {
   class              Class           @relation(fields: [classId], references: [id])
   students           Student[]
   attendanceSessions AttendanceSession[]
-  offeredAdmissions  OnlineAdmission[] @relation("OfferedSectionAdmission")
+   offeredAdmissions  OnlineAdmission[] @relation("OfferedSectionAdmission")
+   exams              Exam[]
 
   @@unique([classId, name])
   @@index([classId])
@@ -899,15 +903,21 @@ model TransportRoute {
 
 model TransportAssignment {
   id                   String                @id @default(uuid())
+  branchId             String?
   studentId            String                @unique
   vehicleId            String
   routeId              String
   createdAt            DateTime              @default(now())
   updatedAt            DateTime              @updatedAt
+  branch               Branch?               @relation(fields: [branchId], references: [id])
   route                TransportRoute        @relation(fields: [routeId], references: [id])
   student              Student               @relation(fields: [studentId], references: [id])
   vehicle              Vehicle               @relation(fields: [vehicleId], references: [id])
   transportAttendances TransportAttendance[]
+
+  @@index([branchId])
+  @@index([vehicleId])
+  @@index([routeId])
 }
 
 model Assignment {
@@ -968,8 +978,9 @@ model AcademicSession {
   digitalResources   DigitalResource[]
   idCards            IdCard[]
   onlineAdmissions   OnlineAdmission[]
-  resultSummaries    ResultSummary[]
-  admissionExams     AdmissionExam[]
+   resultSummaries    ResultSummary[]
+   admissionExams     AdmissionExam[]
+   exams              Exam[]
 
   @@index([branchId])
 }
@@ -1111,6 +1122,10 @@ model Exam {
   createdAt       DateTime           @default(now())
   updatedAt       DateTime           @updatedAt
   branch          Branch             @relation(fields: [branchId], references: [id])
+  academicSession AcademicSession    @relation(fields: [sessionId], references: [id])
+  class           Class?             @relation(fields: [classId], references: [id])
+  section         Section?           @relation(fields: [sectionId], references: [id])
+  createdBy       User?              @relation("ExamCreator", fields: [createdByUserId], references: [id])
 
   @@index([branchId, sessionId, term])
   @@index([branchId, classId, sectionId])
@@ -1164,9 +1179,9 @@ model AssessmentScore {
   recordId    String
   createdAt   DateTime            @default(now())
   updatedAt   DateTime            @updatedAt
-  component   AssessmentComponent @relation(fields: [componentId], references: [id], onDelete: Cascade)
-  record      AssessmentRecord    @relation(fields: [recordId], references: [id], onDelete: Cascade)
-  student     Student             @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  component   AssessmentComponent @relation(fields: [componentId], references: [id])
+  record      AssessmentRecord    @relation(fields: [recordId], references: [id])
+  student     Student             @relation(fields: [studentId], references: [id])
 
   @@unique([recordId, componentId])
   @@index([recordId])
@@ -1288,20 +1303,22 @@ model Transcript {
   createdAt     DateTime         @default(now())
   updatedAt     DateTime         @updatedAt
   branch        Branch           @relation(fields: [branchId], references: [id])
+  verifications TranscriptVerification[]
 
   @@index([branchId, studentId])
   @@index([status])
 }
 
 model TranscriptVerification {
-  id               String    @id @default(uuid())
+  id               String       @id @default(uuid())
   transcriptId     String
-  verificationCode String    @unique
+  verificationCode String       @unique
   qrPayload        String
   checkedAt        DateTime?
   revokedAt        DateTime?
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+  transcript       Transcript   @relation(fields: [transcriptId], references: [id])
 
   @@index([transcriptId])
 }

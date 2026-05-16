@@ -126,7 +126,7 @@ export class StudentsController {
   @ApiOperation({ summary: 'Retrieve All' })
   @Get()
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
-  findAll(
+  async findAll(
     @GetTenantContext() context: TenantContext,
     @Query('classId') classId?: string,
     @Query('sectionId') sectionId?: string,
@@ -140,7 +140,7 @@ export class StudentsController {
   ) {
     const skipNum = skip ? parseInt(skip, 10) : undefined;
     const takeNum = take ? parseInt(take, 10) : undefined;
-    return this.studentsService.findAll(
+    return this.studentsService.findAllWithCount(
       context,
       {
         classId,

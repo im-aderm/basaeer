@@ -29,6 +29,10 @@ export class CreateEnquiryDto {
 
   @IsOptional()
   @IsDateString()
+  date?: string;
+
+  @IsOptional()
+  @IsDateString()
   nextFollowUpDate?: string;
 
   @IsOptional()

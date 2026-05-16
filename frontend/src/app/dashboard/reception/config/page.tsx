@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { SettingsService } from "@/services/settingsService";
 import { Save, Loader2, Settings2, Users, MessageSquare, Info, Plus, X } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import RequireBranch from "@/components/RequireBranch";
+import { toast } from "sonner";
 
 export default function ReceptionConfigPage() {
     const { user, resolvedBranchId } = useAuth();
@@ -47,10 +49,10 @@ export default function ReceptionConfigPage() {
             await SettingsService.updateSetting("reception_enquiry_sources", JSON.stringify(config.reception_enquiry_sources));
             await SettingsService.updateSetting("reception_visitor_purposes", JSON.stringify(config.reception_visitor_purposes));
             await SettingsService.updateSetting("reception_complaint_types", JSON.stringify(config.reception_complaint_types));
-            alert("Reception configuration saved successfully!");
+            toast.success("Reception configuration saved successfully!");
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to save config:", error);
-            alert("Failed to save configuration.");
+            toast.error("Failed to save configuration.");
         } finally {
             setSaving(false);
         }
@@ -62,7 +64,7 @@ export default function ReceptionConfigPage() {
             activeTab === "purposes" ? "reception_visitor_purposes" : "reception_complaint_types";
 
         if (config[key].includes(newItem.trim())) {
-            alert("Item already exists!");
+            toast.warning("Item already exists!");
             return;
         }
 
@@ -95,6 +97,7 @@ export default function ReceptionConfigPage() {
         activeTab === "purposes" ? config.reception_visitor_purposes : config.reception_complaint_types;
 
     return (
+        <RequireBranch requireSpecificBranch>
         <div className="max-w-4xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
             {/* Header */}
             <div className="flex items-center justify-between">
@@ -197,5 +200,6 @@ export default function ReceptionConfigPage() {
                 </div>
             </div>
         </div>
+        </RequireBranch>
     );
 }

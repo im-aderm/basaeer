@@ -32,8 +32,8 @@ export class AdmissionInterviewService {
     if (!admission) throw new NotFoundException('Admission not found');
 
     // Check if interview already exists
-    const existing = await this.prisma.admissionInterview.findUnique({
-      where: { admissionId: createDto.admissionId },
+    const existing = await this.prisma.admissionInterview.findFirst({
+      where: TenantHelper.applyIsolation({ admissionId: createDto.admissionId }, context),
     });
     if (existing) throw new ConflictException('Interview already scheduled for this admission');
 
@@ -192,8 +192,8 @@ export class AdmissionInterviewService {
           continue;
         }
 
-        const existing = await this.prisma.admissionInterview.findUnique({
-          where: { admissionId },
+        const existing = await this.prisma.admissionInterview.findFirst({
+          where: TenantHelper.applyIsolation({ admissionId }, context),
         });
         if (existing) {
           results.failed++;
@@ -237,7 +237,7 @@ export class AdmissionInterviewService {
       await tx.admissionInterview.delete({ where: { id } });
 
       // Reset admission status
-      await tx.onlineAdmission.update({
+      return tx.onlineAdmission.update({
         where: { id: interview.admissionId },
         data: { status: 'DOCUMENT_REVIEW' },
       });

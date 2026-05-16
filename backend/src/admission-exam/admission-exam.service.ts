@@ -210,22 +210,35 @@ export class AdmissionExamService {
       }
     }
 
-    // If all scores added successfully, update exam status to COMPLETED
+    // If all scores added successfully AND all applicants with exam scores have been scored, update exam status to COMPLETED
     if (results.failed === 0 && results.success > 0) {
-      await this.prisma.admissionExam.update({
+      const exam = await this.prisma.admissionExam.findUnique({
         where: { id: examId },
-        data: { status: 'COMPLETED' },
+        include: { _count: { select: { scores: true } } },
       });
+      if (!exam) return results;
+      const scheduledCount = await this.prisma.onlineAdmission.count({
+        where: {
+          branchId: exam.branchId,
+          status: { in: ['EXAM_SCHEDULED', 'EXAM_COMPLETED', 'ADMISSION_OFFERED', 'ACCEPTED', 'ENROLLED'] },
+        },
+      });
+      if (exam._count.scores >= scheduledCount && scheduledCount > 0) {
+        await this.prisma.admissionExam.update({
+          where: { id: examId },
+          data: { status: 'COMPLETED' },
+        });
+      }
     }
 
     return results;
   }
 
   async getRankings(examId: string, context: TenantContext) {
-    await this.findOne(examId, context);
+    const exam = await this.findOne(examId, context);
 
     const scores = await this.prisma.admissionExamScore.findMany({
-      where: { examId },
+      where: { examId, admission: { branchId: exam.branchId } },
       include: {
         admission: {
           select: {
@@ -267,10 +280,10 @@ export class AdmissionExamService {
 
     // Update status to EXAM_SCHEDULED for all assigned admissions
     await this.prisma.onlineAdmission.updateMany({
-      where: {
+      where: TenantHelper.applyIsolation({
         id: { in: admissionIds },
         branchId: exam.branchId,
-      },
+      }, context),
       data: { status: 'EXAM_SCHEDULED' },
     });
 

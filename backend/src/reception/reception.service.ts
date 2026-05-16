@@ -21,11 +21,12 @@ export class ReceptionService {
 
   // Enquiries
   createEnquiry(dto: CreateEnquiryDto) {
+    const { date, status, ...rest } = dto as any;
     return this.prisma.admissionEnquiry.create({
       data: {
-        ...dto,
-        date: (dto as any).date || new Date(),
-        status: (dto as any).status || 'PENDING',
+        ...rest,
+        date: date ? new Date(date) : new Date(),
+        status: status || 'PENDING',
       },
     });
   }
@@ -39,10 +40,11 @@ export class ReceptionService {
 
   // Call Logs
   createCallLog(dto: CreateCallLogDto) {
+    const { date, ...rest } = dto as any;
     return this.prisma.callLog.create({
       data: {
-        ...dto,
-        date: (dto as any).date || new Date(),
+        ...rest,
+        date: date ? new Date(date) : new Date(),
       },
     });
   }

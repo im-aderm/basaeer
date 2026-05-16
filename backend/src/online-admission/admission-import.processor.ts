@@ -30,6 +30,7 @@ interface ImportContext {
   userId: string;
   branchId: string;
   role: string;
+  isSuperAdmin?: boolean;
 }
 
 @Processor('admission-import')
@@ -185,9 +186,9 @@ export class AdmissionImportProcessor extends WorkerHost {
           if (sec) sectionId = sec.id;
         }
 
-        // Resolve branch
+        // Resolve branch - restrict to context branch unless super admin
         let resolvedBranchId = context.branchId;
-        if (row['BranchId']) {
+        if (row['BranchId'] && context.isSuperAdmin) {
           const branch = await this.prisma.branch.findFirst({
             where: {
               OR: [{ id: row['BranchId'] }, { name: row['BranchId'] }],
@@ -295,6 +296,16 @@ export class AdmissionImportProcessor extends WorkerHost {
             ],
           };
         }
+
+        // Generate admission number
+        const year = new Date().getFullYear();
+        const counter = await this.prisma.counter.upsert({
+          where: { branchId_model: { branchId: resolvedBranchId, model: 'Student' } },
+          update: { lastValue: { increment: 1 } },
+          create: { branchId: resolvedBranchId, model: 'Student', lastValue: 1 },
+        });
+
+        admissionData.admissionNumber = `BMS-${year}-${counter.lastValue.toString().padStart(4, '0')}`;
 
         await this.prisma.onlineAdmission.create({
           data: admissionData,

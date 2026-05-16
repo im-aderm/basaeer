@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { AdmissionInterviewService, AdmissionInterview } from "@/services/admissionInterviewService";
+import { OnlineAdmissionService, OnlineAdmission } from "@/services/onlineAdmissionService";
 import {
     Calendar,
     Plus,
@@ -21,10 +22,13 @@ export default function AdmissionInterviewsPage() {
     const { resolvedBranchId } = useAuth();
     const [interviews, setInterviews] = useState<AdmissionInterview[]>([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
     const [showScheduleForm, setShowScheduleForm] = useState(false);
     const [selectedInterview, setSelectedInterview] = useState<AdmissionInterview | null>(null);
     const [scheduling, setScheduling] = useState(false);
     const [filterStatus, setFilterStatus] = useState("ALL");
+    const [applicants, setApplicants] = useState<OnlineAdmission[]>([]);
+    const [loadingApplicants, setLoadingApplicants] = useState(false);
     const [formData, setFormData] = useState({
         admissionId: "",
         interviewDate: "",
@@ -41,19 +45,44 @@ export default function AdmissionInterviewsPage() {
 
     const fetchInterviews = async () => {
         try {
+            setError(null);
             const data = await AdmissionInterviewService.getAll();
             setInterviews(data);
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to fetch:", error);
+            setError("Failed to load interview data. Please try again.");
             toast.error("Failed to load interviews");
         } finally {
             setLoading(false);
         }
     };
 
+    const fetchApplicants = async () => {
+        if (!resolvedBranchId || applicants.length > 0) return;
+        setLoadingApplicants(true);
+        try {
+            const eligibleStatuses = ["APPLICATION_RECEIVED", "DOCUMENT_REVIEW", "INTERVIEW_SCHEDULED"];
+            const allApplicants = await OnlineAdmissionService.getAll(resolvedBranchId);
+            setApplicants(allApplicants.filter(a => eligibleStatuses.includes(a.status)));
+        } catch (error) {
+            if (process.env.NODE_ENV === 'development') console.error("Failed to fetch applicants:", error);
+        } finally {
+            setLoadingApplicants(false);
+        }
+    };
+
     const handleSchedule = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!resolvedBranchId) return;
+        if (!formData.admissionId) {
+            toast.error("Please select an applicant");
+            return;
+        }
+        const interviewDate = new Date(formData.interviewDate);
+        if (interviewDate <= new Date()) {
+            toast.error("Interview date must be in the future");
+            return;
+        }
         setScheduling(true);
         try {
             await AdmissionInterviewService.create({
@@ -133,6 +162,18 @@ export default function AdmissionInterviewsPage() {
         );
     }
 
+    if (error) {
+        return (
+            <div className="flex flex-col h-[80vh] items-center justify-center gap-4">
+                <AlertCircle className="w-12 h-12 text-red-500" />
+                <p className="text-lg font-semibold text-muted-foreground">{error}</p>
+                <button onClick={fetchInterviews} className="px-6 py-2 bg-primary text-white rounded-xl hover:opacity-90">
+                    Retry
+                </button>
+            </div>
+        );
+    }
+
     return (
         <div className="max-w-6xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-6 duration-700 pb-20 px-6">
             <div className="flex justify-between items-end">
@@ -154,14 +195,28 @@ export default function AdmissionInterviewsPage() {
                     <form onSubmit={handleSchedule} className="space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label className="text-xs font-semibold uppercase text-muted-foreground">Applicant ID *</label>
-                                <input
+                                <label className="text-xs font-semibold uppercase text-muted-foreground">Applicant *</label>
+                                <select
                                     required
-                                    className="w-full p-3 border border-border rounded-xl outline-none focus:border-primary"
+                                    className="w-full p-3 border border-border rounded-xl outline-none focus:border-primary bg-background"
                                     value={formData.admissionId}
                                     onChange={e => setFormData({ ...formData, admissionId: e.target.value })}
-                                    placeholder="Enter admission UUID"
-                                />
+                                    onFocus={fetchApplicants}
+                                >
+                                    <option value="">Select an applicant</option>
+                                    {loadingApplicants ? (
+                                        <option disabled>Loading applicants...</option>
+                                    ) : (
+                                        applicants.map(a => (
+                                            <option key={a.id} value={a.id}>
+                                                {a.firstName} {a.lastName} ({a.email || a.guardianEmail || "No email"})
+                                            </option>
+                                        ))
+                                    )}
+                                </select>
+                                {applicants.length === 0 && !loadingApplicants && (
+                                    <p className="text-xs text-muted-foreground mt-1">No pending applicants found</p>
+                                )}
                             </div>
                             <div>
                                 <label className="text-xs font-semibold uppercase text-muted-foreground">Interview Date & Time *</label>

@@ -73,10 +73,10 @@ export default function ReceptionDashboard() {
     }
 
     const statCards = [
-        { title: "Active Enquiries", value: stats.enquiries, icon: Users, color: "blue", href: "/dashboard/reception/enquiry" },
-        { title: "Today's Calls", value: stats.calls, icon: Phone, color: "purple", href: "/dashboard/reception/call-log" },
-        { title: "Visitor Log", value: stats.visitors, icon: UserCheck, color: "green", href: "/dashboard/reception/visitor-log" },
-        { title: "Pending Complaints", value: stats.complaints, icon: MessageSquare, color: "red", href: "/dashboard/reception/complaint" },
+        { title: "Active Enquiries", value: stats.enquiries, icon: Users, bg: "bg-blue-500/10", text: "text-blue-500", href: "/dashboard/reception/enquiry" },
+        { title: "Today's Calls", value: stats.calls, icon: Phone, bg: "bg-purple-500/10", text: "text-purple-500", href: "/dashboard/reception/call-log" },
+        { title: "Visitor Log", value: stats.visitors, icon: UserCheck, bg: "bg-green-500/10", text: "text-green-500", href: "/dashboard/reception/visitor-log" },
+        { title: "Pending Complaints", value: stats.complaints, icon: MessageSquare, bg: "bg-red-500/10", text: "text-red-500", href: "/dashboard/reception/complaint" },
     ];
 
     return (
@@ -107,7 +107,7 @@ export default function ReceptionDashboard() {
                         href={stat.href}
                         className="group bg-white/75 border border-border p-6 rounded-2xl hover:border-primary/50 transition-all shadow-sm flex flex-col gap-4"
                     >
-                        <div className={`p-3 rounded-xl bg-${stat.color}-500/10 text-${stat.color}-500 w-fit transition-transform group-hover:scale-110`}>
+                        <div className={`p-3 rounded-xl ${stat.bg} ${stat.text} w-fit transition-transform group-hover:scale-110`}>
                             <stat.icon size={24} />
                         </div>
                         <div>

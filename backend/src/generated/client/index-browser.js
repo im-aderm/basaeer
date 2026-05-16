@@ -615,6 +615,7 @@ exports.Prisma.TransportRouteScalarFieldEnum = {
 
 exports.Prisma.TransportAssignmentScalarFieldEnum = {
   id: 'id',
+  branchId: 'branchId',
   studentId: 'studentId',
   vehicleId: 'vehicleId',
   routeId: 'routeId',

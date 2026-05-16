@@ -14701,6 +14701,7 @@ export namespace Prisma {
     roles: number
     admissionInterviews: number
     admissionExams: number
+    transportAssignments: number
   }
 
   export type BranchCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -14818,6 +14819,7 @@ export namespace Prisma {
     roles?: boolean | BranchCountOutputTypeCountRolesArgs
     admissionInterviews?: boolean | BranchCountOutputTypeCountAdmissionInterviewsArgs
     admissionExams?: boolean | BranchCountOutputTypeCountAdmissionExamsArgs
+    transportAssignments?: boolean | BranchCountOutputTypeCountTransportAssignmentsArgs
   }
 
   // Custom InputTypes
@@ -15629,6 +15631,13 @@ export namespace Prisma {
     where?: AdmissionExamWhereInput
   }
 
+  /**
+   * BranchCountOutputType without action
+   */
+  export type BranchCountOutputTypeCountTransportAssignmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransportAssignmentWhereInput
+  }
+
 
   /**
    * Count Type DeactivationReasonCountOutputType
@@ -15722,6 +15731,7 @@ export namespace Prisma {
     campaignRecipients: number
     academicExports: number
     computationJobs: number
+    createdExams: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -15741,6 +15751,7 @@ export namespace Prisma {
     campaignRecipients?: boolean | UserCountOutputTypeCountCampaignRecipientsArgs
     academicExports?: boolean | UserCountOutputTypeCountAcademicExportsArgs
     computationJobs?: boolean | UserCountOutputTypeCountComputationJobsArgs
+    createdExams?: boolean | UserCountOutputTypeCountCreatedExamsArgs
   }
 
   // Custom InputTypes
@@ -15864,6 +15875,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountComputationJobsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ComputationJobWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCreatedExamsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExamWhereInput
   }
 
 
@@ -16245,6 +16263,7 @@ export namespace Prisma {
     students: number
     attendanceSessions: number
     offeredAdmissions: number
+    exams: number
   }
 
   export type ClassCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -16258,6 +16277,7 @@ export namespace Prisma {
     students?: boolean | ClassCountOutputTypeCountStudentsArgs
     attendanceSessions?: boolean | ClassCountOutputTypeCountAttendanceSessionsArgs
     offeredAdmissions?: boolean | ClassCountOutputTypeCountOfferedAdmissionsArgs
+    exams?: boolean | ClassCountOutputTypeCountExamsArgs
   }
 
   // Custom InputTypes
@@ -16341,6 +16361,13 @@ export namespace Prisma {
     where?: OnlineAdmissionWhereInput
   }
 
+  /**
+   * ClassCountOutputType without action
+   */
+  export type ClassCountOutputTypeCountExamsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExamWhereInput
+  }
+
 
   /**
    * Count Type SectionCountOutputType
@@ -16358,6 +16385,7 @@ export namespace Prisma {
     students: number
     attendanceSessions: number
     offeredAdmissions: number
+    exams: number
   }
 
   export type SectionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -16372,6 +16400,7 @@ export namespace Prisma {
     students?: boolean | SectionCountOutputTypeCountStudentsArgs
     attendanceSessions?: boolean | SectionCountOutputTypeCountAttendanceSessionsArgs
     offeredAdmissions?: boolean | SectionCountOutputTypeCountOfferedAdmissionsArgs
+    exams?: boolean | SectionCountOutputTypeCountExamsArgs
   }
 
   // Custom InputTypes
@@ -16460,6 +16489,13 @@ export namespace Prisma {
    */
   export type SectionCountOutputTypeCountOfferedAdmissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: OnlineAdmissionWhereInput
+  }
+
+  /**
+   * SectionCountOutputType without action
+   */
+  export type SectionCountOutputTypeCountExamsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExamWhereInput
   }
 
 
@@ -17026,6 +17062,7 @@ export namespace Prisma {
     onlineAdmissions: number
     resultSummaries: number
     admissionExams: number
+    exams: number
   }
 
   export type AcademicSessionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -17036,6 +17073,7 @@ export namespace Prisma {
     onlineAdmissions?: boolean | AcademicSessionCountOutputTypeCountOnlineAdmissionsArgs
     resultSummaries?: boolean | AcademicSessionCountOutputTypeCountResultSummariesArgs
     admissionExams?: boolean | AcademicSessionCountOutputTypeCountAdmissionExamsArgs
+    exams?: boolean | AcademicSessionCountOutputTypeCountExamsArgs
   }
 
   // Custom InputTypes
@@ -17098,6 +17136,13 @@ export namespace Prisma {
     where?: AdmissionExamWhereInput
   }
 
+  /**
+   * AcademicSessionCountOutputType without action
+   */
+  export type AcademicSessionCountOutputTypeCountExamsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExamWhereInput
+  }
+
 
   /**
    * Count Type AssessmentRecordCountOutputType
@@ -17158,6 +17203,37 @@ export namespace Prisma {
    */
   export type AssessmentComponentCountOutputTypeCountScoresArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AssessmentScoreWhereInput
+  }
+
+
+  /**
+   * Count Type TranscriptCountOutputType
+   */
+
+  export type TranscriptCountOutputType = {
+    verifications: number
+  }
+
+  export type TranscriptCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    verifications?: boolean | TranscriptCountOutputTypeCountVerificationsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * TranscriptCountOutputType without action
+   */
+  export type TranscriptCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TranscriptCountOutputType
+     */
+    select?: TranscriptCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * TranscriptCountOutputType without action
+   */
+  export type TranscriptCountOutputTypeCountVerificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TranscriptVerificationWhereInput
   }
 
 
@@ -18386,6 +18462,7 @@ export namespace Prisma {
     roles?: boolean | Branch$rolesArgs<ExtArgs>
     admissionInterviews?: boolean | Branch$admissionInterviewsArgs<ExtArgs>
     admissionExams?: boolean | Branch$admissionExamsArgs<ExtArgs>
+    transportAssignments?: boolean | Branch$transportAssignmentsArgs<ExtArgs>
     _count?: boolean | BranchCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["branch"]>
 
@@ -18554,6 +18631,7 @@ export namespace Prisma {
     roles?: boolean | Branch$rolesArgs<ExtArgs>
     admissionInterviews?: boolean | Branch$admissionInterviewsArgs<ExtArgs>
     admissionExams?: boolean | Branch$admissionExamsArgs<ExtArgs>
+    transportAssignments?: boolean | Branch$transportAssignmentsArgs<ExtArgs>
     _count?: boolean | BranchCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type BranchIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -18677,6 +18755,7 @@ export namespace Prisma {
       roles: Prisma.$RolePayload<ExtArgs>[]
       admissionInterviews: Prisma.$AdmissionInterviewPayload<ExtArgs>[]
       admissionExams: Prisma.$AdmissionExamPayload<ExtArgs>[]
+      transportAssignments: Prisma.$TransportAssignmentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -19201,6 +19280,7 @@ export namespace Prisma {
     roles<T extends Branch$rolesArgs<ExtArgs> = {}>(args?: Subset<T, Branch$rolesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     admissionInterviews<T extends Branch$admissionInterviewsArgs<ExtArgs> = {}>(args?: Subset<T, Branch$admissionInterviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdmissionInterviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     admissionExams<T extends Branch$admissionExamsArgs<ExtArgs> = {}>(args?: Subset<T, Branch$admissionExamsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdmissionExamPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    transportAssignments<T extends Branch$transportAssignmentsArgs<ExtArgs> = {}>(args?: Subset<T, Branch$transportAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransportAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -22383,6 +22463,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AdmissionExamScalarFieldEnum | AdmissionExamScalarFieldEnum[]
+  }
+
+  /**
+   * Branch.transportAssignments
+   */
+  export type Branch$transportAssignmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransportAssignment
+     */
+    select?: TransportAssignmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TransportAssignment
+     */
+    omit?: TransportAssignmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransportAssignmentInclude<ExtArgs> | null
+    where?: TransportAssignmentWhereInput
+    orderBy?: TransportAssignmentOrderByWithRelationInput | TransportAssignmentOrderByWithRelationInput[]
+    cursor?: TransportAssignmentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TransportAssignmentScalarFieldEnum | TransportAssignmentScalarFieldEnum[]
   }
 
   /**
@@ -26163,6 +26267,7 @@ export namespace Prisma {
     campaignRecipients?: boolean | User$campaignRecipientsArgs<ExtArgs>
     academicExports?: boolean | User$academicExportsArgs<ExtArgs>
     computationJobs?: boolean | User$computationJobsArgs<ExtArgs>
+    createdExams?: boolean | User$createdExamsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -26248,6 +26353,7 @@ export namespace Prisma {
     campaignRecipients?: boolean | User$campaignRecipientsArgs<ExtArgs>
     academicExports?: boolean | User$academicExportsArgs<ExtArgs>
     computationJobs?: boolean | User$computationJobsArgs<ExtArgs>
+    createdExams?: boolean | User$createdExamsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -26284,6 +26390,7 @@ export namespace Prisma {
       campaignRecipients: Prisma.$CampaignRecipientPayload<ExtArgs>[]
       academicExports: Prisma.$AcademicExportPayload<ExtArgs>[]
       computationJobs: Prisma.$ComputationJobPayload<ExtArgs>[]
+      createdExams: Prisma.$ExamPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -26717,6 +26824,7 @@ export namespace Prisma {
     campaignRecipients<T extends User$campaignRecipientsArgs<ExtArgs> = {}>(args?: Subset<T, User$campaignRecipientsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CampaignRecipientPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     academicExports<T extends User$academicExportsArgs<ExtArgs> = {}>(args?: Subset<T, User$academicExportsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AcademicExportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     computationJobs<T extends User$computationJobsArgs<ExtArgs> = {}>(args?: Subset<T, User$computationJobsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComputationJobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    createdExams<T extends User$createdExamsArgs<ExtArgs> = {}>(args?: Subset<T, User$createdExamsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExamPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -27652,6 +27760,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ComputationJobScalarFieldEnum | ComputationJobScalarFieldEnum[]
+  }
+
+  /**
+   * User.createdExams
+   */
+  export type User$createdExamsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Exam
+     */
+    select?: ExamSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Exam
+     */
+    omit?: ExamOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExamInclude<ExtArgs> | null
+    where?: ExamWhereInput
+    orderBy?: ExamOrderByWithRelationInput | ExamOrderByWithRelationInput[]
+    cursor?: ExamWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ExamScalarFieldEnum | ExamScalarFieldEnum[]
   }
 
   /**
@@ -38591,6 +38723,7 @@ export namespace Prisma {
     students?: boolean | Class$studentsArgs<ExtArgs>
     attendanceSessions?: boolean | Class$attendanceSessionsArgs<ExtArgs>
     offeredAdmissions?: boolean | Class$offeredAdmissionsArgs<ExtArgs>
+    exams?: boolean | Class$examsArgs<ExtArgs>
     _count?: boolean | ClassCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["class"]>
 
@@ -38648,6 +38781,7 @@ export namespace Prisma {
     students?: boolean | Class$studentsArgs<ExtArgs>
     attendanceSessions?: boolean | Class$attendanceSessionsArgs<ExtArgs>
     offeredAdmissions?: boolean | Class$offeredAdmissionsArgs<ExtArgs>
+    exams?: boolean | Class$examsArgs<ExtArgs>
     _count?: boolean | ClassCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ClassIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -38674,6 +38808,7 @@ export namespace Prisma {
       students: Prisma.$StudentPayload<ExtArgs>[]
       attendanceSessions: Prisma.$AttendanceSessionPayload<ExtArgs>[]
       offeredAdmissions: Prisma.$OnlineAdmissionPayload<ExtArgs>[]
+      exams: Prisma.$ExamPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -39091,6 +39226,7 @@ export namespace Prisma {
     students<T extends Class$studentsArgs<ExtArgs> = {}>(args?: Subset<T, Class$studentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StudentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     attendanceSessions<T extends Class$attendanceSessionsArgs<ExtArgs> = {}>(args?: Subset<T, Class$attendanceSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AttendanceSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     offeredAdmissions<T extends Class$offeredAdmissionsArgs<ExtArgs> = {}>(args?: Subset<T, Class$offeredAdmissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OnlineAdmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    exams<T extends Class$examsArgs<ExtArgs> = {}>(args?: Subset<T, Class$examsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExamPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -39784,6 +39920,30 @@ export namespace Prisma {
   }
 
   /**
+   * Class.exams
+   */
+  export type Class$examsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Exam
+     */
+    select?: ExamSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Exam
+     */
+    omit?: ExamOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExamInclude<ExtArgs> | null
+    where?: ExamWhereInput
+    orderBy?: ExamOrderByWithRelationInput | ExamOrderByWithRelationInput[]
+    cursor?: ExamWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ExamScalarFieldEnum | ExamScalarFieldEnum[]
+  }
+
+  /**
    * Class without action
    */
   export type ClassDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -39986,6 +40146,7 @@ export namespace Prisma {
     students?: boolean | Section$studentsArgs<ExtArgs>
     attendanceSessions?: boolean | Section$attendanceSessionsArgs<ExtArgs>
     offeredAdmissions?: boolean | Section$offeredAdmissionsArgs<ExtArgs>
+    exams?: boolean | Section$examsArgs<ExtArgs>
     _count?: boolean | SectionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["section"]>
 
@@ -40032,6 +40193,7 @@ export namespace Prisma {
     students?: boolean | Section$studentsArgs<ExtArgs>
     attendanceSessions?: boolean | Section$attendanceSessionsArgs<ExtArgs>
     offeredAdmissions?: boolean | Section$offeredAdmissionsArgs<ExtArgs>
+    exams?: boolean | Section$examsArgs<ExtArgs>
     _count?: boolean | SectionCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SectionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -40056,6 +40218,7 @@ export namespace Prisma {
       students: Prisma.$StudentPayload<ExtArgs>[]
       attendanceSessions: Prisma.$AttendanceSessionPayload<ExtArgs>[]
       offeredAdmissions: Prisma.$OnlineAdmissionPayload<ExtArgs>[]
+      exams: Prisma.$ExamPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -40470,6 +40633,7 @@ export namespace Prisma {
     students<T extends Section$studentsArgs<ExtArgs> = {}>(args?: Subset<T, Section$studentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StudentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     attendanceSessions<T extends Section$attendanceSessionsArgs<ExtArgs> = {}>(args?: Subset<T, Section$attendanceSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AttendanceSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     offeredAdmissions<T extends Section$offeredAdmissionsArgs<ExtArgs> = {}>(args?: Subset<T, Section$offeredAdmissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OnlineAdmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    exams<T extends Section$examsArgs<ExtArgs> = {}>(args?: Subset<T, Section$examsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExamPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -41162,6 +41326,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: OnlineAdmissionScalarFieldEnum | OnlineAdmissionScalarFieldEnum[]
+  }
+
+  /**
+   * Section.exams
+   */
+  export type Section$examsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Exam
+     */
+    select?: ExamSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Exam
+     */
+    omit?: ExamOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExamInclude<ExtArgs> | null
+    where?: ExamWhereInput
+    orderBy?: ExamOrderByWithRelationInput | ExamOrderByWithRelationInput[]
+    cursor?: ExamWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ExamScalarFieldEnum | ExamScalarFieldEnum[]
   }
 
   /**
@@ -67924,6 +68112,7 @@ export namespace Prisma {
 
   export type TransportAssignmentMinAggregateOutputType = {
     id: string | null
+    branchId: string | null
     studentId: string | null
     vehicleId: string | null
     routeId: string | null
@@ -67933,6 +68122,7 @@ export namespace Prisma {
 
   export type TransportAssignmentMaxAggregateOutputType = {
     id: string | null
+    branchId: string | null
     studentId: string | null
     vehicleId: string | null
     routeId: string | null
@@ -67942,6 +68132,7 @@ export namespace Prisma {
 
   export type TransportAssignmentCountAggregateOutputType = {
     id: number
+    branchId: number
     studentId: number
     vehicleId: number
     routeId: number
@@ -67953,6 +68144,7 @@ export namespace Prisma {
 
   export type TransportAssignmentMinAggregateInputType = {
     id?: true
+    branchId?: true
     studentId?: true
     vehicleId?: true
     routeId?: true
@@ -67962,6 +68154,7 @@ export namespace Prisma {
 
   export type TransportAssignmentMaxAggregateInputType = {
     id?: true
+    branchId?: true
     studentId?: true
     vehicleId?: true
     routeId?: true
@@ -67971,6 +68164,7 @@ export namespace Prisma {
 
   export type TransportAssignmentCountAggregateInputType = {
     id?: true
+    branchId?: true
     studentId?: true
     vehicleId?: true
     routeId?: true
@@ -68053,6 +68247,7 @@ export namespace Prisma {
 
   export type TransportAssignmentGroupByOutputType = {
     id: string
+    branchId: string | null
     studentId: string
     vehicleId: string
     routeId: string
@@ -68079,11 +68274,13 @@ export namespace Prisma {
 
   export type TransportAssignmentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    branchId?: boolean
     studentId?: boolean
     vehicleId?: boolean
     routeId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    branch?: boolean | TransportAssignment$branchArgs<ExtArgs>
     route?: boolean | TransportRouteDefaultArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
     vehicle?: boolean | VehicleDefaultArgs<ExtArgs>
@@ -68093,11 +68290,13 @@ export namespace Prisma {
 
   export type TransportAssignmentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    branchId?: boolean
     studentId?: boolean
     vehicleId?: boolean
     routeId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    branch?: boolean | TransportAssignment$branchArgs<ExtArgs>
     route?: boolean | TransportRouteDefaultArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
     vehicle?: boolean | VehicleDefaultArgs<ExtArgs>
@@ -68105,11 +68304,13 @@ export namespace Prisma {
 
   export type TransportAssignmentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    branchId?: boolean
     studentId?: boolean
     vehicleId?: boolean
     routeId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    branch?: boolean | TransportAssignment$branchArgs<ExtArgs>
     route?: boolean | TransportRouteDefaultArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
     vehicle?: boolean | VehicleDefaultArgs<ExtArgs>
@@ -68117,6 +68318,7 @@ export namespace Prisma {
 
   export type TransportAssignmentSelectScalar = {
     id?: boolean
+    branchId?: boolean
     studentId?: boolean
     vehicleId?: boolean
     routeId?: boolean
@@ -68124,8 +68326,9 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type TransportAssignmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "studentId" | "vehicleId" | "routeId" | "createdAt" | "updatedAt", ExtArgs["result"]["transportAssignment"]>
+  export type TransportAssignmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "branchId" | "studentId" | "vehicleId" | "routeId" | "createdAt" | "updatedAt", ExtArgs["result"]["transportAssignment"]>
   export type TransportAssignmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | TransportAssignment$branchArgs<ExtArgs>
     route?: boolean | TransportRouteDefaultArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
     vehicle?: boolean | VehicleDefaultArgs<ExtArgs>
@@ -68133,11 +68336,13 @@ export namespace Prisma {
     _count?: boolean | TransportAssignmentCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TransportAssignmentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | TransportAssignment$branchArgs<ExtArgs>
     route?: boolean | TransportRouteDefaultArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
     vehicle?: boolean | VehicleDefaultArgs<ExtArgs>
   }
   export type TransportAssignmentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    branch?: boolean | TransportAssignment$branchArgs<ExtArgs>
     route?: boolean | TransportRouteDefaultArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
     vehicle?: boolean | VehicleDefaultArgs<ExtArgs>
@@ -68146,6 +68351,7 @@ export namespace Prisma {
   export type $TransportAssignmentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "TransportAssignment"
     objects: {
+      branch: Prisma.$BranchPayload<ExtArgs> | null
       route: Prisma.$TransportRoutePayload<ExtArgs>
       student: Prisma.$StudentPayload<ExtArgs>
       vehicle: Prisma.$VehiclePayload<ExtArgs>
@@ -68153,6 +68359,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      branchId: string | null
       studentId: string
       vehicleId: string
       routeId: string
@@ -68552,6 +68759,7 @@ export namespace Prisma {
    */
   export interface Prisma__TransportAssignmentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    branch<T extends TransportAssignment$branchArgs<ExtArgs> = {}>(args?: Subset<T, TransportAssignment$branchArgs<ExtArgs>>): Prisma__BranchClient<$Result.GetResult<Prisma.$BranchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     route<T extends TransportRouteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TransportRouteDefaultArgs<ExtArgs>>): Prisma__TransportRouteClient<$Result.GetResult<Prisma.$TransportRoutePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     student<T extends StudentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StudentDefaultArgs<ExtArgs>>): Prisma__StudentClient<$Result.GetResult<Prisma.$StudentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     vehicle<T extends VehicleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VehicleDefaultArgs<ExtArgs>>): Prisma__VehicleClient<$Result.GetResult<Prisma.$VehiclePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
@@ -68586,6 +68794,7 @@ export namespace Prisma {
    */
   interface TransportAssignmentFieldRefs {
     readonly id: FieldRef<"TransportAssignment", 'String'>
+    readonly branchId: FieldRef<"TransportAssignment", 'String'>
     readonly studentId: FieldRef<"TransportAssignment", 'String'>
     readonly vehicleId: FieldRef<"TransportAssignment", 'String'>
     readonly routeId: FieldRef<"TransportAssignment", 'String'>
@@ -68984,6 +69193,25 @@ export namespace Prisma {
      * Limit how many TransportAssignments to delete.
      */
     limit?: number
+  }
+
+  /**
+   * TransportAssignment.branch
+   */
+  export type TransportAssignment$branchArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Branch
+     */
+    select?: BranchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Branch
+     */
+    omit?: BranchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BranchInclude<ExtArgs> | null
+    where?: BranchWhereInput
   }
 
   /**
@@ -71623,6 +71851,7 @@ export namespace Prisma {
     onlineAdmissions?: boolean | AcademicSession$onlineAdmissionsArgs<ExtArgs>
     resultSummaries?: boolean | AcademicSession$resultSummariesArgs<ExtArgs>
     admissionExams?: boolean | AcademicSession$admissionExamsArgs<ExtArgs>
+    exams?: boolean | AcademicSession$examsArgs<ExtArgs>
     _count?: boolean | AcademicSessionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["academicSession"]>
 
@@ -71677,6 +71906,7 @@ export namespace Prisma {
     onlineAdmissions?: boolean | AcademicSession$onlineAdmissionsArgs<ExtArgs>
     resultSummaries?: boolean | AcademicSession$resultSummariesArgs<ExtArgs>
     admissionExams?: boolean | AcademicSession$admissionExamsArgs<ExtArgs>
+    exams?: boolean | AcademicSession$examsArgs<ExtArgs>
     _count?: boolean | AcademicSessionCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type AcademicSessionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -71697,6 +71927,7 @@ export namespace Prisma {
       onlineAdmissions: Prisma.$OnlineAdmissionPayload<ExtArgs>[]
       resultSummaries: Prisma.$ResultSummaryPayload<ExtArgs>[]
       admissionExams: Prisma.$AdmissionExamPayload<ExtArgs>[]
+      exams: Prisma.$ExamPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -72111,6 +72342,7 @@ export namespace Prisma {
     onlineAdmissions<T extends AcademicSession$onlineAdmissionsArgs<ExtArgs> = {}>(args?: Subset<T, AcademicSession$onlineAdmissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OnlineAdmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     resultSummaries<T extends AcademicSession$resultSummariesArgs<ExtArgs> = {}>(args?: Subset<T, AcademicSession$resultSummariesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResultSummaryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     admissionExams<T extends AcademicSession$admissionExamsArgs<ExtArgs> = {}>(args?: Subset<T, AcademicSession$admissionExamsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdmissionExamPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    exams<T extends AcademicSession$examsArgs<ExtArgs> = {}>(args?: Subset<T, AcademicSession$examsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExamPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -72711,6 +72943,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AdmissionExamScalarFieldEnum | AdmissionExamScalarFieldEnum[]
+  }
+
+  /**
+   * AcademicSession.exams
+   */
+  export type AcademicSession$examsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Exam
+     */
+    select?: ExamSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Exam
+     */
+    omit?: ExamOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExamInclude<ExtArgs> | null
+    where?: ExamWhereInput
+    orderBy?: ExamOrderByWithRelationInput | ExamOrderByWithRelationInput[]
+    cursor?: ExamWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ExamScalarFieldEnum | ExamScalarFieldEnum[]
   }
 
   /**
@@ -78288,6 +78544,10 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     branch?: boolean | BranchDefaultArgs<ExtArgs>
+    academicSession?: boolean | AcademicSessionDefaultArgs<ExtArgs>
+    class?: boolean | Exam$classArgs<ExtArgs>
+    section?: boolean | Exam$sectionArgs<ExtArgs>
+    createdBy?: boolean | Exam$createdByArgs<ExtArgs>
   }, ExtArgs["result"]["exam"]>
 
   export type ExamSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -78311,6 +78571,10 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     branch?: boolean | BranchDefaultArgs<ExtArgs>
+    academicSession?: boolean | AcademicSessionDefaultArgs<ExtArgs>
+    class?: boolean | Exam$classArgs<ExtArgs>
+    section?: boolean | Exam$sectionArgs<ExtArgs>
+    createdBy?: boolean | Exam$createdByArgs<ExtArgs>
   }, ExtArgs["result"]["exam"]>
 
   export type ExamSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -78334,6 +78598,10 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     branch?: boolean | BranchDefaultArgs<ExtArgs>
+    academicSession?: boolean | AcademicSessionDefaultArgs<ExtArgs>
+    class?: boolean | Exam$classArgs<ExtArgs>
+    section?: boolean | Exam$sectionArgs<ExtArgs>
+    createdBy?: boolean | Exam$createdByArgs<ExtArgs>
   }, ExtArgs["result"]["exam"]>
 
   export type ExamSelectScalar = {
@@ -78361,18 +78629,34 @@ export namespace Prisma {
   export type ExamOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "code" | "description" | "status" | "branchId" | "classId" | "sectionId" | "sessionId" | "term" | "startsAt" | "endsAt" | "gradingStartsAt" | "gradingEndsAt" | "isArchived" | "lockedAt" | "createdByUserId" | "createdAt" | "updatedAt", ExtArgs["result"]["exam"]>
   export type ExamInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     branch?: boolean | BranchDefaultArgs<ExtArgs>
+    academicSession?: boolean | AcademicSessionDefaultArgs<ExtArgs>
+    class?: boolean | Exam$classArgs<ExtArgs>
+    section?: boolean | Exam$sectionArgs<ExtArgs>
+    createdBy?: boolean | Exam$createdByArgs<ExtArgs>
   }
   export type ExamIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     branch?: boolean | BranchDefaultArgs<ExtArgs>
+    academicSession?: boolean | AcademicSessionDefaultArgs<ExtArgs>
+    class?: boolean | Exam$classArgs<ExtArgs>
+    section?: boolean | Exam$sectionArgs<ExtArgs>
+    createdBy?: boolean | Exam$createdByArgs<ExtArgs>
   }
   export type ExamIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     branch?: boolean | BranchDefaultArgs<ExtArgs>
+    academicSession?: boolean | AcademicSessionDefaultArgs<ExtArgs>
+    class?: boolean | Exam$classArgs<ExtArgs>
+    section?: boolean | Exam$sectionArgs<ExtArgs>
+    createdBy?: boolean | Exam$createdByArgs<ExtArgs>
   }
 
   export type $ExamPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Exam"
     objects: {
       branch: Prisma.$BranchPayload<ExtArgs>
+      academicSession: Prisma.$AcademicSessionPayload<ExtArgs>
+      class: Prisma.$ClassPayload<ExtArgs> | null
+      section: Prisma.$SectionPayload<ExtArgs> | null
+      createdBy: Prisma.$UserPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -78789,6 +79073,10 @@ export namespace Prisma {
   export interface Prisma__ExamClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     branch<T extends BranchDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BranchDefaultArgs<ExtArgs>>): Prisma__BranchClient<$Result.GetResult<Prisma.$BranchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    academicSession<T extends AcademicSessionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AcademicSessionDefaultArgs<ExtArgs>>): Prisma__AcademicSessionClient<$Result.GetResult<Prisma.$AcademicSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    class<T extends Exam$classArgs<ExtArgs> = {}>(args?: Subset<T, Exam$classArgs<ExtArgs>>): Prisma__ClassClient<$Result.GetResult<Prisma.$ClassPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    section<T extends Exam$sectionArgs<ExtArgs> = {}>(args?: Subset<T, Exam$sectionArgs<ExtArgs>>): Prisma__SectionClient<$Result.GetResult<Prisma.$SectionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    createdBy<T extends Exam$createdByArgs<ExtArgs> = {}>(args?: Subset<T, Exam$createdByArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -79230,6 +79518,63 @@ export namespace Prisma {
      * Limit how many Exams to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Exam.class
+   */
+  export type Exam$classArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Class
+     */
+    select?: ClassSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Class
+     */
+    omit?: ClassOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassInclude<ExtArgs> | null
+    where?: ClassWhereInput
+  }
+
+  /**
+   * Exam.section
+   */
+  export type Exam$sectionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Section
+     */
+    select?: SectionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Section
+     */
+    omit?: SectionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectionInclude<ExtArgs> | null
+    where?: SectionWhereInput
+  }
+
+  /**
+   * Exam.createdBy
+   */
+  export type Exam$createdByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
   }
 
   /**
@@ -88912,6 +89257,8 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     branch?: boolean | BranchDefaultArgs<ExtArgs>
+    verifications?: boolean | Transcript$verificationsArgs<ExtArgs>
+    _count?: boolean | TranscriptCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["transcript"]>
 
   export type TranscriptSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -88967,6 +89314,8 @@ export namespace Prisma {
   export type TranscriptOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "branchId" | "studentId" | "transcriptNo" | "status" | "cumulativeGpa" | "checksum" | "data" | "approvedById" | "approvedAt" | "lockedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["transcript"]>
   export type TranscriptInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     branch?: boolean | BranchDefaultArgs<ExtArgs>
+    verifications?: boolean | Transcript$verificationsArgs<ExtArgs>
+    _count?: boolean | TranscriptCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TranscriptIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     branch?: boolean | BranchDefaultArgs<ExtArgs>
@@ -88979,6 +89328,7 @@ export namespace Prisma {
     name: "Transcript"
     objects: {
       branch: Prisma.$BranchPayload<ExtArgs>
+      verifications: Prisma.$TranscriptVerificationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -89389,6 +89739,7 @@ export namespace Prisma {
   export interface Prisma__TranscriptClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     branch<T extends BranchDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BranchDefaultArgs<ExtArgs>>): Prisma__BranchClient<$Result.GetResult<Prisma.$BranchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    verifications<T extends Transcript$verificationsArgs<ExtArgs> = {}>(args?: Subset<T, Transcript$verificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TranscriptVerificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -89827,6 +90178,30 @@ export namespace Prisma {
   }
 
   /**
+   * Transcript.verifications
+   */
+  export type Transcript$verificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TranscriptVerification
+     */
+    select?: TranscriptVerificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TranscriptVerification
+     */
+    omit?: TranscriptVerificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TranscriptVerificationInclude<ExtArgs> | null
+    where?: TranscriptVerificationWhereInput
+    orderBy?: TranscriptVerificationOrderByWithRelationInput | TranscriptVerificationOrderByWithRelationInput[]
+    cursor?: TranscriptVerificationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TranscriptVerificationScalarFieldEnum | TranscriptVerificationScalarFieldEnum[]
+  }
+
+  /**
    * Transcript without action
    */
   export type TranscriptDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -90033,6 +90408,7 @@ export namespace Prisma {
     revokedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    transcript?: boolean | TranscriptDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["transcriptVerification"]>
 
   export type TranscriptVerificationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -90044,6 +90420,7 @@ export namespace Prisma {
     revokedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    transcript?: boolean | TranscriptDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["transcriptVerification"]>
 
   export type TranscriptVerificationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -90055,6 +90432,7 @@ export namespace Prisma {
     revokedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    transcript?: boolean | TranscriptDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["transcriptVerification"]>
 
   export type TranscriptVerificationSelectScalar = {
@@ -90069,10 +90447,21 @@ export namespace Prisma {
   }
 
   export type TranscriptVerificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "transcriptId" | "verificationCode" | "qrPayload" | "checkedAt" | "revokedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["transcriptVerification"]>
+  export type TranscriptVerificationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    transcript?: boolean | TranscriptDefaultArgs<ExtArgs>
+  }
+  export type TranscriptVerificationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    transcript?: boolean | TranscriptDefaultArgs<ExtArgs>
+  }
+  export type TranscriptVerificationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    transcript?: boolean | TranscriptDefaultArgs<ExtArgs>
+  }
 
   export type $TranscriptVerificationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "TranscriptVerification"
-    objects: {}
+    objects: {
+      transcript: Prisma.$TranscriptPayload<ExtArgs>
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       transcriptId: string
@@ -90476,6 +90865,7 @@ export namespace Prisma {
    */
   export interface Prisma__TranscriptVerificationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    transcript<T extends TranscriptDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TranscriptDefaultArgs<ExtArgs>>): Prisma__TranscriptClient<$Result.GetResult<Prisma.$TranscriptPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -90530,6 +90920,10 @@ export namespace Prisma {
      */
     omit?: TranscriptVerificationOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TranscriptVerificationInclude<ExtArgs> | null
+    /**
      * Filter, which TranscriptVerification to fetch.
      */
     where: TranscriptVerificationWhereUniqueInput
@@ -90548,6 +90942,10 @@ export namespace Prisma {
      */
     omit?: TranscriptVerificationOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TranscriptVerificationInclude<ExtArgs> | null
+    /**
      * Filter, which TranscriptVerification to fetch.
      */
     where: TranscriptVerificationWhereUniqueInput
@@ -90565,6 +90963,10 @@ export namespace Prisma {
      * Omit specific fields from the TranscriptVerification
      */
     omit?: TranscriptVerificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TranscriptVerificationInclude<ExtArgs> | null
     /**
      * Filter, which TranscriptVerification to fetch.
      */
@@ -90614,6 +91016,10 @@ export namespace Prisma {
      */
     omit?: TranscriptVerificationOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TranscriptVerificationInclude<ExtArgs> | null
+    /**
      * Filter, which TranscriptVerification to fetch.
      */
     where?: TranscriptVerificationWhereInput
@@ -90662,6 +91068,10 @@ export namespace Prisma {
      */
     omit?: TranscriptVerificationOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TranscriptVerificationInclude<ExtArgs> | null
+    /**
      * Filter, which TranscriptVerifications to fetch.
      */
     where?: TranscriptVerificationWhereInput
@@ -90705,6 +91115,10 @@ export namespace Prisma {
      */
     omit?: TranscriptVerificationOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TranscriptVerificationInclude<ExtArgs> | null
+    /**
      * The data needed to create a TranscriptVerification.
      */
     data: XOR<TranscriptVerificationCreateInput, TranscriptVerificationUncheckedCreateInput>
@@ -90738,6 +91152,10 @@ export namespace Prisma {
      */
     data: TranscriptVerificationCreateManyInput | TranscriptVerificationCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TranscriptVerificationIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -90752,6 +91170,10 @@ export namespace Prisma {
      * Omit specific fields from the TranscriptVerification
      */
     omit?: TranscriptVerificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TranscriptVerificationInclude<ExtArgs> | null
     /**
      * The data needed to update a TranscriptVerification.
      */
@@ -90804,6 +91226,10 @@ export namespace Prisma {
      * Limit how many TranscriptVerifications to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TranscriptVerificationIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -90818,6 +91244,10 @@ export namespace Prisma {
      * Omit specific fields from the TranscriptVerification
      */
     omit?: TranscriptVerificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TranscriptVerificationInclude<ExtArgs> | null
     /**
      * The filter to search for the TranscriptVerification to update in case it exists.
      */
@@ -90844,6 +91274,10 @@ export namespace Prisma {
      * Omit specific fields from the TranscriptVerification
      */
     omit?: TranscriptVerificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TranscriptVerificationInclude<ExtArgs> | null
     /**
      * Filter which TranscriptVerification to delete.
      */
@@ -90876,6 +91310,10 @@ export namespace Prisma {
      * Omit specific fields from the TranscriptVerification
      */
     omit?: TranscriptVerificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TranscriptVerificationInclude<ExtArgs> | null
   }
 
 
@@ -195455,6 +195893,7 @@ export namespace Prisma {
 
   export const TransportAssignmentScalarFieldEnum: {
     id: 'id',
+    branchId: 'branchId',
     studentId: 'studentId',
     vehicleId: 'vehicleId',
     routeId: 'routeId',
@@ -198046,6 +198485,7 @@ export namespace Prisma {
     roles?: RoleListRelationFilter
     admissionInterviews?: AdmissionInterviewListRelationFilter
     admissionExams?: AdmissionExamListRelationFilter
+    transportAssignments?: TransportAssignmentListRelationFilter
   }
 
   export type BranchOrderByWithRelationInput = {
@@ -198177,6 +198617,7 @@ export namespace Prisma {
     roles?: RoleOrderByRelationAggregateInput
     admissionInterviews?: AdmissionInterviewOrderByRelationAggregateInput
     admissionExams?: AdmissionExamOrderByRelationAggregateInput
+    transportAssignments?: TransportAssignmentOrderByRelationAggregateInput
   }
 
   export type BranchWhereUniqueInput = Prisma.AtLeast<{
@@ -198311,6 +198752,7 @@ export namespace Prisma {
     roles?: RoleListRelationFilter
     admissionInterviews?: AdmissionInterviewListRelationFilter
     admissionExams?: AdmissionExamListRelationFilter
+    transportAssignments?: TransportAssignmentListRelationFilter
   }, "id" | "code">
 
   export type BranchOrderByWithAggregationInput = {
@@ -198629,6 +199071,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientListRelationFilter
     academicExports?: AcademicExportListRelationFilter
     computationJobs?: ComputationJobListRelationFilter
+    createdExams?: ExamListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -198669,6 +199112,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientOrderByRelationAggregateInput
     academicExports?: AcademicExportOrderByRelationAggregateInput
     computationJobs?: ComputationJobOrderByRelationAggregateInput
+    createdExams?: ExamOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -198712,6 +199156,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientListRelationFilter
     academicExports?: AcademicExportListRelationFilter
     computationJobs?: ComputationJobListRelationFilter
+    createdExams?: ExamListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -199740,6 +200185,7 @@ export namespace Prisma {
     students?: StudentListRelationFilter
     attendanceSessions?: AttendanceSessionListRelationFilter
     offeredAdmissions?: OnlineAdmissionListRelationFilter
+    exams?: ExamListRelationFilter
   }
 
   export type ClassOrderByWithRelationInput = {
@@ -199764,6 +200210,7 @@ export namespace Prisma {
     students?: StudentOrderByRelationAggregateInput
     attendanceSessions?: AttendanceSessionOrderByRelationAggregateInput
     offeredAdmissions?: OnlineAdmissionOrderByRelationAggregateInput
+    exams?: ExamOrderByRelationAggregateInput
   }
 
   export type ClassWhereUniqueInput = Prisma.AtLeast<{
@@ -199792,6 +200239,7 @@ export namespace Prisma {
     students?: StudentListRelationFilter
     attendanceSessions?: AttendanceSessionListRelationFilter
     offeredAdmissions?: OnlineAdmissionListRelationFilter
+    exams?: ExamListRelationFilter
   }, "id" | "branchId_name">
 
   export type ClassOrderByWithAggregationInput = {
@@ -199848,6 +200296,7 @@ export namespace Prisma {
     students?: StudentListRelationFilter
     attendanceSessions?: AttendanceSessionListRelationFilter
     offeredAdmissions?: OnlineAdmissionListRelationFilter
+    exams?: ExamListRelationFilter
   }
 
   export type SectionOrderByWithRelationInput = {
@@ -199869,6 +200318,7 @@ export namespace Prisma {
     students?: StudentOrderByRelationAggregateInput
     attendanceSessions?: AttendanceSessionOrderByRelationAggregateInput
     offeredAdmissions?: OnlineAdmissionOrderByRelationAggregateInput
+    exams?: ExamOrderByRelationAggregateInput
   }
 
   export type SectionWhereUniqueInput = Prisma.AtLeast<{
@@ -199894,6 +200344,7 @@ export namespace Prisma {
     students?: StudentListRelationFilter
     attendanceSessions?: AttendanceSessionListRelationFilter
     offeredAdmissions?: OnlineAdmissionListRelationFilter
+    exams?: ExamListRelationFilter
   }, "id" | "classId_name">
 
   export type SectionOrderByWithAggregationInput = {
@@ -201749,11 +202200,13 @@ export namespace Prisma {
     OR?: TransportAssignmentWhereInput[]
     NOT?: TransportAssignmentWhereInput | TransportAssignmentWhereInput[]
     id?: StringFilter<"TransportAssignment"> | string
+    branchId?: StringNullableFilter<"TransportAssignment"> | string | null
     studentId?: StringFilter<"TransportAssignment"> | string
     vehicleId?: StringFilter<"TransportAssignment"> | string
     routeId?: StringFilter<"TransportAssignment"> | string
     createdAt?: DateTimeFilter<"TransportAssignment"> | Date | string
     updatedAt?: DateTimeFilter<"TransportAssignment"> | Date | string
+    branch?: XOR<BranchNullableScalarRelationFilter, BranchWhereInput> | null
     route?: XOR<TransportRouteScalarRelationFilter, TransportRouteWhereInput>
     student?: XOR<StudentScalarRelationFilter, StudentWhereInput>
     vehicle?: XOR<VehicleScalarRelationFilter, VehicleWhereInput>
@@ -201762,11 +202215,13 @@ export namespace Prisma {
 
   export type TransportAssignmentOrderByWithRelationInput = {
     id?: SortOrder
+    branchId?: SortOrderInput | SortOrder
     studentId?: SortOrder
     vehicleId?: SortOrder
     routeId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    branch?: BranchOrderByWithRelationInput
     route?: TransportRouteOrderByWithRelationInput
     student?: StudentOrderByWithRelationInput
     vehicle?: VehicleOrderByWithRelationInput
@@ -201779,10 +202234,12 @@ export namespace Prisma {
     AND?: TransportAssignmentWhereInput | TransportAssignmentWhereInput[]
     OR?: TransportAssignmentWhereInput[]
     NOT?: TransportAssignmentWhereInput | TransportAssignmentWhereInput[]
+    branchId?: StringNullableFilter<"TransportAssignment"> | string | null
     vehicleId?: StringFilter<"TransportAssignment"> | string
     routeId?: StringFilter<"TransportAssignment"> | string
     createdAt?: DateTimeFilter<"TransportAssignment"> | Date | string
     updatedAt?: DateTimeFilter<"TransportAssignment"> | Date | string
+    branch?: XOR<BranchNullableScalarRelationFilter, BranchWhereInput> | null
     route?: XOR<TransportRouteScalarRelationFilter, TransportRouteWhereInput>
     student?: XOR<StudentScalarRelationFilter, StudentWhereInput>
     vehicle?: XOR<VehicleScalarRelationFilter, VehicleWhereInput>
@@ -201791,6 +202248,7 @@ export namespace Prisma {
 
   export type TransportAssignmentOrderByWithAggregationInput = {
     id?: SortOrder
+    branchId?: SortOrderInput | SortOrder
     studentId?: SortOrder
     vehicleId?: SortOrder
     routeId?: SortOrder
@@ -201806,6 +202264,7 @@ export namespace Prisma {
     OR?: TransportAssignmentScalarWhereWithAggregatesInput[]
     NOT?: TransportAssignmentScalarWhereWithAggregatesInput | TransportAssignmentScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"TransportAssignment"> | string
+    branchId?: StringNullableWithAggregatesFilter<"TransportAssignment"> | string | null
     studentId?: StringWithAggregatesFilter<"TransportAssignment"> | string
     vehicleId?: StringWithAggregatesFilter<"TransportAssignment"> | string
     routeId?: StringWithAggregatesFilter<"TransportAssignment"> | string
@@ -202021,6 +202480,7 @@ export namespace Prisma {
     onlineAdmissions?: OnlineAdmissionListRelationFilter
     resultSummaries?: ResultSummaryListRelationFilter
     admissionExams?: AdmissionExamListRelationFilter
+    exams?: ExamListRelationFilter
   }
 
   export type AcademicSessionOrderByWithRelationInput = {
@@ -202042,6 +202502,7 @@ export namespace Prisma {
     onlineAdmissions?: OnlineAdmissionOrderByRelationAggregateInput
     resultSummaries?: ResultSummaryOrderByRelationAggregateInput
     admissionExams?: AdmissionExamOrderByRelationAggregateInput
+    exams?: ExamOrderByRelationAggregateInput
   }
 
   export type AcademicSessionWhereUniqueInput = Prisma.AtLeast<{
@@ -202066,6 +202527,7 @@ export namespace Prisma {
     onlineAdmissions?: OnlineAdmissionListRelationFilter
     resultSummaries?: ResultSummaryListRelationFilter
     admissionExams?: AdmissionExamListRelationFilter
+    exams?: ExamListRelationFilter
   }, "id">
 
   export type AcademicSessionOrderByWithAggregationInput = {
@@ -202675,6 +203137,10 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Exam"> | Date | string
     updatedAt?: DateTimeFilter<"Exam"> | Date | string
     branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
+    academicSession?: XOR<AcademicSessionScalarRelationFilter, AcademicSessionWhereInput>
+    class?: XOR<ClassNullableScalarRelationFilter, ClassWhereInput> | null
+    section?: XOR<SectionNullableScalarRelationFilter, SectionWhereInput> | null
+    createdBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }
 
   export type ExamOrderByWithRelationInput = {
@@ -202698,6 +203164,10 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     branch?: BranchOrderByWithRelationInput
+    academicSession?: AcademicSessionOrderByWithRelationInput
+    class?: ClassOrderByWithRelationInput
+    section?: SectionOrderByWithRelationInput
+    createdBy?: UserOrderByWithRelationInput
   }
 
   export type ExamWhereUniqueInput = Prisma.AtLeast<{
@@ -202724,6 +203194,10 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Exam"> | Date | string
     updatedAt?: DateTimeFilter<"Exam"> | Date | string
     branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
+    academicSession?: XOR<AcademicSessionScalarRelationFilter, AcademicSessionWhereInput>
+    class?: XOR<ClassNullableScalarRelationFilter, ClassWhereInput> | null
+    section?: XOR<SectionNullableScalarRelationFilter, SectionWhereInput> | null
+    createdBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }, "id">
 
   export type ExamOrderByWithAggregationInput = {
@@ -203529,6 +204003,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Transcript"> | Date | string
     updatedAt?: DateTimeFilter<"Transcript"> | Date | string
     branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
+    verifications?: TranscriptVerificationListRelationFilter
   }
 
   export type TranscriptOrderByWithRelationInput = {
@@ -203546,6 +204021,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     branch?: BranchOrderByWithRelationInput
+    verifications?: TranscriptVerificationOrderByRelationAggregateInput
   }
 
   export type TranscriptWhereUniqueInput = Prisma.AtLeast<{
@@ -203566,6 +204042,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Transcript"> | Date | string
     updatedAt?: DateTimeFilter<"Transcript"> | Date | string
     branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
+    verifications?: TranscriptVerificationListRelationFilter
   }, "id" | "transcriptNo">
 
   export type TranscriptOrderByWithAggregationInput = {
@@ -203620,6 +204097,7 @@ export namespace Prisma {
     revokedAt?: DateTimeNullableFilter<"TranscriptVerification"> | Date | string | null
     createdAt?: DateTimeFilter<"TranscriptVerification"> | Date | string
     updatedAt?: DateTimeFilter<"TranscriptVerification"> | Date | string
+    transcript?: XOR<TranscriptScalarRelationFilter, TranscriptWhereInput>
   }
 
   export type TranscriptVerificationOrderByWithRelationInput = {
@@ -203631,6 +204109,7 @@ export namespace Prisma {
     revokedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    transcript?: TranscriptOrderByWithRelationInput
   }
 
   export type TranscriptVerificationWhereUniqueInput = Prisma.AtLeast<{
@@ -203645,6 +204124,7 @@ export namespace Prisma {
     revokedAt?: DateTimeNullableFilter<"TranscriptVerification"> | Date | string | null
     createdAt?: DateTimeFilter<"TranscriptVerification"> | Date | string
     updatedAt?: DateTimeFilter<"TranscriptVerification"> | Date | string
+    transcript?: XOR<TranscriptScalarRelationFilter, TranscriptWhereInput>
   }, "id" | "verificationCode">
 
   export type TranscriptVerificationOrderByWithAggregationInput = {
@@ -211561,6 +212041,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateInput = {
@@ -211692,6 +212173,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUpdateInput = {
@@ -211823,6 +212305,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateInput = {
@@ -211954,6 +212437,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateManyInput = {
@@ -212292,6 +212776,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobCreateNestedManyWithoutUserInput
+    createdExams?: ExamCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -212330,6 +212815,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportUncheckedCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobUncheckedCreateNestedManyWithoutUserInput
+    createdExams?: ExamUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUpdateInput = {
@@ -212368,6 +212854,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -212406,6 +212893,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUncheckedUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUncheckedUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -213587,6 +214075,7 @@ export namespace Prisma {
     students?: StudentCreateNestedManyWithoutClassInput
     attendanceSessions?: AttendanceSessionCreateNestedManyWithoutClassInput
     offeredAdmissions?: OnlineAdmissionCreateNestedManyWithoutOfferedClassInput
+    exams?: ExamCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateInput = {
@@ -213609,6 +214098,7 @@ export namespace Prisma {
     students?: StudentUncheckedCreateNestedManyWithoutClassInput
     attendanceSessions?: AttendanceSessionUncheckedCreateNestedManyWithoutClassInput
     offeredAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutOfferedClassInput
+    exams?: ExamUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassUpdateInput = {
@@ -213631,6 +214121,7 @@ export namespace Prisma {
     students?: StudentUpdateManyWithoutClassNestedInput
     attendanceSessions?: AttendanceSessionUpdateManyWithoutClassNestedInput
     offeredAdmissions?: OnlineAdmissionUpdateManyWithoutOfferedClassNestedInput
+    exams?: ExamUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateInput = {
@@ -213653,6 +214144,7 @@ export namespace Prisma {
     students?: StudentUncheckedUpdateManyWithoutClassNestedInput
     attendanceSessions?: AttendanceSessionUncheckedUpdateManyWithoutClassNestedInput
     offeredAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutOfferedClassNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type ClassCreateManyInput = {
@@ -213707,6 +214199,7 @@ export namespace Prisma {
     students?: StudentCreateNestedManyWithoutSectionInput
     attendanceSessions?: AttendanceSessionCreateNestedManyWithoutSectionInput
     offeredAdmissions?: OnlineAdmissionCreateNestedManyWithoutOfferedSectionInput
+    exams?: ExamCreateNestedManyWithoutSectionInput
   }
 
   export type SectionUncheckedCreateInput = {
@@ -213727,6 +214220,7 @@ export namespace Prisma {
     students?: StudentUncheckedCreateNestedManyWithoutSectionInput
     attendanceSessions?: AttendanceSessionUncheckedCreateNestedManyWithoutSectionInput
     offeredAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutOfferedSectionInput
+    exams?: ExamUncheckedCreateNestedManyWithoutSectionInput
   }
 
   export type SectionUpdateInput = {
@@ -213747,6 +214241,7 @@ export namespace Prisma {
     students?: StudentUpdateManyWithoutSectionNestedInput
     attendanceSessions?: AttendanceSessionUpdateManyWithoutSectionNestedInput
     offeredAdmissions?: OnlineAdmissionUpdateManyWithoutOfferedSectionNestedInput
+    exams?: ExamUpdateManyWithoutSectionNestedInput
   }
 
   export type SectionUncheckedUpdateInput = {
@@ -213767,6 +214262,7 @@ export namespace Prisma {
     students?: StudentUncheckedUpdateManyWithoutSectionNestedInput
     attendanceSessions?: AttendanceSessionUncheckedUpdateManyWithoutSectionNestedInput
     offeredAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutOfferedSectionNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutSectionNestedInput
   }
 
   export type SectionCreateManyInput = {
@@ -215689,6 +216185,7 @@ export namespace Prisma {
     id?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    branch?: BranchCreateNestedOneWithoutTransportAssignmentsInput
     route: TransportRouteCreateNestedOneWithoutAssignmentsInput
     student: StudentCreateNestedOneWithoutTransportAssignmentInput
     vehicle: VehicleCreateNestedOneWithoutAssignmentsInput
@@ -215697,6 +216194,7 @@ export namespace Prisma {
 
   export type TransportAssignmentUncheckedCreateInput = {
     id?: string
+    branchId?: string | null
     studentId: string
     vehicleId: string
     routeId: string
@@ -215709,6 +216207,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneWithoutTransportAssignmentsNestedInput
     route?: TransportRouteUpdateOneRequiredWithoutAssignmentsNestedInput
     student?: StudentUpdateOneRequiredWithoutTransportAssignmentNestedInput
     vehicle?: VehicleUpdateOneRequiredWithoutAssignmentsNestedInput
@@ -215717,6 +216216,7 @@ export namespace Prisma {
 
   export type TransportAssignmentUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    branchId?: NullableStringFieldUpdateOperationsInput | string | null
     studentId?: StringFieldUpdateOperationsInput | string
     vehicleId?: StringFieldUpdateOperationsInput | string
     routeId?: StringFieldUpdateOperationsInput | string
@@ -215727,6 +216227,7 @@ export namespace Prisma {
 
   export type TransportAssignmentCreateManyInput = {
     id?: string
+    branchId?: string | null
     studentId: string
     vehicleId: string
     routeId: string
@@ -215742,6 +216243,7 @@ export namespace Prisma {
 
   export type TransportAssignmentUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    branchId?: NullableStringFieldUpdateOperationsInput | string | null
     studentId?: StringFieldUpdateOperationsInput | string
     vehicleId?: StringFieldUpdateOperationsInput | string
     routeId?: StringFieldUpdateOperationsInput | string
@@ -215953,6 +216455,7 @@ export namespace Prisma {
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutAcademicSessionInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutSessionInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutAcademicSessionInput
+    exams?: ExamCreateNestedManyWithoutAcademicSessionInput
   }
 
   export type AcademicSessionUncheckedCreateInput = {
@@ -215973,6 +216476,7 @@ export namespace Prisma {
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutAcademicSessionInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutSessionInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutAcademicSessionInput
+    exams?: ExamUncheckedCreateNestedManyWithoutAcademicSessionInput
   }
 
   export type AcademicSessionUpdateInput = {
@@ -215993,6 +216497,7 @@ export namespace Prisma {
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutAcademicSessionNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutSessionNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutAcademicSessionNestedInput
+    exams?: ExamUpdateManyWithoutAcademicSessionNestedInput
   }
 
   export type AcademicSessionUncheckedUpdateInput = {
@@ -216013,6 +216518,7 @@ export namespace Prisma {
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutAcademicSessionNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutSessionNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutAcademicSessionNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutAcademicSessionNestedInput
   }
 
   export type AcademicSessionCreateManyInput = {
@@ -216688,9 +217194,6 @@ export namespace Prisma {
     code?: string | null
     description?: string | null
     status?: $Enums.AcademicExamStatus
-    classId?: string | null
-    sectionId?: string | null
-    sessionId: string
     term: $Enums.Term
     startsAt?: Date | string | null
     endsAt?: Date | string | null
@@ -216698,10 +217201,13 @@ export namespace Prisma {
     gradingEndsAt?: Date | string | null
     isArchived?: boolean
     lockedAt?: Date | string | null
-    createdByUserId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     branch: BranchCreateNestedOneWithoutExamsInput
+    academicSession: AcademicSessionCreateNestedOneWithoutExamsInput
+    class?: ClassCreateNestedOneWithoutExamsInput
+    section?: SectionCreateNestedOneWithoutExamsInput
+    createdBy?: UserCreateNestedOneWithoutCreatedExamsInput
   }
 
   export type ExamUncheckedCreateInput = {
@@ -216732,9 +217238,6 @@ export namespace Prisma {
     code?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumAcademicExamStatusFieldUpdateOperationsInput | $Enums.AcademicExamStatus
-    classId?: NullableStringFieldUpdateOperationsInput | string | null
-    sectionId?: NullableStringFieldUpdateOperationsInput | string | null
-    sessionId?: StringFieldUpdateOperationsInput | string
     term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
     startsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -216742,10 +217245,13 @@ export namespace Prisma {
     gradingEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     lockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdByUserId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branch?: BranchUpdateOneRequiredWithoutExamsNestedInput
+    academicSession?: AcademicSessionUpdateOneRequiredWithoutExamsNestedInput
+    class?: ClassUpdateOneWithoutExamsNestedInput
+    section?: SectionUpdateOneWithoutExamsNestedInput
+    createdBy?: UserUpdateOneWithoutCreatedExamsNestedInput
   }
 
   export type ExamUncheckedUpdateInput = {
@@ -216798,9 +217304,6 @@ export namespace Prisma {
     code?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumAcademicExamStatusFieldUpdateOperationsInput | $Enums.AcademicExamStatus
-    classId?: NullableStringFieldUpdateOperationsInput | string | null
-    sectionId?: NullableStringFieldUpdateOperationsInput | string | null
-    sessionId?: StringFieldUpdateOperationsInput | string
     term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
     startsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -216808,7 +217311,6 @@ export namespace Prisma {
     gradingEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     lockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdByUserId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -217669,6 +218171,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     branch: BranchCreateNestedOneWithoutTranscriptsInput
+    verifications?: TranscriptVerificationCreateNestedManyWithoutTranscriptInput
   }
 
   export type TranscriptUncheckedCreateInput = {
@@ -217685,6 +218188,7 @@ export namespace Prisma {
     lockedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    verifications?: TranscriptVerificationUncheckedCreateNestedManyWithoutTranscriptInput
   }
 
   export type TranscriptUpdateInput = {
@@ -217701,6 +218205,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branch?: BranchUpdateOneRequiredWithoutTranscriptsNestedInput
+    verifications?: TranscriptVerificationUpdateManyWithoutTranscriptNestedInput
   }
 
   export type TranscriptUncheckedUpdateInput = {
@@ -217717,6 +218222,7 @@ export namespace Prisma {
     lockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    verifications?: TranscriptVerificationUncheckedUpdateManyWithoutTranscriptNestedInput
   }
 
   export type TranscriptCreateManyInput = {
@@ -217768,13 +218274,13 @@ export namespace Prisma {
 
   export type TranscriptVerificationCreateInput = {
     id?: string
-    transcriptId: string
     verificationCode: string
     qrPayload: string
     checkedAt?: Date | string | null
     revokedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    transcript: TranscriptCreateNestedOneWithoutVerificationsInput
   }
 
   export type TranscriptVerificationUncheckedCreateInput = {
@@ -217790,13 +218296,13 @@ export namespace Prisma {
 
   export type TranscriptVerificationUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    transcriptId?: StringFieldUpdateOperationsInput | string
     verificationCode?: StringFieldUpdateOperationsInput | string
     qrPayload?: StringFieldUpdateOperationsInput | string
     checkedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    transcript?: TranscriptUpdateOneRequiredWithoutVerificationsNestedInput
   }
 
   export type TranscriptVerificationUncheckedUpdateInput = {
@@ -217823,7 +218329,6 @@ export namespace Prisma {
 
   export type TranscriptVerificationUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    transcriptId?: StringFieldUpdateOperationsInput | string
     verificationCode?: StringFieldUpdateOperationsInput | string
     qrPayload?: StringFieldUpdateOperationsInput | string
     checkedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -227009,6 +227514,12 @@ export namespace Prisma {
     none?: AdmissionExamWhereInput
   }
 
+  export type TransportAssignmentListRelationFilter = {
+    every?: TransportAssignmentWhereInput
+    some?: TransportAssignmentWhereInput
+    none?: TransportAssignmentWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -227467,6 +227978,10 @@ export namespace Prisma {
   }
 
   export type AdmissionExamOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TransportAssignmentOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -230011,16 +230526,6 @@ export namespace Prisma {
     _max?: NestedEnumPaymentStatusFilter<$PrismaModel>
   }
 
-  export type TransportAssignmentListRelationFilter = {
-    every?: TransportAssignmentWhereInput
-    some?: TransportAssignmentWhereInput
-    none?: TransportAssignmentWhereInput
-  }
-
-  export type TransportAssignmentOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type VehicleCountOrderByAggregateInput = {
     id?: SortOrder
     registrationNumber?: SortOrder
@@ -230121,6 +230626,7 @@ export namespace Prisma {
 
   export type TransportAssignmentCountOrderByAggregateInput = {
     id?: SortOrder
+    branchId?: SortOrder
     studentId?: SortOrder
     vehicleId?: SortOrder
     routeId?: SortOrder
@@ -230130,6 +230636,7 @@ export namespace Prisma {
 
   export type TransportAssignmentMaxOrderByAggregateInput = {
     id?: SortOrder
+    branchId?: SortOrder
     studentId?: SortOrder
     vehicleId?: SortOrder
     routeId?: SortOrder
@@ -230139,6 +230646,7 @@ export namespace Prisma {
 
   export type TransportAssignmentMinOrderByAggregateInput = {
     id?: SortOrder
+    branchId?: SortOrder
     studentId?: SortOrder
     vehicleId?: SortOrder
     routeId?: SortOrder
@@ -231276,6 +231784,16 @@ export namespace Prisma {
     not?: NestedEnumTranscriptStatusFilter<$PrismaModel> | $Enums.TranscriptStatus
   }
 
+  export type TranscriptVerificationListRelationFilter = {
+    every?: TranscriptVerificationWhereInput
+    some?: TranscriptVerificationWhereInput
+    none?: TranscriptVerificationWhereInput
+  }
+
+  export type TranscriptVerificationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type TranscriptCountOrderByAggregateInput = {
     id?: SortOrder
     branchId?: SortOrder
@@ -231338,6 +231856,11 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumTranscriptStatusFilter<$PrismaModel>
     _max?: NestedEnumTranscriptStatusFilter<$PrismaModel>
+  }
+
+  export type TranscriptScalarRelationFilter = {
+    is?: TranscriptWhereInput
+    isNot?: TranscriptWhereInput
   }
 
   export type TranscriptVerificationCountOrderByAggregateInput = {
@@ -236560,6 +237083,13 @@ export namespace Prisma {
     connect?: AdmissionExamWhereUniqueInput | AdmissionExamWhereUniqueInput[]
   }
 
+  export type TransportAssignmentCreateNestedManyWithoutBranchInput = {
+    create?: XOR<TransportAssignmentCreateWithoutBranchInput, TransportAssignmentUncheckedCreateWithoutBranchInput> | TransportAssignmentCreateWithoutBranchInput[] | TransportAssignmentUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: TransportAssignmentCreateOrConnectWithoutBranchInput | TransportAssignmentCreateOrConnectWithoutBranchInput[]
+    createMany?: TransportAssignmentCreateManyBranchInputEnvelope
+    connect?: TransportAssignmentWhereUniqueInput | TransportAssignmentWhereUniqueInput[]
+  }
+
   export type AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput = {
     create?: XOR<AdmissionEnquiryCreateWithoutBranchInput, AdmissionEnquiryUncheckedCreateWithoutBranchInput> | AdmissionEnquiryCreateWithoutBranchInput[] | AdmissionEnquiryUncheckedCreateWithoutBranchInput[]
     connectOrCreate?: AdmissionEnquiryCreateOrConnectWithoutBranchInput | AdmissionEnquiryCreateOrConnectWithoutBranchInput[]
@@ -237362,6 +237892,13 @@ export namespace Prisma {
     connectOrCreate?: AdmissionExamCreateOrConnectWithoutBranchInput | AdmissionExamCreateOrConnectWithoutBranchInput[]
     createMany?: AdmissionExamCreateManyBranchInputEnvelope
     connect?: AdmissionExamWhereUniqueInput | AdmissionExamWhereUniqueInput[]
+  }
+
+  export type TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput = {
+    create?: XOR<TransportAssignmentCreateWithoutBranchInput, TransportAssignmentUncheckedCreateWithoutBranchInput> | TransportAssignmentCreateWithoutBranchInput[] | TransportAssignmentUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: TransportAssignmentCreateOrConnectWithoutBranchInput | TransportAssignmentCreateOrConnectWithoutBranchInput[]
+    createMany?: TransportAssignmentCreateManyBranchInputEnvelope
+    connect?: TransportAssignmentWhereUniqueInput | TransportAssignmentWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -238986,6 +239523,20 @@ export namespace Prisma {
     deleteMany?: AdmissionExamScalarWhereInput | AdmissionExamScalarWhereInput[]
   }
 
+  export type TransportAssignmentUpdateManyWithoutBranchNestedInput = {
+    create?: XOR<TransportAssignmentCreateWithoutBranchInput, TransportAssignmentUncheckedCreateWithoutBranchInput> | TransportAssignmentCreateWithoutBranchInput[] | TransportAssignmentUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: TransportAssignmentCreateOrConnectWithoutBranchInput | TransportAssignmentCreateOrConnectWithoutBranchInput[]
+    upsert?: TransportAssignmentUpsertWithWhereUniqueWithoutBranchInput | TransportAssignmentUpsertWithWhereUniqueWithoutBranchInput[]
+    createMany?: TransportAssignmentCreateManyBranchInputEnvelope
+    set?: TransportAssignmentWhereUniqueInput | TransportAssignmentWhereUniqueInput[]
+    disconnect?: TransportAssignmentWhereUniqueInput | TransportAssignmentWhereUniqueInput[]
+    delete?: TransportAssignmentWhereUniqueInput | TransportAssignmentWhereUniqueInput[]
+    connect?: TransportAssignmentWhereUniqueInput | TransportAssignmentWhereUniqueInput[]
+    update?: TransportAssignmentUpdateWithWhereUniqueWithoutBranchInput | TransportAssignmentUpdateWithWhereUniqueWithoutBranchInput[]
+    updateMany?: TransportAssignmentUpdateManyWithWhereWithoutBranchInput | TransportAssignmentUpdateManyWithWhereWithoutBranchInput[]
+    deleteMany?: TransportAssignmentScalarWhereInput | TransportAssignmentScalarWhereInput[]
+  }
+
   export type AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput = {
     create?: XOR<AdmissionEnquiryCreateWithoutBranchInput, AdmissionEnquiryUncheckedCreateWithoutBranchInput> | AdmissionEnquiryCreateWithoutBranchInput[] | AdmissionEnquiryUncheckedCreateWithoutBranchInput[]
     connectOrCreate?: AdmissionEnquiryCreateOrConnectWithoutBranchInput | AdmissionEnquiryCreateOrConnectWithoutBranchInput[]
@@ -240592,6 +241143,20 @@ export namespace Prisma {
     deleteMany?: AdmissionExamScalarWhereInput | AdmissionExamScalarWhereInput[]
   }
 
+  export type TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput = {
+    create?: XOR<TransportAssignmentCreateWithoutBranchInput, TransportAssignmentUncheckedCreateWithoutBranchInput> | TransportAssignmentCreateWithoutBranchInput[] | TransportAssignmentUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: TransportAssignmentCreateOrConnectWithoutBranchInput | TransportAssignmentCreateOrConnectWithoutBranchInput[]
+    upsert?: TransportAssignmentUpsertWithWhereUniqueWithoutBranchInput | TransportAssignmentUpsertWithWhereUniqueWithoutBranchInput[]
+    createMany?: TransportAssignmentCreateManyBranchInputEnvelope
+    set?: TransportAssignmentWhereUniqueInput | TransportAssignmentWhereUniqueInput[]
+    disconnect?: TransportAssignmentWhereUniqueInput | TransportAssignmentWhereUniqueInput[]
+    delete?: TransportAssignmentWhereUniqueInput | TransportAssignmentWhereUniqueInput[]
+    connect?: TransportAssignmentWhereUniqueInput | TransportAssignmentWhereUniqueInput[]
+    update?: TransportAssignmentUpdateWithWhereUniqueWithoutBranchInput | TransportAssignmentUpdateWithWhereUniqueWithoutBranchInput[]
+    updateMany?: TransportAssignmentUpdateManyWithWhereWithoutBranchInput | TransportAssignmentUpdateManyWithWhereWithoutBranchInput[]
+    deleteMany?: TransportAssignmentScalarWhereInput | TransportAssignmentScalarWhereInput[]
+  }
+
   export type BranchCreateNestedOneWithoutDeactivationReasonsInput = {
     create?: XOR<BranchCreateWithoutDeactivationReasonsInput, BranchUncheckedCreateWithoutDeactivationReasonsInput>
     connectOrCreate?: BranchCreateOrConnectWithoutDeactivationReasonsInput
@@ -240952,6 +241517,13 @@ export namespace Prisma {
     connect?: ComputationJobWhereUniqueInput | ComputationJobWhereUniqueInput[]
   }
 
+  export type ExamCreateNestedManyWithoutCreatedByInput = {
+    create?: XOR<ExamCreateWithoutCreatedByInput, ExamUncheckedCreateWithoutCreatedByInput> | ExamCreateWithoutCreatedByInput[] | ExamUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: ExamCreateOrConnectWithoutCreatedByInput | ExamCreateOrConnectWithoutCreatedByInput[]
+    createMany?: ExamCreateManyCreatedByInputEnvelope
+    connect?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
+  }
+
   export type AuditLogUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AuditLogCreateWithoutUserInput, AuditLogUncheckedCreateWithoutUserInput> | AuditLogCreateWithoutUserInput[] | AuditLogUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutUserInput | AuditLogCreateOrConnectWithoutUserInput[]
@@ -241086,6 +241658,13 @@ export namespace Prisma {
     connectOrCreate?: ComputationJobCreateOrConnectWithoutUserInput | ComputationJobCreateOrConnectWithoutUserInput[]
     createMany?: ComputationJobCreateManyUserInputEnvelope
     connect?: ComputationJobWhereUniqueInput | ComputationJobWhereUniqueInput[]
+  }
+
+  export type ExamUncheckedCreateNestedManyWithoutCreatedByInput = {
+    create?: XOR<ExamCreateWithoutCreatedByInput, ExamUncheckedCreateWithoutCreatedByInput> | ExamCreateWithoutCreatedByInput[] | ExamUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: ExamCreateOrConnectWithoutCreatedByInput | ExamCreateOrConnectWithoutCreatedByInput[]
+    createMany?: ExamCreateManyCreatedByInputEnvelope
+    connect?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
   }
 
   export type EnumUserRoleFieldUpdateOperationsInput = {
@@ -241376,6 +241955,20 @@ export namespace Prisma {
     deleteMany?: ComputationJobScalarWhereInput | ComputationJobScalarWhereInput[]
   }
 
+  export type ExamUpdateManyWithoutCreatedByNestedInput = {
+    create?: XOR<ExamCreateWithoutCreatedByInput, ExamUncheckedCreateWithoutCreatedByInput> | ExamCreateWithoutCreatedByInput[] | ExamUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: ExamCreateOrConnectWithoutCreatedByInput | ExamCreateOrConnectWithoutCreatedByInput[]
+    upsert?: ExamUpsertWithWhereUniqueWithoutCreatedByInput | ExamUpsertWithWhereUniqueWithoutCreatedByInput[]
+    createMany?: ExamCreateManyCreatedByInputEnvelope
+    set?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
+    disconnect?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
+    delete?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
+    connect?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
+    update?: ExamUpdateWithWhereUniqueWithoutCreatedByInput | ExamUpdateWithWhereUniqueWithoutCreatedByInput[]
+    updateMany?: ExamUpdateManyWithWhereWithoutCreatedByInput | ExamUpdateManyWithWhereWithoutCreatedByInput[]
+    deleteMany?: ExamScalarWhereInput | ExamScalarWhereInput[]
+  }
+
   export type AuditLogUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AuditLogCreateWithoutUserInput, AuditLogUncheckedCreateWithoutUserInput> | AuditLogCreateWithoutUserInput[] | AuditLogUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutUserInput | AuditLogCreateOrConnectWithoutUserInput[]
@@ -241638,6 +242231,20 @@ export namespace Prisma {
     update?: ComputationJobUpdateWithWhereUniqueWithoutUserInput | ComputationJobUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: ComputationJobUpdateManyWithWhereWithoutUserInput | ComputationJobUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: ComputationJobScalarWhereInput | ComputationJobScalarWhereInput[]
+  }
+
+  export type ExamUncheckedUpdateManyWithoutCreatedByNestedInput = {
+    create?: XOR<ExamCreateWithoutCreatedByInput, ExamUncheckedCreateWithoutCreatedByInput> | ExamCreateWithoutCreatedByInput[] | ExamUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: ExamCreateOrConnectWithoutCreatedByInput | ExamCreateOrConnectWithoutCreatedByInput[]
+    upsert?: ExamUpsertWithWhereUniqueWithoutCreatedByInput | ExamUpsertWithWhereUniqueWithoutCreatedByInput[]
+    createMany?: ExamCreateManyCreatedByInputEnvelope
+    set?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
+    disconnect?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
+    delete?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
+    connect?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
+    update?: ExamUpdateWithWhereUniqueWithoutCreatedByInput | ExamUpdateWithWhereUniqueWithoutCreatedByInput[]
+    updateMany?: ExamUpdateManyWithWhereWithoutCreatedByInput | ExamUpdateManyWithWhereWithoutCreatedByInput[]
+    deleteMany?: ExamScalarWhereInput | ExamScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutPreferencesInput = {
@@ -243462,6 +244069,13 @@ export namespace Prisma {
     connect?: OnlineAdmissionWhereUniqueInput | OnlineAdmissionWhereUniqueInput[]
   }
 
+  export type ExamCreateNestedManyWithoutClassInput = {
+    create?: XOR<ExamCreateWithoutClassInput, ExamUncheckedCreateWithoutClassInput> | ExamCreateWithoutClassInput[] | ExamUncheckedCreateWithoutClassInput[]
+    connectOrCreate?: ExamCreateOrConnectWithoutClassInput | ExamCreateOrConnectWithoutClassInput[]
+    createMany?: ExamCreateManyClassInputEnvelope
+    connect?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
+  }
+
   export type ClassScheduleUncheckedCreateNestedManyWithoutClassInput = {
     create?: XOR<ClassScheduleCreateWithoutClassInput, ClassScheduleUncheckedCreateWithoutClassInput> | ClassScheduleCreateWithoutClassInput[] | ClassScheduleUncheckedCreateWithoutClassInput[]
     connectOrCreate?: ClassScheduleCreateOrConnectWithoutClassInput | ClassScheduleCreateOrConnectWithoutClassInput[]
@@ -243530,6 +244144,13 @@ export namespace Prisma {
     connectOrCreate?: OnlineAdmissionCreateOrConnectWithoutOfferedClassInput | OnlineAdmissionCreateOrConnectWithoutOfferedClassInput[]
     createMany?: OnlineAdmissionCreateManyOfferedClassInputEnvelope
     connect?: OnlineAdmissionWhereUniqueInput | OnlineAdmissionWhereUniqueInput[]
+  }
+
+  export type ExamUncheckedCreateNestedManyWithoutClassInput = {
+    create?: XOR<ExamCreateWithoutClassInput, ExamUncheckedCreateWithoutClassInput> | ExamCreateWithoutClassInput[] | ExamUncheckedCreateWithoutClassInput[]
+    connectOrCreate?: ExamCreateOrConnectWithoutClassInput | ExamCreateOrConnectWithoutClassInput[]
+    createMany?: ExamCreateManyClassInputEnvelope
+    connect?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -243698,6 +244319,20 @@ export namespace Prisma {
     deleteMany?: OnlineAdmissionScalarWhereInput | OnlineAdmissionScalarWhereInput[]
   }
 
+  export type ExamUpdateManyWithoutClassNestedInput = {
+    create?: XOR<ExamCreateWithoutClassInput, ExamUncheckedCreateWithoutClassInput> | ExamCreateWithoutClassInput[] | ExamUncheckedCreateWithoutClassInput[]
+    connectOrCreate?: ExamCreateOrConnectWithoutClassInput | ExamCreateOrConnectWithoutClassInput[]
+    upsert?: ExamUpsertWithWhereUniqueWithoutClassInput | ExamUpsertWithWhereUniqueWithoutClassInput[]
+    createMany?: ExamCreateManyClassInputEnvelope
+    set?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
+    disconnect?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
+    delete?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
+    connect?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
+    update?: ExamUpdateWithWhereUniqueWithoutClassInput | ExamUpdateWithWhereUniqueWithoutClassInput[]
+    updateMany?: ExamUpdateManyWithWhereWithoutClassInput | ExamUpdateManyWithWhereWithoutClassInput[]
+    deleteMany?: ExamScalarWhereInput | ExamScalarWhereInput[]
+  }
+
   export type ClassScheduleUncheckedUpdateManyWithoutClassNestedInput = {
     create?: XOR<ClassScheduleCreateWithoutClassInput, ClassScheduleUncheckedCreateWithoutClassInput> | ClassScheduleCreateWithoutClassInput[] | ClassScheduleUncheckedCreateWithoutClassInput[]
     connectOrCreate?: ClassScheduleCreateOrConnectWithoutClassInput | ClassScheduleCreateOrConnectWithoutClassInput[]
@@ -243838,6 +244473,20 @@ export namespace Prisma {
     deleteMany?: OnlineAdmissionScalarWhereInput | OnlineAdmissionScalarWhereInput[]
   }
 
+  export type ExamUncheckedUpdateManyWithoutClassNestedInput = {
+    create?: XOR<ExamCreateWithoutClassInput, ExamUncheckedCreateWithoutClassInput> | ExamCreateWithoutClassInput[] | ExamUncheckedCreateWithoutClassInput[]
+    connectOrCreate?: ExamCreateOrConnectWithoutClassInput | ExamCreateOrConnectWithoutClassInput[]
+    upsert?: ExamUpsertWithWhereUniqueWithoutClassInput | ExamUpsertWithWhereUniqueWithoutClassInput[]
+    createMany?: ExamCreateManyClassInputEnvelope
+    set?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
+    disconnect?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
+    delete?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
+    connect?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
+    update?: ExamUpdateWithWhereUniqueWithoutClassInput | ExamUpdateWithWhereUniqueWithoutClassInput[]
+    updateMany?: ExamUpdateManyWithWhereWithoutClassInput | ExamUpdateManyWithWhereWithoutClassInput[]
+    deleteMany?: ExamScalarWhereInput | ExamScalarWhereInput[]
+  }
+
   export type AssessmentRecordCreateNestedManyWithoutSectionInput = {
     create?: XOR<AssessmentRecordCreateWithoutSectionInput, AssessmentRecordUncheckedCreateWithoutSectionInput> | AssessmentRecordCreateWithoutSectionInput[] | AssessmentRecordUncheckedCreateWithoutSectionInput[]
     connectOrCreate?: AssessmentRecordCreateOrConnectWithoutSectionInput | AssessmentRecordCreateOrConnectWithoutSectionInput[]
@@ -243921,6 +244570,13 @@ export namespace Prisma {
     connect?: OnlineAdmissionWhereUniqueInput | OnlineAdmissionWhereUniqueInput[]
   }
 
+  export type ExamCreateNestedManyWithoutSectionInput = {
+    create?: XOR<ExamCreateWithoutSectionInput, ExamUncheckedCreateWithoutSectionInput> | ExamCreateWithoutSectionInput[] | ExamUncheckedCreateWithoutSectionInput[]
+    connectOrCreate?: ExamCreateOrConnectWithoutSectionInput | ExamCreateOrConnectWithoutSectionInput[]
+    createMany?: ExamCreateManySectionInputEnvelope
+    connect?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
+  }
+
   export type AssessmentRecordUncheckedCreateNestedManyWithoutSectionInput = {
     create?: XOR<AssessmentRecordCreateWithoutSectionInput, AssessmentRecordUncheckedCreateWithoutSectionInput> | AssessmentRecordCreateWithoutSectionInput[] | AssessmentRecordUncheckedCreateWithoutSectionInput[]
     connectOrCreate?: AssessmentRecordCreateOrConnectWithoutSectionInput | AssessmentRecordCreateOrConnectWithoutSectionInput[]
@@ -243996,6 +244652,13 @@ export namespace Prisma {
     connectOrCreate?: OnlineAdmissionCreateOrConnectWithoutOfferedSectionInput | OnlineAdmissionCreateOrConnectWithoutOfferedSectionInput[]
     createMany?: OnlineAdmissionCreateManyOfferedSectionInputEnvelope
     connect?: OnlineAdmissionWhereUniqueInput | OnlineAdmissionWhereUniqueInput[]
+  }
+
+  export type ExamUncheckedCreateNestedManyWithoutSectionInput = {
+    create?: XOR<ExamCreateWithoutSectionInput, ExamUncheckedCreateWithoutSectionInput> | ExamCreateWithoutSectionInput[] | ExamUncheckedCreateWithoutSectionInput[]
+    connectOrCreate?: ExamCreateOrConnectWithoutSectionInput | ExamCreateOrConnectWithoutSectionInput[]
+    createMany?: ExamCreateManySectionInputEnvelope
+    connect?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
   }
 
   export type AssessmentRecordUpdateManyWithoutSectionNestedInput = {
@@ -244160,6 +244823,20 @@ export namespace Prisma {
     deleteMany?: OnlineAdmissionScalarWhereInput | OnlineAdmissionScalarWhereInput[]
   }
 
+  export type ExamUpdateManyWithoutSectionNestedInput = {
+    create?: XOR<ExamCreateWithoutSectionInput, ExamUncheckedCreateWithoutSectionInput> | ExamCreateWithoutSectionInput[] | ExamUncheckedCreateWithoutSectionInput[]
+    connectOrCreate?: ExamCreateOrConnectWithoutSectionInput | ExamCreateOrConnectWithoutSectionInput[]
+    upsert?: ExamUpsertWithWhereUniqueWithoutSectionInput | ExamUpsertWithWhereUniqueWithoutSectionInput[]
+    createMany?: ExamCreateManySectionInputEnvelope
+    set?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
+    disconnect?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
+    delete?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
+    connect?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
+    update?: ExamUpdateWithWhereUniqueWithoutSectionInput | ExamUpdateWithWhereUniqueWithoutSectionInput[]
+    updateMany?: ExamUpdateManyWithWhereWithoutSectionInput | ExamUpdateManyWithWhereWithoutSectionInput[]
+    deleteMany?: ExamScalarWhereInput | ExamScalarWhereInput[]
+  }
+
   export type AssessmentRecordUncheckedUpdateManyWithoutSectionNestedInput = {
     create?: XOR<AssessmentRecordCreateWithoutSectionInput, AssessmentRecordUncheckedCreateWithoutSectionInput> | AssessmentRecordCreateWithoutSectionInput[] | AssessmentRecordUncheckedCreateWithoutSectionInput[]
     connectOrCreate?: AssessmentRecordCreateOrConnectWithoutSectionInput | AssessmentRecordCreateOrConnectWithoutSectionInput[]
@@ -244312,6 +244989,20 @@ export namespace Prisma {
     update?: OnlineAdmissionUpdateWithWhereUniqueWithoutOfferedSectionInput | OnlineAdmissionUpdateWithWhereUniqueWithoutOfferedSectionInput[]
     updateMany?: OnlineAdmissionUpdateManyWithWhereWithoutOfferedSectionInput | OnlineAdmissionUpdateManyWithWhereWithoutOfferedSectionInput[]
     deleteMany?: OnlineAdmissionScalarWhereInput | OnlineAdmissionScalarWhereInput[]
+  }
+
+  export type ExamUncheckedUpdateManyWithoutSectionNestedInput = {
+    create?: XOR<ExamCreateWithoutSectionInput, ExamUncheckedCreateWithoutSectionInput> | ExamCreateWithoutSectionInput[] | ExamUncheckedCreateWithoutSectionInput[]
+    connectOrCreate?: ExamCreateOrConnectWithoutSectionInput | ExamCreateOrConnectWithoutSectionInput[]
+    upsert?: ExamUpsertWithWhereUniqueWithoutSectionInput | ExamUpsertWithWhereUniqueWithoutSectionInput[]
+    createMany?: ExamCreateManySectionInputEnvelope
+    set?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
+    disconnect?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
+    delete?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
+    connect?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
+    update?: ExamUpdateWithWhereUniqueWithoutSectionInput | ExamUpdateWithWhereUniqueWithoutSectionInput[]
+    updateMany?: ExamUpdateManyWithWhereWithoutSectionInput | ExamUpdateManyWithWhereWithoutSectionInput[]
+    deleteMany?: ExamScalarWhereInput | ExamScalarWhereInput[]
   }
 
   export type AssessmentRecordCreateNestedManyWithoutSubjectInput = {
@@ -246070,6 +246761,12 @@ export namespace Prisma {
     deleteMany?: TransportAssignmentScalarWhereInput | TransportAssignmentScalarWhereInput[]
   }
 
+  export type BranchCreateNestedOneWithoutTransportAssignmentsInput = {
+    create?: XOR<BranchCreateWithoutTransportAssignmentsInput, BranchUncheckedCreateWithoutTransportAssignmentsInput>
+    connectOrCreate?: BranchCreateOrConnectWithoutTransportAssignmentsInput
+    connect?: BranchWhereUniqueInput
+  }
+
   export type TransportRouteCreateNestedOneWithoutAssignmentsInput = {
     create?: XOR<TransportRouteCreateWithoutAssignmentsInput, TransportRouteUncheckedCreateWithoutAssignmentsInput>
     connectOrCreate?: TransportRouteCreateOrConnectWithoutAssignmentsInput
@@ -246100,6 +246797,16 @@ export namespace Prisma {
     connectOrCreate?: TransportAttendanceCreateOrConnectWithoutAssignmentInput | TransportAttendanceCreateOrConnectWithoutAssignmentInput[]
     createMany?: TransportAttendanceCreateManyAssignmentInputEnvelope
     connect?: TransportAttendanceWhereUniqueInput | TransportAttendanceWhereUniqueInput[]
+  }
+
+  export type BranchUpdateOneWithoutTransportAssignmentsNestedInput = {
+    create?: XOR<BranchCreateWithoutTransportAssignmentsInput, BranchUncheckedCreateWithoutTransportAssignmentsInput>
+    connectOrCreate?: BranchCreateOrConnectWithoutTransportAssignmentsInput
+    upsert?: BranchUpsertWithoutTransportAssignmentsInput
+    disconnect?: BranchWhereInput | boolean
+    delete?: BranchWhereInput | boolean
+    connect?: BranchWhereUniqueInput
+    update?: XOR<XOR<BranchUpdateToOneWithWhereWithoutTransportAssignmentsInput, BranchUpdateWithoutTransportAssignmentsInput>, BranchUncheckedUpdateWithoutTransportAssignmentsInput>
   }
 
   export type TransportRouteUpdateOneRequiredWithoutAssignmentsNestedInput = {
@@ -246355,6 +247062,13 @@ export namespace Prisma {
     connect?: AdmissionExamWhereUniqueInput | AdmissionExamWhereUniqueInput[]
   }
 
+  export type ExamCreateNestedManyWithoutAcademicSessionInput = {
+    create?: XOR<ExamCreateWithoutAcademicSessionInput, ExamUncheckedCreateWithoutAcademicSessionInput> | ExamCreateWithoutAcademicSessionInput[] | ExamUncheckedCreateWithoutAcademicSessionInput[]
+    connectOrCreate?: ExamCreateOrConnectWithoutAcademicSessionInput | ExamCreateOrConnectWithoutAcademicSessionInput[]
+    createMany?: ExamCreateManyAcademicSessionInputEnvelope
+    connect?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
+  }
+
   export type AssessmentRecordUncheckedCreateNestedManyWithoutSessionInput = {
     create?: XOR<AssessmentRecordCreateWithoutSessionInput, AssessmentRecordUncheckedCreateWithoutSessionInput> | AssessmentRecordCreateWithoutSessionInput[] | AssessmentRecordUncheckedCreateWithoutSessionInput[]
     connectOrCreate?: AssessmentRecordCreateOrConnectWithoutSessionInput | AssessmentRecordCreateOrConnectWithoutSessionInput[]
@@ -246402,6 +247116,13 @@ export namespace Prisma {
     connectOrCreate?: AdmissionExamCreateOrConnectWithoutAcademicSessionInput | AdmissionExamCreateOrConnectWithoutAcademicSessionInput[]
     createMany?: AdmissionExamCreateManyAcademicSessionInputEnvelope
     connect?: AdmissionExamWhereUniqueInput | AdmissionExamWhereUniqueInput[]
+  }
+
+  export type ExamUncheckedCreateNestedManyWithoutAcademicSessionInput = {
+    create?: XOR<ExamCreateWithoutAcademicSessionInput, ExamUncheckedCreateWithoutAcademicSessionInput> | ExamCreateWithoutAcademicSessionInput[] | ExamUncheckedCreateWithoutAcademicSessionInput[]
+    connectOrCreate?: ExamCreateOrConnectWithoutAcademicSessionInput | ExamCreateOrConnectWithoutAcademicSessionInput[]
+    createMany?: ExamCreateManyAcademicSessionInputEnvelope
+    connect?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
   }
 
   export type BranchUpdateOneRequiredWithoutAcademicSessionsNestedInput = {
@@ -246510,6 +247231,20 @@ export namespace Prisma {
     deleteMany?: AdmissionExamScalarWhereInput | AdmissionExamScalarWhereInput[]
   }
 
+  export type ExamUpdateManyWithoutAcademicSessionNestedInput = {
+    create?: XOR<ExamCreateWithoutAcademicSessionInput, ExamUncheckedCreateWithoutAcademicSessionInput> | ExamCreateWithoutAcademicSessionInput[] | ExamUncheckedCreateWithoutAcademicSessionInput[]
+    connectOrCreate?: ExamCreateOrConnectWithoutAcademicSessionInput | ExamCreateOrConnectWithoutAcademicSessionInput[]
+    upsert?: ExamUpsertWithWhereUniqueWithoutAcademicSessionInput | ExamUpsertWithWhereUniqueWithoutAcademicSessionInput[]
+    createMany?: ExamCreateManyAcademicSessionInputEnvelope
+    set?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
+    disconnect?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
+    delete?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
+    connect?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
+    update?: ExamUpdateWithWhereUniqueWithoutAcademicSessionInput | ExamUpdateWithWhereUniqueWithoutAcademicSessionInput[]
+    updateMany?: ExamUpdateManyWithWhereWithoutAcademicSessionInput | ExamUpdateManyWithWhereWithoutAcademicSessionInput[]
+    deleteMany?: ExamScalarWhereInput | ExamScalarWhereInput[]
+  }
+
   export type AssessmentRecordUncheckedUpdateManyWithoutSessionNestedInput = {
     create?: XOR<AssessmentRecordCreateWithoutSessionInput, AssessmentRecordUncheckedCreateWithoutSessionInput> | AssessmentRecordCreateWithoutSessionInput[] | AssessmentRecordUncheckedCreateWithoutSessionInput[]
     connectOrCreate?: AssessmentRecordCreateOrConnectWithoutSessionInput | AssessmentRecordCreateOrConnectWithoutSessionInput[]
@@ -246606,6 +247341,20 @@ export namespace Prisma {
     update?: AdmissionExamUpdateWithWhereUniqueWithoutAcademicSessionInput | AdmissionExamUpdateWithWhereUniqueWithoutAcademicSessionInput[]
     updateMany?: AdmissionExamUpdateManyWithWhereWithoutAcademicSessionInput | AdmissionExamUpdateManyWithWhereWithoutAcademicSessionInput[]
     deleteMany?: AdmissionExamScalarWhereInput | AdmissionExamScalarWhereInput[]
+  }
+
+  export type ExamUncheckedUpdateManyWithoutAcademicSessionNestedInput = {
+    create?: XOR<ExamCreateWithoutAcademicSessionInput, ExamUncheckedCreateWithoutAcademicSessionInput> | ExamCreateWithoutAcademicSessionInput[] | ExamUncheckedCreateWithoutAcademicSessionInput[]
+    connectOrCreate?: ExamCreateOrConnectWithoutAcademicSessionInput | ExamCreateOrConnectWithoutAcademicSessionInput[]
+    upsert?: ExamUpsertWithWhereUniqueWithoutAcademicSessionInput | ExamUpsertWithWhereUniqueWithoutAcademicSessionInput[]
+    createMany?: ExamCreateManyAcademicSessionInputEnvelope
+    set?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
+    disconnect?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
+    delete?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
+    connect?: ExamWhereUniqueInput | ExamWhereUniqueInput[]
+    update?: ExamUpdateWithWhereUniqueWithoutAcademicSessionInput | ExamUpdateWithWhereUniqueWithoutAcademicSessionInput[]
+    updateMany?: ExamUpdateManyWithWhereWithoutAcademicSessionInput | ExamUpdateManyWithWhereWithoutAcademicSessionInput[]
+    deleteMany?: ExamScalarWhereInput | ExamScalarWhereInput[]
   }
 
   export type BranchCreateNestedOneWithoutAssessmentRecordsInput = {
@@ -246832,6 +247581,30 @@ export namespace Prisma {
     connect?: BranchWhereUniqueInput
   }
 
+  export type AcademicSessionCreateNestedOneWithoutExamsInput = {
+    create?: XOR<AcademicSessionCreateWithoutExamsInput, AcademicSessionUncheckedCreateWithoutExamsInput>
+    connectOrCreate?: AcademicSessionCreateOrConnectWithoutExamsInput
+    connect?: AcademicSessionWhereUniqueInput
+  }
+
+  export type ClassCreateNestedOneWithoutExamsInput = {
+    create?: XOR<ClassCreateWithoutExamsInput, ClassUncheckedCreateWithoutExamsInput>
+    connectOrCreate?: ClassCreateOrConnectWithoutExamsInput
+    connect?: ClassWhereUniqueInput
+  }
+
+  export type SectionCreateNestedOneWithoutExamsInput = {
+    create?: XOR<SectionCreateWithoutExamsInput, SectionUncheckedCreateWithoutExamsInput>
+    connectOrCreate?: SectionCreateOrConnectWithoutExamsInput
+    connect?: SectionWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutCreatedExamsInput = {
+    create?: XOR<UserCreateWithoutCreatedExamsInput, UserUncheckedCreateWithoutCreatedExamsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCreatedExamsInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type EnumAcademicExamStatusFieldUpdateOperationsInput = {
     set?: $Enums.AcademicExamStatus
   }
@@ -246842,6 +247615,44 @@ export namespace Prisma {
     upsert?: BranchUpsertWithoutExamsInput
     connect?: BranchWhereUniqueInput
     update?: XOR<XOR<BranchUpdateToOneWithWhereWithoutExamsInput, BranchUpdateWithoutExamsInput>, BranchUncheckedUpdateWithoutExamsInput>
+  }
+
+  export type AcademicSessionUpdateOneRequiredWithoutExamsNestedInput = {
+    create?: XOR<AcademicSessionCreateWithoutExamsInput, AcademicSessionUncheckedCreateWithoutExamsInput>
+    connectOrCreate?: AcademicSessionCreateOrConnectWithoutExamsInput
+    upsert?: AcademicSessionUpsertWithoutExamsInput
+    connect?: AcademicSessionWhereUniqueInput
+    update?: XOR<XOR<AcademicSessionUpdateToOneWithWhereWithoutExamsInput, AcademicSessionUpdateWithoutExamsInput>, AcademicSessionUncheckedUpdateWithoutExamsInput>
+  }
+
+  export type ClassUpdateOneWithoutExamsNestedInput = {
+    create?: XOR<ClassCreateWithoutExamsInput, ClassUncheckedCreateWithoutExamsInput>
+    connectOrCreate?: ClassCreateOrConnectWithoutExamsInput
+    upsert?: ClassUpsertWithoutExamsInput
+    disconnect?: ClassWhereInput | boolean
+    delete?: ClassWhereInput | boolean
+    connect?: ClassWhereUniqueInput
+    update?: XOR<XOR<ClassUpdateToOneWithWhereWithoutExamsInput, ClassUpdateWithoutExamsInput>, ClassUncheckedUpdateWithoutExamsInput>
+  }
+
+  export type SectionUpdateOneWithoutExamsNestedInput = {
+    create?: XOR<SectionCreateWithoutExamsInput, SectionUncheckedCreateWithoutExamsInput>
+    connectOrCreate?: SectionCreateOrConnectWithoutExamsInput
+    upsert?: SectionUpsertWithoutExamsInput
+    disconnect?: SectionWhereInput | boolean
+    delete?: SectionWhereInput | boolean
+    connect?: SectionWhereUniqueInput
+    update?: XOR<XOR<SectionUpdateToOneWithWhereWithoutExamsInput, SectionUpdateWithoutExamsInput>, SectionUncheckedUpdateWithoutExamsInput>
+  }
+
+  export type UserUpdateOneWithoutCreatedExamsNestedInput = {
+    create?: XOR<UserCreateWithoutCreatedExamsInput, UserUncheckedCreateWithoutCreatedExamsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCreatedExamsInput
+    upsert?: UserUpsertWithoutCreatedExamsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCreatedExamsInput, UserUpdateWithoutCreatedExamsInput>, UserUncheckedUpdateWithoutCreatedExamsInput>
   }
 
   export type BranchCreateNestedOneWithoutExamTypesInput = {
@@ -247040,6 +247851,20 @@ export namespace Prisma {
     connect?: BranchWhereUniqueInput
   }
 
+  export type TranscriptVerificationCreateNestedManyWithoutTranscriptInput = {
+    create?: XOR<TranscriptVerificationCreateWithoutTranscriptInput, TranscriptVerificationUncheckedCreateWithoutTranscriptInput> | TranscriptVerificationCreateWithoutTranscriptInput[] | TranscriptVerificationUncheckedCreateWithoutTranscriptInput[]
+    connectOrCreate?: TranscriptVerificationCreateOrConnectWithoutTranscriptInput | TranscriptVerificationCreateOrConnectWithoutTranscriptInput[]
+    createMany?: TranscriptVerificationCreateManyTranscriptInputEnvelope
+    connect?: TranscriptVerificationWhereUniqueInput | TranscriptVerificationWhereUniqueInput[]
+  }
+
+  export type TranscriptVerificationUncheckedCreateNestedManyWithoutTranscriptInput = {
+    create?: XOR<TranscriptVerificationCreateWithoutTranscriptInput, TranscriptVerificationUncheckedCreateWithoutTranscriptInput> | TranscriptVerificationCreateWithoutTranscriptInput[] | TranscriptVerificationUncheckedCreateWithoutTranscriptInput[]
+    connectOrCreate?: TranscriptVerificationCreateOrConnectWithoutTranscriptInput | TranscriptVerificationCreateOrConnectWithoutTranscriptInput[]
+    createMany?: TranscriptVerificationCreateManyTranscriptInputEnvelope
+    connect?: TranscriptVerificationWhereUniqueInput | TranscriptVerificationWhereUniqueInput[]
+  }
+
   export type EnumTranscriptStatusFieldUpdateOperationsInput = {
     set?: $Enums.TranscriptStatus
   }
@@ -247050,6 +247875,48 @@ export namespace Prisma {
     upsert?: BranchUpsertWithoutTranscriptsInput
     connect?: BranchWhereUniqueInput
     update?: XOR<XOR<BranchUpdateToOneWithWhereWithoutTranscriptsInput, BranchUpdateWithoutTranscriptsInput>, BranchUncheckedUpdateWithoutTranscriptsInput>
+  }
+
+  export type TranscriptVerificationUpdateManyWithoutTranscriptNestedInput = {
+    create?: XOR<TranscriptVerificationCreateWithoutTranscriptInput, TranscriptVerificationUncheckedCreateWithoutTranscriptInput> | TranscriptVerificationCreateWithoutTranscriptInput[] | TranscriptVerificationUncheckedCreateWithoutTranscriptInput[]
+    connectOrCreate?: TranscriptVerificationCreateOrConnectWithoutTranscriptInput | TranscriptVerificationCreateOrConnectWithoutTranscriptInput[]
+    upsert?: TranscriptVerificationUpsertWithWhereUniqueWithoutTranscriptInput | TranscriptVerificationUpsertWithWhereUniqueWithoutTranscriptInput[]
+    createMany?: TranscriptVerificationCreateManyTranscriptInputEnvelope
+    set?: TranscriptVerificationWhereUniqueInput | TranscriptVerificationWhereUniqueInput[]
+    disconnect?: TranscriptVerificationWhereUniqueInput | TranscriptVerificationWhereUniqueInput[]
+    delete?: TranscriptVerificationWhereUniqueInput | TranscriptVerificationWhereUniqueInput[]
+    connect?: TranscriptVerificationWhereUniqueInput | TranscriptVerificationWhereUniqueInput[]
+    update?: TranscriptVerificationUpdateWithWhereUniqueWithoutTranscriptInput | TranscriptVerificationUpdateWithWhereUniqueWithoutTranscriptInput[]
+    updateMany?: TranscriptVerificationUpdateManyWithWhereWithoutTranscriptInput | TranscriptVerificationUpdateManyWithWhereWithoutTranscriptInput[]
+    deleteMany?: TranscriptVerificationScalarWhereInput | TranscriptVerificationScalarWhereInput[]
+  }
+
+  export type TranscriptVerificationUncheckedUpdateManyWithoutTranscriptNestedInput = {
+    create?: XOR<TranscriptVerificationCreateWithoutTranscriptInput, TranscriptVerificationUncheckedCreateWithoutTranscriptInput> | TranscriptVerificationCreateWithoutTranscriptInput[] | TranscriptVerificationUncheckedCreateWithoutTranscriptInput[]
+    connectOrCreate?: TranscriptVerificationCreateOrConnectWithoutTranscriptInput | TranscriptVerificationCreateOrConnectWithoutTranscriptInput[]
+    upsert?: TranscriptVerificationUpsertWithWhereUniqueWithoutTranscriptInput | TranscriptVerificationUpsertWithWhereUniqueWithoutTranscriptInput[]
+    createMany?: TranscriptVerificationCreateManyTranscriptInputEnvelope
+    set?: TranscriptVerificationWhereUniqueInput | TranscriptVerificationWhereUniqueInput[]
+    disconnect?: TranscriptVerificationWhereUniqueInput | TranscriptVerificationWhereUniqueInput[]
+    delete?: TranscriptVerificationWhereUniqueInput | TranscriptVerificationWhereUniqueInput[]
+    connect?: TranscriptVerificationWhereUniqueInput | TranscriptVerificationWhereUniqueInput[]
+    update?: TranscriptVerificationUpdateWithWhereUniqueWithoutTranscriptInput | TranscriptVerificationUpdateWithWhereUniqueWithoutTranscriptInput[]
+    updateMany?: TranscriptVerificationUpdateManyWithWhereWithoutTranscriptInput | TranscriptVerificationUpdateManyWithWhereWithoutTranscriptInput[]
+    deleteMany?: TranscriptVerificationScalarWhereInput | TranscriptVerificationScalarWhereInput[]
+  }
+
+  export type TranscriptCreateNestedOneWithoutVerificationsInput = {
+    create?: XOR<TranscriptCreateWithoutVerificationsInput, TranscriptUncheckedCreateWithoutVerificationsInput>
+    connectOrCreate?: TranscriptCreateOrConnectWithoutVerificationsInput
+    connect?: TranscriptWhereUniqueInput
+  }
+
+  export type TranscriptUpdateOneRequiredWithoutVerificationsNestedInput = {
+    create?: XOR<TranscriptCreateWithoutVerificationsInput, TranscriptUncheckedCreateWithoutVerificationsInput>
+    connectOrCreate?: TranscriptCreateOrConnectWithoutVerificationsInput
+    upsert?: TranscriptUpsertWithoutVerificationsInput
+    connect?: TranscriptWhereUniqueInput
+    update?: XOR<XOR<TranscriptUpdateToOneWithWhereWithoutVerificationsInput, TranscriptUpdateWithoutVerificationsInput>, TranscriptUncheckedUpdateWithoutVerificationsInput>
   }
 
   export type BranchCreateNestedOneWithoutAcademicRemarksInput = {
@@ -252254,6 +253121,7 @@ export namespace Prisma {
     students?: StudentCreateNestedManyWithoutClassInput
     attendanceSessions?: AttendanceSessionCreateNestedManyWithoutClassInput
     offeredAdmissions?: OnlineAdmissionCreateNestedManyWithoutOfferedClassInput
+    exams?: ExamCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutBranchInput = {
@@ -252275,6 +253143,7 @@ export namespace Prisma {
     students?: StudentUncheckedCreateNestedManyWithoutClassInput
     attendanceSessions?: AttendanceSessionUncheckedCreateNestedManyWithoutClassInput
     offeredAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutOfferedClassInput
+    exams?: ExamUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutBranchInput = {
@@ -253675,6 +254544,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobCreateNestedManyWithoutUserInput
+    createdExams?: ExamCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutBranchInput = {
@@ -253712,6 +254582,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportUncheckedCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobUncheckedCreateNestedManyWithoutUserInput
+    createdExams?: ExamUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutBranchInput = {
@@ -253859,6 +254730,7 @@ export namespace Prisma {
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutAcademicSessionInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutSessionInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutAcademicSessionInput
+    exams?: ExamCreateNestedManyWithoutAcademicSessionInput
   }
 
   export type AcademicSessionUncheckedCreateWithoutBranchInput = {
@@ -253878,6 +254750,7 @@ export namespace Prisma {
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutAcademicSessionInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutSessionInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutAcademicSessionInput
+    exams?: ExamUncheckedCreateNestedManyWithoutAcademicSessionInput
   }
 
   export type AcademicSessionCreateOrConnectWithoutBranchInput = {
@@ -255120,9 +255993,6 @@ export namespace Prisma {
     code?: string | null
     description?: string | null
     status?: $Enums.AcademicExamStatus
-    classId?: string | null
-    sectionId?: string | null
-    sessionId: string
     term: $Enums.Term
     startsAt?: Date | string | null
     endsAt?: Date | string | null
@@ -255130,9 +256000,12 @@ export namespace Prisma {
     gradingEndsAt?: Date | string | null
     isArchived?: boolean
     lockedAt?: Date | string | null
-    createdByUserId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    academicSession: AcademicSessionCreateNestedOneWithoutExamsInput
+    class?: ClassCreateNestedOneWithoutExamsInput
+    section?: SectionCreateNestedOneWithoutExamsInput
+    createdBy?: UserCreateNestedOneWithoutCreatedExamsInput
   }
 
   export type ExamUncheckedCreateWithoutBranchInput = {
@@ -255453,6 +256326,7 @@ export namespace Prisma {
     lockedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    verifications?: TranscriptVerificationCreateNestedManyWithoutTranscriptInput
   }
 
   export type TranscriptUncheckedCreateWithoutBranchInput = {
@@ -255468,6 +256342,7 @@ export namespace Prisma {
     lockedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    verifications?: TranscriptVerificationUncheckedCreateNestedManyWithoutTranscriptInput
   }
 
   export type TranscriptCreateOrConnectWithoutBranchInput = {
@@ -256329,6 +257204,36 @@ export namespace Prisma {
 
   export type AdmissionExamCreateManyBranchInputEnvelope = {
     data: AdmissionExamCreateManyBranchInput | AdmissionExamCreateManyBranchInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TransportAssignmentCreateWithoutBranchInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    route: TransportRouteCreateNestedOneWithoutAssignmentsInput
+    student: StudentCreateNestedOneWithoutTransportAssignmentInput
+    vehicle: VehicleCreateNestedOneWithoutAssignmentsInput
+    transportAttendances?: TransportAttendanceCreateNestedManyWithoutAssignmentInput
+  }
+
+  export type TransportAssignmentUncheckedCreateWithoutBranchInput = {
+    id?: string
+    studentId: string
+    vehicleId: string
+    routeId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    transportAttendances?: TransportAttendanceUncheckedCreateNestedManyWithoutAssignmentInput
+  }
+
+  export type TransportAssignmentCreateOrConnectWithoutBranchInput = {
+    where: TransportAssignmentWhereUniqueInput
+    create: XOR<TransportAssignmentCreateWithoutBranchInput, TransportAssignmentUncheckedCreateWithoutBranchInput>
+  }
+
+  export type TransportAssignmentCreateManyBranchInputEnvelope = {
+    data: TransportAssignmentCreateManyBranchInput | TransportAssignmentCreateManyBranchInput[]
     skipDuplicates?: boolean
   }
 
@@ -260205,6 +261110,35 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"AdmissionExam"> | Date | string
   }
 
+  export type TransportAssignmentUpsertWithWhereUniqueWithoutBranchInput = {
+    where: TransportAssignmentWhereUniqueInput
+    update: XOR<TransportAssignmentUpdateWithoutBranchInput, TransportAssignmentUncheckedUpdateWithoutBranchInput>
+    create: XOR<TransportAssignmentCreateWithoutBranchInput, TransportAssignmentUncheckedCreateWithoutBranchInput>
+  }
+
+  export type TransportAssignmentUpdateWithWhereUniqueWithoutBranchInput = {
+    where: TransportAssignmentWhereUniqueInput
+    data: XOR<TransportAssignmentUpdateWithoutBranchInput, TransportAssignmentUncheckedUpdateWithoutBranchInput>
+  }
+
+  export type TransportAssignmentUpdateManyWithWhereWithoutBranchInput = {
+    where: TransportAssignmentScalarWhereInput
+    data: XOR<TransportAssignmentUpdateManyMutationInput, TransportAssignmentUncheckedUpdateManyWithoutBranchInput>
+  }
+
+  export type TransportAssignmentScalarWhereInput = {
+    AND?: TransportAssignmentScalarWhereInput | TransportAssignmentScalarWhereInput[]
+    OR?: TransportAssignmentScalarWhereInput[]
+    NOT?: TransportAssignmentScalarWhereInput | TransportAssignmentScalarWhereInput[]
+    id?: StringFilter<"TransportAssignment"> | string
+    branchId?: StringNullableFilter<"TransportAssignment"> | string | null
+    studentId?: StringFilter<"TransportAssignment"> | string
+    vehicleId?: StringFilter<"TransportAssignment"> | string
+    routeId?: StringFilter<"TransportAssignment"> | string
+    createdAt?: DateTimeFilter<"TransportAssignment"> | Date | string
+    updatedAt?: DateTimeFilter<"TransportAssignment"> | Date | string
+  }
+
   export type BranchCreateWithoutDeactivationReasonsInput = {
     id?: string
     name: string
@@ -260333,6 +261267,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutDeactivationReasonsInput = {
@@ -260463,6 +261398,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutDeactivationReasonsInput = {
@@ -260645,6 +261581,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutDeactivationReasonsInput = {
@@ -260775,6 +261712,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type LoginDeactivationUpsertWithWhereUniqueWithoutReasonRefInput = {
@@ -260921,6 +261859,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutLoginDeactivationsInput = {
@@ -261051,6 +261990,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutLoginDeactivationsInput = {
@@ -261373,6 +262313,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutLoginDeactivationsInput = {
@@ -261503,6 +262444,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type DeactivationReasonUpsertWithoutDeactivationsInput = {
@@ -261821,6 +262763,7 @@ export namespace Prisma {
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutRolesInput = {
@@ -261951,6 +262894,7 @@ export namespace Prisma {
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutRolesInput = {
@@ -261993,6 +262937,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobCreateNestedManyWithoutUserInput
+    createdExams?: ExamCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutCustomRoleInput = {
@@ -262030,6 +262975,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportUncheckedCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobUncheckedCreateNestedManyWithoutUserInput
+    createdExams?: ExamUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutCustomRoleInput = {
@@ -262205,6 +263151,7 @@ export namespace Prisma {
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutRolesInput = {
@@ -262335,6 +263282,7 @@ export namespace Prisma {
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type UserUpsertWithWhereUniqueWithoutCustomRoleInput = {
@@ -263358,6 +264306,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutUsersInput = {
@@ -263488,6 +264437,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutUsersInput = {
@@ -263765,6 +264715,58 @@ export namespace Prisma {
 
   export type ComputationJobCreateManyUserInputEnvelope = {
     data: ComputationJobCreateManyUserInput | ComputationJobCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ExamCreateWithoutCreatedByInput = {
+    id?: string
+    title: string
+    code?: string | null
+    description?: string | null
+    status?: $Enums.AcademicExamStatus
+    term: $Enums.Term
+    startsAt?: Date | string | null
+    endsAt?: Date | string | null
+    gradingStartsAt?: Date | string | null
+    gradingEndsAt?: Date | string | null
+    isArchived?: boolean
+    lockedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutExamsInput
+    academicSession: AcademicSessionCreateNestedOneWithoutExamsInput
+    class?: ClassCreateNestedOneWithoutExamsInput
+    section?: SectionCreateNestedOneWithoutExamsInput
+  }
+
+  export type ExamUncheckedCreateWithoutCreatedByInput = {
+    id?: string
+    title: string
+    code?: string | null
+    description?: string | null
+    status?: $Enums.AcademicExamStatus
+    branchId: string
+    classId?: string | null
+    sectionId?: string | null
+    sessionId: string
+    term: $Enums.Term
+    startsAt?: Date | string | null
+    endsAt?: Date | string | null
+    gradingStartsAt?: Date | string | null
+    gradingEndsAt?: Date | string | null
+    isArchived?: boolean
+    lockedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ExamCreateOrConnectWithoutCreatedByInput = {
+    where: ExamWhereUniqueInput
+    create: XOR<ExamCreateWithoutCreatedByInput, ExamUncheckedCreateWithoutCreatedByInput>
+  }
+
+  export type ExamCreateManyCreatedByInputEnvelope = {
+    data: ExamCreateManyCreatedByInput | ExamCreateManyCreatedByInput[]
     skipDuplicates?: boolean
   }
 
@@ -264388,6 +265390,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutUsersInput = {
@@ -264518,6 +265521,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type RoleUpsertWithoutUsersInput = {
@@ -264699,6 +265703,22 @@ export namespace Prisma {
     data: XOR<ComputationJobUpdateManyMutationInput, ComputationJobUncheckedUpdateManyWithoutUserInput>
   }
 
+  export type ExamUpsertWithWhereUniqueWithoutCreatedByInput = {
+    where: ExamWhereUniqueInput
+    update: XOR<ExamUpdateWithoutCreatedByInput, ExamUncheckedUpdateWithoutCreatedByInput>
+    create: XOR<ExamCreateWithoutCreatedByInput, ExamUncheckedCreateWithoutCreatedByInput>
+  }
+
+  export type ExamUpdateWithWhereUniqueWithoutCreatedByInput = {
+    where: ExamWhereUniqueInput
+    data: XOR<ExamUpdateWithoutCreatedByInput, ExamUncheckedUpdateWithoutCreatedByInput>
+  }
+
+  export type ExamUpdateManyWithWhereWithoutCreatedByInput = {
+    where: ExamScalarWhereInput
+    data: XOR<ExamUpdateManyMutationInput, ExamUncheckedUpdateManyWithoutCreatedByInput>
+  }
+
   export type UserCreateWithoutPreferencesInput = {
     id?: string
     email: string
@@ -264734,6 +265754,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobCreateNestedManyWithoutUserInput
+    createdExams?: ExamCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutPreferencesInput = {
@@ -264771,6 +265792,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportUncheckedCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobUncheckedCreateNestedManyWithoutUserInput
+    createdExams?: ExamUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutPreferencesInput = {
@@ -264824,6 +265846,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPreferencesInput = {
@@ -264861,6 +265884,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUncheckedUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUncheckedUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type BranchCreateWithoutModuleConfigurationsInput = {
@@ -264991,6 +266015,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutModuleConfigurationsInput = {
@@ -265121,6 +266146,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutModuleConfigurationsInput = {
@@ -265267,6 +266293,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutModuleConfigurationsInput = {
@@ -265397,6 +266424,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutScheduledJobsInput = {
@@ -265527,6 +266555,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutScheduledJobsInput = {
@@ -265657,6 +266686,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutScheduledJobsInput = {
@@ -265803,6 +266833,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutScheduledJobsInput = {
@@ -265933,6 +266964,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type AdvanceSalaryCreateWithoutStaffInput = {
@@ -266022,6 +267054,7 @@ export namespace Prisma {
     students?: StudentCreateNestedManyWithoutClassInput
     attendanceSessions?: AttendanceSessionCreateNestedManyWithoutClassInput
     offeredAdmissions?: OnlineAdmissionCreateNestedManyWithoutOfferedClassInput
+    exams?: ExamCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutClassTeacherInput = {
@@ -266043,6 +267076,7 @@ export namespace Prisma {
     students?: StudentUncheckedCreateNestedManyWithoutClassInput
     attendanceSessions?: AttendanceSessionUncheckedCreateNestedManyWithoutClassInput
     offeredAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutOfferedClassInput
+    exams?: ExamUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutClassTeacherInput = {
@@ -266459,6 +267493,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobCreateNestedManyWithoutUserInput
+    createdExams?: ExamCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutStaffInput = {
@@ -266496,6 +267531,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportUncheckedCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobUncheckedCreateNestedManyWithoutUserInput
+    createdExams?: ExamUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutStaffInput = {
@@ -266947,6 +267983,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutStaffInput = {
@@ -266984,6 +268021,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUncheckedUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUncheckedUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type StaffAttendanceUpsertWithWhereUniqueWithoutStaffInput = {
@@ -267709,6 +268747,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutStudentsInput = {
@@ -267839,6 +268878,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutStudentsInput = {
@@ -267890,6 +268930,7 @@ export namespace Prisma {
     sections?: SectionCreateNestedManyWithoutClassInput
     attendanceSessions?: AttendanceSessionCreateNestedManyWithoutClassInput
     offeredAdmissions?: OnlineAdmissionCreateNestedManyWithoutOfferedClassInput
+    exams?: ExamCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutStudentsInput = {
@@ -267911,6 +268952,7 @@ export namespace Prisma {
     sections?: SectionUncheckedCreateNestedManyWithoutClassInput
     attendanceSessions?: AttendanceSessionUncheckedCreateNestedManyWithoutClassInput
     offeredAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutOfferedClassInput
+    exams?: ExamUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutStudentsInput = {
@@ -267953,6 +268995,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobCreateNestedManyWithoutUserInput
+    createdExams?: ExamCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutChildrenInput = {
@@ -267990,6 +269033,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportUncheckedCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobUncheckedCreateNestedManyWithoutUserInput
+    createdExams?: ExamUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutChildrenInput = {
@@ -268014,6 +269058,7 @@ export namespace Prisma {
     class: ClassCreateNestedOneWithoutSectionsInput
     attendanceSessions?: AttendanceSessionCreateNestedManyWithoutSectionInput
     offeredAdmissions?: OnlineAdmissionCreateNestedManyWithoutOfferedSectionInput
+    exams?: ExamCreateNestedManyWithoutSectionInput
   }
 
   export type SectionUncheckedCreateWithoutStudentsInput = {
@@ -268033,6 +269078,7 @@ export namespace Prisma {
     onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutSectionInput
     attendanceSessions?: AttendanceSessionUncheckedCreateNestedManyWithoutSectionInput
     offeredAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutOfferedSectionInput
+    exams?: ExamUncheckedCreateNestedManyWithoutSectionInput
   }
 
   export type SectionCreateOrConnectWithoutStudentsInput = {
@@ -268075,6 +269121,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobCreateNestedManyWithoutUserInput
+    createdExams?: ExamCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutStudentInput = {
@@ -268112,6 +269159,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportUncheckedCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobUncheckedCreateNestedManyWithoutUserInput
+    createdExams?: ExamUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutStudentInput = {
@@ -268157,6 +269205,7 @@ export namespace Prisma {
     id?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    branch?: BranchCreateNestedOneWithoutTransportAssignmentsInput
     route: TransportRouteCreateNestedOneWithoutAssignmentsInput
     vehicle: VehicleCreateNestedOneWithoutAssignmentsInput
     transportAttendances?: TransportAttendanceCreateNestedManyWithoutAssignmentInput
@@ -268164,6 +269213,7 @@ export namespace Prisma {
 
   export type TransportAssignmentUncheckedCreateWithoutStudentInput = {
     id?: string
+    branchId?: string | null
     vehicleId: string
     routeId: string
     createdAt?: Date | string
@@ -268718,6 +269768,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutStudentsInput = {
@@ -268848,6 +269899,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StudentCategoryUpsertWithoutStudentsInput = {
@@ -268911,6 +269963,7 @@ export namespace Prisma {
     sections?: SectionUpdateManyWithoutClassNestedInput
     attendanceSessions?: AttendanceSessionUpdateManyWithoutClassNestedInput
     offeredAdmissions?: OnlineAdmissionUpdateManyWithoutOfferedClassNestedInput
+    exams?: ExamUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutStudentsInput = {
@@ -268932,6 +269985,7 @@ export namespace Prisma {
     sections?: SectionUncheckedUpdateManyWithoutClassNestedInput
     attendanceSessions?: AttendanceSessionUncheckedUpdateManyWithoutClassNestedInput
     offeredAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutOfferedClassNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type UserUpsertWithoutChildrenInput = {
@@ -268980,6 +270034,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutChildrenInput = {
@@ -269017,6 +270072,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUncheckedUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUncheckedUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type SectionUpsertWithoutStudentsInput = {
@@ -269047,6 +270103,7 @@ export namespace Prisma {
     class?: ClassUpdateOneRequiredWithoutSectionsNestedInput
     attendanceSessions?: AttendanceSessionUpdateManyWithoutSectionNestedInput
     offeredAdmissions?: OnlineAdmissionUpdateManyWithoutOfferedSectionNestedInput
+    exams?: ExamUpdateManyWithoutSectionNestedInput
   }
 
   export type SectionUncheckedUpdateWithoutStudentsInput = {
@@ -269066,6 +270123,7 @@ export namespace Prisma {
     onlineExams?: OnlineExamUncheckedUpdateManyWithoutSectionNestedInput
     attendanceSessions?: AttendanceSessionUncheckedUpdateManyWithoutSectionNestedInput
     offeredAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutOfferedSectionNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutSectionNestedInput
   }
 
   export type UserUpsertWithoutStudentInput = {
@@ -269114,6 +270172,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutStudentInput = {
@@ -269151,6 +270210,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUncheckedUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUncheckedUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type SubmissionUpsertWithWhereUniqueWithoutStudentInput = {
@@ -269184,6 +270244,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneWithoutTransportAssignmentsNestedInput
     route?: TransportRouteUpdateOneRequiredWithoutAssignmentsNestedInput
     vehicle?: VehicleUpdateOneRequiredWithoutAssignmentsNestedInput
     transportAttendances?: TransportAttendanceUpdateManyWithoutAssignmentNestedInput
@@ -269191,6 +270252,7 @@ export namespace Prisma {
 
   export type TransportAssignmentUncheckedUpdateWithoutStudentInput = {
     id?: StringFieldUpdateOperationsInput | string
+    branchId?: NullableStringFieldUpdateOperationsInput | string | null
     vehicleId?: StringFieldUpdateOperationsInput | string
     routeId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -269433,6 +270495,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutCertificatesInput = {
@@ -269563,6 +270626,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutCertificatesInput = {
@@ -269605,6 +270669,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobCreateNestedManyWithoutUserInput
+    createdExams?: ExamCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutIssuedCertificatesInput = {
@@ -269642,6 +270707,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportUncheckedCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobUncheckedCreateNestedManyWithoutUserInput
+    createdExams?: ExamUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutIssuedCertificatesInput = {
@@ -269968,6 +271034,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutCertificatesInput = {
@@ -270098,6 +271165,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type UserUpsertWithoutIssuedCertificatesInput = {
@@ -270146,6 +271214,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutIssuedCertificatesInput = {
@@ -270183,6 +271252,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUncheckedUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUncheckedUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type StudentUpsertWithoutCertificatesInput = {
@@ -270545,6 +271615,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutCertificateTemplatesInput = {
@@ -270675,6 +271746,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutCertificateTemplatesInput = {
@@ -270837,6 +271909,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutCertificateTemplatesInput = {
@@ -270967,6 +272040,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutClassesInput = {
@@ -271097,6 +272171,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutClassesInput = {
@@ -271227,6 +272302,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutClassesInput = {
@@ -271740,6 +272816,7 @@ export namespace Prisma {
     students?: StudentCreateNestedManyWithoutSectionInput
     attendanceSessions?: AttendanceSessionCreateNestedManyWithoutSectionInput
     offeredAdmissions?: OnlineAdmissionCreateNestedManyWithoutOfferedSectionInput
+    exams?: ExamCreateNestedManyWithoutSectionInput
   }
 
   export type SectionUncheckedCreateWithoutClassInput = {
@@ -271759,6 +272836,7 @@ export namespace Prisma {
     students?: StudentUncheckedCreateNestedManyWithoutSectionInput
     attendanceSessions?: AttendanceSessionUncheckedCreateNestedManyWithoutSectionInput
     offeredAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutOfferedSectionInput
+    exams?: ExamUncheckedCreateNestedManyWithoutSectionInput
   }
 
   export type SectionCreateOrConnectWithoutClassInput = {
@@ -272181,6 +273259,58 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ExamCreateWithoutClassInput = {
+    id?: string
+    title: string
+    code?: string | null
+    description?: string | null
+    status?: $Enums.AcademicExamStatus
+    term: $Enums.Term
+    startsAt?: Date | string | null
+    endsAt?: Date | string | null
+    gradingStartsAt?: Date | string | null
+    gradingEndsAt?: Date | string | null
+    isArchived?: boolean
+    lockedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutExamsInput
+    academicSession: AcademicSessionCreateNestedOneWithoutExamsInput
+    section?: SectionCreateNestedOneWithoutExamsInput
+    createdBy?: UserCreateNestedOneWithoutCreatedExamsInput
+  }
+
+  export type ExamUncheckedCreateWithoutClassInput = {
+    id?: string
+    title: string
+    code?: string | null
+    description?: string | null
+    status?: $Enums.AcademicExamStatus
+    branchId: string
+    sectionId?: string | null
+    sessionId: string
+    term: $Enums.Term
+    startsAt?: Date | string | null
+    endsAt?: Date | string | null
+    gradingStartsAt?: Date | string | null
+    gradingEndsAt?: Date | string | null
+    isArchived?: boolean
+    lockedAt?: Date | string | null
+    createdByUserId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ExamCreateOrConnectWithoutClassInput = {
+    where: ExamWhereUniqueInput
+    create: XOR<ExamCreateWithoutClassInput, ExamUncheckedCreateWithoutClassInput>
+  }
+
+  export type ExamCreateManyClassInputEnvelope = {
+    data: ExamCreateManyClassInput | ExamCreateManyClassInput[]
+    skipDuplicates?: boolean
+  }
+
   export type BranchUpsertWithoutClassesInput = {
     update: XOR<BranchUpdateWithoutClassesInput, BranchUncheckedUpdateWithoutClassesInput>
     create: XOR<BranchCreateWithoutClassesInput, BranchUncheckedCreateWithoutClassesInput>
@@ -272320,6 +273450,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutClassesInput = {
@@ -272450,6 +273581,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StaffUpsertWithoutClassesInput = {
@@ -272698,6 +273830,22 @@ export namespace Prisma {
   export type OnlineAdmissionUpdateManyWithWhereWithoutOfferedClassInput = {
     where: OnlineAdmissionScalarWhereInput
     data: XOR<OnlineAdmissionUpdateManyMutationInput, OnlineAdmissionUncheckedUpdateManyWithoutOfferedClassInput>
+  }
+
+  export type ExamUpsertWithWhereUniqueWithoutClassInput = {
+    where: ExamWhereUniqueInput
+    update: XOR<ExamUpdateWithoutClassInput, ExamUncheckedUpdateWithoutClassInput>
+    create: XOR<ExamCreateWithoutClassInput, ExamUncheckedCreateWithoutClassInput>
+  }
+
+  export type ExamUpdateWithWhereUniqueWithoutClassInput = {
+    where: ExamWhereUniqueInput
+    data: XOR<ExamUpdateWithoutClassInput, ExamUncheckedUpdateWithoutClassInput>
+  }
+
+  export type ExamUpdateManyWithWhereWithoutClassInput = {
+    where: ExamScalarWhereInput
+    data: XOR<ExamUpdateManyMutationInput, ExamUncheckedUpdateManyWithoutClassInput>
   }
 
   export type AssessmentRecordCreateWithoutSectionInput = {
@@ -273259,6 +274407,7 @@ export namespace Prisma {
     students?: StudentCreateNestedManyWithoutClassInput
     attendanceSessions?: AttendanceSessionCreateNestedManyWithoutClassInput
     offeredAdmissions?: OnlineAdmissionCreateNestedManyWithoutOfferedClassInput
+    exams?: ExamCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutSectionsInput = {
@@ -273280,6 +274429,7 @@ export namespace Prisma {
     students?: StudentUncheckedCreateNestedManyWithoutClassInput
     attendanceSessions?: AttendanceSessionUncheckedCreateNestedManyWithoutClassInput
     offeredAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutOfferedClassInput
+    exams?: ExamUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutSectionsInput = {
@@ -273697,6 +274847,58 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ExamCreateWithoutSectionInput = {
+    id?: string
+    title: string
+    code?: string | null
+    description?: string | null
+    status?: $Enums.AcademicExamStatus
+    term: $Enums.Term
+    startsAt?: Date | string | null
+    endsAt?: Date | string | null
+    gradingStartsAt?: Date | string | null
+    gradingEndsAt?: Date | string | null
+    isArchived?: boolean
+    lockedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutExamsInput
+    academicSession: AcademicSessionCreateNestedOneWithoutExamsInput
+    class?: ClassCreateNestedOneWithoutExamsInput
+    createdBy?: UserCreateNestedOneWithoutCreatedExamsInput
+  }
+
+  export type ExamUncheckedCreateWithoutSectionInput = {
+    id?: string
+    title: string
+    code?: string | null
+    description?: string | null
+    status?: $Enums.AcademicExamStatus
+    branchId: string
+    classId?: string | null
+    sessionId: string
+    term: $Enums.Term
+    startsAt?: Date | string | null
+    endsAt?: Date | string | null
+    gradingStartsAt?: Date | string | null
+    gradingEndsAt?: Date | string | null
+    isArchived?: boolean
+    lockedAt?: Date | string | null
+    createdByUserId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ExamCreateOrConnectWithoutSectionInput = {
+    where: ExamWhereUniqueInput
+    create: XOR<ExamCreateWithoutSectionInput, ExamUncheckedCreateWithoutSectionInput>
+  }
+
+  export type ExamCreateManySectionInputEnvelope = {
+    data: ExamCreateManySectionInput | ExamCreateManySectionInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AssessmentRecordUpsertWithWhereUniqueWithoutSectionInput = {
     where: AssessmentRecordWhereUniqueInput
     update: XOR<AssessmentRecordUpdateWithoutSectionInput, AssessmentRecordUncheckedUpdateWithoutSectionInput>
@@ -273855,6 +275057,7 @@ export namespace Prisma {
     students?: StudentUpdateManyWithoutClassNestedInput
     attendanceSessions?: AttendanceSessionUpdateManyWithoutClassNestedInput
     offeredAdmissions?: OnlineAdmissionUpdateManyWithoutOfferedClassNestedInput
+    exams?: ExamUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutSectionsInput = {
@@ -273876,6 +275079,7 @@ export namespace Prisma {
     students?: StudentUncheckedUpdateManyWithoutClassNestedInput
     attendanceSessions?: AttendanceSessionUncheckedUpdateManyWithoutClassNestedInput
     offeredAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutOfferedClassNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type StudentUpsertWithWhereUniqueWithoutSectionInput = {
@@ -273924,6 +275128,22 @@ export namespace Prisma {
   export type OnlineAdmissionUpdateManyWithWhereWithoutOfferedSectionInput = {
     where: OnlineAdmissionScalarWhereInput
     data: XOR<OnlineAdmissionUpdateManyMutationInput, OnlineAdmissionUncheckedUpdateManyWithoutOfferedSectionInput>
+  }
+
+  export type ExamUpsertWithWhereUniqueWithoutSectionInput = {
+    where: ExamWhereUniqueInput
+    update: XOR<ExamUpdateWithoutSectionInput, ExamUncheckedUpdateWithoutSectionInput>
+    create: XOR<ExamCreateWithoutSectionInput, ExamUncheckedCreateWithoutSectionInput>
+  }
+
+  export type ExamUpdateWithWhereUniqueWithoutSectionInput = {
+    where: ExamWhereUniqueInput
+    data: XOR<ExamUpdateWithoutSectionInput, ExamUncheckedUpdateWithoutSectionInput>
+  }
+
+  export type ExamUpdateManyWithWhereWithoutSectionInput = {
+    where: ExamScalarWhereInput
+    data: XOR<ExamUpdateManyMutationInput, ExamUncheckedUpdateManyWithoutSectionInput>
   }
 
   export type AssessmentRecordCreateWithoutSubjectInput = {
@@ -274354,6 +275574,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutSubjectsInput = {
@@ -274484,6 +275705,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutSubjectsInput = {
@@ -274829,6 +276051,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutSubjectsInput = {
@@ -274959,6 +276182,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StaffUpsertWithWhereUniqueWithoutSubjectsInput = {
@@ -275027,6 +276251,7 @@ export namespace Prisma {
     students?: StudentCreateNestedManyWithoutClassInput
     attendanceSessions?: AttendanceSessionCreateNestedManyWithoutClassInput
     offeredAdmissions?: OnlineAdmissionCreateNestedManyWithoutOfferedClassInput
+    exams?: ExamCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutClassSchedulesInput = {
@@ -275048,6 +276273,7 @@ export namespace Prisma {
     students?: StudentUncheckedCreateNestedManyWithoutClassInput
     attendanceSessions?: AttendanceSessionUncheckedCreateNestedManyWithoutClassInput
     offeredAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutOfferedClassInput
+    exams?: ExamUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutClassSchedulesInput = {
@@ -275072,6 +276298,7 @@ export namespace Prisma {
     students?: StudentCreateNestedManyWithoutSectionInput
     attendanceSessions?: AttendanceSessionCreateNestedManyWithoutSectionInput
     offeredAdmissions?: OnlineAdmissionCreateNestedManyWithoutOfferedSectionInput
+    exams?: ExamCreateNestedManyWithoutSectionInput
   }
 
   export type SectionUncheckedCreateWithoutClassSchedulesInput = {
@@ -275091,6 +276318,7 @@ export namespace Prisma {
     students?: StudentUncheckedCreateNestedManyWithoutSectionInput
     attendanceSessions?: AttendanceSessionUncheckedCreateNestedManyWithoutSectionInput
     offeredAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutOfferedSectionInput
+    exams?: ExamUncheckedCreateNestedManyWithoutSectionInput
   }
 
   export type SectionCreateOrConnectWithoutClassSchedulesInput = {
@@ -275322,6 +276550,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutClassSchedulesInput = {
@@ -275452,6 +276681,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutClassSchedulesInput = {
@@ -275489,6 +276719,7 @@ export namespace Prisma {
     students?: StudentUpdateManyWithoutClassNestedInput
     attendanceSessions?: AttendanceSessionUpdateManyWithoutClassNestedInput
     offeredAdmissions?: OnlineAdmissionUpdateManyWithoutOfferedClassNestedInput
+    exams?: ExamUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutClassSchedulesInput = {
@@ -275510,6 +276741,7 @@ export namespace Prisma {
     students?: StudentUncheckedUpdateManyWithoutClassNestedInput
     attendanceSessions?: AttendanceSessionUncheckedUpdateManyWithoutClassNestedInput
     offeredAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutOfferedClassNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type SectionUpsertWithoutClassSchedulesInput = {
@@ -275540,6 +276772,7 @@ export namespace Prisma {
     students?: StudentUpdateManyWithoutSectionNestedInput
     attendanceSessions?: AttendanceSessionUpdateManyWithoutSectionNestedInput
     offeredAdmissions?: OnlineAdmissionUpdateManyWithoutOfferedSectionNestedInput
+    exams?: ExamUpdateManyWithoutSectionNestedInput
   }
 
   export type SectionUncheckedUpdateWithoutClassSchedulesInput = {
@@ -275559,6 +276792,7 @@ export namespace Prisma {
     students?: StudentUncheckedUpdateManyWithoutSectionNestedInput
     attendanceSessions?: AttendanceSessionUncheckedUpdateManyWithoutSectionNestedInput
     offeredAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutOfferedSectionNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutSectionNestedInput
   }
 
   export type SubjectUpsertWithoutClassSchedulesInput = {
@@ -275808,6 +277042,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutClassSchedulesInput = {
@@ -275938,6 +277173,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutAttendanceInput = {
@@ -276068,6 +277304,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAttendanceInput = {
@@ -276198,6 +277435,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAttendanceInput = {
@@ -276222,6 +277460,7 @@ export namespace Prisma {
     students?: StudentCreateNestedManyWithoutSectionInput
     attendanceSessions?: AttendanceSessionCreateNestedManyWithoutSectionInput
     offeredAdmissions?: OnlineAdmissionCreateNestedManyWithoutOfferedSectionInput
+    exams?: ExamCreateNestedManyWithoutSectionInput
   }
 
   export type SectionUncheckedCreateWithoutAttendanceInput = {
@@ -276241,6 +277480,7 @@ export namespace Prisma {
     students?: StudentUncheckedCreateNestedManyWithoutSectionInput
     attendanceSessions?: AttendanceSessionUncheckedCreateNestedManyWithoutSectionInput
     offeredAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutOfferedSectionInput
+    exams?: ExamUncheckedCreateNestedManyWithoutSectionInput
   }
 
   export type SectionCreateOrConnectWithoutAttendanceInput = {
@@ -276581,6 +277821,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAttendanceInput = {
@@ -276711,6 +277952,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type SectionUpsertWithoutAttendanceInput = {
@@ -276741,6 +277983,7 @@ export namespace Prisma {
     students?: StudentUpdateManyWithoutSectionNestedInput
     attendanceSessions?: AttendanceSessionUpdateManyWithoutSectionNestedInput
     offeredAdmissions?: OnlineAdmissionUpdateManyWithoutOfferedSectionNestedInput
+    exams?: ExamUpdateManyWithoutSectionNestedInput
   }
 
   export type SectionUncheckedUpdateWithoutAttendanceInput = {
@@ -276760,6 +278003,7 @@ export namespace Prisma {
     students?: StudentUncheckedUpdateManyWithoutSectionNestedInput
     attendanceSessions?: AttendanceSessionUncheckedUpdateManyWithoutSectionNestedInput
     offeredAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutOfferedSectionNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutSectionNestedInput
   }
 
   export type StudentUpsertWithoutAttendanceInput = {
@@ -277096,6 +278340,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutStaffAttendanceInput = {
@@ -277226,6 +278471,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutStaffAttendanceInput = {
@@ -277429,6 +278675,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutStaffAttendanceInput = {
@@ -277559,6 +278806,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StaffUpsertWithoutAttendanceInput = {
@@ -277752,6 +279000,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutHostelsInput = {
@@ -277882,6 +279131,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutHostelsInput = {
@@ -278094,6 +279344,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutHostelsInput = {
@@ -278224,6 +279475,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type RoomUpsertWithWhereUniqueWithoutHostelInput = {
@@ -278849,6 +280101,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutHostelAllocationsInput = {
@@ -278979,6 +280232,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutHostelAllocationsInput = {
@@ -279315,6 +280569,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutHostelAllocationsInput = {
@@ -279445,6 +280700,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StudentCreateWithoutHostelLeavesInput = {
@@ -279728,6 +280984,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutHostelLeavesInput = {
@@ -279858,6 +281115,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutHostelLeavesInput = {
@@ -280163,6 +281421,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutHostelLeavesInput = {
@@ -280293,6 +281552,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BedCreateWithoutMaintenanceInput = {
@@ -280448,6 +281708,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutMaintenanceRequestsInput = {
@@ -280578,6 +281839,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutMaintenanceRequestsInput = {
@@ -280755,6 +282017,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutMaintenanceRequestsInput = {
@@ -280885,6 +282148,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutFeeCategoriesInput = {
@@ -281015,6 +282279,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutFeeCategoriesInput = {
@@ -281145,6 +282410,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutFeeCategoriesInput = {
@@ -281345,6 +282611,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutFeeCategoriesInput = {
@@ -281475,6 +282742,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type FeeStructureUpsertWithWhereUniqueWithoutCategoryInput = {
@@ -281565,6 +282833,7 @@ export namespace Prisma {
     students?: StudentCreateNestedManyWithoutClassInput
     attendanceSessions?: AttendanceSessionCreateNestedManyWithoutClassInput
     offeredAdmissions?: OnlineAdmissionCreateNestedManyWithoutOfferedClassInput
+    exams?: ExamCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutFeeStructuresInput = {
@@ -281586,6 +282855,7 @@ export namespace Prisma {
     students?: StudentUncheckedCreateNestedManyWithoutClassInput
     attendanceSessions?: AttendanceSessionUncheckedCreateNestedManyWithoutClassInput
     offeredAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutOfferedClassInput
+    exams?: ExamUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutFeeStructuresInput = {
@@ -281654,6 +282924,7 @@ export namespace Prisma {
     students?: StudentUpdateManyWithoutClassNestedInput
     attendanceSessions?: AttendanceSessionUpdateManyWithoutClassNestedInput
     offeredAdmissions?: OnlineAdmissionUpdateManyWithoutOfferedClassNestedInput
+    exams?: ExamUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutFeeStructuresInput = {
@@ -281675,6 +282946,7 @@ export namespace Prisma {
     students?: StudentUncheckedUpdateManyWithoutClassNestedInput
     attendanceSessions?: AttendanceSessionUncheckedUpdateManyWithoutClassNestedInput
     offeredAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutOfferedClassNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type StudentCreateWithoutInvoicesInput = {
@@ -281958,6 +283230,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInvoicesInput = {
@@ -282088,6 +283361,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInvoicesInput = {
@@ -282453,6 +283727,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInvoicesInput = {
@@ -282583,6 +283858,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InvoiceItemUpsertWithWhereUniqueWithoutInvoiceInput = {
@@ -282837,6 +284113,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutQuestionGroupsInput = {
@@ -282967,6 +284244,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutQuestionGroupsInput = {
@@ -283158,6 +284436,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutQuestionGroupsInput = {
@@ -283288,6 +284567,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type QuestionGroupCreateWithoutQuestionsInput = {
@@ -283641,6 +284921,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutOnlineExamsInput = {
@@ -283771,6 +285052,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutOnlineExamsInput = {
@@ -283797,6 +285079,7 @@ export namespace Prisma {
     students?: StudentCreateNestedManyWithoutClassInput
     attendanceSessions?: AttendanceSessionCreateNestedManyWithoutClassInput
     offeredAdmissions?: OnlineAdmissionCreateNestedManyWithoutOfferedClassInput
+    exams?: ExamCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutOnlineExamsInput = {
@@ -283818,6 +285101,7 @@ export namespace Prisma {
     students?: StudentUncheckedCreateNestedManyWithoutClassInput
     attendanceSessions?: AttendanceSessionUncheckedCreateNestedManyWithoutClassInput
     offeredAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutOfferedClassInput
+    exams?: ExamUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutOnlineExamsInput = {
@@ -283865,6 +285149,7 @@ export namespace Prisma {
     students?: StudentCreateNestedManyWithoutSectionInput
     attendanceSessions?: AttendanceSessionCreateNestedManyWithoutSectionInput
     offeredAdmissions?: OnlineAdmissionCreateNestedManyWithoutOfferedSectionInput
+    exams?: ExamCreateNestedManyWithoutSectionInput
   }
 
   export type SectionUncheckedCreateWithoutOnlineExamsInput = {
@@ -283884,6 +285169,7 @@ export namespace Prisma {
     students?: StudentUncheckedCreateNestedManyWithoutSectionInput
     attendanceSessions?: AttendanceSessionUncheckedCreateNestedManyWithoutSectionInput
     offeredAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutOfferedSectionInput
+    exams?: ExamUncheckedCreateNestedManyWithoutSectionInput
   }
 
   export type SectionCreateOrConnectWithoutOnlineExamsInput = {
@@ -284105,6 +285391,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutOnlineExamsInput = {
@@ -284235,6 +285522,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type ClassUpsertWithoutOnlineExamsInput = {
@@ -284267,6 +285555,7 @@ export namespace Prisma {
     students?: StudentUpdateManyWithoutClassNestedInput
     attendanceSessions?: AttendanceSessionUpdateManyWithoutClassNestedInput
     offeredAdmissions?: OnlineAdmissionUpdateManyWithoutOfferedClassNestedInput
+    exams?: ExamUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutOnlineExamsInput = {
@@ -284288,6 +285577,7 @@ export namespace Prisma {
     students?: StudentUncheckedUpdateManyWithoutClassNestedInput
     attendanceSessions?: AttendanceSessionUncheckedUpdateManyWithoutClassNestedInput
     offeredAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutOfferedClassNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type QuestionGroupUpsertWithoutExamsInput = {
@@ -284347,6 +285637,7 @@ export namespace Prisma {
     students?: StudentUpdateManyWithoutSectionNestedInput
     attendanceSessions?: AttendanceSessionUpdateManyWithoutSectionNestedInput
     offeredAdmissions?: OnlineAdmissionUpdateManyWithoutOfferedSectionNestedInput
+    exams?: ExamUpdateManyWithoutSectionNestedInput
   }
 
   export type SectionUncheckedUpdateWithoutOnlineExamsInput = {
@@ -284366,6 +285657,7 @@ export namespace Prisma {
     students?: StudentUncheckedUpdateManyWithoutSectionNestedInput
     attendanceSessions?: AttendanceSessionUncheckedUpdateManyWithoutSectionNestedInput
     offeredAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutOfferedSectionNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutSectionNestedInput
   }
 
   export type SubjectUpsertWithoutOnlineExamsInput = {
@@ -285205,6 +286497,7 @@ export namespace Prisma {
     id?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    branch?: BranchCreateNestedOneWithoutTransportAssignmentsInput
     route: TransportRouteCreateNestedOneWithoutAssignmentsInput
     student: StudentCreateNestedOneWithoutTransportAssignmentInput
     transportAttendances?: TransportAttendanceCreateNestedManyWithoutAssignmentInput
@@ -285212,6 +286505,7 @@ export namespace Prisma {
 
   export type TransportAssignmentUncheckedCreateWithoutVehicleInput = {
     id?: string
+    branchId?: string | null
     studentId: string
     routeId: string
     createdAt?: Date | string
@@ -285357,6 +286651,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutVehiclesInput = {
@@ -285487,6 +286782,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutVehiclesInput = {
@@ -285508,18 +286804,6 @@ export namespace Prisma {
   export type TransportAssignmentUpdateManyWithWhereWithoutVehicleInput = {
     where: TransportAssignmentScalarWhereInput
     data: XOR<TransportAssignmentUpdateManyMutationInput, TransportAssignmentUncheckedUpdateManyWithoutVehicleInput>
-  }
-
-  export type TransportAssignmentScalarWhereInput = {
-    AND?: TransportAssignmentScalarWhereInput | TransportAssignmentScalarWhereInput[]
-    OR?: TransportAssignmentScalarWhereInput[]
-    NOT?: TransportAssignmentScalarWhereInput | TransportAssignmentScalarWhereInput[]
-    id?: StringFilter<"TransportAssignment"> | string
-    studentId?: StringFilter<"TransportAssignment"> | string
-    vehicleId?: StringFilter<"TransportAssignment"> | string
-    routeId?: StringFilter<"TransportAssignment"> | string
-    createdAt?: DateTimeFilter<"TransportAssignment"> | Date | string
-    updatedAt?: DateTimeFilter<"TransportAssignment"> | Date | string
   }
 
   export type BranchUpsertWithoutVehiclesInput = {
@@ -285661,6 +286945,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutVehiclesInput = {
@@ -285791,12 +287076,14 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type TransportAssignmentCreateWithoutRouteInput = {
     id?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    branch?: BranchCreateNestedOneWithoutTransportAssignmentsInput
     student: StudentCreateNestedOneWithoutTransportAssignmentInput
     vehicle: VehicleCreateNestedOneWithoutAssignmentsInput
     transportAttendances?: TransportAttendanceCreateNestedManyWithoutAssignmentInput
@@ -285804,6 +287091,7 @@ export namespace Prisma {
 
   export type TransportAssignmentUncheckedCreateWithoutRouteInput = {
     id?: string
+    branchId?: string | null
     studentId: string
     vehicleId: string
     createdAt?: Date | string
@@ -285949,6 +287237,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutRoutesInput = {
@@ -286079,6 +287368,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutRoutesInput = {
@@ -286241,6 +287531,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutRoutesInput = {
@@ -286371,6 +287662,274 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
+  }
+
+  export type BranchCreateWithoutTransportAssignmentsInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    logoUrl?: string | null
+    primaryColor?: string | null
+    emailFooter?: string | null
+    smsSenderId?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
+    alumni?: AlumniCreateNestedManyWithoutBranchInput
+    alumniEvents?: AlumniEventCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
+    automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    books?: BookCreateNestedManyWithoutBranchInput
+    callLogs?: CallLogCreateNestedManyWithoutBranchInput
+    accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
+    campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
+    certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
+    classes?: ClassCreateNestedManyWithoutBranchInput
+    complaints?: ComplaintCreateNestedManyWithoutBranchInput
+    conversations?: ConversationCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    attachmentCategories?: AttachmentCategoryCreateNestedManyWithoutBranchInput
+    departments?: DepartmentCreateNestedManyWithoutBranchInput
+    designations?: DesignationCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
+    expenseCategories?: ExpenseCategoryCreateNestedManyWithoutBranchInput
+    feeCategories?: FeeCategoryCreateNestedManyWithoutBranchInput
+    googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
+    hostels?: HostelCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    inventoryCategories?: InventoryCategoryCreateNestedManyWithoutBranchInput
+    inventoryIssues?: InventoryIssueCreateNestedManyWithoutBranchInput
+    inventoryProducts?: InventoryProductCreateNestedManyWithoutBranchInput
+    inventoryPurchases?: InventoryPurchaseCreateNestedManyWithoutBranchInput
+    inventorySales?: InventorySaleCreateNestedManyWithoutBranchInput
+    inventoryStores?: InventoryStoreCreateNestedManyWithoutBranchInput
+    inventorySuppliers?: InventorySupplierCreateNestedManyWithoutBranchInput
+    inventoryUnits?: InventoryUnitCreateNestedManyWithoutBranchInput
+    liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutBranchInput
+    onlineExams?: OnlineExamCreateNestedManyWithoutBranchInput
+    postalRecords?: PostalRecordCreateNestedManyWithoutBranchInput
+    questionGroups?: QuestionGroupCreateNestedManyWithoutBranchInput
+    students?: StudentCreateNestedManyWithoutBranchInput
+    studentCategories?: StudentCategoryCreateNestedManyWithoutBranchInput
+    subjects?: SubjectCreateNestedManyWithoutBranchInput
+    routes?: TransportRouteCreateNestedManyWithoutBranchInput
+    users?: UserCreateNestedManyWithoutBranchInput
+    vehicles?: VehicleCreateNestedManyWithoutBranchInput
+    visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
+    vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    attendanceSessions?: AttendanceSessionCreateNestedManyWithoutBranchInput
+    attendanceScans?: AttendanceScanCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
+    moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
+    scheduledJobs?: ScheduledJobCreateNestedManyWithoutBranchInput
+    emailTemplates?: EmailTemplateCreateNestedManyWithoutBranchInput
+    smsTemplates?: SmsTemplateCreateNestedManyWithoutBranchInput
+    notifications?: NotificationCreateNestedManyWithoutBranchInput
+    notificationPreferences?: NotificationPreferenceCreateNestedManyWithoutBranchInput
+    campaigns?: CampaignCreateNestedManyWithoutBranchInput
+    campaignRecipients?: CampaignRecipientCreateNestedManyWithoutBranchInput
+    queueJobLogs?: QueueJobLogCreateNestedManyWithoutBranchInput
+    automationExecutions?: AutomationExecutionCreateNestedManyWithoutBranchInput
+    messageDeliveryLogs?: MessageDeliveryLogCreateNestedManyWithoutBranchInput
+    providerHealthLogs?: ProviderHealthLogCreateNestedManyWithoutBranchInput
+    webhookEvents?: WebhookEventCreateNestedManyWithoutBranchInput
+    deliveryWebhookLogs?: DeliveryWebhookLogCreateNestedManyWithoutBranchInput
+    realtimeConnections?: RealtimeConnectionCreateNestedManyWithoutBranchInput
+    queueMetrics?: QueueMetricCreateNestedManyWithoutBranchInput
+    providerFailoverEvents?: ProviderFailoverEventCreateNestedManyWithoutBranchInput
+    messageRetryEvents?: MessageRetryEventCreateNestedManyWithoutBranchInput
+    providerBalanceSnapshots?: ProviderBalanceSnapshotCreateNestedManyWithoutBranchInput
+    counters?: CounterCreateNestedManyWithoutBranchInput
+    notificationDeliveryEvents?: NotificationDeliveryEventCreateNestedManyWithoutBranchInput
+    academicExports?: AcademicExportCreateNestedManyWithoutBranchInput
+    reportTemplates?: ReportTemplateCreateNestedManyWithoutBranchInput
+    computationJobs?: ComputationJobCreateNestedManyWithoutBranchInput
+    apiKeys?: ApiKeyCreateNestedManyWithoutBranchInput
+    webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutBranchInput
+    exams?: ExamCreateNestedManyWithoutBranchInput
+    examTypes?: ExamTypeCreateNestedManyWithoutBranchInput
+    assessmentComponents?: AssessmentComponentCreateNestedManyWithoutBranchInput
+    resultApprovals?: ResultApprovalCreateNestedManyWithoutBranchInput
+    resultPublications?: ResultPublicationCreateNestedManyWithoutBranchInput
+    gpaRecords?: GPARecordCreateNestedManyWithoutBranchInput
+    studentRankings?: StudentRankingCreateNestedManyWithoutBranchInput
+    broadsheets?: BroadsheetCreateNestedManyWithoutBranchInput
+    transcripts?: TranscriptCreateNestedManyWithoutBranchInput
+    academicRemarks?: AcademicRemarkCreateNestedManyWithoutBranchInput
+    subjectPositions?: SubjectPositionCreateNestedManyWithoutBranchInput
+    tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
+    tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
+    invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
+    libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
+    salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
+    payrolls?: PayrollCreateNestedManyWithoutBranchInput
+    leaveRequests?: LeaveRequestCreateNestedManyWithoutBranchInput
+    staffAwards?: StaffAwardCreateNestedManyWithoutBranchInput
+    advanceSalaries?: AdvanceSalaryCreateNestedManyWithoutBranchInput
+    hostelAllocations?: HostelAllocationCreateNestedManyWithoutBranchInput
+    hostelLeaves?: HostelLeaveCreateNestedManyWithoutBranchInput
+    maintenanceRequests?: MaintenanceRequestCreateNestedManyWithoutBranchInput
+    submissions?: SubmissionCreateNestedManyWithoutBranchInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutBranchInput
+    idCards?: IdCardCreateNestedManyWithoutBranchInput
+    bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
+    bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
+    hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
+    admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
+    admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+  }
+
+  export type BranchUncheckedCreateWithoutTransportAssignmentsInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    logoUrl?: string | null
+    primaryColor?: string | null
+    emailFooter?: string | null
+    smsSenderId?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
+    alumni?: AlumniUncheckedCreateNestedManyWithoutBranchInput
+    alumniEvents?: AlumniEventUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
+    automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    books?: BookUncheckedCreateNestedManyWithoutBranchInput
+    callLogs?: CallLogUncheckedCreateNestedManyWithoutBranchInput
+    accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
+    campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
+    certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
+    classes?: ClassUncheckedCreateNestedManyWithoutBranchInput
+    complaints?: ComplaintUncheckedCreateNestedManyWithoutBranchInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    attachmentCategories?: AttachmentCategoryUncheckedCreateNestedManyWithoutBranchInput
+    departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
+    designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
+    expenseCategories?: ExpenseCategoryUncheckedCreateNestedManyWithoutBranchInput
+    feeCategories?: FeeCategoryUncheckedCreateNestedManyWithoutBranchInput
+    googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
+    hostels?: HostelUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    inventoryCategories?: InventoryCategoryUncheckedCreateNestedManyWithoutBranchInput
+    inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutBranchInput
+    inventoryProducts?: InventoryProductUncheckedCreateNestedManyWithoutBranchInput
+    inventoryPurchases?: InventoryPurchaseUncheckedCreateNestedManyWithoutBranchInput
+    inventorySales?: InventorySaleUncheckedCreateNestedManyWithoutBranchInput
+    inventoryStores?: InventoryStoreUncheckedCreateNestedManyWithoutBranchInput
+    inventorySuppliers?: InventorySupplierUncheckedCreateNestedManyWithoutBranchInput
+    inventoryUnits?: InventoryUnitUncheckedCreateNestedManyWithoutBranchInput
+    liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutBranchInput
+    onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutBranchInput
+    postalRecords?: PostalRecordUncheckedCreateNestedManyWithoutBranchInput
+    questionGroups?: QuestionGroupUncheckedCreateNestedManyWithoutBranchInput
+    students?: StudentUncheckedCreateNestedManyWithoutBranchInput
+    studentCategories?: StudentCategoryUncheckedCreateNestedManyWithoutBranchInput
+    subjects?: SubjectUncheckedCreateNestedManyWithoutBranchInput
+    routes?: TransportRouteUncheckedCreateNestedManyWithoutBranchInput
+    users?: UserUncheckedCreateNestedManyWithoutBranchInput
+    vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
+    visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
+    vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    attendanceSessions?: AttendanceSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendanceScans?: AttendanceScanUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
+    moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
+    scheduledJobs?: ScheduledJobUncheckedCreateNestedManyWithoutBranchInput
+    emailTemplates?: EmailTemplateUncheckedCreateNestedManyWithoutBranchInput
+    smsTemplates?: SmsTemplateUncheckedCreateNestedManyWithoutBranchInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutBranchInput
+    notificationPreferences?: NotificationPreferenceUncheckedCreateNestedManyWithoutBranchInput
+    campaigns?: CampaignUncheckedCreateNestedManyWithoutBranchInput
+    campaignRecipients?: CampaignRecipientUncheckedCreateNestedManyWithoutBranchInput
+    queueJobLogs?: QueueJobLogUncheckedCreateNestedManyWithoutBranchInput
+    automationExecutions?: AutomationExecutionUncheckedCreateNestedManyWithoutBranchInput
+    messageDeliveryLogs?: MessageDeliveryLogUncheckedCreateNestedManyWithoutBranchInput
+    providerHealthLogs?: ProviderHealthLogUncheckedCreateNestedManyWithoutBranchInput
+    webhookEvents?: WebhookEventUncheckedCreateNestedManyWithoutBranchInput
+    deliveryWebhookLogs?: DeliveryWebhookLogUncheckedCreateNestedManyWithoutBranchInput
+    realtimeConnections?: RealtimeConnectionUncheckedCreateNestedManyWithoutBranchInput
+    queueMetrics?: QueueMetricUncheckedCreateNestedManyWithoutBranchInput
+    providerFailoverEvents?: ProviderFailoverEventUncheckedCreateNestedManyWithoutBranchInput
+    messageRetryEvents?: MessageRetryEventUncheckedCreateNestedManyWithoutBranchInput
+    providerBalanceSnapshots?: ProviderBalanceSnapshotUncheckedCreateNestedManyWithoutBranchInput
+    counters?: CounterUncheckedCreateNestedManyWithoutBranchInput
+    notificationDeliveryEvents?: NotificationDeliveryEventUncheckedCreateNestedManyWithoutBranchInput
+    academicExports?: AcademicExportUncheckedCreateNestedManyWithoutBranchInput
+    reportTemplates?: ReportTemplateUncheckedCreateNestedManyWithoutBranchInput
+    computationJobs?: ComputationJobUncheckedCreateNestedManyWithoutBranchInput
+    apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutBranchInput
+    webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutBranchInput
+    exams?: ExamUncheckedCreateNestedManyWithoutBranchInput
+    examTypes?: ExamTypeUncheckedCreateNestedManyWithoutBranchInput
+    assessmentComponents?: AssessmentComponentUncheckedCreateNestedManyWithoutBranchInput
+    resultApprovals?: ResultApprovalUncheckedCreateNestedManyWithoutBranchInput
+    resultPublications?: ResultPublicationUncheckedCreateNestedManyWithoutBranchInput
+    gpaRecords?: GPARecordUncheckedCreateNestedManyWithoutBranchInput
+    studentRankings?: StudentRankingUncheckedCreateNestedManyWithoutBranchInput
+    broadsheets?: BroadsheetUncheckedCreateNestedManyWithoutBranchInput
+    transcripts?: TranscriptUncheckedCreateNestedManyWithoutBranchInput
+    academicRemarks?: AcademicRemarkUncheckedCreateNestedManyWithoutBranchInput
+    subjectPositions?: SubjectPositionUncheckedCreateNestedManyWithoutBranchInput
+    tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
+    tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
+    libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
+    salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
+    payrolls?: PayrollUncheckedCreateNestedManyWithoutBranchInput
+    leaveRequests?: LeaveRequestUncheckedCreateNestedManyWithoutBranchInput
+    staffAwards?: StaffAwardUncheckedCreateNestedManyWithoutBranchInput
+    advanceSalaries?: AdvanceSalaryUncheckedCreateNestedManyWithoutBranchInput
+    hostelAllocations?: HostelAllocationUncheckedCreateNestedManyWithoutBranchInput
+    hostelLeaves?: HostelLeaveUncheckedCreateNestedManyWithoutBranchInput
+    maintenanceRequests?: MaintenanceRequestUncheckedCreateNestedManyWithoutBranchInput
+    submissions?: SubmissionUncheckedCreateNestedManyWithoutBranchInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutBranchInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutBranchInput
+    bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
+    bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
+    hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
+    admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
+    admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+  }
+
+  export type BranchCreateOrConnectWithoutTransportAssignmentsInput = {
+    where: BranchWhereUniqueInput
+    create: XOR<BranchCreateWithoutTransportAssignmentsInput, BranchUncheckedCreateWithoutTransportAssignmentsInput>
   }
 
   export type TransportRouteCreateWithoutAssignmentsInput = {
@@ -286616,6 +288175,279 @@ export namespace Prisma {
   export type TransportAttendanceCreateManyAssignmentInputEnvelope = {
     data: TransportAttendanceCreateManyAssignmentInput | TransportAttendanceCreateManyAssignmentInput[]
     skipDuplicates?: boolean
+  }
+
+  export type BranchUpsertWithoutTransportAssignmentsInput = {
+    update: XOR<BranchUpdateWithoutTransportAssignmentsInput, BranchUncheckedUpdateWithoutTransportAssignmentsInput>
+    create: XOR<BranchCreateWithoutTransportAssignmentsInput, BranchUncheckedCreateWithoutTransportAssignmentsInput>
+    where?: BranchWhereInput
+  }
+
+  export type BranchUpdateToOneWithWhereWithoutTransportAssignmentsInput = {
+    where?: BranchWhereInput
+    data: XOR<BranchUpdateWithoutTransportAssignmentsInput, BranchUncheckedUpdateWithoutTransportAssignmentsInput>
+  }
+
+  export type BranchUpdateWithoutTransportAssignmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
+    smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
+    alumni?: AlumniUpdateManyWithoutBranchNestedInput
+    alumniEvents?: AlumniEventUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
+    automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    books?: BookUpdateManyWithoutBranchNestedInput
+    callLogs?: CallLogUpdateManyWithoutBranchNestedInput
+    accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
+    campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
+    certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
+    classes?: ClassUpdateManyWithoutBranchNestedInput
+    complaints?: ComplaintUpdateManyWithoutBranchNestedInput
+    conversations?: ConversationUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    attachmentCategories?: AttachmentCategoryUpdateManyWithoutBranchNestedInput
+    departments?: DepartmentUpdateManyWithoutBranchNestedInput
+    designations?: DesignationUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
+    expenseCategories?: ExpenseCategoryUpdateManyWithoutBranchNestedInput
+    feeCategories?: FeeCategoryUpdateManyWithoutBranchNestedInput
+    googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
+    hostels?: HostelUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    inventoryCategories?: InventoryCategoryUpdateManyWithoutBranchNestedInput
+    inventoryIssues?: InventoryIssueUpdateManyWithoutBranchNestedInput
+    inventoryProducts?: InventoryProductUpdateManyWithoutBranchNestedInput
+    inventoryPurchases?: InventoryPurchaseUpdateManyWithoutBranchNestedInput
+    inventorySales?: InventorySaleUpdateManyWithoutBranchNestedInput
+    inventoryStores?: InventoryStoreUpdateManyWithoutBranchNestedInput
+    inventorySuppliers?: InventorySupplierUpdateManyWithoutBranchNestedInput
+    inventoryUnits?: InventoryUnitUpdateManyWithoutBranchNestedInput
+    liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutBranchNestedInput
+    onlineExams?: OnlineExamUpdateManyWithoutBranchNestedInput
+    postalRecords?: PostalRecordUpdateManyWithoutBranchNestedInput
+    questionGroups?: QuestionGroupUpdateManyWithoutBranchNestedInput
+    students?: StudentUpdateManyWithoutBranchNestedInput
+    studentCategories?: StudentCategoryUpdateManyWithoutBranchNestedInput
+    subjects?: SubjectUpdateManyWithoutBranchNestedInput
+    routes?: TransportRouteUpdateManyWithoutBranchNestedInput
+    users?: UserUpdateManyWithoutBranchNestedInput
+    vehicles?: VehicleUpdateManyWithoutBranchNestedInput
+    visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
+    vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    attendanceSessions?: AttendanceSessionUpdateManyWithoutBranchNestedInput
+    attendanceScans?: AttendanceScanUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
+    moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
+    scheduledJobs?: ScheduledJobUpdateManyWithoutBranchNestedInput
+    emailTemplates?: EmailTemplateUpdateManyWithoutBranchNestedInput
+    smsTemplates?: SmsTemplateUpdateManyWithoutBranchNestedInput
+    notifications?: NotificationUpdateManyWithoutBranchNestedInput
+    notificationPreferences?: NotificationPreferenceUpdateManyWithoutBranchNestedInput
+    campaigns?: CampaignUpdateManyWithoutBranchNestedInput
+    campaignRecipients?: CampaignRecipientUpdateManyWithoutBranchNestedInput
+    queueJobLogs?: QueueJobLogUpdateManyWithoutBranchNestedInput
+    automationExecutions?: AutomationExecutionUpdateManyWithoutBranchNestedInput
+    messageDeliveryLogs?: MessageDeliveryLogUpdateManyWithoutBranchNestedInput
+    providerHealthLogs?: ProviderHealthLogUpdateManyWithoutBranchNestedInput
+    webhookEvents?: WebhookEventUpdateManyWithoutBranchNestedInput
+    deliveryWebhookLogs?: DeliveryWebhookLogUpdateManyWithoutBranchNestedInput
+    realtimeConnections?: RealtimeConnectionUpdateManyWithoutBranchNestedInput
+    queueMetrics?: QueueMetricUpdateManyWithoutBranchNestedInput
+    providerFailoverEvents?: ProviderFailoverEventUpdateManyWithoutBranchNestedInput
+    messageRetryEvents?: MessageRetryEventUpdateManyWithoutBranchNestedInput
+    providerBalanceSnapshots?: ProviderBalanceSnapshotUpdateManyWithoutBranchNestedInput
+    counters?: CounterUpdateManyWithoutBranchNestedInput
+    notificationDeliveryEvents?: NotificationDeliveryEventUpdateManyWithoutBranchNestedInput
+    academicExports?: AcademicExportUpdateManyWithoutBranchNestedInput
+    reportTemplates?: ReportTemplateUpdateManyWithoutBranchNestedInput
+    computationJobs?: ComputationJobUpdateManyWithoutBranchNestedInput
+    apiKeys?: ApiKeyUpdateManyWithoutBranchNestedInput
+    webhookEndpoints?: WebhookEndpointUpdateManyWithoutBranchNestedInput
+    exams?: ExamUpdateManyWithoutBranchNestedInput
+    examTypes?: ExamTypeUpdateManyWithoutBranchNestedInput
+    assessmentComponents?: AssessmentComponentUpdateManyWithoutBranchNestedInput
+    resultApprovals?: ResultApprovalUpdateManyWithoutBranchNestedInput
+    resultPublications?: ResultPublicationUpdateManyWithoutBranchNestedInput
+    gpaRecords?: GPARecordUpdateManyWithoutBranchNestedInput
+    studentRankings?: StudentRankingUpdateManyWithoutBranchNestedInput
+    broadsheets?: BroadsheetUpdateManyWithoutBranchNestedInput
+    transcripts?: TranscriptUpdateManyWithoutBranchNestedInput
+    academicRemarks?: AcademicRemarkUpdateManyWithoutBranchNestedInput
+    subjectPositions?: SubjectPositionUpdateManyWithoutBranchNestedInput
+    tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
+    tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
+    invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
+    libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
+    salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
+    payrolls?: PayrollUpdateManyWithoutBranchNestedInput
+    leaveRequests?: LeaveRequestUpdateManyWithoutBranchNestedInput
+    staffAwards?: StaffAwardUpdateManyWithoutBranchNestedInput
+    advanceSalaries?: AdvanceSalaryUpdateManyWithoutBranchNestedInput
+    hostelAllocations?: HostelAllocationUpdateManyWithoutBranchNestedInput
+    hostelLeaves?: HostelLeaveUpdateManyWithoutBranchNestedInput
+    maintenanceRequests?: MaintenanceRequestUpdateManyWithoutBranchNestedInput
+    submissions?: SubmissionUpdateManyWithoutBranchNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutBranchNestedInput
+    idCards?: IdCardUpdateManyWithoutBranchNestedInput
+    bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
+    bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
+    hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
+    admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
+    admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+  }
+
+  export type BranchUncheckedUpdateWithoutTransportAssignmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
+    smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
+    alumni?: AlumniUncheckedUpdateManyWithoutBranchNestedInput
+    alumniEvents?: AlumniEventUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
+    automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    books?: BookUncheckedUpdateManyWithoutBranchNestedInput
+    callLogs?: CallLogUncheckedUpdateManyWithoutBranchNestedInput
+    accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
+    campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
+    certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    classes?: ClassUncheckedUpdateManyWithoutBranchNestedInput
+    complaints?: ComplaintUncheckedUpdateManyWithoutBranchNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    attachmentCategories?: AttachmentCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
+    designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
+    expenseCategories?: ExpenseCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    feeCategories?: FeeCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
+    hostels?: HostelUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryCategories?: InventoryCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryProducts?: InventoryProductUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryPurchases?: InventoryPurchaseUncheckedUpdateManyWithoutBranchNestedInput
+    inventorySales?: InventorySaleUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryStores?: InventoryStoreUncheckedUpdateManyWithoutBranchNestedInput
+    inventorySuppliers?: InventorySupplierUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryUnits?: InventoryUnitUncheckedUpdateManyWithoutBranchNestedInput
+    liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutBranchNestedInput
+    onlineExams?: OnlineExamUncheckedUpdateManyWithoutBranchNestedInput
+    postalRecords?: PostalRecordUncheckedUpdateManyWithoutBranchNestedInput
+    questionGroups?: QuestionGroupUncheckedUpdateManyWithoutBranchNestedInput
+    students?: StudentUncheckedUpdateManyWithoutBranchNestedInput
+    studentCategories?: StudentCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    subjects?: SubjectUncheckedUpdateManyWithoutBranchNestedInput
+    routes?: TransportRouteUncheckedUpdateManyWithoutBranchNestedInput
+    users?: UserUncheckedUpdateManyWithoutBranchNestedInput
+    vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
+    visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
+    vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    attendanceSessions?: AttendanceSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendanceScans?: AttendanceScanUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
+    moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
+    scheduledJobs?: ScheduledJobUncheckedUpdateManyWithoutBranchNestedInput
+    emailTemplates?: EmailTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    smsTemplates?: SmsTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutBranchNestedInput
+    notificationPreferences?: NotificationPreferenceUncheckedUpdateManyWithoutBranchNestedInput
+    campaigns?: CampaignUncheckedUpdateManyWithoutBranchNestedInput
+    campaignRecipients?: CampaignRecipientUncheckedUpdateManyWithoutBranchNestedInput
+    queueJobLogs?: QueueJobLogUncheckedUpdateManyWithoutBranchNestedInput
+    automationExecutions?: AutomationExecutionUncheckedUpdateManyWithoutBranchNestedInput
+    messageDeliveryLogs?: MessageDeliveryLogUncheckedUpdateManyWithoutBranchNestedInput
+    providerHealthLogs?: ProviderHealthLogUncheckedUpdateManyWithoutBranchNestedInput
+    webhookEvents?: WebhookEventUncheckedUpdateManyWithoutBranchNestedInput
+    deliveryWebhookLogs?: DeliveryWebhookLogUncheckedUpdateManyWithoutBranchNestedInput
+    realtimeConnections?: RealtimeConnectionUncheckedUpdateManyWithoutBranchNestedInput
+    queueMetrics?: QueueMetricUncheckedUpdateManyWithoutBranchNestedInput
+    providerFailoverEvents?: ProviderFailoverEventUncheckedUpdateManyWithoutBranchNestedInput
+    messageRetryEvents?: MessageRetryEventUncheckedUpdateManyWithoutBranchNestedInput
+    providerBalanceSnapshots?: ProviderBalanceSnapshotUncheckedUpdateManyWithoutBranchNestedInput
+    counters?: CounterUncheckedUpdateManyWithoutBranchNestedInput
+    notificationDeliveryEvents?: NotificationDeliveryEventUncheckedUpdateManyWithoutBranchNestedInput
+    academicExports?: AcademicExportUncheckedUpdateManyWithoutBranchNestedInput
+    reportTemplates?: ReportTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    computationJobs?: ComputationJobUncheckedUpdateManyWithoutBranchNestedInput
+    apiKeys?: ApiKeyUncheckedUpdateManyWithoutBranchNestedInput
+    webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutBranchNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutBranchNestedInput
+    examTypes?: ExamTypeUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentComponents?: AssessmentComponentUncheckedUpdateManyWithoutBranchNestedInput
+    resultApprovals?: ResultApprovalUncheckedUpdateManyWithoutBranchNestedInput
+    resultPublications?: ResultPublicationUncheckedUpdateManyWithoutBranchNestedInput
+    gpaRecords?: GPARecordUncheckedUpdateManyWithoutBranchNestedInput
+    studentRankings?: StudentRankingUncheckedUpdateManyWithoutBranchNestedInput
+    broadsheets?: BroadsheetUncheckedUpdateManyWithoutBranchNestedInput
+    transcripts?: TranscriptUncheckedUpdateManyWithoutBranchNestedInput
+    academicRemarks?: AcademicRemarkUncheckedUpdateManyWithoutBranchNestedInput
+    subjectPositions?: SubjectPositionUncheckedUpdateManyWithoutBranchNestedInput
+    tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
+    tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
+    libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
+    salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    payrolls?: PayrollUncheckedUpdateManyWithoutBranchNestedInput
+    leaveRequests?: LeaveRequestUncheckedUpdateManyWithoutBranchNestedInput
+    staffAwards?: StaffAwardUncheckedUpdateManyWithoutBranchNestedInput
+    advanceSalaries?: AdvanceSalaryUncheckedUpdateManyWithoutBranchNestedInput
+    hostelAllocations?: HostelAllocationUncheckedUpdateManyWithoutBranchNestedInput
+    hostelLeaves?: HostelLeaveUncheckedUpdateManyWithoutBranchNestedInput
+    maintenanceRequests?: MaintenanceRequestUncheckedUpdateManyWithoutBranchNestedInput
+    submissions?: SubmissionUncheckedUpdateManyWithoutBranchNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutBranchNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutBranchNestedInput
+    bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
+    bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
+    hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
+    admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
+    admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type TransportRouteUpsertWithoutAssignmentsInput = {
@@ -286995,6 +288827,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAssignmentsInput = {
@@ -287125,6 +288958,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAssignmentsInput = {
@@ -287149,6 +288983,7 @@ export namespace Prisma {
     students?: StudentCreateNestedManyWithoutSectionInput
     attendanceSessions?: AttendanceSessionCreateNestedManyWithoutSectionInput
     offeredAdmissions?: OnlineAdmissionCreateNestedManyWithoutOfferedSectionInput
+    exams?: ExamCreateNestedManyWithoutSectionInput
   }
 
   export type SectionUncheckedCreateWithoutAssignmentsInput = {
@@ -287168,6 +289003,7 @@ export namespace Prisma {
     students?: StudentUncheckedCreateNestedManyWithoutSectionInput
     attendanceSessions?: AttendanceSessionUncheckedCreateNestedManyWithoutSectionInput
     offeredAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutOfferedSectionInput
+    exams?: ExamUncheckedCreateNestedManyWithoutSectionInput
   }
 
   export type SectionCreateOrConnectWithoutAssignmentsInput = {
@@ -287444,6 +289280,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAssignmentsInput = {
@@ -287574,6 +289411,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type SectionUpsertWithoutAssignmentsInput = {
@@ -287604,6 +289442,7 @@ export namespace Prisma {
     students?: StudentUpdateManyWithoutSectionNestedInput
     attendanceSessions?: AttendanceSessionUpdateManyWithoutSectionNestedInput
     offeredAdmissions?: OnlineAdmissionUpdateManyWithoutOfferedSectionNestedInput
+    exams?: ExamUpdateManyWithoutSectionNestedInput
   }
 
   export type SectionUncheckedUpdateWithoutAssignmentsInput = {
@@ -287623,6 +289462,7 @@ export namespace Prisma {
     students?: StudentUncheckedUpdateManyWithoutSectionNestedInput
     attendanceSessions?: AttendanceSessionUncheckedUpdateManyWithoutSectionNestedInput
     offeredAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutOfferedSectionNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutSectionNestedInput
   }
 
   export type SubjectUpsertWithoutAssignmentsInput = {
@@ -288063,6 +289903,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutSubmissionsInput = {
@@ -288193,6 +290034,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutSubmissionsInput = {
@@ -288537,6 +290379,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutSubmissionsInput = {
@@ -288667,6 +290510,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutAcademicSessionsInput = {
@@ -288797,6 +290641,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAcademicSessionsInput = {
@@ -288927,6 +290772,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAcademicSessionsInput = {
@@ -289440,6 +291286,58 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ExamCreateWithoutAcademicSessionInput = {
+    id?: string
+    title: string
+    code?: string | null
+    description?: string | null
+    status?: $Enums.AcademicExamStatus
+    term: $Enums.Term
+    startsAt?: Date | string | null
+    endsAt?: Date | string | null
+    gradingStartsAt?: Date | string | null
+    gradingEndsAt?: Date | string | null
+    isArchived?: boolean
+    lockedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutExamsInput
+    class?: ClassCreateNestedOneWithoutExamsInput
+    section?: SectionCreateNestedOneWithoutExamsInput
+    createdBy?: UserCreateNestedOneWithoutCreatedExamsInput
+  }
+
+  export type ExamUncheckedCreateWithoutAcademicSessionInput = {
+    id?: string
+    title: string
+    code?: string | null
+    description?: string | null
+    status?: $Enums.AcademicExamStatus
+    branchId: string
+    classId?: string | null
+    sectionId?: string | null
+    term: $Enums.Term
+    startsAt?: Date | string | null
+    endsAt?: Date | string | null
+    gradingStartsAt?: Date | string | null
+    gradingEndsAt?: Date | string | null
+    isArchived?: boolean
+    lockedAt?: Date | string | null
+    createdByUserId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ExamCreateOrConnectWithoutAcademicSessionInput = {
+    where: ExamWhereUniqueInput
+    create: XOR<ExamCreateWithoutAcademicSessionInput, ExamUncheckedCreateWithoutAcademicSessionInput>
+  }
+
+  export type ExamCreateManyAcademicSessionInputEnvelope = {
+    data: ExamCreateManyAcademicSessionInput | ExamCreateManyAcademicSessionInput[]
+    skipDuplicates?: boolean
+  }
+
   export type BranchUpsertWithoutAcademicSessionsInput = {
     update: XOR<BranchUpdateWithoutAcademicSessionsInput, BranchUncheckedUpdateWithoutAcademicSessionsInput>
     create: XOR<BranchCreateWithoutAcademicSessionsInput, BranchUncheckedCreateWithoutAcademicSessionsInput>
@@ -289579,6 +291477,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAcademicSessionsInput = {
@@ -289709,6 +291608,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type AssessmentRecordUpsertWithWhereUniqueWithoutSessionInput = {
@@ -289821,6 +291721,22 @@ export namespace Prisma {
   export type AdmissionExamUpdateManyWithWhereWithoutAcademicSessionInput = {
     where: AdmissionExamScalarWhereInput
     data: XOR<AdmissionExamUpdateManyMutationInput, AdmissionExamUncheckedUpdateManyWithoutAcademicSessionInput>
+  }
+
+  export type ExamUpsertWithWhereUniqueWithoutAcademicSessionInput = {
+    where: ExamWhereUniqueInput
+    update: XOR<ExamUpdateWithoutAcademicSessionInput, ExamUncheckedUpdateWithoutAcademicSessionInput>
+    create: XOR<ExamCreateWithoutAcademicSessionInput, ExamUncheckedCreateWithoutAcademicSessionInput>
+  }
+
+  export type ExamUpdateWithWhereUniqueWithoutAcademicSessionInput = {
+    where: ExamWhereUniqueInput
+    data: XOR<ExamUpdateWithoutAcademicSessionInput, ExamUncheckedUpdateWithoutAcademicSessionInput>
+  }
+
+  export type ExamUpdateManyWithWhereWithoutAcademicSessionInput = {
+    where: ExamScalarWhereInput
+    data: XOR<ExamUpdateManyMutationInput, ExamUncheckedUpdateManyWithoutAcademicSessionInput>
   }
 
   export type BranchCreateWithoutAssessmentRecordsInput = {
@@ -289951,6 +291867,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAssessmentRecordsInput = {
@@ -290081,6 +291998,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAssessmentRecordsInput = {
@@ -290105,6 +292023,7 @@ export namespace Prisma {
     students?: StudentCreateNestedManyWithoutSectionInput
     attendanceSessions?: AttendanceSessionCreateNestedManyWithoutSectionInput
     offeredAdmissions?: OnlineAdmissionCreateNestedManyWithoutOfferedSectionInput
+    exams?: ExamCreateNestedManyWithoutSectionInput
   }
 
   export type SectionUncheckedCreateWithoutAssessmentRecordsInput = {
@@ -290124,6 +292043,7 @@ export namespace Prisma {
     students?: StudentUncheckedCreateNestedManyWithoutSectionInput
     attendanceSessions?: AttendanceSessionUncheckedCreateNestedManyWithoutSectionInput
     offeredAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutOfferedSectionInput
+    exams?: ExamUncheckedCreateNestedManyWithoutSectionInput
   }
 
   export type SectionCreateOrConnectWithoutAssessmentRecordsInput = {
@@ -290148,6 +292068,7 @@ export namespace Prisma {
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutAcademicSessionInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutSessionInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutAcademicSessionInput
+    exams?: ExamCreateNestedManyWithoutAcademicSessionInput
   }
 
   export type AcademicSessionUncheckedCreateWithoutAssessmentRecordsInput = {
@@ -290167,6 +292088,7 @@ export namespace Prisma {
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutAcademicSessionInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutSessionInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutAcademicSessionInput
+    exams?: ExamUncheckedCreateNestedManyWithoutAcademicSessionInput
   }
 
   export type AcademicSessionCreateOrConnectWithoutAssessmentRecordsInput = {
@@ -290533,6 +292455,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAssessmentRecordsInput = {
@@ -290663,6 +292586,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type SectionUpsertWithoutAssessmentRecordsInput = {
@@ -290693,6 +292617,7 @@ export namespace Prisma {
     students?: StudentUpdateManyWithoutSectionNestedInput
     attendanceSessions?: AttendanceSessionUpdateManyWithoutSectionNestedInput
     offeredAdmissions?: OnlineAdmissionUpdateManyWithoutOfferedSectionNestedInput
+    exams?: ExamUpdateManyWithoutSectionNestedInput
   }
 
   export type SectionUncheckedUpdateWithoutAssessmentRecordsInput = {
@@ -290712,6 +292637,7 @@ export namespace Prisma {
     students?: StudentUncheckedUpdateManyWithoutSectionNestedInput
     attendanceSessions?: AttendanceSessionUncheckedUpdateManyWithoutSectionNestedInput
     offeredAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutOfferedSectionNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutSectionNestedInput
   }
 
   export type AcademicSessionUpsertWithoutAssessmentRecordsInput = {
@@ -290742,6 +292668,7 @@ export namespace Prisma {
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutAcademicSessionNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutSessionNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutAcademicSessionNestedInput
+    exams?: ExamUpdateManyWithoutAcademicSessionNestedInput
   }
 
   export type AcademicSessionUncheckedUpdateWithoutAssessmentRecordsInput = {
@@ -290761,6 +292688,7 @@ export namespace Prisma {
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutAcademicSessionNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutSessionNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutAcademicSessionNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutAcademicSessionNestedInput
   }
 
   export type StudentUpsertWithoutAssessmentRecordsInput = {
@@ -291111,6 +293039,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutBehaviouralRatingsInput = {
@@ -291241,6 +293170,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutBehaviouralRatingsInput = {
@@ -291265,6 +293195,7 @@ export namespace Prisma {
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutAcademicSessionInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutSessionInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutAcademicSessionInput
+    exams?: ExamCreateNestedManyWithoutAcademicSessionInput
   }
 
   export type AcademicSessionUncheckedCreateWithoutBehaviouralRatingsInput = {
@@ -291284,6 +293215,7 @@ export namespace Prisma {
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutAcademicSessionInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutSessionInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutAcademicSessionInput
+    exams?: ExamUncheckedCreateNestedManyWithoutAcademicSessionInput
   }
 
   export type AcademicSessionCreateOrConnectWithoutBehaviouralRatingsInput = {
@@ -291583,6 +293515,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutBehaviouralRatingsInput = {
@@ -291713,6 +293646,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type AcademicSessionUpsertWithoutBehaviouralRatingsInput = {
@@ -291743,6 +293677,7 @@ export namespace Prisma {
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutAcademicSessionNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutSessionNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutAcademicSessionNestedInput
+    exams?: ExamUpdateManyWithoutAcademicSessionNestedInput
   }
 
   export type AcademicSessionUncheckedUpdateWithoutBehaviouralRatingsInput = {
@@ -291762,6 +293697,7 @@ export namespace Prisma {
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutAcademicSessionNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutSessionNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutAcademicSessionNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutAcademicSessionNestedInput
   }
 
   export type StudentUpsertWithoutBehaviouralRatingsInput = {
@@ -292051,6 +293987,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutResultSummariesInput = {
@@ -292181,6 +294118,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutResultSummariesInput = {
@@ -292205,6 +294143,7 @@ export namespace Prisma {
     idCards?: IdCardCreateNestedManyWithoutSessionInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutAcademicSessionInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutAcademicSessionInput
+    exams?: ExamCreateNestedManyWithoutAcademicSessionInput
   }
 
   export type AcademicSessionUncheckedCreateWithoutResultSummariesInput = {
@@ -292224,6 +294163,7 @@ export namespace Prisma {
     idCards?: IdCardUncheckedCreateNestedManyWithoutSessionInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutAcademicSessionInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutAcademicSessionInput
+    exams?: ExamUncheckedCreateNestedManyWithoutAcademicSessionInput
   }
 
   export type AcademicSessionCreateOrConnectWithoutResultSummariesInput = {
@@ -292523,6 +294463,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutResultSummariesInput = {
@@ -292653,6 +294594,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type AcademicSessionUpsertWithoutResultSummariesInput = {
@@ -292683,6 +294625,7 @@ export namespace Prisma {
     idCards?: IdCardUpdateManyWithoutSessionNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutAcademicSessionNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutAcademicSessionNestedInput
+    exams?: ExamUpdateManyWithoutAcademicSessionNestedInput
   }
 
   export type AcademicSessionUncheckedUpdateWithoutResultSummariesInput = {
@@ -292702,6 +294645,7 @@ export namespace Prisma {
     idCards?: IdCardUncheckedUpdateManyWithoutSessionNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutAcademicSessionNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutAcademicSessionNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutAcademicSessionNestedInput
   }
 
   export type StudentUpsertWithoutResultSummariesInput = {
@@ -292991,6 +294935,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutGradingScalesInput = {
@@ -293121,6 +295066,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutGradingScalesInput = {
@@ -293267,6 +295213,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutGradingScalesInput = {
@@ -293397,6 +295344,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutExamsInput = {
@@ -293527,6 +295475,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutExamsInput = {
@@ -293657,11 +295606,232 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutExamsInput = {
     where: BranchWhereUniqueInput
     create: XOR<BranchCreateWithoutExamsInput, BranchUncheckedCreateWithoutExamsInput>
+  }
+
+  export type AcademicSessionCreateWithoutExamsInput = {
+    id?: string
+    name: string
+    startDate: Date | string
+    endDate: Date | string
+    isActive?: boolean
+    nextTermBegins?: Date | string | null
+    termEnds?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutAcademicSessionsInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutSessionInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutSessionInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutSessionInput
+    idCards?: IdCardCreateNestedManyWithoutSessionInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutAcademicSessionInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutSessionInput
+    admissionExams?: AdmissionExamCreateNestedManyWithoutAcademicSessionInput
+  }
+
+  export type AcademicSessionUncheckedCreateWithoutExamsInput = {
+    id?: string
+    name: string
+    startDate: Date | string
+    endDate: Date | string
+    isActive?: boolean
+    nextTermBegins?: Date | string | null
+    termEnds?: Date | string | null
+    branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutSessionInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutSessionInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutSessionInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutSessionInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutAcademicSessionInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutSessionInput
+    admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutAcademicSessionInput
+  }
+
+  export type AcademicSessionCreateOrConnectWithoutExamsInput = {
+    where: AcademicSessionWhereUniqueInput
+    create: XOR<AcademicSessionCreateWithoutExamsInput, AcademicSessionUncheckedCreateWithoutExamsInput>
+  }
+
+  export type ClassCreateWithoutExamsInput = {
+    id?: string
+    name: string
+    gradeLevel?: number | null
+    capacity?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    branch: BranchCreateNestedOneWithoutClassesInput
+    classTeacher?: StaffCreateNestedOneWithoutClassesInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutClassInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutClassInput
+    feeStructures?: FeeStructureCreateNestedManyWithoutClassInput
+    liveClassSessions?: LiveClassSessionCreateNestedManyWithoutClassInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutDesiredClassInput
+    onlineExams?: OnlineExamCreateNestedManyWithoutClassInput
+    sections?: SectionCreateNestedManyWithoutClassInput
+    students?: StudentCreateNestedManyWithoutClassInput
+    attendanceSessions?: AttendanceSessionCreateNestedManyWithoutClassInput
+    offeredAdmissions?: OnlineAdmissionCreateNestedManyWithoutOfferedClassInput
+  }
+
+  export type ClassUncheckedCreateWithoutExamsInput = {
+    id?: string
+    name: string
+    gradeLevel?: number | null
+    branchId: string
+    classTeacherId?: string | null
+    capacity?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutClassInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutClassInput
+    feeStructures?: FeeStructureUncheckedCreateNestedManyWithoutClassInput
+    liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutClassInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutDesiredClassInput
+    onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutClassInput
+    sections?: SectionUncheckedCreateNestedManyWithoutClassInput
+    students?: StudentUncheckedCreateNestedManyWithoutClassInput
+    attendanceSessions?: AttendanceSessionUncheckedCreateNestedManyWithoutClassInput
+    offeredAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutOfferedClassInput
+  }
+
+  export type ClassCreateOrConnectWithoutExamsInput = {
+    where: ClassWhereUniqueInput
+    create: XOR<ClassCreateWithoutExamsInput, ClassUncheckedCreateWithoutExamsInput>
+  }
+
+  export type SectionCreateWithoutExamsInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutSectionInput
+    assignments?: AssignmentCreateNestedManyWithoutSectionInput
+    attendance?: AttendanceCreateNestedManyWithoutSectionInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutSectionInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutSectionInput
+    liveClassSessions?: LiveClassSessionCreateNestedManyWithoutSectionInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutDesiredSectionInput
+    onlineExams?: OnlineExamCreateNestedManyWithoutSectionInput
+    class: ClassCreateNestedOneWithoutSectionsInput
+    students?: StudentCreateNestedManyWithoutSectionInput
+    attendanceSessions?: AttendanceSessionCreateNestedManyWithoutSectionInput
+    offeredAdmissions?: OnlineAdmissionCreateNestedManyWithoutOfferedSectionInput
+  }
+
+  export type SectionUncheckedCreateWithoutExamsInput = {
+    id?: string
+    name: string
+    classId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutSectionInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutSectionInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutSectionInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutSectionInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutSectionInput
+    liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutSectionInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutDesiredSectionInput
+    onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutSectionInput
+    students?: StudentUncheckedCreateNestedManyWithoutSectionInput
+    attendanceSessions?: AttendanceSessionUncheckedCreateNestedManyWithoutSectionInput
+    offeredAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutOfferedSectionInput
+  }
+
+  export type SectionCreateOrConnectWithoutExamsInput = {
+    where: SectionWhereUniqueInput
+    create: XOR<SectionCreateWithoutExamsInput, SectionUncheckedCreateWithoutExamsInput>
+  }
+
+  export type UserCreateWithoutCreatedExamsInput = {
+    id?: string
+    email: string
+    password: string
+    firstName: string
+    lastName: string
+    phone?: string | null
+    isActive?: boolean
+    mustChangePassword?: boolean
+    role: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
+    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
+    accessLogs?: CampusAccessLogCreateNestedManyWithoutUserInput
+    realtimeConnections?: RealtimeConnectionCreateNestedManyWithoutUserInput
+    issuedCertificates?: CertificateCreateNestedManyWithoutIssuedByInput
+    conversationParticipations?: ConversationParticipantCreateNestedManyWithoutUserInput
+    digitalResourceLogs?: DigitalResourceLogCreateNestedManyWithoutUserInput
+    eventRSVPs?: EventRSVPCreateNestedManyWithoutUserInput
+    meetingParticipations?: MeetingParticipantCreateNestedManyWithoutUserInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutParentInput
+    staff?: StaffCreateNestedOneWithoutUserInput
+    children?: StudentCreateNestedManyWithoutParentInput
+    student?: StudentCreateNestedOneWithoutUserInput
+    branch?: BranchCreateNestedOneWithoutUsersInput
+    customRole?: RoleCreateNestedOneWithoutUsersInput
+    approvedVouchers?: VoucherCreateNestedManyWithoutApprovedByInput
+    preferences?: UserPreferenceCreateNestedOneWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    notificationPreference?: NotificationPreferenceCreateNestedOneWithoutUserInput
+    campaignRecipients?: CampaignRecipientCreateNestedManyWithoutUserInput
+    academicExports?: AcademicExportCreateNestedManyWithoutUserInput
+    computationJobs?: ComputationJobCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutCreatedExamsInput = {
+    id?: string
+    email: string
+    password: string
+    firstName: string
+    lastName: string
+    phone?: string | null
+    isActive?: boolean
+    mustChangePassword?: boolean
+    role: $Enums.UserRole
+    roleId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    branchId?: string | null
+    resetTokenHash?: string | null
+    resetTokenExpires?: Date | string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutUserInput
+    realtimeConnections?: RealtimeConnectionUncheckedCreateNestedManyWithoutUserInput
+    issuedCertificates?: CertificateUncheckedCreateNestedManyWithoutIssuedByInput
+    conversationParticipations?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+    digitalResourceLogs?: DigitalResourceLogUncheckedCreateNestedManyWithoutUserInput
+    eventRSVPs?: EventRSVPUncheckedCreateNestedManyWithoutUserInput
+    meetingParticipations?: MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutParentInput
+    staff?: StaffUncheckedCreateNestedOneWithoutUserInput
+    children?: StudentUncheckedCreateNestedManyWithoutParentInput
+    student?: StudentUncheckedCreateNestedOneWithoutUserInput
+    approvedVouchers?: VoucherUncheckedCreateNestedManyWithoutApprovedByInput
+    preferences?: UserPreferenceUncheckedCreateNestedOneWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    notificationPreference?: NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+    campaignRecipients?: CampaignRecipientUncheckedCreateNestedManyWithoutUserInput
+    academicExports?: AcademicExportUncheckedCreateNestedManyWithoutUserInput
+    computationJobs?: ComputationJobUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutCreatedExamsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCreatedExamsInput, UserUncheckedCreateWithoutCreatedExamsInput>
   }
 
   export type BranchUpsertWithoutExamsInput = {
@@ -293803,6 +295973,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutExamsInput = {
@@ -293933,6 +296104,251 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
+  }
+
+  export type AcademicSessionUpsertWithoutExamsInput = {
+    update: XOR<AcademicSessionUpdateWithoutExamsInput, AcademicSessionUncheckedUpdateWithoutExamsInput>
+    create: XOR<AcademicSessionCreateWithoutExamsInput, AcademicSessionUncheckedCreateWithoutExamsInput>
+    where?: AcademicSessionWhereInput
+  }
+
+  export type AcademicSessionUpdateToOneWithWhereWithoutExamsInput = {
+    where?: AcademicSessionWhereInput
+    data: XOR<AcademicSessionUpdateWithoutExamsInput, AcademicSessionUncheckedUpdateWithoutExamsInput>
+  }
+
+  export type AcademicSessionUpdateWithoutExamsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    nextTermBegins?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    termEnds?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutAcademicSessionsNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutSessionNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutSessionNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutSessionNestedInput
+    idCards?: IdCardUpdateManyWithoutSessionNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutAcademicSessionNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutSessionNestedInput
+    admissionExams?: AdmissionExamUpdateManyWithoutAcademicSessionNestedInput
+  }
+
+  export type AcademicSessionUncheckedUpdateWithoutExamsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    nextTermBegins?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    termEnds?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutSessionNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutSessionNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutSessionNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutSessionNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutAcademicSessionNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutSessionNestedInput
+    admissionExams?: AdmissionExamUncheckedUpdateManyWithoutAcademicSessionNestedInput
+  }
+
+  export type ClassUpsertWithoutExamsInput = {
+    update: XOR<ClassUpdateWithoutExamsInput, ClassUncheckedUpdateWithoutExamsInput>
+    create: XOR<ClassCreateWithoutExamsInput, ClassUncheckedCreateWithoutExamsInput>
+    where?: ClassWhereInput
+  }
+
+  export type ClassUpdateToOneWithWhereWithoutExamsInput = {
+    where?: ClassWhereInput
+    data: XOR<ClassUpdateWithoutExamsInput, ClassUncheckedUpdateWithoutExamsInput>
+  }
+
+  export type ClassUpdateWithoutExamsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    gradeLevel?: NullableIntFieldUpdateOperationsInput | number | null
+    capacity?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    branch?: BranchUpdateOneRequiredWithoutClassesNestedInput
+    classTeacher?: StaffUpdateOneWithoutClassesNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutClassNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutClassNestedInput
+    feeStructures?: FeeStructureUpdateManyWithoutClassNestedInput
+    liveClassSessions?: LiveClassSessionUpdateManyWithoutClassNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutDesiredClassNestedInput
+    onlineExams?: OnlineExamUpdateManyWithoutClassNestedInput
+    sections?: SectionUpdateManyWithoutClassNestedInput
+    students?: StudentUpdateManyWithoutClassNestedInput
+    attendanceSessions?: AttendanceSessionUpdateManyWithoutClassNestedInput
+    offeredAdmissions?: OnlineAdmissionUpdateManyWithoutOfferedClassNestedInput
+  }
+
+  export type ClassUncheckedUpdateWithoutExamsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    gradeLevel?: NullableIntFieldUpdateOperationsInput | number | null
+    branchId?: StringFieldUpdateOperationsInput | string
+    classTeacherId?: NullableStringFieldUpdateOperationsInput | string | null
+    capacity?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutClassNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutClassNestedInput
+    feeStructures?: FeeStructureUncheckedUpdateManyWithoutClassNestedInput
+    liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutClassNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutDesiredClassNestedInput
+    onlineExams?: OnlineExamUncheckedUpdateManyWithoutClassNestedInput
+    sections?: SectionUncheckedUpdateManyWithoutClassNestedInput
+    students?: StudentUncheckedUpdateManyWithoutClassNestedInput
+    attendanceSessions?: AttendanceSessionUncheckedUpdateManyWithoutClassNestedInput
+    offeredAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutOfferedClassNestedInput
+  }
+
+  export type SectionUpsertWithoutExamsInput = {
+    update: XOR<SectionUpdateWithoutExamsInput, SectionUncheckedUpdateWithoutExamsInput>
+    create: XOR<SectionCreateWithoutExamsInput, SectionUncheckedCreateWithoutExamsInput>
+    where?: SectionWhereInput
+  }
+
+  export type SectionUpdateToOneWithWhereWithoutExamsInput = {
+    where?: SectionWhereInput
+    data: XOR<SectionUpdateWithoutExamsInput, SectionUncheckedUpdateWithoutExamsInput>
+  }
+
+  export type SectionUpdateWithoutExamsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutSectionNestedInput
+    assignments?: AssignmentUpdateManyWithoutSectionNestedInput
+    attendance?: AttendanceUpdateManyWithoutSectionNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutSectionNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutSectionNestedInput
+    liveClassSessions?: LiveClassSessionUpdateManyWithoutSectionNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutDesiredSectionNestedInput
+    onlineExams?: OnlineExamUpdateManyWithoutSectionNestedInput
+    class?: ClassUpdateOneRequiredWithoutSectionsNestedInput
+    students?: StudentUpdateManyWithoutSectionNestedInput
+    attendanceSessions?: AttendanceSessionUpdateManyWithoutSectionNestedInput
+    offeredAdmissions?: OnlineAdmissionUpdateManyWithoutOfferedSectionNestedInput
+  }
+
+  export type SectionUncheckedUpdateWithoutExamsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    classId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutSectionNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutSectionNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutSectionNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutSectionNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutSectionNestedInput
+    liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutSectionNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutDesiredSectionNestedInput
+    onlineExams?: OnlineExamUncheckedUpdateManyWithoutSectionNestedInput
+    students?: StudentUncheckedUpdateManyWithoutSectionNestedInput
+    attendanceSessions?: AttendanceSessionUncheckedUpdateManyWithoutSectionNestedInput
+    offeredAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutOfferedSectionNestedInput
+  }
+
+  export type UserUpsertWithoutCreatedExamsInput = {
+    update: XOR<UserUpdateWithoutCreatedExamsInput, UserUncheckedUpdateWithoutCreatedExamsInput>
+    create: XOR<UserCreateWithoutCreatedExamsInput, UserUncheckedCreateWithoutCreatedExamsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCreatedExamsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCreatedExamsInput, UserUncheckedUpdateWithoutCreatedExamsInput>
+  }
+
+  export type UserUpdateWithoutCreatedExamsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    mustChangePassword?: BoolFieldUpdateOperationsInput | boolean
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
+    accessLogs?: CampusAccessLogUpdateManyWithoutUserNestedInput
+    realtimeConnections?: RealtimeConnectionUpdateManyWithoutUserNestedInput
+    issuedCertificates?: CertificateUpdateManyWithoutIssuedByNestedInput
+    conversationParticipations?: ConversationParticipantUpdateManyWithoutUserNestedInput
+    digitalResourceLogs?: DigitalResourceLogUpdateManyWithoutUserNestedInput
+    eventRSVPs?: EventRSVPUpdateManyWithoutUserNestedInput
+    meetingParticipations?: MeetingParticipantUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutParentNestedInput
+    staff?: StaffUpdateOneWithoutUserNestedInput
+    children?: StudentUpdateManyWithoutParentNestedInput
+    student?: StudentUpdateOneWithoutUserNestedInput
+    branch?: BranchUpdateOneWithoutUsersNestedInput
+    customRole?: RoleUpdateOneWithoutUsersNestedInput
+    approvedVouchers?: VoucherUpdateManyWithoutApprovedByNestedInput
+    preferences?: UserPreferenceUpdateOneWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    notificationPreference?: NotificationPreferenceUpdateOneWithoutUserNestedInput
+    campaignRecipients?: CampaignRecipientUpdateManyWithoutUserNestedInput
+    academicExports?: AcademicExportUpdateManyWithoutUserNestedInput
+    computationJobs?: ComputationJobUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCreatedExamsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    mustChangePassword?: BoolFieldUpdateOperationsInput | boolean
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    roleId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutUserNestedInput
+    realtimeConnections?: RealtimeConnectionUncheckedUpdateManyWithoutUserNestedInput
+    issuedCertificates?: CertificateUncheckedUpdateManyWithoutIssuedByNestedInput
+    conversationParticipations?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+    digitalResourceLogs?: DigitalResourceLogUncheckedUpdateManyWithoutUserNestedInput
+    eventRSVPs?: EventRSVPUncheckedUpdateManyWithoutUserNestedInput
+    meetingParticipations?: MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutParentNestedInput
+    staff?: StaffUncheckedUpdateOneWithoutUserNestedInput
+    children?: StudentUncheckedUpdateManyWithoutParentNestedInput
+    student?: StudentUncheckedUpdateOneWithoutUserNestedInput
+    approvedVouchers?: VoucherUncheckedUpdateManyWithoutApprovedByNestedInput
+    preferences?: UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    notificationPreference?: NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+    campaignRecipients?: CampaignRecipientUncheckedUpdateManyWithoutUserNestedInput
+    academicExports?: AcademicExportUncheckedUpdateManyWithoutUserNestedInput
+    computationJobs?: ComputationJobUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type BranchCreateWithoutExamTypesInput = {
@@ -294063,6 +296479,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutExamTypesInput = {
@@ -294193,6 +296610,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutExamTypesInput = {
@@ -294339,6 +296757,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutExamTypesInput = {
@@ -294469,6 +296888,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutAssessmentComponentsInput = {
@@ -294599,6 +297019,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAssessmentComponentsInput = {
@@ -294729,6 +297150,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAssessmentComponentsInput = {
@@ -294903,6 +297325,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAssessmentComponentsInput = {
@@ -295033,6 +297456,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type AssessmentScoreUpsertWithWhereUniqueWithoutComponentInput = {
@@ -295695,6 +298119,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutResultApprovalsInput = {
@@ -295825,6 +298250,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutResultApprovalsInput = {
@@ -295971,6 +298397,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutResultApprovalsInput = {
@@ -296101,6 +298528,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutResultPublicationsInput = {
@@ -296231,6 +298659,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutResultPublicationsInput = {
@@ -296361,6 +298790,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutResultPublicationsInput = {
@@ -296507,6 +298937,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutResultPublicationsInput = {
@@ -296637,6 +299068,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutGpaRecordsInput = {
@@ -296767,6 +299199,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutGpaRecordsInput = {
@@ -296897,6 +299330,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutGpaRecordsInput = {
@@ -297043,6 +299477,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutGpaRecordsInput = {
@@ -297173,6 +299608,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutStudentRankingsInput = {
@@ -297303,6 +299739,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutStudentRankingsInput = {
@@ -297433,6 +299870,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutStudentRankingsInput = {
@@ -297579,6 +300017,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutStudentRankingsInput = {
@@ -297709,6 +300148,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutBroadsheetsInput = {
@@ -297839,6 +300279,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutBroadsheetsInput = {
@@ -297969,6 +300410,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutBroadsheetsInput = {
@@ -298115,6 +300557,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutBroadsheetsInput = {
@@ -298245,6 +300688,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutTranscriptsInput = {
@@ -298375,6 +300819,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutTranscriptsInput = {
@@ -298505,11 +300950,42 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutTranscriptsInput = {
     where: BranchWhereUniqueInput
     create: XOR<BranchCreateWithoutTranscriptsInput, BranchUncheckedCreateWithoutTranscriptsInput>
+  }
+
+  export type TranscriptVerificationCreateWithoutTranscriptInput = {
+    id?: string
+    verificationCode: string
+    qrPayload: string
+    checkedAt?: Date | string | null
+    revokedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TranscriptVerificationUncheckedCreateWithoutTranscriptInput = {
+    id?: string
+    verificationCode: string
+    qrPayload: string
+    checkedAt?: Date | string | null
+    revokedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TranscriptVerificationCreateOrConnectWithoutTranscriptInput = {
+    where: TranscriptVerificationWhereUniqueInput
+    create: XOR<TranscriptVerificationCreateWithoutTranscriptInput, TranscriptVerificationUncheckedCreateWithoutTranscriptInput>
+  }
+
+  export type TranscriptVerificationCreateManyTranscriptInputEnvelope = {
+    data: TranscriptVerificationCreateManyTranscriptInput | TranscriptVerificationCreateManyTranscriptInput[]
+    skipDuplicates?: boolean
   }
 
   export type BranchUpsertWithoutTranscriptsInput = {
@@ -298651,6 +301127,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutTranscriptsInput = {
@@ -298781,6 +301258,117 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
+  }
+
+  export type TranscriptVerificationUpsertWithWhereUniqueWithoutTranscriptInput = {
+    where: TranscriptVerificationWhereUniqueInput
+    update: XOR<TranscriptVerificationUpdateWithoutTranscriptInput, TranscriptVerificationUncheckedUpdateWithoutTranscriptInput>
+    create: XOR<TranscriptVerificationCreateWithoutTranscriptInput, TranscriptVerificationUncheckedCreateWithoutTranscriptInput>
+  }
+
+  export type TranscriptVerificationUpdateWithWhereUniqueWithoutTranscriptInput = {
+    where: TranscriptVerificationWhereUniqueInput
+    data: XOR<TranscriptVerificationUpdateWithoutTranscriptInput, TranscriptVerificationUncheckedUpdateWithoutTranscriptInput>
+  }
+
+  export type TranscriptVerificationUpdateManyWithWhereWithoutTranscriptInput = {
+    where: TranscriptVerificationScalarWhereInput
+    data: XOR<TranscriptVerificationUpdateManyMutationInput, TranscriptVerificationUncheckedUpdateManyWithoutTranscriptInput>
+  }
+
+  export type TranscriptVerificationScalarWhereInput = {
+    AND?: TranscriptVerificationScalarWhereInput | TranscriptVerificationScalarWhereInput[]
+    OR?: TranscriptVerificationScalarWhereInput[]
+    NOT?: TranscriptVerificationScalarWhereInput | TranscriptVerificationScalarWhereInput[]
+    id?: StringFilter<"TranscriptVerification"> | string
+    transcriptId?: StringFilter<"TranscriptVerification"> | string
+    verificationCode?: StringFilter<"TranscriptVerification"> | string
+    qrPayload?: StringFilter<"TranscriptVerification"> | string
+    checkedAt?: DateTimeNullableFilter<"TranscriptVerification"> | Date | string | null
+    revokedAt?: DateTimeNullableFilter<"TranscriptVerification"> | Date | string | null
+    createdAt?: DateTimeFilter<"TranscriptVerification"> | Date | string
+    updatedAt?: DateTimeFilter<"TranscriptVerification"> | Date | string
+  }
+
+  export type TranscriptCreateWithoutVerificationsInput = {
+    id?: string
+    studentId: string
+    transcriptNo: string
+    status?: $Enums.TranscriptStatus
+    cumulativeGpa?: number | null
+    checksum: string
+    data: JsonNullValueInput | InputJsonValue
+    approvedById?: string | null
+    approvedAt?: Date | string | null
+    lockedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutTranscriptsInput
+  }
+
+  export type TranscriptUncheckedCreateWithoutVerificationsInput = {
+    id?: string
+    branchId: string
+    studentId: string
+    transcriptNo: string
+    status?: $Enums.TranscriptStatus
+    cumulativeGpa?: number | null
+    checksum: string
+    data: JsonNullValueInput | InputJsonValue
+    approvedById?: string | null
+    approvedAt?: Date | string | null
+    lockedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TranscriptCreateOrConnectWithoutVerificationsInput = {
+    where: TranscriptWhereUniqueInput
+    create: XOR<TranscriptCreateWithoutVerificationsInput, TranscriptUncheckedCreateWithoutVerificationsInput>
+  }
+
+  export type TranscriptUpsertWithoutVerificationsInput = {
+    update: XOR<TranscriptUpdateWithoutVerificationsInput, TranscriptUncheckedUpdateWithoutVerificationsInput>
+    create: XOR<TranscriptCreateWithoutVerificationsInput, TranscriptUncheckedCreateWithoutVerificationsInput>
+    where?: TranscriptWhereInput
+  }
+
+  export type TranscriptUpdateToOneWithWhereWithoutVerificationsInput = {
+    where?: TranscriptWhereInput
+    data: XOR<TranscriptUpdateWithoutVerificationsInput, TranscriptUncheckedUpdateWithoutVerificationsInput>
+  }
+
+  export type TranscriptUpdateWithoutVerificationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    transcriptNo?: StringFieldUpdateOperationsInput | string
+    status?: EnumTranscriptStatusFieldUpdateOperationsInput | $Enums.TranscriptStatus
+    cumulativeGpa?: NullableFloatFieldUpdateOperationsInput | number | null
+    checksum?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    approvedById?: NullableStringFieldUpdateOperationsInput | string | null
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutTranscriptsNestedInput
+  }
+
+  export type TranscriptUncheckedUpdateWithoutVerificationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    transcriptNo?: StringFieldUpdateOperationsInput | string
+    status?: EnumTranscriptStatusFieldUpdateOperationsInput | $Enums.TranscriptStatus
+    cumulativeGpa?: NullableFloatFieldUpdateOperationsInput | number | null
+    checksum?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    approvedById?: NullableStringFieldUpdateOperationsInput | string | null
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BranchCreateWithoutAcademicRemarksInput = {
@@ -298911,6 +301499,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAcademicRemarksInput = {
@@ -299041,6 +301630,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAcademicRemarksInput = {
@@ -299187,6 +301777,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAcademicRemarksInput = {
@@ -299317,6 +301908,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutSubjectPositionsInput = {
@@ -299447,6 +302039,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutSubjectPositionsInput = {
@@ -299577,6 +302170,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutSubjectPositionsInput = {
@@ -299723,6 +302317,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutSubjectPositionsInput = {
@@ -299853,6 +302448,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutTahfeezAssessmentsInput = {
@@ -299983,6 +302579,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutTahfeezAssessmentsInput = {
@@ -300113,6 +302710,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutTahfeezAssessmentsInput = {
@@ -300259,6 +302857,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutTahfeezAssessmentsInput = {
@@ -300389,6 +302988,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutTahfeezMemorizationProgressesInput = {
@@ -300519,6 +303119,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutTahfeezMemorizationProgressesInput = {
@@ -300649,6 +303250,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutTahfeezMemorizationProgressesInput = {
@@ -300795,6 +303397,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutTahfeezMemorizationProgressesInput = {
@@ -300925,6 +303528,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutGlobalSettingsInput = {
@@ -301055,6 +303659,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutGlobalSettingsInput = {
@@ -301185,6 +303790,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutGlobalSettingsInput = {
@@ -301331,6 +303937,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutGlobalSettingsInput = {
@@ -301461,6 +304068,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type RoleCreateWithoutPermissionsInput = {
@@ -301566,6 +304174,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobCreateNestedManyWithoutUserInput
+    createdExams?: ExamCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -301603,6 +304212,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportUncheckedCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobUncheckedCreateNestedManyWithoutUserInput
+    createdExams?: ExamUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -301656,6 +304266,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -301693,6 +304304,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUncheckedUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUncheckedUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type BranchCreateWithoutExpenseCategoriesInput = {
@@ -301823,6 +304435,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutExpenseCategoriesInput = {
@@ -301953,6 +304566,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutExpenseCategoriesInput = {
@@ -302137,6 +304751,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutExpenseCategoriesInput = {
@@ -302267,6 +304882,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type VoucherUpsertWithWhereUniqueWithoutCategoryInput = {
@@ -302320,6 +304936,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobCreateNestedManyWithoutUserInput
+    createdExams?: ExamCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutApprovedVouchersInput = {
@@ -302357,6 +304974,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportUncheckedCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobUncheckedCreateNestedManyWithoutUserInput
+    createdExams?: ExamUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutApprovedVouchersInput = {
@@ -302492,6 +305110,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutVouchersInput = {
@@ -302622,6 +305241,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutVouchersInput = {
@@ -302698,6 +305318,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutApprovedVouchersInput = {
@@ -302735,6 +305356,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUncheckedUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUncheckedUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type BranchUpsertWithoutVouchersInput = {
@@ -302876,6 +305498,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutVouchersInput = {
@@ -303006,6 +305629,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type ExpenseCategoryUpsertWithoutVouchersInput = {
@@ -303165,6 +305789,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutDepartmentsInput = {
@@ -303295,6 +305920,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutDepartmentsInput = {
@@ -303503,6 +306129,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutDepartmentsInput = {
@@ -303633,6 +306260,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StaffUpsertWithWhereUniqueWithoutDepartmentInput = {
@@ -303779,6 +306407,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutDesignationsInput = {
@@ -303909,6 +306538,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutDesignationsInput = {
@@ -304117,6 +306747,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutDesignationsInput = {
@@ -304247,6 +306878,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StaffUpsertWithWhereUniqueWithoutDesignationRefInput = {
@@ -304393,6 +307025,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutBooksInput = {
@@ -304523,6 +307156,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutBooksInput = {
@@ -304773,6 +307407,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutBooksInput = {
@@ -304903,6 +307538,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BorrowRecordUpsertWithWhereUniqueWithoutBookInput = {
@@ -305334,6 +307970,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutBorrowRecordsInput = {
@@ -305464,6 +308101,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutBorrowRecordsInput = {
@@ -305867,6 +308505,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutBorrowRecordsInput = {
@@ -305997,6 +308636,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BorrowRecordCreateWithoutFinesInput = {
@@ -306160,6 +308800,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutLibraryFinesInput = {
@@ -306290,6 +308931,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutLibraryFinesInput = {
@@ -306475,6 +309117,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutLibraryFinesInput = {
@@ -306605,6 +309248,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StaffCreateWithoutSalaryTemplateInput = {
@@ -306792,6 +309436,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutSalaryTemplatesInput = {
@@ -306922,6 +309567,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutSalaryTemplatesInput = {
@@ -307131,6 +309777,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutSalaryTemplatesInput = {
@@ -307261,6 +309908,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StaffCreateWithoutPayrollsInput = {
@@ -307448,6 +310096,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutPayrollsInput = {
@@ -307578,6 +310227,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutPayrollsInput = {
@@ -307787,6 +310437,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutPayrollsInput = {
@@ -307917,6 +310568,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StaffCreateWithoutLeaveRequestsInput = {
@@ -308104,6 +310756,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutLeaveRequestsInput = {
@@ -308234,6 +310887,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutLeaveRequestsInput = {
@@ -308443,6 +311097,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutLeaveRequestsInput = {
@@ -308573,6 +311228,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StaffCreateWithoutAwardsInput = {
@@ -308760,6 +311416,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutStaffAwardsInput = {
@@ -308890,6 +311547,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutStaffAwardsInput = {
@@ -309099,6 +311757,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutStaffAwardsInput = {
@@ -309229,6 +311888,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StaffCreateWithoutSalaryAdvancesInput = {
@@ -309416,6 +312076,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAdvanceSalariesInput = {
@@ -309546,6 +312207,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAdvanceSalariesInput = {
@@ -309755,6 +312417,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAdvanceSalariesInput = {
@@ -309885,6 +312548,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutGoogleMeetConfigInput = {
@@ -310015,6 +312679,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutGoogleMeetConfigInput = {
@@ -310145,6 +312810,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutGoogleMeetConfigInput = {
@@ -310291,6 +312957,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutGoogleMeetConfigInput = {
@@ -310421,6 +313088,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutLiveClassSessionsInput = {
@@ -310551,6 +313219,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutLiveClassSessionsInput = {
@@ -310681,6 +313350,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutLiveClassSessionsInput = {
@@ -310707,6 +313377,7 @@ export namespace Prisma {
     students?: StudentCreateNestedManyWithoutClassInput
     attendanceSessions?: AttendanceSessionCreateNestedManyWithoutClassInput
     offeredAdmissions?: OnlineAdmissionCreateNestedManyWithoutOfferedClassInput
+    exams?: ExamCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutLiveClassSessionsInput = {
@@ -310728,6 +313399,7 @@ export namespace Prisma {
     students?: StudentUncheckedCreateNestedManyWithoutClassInput
     attendanceSessions?: AttendanceSessionUncheckedCreateNestedManyWithoutClassInput
     offeredAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutOfferedClassInput
+    exams?: ExamUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutLiveClassSessionsInput = {
@@ -310809,6 +313481,7 @@ export namespace Prisma {
     students?: StudentCreateNestedManyWithoutSectionInput
     attendanceSessions?: AttendanceSessionCreateNestedManyWithoutSectionInput
     offeredAdmissions?: OnlineAdmissionCreateNestedManyWithoutOfferedSectionInput
+    exams?: ExamCreateNestedManyWithoutSectionInput
   }
 
   export type SectionUncheckedCreateWithoutLiveClassSessionsInput = {
@@ -310828,6 +313501,7 @@ export namespace Prisma {
     students?: StudentUncheckedCreateNestedManyWithoutSectionInput
     attendanceSessions?: AttendanceSessionUncheckedCreateNestedManyWithoutSectionInput
     offeredAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutOfferedSectionInput
+    exams?: ExamUncheckedCreateNestedManyWithoutSectionInput
   }
 
   export type SectionCreateOrConnectWithoutLiveClassSessionsInput = {
@@ -311043,6 +313717,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutLiveClassSessionsInput = {
@@ -311173,6 +313848,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type ClassUpsertWithoutLiveClassSessionsInput = {
@@ -311205,6 +313881,7 @@ export namespace Prisma {
     students?: StudentUpdateManyWithoutClassNestedInput
     attendanceSessions?: AttendanceSessionUpdateManyWithoutClassNestedInput
     offeredAdmissions?: OnlineAdmissionUpdateManyWithoutOfferedClassNestedInput
+    exams?: ExamUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutLiveClassSessionsInput = {
@@ -311226,6 +313903,7 @@ export namespace Prisma {
     students?: StudentUncheckedUpdateManyWithoutClassNestedInput
     attendanceSessions?: AttendanceSessionUncheckedUpdateManyWithoutClassNestedInput
     offeredAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutOfferedClassNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type StaffUpsertWithoutHostedSessionsInput = {
@@ -311319,6 +313997,7 @@ export namespace Prisma {
     students?: StudentUpdateManyWithoutSectionNestedInput
     attendanceSessions?: AttendanceSessionUpdateManyWithoutSectionNestedInput
     offeredAdmissions?: OnlineAdmissionUpdateManyWithoutOfferedSectionNestedInput
+    exams?: ExamUpdateManyWithoutSectionNestedInput
   }
 
   export type SectionUncheckedUpdateWithoutLiveClassSessionsInput = {
@@ -311338,6 +314017,7 @@ export namespace Prisma {
     students?: StudentUncheckedUpdateManyWithoutSectionNestedInput
     attendanceSessions?: AttendanceSessionUncheckedUpdateManyWithoutSectionNestedInput
     offeredAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutOfferedSectionNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutSectionNestedInput
   }
 
   export type SubjectUpsertWithoutLiveClassSessionsInput = {
@@ -311499,6 +314179,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobCreateNestedManyWithoutUserInput
+    createdExams?: ExamCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutMeetingParticipationsInput = {
@@ -311536,6 +314217,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportUncheckedCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobUncheckedCreateNestedManyWithoutUserInput
+    createdExams?: ExamUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutMeetingParticipationsInput = {
@@ -311658,6 +314340,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMeetingParticipationsInput = {
@@ -311695,6 +314378,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUncheckedUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUncheckedUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type OnlineAdmissionCreateWithoutStudentCategoryInput = {
@@ -312189,6 +314873,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutStudentCategoriesInput = {
@@ -312319,6 +315004,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutStudentCategoriesInput = {
@@ -312497,6 +315183,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutStudentCategoriesInput = {
@@ -312627,6 +315314,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type OnlineAdmissionCreateWithoutPreviousSchoolsInput = {
@@ -313054,6 +315742,7 @@ export namespace Prisma {
     idCards?: IdCardCreateNestedManyWithoutSessionInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutSessionInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutAcademicSessionInput
+    exams?: ExamCreateNestedManyWithoutAcademicSessionInput
   }
 
   export type AcademicSessionUncheckedCreateWithoutOnlineAdmissionsInput = {
@@ -313073,6 +315762,7 @@ export namespace Prisma {
     idCards?: IdCardUncheckedCreateNestedManyWithoutSessionInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutSessionInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutAcademicSessionInput
+    exams?: ExamUncheckedCreateNestedManyWithoutAcademicSessionInput
   }
 
   export type AcademicSessionCreateOrConnectWithoutOnlineAdmissionsInput = {
@@ -313208,6 +315898,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutOnlineAdmissionsInput = {
@@ -313338,6 +316029,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutOnlineAdmissionsInput = {
@@ -313364,6 +316056,7 @@ export namespace Prisma {
     students?: StudentCreateNestedManyWithoutClassInput
     attendanceSessions?: AttendanceSessionCreateNestedManyWithoutClassInput
     offeredAdmissions?: OnlineAdmissionCreateNestedManyWithoutOfferedClassInput
+    exams?: ExamCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutOnlineAdmissionsInput = {
@@ -313385,6 +316078,7 @@ export namespace Prisma {
     students?: StudentUncheckedCreateNestedManyWithoutClassInput
     attendanceSessions?: AttendanceSessionUncheckedCreateNestedManyWithoutClassInput
     offeredAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutOfferedClassInput
+    exams?: ExamUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutOnlineAdmissionsInput = {
@@ -313409,6 +316103,7 @@ export namespace Prisma {
     students?: StudentCreateNestedManyWithoutSectionInput
     attendanceSessions?: AttendanceSessionCreateNestedManyWithoutSectionInput
     offeredAdmissions?: OnlineAdmissionCreateNestedManyWithoutOfferedSectionInput
+    exams?: ExamCreateNestedManyWithoutSectionInput
   }
 
   export type SectionUncheckedCreateWithoutOnlineAdmissionsInput = {
@@ -313428,6 +316123,7 @@ export namespace Prisma {
     students?: StudentUncheckedCreateNestedManyWithoutSectionInput
     attendanceSessions?: AttendanceSessionUncheckedCreateNestedManyWithoutSectionInput
     offeredAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutOfferedSectionInput
+    exams?: ExamUncheckedCreateNestedManyWithoutSectionInput
   }
 
   export type SectionCreateOrConnectWithoutOnlineAdmissionsInput = {
@@ -313470,6 +316166,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobCreateNestedManyWithoutUserInput
+    createdExams?: ExamCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutOnlineAdmissionsInput = {
@@ -313507,6 +316204,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportUncheckedCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobUncheckedCreateNestedManyWithoutUserInput
+    createdExams?: ExamUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutOnlineAdmissionsInput = {
@@ -313653,6 +316351,7 @@ export namespace Prisma {
     sections?: SectionCreateNestedManyWithoutClassInput
     students?: StudentCreateNestedManyWithoutClassInput
     attendanceSessions?: AttendanceSessionCreateNestedManyWithoutClassInput
+    exams?: ExamCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutOfferedAdmissionsInput = {
@@ -313674,6 +316373,7 @@ export namespace Prisma {
     sections?: SectionUncheckedCreateNestedManyWithoutClassInput
     students?: StudentUncheckedCreateNestedManyWithoutClassInput
     attendanceSessions?: AttendanceSessionUncheckedCreateNestedManyWithoutClassInput
+    exams?: ExamUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutOfferedAdmissionsInput = {
@@ -313698,6 +316398,7 @@ export namespace Prisma {
     class: ClassCreateNestedOneWithoutSectionsInput
     students?: StudentCreateNestedManyWithoutSectionInput
     attendanceSessions?: AttendanceSessionCreateNestedManyWithoutSectionInput
+    exams?: ExamCreateNestedManyWithoutSectionInput
   }
 
   export type SectionUncheckedCreateWithoutOfferedAdmissionsInput = {
@@ -313717,6 +316418,7 @@ export namespace Prisma {
     onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutSectionInput
     students?: StudentUncheckedCreateNestedManyWithoutSectionInput
     attendanceSessions?: AttendanceSessionUncheckedCreateNestedManyWithoutSectionInput
+    exams?: ExamUncheckedCreateNestedManyWithoutSectionInput
   }
 
   export type SectionCreateOrConnectWithoutOfferedAdmissionsInput = {
@@ -313752,6 +316454,7 @@ export namespace Prisma {
     idCards?: IdCardUpdateManyWithoutSessionNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutSessionNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutAcademicSessionNestedInput
+    exams?: ExamUpdateManyWithoutAcademicSessionNestedInput
   }
 
   export type AcademicSessionUncheckedUpdateWithoutOnlineAdmissionsInput = {
@@ -313771,6 +316474,7 @@ export namespace Prisma {
     idCards?: IdCardUncheckedUpdateManyWithoutSessionNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutSessionNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutAcademicSessionNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutAcademicSessionNestedInput
   }
 
   export type BranchUpsertWithoutOnlineAdmissionsInput = {
@@ -313912,6 +316616,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutOnlineAdmissionsInput = {
@@ -314042,6 +316747,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type ClassUpsertWithoutOnlineAdmissionsInput = {
@@ -314074,6 +316780,7 @@ export namespace Prisma {
     students?: StudentUpdateManyWithoutClassNestedInput
     attendanceSessions?: AttendanceSessionUpdateManyWithoutClassNestedInput
     offeredAdmissions?: OnlineAdmissionUpdateManyWithoutOfferedClassNestedInput
+    exams?: ExamUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutOnlineAdmissionsInput = {
@@ -314095,6 +316802,7 @@ export namespace Prisma {
     students?: StudentUncheckedUpdateManyWithoutClassNestedInput
     attendanceSessions?: AttendanceSessionUncheckedUpdateManyWithoutClassNestedInput
     offeredAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutOfferedClassNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type SectionUpsertWithoutOnlineAdmissionsInput = {
@@ -314125,6 +316833,7 @@ export namespace Prisma {
     students?: StudentUpdateManyWithoutSectionNestedInput
     attendanceSessions?: AttendanceSessionUpdateManyWithoutSectionNestedInput
     offeredAdmissions?: OnlineAdmissionUpdateManyWithoutOfferedSectionNestedInput
+    exams?: ExamUpdateManyWithoutSectionNestedInput
   }
 
   export type SectionUncheckedUpdateWithoutOnlineAdmissionsInput = {
@@ -314144,6 +316853,7 @@ export namespace Prisma {
     students?: StudentUncheckedUpdateManyWithoutSectionNestedInput
     attendanceSessions?: AttendanceSessionUncheckedUpdateManyWithoutSectionNestedInput
     offeredAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutOfferedSectionNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutSectionNestedInput
   }
 
   export type UserUpsertWithoutOnlineAdmissionsInput = {
@@ -314192,6 +316902,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOnlineAdmissionsInput = {
@@ -314229,6 +316940,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUncheckedUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUncheckedUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type StudentCategoryUpsertWithoutOnlineAdmissionsInput = {
@@ -314392,6 +317104,7 @@ export namespace Prisma {
     sections?: SectionUpdateManyWithoutClassNestedInput
     students?: StudentUpdateManyWithoutClassNestedInput
     attendanceSessions?: AttendanceSessionUpdateManyWithoutClassNestedInput
+    exams?: ExamUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutOfferedAdmissionsInput = {
@@ -314413,6 +317126,7 @@ export namespace Prisma {
     sections?: SectionUncheckedUpdateManyWithoutClassNestedInput
     students?: StudentUncheckedUpdateManyWithoutClassNestedInput
     attendanceSessions?: AttendanceSessionUncheckedUpdateManyWithoutClassNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type SectionUpsertWithoutOfferedAdmissionsInput = {
@@ -314443,6 +317157,7 @@ export namespace Prisma {
     class?: ClassUpdateOneRequiredWithoutSectionsNestedInput
     students?: StudentUpdateManyWithoutSectionNestedInput
     attendanceSessions?: AttendanceSessionUpdateManyWithoutSectionNestedInput
+    exams?: ExamUpdateManyWithoutSectionNestedInput
   }
 
   export type SectionUncheckedUpdateWithoutOfferedAdmissionsInput = {
@@ -314462,6 +317177,7 @@ export namespace Prisma {
     onlineExams?: OnlineExamUncheckedUpdateManyWithoutSectionNestedInput
     students?: StudentUncheckedUpdateManyWithoutSectionNestedInput
     attendanceSessions?: AttendanceSessionUncheckedUpdateManyWithoutSectionNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutSectionNestedInput
   }
 
   export type BranchCreateWithoutEnquiriesInput = {
@@ -314592,6 +317308,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutEnquiriesInput = {
@@ -314722,6 +317439,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutEnquiriesInput = {
@@ -314868,6 +317586,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutEnquiriesInput = {
@@ -314998,6 +317717,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutCallLogsInput = {
@@ -315128,6 +317848,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutCallLogsInput = {
@@ -315258,6 +317979,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutCallLogsInput = {
@@ -315404,6 +318126,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutCallLogsInput = {
@@ -315534,6 +318257,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutVisitorLogsInput = {
@@ -315664,6 +318388,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutVisitorLogsInput = {
@@ -315794,6 +318519,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutVisitorLogsInput = {
@@ -315940,6 +318666,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutVisitorLogsInput = {
@@ -316070,6 +318797,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutComplaintsInput = {
@@ -316200,6 +318928,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutComplaintsInput = {
@@ -316330,6 +319059,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutComplaintsInput = {
@@ -316476,6 +319206,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutComplaintsInput = {
@@ -316606,6 +319337,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutPostalRecordsInput = {
@@ -316736,6 +319468,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutPostalRecordsInput = {
@@ -316866,6 +319599,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutPostalRecordsInput = {
@@ -317012,6 +319746,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutPostalRecordsInput = {
@@ -317142,6 +319877,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutInventoryCategoriesInput = {
@@ -317272,6 +320008,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventoryCategoriesInput = {
@@ -317402,6 +320139,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventoryCategoriesInput = {
@@ -317594,6 +320332,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventoryCategoriesInput = {
@@ -317724,6 +320463,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryProductUpsertWithWhereUniqueWithoutCategoryInput = {
@@ -317916,6 +320656,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventoryStoresInput = {
@@ -318046,6 +320787,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventoryStoresInput = {
@@ -318208,6 +320950,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventoryStoresInput = {
@@ -318338,6 +321081,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryPurchaseCreateWithoutSupplierInput = {
@@ -318504,6 +321248,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventorySuppliersInput = {
@@ -318634,6 +321379,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventorySuppliersInput = {
@@ -318796,6 +321542,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventorySuppliersInput = {
@@ -318926,6 +321673,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryProductCreateWithoutUnitInput = {
@@ -319102,6 +321850,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventoryUnitsInput = {
@@ -319232,6 +321981,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventoryUnitsInput = {
@@ -319394,6 +322144,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventoryUnitsInput = {
@@ -319524,6 +322275,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryIssueCreateWithoutProductInput = {
@@ -319692,6 +322444,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventoryProductsInput = {
@@ -319822,6 +322575,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventoryProductsInput = {
@@ -320121,6 +322875,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventoryProductsInput = {
@@ -320251,6 +323006,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryCategoryUpsertWithoutProductsInput = {
@@ -320496,6 +323252,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventoryPurchasesInput = {
@@ -320626,6 +323383,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventoryPurchasesInput = {
@@ -320842,6 +323600,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventoryPurchasesInput = {
@@ -320972,6 +323731,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryProductUpsertWithoutPurchasesInput = {
@@ -321184,6 +323944,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventorySalesInput = {
@@ -321314,6 +324075,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventorySalesInput = {
@@ -321501,6 +324263,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventorySalesInput = {
@@ -321631,6 +324394,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryProductUpsertWithoutSalesInput = {
@@ -321808,6 +324572,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutInventoryIssuesInput = {
@@ -321938,6 +324703,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutInventoryIssuesInput = {
@@ -322335,6 +325101,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutInventoryIssuesInput = {
@@ -322465,6 +325232,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type InventoryProductUpsertWithoutIssuesInput = {
@@ -322864,6 +325632,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAlumniInput = {
@@ -322994,6 +325763,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAlumniInput = {
@@ -323319,6 +326089,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAlumniInput = {
@@ -323449,6 +326220,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StudentUpsertWithoutAlumniInput = {
@@ -323766,6 +326538,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAlumniEventsInput = {
@@ -323896,6 +326669,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAlumniEventsInput = {
@@ -324068,6 +326842,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAlumniEventsInput = {
@@ -324198,6 +326973,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type AlumniEventParticipantUpsertWithWhereUniqueWithoutEventInput = {
@@ -324484,6 +327260,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutConversationsInput = {
@@ -324614,6 +327391,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutConversationsInput = {
@@ -324814,6 +327592,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutConversationsInput = {
@@ -324944,6 +327723,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type ConversationParticipantUpsertWithWhereUniqueWithoutConversationInput = {
@@ -325038,6 +327818,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobCreateNestedManyWithoutUserInput
+    createdExams?: ExamCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutConversationParticipationsInput = {
@@ -325075,6 +327856,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportUncheckedCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobUncheckedCreateNestedManyWithoutUserInput
+    createdExams?: ExamUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutConversationParticipationsInput = {
@@ -325159,6 +327941,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutConversationParticipationsInput = {
@@ -325196,6 +327979,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUncheckedUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUncheckedUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type ConversationCreateWithoutMessagesInput = {
@@ -325258,6 +328042,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobCreateNestedManyWithoutUserInput
+    createdExams?: ExamCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutSentMessagesInput = {
@@ -325295,6 +328080,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportUncheckedCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobUncheckedCreateNestedManyWithoutUserInput
+    createdExams?: ExamUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutSentMessagesInput = {
@@ -325379,6 +328165,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSentMessagesInput = {
@@ -325416,6 +328203,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUncheckedUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUncheckedUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type BranchCreateWithoutCampusEventsInput = {
@@ -325546,6 +328334,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutCampusEventsInput = {
@@ -325676,6 +328465,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutCampusEventsInput = {
@@ -325848,6 +328638,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutCampusEventsInput = {
@@ -325978,6 +328769,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type EventRSVPUpsertWithWhereUniqueWithoutEventInput = {
@@ -326066,6 +328858,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobCreateNestedManyWithoutUserInput
+    createdExams?: ExamCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutEventRSVPsInput = {
@@ -326103,6 +328896,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportUncheckedCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobUncheckedCreateNestedManyWithoutUserInput
+    createdExams?: ExamUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutEventRSVPsInput = {
@@ -326197,6 +328991,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEventRSVPsInput = {
@@ -326234,6 +329029,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUncheckedUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUncheckedUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type BranchCreateWithoutAccessLogsInput = {
@@ -326364,6 +329160,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAccessLogsInput = {
@@ -326494,6 +329291,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAccessLogsInput = {
@@ -326536,6 +329334,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobCreateNestedManyWithoutUserInput
+    createdExams?: ExamCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutAccessLogsInput = {
@@ -326573,6 +329372,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportUncheckedCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobUncheckedCreateNestedManyWithoutUserInput
+    createdExams?: ExamUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutAccessLogsInput = {
@@ -326719,6 +329519,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAccessLogsInput = {
@@ -326849,6 +329650,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type UserUpsertWithoutAccessLogsInput = {
@@ -326897,6 +329699,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccessLogsInput = {
@@ -326934,6 +329737,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUncheckedUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUncheckedUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type BranchCreateWithoutAutomationConfigsInput = {
@@ -327064,6 +329868,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAutomationConfigsInput = {
@@ -327194,6 +329999,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAutomationConfigsInput = {
@@ -327370,6 +330176,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAutomationConfigsInput = {
@@ -327500,6 +330307,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type AutomationExecutionUpsertWithWhereUniqueWithoutConfigInput = {
@@ -327680,6 +330488,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutIdCardTemplatesInput = {
@@ -327810,6 +330619,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutIdCardTemplatesInput = {
@@ -327972,6 +330782,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutIdCardTemplatesInput = {
@@ -328102,6 +330913,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type AcademicSessionCreateWithoutIdCardsInput = {
@@ -328121,6 +330933,7 @@ export namespace Prisma {
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutAcademicSessionInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutSessionInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutAcademicSessionInput
+    exams?: ExamCreateNestedManyWithoutAcademicSessionInput
   }
 
   export type AcademicSessionUncheckedCreateWithoutIdCardsInput = {
@@ -328140,6 +330953,7 @@ export namespace Prisma {
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutAcademicSessionInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutSessionInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutAcademicSessionInput
+    exams?: ExamUncheckedCreateNestedManyWithoutAcademicSessionInput
   }
 
   export type AcademicSessionCreateOrConnectWithoutIdCardsInput = {
@@ -328512,6 +331326,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutIdCardsInput = {
@@ -328642,6 +331457,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutIdCardsInput = {
@@ -328677,6 +331493,7 @@ export namespace Prisma {
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutAcademicSessionNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutSessionNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutAcademicSessionNestedInput
+    exams?: ExamUpdateManyWithoutAcademicSessionNestedInput
   }
 
   export type AcademicSessionUncheckedUpdateWithoutIdCardsInput = {
@@ -328696,6 +331513,7 @@ export namespace Prisma {
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutAcademicSessionNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutSessionNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutAcademicSessionNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutAcademicSessionNestedInput
   }
 
   export type StaffUpsertWithoutIdCardsInput = {
@@ -329092,6 +331910,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutIdCardsInput = {
@@ -329222,6 +332041,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutAttachmentCategoriesInput = {
@@ -329352,6 +332172,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAttachmentCategoriesInput = {
@@ -329482,6 +332303,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAttachmentCategoriesInput = {
@@ -329676,6 +332498,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAttachmentCategoriesInput = {
@@ -329806,6 +332629,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type DigitalResourceUpsertWithWhereUniqueWithoutCategoryInput = {
@@ -329977,6 +332801,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutDigitalResourcesInput = {
@@ -330107,6 +332932,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutDigitalResourcesInput = {
@@ -330133,6 +332959,7 @@ export namespace Prisma {
     students?: StudentCreateNestedManyWithoutClassInput
     attendanceSessions?: AttendanceSessionCreateNestedManyWithoutClassInput
     offeredAdmissions?: OnlineAdmissionCreateNestedManyWithoutOfferedClassInput
+    exams?: ExamCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutDigitalResourcesInput = {
@@ -330154,6 +332981,7 @@ export namespace Prisma {
     students?: StudentUncheckedCreateNestedManyWithoutClassInput
     attendanceSessions?: AttendanceSessionUncheckedCreateNestedManyWithoutClassInput
     offeredAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutOfferedClassInput
+    exams?: ExamUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutDigitalResourcesInput = {
@@ -330178,6 +333006,7 @@ export namespace Prisma {
     students?: StudentCreateNestedManyWithoutSectionInput
     attendanceSessions?: AttendanceSessionCreateNestedManyWithoutSectionInput
     offeredAdmissions?: OnlineAdmissionCreateNestedManyWithoutOfferedSectionInput
+    exams?: ExamCreateNestedManyWithoutSectionInput
   }
 
   export type SectionUncheckedCreateWithoutDigitalResourcesInput = {
@@ -330197,6 +333026,7 @@ export namespace Prisma {
     students?: StudentUncheckedCreateNestedManyWithoutSectionInput
     attendanceSessions?: AttendanceSessionUncheckedCreateNestedManyWithoutSectionInput
     offeredAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutOfferedSectionInput
+    exams?: ExamUncheckedCreateNestedManyWithoutSectionInput
   }
 
   export type SectionCreateOrConnectWithoutDigitalResourcesInput = {
@@ -330221,6 +333051,7 @@ export namespace Prisma {
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutAcademicSessionInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutSessionInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutAcademicSessionInput
+    exams?: ExamCreateNestedManyWithoutAcademicSessionInput
   }
 
   export type AcademicSessionUncheckedCreateWithoutDigitalResourcesInput = {
@@ -330240,6 +333071,7 @@ export namespace Prisma {
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutAcademicSessionInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutSessionInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutAcademicSessionInput
+    exams?: ExamUncheckedCreateNestedManyWithoutAcademicSessionInput
   }
 
   export type AcademicSessionCreateOrConnectWithoutDigitalResourcesInput = {
@@ -330541,6 +333373,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutDigitalResourcesInput = {
@@ -330671,6 +333504,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type ClassUpsertWithoutDigitalResourcesInput = {
@@ -330703,6 +333537,7 @@ export namespace Prisma {
     students?: StudentUpdateManyWithoutClassNestedInput
     attendanceSessions?: AttendanceSessionUpdateManyWithoutClassNestedInput
     offeredAdmissions?: OnlineAdmissionUpdateManyWithoutOfferedClassNestedInput
+    exams?: ExamUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutDigitalResourcesInput = {
@@ -330724,6 +333559,7 @@ export namespace Prisma {
     students?: StudentUncheckedUpdateManyWithoutClassNestedInput
     attendanceSessions?: AttendanceSessionUncheckedUpdateManyWithoutClassNestedInput
     offeredAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutOfferedClassNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type SectionUpsertWithoutDigitalResourcesInput = {
@@ -330754,6 +333590,7 @@ export namespace Prisma {
     students?: StudentUpdateManyWithoutSectionNestedInput
     attendanceSessions?: AttendanceSessionUpdateManyWithoutSectionNestedInput
     offeredAdmissions?: OnlineAdmissionUpdateManyWithoutOfferedSectionNestedInput
+    exams?: ExamUpdateManyWithoutSectionNestedInput
   }
 
   export type SectionUncheckedUpdateWithoutDigitalResourcesInput = {
@@ -330773,6 +333610,7 @@ export namespace Prisma {
     students?: StudentUncheckedUpdateManyWithoutSectionNestedInput
     attendanceSessions?: AttendanceSessionUncheckedUpdateManyWithoutSectionNestedInput
     offeredAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutOfferedSectionNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutSectionNestedInput
   }
 
   export type AcademicSessionUpsertWithoutDigitalResourcesInput = {
@@ -330803,6 +333641,7 @@ export namespace Prisma {
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutAcademicSessionNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutSessionNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutAcademicSessionNestedInput
+    exams?: ExamUpdateManyWithoutAcademicSessionNestedInput
   }
 
   export type AcademicSessionUncheckedUpdateWithoutDigitalResourcesInput = {
@@ -330822,6 +333661,7 @@ export namespace Prisma {
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutAcademicSessionNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutSessionNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutAcademicSessionNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutAcademicSessionNestedInput
   }
 
   export type SubjectUpsertWithoutDigitalResourcesInput = {
@@ -331026,6 +333866,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobCreateNestedManyWithoutUserInput
+    createdExams?: ExamCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutDigitalResourceLogsInput = {
@@ -331063,6 +333904,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportUncheckedCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobUncheckedCreateNestedManyWithoutUserInput
+    createdExams?: ExamUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutDigitalResourceLogsInput = {
@@ -331165,6 +334007,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDigitalResourceLogsInput = {
@@ -331202,6 +334045,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUncheckedUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUncheckedUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type BranchCreateWithoutEmailTemplatesInput = {
@@ -331332,6 +334176,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutEmailTemplatesInput = {
@@ -331462,6 +334307,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutEmailTemplatesInput = {
@@ -331608,6 +334454,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutEmailTemplatesInput = {
@@ -331738,6 +334585,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutSmsTemplatesInput = {
@@ -331868,6 +334716,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutSmsTemplatesInput = {
@@ -331998,6 +334847,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutSmsTemplatesInput = {
@@ -332144,6 +334994,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutSmsTemplatesInput = {
@@ -332274,6 +335125,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutNotificationsInput = {
@@ -332404,6 +335256,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutNotificationsInput = {
@@ -332534,6 +335387,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutNotificationsInput = {
@@ -332576,6 +335430,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobCreateNestedManyWithoutUserInput
+    createdExams?: ExamCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -332613,6 +335468,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportUncheckedCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobUncheckedCreateNestedManyWithoutUserInput
+    createdExams?: ExamUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -332759,6 +335615,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutNotificationsInput = {
@@ -332889,6 +335746,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type UserUpsertWithoutNotificationsInput = {
@@ -332937,6 +335795,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -332974,6 +335833,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUncheckedUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUncheckedUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type BranchCreateWithoutNotificationPreferencesInput = {
@@ -333104,6 +335964,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutNotificationPreferencesInput = {
@@ -333234,6 +336095,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutNotificationPreferencesInput = {
@@ -333276,6 +336138,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobCreateNestedManyWithoutUserInput
+    createdExams?: ExamCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutNotificationPreferenceInput = {
@@ -333313,6 +336176,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportUncheckedCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobUncheckedCreateNestedManyWithoutUserInput
+    createdExams?: ExamUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutNotificationPreferenceInput = {
@@ -333459,6 +336323,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutNotificationPreferencesInput = {
@@ -333589,6 +336454,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type UserUpsertWithoutNotificationPreferenceInput = {
@@ -333637,6 +336503,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationPreferenceInput = {
@@ -333674,6 +336541,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUncheckedUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUncheckedUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type BranchCreateWithoutCampaignsInput = {
@@ -333804,6 +336672,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutCampaignsInput = {
@@ -333934,6 +336803,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutCampaignsInput = {
@@ -334110,6 +336980,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutCampaignsInput = {
@@ -334240,6 +337111,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type CampaignRecipientUpsertWithWhereUniqueWithoutCampaignInput = {
@@ -334320,6 +337192,7 @@ export namespace Prisma {
     notificationPreference?: NotificationPreferenceCreateNestedOneWithoutUserInput
     academicExports?: AcademicExportCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobCreateNestedManyWithoutUserInput
+    createdExams?: ExamCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutCampaignRecipientsInput = {
@@ -334357,6 +337230,7 @@ export namespace Prisma {
     notificationPreference?: NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
     academicExports?: AcademicExportUncheckedCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobUncheckedCreateNestedManyWithoutUserInput
+    createdExams?: ExamUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutCampaignRecipientsInput = {
@@ -334492,6 +337366,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutCampaignRecipientsInput = {
@@ -334622,6 +337497,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutCampaignRecipientsInput = {
@@ -334708,6 +337584,7 @@ export namespace Prisma {
     notificationPreference?: NotificationPreferenceUpdateOneWithoutUserNestedInput
     academicExports?: AcademicExportUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCampaignRecipientsInput = {
@@ -334745,6 +337622,7 @@ export namespace Prisma {
     notificationPreference?: NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
     academicExports?: AcademicExportUncheckedUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUncheckedUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type BranchUpsertWithoutCampaignRecipientsInput = {
@@ -334886,6 +337764,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutCampaignRecipientsInput = {
@@ -335016,6 +337895,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutAttendanceSessionsInput = {
@@ -335146,6 +338026,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAttendanceSessionsInput = {
@@ -335276,6 +338157,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAttendanceSessionsInput = {
@@ -335302,6 +338184,7 @@ export namespace Prisma {
     sections?: SectionCreateNestedManyWithoutClassInput
     students?: StudentCreateNestedManyWithoutClassInput
     offeredAdmissions?: OnlineAdmissionCreateNestedManyWithoutOfferedClassInput
+    exams?: ExamCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutAttendanceSessionsInput = {
@@ -335323,6 +338206,7 @@ export namespace Prisma {
     sections?: SectionUncheckedCreateNestedManyWithoutClassInput
     students?: StudentUncheckedCreateNestedManyWithoutClassInput
     offeredAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutOfferedClassInput
+    exams?: ExamUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutAttendanceSessionsInput = {
@@ -335347,6 +338231,7 @@ export namespace Prisma {
     class: ClassCreateNestedOneWithoutSectionsInput
     students?: StudentCreateNestedManyWithoutSectionInput
     offeredAdmissions?: OnlineAdmissionCreateNestedManyWithoutOfferedSectionInput
+    exams?: ExamCreateNestedManyWithoutSectionInput
   }
 
   export type SectionUncheckedCreateWithoutAttendanceSessionsInput = {
@@ -335366,6 +338251,7 @@ export namespace Prisma {
     onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutSectionInput
     students?: StudentUncheckedCreateNestedManyWithoutSectionInput
     offeredAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutOfferedSectionInput
+    exams?: ExamUncheckedCreateNestedManyWithoutSectionInput
   }
 
   export type SectionCreateOrConnectWithoutAttendanceSessionsInput = {
@@ -335672,6 +338558,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAttendanceSessionsInput = {
@@ -335802,6 +338689,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type ClassUpsertWithoutAttendanceSessionsInput = {
@@ -335834,6 +338722,7 @@ export namespace Prisma {
     sections?: SectionUpdateManyWithoutClassNestedInput
     students?: StudentUpdateManyWithoutClassNestedInput
     offeredAdmissions?: OnlineAdmissionUpdateManyWithoutOfferedClassNestedInput
+    exams?: ExamUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutAttendanceSessionsInput = {
@@ -335855,6 +338744,7 @@ export namespace Prisma {
     sections?: SectionUncheckedUpdateManyWithoutClassNestedInput
     students?: StudentUncheckedUpdateManyWithoutClassNestedInput
     offeredAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutOfferedClassNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type SectionUpsertWithoutAttendanceSessionsInput = {
@@ -335885,6 +338775,7 @@ export namespace Prisma {
     class?: ClassUpdateOneRequiredWithoutSectionsNestedInput
     students?: StudentUpdateManyWithoutSectionNestedInput
     offeredAdmissions?: OnlineAdmissionUpdateManyWithoutOfferedSectionNestedInput
+    exams?: ExamUpdateManyWithoutSectionNestedInput
   }
 
   export type SectionUncheckedUpdateWithoutAttendanceSessionsInput = {
@@ -335904,6 +338795,7 @@ export namespace Prisma {
     onlineExams?: OnlineExamUncheckedUpdateManyWithoutSectionNestedInput
     students?: StudentUncheckedUpdateManyWithoutSectionNestedInput
     offeredAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutOfferedSectionNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutSectionNestedInput
   }
 
   export type SubjectUpsertWithoutAttendanceSessionsInput = {
@@ -336174,6 +339066,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAttendanceScansInput = {
@@ -336304,6 +339197,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAttendanceScansInput = {
@@ -336644,6 +339538,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAttendanceScansInput = {
@@ -336774,6 +339669,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type AttendanceSessionUpsertWithoutScansInput = {
@@ -337110,6 +340006,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutQueueJobLogsInput = {
@@ -337240,6 +340137,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutQueueJobLogsInput = {
@@ -337386,6 +340284,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutQueueJobLogsInput = {
@@ -337516,6 +340415,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type AutomationConfigCreateWithoutExecutionsInput = {
@@ -337675,6 +340575,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAutomationExecutionsInput = {
@@ -337805,6 +340706,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAutomationExecutionsInput = {
@@ -337986,6 +340888,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAutomationExecutionsInput = {
@@ -338116,6 +341019,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutMessageDeliveryLogsInput = {
@@ -338246,6 +341150,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutMessageDeliveryLogsInput = {
@@ -338376,6 +341281,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutMessageDeliveryLogsInput = {
@@ -338522,6 +341428,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutMessageDeliveryLogsInput = {
@@ -338652,6 +341559,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutProviderHealthLogsInput = {
@@ -338782,6 +341690,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutProviderHealthLogsInput = {
@@ -338912,6 +341821,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutProviderHealthLogsInput = {
@@ -339058,6 +341968,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutProviderHealthLogsInput = {
@@ -339188,6 +342099,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutWebhookEventsInput = {
@@ -339318,6 +342230,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutWebhookEventsInput = {
@@ -339448,6 +342361,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutWebhookEventsInput = {
@@ -339594,6 +342508,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutWebhookEventsInput = {
@@ -339724,6 +342639,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutDeliveryWebhookLogsInput = {
@@ -339854,6 +342770,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutDeliveryWebhookLogsInput = {
@@ -339984,6 +342901,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutDeliveryWebhookLogsInput = {
@@ -340130,6 +343048,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutDeliveryWebhookLogsInput = {
@@ -340260,6 +343179,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutRealtimeConnectionsInput = {
@@ -340390,6 +343310,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutRealtimeConnectionsInput = {
@@ -340520,6 +343441,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutRealtimeConnectionsInput = {
@@ -340562,6 +343484,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobCreateNestedManyWithoutUserInput
+    createdExams?: ExamCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutRealtimeConnectionsInput = {
@@ -340599,6 +343522,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportUncheckedCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobUncheckedCreateNestedManyWithoutUserInput
+    createdExams?: ExamUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutRealtimeConnectionsInput = {
@@ -340745,6 +343669,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutRealtimeConnectionsInput = {
@@ -340875,6 +343800,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type UserUpsertWithoutRealtimeConnectionsInput = {
@@ -340923,6 +343849,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRealtimeConnectionsInput = {
@@ -340960,6 +343887,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUncheckedUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUncheckedUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type BranchCreateWithoutQueueMetricsInput = {
@@ -341090,6 +344018,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutQueueMetricsInput = {
@@ -341220,6 +344149,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutQueueMetricsInput = {
@@ -341366,6 +344296,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutQueueMetricsInput = {
@@ -341496,6 +344427,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutProviderFailoverEventsInput = {
@@ -341626,6 +344558,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutProviderFailoverEventsInput = {
@@ -341756,6 +344689,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutProviderFailoverEventsInput = {
@@ -341902,6 +344836,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutProviderFailoverEventsInput = {
@@ -342032,6 +344967,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutMessageRetryEventsInput = {
@@ -342162,6 +345098,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutMessageRetryEventsInput = {
@@ -342292,6 +345229,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutMessageRetryEventsInput = {
@@ -342438,6 +345376,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutMessageRetryEventsInput = {
@@ -342568,6 +345507,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutProviderBalanceSnapshotsInput = {
@@ -342698,6 +345638,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutProviderBalanceSnapshotsInput = {
@@ -342828,6 +345769,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutProviderBalanceSnapshotsInput = {
@@ -342974,6 +345916,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutProviderBalanceSnapshotsInput = {
@@ -343104,6 +346047,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutNotificationDeliveryEventsInput = {
@@ -343234,6 +346178,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutNotificationDeliveryEventsInput = {
@@ -343364,6 +346309,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutNotificationDeliveryEventsInput = {
@@ -343510,6 +346456,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutNotificationDeliveryEventsInput = {
@@ -343640,6 +346587,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutAcademicExportsInput = {
@@ -343770,6 +346718,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAcademicExportsInput = {
@@ -343900,6 +346849,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAcademicExportsInput = {
@@ -343942,6 +346892,7 @@ export namespace Prisma {
     notificationPreference?: NotificationPreferenceCreateNestedOneWithoutUserInput
     campaignRecipients?: CampaignRecipientCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobCreateNestedManyWithoutUserInput
+    createdExams?: ExamCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutAcademicExportsInput = {
@@ -343979,6 +346930,7 @@ export namespace Prisma {
     notificationPreference?: NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
     campaignRecipients?: CampaignRecipientUncheckedCreateNestedManyWithoutUserInput
     computationJobs?: ComputationJobUncheckedCreateNestedManyWithoutUserInput
+    createdExams?: ExamUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutAcademicExportsInput = {
@@ -344125,6 +347077,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAcademicExportsInput = {
@@ -344255,6 +347208,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type UserUpsertWithoutAcademicExportsInput = {
@@ -344303,6 +347257,7 @@ export namespace Prisma {
     notificationPreference?: NotificationPreferenceUpdateOneWithoutUserNestedInput
     campaignRecipients?: CampaignRecipientUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAcademicExportsInput = {
@@ -344340,6 +347295,7 @@ export namespace Prisma {
     notificationPreference?: NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
     campaignRecipients?: CampaignRecipientUncheckedUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUncheckedUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type BranchCreateWithoutReportTemplatesInput = {
@@ -344470,6 +347426,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutReportTemplatesInput = {
@@ -344600,6 +347557,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutReportTemplatesInput = {
@@ -344746,6 +347704,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutReportTemplatesInput = {
@@ -344876,6 +347835,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutComputationJobsInput = {
@@ -345006,6 +347966,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutComputationJobsInput = {
@@ -345136,6 +348097,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutComputationJobsInput = {
@@ -345178,6 +348140,7 @@ export namespace Prisma {
     notificationPreference?: NotificationPreferenceCreateNestedOneWithoutUserInput
     campaignRecipients?: CampaignRecipientCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportCreateNestedManyWithoutUserInput
+    createdExams?: ExamCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutComputationJobsInput = {
@@ -345215,6 +348178,7 @@ export namespace Prisma {
     notificationPreference?: NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
     campaignRecipients?: CampaignRecipientUncheckedCreateNestedManyWithoutUserInput
     academicExports?: AcademicExportUncheckedCreateNestedManyWithoutUserInput
+    createdExams?: ExamUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutComputationJobsInput = {
@@ -345361,6 +348325,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutComputationJobsInput = {
@@ -345491,6 +348456,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type UserUpsertWithoutComputationJobsInput = {
@@ -345539,6 +348505,7 @@ export namespace Prisma {
     notificationPreference?: NotificationPreferenceUpdateOneWithoutUserNestedInput
     campaignRecipients?: CampaignRecipientUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutComputationJobsInput = {
@@ -345576,6 +348543,7 @@ export namespace Prisma {
     notificationPreference?: NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
     campaignRecipients?: CampaignRecipientUncheckedUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUncheckedUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type BookCreateWithoutBookCopiesInput = {
@@ -345785,6 +348753,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutBookCopiesInput = {
@@ -345915,6 +348884,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutBookCopiesInput = {
@@ -346124,6 +349094,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutBookCopiesInput = {
@@ -346254,6 +349225,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BookCreateWithoutBookReservationsInput = {
@@ -346578,6 +349550,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutBookReservationsInput = {
@@ -346708,6 +349681,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutBookReservationsInput = {
@@ -347060,6 +350034,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutBookReservationsInput = {
@@ -347190,6 +350165,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type HostelCreateWithoutHostelMaintenanceTicketsInput = {
@@ -347347,6 +350323,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutHostelMaintenanceTicketsInput = {
@@ -347477,6 +350454,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutHostelMaintenanceTicketsInput = {
@@ -347656,6 +350634,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutHostelMaintenanceTicketsInput = {
@@ -347786,6 +350765,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type StudentCreateWithoutTransportAttendancesInput = {
@@ -347945,6 +350925,7 @@ export namespace Prisma {
     id?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    branch?: BranchCreateNestedOneWithoutTransportAssignmentsInput
     route: TransportRouteCreateNestedOneWithoutAssignmentsInput
     student: StudentCreateNestedOneWithoutTransportAssignmentInput
     vehicle: VehicleCreateNestedOneWithoutAssignmentsInput
@@ -347952,6 +350933,7 @@ export namespace Prisma {
 
   export type TransportAssignmentUncheckedCreateWithoutTransportAttendancesInput = {
     id?: string
+    branchId?: string | null
     studentId: string
     vehicleId: string
     routeId: string
@@ -348138,6 +351120,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneWithoutTransportAssignmentsNestedInput
     route?: TransportRouteUpdateOneRequiredWithoutAssignmentsNestedInput
     student?: StudentUpdateOneRequiredWithoutTransportAssignmentNestedInput
     vehicle?: VehicleUpdateOneRequiredWithoutAssignmentsNestedInput
@@ -348145,6 +351128,7 @@ export namespace Prisma {
 
   export type TransportAssignmentUncheckedUpdateWithoutTransportAttendancesInput = {
     id?: StringFieldUpdateOperationsInput | string
+    branchId?: NullableStringFieldUpdateOperationsInput | string | null
     studentId?: StringFieldUpdateOperationsInput | string
     vehicleId?: StringFieldUpdateOperationsInput | string
     routeId?: StringFieldUpdateOperationsInput | string
@@ -348280,6 +351264,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutApiKeysInput = {
@@ -348410,6 +351395,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutApiKeysInput = {
@@ -348556,6 +351542,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutApiKeysInput = {
@@ -348686,6 +351673,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutWebhookEndpointsInput = {
@@ -348816,6 +351804,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutWebhookEndpointsInput = {
@@ -348946,6 +351935,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutWebhookEndpointsInput = {
@@ -349126,6 +352116,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutWebhookEndpointsInput = {
@@ -349256,6 +352247,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type WebhookDeliveryLogUpsertWithWhereUniqueWithoutEndpointInput = {
@@ -349478,6 +352470,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutCountersInput = {
@@ -349608,6 +352601,7 @@ export namespace Prisma {
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutCountersInput = {
@@ -349754,6 +352748,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutCountersInput = {
@@ -349884,6 +352879,7 @@ export namespace Prisma {
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchCreateWithoutAdmissionExamsInput = {
@@ -350014,6 +353010,7 @@ export namespace Prisma {
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAdmissionExamsInput = {
@@ -350144,6 +353141,7 @@ export namespace Prisma {
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAdmissionExamsInput = {
@@ -350168,6 +353166,7 @@ export namespace Prisma {
     idCards?: IdCardCreateNestedManyWithoutSessionInput
     onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutAcademicSessionInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutSessionInput
+    exams?: ExamCreateNestedManyWithoutAcademicSessionInput
   }
 
   export type AcademicSessionUncheckedCreateWithoutAdmissionExamsInput = {
@@ -350187,6 +353186,7 @@ export namespace Prisma {
     idCards?: IdCardUncheckedCreateNestedManyWithoutSessionInput
     onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutAcademicSessionInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutSessionInput
+    exams?: ExamUncheckedCreateNestedManyWithoutAcademicSessionInput
   }
 
   export type AcademicSessionCreateOrConnectWithoutAdmissionExamsInput = {
@@ -350369,6 +353369,7 @@ export namespace Prisma {
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAdmissionExamsInput = {
@@ -350499,6 +353500,7 @@ export namespace Prisma {
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type AcademicSessionUpsertWithoutAdmissionExamsInput = {
@@ -350529,6 +353531,7 @@ export namespace Prisma {
     idCards?: IdCardUpdateManyWithoutSessionNestedInput
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutAcademicSessionNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutSessionNestedInput
+    exams?: ExamUpdateManyWithoutAcademicSessionNestedInput
   }
 
   export type AcademicSessionUncheckedUpdateWithoutAdmissionExamsInput = {
@@ -350548,6 +353551,7 @@ export namespace Prisma {
     idCards?: IdCardUncheckedUpdateManyWithoutSessionNestedInput
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutAcademicSessionNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutSessionNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutAcademicSessionNestedInput
   }
 
   export type AdmissionExamScoreUpsertWithWhereUniqueWithoutExamInput = {
@@ -351383,6 +354387,7 @@ export namespace Prisma {
     hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
     roles?: RoleCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
   }
 
   export type BranchUncheckedCreateWithoutAdmissionInterviewsInput = {
@@ -351513,6 +354518,7 @@ export namespace Prisma {
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
     roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
     admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
   }
 
   export type BranchCreateOrConnectWithoutAdmissionInterviewsInput = {
@@ -351866,6 +354872,7 @@ export namespace Prisma {
     hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
     roles?: RoleUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
   }
 
   export type BranchUncheckedUpdateWithoutAdmissionInterviewsInput = {
@@ -351996,6 +355003,7 @@ export namespace Prisma {
     hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
     roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type AdmissionEnquiryCreateManyBranchInput = {
@@ -353540,6 +356548,15 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type TransportAssignmentCreateManyBranchInput = {
+    id?: string
+    studentId: string
+    vehicleId: string
+    routeId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type AdmissionEnquiryUpdateWithoutBranchInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -353997,6 +357014,7 @@ export namespace Prisma {
     students?: StudentUpdateManyWithoutClassNestedInput
     attendanceSessions?: AttendanceSessionUpdateManyWithoutClassNestedInput
     offeredAdmissions?: OnlineAdmissionUpdateManyWithoutOfferedClassNestedInput
+    exams?: ExamUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutBranchInput = {
@@ -354018,6 +357036,7 @@ export namespace Prisma {
     students?: StudentUncheckedUpdateManyWithoutClassNestedInput
     attendanceSessions?: AttendanceSessionUncheckedUpdateManyWithoutClassNestedInput
     offeredAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutOfferedClassNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateManyWithoutBranchInput = {
@@ -355535,6 +358554,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBranchInput = {
@@ -355572,6 +358592,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUncheckedUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUncheckedUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutBranchInput = {
@@ -355739,6 +358760,7 @@ export namespace Prisma {
     onlineAdmissions?: OnlineAdmissionUpdateManyWithoutAcademicSessionNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutSessionNestedInput
     admissionExams?: AdmissionExamUpdateManyWithoutAcademicSessionNestedInput
+    exams?: ExamUpdateManyWithoutAcademicSessionNestedInput
   }
 
   export type AcademicSessionUncheckedUpdateWithoutBranchInput = {
@@ -355758,6 +358780,7 @@ export namespace Prisma {
     onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutAcademicSessionNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutSessionNestedInput
     admissionExams?: AdmissionExamUncheckedUpdateManyWithoutAcademicSessionNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutAcademicSessionNestedInput
   }
 
   export type AcademicSessionUncheckedUpdateManyWithoutBranchInput = {
@@ -357084,9 +360107,6 @@ export namespace Prisma {
     code?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumAcademicExamStatusFieldUpdateOperationsInput | $Enums.AcademicExamStatus
-    classId?: NullableStringFieldUpdateOperationsInput | string | null
-    sectionId?: NullableStringFieldUpdateOperationsInput | string | null
-    sessionId?: StringFieldUpdateOperationsInput | string
     term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
     startsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -357094,9 +360114,12 @@ export namespace Prisma {
     gradingEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     lockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdByUserId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    academicSession?: AcademicSessionUpdateOneRequiredWithoutExamsNestedInput
+    class?: ClassUpdateOneWithoutExamsNestedInput
+    section?: SectionUpdateOneWithoutExamsNestedInput
+    createdBy?: UserUpdateOneWithoutCreatedExamsNestedInput
   }
 
   export type ExamUncheckedUpdateWithoutBranchInput = {
@@ -357459,6 +360482,7 @@ export namespace Prisma {
     lockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    verifications?: TranscriptVerificationUpdateManyWithoutTranscriptNestedInput
   }
 
   export type TranscriptUncheckedUpdateWithoutBranchInput = {
@@ -357474,6 +360498,7 @@ export namespace Prisma {
     lockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    verifications?: TranscriptVerificationUncheckedUpdateManyWithoutTranscriptNestedInput
   }
 
   export type TranscriptUncheckedUpdateManyWithoutBranchInput = {
@@ -358402,6 +361427,35 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type TransportAssignmentUpdateWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    route?: TransportRouteUpdateOneRequiredWithoutAssignmentsNestedInput
+    student?: StudentUpdateOneRequiredWithoutTransportAssignmentNestedInput
+    vehicle?: VehicleUpdateOneRequiredWithoutAssignmentsNestedInput
+    transportAttendances?: TransportAttendanceUpdateManyWithoutAssignmentNestedInput
+  }
+
+  export type TransportAssignmentUncheckedUpdateWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    vehicleId?: StringFieldUpdateOperationsInput | string
+    routeId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    transportAttendances?: TransportAttendanceUncheckedUpdateManyWithoutAssignmentNestedInput
+  }
+
+  export type TransportAssignmentUncheckedUpdateManyWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    vehicleId?: StringFieldUpdateOperationsInput | string
+    routeId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type LoginDeactivationCreateManyReasonRefInput = {
     id?: string
     studentId: string
@@ -358513,6 +361567,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCustomRoleInput = {
@@ -358550,6 +361605,7 @@ export namespace Prisma {
     campaignRecipients?: CampaignRecipientUncheckedUpdateManyWithoutUserNestedInput
     academicExports?: AcademicExportUncheckedUpdateManyWithoutUserNestedInput
     computationJobs?: ComputationJobUncheckedUpdateManyWithoutUserNestedInput
+    createdExams?: ExamUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutCustomRoleInput = {
@@ -358899,6 +361955,27 @@ export namespace Prisma {
     startedAt?: Date | string | null
     completedAt?: Date | string | null
     branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ExamCreateManyCreatedByInput = {
+    id?: string
+    title: string
+    code?: string | null
+    description?: string | null
+    status?: $Enums.AcademicExamStatus
+    branchId: string
+    classId?: string | null
+    sectionId?: string | null
+    sessionId: string
+    term: $Enums.Term
+    startsAt?: Date | string | null
+    endsAt?: Date | string | null
+    gradingStartsAt?: Date | string | null
+    gradingEndsAt?: Date | string | null
+    isArchived?: boolean
+    lockedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -359888,6 +362965,69 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ExamUpdateWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAcademicExamStatusFieldUpdateOperationsInput | $Enums.AcademicExamStatus
+    term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
+    startsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gradingStartsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gradingEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    lockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutExamsNestedInput
+    academicSession?: AcademicSessionUpdateOneRequiredWithoutExamsNestedInput
+    class?: ClassUpdateOneWithoutExamsNestedInput
+    section?: SectionUpdateOneWithoutExamsNestedInput
+  }
+
+  export type ExamUncheckedUpdateWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAcademicExamStatusFieldUpdateOperationsInput | $Enums.AcademicExamStatus
+    branchId?: StringFieldUpdateOperationsInput | string
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    sectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionId?: StringFieldUpdateOperationsInput | string
+    term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
+    startsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gradingStartsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gradingEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    lockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExamUncheckedUpdateManyWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAcademicExamStatusFieldUpdateOperationsInput | $Enums.AcademicExamStatus
+    branchId?: StringFieldUpdateOperationsInput | string
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    sectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionId?: StringFieldUpdateOperationsInput | string
+    term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
+    startsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gradingStartsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gradingEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    lockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type AdvanceSalaryCreateManyStaffInput = {
     id?: string
     amount: Decimal | DecimalJsLike | number | string
@@ -360158,6 +363298,7 @@ export namespace Prisma {
     students?: StudentUpdateManyWithoutClassNestedInput
     attendanceSessions?: AttendanceSessionUpdateManyWithoutClassNestedInput
     offeredAdmissions?: OnlineAdmissionUpdateManyWithoutOfferedClassNestedInput
+    exams?: ExamUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutClassTeacherInput = {
@@ -360179,6 +363320,7 @@ export namespace Prisma {
     students?: StudentUncheckedUpdateManyWithoutClassNestedInput
     attendanceSessions?: AttendanceSessionUncheckedUpdateManyWithoutClassNestedInput
     offeredAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutOfferedClassNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateManyWithoutClassTeacherInput = {
@@ -362101,6 +365243,27 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type ExamCreateManyClassInput = {
+    id?: string
+    title: string
+    code?: string | null
+    description?: string | null
+    status?: $Enums.AcademicExamStatus
+    branchId: string
+    sectionId?: string | null
+    sessionId: string
+    term: $Enums.Term
+    startsAt?: Date | string | null
+    endsAt?: Date | string | null
+    gradingStartsAt?: Date | string | null
+    gradingEndsAt?: Date | string | null
+    isArchived?: boolean
+    lockedAt?: Date | string | null
+    createdByUserId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type ClassScheduleUpdateWithoutClassInput = {
     id?: StringFieldUpdateOperationsInput | string
     dayOfWeek?: IntFieldUpdateOperationsInput | number
@@ -362670,6 +365833,7 @@ export namespace Prisma {
     students?: StudentUpdateManyWithoutSectionNestedInput
     attendanceSessions?: AttendanceSessionUpdateManyWithoutSectionNestedInput
     offeredAdmissions?: OnlineAdmissionUpdateManyWithoutOfferedSectionNestedInput
+    exams?: ExamUpdateManyWithoutSectionNestedInput
   }
 
   export type SectionUncheckedUpdateWithoutClassInput = {
@@ -362689,6 +365853,7 @@ export namespace Prisma {
     students?: StudentUncheckedUpdateManyWithoutSectionNestedInput
     attendanceSessions?: AttendanceSessionUncheckedUpdateManyWithoutSectionNestedInput
     offeredAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutOfferedSectionNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutSectionNestedInput
   }
 
   export type SectionUncheckedUpdateManyWithoutClassInput = {
@@ -363244,6 +366409,69 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ExamUpdateWithoutClassInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAcademicExamStatusFieldUpdateOperationsInput | $Enums.AcademicExamStatus
+    term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
+    startsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gradingStartsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gradingEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    lockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutExamsNestedInput
+    academicSession?: AcademicSessionUpdateOneRequiredWithoutExamsNestedInput
+    section?: SectionUpdateOneWithoutExamsNestedInput
+    createdBy?: UserUpdateOneWithoutCreatedExamsNestedInput
+  }
+
+  export type ExamUncheckedUpdateWithoutClassInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAcademicExamStatusFieldUpdateOperationsInput | $Enums.AcademicExamStatus
+    branchId?: StringFieldUpdateOperationsInput | string
+    sectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionId?: StringFieldUpdateOperationsInput | string
+    term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
+    startsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gradingStartsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gradingEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    lockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdByUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExamUncheckedUpdateManyWithoutClassInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAcademicExamStatusFieldUpdateOperationsInput | $Enums.AcademicExamStatus
+    branchId?: StringFieldUpdateOperationsInput | string
+    sectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionId?: StringFieldUpdateOperationsInput | string
+    term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
+    startsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gradingStartsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gradingEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    lockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdByUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type AssessmentRecordCreateManySectionInput = {
     id?: string
     asgn1?: Decimal | DecimalJsLike | number | string | null
@@ -363627,6 +366855,27 @@ export namespace Prisma {
     offerDeadline?: Date | string | null
     waitlistPosition?: number | null
     waitlistNotes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ExamCreateManySectionInput = {
+    id?: string
+    title: string
+    code?: string | null
+    description?: string | null
+    status?: $Enums.AcademicExamStatus
+    branchId: string
+    classId?: string | null
+    sessionId: string
+    term: $Enums.Term
+    startsAt?: Date | string | null
+    endsAt?: Date | string | null
+    gradingStartsAt?: Date | string | null
+    gradingEndsAt?: Date | string | null
+    isArchived?: boolean
+    lockedAt?: Date | string | null
+    createdByUserId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -364854,6 +368103,69 @@ export namespace Prisma {
     offerDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     waitlistPosition?: NullableIntFieldUpdateOperationsInput | number | null
     waitlistNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExamUpdateWithoutSectionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAcademicExamStatusFieldUpdateOperationsInput | $Enums.AcademicExamStatus
+    term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
+    startsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gradingStartsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gradingEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    lockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutExamsNestedInput
+    academicSession?: AcademicSessionUpdateOneRequiredWithoutExamsNestedInput
+    class?: ClassUpdateOneWithoutExamsNestedInput
+    createdBy?: UserUpdateOneWithoutCreatedExamsNestedInput
+  }
+
+  export type ExamUncheckedUpdateWithoutSectionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAcademicExamStatusFieldUpdateOperationsInput | $Enums.AcademicExamStatus
+    branchId?: StringFieldUpdateOperationsInput | string
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionId?: StringFieldUpdateOperationsInput | string
+    term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
+    startsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gradingStartsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gradingEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    lockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdByUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExamUncheckedUpdateManyWithoutSectionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAcademicExamStatusFieldUpdateOperationsInput | $Enums.AcademicExamStatus
+    branchId?: StringFieldUpdateOperationsInput | string
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionId?: StringFieldUpdateOperationsInput | string
+    term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
+    startsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gradingStartsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gradingEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    lockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdByUserId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -366096,6 +369408,7 @@ export namespace Prisma {
 
   export type TransportAssignmentCreateManyVehicleInput = {
     id?: string
+    branchId?: string | null
     studentId: string
     routeId: string
     createdAt?: Date | string
@@ -366106,6 +369419,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneWithoutTransportAssignmentsNestedInput
     route?: TransportRouteUpdateOneRequiredWithoutAssignmentsNestedInput
     student?: StudentUpdateOneRequiredWithoutTransportAssignmentNestedInput
     transportAttendances?: TransportAttendanceUpdateManyWithoutAssignmentNestedInput
@@ -366113,6 +369427,7 @@ export namespace Prisma {
 
   export type TransportAssignmentUncheckedUpdateWithoutVehicleInput = {
     id?: StringFieldUpdateOperationsInput | string
+    branchId?: NullableStringFieldUpdateOperationsInput | string | null
     studentId?: StringFieldUpdateOperationsInput | string
     routeId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -366122,6 +369437,7 @@ export namespace Prisma {
 
   export type TransportAssignmentUncheckedUpdateManyWithoutVehicleInput = {
     id?: StringFieldUpdateOperationsInput | string
+    branchId?: NullableStringFieldUpdateOperationsInput | string | null
     studentId?: StringFieldUpdateOperationsInput | string
     routeId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -366130,6 +369446,7 @@ export namespace Prisma {
 
   export type TransportAssignmentCreateManyRouteInput = {
     id?: string
+    branchId?: string | null
     studentId: string
     vehicleId: string
     createdAt?: Date | string
@@ -366140,6 +369457,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneWithoutTransportAssignmentsNestedInput
     student?: StudentUpdateOneRequiredWithoutTransportAssignmentNestedInput
     vehicle?: VehicleUpdateOneRequiredWithoutAssignmentsNestedInput
     transportAttendances?: TransportAttendanceUpdateManyWithoutAssignmentNestedInput
@@ -366147,6 +369465,7 @@ export namespace Prisma {
 
   export type TransportAssignmentUncheckedUpdateWithoutRouteInput = {
     id?: StringFieldUpdateOperationsInput | string
+    branchId?: NullableStringFieldUpdateOperationsInput | string | null
     studentId?: StringFieldUpdateOperationsInput | string
     vehicleId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -366156,6 +369475,7 @@ export namespace Prisma {
 
   export type TransportAssignmentUncheckedUpdateManyWithoutRouteInput = {
     id?: StringFieldUpdateOperationsInput | string
+    branchId?: NullableStringFieldUpdateOperationsInput | string | null
     studentId?: StringFieldUpdateOperationsInput | string
     vehicleId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -366458,6 +369778,27 @@ export namespace Prisma {
     description?: string | null
     status?: $Enums.AdmissionExamStatus
     maxScore?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ExamCreateManyAcademicSessionInput = {
+    id?: string
+    title: string
+    code?: string | null
+    description?: string | null
+    status?: $Enums.AcademicExamStatus
+    branchId: string
+    classId?: string | null
+    sectionId?: string | null
+    term: $Enums.Term
+    startsAt?: Date | string | null
+    endsAt?: Date | string | null
+    gradingStartsAt?: Date | string | null
+    gradingEndsAt?: Date | string | null
+    isArchived?: boolean
+    lockedAt?: Date | string | null
+    createdByUserId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -367110,6 +370451,69 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ExamUpdateWithoutAcademicSessionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAcademicExamStatusFieldUpdateOperationsInput | $Enums.AcademicExamStatus
+    term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
+    startsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gradingStartsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gradingEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    lockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutExamsNestedInput
+    class?: ClassUpdateOneWithoutExamsNestedInput
+    section?: SectionUpdateOneWithoutExamsNestedInput
+    createdBy?: UserUpdateOneWithoutCreatedExamsNestedInput
+  }
+
+  export type ExamUncheckedUpdateWithoutAcademicSessionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAcademicExamStatusFieldUpdateOperationsInput | $Enums.AcademicExamStatus
+    branchId?: StringFieldUpdateOperationsInput | string
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    sectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
+    startsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gradingStartsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gradingEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    lockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdByUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExamUncheckedUpdateManyWithoutAcademicSessionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAcademicExamStatusFieldUpdateOperationsInput | $Enums.AcademicExamStatus
+    branchId?: StringFieldUpdateOperationsInput | string
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    sectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    term?: EnumTermFieldUpdateOperationsInput | $Enums.Term
+    startsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gradingStartsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gradingEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    lockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdByUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type AssessmentScoreCreateManyRecordInput = {
     id?: string
     score?: number
@@ -367178,6 +370582,46 @@ export namespace Prisma {
     score?: FloatFieldUpdateOperationsInput | number
     studentId?: StringFieldUpdateOperationsInput | string
     recordId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TranscriptVerificationCreateManyTranscriptInput = {
+    id?: string
+    verificationCode: string
+    qrPayload: string
+    checkedAt?: Date | string | null
+    revokedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TranscriptVerificationUpdateWithoutTranscriptInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    verificationCode?: StringFieldUpdateOperationsInput | string
+    qrPayload?: StringFieldUpdateOperationsInput | string
+    checkedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TranscriptVerificationUncheckedUpdateWithoutTranscriptInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    verificationCode?: StringFieldUpdateOperationsInput | string
+    qrPayload?: StringFieldUpdateOperationsInput | string
+    checkedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TranscriptVerificationUncheckedUpdateManyWithoutTranscriptInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    verificationCode?: StringFieldUpdateOperationsInput | string
+    qrPayload?: StringFieldUpdateOperationsInput | string
+    checkedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

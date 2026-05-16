@@ -95,14 +95,27 @@ export class PrismaService
                 };
               } else if (
                 operation === 'update' ||
-                operation === 'updateMany' ||
-                operation === 'upsert'
+                operation === 'updateMany'
               ) {
                 // Skip branchId WHERE injection when the data explicitly changes branchId
                 // (e.g. SUPER_ADMIN reassigning a user to a new branch)
                 if (!args.data?.branchId) {
                   args.where = {
                     ...args.where,
+                    branchId,
+                  };
+                }
+              } else if (operation === 'upsert') {
+                // For upsert: inject branchId into both where AND create.data
+                if (!args.data?.branchId) {
+                  args.where = {
+                    ...args.where,
+                    branchId,
+                  };
+                }
+                if (!args.create?.branchId) {
+                  args.create = {
+                    ...args.create,
                     branchId,
                   };
                 }

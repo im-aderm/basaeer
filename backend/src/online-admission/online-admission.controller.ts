@@ -67,8 +67,11 @@ export class OnlineAdmissionController {
   @ApiOperation({ summary: 'Retrieve All' })
   @Get()
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  findAll(@GetTenantContext() context: TenantContext) {
-    return this.onlineAdmissionService.findAll(context);
+  findAll(
+    @GetTenantContext() context: TenantContext,
+    @Query('status') status?: string,
+  ) {
+    return this.onlineAdmissionService.findAll(context, { status });
   }
 
   @ApiBearerAuth()

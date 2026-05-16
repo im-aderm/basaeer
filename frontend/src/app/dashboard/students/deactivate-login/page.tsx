@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import {
     UserX,
     UserCheck,
@@ -47,6 +47,11 @@ interface Student {
     } | null;
 }
 
+interface PaginatedResponse {
+    data: Student[];
+    totalCount: number;
+}
+
 interface Deactivation {
     id: string;
     studentId: string;
@@ -64,9 +69,37 @@ interface Deactivation {
 
 const PAGE_SIZE = 20;
 
+const PaginationControls = ({ currentPage, totalPages, onPageChange }: { currentPage: number; totalPages: number; onPageChange: (page: number) => void }) => (
+    <div className="flex items-center justify-between mt-4 px-2">
+        <p className="text-sm text-muted-foreground">
+            Page {currentPage} of {totalPages || 1}
+        </p>
+        <div className="flex items-center gap-2">
+            <Button
+                variant="outline"
+                size="sm"
+                disabled={currentPage <= 1}
+                onClick={() => onPageChange(currentPage - 1)}
+            >
+                <ChevronLeft size={16} />
+            </Button>
+            <Button
+                variant="outline"
+                size="sm"
+                disabled={currentPage >= totalPages}
+                onClick={() => onPageChange(currentPage + 1)}
+            >
+                <ChevronRight size={16} />
+            </Button>
+        </div>
+    </div>
+);
+
 export default function StudentLoginDeactivationPage() {
     const [activeStudents, setActiveStudents] = useState<Student[]>([]);
     const [inactiveStudents, setInactiveStudents] = useState<Student[]>([]);
+    const [activeTotal, setActiveTotal] = useState(0);
+    const [inactiveTotal, setInactiveTotal] = useState(0);
     const [deactivations, setDeactivations] = useState<Deactivation[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
@@ -109,8 +142,12 @@ export default function StudentLoginDeactivationPage() {
                 api.get("/students/login-deactivations"),
             ]);
 
-            setActiveStudents(activeRes.data || []);
-            setInactiveStudents(inactiveRes.data || []);
+            const activeData = activeRes.data as PaginatedResponse;
+            const inactiveData = inactiveRes.data as PaginatedResponse;
+            setActiveStudents(activeData.data || []);
+            setActiveTotal(activeData.totalCount || 0);
+            setInactiveStudents(inactiveData.data || []);
+            setInactiveTotal(inactiveData.totalCount || 0);
             setDeactivations(deactivationsRes.data || []);
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to load deactivation data:", error);
@@ -217,34 +254,11 @@ export default function StudentLoginDeactivationPage() {
         return deactivations.find(d => d.userId === student.userId) || null;
     };
 
-    const deactivationMap = new Map<string, Deactivation>();
-    deactivations.forEach(d => deactivationMap.set(d.userId, d));
-
-    const PaginationControls = ({ currentPage, totalPages, onPageChange }: { currentPage: number; totalPages: number; onPageChange: (page: number) => void }) => (
-        <div className="flex items-center justify-between mt-4 px-2">
-            <p className="text-sm text-muted-foreground">
-                Page {currentPage} of {totalPages || 1}
-            </p>
-            <div className="flex items-center gap-2">
-                <Button
-                    variant="outline"
-                    size="sm"
-                    disabled={currentPage <= 1}
-                    onClick={() => onPageChange(currentPage - 1)}
-                >
-                    <ChevronLeft size={16} />
-                </Button>
-                <Button
-                    variant="outline"
-                    size="sm"
-                    disabled={currentPage >= totalPages}
-                    onClick={() => onPageChange(currentPage + 1)}
-                >
-                    <ChevronRight size={16} />
-                </Button>
-            </div>
-        </div>
-    );
+    const deactivationMap = useMemo(() => {
+        const map = new Map<string, Deactivation>();
+        deactivations.forEach(d => map.set(d.userId, d));
+        return map;
+    }, [deactivations]);
 
     if (loading) {
         return (
@@ -312,7 +326,7 @@ export default function StudentLoginDeactivationPage() {
                         </div>
                         <div>
                             <p className="text-xs font-semibold uppercase text-muted-foreground">Total Students</p>
-                            <p className="text-2xl font-bold">{activeStudents.length + inactiveStudents.length}</p>
+                            <p className="text-2xl font-bold">{activeTotal + inactiveTotal}</p>
                         </div>
                     </div>
                 </div>
@@ -323,7 +337,7 @@ export default function StudentLoginDeactivationPage() {
                         </div>
                         <div>
                             <p className="text-xs font-semibold uppercase text-muted-foreground">Active Logins</p>
-                            <p className="text-2xl font-bold">{activeStudents.length}</p>
+                            <p className="text-2xl font-bold">{activeTotal}</p>
                         </div>
                     </div>
                 </div>
@@ -334,7 +348,7 @@ export default function StudentLoginDeactivationPage() {
                         </div>
                         <div>
                             <p className="text-xs font-semibold uppercase text-muted-foreground">Inactive Logins</p>
-                            <p className="text-2xl font-bold">{inactiveStudents.length}</p>
+                            <p className="text-2xl font-bold">{inactiveTotal}</p>
                         </div>
                     </div>
                 </div>
@@ -473,7 +487,7 @@ export default function StudentLoginDeactivationPage() {
                     </table>
                 </div>
                 {activeStudents.length > 0 && (
-                    <PaginationControls currentPage={activePage} totalPages={Math.ceil(activeStudents.length / PAGE_SIZE) + 1} onPageChange={setActivePage} />
+                    <PaginationControls currentPage={activePage} totalPages={Math.ceil(activeTotal / PAGE_SIZE) || 1} onPageChange={setActivePage} />
                 )}
             </div>
 
@@ -571,7 +585,7 @@ export default function StudentLoginDeactivationPage() {
                     </table>
                 </div>
                 {inactiveStudents.length > 0 && (
-                    <PaginationControls currentPage={inactivePage} totalPages={Math.ceil(inactiveStudents.length / PAGE_SIZE) + 1} onPageChange={setInactivePage} />
+                    <PaginationControls currentPage={inactivePage} totalPages={Math.ceil(inactiveTotal / PAGE_SIZE) || 1} onPageChange={setInactivePage} />
                 )}
             </div>
 

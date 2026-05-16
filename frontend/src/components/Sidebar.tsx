@@ -8,6 +8,7 @@ import { isFeatureEnabled, FEATURE_FLAGS } from "@/lib/feature-flags";
 import {
     LayoutDashboard,
     Box,
+    Building2,
     Home,
     UserPlus,
     Users,
@@ -68,7 +69,7 @@ const navigation: NavItem[] = [
     },
     {
         title: "Branches",
-        icon: Box,
+        icon: Building2,
         children: [
             { title: "All Branches", href: "/dashboard/branches" },
             { title: "Create Branch", href: "/dashboard/branches/create" },

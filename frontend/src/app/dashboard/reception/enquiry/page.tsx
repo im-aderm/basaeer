@@ -433,33 +433,19 @@ function EnquiryForm({ formData, setFormData, sources }: { formData: any, setFor
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 />
             </div>
-            <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                    <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Follow up Date</Label>
-                    <div className="relative">
-                        <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground opacity-50" />
-                        <Input
-                            type="date"
-                            className="h-12 pl-10 rounded-xl font-bold"
-                            value={formData.nextFollowUpDate}
-                            onChange={(e) => setFormData({ ...formData, nextFollowUpDate: e.target.value })}
-                        />
-                    </div>
-                </div>
-                <div className="space-y-2 text-xs">
-                    <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Status</Label>
-                    <Select value={formData.status} onValueChange={(v) => setFormData({ ...formData, status: v })}>
-                        <SelectTrigger className="h-12 rounded-xl font-bold">
-                            <SelectValue placeholder="Status" />
-                        </SelectTrigger>
-                        <SelectContent className="rounded-xl border-border font-bold text-[10px]">
-                            <SelectItem value="PENDING">PENDING</SelectItem>
-                            <SelectItem value="FOLLOW_UP">FOLLOW_UP</SelectItem>
-                            <SelectItem value="WON">WON</SelectItem>
-                            <SelectItem value="LOST">LOST</SelectItem>
-                        </SelectContent>
-                    </Select>
-                </div>
+            <div className="space-y-2 text-xs">
+                <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Status</Label>
+                <Select value={formData.status} onValueChange={(v) => setFormData({ ...formData, status: v })}>
+                    <SelectTrigger className="h-12 rounded-xl font-bold">
+                        <SelectValue placeholder="Status" />
+                    </SelectTrigger>
+                    <SelectContent className="rounded-xl border-border font-bold text-[10px]">
+                        <SelectItem value="PENDING">PENDING</SelectItem>
+                        <SelectItem value="FOLLOW_UP">FOLLOW_UP</SelectItem>
+                        <SelectItem value="WON">WON</SelectItem>
+                        <SelectItem value="LOST">LOST</SelectItem>
+                    </SelectContent>
+                </Select>
             </div>
         </div>
     );

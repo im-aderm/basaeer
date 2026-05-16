@@ -218,7 +218,12 @@ export class StudentsService {
       ];
     }
     if (filters?.isActive !== undefined) {
-      where.user = { isActive: filters.isActive };
+      if (where.OR) {
+        where.AND = [{ user: { isActive: filters.isActive } }, ...(where.OR ? [{ OR: where.OR }] : [])];
+        delete where.OR;
+      } else {
+        where.user = { isActive: filters.isActive };
+      }
     }
 
     const orderBy: any = {};
@@ -265,6 +270,93 @@ export class StudentsService {
         },
       },
     });
+  }
+
+  async findAllWithCount(
+    context: TenantContext,
+    filters?: {
+      classId?: string;
+      sectionId?: string;
+      search?: string;
+      enrollmentStatus?: string;
+      isActive?: boolean;
+    },
+    skip?: number,
+    take: number = 50,
+    sortBy?: string,
+    sortOrder?: 'asc' | 'desc',
+  ) {
+    const where: any = TenantHelper.applyIsolation({}, context, { softDelete: true });
+
+    if (filters?.classId) where.classId = filters.classId;
+    if (filters?.sectionId) where.sectionId = filters.sectionId;
+    if (filters?.enrollmentStatus) where.enrollmentStatus = filters.enrollmentStatus;
+    if (filters?.search) {
+      where.OR = [
+        { firstName: { contains: filters.search, mode: 'insensitive' } },
+        { lastName: { contains: filters.search, mode: 'insensitive' } },
+        { admissionNumber: { contains: filters.search, mode: 'insensitive' } },
+        { user: { email: { contains: filters.search, mode: 'insensitive' } } },
+      ];
+    }
+    if (filters?.isActive !== undefined) {
+      if (where.OR) {
+        where.AND = [{ user: { isActive: filters.isActive } }, ...(where.OR ? [{ OR: where.OR }] : [])];
+        delete where.OR;
+      } else {
+        where.user = { isActive: filters.isActive };
+      }
+    }
+
+    const orderBy: any = {};
+    if (sortBy === 'class') {
+      orderBy.class = { name: sortOrder || 'asc' };
+    } else if (sortBy === 'section') {
+      orderBy.section = { name: sortOrder || 'asc' };
+    } else if (sortBy === 'name') {
+      orderBy.lastName = sortOrder || 'asc';
+    } else if (sortBy === 'admissionNumber') {
+      orderBy.admissionNumber = sortOrder || 'asc';
+    } else {
+      orderBy.createdAt = 'desc';
+    }
+
+    const [data, totalCount] = await this.prisma.$transaction([
+      this.prisma.student.findMany({
+        where,
+        skip: skip ? Number(skip) : undefined,
+        take: take ? Number(take) : 50,
+        orderBy,
+        include: {
+          user: {
+            select: {
+              id: true,
+              email: true,
+              firstName: true,
+              lastName: true,
+              phone: true,
+              isActive: true,
+              role: true,
+            },
+          },
+          class: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+          section: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+      }),
+      this.prisma.student.count({ where }),
+    ]);
+
+    return { data, totalCount };
   }
 
   async findOne(id: string, context: TenantContext) {
@@ -363,9 +455,18 @@ export class StudentsService {
   async remove(id: string, context: TenantContext) {
     const student = await this.findOne(id, context);
 
-    return this.prisma.student.update({
-      where: { id },
-      data: { deletedAt: new Date() },
+    return this.prisma.$transaction(async (tx) => {
+      await tx.student.update({
+        where: { id },
+        data: { deletedAt: new Date() },
+      });
+
+      if (student.userId) {
+        await tx.user.update({
+          where: { id: student.userId },
+          data: { isActive: false },
+        });
+      }
     });
   }
 

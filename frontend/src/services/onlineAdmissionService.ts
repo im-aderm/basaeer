@@ -142,8 +142,10 @@ export interface OnlineAdmission {
 }
 
 export const OnlineAdmissionService = {
-    getAll: async (branchId: string): Promise<OnlineAdmission[]> => {
-        const response = await api.get("/online-admissions", { params: { branchId } });
+    getAll: async (branchId: string, status?: string): Promise<OnlineAdmission[]> => {
+        const params: any = { branchId };
+        if (status) params.status = status;
+        const response = await api.get("/online-admissions", { params });
         return response.data;
     },
 

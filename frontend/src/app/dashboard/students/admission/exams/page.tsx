@@ -30,6 +30,7 @@ export default function AdmissionExamsPage() {
     const [exams, setExams] = useState<AdmissionExam[]>([]);
     const [sessions, setSessions] = useState<AcademicSession[]>([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
     const [showCreateForm, setShowCreateForm] = useState(false);
     const [selectedExam, setSelectedExam] = useState<AdmissionExam | null>(null);
     const [examDetail, setExamDetail] = useState<any>(null);
@@ -55,6 +56,7 @@ export default function AdmissionExamsPage() {
 
     const fetchData = async () => {
         try {
+            setError(null);
             const [examsData, sessionsData] = await Promise.all([
                 AdmissionExamService.getAll(),
                 SessionService.getAll(),
@@ -63,6 +65,7 @@ export default function AdmissionExamsPage() {
             setSessions(sessionsData);
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to fetch:", error);
+            setError("Failed to load exam data. Please try again.");
             toast.error("Failed to load data");
         } finally {
             setLoading(false);
@@ -141,6 +144,18 @@ export default function AdmissionExamsPage() {
         return (
             <div className="flex h-[80vh] items-center justify-center">
                 <Loader2 className="w-12 h-12 animate-spin text-primary" />
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="flex flex-col h-[80vh] items-center justify-center gap-4">
+                <AlertCircle className="w-12 h-12 text-red-500" />
+                <p className="text-lg font-semibold text-muted-foreground">{error}</p>
+                <button onClick={fetchData} className="px-6 py-2 bg-primary text-white rounded-xl hover:opacity-90">
+                    Retry
+                </button>
             </div>
         );
     }

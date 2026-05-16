@@ -72,9 +72,13 @@ export class OnlineAdmissionService {
     return admission;
   }
 
-  findAll(context: TenantContext) {
+  findAll(context: TenantContext, filters?: { status?: string }) {
+    const where: any = TenantHelper.applyIsolation({}, context);
+    if (filters?.status) {
+      where.status = filters.status;
+    }
     return this.prisma.onlineAdmission.findMany({
-      where: TenantHelper.applyIsolation({}, context),
+      where,
       include: {
         desiredClass: true,
         desiredSection: true,
@@ -216,10 +220,13 @@ export class OnlineAdmissionService {
 
     return this.prisma.$transaction(async (tx) => {
       const year = new Date().getFullYear();
-      const count = await tx.student.count({
-        where: { branchId },
+
+      const counter = await tx.counter.upsert({
+        where: { branchId_model: { branchId, model: 'Student' } },
+        update: { lastValue: { increment: 1 } },
+        create: { branchId, model: 'Student', lastValue: 1 },
       });
-      const studentIdNumber = `BMS-${year}-${(count + 1).toString().padStart(4, '0')}`;
+      const studentIdNumber = `BMS-${year}-${counter.lastValue.toString().padStart(4, '0')}`;
 
       let parentId = admission.parentId;
 
@@ -234,14 +241,15 @@ export class OnlineAdmissionService {
 
         if (!parentId) {
           const parentPassword = await bcrypt.hash(crypto.randomBytes(8).toString('hex'), 8);
+          const guardianNameParts = (admission.guardianName || '').trim().split(/\s+/);
           const newParent = await tx.user.create({
             data: {
               email: admission.guardianEmail,
               password: parentPassword,
-              firstName: admission.guardianName.split(' ')[0],
+              firstName: guardianNameParts[0] || 'Guardian',
               lastName:
                 admission.lastName ||
-                admission.guardianName.split(' ').slice(1).join(' '),
+                guardianNameParts.slice(1).join(' ') || 'Unknown',
               phone: admission.guardianPhone,
               role: UserRole.PARENT,
               branchId,
@@ -257,7 +265,7 @@ export class OnlineAdmissionService {
       if (admission.createPortalAccount) {
         const email =
           admission.studentEmail ||
-          `std.${admission.firstName.toLowerCase()}.${admission.lastName.toLowerCase()}${count + 1}@basaer.com`;
+          `std.${admission.firstName.toLowerCase()}.${admission.lastName.toLowerCase()}.${counter.lastValue}@basaer.com`;
         const hashedPassword = await bcrypt.hash(crypto.randomBytes(8).toString('hex'), 8);
 
         const user = await tx.user.create({
@@ -607,7 +615,13 @@ export class OnlineAdmissionService {
     for (const admission of expired) {
       await this.prisma.onlineAdmission.update({
         where: { id: admission.id },
-        data: { status: 'WAITLISTED' },
+        data: {
+          status: 'WAITLISTED',
+          offerDeadline: null,
+          offeredClassId: null,
+          offeredSectionId: null,
+          offerLetterSentAt: null,
+        },
       });
 
       try {
