@@ -12,7 +12,8 @@ import { BranchesService } from './branches.service';
 import { Prisma } from '../generated/client/client';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
-import { BranchGuard } from '../auth/branch.guard';
+import { BranchGuard, TenantContext } from '../auth/branch.guard';
+import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { Roles } from '../auth/roles.decorator';
 import { UserRole } from '../generated/client/client';
 import { Public } from '../auth/public.decorator';
@@ -43,8 +44,8 @@ export class BranchesController {
   @ApiOperation({ summary: 'Create resource' })
   @Post()
   @Roles(UserRole.SUPER_ADMIN)
-  create(@Body() createBranchDto: Prisma.BranchCreateInput) {
-    return this.branchesService.create(createBranchDto);
+  create(@Body() createBranchDto: Prisma.BranchCreateInput, @GetTenantContext() ctx: TenantContext) {
+    return this.branchesService.create(createBranchDto, ctx.userId);
   }
 
   @ApiBearerAuth()

@@ -22,7 +22,6 @@ async function main() {
     await prisma.$executeRawUnsafe(`TRUNCATE TABLE ${tables} CASCADE;`);
   } catch (error) {
     console.log('Error during truncate, falling back to manual deletion...');
-    // Fallback if truncate fails (though it shouldn't on Postgres)
   }
 
   const passwordHash = await bcrypt.hash('Password123!', 8);
@@ -40,13 +39,105 @@ async function main() {
     },
   });
 
-  // 3. Create Users for all Roles
-  console.log('Seeding Users and Roles...');
+  // ── Seed default custom roles ───────────────────────────────────────────
+  console.log('Seeding default custom roles...');
+  const roleEnumValues = [
+    'SUPER_ADMIN',
+    'BRANCH_ADMIN',
+    'TEACHER',
+    'HOD',
+    'PRINCIPAL',
+    'EXAM_OFFICER',
+    'ACADEMIC_OFFICER',
+    'ACCOUNTANT',
+    'HR',
+    'LIBRARIAN',
+    'HOSTEL_ADMIN',
+    'TRANSPORT_OFFICER',
+    'STUDENT',
+    'PARENT',
+    'RECEPTIONIST',
+  ];
+  const roleMap: Record<string, any> = {};
+  for (const rv of roleEnumValues) {
+    const role = await prisma.role.upsert({
+      where: { slug: rv.toLowerCase() },
+      update: {},
+      create: {
+        name: rv.replace(/_/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase()),
+        slug: rv.toLowerCase(),
+        description: `Default ${rv.replace(/_/g, ' ').toLowerCase()} role`,
+        isSystem: true,
+        branchId: null,
+      },
+    });
+    roleMap[rv] = role;
+  }
+  console.log(`Seeded ${roleEnumValues.length} default roles.`);
+
+  // ── Seed legacy RolePermission defaults ─────────────────────────────────
+  console.log('Seeding default RolePermission records...');
+  const MODULES = [
+    'Dashboard', 'Core Administration', 'Branches', 'Academic Sessions',
+    'Classes & Sections', 'Subjects', 'Student Admission', 'Student Profile',
+    'Student Attendance', 'Examination Configuration', 'Mark Entry',
+    'Academic Reports', 'Online Exams', 'Student Accounting', 'Office Accounting',
+    'Human Resource', 'Payroll', 'Leave Management', 'Library', 'Hostel',
+    'Transport', 'Inventory', 'Front Office', 'Communication (SMS/Email)',
+    'Events', 'Reporting & Analytics', 'System Settings',
+  ];
+  const ACTIONS = ['CREATE', 'READ', 'UPDATE', 'DELETE'];
+  const roleEnumList = Object.values(UserRole);
+  for (const role of roleEnumList) {
+    for (const module of MODULES) {
+      for (const action of ACTIONS) {
+        await prisma.rolePermission.upsert({
+          where: { role_module_action: { role, module, action } },
+          update: {},
+          create: {
+            role,
+            module,
+            action,
+            isAllowed: role === UserRole.SUPER_ADMIN,
+          },
+        });
+      }
+    }
+  }
+  console.log(`Seeded ${MODULES.length * ACTIONS.length * roleEnumList.length} RolePermission records.`);
+
+  // ── Copy permissions from RolePermission → CustomRolePermission ─────────
+  console.log('Copying permissions to custom roles...');
+  const existingPerms = await prisma.rolePermission.findMany();
+  let copiedCount = 0;
+  for (const perm of existingPerms) {
+    const roleSlug = perm.role.toLowerCase();
+    const role = roleMap[perm.role];
+    if (role) {
+      await prisma.customRolePermission.upsert({
+        where: { roleId_module_action: { roleId: role.id, module: perm.module, action: perm.action } },
+        update: { isAllowed: perm.isAllowed },
+        create: {
+          roleId: role.id,
+          module: perm.module,
+          action: perm.action,
+          isAllowed: perm.isAllowed,
+        },
+      });
+      copiedCount++;
+    }
+  }
+  console.log(`Copied ${copiedCount} permissions to custom roles.`);
+
+  // 3. Create Users for all Roles (with roleId linked to custom roles)
+  console.log('Seeding Users...');
   const roles = Object.values(UserRole);
   const users: Record<string, any> = {};
 
   for (const role of roles) {
     const email = `${role.toLowerCase().replace('_', '.')}@basaeer.com`;
+    const roleSlug = role.toLowerCase();
+    const customRole = roleMap[role];
     users[role] = await prisma.user.create({
       data: {
         email,
@@ -54,6 +145,7 @@ async function main() {
         firstName: role.charAt(0) + role.slice(1).toLowerCase().replace('_', ' '),
         lastName: 'Admin',
         role: role,
+        roleId: customRole?.id || null,
         branchId: branch.id,
         isActive: true,
       },
@@ -448,61 +540,6 @@ async function main() {
       branchId: branch.id,
     },
   });
-
-  // ── Seed default custom roles ───────────────────────────────────────────
-  console.log('Seeding default custom roles...');
-  const roleEnumValues = [
-    'SUPER_ADMIN',
-    'BRANCH_ADMIN',
-    'TEACHER',
-    'HOD',
-    'PRINCIPAL',
-    'EXAM_OFFICER',
-    'ACADEMIC_OFFICER',
-    'ACCOUNTANT',
-    'HR',
-    'LIBRARIAN',
-    'HOSTEL_ADMIN',
-    'TRANSPORT_OFFICER',
-    'STUDENT',
-    'PARENT',
-    'RECEPTIONIST',
-  ];
-  for (const rv of roleEnumValues) {
-    await prisma.role.upsert({
-      where: { slug: rv.toLowerCase() },
-      update: {},
-      create: {
-        name: rv.replace(/_/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase()),
-        slug: rv.toLowerCase(),
-        description: `Default ${rv.replace(/_/g, ' ').toLowerCase()} role`,
-        isSystem: true,
-        branchId: null,
-      },
-    });
-  }
-  console.log(`Seeded ${roleEnumValues.length} default roles.`);
-
-  // ── Seed role permissions from existing enum-based permissions ──────────
-  console.log('Copying existing permissions to custom roles...');
-  const existingPerms = await prisma.rolePermission.findMany();
-  for (const perm of existingPerms) {
-    const roleSlug = perm.role.toLowerCase();
-    const role = await prisma.role.findUnique({ where: { slug: roleSlug } });
-    if (role) {
-      await prisma.customRolePermission.upsert({
-        where: { roleId_module_action: { roleId: role.id, module: perm.module, action: perm.action } },
-        update: { isAllowed: perm.isAllowed },
-        create: {
-          roleId: role.id,
-          module: perm.module,
-          action: perm.action,
-          isAllowed: perm.isAllowed,
-        },
-      });
-    }
-  }
-  console.log(`Copied ${existingPerms.length} permissions to custom roles.`);
 
   console.log('\nSeed process completed successfully!');
   console.log('--- Login Credentials ---');

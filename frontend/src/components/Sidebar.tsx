@@ -354,8 +354,7 @@ const navigation: NavItem[] = [
         children: [
             { title: "General Settings", href: "/dashboard/settings/general" },
             { title: "School Branding", href: "/dashboard/settings/branding" },
-            { title: "Roles", href: "/dashboard/settings/roles" },
-            { title: "Role Permission", href: "/dashboard/settings/permissions" },
+            { title: "Role Permissions", href: "/dashboard/settings/roles" },
             { title: "Session Settings", href: "/dashboard/settings/sessions" },
             { title: "Translations", href: "/dashboard/settings/translations", isBeta: true },
             { title: "Cron Job", href: "/dashboard/settings/cron", isBeta: true },

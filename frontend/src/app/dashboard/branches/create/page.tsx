@@ -7,6 +7,7 @@ import { UserService, User } from "@/services/userService";
 import { ArrowLeft, Save, Building2, MapPin, Phone, Mail, Hash, Image, Palette, UserCog, Users } from "lucide-react";
 import Link from "next/link";
 import { clsx } from "clsx";
+import { toast } from "sonner";
 
 export default function CreateBranchPage() {
     const router = useRouter();
@@ -30,7 +31,7 @@ export default function CreateBranchPage() {
     });
 
     useEffect(() => {
-        UserService.getAll({ role: "SUPER_ADMIN" }).then(setExistingUsers).catch(() => {});
+        UserService.getAll().then(setExistingUsers).catch(() => {});
     }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -64,8 +65,8 @@ export default function CreateBranchPage() {
             await BranchService.create(payload);
             router.push("/dashboard/branches");
         } catch (error: any) {
-            if (process.env.NODE_ENV === 'development') console.error("Failed to create branch:", error);
-            alert("Failed to create branch. " + (error.response?.data?.message || "Check for duplicate code."));
+            const msg = error.response?.data?.message || "Check for duplicate code.";
+            toast.error("Failed to create branch. " + msg);
         } finally {
             setSubmitting(false);
         }

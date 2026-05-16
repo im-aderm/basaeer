@@ -69,8 +69,8 @@ export class RolesController {
   @ApiOperation({ summary: 'Update Role' })
   @Patch(':id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  update(@Param('id') id: string, @Body() dto: UpdateRoleDto) {
-    return this.rolesService.update(id, dto);
+  update(@Param('id') id: string, @Body() dto: UpdateRoleDto, @GetTenantContext() ctx: TenantContext) {
+    return this.rolesService.update(id, dto, ctx.branchId || undefined, ctx.isSuperAdmin);
   }
 
   @ApiBearerAuth()
@@ -78,8 +78,8 @@ export class RolesController {
   @ApiOperation({ summary: 'Delete Role' })
   @Delete(':id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  remove(@Param('id') id: string) {
-    return this.rolesService.remove(id);
+  remove(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.rolesService.remove(id, ctx.branchId || undefined, ctx.isSuperAdmin);
   }
 
   // ── Permissions ───────────────────────────────────────────────────────
@@ -102,8 +102,9 @@ export class RolesController {
   updatePermission(
     @Param('id') id: string,
     @Body() dto: UpdatePermissionDto,
+    @GetTenantContext() ctx: TenantContext,
   ) {
-    return this.rolesService.updatePermission(id, dto);
+    return this.rolesService.updatePermission(id, dto, ctx.branchId || undefined, ctx.isSuperAdmin);
   }
 
   @ApiBearerAuth()
@@ -115,8 +116,29 @@ export class RolesController {
   bulkUpdatePermissions(
     @Param('id') id: string,
     @Body() permissions: UpdatePermissionDto[],
+    @GetTenantContext() ctx: TenantContext,
   ) {
-    return this.rolesService.bulkUpdatePermissions(id, permissions);
+    return this.rolesService.bulkUpdatePermissions(id, permissions, ctx.branchId || undefined, ctx.isSuperAdmin);
+  }
+
+  // ── Modules & Seed ─────────────────────────────────────────────────────
+
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Get distinct modules from DB' })
+  @Get('modules')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+  getModules() {
+    return this.rolesService.getModules();
+  }
+
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Seed CustomRolePermission from legacy RolePermission' })
+  @Post('seed')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+  seedPermissions() {
+    return this.rolesService.seedPermissions();
   }
 
   // ── User Assignment ────────────────────────────────────────────────────

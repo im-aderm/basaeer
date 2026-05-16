@@ -55,26 +55,9 @@ export class PrismaService
             const userId = store?.userId ?? '';
             const isSuperAdmin = store?.isSuperAdmin ?? false;
 
-            if (userId) {
-              if (operation === 'create') {
-                args.data = {
-                  ...args.data,
-                  createdByUserId: userId,
-                  updatedByUserId: userId,
-                };
-              } else if (
-                operation === 'update' ||
-                operation === 'upsert'
-              ) {
-                args.data = {
-                  ...args.data,
-                  updatedByUserId: userId,
-                };
-              }
-            }
-
             // Block writes when no branch context is set
-            if (!branchId) {
+            // Exception: Branch model creates define the tenant boundary itself
+            if (!branchId && model !== 'Branch') {
               const writeOps = ['create', 'update', 'updateMany', 'delete', 'deleteMany', 'upsert'];
               if (writeOps.includes(operation)) {
                 throw new Error('Branch context is required to modify data. Please select a branch.');
@@ -84,7 +67,8 @@ export class PrismaService
             }
 
             // Apply branch isolation for ALL users
-            if (branchId) {
+            // Exception: Branch model is the tenant boundary source, don't inject branchId
+            if (branchId && model !== 'Branch') {
               if (operation === 'create') {
                 args.data = {
                   ...args.data,
@@ -94,11 +78,6 @@ export class PrismaService
                 operation === 'findUnique' ||
                 operation === 'findFirst' ||
                 operation === 'findMany' ||
-                operation === 'update' ||
-                operation === 'updateMany' ||
-                operation === 'delete' ||
-                operation === 'deleteMany' ||
-                operation === 'upsert' ||
                 operation === 'count' ||
                 operation === 'aggregate'
               ) {
@@ -106,6 +85,27 @@ export class PrismaService
                   ...args.where,
                   branchId,
                 };
+              } else if (
+                operation === 'delete' ||
+                operation === 'deleteMany'
+              ) {
+                args.where = {
+                  ...args.where,
+                  branchId,
+                };
+              } else if (
+                operation === 'update' ||
+                operation === 'updateMany' ||
+                operation === 'upsert'
+              ) {
+                // Skip branchId WHERE injection when the data explicitly changes branchId
+                // (e.g. SUPER_ADMIN reassigning a user to a new branch)
+                if (!args.data?.branchId) {
+                  args.where = {
+                    ...args.where,
+                    branchId,
+                  };
+                }
               }
             }
 

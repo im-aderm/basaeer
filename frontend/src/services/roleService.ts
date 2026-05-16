@@ -79,4 +79,14 @@ export const RoleService = {
         const res = await api.delete(`/roles/users/${userId}`);
         return res.data?.data ?? res.data;
     },
+
+    async getModules(): Promise<string[]> {
+        const res = await api.get("/roles/modules");
+        return res.data?.data ?? res.data ?? [];
+    },
+
+    async seedPermissions(): Promise<any> {
+        const res = await api.post("/roles/seed");
+        return res.data?.data ?? res.data;
+    },
 };

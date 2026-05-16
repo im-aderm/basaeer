@@ -64,9 +64,13 @@ export class RolesService {
     });
   }
 
-  async update(id: string, dto: UpdateRoleDto) {
+  async update(id: string, dto: UpdateRoleDto, actorBranchId?: string, isSuperAdmin = false) {
     const role = await this.prisma.role.findUnique({ where: { id } });
     if (!role) throw new NotFoundException('Role not found');
+    if (!isSuperAdmin) {
+      if (role.isSystem) throw new ForbiddenException('Cannot modify system roles');
+      if (role.branchId !== actorBranchId) throw new ForbiddenException('Cannot modify roles from other branches');
+    }
     if (role.isSystem) throw new BadRequestException('Cannot modify system roles');
 
     return this.prisma.role.update({
@@ -75,9 +79,13 @@ export class RolesService {
     });
   }
 
-  async remove(id: string) {
+  async remove(id: string, actorBranchId?: string, isSuperAdmin = false) {
     const role = await this.prisma.role.findUnique({ where: { id } });
     if (!role) throw new NotFoundException('Role not found');
+    if (!isSuperAdmin) {
+      if (role.isSystem) throw new ForbiddenException('Cannot delete system roles');
+      if (role.branchId !== actorBranchId) throw new ForbiddenException('Cannot delete roles from other branches');
+    }
     if (role.isSystem) throw new BadRequestException('Cannot delete system roles');
 
     // Unlink all users from this role before deletion
@@ -91,7 +99,14 @@ export class RolesService {
     return this.prisma.customRolePermission.findMany({ where: { roleId } });
   }
 
-  async updatePermission(roleId: string, dto: UpdatePermissionDto) {
+  async updatePermission(roleId: string, dto: UpdatePermissionDto, actorBranchId?: string, isSuperAdmin = false) {
+    const role = await this.prisma.role.findUnique({ where: { id: roleId } });
+    if (!role) throw new NotFoundException('Role not found');
+    if (!isSuperAdmin) {
+      if (role.isSystem) throw new ForbiddenException('Cannot modify system role permissions');
+      if (role.branchId !== actorBranchId) throw new ForbiddenException('Cannot modify permissions for roles from other branches');
+    }
+
     return this.prisma.customRolePermission.upsert({
       where: { roleId_module_action: { roleId, module: dto.module, action: dto.action } },
       update: { isAllowed: dto.isAllowed },
@@ -99,7 +114,14 @@ export class RolesService {
     });
   }
 
-  async bulkUpdatePermissions(roleId: string, permissions: UpdatePermissionDto[]) {
+  async bulkUpdatePermissions(roleId: string, permissions: UpdatePermissionDto[], actorBranchId?: string, isSuperAdmin = false) {
+    const role = await this.prisma.role.findUnique({ where: { id: roleId } });
+    if (!role) throw new NotFoundException('Role not found');
+    if (!isSuperAdmin) {
+      if (role.isSystem) throw new ForbiddenException('Cannot modify system role permissions');
+      if (role.branchId !== actorBranchId) throw new ForbiddenException('Cannot modify permissions for roles from other branches');
+    }
+
     return this.prisma.$transaction(
       permissions.map((p) =>
         this.prisma.customRolePermission.upsert({
@@ -109,6 +131,42 @@ export class RolesService {
         }),
       ),
     );
+  }
+
+  // ── Modules & Seed ─────────────────────────────────────────────────────
+
+  async getModules() {
+    const [customPerms, legacyPerms] = await Promise.all([
+      this.prisma.customRolePermission.findMany({ select: { module: true }, distinct: ['module'] }),
+      this.prisma.rolePermission.findMany({ select: { module: true }, distinct: ['module'] }),
+    ]);
+    const modules = new Set<string>();
+    customPerms.forEach((p) => modules.add(p.module));
+    legacyPerms.forEach((p) => modules.add(p.module));
+    return Array.from(modules).sort();
+  }
+
+  async seedPermissions() {
+    const roles = await this.prisma.role.findMany({
+      where: { isSystem: true },
+    });
+    const legacyPerms = await this.prisma.rolePermission.findMany();
+    if (legacyPerms.length === 0) return { message: 'No legacy permissions to sync', count: 0 };
+
+    let count = 0;
+    for (const role of roles) {
+      const slug = role.slug;
+      const legacyRolePerms = legacyPerms.filter((p) => p.role.toLowerCase() === slug);
+      for (const perm of legacyRolePerms) {
+        await this.prisma.customRolePermission.upsert({
+          where: { roleId_module_action: { roleId: role.id, module: perm.module, action: perm.action } },
+          update: { isAllowed: perm.isAllowed },
+          create: { roleId: role.id, module: perm.module, action: perm.action, isAllowed: perm.isAllowed },
+        });
+        count++;
+      }
+    }
+    return { message: `Synced ${count} permissions across ${roles.length} system roles`, count };
   }
 
   // ── User Assignment ────────────────────────────────────────────────────

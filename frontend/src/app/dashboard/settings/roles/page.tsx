@@ -3,12 +3,14 @@
 import { useState, useEffect } from "react";
 import { useAuth, isAllCampuses } from "@/context/AuthContext";
 import { RoleService, Role, RolePermission } from "@/services/roleService";
+import { UserService, User } from "@/services/userService";
 import {
     ShieldCheck,
     Plus,
     Trash2,
     Edit,
     Users,
+    UserPlus,
     Key,
     Loader2,
     Search,
@@ -16,11 +18,13 @@ import {
     X,
     Save,
     XCircle,
+    RefreshCcw,
+    Lock,
 } from "lucide-react";
 import { clsx } from "clsx";
 import { toast } from "sonner";
 
-const MODULES = [
+const FALLBACK_MODULES = [
     "Dashboard", "Core Administration", "Branches", "Academic Sessions",
     "Classes & Sections", "Subjects", "Student Admission", "Student Profile",
     "Student Attendance", "Examination Configuration", "Mark Entry",
@@ -33,8 +37,9 @@ const MODULES = [
 const ACTIONS = ["CREATE", "READ", "UPDATE", "DELETE"];
 
 export default function RolesPage() {
-    const { resolvedBranchId, activeBranchId } = useAuth();
+    const { resolvedBranchId, activeBranchId, user } = useAuth();
     const allCampuses = isAllCampuses(activeBranchId);
+    const isSuperAdmin = user?.role === "SUPER_ADMIN";
     const [roles, setRoles] = useState<Role[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
@@ -48,17 +53,43 @@ export default function RolesPage() {
     const [showDeleteConfirm, setShowDeleteConfirm] = useState<string | null>(null);
     const [roleUsers, setRoleUsers] = useState<any[]>([]);
     const [usersLoading, setUsersLoading] = useState(false);
+    const [showAssignModal, setShowAssignModal] = useState(false);
+    const [allUsers, setAllUsers] = useState<User[]>([]);
+    const [allUsersLoading, setAllUsersLoading] = useState(false);
+    const [assignSearch, setAssignSearch] = useState("");
+    const [assigning, setAssigning] = useState(false);
+    const [modules, setModules] = useState<string[]>([]);
+    const [seeding, setSeeding] = useState(false);
 
     const fetchRoles = async () => {
         setLoading(true);
         try {
-            const data = await RoleService.getAll(allCampuses ? undefined : resolvedBranchId);
+            const [data, mods] = await Promise.all([
+                RoleService.getAll(allCampuses ? undefined : resolvedBranchId),
+                RoleService.getModules().catch(() => [] as string[]),
+            ]);
             setRoles(data);
+            setModules(mods.length > 0 ? mods : FALLBACK_MODULES);
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to fetch roles:", error);
         } finally {
             setLoading(false);
         }
+    };
+    const handleSeed = async () => {
+        if (!confirm("This will sync all system role permissions from the legacy permission set. Are you sure?")) return;
+        setSeeding(true);
+        try {
+            await RoleService.seedPermissions();
+            toast.success("Permissions synced successfully");
+            if (selectedRole) {
+                const perms = await RoleService.getPermissions(selectedRole.id);
+                setPermissions(perms);
+            }
+        } catch {
+            toast.error("Failed to sync permissions");
+        }
+        setSeeding(false);
     };
 
     useEffect(() => {
@@ -150,12 +181,22 @@ export default function RolesPage() {
                     <h1 className="text-h1 font-bold tracking-tight text-primary">Roles</h1>
                     <p className="text-muted-foreground mt-1">Create and manage custom roles with granular permissions.</p>
                 </div>
-                <button
-                    onClick={() => setShowCreateModal(true)}
-                    className="flex items-center gap-2 px-5 py-2.5 bg-primary text-white rounded-xl hover:bg-primary/90 transition-all shadow-lg shadow-primary/20"
-                >
-                    <Plus size={18} /> Create Role
-                </button>
+                <div className="flex items-center gap-2">
+                    <button
+                        onClick={handleSeed}
+                        disabled={seeding}
+                        className="flex items-center gap-2 px-4 py-2.5 border border-border rounded-xl hover:bg-muted transition-all disabled:opacity-50"
+                    >
+                        {seeding ? <Loader2 size={18} className="animate-spin" /> : <RefreshCcw size={18} />}
+                        Sync Modules
+                    </button>
+                    <button
+                        onClick={() => setShowCreateModal(true)}
+                        className="flex items-center gap-2 px-5 py-2.5 bg-primary text-white rounded-xl hover:bg-primary/90 transition-all shadow-lg shadow-primary/20"
+                    >
+                        <Plus size={18} /> Create Role
+                    </button>
+                </div>
             </div>
 
             <div className="relative max-w-md">
@@ -187,7 +228,12 @@ export default function RolesPage() {
                                     <ShieldCheck className="w-5 h-5 text-primary" />
                                 </div>
                                 {role.isSystem && (
-                                    <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground bg-muted px-2 py-1 rounded-lg">System</span>
+                                    <span className={clsx(
+                                        "text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-lg",
+                                        isSuperAdmin ? "text-muted-foreground bg-muted" : "text-amber-600 bg-amber-500/10"
+                                    )}>
+                                        {isSuperAdmin ? "System" : "System — Read Only"}
+                                    </span>
                                 )}
                             </div>
                             <h3 className="font-bold">{role.name}</h3>
@@ -212,14 +258,39 @@ export default function RolesPage() {
                 <div>
                     <h2 className="text-h2 font-bold tracking-tight text-primary">{selectedRole.name}</h2>
                     <p className="text-muted-foreground text-sm">Configure module permissions for this role.</p>
+                    {selectedRole.isSystem && !isSuperAdmin && (
+                        <p className="text-xs text-amber-600 mt-1 flex items-center gap-1"><ShieldCheck size={12} /> System role — read-only</p>
+                    )}
                 </div>
-                <button
-                    onClick={() => { setSelectedRole(null); setTab("overview"); }}
-                    className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1"
-                >
-                    <XCircle size={16} /> Back to roles
-                </button>
+                <div className="flex items-center gap-2">
+                    {(isSuperAdmin || !selectedRole.isSystem) && (
+                        <button
+                            onClick={() => setShowDeleteConfirm(selectedRole.id)}
+                            className="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-red-600 bg-red-500/10 rounded-xl hover:bg-red-500/20 transition-all"
+                        >
+                            <Trash2 size={15} /> Delete
+                        </button>
+                    )}
+                    <button
+                        onClick={() => { setSelectedRole(null); setTab("overview"); }}
+                        className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1"
+                    >
+                        <XCircle size={16} /> Back to roles
+                    </button>
+                </div>
             </div>
+
+            {selectedRole.isSystem && isSuperAdmin && (
+                <div className="p-6 bg-primary/5 border border-primary/10 rounded-2xl flex items-start gap-4">
+                    <div className="p-2 bg-primary/10 rounded-xl text-primary shrink-0">
+                        <Lock size={20} />
+                    </div>
+                    <div>
+                        <h4 className="font-bold text-primary">System Role — Full Access</h4>
+                        <p className="text-sm text-primary/70 mt-1">This is a system role. All permissions are enabled by default. You can still toggle individual permissions to restrict access if needed.</p>
+                    </div>
+                </div>
+            )}
 
             {permissionsLoading ? (
                 <div className="flex justify-center py-20"><Loader2 className="w-8 h-8 animate-spin text-primary" /></div>
@@ -236,26 +307,37 @@ export default function RolesPage() {
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-border">
-                                {MODULES.map(module => (
+                                {modules.map(module => (
                                     <tr key={module} className="hover:bg-muted/30 transition-colors">
                                         <td className="px-6 py-4 font-semibold text-sm">{module}</td>
                                         {ACTIONS.map(action => {
                                             const allowed = getPermissionStatus(module, action);
                                             return (
-                                                <td key={action} className="px-4 py-4 text-center">
-                                                    <button
-                                                        onClick={() => handleTogglePermission(module, action, allowed)}
-                                                        className={clsx(
-                                                            "inline-flex items-center justify-center w-8 h-8 rounded-lg transition-all",
-                                                            allowed
-                                                                ? "bg-green-500/10 text-green-600 ring-1 ring-green-600/20"
-                                                                : "bg-red-500/10 text-red-600 ring-1 ring-red-600/20",
-                                                            "hover:scale-110 active:scale-95"
-                                                        )}
-                                                    >
-                                                        {allowed ? <Check size={16} /> : <X size={16} />}
-                                                    </button>
-                                                </td>
+                                                        <td key={action} className="px-4 py-4 text-center">
+                                                            {isSuperAdmin || !selectedRole?.isSystem ? (
+                                                                <button
+                                                                    onClick={() => handleTogglePermission(module, action, allowed)}
+                                                                    className={clsx(
+                                                                        "inline-flex items-center justify-center w-8 h-8 rounded-lg transition-all",
+                                                                        allowed
+                                                                            ? "bg-green-500/10 text-green-600 ring-1 ring-green-600/20"
+                                                                            : "bg-red-500/10 text-red-600 ring-1 ring-red-600/20",
+                                                                        "hover:scale-110 active:scale-95"
+                                                                    )}
+                                                                >
+                                                                    {allowed ? <Check size={16} /> : <X size={16} />}
+                                                                </button>
+                                                            ) : (
+                                                                <span className={clsx(
+                                                                    "inline-flex items-center justify-center w-8 h-8 rounded-lg cursor-not-allowed opacity-70",
+                                                                    allowed
+                                                                        ? "bg-green-500/10 text-green-600 ring-1 ring-green-600/20"
+                                                                        : "bg-red-500/10 text-red-600 ring-1 ring-red-600/20"
+                                                                )}>
+                                                                    {allowed ? <Check size={16} /> : <X size={16} />}
+                                                                </span>
+                                                            )}
+                                                        </td>
                                             );
                                         })}
                                     </tr>
@@ -274,13 +356,34 @@ export default function RolesPage() {
                 <div>
                     <h2 className="text-h2 font-bold tracking-tight text-primary">{selectedRole.name} — Users</h2>
                     <p className="text-muted-foreground text-sm">{roleUsers.length} user(s) assigned this role.</p>
+                    {selectedRole.isSystem && !isSuperAdmin && (
+                        <p className="text-xs text-amber-600 mt-1 flex items-center gap-1"><ShieldCheck size={12} /> System role — read-only</p>
+                    )}
                 </div>
-                <button
-                    onClick={() => { setSelectedRole(null); setTab("overview"); }}
-                    className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1"
-                >
-                    <XCircle size={16} /> Back
-                </button>
+                <div className="flex items-center gap-2">
+                    {(isSuperAdmin || !selectedRole?.isSystem) && (
+                        <button
+                            onClick={async () => {
+                                setAllUsersLoading(true);
+                                setShowAssignModal(true);
+                                try {
+                                    const users = await UserService.getAll();
+                                    setAllUsers(users);
+                                } catch { }
+                                setAllUsersLoading(false);
+                            }}
+                            className="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-primary bg-primary/10 rounded-xl hover:bg-primary/20 transition-all"
+                        >
+                            <UserPlus size={15} /> Assign User
+                        </button>
+                    )}
+                    <button
+                        onClick={() => { setSelectedRole(null); setTab("overview"); }}
+                        className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1"
+                    >
+                        <XCircle size={16} /> Back
+                    </button>
+                </div>
             </div>
 
             <div className="bg-white/75 border border-border rounded-2xl overflow-hidden">
@@ -302,16 +405,18 @@ export default function RolesPage() {
                                     <span className="text-xs font-mono bg-muted px-2 py-1 rounded-lg">{u.role}</span>
                                 </td>
                                 <td className="px-6 py-4 text-right">
-                                    <button
-                                        onClick={async () => {
-                                            await RoleService.removeRole(u.id);
-                                            setRoleUsers(prev => prev.filter(x => x.id !== u.id));
-                                            toast.success("Role removed from user");
-                                        }}
-                                        className="p-2 hover:bg-red-500/10 text-muted-foreground hover:text-red-600 rounded-xl transition-colors"
-                                    >
-                                        <Trash2 size={16} />
-                                    </button>
+                                    {(isSuperAdmin || !selectedRole?.isSystem) && (
+                                        <button
+                                            onClick={async () => {
+                                                await RoleService.removeRole(u.id);
+                                                setRoleUsers(prev => prev.filter(x => x.id !== u.id));
+                                                toast.success("Role removed from user");
+                                            }}
+                                            className="p-2 hover:bg-red-500/10 text-muted-foreground hover:text-red-600 rounded-xl transition-colors"
+                                        >
+                                            <Trash2 size={16} />
+                                        </button>
+                                    )}
                                 </td>
                             </tr>
                         ))}
@@ -398,6 +503,79 @@ export default function RolesPage() {
                                 </button>
                             </div>
                         </form>
+                    </div>
+                </div>
+            )}
+
+            {/* Assign User Modal */}
+            {showAssignModal && selectedRole && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
+                    <div className="bg-white/95 w-full max-w-lg rounded-3xl border border-border shadow-2xl animate-in zoom-in-95 duration-200 overflow-hidden">
+                        <div className="p-8 border-b border-border">
+                            <h3 className="text-2xl font-bold">Assign User</h3>
+                            <p className="text-muted-foreground text-sm mt-1">Assign <strong>{selectedRole.name}</strong> to a user.</p>
+                        </div>
+                        <div className="p-6">
+                            <div className="relative mb-4">
+                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={16} />
+                                <input
+                                    type="text" placeholder="Search users..."
+                                    className="w-full pl-10 pr-4 py-2.5 bg-white border border-primary/90 rounded-xl focus:ring-2 focus:ring-primary/20 outline-none text-sm"
+                                    value={assignSearch} onChange={e => setAssignSearch(e.target.value)}
+                                />
+                            </div>
+                            <div className="max-h-72 overflow-y-auto space-y-1">
+                                {allUsersLoading ? (
+                                    <div className="flex justify-center py-10"><Loader2 className="w-6 h-6 animate-spin text-primary" /></div>
+                                ) : (
+                                    allUsers
+                                        .filter(u => {
+                                            if (assignSearch) {
+                                                const q = assignSearch.toLowerCase();
+                                                if (!u.firstName?.toLowerCase().includes(q) && !u.lastName?.toLowerCase().includes(q) && !u.email?.toLowerCase().includes(q)) return false;
+                                            }
+                                            return !roleUsers.some(ru => ru.id === u.id);
+                                        })
+                                        .map(u => (
+                                            <button
+                                                key={u.id}
+                                                disabled={assigning}
+                                                onClick={async () => {
+                                                    setAssigning(true);
+                                                    try {
+                                                        await RoleService.assignRole(u.id, selectedRole.id);
+                                                        setRoleUsers(prev => [...prev, u]);
+                                                        setAllUsers(prev => prev.filter(x => x.id !== u.id));
+                                                        toast.success(`${u.firstName} ${u.lastName} assigned ${selectedRole.name}`);
+                                                    } catch (e: any) {
+                                                        toast.error(e.response?.data?.message || "Failed to assign role");
+                                                    }
+                                                    setAssigning(false);
+                                                }}
+                                                className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-primary/5 transition-all text-left"
+                                            >
+                                                <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">
+                                                    {u.firstName?.[0]}{u.lastName?.[0]}
+                                                </div>
+                                                <div className="flex-1 min-w-0">
+                                                    <p className="font-semibold text-sm truncate">{u.firstName} {u.lastName}</p>
+                                                    <p className="text-xs text-muted-foreground truncate">{u.email}</p>
+                                                </div>
+                                                <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground bg-muted px-2 py-1 rounded-lg shrink-0">{u.role}</span>
+                                            </button>
+                                        ))
+                                )}
+                                {!allUsersLoading && allUsers.filter(u => !roleUsers.some(ru => ru.id === u.id)).length === 0 && (
+                                    <p className="text-center py-8 text-muted-foreground text-sm">All users already have this role.</p>
+                                )}
+                            </div>
+                        </div>
+                        <div className="p-6 border-t border-border flex justify-end">
+                            <button
+                                onClick={() => { setShowAssignModal(false); setAssignSearch(""); }}
+                                className="px-6 py-2.5 text-sm font-semibold rounded-xl border border-border hover:bg-muted transition-colors"
+                            >Close</button>
+                        </div>
                     </div>
                 </div>
             )}

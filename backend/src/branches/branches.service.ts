@@ -10,10 +10,15 @@ export class BranchesService {
   async create(data: Prisma.BranchCreateInput & {
     adminUserId?: string;
     createAdminUser?: { email: string; firstName: string; lastName: string; password?: string; phone?: string };
-  }): Promise<Branch> {
+  }, userId?: string): Promise<Branch> {
     const { adminUserId, createAdminUser, ...branchData } = data;
 
     const branch = await this.prisma.branch.create({ data: branchData });
+
+    // Set tenant context to the new branch so subsequent user operations pass the write guard
+    if (userId) {
+      this.prisma.setTenantContext(branch.id, userId);
+    }
 
     if (adminUserId) {
       const user = await this.prisma.user.findUnique({ where: { id: adminUserId } });
