@@ -4,6 +4,7 @@ import {
   ConflictException,
   Logger,
   ForbiddenException,
+  BadRequestException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateOnlineAdmissionDto } from './dto/create-online-admission.dto';
@@ -12,6 +13,7 @@ import { UserRole } from '../generated/client/client';
 import * as bcrypt from 'bcrypt';
 import * as crypto from 'crypto';
 import { MailService } from '../mail/mail.service';
+import { CommsService } from '../comms/comms.service';
 import { TenantContext } from '../auth/branch.guard';
 import { TenantHelper } from '../prisma/tenant-helper';
 
@@ -22,6 +24,7 @@ export class OnlineAdmissionService {
   constructor(
     private prisma: PrismaService,
     private mailService: MailService,
+    private commsService: CommsService,
   ) {}
 
   async create(createDto: CreateOnlineAdmissionDto, context: TenantContext) {
@@ -410,5 +413,214 @@ export class OnlineAdmissionService {
       },
       admissionFee: settingsMap.admission_fee || '',
     };
+  }
+
+  async getPipeline(context: TenantContext) {
+    const where = TenantHelper.applyIsolation({}, context);
+
+    const total = await this.prisma.onlineAdmission.count({ where });
+    const statusCounts = await this.prisma.onlineAdmission.groupBy({
+      by: ['status'],
+      where,
+      _count: { status: true },
+    }) as unknown as Array<{ status: string; _count: { status: number } }>;
+
+    const pipeline: Record<string, number> = {
+      APPLICATION_RECEIVED: 0,
+      DOCUMENT_REVIEW: 0,
+      INTERVIEW_SCHEDULED: 0,
+      INTERVIEW_COMPLETED: 0,
+      EXAM_SCHEDULED: 0,
+      EXAM_COMPLETED: 0,
+      ADMISSION_OFFERED: 0,
+      ACCEPTED: 0,
+      REJECTED: 0,
+      WAITLISTED: 0,
+      ENROLLED: 0,
+      CANCELLED: 0,
+    };
+
+    for (const item of statusCounts) {
+      if (item.status) {
+        pipeline[item.status] = item._count.status;
+      }
+    }
+    pipeline.TOTAL = total;
+
+    return pipeline;
+  }
+
+  async makeOffer(
+    id: string,
+    context: TenantContext,
+    offerData: {
+      offeredClassId?: string;
+      offeredSectionId?: string;
+      reassignmentReason?: string;
+      offerDeadline?: string;
+    },
+  ) {
+    const admission = await this.findOne(id, context);
+
+    if (admission.status === 'ENROLLED') {
+      throw new ConflictException('Application is already enrolled');
+    }
+    if (admission.status === 'REJECTED' || admission.status === 'CANCELLED') {
+      throw new BadRequestException('Cannot make offer on rejected/cancelled application');
+    }
+
+    const deadline = offerData.offerDeadline
+      ? new Date(offerData.offerDeadline)
+      : new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days default
+
+    const updated = await this.prisma.onlineAdmission.update({
+      where: { id },
+      data: {
+        status: 'ADMISSION_OFFERED',
+        offeredClassId: offerData.offeredClassId || admission.desiredClassId,
+        offeredSectionId: offerData.offeredSectionId || admission.desiredSectionId,
+        classReassignmentReason: offerData.reassignmentReason,
+        offerLetterSentAt: new Date(),
+        offerDeadline: deadline,
+      },
+      include: {
+        offeredClass: { select: { id: true, name: true } },
+        offeredSection: { select: { id: true, name: true } },
+        desiredClass: { select: { id: true, name: true } },
+        desiredSection: { select: { id: true, name: true } },
+      },
+    });
+
+    // Send offer email
+    try {
+      const offeredClassName = updated.offeredClass?.name || 'N/A';
+      const offeredSectionName = updated.offeredSection?.name || 'N/A';
+      await this.mailService.sendAdmissionOffer(
+        admission.guardianEmail || '',
+        `${admission.firstName} ${admission.lastName}`,
+        offeredClassName,
+        offeredSectionName,
+        deadline,
+        admission.branchId,
+      );
+
+      // Send SMS notification
+      if (admission.guardianPhone) {
+        await this.commsService.sendSms({
+          phone: admission.guardianPhone,
+          message: `Dear ${admission.guardianName}, admission offer for ${admission.firstName} ${admission.lastName} - Class: ${offeredClassName}. Please respond by ${deadline.toLocaleDateString()}.`,
+          branchId: admission.branchId,
+        });
+      }
+    } catch (error) {
+      this.logger.error(`Failed to send offer notification`, error);
+    }
+
+    return updated;
+  }
+
+  async acceptOffer(id: string, context: TenantContext) {
+    const admission = await this.findOne(id, context);
+
+    if (admission.status !== 'ADMISSION_OFFERED') {
+      throw new BadRequestException('No pending offer to accept');
+    }
+
+    if (admission.offerDeadline && new Date(admission.offerDeadline) < new Date()) {
+      throw new BadRequestException('Offer has expired');
+    }
+
+    return this.prisma.onlineAdmission.update({
+      where: { id },
+      data: {
+        status: 'ACCEPTED',
+        offerAcceptedAt: new Date(),
+      },
+    });
+  }
+
+  async declineOffer(id: string, reason: string, context: TenantContext) {
+    const admission = await this.findOne(id, context);
+
+    if (admission.status !== 'ADMISSION_OFFERED') {
+      throw new BadRequestException('No pending offer to decline');
+    }
+
+    return this.prisma.onlineAdmission.update({
+      where: { id },
+      data: {
+        status: 'CANCELLED',
+        offerDeclinedAt: new Date(),
+        offerDeclineReason: reason,
+      },
+    });
+  }
+
+  async addToWaitlist(id: string, context: TenantContext, data?: { position?: number; notes?: string }) {
+    const admission = await this.findOne(id, context);
+
+    // Find max waitlist position if not specified
+    let position = data?.position;
+    if (!position) {
+      const maxWaitlist = await this.prisma.onlineAdmission.aggregate({
+        where: TenantHelper.applyIsolation({ waitlistPosition: { not: null } }, context),
+        _max: { waitlistPosition: true },
+      });
+      position = (maxWaitlist._max.waitlistPosition || 0) + 1;
+    }
+
+    return this.prisma.onlineAdmission.update({
+      where: { id },
+      data: {
+        status: 'WAITLISTED',
+        waitlistPosition: position,
+        waitlistNotes: data?.notes,
+      },
+    });
+  }
+
+  async advanceFromWaitlist(id: string, context: TenantContext) {
+    const admission = await this.findOne(id, context);
+
+    if (admission.status !== 'WAITLISTED') {
+      throw new BadRequestException('Application is not on waitlist');
+    }
+
+    // Make offer to waitlisted applicant
+    return this.makeOffer(id, context, {
+      offeredClassId: admission.desiredClassId,
+      offeredSectionId: admission.desiredSectionId || undefined,
+    });
+  }
+
+  async checkExpiredOffers(context: TenantContext) {
+    const expired = await this.prisma.onlineAdmission.findMany({
+      where: TenantHelper.applyIsolation(
+        {
+          status: 'ADMISSION_OFFERED',
+          offerDeadline: { lt: new Date() },
+        },
+        context,
+      ),
+    });
+
+    for (const admission of expired) {
+      await this.prisma.onlineAdmission.update({
+        where: { id: admission.id },
+        data: { status: 'WAITLISTED' },
+      });
+
+      try {
+        await this.mailService.sendOfferExpired(
+          admission.guardianEmail || '',
+          `${admission.firstName} ${admission.lastName}`,
+          admission.branchId,
+        );
+      } catch (error) {
+        this.logger.error(`Failed to send expiry notification`, error);
+      }
+    }
+
+    return { count: expired.length, ids: expired.map(a => a.id) };
   }
 }

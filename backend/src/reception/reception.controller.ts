@@ -8,6 +8,7 @@ import {
   Request,
   Param,
   Delete,
+  BadRequestException,
 } from '@nestjs/common';
 import { ReceptionService } from './reception.service';
 import {
@@ -42,6 +43,19 @@ import {
 export class ReceptionController {
   constructor(private readonly receptionService: ReceptionService) {}
 
+  private enforceBranchForWrite(
+    ctx: TenantContext,
+    dto: { branchId?: string | null },
+  ): string {
+    const branchId = dto.branchId || ctx.branchId;
+    if (!branchId) {
+      throw new BadRequestException(
+        'A specific campus must be selected to create or modify reception records. Please select a campus from the branch switcher.',
+      );
+    }
+    return branchId;
+  }
+
   @ApiBearerAuth()
   @ApiBody({ type: CreateEnquiryDto })
   @ApiResponse({ status: 201, description: 'Operation successful' })
@@ -52,9 +66,7 @@ export class ReceptionController {
     @GetTenantContext() ctx: TenantContext,
     @Body() dto: CreateEnquiryDto,
   ) {
-    if (!dto.branchId && ctx.branchId) {
-      dto.branchId = ctx.branchId;
-    }
+    dto.branchId = this.enforceBranchForWrite(ctx, dto);
     return this.receptionService.createEnquiry(dto);
   }
 
@@ -101,9 +113,7 @@ export class ReceptionController {
     @GetTenantContext() ctx: TenantContext,
     @Body() dto: CreateCallLogDto,
   ) {
-    if (!dto.branchId && ctx.branchId) {
-      dto.branchId = ctx.branchId;
-    }
+    dto.branchId = this.enforceBranchForWrite(ctx, dto);
     return this.receptionService.createCallLog(dto);
   }
 
@@ -150,9 +160,7 @@ export class ReceptionController {
     @GetTenantContext() ctx: TenantContext,
     @Body() dto: CreateVisitorLogDto,
   ) {
-    if (!dto.branchId && ctx.branchId) {
-      dto.branchId = ctx.branchId;
-    }
+    dto.branchId = this.enforceBranchForWrite(ctx, dto);
     return this.receptionService.createVisitorLog(dto);
   }
 
@@ -199,9 +207,7 @@ export class ReceptionController {
     @GetTenantContext() ctx: TenantContext,
     @Body() dto: CreateComplaintDto,
   ) {
-    if (!dto.branchId && ctx.branchId) {
-      dto.branchId = ctx.branchId;
-    }
+    dto.branchId = this.enforceBranchForWrite(ctx, dto);
     return this.receptionService.createComplaint(dto);
   }
 
@@ -248,9 +254,7 @@ export class ReceptionController {
     @GetTenantContext() ctx: TenantContext,
     @Body() dto: CreatePostalRecordDto,
   ) {
-    if (!dto.branchId && ctx.branchId) {
-      dto.branchId = ctx.branchId;
-    }
+    dto.branchId = this.enforceBranchForWrite(ctx, dto);
     return this.receptionService.createPostalRecord(dto);
   }
 

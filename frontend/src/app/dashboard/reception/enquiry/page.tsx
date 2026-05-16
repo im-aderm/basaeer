@@ -1,6 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useAuth } from '@/context/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -13,7 +15,6 @@ import { Textarea } from '@/components/ui/textarea';
 import { Users, UserPlus, Phone, Calendar, Search, Filter, MessageSquare, MoreHorizontal, CheckCircle2, AlertCircle, Clock, Trash2, Edit3, Loader2 } from 'lucide-react';
 import { ReceptionService, AdmissionEnquiry } from '@/services/receptionService';
 import { SettingsService } from '@/services/settingsService';
-import { BranchService, Branch } from "@/services/branchService";
 import { toast } from 'sonner';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import SharableLink from '@/components/admission/SharableLink';
@@ -25,7 +26,6 @@ export default function AdmissionEnquiryPage() {
     const [searchTerm, setSearchTerm] = useState('');
     const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
     const [editingEnquiry, setEditingEnquiry] = useState<AdmissionEnquiry | null>(null);
-    const [branches, setBranches] = useState<Branch[]>([]);
     const [sources, setSources] = useState<string[]>(["Advertisement", "Walk-in", "Referral", "Social Media", "Newspaper", "Other"]);
 
     // Form State
@@ -36,6 +36,7 @@ export default function AdmissionEnquiryPage() {
         address: '',
         description: '',
         source: '',
+        date: new Date().toISOString().split('T')[0],
         nextFollowUpDate: '',
         status: 'PENDING'
     });
@@ -62,22 +63,13 @@ export default function AdmissionEnquiryPage() {
     };
 
     useEffect(() => {
-        if (user) {
-            if (resolvedBranchId) {
-                fetchEnquiries(resolvedBranchId);
-            } else {
-                BranchService.getAll().then(data => {
-                    setBranches(data);
-                    if (data.length > 0) {
-                        fetchEnquiries(data[0].id);
-                    } else {
-                        setLoading(false);
-                    }
-                }).catch(() => setLoading(false));
-            }
+        if (resolvedBranchId) {
+            fetchEnquiries(resolvedBranchId);
+        } else {
+            setLoading(false);
         }
         fetchSources();
-    }, [user]);
+    }, [resolvedBranchId]);
 
     const handleCreate = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -135,6 +127,7 @@ export default function AdmissionEnquiryPage() {
             address: '',
             description: '',
             source: '',
+            date: new Date().toISOString().split('T')[0],
             nextFollowUpDate: '',
             status: 'PENDING'
         });
@@ -149,6 +142,7 @@ export default function AdmissionEnquiryPage() {
             address: enquiry.address || '',
             description: enquiry.description || '',
             source: enquiry.source || '',
+            date: enquiry.date ? new Date(enquiry.date).toISOString().split('T')[0] : new Date().toISOString().split('T')[0],
             nextFollowUpDate: enquiry.nextFollowUpDate ? new Date(enquiry.nextFollowUpDate).toISOString().split('T')[0] : '',
             status: enquiry.status
         });
@@ -177,7 +171,9 @@ export default function AdmissionEnquiryPage() {
     }
 
     return (
+            <RequireBranch requireSpecificBranch>
         <div className="max-w-7xl mx-auto space-y-8 pb-20 animate-in fade-in duration-500">
+            <BranchContextBanner />
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                 <div>
                     <h1 className="text-h1 font-bold tracking-tight text-primary">Admission Enquiries</h1>
@@ -201,7 +197,7 @@ export default function AdmissionEnquiryPage() {
                                 New Enquiry
                             </Button>
                         </DialogTrigger>
-                        <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl border-border shadow-2xl">
+                        <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl">
                             <DialogHeader>
                                 <DialogTitle className="text-h3 font-semibold">Record New Enquiry</DialogTitle>
                                 <DialogDescription className="font-bold">Enter prospective student or guardian details.</DialogDescription>
@@ -313,7 +309,7 @@ export default function AdmissionEnquiryPage() {
 
             {/* Edit Dialog */}
             <Dialog open={!!editingEnquiry} onOpenChange={(open) => { if (!open) setEditingEnquiry(null); }}>
-                <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl border-border shadow-2xl">
+                <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl">
                     <DialogHeader>
                         <DialogTitle className="text-h3 font-semibold">Edit Enquiry</DialogTitle>
                         <DialogDescription className="font-semibold opacity-60">Update details for {editingEnquiry?.name}</DialogDescription>
@@ -327,7 +323,8 @@ export default function AdmissionEnquiryPage() {
                 </DialogContent>
             </Dialog>
         </div>
-    );
+          </RequireBranch>
+  );
 }
 
 function StatCard({ title, value, icon: Icon, color }: { title: string, value: number, icon: any, color: string }) {
@@ -399,6 +396,32 @@ function EnquiryForm({ formData, setFormData, sources }: { formData: any, setFor
                             ))}
                         </SelectContent>
                     </Select>
+                </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                    <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Enquiry Date</Label>
+                    <div className="relative">
+                        <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground opacity-50" />
+                        <Input
+                            type="date"
+                            className="h-12 pl-10 rounded-xl font-bold"
+                            value={formData.date}
+                            onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                        />
+                    </div>
+                </div>
+                <div className="space-y-2">
+                    <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Follow up Date</Label>
+                    <div className="relative">
+                        <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground opacity-50" />
+                        <Input
+                            type="date"
+                            className="h-12 pl-10 rounded-xl font-bold"
+                            value={formData.nextFollowUpDate}
+                            onChange={(e) => setFormData({ ...formData, nextFollowUpDate: e.target.value })}
+                        />
+                    </div>
                 </div>
             </div>
             <div className="space-y-2">

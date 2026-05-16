@@ -1,5 +1,7 @@
 'use client';
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -28,6 +30,7 @@ export default function PostalRecordPage() {
         referenceNumber: '',
         address: '',
         description: '',
+        date: new Date().toISOString().split('T')[0],
         type: 'RECEIVE',
     });
 
@@ -95,6 +98,7 @@ export default function PostalRecordPage() {
             referenceNumber: '',
             address: '',
             description: '',
+            date: new Date().toISOString().split('T')[0],
             type: 'RECEIVE',
         });
     };
@@ -107,6 +111,7 @@ export default function PostalRecordPage() {
             referenceNumber: record.referenceNumber || '',
             address: record.address || '',
             description: record.description || '',
+            date: record.date ? new Date(record.date).toISOString().split('T')[0] : new Date().toISOString().split('T')[0],
             type: record.type,
         });
     };
@@ -119,14 +124,18 @@ export default function PostalRecordPage() {
 
     if (loading) {
         return (
-            <div className="flex h-[60vh] items-center justify-center">
-                <Loader2 className="w-8 h-8 animate-spin text-primary" />
-            </div>
+            <RequireBranch requireSpecificBranch>
+                <div className="flex h-[60vh] items-center justify-center">
+                    <Loader2 className="w-8 h-8 animate-spin text-primary" />
+                </div>
+            </RequireBranch>
         );
     }
 
     return (
+            <RequireBranch requireSpecificBranch>
         <div className="max-w-7xl mx-auto space-y-8 pb-20 animate-in fade-in duration-500">
+            <BranchContextBanner />
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                 <div>
                     <h1 className="text-h1 font-bold tracking-tight text-primary">Postal Records</h1>
@@ -241,7 +250,8 @@ export default function PostalRecordPage() {
                 </DialogContent>
             </Dialog>
         </div>
-    );
+          </RequireBranch>
+  );
 }
 
 function PostalForm({ formData, setFormData }: { formData: any, setFormData: any }) {
@@ -290,6 +300,18 @@ function PostalForm({ formData, setFormData }: { formData: any, setFormData: any
                             <SelectItem value="DISPATCH">DISPATCHED</SelectItem>
                         </SelectContent>
                     </Select>
+                </div>
+            </div>
+            <div className="space-y-2">
+                <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Date</Label>
+                <div className="relative">
+                    <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground opacity-50" />
+                    <Input
+                        type="date"
+                        className="h-12 pl-10 rounded-xl font-bold"
+                        value={formData.date}
+                        onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                    />
                 </div>
             </div>
             <div className="space-y-2">

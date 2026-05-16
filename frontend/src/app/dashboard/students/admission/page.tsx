@@ -1,448 +1,90 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { OnlineAdmissionService } from "@/services/onlineAdmissionService";
-import { ClassService, Class, Section } from "@/services/classService";
-import { SessionService, AcademicSession } from "@/services/sessionService";
-import { StudentService, StudentCategory } from "@/services/studentService";
-import { StakeholderService } from "@/services/stakeholderService";
-import { UploadService } from "@/services/uploadService";
-import {
-    UserPlus,
-    Loader2,
-    User,
-    School,
-    ShieldCheck,
-    CheckCircle2,
-    MapPin,
-    FileText,
-    Upload,
-    Save
-} from "lucide-react";
-import { toast } from "sonner";
+import { useAuth } from "@/context/AuthContext";
+import { FileSpreadsheet, Link, ArrowRight, AlertCircle, UserPlus } from "lucide-react";
+import NextLink from "next/link";
+import SharableLink from "@/components/admission/SharableLink";
 
 export default function AdmissionPage() {
-    const fileInputRef = useRef<HTMLInputElement>(null);
-    const [currentUploadField, setCurrentUploadField] = useState<string | null>(null);
-    const [classes, setClasses] = useState<Class[]>([]);
-    const [sections, setSections] = useState<Section[]>([]);
-    const [sessions, setSessions] = useState<AcademicSession[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [submitting, setSubmitting] = useState(false);
-    const [success, setSuccess] = useState(false);
-    const [parents, setParents] = useState<any[]>([]);
-    const [useExistingParent, setUseExistingParent] = useState(false);
-
-    const [formData, setFormData] = useState<any>({
-        // Basic Info
-        firstName: "",
-        lastName: "",
-        gender: "MALE",
-        dateOfBirth: "",
-        passportPhoto: "",
-
-        // Admission Details
-        academicSessionId: "",
-        admissionTerm: "FIRST",
-        desiredClassId: "",
-        desiredSectionId: "",
-        admissionType: "NEW",
-
-        // Parent Info
-        guardianName: "",
-        guardianRelation: "",
-        guardianPhone: "",
-        guardianEmail: "",
-        guardianAddress: "",
-
-        // Contact / Medical
-        address: "",
-        bloodGroup: "",
-        genotype: "",
-        medicalConditions: "",
-
-        // Logistics
-        hostelRequired: false,
-        transportRequired: false,
-
-        // Documents
-        birthCertificateUrl: "",
-        testimonialUrl: "",
-
-        // Consent
-        guardianConsent: false,
-        branchId: "",
-        parentId: "",
-    });
-
-    useEffect(() => {
-        const loadInitialData = async () => {
-            try {
-                const [classAttribute, sessionAttribute, parentsData] = await Promise.all([
-                    ClassService.getAll(),
-                    SessionService.getAll(),
-                    StakeholderService.getAllParentsAdmin()
-                ]);
-                setClasses(classAttribute);
-                setSessions(sessionAttribute);
-                setParents(parentsData);
-                if (sessionAttribute.length > 0) {
-                    setFormData((prev: any) => ({ ...prev, academicSessionId: sessionAttribute.find(s => s.isActive)?.id || sessionAttribute[0].id }));
-                }
-            } catch (error) {
-                if (process.env.NODE_ENV === 'development') console.error("Failed to load initial data:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        loadInitialData();
-    }, []);
-
-    const handleClassChange = (classId: string) => {
-        const selectedClass = classes.find(c => c.id === classId);
-        setFormData({ ...formData, desiredClassId: classId, desiredSectionId: "" });
-        setSections(selectedClass?.sections || []);
-    };
-
-    const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (!file || !currentUploadField) return;
-
-        setSubmitting(true);
-        try {
-            const response = await UploadService.uploadAdmissionDocument(file, currentUploadField);
-            setFormData((prev: any) => ({ ...prev, [currentUploadField]: response.url }));
-            toast.success(`${currentUploadField.replace(/([A-Z])/g, ' $1')} uploaded`);
-        } catch (error) {
-            if (process.env.NODE_ENV === 'development') console.error("Upload failed:", error);
-            toast.error(`Failed to upload file`);
-        } finally {
-            setSubmitting(false);
-            setCurrentUploadField(null);
-            if (fileInputRef.current) fileInputRef.current.value = "";
-        }
-    };
-
-    const triggerUpload = (field: string) => {
-        setCurrentUploadField(field);
-        fileInputRef.current?.click();
-    };
-
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!formData.guardianConsent) {
-            toast.error("Please provide guardian consent");
-            return;
-        }
-        setSubmitting(true);
-        try {
-            await OnlineAdmissionService.create(formData);
-            setSuccess(true);
-        } catch (error) {
-            if (process.env.NODE_ENV === 'development') console.error("Admission submission failed:", error);
-            toast.error("Failed to submit admission application.");
-        } finally {
-            setSubmitting(false);
-        }
-    };
-
-    if (loading) {
-        return (
-            <div className="flex h-[80vh] items-center justify-center">
-                <Loader2 className="w-12 h-12 animate-spin text-primary" />
-            </div>
-        );
-    }
-
-    if (success) {
-        return (
-            <div className="max-w-3xl mx-auto py-20 text-center space-y-10 animate-in zoom-in-95 duration-500">
-                <div className="inline-flex items-center justify-center w-40 h-40 rounded-full bg-green-500/10 text-green-500 shadow-2xl shadow-green-500/20">
-                    <CheckCircle2 size={80} />
-                </div>
-                <div className="space-y-4">
-                    <h2 className="text-6xl font-semibold tracking-tight">Success!</h2>
-                    <p className="text-2xl text-muted-foreground font-medium">Your admission application has been received.</p>
-                </div>
-                <button onClick={() => window.location.reload()} className="px-12 py-5 bg-primary text-white rounded-[2rem] font-semibold text-h3 shadow-2xl shadow-primary/30 hover:scale-105 transition-all">
-                    New Application
-                </button>
-            </div>
-        );
-    }
+    const { user, resolvedBranchId } = useAuth();
+    const isAdmin = user?.role === 'SUPER_ADMIN' || user?.role === 'BRANCH_ADMIN';
 
     return (
-        <div className="max-w-5xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-6 duration-700 pb-20 px-4 md:px-0">
-            <input
-                type="file"
-                ref={fileInputRef}
-                className="hidden"
-                onChange={handleFileChange}
-                accept="image/*,.pdf"
-            />
+        <div className="max-w-4xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-6 duration-700 pb-20 px-4 md:px-0">
             <div className="space-y-4">
                 <h1 className="text-h1 font-bold tracking-tight text-primary">Student Admission</h1>
-                <p className="text-muted-foreground text-xl font-medium">Simplified Enrollment & Data Harmonization.</p>
+                <p className="text-muted-foreground text-xl font-medium">Direct admission creation is disabled. Use one of the methods below.</p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-12">
-                {/* 1. Student Info */}
-                <section className="bg-white/75 border border-border rounded-[3rem] p-8 lg:p-12 shadow-sm space-y-8">
-                    <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
-                            <User size={24} />
-                        </div>
-                        <h2 className="text-h2 font-bold tracking-tight text-primary">Student Basic Info</h2>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div className="space-y-3">
-                            <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">First Name *</label>
-                            <input required className="input-premium" value={formData.firstName} onChange={e => setFormData({ ...formData, firstName: e.target.value })} placeholder="John" />
-                        </div>
-                        <div className="space-y-3">
-                            <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Surname *</label>
-                            <input required className="input-premium" value={formData.lastName} onChange={e => setFormData({ ...formData, lastName: e.target.value })} placeholder="Doe" />
-                        </div>
-                        <div className="space-y-3">
-                            <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Gender *</label>
-                            <select required className="w-full p-4 bg-white border border-primary/90 rounded-xl outline-none transition-all text-body" value={formData.gender} onChange={e => setFormData({ ...formData, gender: e.target.value })}>
-                                <option value="MALE">Male</option>
-                                <option value="FEMALE">Female</option>
-                                <option value="OTHER">Other</option>
-                            </select>
-                        </div>
-                        <div className="space-y-3">
-                            <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Date of Birth *</label>
-                            <input required type="date" className="input-premium" value={formData.dateOfBirth} onChange={e => setFormData({ ...formData, dateOfBirth: e.target.value })} />
-                        </div>
-                    </div>
-
-                    <div className="space-y-3">
-                        <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Passport Photo</label>
-                        <div className="flex items-center gap-4">
-                            <button type="button" onClick={() => triggerUpload('passportPhoto')} className="px-6 py-3 bg-muted rounded-xl font-bold flex items-center gap-2 hover:bg-muted/80">
-                                <Upload size={16} /> Upload Photo
-                            </button>
-                            {formData.passportPhoto && <span className="text-green-500 font-bold text-xs flex items-center gap-1"><CheckCircle2 size={12} /> OK</span>}
-                        </div>
-                    </div>
-                </section>
-
-                {/* 2. Admission Details */}
-                <section className="bg-white/75 border border-border rounded-[3rem] p-8 lg:p-12 shadow-sm space-y-8">
-                    <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
-                            <School size={24} />
-                        </div>
-                        <h2 className="text-h2 font-bold tracking-tight text-primary">Admission Details</h2>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div className="space-y-3">
-                            <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Academic Session *</label>
-                            <select required className="w-full p-4 bg-white border border-primary/90 rounded-xl outline-none transition-all text-body" value={formData.academicSessionId} onChange={e => setFormData({ ...formData, academicSessionId: e.target.value })}>
-                                {(sessions ?? []).map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
-                            </select>
-                        </div>
-                        <div className="space-y-3">
-                            <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Admission Term *</label>
-                            <select required className="w-full p-4 bg-white border border-primary/90 rounded-xl outline-none transition-all text-body" value={formData.admissionTerm} onChange={e => setFormData({ ...formData, admissionTerm: e.target.value })}>
-                                <option value="FIRST">1st Term</option>
-                                <option value="SECOND">2nd Term</option>
-                                <option value="THIRD">3rd Term</option>
-                            </select>
-                        </div>
-                        <div className="space-y-3">
-                            <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Class Applying For *</label>
-                            <select required className="w-full p-4 bg-white border border-primary/90 rounded-xl outline-none transition-all text-body" value={formData.desiredClassId} onChange={e => handleClassChange(e.target.value)}>
-                                <option value="">Select Class...</option>
-                                {(classes ?? []).map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
-                            </select>
-                        </div>
-                        <div className="space-y-3">
-                            <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Admission Type</label>
-                            <select className="w-full p-4 bg-white border border-primary/90 rounded-xl outline-none transition-all text-body" value={formData.admissionType} onChange={e => setFormData({ ...formData, admissionType: e.target.value })}>
-                                <option value="NEW">New Student</option>
-                                <option value="TRANSFER">Transfer Student</option>
-                                <option value="RETURNING">Returning Student</option>
-                            </select>
-                        </div>
-                    </div>
-                </section>
-
-                {/* 3. Parent / Guardian */}
-                <section className="bg-white/75 border border-border rounded-[3rem] p-8 lg:p-12 shadow-sm space-y-8">
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
-                                <ShieldCheck size={24} />
-                            </div>
-                            <h2 className="text-h2 font-bold tracking-tight text-primary">Parent / Guardian Info</h2>
-                        </div>
-                        <div className="flex items-center gap-4 bg-muted/20 p-2 rounded-2xl border border-border">
-                            <button
-                                type="button"
-                                onClick={() => setUseExistingParent(false)}
-                                className={`px-4 py-2 rounded-xl font-bold text-xs transition-all ${!useExistingParent ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-muted-foreground'}`}
-                            >
-                                New Parent
-                            </button>
-                            <button
-                                type="button"
-                                onClick={() => setUseExistingParent(true)}
-                                className={`px-4 py-2 rounded-xl font-bold text-xs transition-all ${useExistingParent ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-muted-foreground'}`}
-                            >
-                                Existing Parent
-                            </button>
-                        </div>
-                    </div>
-
-                    {useExistingParent ? (
-                        <div className="space-y-6 animate-in fade-in duration-300">
-                            <div className="space-y-3">
-                                <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Select Existing Parent *</label>
-                                <select
-                                    required
-                                    className="w-full p-4 bg-white border border-primary/90 rounded-xl outline-none transition-all text-body"
-                                    value={formData.parentId}
-                                    onChange={e => {
-                                        const parent = parents.find(p => p.id === e.target.value);
-                                        setFormData({
-                                            ...formData,
-                                            parentId: e.target.value,
-                                            guardianName: parent ? `${parent.firstName} ${parent.lastName}` : "",
-                                            guardianPhone: parent?.phone || "",
-                                            guardianEmail: parent?.email || ""
-                                        });
-                                    }}
-                                >
-                                    <option value="">Select Parent...</option>
-                                    {(parents ?? []).map(p => (
-                                        <option key={p.id} value={p.id}>{p.firstName} {p.lastName} ({p.email})</option>
-                                    ))}
-                                </select>
-                            </div>
-                            {formData.parentId && (
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-6 bg-primary/5 rounded-3xl border border-primary/10">
-                                    <div>
-                                        <label className="text-[10px] font-semibold uppercase opacity-50">Linked Name</label>
-                                        <div className="font-bold">{formData.guardianName}</div>
-                                    </div>
-                                    <div>
-                                        <label className="text-[10px] font-semibold uppercase opacity-50">Linked Email</label>
-                                        <div className="font-bold">{formData.guardianEmail}</div>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                    ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 animate-in fade-in duration-300">
-                            <div className="space-y-3">
-                                <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Primary Guardian Name *</label>
-                                <input required className="input-premium" value={formData.guardianName} onChange={e => setFormData({ ...formData, guardianName: e.target.value, parentId: "" })} placeholder="Full Name" />
-                            </div>
-                            <div className="space-y-3">
-                                <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Relationship *</label>
-                                <input required className="input-premium" value={formData.guardianRelation} onChange={e => setFormData({ ...formData, guardianRelation: e.target.value })} placeholder="Father/Mother" />
-                            </div>
-                            <div className="space-y-3">
-                                <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Phone Number *</label>
-                                <input required className="input-premium" value={formData.guardianPhone} onChange={e => setFormData({ ...formData, guardianPhone: e.target.value })} placeholder="+234..." />
-                            </div>
-                            <div className="space-y-3">
-                                <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Email Address *</label>
-                                <input type="email" required className="input-premium" value={formData.guardianEmail} onChange={e => setFormData({ ...formData, guardianEmail: e.target.value })} placeholder="guardian@example.com" />
-                            </div>
-                        </div>
-                    )}
-                </section>
-
-                {/* 4. Contact & Medical */}
-                <section className="bg-white/75 border border-border rounded-[3rem] p-8 lg:p-12 shadow-sm space-y-8">
-                    <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
-                            <MapPin size={24} />
-                        </div>
-                        <h2 className="text-h2 font-bold tracking-tight text-primary">Contact <h2 className="text-h2 font-bold tracking-tight text-primary">Contact & Medical</h2> Medical</h2>
-                    </div>
-
-                    <div className="space-y-3">
-                        <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Home Address *</label>
-                        <textarea required className="input-premium min-h-[100px]" value={formData.address} onChange={e => setFormData({ ...formData, address: e.target.value })} placeholder="Street address..." />
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div className="space-y-3">
-                            <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Blood Group</label>
-                            <select className="w-full p-4 bg-white border border-primary/90 rounded-xl outline-none transition-all text-body" value={formData.bloodGroup} onChange={e => setFormData({ ...formData, bloodGroup: e.target.value })}>
-                                <option value="">Select...</option>
-                                <option value="A+">A+</option><option value="A-">A-</option>
-                                <option value="B+">B+</option><option value="B-">B-</option>
-                                <option value="O+">O+</option><option value="O-">O-</option>
-                                <option value="AB+">AB+</option><option value="AB-">AB-</option>
-                            </select>
-                        </div>
-                        <div className="space-y-3">
-                            <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Genotype</label>
-                            <select className="w-full p-4 bg-white border border-primary/90 rounded-xl outline-none transition-all text-body" value={formData.genotype} onChange={e => setFormData({ ...formData, genotype: e.target.value })}>
-                                <option value="">Select...</option>
-                                <option value="AA">AA</option><option value="AS">AS</option>
-                                <option value="SS">SS</option><option value="AC">AC</option>
-                            </select>
-                        </div>
-                    </div>
-                </section>
-
-                {/* 5. Documents & Consent */}
-                <section className="bg-white/75 border border-border rounded-[3rem] p-8 lg:p-12 shadow-sm space-y-8">
-                    <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
-                            <FileText size={24} />
-                        </div>
-                        <h2 className="text-h2 font-bold tracking-tight text-primary">Documents <h2 className="text-h2 font-bold tracking-tight text-primary">Documents & Consent</h2> Consent</h2>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {[
-                            { id: 'birthCertificateUrl', name: 'Birth Certificate' },
-                            { id: 'testimonialUrl', name: 'School Testimonial' },
-                        ].map(doc => (
-                            <div key={doc.id} className="p-8 bg-muted/20 border-2 border-dashed border-border rounded-3xl flex flex-col items-center gap-4 text-center group hover:border-primary/50 transition-colors">
-                                <FileText size={32} className="text-muted-foreground group-hover:text-primary transition-colors" />
-                                <h4 className="font-semibold text-sm">{doc.name}</h4>
-                                <button type="button" onClick={() => triggerUpload(doc.id)} className="w-full py-3 bg-muted rounded-xl font-semibold text-xs hover:bg-muted/80 transition-all">
-                                    {formData[doc.id] ? "Change File" : "Choose File"}
-                                </button>
-                                {formData[doc.id] && <span className="text-green-500 font-bold text-xs flex items-center gap-1"><CheckCircle2 size={12} /> Ready</span>}
-                            </div>
-                        ))}
-                    </div>
-
-                    <div className="pt-8 border-t border-border/50">
-                        <label className="flex gap-4 p-8 bg-primary/5 rounded-3xl cursor-pointer group hover:bg-primary/10 transition-all">
-                            <input type="checkbox" className="w-6 h-6 rounded-lg text-primary mt-1" checked={formData.guardianConsent} onChange={e => setFormData({ ...formData, guardianConsent: e.target.checked })} />
-                            <div className="space-y-1">
-                                <p className="font-semibold">Guardian Declaration</p>
-                                <p className="text-sm text-muted-foreground font-medium">I certify that the information provided is true and I agree to the school's rules and policies.</p>
-                            </div>
-                        </label>
-                    </div>
-                </section>
-
-                <div className="flex justify-center pt-8">
-                    <button
-                        type="submit"
-                        disabled={submitting}
-                        className="px-24 py-8 bg-primary text-white rounded-[2.5rem] font-semibold text-h1 shadow-2xl shadow-primary/40 hover:scale-105 active:scale-95 transition-all flex items-center gap-4 disabled:opacity-50"
-                    >
-                        {submitting ? <Loader2 size={32} className="animate-spin" /> : <Save size={32} />}
-                        Submit Application
-                    </button>
+            <div className="p-8 bg-amber-500/5 border-2 border-amber-500/20 rounded-[2rem] flex items-start gap-4">
+                <AlertCircle className="h-6 w-6 text-amber-500 shrink-0 mt-1" />
+                <div className="space-y-2">
+                    <h3 className="font-bold text-amber-600">Administrative Policy</h3>
+                    <p className="text-sm text-amber-600/80 font-medium">All admissions must be processed through bulk CSV import or the online admission form link. This ensures data consistency and proper document handling.</p>
                 </div>
-            </form>
+            </div>
 
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {/* Bulk Import Card */}
+                {isAdmin && (
+                    <NextLink href="/dashboard/students/admission-import" className="group">
+                        <div className="p-10 bg-white/75 border-2 border-border rounded-[3rem] shadow-sm hover:border-primary/60 hover:shadow-xl transition-all space-y-6">
+                            <div className="w-16 h-16 rounded-2xl bg-primary/10 text-primary flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <FileSpreadsheet size={32} />
+                            </div>
+                            <div className="space-y-3">
+                                <h2 className="text-h2 font-bold tracking-tight text-primary">Bulk CSV Import</h2>
+                                <p className="text-muted-foreground font-medium">Import multiple admissions at once with documents via ZIP file. Requires admin privileges.</p>
+                            </div>
+                            <div className="flex items-center gap-2 text-primary font-bold text-sm group-hover:gap-4 transition-all">
+                                Go to Import <ArrowRight size={16} />
+                            </div>
+                        </div>
+                    </NextLink>
+                )}
 
+                {/* Online Form Card */}
+                <div className="p-10 bg-white/75 border-2 border-border rounded-[3rem] shadow-sm space-y-6">
+                    <div className="w-16 h-16 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
+                        <Link size={32} />
+                    </div>
+                    <div className="space-y-3">
+                        <h2 className="text-h2 font-bold tracking-tight text-primary">Online Admission Form</h2>
+                        <p className="text-muted-foreground font-medium">Share this link with parents to submit applications online.</p>
+                    </div>
+                    {resolvedBranchId ? (
+                        <SharableLink branchId={resolvedBranchId} />
+                    ) : (
+                        <p className="text-sm text-muted-foreground">Select a branch to generate the link.</p>
+                    )}
+                </div>
+            </div>
+
+            <div className="p-10 bg-muted/20 border border-border rounded-[3rem] space-y-6">
+                <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
+                        <UserPlus size={24} />
+                    </div>
+                    <h2 className="text-h2 font-bold tracking-tight text-primary">Quick Guide</h2>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="space-y-2">
+                        <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">1</div>
+                        <h4 className="font-semibold text-sm">Prepare ZIP File</h4>
+                        <p className="text-xs text-muted-foreground">Download the sample CSV, fill in student details, and organize documents in a <code className="bg-muted px-1 rounded">documents/</code> folder.</p>
+                    </div>
+                    <div className="space-y-2">
+                        <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">2</div>
+                        <h4 className="font-semibold text-sm">Upload & Process</h4>
+                        <p className="text-xs text-muted-foreground">Upload the ZIP file to the bulk import page. The system will process everything in the background.</p>
+                    </div>
+                    <div className="space-y-2">
+                        <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">3</div>
+                        <h4 className="font-semibold text-sm">Review & Approve</h4>
+                        <p className="text-xs text-muted-foreground">Check imported applications in Admission Management. Verify documents and approve to enroll students.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

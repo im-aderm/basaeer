@@ -153,6 +153,9 @@ exports.Prisma.LoginDeactivationScalarFieldEnum = {
   reason: 'reason',
   reasonId: 'reasonId',
   branchId: 'branchId',
+  deactivatedBy: 'deactivatedBy',
+  reactivatedAt: 'reactivatedAt',
+  reactivatedBy: 'reactivatedBy',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -248,14 +251,20 @@ exports.Prisma.StaffScalarFieldEnum = {
 exports.Prisma.StudentScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  admissionNumber: 'admissionNumber',
   firstName: 'firstName',
   lastName: 'lastName',
+  gender: 'gender',
   dob: 'dob',
   branchId: 'branchId',
   classId: 'classId',
   sectionId: 'sectionId',
   parentId: 'parentId',
   categoryId: 'categoryId',
+  enrollmentStatus: 'enrollmentStatus',
+  admissionDate: 'admissionDate',
+  exitDate: 'exitDate',
+  exitReason: 'exitReason',
   otherNames: 'otherNames',
   placeOfBirth: 'placeOfBirth',
   nationality: 'nationality',
@@ -327,6 +336,7 @@ exports.Prisma.ClassScalarFieldEnum = {
   gradeLevel: 'gradeLevel',
   branchId: 'branchId',
   classTeacherId: 'classTeacherId',
+  capacity: 'capacity',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
@@ -1322,6 +1332,16 @@ exports.Prisma.OnlineAdmissionScalarFieldEnum = {
   paymentReceiptUrl: 'paymentReceiptUrl',
   paymentStatus: 'paymentStatus',
   paymentMethod: 'paymentMethod',
+  offeredClassId: 'offeredClassId',
+  offeredSectionId: 'offeredSectionId',
+  classReassignmentReason: 'classReassignmentReason',
+  offerLetterSentAt: 'offerLetterSentAt',
+  offerAcceptedAt: 'offerAcceptedAt',
+  offerDeclinedAt: 'offerDeclinedAt',
+  offerDeclineReason: 'offerDeclineReason',
+  offerDeadline: 'offerDeadline',
+  waitlistPosition: 'waitlistPosition',
+  waitlistNotes: 'waitlistNotes',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -2062,6 +2082,51 @@ exports.Prisma.CounterScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.AdmissionExamScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  branchId: 'branchId',
+  academicSessionId: 'academicSessionId',
+  examDate: 'examDate',
+  venue: 'venue',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  description: 'description',
+  status: 'status',
+  maxScore: 'maxScore',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AdmissionExamScoreScalarFieldEnum = {
+  id: 'id',
+  admissionId: 'admissionId',
+  examId: 'examId',
+  score: 'score',
+  maxScore: 'maxScore',
+  grade: 'grade',
+  notes: 'notes',
+  gradedById: 'gradedById',
+  gradedAt: 'gradedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AdmissionInterviewScalarFieldEnum = {
+  id: 'id',
+  admissionId: 'admissionId',
+  branchId: 'branchId',
+  interviewDate: 'interviewDate',
+  venue: 'venue',
+  interviewerName: 'interviewerName',
+  interviewerId: 'interviewerId',
+  notes: 'notes',
+  outcome: 'outcome',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -2297,11 +2362,20 @@ exports.AdvanceSalaryStatus = exports.$Enums.AdvanceSalaryStatus = {
 };
 
 exports.AdmissionStatus = exports.$Enums.AdmissionStatus = {
-  PENDING: 'PENDING',
-  APPROVED: 'APPROVED',
+  APPLICATION_RECEIVED: 'APPLICATION_RECEIVED',
+  DOCUMENT_REVIEW: 'DOCUMENT_REVIEW',
+  INTERVIEW_SCHEDULED: 'INTERVIEW_SCHEDULED',
+  INTERVIEW_COMPLETED: 'INTERVIEW_COMPLETED',
+  EXAM_SCHEDULED: 'EXAM_SCHEDULED',
+  EXAM_COMPLETED: 'EXAM_COMPLETED',
+  ADMISSION_OFFERED: 'ADMISSION_OFFERED',
+  ACCEPTED: 'ACCEPTED',
   REJECTED: 'REJECTED',
+  WAITLISTED: 'WAITLISTED',
   ENROLLED: 'ENROLLED',
-  CANCELLED: 'CANCELLED'
+  CANCELLED: 'CANCELLED',
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED'
 };
 
 exports.IssueStatus = exports.$Enums.IssueStatus = {
@@ -2332,6 +2406,28 @@ exports.BookCopyStatus = exports.$Enums.BookCopyStatus = {
   LOST: 'LOST',
   DAMAGED: 'DAMAGED',
   RESERVED: 'RESERVED'
+};
+
+exports.AdmissionExamStatus = exports.$Enums.AdmissionExamStatus = {
+  DRAFT: 'DRAFT',
+  SCHEDULED: 'SCHEDULED',
+  IN_PROGRESS: 'IN_PROGRESS',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+};
+
+exports.InterviewOutcome = exports.$Enums.InterviewOutcome = {
+  PASS: 'PASS',
+  FAIL: 'FAIL',
+  PENDING_REVIEW: 'PENDING_REVIEW'
+};
+
+exports.InterviewStatus = exports.$Enums.InterviewStatus = {
+  SCHEDULED: 'SCHEDULED',
+  COMPLETED: 'COMPLETED',
+  NO_SHOW: 'NO_SHOW',
+  RESCHEDULED: 'RESCHEDULED',
+  CANCELLED: 'CANCELLED'
 };
 
 exports.Prisma.ModelName = {
@@ -2477,7 +2573,10 @@ exports.Prisma.ModelName = {
   WebhookEndpoint: 'WebhookEndpoint',
   WebhookDeliveryLog: 'WebhookDeliveryLog',
   PaymentWebhookLog: 'PaymentWebhookLog',
-  Counter: 'Counter'
+  Counter: 'Counter',
+  AdmissionExam: 'AdmissionExam',
+  AdmissionExamScore: 'AdmissionExamScore',
+  AdmissionInterview: 'AdmissionInterview'
 };
 
 /**

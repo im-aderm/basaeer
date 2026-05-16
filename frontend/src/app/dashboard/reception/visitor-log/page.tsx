@@ -1,5 +1,7 @@
 'use client';
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -30,6 +32,7 @@ export default function VisitorLogPage() {
         phone: '',
         idCard: '',
         numPerson: 1,
+        date: new Date().toISOString().split('T')[0],
         inTime: '',
         outTime: '',
         note: '',
@@ -121,6 +124,7 @@ export default function VisitorLogPage() {
             phone: '',
             idCard: '',
             numPerson: 1,
+            date: new Date().toISOString().split('T')[0],
             inTime: '',
             outTime: '',
             note: '',
@@ -135,6 +139,7 @@ export default function VisitorLogPage() {
             phone: log.phone,
             idCard: log.idCard || '',
             numPerson: log.numPerson,
+            date: log.date ? new Date(log.date).toISOString().split('T')[0] : new Date().toISOString().split('T')[0],
             inTime: log.inTime || '',
             outTime: log.outTime || '',
             note: log.note || '',
@@ -155,7 +160,9 @@ export default function VisitorLogPage() {
     }
 
     return (
+            <RequireBranch requireSpecificBranch>
         <div className="max-w-7xl mx-auto space-y-8 pb-20 animate-in fade-in duration-500">
+            <BranchContextBanner />
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                 <div>
                     <h1 className="text-h1 font-bold tracking-tight text-primary">Visitor Log</h1>
@@ -283,7 +290,8 @@ export default function VisitorLogPage() {
                 </DialogContent>
             </Dialog>
         </div>
-    );
+          </RequireBranch>
+  );
 }
 
 function VisitorForm({ formData, setFormData, purposes }: { formData: any, setFormData: any, purposes: string[] }) {
@@ -347,6 +355,15 @@ function VisitorForm({ formData, setFormData, purposes }: { formData: any, setFo
                     />
                 </div>
                 <div className="space-y-2">
+                    <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Visit Date</Label>
+                    <Input
+                        type="date"
+                        className="h-12 rounded-xl font-bold text-xs"
+                        value={formData.date}
+                        onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                    />
+                </div>
+                <div className="space-y-2">
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">In Time</Label>
                     <Input
                         type="time"
@@ -355,6 +372,8 @@ function VisitorForm({ formData, setFormData, purposes }: { formData: any, setFo
                         onChange={(e) => setFormData({ ...formData, inTime: e.target.value })}
                     />
                 </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Out Time</Label>
                     <Input

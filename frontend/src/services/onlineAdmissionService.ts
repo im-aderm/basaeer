@@ -198,5 +198,51 @@ export const OnlineAdmissionService = {
     getPublicInitData: async (branchId: string): Promise<any> => {
         const response = await api.get(`/online-admissions/public/init/${branchId}`);
         return response.data;
+    },
+
+    importAdmissions: async (file: File, branchId: string): Promise<any> => {
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("branchId", branchId);
+
+        const response = await api.post("/online-admissions/import", formData, {
+            headers: { "Content-Type": "multipart/form-data" },
+        });
+        return response.data;
+    },
+
+    getPipeline: async (): Promise<Record<string, number>> => {
+        const response = await api.get("/online-admissions/pipeline");
+        return response.data;
+    },
+
+    makeOffer: async (id: string, data: {
+        offeredClassId?: string;
+        offeredSectionId?: string;
+        reassignmentReason?: string;
+        offerDeadline?: string;
+    }): Promise<any> => {
+        const response = await api.post(`/online-admissions/${id}/make-offer`, data);
+        return response.data;
+    },
+
+    acceptOffer: async (id: string): Promise<any> => {
+        const response = await api.post(`/online-admissions/${id}/accept-offer`);
+        return response.data;
+    },
+
+    declineOffer: async (id: string, reason: string): Promise<any> => {
+        const response = await api.post(`/online-admissions/${id}/decline-offer`, { reason });
+        return response.data;
+    },
+
+    addToWaitlist: async (id: string, data?: { position?: number; notes?: string }): Promise<any> => {
+        const response = await api.post(`/online-admissions/${id}/waitlist`, data);
+        return response.data;
+    },
+
+    advanceFromWaitlist: async (id: string): Promise<any> => {
+        const response = await api.post(`/online-admissions/${id}/advance-waitlist`);
+        return response.data;
     }
 };

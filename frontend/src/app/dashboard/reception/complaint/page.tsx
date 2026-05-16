@@ -1,5 +1,7 @@
 'use client';
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -168,7 +170,9 @@ export default function ComplaintPage() {
     }
 
     return (
+            <RequireBranch requireSpecificBranch>
         <div className="max-w-7xl mx-auto space-y-8 pb-20 animate-in fade-in duration-500">
+            <BranchContextBanner />
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                 <div>
                     <h1 className="text-h1 font-bold tracking-tight text-primary">Complaints & Feedback</h1>
@@ -287,7 +291,8 @@ export default function ComplaintPage() {
                 </DialogContent>
             </Dialog>
         </div>
-    );
+          </RequireBranch>
+  );
 }
 
 function ComplaintForm({ form, setForm, complaintTypes, isEdit = false }: { form: any, setForm: any, complaintTypes: string[], isEdit?: boolean }) {

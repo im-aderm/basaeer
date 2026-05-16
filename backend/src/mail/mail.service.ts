@@ -205,6 +205,168 @@ export class MailService implements OnModuleInit {
     );
   }
 
+  async sendInterviewInvitation(to: string, studentName: string, interviewDate: string, venue: string, branchId?: string) {
+    if (!this.validateEmail(to)) {
+      this.logger.warn(`Invalid email address: ${to}`);
+      return;
+    }
+
+    const template: EmailTemplate = {
+      headerColor: '#8b5cf6',
+      headerTitle: 'Interview Invitation',
+      headerSubtitle: 'Basaer Quranic and Science College',
+      greeting: 'Assalamu Alaikum,',
+      bodyContent: `
+        <p>We are pleased to inform you that your admission application for <strong>${this.escapeHtml(studentName)}</strong> has been reviewed and you have been invited for an interview.</p>
+      `,
+      extraBlocks: [
+        {
+          backgroundColor: '#f5f3ff',
+          borderColor: '#8b5cf6',
+          borderSide: 'left: 4px solid',
+          padding: '20px',
+          content: `
+            <p style="margin: 0; font-weight: bold; font-size: 14px; color: #6d28d9;">Interview Details:</p>
+            <p style="margin: 10px 0 0;"><strong>Date & Time:</strong> ${this.escapeHtml(interviewDate)}</p>
+            <p style="margin: 5px 0 0;"><strong>Venue:</strong> ${this.escapeHtml(venue)}</p>
+            <p style="margin: 5px 0 0;"><strong>Please bring:</strong> Original documents, passport photos, and any certificates.</p>
+          `,
+        },
+      ],
+      footerText: 'Please arrive 15 minutes early. If you need to reschedule, contact the admissions office.',
+    };
+
+    const html = this.buildEmailTemplate(template);
+    return this.sendMail(to, `Interview Invitation: ${studentName}`, html, branchId);
+  }
+
+  async sendExamInvitation(to: string, studentName: string, examDate: string, venue: string, branchId?: string) {
+    if (!this.validateEmail(to)) {
+      this.logger.warn(`Invalid email address: ${to}`);
+      return;
+    }
+
+    const template: EmailTemplate = {
+      headerColor: '#f59e0b',
+      headerTitle: 'Entrance Exam Invitation',
+      headerSubtitle: 'Basaer Quranic and Science College',
+      greeting: 'Assalamu Alaikum,',
+      bodyContent: `
+        <p>Your admission application for <strong>${this.escapeHtml(studentName)}</strong> has progressed to the entrance examination stage.</p>
+      `,
+      extraBlocks: [
+        {
+          backgroundColor: '#fffbeb',
+          borderColor: '#f59e0b',
+          borderSide: 'left: 4px solid',
+          padding: '20px',
+          content: `
+            <p style="margin: 0; font-weight: bold; font-size: 14px; color: #92400e;">Exam Details:</p>
+            <p style="margin: 10px 0 0;"><strong>Date & Time:</strong> ${this.escapeHtml(examDate)}</p>
+            <p style="margin: 5px 0 0;"><strong>Venue:</strong> ${this.escapeHtml(venue)}</p>
+            <p style="margin: 5px 0 0;"><strong>Please bring:</strong> Pens, pencils, eraser, and calculator (if permitted).</p>
+          `,
+        },
+      ],
+      footerText: 'Late arrivals will not be permitted. Contact the admissions office for any queries.',
+    };
+
+    const html = this.buildEmailTemplate(template);
+    return this.sendMail(to, `Entrance Exam: ${studentName}`, html, branchId);
+  }
+
+  async sendAdmissionOffer(to: string, studentName: string, offeredClass: string, offeredSection: string, deadline: Date, branchId?: string) {
+    if (!this.validateEmail(to)) {
+      this.logger.warn(`Invalid email address: ${to}`);
+      return;
+    }
+
+    const deadlineStr = deadline.toLocaleDateString('en-NG', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+    const template: EmailTemplate = {
+      headerColor: '#10b981',
+      headerTitle: 'Admission Offer',
+      headerSubtitle: 'Congratulations!',
+      greeting: 'Assalamu Alaikum,',
+      bodyContent: `
+        <p>We are delighted to offer admission to <strong>${this.escapeHtml(studentName)}</strong> at Basaer Quranic and Science College.</p>
+      `,
+      extraBlocks: [
+        {
+          backgroundColor: '#f0fdf4',
+          borderColor: '#10b981',
+          borderSide: '2px dashed',
+          padding: '20px',
+          content: `
+            <p style="margin: 0; font-size: 12px; font-weight: bold; color: #059669; text-transform: uppercase;">Offer Details</p>
+            <p style="margin: 10px 0 0;"><strong>Class:</strong> ${this.escapeHtml(offeredClass)}</p>
+            <p style="margin: 5px 0 0;"><strong>Section:</strong> ${this.escapeHtml(offeredSection)}</p>
+            <p style="margin: 5px 0 0;"><strong>Accept by:</strong> ${this.escapeHtml(deadlineStr)}</p>
+          `,
+        },
+      ],
+      footerText: 'To accept this offer, please visit the admissions office or respond to this email before the deadline.',
+    };
+
+    const html = this.buildEmailTemplate(template);
+    return this.sendMail(to, `Admission Offer: ${studentName}`, html, branchId);
+  }
+
+  async sendOfferExpired(to: string, studentName: string, branchId?: string) {
+    if (!this.validateEmail(to)) {
+      this.logger.warn(`Invalid email address: ${to}`);
+      return;
+    }
+
+    const template: EmailTemplate = {
+      headerColor: '#ef4444',
+      headerTitle: 'Offer Expired',
+      headerSubtitle: 'Basaer Quranic and Science College',
+      greeting: 'Hello,',
+      bodyContent: `
+        <p>The admission offer for <strong>${this.escapeHtml(studentName)}</strong> has expired as we did not receive a response within the deadline.</p>
+        <p>Your application has been placed on our waitlist. If a spot becomes available, we will contact you with a new offer.</p>
+      `,
+      footerText: 'If you still wish to proceed, please contact the admissions office.',
+    };
+
+    const html = this.buildEmailTemplate(template);
+    return this.sendMail(to, `Admission Offer Expired: ${studentName}`, html, branchId);
+  }
+
+  async sendWaitlistNotification(to: string, studentName: string, position: number, branchId?: string) {
+    if (!this.validateEmail(to)) {
+      this.logger.warn(`Invalid email address: ${to}`);
+      return;
+    }
+
+    const template: EmailTemplate = {
+      headerColor: '#6366f1',
+      headerTitle: 'Waitlist Notification',
+      headerSubtitle: 'Basaer Quranic and Science College',
+      greeting: 'Hello,',
+      bodyContent: `
+        <p>Thank you for your interest in Basaer Quranic and Science College. Your application for <strong>${this.escapeHtml(studentName)}</strong> has been placed on our waitlist.</p>
+      `,
+      extraBlocks: [
+        {
+          backgroundColor: '#eef2ff',
+          borderColor: '#6366f1',
+          borderSide: 'left: 4px solid',
+          padding: '20px',
+          content: `
+            <p style="margin: 0; font-weight: bold; font-size: 14px; color: #3730a3;">Waitlist Position: #${position}</p>
+            <p style="margin: 10px 0 0;">You will be contacted if a spot becomes available in your desired class.</p>
+          `,
+        },
+      ],
+      footerText: 'You may still be contacted for future admission cycles.',
+    };
+
+    const html = this.buildEmailTemplate(template);
+    return this.sendMail(to, `Waitlist Notification: ${studentName}`, html, branchId);
+  }
+
   async sendPasswordReset(to: string, resetLink: string, branchId?: string) {
     if (!this.validateEmail(to)) {
       this.logger.warn(`Invalid email address: ${to}`);

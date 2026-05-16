@@ -124,6 +124,66 @@ export class UploadService {
   }
 
   /**
+   * Uploads a file buffer directly to Cloudflare R2.
+   * Used by background processors that don't have multer file objects.
+   */
+  async uploadFile(
+    buffer: Buffer,
+    filename: string,
+    mimeType: string,
+    subFolder?: string,
+  ): Promise<{ url: string; key: string }> {
+    if (!this.s3Client) {
+      throw new BadRequestException('Storage service is not configured');
+    }
+
+    if (!buffer || buffer.length === 0) {
+      throw new BadRequestException('No file provided');
+    }
+
+    const allowedMimeTypes = [
+      'image/jpeg',
+      'image/png',
+      'image/webp',
+      'application/pdf',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      'application/msword',
+    ];
+    if (!allowedMimeTypes.includes(mimeType)) {
+      throw new BadRequestException('Invalid file type');
+    }
+
+    const safeSubFolder = subFolder
+      ? subFolder.replace(/[^a-zA-Z0-9_-]/g, '')
+      : '';
+
+    const key = safeSubFolder ? `${safeSubFolder}/${filename}` : filename;
+
+    try {
+      const command = new PutObjectCommand({
+        Bucket: this.bucketName,
+        Key: key,
+        Body: buffer,
+        ContentType: mimeType,
+      });
+
+      await this.s3Client.send(command);
+
+      if (this.publicDomain) {
+        return { url: `${this.publicDomain.replace(/\/$/, '')}/${key}`, key };
+      }
+
+      return { url: key, key };
+    } catch (error) {
+      this.logger.error(
+        `Failed to upload file to R2: ${error.message}`,
+        error.stack,
+      );
+      throw new BadRequestException('File upload failed');
+    }
+  }
+
+  /**
    * Deletes a file from Cloudflare R2
    */
   async deleteFile(key: string): Promise<void> {

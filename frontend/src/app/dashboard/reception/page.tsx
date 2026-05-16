@@ -1,12 +1,13 @@
 "use client";
 
+import RequireBranch from "@/components/RequireBranch";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ReceptionService, AdmissionEnquiry, CallLog, VisitorLog, Complaint, PostalRecord } from "@/services/receptionService";
 import { useAuth } from "@/context/AuthContext";
 import {
     Users, Phone, UserCheck, MessageSquare, Mail,
-    ArrowRight, Plus, Clock, TrendingUp, AlertCircle, Loader2
+    ArrowRight, Plus, Clock, Loader2
 } from "lucide-react";
 
 export default function ReceptionDashboard() {
@@ -79,6 +80,7 @@ export default function ReceptionDashboard() {
     ];
 
     return (
+            <RequireBranch requireSpecificBranch>
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -162,38 +164,9 @@ export default function ReceptionDashboard() {
 
                 {/* Quick Actions & Info */}
                 <div className="space-y-6">
-                    <div className="bg-white/75 border border-border rounded-2xl p-6 space-y-4 shadow-sm">
-                        <h3 className="font-bold flex items-center gap-2">
-                            <TrendingUp size={20} className="text-green-500" />
-                            Front Desk Insights
-                        </h3>
-                        <div className="space-y-4">
-                            <div className="p-4 bg-muted/50 rounded-xl border border-border">
-                                <p className="text-xs text-muted-foreground mb-1">Response Rate</p>
-                                <div className="flex items-center justify-between">
-                                    <span className="font-bold">85%</span>
-                                    <span className="text-xs text-green-500 font-medium">+5% this week</span>
-                                </div>
-                                <div className="w-full h-1.5 bg-muted rounded-full mt-2 overflow-hidden">
-                                    <div className="h-full bg-green-500 w-[85%]" />
-                                </div>
-                            </div>
-                            <div className="p-4 bg-muted/50 rounded-xl border border-border">
-                                <p className="text-xs text-muted-foreground mb-1">Follow-up Efficiency</p>
-                                <div className="flex items-center justify-between">
-                                    <span className="font-bold">72%</span>
-                                    <span className="text-xs text-blue-500 font-medium">+2% this week</span>
-                                </div>
-                                <div className="w-full h-1.5 bg-muted rounded-full mt-2 overflow-hidden">
-                                    <div className="h-full bg-blue-500 w-[72%]" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <div className="bg-primary/5 border border-primary/10 rounded-2xl p-6 space-y-4">
                         <div className="flex items-center gap-2 text-primary">
-                            <AlertCircle size={20} />
+                            <MessageSquare size={20} />
                             <h3 className="font-bold">Module Info</h3>
                         </div>
                         <p className="text-xs text-muted-foreground leading-relaxed">
@@ -209,5 +182,6 @@ export default function ReceptionDashboard() {
                 </div>
             </div>
         </div>
-    );
+          </RequireBranch>
+  );
 }

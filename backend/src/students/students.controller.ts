@@ -130,17 +130,29 @@ export class StudentsController {
     @GetTenantContext() context: TenantContext,
     @Query('classId') classId?: string,
     @Query('sectionId') sectionId?: string,
+    @Query('search') search?: string,
+    @Query('enrollmentStatus') enrollmentStatus?: string,
+    @Query('isActive') isActive?: string,
     @Query('skip') skip?: string,
     @Query('take') take?: string,
+    @Query('sortBy') sortBy?: string,
+    @Query('sortOrder') sortOrder?: 'asc' | 'desc',
   ) {
     const skipNum = skip ? parseInt(skip, 10) : undefined;
     const takeNum = take ? parseInt(take, 10) : undefined;
     return this.studentsService.findAll(
       context,
-      classId,
-      sectionId,
+      {
+        classId,
+        sectionId,
+        search,
+        enrollmentStatus,
+        isActive: isActive !== undefined ? isActive === 'true' : undefined,
+      },
       skipNum,
       takeNum,
+      sortBy,
+      sortOrder,
     );
   }
 
@@ -263,5 +275,18 @@ export class StudentsController {
     @GetTenantContext() context: TenantContext,
   ) {
     return this.studentsService.reactivateLogin(id, context);
+  }
+
+  @ApiBearerAuth()
+  @ApiBody({ schema: { type: 'object', properties: { studentIds: { type: 'array', items: { type: 'string' } } } } })
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Bulk Reactivate Login' })
+  @Post('bulk-reactivate-login')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+  bulkReactivateLogin(
+    @GetTenantContext() context: TenantContext,
+    @Body('studentIds') studentIds: string[],
+  ) {
+    return this.studentsService.bulkReactivateLogin(studentIds, context);
   }
 }

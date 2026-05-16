@@ -1,5 +1,7 @@
 'use client';
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -26,6 +28,7 @@ export default function CallLogPage() {
         name: '',
         phone: '',
         description: '',
+        date: new Date().toISOString().split('T')[0],
         nextFollowUpDate: '',
         callType: 'INCOMING',
     });
@@ -92,6 +95,7 @@ export default function CallLogPage() {
             name: '',
             phone: '',
             description: '',
+            date: new Date().toISOString().split('T')[0],
             nextFollowUpDate: '',
             callType: 'INCOMING',
         });
@@ -103,6 +107,7 @@ export default function CallLogPage() {
             name: log.name,
             phone: log.phone,
             description: log.description || '',
+            date: log.date ? new Date(log.date).toISOString().split('T')[0] : new Date().toISOString().split('T')[0],
             nextFollowUpDate: log.nextFollowUpDate ? new Date(log.nextFollowUpDate).toISOString().split('T')[0] : '',
             callType: log.callType,
         });
@@ -122,7 +127,9 @@ export default function CallLogPage() {
     }
 
     return (
+            <RequireBranch requireSpecificBranch>
         <div className="max-w-7xl mx-auto space-y-8 pb-20 animate-in fade-in duration-500">
+            <BranchContextBanner />
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                 <div>
                     <h1 className="text-h1 font-bold tracking-tight text-primary">Call Logs</h1>
@@ -236,7 +243,8 @@ export default function CallLogPage() {
                 </DialogContent>
             </Dialog>
         </div>
-    );
+          </RequireBranch>
+  );
 }
 
 function CallLogForm({ formData, setFormData }: { formData: any, setFormData: any }) {
@@ -264,7 +272,7 @@ function CallLogForm({ formData, setFormData }: { formData: any, setFormData: an
                     />
                 </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-3 gap-4">
                 <div className="space-y-2">
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Call Type</Label>
                     <Select value={formData.callType} onValueChange={(v) => setFormData({ ...formData, callType: v })}>
@@ -276,6 +284,18 @@ function CallLogForm({ formData, setFormData }: { formData: any, setFormData: an
                             <SelectItem value="OUTGOING">OUTGOING</SelectItem>
                         </SelectContent>
                     </Select>
+                </div>
+                <div className="space-y-2">
+                    <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Call Date</Label>
+                    <div className="relative">
+                        <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground opacity-50" />
+                        <Input
+                            type="date"
+                            className="h-12 pl-10 rounded-xl font-bold text-xs"
+                            value={formData.date}
+                            onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                        />
+                    </div>
                 </div>
                 <div className="space-y-2">
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Next Follow-up</Label>

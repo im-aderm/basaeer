@@ -9,7 +9,12 @@ import {
   Query,
   UseGuards,
   BadRequestException,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
+import { InjectQueue } from '@nestjs/bullmq';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { Queue } from 'bullmq';
 import { OnlineAdmissionService } from './online-admission.service';
 import { CreateOnlineAdmissionDto } from './dto/create-online-admission.dto';
 import { UpdateOnlineAdmissionDto } from './dto/update-online-admission.dto';
@@ -26,6 +31,7 @@ import {
   ApiBearerAuth,
   ApiResponse,
   ApiBody,
+  ApiConsumes,
 } from '@nestjs/swagger';
 
 @UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
@@ -34,6 +40,7 @@ import {
 export class OnlineAdmissionController {
   constructor(
     private readonly onlineAdmissionService: OnlineAdmissionService,
+    @InjectQueue('admission-import') private importQueue: Queue,
   ) {}
 
   @Public()
@@ -145,5 +152,140 @@ export class OnlineAdmissionController {
     @GetTenantContext() context: TenantContext,
   ) {
     return this.onlineAdmissionService.rejectPayment(id, reason, context);
+  }
+
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Import job queued successfully' })
+  @ApiOperation({ summary: 'Bulk import admissions via ZIP file' })
+  @Post('import')
+  @UseInterceptors(FileInterceptor('file'))
+  @ApiConsumes('multipart/form-data')
+  async importAdmissions(
+    @UploadedFile() file: Express.Multer.File,
+    @Body('branchId') branchId: string,
+    @GetTenantContext() context: TenantContext,
+  ) {
+    if (!file) {
+      throw new BadRequestException('ZIP file is required');
+    }
+    if (!file.originalname.toLowerCase().endsWith('.zip')) {
+      throw new BadRequestException('Only ZIP files are supported');
+    }
+    if (file.size > 50 * 1024 * 1024) {
+      throw new BadRequestException('ZIP file must be under 50MB');
+    }
+
+    const resolvedBranchId = branchId || context.branchId;
+    if (!resolvedBranchId) {
+      throw new BadRequestException('branchId is required');
+    }
+
+    const job = await this.importQueue.add('import-admission', {
+      fileBuffer: file.buffer,
+      context: {
+        userId: (context as any).userId,
+        branchId: resolvedBranchId,
+        role: (context as any).role,
+      },
+    });
+
+    return {
+      success: true,
+      jobId: job.id,
+      message: 'Import job queued. Processing in background.',
+    };
+  }
+
+  @Get('pipeline')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Pipeline statistics' })
+  @ApiOperation({ summary: 'Get admission pipeline statistics' })
+  getPipeline(@GetTenantContext() context: TenantContext) {
+    return this.onlineAdmissionService.getPipeline(context);
+  }
+
+  @Post(':id/make-offer')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Offer made' })
+  @ApiOperation({ summary: 'Make admission offer with class assignment' })
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        offeredClassId: { type: 'string' },
+        offeredSectionId: { type: 'string' },
+        reassignmentReason: { type: 'string' },
+        offerDeadline: { type: 'string', format: 'date-time' },
+      },
+    },
+  })
+  makeOffer(
+    @Param('id') id: string,
+    @GetTenantContext() context: TenantContext,
+    @Body() offerData: {
+      offeredClassId?: string;
+      offeredSectionId?: string;
+      reassignmentReason?: string;
+      offerDeadline?: string;
+    },
+  ) {
+    return this.onlineAdmissionService.makeOffer(id, context, offerData);
+  }
+
+  @Post(':id/accept-offer')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Offer accepted' })
+  @ApiOperation({ summary: 'Accept admission offer' })
+  acceptOffer(@Param('id') id: string, @GetTenantContext() context: TenantContext) {
+    return this.onlineAdmissionService.acceptOffer(id, context);
+  }
+
+  @Post(':id/decline-offer')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Offer declined' })
+  @ApiOperation({ summary: 'Decline admission offer' })
+  @ApiBody({ schema: { type: 'object', properties: { reason: { type: 'string' } } } })
+  declineOffer(
+    @Param('id') id: string,
+    @GetTenantContext() context: TenantContext,
+    @Body('reason') reason: string,
+  ) {
+    return this.onlineAdmissionService.declineOffer(id, reason, context);
+  }
+
+  @Post(':id/waitlist')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Added to waitlist' })
+  @ApiOperation({ summary: 'Add applicant to waitlist' })
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        position: { type: 'number' },
+        notes: { type: 'string' },
+      },
+    },
+  })
+  addToWaitlist(
+    @Param('id') id: string,
+    @GetTenantContext() context: TenantContext,
+    @Body() data?: { position?: number; notes?: string },
+  ) {
+    return this.onlineAdmissionService.addToWaitlist(id, context, data);
+  }
+
+  @Post(':id/advance-waitlist')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Advanced from waitlist' })
+  @ApiOperation({ summary: 'Advance applicant from waitlist to offer' })
+  advanceFromWaitlist(@Param('id') id: string, @GetTenantContext() context: TenantContext) {
+    return this.onlineAdmissionService.advanceFromWaitlist(id, context);
   }
 }

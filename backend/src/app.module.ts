@@ -30,6 +30,8 @@ import { CertificatesModule } from './certificates/certificates.module';
 import { LibraryModule } from './library/library.module';
 import { LiveClassesModule } from './live-classes/live-classes.module';
 import { OnlineAdmissionModule } from './online-admission/online-admission.module';
+import { AdmissionExamModule } from './admission-exam/admission-exam.module';
+import { AdmissionInterviewModule } from './admission-interview/admission-interview.module';
 import { StudentCategoryModule } from './students/student-category.module';
 import { OnlineExamsModule } from './online-exams/online-exams.module';
 import { ReceptionModule } from './reception/reception.module';
@@ -113,6 +115,8 @@ import { RolesModule } from './roles/roles.module';
     LibraryModule,
     LiveClassesModule,
     OnlineAdmissionModule,
+    AdmissionExamModule,
+    AdmissionInterviewModule,
     StudentCategoryModule,
     OnlineExamsModule,
     ReceptionModule,

@@ -136,6 +136,8 @@ model Branch {
   bookReservations              BookReservation[]
   hostelMaintenanceTickets      HostelMaintenanceTicket[]
   roles                         Role[]
+  admissionInterviews           AdmissionInterview[]
+  admissionExams                AdmissionExam[]
 }
 
 model DeactivationReason {
@@ -152,18 +154,24 @@ model DeactivationReason {
 }
 
 model LoginDeactivation {
-  id        String              @id @default(uuid())
-  studentId String
-  userId    String
-  reason    String
-  reasonId  String?
-  branchId  String
-  createdAt DateTime            @default(now())
-  updatedAt DateTime            @updatedAt
-  branch    Branch              @relation(fields: [branchId], references: [id])
-  reasonRef DeactivationReason? @relation(fields: [reasonId], references: [id])
+  id            String              @id @default(uuid())
+  studentId     String
+  userId        String
+  reason        String
+  reasonId      String?
+  branchId      String
+  deactivatedBy String?
+  reactivatedAt DateTime?
+  reactivatedBy String?
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+  branch        Branch              @relation(fields: [branchId], references: [id])
+  reasonRef     DeactivationReason? @relation(fields: [reasonId], references: [id])
+  student       Student             @relation(fields: [studentId], references: [id])
 
   @@index([branchId])
+  @@index([userId])
+  @@index([studentId])
 }
 
 model Role {
@@ -316,14 +324,20 @@ model Staff {
 model Student {
   id                        String                @id @default(uuid())
   userId                    String?               @unique
+  admissionNumber           String?               @unique
   firstName                 String
   lastName                  String
+  gender                    String?
   dob                       DateTime?
   branchId                  String
   classId                   String?
   sectionId                 String?
   parentId                  String?
   categoryId                String?
+  enrollmentStatus          String                @default("ACTIVE")
+  admissionDate             DateTime?
+  exitDate                  DateTime?
+  exitReason                String?
   otherNames                String?
   placeOfBirth              String?
   nationality               String?
@@ -385,12 +399,15 @@ model Student {
   bookReservations          BookReservation[]
   transportAttendances      TransportAttendance[]
   assessmentScores          AssessmentScore[]
+  loginDeactivations        LoginDeactivation[]
 
   @@index([branchId])
   @@index([branchId, classId, sectionId])
   @@index([classId, sectionId])
   @@index([parentId])
   @@index([branchId, classId])
+  @@index([enrollmentStatus])
+  @@index([admissionNumber])
 }
 
 model Certificate {
@@ -436,6 +453,7 @@ model Class {
   gradeLevel         Int?
   branchId           String
   classTeacherId     String?
+  capacity           Int?
   createdAt          DateTime            @default(now())
   updatedAt          DateTime            @updatedAt
   deletedAt          DateTime?
@@ -450,6 +468,7 @@ model Class {
   sections           Section[]
   students           Student[]
   attendanceSessions AttendanceSession[]
+  offeredAdmissions  OnlineAdmission[]   @relation("OfferedClassAdmission")
 
   @@unique([branchId, name])
   @@index([branchId])
@@ -473,6 +492,7 @@ model Section {
   class              Class               @relation(fields: [classId], references: [id])
   students           Student[]
   attendanceSessions AttendanceSession[]
+  offeredAdmissions  OnlineAdmission[]   @relation("OfferedSectionAdmission")
 
   @@unique([classId, name])
   @@index([classId])
@@ -949,6 +969,7 @@ model AcademicSession {
   idCards            IdCard[]
   onlineAdmissions   OnlineAdmission[]
   resultSummaries    ResultSummary[]
+  admissionExams     AdmissionExam[]
 
   @@index([branchId])
 }
@@ -1736,8 +1757,8 @@ model PreviousSchool {
 }
 
 model OnlineAdmission {
-  id                        String           @id @default(uuid())
-  admissionNumber           String?          @unique
+  id                        String          @id @default(uuid())
+  admissionNumber           String?         @unique
   firstName                 String
   lastName                  String
   otherNames                String?
@@ -1756,7 +1777,7 @@ model OnlineAdmission {
   admissionType             String?
   transferReason            String?
   assessmentScore           Float?
-  status                    AdmissionStatus  @default(PENDING)
+  status                    AdmissionStatus @default(APPLICATION_RECEIVED)
   rejectionReason           String?
   guardianName              String
   guardianRelation          String?
@@ -1782,10 +1803,10 @@ model OnlineAdmission {
   specialNeeds              String?
   familyDoctorName          String?
   familyDoctorPhone         String?
-  hostelRequired            Boolean          @default(false)
+  hostelRequired            Boolean         @default(false)
   preferredHostel           String?
   hostelNotes               String?
-  transportRequired         Boolean          @default(false)
+  transportRequired         Boolean         @default(false)
   pickupLocation            String?
   preferredRoute            String?
   birthCertificateUrl       String?
@@ -1797,37 +1818,56 @@ model OnlineAdmission {
   admissionDate             DateTime?
   approvalDate              DateTime?
   approvedByStaffId         String?
-  studentStatus             String           @default("PROSPECTIVE")
-  createPortalAccount       Boolean          @default(true)
-  guardianConsent           Boolean          @default(false)
-  dataProcessingConsent     Boolean          @default(false)
-  schoolRulesAgreement      Boolean          @default(false)
+  studentStatus             String          @default("PROSPECTIVE")
+  createPortalAccount       Boolean         @default(true)
+  guardianConsent           Boolean         @default(false)
+  dataProcessingConsent     Boolean         @default(false)
+  schoolRulesAgreement      Boolean         @default(false)
   signature                 String?
   consentDate               DateTime?
   studentEmail              String?
   portalUsername            String?
   preferredLanguage         String?
   religionClassType         String?
-  scholarshipEligible       Boolean          @default(false)
+  scholarshipEligible       Boolean         @default(false)
   referralSource            String?
   email                     String?
   phone                     String?
   studentCategoryId         String?
   parentId                  String?
   paymentReceiptUrl         String?
-  paymentStatus             PaymentStatus    @default(PENDING)
-  paymentMethod             PaymentMethod    @default(BANK_TRANSFER)
-  createdAt                 DateTime         @default(now())
-  updatedAt                 DateTime         @updatedAt
-  academicSession           AcademicSession? @relation(fields: [academicSessionId], references: [id])
-  branch                    Branch           @relation(fields: [branchId], references: [id])
-  desiredClass              Class            @relation(fields: [desiredClassId], references: [id])
-  desiredSection            Section?         @relation(fields: [desiredSectionId], references: [id])
-  parent                    User?            @relation("ParentAdmission", fields: [parentId], references: [id])
-  studentCategory           StudentCategory? @relation(fields: [studentCategoryId], references: [id])
-  previousSchools           PreviousSchool[]
+  paymentStatus             PaymentStatus   @default(PENDING)
+  paymentMethod             PaymentMethod   @default(BANK_TRANSFER)
+
+  // Admission workflow fields
+  offeredClassId          String?
+  offeredSectionId        String?
+  classReassignmentReason String?
+  offerLetterSentAt       DateTime?
+  offerAcceptedAt         DateTime?
+  offerDeclinedAt         DateTime?
+  offerDeclineReason      String?
+  offerDeadline           DateTime?
+  waitlistPosition        Int?
+  waitlistNotes           String?
+
+  createdAt       DateTime             @default(now())
+  updatedAt       DateTime             @updatedAt
+  academicSession AcademicSession?     @relation(fields: [academicSessionId], references: [id])
+  branch          Branch               @relation(fields: [branchId], references: [id])
+  desiredClass    Class                @relation(fields: [desiredClassId], references: [id])
+  desiredSection  Section?             @relation(fields: [desiredSectionId], references: [id])
+  parent          User?                @relation("ParentAdmission", fields: [parentId], references: [id])
+  studentCategory StudentCategory?     @relation(fields: [studentCategoryId], references: [id])
+  previousSchools PreviousSchool[]
+  interview       AdmissionInterview?
+  examScores      AdmissionExamScore[]
+  offeredClass    Class?               @relation("OfferedClassAdmission", fields: [offeredClassId], references: [id])
+  offeredSection  Section?             @relation("OfferedSectionAdmission", fields: [offeredSectionId], references: [id])
 
   @@index([branchId])
+  @@index([status])
+  @@index([offeredClassId])
 }
 
 model AdmissionEnquiry {
@@ -2485,11 +2525,44 @@ enum AdvanceSalaryStatus {
 }
 
 enum AdmissionStatus {
-  PENDING
-  APPROVED
+  APPLICATION_RECEIVED
+  DOCUMENT_REVIEW
+  INTERVIEW_SCHEDULED
+  INTERVIEW_COMPLETED
+  EXAM_SCHEDULED
+  EXAM_COMPLETED
+  ADMISSION_OFFERED
+  ACCEPTED
   REJECTED
+  WAITLISTED
   ENROLLED
   CANCELLED
+
+  // Legacy aliases (for backward compatibility)
+  PENDING
+  APPROVED
+}
+
+enum AdmissionExamStatus {
+  DRAFT
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum InterviewStatus {
+  SCHEDULED
+  COMPLETED
+  NO_SHOW
+  RESCHEDULED
+  CANCELLED
+}
+
+enum InterviewOutcome {
+  PASS
+  FAIL
+  PENDING_REVIEW
 }
 
 enum IssueStatus {
@@ -3096,4 +3169,68 @@ model Counter {
 
   @@unique([branchId, model])
   @@index([branchId])
+}
+
+model AdmissionExam {
+  id                String               @id @default(uuid())
+  name              String
+  branchId          String
+  academicSessionId String?
+  examDate          DateTime
+  venue             String?
+  startTime         DateTime
+  endTime           DateTime
+  description       String?
+  status            AdmissionExamStatus  @default(DRAFT)
+  maxScore          Float                @default(100)
+  createdAt         DateTime             @default(now())
+  updatedAt         DateTime             @updatedAt
+  branch            Branch               @relation(fields: [branchId], references: [id])
+  academicSession   AcademicSession?     @relation(fields: [academicSessionId], references: [id])
+  scores            AdmissionExamScore[]
+
+  @@index([branchId])
+  @@index([examDate])
+  @@index([status])
+}
+
+model AdmissionExamScore {
+  id          String          @id @default(uuid())
+  admissionId String
+  examId      String
+  score       Float
+  maxScore    Float           @default(100)
+  grade       String?
+  notes       String?
+  gradedById  String?
+  gradedAt    DateTime?
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  admission   OnlineAdmission @relation(fields: [admissionId], references: [id], onDelete: Cascade)
+  exam        AdmissionExam   @relation(fields: [examId], references: [id], onDelete: Cascade)
+
+  @@unique([admissionId, examId])
+  @@index([examId])
+  @@index([admissionId])
+}
+
+model AdmissionInterview {
+  id              String            @id @default(uuid())
+  admissionId     String            @unique
+  branchId        String
+  interviewDate   DateTime
+  venue           String?
+  interviewerName String?
+  interviewerId   String?
+  notes           String?
+  outcome         InterviewOutcome?
+  status          InterviewStatus   @default(SCHEDULED)
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  admission       OnlineAdmission   @relation(fields: [admissionId], references: [id], onDelete: Cascade)
+  branch          Branch            @relation(fields: [branchId], references: [id])
+
+  @@index([branchId])
+  @@index([interviewDate])
+  @@index([status])
 }

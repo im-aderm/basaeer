@@ -21,7 +21,13 @@ export class ReceptionService {
 
   // Enquiries
   createEnquiry(dto: CreateEnquiryDto) {
-    return this.prisma.admissionEnquiry.create({ data: dto });
+    return this.prisma.admissionEnquiry.create({
+      data: {
+        ...dto,
+        date: (dto as any).date || new Date(),
+        status: (dto as any).status || 'PENDING',
+      },
+    });
   }
 
   getEnquiries(branchId: string) {
@@ -33,7 +39,12 @@ export class ReceptionService {
 
   // Call Logs
   createCallLog(dto: CreateCallLogDto) {
-    return this.prisma.callLog.create({ data: dto });
+    return this.prisma.callLog.create({
+      data: {
+        ...dto,
+        date: (dto as any).date || new Date(),
+      },
+    });
   }
 
   getCallLogs(branchId: string) {
@@ -45,7 +56,13 @@ export class ReceptionService {
 
   // Visitor Logs
   createVisitorLog(dto: CreateVisitorLogDto) {
-    return this.prisma.visitorLog.create({ data: dto });
+    return this.prisma.visitorLog.create({
+      data: {
+        ...dto,
+        date: (dto as any).date || new Date(),
+        inTime: (dto as any).inTime || new Date().toTimeString().slice(0, 5),
+      },
+    });
   }
 
   getVisitorLogs(branchId: string) {
@@ -57,7 +74,13 @@ export class ReceptionService {
 
   // Complaints
   createComplaint(dto: CreateComplaintDto) {
-    return this.prisma.complaint.create({ data: dto });
+    return this.prisma.complaint.create({
+      data: {
+        ...dto,
+        date: (dto as any).date || new Date(),
+        status: (dto as any).status || 'PENDING',
+      },
+    });
   }
 
   getComplaints(branchId: string) {
@@ -69,7 +92,12 @@ export class ReceptionService {
 
   // Postal Records
   createPostalRecord(dto: CreatePostalRecordDto) {
-    return this.prisma.postalRecord.create({ data: dto });
+    return this.prisma.postalRecord.create({
+      data: {
+        ...dto,
+        date: (dto as any).date || new Date(),
+      },
+    });
   }
 
   getPostalRecords(branchId: string) {
