@@ -2576,10 +2576,6 @@ enum AdmissionStatus {
   WAITLISTED
   ENROLLED
   CANCELLED
-
-  // Legacy aliases (for backward compatibility)
-  PENDING
-  APPROVED
 }
 
 enum AdmissionExamStatus {

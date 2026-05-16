@@ -9,6 +9,7 @@ import {
   Query,
   UseGuards,
   BadRequestException,
+  NotFoundException,
   UseInterceptors,
   UploadedFile,
 } from '@nestjs/common';
@@ -197,6 +198,37 @@ export class OnlineAdmissionController {
       success: true,
       jobId: job.id,
       message: 'Import job queued. Processing in background.',
+    };
+  }
+
+  @Get('import/status/:jobId')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Import job status' })
+  @ApiOperation({ summary: 'Get admission import job status' })
+  async getImportStatus(@Param('jobId') jobId: string) {
+    const job = await this.importQueue.getJob(jobId);
+    if (!job) throw new NotFoundException('Import job not found');
+
+    const state = await job.getState();
+    const result = job.returnvalue as { success: number; failed: number; details: string[]; parsingErrors: string[] } | null;
+
+    return {
+      jobId: job.id,
+      status: state,
+      progress: job.progress,
+      result: result
+        ? {
+            success: result.success,
+            failed: result.failed,
+            total: result.success + result.failed,
+            details: result.details?.slice(-10),
+            parsingErrors: result.parsingErrors?.slice(-10),
+          }
+        : null,
+      timestamp: job.timestamp,
+      finishedAt: job.finishedOn,
+      error: state === 'failed' ? job.failedReason : null,
     };
   }
 

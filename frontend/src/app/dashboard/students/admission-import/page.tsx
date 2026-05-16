@@ -1,18 +1,39 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Upload, Download, AlertCircle, CheckCircle2, XCircle, FileSpreadsheet, FileArchive, Info, Image as ImageIcon, FileText } from 'lucide-react';
+import { Upload, Download, AlertCircle, CheckCircle2, XCircle, FileSpreadsheet, FileArchive, Info, Image as ImageIcon, FileText, Loader2, Clock } from 'lucide-react';
 import { OnlineAdmissionService } from '@/services/onlineAdmissionService';
+import api from '@/lib/api';
 import { toast } from 'sonner';
+
+interface ImportJobStatus {
+    jobId: string;
+    status: 'waiting' | 'active' | 'delayed' | 'completed' | 'failed' | 'paused';
+    progress: number;
+    result: {
+        success: number;
+        failed: number;
+        total: number;
+        details: string[];
+        parsingErrors: string[];
+    } | null;
+    timestamp: number;
+    finishedAt: number | null;
+    error: string | null;
+}
 
 export default function AdmissionImportPage() {
     const { user, resolvedBranchId } = useAuth();
     const [file, setFile] = useState<File | null>(null);
     const [isUploading, setIsUploading] = useState(false);
     const [results, setResults] = useState<any>(null);
+    const [jobId, setJobId] = useState<string | null>(null);
+    const [jobStatus, setJobStatus] = useState<ImportJobStatus | null>(null);
+    const [isPolling, setIsPolling] = useState(false);
+    const pollIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
@@ -34,14 +55,22 @@ export default function AdmissionImportPage() {
         if (!file || !resolvedBranchId) return;
 
         setIsUploading(true);
+        setJobStatus(null);
+        setResults(null);
         try {
             const data = await OnlineAdmissionService.importAdmissions(file, resolvedBranchId);
-            setResults(data);
-            if (data.success > 0) {
-                toast.success(`Successfully imported ${data.success} admissions`);
-            }
-            if (data.failed > 0) {
-                toast.error(`Failed to import ${data.failed} admissions`);
+            if (data.jobId) {
+                setJobId(data.jobId);
+                setIsPolling(true);
+                toast.info('Import job started. Processing in background...');
+            } else {
+                setResults(data);
+                if (data.success > 0) {
+                    toast.success(`Successfully imported ${data.success} admissions`);
+                }
+                if (data.failed > 0) {
+                    toast.error(`Failed to import ${data.failed} admissions`);
+                }
             }
         } catch (error: any) {
             if (process.env.NODE_ENV === 'development') console.error('Import failed', error);
@@ -50,6 +79,43 @@ export default function AdmissionImportPage() {
             setIsUploading(false);
         }
     };
+
+    const pollJobStatus = async () => {
+        if (!jobId) return;
+        try {
+            const response = await api.get(`/online-admissions/import/status/${jobId}`);
+            const status: ImportJobStatus = response.data;
+            setJobStatus(status);
+
+            if (status.status === 'completed') {
+                setIsPolling(false);
+                setResults(status.result);
+                if (status.result && status.result.success > 0) {
+                    toast.success(`Import completed: ${status.result.success} admissions imported`);
+                }
+                if (status.result && status.result.failed > 0) {
+                    toast.error(`Import had ${status.result.failed} failures`);
+                }
+                if (pollIntervalRef.current) clearInterval(pollIntervalRef.current);
+            } else if (status.status === 'failed') {
+                setIsPolling(false);
+                toast.error(`Import failed: ${status.error || 'Unknown error'}`);
+                if (pollIntervalRef.current) clearInterval(pollIntervalRef.current);
+            }
+        } catch (error) {
+            if (process.env.NODE_ENV === 'development') console.error('Poll error', error);
+        }
+    };
+
+    useEffect(() => {
+        if (isPolling && jobId) {
+            pollJobStatus();
+            pollIntervalRef.current = setInterval(pollJobStatus, 2000);
+        }
+        return () => {
+            if (pollIntervalRef.current) clearInterval(pollIntervalRef.current);
+        };
+    }, [isPolling, jobId]);
 
     const downloadSample = () => {
         const anchor = document.createElement('a');
@@ -319,7 +385,37 @@ export default function AdmissionImportPage() {
                     </Card>
 
                     {/* Results Section */}
-                    {results && (
+                    {jobStatus && isPolling && (
+                        <Card className="rounded-[2rem] border-border/50 shadow-2xl overflow-hidden border-l-8 border-l-blue-500">
+                            <CardHeader className="bg-blue-500/5 pb-4">
+                                <CardTitle className="text-h3 font-semibold flex items-center gap-2 text-blue-600">
+                                    <Loader2 className="h-5 w-5 animate-spin" />
+                                    Processing Import
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent className="pt-8 space-y-6">
+                                <div className="flex items-center gap-4">
+                                    <Clock className="h-5 w-5 text-muted-foreground" />
+                                    <p className="text-sm font-medium">
+                                        {jobStatus.status === 'active' ? 'Processing records...' :
+                                         jobStatus.status === 'waiting' ? 'Waiting to start...' :
+                                         'Processing...'}
+                                    </p>
+                                </div>
+                                <div className="w-full bg-muted rounded-full h-3 overflow-hidden">
+                                    <div
+                                        className="bg-blue-500 h-full rounded-full transition-all duration-500"
+                                        style={{ width: `${Math.min((jobStatus.progress || 0) * 100, 100)}%` }}
+                                    />
+                                </div>
+                                <p className="text-xs text-muted-foreground">
+                                    Started {new Date(jobStatus.timestamp).toLocaleTimeString()}
+                                </p>
+                            </CardContent>
+                        </Card>
+                    )}
+
+                    {results && !isPolling && (
                         <Card className="rounded-[2rem] border-border/50 shadow-2xl overflow-hidden">
                             <CardHeader className="bg-muted/50 pb-4">
                                 <CardTitle className="text-h3 font-semibold">Import Results</CardTitle>
