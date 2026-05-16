@@ -317,6 +317,8 @@ model Staff {
   designationRef     Designation?        @relation(fields: [designationId], references: [id])
   user               User                @relation(fields: [userId], references: [id])
   deletedAt          DateTime?
+  createdByUserId    String?
+  updatedByUserId    String?
   attendance         StaffAttendance[]
   awards             StaffAward[]
   subjects           Subject[]           @relation("StaffToSubject")
@@ -374,8 +376,10 @@ model Student {
   scholarshipEligible       Boolean               @default(false)
   referralSource            String?
   createdAt                 DateTime              @default(now())
-  updatedAt  DateTime @updatedAt
-  deletedAt  DateTime?
+  updatedAt                 DateTime              @updatedAt
+  deletedAt                 DateTime?
+  createdByUserId           String?
+  updatedByUserId           String?
   alumni                    Alumni?
   assessmentRecords         AssessmentRecord[]
   attendance                Attendance[]
@@ -428,7 +432,7 @@ model Certificate {
   updatedAt         DateTime             @updatedAt
   branch            Branch               @relation(fields: [branchId], references: [id])
   issuedBy          User                 @relation("IssuedCertificates", fields: [issuedByUserId], references: [id])
-  student           Student              @relation(fields: [studentId], references: [id])
+  student           Student              @relation(fields: [studentId], references: [id], onDelete: Cascade)
   template          CertificateTemplate? @relation(fields: [templateId], references: [id])
 
   @@index([branchId])
@@ -459,6 +463,8 @@ model Class {
   createdAt          DateTime            @default(now())
   updatedAt          DateTime            @updatedAt
   deletedAt          DateTime?
+  createdByUserId    String?
+  updatedByUserId    String?
   branch             Branch              @relation(fields: [branchId], references: [id])
   classTeacher       Staff?              @relation(fields: [classTeacherId], references: [id])
   classSchedules     ClassSchedule[]
@@ -482,8 +488,10 @@ model Section {
   name               String
   classId            String
   createdAt          DateTime            @default(now())
-  updatedAt        DateTime        @updatedAt
-  deletedAt        DateTime?
+  updatedAt          DateTime            @updatedAt
+  deletedAt          DateTime?
+  createdByUserId    String?
+  updatedByUserId    String?
   assessmentRecords  AssessmentRecord[]
   assignments        Assignment[]
   attendance         Attendance[]
@@ -508,8 +516,10 @@ model Subject {
   code               String?
   branchId           String
   createdAt          DateTime            @default(now())
-  updatedAt          DateTime        @updatedAt
+  updatedAt          DateTime            @updatedAt
   deletedAt          DateTime?
+  createdByUserId    String?
+  updatedByUserId    String?
   assessmentRecords  AssessmentRecord[]
   assignments        Assignment[]
   classSchedules     ClassSchedule[]
@@ -616,7 +626,7 @@ model Room {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   beds      Bed[]
-  hostel    Hostel   @relation(fields: [hostelId], references: [id])
+  hostel    Hostel   @relation(fields: [hostelId], references: [id], onDelete: Cascade)
 
   @@unique([hostelId, number])
 }
@@ -628,7 +638,7 @@ model Bed {
   roomId      String
   createdAt   DateTime             @default(now())
   updatedAt   DateTime             @updatedAt
-  room        Room                 @relation(fields: [roomId], references: [id])
+  room        Room                 @relation(fields: [roomId], references: [id], onDelete: Cascade)
   allocations HostelAllocation[]
   maintenance MaintenanceRequest[]
 
@@ -645,7 +655,7 @@ model HostelAllocation {
   branchId     String
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
-  bed          Bed       @relation(fields: [bedId], references: [id])
+  bed          Bed       @relation(fields: [bedId], references: [id], onDelete: Cascade)
   student      Student   @relation(fields: [studentId], references: [id])
   branch       Branch    @relation(fields: [branchId], references: [id])
 
@@ -728,6 +738,8 @@ model Invoice {
   branchId      String
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
+  createdByUserId String?
+  updatedByUserId String?
   student       Student       @relation(fields: [studentId], references: [id])
   branch        Branch        @relation(fields: [branchId], references: [id])
   items         InvoiceItem[]
@@ -813,7 +825,7 @@ model OnlineExamAttempt {
   status    AttemptStatus    @default(IN_PROGRESS)
   createdAt DateTime         @default(now())
   updatedAt DateTime         @updatedAt
-  exam      OnlineExam       @relation(fields: [examId], references: [id])
+  exam      OnlineExam       @relation(fields: [examId], references: [id], onDelete: Cascade)
   student   Student          @relation(fields: [studentId], references: [id])
   answers   QuestionAnswer[]
 
@@ -831,7 +843,7 @@ model QuestionAnswer {
   isCorrect        Boolean?
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
-  attempt          OnlineExamAttempt @relation(fields: [attemptId], references: [id])
+  attempt          OnlineExamAttempt @relation(fields: [attemptId], references: [id], onDelete: Cascade)
   question         Question          @relation(fields: [questionId], references: [id])
 
   @@unique([attemptId, questionId])
@@ -845,7 +857,7 @@ model InvoiceItem {
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
   category   FeeCategory @relation(fields: [categoryId], references: [id])
-  invoice    Invoice     @relation(fields: [invoiceId], references: [id])
+  invoice    Invoice     @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
 
   @@index([invoiceId])
 }
@@ -861,7 +873,7 @@ model Payment {
   invoiceId     String
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
-  invoice       Invoice       @relation(fields: [invoiceId], references: [id])
+  invoice       Invoice       @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
 
   @@index([invoiceId])
   @@index([status])
@@ -952,7 +964,7 @@ model Submission {
   branchId     String
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
-  assignment   Assignment @relation(fields: [assignmentId], references: [id])
+  assignment   Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
   student      Student    @relation(fields: [studentId], references: [id])
   branch       Branch     @relation(fields: [branchId], references: [id])
 
@@ -1010,6 +1022,8 @@ model AssessmentRecord {
   isEligible Boolean         @default(true)
   createdAt  DateTime        @default(now())
   updatedAt  DateTime        @updatedAt
+  createdByUserId String?
+  updatedByUserId String?
   branch     Branch          @relation(fields: [branchId], references: [id])
   section    Section         @relation(fields: [sectionId], references: [id])
   session    AcademicSession @relation(fields: [sessionId], references: [id])
@@ -1492,6 +1506,8 @@ model Voucher {
   status            VoucherStatus   @default(PENDING)
   createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt
+  createdByUserId   String?
+  updatedByUserId   String?
   approvedBy        User?           @relation("VoucherApprover", fields: [approvedByUserId], references: [id])
   branch            Branch          @relation(fields: [branchId], references: [id])
   category          ExpenseCategory @relation(fields: [expenseCategoryId], references: [id])
@@ -1508,6 +1524,8 @@ model Department {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   deletedAt   DateTime?
+  createdByUserId String?
+  updatedByUserId String?
   branch      Branch   @relation(fields: [branchId], references: [id])
   staff       Staff[]
 
@@ -1521,6 +1539,8 @@ model Designation {
   branchId    String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  createdByUserId String?
+  updatedByUserId String?
   branch      Branch   @relation(fields: [branchId], references: [id])
   staff       Staff[]
 
@@ -1541,6 +1561,8 @@ model Book {
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
   deletedAt        DateTime?
+  createdByUserId  String?
+  updatedByUserId  String?
   branch           Branch            @relation(fields: [branchId], references: [id])
   borrowRecords    BorrowRecord[]
   bookCopies       BookCopy[]
@@ -1560,7 +1582,7 @@ model BorrowRecord {
   branchId   String
   createdAt  DateTime      @default(now())
   updatedAt  DateTime      @updatedAt
-  book       Book          @relation(fields: [bookId], references: [id])
+  book       Book          @relation(fields: [bookId], references: [id], onDelete: Cascade)
   student    Student       @relation(fields: [studentId], references: [id])
   fines      LibraryFine[]
   bookCopy   BookCopy?     @relation(fields: [bookCopyId], references: [id])
@@ -2183,7 +2205,7 @@ model ConversationParticipant {
   unreadCount    Int          @default(0)
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
-  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
   user           User         @relation(fields: [userId], references: [id])
 
   @@unique([conversationId, userId])
@@ -2197,7 +2219,7 @@ model Message {
   isRead         Boolean      @default(false)
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
-  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
   sender         User         @relation(fields: [senderId], references: [id])
 
   @@index([conversationId])
@@ -3053,7 +3075,7 @@ model BookCopy {
   branchId        String
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
-  book            Book           @relation(fields: [bookId], references: [id])
+  book            Book           @relation(fields: [bookId], references: [id], onDelete: Cascade)
   borrowRecords   BorrowRecord[]
   branch          Branch         @relation(fields: [branchId], references: [id])
 

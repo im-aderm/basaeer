@@ -245,7 +245,9 @@ exports.Prisma.StaffScalarFieldEnum = {
   status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  deletedAt: 'deletedAt',
+  createdByUserId: 'createdByUserId',
+  updatedByUserId: 'updatedByUserId'
 };
 
 exports.Prisma.StudentScalarFieldEnum = {
@@ -300,7 +302,9 @@ exports.Prisma.StudentScalarFieldEnum = {
   referralSource: 'referralSource',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  deletedAt: 'deletedAt',
+  createdByUserId: 'createdByUserId',
+  updatedByUserId: 'updatedByUserId'
 };
 
 exports.Prisma.CertificateScalarFieldEnum = {
@@ -339,7 +343,9 @@ exports.Prisma.ClassScalarFieldEnum = {
   capacity: 'capacity',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  deletedAt: 'deletedAt',
+  createdByUserId: 'createdByUserId',
+  updatedByUserId: 'updatedByUserId'
 };
 
 exports.Prisma.SectionScalarFieldEnum = {
@@ -348,7 +354,9 @@ exports.Prisma.SectionScalarFieldEnum = {
   classId: 'classId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  deletedAt: 'deletedAt',
+  createdByUserId: 'createdByUserId',
+  updatedByUserId: 'updatedByUserId'
 };
 
 exports.Prisma.SubjectScalarFieldEnum = {
@@ -358,7 +366,9 @@ exports.Prisma.SubjectScalarFieldEnum = {
   branchId: 'branchId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  deletedAt: 'deletedAt',
+  createdByUserId: 'createdByUserId',
+  updatedByUserId: 'updatedByUserId'
 };
 
 exports.Prisma.ClassScheduleScalarFieldEnum = {
@@ -495,7 +505,9 @@ exports.Prisma.InvoiceScalarFieldEnum = {
   studentId: 'studentId',
   branchId: 'branchId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  createdByUserId: 'createdByUserId',
+  updatedByUserId: 'updatedByUserId'
 };
 
 exports.Prisma.QuestionGroupScalarFieldEnum = {
@@ -687,7 +699,9 @@ exports.Prisma.AssessmentRecordScalarFieldEnum = {
   examTerm: 'examTerm',
   isEligible: 'isEligible',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  createdByUserId: 'createdByUserId',
+  updatedByUserId: 'updatedByUserId'
 };
 
 exports.Prisma.BehaviouralRatingScalarFieldEnum = {
@@ -1049,7 +1063,9 @@ exports.Prisma.VoucherScalarFieldEnum = {
   branchId: 'branchId',
   status: 'status',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  createdByUserId: 'createdByUserId',
+  updatedByUserId: 'updatedByUserId'
 };
 
 exports.Prisma.DepartmentScalarFieldEnum = {
@@ -1059,7 +1075,9 @@ exports.Prisma.DepartmentScalarFieldEnum = {
   branchId: 'branchId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  deletedAt: 'deletedAt',
+  createdByUserId: 'createdByUserId',
+  updatedByUserId: 'updatedByUserId'
 };
 
 exports.Prisma.DesignationScalarFieldEnum = {
@@ -1068,7 +1086,9 @@ exports.Prisma.DesignationScalarFieldEnum = {
   description: 'description',
   branchId: 'branchId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  createdByUserId: 'createdByUserId',
+  updatedByUserId: 'updatedByUserId'
 };
 
 exports.Prisma.BookScalarFieldEnum = {
@@ -1084,7 +1104,9 @@ exports.Prisma.BookScalarFieldEnum = {
   branchId: 'branchId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  deletedAt: 'deletedAt',
+  createdByUserId: 'createdByUserId',
+  updatedByUserId: 'updatedByUserId'
 };
 
 exports.Prisma.BorrowRecordScalarFieldEnum = {
