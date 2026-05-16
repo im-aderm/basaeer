@@ -44,6 +44,26 @@ export class RolesController {
     return this.rolesService.findAll(branchId || undefined, ctx.isSuperAdmin);
   }
 
+  // ── Modules & Seed (must be before parameterized routes) ───────────────────────────────────────────────────────
+
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Get distinct modules from DB' })
+  @Get('modules')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+  getModules() {
+    return this.rolesService.getModules();
+  }
+
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Seed CustomRolePermission from legacy RolePermission' })
+  @Post('seed')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+  seedPermissions() {
+    return this.rolesService.seedPermissions();
+  }
+
   @ApiBearerAuth()
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Get Role' })
@@ -119,26 +139,6 @@ export class RolesController {
     @GetTenantContext() ctx: TenantContext,
   ) {
     return this.rolesService.bulkUpdatePermissions(id, permissions, ctx.branchId || undefined, ctx.isSuperAdmin);
-  }
-
-  // ── Modules & Seed ─────────────────────────────────────────────────────
-
-  @ApiBearerAuth()
-  @ApiResponse({ status: 200, description: 'Operation successful' })
-  @ApiOperation({ summary: 'Get distinct modules from DB' })
-  @Get('modules')
-  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  getModules() {
-    return this.rolesService.getModules();
-  }
-
-  @ApiBearerAuth()
-  @ApiResponse({ status: 200, description: 'Operation successful' })
-  @ApiOperation({ summary: 'Seed CustomRolePermission from legacy RolePermission' })
-  @Post('seed')
-  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  seedPermissions() {
-    return this.rolesService.seedPermissions();
   }
 
   // ── User Assignment ────────────────────────────────────────────────────
