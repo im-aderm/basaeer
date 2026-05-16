@@ -1,11 +1,26 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma, Branch, UserRole } from '../generated/client/client';
+import { NotificationsService } from '../notifications/notifications.service';
 import * as bcrypt from 'bcrypt';
+
+interface ReassignBranchAdminDto {
+  newAdminUserId?: string;
+  createNewAdminUser?: {
+    email: string;
+    firstName: string;
+    lastName: string;
+    password?: string;
+    phone?: string;
+  };
+}
 
 @Injectable()
 export class BranchesService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private notificationsService: NotificationsService,
+  ) {}
 
   async create(data: Prisma.BranchCreateInput & {
     adminUserId?: string;
@@ -71,5 +86,117 @@ export class BranchesService {
 
   remove(id: string): Promise<Branch> {
     return this.prisma.branch.delete({ where: { id } });
+  }
+
+  async reassignBranchAdmin(branchId: string, dto: ReassignBranchAdminDto) {
+    const branch = await this.prisma.branch.findUnique({ where: { id: branchId } });
+    if (!branch) throw new BadRequestException('Branch not found');
+
+    // Find the current branch admin for this branch
+    const oldAdmin = await this.prisma.user.findFirst({
+      where: { branchId, role: UserRole.BRANCH_ADMIN },
+    });
+
+    if (dto.newAdminUserId) {
+      // Promote existing user to branch admin
+      const newAdmin = await this.prisma.user.findUnique({
+        where: { id: dto.newAdminUserId },
+      });
+      if (!newAdmin) throw new BadRequestException('New admin user not found');
+
+      await this.prisma.$transaction(async (tx) => {
+        // Demote old admin if exists
+        if (oldAdmin) {
+          await tx.user.update({
+            where: { id: oldAdmin.id },
+            data: { role: UserRole.TEACHER, roleId: null },
+          });
+        }
+
+        // Promote new admin
+        await tx.user.update({
+          where: { id: dto.newAdminUserId! },
+          data: { role: UserRole.BRANCH_ADMIN, branchId },
+        });
+      });
+
+      // Notify old admin
+      if (oldAdmin) {
+        await this.notificationsService.createNotification({
+          userId: oldAdmin.id,
+          title: 'Branch Admin Access Removed',
+          message: `Your administrator access for ${branch.name} has been revoked. You no longer have branch admin privileges.`,
+          type: 'SYSTEM_ALERT',
+          branchId,
+        });
+      }
+
+      // Notify new admin
+      await this.notificationsService.createNotification({
+        userId: dto.newAdminUserId,
+        title: 'Branch Admin Access Granted',
+        message: `You have been assigned as the Branch Administrator for ${branch.name}.`,
+        type: 'SYSTEM_ALERT',
+        branchId,
+      });
+
+      return {
+        message: `Branch admin reassigned from ${oldAdmin?.firstName || 'none'} to ${newAdmin.firstName} ${newAdmin.lastName}`,
+        oldAdminId: oldAdmin?.id || null,
+        newAdminId: dto.newAdminUserId,
+      };
+    } else if (dto.createNewAdminUser) {
+      // Create new user and assign as branch admin
+      const existing = await this.prisma.user.findUnique({
+        where: { email: dto.createNewAdminUser.email },
+      });
+      if (existing) throw new BadRequestException('User with this email already exists');
+
+      const createData = dto.createNewAdminUser!;
+      const hashedPassword = await bcrypt.hash(createData.password || 'Password123!', 8);
+
+      await this.prisma.$transaction(async (tx) => {
+        // Demote old admin if exists
+        if (oldAdmin) {
+          await tx.user.update({
+            where: { id: oldAdmin.id },
+            data: { role: UserRole.TEACHER, roleId: null },
+          });
+        }
+
+        // Create new admin
+        await tx.user.create({
+          data: {
+            email: createData.email,
+            password: hashedPassword,
+            firstName: createData.firstName,
+            lastName: createData.lastName,
+            phone: createData.phone || null,
+            role: UserRole.BRANCH_ADMIN,
+            branchId,
+            mustChangePassword: !createData.password,
+          },
+        });
+      });
+
+      // Notify old admin
+      if (oldAdmin) {
+        await this.notificationsService.createNotification({
+          userId: oldAdmin.id,
+          title: 'Branch Admin Access Removed',
+          message: `Your administrator access for ${branch.name} has been revoked. A new administrator has been assigned.`,
+          type: 'SYSTEM_ALERT',
+          branchId,
+        });
+      }
+
+      return {
+        message: `New branch admin created and assigned for ${branch.name}`,
+        oldAdminId: oldAdmin?.id || null,
+        newAdminEmail: dto.createNewAdminUser.email,
+      };
+    }
+
+    throw new BadRequestException('Either newAdminUserId or createNewAdminUser must be provided');
   }
 }

@@ -7,6 +7,7 @@ import {
   UseGuards,
   Param,
   Delete,
+  BadRequestException,
 } from '@nestjs/common';
 import { InventoryService } from './inventory.service';
 import {
@@ -51,6 +52,19 @@ export class InventoryController {
     return ctx.isSuperAdmin ? queryBranchId || null : ctx.branchId || null;
   }
 
+  private enforceBranchForWrite(
+    ctx: TenantContext,
+    dto: { branchId?: string | null },
+  ): string {
+    const branchId = dto.branchId || ctx.branchId;
+    if (!branchId) {
+      throw new BadRequestException(
+        'A specific campus must be selected to create or modify inventory records. Please select a campus from the branch switcher.',
+      );
+    }
+    return branchId;
+  }
+
   @ApiBearerAuth()
   @ApiBody({ type: CreateInventoryCategoryDto })
   @ApiResponse({ status: 201, description: 'Operation successful' })
@@ -61,7 +75,7 @@ export class InventoryController {
     @Body() dto: CreateInventoryCategoryDto,
     @GetTenantContext() ctx: TenantContext,
   ) {
-    if (!dto.branchId && ctx.branchId) dto.branchId = ctx.branchId;
+    dto.branchId = this.enforceBranchForWrite(ctx, dto);
     return this.inventoryService.createCategory(dto);
   }
 
@@ -112,7 +126,7 @@ export class InventoryController {
     @Body() dto: CreateInventoryStoreDto,
     @GetTenantContext() ctx: TenantContext,
   ) {
-    if (!dto.branchId && ctx.branchId) dto.branchId = ctx.branchId;
+    dto.branchId = this.enforceBranchForWrite(ctx, dto);
     return this.inventoryService.createStore(dto);
   }
 
@@ -157,7 +171,7 @@ export class InventoryController {
     @Body() dto: CreateInventorySupplierDto,
     @GetTenantContext() ctx: TenantContext,
   ) {
-    if (!dto.branchId && ctx.branchId) dto.branchId = ctx.branchId;
+    dto.branchId = this.enforceBranchForWrite(ctx, dto);
     return this.inventoryService.createSupplier(dto);
   }
 
@@ -208,7 +222,7 @@ export class InventoryController {
     @Body() dto: CreateInventoryUnitDto,
     @GetTenantContext() ctx: TenantContext,
   ) {
-    if (!dto.branchId && ctx.branchId) dto.branchId = ctx.branchId;
+    dto.branchId = this.enforceBranchForWrite(ctx, dto);
     return this.inventoryService.createUnit(dto);
   }
 
@@ -253,7 +267,7 @@ export class InventoryController {
     @Body() dto: CreateInventoryProductDto,
     @GetTenantContext() ctx: TenantContext,
   ) {
-    if (!dto.branchId && ctx.branchId) dto.branchId = ctx.branchId;
+    dto.branchId = this.enforceBranchForWrite(ctx, dto);
     return this.inventoryService.createProduct(dto);
   }
 
@@ -298,7 +312,11 @@ export class InventoryController {
   @ApiOperation({ summary: 'Create Purchase' })
   @Post('purchases')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  createPurchase(@Body() dto: CreateInventoryPurchaseDto) {
+  createPurchase(
+    @Body() dto: CreateInventoryPurchaseDto,
+    @GetTenantContext() ctx: TenantContext,
+  ) {
+    dto.branchId = this.enforceBranchForWrite(ctx, dto);
     return this.inventoryService.createPurchase(dto);
   }
 
@@ -322,7 +340,11 @@ export class InventoryController {
   @ApiOperation({ summary: 'Create Issue Item' })
   @Post('issues')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  issueItem(@Body() dto: IssueItemDto) {
+  issueItem(
+    @Body() dto: IssueItemDto,
+    @GetTenantContext() ctx: TenantContext,
+  ) {
+    dto.branchId = this.enforceBranchForWrite(ctx, dto);
     return this.inventoryService.issueItem(dto);
   }
 
@@ -353,7 +375,11 @@ export class InventoryController {
   @ApiOperation({ summary: 'Create Sale' })
   @Post('sales')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  createSale(@Body() dto: CreateInventorySaleDto) {
+  createSale(
+    @Body() dto: CreateInventorySaleDto,
+    @GetTenantContext() ctx: TenantContext,
+  ) {
+    dto.branchId = this.enforceBranchForWrite(ctx, dto);
     return this.inventoryService.createSale(dto);
   }
 

@@ -1,5 +1,6 @@
 "use client";
 import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
@@ -50,8 +51,9 @@ export default function InventoryHistoryPage() {
     };
 
     return (
-            <RequireBranch>
+            <RequireBranch requireSpecificBranch>
         <div className="max-w-7xl mx-auto space-y-8 pb-20">
+            <BranchContextBanner />
             <div className="flex justify-between items-end">
                 <div>
                     <Link href="/dashboard/inventory" className="flex items-center gap-2 text-muted-foreground hover:text-primary font-bold transition-colors mb-2">

@@ -44,6 +44,17 @@ export interface UpdateBranchDto {
     isActive?: boolean;
 }
 
+export interface ReassignBranchAdminDto {
+    newAdminUserId?: string;
+    createNewAdminUser?: {
+        email: string;
+        firstName: string;
+        lastName: string;
+        password?: string;
+        phone?: string;
+    };
+}
+
 export const BranchService = {
     getAll: async (): Promise<Branch[]> => {
         const response = await api.get("/branches");
@@ -71,6 +82,11 @@ export const BranchService = {
 
     getActive: async (): Promise<Pick<Branch, 'id' | 'name' | 'code'>[]> => {
         const response = await api.get("/branches/public/active");
+        return response.data;
+    },
+
+    reassignAdmin: async (branchId: string, data: ReassignBranchAdminDto): Promise<any> => {
+        const response = await api.post(`/branches/${branchId}/reassign-admin`, data);
         return response.data;
     },
 };

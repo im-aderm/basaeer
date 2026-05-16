@@ -25,6 +25,17 @@ import {
   ApiBody,
 } from '@nestjs/swagger';
 
+interface ReassignBranchAdminDto {
+  newAdminUserId: string;
+  createNewAdminUser?: {
+    email: string;
+    firstName: string;
+    lastName: string;
+    password?: string;
+    phone?: string;
+  };
+}
+
 @UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
 @ApiTags('Branches')
 @Controller('branches')
@@ -76,6 +87,36 @@ export class BranchesController {
     @Body() updateBranchDto: Prisma.BranchUpdateInput,
   ) {
     return this.branchesService.update(id, updateBranchDto);
+  }
+
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Reassign Branch Admin' })
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        newAdminUserId: { type: 'string', description: 'ID of existing user to promote' },
+        createNewAdminUser: {
+          type: 'object',
+          properties: {
+            email: { type: 'string' },
+            firstName: { type: 'string' },
+            lastName: { type: 'string' },
+            password: { type: 'string' },
+            phone: { type: 'string' },
+          },
+        },
+      },
+    },
+  })
+  @Post(':id/reassign-admin')
+  @Roles(UserRole.SUPER_ADMIN)
+  reassignAdmin(
+    @Param('id') id: string,
+    @Body() dto: ReassignBranchAdminDto,
+  ) {
+    return this.branchesService.reassignBranchAdmin(id, dto);
   }
 
   @ApiBearerAuth()

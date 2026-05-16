@@ -1,5 +1,6 @@
 'use client';
 import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
@@ -56,7 +57,9 @@ export default function InventoryProductPage() {
             setCategories(c);
             setStores(s);
             setUnits(u);
-        } catch (error) { }
+        } catch (error) {
+            toast.error('Failed to load inventory dependencies');
+        }
     };
 
     useEffect(() => {
@@ -96,8 +99,9 @@ export default function InventoryProductPage() {
     };
 
     return (
-            <RequireBranch>
+            <RequireBranch requireSpecificBranch>
         <div className="max-w-7xl mx-auto space-y-8 pb-20">
+            <BranchContextBanner />
             <div className="flex justify-between items-end">
                 <div>
                     <h1 className="text-h1 font-bold tracking-tight text-primary">Product Catalog</h1>
@@ -141,21 +145,27 @@ export default function InventoryProductPage() {
                                     <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Category</Label>
                                     <Select onValueChange={(v) => setFormData({ ...formData, categoryId: v })}>
                                         <SelectTrigger className="h-12 rounded-xl font-bold"><SelectValue placeholder="Select" /></SelectTrigger>
-                                        <SelectContent className="rounded-xl">{categories.map(c => <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>)}</SelectContent>
+                                        <SelectContent className="rounded-xl">
+                                            {categories.length > 0 ? categories.map(c => <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>) : <SelectItem value="__none__" disabled>No categories — add one first</SelectItem>}
+                                        </SelectContent>
                                     </Select>
                                 </div>
                                 <div className="space-y-2">
                                     <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Store Location</Label>
                                     <Select onValueChange={(v) => setFormData({ ...formData, storeId: v })}>
                                         <SelectTrigger className="h-12 rounded-xl font-bold"><SelectValue placeholder="Select" /></SelectTrigger>
-                                        <SelectContent className="rounded-xl">{stores.map(s => <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>)}</SelectContent>
+                                        <SelectContent className="rounded-xl">
+                                            {stores.length > 0 ? stores.map(s => <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>) : <SelectItem value="__none__" disabled>No stores — add one first</SelectItem>}
+                                        </SelectContent>
                                     </Select>
                                 </div>
                                 <div className="space-y-2">
                                     <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Unit</Label>
                                     <Select onValueChange={(v) => setFormData({ ...formData, unitId: v })}>
                                         <SelectTrigger className="h-12 rounded-xl font-bold"><SelectValue placeholder="Select" /></SelectTrigger>
-                                        <SelectContent className="rounded-xl">{units.map(u => <SelectItem key={u.id} value={u.id}>{u.name}</SelectItem>)}</SelectContent>
+                                        <SelectContent className="rounded-xl">
+                                            {units.length > 0 ? units.map(u => <SelectItem key={u.id} value={u.id}>{u.name}</SelectItem>) : <SelectItem value="__none__" disabled>No units — add one first</SelectItem>}
+                                        </SelectContent>
                                     </Select>
                                 </div>
                             </div>

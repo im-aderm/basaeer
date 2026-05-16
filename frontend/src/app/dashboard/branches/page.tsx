@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Branch, BranchService } from "@/services/branchService";
+import { UserService, User } from "@/services/userService";
 import {
     Plus,
     Trash2,
@@ -16,7 +17,10 @@ import {
     CheckCircle2,
     Search,
     Image,
-    Palette
+    Palette,
+    UserCog,
+    Users,
+    ShieldAlert,
 } from "lucide-react";
 import { clsx } from "clsx";
 import { toast } from "sonner";
@@ -41,6 +45,13 @@ export default function BranchesPage() {
     const [deleteTarget, setDeleteTarget] = useState<Branch | null>(null);
     const [deleting, setDeleting] = useState(false);
     const [deleteSuccess, setDeleteSuccess] = useState(false);
+    const [showAdminModal, setShowAdminModal] = useState(false);
+    const [adminTarget, setAdminTarget] = useState<Branch | null>(null);
+    const [adminMode, setAdminMode] = useState<"select" | "create">("select");
+    const [adminUserId, setAdminUserId] = useState("");
+    const [newAdminForm, setNewAdminForm] = useState({ email: "", firstName: "", lastName: "", password: "", phone: "" });
+    const [existingUsers, setExistingUsers] = useState<User[]>([]);
+    const [adminSubmitting, setAdminSubmitting] = useState(false);
 
     const fetchBranches = async () => {
         setLoading(true);
@@ -139,6 +150,53 @@ export default function BranchesPage() {
         }
     };
 
+    const openAdminModal = (branch: Branch) => {
+        setAdminTarget(branch);
+        setAdminMode("select");
+        setAdminUserId("");
+        setNewAdminForm({ email: "", firstName: "", lastName: "", password: "", phone: "" });
+        setShowAdminModal(true);
+        UserService.getAll().then(users => {
+            setExistingUsers(users.filter(u => u.role !== "SUPER_ADMIN" && u.role !== "BRANCH_ADMIN" && u.role !== "STUDENT" && u.role !== "PARENT"));
+        }).catch(() => {});
+    };
+
+    const handleReassignAdmin = async () => {
+        if (!adminTarget) return;
+        if (adminMode === "select" && !adminUserId) {
+            toast.error("Please select a user to assign as admin");
+            return;
+        }
+        if (adminMode === "create" && (!newAdminForm.email || !newAdminForm.firstName || !newAdminForm.lastName)) {
+            toast.error("Please fill in all required fields");
+            return;
+        }
+        setAdminSubmitting(true);
+        try {
+            const payload: any = {};
+            if (adminMode === "select") {
+                payload.newAdminUserId = adminUserId;
+            } else {
+                payload.createNewAdminUser = {
+                    email: newAdminForm.email,
+                    firstName: newAdminForm.firstName,
+                    lastName: newAdminForm.lastName,
+                    password: newAdminForm.password || undefined,
+                    phone: newAdminForm.phone || undefined,
+                };
+            }
+            await BranchService.reassignAdmin(adminTarget.id, payload);
+            toast.success("Branch admin reassigned successfully. The previous admin has been notified.");
+            setShowAdminModal(false);
+            setAdminTarget(null);
+        } catch (error: any) {
+            const msg = error.response?.data?.message || "Failed to reassign admin";
+            toast.error(msg);
+        } finally {
+            setAdminSubmitting(false);
+        }
+    };
+
     const filteredBranches = (branches ?? []).filter(b =>
         b.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         b.code.toLowerCase().includes(searchTerm.toLowerCase())
@@ -230,6 +288,12 @@ export default function BranchesPage() {
                                     className="flex-1 flex items-center justify-center gap-2 py-2 px-4 bg-muted hover:bg-muted/80 rounded-xl text-sm font-semibold transition-colors"
                                 >
                                     <Edit size={14} /> Edit Details
+                                </button>
+                                <button
+                                    onClick={() => openAdminModal(branch)}
+                                    className="flex-1 flex items-center justify-center gap-2 py-2 px-4 bg-primary/10 hover:bg-primary/20 text-primary rounded-xl text-sm font-semibold transition-colors"
+                                >
+                                    <UserCog size={14} /> Change Admin
                                 </button>
                                 <button
                                     onClick={() => handleDeleteClick(branch)}
@@ -400,6 +464,145 @@ export default function BranchesPage() {
                                 </button>
                             </div>
                         </form>
+                    </div>
+                </div>
+            )}
+
+            {/* Change Branch Admin Modal */}
+            {showAdminModal && adminTarget && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
+                    <div className="bg-white/95 w-full max-w-lg rounded-3xl border border-border shadow-2xl animate-in zoom-in-95 duration-200 flex flex-col max-h-[90vh]">
+                        <div className="p-8 border-b border-border bg-muted/20 shrink-0">
+                            <div className="flex items-center gap-3">
+                                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                                    <UserCog className="w-5 h-5 text-primary" />
+                                </div>
+                                <div>
+                                    <h3 className="text-xl font-bold">Change Branch Admin</h3>
+                                    <p className="text-muted-foreground text-sm">{adminTarget.name}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="p-8 space-y-6 overflow-y-auto flex-1">
+                            <div className="p-4 bg-amber-500/5 border border-amber-500/20 rounded-xl space-y-2">
+                                <div className="flex items-center gap-2">
+                                    <ShieldAlert className="w-4 h-4 text-amber-600 shrink-0" />
+                                    <p className="text-xs font-semibold text-amber-600 uppercase tracking-wider">Warning</p>
+                                </div>
+                                <p className="text-sm text-muted-foreground">
+                                    The current branch admin will lose all administrative access to this branch and will be notified of this change.
+                                </p>
+                            </div>
+
+                            <div className="flex gap-2 bg-muted/50 p-1.5 rounded-2xl w-fit border border-border/50">
+                                <button
+                                    type="button" onClick={() => setAdminMode("select")}
+                                    className={clsx("px-5 py-2 rounded-xl text-sm font-semibold transition-all flex items-center gap-2",
+                                        adminMode === "select" ? "bg-white text-foreground shadow-sm" : "text-muted-foreground"
+                                    )}
+                                ><Users size={14} /> Select Existing</button>
+                                <button
+                                    type="button" onClick={() => setAdminMode("create")}
+                                    className={clsx("px-5 py-2 rounded-xl text-sm font-semibold transition-all flex items-center gap-2",
+                                        adminMode === "create" ? "bg-white text-foreground shadow-sm" : "text-muted-foreground"
+                                    )}
+                                ><UserCog size={14} /> Create New</button>
+                            </div>
+
+                            {adminMode === "select" ? (
+                                <div className="space-y-2">
+                                    <label className="text-sm font-semibold">Select New Administrator</label>
+                                    <select
+                                        value={adminUserId}
+                                        onChange={(e) => setAdminUserId(e.target.value)}
+                                        className="w-full p-3 bg-white border border-primary/90 rounded-xl focus:ring-2 focus:ring-primary/20 outline-none"
+                                    >
+                                        <option value="">-- Choose a user --</option>
+                                        {existingUsers.map(u => (
+                                            <option key={u.id} value={u.id}>{u.firstName} {u.lastName} ({u.email})</option>
+                                        ))}
+                                    </select>
+                                    {existingUsers.length === 0 && (
+                                        <p className="text-xs text-muted-foreground">No eligible users found. Try creating a new admin instead.</p>
+                                    )}
+                                </div>
+                            ) : (
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <label className="text-sm font-semibold">First Name</label>
+                                        <input
+                                            value={newAdminForm.firstName}
+                                            onChange={(e) => setNewAdminForm({ ...newAdminForm, firstName: e.target.value })}
+                                            placeholder="Admin first name"
+                                            className="w-full p-3 bg-white border border-primary/90 rounded-xl focus:ring-2 focus:ring-primary/20 outline-none"
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-sm font-semibold">Last Name</label>
+                                        <input
+                                            value={newAdminForm.lastName}
+                                            onChange={(e) => setNewAdminForm({ ...newAdminForm, lastName: e.target.value })}
+                                            placeholder="Admin last name"
+                                            className="w-full p-3 bg-white border border-primary/90 rounded-xl focus:ring-2 focus:ring-primary/20 outline-none"
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-sm font-semibold">Email</label>
+                                        <input
+                                            type="email"
+                                            value={newAdminForm.email}
+                                            onChange={(e) => setNewAdminForm({ ...newAdminForm, email: e.target.value })}
+                                            placeholder="admin@branch.com"
+                                            className="w-full p-3 bg-white border border-primary/90 rounded-xl focus:ring-2 focus:ring-primary/20 outline-none"
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-sm font-semibold">Password</label>
+                                        <input
+                                            type="password"
+                                            value={newAdminForm.password}
+                                            onChange={(e) => setNewAdminForm({ ...newAdminForm, password: e.target.value })}
+                                            placeholder="Leave blank for auto-generated"
+                                            className="w-full p-3 bg-white border border-primary/90 rounded-xl focus:ring-2 focus:ring-primary/20 outline-none"
+                                        />
+                                        <p className="text-[11px] text-muted-foreground">Defaults to Password123! if blank.</p>
+                                    </div>
+                                    <div className="space-y-2 md:col-span-2">
+                                        <label className="text-sm font-semibold">Phone (optional)</label>
+                                        <input
+                                            value={newAdminForm.phone}
+                                            onChange={(e) => setNewAdminForm({ ...newAdminForm, phone: e.target.value })}
+                                            placeholder="+234 ..."
+                                            className="w-full p-3 bg-white border border-primary/90 rounded-xl focus:ring-2 focus:ring-primary/20 outline-none"
+                                        />
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
+                        <div className="p-8 border-t border-border bg-muted/20 flex items-center justify-end gap-4 shrink-0">
+                            <button
+                                type="button"
+                                onClick={() => { setShowAdminModal(false); setAdminTarget(null); }}
+                                disabled={adminSubmitting}
+                                className="px-6 py-2.5 text-sm font-bold hover:bg-muted bg-white/75 border border-border rounded-xl transition-all disabled:opacity-50"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                type="button"
+                                onClick={handleReassignAdmin}
+                                disabled={adminSubmitting}
+                                className="px-8 py-2.5 bg-primary text-white rounded-xl hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 font-bold disabled:opacity-50 flex items-center gap-2"
+                            >
+                                {adminSubmitting ? (
+                                    <><Loader2 size={18} className="animate-spin" /> Reassigning...</>
+                                ) : (
+                                    <><UserCog size={18} /> Reassign Admin</>
+                                )}
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}
