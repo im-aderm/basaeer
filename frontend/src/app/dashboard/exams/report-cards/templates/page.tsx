@@ -1,5 +1,14 @@
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { AcademicOperationsPage } from '@/components/academic/AcademicOperationsPage';
 
 export default function ReportCardTemplatesPage() {
-    return <AcademicOperationsPage mode="reportCards" />;
+    return (
+        <RequireBranch requireSpecificBranch>
+            <div>
+                <BranchContextBanner />
+                <AcademicOperationsPage mode="reportCards" />
+            </div>
+        </RequireBranch>
+    );
 }

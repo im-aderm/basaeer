@@ -1,5 +1,7 @@
 "use client";
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
@@ -59,7 +61,9 @@ export default function StudentProfilePage() {
     };
 
     return (
-        <div className="space-y-8 animate-in fade-in duration-500 pb-20">
+        <RequireBranch requireSpecificBranch>
+            <div className="space-y-8 animate-in fade-in duration-500 pb-20">
+                <BranchContextBanner />
             {/* Header Section */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div className="flex items-center gap-4">
@@ -288,5 +292,6 @@ export default function StudentProfilePage() {
                 </DialogContent>
             </Dialog>
         </div>
+        </RequireBranch>
     );
 }

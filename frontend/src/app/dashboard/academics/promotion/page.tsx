@@ -1,5 +1,7 @@
 'use client';
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -111,7 +113,9 @@ export default function StudentPromotionPage() {
     };
 
     return (
-        <div className="space-y-8 max-w-7xl mx-auto">
+        <RequireBranch requireSpecificBranch>
+            <div className="space-y-8 max-w-7xl mx-auto">
+                <BranchContextBanner />
             <div className="flex justify-between items-end">
                 <div>
                     <h1 className="text-h1 font-bold tracking-tight text-primary">Student Promotion</h1>
@@ -296,5 +300,6 @@ export default function StudentPromotionPage() {
                 </div>
             </div>
         </div>
+        </RequireBranch>
     );
 }

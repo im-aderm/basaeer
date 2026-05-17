@@ -25,7 +25,6 @@ export default function InventoryStorePage() {
     const [editData, setEditData] = useState({ name: '', code: '' });
 
     const fetchStores = async () => {
-        if (!resolvedBranchId) return;
         try {
             const data = await InventoryService.getStores(resolvedBranchId);
             setStores(data);

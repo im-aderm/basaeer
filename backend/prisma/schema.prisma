@@ -119,6 +119,7 @@ model Branch {
   tahfeezAssessments         TahfeezAssessment[]
   tahfeezMemorizationProgresses TahfeezMemorizationProgress[]
   invoices                   Invoice[]
+  payments                   Payment[]
   borrowRecords              BorrowRecord[]
   libraryFines               LibraryFine[]
   salaryTemplates            SalaryTemplate[]
@@ -871,12 +872,17 @@ model Payment {
   proofUrl      String?
   notes         String?
   invoiceId     String
+  branchId      String
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
   invoice       Invoice       @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  branch        Branch        @relation(fields: [branchId], references: [id])
 
   @@index([invoiceId])
   @@index([status])
+  @@index([branchId])
+  @@index([branchId, status])
+  @@index([branchId, status, createdAt])
 }
 
 model Vehicle {

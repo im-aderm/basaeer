@@ -1,5 +1,7 @@
 "use client";
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from "react";
 import { Calendar, Plus, Clock, Users, BookOpen, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -125,7 +127,9 @@ export default function ClassSchedulePage() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/20 p-6">
+        <RequireBranch requireSpecificBranch>
+            <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/20 p-6">
+                <BranchContextBanner />
             {/* Header */}
             <div className="mb-8">
                 <div className="flex items-center justify-between">
@@ -404,5 +408,6 @@ export default function ClassSchedulePage() {
                 </div>
             )}
         </div>
+        </RequireBranch>
     );
 }

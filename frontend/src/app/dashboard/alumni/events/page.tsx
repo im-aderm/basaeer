@@ -1,5 +1,7 @@
 "use client";
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from "react";
 import {
     Calendar,
@@ -85,7 +87,9 @@ export default function AlumniEventsPage() {
     if (loading) return <div className="p-8 text-center"><Loader2 className="animate-spin mx-auto h-8 w-8 text-primary" /></div>;
 
     return (
+        <RequireBranch requireSpecificBranch>
         <div className="max-w-5xl mx-auto space-y-8 pb-20">
+            <BranchContextBanner />
             <div className="bg-white/75 border border-border p-10 rounded-[3rem] shadow-sm relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
                     <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3 text-emerald-600">
@@ -171,6 +175,7 @@ export default function AlumniEventsPage() {
                 </div>
             )}
         </div>
+        </RequireBranch>
     );
 }
 

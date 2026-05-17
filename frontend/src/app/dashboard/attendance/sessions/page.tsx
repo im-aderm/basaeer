@@ -1,5 +1,7 @@
 "use client";
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from "react";
 import { Plus, Clock, Users, BookOpen, Lock, Unlock, Play, ChevronRight, Loader2, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -113,8 +115,10 @@ export default function AttendanceSessionsPage() {
     };
 
     return (
-        <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in duration-700 pb-20">
-            <div>
+        <RequireBranch requireSpecificBranch>
+            <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in duration-700 pb-20">
+                <BranchContextBanner />
+                <div>
                 <h1 className="text-h1 font-bold tracking-tight text-primary">Attendance Sessions</h1>
                 <p className="text-muted-foreground font-medium">Start and manage classroom attendance windows.</p>
             </div>
@@ -275,5 +279,6 @@ export default function AttendanceSessionsPage() {
                 </div>
             </div>
         </div>
+    </RequireBranch>
     );
 }

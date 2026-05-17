@@ -1,5 +1,7 @@
 "use client";
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from "react";
 import { Plus, Edit2, Trash2, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -144,7 +146,9 @@ export default function DeactivationReasonPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-red-50/30 to-orange-50/20 p-6">
+        <RequireBranch requireSpecificBranch>
+            <div className="min-h-screen bg-gradient-to-br from-slate-50 via-red-50/30 to-orange-50/20 p-6">
+                <BranchContextBanner />
             {/* Header */}
             <div className="mb-8">
                 <div className="flex items-center justify-between">
@@ -286,5 +290,6 @@ export default function DeactivationReasonPage() {
                 </div>
             )}
         </div>
+        </RequireBranch>
     );
 }

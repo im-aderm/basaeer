@@ -1,5 +1,7 @@
 "use client";
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from "react";
 import {
     Building2,
@@ -184,8 +186,10 @@ export default function HostelOverviewPage() {
     );
 
     return (
-        <div className="max-w-7xl mx-auto space-y-10 animate-in fade-in duration-700 pb-20">
-            {/* Header Section */}
+        <RequireBranch requireSpecificBranch>
+            <div className="max-w-7xl mx-auto space-y-10 animate-in fade-in duration-700 pb-20">
+                <BranchContextBanner />
+                {/* Header Section */}
             <div className="relative overflow-hidden rounded-[3.5rem] bg-slate-900 p-12 text-white shadow-2xl">
                 <div className="relative z-10">
                     <h1 className="text-h1 font-bold tracking-tight text-primary mb-4">Hostel Hub</h1>
@@ -506,6 +510,7 @@ export default function HostelOverviewPage() {
                 </DialogContent>
             </Dialog>
         </div>
+    </RequireBranch>
     );
 }
 

@@ -1,5 +1,7 @@
 "use client";
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from "react";
 import { ArrowLeft, Save, Search, Calendar, Briefcase } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -89,8 +91,10 @@ export default function StaffAttendancePage() {
     };
 
     return (
-        <div className="max-w-7xl mx-auto space-y-6 animate-in fade-in duration-700 pb-20">
-            {/* Header */}
+        <RequireBranch requireSpecificBranch>
+            <div className="max-w-7xl mx-auto space-y-6 animate-in fade-in duration-700 pb-20">
+                <BranchContextBanner />
+                {/* Header */}
             <div className="flex items-center gap-4">
                 <Button variant="ghost" size="icon" onClick={() => router.back()} className="rounded-xl">
                     <ArrowLeft size={22} />
@@ -205,5 +209,6 @@ export default function StaffAttendancePage() {
                 </div>
             )}
         </div>
+    </RequireBranch>
     );
 }

@@ -1,5 +1,7 @@
 'use client';
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { reportTemplateService, ReportTemplate } from '@/services/reportTemplateService';
@@ -107,7 +109,9 @@ export default function TemplateDesignerPage() {
     if (loading) return <div className="p-20 text-center"><Loader2 className="w-10 h-10 animate-spin mx-auto" /></div>;
 
     return (
+        <RequireBranch requireSpecificBranch>
         <div className="h-full flex flex-col">
+            <BranchContextBanner />
             <header className="p-4 bg-white border-b border-primary/60 flex items-center justify-between shadow-sm">
                 <div className="flex items-center gap-4">
                     <button onClick={() => router.back()} className="p-2 hover:bg-gray-100 rounded-lg">
@@ -266,6 +270,7 @@ export default function TemplateDesignerPage() {
                 </div>
             </div>
         </div>
+        </RequireBranch>
     );
 }
 

@@ -1,12 +1,24 @@
 "use client";
 
-import { useAuth } from "@/context/AuthContext";
-import { AlertCircle, Building2 } from "lucide-react";
+import { useAuth, isAllCampuses } from "@/context/AuthContext";
+import { AlertCircle, Building2, Globe } from "lucide-react";
 
 export default function BranchContextBanner() {
-    const { user, activeBranchId, availableBranches } = useAuth();
+    const { user, activeBranchId, isAllCampusesMode, availableBranches } = useAuth();
 
     if (user?.role !== "SUPER_ADMIN") return null;
+
+    if (isAllCampusesMode) {
+        return (
+            <div className="flex items-center gap-2 px-4 py-2.5 bg-blue-500/10 border border-blue-500/20 rounded-xl mb-6">
+                <Globe className="w-4 h-4 text-blue-600 shrink-0" />
+                <p className="text-sm text-blue-700 font-medium">
+                    <strong>View-only mode</strong> — you&apos;re seeing data from all campuses. Select a specific campus to manage records.
+                </p>
+            </div>
+        );
+    }
+
     if (!activeBranchId || activeBranchId === "__all__") return null;
 
     const currentBranch = availableBranches.find(b => b.id === activeBranchId);

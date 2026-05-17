@@ -50,8 +50,9 @@ export class BranchGuard implements CanActivate {
     let effectiveBranchId = user.branchId;
 
     if (user.role === UserRole.SUPER_ADMIN) {
-      // Super Admin: use selectedBranchId (if set) or let them override via query param
-      effectiveBranchId = requestedBranchId || user.selectedBranchId || user.branchId;
+      // Super Admin: use selectedBranchId (if set) or let them override via query param.
+      // No fallback to user.branchId — SA must explicitly select a branch to write.
+      effectiveBranchId = requestedBranchId || user.selectedBranchId || null;
     } else {
       // Non-SuperAdmin must match their own branch
       if (

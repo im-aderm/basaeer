@@ -1,4 +1,6 @@
 "use client";
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 
 import { useState, useEffect } from "react";
 import { Cake, Save, RefreshCcw, Bell, Mail, Smartphone, AlertCircle } from "lucide-react";
@@ -61,7 +63,9 @@ export default function StudentBirthdayPage() {
     }
 
     return (
-        <div className="p-6 max-w-4xl mx-auto">
+        <RequireBranch requireSpecificBranch>
+            <div className="p-6 max-w-4xl mx-auto">
+                <BranchContextBanner />
             <div className="mb-8">
                 <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-2">
                     <Cake className="w-6 h-6 text-pink-500" />
@@ -165,5 +169,6 @@ export default function StudentBirthdayPage() {
                 </div>
             </div>
         </div>
+    </RequireBranch>
     );
 }

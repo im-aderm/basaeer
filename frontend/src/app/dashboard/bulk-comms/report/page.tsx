@@ -1,4 +1,6 @@
 "use client";
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 
 import { useState, useEffect } from "react";
 import { 
@@ -56,7 +58,9 @@ export default function CommsReportPage() {
     };
 
     return (
-        <div className="p-6">
+        <RequireBranch requireSpecificBranch>
+            <div className="p-6">
+                <BranchContextBanner />
             <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                     <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-2">
@@ -179,5 +183,6 @@ export default function CommsReportPage() {
                 </div>
             </div>
         </div>
+    </RequireBranch>
     );
 }

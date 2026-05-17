@@ -59,6 +59,7 @@ interface AuthContextType {
     loading: boolean;
     activeBranchId: string | null;
     resolvedBranchId: string | undefined;
+    isAllCampusesMode: boolean;
     availableBranches: AuthBranch[];
     switchBranch: (branchId: string | null) => Promise<void>;
     login: (userData: User) => Promise<void>;
@@ -71,6 +72,7 @@ const AuthContext = createContext<AuthContextType>({
     loading: true,
     activeBranchId: null,
     resolvedBranchId: undefined,
+    isAllCampusesMode: false,
     availableBranches: [],
     switchBranch: async () => {},
     login: async () => {},
@@ -183,17 +185,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         ? activeBranchId
         : (user?.branchId || undefined);
 
+    const isAllCampusesMode = user?.role === "SUPER_ADMIN" && activeBranchId === ALL_CAMPUSES;
+
     const contextValue = useMemo(() => ({
         user,
         isAuthenticated: !!user,
         loading,
         activeBranchId,
         resolvedBranchId,
+        isAllCampusesMode,
         availableBranches,
         switchBranch,
         login,
         logout,
-    }), [user, loading, activeBranchId, resolvedBranchId, availableBranches]);
+    }), [user, loading, activeBranchId, resolvedBranchId, isAllCampusesMode, availableBranches]);
 
     return (
         <AuthContext.Provider value={contextValue}>

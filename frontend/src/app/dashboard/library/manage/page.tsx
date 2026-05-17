@@ -1,4 +1,6 @@
 "use client";
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 
 import { useState, useEffect } from "react";
 import {
@@ -135,7 +137,9 @@ export default function BookIssueReturnPage() {
     }
 
     return (
-        <div className="space-y-8 animate-in fade-in duration-500 pb-20">
+        <RequireBranch requireSpecificBranch>
+            <div className="space-y-8 animate-in fade-in duration-500 pb-20">
+                <BranchContextBanner />
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
                     <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3">
@@ -368,5 +372,6 @@ export default function BookIssueReturnPage() {
                 </div>
             )}
         </div>
+    </RequireBranch>
     );
 }

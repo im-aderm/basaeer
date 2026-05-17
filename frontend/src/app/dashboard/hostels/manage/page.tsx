@@ -1,5 +1,7 @@
 "use client";
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import {
@@ -176,8 +178,10 @@ function ManageRoomsContent() {
     if (!hostel) return <div className="p-8 text-center text-red-500 font-bold">Building not found or access denied.</div>;
 
     return (
-        <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700 pb-20">
-            {/* Nav Header */}
+        <RequireBranch requireSpecificBranch>
+            <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700 pb-20">
+                <BranchContextBanner />
+                {/* Nav Header */}
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-6">
                     <Button
@@ -487,6 +491,7 @@ function ManageRoomsContent() {
                 </div>
             )}
         </div>
+    </RequireBranch>
     );
 }
 

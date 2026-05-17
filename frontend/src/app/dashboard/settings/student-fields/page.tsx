@@ -1,5 +1,7 @@
 "use client";
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from "react";
 import { ListTodo, Save, Eye, EyeOff, Asterisk, Info, Search, Loader2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -86,8 +88,10 @@ export default function StudentFieldsPage() {
     const categories = ['Personal', 'Academic', 'Parent', 'Medical'];
 
     return (
-        <div className="max-w-5xl mx-auto space-y-8 pb-20">
-            <div className="flex justify-between items-end">
+        <RequireBranch requireSpecificBranch>
+            <div className="max-w-5xl mx-auto space-y-8 pb-20">
+                <BranchContextBanner />
+                <div className="flex justify-between items-end">
                 <div>
                     <h1 className="text-h1 font-bold tracking-tight text-primary">Student Profile Fields</h1>
                     <p className="text-muted-foreground font-medium mt-1">Configure which built-in fields are visible and required on admission forms.</p>
@@ -190,6 +194,7 @@ export default function StudentFieldsPage() {
                     </p>
                 </div>
             </div>
-        </div>
+            </div>
+        </RequireBranch>
     );
 }

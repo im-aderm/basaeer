@@ -1,5 +1,7 @@
 "use client";
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useAuth } from "@/context/AuthContext";
 import { FileSpreadsheet, Link, ArrowRight, AlertCircle, UserPlus } from "lucide-react";
 import NextLink from "next/link";
@@ -10,7 +12,9 @@ export default function AdmissionPage() {
     const isAdmin = user?.role === 'SUPER_ADMIN' || user?.role === 'BRANCH_ADMIN';
 
     return (
-        <div className="max-w-4xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-6 duration-700 pb-20 px-4 md:px-0">
+        <RequireBranch requireSpecificBranch>
+            <div className="max-w-4xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-6 duration-700 pb-20 px-4 md:px-0">
+            <BranchContextBanner />
             <div className="space-y-4">
                 <h1 className="text-h1 font-bold tracking-tight text-primary">Student Admission</h1>
                 <p className="text-muted-foreground text-xl font-medium">Direct admission creation is disabled. Use one of the methods below.</p>
@@ -85,6 +89,7 @@ export default function AdmissionPage() {
                     </div>
                 </div>
             </div>
-        </div>
+            </div>
+        </RequireBranch>
     );
 }

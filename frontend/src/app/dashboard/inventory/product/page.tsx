@@ -35,7 +35,6 @@ export default function InventoryProductPage() {
     });
 
     const fetchProducts = async () => {
-        if (!resolvedBranchId) return;
         try {
             const data = await InventoryService.getProducts(resolvedBranchId);
             setProducts(data);
@@ -47,7 +46,6 @@ export default function InventoryProductPage() {
     };
 
     const fetchDependencies = async () => {
-        if (!resolvedBranchId) return;
         try {
             const [c, s, u] = await Promise.all([
                 InventoryService.getCategories(resolvedBranchId),

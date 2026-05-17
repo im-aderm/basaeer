@@ -20,7 +20,6 @@ export default function InventoryHistoryPage() {
     const [loading, setLoading] = useState(true);
 
     const fetchData = async () => {
-        if (!resolvedBranchId) return;
         try {
             const [p, i] = await Promise.all([
                 InventoryService.getPurchases(resolvedBranchId),

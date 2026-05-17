@@ -1,5 +1,7 @@
 'use client';
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -72,8 +74,10 @@ export default function BrandingSettingsPage() {
     if (loading) return <div className="p-8">Loading branding...</div>;
 
     return (
-        <div className="max-w-4xl mx-auto space-y-8 pb-20">
-            <div className="flex justify-between items-end">
+        <RequireBranch requireSpecificBranch>
+            <div className="max-w-4xl mx-auto space-y-8 pb-20">
+                <BranchContextBanner />
+                <div className="flex justify-between items-end">
                 <div>
                     <h1 className="text-h1 font-bold tracking-tight text-primary">School Branding</h1>
                     <p className="text-muted-foreground font-medium mt-1">Customize your school&apos;s visual identity and communication defaults.</p>
@@ -252,6 +256,7 @@ export default function BrandingSettingsPage() {
                     </Card>
                 </div>
             </div>
-        </div>
+            </div>
+        </RequireBranch>
     );
 }

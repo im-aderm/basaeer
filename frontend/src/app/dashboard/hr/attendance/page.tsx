@@ -1,5 +1,7 @@
 'use client';
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from 'react';
 import {
     Calendar,
@@ -171,8 +173,10 @@ export default function StaffAttendancePage() {
     ];
 
     return (
-        <div className="max-w-7xl mx-auto space-y-10 pb-20 animate-in fade-in duration-700">
-            {/* Header Section */}
+        <RequireBranch requireSpecificBranch>
+            <div className="max-w-7xl mx-auto space-y-10 pb-20 animate-in fade-in duration-700">
+                <BranchContextBanner />
+                {/* Header Section */}
             <div className="relative overflow-hidden rounded-[3.5rem] bg-emerald-950 p-12 text-white shadow-2xl">
                 <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-8">
                     <div className="space-y-4">
@@ -298,6 +302,7 @@ export default function StaffAttendancePage() {
                 </p>
             </div>
         </div>
+    </RequireBranch>
     );
 }
 

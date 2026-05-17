@@ -1,4 +1,6 @@
 "use client";
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 
 import { useState, useEffect } from "react";
 import {
@@ -101,7 +103,9 @@ export default function LibraryBorrowingPage() {
     if (loading && borrowingHistory.length === 0) return <div className="p-8 text-center"><Loader2 className="animate-spin mx-auto h-8 w-8 text-primary" /></div>;
 
     return (
-        <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in duration-500 pb-20">
+        <RequireBranch requireSpecificBranch>
+            <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in duration-500 pb-20">
+                <BranchContextBanner />
             {/* Header section */}
             <div className="bg-white/75 border border-border p-10 rounded-[3rem] shadow-sm relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div className="relative z-10">
@@ -263,6 +267,7 @@ export default function LibraryBorrowingPage() {
                 </div>
             </Card>
         </div>
+    </RequireBranch>
     );
 }
 

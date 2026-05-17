@@ -1,5 +1,7 @@
 "use client";
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from "react";
 import { ExamService } from "@/services/examService";
 import { StudentService } from "@/services/studentService";
@@ -134,7 +136,9 @@ export default function ReportCardPage() {
     };
 
     return (
-        <div className="max-w-7xl mx-auto space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <RequireBranch requireSpecificBranch>
+            <div className="max-w-7xl mx-auto space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <BranchContextBanner />
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div className="flex flex-col md:flex-row md:items-center gap-4">
@@ -328,6 +332,7 @@ export default function ReportCardPage() {
                 </div>
             </div>
         </div>
+        </RequireBranch>
     );
 }
 

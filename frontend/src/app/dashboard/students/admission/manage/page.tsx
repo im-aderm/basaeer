@@ -1,5 +1,7 @@
 "use client";
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from "react";
 import { OnlineAdmissionService, OnlineAdmission } from "@/services/onlineAdmissionService";
 import { BranchService, Branch } from "@/services/branchService";
@@ -125,7 +127,9 @@ export default function AdmissionsManagementPage() {
     }
 
     return (
-        <div className="max-w-[1600px] mx-auto space-y-10 animate-in fade-in slide-in-from-bottom-6 duration-700 pb-20 px-6">
+        <RequireBranch requireSpecificBranch>
+            <div className="max-w-[1600px] mx-auto space-y-10 animate-in fade-in slide-in-from-bottom-6 duration-700 pb-20 px-6">
+            <BranchContextBanner />
             {/* Header */}
             <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-8 bg-white/75 border border-border p-10 rounded-[3rem] shadow-2xl shadow-primary/5 relative overflow-hidden">
                 <div className="space-y-3 relative z-10">
@@ -310,6 +314,7 @@ export default function AdmissionsManagementPage() {
                     <p className="text-yellow-600/70 font-bold leading-relaxed max-w-4xl">Approving an application will automatically generate a new Student ID and a portal account. Ensure all uploaded documents have been verified against school policy before final enrollment.</p>
                 </div>
             </div>
-        </div>
+            </div>
+        </RequireBranch>
     );
 }

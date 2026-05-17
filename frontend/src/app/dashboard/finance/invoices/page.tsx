@@ -1,6 +1,8 @@
 
 'use client';
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -72,7 +74,9 @@ export default function InvoicesPage() {
     };
 
     return (
+        <RequireBranch requireSpecificBranch>
         <div className="space-y-6">
+            <BranchContextBanner />
             <div className="flex justify-between items-center">
                 <h1 className="text-h1 font-bold tracking-tight text-primary">Student Invoices</h1>
                 <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
@@ -211,5 +215,6 @@ export default function InvoicesPage() {
                 </CardContent>
             </Card>
         </div>
+        </RequireBranch>
     );
 }

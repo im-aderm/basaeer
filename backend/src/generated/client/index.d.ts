@@ -1003,9 +1003,7 @@ export const AdmissionStatus: {
   REJECTED: 'REJECTED',
   WAITLISTED: 'WAITLISTED',
   ENROLLED: 'ENROLLED',
-  CANCELLED: 'CANCELLED',
-  PENDING: 'PENDING',
-  APPROVED: 'APPROVED'
+  CANCELLED: 'CANCELLED'
 };
 
 export type AdmissionStatus = (typeof AdmissionStatus)[keyof typeof AdmissionStatus]
@@ -14682,6 +14680,7 @@ export namespace Prisma {
     tahfeezAssessments: number
     tahfeezMemorizationProgresses: number
     invoices: number
+    payments: number
     borrowRecords: number
     libraryFines: number
     salaryTemplates: number
@@ -14800,6 +14799,7 @@ export namespace Prisma {
     tahfeezAssessments?: boolean | BranchCountOutputTypeCountTahfeezAssessmentsArgs
     tahfeezMemorizationProgresses?: boolean | BranchCountOutputTypeCountTahfeezMemorizationProgressesArgs
     invoices?: boolean | BranchCountOutputTypeCountInvoicesArgs
+    payments?: boolean | BranchCountOutputTypeCountPaymentsArgs
     borrowRecords?: boolean | BranchCountOutputTypeCountBorrowRecordsArgs
     libraryFines?: boolean | BranchCountOutputTypeCountLibraryFinesArgs
     salaryTemplates?: boolean | BranchCountOutputTypeCountSalaryTemplatesArgs
@@ -15496,6 +15496,13 @@ export namespace Prisma {
    */
   export type BranchCountOutputTypeCountInvoicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: InvoiceWhereInput
+  }
+
+  /**
+   * BranchCountOutputType without action
+   */
+  export type BranchCountOutputTypeCountPaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PaymentWhereInput
   }
 
   /**
@@ -18443,6 +18450,7 @@ export namespace Prisma {
     tahfeezAssessments?: boolean | Branch$tahfeezAssessmentsArgs<ExtArgs>
     tahfeezMemorizationProgresses?: boolean | Branch$tahfeezMemorizationProgressesArgs<ExtArgs>
     invoices?: boolean | Branch$invoicesArgs<ExtArgs>
+    payments?: boolean | Branch$paymentsArgs<ExtArgs>
     borrowRecords?: boolean | Branch$borrowRecordsArgs<ExtArgs>
     libraryFines?: boolean | Branch$libraryFinesArgs<ExtArgs>
     salaryTemplates?: boolean | Branch$salaryTemplatesArgs<ExtArgs>
@@ -18612,6 +18620,7 @@ export namespace Prisma {
     tahfeezAssessments?: boolean | Branch$tahfeezAssessmentsArgs<ExtArgs>
     tahfeezMemorizationProgresses?: boolean | Branch$tahfeezMemorizationProgressesArgs<ExtArgs>
     invoices?: boolean | Branch$invoicesArgs<ExtArgs>
+    payments?: boolean | Branch$paymentsArgs<ExtArgs>
     borrowRecords?: boolean | Branch$borrowRecordsArgs<ExtArgs>
     libraryFines?: boolean | Branch$libraryFinesArgs<ExtArgs>
     salaryTemplates?: boolean | Branch$salaryTemplatesArgs<ExtArgs>
@@ -18736,6 +18745,7 @@ export namespace Prisma {
       tahfeezAssessments: Prisma.$TahfeezAssessmentPayload<ExtArgs>[]
       tahfeezMemorizationProgresses: Prisma.$TahfeezMemorizationProgressPayload<ExtArgs>[]
       invoices: Prisma.$InvoicePayload<ExtArgs>[]
+      payments: Prisma.$PaymentPayload<ExtArgs>[]
       borrowRecords: Prisma.$BorrowRecordPayload<ExtArgs>[]
       libraryFines: Prisma.$LibraryFinePayload<ExtArgs>[]
       salaryTemplates: Prisma.$SalaryTemplatePayload<ExtArgs>[]
@@ -19261,6 +19271,7 @@ export namespace Prisma {
     tahfeezAssessments<T extends Branch$tahfeezAssessmentsArgs<ExtArgs> = {}>(args?: Subset<T, Branch$tahfeezAssessmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TahfeezAssessmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     tahfeezMemorizationProgresses<T extends Branch$tahfeezMemorizationProgressesArgs<ExtArgs> = {}>(args?: Subset<T, Branch$tahfeezMemorizationProgressesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TahfeezMemorizationProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     invoices<T extends Branch$invoicesArgs<ExtArgs> = {}>(args?: Subset<T, Branch$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    payments<T extends Branch$paymentsArgs<ExtArgs> = {}>(args?: Subset<T, Branch$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     borrowRecords<T extends Branch$borrowRecordsArgs<ExtArgs> = {}>(args?: Subset<T, Branch$borrowRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BorrowRecordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     libraryFines<T extends Branch$libraryFinesArgs<ExtArgs> = {}>(args?: Subset<T, Branch$libraryFinesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LibraryFinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     salaryTemplates<T extends Branch$salaryTemplatesArgs<ExtArgs> = {}>(args?: Subset<T, Branch$salaryTemplatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalaryTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -22007,6 +22018,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: InvoiceScalarFieldEnum | InvoiceScalarFieldEnum[]
+  }
+
+  /**
+   * Branch.payments
+   */
+  export type Branch$paymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Payment
+     */
+    select?: PaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Payment
+     */
+    omit?: PaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentInclude<ExtArgs> | null
+    where?: PaymentWhereInput
+    orderBy?: PaymentOrderByWithRelationInput | PaymentOrderByWithRelationInput[]
+    cursor?: PaymentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PaymentScalarFieldEnum | PaymentScalarFieldEnum[]
   }
 
   /**
@@ -64784,6 +64819,7 @@ export namespace Prisma {
     proofUrl: string | null
     notes: string | null
     invoiceId: string | null
+    branchId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -64797,6 +64833,7 @@ export namespace Prisma {
     proofUrl: string | null
     notes: string | null
     invoiceId: string | null
+    branchId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -64810,6 +64847,7 @@ export namespace Prisma {
     proofUrl: number
     notes: number
     invoiceId: number
+    branchId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -64833,6 +64871,7 @@ export namespace Prisma {
     proofUrl?: true
     notes?: true
     invoiceId?: true
+    branchId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -64846,6 +64885,7 @@ export namespace Prisma {
     proofUrl?: true
     notes?: true
     invoiceId?: true
+    branchId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -64859,6 +64899,7 @@ export namespace Prisma {
     proofUrl?: true
     notes?: true
     invoiceId?: true
+    branchId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -64959,6 +65000,7 @@ export namespace Prisma {
     proofUrl: string | null
     notes: string | null
     invoiceId: string
+    branchId: string
     createdAt: Date
     updatedAt: Date
     _count: PaymentCountAggregateOutputType | null
@@ -64991,9 +65033,11 @@ export namespace Prisma {
     proofUrl?: boolean
     notes?: boolean
     invoiceId?: boolean
+    branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     invoice?: boolean | InvoiceDefaultArgs<ExtArgs>
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["payment"]>
 
   export type PaymentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -65005,9 +65049,11 @@ export namespace Prisma {
     proofUrl?: boolean
     notes?: boolean
     invoiceId?: boolean
+    branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     invoice?: boolean | InvoiceDefaultArgs<ExtArgs>
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["payment"]>
 
   export type PaymentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -65019,9 +65065,11 @@ export namespace Prisma {
     proofUrl?: boolean
     notes?: boolean
     invoiceId?: boolean
+    branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     invoice?: boolean | InvoiceDefaultArgs<ExtArgs>
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["payment"]>
 
   export type PaymentSelectScalar = {
@@ -65033,25 +65081,30 @@ export namespace Prisma {
     proofUrl?: boolean
     notes?: boolean
     invoiceId?: boolean
+    branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type PaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "amount" | "method" | "status" | "transactionId" | "proofUrl" | "notes" | "invoiceId" | "createdAt" | "updatedAt", ExtArgs["result"]["payment"]>
+  export type PaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "amount" | "method" | "status" | "transactionId" | "proofUrl" | "notes" | "invoiceId" | "branchId" | "createdAt" | "updatedAt", ExtArgs["result"]["payment"]>
   export type PaymentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     invoice?: boolean | InvoiceDefaultArgs<ExtArgs>
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
   }
   export type PaymentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     invoice?: boolean | InvoiceDefaultArgs<ExtArgs>
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
   }
   export type PaymentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     invoice?: boolean | InvoiceDefaultArgs<ExtArgs>
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
   }
 
   export type $PaymentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Payment"
     objects: {
       invoice: Prisma.$InvoicePayload<ExtArgs>
+      branch: Prisma.$BranchPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -65062,6 +65115,7 @@ export namespace Prisma {
       proofUrl: string | null
       notes: string | null
       invoiceId: string
+      branchId: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["payment"]>
@@ -65459,6 +65513,7 @@ export namespace Prisma {
   export interface Prisma__PaymentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     invoice<T extends InvoiceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, InvoiceDefaultArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    branch<T extends BranchDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BranchDefaultArgs<ExtArgs>>): Prisma__BranchClient<$Result.GetResult<Prisma.$BranchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -65496,6 +65551,7 @@ export namespace Prisma {
     readonly proofUrl: FieldRef<"Payment", 'String'>
     readonly notes: FieldRef<"Payment", 'String'>
     readonly invoiceId: FieldRef<"Payment", 'String'>
+    readonly branchId: FieldRef<"Payment", 'String'>
     readonly createdAt: FieldRef<"Payment", 'DateTime'>
     readonly updatedAt: FieldRef<"Payment", 'DateTime'>
   }
@@ -196150,6 +196206,7 @@ export namespace Prisma {
     proofUrl: 'proofUrl',
     notes: 'notes',
     invoiceId: 'invoiceId',
+    branchId: 'branchId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -198774,6 +198831,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentListRelationFilter
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressListRelationFilter
     invoices?: InvoiceListRelationFilter
+    payments?: PaymentListRelationFilter
     borrowRecords?: BorrowRecordListRelationFilter
     libraryFines?: LibraryFineListRelationFilter
     salaryTemplates?: SalaryTemplateListRelationFilter
@@ -198906,6 +198964,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentOrderByRelationAggregateInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressOrderByRelationAggregateInput
     invoices?: InvoiceOrderByRelationAggregateInput
+    payments?: PaymentOrderByRelationAggregateInput
     borrowRecords?: BorrowRecordOrderByRelationAggregateInput
     libraryFines?: LibraryFineOrderByRelationAggregateInput
     salaryTemplates?: SalaryTemplateOrderByRelationAggregateInput
@@ -199041,6 +199100,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentListRelationFilter
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressListRelationFilter
     invoices?: InvoiceListRelationFilter
+    payments?: PaymentListRelationFilter
     borrowRecords?: BorrowRecordListRelationFilter
     libraryFines?: LibraryFineListRelationFilter
     salaryTemplates?: SalaryTemplateListRelationFilter
@@ -202325,9 +202385,11 @@ export namespace Prisma {
     proofUrl?: StringNullableFilter<"Payment"> | string | null
     notes?: StringNullableFilter<"Payment"> | string | null
     invoiceId?: StringFilter<"Payment"> | string
+    branchId?: StringFilter<"Payment"> | string
     createdAt?: DateTimeFilter<"Payment"> | Date | string
     updatedAt?: DateTimeFilter<"Payment"> | Date | string
     invoice?: XOR<InvoiceScalarRelationFilter, InvoiceWhereInput>
+    branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
   }
 
   export type PaymentOrderByWithRelationInput = {
@@ -202339,9 +202401,11 @@ export namespace Prisma {
     proofUrl?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
     invoiceId?: SortOrder
+    branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     invoice?: InvoiceOrderByWithRelationInput
+    branch?: BranchOrderByWithRelationInput
   }
 
   export type PaymentWhereUniqueInput = Prisma.AtLeast<{
@@ -202356,9 +202420,11 @@ export namespace Prisma {
     proofUrl?: StringNullableFilter<"Payment"> | string | null
     notes?: StringNullableFilter<"Payment"> | string | null
     invoiceId?: StringFilter<"Payment"> | string
+    branchId?: StringFilter<"Payment"> | string
     createdAt?: DateTimeFilter<"Payment"> | Date | string
     updatedAt?: DateTimeFilter<"Payment"> | Date | string
     invoice?: XOR<InvoiceScalarRelationFilter, InvoiceWhereInput>
+    branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
   }, "id" | "transactionId">
 
   export type PaymentOrderByWithAggregationInput = {
@@ -202370,6 +202436,7 @@ export namespace Prisma {
     proofUrl?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
     invoiceId?: SortOrder
+    branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: PaymentCountOrderByAggregateInput
@@ -202391,6 +202458,7 @@ export namespace Prisma {
     proofUrl?: StringNullableWithAggregatesFilter<"Payment"> | string | null
     notes?: StringNullableWithAggregatesFilter<"Payment"> | string | null
     invoiceId?: StringWithAggregatesFilter<"Payment"> | string
+    branchId?: StringWithAggregatesFilter<"Payment"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Payment"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Payment"> | Date | string
   }
@@ -212440,6 +212508,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -212572,6 +212641,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -212704,6 +212774,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -212836,6 +212907,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -216416,6 +216488,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     invoice: InvoiceCreateNestedOneWithoutPaymentsInput
+    branch: BranchCreateNestedOneWithoutPaymentsInput
   }
 
   export type PaymentUncheckedCreateInput = {
@@ -216427,6 +216500,7 @@ export namespace Prisma {
     proofUrl?: string | null
     notes?: string | null
     invoiceId: string
+    branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -216442,6 +216516,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     invoice?: InvoiceUpdateOneRequiredWithoutPaymentsNestedInput
+    branch?: BranchUpdateOneRequiredWithoutPaymentsNestedInput
   }
 
   export type PaymentUncheckedUpdateInput = {
@@ -216453,6 +216528,7 @@ export namespace Prisma {
     proofUrl?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -216466,6 +216542,7 @@ export namespace Prisma {
     proofUrl?: string | null
     notes?: string | null
     invoiceId: string
+    branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -216491,6 +216568,7 @@ export namespace Prisma {
     proofUrl?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -227972,6 +228050,12 @@ export namespace Prisma {
     none?: InvoiceWhereInput
   }
 
+  export type PaymentListRelationFilter = {
+    every?: PaymentWhereInput
+    some?: PaymentWhereInput
+    none?: PaymentWhereInput
+  }
+
   export type BorrowRecordListRelationFilter = {
     every?: BorrowRecordWhereInput
     some?: BorrowRecordWhereInput
@@ -228474,6 +228558,10 @@ export namespace Prisma {
   }
 
   export type InvoiceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PaymentOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -230496,16 +230584,6 @@ export namespace Prisma {
     not?: NestedEnumInvoiceStatusFilter<$PrismaModel> | $Enums.InvoiceStatus
   }
 
-  export type PaymentListRelationFilter = {
-    every?: PaymentWhereInput
-    some?: PaymentWhereInput
-    none?: PaymentWhereInput
-  }
-
-  export type PaymentOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type InvoiceCountOrderByAggregateInput = {
     id?: SortOrder
     invoiceNumber?: SortOrder
@@ -231076,6 +231154,7 @@ export namespace Prisma {
     proofUrl?: SortOrder
     notes?: SortOrder
     invoiceId?: SortOrder
+    branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -231093,6 +231172,7 @@ export namespace Prisma {
     proofUrl?: SortOrder
     notes?: SortOrder
     invoiceId?: SortOrder
+    branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -231106,6 +231186,7 @@ export namespace Prisma {
     proofUrl?: SortOrder
     notes?: SortOrder
     invoiceId?: SortOrder
+    branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -237588,6 +237669,13 @@ export namespace Prisma {
     connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
   }
 
+  export type PaymentCreateNestedManyWithoutBranchInput = {
+    create?: XOR<PaymentCreateWithoutBranchInput, PaymentUncheckedCreateWithoutBranchInput> | PaymentCreateWithoutBranchInput[] | PaymentUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: PaymentCreateOrConnectWithoutBranchInput | PaymentCreateOrConnectWithoutBranchInput[]
+    createMany?: PaymentCreateManyBranchInputEnvelope
+    connect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
+  }
+
   export type BorrowRecordCreateNestedManyWithoutBranchInput = {
     create?: XOR<BorrowRecordCreateWithoutBranchInput, BorrowRecordUncheckedCreateWithoutBranchInput> | BorrowRecordCreateWithoutBranchInput[] | BorrowRecordUncheckedCreateWithoutBranchInput[]
     connectOrCreate?: BorrowRecordCreateOrConnectWithoutBranchInput | BorrowRecordCreateOrConnectWithoutBranchInput[]
@@ -238397,6 +238485,13 @@ export namespace Prisma {
     connectOrCreate?: InvoiceCreateOrConnectWithoutBranchInput | InvoiceCreateOrConnectWithoutBranchInput[]
     createMany?: InvoiceCreateManyBranchInputEnvelope
     connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+  }
+
+  export type PaymentUncheckedCreateNestedManyWithoutBranchInput = {
+    create?: XOR<PaymentCreateWithoutBranchInput, PaymentUncheckedCreateWithoutBranchInput> | PaymentCreateWithoutBranchInput[] | PaymentUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: PaymentCreateOrConnectWithoutBranchInput | PaymentCreateOrConnectWithoutBranchInput[]
+    createMany?: PaymentCreateManyBranchInputEnvelope
+    connect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
   }
 
   export type BorrowRecordUncheckedCreateNestedManyWithoutBranchInput = {
@@ -239893,6 +239988,20 @@ export namespace Prisma {
     update?: InvoiceUpdateWithWhereUniqueWithoutBranchInput | InvoiceUpdateWithWhereUniqueWithoutBranchInput[]
     updateMany?: InvoiceUpdateManyWithWhereWithoutBranchInput | InvoiceUpdateManyWithWhereWithoutBranchInput[]
     deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
+  }
+
+  export type PaymentUpdateManyWithoutBranchNestedInput = {
+    create?: XOR<PaymentCreateWithoutBranchInput, PaymentUncheckedCreateWithoutBranchInput> | PaymentCreateWithoutBranchInput[] | PaymentUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: PaymentCreateOrConnectWithoutBranchInput | PaymentCreateOrConnectWithoutBranchInput[]
+    upsert?: PaymentUpsertWithWhereUniqueWithoutBranchInput | PaymentUpsertWithWhereUniqueWithoutBranchInput[]
+    createMany?: PaymentCreateManyBranchInputEnvelope
+    set?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
+    disconnect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
+    delete?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
+    connect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
+    update?: PaymentUpdateWithWhereUniqueWithoutBranchInput | PaymentUpdateWithWhereUniqueWithoutBranchInput[]
+    updateMany?: PaymentUpdateManyWithWhereWithoutBranchInput | PaymentUpdateManyWithWhereWithoutBranchInput[]
+    deleteMany?: PaymentScalarWhereInput | PaymentScalarWhereInput[]
   }
 
   export type BorrowRecordUpdateManyWithoutBranchNestedInput = {
@@ -241513,6 +241622,20 @@ export namespace Prisma {
     update?: InvoiceUpdateWithWhereUniqueWithoutBranchInput | InvoiceUpdateWithWhereUniqueWithoutBranchInput[]
     updateMany?: InvoiceUpdateManyWithWhereWithoutBranchInput | InvoiceUpdateManyWithWhereWithoutBranchInput[]
     deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
+  }
+
+  export type PaymentUncheckedUpdateManyWithoutBranchNestedInput = {
+    create?: XOR<PaymentCreateWithoutBranchInput, PaymentUncheckedCreateWithoutBranchInput> | PaymentCreateWithoutBranchInput[] | PaymentUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: PaymentCreateOrConnectWithoutBranchInput | PaymentCreateOrConnectWithoutBranchInput[]
+    upsert?: PaymentUpsertWithWhereUniqueWithoutBranchInput | PaymentUpsertWithWhereUniqueWithoutBranchInput[]
+    createMany?: PaymentCreateManyBranchInputEnvelope
+    set?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
+    disconnect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
+    delete?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
+    connect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
+    update?: PaymentUpdateWithWhereUniqueWithoutBranchInput | PaymentUpdateWithWhereUniqueWithoutBranchInput[]
+    updateMany?: PaymentUpdateManyWithWhereWithoutBranchInput | PaymentUpdateManyWithWhereWithoutBranchInput[]
+    deleteMany?: PaymentScalarWhereInput | PaymentScalarWhereInput[]
   }
 
   export type BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput = {
@@ -247271,6 +247394,12 @@ export namespace Prisma {
     connect?: InvoiceWhereUniqueInput
   }
 
+  export type BranchCreateNestedOneWithoutPaymentsInput = {
+    create?: XOR<BranchCreateWithoutPaymentsInput, BranchUncheckedCreateWithoutPaymentsInput>
+    connectOrCreate?: BranchCreateOrConnectWithoutPaymentsInput
+    connect?: BranchWhereUniqueInput
+  }
+
   export type EnumPaymentMethodFieldUpdateOperationsInput = {
     set?: $Enums.PaymentMethod
   }
@@ -247285,6 +247414,14 @@ export namespace Prisma {
     upsert?: InvoiceUpsertWithoutPaymentsInput
     connect?: InvoiceWhereUniqueInput
     update?: XOR<XOR<InvoiceUpdateToOneWithWhereWithoutPaymentsInput, InvoiceUpdateWithoutPaymentsInput>, InvoiceUncheckedUpdateWithoutPaymentsInput>
+  }
+
+  export type BranchUpdateOneRequiredWithoutPaymentsNestedInput = {
+    create?: XOR<BranchCreateWithoutPaymentsInput, BranchUncheckedCreateWithoutPaymentsInput>
+    connectOrCreate?: BranchCreateOrConnectWithoutPaymentsInput
+    upsert?: BranchUpsertWithoutPaymentsInput
+    connect?: BranchWhereUniqueInput
+    update?: XOR<XOR<BranchUpdateToOneWithWhereWithoutPaymentsInput, BranchUpdateWithoutPaymentsInput>, BranchUncheckedUpdateWithoutPaymentsInput>
   }
 
   export type TransportAssignmentCreateNestedManyWithoutVehicleInput = {
@@ -257231,6 +257368,42 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type PaymentCreateWithoutBranchInput = {
+    id?: string
+    amount: Decimal | DecimalJsLike | number | string
+    method: $Enums.PaymentMethod
+    status?: $Enums.PaymentStatus
+    transactionId?: string | null
+    proofUrl?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    invoice: InvoiceCreateNestedOneWithoutPaymentsInput
+  }
+
+  export type PaymentUncheckedCreateWithoutBranchInput = {
+    id?: string
+    amount: Decimal | DecimalJsLike | number | string
+    method: $Enums.PaymentMethod
+    status?: $Enums.PaymentStatus
+    transactionId?: string | null
+    proofUrl?: string | null
+    notes?: string | null
+    invoiceId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PaymentCreateOrConnectWithoutBranchInput = {
+    where: PaymentWhereUniqueInput
+    create: XOR<PaymentCreateWithoutBranchInput, PaymentUncheckedCreateWithoutBranchInput>
+  }
+
+  export type PaymentCreateManyBranchInputEnvelope = {
+    data: PaymentCreateManyBranchInput | PaymentCreateManyBranchInput[]
+    skipDuplicates?: boolean
+  }
+
   export type BorrowRecordCreateWithoutBranchInput = {
     id?: string
     borrowDate?: Date | string
@@ -261197,6 +261370,39 @@ export namespace Prisma {
     updatedByUserId?: StringNullableFilter<"Invoice"> | string | null
   }
 
+  export type PaymentUpsertWithWhereUniqueWithoutBranchInput = {
+    where: PaymentWhereUniqueInput
+    update: XOR<PaymentUpdateWithoutBranchInput, PaymentUncheckedUpdateWithoutBranchInput>
+    create: XOR<PaymentCreateWithoutBranchInput, PaymentUncheckedCreateWithoutBranchInput>
+  }
+
+  export type PaymentUpdateWithWhereUniqueWithoutBranchInput = {
+    where: PaymentWhereUniqueInput
+    data: XOR<PaymentUpdateWithoutBranchInput, PaymentUncheckedUpdateWithoutBranchInput>
+  }
+
+  export type PaymentUpdateManyWithWhereWithoutBranchInput = {
+    where: PaymentScalarWhereInput
+    data: XOR<PaymentUpdateManyMutationInput, PaymentUncheckedUpdateManyWithoutBranchInput>
+  }
+
+  export type PaymentScalarWhereInput = {
+    AND?: PaymentScalarWhereInput | PaymentScalarWhereInput[]
+    OR?: PaymentScalarWhereInput[]
+    NOT?: PaymentScalarWhereInput | PaymentScalarWhereInput[]
+    id?: StringFilter<"Payment"> | string
+    amount?: DecimalFilter<"Payment"> | Decimal | DecimalJsLike | number | string
+    method?: EnumPaymentMethodFilter<"Payment"> | $Enums.PaymentMethod
+    status?: EnumPaymentStatusFilter<"Payment"> | $Enums.PaymentStatus
+    transactionId?: StringNullableFilter<"Payment"> | string | null
+    proofUrl?: StringNullableFilter<"Payment"> | string | null
+    notes?: StringNullableFilter<"Payment"> | string | null
+    invoiceId?: StringFilter<"Payment"> | string
+    branchId?: StringFilter<"Payment"> | string
+    createdAt?: DateTimeFilter<"Payment"> | Date | string
+    updatedAt?: DateTimeFilter<"Payment"> | Date | string
+  }
+
   export type BorrowRecordUpsertWithWhereUniqueWithoutBranchInput = {
     where: BorrowRecordWhereUniqueInput
     update: XOR<BorrowRecordUpdateWithoutBranchInput, BorrowRecordUncheckedUpdateWithoutBranchInput>
@@ -261940,6 +262146,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -262071,6 +262278,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -262254,6 +262462,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -262385,6 +262594,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -262532,6 +262742,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -262663,6 +262874,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -262990,6 +263202,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -263121,6 +263334,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -263445,6 +263659,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -263576,6 +263791,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -263833,6 +264049,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -263964,6 +264181,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -264999,6 +265217,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -265130,6 +265349,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -266095,6 +266315,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -266226,6 +266447,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -266720,6 +266942,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -266851,6 +267074,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -266998,6 +267222,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -267129,6 +267354,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -267260,6 +267486,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -267391,6 +267618,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -267538,6 +267766,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -267669,6 +267898,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -269484,6 +269714,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -269615,6 +269846,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -270513,6 +270745,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -270644,6 +270877,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -271248,6 +271482,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -271379,6 +271614,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -271791,6 +272027,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -271922,6 +272159,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -272376,6 +272614,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -272507,6 +272746,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -272670,6 +272910,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -272801,6 +273042,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -272932,6 +273174,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -273063,6 +273306,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -274223,6 +274467,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -274354,6 +274599,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -276373,6 +276619,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -276504,6 +276751,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -276854,6 +277102,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -276985,6 +277234,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -277372,6 +277622,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -277503,6 +277754,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -277880,6 +278132,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -278011,6 +278264,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -278141,6 +278395,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -278272,6 +278527,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -278666,6 +278922,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -278797,6 +279054,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -279193,6 +279451,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -279324,6 +279583,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -279532,6 +279792,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -279663,6 +279924,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -279861,6 +280123,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -279992,6 +280255,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -280205,6 +280469,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -280336,6 +280601,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -280967,6 +281233,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -281098,6 +281365,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -281439,6 +281707,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -281570,6 +281839,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -281858,6 +282128,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -281989,6 +282260,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -282299,6 +282571,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -282430,6 +282703,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -282586,6 +282860,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -282717,6 +282992,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -282895,6 +283171,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -283026,6 +283303,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -283156,6 +283434,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -283287,6 +283566,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -283488,6 +283768,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -283619,6 +283900,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -284119,6 +284401,7 @@ export namespace Prisma {
     subjectPositions?: SubjectPositionCreateNestedManyWithoutBranchInput
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -284250,6 +284533,7 @@ export namespace Prisma {
     subjectPositions?: SubjectPositionUncheckedCreateNestedManyWithoutBranchInput
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -284313,6 +284597,7 @@ export namespace Prisma {
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    branch: BranchCreateNestedOneWithoutPaymentsInput
   }
 
   export type PaymentUncheckedCreateWithoutInvoiceInput = {
@@ -284323,6 +284608,7 @@ export namespace Prisma {
     transactionId?: string | null
     proofUrl?: string | null
     notes?: string | null
+    branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -284620,6 +284906,7 @@ export namespace Prisma {
     subjectPositions?: SubjectPositionUpdateManyWithoutBranchNestedInput
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -284751,6 +285038,7 @@ export namespace Prisma {
     subjectPositions?: SubjectPositionUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -284803,22 +285091,6 @@ export namespace Prisma {
   export type PaymentUpdateManyWithWhereWithoutInvoiceInput = {
     where: PaymentScalarWhereInput
     data: XOR<PaymentUpdateManyMutationInput, PaymentUncheckedUpdateManyWithoutInvoiceInput>
-  }
-
-  export type PaymentScalarWhereInput = {
-    AND?: PaymentScalarWhereInput | PaymentScalarWhereInput[]
-    OR?: PaymentScalarWhereInput[]
-    NOT?: PaymentScalarWhereInput | PaymentScalarWhereInput[]
-    id?: StringFilter<"Payment"> | string
-    amount?: DecimalFilter<"Payment"> | Decimal | DecimalJsLike | number | string
-    method?: EnumPaymentMethodFilter<"Payment"> | $Enums.PaymentMethod
-    status?: EnumPaymentStatusFilter<"Payment"> | $Enums.PaymentStatus
-    transactionId?: StringNullableFilter<"Payment"> | string | null
-    proofUrl?: StringNullableFilter<"Payment"> | string | null
-    notes?: StringNullableFilter<"Payment"> | string | null
-    invoiceId?: StringFilter<"Payment"> | string
-    createdAt?: DateTimeFilter<"Payment"> | Date | string
-    updatedAt?: DateTimeFilter<"Payment"> | Date | string
   }
 
   export type OnlineExamCreateWithoutGroupInput = {
@@ -285006,6 +285278,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -285137,6 +285410,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -285329,6 +285603,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -285460,6 +285735,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -285814,6 +286090,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -285945,6 +286222,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -286296,6 +286574,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -286427,6 +286706,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -287410,6 +287690,275 @@ export namespace Prisma {
     create: XOR<InvoiceCreateWithoutPaymentsInput, InvoiceUncheckedCreateWithoutPaymentsInput>
   }
 
+  export type BranchCreateWithoutPaymentsInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    logoUrl?: string | null
+    primaryColor?: string | null
+    emailFooter?: string | null
+    smsSenderId?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
+    alumni?: AlumniCreateNestedManyWithoutBranchInput
+    alumniEvents?: AlumniEventCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
+    automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    books?: BookCreateNestedManyWithoutBranchInput
+    callLogs?: CallLogCreateNestedManyWithoutBranchInput
+    accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
+    campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
+    certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
+    classes?: ClassCreateNestedManyWithoutBranchInput
+    complaints?: ComplaintCreateNestedManyWithoutBranchInput
+    conversations?: ConversationCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    attachmentCategories?: AttachmentCategoryCreateNestedManyWithoutBranchInput
+    departments?: DepartmentCreateNestedManyWithoutBranchInput
+    designations?: DesignationCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
+    expenseCategories?: ExpenseCategoryCreateNestedManyWithoutBranchInput
+    feeCategories?: FeeCategoryCreateNestedManyWithoutBranchInput
+    googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
+    hostels?: HostelCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    inventoryCategories?: InventoryCategoryCreateNestedManyWithoutBranchInput
+    inventoryIssues?: InventoryIssueCreateNestedManyWithoutBranchInput
+    inventoryProducts?: InventoryProductCreateNestedManyWithoutBranchInput
+    inventoryPurchases?: InventoryPurchaseCreateNestedManyWithoutBranchInput
+    inventorySales?: InventorySaleCreateNestedManyWithoutBranchInput
+    inventoryStores?: InventoryStoreCreateNestedManyWithoutBranchInput
+    inventorySuppliers?: InventorySupplierCreateNestedManyWithoutBranchInput
+    inventoryUnits?: InventoryUnitCreateNestedManyWithoutBranchInput
+    liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutBranchInput
+    onlineExams?: OnlineExamCreateNestedManyWithoutBranchInput
+    postalRecords?: PostalRecordCreateNestedManyWithoutBranchInput
+    questionGroups?: QuestionGroupCreateNestedManyWithoutBranchInput
+    students?: StudentCreateNestedManyWithoutBranchInput
+    studentCategories?: StudentCategoryCreateNestedManyWithoutBranchInput
+    subjects?: SubjectCreateNestedManyWithoutBranchInput
+    routes?: TransportRouteCreateNestedManyWithoutBranchInput
+    users?: UserCreateNestedManyWithoutBranchInput
+    vehicles?: VehicleCreateNestedManyWithoutBranchInput
+    visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
+    vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    attendanceSessions?: AttendanceSessionCreateNestedManyWithoutBranchInput
+    attendanceScans?: AttendanceScanCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
+    moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
+    scheduledJobs?: ScheduledJobCreateNestedManyWithoutBranchInput
+    emailTemplates?: EmailTemplateCreateNestedManyWithoutBranchInput
+    smsTemplates?: SmsTemplateCreateNestedManyWithoutBranchInput
+    notifications?: NotificationCreateNestedManyWithoutBranchInput
+    notificationPreferences?: NotificationPreferenceCreateNestedManyWithoutBranchInput
+    campaigns?: CampaignCreateNestedManyWithoutBranchInput
+    campaignRecipients?: CampaignRecipientCreateNestedManyWithoutBranchInput
+    queueJobLogs?: QueueJobLogCreateNestedManyWithoutBranchInput
+    automationExecutions?: AutomationExecutionCreateNestedManyWithoutBranchInput
+    messageDeliveryLogs?: MessageDeliveryLogCreateNestedManyWithoutBranchInput
+    providerHealthLogs?: ProviderHealthLogCreateNestedManyWithoutBranchInput
+    webhookEvents?: WebhookEventCreateNestedManyWithoutBranchInput
+    deliveryWebhookLogs?: DeliveryWebhookLogCreateNestedManyWithoutBranchInput
+    realtimeConnections?: RealtimeConnectionCreateNestedManyWithoutBranchInput
+    queueMetrics?: QueueMetricCreateNestedManyWithoutBranchInput
+    providerFailoverEvents?: ProviderFailoverEventCreateNestedManyWithoutBranchInput
+    messageRetryEvents?: MessageRetryEventCreateNestedManyWithoutBranchInput
+    providerBalanceSnapshots?: ProviderBalanceSnapshotCreateNestedManyWithoutBranchInput
+    counters?: CounterCreateNestedManyWithoutBranchInput
+    notificationDeliveryEvents?: NotificationDeliveryEventCreateNestedManyWithoutBranchInput
+    academicExports?: AcademicExportCreateNestedManyWithoutBranchInput
+    reportTemplates?: ReportTemplateCreateNestedManyWithoutBranchInput
+    computationJobs?: ComputationJobCreateNestedManyWithoutBranchInput
+    apiKeys?: ApiKeyCreateNestedManyWithoutBranchInput
+    webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutBranchInput
+    exams?: ExamCreateNestedManyWithoutBranchInput
+    examTypes?: ExamTypeCreateNestedManyWithoutBranchInput
+    assessmentComponents?: AssessmentComponentCreateNestedManyWithoutBranchInput
+    resultApprovals?: ResultApprovalCreateNestedManyWithoutBranchInput
+    resultPublications?: ResultPublicationCreateNestedManyWithoutBranchInput
+    gpaRecords?: GPARecordCreateNestedManyWithoutBranchInput
+    studentRankings?: StudentRankingCreateNestedManyWithoutBranchInput
+    broadsheets?: BroadsheetCreateNestedManyWithoutBranchInput
+    transcripts?: TranscriptCreateNestedManyWithoutBranchInput
+    academicRemarks?: AcademicRemarkCreateNestedManyWithoutBranchInput
+    subjectPositions?: SubjectPositionCreateNestedManyWithoutBranchInput
+    tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
+    tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
+    invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
+    libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
+    salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
+    payrolls?: PayrollCreateNestedManyWithoutBranchInput
+    leaveRequests?: LeaveRequestCreateNestedManyWithoutBranchInput
+    staffAwards?: StaffAwardCreateNestedManyWithoutBranchInput
+    advanceSalaries?: AdvanceSalaryCreateNestedManyWithoutBranchInput
+    hostelAllocations?: HostelAllocationCreateNestedManyWithoutBranchInput
+    hostelLeaves?: HostelLeaveCreateNestedManyWithoutBranchInput
+    maintenanceRequests?: MaintenanceRequestCreateNestedManyWithoutBranchInput
+    submissions?: SubmissionCreateNestedManyWithoutBranchInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutBranchInput
+    idCards?: IdCardCreateNestedManyWithoutBranchInput
+    bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
+    bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
+    hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
+    admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
+    admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
+  }
+
+  export type BranchUncheckedCreateWithoutPaymentsInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    logoUrl?: string | null
+    primaryColor?: string | null
+    emailFooter?: string | null
+    smsSenderId?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
+    alumni?: AlumniUncheckedCreateNestedManyWithoutBranchInput
+    alumniEvents?: AlumniEventUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
+    automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    books?: BookUncheckedCreateNestedManyWithoutBranchInput
+    callLogs?: CallLogUncheckedCreateNestedManyWithoutBranchInput
+    accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
+    campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
+    certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
+    classes?: ClassUncheckedCreateNestedManyWithoutBranchInput
+    complaints?: ComplaintUncheckedCreateNestedManyWithoutBranchInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    attachmentCategories?: AttachmentCategoryUncheckedCreateNestedManyWithoutBranchInput
+    departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
+    designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
+    expenseCategories?: ExpenseCategoryUncheckedCreateNestedManyWithoutBranchInput
+    feeCategories?: FeeCategoryUncheckedCreateNestedManyWithoutBranchInput
+    googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
+    hostels?: HostelUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    inventoryCategories?: InventoryCategoryUncheckedCreateNestedManyWithoutBranchInput
+    inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutBranchInput
+    inventoryProducts?: InventoryProductUncheckedCreateNestedManyWithoutBranchInput
+    inventoryPurchases?: InventoryPurchaseUncheckedCreateNestedManyWithoutBranchInput
+    inventorySales?: InventorySaleUncheckedCreateNestedManyWithoutBranchInput
+    inventoryStores?: InventoryStoreUncheckedCreateNestedManyWithoutBranchInput
+    inventorySuppliers?: InventorySupplierUncheckedCreateNestedManyWithoutBranchInput
+    inventoryUnits?: InventoryUnitUncheckedCreateNestedManyWithoutBranchInput
+    liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutBranchInput
+    onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutBranchInput
+    postalRecords?: PostalRecordUncheckedCreateNestedManyWithoutBranchInput
+    questionGroups?: QuestionGroupUncheckedCreateNestedManyWithoutBranchInput
+    students?: StudentUncheckedCreateNestedManyWithoutBranchInput
+    studentCategories?: StudentCategoryUncheckedCreateNestedManyWithoutBranchInput
+    subjects?: SubjectUncheckedCreateNestedManyWithoutBranchInput
+    routes?: TransportRouteUncheckedCreateNestedManyWithoutBranchInput
+    users?: UserUncheckedCreateNestedManyWithoutBranchInput
+    vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
+    visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
+    vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    attendanceSessions?: AttendanceSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendanceScans?: AttendanceScanUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
+    moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
+    scheduledJobs?: ScheduledJobUncheckedCreateNestedManyWithoutBranchInput
+    emailTemplates?: EmailTemplateUncheckedCreateNestedManyWithoutBranchInput
+    smsTemplates?: SmsTemplateUncheckedCreateNestedManyWithoutBranchInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutBranchInput
+    notificationPreferences?: NotificationPreferenceUncheckedCreateNestedManyWithoutBranchInput
+    campaigns?: CampaignUncheckedCreateNestedManyWithoutBranchInput
+    campaignRecipients?: CampaignRecipientUncheckedCreateNestedManyWithoutBranchInput
+    queueJobLogs?: QueueJobLogUncheckedCreateNestedManyWithoutBranchInput
+    automationExecutions?: AutomationExecutionUncheckedCreateNestedManyWithoutBranchInput
+    messageDeliveryLogs?: MessageDeliveryLogUncheckedCreateNestedManyWithoutBranchInput
+    providerHealthLogs?: ProviderHealthLogUncheckedCreateNestedManyWithoutBranchInput
+    webhookEvents?: WebhookEventUncheckedCreateNestedManyWithoutBranchInput
+    deliveryWebhookLogs?: DeliveryWebhookLogUncheckedCreateNestedManyWithoutBranchInput
+    realtimeConnections?: RealtimeConnectionUncheckedCreateNestedManyWithoutBranchInput
+    queueMetrics?: QueueMetricUncheckedCreateNestedManyWithoutBranchInput
+    providerFailoverEvents?: ProviderFailoverEventUncheckedCreateNestedManyWithoutBranchInput
+    messageRetryEvents?: MessageRetryEventUncheckedCreateNestedManyWithoutBranchInput
+    providerBalanceSnapshots?: ProviderBalanceSnapshotUncheckedCreateNestedManyWithoutBranchInput
+    counters?: CounterUncheckedCreateNestedManyWithoutBranchInput
+    notificationDeliveryEvents?: NotificationDeliveryEventUncheckedCreateNestedManyWithoutBranchInput
+    academicExports?: AcademicExportUncheckedCreateNestedManyWithoutBranchInput
+    reportTemplates?: ReportTemplateUncheckedCreateNestedManyWithoutBranchInput
+    computationJobs?: ComputationJobUncheckedCreateNestedManyWithoutBranchInput
+    apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutBranchInput
+    webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutBranchInput
+    exams?: ExamUncheckedCreateNestedManyWithoutBranchInput
+    examTypes?: ExamTypeUncheckedCreateNestedManyWithoutBranchInput
+    assessmentComponents?: AssessmentComponentUncheckedCreateNestedManyWithoutBranchInput
+    resultApprovals?: ResultApprovalUncheckedCreateNestedManyWithoutBranchInput
+    resultPublications?: ResultPublicationUncheckedCreateNestedManyWithoutBranchInput
+    gpaRecords?: GPARecordUncheckedCreateNestedManyWithoutBranchInput
+    studentRankings?: StudentRankingUncheckedCreateNestedManyWithoutBranchInput
+    broadsheets?: BroadsheetUncheckedCreateNestedManyWithoutBranchInput
+    transcripts?: TranscriptUncheckedCreateNestedManyWithoutBranchInput
+    academicRemarks?: AcademicRemarkUncheckedCreateNestedManyWithoutBranchInput
+    subjectPositions?: SubjectPositionUncheckedCreateNestedManyWithoutBranchInput
+    tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
+    tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
+    libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
+    salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
+    payrolls?: PayrollUncheckedCreateNestedManyWithoutBranchInput
+    leaveRequests?: LeaveRequestUncheckedCreateNestedManyWithoutBranchInput
+    staffAwards?: StaffAwardUncheckedCreateNestedManyWithoutBranchInput
+    advanceSalaries?: AdvanceSalaryUncheckedCreateNestedManyWithoutBranchInput
+    hostelAllocations?: HostelAllocationUncheckedCreateNestedManyWithoutBranchInput
+    hostelLeaves?: HostelLeaveUncheckedCreateNestedManyWithoutBranchInput
+    maintenanceRequests?: MaintenanceRequestUncheckedCreateNestedManyWithoutBranchInput
+    submissions?: SubmissionUncheckedCreateNestedManyWithoutBranchInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutBranchInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutBranchInput
+    bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
+    bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
+    hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
+    admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
+    admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
+  }
+
+  export type BranchCreateOrConnectWithoutPaymentsInput = {
+    where: BranchWhereUniqueInput
+    create: XOR<BranchCreateWithoutPaymentsInput, BranchUncheckedCreateWithoutPaymentsInput>
+  }
+
   export type InvoiceUpsertWithoutPaymentsInput = {
     update: XOR<InvoiceUpdateWithoutPaymentsInput, InvoiceUncheckedUpdateWithoutPaymentsInput>
     create: XOR<InvoiceCreateWithoutPaymentsInput, InvoiceUncheckedCreateWithoutPaymentsInput>
@@ -287451,6 +288000,281 @@ export namespace Prisma {
     createdByUserId?: NullableStringFieldUpdateOperationsInput | string | null
     updatedByUserId?: NullableStringFieldUpdateOperationsInput | string | null
     items?: InvoiceItemUncheckedUpdateManyWithoutInvoiceNestedInput
+  }
+
+  export type BranchUpsertWithoutPaymentsInput = {
+    update: XOR<BranchUpdateWithoutPaymentsInput, BranchUncheckedUpdateWithoutPaymentsInput>
+    create: XOR<BranchCreateWithoutPaymentsInput, BranchUncheckedCreateWithoutPaymentsInput>
+    where?: BranchWhereInput
+  }
+
+  export type BranchUpdateToOneWithWhereWithoutPaymentsInput = {
+    where?: BranchWhereInput
+    data: XOR<BranchUpdateWithoutPaymentsInput, BranchUncheckedUpdateWithoutPaymentsInput>
+  }
+
+  export type BranchUpdateWithoutPaymentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
+    smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
+    alumni?: AlumniUpdateManyWithoutBranchNestedInput
+    alumniEvents?: AlumniEventUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
+    automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    books?: BookUpdateManyWithoutBranchNestedInput
+    callLogs?: CallLogUpdateManyWithoutBranchNestedInput
+    accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
+    campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
+    certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
+    classes?: ClassUpdateManyWithoutBranchNestedInput
+    complaints?: ComplaintUpdateManyWithoutBranchNestedInput
+    conversations?: ConversationUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    attachmentCategories?: AttachmentCategoryUpdateManyWithoutBranchNestedInput
+    departments?: DepartmentUpdateManyWithoutBranchNestedInput
+    designations?: DesignationUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
+    expenseCategories?: ExpenseCategoryUpdateManyWithoutBranchNestedInput
+    feeCategories?: FeeCategoryUpdateManyWithoutBranchNestedInput
+    googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
+    hostels?: HostelUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    inventoryCategories?: InventoryCategoryUpdateManyWithoutBranchNestedInput
+    inventoryIssues?: InventoryIssueUpdateManyWithoutBranchNestedInput
+    inventoryProducts?: InventoryProductUpdateManyWithoutBranchNestedInput
+    inventoryPurchases?: InventoryPurchaseUpdateManyWithoutBranchNestedInput
+    inventorySales?: InventorySaleUpdateManyWithoutBranchNestedInput
+    inventoryStores?: InventoryStoreUpdateManyWithoutBranchNestedInput
+    inventorySuppliers?: InventorySupplierUpdateManyWithoutBranchNestedInput
+    inventoryUnits?: InventoryUnitUpdateManyWithoutBranchNestedInput
+    liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutBranchNestedInput
+    onlineExams?: OnlineExamUpdateManyWithoutBranchNestedInput
+    postalRecords?: PostalRecordUpdateManyWithoutBranchNestedInput
+    questionGroups?: QuestionGroupUpdateManyWithoutBranchNestedInput
+    students?: StudentUpdateManyWithoutBranchNestedInput
+    studentCategories?: StudentCategoryUpdateManyWithoutBranchNestedInput
+    subjects?: SubjectUpdateManyWithoutBranchNestedInput
+    routes?: TransportRouteUpdateManyWithoutBranchNestedInput
+    users?: UserUpdateManyWithoutBranchNestedInput
+    vehicles?: VehicleUpdateManyWithoutBranchNestedInput
+    visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
+    vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    attendanceSessions?: AttendanceSessionUpdateManyWithoutBranchNestedInput
+    attendanceScans?: AttendanceScanUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
+    moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
+    scheduledJobs?: ScheduledJobUpdateManyWithoutBranchNestedInput
+    emailTemplates?: EmailTemplateUpdateManyWithoutBranchNestedInput
+    smsTemplates?: SmsTemplateUpdateManyWithoutBranchNestedInput
+    notifications?: NotificationUpdateManyWithoutBranchNestedInput
+    notificationPreferences?: NotificationPreferenceUpdateManyWithoutBranchNestedInput
+    campaigns?: CampaignUpdateManyWithoutBranchNestedInput
+    campaignRecipients?: CampaignRecipientUpdateManyWithoutBranchNestedInput
+    queueJobLogs?: QueueJobLogUpdateManyWithoutBranchNestedInput
+    automationExecutions?: AutomationExecutionUpdateManyWithoutBranchNestedInput
+    messageDeliveryLogs?: MessageDeliveryLogUpdateManyWithoutBranchNestedInput
+    providerHealthLogs?: ProviderHealthLogUpdateManyWithoutBranchNestedInput
+    webhookEvents?: WebhookEventUpdateManyWithoutBranchNestedInput
+    deliveryWebhookLogs?: DeliveryWebhookLogUpdateManyWithoutBranchNestedInput
+    realtimeConnections?: RealtimeConnectionUpdateManyWithoutBranchNestedInput
+    queueMetrics?: QueueMetricUpdateManyWithoutBranchNestedInput
+    providerFailoverEvents?: ProviderFailoverEventUpdateManyWithoutBranchNestedInput
+    messageRetryEvents?: MessageRetryEventUpdateManyWithoutBranchNestedInput
+    providerBalanceSnapshots?: ProviderBalanceSnapshotUpdateManyWithoutBranchNestedInput
+    counters?: CounterUpdateManyWithoutBranchNestedInput
+    notificationDeliveryEvents?: NotificationDeliveryEventUpdateManyWithoutBranchNestedInput
+    academicExports?: AcademicExportUpdateManyWithoutBranchNestedInput
+    reportTemplates?: ReportTemplateUpdateManyWithoutBranchNestedInput
+    computationJobs?: ComputationJobUpdateManyWithoutBranchNestedInput
+    apiKeys?: ApiKeyUpdateManyWithoutBranchNestedInput
+    webhookEndpoints?: WebhookEndpointUpdateManyWithoutBranchNestedInput
+    exams?: ExamUpdateManyWithoutBranchNestedInput
+    examTypes?: ExamTypeUpdateManyWithoutBranchNestedInput
+    assessmentComponents?: AssessmentComponentUpdateManyWithoutBranchNestedInput
+    resultApprovals?: ResultApprovalUpdateManyWithoutBranchNestedInput
+    resultPublications?: ResultPublicationUpdateManyWithoutBranchNestedInput
+    gpaRecords?: GPARecordUpdateManyWithoutBranchNestedInput
+    studentRankings?: StudentRankingUpdateManyWithoutBranchNestedInput
+    broadsheets?: BroadsheetUpdateManyWithoutBranchNestedInput
+    transcripts?: TranscriptUpdateManyWithoutBranchNestedInput
+    academicRemarks?: AcademicRemarkUpdateManyWithoutBranchNestedInput
+    subjectPositions?: SubjectPositionUpdateManyWithoutBranchNestedInput
+    tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
+    tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
+    invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
+    libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
+    salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
+    payrolls?: PayrollUpdateManyWithoutBranchNestedInput
+    leaveRequests?: LeaveRequestUpdateManyWithoutBranchNestedInput
+    staffAwards?: StaffAwardUpdateManyWithoutBranchNestedInput
+    advanceSalaries?: AdvanceSalaryUpdateManyWithoutBranchNestedInput
+    hostelAllocations?: HostelAllocationUpdateManyWithoutBranchNestedInput
+    hostelLeaves?: HostelLeaveUpdateManyWithoutBranchNestedInput
+    maintenanceRequests?: MaintenanceRequestUpdateManyWithoutBranchNestedInput
+    submissions?: SubmissionUpdateManyWithoutBranchNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutBranchNestedInput
+    idCards?: IdCardUpdateManyWithoutBranchNestedInput
+    bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
+    bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
+    hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
+    admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
+    admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
+  }
+
+  export type BranchUncheckedUpdateWithoutPaymentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
+    smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
+    alumni?: AlumniUncheckedUpdateManyWithoutBranchNestedInput
+    alumniEvents?: AlumniEventUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
+    automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    books?: BookUncheckedUpdateManyWithoutBranchNestedInput
+    callLogs?: CallLogUncheckedUpdateManyWithoutBranchNestedInput
+    accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
+    campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
+    certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    classes?: ClassUncheckedUpdateManyWithoutBranchNestedInput
+    complaints?: ComplaintUncheckedUpdateManyWithoutBranchNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    attachmentCategories?: AttachmentCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
+    designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
+    expenseCategories?: ExpenseCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    feeCategories?: FeeCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
+    hostels?: HostelUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryCategories?: InventoryCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryProducts?: InventoryProductUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryPurchases?: InventoryPurchaseUncheckedUpdateManyWithoutBranchNestedInput
+    inventorySales?: InventorySaleUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryStores?: InventoryStoreUncheckedUpdateManyWithoutBranchNestedInput
+    inventorySuppliers?: InventorySupplierUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryUnits?: InventoryUnitUncheckedUpdateManyWithoutBranchNestedInput
+    liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutBranchNestedInput
+    onlineExams?: OnlineExamUncheckedUpdateManyWithoutBranchNestedInput
+    postalRecords?: PostalRecordUncheckedUpdateManyWithoutBranchNestedInput
+    questionGroups?: QuestionGroupUncheckedUpdateManyWithoutBranchNestedInput
+    students?: StudentUncheckedUpdateManyWithoutBranchNestedInput
+    studentCategories?: StudentCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    subjects?: SubjectUncheckedUpdateManyWithoutBranchNestedInput
+    routes?: TransportRouteUncheckedUpdateManyWithoutBranchNestedInput
+    users?: UserUncheckedUpdateManyWithoutBranchNestedInput
+    vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
+    visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
+    vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    attendanceSessions?: AttendanceSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendanceScans?: AttendanceScanUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
+    moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
+    scheduledJobs?: ScheduledJobUncheckedUpdateManyWithoutBranchNestedInput
+    emailTemplates?: EmailTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    smsTemplates?: SmsTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutBranchNestedInput
+    notificationPreferences?: NotificationPreferenceUncheckedUpdateManyWithoutBranchNestedInput
+    campaigns?: CampaignUncheckedUpdateManyWithoutBranchNestedInput
+    campaignRecipients?: CampaignRecipientUncheckedUpdateManyWithoutBranchNestedInput
+    queueJobLogs?: QueueJobLogUncheckedUpdateManyWithoutBranchNestedInput
+    automationExecutions?: AutomationExecutionUncheckedUpdateManyWithoutBranchNestedInput
+    messageDeliveryLogs?: MessageDeliveryLogUncheckedUpdateManyWithoutBranchNestedInput
+    providerHealthLogs?: ProviderHealthLogUncheckedUpdateManyWithoutBranchNestedInput
+    webhookEvents?: WebhookEventUncheckedUpdateManyWithoutBranchNestedInput
+    deliveryWebhookLogs?: DeliveryWebhookLogUncheckedUpdateManyWithoutBranchNestedInput
+    realtimeConnections?: RealtimeConnectionUncheckedUpdateManyWithoutBranchNestedInput
+    queueMetrics?: QueueMetricUncheckedUpdateManyWithoutBranchNestedInput
+    providerFailoverEvents?: ProviderFailoverEventUncheckedUpdateManyWithoutBranchNestedInput
+    messageRetryEvents?: MessageRetryEventUncheckedUpdateManyWithoutBranchNestedInput
+    providerBalanceSnapshots?: ProviderBalanceSnapshotUncheckedUpdateManyWithoutBranchNestedInput
+    counters?: CounterUncheckedUpdateManyWithoutBranchNestedInput
+    notificationDeliveryEvents?: NotificationDeliveryEventUncheckedUpdateManyWithoutBranchNestedInput
+    academicExports?: AcademicExportUncheckedUpdateManyWithoutBranchNestedInput
+    reportTemplates?: ReportTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    computationJobs?: ComputationJobUncheckedUpdateManyWithoutBranchNestedInput
+    apiKeys?: ApiKeyUncheckedUpdateManyWithoutBranchNestedInput
+    webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutBranchNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutBranchNestedInput
+    examTypes?: ExamTypeUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentComponents?: AssessmentComponentUncheckedUpdateManyWithoutBranchNestedInput
+    resultApprovals?: ResultApprovalUncheckedUpdateManyWithoutBranchNestedInput
+    resultPublications?: ResultPublicationUncheckedUpdateManyWithoutBranchNestedInput
+    gpaRecords?: GPARecordUncheckedUpdateManyWithoutBranchNestedInput
+    studentRankings?: StudentRankingUncheckedUpdateManyWithoutBranchNestedInput
+    broadsheets?: BroadsheetUncheckedUpdateManyWithoutBranchNestedInput
+    transcripts?: TranscriptUncheckedUpdateManyWithoutBranchNestedInput
+    academicRemarks?: AcademicRemarkUncheckedUpdateManyWithoutBranchNestedInput
+    subjectPositions?: SubjectPositionUncheckedUpdateManyWithoutBranchNestedInput
+    tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
+    tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
+    libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
+    salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    payrolls?: PayrollUncheckedUpdateManyWithoutBranchNestedInput
+    leaveRequests?: LeaveRequestUncheckedUpdateManyWithoutBranchNestedInput
+    staffAwards?: StaffAwardUncheckedUpdateManyWithoutBranchNestedInput
+    advanceSalaries?: AdvanceSalaryUncheckedUpdateManyWithoutBranchNestedInput
+    hostelAllocations?: HostelAllocationUncheckedUpdateManyWithoutBranchNestedInput
+    hostelLeaves?: HostelLeaveUncheckedUpdateManyWithoutBranchNestedInput
+    maintenanceRequests?: MaintenanceRequestUncheckedUpdateManyWithoutBranchNestedInput
+    submissions?: SubmissionUncheckedUpdateManyWithoutBranchNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutBranchNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutBranchNestedInput
+    bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
+    bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
+    hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
+    admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
+    admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
   }
 
   export type TransportAssignmentCreateWithoutVehicleInput = {
@@ -287592,6 +288416,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -287723,6 +288548,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -287886,6 +288712,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -288017,6 +288844,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -288178,6 +289006,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -288309,6 +289138,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -288472,6 +289302,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -288603,6 +289434,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -288735,6 +289567,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -288866,6 +289699,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -289262,6 +290096,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -289393,6 +290228,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -289776,6 +290612,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -289907,6 +290744,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -290241,6 +291079,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -290372,6 +291211,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -290881,6 +291721,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -291012,6 +291853,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -291361,6 +292203,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -291492,6 +292335,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -291622,6 +292466,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -291753,6 +292598,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -292462,6 +293308,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -292593,6 +293440,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -292852,6 +293700,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -292983,6 +293832,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -293452,6 +294302,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -293583,6 +294434,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -294048,6 +294900,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -294179,6 +295032,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -294528,6 +295382,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -294659,6 +295514,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -295004,6 +295860,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -295135,6 +295992,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -295484,6 +296342,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -295615,6 +296474,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -295960,6 +296820,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -296091,6 +296952,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -296238,6 +297100,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -296369,6 +297232,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -296500,6 +297364,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -296631,6 +297496,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -297006,6 +297872,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -297137,6 +298004,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -297520,6 +298388,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -297651,6 +298520,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -297798,6 +298668,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -297929,6 +298800,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -298060,6 +298932,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -298191,6 +299064,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -298366,6 +299240,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -298497,6 +299372,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -299176,6 +300052,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -299307,6 +300184,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -299454,6 +300332,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -299585,6 +300464,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -299716,6 +300596,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -299847,6 +300728,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -299994,6 +300876,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -300125,6 +301008,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -300256,6 +301140,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -300387,6 +301272,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -300534,6 +301420,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -300665,6 +301552,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -300796,6 +301684,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -300927,6 +301816,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -301074,6 +301964,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -301205,6 +302096,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -301336,6 +302228,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -301467,6 +302360,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -301614,6 +302508,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -301745,6 +302640,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -301876,6 +302772,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -302007,6 +302904,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -302184,6 +303082,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -302315,6 +303214,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -302556,6 +303456,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -302687,6 +303588,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -302834,6 +303736,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -302965,6 +303868,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -303096,6 +304000,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -303227,6 +304132,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -303374,6 +304280,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -303505,6 +304412,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -303636,6 +304544,7 @@ export namespace Prisma {
     subjectPositions?: SubjectPositionCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -303767,6 +304676,7 @@ export namespace Prisma {
     subjectPositions?: SubjectPositionUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -303914,6 +304824,7 @@ export namespace Prisma {
     subjectPositions?: SubjectPositionUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -304045,6 +304956,7 @@ export namespace Prisma {
     subjectPositions?: SubjectPositionUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -304176,6 +305088,7 @@ export namespace Prisma {
     subjectPositions?: SubjectPositionCreateNestedManyWithoutBranchInput
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -304307,6 +305220,7 @@ export namespace Prisma {
     subjectPositions?: SubjectPositionUncheckedCreateNestedManyWithoutBranchInput
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -304454,6 +305368,7 @@ export namespace Prisma {
     subjectPositions?: SubjectPositionUpdateManyWithoutBranchNestedInput
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -304585,6 +305500,7 @@ export namespace Prisma {
     subjectPositions?: SubjectPositionUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -304716,6 +305632,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -304847,6 +305764,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -304994,6 +305912,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -305125,6 +306044,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -305492,6 +306412,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -305623,6 +306544,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -305812,6 +306734,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -305943,6 +306866,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -306171,6 +307095,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -306302,6 +307227,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -306559,6 +307485,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -306690,6 +307617,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -306850,6 +307778,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -306981,6 +307910,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -307194,6 +308124,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -307325,6 +308256,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -307472,6 +308404,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -307603,6 +308536,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -307816,6 +308750,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -307947,6 +308882,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -308094,6 +309030,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -308225,6 +309162,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -308476,6 +309414,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -308607,6 +309546,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -309048,6 +309988,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
     payrolls?: PayrollCreateNestedManyWithoutBranchInput
@@ -309179,6 +310120,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
     payrolls?: PayrollUncheckedCreateNestedManyWithoutBranchInput
@@ -309591,6 +310533,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
     payrolls?: PayrollUpdateManyWithoutBranchNestedInput
@@ -309722,6 +310665,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
     payrolls?: PayrollUncheckedUpdateManyWithoutBranchNestedInput
@@ -309886,6 +310830,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
     payrolls?: PayrollCreateNestedManyWithoutBranchInput
@@ -310017,6 +310962,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
     payrolls?: PayrollUncheckedCreateNestedManyWithoutBranchInput
@@ -310203,6 +311149,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
     payrolls?: PayrollUpdateManyWithoutBranchNestedInput
@@ -310334,6 +311281,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
     payrolls?: PayrollUncheckedUpdateManyWithoutBranchNestedInput
@@ -310526,6 +311474,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     payrolls?: PayrollCreateNestedManyWithoutBranchInput
@@ -310657,6 +311606,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     payrolls?: PayrollUncheckedCreateNestedManyWithoutBranchInput
@@ -310871,6 +311821,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     payrolls?: PayrollUpdateManyWithoutBranchNestedInput
@@ -311002,6 +311953,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     payrolls?: PayrollUncheckedUpdateManyWithoutBranchNestedInput
@@ -311194,6 +312146,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -311325,6 +312278,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -311539,6 +312493,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -311670,6 +312625,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -311862,6 +312818,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -311993,6 +312950,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -312207,6 +313165,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -312338,6 +313297,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -312530,6 +313490,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -312661,6 +313622,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -312875,6 +313837,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -313006,6 +313969,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -313198,6 +314162,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -313329,6 +314294,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -313543,6 +314509,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -313674,6 +314641,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -313804,6 +314772,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -313935,6 +314904,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -314082,6 +315052,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -314213,6 +315184,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -314344,6 +315316,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -314475,6 +315448,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -314858,6 +315832,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -314989,6 +315964,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -316034,6 +317010,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -316165,6 +317142,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -316344,6 +317322,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -316475,6 +317454,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -317059,6 +318039,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -317190,6 +318171,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -317793,6 +318775,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -317924,6 +318907,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -318501,6 +319485,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -318632,6 +319617,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -318779,6 +319765,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -318910,6 +319897,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -319041,6 +320029,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -319172,6 +320161,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -319319,6 +320309,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -319450,6 +320441,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -319581,6 +320573,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -319712,6 +320705,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -319859,6 +320853,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -319990,6 +320985,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -320121,6 +321117,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -320252,6 +321249,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -320399,6 +321397,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -320530,6 +321529,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -320661,6 +321661,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -320792,6 +321793,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -320939,6 +321941,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -321070,6 +322073,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -321201,6 +322205,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -321332,6 +322337,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -321525,6 +322531,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -321656,6 +322663,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -321849,6 +322857,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -321980,6 +322989,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -322143,6 +323153,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -322274,6 +323285,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -322441,6 +323453,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -322572,6 +323585,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -322735,6 +323749,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -322866,6 +323881,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -323043,6 +324059,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -323174,6 +324191,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -323337,6 +324355,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -323468,6 +324487,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -323637,6 +324657,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -323768,6 +324789,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -324068,6 +325090,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -324199,6 +325222,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -324445,6 +325469,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -324576,6 +325601,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -324793,6 +325819,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -324924,6 +325951,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -325137,6 +326165,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -325268,6 +326297,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -325456,6 +326486,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -325587,6 +326618,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -325765,6 +326797,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -325896,6 +326929,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -326302,6 +327336,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -326433,6 +327468,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -326841,6 +327877,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -326972,6 +328009,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -327302,6 +328340,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -327433,6 +328472,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -327755,6 +328795,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -327886,6 +328927,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -328059,6 +329101,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -328190,6 +329233,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -328477,6 +329521,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -328608,6 +329653,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -328809,6 +329855,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -328940,6 +329987,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -329551,6 +330599,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -329682,6 +330731,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -329855,6 +330905,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -329986,6 +331037,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -330377,6 +331429,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -330508,6 +331561,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -330736,6 +331790,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -330867,6 +331922,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -331085,6 +332141,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -331216,6 +332273,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -331393,6 +332451,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -331524,6 +332583,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -331705,6 +332765,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -331836,6 +332897,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -331999,6 +333061,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -332130,6 +333193,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -332552,6 +333616,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -332683,6 +333748,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -333144,6 +334210,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -333275,6 +334342,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -333405,6 +334473,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -333536,6 +334605,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -333731,6 +334801,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -333862,6 +334933,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -334034,6 +335106,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -334165,6 +335238,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -334622,6 +335696,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -334753,6 +335828,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -335441,6 +336517,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -335572,6 +336649,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -335719,6 +336797,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -335850,6 +336929,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -335981,6 +337061,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -336112,6 +337193,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -336259,6 +337341,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -336390,6 +337473,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -336521,6 +337605,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -336652,6 +337737,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -336880,6 +337966,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -337011,6 +338098,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -337229,6 +338317,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -337360,6 +338449,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -337588,6 +338678,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -337719,6 +338810,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -337937,6 +339029,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -338068,6 +339161,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -338245,6 +339339,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -338376,6 +339471,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -338631,6 +339727,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -338762,6 +339859,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -339029,6 +340127,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -339160,6 +340259,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -339291,6 +340391,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -339422,6 +340523,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -339839,6 +340941,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -339970,6 +341073,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -340363,6 +341467,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -340494,6 +341599,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -340839,6 +341945,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -340970,6 +342077,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -341311,6 +342419,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -341442,6 +342551,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -341589,6 +342699,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -341720,6 +342831,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -341880,6 +342992,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -342011,6 +343124,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -342193,6 +343307,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -342324,6 +343439,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -342455,6 +343571,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -342586,6 +343703,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -342733,6 +343851,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -342864,6 +343983,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -342995,6 +344115,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -343126,6 +344247,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -343273,6 +344395,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -343404,6 +344527,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -343535,6 +344659,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -343666,6 +344791,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -343813,6 +344939,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -343944,6 +345071,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -344075,6 +345203,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -344206,6 +345335,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -344353,6 +345483,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -344484,6 +345615,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -344615,6 +345747,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -344746,6 +345879,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -344974,6 +346108,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -345105,6 +346240,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -345323,6 +346459,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -345454,6 +346591,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -345601,6 +346739,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -345732,6 +346871,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -345863,6 +347003,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -345994,6 +347135,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -346141,6 +347283,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -346272,6 +347415,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -346403,6 +347547,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -346534,6 +347679,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -346681,6 +347827,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -346812,6 +347959,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -346943,6 +348091,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -347074,6 +348223,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -347221,6 +348371,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -347352,6 +348503,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -347483,6 +348635,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -347614,6 +348767,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -347761,6 +348915,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -347892,6 +349047,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -348023,6 +349179,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -348154,6 +349311,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -348382,6 +349540,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -348513,6 +349672,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -348731,6 +349891,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -348862,6 +350023,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -349009,6 +350171,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -349140,6 +350303,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -349271,6 +350435,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -349402,6 +350567,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -349630,6 +350796,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -349761,6 +350928,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -350063,6 +351231,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -350194,6 +351363,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -350408,6 +351578,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -350539,6 +351710,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -350872,6 +352044,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -351003,6 +352176,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -351364,6 +352538,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -351495,6 +352670,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -351653,6 +352829,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -351784,6 +352961,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -351964,6 +353142,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -352095,6 +353274,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -352601,6 +353781,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -352732,6 +353913,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -352879,6 +354061,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -353010,6 +354193,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -353141,6 +354325,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -353272,6 +354457,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -353453,6 +354639,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -353584,6 +354771,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -353807,6 +354995,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -353938,6 +355127,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -354085,6 +355275,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -354216,6 +355407,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -354348,6 +355540,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -354479,6 +355672,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -354707,6 +355901,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -354838,6 +356033,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -355725,6 +356921,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
     invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
@@ -355856,6 +357053,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
     borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
     libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
     salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
@@ -356210,6 +357408,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
@@ -356341,6 +357540,7 @@ export namespace Prisma {
     tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
     tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
     borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
     libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
     salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
@@ -357695,6 +358895,19 @@ export namespace Prisma {
     updatedAt?: Date | string
     createdByUserId?: string | null
     updatedByUserId?: string | null
+  }
+
+  export type PaymentCreateManyBranchInput = {
+    id?: string
+    amount: Decimal | DecimalJsLike | number | string
+    method: $Enums.PaymentMethod
+    status?: $Enums.PaymentStatus
+    transactionId?: string | null
+    proofUrl?: string | null
+    notes?: string | null
+    invoiceId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type BorrowRecordCreateManyBranchInput = {
@@ -362168,6 +363381,45 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdByUserId?: NullableStringFieldUpdateOperationsInput | string | null
     updatedByUserId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type PaymentUpdateWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    method?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
+    status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    transactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    proofUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    invoice?: InvoiceUpdateOneRequiredWithoutPaymentsNestedInput
+  }
+
+  export type PaymentUncheckedUpdateWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    method?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
+    status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    transactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    proofUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PaymentUncheckedUpdateManyWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    method?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
+    status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    transactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    proofUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BorrowRecordUpdateWithoutBranchInput = {
@@ -370594,6 +371846,7 @@ export namespace Prisma {
     transactionId?: string | null
     proofUrl?: string | null
     notes?: string | null
+    branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -370632,6 +371885,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    branch?: BranchUpdateOneRequiredWithoutPaymentsNestedInput
   }
 
   export type PaymentUncheckedUpdateWithoutInvoiceInput = {
@@ -370642,6 +371896,7 @@ export namespace Prisma {
     transactionId?: NullableStringFieldUpdateOperationsInput | string | null
     proofUrl?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -370654,6 +371909,7 @@ export namespace Prisma {
     transactionId?: NullableStringFieldUpdateOperationsInput | string | null
     proofUrl?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

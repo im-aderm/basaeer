@@ -25,7 +25,6 @@ export default function InventorySupplierPage() {
     const [editData, setEditData] = useState({ name: '', contactPerson: '', phone: '', email: '', address: '' });
 
     const fetchSuppliers = async () => {
-        if (!resolvedBranchId) return;
         try {
             const data = await InventoryService.getSuppliers(resolvedBranchId);
             setSuppliers(data);

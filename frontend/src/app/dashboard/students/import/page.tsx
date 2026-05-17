@@ -1,5 +1,7 @@
 'use client';
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -61,7 +63,9 @@ export default function BulkImportPage() {
     };
 
     return (
-        <div className="max-w-5xl mx-auto space-y-8">
+        <RequireBranch requireSpecificBranch>
+            <div className="max-w-5xl mx-auto space-y-8">
+            <BranchContextBanner />
             <div className="flex justify-between items-end">
                 <div>
                     <h1 className="text-h1 font-bold tracking-tight text-primary">Bulk Student Import</h1>
@@ -219,6 +223,7 @@ export default function BulkImportPage() {
                     )}
                 </div>
             </div>
-        </div>
+            </div>
+        </RequireBranch>
     );
 }

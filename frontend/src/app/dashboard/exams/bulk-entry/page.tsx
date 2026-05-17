@@ -1,5 +1,7 @@
 'use client';
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from 'react';
 import { MarkEntrySpreadsheet } from '@/components/academic/MarkEntrySpreadsheet';
 import { AcademicService } from '@/services/academicService';
@@ -71,19 +73,24 @@ export default function BulkMarkEntryPage() {
 
     if (view === 'entry') {
         return (
-            <div className="p-6 h-full">
-                <MarkEntrySpreadsheet 
+            <RequireBranch requireSpecificBranch>
+                <div className="p-6 h-full">
+                    <BranchContextBanner />
+                    <MarkEntrySpreadsheet 
                     data={students} 
                     onSave={handleSave} 
                     onBack={() => setView('select')} 
                 />
             </div>
+            </RequireBranch>
         );
     }
 
     return (
-        <div className="p-6 space-y-6">
-            <div>
+        <RequireBranch requireSpecificBranch>
+            <div className="p-6 space-y-6">
+                <BranchContextBanner />
+                <div>
                 <h1 className="text-h1 font-bold tracking-tight text-primary">Bulk Mark Entry</h1>
                 <p className="text-gray-600 mt-1">High-performance spreadsheet interface for entering student marks</p>
             </div>
@@ -137,6 +144,7 @@ export default function BulkMarkEntryPage() {
                 </CardContent>
             </Card>
         </div>
+        </RequireBranch>
     );
 }
 

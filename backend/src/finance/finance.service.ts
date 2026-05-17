@@ -134,6 +134,7 @@ export class FinanceService {
         const payment = await tx.payment.create({
           data: {
             invoiceId,
+            branchId: invoice.branchId,
             amount,
             method,
             status,

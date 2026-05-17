@@ -1,5 +1,7 @@
 'use client';
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from 'react';
 import { reportTemplateService, ReportTemplate } from '@/services/reportTemplateService';
 import {
@@ -50,7 +52,9 @@ export default function ReportTemplatesPage() {
     };
 
     return (
+        <RequireBranch requireSpecificBranch>
         <div className="p-6 space-y-6">
+            <BranchContextBanner />
             <div className="flex items-center justify-between">
                 <div>
                     <h1 className="text-h1 font-bold tracking-tight text-primary">Report Templates</h1>
@@ -138,5 +142,6 @@ export default function ReportTemplatesPage() {
                 </div>
             )}
         </div>
+        </RequireBranch>
     );
 }

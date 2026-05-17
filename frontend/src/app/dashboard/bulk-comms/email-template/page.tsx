@@ -1,4 +1,6 @@
 "use client";
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 
 import { useState, useEffect } from "react";
 import { Mail, Plus, Edit2, Trash2, Save, X, Search, FileText } from "lucide-react";
@@ -62,7 +64,9 @@ export default function EmailTemplatesPage() {
     );
 
     return (
-        <div className="p-6">
+        <RequireBranch requireSpecificBranch>
+            <div className="p-6">
+                <BranchContextBanner />
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                 <div>
                     <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-2">
@@ -225,5 +229,6 @@ export default function EmailTemplatesPage() {
                 </>
             )}
         </div>
+    </RequireBranch>
     );
 }

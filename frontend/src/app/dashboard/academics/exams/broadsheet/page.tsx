@@ -1,5 +1,7 @@
 "use client";
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from "react";
 import { ExamService } from "@/services/examService";
 import { ClassService } from "@/services/classService";
@@ -77,7 +79,9 @@ export default function BroadsheetPage() {
     };
 
     return (
-        <div className="max-w-7xl mx-auto space-y-10 animate-in fade-in duration-500">
+        <RequireBranch requireSpecificBranch>
+            <div className="max-w-7xl mx-auto space-y-10 animate-in fade-in duration-500">
+                <BranchContextBanner />
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
@@ -180,5 +184,6 @@ export default function BroadsheetPage() {
                 </div>
             </div>
         </div>
+        </RequireBranch>
     );
 }

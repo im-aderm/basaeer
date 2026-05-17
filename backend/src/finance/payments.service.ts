@@ -75,6 +75,7 @@ export class PaymentsService {
         await tx.payment.create({
           data: {
             invoiceId,
+            branchId: invoice.branchId,
             amount: amountPaid,
             method: 'PAYSTACK',
             status: 'COMPLETED',

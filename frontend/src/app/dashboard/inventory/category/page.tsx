@@ -26,7 +26,6 @@ export default function InventoryCategoryPage() {
     const [editName, setEditName] = useState('');
 
     const fetchCategories = async () => {
-        if (!resolvedBranchId) return;
         try {
             const data = await InventoryService.getCategories(resolvedBranchId);
             setCategories(data);

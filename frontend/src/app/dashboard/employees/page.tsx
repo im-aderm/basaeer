@@ -1,5 +1,7 @@
 'use client';
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -110,20 +112,28 @@ export default function EmployeesListPage() {
     ];
 
     if (loading) return (
+        <RequireBranch requireSpecificBranch>
         <div className="flex h-[60vh] items-center justify-center">
+            <BranchContextBanner />
             <Loader2 className="w-10 h-10 animate-spin text-primary" />
         </div>
+        </RequireBranch>
     );
 
     if (error) return (
+        <RequireBranch requireSpecificBranch>
         <div className="flex h-[60vh] flex-col items-center justify-center gap-4">
+            <BranchContextBanner />
             <AlertCircle className="w-12 h-12 text-destructive" />
             <p className="text-lg font-semibold text-destructive">{error}</p>
         </div>
+        </RequireBranch>
     );
 
     return (
+        <RequireBranch requireSpecificBranch>
         <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in duration-500">
+            <BranchContextBanner />
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
                     <h1 className="text-h1 font-bold tracking-tight text-primary">Employee Management</h1>
@@ -173,5 +183,6 @@ export default function EmployeesListPage() {
                 </CardContent>
             </Card>
         </div>
+        </RequireBranch>
     );
 }

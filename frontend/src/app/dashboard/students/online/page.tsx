@@ -1,5 +1,7 @@
 'use client';
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -153,7 +155,9 @@ export default function OnlineAdmissionsDashboard() {
     if (loading) return <div className="p-8">Loading...</div>;
 
     return (
-        <div className="space-y-6">
+        <RequireBranch requireSpecificBranch>
+            <div className="space-y-6">
+            <BranchContextBanner />
             <div className="flex justify-between items-end">
                 <div className="space-y-1">
                     <h1 className="text-h1 font-bold tracking-tight text-primary">Admission Control</h1>
@@ -278,6 +282,7 @@ export default function OnlineAdmissionsDashboard() {
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
-        </div>
+            </div>
+        </RequireBranch>
     );
 }

@@ -1,5 +1,7 @@
 'use client';
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -79,8 +81,10 @@ export default function AutomationPanelPage() {
     if (loading) return <div className="flex h-96 items-center justify-center font-semibold animate-pulse">Synchronizing Automation Hub...</div>;
 
     return (
-        <div className="max-w-5xl mx-auto space-y-8 pb-20">
-            <div className="flex justify-between items-end">
+        <RequireBranch requireSpecificBranch>
+            <div className="max-w-5xl mx-auto space-y-8 pb-20">
+                <BranchContextBanner />
+                <div className="flex justify-between items-end">
                 <div>
                     <h1 className="text-h1 font-bold tracking-tight text-primary">Automation Hub</h1>
                     <p className="text-muted-foreground font-medium mt-1">Intelligent triggers and scheduled communication workflows.</p>
@@ -176,6 +180,7 @@ export default function AutomationPanelPage() {
                     Request Custom Automation
                 </Button>
             </Card>
-        </div>
+            </div>
+        </RequireBranch>
     );
 }

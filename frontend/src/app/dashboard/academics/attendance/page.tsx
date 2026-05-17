@@ -1,5 +1,7 @@
 "use client";
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from "react";
 import { AttendanceService } from "@/services/attendanceService";
 import { ClassService, Class, Section } from "@/services/classService";
@@ -139,7 +141,9 @@ export default function AttendancePage() {
     }
 
     return (
-        <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-20">
+        <RequireBranch requireSpecificBranch>
+            <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-20">
+                <BranchContextBanner />
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
@@ -299,5 +303,6 @@ export default function AttendancePage() {
                 </div>
             )}
         </div>
+        </RequireBranch>
     );
 }

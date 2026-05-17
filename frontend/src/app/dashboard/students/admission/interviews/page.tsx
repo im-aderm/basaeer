@@ -1,5 +1,7 @@
 "use client";
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { AdmissionInterviewService, AdmissionInterview } from "@/services/admissionInterviewService";
@@ -175,7 +177,9 @@ export default function AdmissionInterviewsPage() {
     }
 
     return (
-        <div className="max-w-6xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-6 duration-700 pb-20 px-6">
+        <RequireBranch requireSpecificBranch>
+            <div className="max-w-6xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-6 duration-700 pb-20 px-6">
+            <BranchContextBanner />
             <div className="flex justify-between items-end">
                 <div>
                     <h1 className="text-h1 font-bold tracking-tight text-primary">Interviews</h1>
@@ -341,6 +345,7 @@ export default function AdmissionInterviewsPage() {
                     ))
                 )}
             </div>
-        </div>
+            </div>
+        </RequireBranch>
     );
 }

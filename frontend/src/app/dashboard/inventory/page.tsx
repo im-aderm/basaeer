@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
+import BranchContextBanner from '@/components/BranchContextBanner';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import {
@@ -17,19 +18,19 @@ import {
     TrendingUp,
     AlertTriangle,
     Plus,
-    FileBarChart
+    FileBarChart,
+    Globe
 } from 'lucide-react';
 import { InventoryService, InventoryProduct } from '@/services/inventoryService';
 import { toast } from 'sonner';
 import Link from 'next/link';
 
 export default function InventoryOverviewPage() {
-    const { user, resolvedBranchId } = useAuth();
+    const { user, resolvedBranchId, isAllCampusesMode } = useAuth();
     const [products, setProducts] = useState<InventoryProduct[]>([]);
     const [loading, setLoading] = useState(true);
 
     const fetchData = async () => {
-        if (!resolvedBranchId) return;
         try {
             const data = await InventoryService.getProducts(resolvedBranchId);
             setProducts(data);
@@ -65,6 +66,8 @@ export default function InventoryOverviewPage() {
 
     return (
         <div className="max-w-7xl mx-auto space-y-10 pb-20">
+            <BranchContextBanner />
+
             {/* Header section with branding */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                 <div className="space-y-2">
@@ -72,20 +75,24 @@ export default function InventoryOverviewPage() {
                         Inventory Command
                     </h1>
                     <p className="text-muted-foreground font-medium text-lg max-w-xl">
-                        Central control for school assets, procurement, and distribution.
-                        Monitor stock levels in real-time.
+                        {isAllCampusesMode
+                            ? 'View-only overview across all campuses. Select a campus to manage records.'
+                            : 'Central control for school assets, procurement, and distribution. Monitor stock levels in real-time.'
+                        }
                     </p>
                 </div>
-                <div className="flex flex-wrap gap-3">
-                    {quickActions.map((action) => (
-                        <Link key={action.href} href={action.href}>
-                            <Button className={`h-14 px-6 rounded-[1.25rem] font-semibold gap-3 shadow-xl shadow-primary/10 hover:scale-105 active:scale-95 transition-all ${action.color}`}>
-                                <action.icon className="h-5 w-5" />
-                                <span className="uppercase tracking-wider">{action.title}</span>
-                            </Button>
-                        </Link>
-                    ))}
-                </div>
+                {!isAllCampusesMode && (
+                    <div className="flex flex-wrap gap-3">
+                        {quickActions.map((action) => (
+                            <Link key={action.href} href={action.href}>
+                                <Button className={`h-14 px-6 rounded-[1.25rem] font-semibold gap-3 shadow-xl shadow-primary/10 hover:scale-105 active:scale-95 transition-all ${action.color}`}>
+                                    <action.icon className="h-5 w-5" />
+                                    <span className="uppercase tracking-wider">{action.title}</span>
+                                </Button>
+                            </Link>
+                        ))}
+                    </div>
+                )}
             </div>
 
             {/* Top metrics grid */}
@@ -151,9 +158,11 @@ export default function InventoryOverviewPage() {
                             <CardDescription className="font-bold">Immediately restock these products to avoid operational delays.</CardDescription>
                         </div>
                     </div>
-                    <Link href="/dashboard/inventory/purchase">
-                        <Button variant="ghost" className="font-semibold uppercase text-xs hover:bg-primary/5">Restock All Items</Button>
-                    </Link>
+                    {!isAllCampusesMode && (
+                        <Link href="/dashboard/inventory/purchase">
+                            <Button variant="ghost" className="font-semibold uppercase text-xs hover:bg-primary/5">Restock All Items</Button>
+                        </Link>
+                    )}
                 </CardHeader>
                 <CardContent className="p-0">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 divide-x divide-y divide-border/50">

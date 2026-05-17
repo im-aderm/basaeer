@@ -1,4 +1,6 @@
 'use client';
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
@@ -173,7 +175,9 @@ function LiveClassesContent() {
     );
 
     return (
-        <div className="p-6 space-y-6 max-w-7xl mx-auto">
+        <RequireBranch requireSpecificBranch>
+            <div className="p-6 space-y-6 max-w-7xl mx-auto">
+                <BranchContextBanner />
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
@@ -472,6 +476,7 @@ function LiveClassesContent() {
                 </DialogContent>
             </Dialog>
         </div>
+    </RequireBranch>
     );
 }
 

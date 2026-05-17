@@ -1,5 +1,7 @@
 'use client';
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -86,7 +88,9 @@ export default function AlumniPage() {
     };
 
     return (
+        <RequireBranch requireSpecificBranch>
         <div className="max-w-7xl mx-auto space-y-8 pb-20">
+            <BranchContextBanner />
             <div className="flex justify-between items-end">
                 <div>
                     <h1 className="text-h1 font-bold tracking-tight text-primary">Alumni & Graduates</h1>
@@ -235,5 +239,6 @@ export default function AlumniPage() {
                 </div>
             </div>
         </div>
+        </RequireBranch>
     );
 }

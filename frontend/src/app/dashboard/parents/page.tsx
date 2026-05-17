@@ -1,5 +1,7 @@
 'use client';
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -61,8 +63,10 @@ export default function ParentsListPage() {
     );
 
     return (
-        <div className="max-w-7xl mx-auto space-y-8 pb-20">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+        <RequireBranch requireSpecificBranch>
+            <div className="max-w-7xl mx-auto space-y-8 pb-20">
+                <BranchContextBanner />
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
                     <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-4">
                         <UserCheck className="text-primary w-10 h-10" />
@@ -179,5 +183,6 @@ export default function ParentsListPage() {
                 </CardContent>
             </Card>
         </div>
+    </RequireBranch>
     );
 }

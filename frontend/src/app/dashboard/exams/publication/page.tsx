@@ -1,5 +1,14 @@
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { AcademicOperationsPage } from '@/components/academic/AcademicOperationsPage';
 
 export default function ExamPublicationPage() {
-    return <AcademicOperationsPage mode="publication" />;
+    return (
+        <RequireBranch requireSpecificBranch>
+            <div>
+                <BranchContextBanner />
+                <AcademicOperationsPage mode="publication" />
+            </div>
+        </RequireBranch>
+    );
 }

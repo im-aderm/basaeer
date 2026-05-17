@@ -1,5 +1,7 @@
 "use client";
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from "react";
 import { Award, Plus, Trophy, Star, Medal } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -151,8 +153,10 @@ export default function StaffAwardsPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-yellow-50/30 to-amber-50/20 p-6">
-            {/* Header */}
+        <RequireBranch requireSpecificBranch>
+            <div className="min-h-screen bg-gradient-to-br from-slate-50 via-yellow-50/30 to-amber-50/20 p-6">
+                <BranchContextBanner />
+                {/* Header */}
             <div className="mb-8">
                 <div className="flex items-center justify-between">
                     <div>
@@ -338,5 +342,6 @@ export default function StaffAwardsPage() {
                 )}
             </div>
         </div>
+    </RequireBranch>
     );
 }

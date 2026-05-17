@@ -1,4 +1,6 @@
 "use client";
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import React, { useState } from 'react';
 import { Send, Mail, MessageSquare, History, FileText } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -47,7 +49,9 @@ export default function BulkCommsPage() {
     };
 
     return (
-        <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in duration-500 pb-20">
+        <RequireBranch requireSpecificBranch>
+            <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in duration-500 pb-20">
+                <BranchContextBanner />
             <div>
                 <h1 className="text-h1 font-bold tracking-tight text-primary">Bulk Communications</h1>
                 <p className="text-muted-foreground font-medium mt-1">Broadcast important notices to parents, students, and staff via SMS and Email.</p>
@@ -219,5 +223,6 @@ export default function BulkCommsPage() {
                 </div>
             </div>
         </div>
+    </RequireBranch>
     );
 }

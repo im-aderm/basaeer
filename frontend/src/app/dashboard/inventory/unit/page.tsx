@@ -25,7 +25,6 @@ export default function InventoryUnitPage() {
     const [editName, setEditName] = useState('');
 
     const fetchUnits = async () => {
-        if (!resolvedBranchId) return;
         try {
             const data = await InventoryService.getUnits(resolvedBranchId);
             setUnits(data);

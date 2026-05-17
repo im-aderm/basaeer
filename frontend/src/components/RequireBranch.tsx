@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuth, isAllCampuses } from "@/context/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 import { Building2, Globe, ShieldAlert, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
@@ -16,18 +16,17 @@ interface RequireBranchProps {
 }
 
 export default function RequireBranch({ children, message, requireSpecificBranch }: RequireBranchProps) {
-    const { user, activeBranchId, resolvedBranchId, switchBranch, availableBranches } = useAuth();
+    const { user, activeBranchId, resolvedBranchId, isAllCampusesMode, switchBranch, availableBranches } = useAuth();
 
-    const isSuperAdminAllCampuses = user?.role === "SUPER_ADMIN" && activeBranchId && isAllCampuses(activeBranchId);
     const hasSpecificBranch = resolvedBranchId !== undefined;
 
-    const canView = hasSpecificBranch || (!requireSpecificBranch && isSuperAdminAllCampuses);
+    const canView = hasSpecificBranch || (!requireSpecificBranch && isAllCampusesMode);
 
     if (canView) {
         return <>{children}</>;
     }
 
-    if (requireSpecificBranch && isSuperAdminAllCampuses) {
+    if (requireSpecificBranch && isAllCampusesMode) {
         return (
             <div className="flex h-[60vh] items-center justify-center">
                 <div className="text-center max-w-lg p-8">

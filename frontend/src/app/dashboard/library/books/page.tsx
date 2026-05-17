@@ -1,4 +1,6 @@
 "use client";
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 
 import { useState, useEffect } from "react";
 import { Plus, Search, Loader2, Trash2, ChevronDown, ChevronRight, BookOpen } from "lucide-react";
@@ -85,7 +87,9 @@ export default function LibraryBooksPage() {
     }
 
     return (
-        <div className="space-y-6">
+        <RequireBranch requireSpecificBranch>
+            <div className="space-y-6">
+                <BranchContextBanner />
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
@@ -297,5 +301,6 @@ export default function LibraryBooksPage() {
                 </CardContent>
             </Card>
         </div>
+    </RequireBranch>
     );
 }

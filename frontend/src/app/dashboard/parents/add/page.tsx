@@ -1,5 +1,7 @@
 'use client';
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -45,8 +47,10 @@ export default function AddParentPage() {
     };
 
     return (
-        <div className="max-w-3xl mx-auto space-y-8 pb-20">
-            <div className="flex flex-col gap-2">
+        <RequireBranch requireSpecificBranch>
+            <div className="max-w-3xl mx-auto space-y-8 pb-20">
+                <BranchContextBanner />
+                <div className="flex flex-col gap-2">
                 <Button
                     variant="ghost"
                     onClick={() => router.back()}
@@ -161,5 +165,6 @@ export default function AddParentPage() {
                 </p>
             </div>
         </div>
+    </RequireBranch>
     );
 }

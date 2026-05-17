@@ -1,5 +1,7 @@
 'use client';
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
@@ -69,11 +71,13 @@ export default function AddEmployeePage() {
         }
     };
 
-    if (loading) return <div className="p-8">Loading...</div>;
+    if (loading) return <RequireBranch requireSpecificBranch><div className="p-8"><BranchContextBanner />Loading...</div></RequireBranch>;
 
     if (success) {
         return (
+            <RequireBranch requireSpecificBranch>
             <div className="max-w-2xl mx-auto py-20 text-center space-y-8 animate-in zoom-in-95 duration-500">
+                <BranchContextBanner />
                 <div className="inline-flex items-center justify-center w-32 h-32 rounded-full bg-green-500/10 text-green-500">
                     <CheckCircle2 size={64} />
                 </div>
@@ -97,11 +101,14 @@ export default function AddEmployeePage() {
                     </Button>
                 </div>
             </div>
+            </RequireBranch>
         );
     }
 
     return (
+        <RequireBranch requireSpecificBranch>
         <div className="max-w-5xl mx-auto space-y-10 pb-20 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <BranchContextBanner />
             <div className="text-center space-y-4">
                 <div className="inline-flex items-center justify-center w-20 h-20 rounded-[2rem] bg-primary/10 text-primary mb-4 transform -rotate-6">
                     <UserPlus size={40} />
@@ -257,5 +264,6 @@ export default function AddEmployeePage() {
                 </div>
             </form>
         </div>
+        </RequireBranch>
     );
 }

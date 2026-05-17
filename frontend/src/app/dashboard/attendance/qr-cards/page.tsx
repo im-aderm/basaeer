@@ -1,5 +1,7 @@
 "use client";
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from "react";
 import { ArrowLeft, Printer, Download, Search, Users, QrCode, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -77,8 +79,10 @@ export default function QRIDCardsPage() {
     };
 
     return (
-        <div className="max-w-6xl mx-auto space-y-8 animate-in fade-in duration-700 pb-20">
-            {/* Header - Hidden on Print */}
+        <RequireBranch requireSpecificBranch>
+            <div className="max-w-6xl mx-auto space-y-8 animate-in fade-in duration-700 pb-20">
+                <BranchContextBanner />
+                {/* Header - Hidden on Print */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 print:hidden">
                 <div className="flex items-center gap-4">
                     <Button variant="ghost" size="icon" onClick={() => router.back()} className="rounded-xl">
@@ -215,5 +219,6 @@ export default function QRIDCardsPage() {
                 </ul>
             </div>
         </div>
+    </RequireBranch>
     );
 }

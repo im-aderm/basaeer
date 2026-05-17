@@ -1,5 +1,7 @@
 'use client';
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -86,8 +88,10 @@ export default function ExamMasterDashboard() {
     );
 
     return (
-        <div className="max-w-7xl mx-auto space-y-12 pb-20">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+        <RequireBranch requireSpecificBranch>
+            <div className="max-w-7xl mx-auto space-y-12 pb-20">
+                <BranchContextBanner />
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                 <div className="space-y-2">
                     <h1 className="text-h1 font-bold tracking-tighter text-primary flex items-center gap-4">
                         <LayoutDashboard className="h-12 w-12 text-primary" />
@@ -226,5 +230,6 @@ export default function ExamMasterDashboard() {
                 </div>
             </div>
         </div>
+    </RequireBranch>
     );
 }

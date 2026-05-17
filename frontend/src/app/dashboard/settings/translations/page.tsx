@@ -1,5 +1,7 @@
 'use client';
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -120,8 +122,10 @@ export default function TranslationsPage() {
     );
 
     return (
-        <div className="max-w-5xl mx-auto space-y-8 pb-20">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+        <RequireBranch requireSpecificBranch>
+            <div className="max-w-5xl mx-auto space-y-8 pb-20">
+                <BranchContextBanner />
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
                 <div>
                     <h1 className="text-h1 font-bold tracking-tight text-primary">Translations</h1>
                     <p className="text-muted-foreground font-medium mt-1">
@@ -237,6 +241,7 @@ export default function TranslationsPage() {
                     )}
                 </CardContent>
             </Card>
-        </div>
+            </div>
+        </RequireBranch>
     );
 }

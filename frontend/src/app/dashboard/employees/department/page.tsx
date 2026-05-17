@@ -1,5 +1,7 @@
 'use client';
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -64,10 +66,12 @@ export default function DepartmentsPage() {
         }
     };
 
-    if (loading) return <div className="p-8">Loading...</div>;
+    if (loading) return <RequireBranch requireSpecificBranch><div className="p-8"><BranchContextBanner />Loading...</div></RequireBranch>;
 
     return (
+        <RequireBranch requireSpecificBranch>
         <div className="space-y-6">
+            <BranchContextBanner />
             <div className="flex justify-between items-center">
                 <div>
                     <h1 className="text-h1 font-bold tracking-tight text-primary">Departments</h1>
@@ -155,5 +159,6 @@ export default function DepartmentsPage() {
                 </CardContent>
             </Card>
         </div>
+        </RequireBranch>
     );
 }

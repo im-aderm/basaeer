@@ -1,4 +1,6 @@
 'use client';
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
@@ -81,7 +83,9 @@ export default function EventsPage() {
     };
 
     return (
-        <div className="max-w-7xl mx-auto space-y-8 pb-20">
+        <RequireBranch requireSpecificBranch>
+            <div className="max-w-7xl mx-auto space-y-8 pb-20">
+                <BranchContextBanner />
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
                 <div>
                     <h1 className="text-h1 font-bold tracking-tight text-primary">Campus Calendar</h1>
@@ -216,5 +220,6 @@ export default function EventsPage() {
                 </div>
             )}
         </div>
+    </RequireBranch>
     );
 }

@@ -1,5 +1,7 @@
 "use client";
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from "react";
 import { FileText, Plus, Edit2, Trash2, Copy } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -163,8 +165,10 @@ export default function ExamTypesPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/20 p-6">
-            {/* Header */}
+        <RequireBranch requireSpecificBranch>
+            <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/20 p-6">
+                <BranchContextBanner />
+                {/* Header */}
             <div className="mb-8">
                 <div className="flex items-center justify-between">
                     <div>
@@ -329,5 +333,6 @@ export default function ExamTypesPage() {
                 </div>
             )}
         </div>
+        </RequireBranch>
     );
 }

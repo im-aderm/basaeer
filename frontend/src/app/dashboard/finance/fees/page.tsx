@@ -1,5 +1,7 @@
 'use client';
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -48,7 +50,9 @@ export default function FeeSetupPage() {
     };
 
     return (
+        <RequireBranch requireSpecificBranch>
         <div className="space-y-6">
+            <BranchContextBanner />
             <div className="flex justify-between items-center">
                 <h1 className="text-h1 font-bold tracking-tight text-primary">Fee Structure Setup</h1>
             </div>
@@ -122,5 +126,6 @@ export default function FeeSetupPage() {
                 </Card>
             </div>
         </div>
+        </RequireBranch>
     );
 }

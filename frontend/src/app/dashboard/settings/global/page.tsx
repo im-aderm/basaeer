@@ -1,5 +1,7 @@
 "use client";
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from "react";
 import { SettingsService, GlobalSetting } from "@/services/settingsService";
 import { Save, Loader2, Globe, School, Coins, Clock, Bell, ShieldCheck } from "lucide-react";
@@ -74,8 +76,10 @@ export default function GlobalSettingsPage() {
     }
 
     return (
-        <div className="max-w-5xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            {/* Header */}
+        <RequireBranch requireSpecificBranch>
+            <div className="max-w-5xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <BranchContextBanner />
+                {/* Header */}
             <div className="flex items-center justify-between">
                 <div>
                     <h1 className="text-h1 font-bold tracking-tight text-primary">Global Settings</h1>
@@ -220,6 +224,7 @@ export default function GlobalSettingsPage() {
                     </div>
                 </div>
             </div>
-        </div>
+            </div>
+        </RequireBranch>
     );
 }

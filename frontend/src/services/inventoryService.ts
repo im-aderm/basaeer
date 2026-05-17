@@ -73,8 +73,9 @@ export interface InventoryIssue {
 
 export const InventoryService = {
     // Setup
-    getCategories: async (branchId: string): Promise<InventoryCategory[]> => {
-        const response = await api.get(`/inventory/categories?branchId=${branchId}`);
+    getCategories: async (branchId: string | undefined): Promise<InventoryCategory[]> => {
+        const params = branchId ? `?branchId=${branchId}` : '';
+        const response = await api.get(`/inventory/categories${params}`);
         return response.data;
     },
     createCategory: async (data: any) => {
@@ -90,8 +91,9 @@ export const InventoryService = {
         return response.data;
     },
 
-    getStores: async (branchId: string): Promise<InventoryStore[]> => {
-        const response = await api.get(`/inventory/stores?branchId=${branchId}`);
+    getStores: async (branchId: string | undefined): Promise<InventoryStore[]> => {
+        const params = branchId ? `?branchId=${branchId}` : '';
+        const response = await api.get(`/inventory/stores${params}`);
         return response.data;
     },
     createStore: async (data: any) => {
@@ -107,8 +109,9 @@ export const InventoryService = {
         return response.data;
     },
 
-    getSuppliers: async (branchId: string): Promise<InventorySupplier[]> => {
-        const response = await api.get(`/inventory/suppliers?branchId=${branchId}`);
+    getSuppliers: async (branchId: string | undefined): Promise<InventorySupplier[]> => {
+        const params = branchId ? `?branchId=${branchId}` : '';
+        const response = await api.get(`/inventory/suppliers${params}`);
         return response.data;
     },
     createSupplier: async (data: any) => {
@@ -124,8 +127,9 @@ export const InventoryService = {
         return response.data;
     },
 
-    getUnits: async (branchId: string): Promise<InventoryUnit[]> => {
-        const response = await api.get(`/inventory/units?branchId=${branchId}`);
+    getUnits: async (branchId: string | undefined): Promise<InventoryUnit[]> => {
+        const params = branchId ? `?branchId=${branchId}` : '';
+        const response = await api.get(`/inventory/units${params}`);
         return response.data;
     },
     createUnit: async (data: any) => {
@@ -142,8 +146,9 @@ export const InventoryService = {
     },
 
     // Products
-    getProducts: async (branchId: string): Promise<InventoryProduct[]> => {
-        const response = await api.get(`/inventory/products?branchId=${branchId}`);
+    getProducts: async (branchId: string | undefined): Promise<InventoryProduct[]> => {
+        const params = branchId ? `?branchId=${branchId}` : '';
+        const response = await api.get(`/inventory/products${params}`);
         return response.data;
     },
     createProduct: async (data: any) => {
@@ -160,8 +165,9 @@ export const InventoryService = {
     },
 
     // Transactions
-    getPurchases: async (branchId: string): Promise<InventoryPurchase[]> => {
-        const response = await api.get(`/inventory/purchases?branchId=${branchId}`);
+    getPurchases: async (branchId: string | undefined): Promise<InventoryPurchase[]> => {
+        const params = branchId ? `?branchId=${branchId}` : '';
+        const response = await api.get(`/inventory/purchases${params}`);
         return response.data;
     },
     createPurchase: async (data: any) => {
@@ -169,8 +175,9 @@ export const InventoryService = {
         return response.data;
     },
 
-    getIssues: async (branchId: string): Promise<InventoryIssue[]> => {
-        const response = await api.get(`/inventory/issues?branchId=${branchId}`);
+    getIssues: async (branchId: string | undefined): Promise<InventoryIssue[]> => {
+        const params = branchId ? `?branchId=${branchId}` : '';
+        const response = await api.get(`/inventory/issues${params}`);
         return response.data;
     },
     issueItem: async (data: any) => {
@@ -182,8 +189,9 @@ export const InventoryService = {
         return response.data;
     },
 
-    getSales: async (branchId: string): Promise<any[]> => {
-        const response = await api.get(`/inventory/sales?branchId=${branchId}`);
+    getSales: async (branchId: string | undefined): Promise<any[]> => {
+        const params = branchId ? `?branchId=${branchId}` : '';
+        const response = await api.get(`/inventory/sales${params}`);
         return response.data;
     },
     createSale: async (data: any) => {

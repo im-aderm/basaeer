@@ -29,7 +29,6 @@ export default function InventorySalesPage() {
     });
 
     const fetchData = async () => {
-        if (!resolvedBranchId) return;
         try {
             const [s, p] = await Promise.all([
                 InventoryService.getSales(resolvedBranchId),

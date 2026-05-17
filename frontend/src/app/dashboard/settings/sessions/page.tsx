@@ -1,5 +1,7 @@
 "use client";
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from "react";
 import { SessionService, AcademicSession } from "@/services/sessionService";
 import {
@@ -109,8 +111,10 @@ export default function SessionsPage() {
     }
 
     return (
-        <div className="max-w-6xl mx-auto space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            {/* Header */}
+        <RequireBranch requireSpecificBranch>
+            <div className="max-w-6xl mx-auto space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <BranchContextBanner />
+                {/* Header */}
             <div className="flex items-center justify-between">
                 <div>
                     <h1 className="text-h1 font-bold tracking-tight text-primary">Academic Sessions</h1>
@@ -272,6 +276,7 @@ export default function SessionsPage() {
                     </div>
                 </div>
             )}
-        </div>
+            </div>
+        </RequireBranch>
     );
 }

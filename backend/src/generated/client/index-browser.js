@@ -595,6 +595,7 @@ exports.Prisma.PaymentScalarFieldEnum = {
   proofUrl: 'proofUrl',
   notes: 'notes',
   invoiceId: 'invoiceId',
+  branchId: 'branchId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -2396,9 +2397,7 @@ exports.AdmissionStatus = exports.$Enums.AdmissionStatus = {
   REJECTED: 'REJECTED',
   WAITLISTED: 'WAITLISTED',
   ENROLLED: 'ENROLLED',
-  CANCELLED: 'CANCELLED',
-  PENDING: 'PENDING',
-  APPROVED: 'APPROVED'
+  CANCELLED: 'CANCELLED'
 };
 
 exports.IssueStatus = exports.$Enums.IssueStatus = {

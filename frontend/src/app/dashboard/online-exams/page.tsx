@@ -1,4 +1,6 @@
 'use client';
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -94,7 +96,9 @@ export default function OnlineExamsPage() {
     if (loading) return <div className="p-8">Loading examinations...</div>;
 
     return (
-        <div className="max-w-7xl mx-auto space-y-8 pb-20">
+        <RequireBranch requireSpecificBranch>
+            <div className="max-w-7xl mx-auto space-y-8 pb-20">
+                <BranchContextBanner />
             <div className="flex justify-between items-end">
                 <div>
                     <h1 className="text-h1 font-bold tracking-tight text-primary">Online Examinations</h1>
@@ -329,5 +333,6 @@ export default function OnlineExamsPage() {
                 </CardContent>
             </Card>
         </div>
+    </RequireBranch>
     );
 }

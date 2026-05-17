@@ -1,4 +1,6 @@
 "use client";
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 
 import { useState, useEffect } from "react";
 import { Send, Mail, MessageSquare, Users, AlertCircle, CheckCircle2 } from "lucide-react";
@@ -58,7 +60,9 @@ export default function SendCommsPage() {
     };
 
     return (
-        <div className="p-6 max-w-4xl mx-auto">
+        <RequireBranch requireSpecificBranch>
+            <div className="p-6 max-w-4xl mx-auto">
+                <BranchContextBanner />
             <div className="mb-8">
                 <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-2">
                     <Send className="w-6 h-6 text-primary" />
@@ -218,5 +222,6 @@ export default function SendCommsPage() {
                 </div>
             </div>
         </div>
+    </RequireBranch>
     );
 }

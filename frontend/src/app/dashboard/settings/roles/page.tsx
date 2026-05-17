@@ -1,5 +1,7 @@
 "use client";
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from "react";
 import { useAuth, isAllCampuses } from "@/context/AuthContext";
 import { RoleService, Role, RolePermission } from "@/services/roleService";
@@ -430,8 +432,10 @@ export default function RolesPage() {
     );
 
     return (
-        <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-            {/* Tab bar */}
+        <RequireBranch requireSpecificBranch>
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <BranchContextBanner />
+                {/* Tab bar */}
             {selectedRole && (
                 <div className="flex gap-2 mb-8 bg-muted/50 p-1.5 rounded-2xl w-fit border border-border/50">
                     {(["permissions", "users"] as const).map(t => (
@@ -593,6 +597,7 @@ export default function RolesPage() {
                     </div>
                 </div>
             )}
-        </div>
+            </div>
+        </RequireBranch>
     );
 }

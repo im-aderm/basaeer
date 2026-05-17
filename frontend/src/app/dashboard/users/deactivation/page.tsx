@@ -1,5 +1,7 @@
 'use client';
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -60,7 +62,9 @@ export default function LoginDeactivationPage() {
     if (loading) return <div className="p-8">Loading...</div>;
 
     return (
+        <RequireBranch requireSpecificBranch>
         <div className="space-y-8 max-w-6xl mx-auto">
+            <BranchContextBanner />
             <div className="flex justify-between items-end">
                 <div>
                     <h1 className="text-h1 font-bold tracking-tight text-primary">Login Management</h1>
@@ -153,5 +157,6 @@ export default function LoginDeactivationPage() {
                 </CardContent>
             </Card>
         </div>
+        </RequireBranch>
     );
 }

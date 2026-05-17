@@ -1,4 +1,6 @@
 "use client";
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { Construction, ArrowLeft, Brain } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
@@ -6,8 +8,10 @@ import { useRouter } from "next/navigation";
 export default function ExamAttendancePlaceholder() {
     const router = useRouter();
     return (
-        <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-6 animate-in fade-in duration-500">
-            <div className="bg-primary/10 p-8 rounded-[3rem] shadow-inner text-primary">
+        <RequireBranch requireSpecificBranch>
+            <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-6 animate-in fade-in duration-500">
+                <BranchContextBanner />
+                <div className="bg-primary/10 p-8 rounded-[3rem] shadow-inner text-primary">
                 <Brain className="w-16 h-16 animate-pulse" />
             </div>
             <div className="text-center space-y-2">
@@ -24,5 +28,6 @@ export default function ExamAttendancePlaceholder() {
                 <ArrowLeft size={20} /> Go Back
             </Button>
         </div>
+    </RequireBranch>
     );
 }

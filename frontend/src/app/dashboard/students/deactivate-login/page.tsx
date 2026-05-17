@@ -1,5 +1,7 @@
 "use client";
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect, useCallback, useMemo } from "react";
 import {
     UserX,
@@ -276,7 +278,9 @@ export default function StudentLoginDeactivationPage() {
     );
 
     return (
-        <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-6 duration-700 pb-20 px-6">
+        <RequireBranch requireSpecificBranch>
+            <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-6 duration-700 pb-20 px-6">
+                <BranchContextBanner />
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                     <h1 className="text-h1 font-bold tracking-tight text-primary">Student Login Management</h1>
@@ -628,5 +632,6 @@ export default function StudentLoginDeactivationPage() {
                 </DialogContent>
             </Dialog>
         </div>
+        </RequireBranch>
     );
 }

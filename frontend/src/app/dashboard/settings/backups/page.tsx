@@ -1,5 +1,7 @@
 'use client';
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -65,8 +67,10 @@ export default function BackupManagementPage() {
     if (loading) return <div className="p-8">Loading backup history...</div>;
 
     return (
-        <div className="max-w-5xl mx-auto space-y-8">
-            <div className="flex justify-between items-end">
+        <RequireBranch requireSpecificBranch>
+            <div className="max-w-5xl mx-auto space-y-8">
+                <BranchContextBanner />
+                <div className="flex justify-between items-end">
                 <div>
                     <h1 className="text-h1 font-bold tracking-tight text-primary">Database Backups</h1>
                     <p className="text-muted-foreground font-medium mt-1">Manage and secure your school data with manual snapshots.</p>
@@ -191,6 +195,7 @@ export default function BackupManagementPage() {
                     </Table>
                 </CardContent>
             </Card>
-        </div>
+            </div>
+        </RequireBranch>
     );
 }

@@ -1,5 +1,7 @@
 "use client";
 
+import RequireBranch from "@/components/RequireBranch";
+import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from "react";
 import {
     Clock,
@@ -99,8 +101,10 @@ export default function LeaveManagementPage() {
     if (loading) return <div className="p-20 text-center"><Loader2 className="animate-spin mx-auto h-12 w-12 text-primary" /></div>;
 
     return (
-        <div className="max-w-7xl mx-auto space-y-10 animate-in fade-in duration-700 pb-20">
-            {/* Header section with glassmorphism */}
+        <RequireBranch requireSpecificBranch>
+            <div className="max-w-7xl mx-auto space-y-10 animate-in fade-in duration-700 pb-20">
+                <BranchContextBanner />
+                {/* Header section with glassmorphism */}
             <div className="relative overflow-hidden rounded-[3.5rem] bg-indigo-900 p-12 text-white shadow-2xl">
                 <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-6">
                     <div>
@@ -167,5 +171,6 @@ export default function LeaveManagementPage() {
                 </CardContent>
             </Card>
         </div>
+    </RequireBranch>
     );
 }
