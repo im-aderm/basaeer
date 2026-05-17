@@ -51,19 +51,27 @@ export class PrismaService
         $allModels: {
           async $allOperations({ args, query, operation, model }: any) {
             const store = tenantStorage.getStore();
-            const branchId = store?.branchId ?? null;
+            let branchId = store?.branchId ?? null;
             const userId = store?.userId ?? '';
             const isSuperAdmin = store?.isSuperAdmin ?? false;
 
             // Block writes when no branch context is set
             // Exception: Branch model creates define the tenant boundary itself
+            // Exception: If args.data already has branchId (set by controller), allow it
             if (!branchId && model !== 'Branch') {
               const writeOps = ['create', 'update', 'updateMany', 'delete', 'deleteMany', 'upsert'];
               if (writeOps.includes(operation)) {
-                throw new Error('Branch context is required to modify data. Please select a branch.');
+                const dataBranchId = args.data?.branchId;
+                if (!dataBranchId) {
+                  throw new Error('Branch context is required to modify data. Please select a branch.');
+                }
+                // Use the branchId from the data payload
+                branchId = dataBranchId;
               }
               // Read operations without branch — return ALL data (for SA dashboard/reports)
-              return query(args);
+              if (!writeOps.includes(operation)) {
+                return query(args);
+              }
             }
 
             // Apply branch isolation for ALL users
