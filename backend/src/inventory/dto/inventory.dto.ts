@@ -3,6 +3,7 @@ import { IsString, IsOptional, IsNumber, IsUUID } from 'class-validator';
 export class CreateInventoryCategoryDto {
   @IsString()
   name: string;
+  @IsOptional()
   @IsString()
   branchId?: string;
 }
@@ -13,6 +14,7 @@ export class CreateInventoryStoreDto {
   @IsOptional()
   @IsString()
   code?: string;
+  @IsOptional()
   @IsString()
   branchId?: string;
 }
@@ -32,6 +34,7 @@ export class CreateInventorySupplierDto {
   @IsOptional()
   @IsString()
   address?: string;
+  @IsOptional()
   @IsString()
   branchId?: string;
 }
@@ -39,6 +42,7 @@ export class CreateInventorySupplierDto {
 export class CreateInventoryUnitDto {
   @IsString()
   name: string;
+  @IsOptional()
   @IsString()
   branchId?: string;
 }
@@ -59,6 +63,7 @@ export class CreateInventoryProductDto {
   @IsOptional()
   @IsUUID()
   storeId?: string;
+  @IsOptional()
   @IsString()
   branchId?: string;
   @IsOptional()
@@ -81,6 +86,7 @@ export class CreateInventoryPurchaseDto {
   productId: string;
   @IsUUID()
   supplierId: string;
+  @IsOptional()
   @IsString()
   branchId?: string;
 }
@@ -98,6 +104,7 @@ export class IssueItemDto {
   @IsOptional()
   @IsUUID()
   studentId?: string;
+  @IsOptional()
   @IsString()
   branchId?: string;
 }
@@ -115,6 +122,7 @@ export class CreateInventorySaleDto {
   @IsOptional()
   @IsString()
   customerName?: string;
+  @IsOptional()
   @IsString()
   branchId?: string;
 }
@@ -135,7 +143,6 @@ export class UpdateInventoryProductDto {
   @IsOptional()
   @IsUUID()
   unitId?: string;
-  @IsOptional()
   @IsOptional()
   @IsUUID()
   storeId?: string;
