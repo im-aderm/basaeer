@@ -1,8 +1,9 @@
 "use client";
 
 import { useAuth, isAllCampuses } from "@/context/AuthContext";
-import { Building2, Plus, Check, ArrowRight, Globe, Info } from "lucide-react";
+import { Building2, Plus, ArrowRight, Globe, Info } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface RequireBranchProps {
     children: React.ReactNode;
@@ -10,11 +11,20 @@ interface RequireBranchProps {
     requireSpecificBranch?: boolean;
 }
 
+const BRANCH_MANAGEMENT_PAGES = ["/dashboard/branches"];
+
 export default function RequireBranch({ children, requireForWrite = true, requireSpecificBranch }: RequireBranchProps) {
     const { user, activeBranchId, availableBranches, switchBranch } = useAuth();
+    const pathname = usePathname();
 
     // Non-SuperAdmin always has a branch assigned
     if (user?.role !== "SUPER_ADMIN") {
+        return <>{children}</>;
+    }
+
+    // Allow branch management pages through even without a branch selected
+    const isBranchPage = BRANCH_MANAGEMENT_PAGES.some((page) => pathname.startsWith(page));
+    if (isBranchPage) {
         return <>{children}</>;
     }
 
@@ -112,7 +122,7 @@ export default function RequireBranch({ children, requireForWrite = true, requir
 
                     {availableBranches.length === 0 && (
                         <Link
-                            href="/dashboard/branches/new"
+                            href="/dashboard/branches/create"
                             className="w-full flex items-center justify-center gap-2 p-4 rounded-2xl bg-primary text-white hover:bg-primary/90 transition-all font-semibold"
                         >
                             <Plus className="w-5 h-5" />

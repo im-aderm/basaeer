@@ -21,7 +21,8 @@ export default function TimeSeriesAnalytics({ trends }: TimeSeriesAnalyticsProps
         { key: "1y", label: "1Y" },
     ];
 
-    const displayData = trends.slice(period === "7d" ? -7 : period === "30d" ? -30 : period === "90d" ? -90 : -365);
+    const sliceSizes: Record<Period, number> = { "7d": 7, "30d": 30, "90d": 90, "1y": 365 };
+    const displayData = trends.slice(-Math.min(trends.length, sliceSizes[period]));
 
     return (
         <div className="space-y-6">

@@ -21,8 +21,9 @@ export class ExecutiveDashboardService {
   async getOverview(ctx: TenantContext): Promise<ExecutiveOverviewDto> {
     const now = new Date();
     const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
-    const lastMonthStart = new Date(now.getFullYear(), now.getMonth() - 1, 1);
-    const lastMonthEnd = new Date(now.getFullYear(), now.getMonth(), 0, 23, 59, 59);
+    const daysInCurrentMonth = now.getDate();
+    const lastMonthSameDayStart = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+    const lastMonthSameDayEnd = new Date(now.getFullYear(), now.getMonth() - 1, Math.min(daysInCurrentMonth, new Date(now.getFullYear(), now.getMonth(), 0).getDate()), 23, 59, 59);
 
     const [
       totalStudents,
@@ -32,6 +33,7 @@ export class ExecutiveDashboardService {
       activeStaff,
       totalRevenue,
       totalOutstanding,
+      totalInvoiced,
       attendanceToday,
       totalBranches,
       activeBranches,
@@ -44,7 +46,7 @@ export class ExecutiveDashboardService {
         where: { deletedAt: null, createdAt: { gte: monthStart } },
       }),
       this.prisma.student.count({
-        where: { deletedAt: null, createdAt: { gte: lastMonthStart, lte: lastMonthEnd } },
+        where: { deletedAt: null, createdAt: { gte: lastMonthSameDayStart, lte: lastMonthSameDayEnd } },
       }),
       this.prisma.staff.count(),
       this.prisma.staff.count({ where: { status: 'ACTIVE' } }),
@@ -55,6 +57,9 @@ export class ExecutiveDashboardService {
       this.prisma.invoice.aggregate({
         where: { status: { in: ['UNPAID', 'PARTIALLY_PAID'] } },
         _sum: { balance: true },
+      }),
+      this.prisma.invoice.aggregate({
+        _sum: { totalAmount: true },
       }),
       this.prisma.attendance.groupBy({
         by: ['status'],
@@ -79,12 +84,14 @@ export class ExecutiveDashboardService {
     const totalAttendance = attendanceToday.reduce((sum, a) => sum + a._count.id, 0);
     const attendanceRate = totalAttendance > 0 ? Math.round((presentCount / totalAttendance) * 100) : 0;
 
+    // Compare same-length periods for growth rate (not partial month vs full month)
     const studentGrowth = studentsLastMonth > 0
       ? Math.round(((studentsThisMonth - studentsLastMonth) / studentsLastMonth) * 100)
       : 0;
 
     const totalRevenueNum = totalRevenue._sum.amount?.toNumber() ?? 0;
     const totalOutstandingNum = totalOutstanding._sum.balance?.toNumber() ?? 0;
+    const totalInvoicedNum = totalInvoiced._sum.totalAmount?.toNumber() ?? 0;
     const academicAvgNum = academicAvg._avg.average ?? 0;
     const hostelOccupancyRate = totalBeds > 0 ? Math.round((occupiedBeds / totalBeds) * 100) : 0;
 
@@ -98,10 +105,10 @@ export class ExecutiveDashboardService {
       attendanceRate,
       totalBranches,
       activeBranches,
-      collectionRate: (totalRevenueNum + totalOutstandingNum) > 0
-        ? Math.round((totalRevenueNum / (totalRevenueNum + totalOutstandingNum)) * 100)
+      collectionRate: totalInvoicedNum > 0
+        ? Math.round(((totalInvoicedNum - totalOutstandingNum) / totalInvoicedNum) * 100)
         : 0,
-      academicAverage: Math.round(academicAvgNum),
+      academicAverage: Math.round(Number(academicAvgNum)),
       hostelOccupancyRate,
     };
   }
@@ -112,30 +119,37 @@ export class ExecutiveDashboardService {
       select: { id: true, name: true, code: true },
     });
 
-    const branchFinances = await Promise.all(
-      branches.map(async (branch) => {
-        const [revenue, outstanding] = await Promise.all([
-          this.prisma.payment.aggregate({
-            where: { branchId: branch.id, status: 'COMPLETED' },
-            _sum: { amount: true },
-          }),
-          this.prisma.invoice.aggregate({
-            where: { branchId: branch.id, status: { in: ['UNPAID', 'PARTIALLY_PAID'] } },
-            _sum: { balance: true },
-          }),
-        ]);
-        const rev = revenue._sum.amount?.toNumber() ?? 0;
-        const out = outstanding._sum.balance?.toNumber() ?? 0;
-        return {
-          branchId: branch.id,
-          branchName: branch.name,
-          branchCode: branch.code,
-          revenue: rev,
-          outstanding: out,
-          collectionRate: (rev + out) > 0 ? Math.round((rev / (rev + out)) * 100) : 0,
-        };
+    const branchIds = branches.map((b) => b.id);
+
+    // Single queries with GROUP BY instead of N per-branch queries
+    const [revenueByBranch, outstandingByBranch] = await Promise.all([
+      this.prisma.payment.groupBy({
+        by: ['branchId'],
+        where: { branchId: { in: branchIds }, status: 'COMPLETED' },
+        _sum: { amount: true },
       }),
-    );
+      this.prisma.invoice.groupBy({
+        by: ['branchId'],
+        where: { branchId: { in: branchIds }, status: { in: ['UNPAID', 'PARTIALLY_PAID'] } },
+        _sum: { balance: true },
+      }),
+    ]);
+
+    const revenueMap = new Map(revenueByBranch.map((r) => [r.branchId, r._sum.amount?.toNumber() ?? 0]));
+    const outstandingMap = new Map(outstandingByBranch.map((o) => [o.branchId, o._sum.balance?.toNumber() ?? 0]));
+
+    const branchFinances = branches.map((branch) => {
+      const rev = revenueMap.get(branch.id) ?? 0;
+      const out = outstandingMap.get(branch.id) ?? 0;
+      return {
+        branchId: branch.id,
+        branchName: branch.name,
+        branchCode: branch.code,
+        revenue: rev,
+        outstanding: out,
+        collectionRate: (rev + out) > 0 ? Math.round((rev / (rev + out)) * 100) : 0,
+      };
+    });
 
     const totalRevenue = branchFinances.reduce((sum, b) => sum + b.revenue, 0);
     const totalOutstanding = branchFinances.reduce((sum, b) => sum + b.outstanding, 0);
@@ -161,30 +175,33 @@ export class ExecutiveDashboardService {
       select: { id: true, name: true, code: true },
     });
 
-    const branchAttendance = await Promise.all(
-      branches.map(async (branch) => {
-        const today = await this.prisma.attendance.groupBy({
-          by: ['status'],
-          where: { branchId: branch.id, date: { gte: todayStart } },
-          _count: { id: true },
-        });
-        const present = today
-          .filter((a) => a.status === 'PRESENT' || a.status === 'LATE')
-          .reduce((sum, a) => sum + a._count.id, 0);
-        const total = today.reduce((sum, a) => sum + a._count.id, 0);
-        return {
-          branchId: branch.id,
-          branchName: branch.name,
-          branchCode: branch.code,
-          attendanceRate: total > 0 ? Math.round((present / total) * 100) : 0,
-          present,
-          absent: total - present,
-          total,
-        };
-      }),
-    );
+    const branchIds = branches.map((b) => b.id);
 
-    // Optimized: single groupBy for 30-day trend
+    // Single query with GROUP BY branchId instead of N per-branch queries
+    const attendanceByBranch = await this.prisma.attendance.groupBy({
+      by: ['branchId', 'status'],
+      where: { branchId: { in: branchIds }, date: { gte: todayStart } },
+      _count: { id: true },
+    });
+
+    const branchAttendance = branches.map((branch) => {
+      const rows = attendanceByBranch.filter((a) => a.branchId === branch.id);
+      const present = rows
+        .filter((a) => a.status === 'PRESENT' || a.status === 'LATE')
+        .reduce((sum, a) => sum + a._count.id, 0);
+      const total = rows.reduce((sum, a) => sum + a._count.id, 0);
+      return {
+        branchId: branch.id,
+        branchName: branch.name,
+        branchCode: branch.code,
+        attendanceRate: total > 0 ? Math.round((present / total) * 100) : 0,
+        present,
+        absent: total - present,
+        total,
+      };
+    });
+
+    // Single groupBy for 30-day trend (already optimized)
     const trendRaw = await this.prisma.attendance.groupBy({
       by: ['date', 'status'],
       where: { date: { gte: thirtyDaysAgo } },
@@ -224,24 +241,45 @@ export class ExecutiveDashboardService {
       select: { id: true, name: true, code: true },
     });
 
-    const branchAcademics = await Promise.all(
-      branches.map(async (branch) => {
-        const [totalClasses, totalStudents, totalSubjects] = await Promise.all([
-          this.prisma.class.count({ where: { branchId: branch.id } }),
-          this.prisma.student.count({ where: { branchId: branch.id, deletedAt: null } }),
-          this.prisma.subject.count({ where: { branchId: branch.id } }),
-        ]);
-        return {
-          branchId: branch.id,
-          branchName: branch.name,
-          branchCode: branch.code,
-          totalClasses,
-          totalStudents,
-          totalSubjects,
-          averageClassSize: totalClasses > 0 ? Math.round(totalStudents / totalClasses) : 0,
-        };
+    const branchIds = branches.map((b) => b.id);
+
+    // Single queries with GROUP BY instead of N per-branch queries
+    const [classesByBranch, studentsByBranch, subjectsByBranch] = await Promise.all([
+      this.prisma.class.groupBy({
+        by: ['branchId'],
+        where: { branchId: { in: branchIds } },
+        _count: { id: true },
       }),
-    );
+      this.prisma.student.groupBy({
+        by: ['branchId'],
+        where: { branchId: { in: branchIds }, deletedAt: null },
+        _count: { id: true },
+      }),
+      this.prisma.subject.groupBy({
+        by: ['branchId'],
+        where: { branchId: { in: branchIds } },
+        _count: { id: true },
+      }),
+    ]);
+
+    const classesMap = new Map(classesByBranch.map((c) => [c.branchId, c._count.id]));
+    const studentsMap = new Map(studentsByBranch.map((s) => [s.branchId, s._count.id]));
+    const subjectsMap = new Map(subjectsByBranch.map((s) => [s.branchId, s._count.id]));
+
+    const branchAcademics = branches.map((branch) => {
+      const totalClasses = classesMap.get(branch.id) ?? 0;
+      const totalStudents = studentsMap.get(branch.id) ?? 0;
+      const totalSubjects = subjectsMap.get(branch.id) ?? 0;
+      return {
+        branchId: branch.id,
+        branchName: branch.name,
+        branchCode: branch.code,
+        totalClasses,
+        totalStudents,
+        totalSubjects,
+        averageClassSize: totalClasses > 0 ? Math.round(totalStudents / totalClasses) : 0,
+      };
+    });
 
     return {
       totalClasses: branchAcademics.reduce((sum, b) => sum + b.totalClasses, 0),
@@ -256,69 +294,90 @@ export class ExecutiveDashboardService {
       select: { id: true, name: true, code: true },
     });
 
+    const branchIds = branches.map((b) => b.id);
+
     const now = new Date();
     const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
     const lastMonthStart = new Date(now.getFullYear(), now.getMonth() - 1, 1);
 
-    const comparisons = await Promise.all(
-      branches.map(async (branch) => {
-        const [
-          students,
-          studentsThisMonth,
-          studentsLastMonth,
-          staff,
-          revenue,
-          outstanding,
-          attendanceToday,
-        ] = await Promise.all([
-          this.prisma.student.count({ where: { branchId: branch.id, deletedAt: null } }),
-          this.prisma.student.count({
-            where: { branchId: branch.id, deletedAt: null, createdAt: { gte: monthStart } },
-          }),
-          this.prisma.student.count({
-            where: { branchId: branch.id, deletedAt: null, createdAt: { gte: lastMonthStart, lt: monthStart } },
-          }),
-          this.prisma.staff.count({ where: { user: { branchId: branch.id } } }),
-          this.prisma.payment.aggregate({
-            where: { branchId: branch.id, status: 'COMPLETED' },
-            _sum: { amount: true },
-          }),
-          this.prisma.invoice.aggregate({
-            where: { branchId: branch.id, status: { in: ['UNPAID', 'PARTIALLY_PAID'] } },
-            _sum: { balance: true },
-          }),
-          this.prisma.attendance.groupBy({
-            by: ['status'],
-            where: {
-              branchId: branch.id,
-              date: { gte: new Date(now.toDateString()) },
-            },
-            _count: { id: true },
-          }),
-        ]);
-
-        const present = attendanceToday
-          .filter((a) => a.status === 'PRESENT' || a.status === 'LATE')
-          .reduce((sum, a) => sum + a._count.id, 0);
-        const totalAtt = attendanceToday.reduce((sum, a) => sum + a._count.id, 0);
-
-        return {
-          branchId: branch.id,
-          branchName: branch.name,
-          branchCode: branch.code,
-          students,
-          staff,
-          revenue: revenue._sum.amount?.toNumber() ?? 0,
-          outstanding: outstanding._sum.balance?.toNumber() ?? 0,
-          attendanceRate: totalAtt > 0 ? Math.round((present / totalAtt) * 100) : 0,
-          growth: studentsLastMonth > 0
-            ? Math.round(((studentsThisMonth - studentsLastMonth) / studentsLastMonth) * 100)
-            : (studentsThisMonth > 0 ? 100 : 0),
-        };
+    // Single queries with GROUP BY branchId instead of N×7 per-branch queries
+    const [
+      studentsByBranch,
+      studentsThisMonth,
+      studentsLastMonth,
+      staffByBranch,
+      revenueByBranch,
+      outstandingByBranch,
+      attendanceByBranch,
+    ] = await Promise.all([
+      this.prisma.student.groupBy({
+        by: ['branchId'],
+        where: { branchId: { in: branchIds }, deletedAt: null },
+        _count: { id: true },
       }),
-    );
+      this.prisma.student.groupBy({
+        by: ['branchId'],
+        where: { branchId: { in: branchIds }, deletedAt: null, createdAt: { gte: monthStart } },
+        _count: { id: true },
+      }),
+      this.prisma.student.groupBy({
+        by: ['branchId'],
+        where: { branchId: { in: branchIds }, deletedAt: null, createdAt: { gte: lastMonthStart, lt: monthStart } },
+        _count: { id: true },
+      }),
+      this.prisma.user.groupBy({
+        by: ['branchId'],
+        where: { branchId: { in: branchIds }, staff: { isNot: null } },
+        _count: { id: true },
+      }),
+      this.prisma.payment.groupBy({
+        by: ['branchId'],
+        where: { branchId: { in: branchIds }, status: 'COMPLETED' },
+        _sum: { amount: true },
+      }),
+      this.prisma.invoice.groupBy({
+        by: ['branchId'],
+        where: { branchId: { in: branchIds }, status: { in: ['UNPAID', 'PARTIALLY_PAID'] } },
+        _sum: { balance: true },
+      }),
+      this.prisma.attendance.groupBy({
+        by: ['branchId', 'status'],
+        where: { branchId: { in: branchIds }, date: { gte: new Date(now.toDateString()) } },
+        _count: { id: true },
+      }),
+    ]);
 
-    return comparisons;
+    const studentsMap = new Map(studentsByBranch.map((s) => [s.branchId, s._count.id]));
+    const studentsThisMap = new Map(studentsThisMonth.map((s) => [s.branchId, s._count.id]));
+    const studentsLastMap = new Map(studentsLastMonth.map((s) => [s.branchId, s._count.id]));
+    const staffMap = new Map(staffByBranch.map((s) => [s.branchId, s._count.id]));
+    const revenueMap = new Map(revenueByBranch.map((r) => [r.branchId, r._sum.amount?.toNumber() ?? 0]));
+    const outstandingMap = new Map(outstandingByBranch.map((o) => [o.branchId, o._sum.balance?.toNumber() ?? 0]));
+
+    return branches.map((branch) => {
+      const branchAtt = attendanceByBranch.filter((a) => a.branchId === branch.id);
+      const present = branchAtt
+        .filter((a) => a.status === 'PRESENT' || a.status === 'LATE')
+        .reduce((sum, a) => sum + a._count.id, 0);
+      const totalAtt = branchAtt.reduce((sum, a) => sum + a._count.id, 0);
+      const students = studentsMap.get(branch.id) ?? 0;
+      const sThis = studentsThisMap.get(branch.id) ?? 0;
+      const sLast = studentsLastMap.get(branch.id) ?? 0;
+
+      return {
+        branchId: branch.id,
+        branchName: branch.name,
+        branchCode: branch.code,
+        students,
+        staff: staffMap.get(branch.id) ?? 0,
+        revenue: revenueMap.get(branch.id) ?? 0,
+        outstanding: outstandingMap.get(branch.id) ?? 0,
+        attendanceRate: totalAtt > 0 ? Math.round((present / totalAtt) * 100) : 0,
+        growth: sLast > 0
+          ? Math.round(((sThis - sLast) / sLast) * 100)
+          : (sThis > 0 ? 100 : 0),
+      };
+    });
   }
 
   async getTrends(ctx: TenantContext, period: TrendPeriod = '30d'): Promise<ExecutiveTrendDto[]> {

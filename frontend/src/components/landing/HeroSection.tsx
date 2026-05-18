@@ -3,17 +3,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Bolt } from "lucide-react";
+import { BookOpen, MapPin } from "lucide-react";
 
 export function HeroSection() {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.1,
-      },
+      transition: { staggerChildren: 0.15, delayChildren: 0.1 },
     },
   };
 
@@ -51,34 +48,40 @@ export function HeroSection() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full">
         {/* Left Interactive Staggered Content */}
-        <motion.div 
+        <motion.div
           className="lg:col-span-7 text-left space-y-6"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
-          <motion.span 
+          <motion.span
             className="font-heading font-semibold text-xs tracking-[0.2em] text-primary-light uppercase inline-block"
             variants={itemVariants}
           >
-            ESTABLISHED 2024
+            ESTABLISHED 22 SEPTEMBER 2021
           </motion.span>
-          
-          <motion.h1 
+
+          <motion.h1
             className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-text-primary font-heading leading-tight"
             variants={itemVariants}
           >
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-light to-secondary drop-shadow-[0_0_15px_rgba(0,160,225,0.3)]">Raising Bright Minds</span> with Faith and Purpose.
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-light to-secondary drop-shadow-[0_0_15px_rgba(0,160,225,0.3)]">
+              Raising Bright Minds
+            </span>{" "}
+            with Faith and Purpose.
           </motion.h1>
-          
-          <motion.p 
+
+          <motion.p
             className="text-base sm:text-lg text-text-secondary leading-relaxed max-w-2xl font-medium"
             variants={itemVariants}
           >
-            Where modern Western academics and authentic Qur’anic knowledge harmonize to nurture confident, morally grounded students prepared to thrive in this world and the Hereafter.
+            A transformative educational experience rooted in the sacred tradition of
+            Qur&apos;an while embracing modern academics, vocational empowerment, and
+            Islamic values. Producing Huffādh who are thinkers, leaders, scientists,
+            and change-makers.
           </motion.p>
-          
-          <motion.div 
+
+          <motion.div
             className="flex flex-wrap gap-4 pt-4"
             variants={itemVariants}
           >
@@ -87,8 +90,12 @@ export function HeroSection() {
               whileTap={{ scale: 0.97 }}
               transition={{ type: "spring", stiffness: 400, damping: 15 }}
             >
-              <Link href="/login" className="px-8 py-4 rounded-full bg-primary hover:bg-primary-dark text-white font-bold text-sm transition-colors duration-300 cursor-pointer block">
-                Login Portal
+              <Link
+                href="/admission"
+                className="px-8 py-4 rounded-full bg-primary hover:bg-primary-dark text-white font-bold text-sm transition-colors duration-300 cursor-pointer inline-flex items-center gap-2"
+              >
+                <BookOpen size={16} />
+                Apply Now
               </Link>
             </motion.div>
 
@@ -97,8 +104,12 @@ export function HeroSection() {
               whileTap={{ scale: 0.97 }}
               transition={{ type: "spring", stiffness: 400, damping: 15 }}
             >
-              <Link href="/#programs" className="px-8 py-4 rounded-full glass-card text-primary-light font-bold text-sm hover:bg-surface-container/20 transition-all duration-300 cursor-pointer block">
-                Explore Programs
+              <Link
+                href="/campuses"
+                className="px-8 py-4 rounded-full glass-card text-primary-light font-bold text-sm hover:bg-surface-container/20 transition-all duration-300 cursor-pointer inline-flex items-center gap-2"
+              >
+                <MapPin size={16} />
+                Explore Campuses
               </Link>
             </motion.div>
           </motion.div>
@@ -107,14 +118,14 @@ export function HeroSection() {
         {/* Right Floating Interactive Visuals */}
         <div className="lg:col-span-5 relative hidden lg:block">
           {/* Main levitating visual card */}
-          <motion.div 
+          <motion.div
             className="glass-card p-3 rounded-3xl transform shadow-2xl overflow-hidden relative cursor-pointer"
             initial={{ opacity: 0, scale: 0.9, rotate: 3 }}
-            animate={{ 
-              opacity: 1, 
+            animate={{
+              opacity: 1,
               scale: 1,
               y: [0, -12, 0],
-              rotate: [3, 2, 3]
+              rotate: [3, 2, 3],
             }}
             whileHover={{ scale: 1.04, rotate: 0 }}
             transition={{
@@ -122,32 +133,34 @@ export function HeroSection() {
               scale: { duration: 0.8 },
               y: { repeat: Infinity, duration: 5, ease: "easeInOut" as const },
               rotate: { repeat: Infinity, duration: 5, ease: "easeInOut" as const },
-              default: { type: "spring", stiffness: 300, damping: 20 }
+              default: { type: "spring", stiffness: 300, damping: 20 },
             }}
           >
-            <Image 
+            <Image
               src="/hero-section.jpg"
-              alt="Digital Dashboard" 
+              alt="Basa'er Campus"
               width={500}
               height={350}
               priority
-              className="rounded-2xl opacity-95 grayscale-[10%] hover:grayscale-0 transition-all duration-500 w-full object-contain" 
+              className="rounded-2xl opacity-95 grayscale-[10%] hover:grayscale-0 transition-all duration-500 w-full object-contain"
             />
             <div className="absolute top-6 left-6 bg-surface-container/40 backdrop-blur-md px-4 py-1.5 rounded-full border border-border flex items-center gap-1.5">
-              <Bolt size={14} className="text-accent-gold animate-pulse" />
-              <span className="text-accent-gold text-[10px] font-bold uppercase tracking-wider">ACTIVE SESSIONS</span>
+              <BookOpen size={14} className="text-accent-gold animate-pulse" />
+              <span className="text-accent-gold text-[10px] font-bold uppercase tracking-wider">
+                WAQF ENDOWED
+              </span>
             </div>
           </motion.div>
-          
+
           {/* Offset floating statistics badge */}
-          <motion.div 
-            className="absolute -bottom-6 -left-6 glass-card p-6 rounded-2xl shadow-2xl max-w-[180px] cursor-pointer"
+          <motion.div
+            className="absolute -bottom-6 -left-6 glass-card p-6 rounded-2xl shadow-2xl max-w-[220px] cursor-pointer"
             initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ 
-              opacity: 1, 
+            animate={{
+              opacity: 1,
               scale: 1,
               y: [0, 8, 0],
-              rotate: [-6, -4, -6]
+              rotate: [-6, -4, -6],
             }}
             whileHover={{ scale: 1.08 }}
             transition={{
@@ -155,11 +168,23 @@ export function HeroSection() {
               scale: { duration: 0.8, delay: 0.4 },
               y: { repeat: Infinity, duration: 4.5, ease: "easeInOut" as const, delay: 0.5 },
               rotate: { repeat: Infinity, duration: 4.5, ease: "easeInOut" as const, delay: 0.5 },
-              default: { type: "spring", stiffness: 300, damping: 15 }
+              default: { type: "spring", stiffness: 300, damping: 15 },
             }}
           >
-            <p className="text-4xl font-extrabold text-accent-gold font-heading">98%</p>
-            <p className="text-[10px] font-bold text-text-secondary tracking-widest uppercase mt-1">SUCCESS RATE</p>
+            <div className="space-y-2">
+              <div>
+                <p className="text-2xl font-extrabold text-accent-gold font-heading">4 States</p>
+                <p className="text-[10px] font-bold text-text-secondary tracking-widest uppercase mt-0.5">
+                  Kaduna, Kano, Bauchi, Plateau
+                </p>
+              </div>
+              <div>
+                <p className="text-xl font-extrabold text-primary font-heading">7 Campuses</p>
+                <p className="text-[10px] font-bold text-text-secondary tracking-widest uppercase mt-0.5">
+                  Day & Boarding
+                </p>
+              </div>
+            </div>
           </motion.div>
         </div>
       </div>

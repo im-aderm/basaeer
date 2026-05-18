@@ -384,7 +384,7 @@ export class OnlineExamsService {
       });
 
       const newTotal = allAnswers.reduce(
-        (sum, a) => sum + (a.marksAwarded || 0),
+        (sum, a) => sum + (a.marksAwarded?.toNumber?.() ?? 0),
         0,
       );
 

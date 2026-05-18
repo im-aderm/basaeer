@@ -142,6 +142,11 @@ model Branch {
   admissionInterviews           AdmissionInterview[]
   admissionExams                AdmissionExam[]
   transportAssignments          TransportAssignment[]
+  chartOfAccounts               ChartOfAccount[]
+  journalEntries                JournalEntry[]
+  generalLedgerEntries          GeneralLedgerEntry[]
+  taxRates                      TaxRate[]
+  bankStatementLines            BankStatementLine[]
 }
 
 model DeactivationReason {
@@ -868,19 +873,20 @@ model InvoiceItem {
 }
 
 model Payment {
-  id            String        @id @default(uuid())
-  amount        Decimal       @db.Decimal(12, 2)
-  method        PaymentMethod
-  status        PaymentStatus @default(PENDING)
-  transactionId String?       @unique
-  proofUrl      String?
-  notes         String?
-  invoiceId     String
-  branchId      String
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
-  invoice       Invoice       @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
-  branch        Branch        @relation(fields: [branchId], references: [id])
+  id                 String              @id @default(uuid())
+  amount             Decimal             @db.Decimal(12, 2)
+  method             PaymentMethod
+  status             PaymentStatus       @default(PENDING)
+  transactionId      String?             @unique
+  proofUrl           String?
+  notes              String?
+  invoiceId          String
+  branchId           String
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  invoice            Invoice             @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  branch             Branch              @relation(fields: [branchId], references: [id])
+  bankStatementLines BankStatementLine[]
 
   @@index([invoiceId])
   @@index([status])
@@ -952,6 +958,7 @@ model Assignment {
   sectionId     String
   teacherId     String?
   branchId      String
+  sessionId     String?
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
   branch        Branch       @relation(fields: [branchId], references: [id])
@@ -961,6 +968,7 @@ model Assignment {
   submissions   Submission[]
 
   @@index([branchId])
+  session       AcademicSession?  @relation(fields: [sessionId], references: [id])
 }
 
 model Submission {
@@ -972,6 +980,7 @@ model Submission {
   assignmentId String
   studentId    String
   branchId     String
+  sessionId     String?
   createdAt    DateTime         @default(now())
   updatedAt    DateTime         @updatedAt
   assignment   Assignment       @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
@@ -981,31 +990,44 @@ model Submission {
   @@unique([assignmentId, studentId])
   @@index([assignmentId])
   @@index([branchId])
+  session       AcademicSession?  @relation(fields: [sessionId], references: [id])
 }
 
 model AcademicSession {
-  id                 String              @id @default(uuid())
-  name               String
-  startDate          DateTime
-  endDate            DateTime
-  isActive           Boolean             @default(true)
-  nextTermBegins     DateTime?
-  termEnds           DateTime?
-  branchId           String
-  createdAt          DateTime            @default(now())
-  updatedAt          DateTime            @updatedAt
-  branch             Branch              @relation(fields: [branchId], references: [id])
-  assessmentRecords  AssessmentRecord[]
-  behaviouralRatings BehaviouralRating[]
-  digitalResources   DigitalResource[]
-  idCards            IdCard[]
-  onlineAdmissions   OnlineAdmission[]
-  resultSummaries    ResultSummary[]
-  admissionExams     AdmissionExam[]
-  exams              Exam[]
-  vouchers           Voucher[]
-  studentAccounts    StudentAccount[]
-  creditTransactions CreditTransaction[]
+  id                   String               @id @default(uuid())
+  name                 String
+  status               SessionStatus        @default(UPCOMING)
+  startDate            DateTime
+  endDate              DateTime
+  isActive             Boolean              @default(true)
+  nextTermBegins       DateTime?
+  termEnds             DateTime?
+  branchId             String
+  createdAt            DateTime             @default(now())
+  updatedAt            DateTime             @updatedAt
+  branch               Branch               @relation(fields: [branchId], references: [id])
+  assessmentRecords    AssessmentRecord[]
+  behaviouralRatings   BehaviouralRating[]
+  digitalResources     DigitalResource[]
+  idCards              IdCard[]
+  onlineAdmissions     OnlineAdmission[]
+  resultSummaries      ResultSummary[]
+  admissionExams       AdmissionExam[]
+  exams                Exam[]
+  vouchers             Voucher[]
+  studentAccounts      StudentAccount[]
+  creditTransactions   CreditTransaction[]
+  chartOfAccounts      ChartOfAccount[]
+  journalEntries       JournalEntry[]
+  generalLedgerEntries GeneralLedgerEntry[]
+  taxRates             TaxRate[]
+  bankStatementLines   BankStatementLine[]
+  assignments          Assignment[]
+  submissions          Submission[]
+  assessmentComponents AssessmentComponent[]
+  academicExports      AcademicExport[]
+  reportTemplates      ReportTemplate[]
+  campusAccessLogs     CampusAccessLog[]
 
   @@index([branchId])
 }
@@ -1185,6 +1207,7 @@ model AssessmentComponent {
   maxScore   Decimal           @default(100) @db.Decimal(5, 2)
   isExam     Boolean           @default(false)
   branchId   String
+  sessionId     String?
   classId    String?
   subjectId  String?
   curriculum String?
@@ -1196,6 +1219,7 @@ model AssessmentComponent {
 
   @@unique([branchId, name, classId, subjectId])
   @@index([branchId, classId, subjectId])
+  session       AcademicSession?  @relation(fields: [sessionId], references: [id])
 }
 
 model AssessmentScore {
@@ -2284,11 +2308,13 @@ model CampusAccessLog {
   location   String?
   deviceInfo String?
   branchId   String
+  sessionId     String?
   createdAt  DateTime @default(now())
   branch     Branch   @relation(fields: [branchId], references: [id])
   user       User     @relation(fields: [userId], references: [id])
 
   @@index([branchId])
+  session       AcademicSession?  @relation(fields: [sessionId], references: [id])
 }
 
 model AutomationConfig {
@@ -2511,6 +2537,12 @@ enum PaymentStatus {
   FAILED
   REJECTED
   VERIFIED
+}
+
+enum SessionStatus {
+  UPCOMING
+  CURRENT
+  COMPLETED
 }
 
 enum InvoiceStatus {
@@ -3029,6 +3061,7 @@ model AcademicExport {
   parameters Json?
   userId     String
   branchId   String
+  sessionId     String?
   expiresAt  DateTime?
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
@@ -3039,6 +3072,7 @@ model AcademicExport {
   @@index([branchId])
   @@index([userId])
   @@index([status])
+  session       AcademicSession?  @relation(fields: [sessionId], references: [id])
 }
 
 model ReportTemplate {
@@ -3051,12 +3085,14 @@ model ReportTemplate {
   isDefault   Boolean  @default(false)
   isActive    Boolean  @default(true)
   branchId    String
+  sessionId     String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   branch Branch @relation(fields: [branchId], references: [id])
 
   @@index([branchId])
+  session       AcademicSession?  @relation(fields: [sessionId], references: [id])
 }
 
 model ComputationJob {
@@ -3339,4 +3375,144 @@ model AdmissionInterview {
   @@index([branchId])
   @@index([interviewDate])
   @@index([status])
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// Accounting — General Ledger, Chart of Accounts, Double-Entry
+// ═══════════════════════════════════════════════════════════════════════
+
+enum AccountType {
+  ASSET
+  LIABILITY
+  INCOME
+  EXPENSE
+  EQUITY
+}
+
+enum EntrySide {
+  DEBIT
+  CREDIT
+}
+
+enum JournalType {
+  INVOICE
+  PAYMENT
+  VOUCHER
+  CREDIT_NOTE
+  REFUND
+  JOURNAL
+}
+
+model ChartOfAccount {
+  id          String               @id @default(uuid())
+  code        String               @unique
+  name        String
+  type        AccountType
+  parentId    String?
+  branchId    String
+  sessionId   String?
+  isActive    Boolean              @default(true)
+  description String?
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
+  deletedAt   DateTime?
+  parent      ChartOfAccount?      @relation("AccountHierarchy", fields: [parentId], references: [id])
+  children    ChartOfAccount[]     @relation("AccountHierarchy")
+  branch      Branch               @relation(fields: [branchId], references: [id])
+  session     AcademicSession?     @relation(fields: [sessionId], references: [id])
+  entries     GeneralLedgerEntry[]
+
+  @@index([branchId])
+  @@index([sessionId])
+  @@index([type])
+  @@index([code])
+  @@index([deletedAt])
+}
+
+model JournalEntry {
+  id          String               @id @default(uuid())
+  journalType JournalType
+  referenceId String
+  description String?
+  date        DateTime             @default(now())
+  branchId    String
+  sessionId   String?
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
+  deletedAt   DateTime?
+  branch      Branch               @relation(fields: [branchId], references: [id])
+  session     AcademicSession?     @relation(fields: [sessionId], references: [id])
+  lines       GeneralLedgerEntry[]
+
+  @@index([branchId])
+  @@index([sessionId])
+  @@index([journalType, referenceId])
+  @@index([date])
+  @@index([deletedAt])
+}
+
+model GeneralLedgerEntry {
+  id          String           @id @default(uuid())
+  journalId   String
+  accountId   String
+  side        EntrySide
+  amount      Decimal          @db.Decimal(12, 2)
+  description String?
+  branchId    String
+  sessionId   String?
+  createdAt   DateTime         @default(now())
+  journal     JournalEntry     @relation(fields: [journalId], references: [id])
+  account     ChartOfAccount   @relation(fields: [accountId], references: [id])
+  branch      Branch           @relation(fields: [branchId], references: [id])
+  session     AcademicSession? @relation(fields: [sessionId], references: [id])
+
+  @@index([journalId])
+  @@index([accountId])
+  @@index([branchId])
+  @@index([sessionId])
+}
+
+model TaxRate {
+  id        String           @id @default(uuid())
+  name      String
+  rate      Decimal          @db.Decimal(5, 2)
+  type      String // VAT, WHT, SERVICE_CHARGE
+  branchId  String
+  sessionId String?
+  isActive  Boolean          @default(true)
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  deletedAt DateTime?
+  branch    Branch           @relation(fields: [branchId], references: [id])
+  session   AcademicSession? @relation(fields: [sessionId], references: [id])
+
+  @@index([branchId])
+  @@index([sessionId])
+  @@index([deletedAt])
+}
+
+model BankStatementLine {
+  id               String           @id @default(uuid())
+  transactionRef   String?
+  date             DateTime
+  description      String
+  amount           Decimal          @db.Decimal(12, 2)
+  type             String // CREDIT, DEBIT
+  matchedPaymentId String?
+  branchId         String
+  sessionId        String?
+  isReconciled     Boolean          @default(false)
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  deletedAt        DateTime?
+  matchedPayment   Payment?         @relation(fields: [matchedPaymentId], references: [id])
+  branch           Branch           @relation(fields: [branchId], references: [id])
+  session          AcademicSession? @relation(fields: [sessionId], references: [id])
+
+  @@index([branchId])
+  @@index([sessionId])
+  @@index([date])
+  @@index([matchedPaymentId])
+  @@index([isReconciled])
+  @@index([deletedAt])
 }

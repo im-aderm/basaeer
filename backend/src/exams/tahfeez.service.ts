@@ -33,7 +33,7 @@ export class TahfeezService {
         'No grading scale configured for Tahfeez assessment',
       );
     const match = scale.find(
-      (row) => score >= row.minScore && score <= row.maxScore,
+      (row) => score >= row.minScore.toNumber() && score <= row.maxScore.toNumber(),
     );
     if (!match)
       throw new BadRequestException(
@@ -58,7 +58,7 @@ export class TahfeezService {
         throw new BadRequestException(`${key} must be between 0 and 100`);
     }
     const totalWeight = components.reduce(
-      (sum, component) => sum + component.weight,
+      (sum, component) => sum + component.weight.toNumber(),
       0,
     );
     if (totalWeight !== 100)
@@ -69,8 +69,8 @@ export class TahfeezService {
       const key = component.component;
       return (
         sum +
-        ((Number(dto[key]) || 0) / (component.maxScore || 100)) *
-          component.weight
+        ((Number(dto[key]) || 0) / (component.maxScore.toNumber() || 100)) *
+          component.weight.toNumber()
       );
     }, 0);
     const grade = await this.grade(branchId, totalScore);
@@ -156,7 +156,7 @@ export class TahfeezService {
       }),
     ]);
     const average = assessments.length
-      ? assessments.reduce((sum, row) => sum + row.totalScore, 0) /
+      ? assessments.reduce((sum, row) => sum + row.totalScore.toNumber(), 0) /
         assessments.length
       : 0;
     return {
@@ -164,7 +164,7 @@ export class TahfeezService {
       assessments,
       progress,
       completionRate: progress.length
-        ? progress.reduce((sum, row) => sum + row.completionRate, 0) /
+        ? progress.reduce((sum, row) => sum + row.completionRate.toNumber(), 0) /
           progress.length
         : 0,
     };

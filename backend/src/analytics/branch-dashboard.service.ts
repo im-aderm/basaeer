@@ -166,22 +166,27 @@ export class BranchDashboardService {
       }),
     ]);
 
-    // Optimized: single query for monthly cashflow
-    const monthlyRevenue = await this.prisma.payment.groupBy({
-      by: ['createdAt'],
-      where: { branchId, status: 'COMPLETED', createdAt: { gte: last6Months[0] } },
-      _sum: { amount: true },
-    });
+    // Use raw SQL for proper month-level grouping
+    const monthlyRevenue = await this.prisma.$queryRaw<{ month: string; total: number }[]>`
+      SELECT 
+        TO_CHAR("createdAt", 'YYYY-MM') as month,
+        COALESCE(SUM(amount), 0)::FLOAT as total
+      FROM "Payment"
+      WHERE "branchId" = ${branchId} 
+        AND status = 'COMPLETED'
+        AND "createdAt" >= ${last6Months[0]}
+      GROUP BY month
+      ORDER BY month
+    `;
+
+    const revenueByMonth = new Map(monthlyRevenue.map((r) => [r.month, Number(r.total)]));
 
     const cashflow = last6Months.map((month) => {
+      const monthKey = `${month.getFullYear()}-${String(month.getMonth() + 1).padStart(2, '0')}`;
       const monthStr = month.toLocaleString('default', { month: 'short', year: '2-digit' });
-      const monthPayments = monthlyRevenue.filter((p) => {
-        const d = new Date(p.createdAt);
-        return d.getMonth() === month.getMonth() && d.getFullYear() === month.getFullYear();
-      });
       return {
         month: monthStr,
-        collected: monthPayments.reduce((sum, p) => sum + (p._sum.amount?.toNumber() ?? 0), 0),
+        collected: revenueByMonth.get(monthKey) ?? 0,
       };
     });
 

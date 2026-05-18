@@ -158,8 +158,8 @@ export class AssessmentService {
     const total = scores.reduce((sum: number, s: any) => {
       const weight = s.component.weight || 0;
       const maxScore = s.component.maxScore || 100;
-      const normalizedScore = maxScore > 0 ? (s.score / maxScore) * 100 : 0;
-      return sum + (normalizedScore * (weight / 100));
+      const normalizedScore = maxScore.toNumber() > 0 ? (s.score.toNumber() / maxScore.toNumber()) * 100 : 0;
+      return sum + (normalizedScore * (weight.toNumber() / 100));
     }, 0);
 
     const roundedTotal = Math.round(total * 100) / 100;
@@ -191,8 +191,8 @@ export class AssessmentService {
     const total = caScores.reduce<number>((sum, s) => {
       const weight = s.component.weight || 0;
       const maxScore = s.component.maxScore || 100;
-      const normalizedScore = maxScore > 0 ? (s.score / maxScore) * 100 : 0;
-      return sum + (normalizedScore * (weight / 100));
+      const normalizedScore = maxScore.toNumber() > 0 ? (s.score.toNumber() / maxScore.toNumber()) * 100 : 0;
+      return sum + (normalizedScore * (weight.toNumber() / 100));
     }, 0);
 
     return Math.round(total * 100) / 100;
@@ -221,8 +221,8 @@ export class AssessmentService {
       const caTotal = r.scores.reduce<number>((sum, s) => {
         const weight = s.component.weight || 0;
         const maxScore = s.component.maxScore || 100;
-        const normalizedScore = maxScore > 0 ? (s.score / maxScore) * 100 : 0;
-        return sum + (normalizedScore * (weight / 100));
+        const normalizedScore = maxScore.toNumber() > 0 ? (s.score.toNumber() / maxScore.toNumber()) * 100 : 0;
+        return sum + (normalizedScore * (weight.toNumber() / 100));
       }, 0);
 
       return {
@@ -240,7 +240,7 @@ export class AssessmentService {
 
   /**
    * Calculate total score for an AssessmentRecord based on weighted AssessmentScore entries.
-   * Each score is multiplied by its component weight / 100 to get the weighted contribution.
+   * Each score is multiplied by its component weight.toNumber() / 100 to get the weighted contribution.
    */
   async calculateTotal(recordId: string, context: TenantContext): Promise<number> {
     const record = await this.prisma.assessmentRecord.findFirst({
@@ -275,8 +275,8 @@ export class AssessmentService {
       weight: s.component.weight,
       maxScore: s.component.maxScore,
       isExam: s.component.isExam,
-      weightedContribution: s.component.maxScore > 0
-        ? Math.round((s.score / s.component.maxScore) * s.component.weight * 100) / 100
+      weightedContribution: s.component.maxScore.toNumber() > 0
+        ? Math.round((s.score.toNumber() / s.component.maxScore.toNumber()) * s.component.weight.toNumber() * 100) / 100
         : 0,
     }));
   }
@@ -297,7 +297,7 @@ export class AssessmentService {
     }
 
     const maxScore = existing.component.maxScore;
-    if (score < 0 || score > maxScore) {
+    if (score < 0 || score > maxScore.toNumber()) {
       throw new BadRequestException(`Score must be between 0 and ${maxScore}`);
     }
 

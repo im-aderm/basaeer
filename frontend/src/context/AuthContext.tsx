@@ -78,6 +78,7 @@ interface AuthContextType {
     switchBranch: (branchId: string | null) => Promise<void>;
     switchSession: (sessionId: string | null) => Promise<void>;
     refreshSessions: () => Promise<void>;
+    refreshBranches: () => Promise<void>;
     login: (userData: User) => Promise<void>;
     logout: () => void;
 }
@@ -98,6 +99,7 @@ const AuthContext = createContext<AuthContextType>({
     switchBranch: async () => {},
     switchSession: async () => {},
     refreshSessions: async () => {},
+    refreshBranches: async () => {},
     login: async () => {},
     logout: () => {},
 });
@@ -170,9 +172,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                     const branchList = branches.data || [];
                     setAvailableBranches(branchList);
 
-                    // Auto-select first branch for SA if none saved
+                    // Validate saved branch: clear if it no longer exists in the branch list
                     const savedBranch = typeof window !== "undefined" ? localStorage.getItem(STORAGE_KEY) : null;
-                    if (res.data.role === "SUPER_ADMIN" && !savedBranch && branchList.length > 0) {
+                    const savedSession = typeof window !== "undefined" ? localStorage.getItem(SESSION_KEY) : null;
+                    const branchIds = new Set(branchList.map((b: AuthBranch) => b.id));
+
+                    if (savedBranch && savedBranch !== ALL_CAMPUSES && !branchIds.has(savedBranch)) {
+                        localStorage.removeItem(STORAGE_KEY);
+                        localStorage.removeItem(SESSION_KEY); // Session belongs to branch, clear too
+                        setActiveBranchId(null);
+                        setActiveSessionId(null);
+                        setApiBranchContext(null);
+                    }
+
+                    // Auto-select first branch for SA if none saved (or saved was invalid)
+                    const currentSaved = typeof window !== "undefined" ? localStorage.getItem(STORAGE_KEY) : null;
+                    if (res.data.role === "SUPER_ADMIN" && !currentSaved && branchList.length > 0) {
                         const firstBranch = branchList[0];
                         setActiveBranchId(firstBranch.id);
                         setApiBranchContext(firstBranch.id);
@@ -259,6 +274,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
     }, [activeBranchId, user]);
 
+    const refreshBranches = useCallback(async () => {
+        try {
+            const branches = await api.get("/branches");
+            setAvailableBranches(branches.data || []);
+        } catch {
+            // keep existing list on failure
+        }
+    }, []);
+
     const login = async (userData: User): Promise<void> => {
         setUser(userData);
         try {
@@ -312,9 +336,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         switchBranch,
         switchSession,
         refreshSessions,
+        refreshBranches,
         login,
         logout,
-    }), [user, loading, activeBranchId, activeSessionId, resolvedBranchId, resolvedSessionId, isAllCampusesMode, isAllSessionsMode, availableBranches, availableSessions, refreshKey, switchBranch, switchSession, refreshSessions]);
+    }), [user, loading, activeBranchId, activeSessionId, resolvedBranchId, resolvedSessionId, isAllCampusesMode, isAllSessionsMode, availableBranches, availableSessions, refreshKey, switchBranch, switchSession, refreshSessions, refreshBranches]);
 
     return (
         <AuthContext.Provider value={contextValue}>
@@ -324,3 +349,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 }
 
 export const useAuth = () => useContext(AuthContext);
+
+// Focused selectors to prevent cascading re-renders from the god context
+export function useCurrentUser() {
+    const { user, isAuthenticated, loading, login, logout } = useAuth();
+    return useMemo(() => ({ user, isAuthenticated, loading, login, logout }), [user, isAuthenticated, loading, login, logout]);
+}
+
+export function useBranchSelection() {
+    const { activeBranchId, resolvedBranchId, isAllCampusesMode, availableBranches, switchBranch } = useAuth();
+    return useMemo(() => ({ activeBranchId, resolvedBranchId, isAllCampusesMode, availableBranches, switchBranch }), [activeBranchId, resolvedBranchId, isAllCampusesMode, availableBranches, switchBranch]);
+}
+
+export function useSessionSelection() {
+    const { activeSessionId, resolvedSessionId, isAllSessionsMode, availableSessions, switchSession, refreshSessions } = useAuth();
+    return useMemo(() => ({ activeSessionId, resolvedSessionId, isAllSessionsMode, availableSessions, switchSession, refreshSessions }), [activeSessionId, resolvedSessionId, isAllSessionsMode, availableSessions, switchSession, refreshSessions]);
+}
+
+export function useContextRefreshKey() {
+    const { refreshKey } = useAuth();
+    return refreshKey;
+}

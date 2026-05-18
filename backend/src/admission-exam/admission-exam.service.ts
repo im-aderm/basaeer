@@ -121,7 +121,7 @@ export class AdmissionExamService {
     if (!admission) throw new NotFoundException('Admission not found');
 
     const maxScore = createDto.maxScore || exam.maxScore;
-    const percentage = (createDto.score / maxScore) * 100;
+    const percentage = (createDto.score / Number(maxScore)) * 100;
     const grade = this.calculateGrade(percentage);
 
     return this.prisma.admissionExamScore.upsert({
@@ -172,7 +172,7 @@ export class AdmissionExamService {
         }
 
         const maxScore = item.maxScore || exam.maxScore;
-        const percentage = (item.score / maxScore) * 100;
+        const percentage = (item.score / Number(maxScore)) * 100;
         const grade = this.calculateGrade(percentage);
 
         await this.prisma.admissionExamScore.upsert({
@@ -261,7 +261,7 @@ export class AdmissionExamService {
     const ranked = scores.map((s, index) => ({
       ...s,
       rank: index + 1,
-      percentage: ((s.score / s.maxScore) * 100).toFixed(1),
+      percentage: ((s.score.toNumber() / s.maxScore.toNumber()) * 100).toFixed(1),
     }));
 
     return ranked;

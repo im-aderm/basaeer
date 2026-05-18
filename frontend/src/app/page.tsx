@@ -1,9 +1,9 @@
 import dynamic from "next/dynamic";
 import { Navbar } from "@/components/landing/Navbar";
-import { HeroSection } from "@/components/landing/HeroSection";
-import { TrustedBySection } from "@/components/landing/TrustedBySection";
 import { Footer } from "@/components/landing/Footer";
 import { GradientBackground } from "@/components/ui/GradientBackground";
+import { HeroSection } from "@/components/landing/HeroSection";
+import { TrustedBySection } from "@/components/landing/TrustedBySection";
 
 const AboutSection = dynamic(() => import("@/components/landing/AboutSection").then(m => m.AboutSection));
 const QuranMemorizationSection = dynamic(() => import("@/components/landing/QuranMemorizationSection").then(m => m.QuranMemorizationSection));
@@ -13,11 +13,11 @@ const TestimonialsSection = dynamic(() => import("@/components/landing/Testimoni
 const MobileAppCTA = dynamic(() => import("@/components/landing/MobileAppCTA").then(m => m.MobileAppCTA));
 const NewsSection = dynamic(() => import("@/components/landing/NewsSection").then(m => m.NewsSection));
 const AdmissionCTASection = dynamic(() => import("@/components/landing/AdmissionCTASection").then(m => m.AdmissionCTASection));
+const CampusesSection = dynamic(() => import("@/components/landing/CampusesSection").then(m => m.CampusesSection));
 
 export default function Home() {
   return (
     <div className="relative min-h-screen bg-background text-text-primary font-sans selection:bg-primary/20 overflow-hidden animate-fade-in">
-      {/* Moving Aurora Backdrop */}
       <GradientBackground />
 
       <Navbar />
@@ -28,6 +28,7 @@ export default function Home() {
         <QuranMemorizationSection />
         <ProgramSection />
         <StatsSection />
+        <CampusesSection />
         <TestimonialsSection />
         <MobileAppCTA />
         <NewsSection />
@@ -37,7 +38,3 @@ export default function Home() {
     </div>
   );
 }
-export const metadata = {
-  title: "Basaer Model School | Shaping Future Leaders with Science & Spirit",
-  description: "At Basaer, we bridge the gap between world-class academic excellence and profound spiritual growth, nurturing the minds and souls of the next generation.",
-};

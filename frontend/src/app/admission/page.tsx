@@ -4,338 +4,302 @@ import { Navbar } from "@/components/landing/Navbar";
 import { Footer } from "@/components/landing/Footer";
 import { GradientBackground } from "@/components/ui/GradientBackground";
 import { motion } from "framer-motion";
-import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
-
-import { 
-  Mail as MailIcon, 
-  ClipboardCheck, 
-  CheckCircle as VerifiedIcon, 
-  PartyPopper, 
+import {
+  ClipboardCheck,
+  FileText,
   CheckCircle2,
-  ChevronDown,
-  ChevronUp,
-  ArrowRight
+  BookOpen,
+  ArrowRight,
+  AlertTriangle,
+  Clock,
+  GraduationCap,
 } from "lucide-react";
 
 const steps = [
   {
-    id: 1,
-    title: "Inquiry",
-    description: "Submit an online inquiry form to receive our prospectus and schedule a personal school tour.",
-    icon: MailIcon,
+    title: "Online Application",
+    description:
+      "Complete the application form online at basaerschools.com.ng. After online submission, collect and submit the manual application form from our administrators.",
+    icon: FileText,
   },
   {
-    id: 2,
-    title: "Assessment",
-    description: "Prospective students undergo a holistic evaluation focusing on academic potential and character alignment.",
+    title: "Document Upload",
+    description:
+      "Upload scanned copies of all required documents: NIN, birth certificate, medical records, passport photographs, educational certificates, and recommendation letter from your Imam or Islamic teacher.",
     icon: ClipboardCheck,
-    reverse: true,
   },
   {
-    id: 3,
-    title: "Enrollment",
-    description: "Secure your seat by completing the registration documents and processing the initial tuition fee.",
-    icon: VerifiedIcon,
+    title: "Entrance Assessment",
+    description:
+      "Applicants undergo assessment including Qur'an recitation (Surah Al-Fatihah + minimum 2 Hizb fluently), English placement test (minimum 60% for BQSC), and written tests in Mathematics and Science.",
+    icon: BookOpen,
   },
   {
-    id: 4,
-    title: "Orientation",
-    description: "Welcome to the Basaer family! Join our induction program to meet mentors and fellow students.",
-    icon: PartyPopper,
-    reverse: true,
-  },
-];
-
-const tiers = [
-  {
-    name: "FOUNDATION",
-    price: "$12,500",
-    features: ["Academic Curriculum", "Standard Labs Access", "Digital Resources"],
-  },
-  {
-    name: "ELITE PATHWAY",
-    price: "$18,200",
-    features: ["Advanced STEM Modules", "Tahfeez Excellence Track", "Personalized Mentorship", "International Field Trips"],
-    featured: true,
-  },
-  {
-    name: "SCHOLARS TIER",
-    price: "$15,400",
-    features: ["Honors Curriculum", "University Prep Labs", "Sports & Arts Academy"],
+    title: "Interview & Admission",
+    description:
+      "Successful candidates proceed to interview. Upon acceptance, complete enrollment by submitting verified documents and paying applicable fees.",
+    icon: CheckCircle2,
   },
 ];
 
 const documents = [
-  "Passport Photograph",
-  "Certified Birth Certificate",
-  "Previous School Records (Last 2 Years)",
-  "Medical Immunization Records",
-  "Parent/Guardian ID Proof",
+  "National Identification Number (NIN)",
+  "Birth Certificate (digital upload PDF/Image)",
+  "Medical Record (mandatory test results)",
+  "Two passport photographs (white background)",
+  "Educational certificates (previous school reports)",
+  "Recommendation letter from Imam/Islamic teacher",
+  "Application fee payment receipt (₦10,000 non-refundable)",
 ];
 
-const faqsData = [
+const requirements = [
   {
-    question: "When is the deadline for Fall admissions?",
-    answer: "Applications for the Fall semester close on July 31st. We recommend applying early as seats are limited.",
+    title: "BQMS Day Programs",
+    items: [
+      "Boys and girls ages 5–25",
+      "Ability to recite Qur'an at basic level",
+      "Commitment to regular attendance",
+    ],
   },
   {
-    question: "Are there any scholarship opportunities available?",
-    answer: "Yes! Basaer offers merit-based and need-based scholarships. Inquire during the assessment phase.",
+    title: "BQMS Boarding (Boys)",
+    items: [
+      "Boys ages 12–25",
+      "Minimum 2 Hizb Qur'an memorization recommended",
+      "Vaccination records (meningitis, hepatitis B)",
+      "Medical certificate confirming fitness for boarding",
+    ],
   },
   {
-    question: "Do you offer sibling discounts?",
-    answer: "Yes, we provide a 10% tuition discount for the second child and 15% for the third and subsequent children enrolled simultaneously.",
-  },
-  {
-    question: "Is the entrance assessment conducted online?",
-    answer: "Yes, assessments can be conducted either in person on campus or securely online for international applicants.",
+    title: "BQSC Girls Boarding College",
+    items: [
+      "Girls ages 12–16",
+      "Completed Primary 6 or JSS1 with verified school reports",
+      "No history of disciplinary issues",
+      "Minimum 60% in English placement test",
+      "Arabic reading ability preferred but not mandatory",
+    ],
   },
 ];
 
-export default function AdmissionsPage() {
-  const [openFaq, setOpenFaq] = useState<number | null>(2); // sibling discount open by default as in design
-  const [checkedDocs, setCheckedDocs] = useState<Record<string, boolean>>({});
+const rejectionGrounds = [
+  "False information on application",
+  "Failure to pass entrance exams or interview",
+  "Refusal to comply with health or disciplinary policies",
+  "Incomplete documentation",
+];
 
-  const toggleDoc = (doc: string) => {
-    setCheckedDocs((prev) => ({ ...prev, [doc]: !prev[doc] }));
-  };
-
+export default function AdmissionPage() {
   return (
     <div className="relative min-h-screen bg-background text-text-primary font-sans selection:bg-primary/20 overflow-hidden">
-      {/* Moving Aurora Backdrop */}
       <GradientBackground />
-
       <Navbar />
 
       <main className="pt-32 pb-24">
-        {/* Hero Section */}
-        <section className="max-w-7xl mx-auto px-6 lg:px-8 py-20 text-center relative overflow-hidden">
-          <div className="relative z-10 space-y-6">
-            <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight text-text-primary font-heading leading-tight">
-              Embark on a Journey of <span className="text-primary drop-shadow-[0_0_20px_rgba(0,160,225,0.3)]">Excellence</span>.
+        {/* Hero */}
+        <section className="max-w-7xl mx-auto px-6 lg:px-8 py-8 mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="max-w-3xl"
+          >
+            <span className="text-xs font-bold text-primary tracking-[0.3em] uppercase">
+              Admissions
+            </span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight font-heading mt-4 leading-tight">
+              Begin Your{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-light to-accent-emerald">
+                Journey of Light
+              </span>
             </h1>
-            <p className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto leading-relaxed">
-              Discover a nurturing environment where spiritual wisdom meets modern academic rigor. Join a community dedicated to shaping the visionary leaders of tomorrow.
+            <p className="text-lg text-text-secondary leading-relaxed mt-4 max-w-2xl">
+              Join a transformative educational experience where Qur&apos;anic mastery
+              meets academic excellence. Applications are open year-round for day and
+              boarding programs across our campuses in Kaduna, Kano, Bauchi, and
+              Plateau States.
             </p>
-            <div className="flex flex-wrap justify-center gap-4 pt-4">
+            <div className="flex flex-wrap gap-4 mt-8">
               <Link
                 href="/admission/apply"
-                className="px-8 py-4 rounded-full text-text-primary font-bold bg-gradient-to-r from-primary to-secondary shadow-[0_0_30px_rgba(0,160,225,0.4)] hover:shadow-[0_0_40px_rgba(0,160,225,0.6)] hover:scale-105 transition-all duration-300"
+                className="px-8 py-4 rounded-full bg-primary hover:bg-primary-dark text-white font-bold text-sm transition-colors inline-flex items-center gap-2 shadow-lg shadow-primary/25"
               >
-                Apply Now
+                Apply Online
+                <ArrowRight size={16} />
               </Link>
               <Link
-                href="/campuses"
-                className="px-8 py-4 rounded-full text-text-primary font-bold bg-surface-container backdrop-blur-md border border-border hover:bg-surface-container-high hover:scale-105 transition-all duration-300"
+                href="/contact"
+                className="px-8 py-4 rounded-full glass-card text-primary font-bold text-sm hover:bg-surface-container/20 transition-all inline-flex items-center gap-2"
               >
-                Explore Campus
+                Contact Admissions
               </Link>
             </div>
-          </div>
-          {/* Decorative Blob */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] -z-10"></div>
+          </motion.div>
         </section>
 
-        {/* Admission Process */}
-        <section className="max-w-5xl mx-auto px-6 lg:px-8 py-20">
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-center text-text-primary font-heading mb-16">
-            Admission Process
+        {/* Application Process */}
+        <section className="max-w-7xl mx-auto px-6 lg:px-8 mb-24">
+          <h2 className="text-2xl md:text-3xl font-extrabold font-heading text-center mb-12">
+            Application Process
           </h2>
-          <div className="relative max-w-4xl mx-auto">
-            {/* Vertical Line */}
-            <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary/50 to-transparent"></div>
-
-            {/* Steps */}
-            <div className="space-y-12">
-              {steps.map((step, i) => {
-                const Icon = step.icon;
-                return (
-                  <motion.div
-                    key={step.id}
-                    initial={{ opacity: 0, y: 60 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-80px" }}
-                    transition={{ delay: i * 0.15, duration: 0.6 }}
-                    className={`flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-8 ${
-                      step.reverse ? "md:flex-row-reverse" : ""
-                    }`}
-                  >
-                    <div className="w-16 h-16 rounded-full bg-surface-container backdrop-blur-md border border-primary/60 flex items-center justify-center z-10 shrink-0 relative">
-                      <Icon className="text-primary w-8 h-8" />
-                      {step.id === 1 && (
-                        <div className="absolute inset-0 rounded-full animate-pulse bg-primary/20 -z-10"></div>
-                      )}
-                    </div>
-                    <div className="bg-surface-container backdrop-blur-md border border-border p-6 rounded-2xl flex-1 md:max-w-[42%] shadow-xl">
-                      <h3 className="text-2xl font-bold text-text-primary font-heading mb-2">
-                        {step.title}
-                      </h3>
-                      <p className="text-text-secondary text-base leading-relaxed">
-                        {step.description}
-                      </p>
-                    </div>
-                    </motion.div>
-                  );
-                })}
-              </div>
-          </div>
-        </section>
-
-        {/* Tuition & Value */}
-        <section className="max-w-7xl mx-auto px-6 lg:px-8 py-20">
-          <div className="text-center mb-16 space-y-4">
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-text-primary font-heading">
-              Tuition &amp; Value
-            </h2>
-            <p className="text-lg text-text-secondary">
-              Transparent pricing designed to fuel world-class education.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch pt-6">
-            {tiers.map((tier) => (
-              <div
-                key={tier.name}
-                className={`bg-surface-container backdrop-blur-md p-8 rounded-3xl flex flex-col transition-all duration-300 border ${
-                  tier.featured
-                    ? "border-primary/50 relative overflow-hidden md:scale-105 shadow-2xl shadow-primary/10"
-                    : "border-border hover:border-primary/60"
-                }`}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            {steps.map((step, i) => (
+              <motion.div
+                key={step.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="glass-card rounded-3xl p-6 relative"
               >
-                {tier.featured && (
-                  <div className="absolute top-0 right-0 bg-primary px-4 py-1 rounded-bl-xl font-bold text-[10px] text-text-primary tracking-widest uppercase">
-                    MOST POPULAR
-                  </div>
-                )}
-                <div className="mb-6">
-                  <span className="text-xs font-bold text-primary tracking-widest uppercase font-heading">
-                    {tier.name}
-                  </span>
-                  <div className="text-4xl md:text-5xl font-bold text-text-primary font-heading mt-2 flex items-baseline">
-                    {tier.price}
-                    <span className="text-sm font-medium text-text-secondary ml-2">/ yr</span>
-                  </div>
+                <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold mb-4">
+                  {i + 1}
                 </div>
-                <ul className="space-y-4 mb-8 flex-1">
-                  {tier.features.map((feat) => (
-                    <li key={feat} className="flex items-center gap-3 text-base text-text-primary">
-                      <CheckCircle2 className="text-primary w-5 h-5 shrink-0" />
-                      <span>{feat}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  href="/admission/apply"
-                  className={`w-full py-3.5 rounded-2xl font-bold text-center transition-all duration-300 ${
-                    tier.featured
-                      ? "bg-gradient-to-r from-primary to-secondary text-text-primary shadow-[0_0_20px_rgba(0,160,225,0.3)] hover:shadow-[0_0_30px_rgba(0,160,225,0.5)] hover:scale-105"
-                      : "bg-surface-container border border-border text-text-primary hover:bg-white/10"
-                  }`}
-                >
-                  {tier.featured ? "Apply for Elite" : "Select Tier"}
-                </Link>
-              </div>
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-3">
+                  <step.icon size={18} className="text-primary" />
+                </div>
+                <h3 className="font-bold font-heading mb-2">{step.title}</h3>
+                <p className="text-xs text-text-secondary leading-relaxed">
+                  {step.description}
+                </p>
+              </motion.div>
             ))}
           </div>
         </section>
 
-        {/* Requirements Checklist */}
-        <section className="max-w-7xl mx-auto px-6 lg:px-8 py-20">
-          <div className="bg-surface-container backdrop-blur-md rounded-3xl p-8 lg:p-12 border border-border grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <h2 className="text-3xl md:text-4xl font-bold text-text-primary font-heading">
-                Document Checklist
-              </h2>
-              <p className="text-text-secondary text-base leading-relaxed">
-                Please ensure you have high-quality digital scans of the following documents ready for your application portal.
-              </p>
-              <div className="space-y-4">
-                {documents.map((doc) => (
-                  <label
-                    key={doc}
-                    className="flex items-center gap-4 group cursor-pointer"
-                    onClick={() => toggleDoc(doc)}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={!!checkedDocs[doc]}
-                      onChange={() => {}}
-                      className="w-6 h-6 rounded border-white/20 bg-surface-container text-primary focus:ring-primary/50 transition-all cursor-pointer"
-                    />
-                    <span className={`text-base font-medium transition-colors ${
-                      checkedDocs[doc] ? "text-primary line-through decoration-primary" : "text-text-primary group-hover:text-primary"
-                    }`}>
-                      {doc}
-                    </span>
-                  </label>
-                ))}
-              </div>
-            </div>
-            <div className="relative rounded-2xl overflow-hidden aspect-video shadow-2xl border border-border">
-              <Image fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" alt="Admissions Workspace" src="/placeholder.svg" />
-            </div>
-          </div>
-        </section>
-
-        {/* FAQ Section */}
-        <section className="max-w-4xl mx-auto px-6 lg:px-8 py-20">
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-center text-text-primary font-heading mb-16">
-            Frequently Asked Questions
+        {/* Eligibility */}
+        <section className="max-w-7xl mx-auto px-6 lg:px-8 mb-24">
+          <h2 className="text-2xl md:text-3xl font-extrabold font-heading text-center mb-12">
+            Eligibility Requirements
           </h2>
-          <div className="space-y-4">
-            {faqsData.map((faq, index) => {
-              const isOpen = openFaq === index;
-              return (
-                <div
-                  key={index}
-                  onClick={() => setOpenFaq(isOpen ? null : index)}
-                  className={`bg-surface-container backdrop-blur-md p-6 rounded-2xl border cursor-pointer transition-all duration-300 ${
-                    isOpen ? "border-primary/40 shadow-[0_0_20px_rgba(0,160,225,0.1)]" : "border-border hover:border-primary/20"
-                  }`}
-                >
-                  <div className="flex justify-between items-center">
-                    <h4 className={`text-lg font-bold font-heading ${isOpen ? "text-primary" : "text-text-primary"}`}>
-                      {faq.question}
-                    </h4>
-                    {isOpen ? (
-                      <ChevronUp className="text-primary w-5 h-5 shrink-0" />
-                    ) : (
-                      <ChevronDown className="text-text-secondary w-5 h-5 shrink-0" />
-                    )}
-                  </div>
-                  {isOpen && (
-                    <p className="text-text-secondary text-base leading-relaxed border-t border-border/50 mt-4 pt-4">
-                      {faq.answer}
-                    </p>
-                  )}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {requirements.map((req, i) => (
+              <motion.div
+                key={req.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.15 }}
+                className="glass-card rounded-3xl p-6"
+              >
+                <div className="flex items-center gap-2 mb-4">
+                  <GraduationCap size={18} className="text-primary" />
+                  <h3 className="font-bold font-heading text-sm">{req.title}</h3>
                 </div>
-              );
-            })}
+                <ul className="space-y-2">
+                  {req.items.map((item) => (
+                    <li
+                      key={item}
+                      className="text-xs text-text-secondary flex items-start gap-2"
+                    >
+                      <CheckCircle2
+                        size={12}
+                        className="text-accent-emerald shrink-0 mt-0.5"
+                      />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            ))}
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="max-w-7xl mx-auto px-6 lg:px-8 py-20">
-          <div className="bg-gradient-to-br from-primary/10 via-transparent to-secondary/5 rounded-[40px] p-8 md:p-16 text-center relative overflow-hidden border border-border">
-            <h2 className="text-3xl md:text-5xl font-extrabold text-text-primary font-heading mb-6 leading-tight">
-              Ready to illuminate your future?
+        {/* Required Documents */}
+        <section className="max-w-7xl mx-auto px-6 lg:px-8 mb-24">
+          <div className="glass-card rounded-3xl p-8 md:p-12">
+            <h2 className="text-2xl md:text-3xl font-extrabold font-heading mb-8">
+              Required Documents
             </h2>
-            <p className="text-lg text-text-secondary max-w-xl mx-auto mb-8">
-              Our admissions team is ready to guide you through every step of the enrollment process. Begin your legacy today.
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {documents.map((doc) => (
+                <div
+                  key={doc}
+                  className="flex items-center gap-3 p-3 rounded-xl hover:bg-surface-container/50 transition-colors"
+                >
+                  <div className="w-2 h-2 rounded-full bg-primary shrink-0" />
+                  <span className="text-sm">{doc}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Fees & Grounds */}
+        <section className="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="glass-card rounded-3xl p-8"
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <Clock size={20} className="text-primary" />
+              <h3 className="font-bold font-heading text-lg">Fees & Payment</h3>
+            </div>
+            <ul className="space-y-3 text-sm text-text-secondary">
+              <li>
+                Application fee: <strong>₦10,000</strong> (non-refundable, paid online)
+              </li>
+              <li>
+                Tuition fees, payment schedules, and additional charges will be
+                communicated to parents/guardians upon acceptance.
+              </li>
+              <li>
+                Information on scholarships or financial aid (if available) will be
+                provided.
+              </li>
+            </ul>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="glass-card rounded-3xl p-8"
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <AlertTriangle size={20} className="text-red-500" />
+              <h3 className="font-bold font-heading text-lg">
+                Grounds for Rejection
+              </h3>
+            </div>
+            <ul className="space-y-3">
+              {rejectionGrounds.map((item) => (
+                <li
+                  key={item}
+                  className="text-sm text-text-secondary flex items-start gap-2"
+                >
+                  <span className="text-red-400 shrink-0 mt-0.5">•</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        </section>
+
+        {/* CTA */}
+        <section className="max-w-7xl mx-auto px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="glass-card rounded-3xl p-8 md:p-12 text-center"
+          >
+            <h2 className="text-2xl md:text-3xl font-extrabold font-heading mb-4">
+              Ready to Apply?
+            </h2>
+            <p className="text-text-secondary max-w-xl mx-auto mb-6">
+              Take the first step toward a transformative Qur&apos;anic education.
+              Complete your application online today.
             </p>
             <Link
               href="/admission/apply"
-              className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-text-primary font-bold bg-gradient-to-r from-primary to-secondary shadow-[0_0_30px_rgba(0,160,225,0.4)] hover:shadow-[0_0_40px_rgba(0,160,225,0.6)] hover:scale-105 transition-all duration-300"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary hover:bg-primary-dark text-white font-bold text-sm transition-colors shadow-lg shadow-primary/25"
             >
-              Start Your Application
-              <ArrowRight className="w-5 h-5" />
+              Start Application <ArrowRight size={16} />
             </Link>
-
-            {/* Glowing blur effects */}
-            <div className="absolute -top-10 -left-10 w-40 h-40 bg-primary/20 rounded-full blur-3xl"></div>
-            <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-secondary/20 rounded-full blur-3xl"></div>
-          </div>
+          </motion.div>
         </section>
       </main>
 

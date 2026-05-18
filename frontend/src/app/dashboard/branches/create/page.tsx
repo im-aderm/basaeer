@@ -4,14 +4,14 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { BranchService } from "@/services/branchService";
 import { UserService, User } from "@/services/userService";
+import { useAuth } from "@/context/AuthContext";
 import { ArrowLeft, Save, Building2, MapPin, Phone, Mail, Hash, Image, Palette, UserCog, Users } from "lucide-react";
 import Link from "next/link";
-import { clsx } from "clsx";
-import { useNotification } from '@/context/NotificationContext';
+import { toast } from "sonner";
 
 export default function CreateBranchPage() {
     const router = useRouter();
-    const { showError } = useNotification();
+    const { refreshBranches, switchBranch } = useAuth();
     const [submitting, setSubmitting] = useState(false);
     const [existingUsers, setExistingUsers] = useState<User[]>([]);
     const [adminMode, setAdminMode] = useState<"select" | "create">("select");
@@ -63,11 +63,17 @@ export default function CreateBranchPage() {
                     phone: formData.adminPhone || undefined,
                 };
             }
-            await BranchService.create(payload);
-            router.push("/dashboard/branches");
+            const res = await BranchService.create(payload);
+            // Refresh branch list and auto-select the new branch
+            await refreshBranches();
+            if (res?.id) {
+                await switchBranch(res.id);
+            }
+            toast.success(`Branch "${formData.name}" created successfully`);
+            router.push("/dashboard");
         } catch (error: any) {
             const msg = error.response?.data?.message || "Check for duplicate code.";
-            showError("Failed to create branch. " + msg);
+            toast.error("Failed to create branch. " + msg);
         } finally {
             setSubmitting(false);
         }

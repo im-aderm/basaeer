@@ -225,7 +225,7 @@ export class ExamManagementService {
       },
     });
     const nextTotal =
-      scoped.reduce((sum, item) => sum + item.weight, 0) + Number(dto.weight);
+      scoped.reduce((sum, item) => sum + item.weight.toNumber(), 0) + Number(dto.weight);
     if (nextTotal > 100)
       throw new BadRequestException(
         'Assessment component weights cannot exceed 100',
@@ -264,7 +264,7 @@ export class ExamManagementService {
   async validateComponentWeights(query: any, context: TenantContext) {
     const components = await this.listAssessmentComponents(query, context);
     const totalWeight = components.reduce(
-      (sum, component) => sum + component.weight,
+      (sum, component) => sum + component.weight.toNumber(),
       0,
     );
     return { totalWeight, isComplete: totalWeight === 100, components };

@@ -124,6 +124,13 @@ api.interceptors.response.use(
                 url: error.config?.url,
                 method: error.config?.method,
             });
+
+            // Show generic toast for 500/unhandled errors
+            if (status >= 500) {
+                toast.error(data?.message || 'Server error. Please try again.');
+            } else {
+                toast.error(data?.message || 'Request failed. Please try again.');
+            }
         }
         return Promise.reject(error);
     }

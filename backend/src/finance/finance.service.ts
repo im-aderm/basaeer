@@ -24,6 +24,7 @@ import { TenantContext } from '../auth/branch.guard';
 import { TenantHelper } from '../prisma/tenant-helper';
 import { RealtimeService } from '../realtime/realtime.service';
 import { AuditService } from '../audit/audit.service';
+import { GeneralLedgerService } from './general-ledger.service';
 
 @Injectable()
 export class FinanceService {
@@ -33,6 +34,7 @@ export class FinanceService {
     private prisma: PrismaService,
     private realtime: RealtimeService,
     private audit: AuditService,
+    private ledger: GeneralLedgerService,
   ) {}
 
   async createFeeCategory(dto: CreateFeeCategoryDto, context: TenantContext) {
@@ -88,7 +90,7 @@ export class FinanceService {
 
         const invoiceNumber = `INV-${new Date().getFullYear()}-${counter.lastValue.toString().padStart(4, '0')}`;
 
-        return tx.invoice.create({
+        const invoice = await tx.invoice.create({
           data: {
             invoiceNumber,
             studentId,
@@ -109,6 +111,13 @@ export class FinanceService {
             student: { select: { firstName: true, lastName: true } },
           },
         });
+
+        // Post to General Ledger: Debit Receivables, Credit Income
+        await this.ledger.postInvoice(tx, branchId, invoice.id, totalAmount).catch((e) => {
+          this.logger.error(`GL posting failed for invoice ${invoice.id}: ${e.message}`);
+        });
+
+        return invoice;
       })
       .then(async (invoice) => {
         this.realtime.sendToBranch(branchId, 'finance.invoice_created', {
@@ -164,6 +173,10 @@ export class FinanceService {
 
         if (status === PaymentStatus.COMPLETED) {
           await this.updateInvoiceBalance(tx, invoiceId, amount);
+          // Post to General Ledger: Debit Cash, Credit Receivables
+          await this.ledger.postPayment(tx, invoice.branchId, payment.id, new Decimal(amount)).catch((e) => {
+            this.logger.error(`GL posting failed for payment ${payment.id}: ${e.message}`);
+          });
         }
 
         return payment;
@@ -462,6 +475,18 @@ export class FinanceService {
           referenceId: voucher.id,
           branchId: voucher.branchId,
         },
+      });
+    }
+
+    // Post to General Ledger when voucher is approved
+    if (status === VoucherStatus.APPROVED) {
+      await this.ledger.postVoucher(
+        this.prisma as any, // Not inside a tx, so use prisma directly
+        voucher.branchId,
+        voucher.id,
+        new Decimal(voucher.amount),
+      ).catch((e) => {
+        this.logger.error(`GL posting failed for voucher ${voucher.id}: ${e.message}`);
       });
     }
 

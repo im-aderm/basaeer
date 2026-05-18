@@ -375,10 +375,10 @@ export class ResultComputationService {
     return {
       totalResults: summaries.length,
       average: averages.length
-        ? averages.reduce((a, b) => a + b, 0) / averages.length
+        ? averages.reduce((a: number, b: any) => a + (typeof b === "number" ? b : (b as any).toNumber?.() ?? 0), 0) / averages.length
         : 0,
-      highest: averages.length ? Math.max(...averages) : 0,
-      lowest: averages.length ? Math.min(...averages) : 0,
+      highest: averages.length ? Math.max(...averages.map((a: any) => typeof a === "number" ? a : (a as any).toNumber?.() ?? 0)) : 0,
+      lowest: averages.length ? Math.min(...averages.map((a: any) => typeof a === "number" ? a : (a as any).toNumber?.() ?? 0)) : 0,
       gradeDistribution: grades.map((grade) => ({
         grade: grade.finalGrade || 'UNASSIGNED',
         count: grade._count._all,

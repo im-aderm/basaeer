@@ -3,6 +3,7 @@
 import { useAuth, isAllCampuses } from "@/context/AuthContext";
 import { Calendar, ShieldAlert, Plus, ListFilter, Info, ArrowRight, CheckCircle, Clock, Archive } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface RequireSessionProps {
     children: React.ReactNode;
@@ -10,11 +11,21 @@ interface RequireSessionProps {
     requireForRead?: boolean;
 }
 
+// Pages that manage sessions themselves — don't block them
+const SESSION_MANAGEMENT_PAGES = ["/dashboard/sessions"];
+
 export default function RequireSession({ children, message, requireForRead }: RequireSessionProps) {
     const { activeBranchId, activeSessionId, isAllCampusesMode, availableSessions, switchSession } = useAuth();
+    const pathname = usePathname();
 
     const hasSession = activeSessionId !== null;
     const noBranch = !activeBranchId || isAllCampuses(activeBranchId);
+
+    // Allow session management pages through even without a selected session
+    const isSessionMgmtPage = SESSION_MANAGEMENT_PAGES.some((page) => pathname.startsWith(page));
+    if (isSessionMgmtPage) {
+        return <>{children}</>;
+    }
 
     if (hasSession || (noBranch && !requireForRead)) {
         return <>{children}</>;

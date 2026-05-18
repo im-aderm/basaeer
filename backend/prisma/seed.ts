@@ -27,7 +27,7 @@ async function main() {
 
   const passwordHash = await bcrypt.hash('Password123!', 8);
 
-  // 2. Seed only Super Admin user
+  // 2. Seed Super Admin user
   console.log('Seeding Super Admin...');
   const superAdmin = await prisma.user.create({
     data: {
@@ -40,9 +40,23 @@ async function main() {
     },
   });
 
+  // 3. Seed default branch
+  console.log('Seeding default branch...');
+  const branch = await prisma.branch.create({
+    data: {
+      name: 'Kaduna Headquarters',
+      code: 'KD-HQ',
+      address: 'Kaduna State, Nigeria',
+      phone: '08039425673',
+      email: 'baqmesng@gmail.com',
+      isActive: true,
+    },
+  });
+
   console.log('\nSeed process completed successfully!');
   console.log('--- Login Credentials ---');
   console.log(`Super Admin: admin@basaeer.com / Password123!`);
+  console.log(`Default Branch: ${branch.name} (${branch.code})`);
 }
 
 main()

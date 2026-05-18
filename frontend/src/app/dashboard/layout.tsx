@@ -7,6 +7,7 @@ import RequireBranch from "@/components/RequireBranch";
 import RequireSession from "@/components/RequireSession";
 import ContextRefreshWrapper from "@/components/ContextRefreshWrapper";
 import { QueryProvider } from "@/providers/QueryProvider";
+import { Toaster } from "sonner";
 
 export default function DashboardLayout({
     children,
@@ -30,6 +31,7 @@ export default function DashboardLayout({
                                             </main>
                                         </div>
                                     </div>
+                                    <Toaster position="top-center" richColors />
                                 </ContextRefreshWrapper>
                             </RequireSession>
                         </RequireBranch>

@@ -646,6 +646,7 @@ exports.Prisma.AssignmentScalarFieldEnum = {
   sectionId: 'sectionId',
   teacherId: 'teacherId',
   branchId: 'branchId',
+  sessionId: 'sessionId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -659,6 +660,7 @@ exports.Prisma.SubmissionScalarFieldEnum = {
   assignmentId: 'assignmentId',
   studentId: 'studentId',
   branchId: 'branchId',
+  sessionId: 'sessionId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -666,6 +668,7 @@ exports.Prisma.SubmissionScalarFieldEnum = {
 exports.Prisma.AcademicSessionScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  status: 'status',
   startDate: 'startDate',
   endDate: 'endDate',
   isActive: 'isActive',
@@ -812,6 +815,7 @@ exports.Prisma.AssessmentComponentScalarFieldEnum = {
   maxScore: 'maxScore',
   isExam: 'isExam',
   branchId: 'branchId',
+  sessionId: 'sessionId',
   classId: 'classId',
   subjectId: 'subjectId',
   curriculum: 'curriculum',
@@ -1640,6 +1644,7 @@ exports.Prisma.CampusAccessLogScalarFieldEnum = {
   location: 'location',
   deviceInfo: 'deviceInfo',
   branchId: 'branchId',
+  sessionId: 'sessionId',
   createdAt: 'createdAt'
 };
 
@@ -1964,6 +1969,7 @@ exports.Prisma.AcademicExportScalarFieldEnum = {
   parameters: 'parameters',
   userId: 'userId',
   branchId: 'branchId',
+  sessionId: 'sessionId',
   expiresAt: 'expiresAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -1979,6 +1985,7 @@ exports.Prisma.ReportTemplateScalarFieldEnum = {
   isDefault: 'isDefault',
   isActive: 'isActive',
   branchId: 'branchId',
+  sessionId: 'sessionId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -2179,6 +2186,75 @@ exports.Prisma.AdmissionInterviewScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ChartOfAccountScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  name: 'name',
+  type: 'type',
+  parentId: 'parentId',
+  branchId: 'branchId',
+  sessionId: 'sessionId',
+  isActive: 'isActive',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+};
+
+exports.Prisma.JournalEntryScalarFieldEnum = {
+  id: 'id',
+  journalType: 'journalType',
+  referenceId: 'referenceId',
+  description: 'description',
+  date: 'date',
+  branchId: 'branchId',
+  sessionId: 'sessionId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+};
+
+exports.Prisma.GeneralLedgerEntryScalarFieldEnum = {
+  id: 'id',
+  journalId: 'journalId',
+  accountId: 'accountId',
+  side: 'side',
+  amount: 'amount',
+  description: 'description',
+  branchId: 'branchId',
+  sessionId: 'sessionId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.TaxRateScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  rate: 'rate',
+  type: 'type',
+  branchId: 'branchId',
+  sessionId: 'sessionId',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+};
+
+exports.Prisma.BankStatementLineScalarFieldEnum = {
+  id: 'id',
+  transactionRef: 'transactionRef',
+  date: 'date',
+  description: 'description',
+  amount: 'amount',
+  type: 'type',
+  matchedPaymentId: 'matchedPaymentId',
+  branchId: 'branchId',
+  sessionId: 'sessionId',
+  isReconciled: 'isReconciled',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -2325,6 +2401,12 @@ exports.SubmissionStatus = exports.$Enums.SubmissionStatus = {
   GRADED: 'GRADED',
   LATE: 'LATE',
   MISSING: 'MISSING'
+};
+
+exports.SessionStatus = exports.$Enums.SessionStatus = {
+  UPCOMING: 'UPCOMING',
+  CURRENT: 'CURRENT',
+  COMPLETED: 'COMPLETED'
 };
 
 exports.Term = exports.$Enums.Term = {
@@ -2488,6 +2570,28 @@ exports.InterviewStatus = exports.$Enums.InterviewStatus = {
   CANCELLED: 'CANCELLED'
 };
 
+exports.AccountType = exports.$Enums.AccountType = {
+  ASSET: 'ASSET',
+  LIABILITY: 'LIABILITY',
+  INCOME: 'INCOME',
+  EXPENSE: 'EXPENSE',
+  EQUITY: 'EQUITY'
+};
+
+exports.JournalType = exports.$Enums.JournalType = {
+  INVOICE: 'INVOICE',
+  PAYMENT: 'PAYMENT',
+  VOUCHER: 'VOUCHER',
+  CREDIT_NOTE: 'CREDIT_NOTE',
+  REFUND: 'REFUND',
+  JOURNAL: 'JOURNAL'
+};
+
+exports.EntrySide = exports.$Enums.EntrySide = {
+  DEBIT: 'DEBIT',
+  CREDIT: 'CREDIT'
+};
+
 exports.Prisma.ModelName = {
   Branch: 'Branch',
   DeactivationReason: 'DeactivationReason',
@@ -2636,7 +2740,12 @@ exports.Prisma.ModelName = {
   CreditTransaction: 'CreditTransaction',
   AdmissionExam: 'AdmissionExam',
   AdmissionExamScore: 'AdmissionExamScore',
-  AdmissionInterview: 'AdmissionInterview'
+  AdmissionInterview: 'AdmissionInterview',
+  ChartOfAccount: 'ChartOfAccount',
+  JournalEntry: 'JournalEntry',
+  GeneralLedgerEntry: 'GeneralLedgerEntry',
+  TaxRate: 'TaxRate',
+  BankStatementLine: 'BankStatementLine'
 };
 
 /**

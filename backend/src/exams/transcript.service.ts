@@ -56,7 +56,7 @@ export class TranscriptService {
     );
     const gpas = approvedResults
       .map((summary) => summary.cgpa)
-      .filter((value): value is number => typeof value === 'number');
+      .filter((value: any) => value !== null).map((v: any) => typeof v === 'number' ? v : (v as any).toNumber?.() ?? 0);
     const cumulativeGpa = gpas.length
       ? gpas.reduce((sum, value) => sum + value, 0) / gpas.length
       : null;

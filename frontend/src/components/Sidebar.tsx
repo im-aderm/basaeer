@@ -77,6 +77,14 @@ const navigation: NavItem[] = [
         ],
     },
     {
+        title: "Sessions",
+        icon: Calendar,
+        children: [
+            { title: "All Sessions", href: "/dashboard/sessions" },
+            { title: "Create Session", href: "/dashboard/sessions/new" },
+        ],
+    },
+    {
         title: "Inventory",
         icon: Box,
         children: [

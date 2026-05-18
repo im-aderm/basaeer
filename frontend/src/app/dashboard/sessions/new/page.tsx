@@ -9,7 +9,7 @@ import { toast } from "sonner";
 
 export default function CreateSessionPage() {
     const router = useRouter();
-    const { user, activeBranchId, refreshSessions, switchSession } = useAuth();
+    const { user, activeBranchId, availableBranches, refreshSessions, switchSession } = useAuth();
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         name: "",
@@ -57,8 +57,21 @@ export default function CreateSessionPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!validate()) return;
-        if (!activeBranchId) {
+
+        // Validate branch is selected and valid
+        const branchId = activeBranchId;
+        if (!branchId) {
             toast.error("Please select a branch first");
+            return;
+        }
+
+        // Validate branch still exists in the available list
+        const validBranchIds = new Set(availableBranches.map((b) => b.id));
+        if (!validBranchIds.has(branchId)) {
+            toast.error("The selected branch no longer exists. Please select a valid branch from the dropdown.");
+            // Clear stale branch
+            localStorage.removeItem("basaer-active-branch");
+            localStorage.removeItem("basaer-active-session");
             return;
         }
 
@@ -69,7 +82,7 @@ export default function CreateSessionPage() {
                 startDate: formData.startDate,
                 endDate: formData.endDate,
                 status: formData.status,
-                branchId: activeBranchId,
+                branchId,
             });
 
             // Refresh session list in AuthContext
@@ -79,12 +92,13 @@ export default function CreateSessionPage() {
             if (res.data?.id) {
                 localStorage.setItem("basaer-active-session", res.data.id);
                 await api.post("/auth/select-session", { sessionId: res.data.id });
+                await switchSession(res.data.id);
             }
 
             toast.success("Academic session created successfully!");
 
-            // Navigate back to previous page
-            router.back();
+            // Navigate to dashboard (avoid router.back() which may go to blocked page)
+            router.push("/dashboard");
         } catch (error: any) {
             const message = error.response?.data?.message || "Failed to create session";
             toast.error(message);

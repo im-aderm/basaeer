@@ -29,6 +29,14 @@ export class AcademicSessionsService {
     endDate: string;
     branchId: string;
   }, context: TenantContext) {
+    // Validate branch exists
+    const branch = await this.prisma.branch.findUnique({
+      where: { id: data.branchId },
+    });
+    if (!branch) {
+      throw new BadRequestException('Invalid branch: the selected branch does not exist. Please select a valid branch.');
+    }
+
     // Validate dates
     const startDate = new Date(data.startDate);
     const endDate = new Date(data.endDate);

@@ -24,9 +24,11 @@ import {
 } from "lucide-react";
 import { clsx } from "clsx";
 import { useNotification } from '@/context/NotificationContext';
+import { useAuth } from '@/context/AuthContext';
 
 export default function BranchesPage() {
     const { showSuccess, showError } = useNotification();
+    const { refreshBranches } = useAuth();
     const [branches, setBranches] = useState<Branch[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
@@ -138,6 +140,7 @@ export default function BranchesPage() {
             await BranchService.delete(deleteTarget.id);
             setDeleteSuccess(true);
             fetchBranches();
+            await refreshBranches();
             setTimeout(() => {
                 setDeleteTarget(null);
                 setDeleting(false);

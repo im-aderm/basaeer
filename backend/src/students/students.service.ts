@@ -240,35 +240,16 @@ export class StudentsService {
     }
 
     return this.prisma.student.findMany({
-      where,
-      skip: skip ? Number(skip) : undefined,
-      take: take ? Number(take) : 50,
-      orderBy,
+      where: { deletedAt: null, ...where },
       include: {
-        user: {
-          select: {
-            id: true,
-            email: true,
-            firstName: true,
-            lastName: true,
-            phone: true,
-            isActive: true,
-            role: true,
-          },
-        },
-        class: {
-          select: {
-            id: true,
-            name: true,
-          },
-        },
-        section: {
-          select: {
-            id: true,
-            name: true,
-          },
-        },
+        class: true,
+        section: true,
+        user: true,
+        parent: true,
       },
+      orderBy: [{ user: { lastName: 'asc' } }, { user: { firstName: 'asc' } }],
+      take: 100,
+      
     });
   }
 

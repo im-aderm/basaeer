@@ -94,6 +94,7 @@ export class EmployeesService {
         department: true,
         designationRef: true,
       },
+      take: 100,
     });
   }
 

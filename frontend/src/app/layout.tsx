@@ -6,6 +6,7 @@ import { BrandingProvider } from "@/components/BrandingProvider";
 import { NotificationProvider } from "@/context/NotificationContext";
 import { ContextErrorModalProvider } from "@/context/ContextErrorModalContext";
 import ContextErrorModal from "@/components/ContextErrorModal";
+import { Toaster } from "sonner";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -20,12 +21,29 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Basaer School System",
-  description: "Modern School Management System",
+  title: {
+    default: "Basa'er Schools & Colleges — Quranic Excellence, Academic Distinction",
+    template: "%s | Basa'er Schools & Colleges",
+  },
+  description:
+    "Basa'er Quranic & Science College (BQSC) and Basa'er Qur'anic Memorization Schools (BQMS) are endowed Waqf institutions harmonizing Qur'anic mastery with academic excellence, vocational empowerment, and Islamic values across Nigeria.",
+  keywords: [
+    "Quranic school Nigeria", "Tahfeez", "Hifdh", "Quran memorization", "Islamic school",
+    "boarding school Nigeria", "Basaer", "BQSC", "BQMS", "Quranic education",
+    "Kaduna", "Kano", "Bauchi", "Plateau", "Waqf school",
+  ],
   icons: {
     icon: "/logo.png",
     shortcut: "/logo.png",
     apple: "/icon-192.png",
+  },
+  openGraph: {
+    title: "Basa'er Schools & Colleges — Quranic Excellence, Academic Distinction",
+    description:
+      "Harmonizing Qur'anic mastery with academic excellence. Waqf-endowed institutions across Kaduna, Kano, Bauchi, and Plateau States.",
+    siteName: "Basa'er Schools & Colleges",
+    type: "website",
+    locale: "en_NG",
   },
 };
 
@@ -56,6 +74,7 @@ export default function RootLayout({
                 <BrandingProvider>
                   {children}
                   <ContextErrorModal />
+                  <Toaster position="top-center" richColors />
                 </BrandingProvider>
               </ContextErrorModalProvider>
             </NotificationProvider>

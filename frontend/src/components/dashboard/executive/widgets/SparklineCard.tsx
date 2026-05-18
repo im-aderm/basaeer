@@ -12,6 +12,7 @@ interface SparklineCardProps {
     trend?: number;
     subtitle?: string;
     sparklineData?: Array<{ value: number }>;
+    onClick?: () => void;
 }
 
 const colorMap: Record<string, { bg: string; text: string; icon: string; area: string }> = {
@@ -23,14 +24,15 @@ const colorMap: Record<string, { bg: string; text: string; icon: string; area: s
     primary: { bg: "bg-primary/10", text: "text-primary", icon: "text-primary", area: "#281e37" },
 };
 
-export default function SparklineCard({ title, value, icon: Icon, color, trend, subtitle, sparklineData }: SparklineCardProps) {
+export default function SparklineCard({ title, value, icon: Icon, color, trend, subtitle, sparklineData, onClick }: SparklineCardProps) {
     const colors = colorMap[color] || colorMap.blue;
 
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-[2rem] border border-border/50 shadow-xl p-6 hover:shadow-2xl transition-shadow group"
+            onClick={onClick}
+            className={`bg-white rounded-[2rem] border border-border/50 shadow-xl p-6 hover:shadow-2xl transition-shadow group ${onClick ? 'cursor-pointer' : ''}`}
         >
             <div className="flex items-start justify-between mb-4">
                 <div className={`w-12 h-12 rounded-2xl ${colors.bg} flex items-center justify-center`}>
